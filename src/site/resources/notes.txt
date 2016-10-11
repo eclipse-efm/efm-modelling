@@ -1,0 +1,1 @@
+mvn org.eclipse.tycho.extras:tycho-version-bump-plugin:update-target -Dtarget=targetplatform/org.eclipse.papyrus.sysml14.targetplatform.neon-papyrusnightly/org.eclipse.papyrus.sysml14.targetplatform.neon-papyrusnightly.target

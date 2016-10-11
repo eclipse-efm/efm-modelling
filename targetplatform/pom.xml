@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.efm</groupId>
+		<artifactId>org.eclipse.efm.modeling.parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>org.eclipse.efm.modeling.targetplatform</artifactId>
+	<packaging>pom</packaging>
+	<name>org.eclipse.efm-modeling Target Platforms</name>
+	<description>This module contains the different Eclipse target platform definitions.</description>
+	<profiles>
+		<profile>
+			<id>neon</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>org.eclipse.efm.modeling.targetplatform.neon</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>neon-papyrusnightly</id>
+			<activation>
+				<property>
+					<name>eclipse.release</name>
+					<value>neon-papyrusnightly</value>
+				</property>
+			</activation>
+			<modules>
+				<module>org.eclipse.efm.modeling.neon-papyrusnightly</module>
+			</modules>
+		</profile>
+	</profiles>
+
+</project>

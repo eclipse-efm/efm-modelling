@@ -1,6 +1,78 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.eclipse.efm</groupId>
-  <artifactId>efm-modeling</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-</project> 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.eclipse.papyrus.components</groupId>
+		<artifactId>org.eclipse.papyrus.components.parent</artifactId>
+		<version>0.0.18</version>
+	</parent>
+
+	<groupId>org.eclipse.efm</groupId>
+	<artifactId>org.eclipse.efm.modeling.parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>org.eclipse.efm-modeling Parent</name>
+	<description>A Modeling Component for ${component.shortname}</description>
+	<url>https://eclipse.org/efm/components/${component.shortname}/</url>
+	
+	<properties>
+		<component.shortname>org.eclipse.efm-modeling</component.shortname>
+		<component.fullartifactId>org.eclipse.efm.modeling</component.fullartifactId>
+		<component.hudson.tabname>Modeling</component.hudson.tabname>
+		<component.bugzilla.name>modeling</component.bugzilla.name>
+		<component.package.rootname>org.eclipse.efm</component.package.rootname>
+		<component.rcp.name>org.eclipse.efm.modeling.rcp</component.rcp.name>
+		<component.apibaseline.url>http://download.eclipse.org/efm/components/org.eclipse.efm-modeling/</component.apibaseline.url>
+		<component.servicetype>org.eclipse.efm.modeling.service.types</component.servicetype>
+		<eclipse.targetrelease>neon</eclipse.targetrelease>
+		<target.version>${project.version}</target.version>
+		<!-- Default header linked to EPL license -->
+		<component.header>header.epl.txt</component.header>
+		
+	</properties>
+	
+	<licenses>
+		<!-- Default license -->
+		<license>
+			<name>Eclipse Public License - v 1.0</name>
+			<url>http://www.eclipse.org/legal/epl-v10.html</url>
+			<distribution>repo</distribution>
+			<comments>All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distributione</comments>
+		</license>
+	</licenses>
+	
+	<!-- repositories>
+		<repository>
+			<id>efm.repo.eclipse.org</id>
+			<name>Papyrus Repository - Releases</name>
+			<url>https://repo.eclipse.org/content/repositories/efm-releases/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>efms.repo.eclipse.org</id>
+			<name>Papyrus Repository - Snapshots</name>
+			<url>https://repo.eclipse.org/content/repositories/efm-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories-->
+
+	<modules>
+		<module>targetplatform</module>
+		<module>core</module>
+		<module>releng</module>
+	</modules>
+</project>

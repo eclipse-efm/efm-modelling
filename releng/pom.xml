@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.efm</groupId>
+		<artifactId>org.eclipse.efm.modeling.parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>org.eclipse.efm.modeling.releng</artifactId>
+	<packaging>pom</packaging>
+	<name>org.eclipse.efm-modeling Releng</name>
+	<description>This plug-in contains the different modules relatives to the releng of org.eclipse.efm-modeling from update site, to feature , product and rcp.</description>
+	<modules>
+		<module>org.eclipse.efm.modeling.feature</module>
+	</modules>
+
+	<profiles>
+		<profile>
+			<id>product</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<modules>
+				<module>org.eclipse.efm.modeling.p2</module>
+				<module>org.eclipse.efm.modeling.rcp</module>
+				<module>org.eclipse.efm.modeling.rcp.feature</module>
+				<module>org.eclipse.efm.modeling.product</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>

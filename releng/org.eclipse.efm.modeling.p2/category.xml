@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+	<feature id="org.eclipse.efm.modeling.feature" url="features/org.eclipse.efm.modeling.feature_0.0.1.qualifier.jar" version="0.0.1.qualifier">
+		<category name="org.eclipse.efm.category"/>
+	</feature>
+	<feature id="org.eclipse.efm.modeling.feature.source" url="features/org.eclipse.efm.modeling.feature.source_0.0.1.qualifier.jar" version="0.0.1.qualifier">
+		<category name="org.eclipse.efm.category"/>
+	</feature>
+	<category-def label="EFM org.eclipse.efm-modeling Category" name="org.eclipse.efm.category">
+		<description>EFM org.eclipse.efm-modeling Category</description>
+	</category-def>
+</site>

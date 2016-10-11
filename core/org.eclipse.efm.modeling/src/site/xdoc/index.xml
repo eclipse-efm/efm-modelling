@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>EFM Components Archetype</title>
+	</properties>
+
+	<body>
+		<section name="EFM Components Archetype">
+			<subsection name="Context">
+				<p>The EFM Components Archetype project aims at providing a maven archetype to create additional EFM Component.</p>
+			</subsection>
+			<subsection name="Documentation">
+				<ul>
+					<li><a href="user/index.html">User doc</a></li>
+					<li><a href="developer/index.html">Developer doc</a></li>
+				</ul>
+			</subsection>
+		</section>
+	</body>
+
+</document>
