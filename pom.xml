@@ -43,11 +43,11 @@
 		</license>
 	</licenses>
 	
-	<!-- repositories>
+	<repositories>
 		<repository>
-			<id>efm.repo.eclipse.org</id>
+			<id>pap.repo.eclipse.org</id>
 			<name>Papyrus Repository - Releases</name>
-			<url>https://repo.eclipse.org/content/repositories/efm-releases/</url>
+			<url>https://repo.eclipse.org/content/repositories/papyrus-releases/</url>
 			<releases>
 				<enabled>true</enabled>
 				<updatePolicy>daily</updatePolicy>
@@ -57,9 +57,9 @@
 			</snapshots>
 		</repository>
 		<repository>
-			<id>efms.repo.eclipse.org</id>
+			<id>paps.repo.eclipse.org</id>
 			<name>Papyrus Repository - Snapshots</name>
-			<url>https://repo.eclipse.org/content/repositories/efm-snapshots/</url>
+			<url>https://repo.eclipse.org/content/repositories/papyrus-snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
@@ -68,7 +68,7 @@
 				<updatePolicy>daily</updatePolicy>
 			</snapshots>
 		</repository>
-	</repositories-->
+	</repositories>
 
 	<modules>
 		<module>targetplatform</module>
