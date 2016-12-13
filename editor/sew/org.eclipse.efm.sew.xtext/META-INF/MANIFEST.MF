@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Version: 0.0.1.qualifier
+Bundle-SymbolicName: org.eclipse.efm.sew.xtext; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.efm.sew.ecore,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.xtext.xbase.lib,
+ org.antlr.runtime,
+ org.eclipse.xtext.util,
+ org.eclipse.xtend.lib
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.eclipse.efm.sew.xtext.services,
+ org.eclipse.efm.sew.xtext.parser.antlr.internal,
+ org.eclipse.efm.sew.xtext,
+ org.eclipse.efm.sew.xtext.parser.antlr,
+ org.eclipse.efm.sew.xtext.validation,
+ org.eclipse.efm.sew.xtext.scoping,
+ org.eclipse.efm.sew.xtext.generator,
+ org.eclipse.efm.sew.xtext.serializer
+Import-Package: org.apache.log4j

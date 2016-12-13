@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2016 CEA LIST.
+   
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
+      - Initial API and Implementation
+ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.efm</groupId>
+		<artifactId>org.eclipse.efm.modeling.editor.sew</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>org.eclipse.efm.sew.xtext.ide</artifactId>
+	<packaging>eclipse-plugin</packaging>
+	<name>org.eclipse.efm.sew.xtext.ide</name>
+	<description>This plug-in contains the Symbex Workflow's Xtext based editor IDE.</description>
+
+		<build>
+		<plugins>
+			<!-- Empty out the xtend-gen folder in the clean phase. -->
+		    <plugin>
+		        <artifactId>maven-clean-plugin</artifactId>
+		        <configuration>
+		            <filesets>
+		                <fileset>
+		                    <directory>xtend-gen</directory>
+		                    <excludes>
+		                       <exclude>**/.gitignore</exclude>
+		                    </excludes>
+		                </fileset>
+		            </filesets>
+		        </configuration>
+		    </plugin>
+		    <!-- Generate Xtend sources in the compilation phase. -->
+		    <plugin>
+		        <groupId>org.eclipse.xtend</groupId>
+		        <artifactId>xtend-maven-plugin</artifactId>
+		        <executions>
+		            <execution>
+		                <goals>
+		                    <goal>compile</goal>
+		                    <goal>testCompile</goal>
+		                </goals>
+		                <configuration>
+		                    <outputDirectory>xtend-gen</outputDirectory>
+		                </configuration>
+		            </execution>
+		        </executions>
+		    </plugin>
+		  </plugins>
+	 </build>
+</project>

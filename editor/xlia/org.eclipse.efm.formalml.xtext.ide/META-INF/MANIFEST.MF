@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Version: 0.0.1.qualifier
+Bundle-SymbolicName: org.eclipse.efm.formalml.xtext.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.efm.formalml.xtext,
+ org.eclipse.efm.formalml.ecore,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.eclipse.efm.formalml.xtext.ide.contentassist.antlr,
+ org.eclipse.efm.formalml.xtext.ide.contentassist.antlr.internal
+

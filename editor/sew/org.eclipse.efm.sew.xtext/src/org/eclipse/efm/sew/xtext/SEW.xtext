@@ -1,0 +1,453 @@
+/*****************************************************************************
+* Copyright (c) 2012 CEA LIST.
+*
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+*  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
+*  - Initial API and implementation
+*****************************************************************************/
+grammar org.eclipse.efm.sew.xtext.SEW with org.eclipse.xtext.common.Terminals
+
+
+// [XTEXT-BUG] https://www.eclipse.org/forums/index.php/t/1081040/
+// Nested packages is not supported well unless you use 
+// import platform:/resource/xxxxx/yyy.ecore#//pack 
+// instead of namespace imports (there is somewhere a bug around this)
+import "platform:/resource/org.eclipse.efm.sew.ecore/resources/ecore/sew.ecore#//expression"  as expression
+//import "http://www.eclipse.org/efm/SEW/Expression" as expression
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+import "http://www.eclipse.org/efm/SEW" as sew
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Symbolic Execution Workflow Specification
+////////////////////////////////////////////////////////////////////////////////
+
+Workflow returns sew::SEWorkflow
+: {sew::SEWorkflow}
+	( Prolog )?
+	( type=( 'workflow' | 'symbex-workflow' )
+		( name=UFI )?  ( description=EString )?
+		'{'
+			( element+=( Object | Property ) )*
+		'}'
+
+	// Deprecated Object as FAVM Workflow
+	| element+=DeprecatedObject
+	)
+;
+
+
+Prolog
+: ( '@sew' | '@favm' ) '<'
+	( 'workflow' | 'sew' )
+	( ',' EDouble )? ( ',' UFI | EString )? '>:'
+;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// [ Qualified ] Identifier
+////////////////////////////////////////////////////////////////////////////////
+
+ ReservedWord
+: 'workflow' | 'sew'
+
+// Deprecated
+| DeprecatedReservedWord
+;
+
+terminal XIDENDIFIER
+: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'#')*
+;
+
+terminal AT_IDENTIFIER
+: '@' XIDENDIFIER
+;
+
+XID returns ecore::EString
+: ReservedWord | XIDENDIFIER
+;
+
+UFI returns ecore::EString
+: XID ( ( '::' | '.' ) XID )*
+;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Object Configuration Specification
+////////////////////////////////////////////////////////////////////////////////
+
+Object returns sew::WObject
+: {sew::WObject}
+	type=UFI  ( name=UFI )?  ( description=EString )?
+	'{'
+		( element+=( Object | Property ) )*
+	'}'
+
+| {sew::WObject}
+	name=UFI  ( ':=' | '+:=' )  ( type=UFI  ( description=EString )? )?
+	'{'
+		( element+=( Object | Property ) )*
+	'}'
+;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Property Specification
+////////////////////////////////////////////////////////////////////////////////
+
+Property returns sew::WProperty
+: Section
+| Attribute
+;
+
+
+Section returns sew::WSection
+: name=XID  ( description=EString )?
+	( '[' ( element+=( Object | Attribute ) )* ']'
+	
+	| ':' ( element+=( Object | Attribute ) )*
+	)
+;
+
+Attribute returns sew::WAttribute
+: {sew::WAttribute}
+	name=XID  '='  value=ValueSpecification  ( ';' )?
+;
+
+////////////////////////////////////////////////////////////////////////////////
+// Value Specification
+////////////////////////////////////////////////////////////////////////////////
+
+ValueSpecification returns sew::WValueSpecification
+: Expression
+;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Expression Specification
+////////////////////////////////////////////////////////////////////////////////
+
+Expression returns sew::WValueSpecification
+: conditionalExpression
+
+// Deprecated
+| DeprecatedExpression
+;
+
+
+conditionalExpression returns sew::WValueSpecification
+: conditionalOrExpression
+	( {expression::Expression.operand+=current}
+		operator='?' operand+=Expression ':' operand+=Expression
+	)?
+;
+
+conditionalOrExpression returns sew::WValueSpecification
+: conditionalAndExpression
+	( {expression::Expression.operand+=current}
+		operator=( '||' | 'or' ) operand+=conditionalAndExpression
+		( ( '||' | 'or' ) operand+=conditionalAndExpression )*
+	)?
+;
+
+conditionalAndExpression returns sew::WValueSpecification
+: equalityExpression
+	( {expression::Expression.operand+=current}
+		operator=( '&&' | 'and' ) operand+=equalityExpression
+		( ( '&&' | 'and' ) operand+=equalityExpression )*
+	)?
+;
+
+equalityExpression returns sew::WValueSpecification
+: relationalExpression
+	( {expression::Expression.operand+=current}
+		operator=( '==' | '!=' | '===' | '=!=' | '=/=' )
+		operand+=relationalExpression
+	)?
+;
+
+relationalExpression returns sew::WValueSpecification
+: additiveExpression
+	( {expression::Expression.operand+=current}
+		operator=( '<' | '<=' | '>' | '>=' )
+		operand+=additiveExpression
+	)?
+;
+
+additiveExpression returns sew::WValueSpecification
+: multiplicativeExpression
+	( ( {expression::Expression.operand+=current}
+		operator='+' operand+=multiplicativeExpression
+		( '+' operand+=multiplicativeExpression )* )
+
+//	| ( {expression::Expression.operand+=current}
+//		operator='-' operand+=multiplicativeExpression
+//		( '-' operand+=multiplicativeExpression )* )
+	)?
+;
+
+multiplicativeExpression returns sew::WValueSpecification
+: primaryExpression
+	( ( {expression::Expression.operand+=current}
+		operator='*' operand+=primaryExpression
+		( '*' operand+=primaryExpression )* )
+
+	| ( {expression::Expression.operand+=current}
+		operator='**' operand+=primaryExpression
+		( '**' operand+=primaryExpression )* )
+
+	| ( {expression::Expression.operand+=current}
+		operator='/' operand+=primaryExpression
+		( '/' operand+=primaryExpression )* )
+
+	| ( {expression::Expression.operand+=current}
+		operator='%' operand+=primaryExpression
+		( '%' operand+=primaryExpression )* )
+	)?
+;
+
+primaryExpression returns sew::WValueSpecification
+: '+' primaryExpression
+| { expression::Expression }( operator='-' operand+=primaryExpression )
+| { expression::Expression }( operator=( '!' | 'not' ) operand+=primaryExpression )
+| '(' Expression ')'
+| LiteralExpression
+;
+
+
+LiteralExpression returns sew::WValueSpecification
+: LiteralBooleanValue
+| LiteralCharacterValue
+| LiteralIntegerValue
+| LiteralRationalValue
+| LiteralFloatValue
+//| LiteralRealValue
+| LiteralStringValue
+| LiteralNullValue
+| LiteralArrayValue
+
+| LiteralObjectReference
+
+| LiteralVariableReference
+| LiteralInstanceReference
+;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Array of Literal Specification
+////////////////////////////////////////////////////////////////////////////////
+
+LiteralArrayValue  returns expression::LiteralArrayValue
+: {expression::LiteralArrayValue}
+	'['
+		( values+=ValueSpecification
+			( ',' values+=ValueSpecification )*
+		)?
+	']'
+;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Literal Object Reference Specification
+////////////////////////////////////////////////////////////////////////////////
+
+LiteralObjectReference returns expression::LiteralObjectReference
+: ( '&' )? ( object=[sew::WObject|UFI] | symbol=UFI )
+;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Literal Specification
+////////////////////////////////////////////////////////////////////////////////
+
+LiteralBooleanValue  returns expression::LiteralBooleanValue
+: value=EBoolean
+;
+
+LiteralCharacterValue  returns expression::LiteralCharacterValue
+: value=EChar
+;
+
+LiteralIntegerValue  returns expression::LiteralIntegerValue
+: value=ELong
+;
+
+LiteralRationalValue  returns expression::LiteralRationalValue
+: numerator=ELong '/' denominator=ELong
+;
+
+LiteralFloatValue  returns expression::LiteralFloatValue
+: value=EDouble
+;
+
+LiteralRealValue  returns expression::LiteralRealValue
+: value=EBigDecimal
+;
+
+LiteralStringValue  returns expression::LiteralStringValue
+: value=EString
+;
+
+LiteralNullValue  returns expression::LiteralNullValue
+: {expression::LiteralNullValue}
+	'null' ( '<' type=XID '>' )?
+;
+
+LiteralVariableReference returns expression::LiteralReferenceValue
+: LiteralTimeVariable
+| LiteralTimeDeltaVariable
+;
+
+LiteralTimeVariable returns expression::LiteralTimeVariable
+	: {expression::LiteralTimeVariable} ( symbol='$time' )
+	;
+
+LiteralTimeDeltaVariable returns expression::LiteralTimeDeltaVariable
+	: {expression::LiteralTimeDeltaVariable} ( symbol='$delta' )
+	;
+
+
+LiteralInstanceReference returns expression::LiteralReferenceValue
+: LiteralThisInstance
+| LiteralSelfInstance
+
+| LiteralParentInstance
+| LiteralSuperInstance
+
+| LiteralSystemInstance
+
+| LiteralEnvInstance
+;
+
+LiteralThisInstance returns expression::LiteralThisInstance
+: {expression::LiteralThisInstance} ( symbol='$this' )
+;
+
+LiteralSelfInstance returns expression::LiteralSelfInstance
+: {expression::LiteralSelfInstance} ( symbol='$self' )
+;
+
+LiteralParentInstance returns expression::LiteralParentInstance
+: {expression::LiteralParentInstance} ( symbol='$parent' )
+;
+
+LiteralSuperInstance returns expression::LiteralSuperInstance
+: {expression::LiteralSuperInstance} ( symbol='$super' )
+;
+
+LiteralSystemInstance returns expression::LiteralSystemInstance
+: {expression::LiteralSystemInstance} ( symbol='$system' )
+;
+
+
+LiteralEnvInstance returns expression::LiteralEnvInstance
+: {expression::LiteralEnvInstance} symbol=( '$env' | 'env' )
+;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Terminal Rules
+////////////////////////////////////////////////////////////////////////////////
+
+EBoolean returns ecore::EBoolean
+: 'true'
+| 'false'
+;
+
+terminal CHARACTER
+: "'" . "'"
+;
+
+EChar returns ecore::EChar
+: CHARACTER
+;
+
+ELong returns ecore::ELong:
+	'-'? INT;
+
+EDouble returns ecore::EDouble
+: '-'? INT? '.' INT //(('E'|'e') '-'? INT)?
+;
+
+EBigDecimal returns ecore::EBigDecimal
+: INT? '.' INT
+;
+
+EString returns ecore::EString
+: STRING
+;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// @DEPRECATED Diversity Configuration Specification
+////////////////////////////////////////////////////////////////////////////////
+
+DeprecatedReservedWord
+: 'form'      | 'endform'
+| 'prototype' | 'endprototype'
+| 'section'   | 'endsection'
+;
+
+
+DeprecatedObject returns sew::WObject
+: {sew::WObject}
+	'form'
+		name=UFI  ( description=EString )?  'as'  ( '&' )?  type=UFI  'is'
+		( element+=DeprecatedProperty )*
+	'endform'
+
+| {sew::WObject}
+	'prototype'
+		name=UFI  ( description=EString )?  'as'  ( '&' )?  type=UFI  'is'
+		( element+=DeprecatedProperty )*
+	'endprototype'
+;
+
+
+DeprecatedProperty returns sew::WProperty
+: DeprecatedSection
+| DeprecatedAttribute
+;
+
+
+DeprecatedSection returns sew::WSection
+: {sew::WSection}
+	'section'  name=XID
+//		( element+=( Object | Attribute  ) )*
+		( element+=( DeprecatedAttribute | DeprecatedObject | Object ) )*
+	'endsection'  ( XID )?
+
+| name=XID  ( description=EString )?
+	( '[' ( element+=( DeprecatedAttribute | DeprecatedObject | Object ) )* ']'
+	
+	| ':' ( element+=( DeprecatedAttribute | DeprecatedObject | Object ) )*
+	)
+;
+
+
+DeprecatedAttribute returns sew::WAttribute
+: {sew::WAttribute}
+	name=DeprecatedAttributeID  '='  value=ValueSpecification  ( ';' )?
+;
+
+DeprecatedAttributeID
+: XID
+| AT_IDENTIFIER
+;
+
+
+DeprecatedExpression returns sew::WValueSpecification
+: {expression::Expression}
+	'${'
+		operator=( '|;|' | '|i|' )
+		( operand+=ValueSpecification )*
+	'}'
+;
+
+

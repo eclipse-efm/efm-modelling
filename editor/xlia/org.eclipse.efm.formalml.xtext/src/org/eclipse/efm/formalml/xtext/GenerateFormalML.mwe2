@@ -1,0 +1,85 @@
+/*****************************************************************************
+* Copyright (c) 2012 CEA LIST.
+*
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+*  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
+*  - Initial API and implementation
+*****************************************************************************/
+module org.eclipse.efm.formalml.xtext.GenerateFormalML
+
+import org.eclipse.xtext.xtext.generator.*
+import org.eclipse.xtext.xtext.generator.model.project.*
+
+var rootPath = ".."
+
+var fileHeader =
+"/*****************************************************************************
+* Copyright (c) 2016 CEA LIST.
+*
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+*  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
+*  - Initial API and implementation
+*****************************************************************************/"
+
+
+Workflow {
+	
+	component = XtextGenerator {
+		configuration = {
+			project = StandardProjectConfig {
+				baseName = "org.eclipse.efm.formalml.xtext"
+				rootPath = rootPath
+				runtimeTest = {
+					enabled = true
+				}
+				eclipsePlugin = {
+					enabled = true
+				}
+				eclipsePluginTest = {
+					enabled = true
+				}
+				createEclipseMetaData = true
+			}
+			code = {
+				encoding = "UTF-8"
+				fileHeader = fileHeader
+			}
+		}
+		language = StandardLanguage {
+			name = "org.eclipse.efm.formalml.xtext.FormalML"
+			fileExtensions = "fml,xfml,xlia,xfsp"
+			referencedResource = "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.genmodel"
+			
+			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment2 auto-inject {}
+
+			parserGenerator = {
+				options = auto-inject {
+					classSplitting = true
+					backtrack = true
+				}
+			}
+
+			fragment = exporting.SimpleNamesFragment2 auto-inject {}
+			fragment = org.eclipse.xtext.generator.adapter.FragmentAdapter {
+				fragment = org.eclipse.xtext.generator.ecore2xtext.FormatterFragment {}
+			}
+
+			serializer = {
+				generateStub = false
+			}
+			validator = {
+				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			}
+		}
+	}
+}

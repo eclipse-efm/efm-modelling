@@ -16,7 +16,7 @@
 	<name>org.eclipse.efm-modeling Parent</name>
 	<description>A Modeling Component for ${component.shortname}</description>
 	<url>https://eclipse.org/efm/components/${component.shortname}/</url>
-	
+
 	<properties>
 		<component.shortname>org.eclipse.efm-modeling</component.shortname>
 		<component.fullartifactId>org.eclipse.efm.modeling</component.fullartifactId>
@@ -31,9 +31,9 @@
 		<!-- Default header linked to EPL license -->
 		<component.header>header.epl.txt</component.header>
 		<eclipse.release>neon-papyrusnightly</eclipse.release>
-		
+
 	</properties>
-	
+
 	<licenses>
 		<!-- Default license -->
 		<license>
@@ -43,7 +43,7 @@
 			<comments>All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distributione</comments>
 		</license>
 	</licenses>
-	
+
 	<repositories>
 		<repository>
 			<id>pap.repo.eclipse.org</id>
@@ -74,6 +74,7 @@
 	<modules>
 		<module>core</module>
 		<module>diagram</module>
+		<module>editor</module>
 		<module>gui</module>
 		<module>releng</module>
 		<module>targetplatform</module>

@@ -1,0 +1,4 @@
+*._trace
+*.xtendbin
+/FormalMLDescriptionLabelProvider.java
+/FormalMLLabelProvider.java

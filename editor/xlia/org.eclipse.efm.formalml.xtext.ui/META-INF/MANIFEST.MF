@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Version: 0.0.1.qualifier
+Bundle-SymbolicName: org.eclipse.efm.formalml.xtext.ui; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.efm.formalml.xtext,
+ org.eclipse.efm.formalml.xtext.ide,
+ org.eclipse.efm.formalml.ecore,
+ org.eclipse.xtext.ui,
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.xtext.ui.codetemplates.ui,
+ org.eclipse.ui.editors;bundle-version="3.5.0",
+ org.eclipse.ui.ide;bundle-version="3.5.0",
+ org.eclipse.ui,
+ org.eclipse.compare,
+ org.eclipse.xtext.builder,
+ org.eclipse.xtend.lib;resolution:=optional,
+ org.eclipse.xtext.xbase.lib
+Import-Package: org.apache.log4j
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.eclipse.efm.formalml.xtext.ui.quickfix,
+ org.eclipse.efm.formalml.xtext.ui.contentassist,
+ org.eclipse.efm.formalml.xtext.ui.internal
+Bundle-Activator: org.eclipse.efm.formalml.xtext.ui.internal.XtextActivator

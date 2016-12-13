@@ -1,0 +1,112 @@
+/*****************************************************************************
+* Copyright (c) 2012 CEA LIST.
+*
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+*  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
+*  - Initial API and implementation
+*****************************************************************************/
+grammar org.eclipse.efm.papyrus.xtext.Transition with org.eclipse.xtext.common.Terminals
+
+generate transition "http://www.eclipse.org/efm/papyrus/xtext/Transition"
+
+//import "http://org.eclipse.efm.formalml" as fml
+
+import "http://www.eclipse.org/uml2/5.0.0/UML" as uml
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+
+
+//Model:
+//	greetings+=Greeting*;
+//	
+//Greeting:
+//	'Hello' name=ID '!';
+
+
+///////////////////////
+// Transition Rule
+///////////////////////
+
+TransitionRule
+	: ( triggers+=TriggerRule ( ',' triggers+=TriggerRule )* )?
+		( guard=GuardRule   )?
+		( tguard=TGuardRule )?
+		( '/' effectBody=STRING )?
+	;
+
+
+///////////////////////
+// [ Fully  [ Qualified ] ] Name
+///////////////////////
+
+FQN 
+	: ID ( ( '.' | '::' ) ID )*
+	;
+
+
+//////////////////////
+// EVENTS
+//////////////////////
+
+
+TriggerRule
+	: "input" /*(path=QualifiedName)?*/ port=[uml::NamedElement|FQN]
+		( event=EventRule )?
+	;
+
+
+EventRule
+	: ReceiveSignalEventRule
+//	|CallOrSignalEventRule
+//	| AnyReceiveEventRule
+//	| TimeEventRule
+//	| ChangeEventRule
+	;
+
+
+ReceiveSignalEventRule
+	: { ReceiveSignalEventRule }
+		'(' ( 
+			parameters+=[uml::Property|FQN]
+			( ',' parameters+=[uml::Property|FQN] )*
+		)? ')'
+	;
+
+/*QualifiedName :
+	path=[uml::Namespace]'::' (remaining=QualifiedName)? ; */
+
+///////////////////////
+// GUARD
+///////////////////////
+
+GuardRule :
+	'[' ( constraint=STRING ) ']';
+
+
+///////////////////////
+// TGUARD
+///////////////////////
+
+TGuardRule :
+'{' constraint=STRING '}';
+
+
+//TODO
+///////////////////////
+// EFFECT
+///////////////////////
+
+//EffectRule :
+//	'/' kind = BehaviorKind
+//	behaviorName = ID ;
+//
+//enum BehaviorKind :
+//	ACTIVITY = "Activity" |
+//	STATE_MACHINE = "StateMachine" |
+//	OPAQUE_BEHAVIOR = "OpaqueBehavior";
