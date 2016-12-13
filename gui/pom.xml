@@ -14,8 +14,8 @@
 
 	<modules>
 		<module>org.eclipse.efm.runconfiguration</module>
-		<!--  module>org.eclipse.efm.ui.wizard.newproject</module>
+		<module>org.eclipse.efm.ui.wizard.newproject</module>
 		<module>org.eclipse.efm.papyrus.views.common</module>
-		<module>org.eclipse.efm.papyrus.views.property.concretesyntax</module-->
+		<module>org.eclipse.efm.papyrus.views.property.concretesyntax</module>
 	</modules>
 </project>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="ASCII"?>
+<contexts:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:constraints="http://www.eclipse.org/papyrus/constraints/0.9" xmlns:contexts="http://www.eclipse.org/papyrus/properties/contexts/0.9" xmi:id="_8X1nMCZ3Eea8yuk7XizVRA" name="fml">
+  <dependencies href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_69QJkKDJEeSZxfCXzZz3-w"/>
+  <tabs xmi:id="_DblWwCZ4Eea8yuk7XizVRA" label="fml" id="fml" priority="100">
+    <sections xmi:id="_Dbvu0CZ4Eea8yuk7XizVRA" name="Single FlowVariable" sectionFile="ui/SingleFlowVariable.xwt">
+      <widget href="ui/SingleFlowVariable.xwt#/"/>
+    </sections>
+    <sections xmi:id="_Dbvu0SZ4Eea8yuk7XizVRA" name="Multiple FlowVariable" sectionFile="ui/MultipleFlowVariable.xwt">
+      <widget href="ui/MultipleFlowVariable.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DbwV4CZ4Eea8yuk7XizVRA" name="Single FormalModel" sectionFile="ui/SingleFormalModel.xwt">
+      <widget href="ui/SingleFormalModel.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdmwACZ4Eea8yuk7XizVRA" name="Multiple FormalModel" sectionFile="ui/MultipleFormalModel.xwt">
+      <widget href="ui/MultipleFormalModel.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdmwASZ4Eea8yuk7XizVRA" name="Single ReceiveSignalEvent" sectionFile="ui/SingleReceiveSignalEvent.xwt">
+      <widget href="ui/SingleReceiveSignalEvent.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdmwAiZ4Eea8yuk7XizVRA" name="Multiple ReceiveSignalEvent" sectionFile="ui/MultipleReceiveSignalEvent.xwt">
+      <widget href="ui/MultipleReceiveSignalEvent.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdmwAyZ4Eea8yuk7XizVRA" name="Single ReceiveEvent" sectionFile="ui/SingleReceiveEvent.xwt">
+      <widget href="ui/SingleReceiveEvent.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdnXECZ4Eea8yuk7XizVRA" name="Multiple ReceiveEvent" sectionFile="ui/MultipleReceiveEvent.xwt">
+      <widget href="ui/MultipleReceiveEvent.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdnXESZ4Eea8yuk7XizVRA" name="Single FifoBehavior" sectionFile="ui/SingleFifoBehavior.xwt">
+      <widget href="ui/SingleFifoBehavior.xwt#/"/>
+    </sections>
+    <sections xmi:id="_Ddn-ICZ4Eea8yuk7XizVRA" name="Multiple FifoBehavior" sectionFile="ui/MultipleFifoBehavior.xwt">
+      <widget href="ui/MultipleFifoBehavior.xwt#/"/>
+    </sections>
+    <sections xmi:id="_Ddn-ISZ4Eea8yuk7XizVRA" name="Single ConnectorBehavior" sectionFile="ui/SingleConnectorBehavior.xwt">
+      <widget href="ui/SingleConnectorBehavior.xwt#/"/>
+    </sections>
+    <sections xmi:id="_Ddn-IiZ4Eea8yuk7XizVRA" name="Multiple ConnectorBehavior" sectionFile="ui/MultipleConnectorBehavior.xwt">
+      <widget href="ui/MultipleConnectorBehavior.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdolMCZ4Eea8yuk7XizVRA" name="Single FormalContext" sectionFile="ui/SingleFormalContext.xwt">
+      <widget href="ui/SingleFormalContext.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdpMQCZ4Eea8yuk7XizVRA" name="Multiple FormalContext" sectionFile="ui/MultipleFormalContext.xwt">
+      <widget href="ui/MultipleFormalContext.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdpMQSZ4Eea8yuk7XizVRA" name="Single FormalBlock" sectionFile="ui/SingleFormalBlock.xwt">
+      <widget href="ui/SingleFormalBlock.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdpMQiZ4Eea8yuk7XizVRA" name="Multiple FormalBlock" sectionFile="ui/MultipleFormalBlock.xwt">
+      <widget href="ui/MultipleFormalBlock.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdpzUCZ4Eea8yuk7XizVRA" name="Single FlowPort" sectionFile="ui/SingleFlowPort.xwt">
+      <widget href="ui/SingleFlowPort.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdpzUSZ4Eea8yuk7XizVRA" name="Multiple FlowPort" sectionFile="ui/MultipleFlowPort.xwt">
+      <widget href="ui/MultipleFlowPort.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdqaYCZ4Eea8yuk7XizVRA" name="Single BlockPart" sectionFile="ui/SingleBlockPart.xwt">
+      <widget href="ui/SingleBlockPart.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdqaYSZ4Eea8yuk7XizVRA" name="Multiple BlockPart" sectionFile="ui/MultipleBlockPart.xwt">
+      <widget href="ui/MultipleBlockPart.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdqaYiZ4Eea8yuk7XizVRA" name="Single TimedTransition" sectionFile="ui/SingleTimedTransition.xwt">
+      <widget href="ui/SingleTimedTransition.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdqaYyZ4Eea8yuk7XizVRA" name="Multiple TimedTransition" sectionFile="ui/MultipleTimedTransition.xwt">
+      <widget href="ui/MultipleTimedTransition.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdrBcCZ4Eea8yuk7XizVRA" name="Single RdvBehavior" sectionFile="ui/SingleRdvBehavior.xwt">
+      <widget href="ui/SingleRdvBehavior.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdrBcSZ4Eea8yuk7XizVRA" name="Multiple RdvBehavior" sectionFile="ui/MultipleRdvBehavior.xwt">
+      <widget href="ui/MultipleRdvBehavior.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdrBciZ4Eea8yuk7XizVRA" name="Single Environment" sectionFile="ui/SingleEnvironment.xwt">
+      <widget href="ui/SingleEnvironment.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdrBcyZ4Eea8yuk7XizVRA" name="Multiple Environment" sectionFile="ui/MultipleEnvironment.xwt">
+      <widget href="ui/MultipleEnvironment.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdrBdCZ4Eea8yuk7XizVRA" name="Single ReceiveAnyEvent" sectionFile="ui/SingleReceiveAnyEvent.xwt">
+      <widget href="ui/SingleReceiveAnyEvent.xwt#/"/>
+    </sections>
+    <sections xmi:id="_DdrogCZ4Eea8yuk7XizVRA" name="Multiple ReceiveAnyEvent" sectionFile="ui/MultipleReceiveAnyEvent.xwt">
+      <widget href="ui/MultipleReceiveAnyEvent.xwt#/"/>
+    </sections>
+    <sections xmi:id="_StxR8DeQEeaHo9nikJ-D7Q" name="SectionProperty" sectionFile="ui/SectionProperty.xwt">
+      <widget href="ui/SectionProperty.xwt#/"/>
+    </sections>
+  </tabs>
+  <views xmi:id="_8X1nMSZ3Eea8yuk7XizVRA" name="Single FlowVariable" sections="_Dbvu0CZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1njSZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nMiZ3Eea8yuk7XizVRA" name="isSingleFlowVariable">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nMyZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::FlowVariable"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nNyZ3Eea8yuk7XizVRA" name="Single FormalModel" sections="_DbwV4CZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nmiZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nOCZ3Eea8yuk7XizVRA" name="isSingleFormalModel">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nOSZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::FormalModel"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nPSZ3Eea8yuk7XizVRA" name="Single ReceiveSignalEvent" sections="_DdmwASZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nmSZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nPiZ3Eea8yuk7XizVRA" name="isSingleReceiveSignalEvent">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nPyZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::ReceiveSignalEvent"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nQyZ3Eea8yuk7XizVRA" name="Single ReceiveEvent" sections="_DdmwAyZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nkCZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nRCZ3Eea8yuk7XizVRA" name="isSingleReceiveEvent">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nRSZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::ReceiveEvent"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nSSZ3Eea8yuk7XizVRA" name="Single FifoBehavior" sections="_DdnXESZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nhiZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nSiZ3Eea8yuk7XizVRA" name="isSingleFifoBehavior">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nSyZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::FifoBehavior"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nTyZ3Eea8yuk7XizVRA" name="Single ConnectorBehavior" sections="_Ddn-ISZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1njyZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nUCZ3Eea8yuk7XizVRA" name="isSingleConnectorBehavior">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nUSZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::ConnectorBehavior"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nVSZ3Eea8yuk7XizVRA" name="Single FormalContext" sections="_DdolMCZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1niCZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nViZ3Eea8yuk7XizVRA" name="isSingleFormalContext">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nVyZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::FormalContext"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nWyZ3Eea8yuk7XizVRA" name="Single FormalBlock" sections="_DdpMQSZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nlSZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nXCZ3Eea8yuk7XizVRA" name="isSingleFormalBlock">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nXSZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::FormalBlock"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nYSZ3Eea8yuk7XizVRA" name="Single FlowPort" sections="_DdpzUCZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nkiZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nYiZ3Eea8yuk7XizVRA" name="isSingleFlowPort">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nYyZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::FlowPort"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nZyZ3Eea8yuk7XizVRA" name="Single BlockPart" sections="_DdqaYCZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nlyZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1naCZ3Eea8yuk7XizVRA" name="isSingleBlockPart">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1naSZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::BlockPart"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nbSZ3Eea8yuk7XizVRA" name="Single TimedTransition" sections="_DdqaYiZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nniZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1nbiZ3Eea8yuk7XizVRA" name="isSingleTimedTransition">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1nbyZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::TimedTransition"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1ncyZ3Eea8yuk7XizVRA" name="Single RdvBehavior" sections="_DdrBcCZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1njCZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1ndCZ3Eea8yuk7XizVRA" name="isSingleRdvBehavior">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1ndSZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::RdvBehavior"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1neSZ3Eea8yuk7XizVRA" name="Single Environment" sections="_DdrBciZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nlCZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1neiZ3Eea8yuk7XizVRA" name="isSingleEnvironment">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1neyZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::Environment"/>
+    </constraints>
+  </views>
+  <views xmi:id="_8X1nfyZ3Eea8yuk7XizVRA" name="Single ReceiveAnyEvent" sections="_DdrBdCZ4Eea8yuk7XizVRA" automaticContext="true" datacontexts="_8X1nnSZ3Eea8yuk7XizVRA">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_8X1ngCZ3Eea8yuk7XizVRA" name="isSingleReceiveAnyEvent">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.1"/>
+      <properties xsi:type="constraints:ValueProperty" xmi:id="_8X1ngSZ3Eea8yuk7XizVRA" name="stereotypeName" value="fml::ReceiveAnyEvent"/>
+    </constraints>
+  </views>
+  <views xmi:id="_M2LMcDeQEeaHo9nikJ-D7Q" name="Property" sections="_StxR8DeQEeaHo9nikJ-D7Q">
+    <constraints xsi:type="constraints:SimpleConstraint" xmi:id="_RYHtoDeQEeaHo9nikJ-D7Q" name="isProperty">
+      <constraintType href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@constraintTypes.0"/>
+	  <properties xsi:type="constraints:ValueProperty" xmi:id="_69ie3aDJEeSZxfCXzZz3-w" name="umlClassName" value="Property"/>      
+    </constraints>
+  </views>
+  <dataContexts xmi:id="_8X1nhSZ3Eea8yuk7XizVRA" name="fml">
+    <elements xmi:id="_8X1nhiZ3Eea8yuk7XizVRA" name="FifoBehavior" supertypes="_8X1njyZ3Eea8yuk7XizVRA">
+      <properties xmi:id="_8X1nhyZ3Eea8yuk7XizVRA" name="size"/>
+    </elements>
+    <elements xmi:id="_8X1niCZ3Eea8yuk7XizVRA" name="FormalContext" supertypes="_8X1nlSZ3Eea8yuk7XizVRA">
+      <properties xmi:id="_8X1niSZ3Eea8yuk7XizVRA" name="env" type="Reference"/>
+      <properties xmi:id="_8X1niiZ3Eea8yuk7XizVRA" name="timed" type="Boolean"/>
+      <properties xmi:id="_8X1niyZ3Eea8yuk7XizVRA" name="input_enabled" type="Boolean"/>
+    </elements>
+    <elements xmi:id="_8X1njCZ3Eea8yuk7XizVRA" name="RdvBehavior" supertypes="_8X1njyZ3Eea8yuk7XizVRA"/>
+    <elements xmi:id="_8X1njSZ3Eea8yuk7XizVRA" name="FlowVariable">
+      <properties xmi:id="_8X1njiZ3Eea8yuk7XizVRA" name="DirectionKind" type="Enumeration"/>
+      <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690yG6DJEeSZxfCXzZz3-w"/>
+    </elements>
+    <elements xmi:id="_8X1njyZ3Eea8yuk7XizVRA" name="ConnectorBehavior">
+      <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690zIKDJEeSZxfCXzZz3-w"/>
+    </elements>
+    <elements xmi:id="_8X1nkCZ3Eea8yuk7XizVRA" name="ReceiveEvent">
+      <properties xmi:id="_8X1nkSZ3Eea8yuk7XizVRA" name="parameters" type="Reference" multiplicity="-1"/>
+    </elements>
+    <elements xmi:id="_8X1nkiZ3Eea8yuk7XizVRA" name="FlowPort">
+      <properties xmi:id="_8X1nkyZ3Eea8yuk7XizVRA" name="direction" type="Enumeration"/>
+      <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690ylaDJEeSZxfCXzZz3-w"/>
+    </elements>
+    <elements xmi:id="_8X1nlCZ3Eea8yuk7XizVRA" name="Environment">
+      <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690yG6DJEeSZxfCXzZz3-w"/>
+    </elements>
+    <elements xmi:id="_8X1nlSZ3Eea8yuk7XizVRA" name="FormalBlock">
+      <properties xmi:id="_8X1nliZ3Eea8yuk7XizVRA" name="clocks" type="Reference" multiplicity="-1"/>
+      <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690yXqDJEeSZxfCXzZz3-w"/>
+    </elements>
+    <elements xmi:id="_8X1nlyZ3Eea8yuk7XizVRA" name="BlockPart">
+      <properties xmi:id="_8X1nmCZ3Eea8yuk7XizVRA" name="instance" type="Reference" multiplicity="-1"/>
+      <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690yG6DJEeSZxfCXzZz3-w"/>
+    </elements>
+    <elements xmi:id="_8X1nmSZ3Eea8yuk7XizVRA" name="ReceiveSignalEvent"/>
+    <elements xmi:id="_8X1nmiZ3Eea8yuk7XizVRA" name="FormalModel">
+      <properties xmi:id="_8X1nmyZ3Eea8yuk7XizVRA" name="xversion"/>
+      <properties xmi:id="_8X1nnCZ3Eea8yuk7XizVRA" name="mainContext" type="Reference"/>
+      <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690y0aDJEeSZxfCXzZz3-w"/>
+    </elements>
+    <elements xmi:id="_8X1nnSZ3Eea8yuk7XizVRA" name="ReceiveAnyEvent">
+      <supertypes href="#_8X1nkCZ3Eea8yuk7XizVRA"/>
+      <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690z1aDJEeSZxfCXzZz3-w"/>
+    </elements>
+    <elements xmi:id="_8X1nniZ3Eea8yuk7XizVRA" name="TimedTransition">
+      <properties xmi:id="_8X1nnyZ3Eea8yuk7XizVRA" name="tguard" type="Reference"/>
+      <supertypes href="ppe:/context/org.eclipse.papyrus.uml.properties/Model/UML/UML.ctx#_690yiKDJEeSZxfCXzZz3-w"/>
+    </elements>
+    <modelElementFactory href="ppe:/environment/org.eclipse.papyrus.uml.properties/Model/Environment.xmi#//@modelElementFactories.2"/>
+  </dataContexts>
+</contexts:Context>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         name="EFM Examples"
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.efm.papyrus.wizard.newproject.Examples"
+            name="EFM Examples"
+            parentCategory="org.eclipse.ui.Examples">
+      </category>
+      <wizard
+            category="org.eclipse.ui.Examples/org.eclipse.efm.papyrus.wizard.newproject.Examples"
+            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+            icon="icons/efm_project.png"
+            id="org.eclipse.efm.papyrus.wizard.newproject.CoffeeMachineXLIAExample"
+            name="XLIA Coffee Machine Example"
+            project="true">
+         <description>
+            A specification of a coffee machine model written in XLIA (text).
+         </description>
+      </wizard>
+      <wizard
+            category="org.eclipse.ui.Examples/org.eclipse.efm.papyrus.wizard.newproject.Examples"
+            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+            icon="icons/efm_project.png"
+            id="org.eclipse.efm.papyrus.wizard.newproject.WaterSystemXLIAExample"
+            name="XLIA Water System Example"
+            project="true">
+         <description>
+            A specification of a water pump model written in XLIA (text).
+         </description>
+      </wizard>
+      <wizard
+            category="org.eclipse.ui.Examples/org.eclipse.efm.papyrus.wizard.newproject.Examples"
+            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+            icon="icons/efm_project.png"
+            id="org.eclipse.efm.papyrus.wizard.newproject.WaterSystemPapyrusExample"
+            name="Papyrus Water System Example"
+            project="true">
+         <description>
+            A specification of a water pump model specified using the Papyrus graphical tool.
+         </description>
+      </wizard>
+      <wizard
+            category="org.eclipse.ui.Examples/org.eclipse.efm.papyrus.wizard.newproject.Examples"
+            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+            icon="icons/efm_project.png"
+            id="org.eclipse.efm.papyrus.wizard.newproject.ComplexDogPapyrusExample"
+            name="Papyrus Complex Dog Example"
+            project="true">
+         <description>
+            A specification of a robotic pet model specified using the Papyrus graphical tool.
+         </description>
+      </wizard>
+      <wizard
+            category="org.eclipse.ui.Examples/org.eclipse.efm.papyrus.wizard.newproject.Examples"
+            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+            icon="icons/efm_project.png"
+            id="org.eclipse.efm.papyrus.wizard.newproject.ComplexDogXLIAExample"
+            name="XLIA Complex Dog Example"
+            project="true">
+         <description>
+            A specification of a robotic pet model written in XLIA (text).
+         </description>
+      </wizard>
+      <wizard
+            category="org.eclipse.ui.Examples/org.eclipse.efm.papyrus.wizard.newproject.Examples"
+            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+            icon="icons/efm_project.png"
+            id="org.eclipse.efm.papyrus.wizard.newproject.SimpleDogXLIAExample"
+            name="XLIA Simple Dog Example"
+            project="true">
+         <description>
+            A specification of a robotic pet model written in XLIA (text).
+         </description>
+      </wizard>
+      <wizard
+            category="org.eclipse.ui.Examples/org.eclipse.efm.papyrus.wizard.newproject.Examples"
+            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+            icon="icons/efm_project.png"
+            id="org.eclipse.efm.papyrus.wizard.newproject.SimplifiedPhoneXPapyrusExample"
+            name="Papyrus Simplified PhoneX Example"
+            project="true">
+         <description>
+            A specification of a telecommunication system model specified using the Papyrus graphical tool.
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         id="EFM"
+         point="org.eclipse.emf.common.ui.examples">
+      <example
+            id="CoffeeMachineXLIAExample"
+            pageImage="icons/efm_project.png"
+            wizardID="org.eclipse.efm.papyrus.wizard.newproject.CoffeeMachineXLIAExample">
+         <projectDescriptor
+               contentURI="examples/CoffeeMachineXLIAExample.zip"
+               description="A specification of a coffee machine model written in XLIA (text)."
+               name="CoffeeMachineXLIAExample">
+         </projectDescriptor>
+      </example>
+      <example
+            id="WaterSystemXLIAExample"
+            pageImage="icons/efm_project.png"
+            wizardID="org.eclipse.efm.papyrus.wizard.newproject.WaterSystemXLIAExample">
+         <projectDescriptor
+               contentURI="examples/WaterSystemXLIAExample.zip"
+               description="A specification of a water pump model written in XLIA (text)."
+               name="WaterSystemXLIAExample">
+         </projectDescriptor>
+      </example>
+      <example
+            id="WaterSystemPapyrusExample"
+            pageImage="icons/efm_project.png"
+            wizardID="org.eclipse.efm.papyrus.wizard.newproject.WaterSystemPapyrusExample">
+         <projectDescriptor
+               contentURI="examples/WaterSystemPapyrusExample.zip"
+               description="A specification of a water pump model specified using the Papyrus graphical tool."
+               name="WaterSystemPapyrusExample">
+         </projectDescriptor>
+      </example>
+      <example
+            id="ComplexDogPapyrusExample"
+            pageImage="icons/efm_project.png"
+            wizardID="org.eclipse.efm.papyrus.wizard.newproject.ComplexDogPapyrusExample">
+         <projectDescriptor
+               contentURI="examples/ComplexDogPapyrusExample.zip"
+               description="A specification of a robotic pet model specified using the Papyrus graphical tool."
+               name="ComplexDogPapyrusExample">
+         </projectDescriptor>
+      </example>
+      <example
+            id="ComplexDogXLIAExample"
+            pageImage="icons/efm_project.png"
+            wizardID="org.eclipse.efm.papyrus.wizard.newproject.ComplexDogXLIAExample">
+         <projectDescriptor
+               contentURI="examples/ComplexDogXLIAExample.zip"
+               description="A specification of a robotic pet model written in XLIA (text)."
+               name="ComplexDogXLIAExample">
+         </projectDescriptor>
+      </example>
+      <example
+            id="SimpleDogXLIAExample"
+            pageImage="icons/efm_project.png"
+            wizardID="org.eclipse.efm.papyrus.wizard.newproject.SimpleDogXLIAExample">
+         <projectDescriptor
+               contentURI="examples/SimpleDogXLIAExample.zip"
+               description="A specification of a robotic pet model written in XLIA (text)."
+               name="SimpleDogXLIAExample">
+         </projectDescriptor>
+      </example>
+      <example
+            id="SimplifiedPhoneXPapyrusExample"
+            pageImage="icons/efm_project.png"
+            wizardID="org.eclipse.efm.papyrus.wizard.newproject.SimplifiedPhoneXPapyrusExample">
+         <projectDescriptor
+               contentURI="examples/SimplifiedPhoneXPapyrusExample.zip"
+               description="A specification of a telecommunication system model specified using the Papyrus graphical tool."
+               name="SimplifiedPhoneXPapyrusExample">
+         </projectDescriptor>
+      </example>
+   </extension>
+
+</plugin>
