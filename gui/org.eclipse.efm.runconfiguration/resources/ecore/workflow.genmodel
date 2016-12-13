@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2016 CEA LIST.&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA; Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr&#xD;&#xA;  - Initial API and Implementation"
+    modelDirectory="/org.eclipse.efm.runconfiguration/src-gen" editDirectory="/org.eclipse.efm.runconfiguration.edit/src-gen"
+    editorDirectory="/org.eclipse.efm.runconfiguration.editor/src-gen" modelPluginID="org.eclipse.efm.runconfiguration"
+    modelName="Workflow" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>workflow.ecore</foreignModel>
+  <genPackages prefix="Workflow" basePackage="org.eclipse.efm.runconfiguration" disposableProviderFactory="true"
+      ecorePackage="workflow.ecore#/">
+    <genClasses ecoreClass="workflow.ecore#//NamedObject">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//NamedObject/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//NamedObject/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//NamedObject/comment"/>
+    </genClasses>
+    <genClasses ecoreClass="workflow.ecore#//Workflow">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference workflow.ecore#//Workflow/manifest"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Workflow/workspace"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Workflow/director"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Workflow/symbexOption"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Workflow/console"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Workflow/shellMode"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Workflow/developerTuning"/>
+    </genClasses>
+    <genClasses ecoreClass="workflow.ecore#//Director">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference workflow.ecore#//Director/manifest"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference workflow.ecore#//Director/workflow"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Director/project"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Director/supervisor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Director/worker"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Director/console"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Director/developerTuning"/>
+    </genClasses>
+    <genClasses ecoreClass="workflow.ecore#//Worker">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference workflow.ecore#//Worker/manifest"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference workflow.ecore#//Worker/director"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Worker/console"/>
+    </genClasses>
+    <genClasses ecoreClass="workflow.ecore#//SupervisorWorker">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//SupervisorWorker/limit"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//SupervisorWorker/queue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//SupervisorWorker/extender"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="workflow.ecore#//CoverageWorker">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//CoverageWorker/trace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//CoverageWorker/normalizationEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//CoverageWorker/minimizationEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//CoverageWorker/stopWhenComplete"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//CoverageWorker/breakEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//CoverageWorker/sliceWhenComplete"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//CoverageWorker/heuristicEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//CoverageWorker/scope"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//CoverageWorker/heuristicConfig"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="workflow.ecore#//TestWorker"/>
+    <genClasses image="false" ecoreClass="workflow.ecore#//Serializer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Serializer/format"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Serializer/trace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/folderName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/fileName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledNormalization"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/showInitialization"/>
+    </genClasses>
+    <nestedGenPackages prefix="Common" basePackage="org.eclipse.efm.runconfiguration.workflow"
+        disposableProviderFactory="true" ecorePackage="workflow.ecore#//common">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/GraphExplorationStrategyKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/BEST_FIRST_SEARCH"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/BREADTH_FIRST_SEARCH"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/DEPTH_FIRST_SEARCH"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/RANDOM_FIRST_SEARCH"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/XFS"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/FIRST"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/LAST"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/ALL"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/ConsoleVerboseKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/UNDEFINED"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/SILENT"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/MINIMUM"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/MEDIUM"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/MAXIMUM"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/TraceElementKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/UNDEFINED"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/CONDITION"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/DECISION"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/FORMULA"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/PATH_CONDITION"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/PATH_CONDITION_LEAF"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/PATH_TIMED_CONDITION"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/PATH_TIMED_CONDITION_LEAF"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_CONDITION"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_CONDITION_LEAF"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_TIMED_CONDITION"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_TIMED_CONDITION_LEAF"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/ASSIGN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/DELTA"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/TIME"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VARIABLE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NEWFRESH"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/COM"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INOUT"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INPUT"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/OUTPUT"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INPUT_ENV"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/OUTPUT_ENV"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INPUT_RDV"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/OUTPUT_RDV"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INPUT_BUFFER"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/OUTPUT_BUFFER"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INPUT_VAR"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/OUTPUT_VAR"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/PORT"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/SIGNAL"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/MESSAGE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/CHANNEL"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/BUFFER"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/RUNNABLE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/ROUTINE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/TRANSITION"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/MACHINE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/STATE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/STATEMACHINE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/SYSTEM"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/FILE_HEADER"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/FILE_BEGIN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/FILE_END"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/TESTCASE_HEADER"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/TESTCASE_BEGIN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/TESTCASE_END"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INIT_HEADER"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INIT_BEGIN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INIT_END"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/STEP_HEADER"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/STEP_BEGIN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/STEP_END"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/COMMENT"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/SEPARATOR"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NEWLINE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NEXT"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/HeuristicClassKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/BASIC"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/NAIVE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/SMART"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/AGRESSIVE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/NOTHING_ELSE"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/CoverageScopeKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/CoverageScopeKind/MODEL"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/CoverageScopeKind/INSTANCE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/CoverageScopeKind/DETAILS"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/CheckingScopeKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/CheckingScopeKind/GLOBALLY"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/CheckingScopeKind/LOCALLY"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/DebuglevelKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/DebuglevelKind/NONE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/DebuglevelKind/ZERO"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/DebuglevelKind/LOW"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/DebuglevelKind/MEDIUM"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/DebuglevelKind/HIGH"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/DebuglevelKind/ULTRA"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/DebuglevelKind/GOD_MODE"/>
+      </genEnums>
+      <genClasses ecoreClass="workflow.ecore#//common/Workspace">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//common/Workspace/location"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//common/Workspace/project"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/Location">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Location/root"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Location/output"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Location/log"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Location/debug"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/Project">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Project/source"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Project/model"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/GraphExplorationLimit">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/eval"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/node"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/height"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/width"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/report"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/save"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/GraphExplorationQueue">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationQueue/strategy"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationQueue/heuristic"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationQueue/weight"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/ConsoleLogFormat">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/format"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/bound"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/step"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/result"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/report"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/verbose"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/TraceElement">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/TraceElement/nature"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/TraceElement/value"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/TraceSpecification">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//common/TraceSpecification/element"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/Manifest">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Manifest/autoconf"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Manifest/autostart"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/SymbexOption"/>
+      <genClasses ecoreClass="workflow.ecore#//common/ShellMode">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ShellMode/stop"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="workflow.ecore#//common/CoverageHeuristic">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/heuristicTrials"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/objectiveRateGoal"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/objectiveRestGoal"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/heuristicStart"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/directiveTraceCount"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/directiveTraceSize"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/directiveTraceHeuristic"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/lookaheadDepth"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/lookaheadWidth"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/hitStronglyRandomEnabled"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/hitStronglyCount"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/hitWeaklyRandomEnabled"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/hitWeaklyCount"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/hitOtherRandomEnabled"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/CoverageHeuristic/hitOtherCount"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/DeveloperTuningOption">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/logTraceFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/debugTraceFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/debugLevel"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/debugFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/outputFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/specificationFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/executableFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/symbexGraphFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/parsedModelFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/compiledModelFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/symbexTraceFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledParsing"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledConfigure"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledCompiling"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledLoading"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledComputing"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledReporting"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledSolver"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledProfiling"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledAllProcessStage"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledPreProcessing"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledPostProcessing"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledProcessing"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledPreFiltering"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledPostFiltering"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledFiltering"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledQueue"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledProgram"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledStatement"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledStatementAssignment"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledStatementCommunication"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledStatementTestDecision"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledBytecode"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledData"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledTrace"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledVariable"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledBuffer"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledPort"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledSignal"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledConnexion"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledTime"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledExecutable"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledActivity"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledRoutine"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledTransition"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledMachine"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledStatemachine"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledNameId"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledQualifiedNameId"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledFullyQualifiedNameId"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledRedundance"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledReferenceCounting"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledNothing"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledGodMode"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Coverage" basePackage="org.eclipse.efm.runconfiguration.workflow"
+        disposableProviderFactory="true" ecorePackage="workflow.ecore#//coverage">
+      <genClasses ecoreClass="workflow.ecore#//coverage/TransitionCoverageWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//coverage/InputOutputCoverageWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//coverage/ConditionCoverageWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//coverage/DecisionCoverageWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//coverage/ConditionDecisionCoverageWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//coverage/ModifiedConditionDecisionCoverageWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//coverage/BehaviorCoverageWorker">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/checkingScope"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/orderedTrace"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitConsecutive"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitFolding"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitMax"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitLucky"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/jumpHeight"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/jumpTrialsLimit"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitCount"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/jumpCount"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/jumpSlice"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//coverage/BehaviorCoverageWorker/behavior"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Test" basePackage="org.eclipse.efm.runconfiguration.workflow"
+        disposableProviderFactory="true" ecorePackage="workflow.ecore#//test">
+      <genClasses ecoreClass="workflow.ecore#//test/OfflineTestWorker">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//test/OfflineTestWorker/mergedTraceFile"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//test/OfflineTestWorker/testPurposeFile"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//test/OfflineTestWorker/observable"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//test/OfflineTestWorker/controllable"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Serializer" basePackage="org.eclipse.efm.runconfiguration.workflow"
+        disposableProviderFactory="true" ecorePackage="workflow.ecore#//serializer">
+      <genClasses ecoreClass="workflow.ecore#//serializer/ModelGraphvizSerializerWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//serializer/SymbexGraphVizSerializerWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//serializer/BasicTraceSerializer"/>
+      <genClasses ecoreClass="workflow.ecore#//serializer/TTCNTraceSerializer">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/enabledCustomization"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/enabledAdapters"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/controlModuleName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/declarationsModuleName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/templatesModuleName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/testcasesModuleName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/testcasesStartingWrapper"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/testcasesEndingWrapper"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/testcasesSendingWrapper"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/testcasesReceivingWrapper"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/adaptationModuleName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/adaptationUtilsImpl"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/adaptationStartingEndingImpl"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/adaptationSendingImpl"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/adaptationReceivingImpl"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

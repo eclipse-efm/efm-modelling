@@ -1,0 +1,984 @@
+// FAVM TEMPLATE
+//
+form avm::non_du_projet as &avm::config is
+	section LOCATION
+		// Chemin absolu ou relatif (au dossier de lancement!) du projet DIVERSITY
+		@project = "__LOCATION_PROJECT__";
+
+		// Chemin relatif à @project (ou absolu!) du dossier contenant les fichiers XFSP
+		@source = ".";
+
+		// Chemin relatif à @project (ou absolu!) du dossier principal des fichiers générés par DIVERSITY
+		@output = "Output";
+
+		// Chemin relatif à @project (ou absolu!) du dossier des fichiers log et debug
+		@log = "Log";
+	endsection LOCATION
+
+ 	// Model Of Computation
+	section MOC
+		prototype engine::main as &avm::core.Engine is
+			section SPECIFICATION
+				// Nom du fichier spécification XFSP se trouvant dans LOCATION@source
+				@main = "__SPECIFICATION_MAIN__";
+			endsection SPECIFICATION
+
+			// Définition des objectifs ("processor") d'évaluation
+			section PROCESSOR
+				// "Processor" de gestion des critères d'arrêt absolus (paramètres utilisateur)
+				prototype filter::stop_criteria as &avm::core.filter.STOP_CRITERIA is
+					section PROPERTY
+						// Nombre de noeud MAXIMAL (-1 <=> no-limit) de l'arbre d'évaluation symbolique
+						@node = __NODE__;
+
+						// Nombre de pas de calcul MAXIMAL (-1 <=> no-limit) du moteur d'évaluation symbolique
+						@eval = __EVAL__;
+
+						// Hauteur MAXIMALE
+						@height = __HEIGHT__;
+
+						// Largeur MAXIMALE
+						@width  = __WIDTH__;
+					endsection PROPERTY
+
+					section LOG
+						// Affichage count / limit_max  si limit max est défini, sinon seulement count
+						// %1% --> eval step count
+						// %2% --> context count
+						// %3% --> context height
+						// %3% --> context width
+						@eval   = "\nstep:%1% , context:%2% , height:%3% , width:%4%";
+						@result = "\nstep:%1% , context:%2% , height:%3% , width:%4%";
+						@report = "\nstop:%1% , context:%2% , height:%3% , width:%4%";
+					endsection LOG
+				endprototype
+
+//BEGIN_REDUNDANCY_PHASE1
+		        prototype filter::redundancy "redundancy" as &avm::core.filter.REDUNDANCY is
+		          section PROPERTY
+		            @comparer = 'INCLUSION';     // NONE | INCLUSION | EQUALITY | ALPHA_EQUIV | SYNTAXIC_EQUALITY
+		            @solver = 'OMEGA';         // OMEGA | CVC4
+
+		            @path_scope = 'CURRENT';       // ALL execution graph path | CURRENT execution graph path
+
+		            @data_scope = 'ALL';       // ALL data | DETAILS some data, see DATA_SCOPE section
+		          endsection PROPERTY
+		        endprototype
+//END_REDUNDANCY_PHASE1
+
+//BEGIN_TRANSITION_COVERAGE_PHASE1
+				prototype filter::transition_coverage as &avm::core.filter.PROGRAM_COVERAGE is
+				//&avm::processor.COVERAGE_PROCESSOR is
+					section PROPERTY
+						// Nombre de pas de calcul "cumulés" avant de débuter
+						// la vérification de la couverture
+						//@begin_step = 0;
+						@begin_step = __TC1_BEGIN_STEP__;
+
+						// Arrète l'exécution dès que la couverture est complète
+						//@stop = true;
+						@stop = __TC1_STOP__;
+
+						// Arrète l'exécution au plus tôt
+						//@minimize = true;
+						@minimize = __TC1_MINIMIZE__;
+
+						// Elagage du graphe des scénarios à la fin de la vérification
+						//@slice = true;
+						@slice = __TC1_SLICE__;
+
+						// Active l'utilisation d'heuristique
+						//@heuristic = true;
+						@heuristic = __TC1_HEURISTIC__;
+
+						//@scope = 'MODEL'; 	// 'INSTANCE' | 'MODEL' | 'DETAILS'
+						@scope = '__TC1_SCOPE__';
+					endsection PROPERTY
+
+					// Utilisé pour préciser les machines ou les transitions particulières à couvrir!
+					section DETAILS
+						//@model = "model-full-qualified-name-id";
+						//@instance = "instance-full-qualified-name-id";
+
+						//@transition = "transition-full-qualified-name-id";
+						//__TC1_TransitionListToCover
+					endsection DETAILS
+
+					section HEURISTIC
+						// choix de l'heuristique de départ
+						// basic | naive | smart | agressive
+						//@heuristic#start = 'basic';
+						@heuristic#start = '__TC1_HEURISTIC_START__';
+
+						// Nombre d'essais d'heuristiques
+						//@heuristic#trials = 7;
+						@heuristic#trials = __TC1_HEURISTIC_TRIALS__;
+
+						// Critère de satisfaction du succès des heuristiques
+						// taux de couverte / nombre d'élément restant...
+						//@objective#rate = 100;
+						@objective#rate = __TC1_OBJECTIVE_RATE__;
+						//@objective#rest = 0;
+						@objective#rest = __TC1_OBJECTIVE_REST__;
+
+						// Limitation de la taille des chemins/traces couvrants recherchés
+						// basic | naive | smart | agressive
+						//@directive#trace#heuristic = 'smart';
+						@directive#trace#heuristic = '__TC1_DIRECTIVE_TRACE_HEURISTIC__';
+						//@directive#trace#count#limit = 8;
+						@directive#trace#count#limit = __TC1_DIRECTIVE_TRACE_COUNT_LIMIT__;
+						//@directive#trace#size#limit  = 8;
+						@directive#trace#size#limit  = __TC1_DIRECTIVE_TRACE_SIZE_LIMIT__;
+
+
+						// Choix des contextes avec des transitions
+						// [ fortement | faiblement | autre ] tirables
+
+						// Limitations temporaire de la profondeur d'exploration
+						//@coverage#height = 7;
+						@coverage#height = __TC1_COVERAGE_HEIGHT__;
+
+						// nombre de fois que la limite doit être atteint avant de l'augmenter
+						//@coverage#height#reached#limit = 42;
+						@coverage#height#reached#limit = __TC1_COVERAGE_HEIGHT_REACHED_LIMIT__;
+
+						//@hit#strongly#random = false;
+						@hit#strongly#random = __TC1_HIT_STRONGLY_RANDOM__;
+						//@hit#strongly#count = 1;
+						@hit#strongly#count = __TC1_HIT_STRONGLY_COUNT__;
+
+						//@hit#weakly#random = false;
+						@hit#weakly#random = __TC1_HIT_WEAKLY_RANDOM__;
+						//@hit#weakly#count = 1;
+						@hit#weakly#count = __TC1_HIT_WEAKLY_COUNT__;
+
+						//@hit#other#random = false;
+						@hit#other#random = __TC1_HIT_OTHER_RANDOM__;
+						//@hit#other#count = 1;
+						@hit#other#count = __TC1_HIT_OTHER_COUNT__;
+					endsection HEURISTIC
+
+					section LOG
+						// %1% --> number of Covered Elements
+						// %2% --> number of Elements
+						@bound   = " , coverage: %1% / %2%";
+						@eval   = " , coverage: %1% / %2%";
+						@result = " , coverage: %1% / %2%";
+						@report = " , coverage: %1% / %2%";
+					endsection LOG
+				endprototype
+//END_TRANSITION_COVERAGE_PHASE1
+
+//BEGIN_HOJ_PHASE1
+			    prototype process::hit_or_jump as avm::processor.HIT_OR_JUMP is
+			    	section PROPERTY
+			    		// Nombre de pas de calcul "cumulés" avant de débuter la vérification de la couverture
+						//@begin_step = 0;
+						@begin_step = __HOJ1_BEGIN_STEP__;
+
+						//@heuristic = true;
+						@heuristic = __HOJ1_HEURISTIC__;
+
+						// Arrète l'exécution dès que la couverture est complète
+						//@stop = true;
+						@stop = __HOJ1_STOP__;
+
+						// Elagage du graphe des scénarios à la fin de la vérification
+						//@slice = true;
+						@slice = __HOJ1_SLICE__;
+
+						// Cherche une trace globalement ou locale à chaque noeud racine...
+						//@search#scope = 'GLOBALLY'; // GLOBALLY | LOCALLY ;
+						@search#scope = '__HOJ1_SEARCH_SCOPE__';
+
+						// Hauteur du jump
+						//@jump#height = 6;
+						@jump#height = __HOJ1_JUMP_HEIGHT__;
+
+						// Nb max de jump pour une racine
+						//@jump#limit = -1;
+						@jump#limit = __HOJ1_JUMP_LIMIT__;
+
+						// Nombre de chemins positifs souhaités ALEATOIREMENT
+						//@hit#count  = 1;
+						@hit#count  = __HOJ1_HIT_COUNT__;
+
+						// Choisir des traces avec ou sans trous
+						//@hit#consecutive = false;
+						@hit#consecutive = __HOJ1_HIT_CONSECUTIVE__;
+
+						// Choisir uniquement les préfix de longueur maximale
+						//@hit#max = false;
+						@hit#max = __HOJ1_HIT_MAX__;
+
+						// Nombre de chemins négatifs souhaités ALEATOIREMENT
+						//@jump#count  = 1;
+						@jump#count  = __HOJ1_JUMP_COUNT__;
+
+						// Elagage intermédiaire en fin de hit ou jump
+						//@jump#slice  = false;
+						@jump#slice  = __HOJ1_JUMP_SLICE__;
+
+						// |;|     --> ordered     (operator: sequence)
+						// |i|     --> unordered   (operator: interleaving)
+						// |regex| --> regex       (operator: regex)
+						//@scheduler = '|;|';
+						@scheduler = '__HOJ1_SCHEDULER__';
+					endsection PROPERTY
+
+					section TRACE
+						// elements to cover (may be a sequence of elements)
+						//@transition = "__TRANSITION_NAME__";
+						//@state = "__STATE_NAME__";
+						//@input = "__INPUT_NAME__";
+						//@output = "__OUTPUT_NAME__";
+						//@com = "__COM_NAME__";
+						//__ELEMENT_LIST_TO_COVER__
+			     endsection TRACE
+
+			     section LOG
+					// %1% --> number of Covered Elements
+					// %2% --> number of Elements
+					@bound  = " , coverage: %1% / %2%";
+					@eval   = " , coverage: %1% / %2%";
+					@result = " , coverage: %1% / %2%";
+					@report = " , coverage: %1% / %2%";
+			     endsection LOG
+			    endprototype
+//END_HOJ_PHASE1
+
+//BEGIN_OFFLINE_TEST_PHASE1
+				prototype process::offline_test "offline_test" as &avm::processor.OFFLINETEST is
+					section MERGED_TRACE
+						@mergedTraceFile="__TRACE_FILE__";
+						@testPurposeFile="__TEST_PURPOSE_FILE__";
+					endsection MERGED_TRACE
+
+					section OBSERVABLE
+						//@com = [*];
+						//@input = "[*]";
+						//@output = "[*]";
+
+						//@output = "AccessControl->displayMessage";
+						//@input = "AccessControl->card";
+						//@output = "AccessControl->close";
+					endsection OBSERVABLE
+
+					section CONTROLLABLE
+						@input#env = "[*]";
+					endsection CONTROLLABLE
+				endprototype
+//END_OFFLINE_TEST_PHASE1
+
+//BEGIN_SERIALIZER_STATEMACHINE_PHASE1
+				prototype processor::serializer#statemachine as &avm::processor.SERIALIZER is
+					section PROPERTY
+						@form = 'XFSP';   		// XFSP | FEXE  | FSCN
+						@format = 'DOT';  		// TEXT | HTML  | DOT
+
+						@info = 'ALL';   		// ALL  | ARCHI | MODIFIED
+					endsection PROPERTY
+
+					section VFS
+						//@file = "statemachine_graph.gv";
+						//__@file_statemachine_graph = "statemachine_graph.gv";
+					endsection VFS
+				endprototype
+//END_SERIALIZER_STATEMACHINE_PHASE1
+
+//BEGIN_SERIALIZER_EXECUTION_GRAPH_PHASE1
+				prototype processor::serializer#execution_graph "serialize execution graph" as &avm::processor.SERIALIZER is
+                     section PROPERTY
+                           @form = 'FSCN';           // XFSP | FEXE | FSCN
+                           @format = 'DOT';          // TEXT | HTML | DOT
+
+                           @info = 'ALL';            // ALL | ARCHI | MODIFIED
+
+                           @data#selection = 'MODIFIED';  // ALL | MODIFIED
+
+                     endsection PROPERTY
+
+                     section FORMAT
+                           @line#wrap#width = 42;
+                           @line#wrap#separator = "\\l";
+
+                           // %1% --> graph name#id
+                           @header = "digraph model_%1% {\n";
+                           @end    = "\n}";
+
+                           // %1% --> node#id
+                           // %2% --> node#header
+                           // %3% --> node#data
+                           // %4% --> node#info
+                           // %5% --> node#fired
+                           // %6% --> node#trace
+                           @node = "\nEC%1% [\n\tlabel=\"%2%\"\n\tcolor=\"lightblue\"\n\tstyle=\"filled\"\n]%4%%3%";
+
+                           // %1% --> node#source#id
+                           // %2% --> node#target#id
+                           // %3% --> node#target#data
+                           // %4% --> node#target#info
+                           // %5% --> node#target#fired
+                           // %6% --> node#target#trace
+                           @edge = "\nEC%1% -> EC%2% [\n\tlabel=\"%5%%6%\"\n]";
+
+                           // %1% --> ec#id
+                           // %2% --> ec#eval
+                           // %3% --> ec#hight
+                           // %4% --> ec#width
+                           // %5% --> ec#weight
+                           // %6% --> statemachine configuration i.e. control node
+                           @node#header = "EC#%1%<Ev:%2%>\r%6%";
+
+                           // %1% --> ec#id
+                           // %2% --> ec#assign
+                           // %3% --> ec#path#condition
+                           // %4% --> ec#path#timed#condition
+                           // %5% --> ec#fired#condition
+                           // %6% --> ec#fired#timed#condition
+                           @node#data = "\nEC%1% -> ED%1%\nED%1% [\n\tlabel=\"%3%%4%%5%%6%%2%\"\n\tshape=box\n]";
+
+                           // %1% --> node#id
+                           // %2% --> execution info
+                           @node#info = "\nEC%1% -> EI%1%\nEI%1% [\n\tlabel=\"%2%\"\n\tshape=box\n\tcolor=\"yellow\"\n\tstyle=\"filled\"\n]";
+
+                           // %1% --> node#id
+                           // %2% --> execution fired
+                           @node#fired = "%2%";
+
+                           // %1% --> node#id
+                           // %2% --> execution trace
+                           @node#trace = "%2%";
+
+
+                           // %1% --> info id
+                           // %2% --> info data
+                           @info = "%2%";
+
+                           // %1% --> condition
+                           @path#condition = "PC: %1%";
+                           @path#timed#condition = "PtC: %1%";
+                           @fired#condition = "";//"FC: %1%";
+                           @fired#timed#condition = "";//"FtC: %1%";
+
+                           // %1% --> machine runtime pid
+                           // %2% --> machine identifier name
+                           // %3% --> port | signal | variable | machine | transition | routine
+                           // %4% --> value
+                           //@assign     = "%2%:%3%=%4%";
+                           @assign     = "%3%=%4%";
+
+                           @newfresh   = "newfresh(%1%:%3%) <- %4%";
+
+                           @machine    = "";
+                           @machine    = "run %1%:%3%";
+
+                           @transition = "fired transition %3%";
+                           @routine    = "invoke %2%:%3%";
+
+                           @input  = "INPUT %3%(%4%)";
+                           //@input  = "%1%->%3% ? ( %4% )";
+
+                           @output = "OUTPUT %3%(%4%)";
+                           //@output = "%1%->%3% ! ( %4% )";
+                     endsection FORMAT
+
+                     section TRACE
+                           // Avec cette option, seuls les échanges avec l'environnement sont "tracés"
+                           //@newfresh = "#time";
+                           //@newfresh = "total_time";
+                           //@var = "total_time";
+
+                           @com = "[*]";
+                           //@com = "Prog_Return";
+
+                           //@routine = "[*]";
+
+                           //@transition = "[*]";
+
+                           //@input = "[*]";
+                           //@output = "[*]";
+
+                           //@variable = "coffee";
+                           @variable = "[*]";
+                     endsection TRACE
+
+                     section VFS
+                           //@file = "phase1_execution_graph.gv";
+                           //__@file_phase1_execution_graph = "phase1_execution_graph.gv";
+                     endsection VFS
+				endprototype
+//END_SERIALIZER_EXECUTION_GRAPH_PHASE1
+
+			endsection PROCESSOR
+
+			// Définition de la stratégie d'évaluation symbolique: profondeur, largeur, ...
+			// Cela peut avoir une grande influence sur l'atteinte de l'objectif d'évaluation.
+			// Une couverture de transition se marie bien ("a priori"?) avec une évaluation en largeur
+			// Le préfixe "weight" est recommandé pour l'efficacité du "processor" << filter::transition_coverage >> !!!
+			// Dicussion:> l'utilsateur, "même expert", doit-il pouvoir manipuler ces options!?!
+			section QUEUE
+				prototype avm::execution_queue "execution_queue" as &avm::core.EXECUTION_QUEUE is
+					section PROPERTY
+						// 'DFS' | 'DEPTH_FIRST_SEARCH'
+						// 'BFS' | 'BREADTH_FIRST_SEARCH'
+						// 'RFS' | 'RANDOM_FIRST_SEARCH'
+						// 'WEIGHT_{DFS | BFS | RFS | XFS}'
+						@strategy = '__EXECUTION_QUEUE_STRATEGY__';
+					endsection PROPERTY
+				endprototype
+			endsection QUEUE
+
+			// Model Of Evaluation
+			// Définition des objectifs d'évaluation !
+			section MOE
+				@queue = &avm::execution_queue;
+
+				@pre_process = ${ |;|
+					//__PHASE1_&processor::serializer#statemachine
+				};
+
+				// phase dynamique (on the fly) de l'évaluation
+				// Avant un pas de calcul
+				@pre_filter = ${ |;|
+					&filter::stop_criteria
+					//__PHASE1_&filter::transition_coverage
+					//__PHASE1_&process::hit_or_jump
+					//__&process::offline_test
+					//__PHASE1_&filter::redundancy
+				};
+
+				// Après un pas de calcul
+				@post_filter = ${ |;|
+					&filter::stop_criteria
+					//__PHASE1_&filter::transition_coverage
+					//__&process::offline_test
+				};
+
+				@post_process = ${ |;|
+					//__PHASE1_&processor::serializer#execution_graph
+					//__&process::offline_test
+				};
+			endsection MOE // Model Of Evaluation
+
+			section OUTPUT
+    			@specification = "phase1.xfsp";
+				// intermediate format of the specification (eventually to consider for debug)
+				//__PHASE1_@executable = "__PHASE1_EXE__";
+
+				// symbolic execution tree in Diversity text format
+				//	(use the existing diversity translator to get the gv file for grahical reprepresentation)
+				//__PHASE1_@scenarii = "__PHASE1_FSCN__";
+				//@graph = "phase1.fet";
+			endsection OUTPUT
+		endprototype // the main engine
+
+		// the scenario_generation engine
+		prototype engine::io_continuation "io_continuation" as &avm::core.Engine is
+
+			section PROCESSOR
+
+				// PRE_PROCESSORS
+				prototype process::execution_chain "execution_chain" as &avm::core.process.EXECUTION_CHAIN is
+					section PROPERTY
+					endsection PROPERTY
+
+					section TRACE
+						@output = "env";
+			     	endsection TRACE
+				endprototype
+
+				// FILTER
+				prototype filter::stop_criteria_2 "stop_criteria_2" as &avm::core.filter.STOP_CRITERIA is
+					section PROPERTY
+						@node   = -1;
+						@save   = -1;
+
+						@eval   = __EVAL2__;
+
+						@height = -1;
+						@width  = -1;
+					endsection PROPERTY
+
+					section LOG
+						// Affichage count / limit_max  si limit max est défini, sinon seulement count
+						// %1% --> eval step count
+						// %2% --> context count
+						// %3% --> context height
+						// %3% --> context width
+						@eval   = "\nstep:%1% , context:%2% , height:%3% , width:%4%";
+						@result = "\nstep:%1% , context:%2% , height:%3% , width:%4%";
+						@report = "\nstop:%1% , context:%2% , height:%3% , width:%4%";
+					endsection LOG
+				endprototype
+
+//BEGIN_HOJ_PHASE2
+			    prototype process::hit_or_jump as avm::processor.HIT_OR_JUMP is
+			    	section PROPERTY
+			    		// Nombre de pas de calcul "cumulés" avant de débuter la vérification de la couverture
+						@begin_step = 0;
+
+						@heuristic = true;
+
+						// Arrète l'exécution dès que la couverture est complète
+						@stop = true;
+
+						// Elagage du graphe des scénarios à la fin de la vérification
+						@slice = true;
+
+						// Cherche une trace globalement ou locale à chaque noeud racine...
+						@search#scope = 'LOCALLY'; // GLOBALLY | LOCALLY ;
+
+						// Hauteur du jump
+						@jump#height = 5;
+
+						// Nb max de jump pour une racine
+						@jump#limit = 2;
+
+						// Nombre de chemins positifs souhaités ALEATOIREMENT
+						@hit#count  = 1;
+
+						// Choisir des traces avec ou sans trous
+						@hit#consecutive = false;
+
+						// Choisir uniquement les préfix de longueur maximale
+						@hit#max = false;
+
+						// Nombre de chemins négatifs souhaités ALEATOIREMENT
+						// -1 pour tous
+						@jump#count  = -1;
+
+						// Elagage intermédiaire en fin de hit ou jump
+						@jump#slice  = false;
+
+						// |;|     --> ordered     (operator: sequence)
+						// |i|     --> unordered   (operator: interleaving)
+						// |regex| --> regex       (operator: regex)
+						@scheduler = '|;|';
+					endsection PROPERTY
+
+					section TRACE
+						@output = "env";
+						//@com = "env";
+			     	endsection TRACE
+
+			     	section LOG
+						// %1% --> number of Covered Elements
+						// %2% --> number of Elements
+						@bound  = " , coverage: %1% / %2%";
+						@eval   = " , coverage: %1% / %2%";
+						@result = " , coverage: %1% / %2%";
+						@report = " , coverage: %1% / %2%";
+			     	endsection LOG
+			    endprototype
+//END_HOJ_PHASE2
+
+//BEGIN_GRAPH_SLICER_IO_PHASE2
+				prototype process::graph_slicer_io "graph_slicer_io" as &avm::core.process.GRAPH_SLICER is
+					section PROPERTY
+						@strategy = 'BOTTOM_UP'; 			// BOTTOM_UP | TOP_DOWN
+
+						@complete = false;					// complete or partial slicing: stop or not on the first positive criterion
+
+						@edge_min = 2;						// slice le context si l'a strictement moins de fils que la limite souhait�
+
+						@trace_prog = false; 				// preserve or not the trace AvmProgram
+						@trace_code = false; 				// preserve or not the trace AvmCode (input, output, ...)
+
+						@combinator = 'OR'; 				// XOR --> exclusive, OR --> disjonction, AND --> conjonction, NOT --> negation of all
+					endsection PROPERTY
+
+					section INFO 							// list of INFO, INFO.ID or INFO.DATA details
+						@id = &filter::transition_coverage;
+						@id = &filter::input_output;
+//						@id = &filter::init_state;
+					endsection INFO
+				endprototype
+//END_GRAPH_SLICER_IO_PHASE2
+
+//BEGIN_BASIC_TRACE_GENERATOR_PHASE2
+				// "Processor" dédié à la génération de tests au format BASIC à la fin de l'évaluation symbolique
+				prototype process::BASIC_trace_generator as &avm::processor.TRACE_GENERATOR is
+					// Définition des ressources utilisées pour les sorties:
+					// ici de simples dossiers ou fichiers
+					// TODO socket...
+					section REPORT
+						@folder = "__BASIC_FOLDER_NAME__";
+						@file = "__BASIC_FILE_NAME__";
+					endsection REPORT
+
+					section PROPERTY
+					    // 'OMEGA' | 'CVC4' | 'Z3' | 'YICES'
+					    @solver = 'CVC4';
+
+						@format = 'BASIC';
+//						@format = 'TTCN#XLIA';
+//						@format = 'TTCN#SDL';
+//						@format = 'BASIC#SDL';
+
+						// pour supprimer les scénarios redondants
+						//__BASIC__@normalize = true;
+
+						@print_initialization_values = false;
+
+						@data#selection = 'MODIFIED';	// ALL | MODIFIED
+					endsection PROPERTY
+
+					section INIT
+						// TODO : variables dont on veut afficher la valeur initiale
+//						@variable = "toto";
+					endsection INIT
+
+					 section FORMAT
+					  // %1% --> trace number
+					  @header = "TRACE NUMBER %1%\n\n";
+					  @end    = "\n";
+
+					  // %1% --> ec#id
+					  // %2% --> ec#eval
+					  // %3% --> ec#hight
+					  // %4% --> ec#width
+					  // %5% --> ec#weight
+					  // %6% --> statemachine configuration i.e. control node
+					  @context#ufid = "ctx< id:%1% , ev:%2% , H:%3% > %6%";
+
+					  // %1% --> trace number
+					  // %2% --> execution context leaf ufid
+					  //@step#begin = "step %1% %2%\n";
+
+					  @separator = "%1%";
+
+					  //@step#begin = "step %1%\n";
+					  //@step#end   = "}\n";
+
+					  // %1% --> machine
+					  // %2% --> port | signal | variable
+					  // %3% --> value
+					  @time   = "\tdelta = %3%\n";
+
+					  @assign = "\t%2% = %3%\n";
+
+					  @newfresh = "\tnewfresh %1%->%2%( %3% )\n";
+
+					  //@input  = "\tinput  %1%->%2%( %3% )\n";
+					  @input  = "\tINPUT  %1%->%2%( %3% )\n";
+
+					  //@output = "\toutput %1%->%2%( %3% )\n";
+					  @output = "\tOUTPUT %1%->%2%( %3% )\n";
+					 endsection FORMAT
+
+					section TRACE
+					    @newfresh = "#time";
+
+						//__BASIC__@input#env = "[*]";
+						//__BASIC__@output#env = "[*]";
+
+						// Tous les échanges avec l'environnement
+						// et internes sont "tracés"
+						//__BASIC__@com = "[*]";
+
+						//__InputOutputListToCover
+
+						// Toutes les transitions tirées "tracées"
+						//__BASIC__@transition = "[*]";
+
+						//__TransitionListToCover
+
+					endsection TRACE
+				endprototype
+//END_BASIC_TRACE_GENERATOR_PHASE2
+
+//BEGIN_TTCN_TRACE_GENERATOR_PHASE2
+				// "Processor" dédié à la génération de tests au format TTCN à la fin de l'évaluation symbolique
+				prototype process::TTCN_trace_generator as &avm::processor.TRACE_GENERATOR is
+					// Définition des ressources utilisées pour les sorties:
+					// ici de simples dossiers ou fichiers
+					// TODO socket...
+					section REPORT
+						@folder = "__TTCN_FOLDER_NAME__";
+					endsection REPORT
+
+					section PROPERTY
+					    // 'OMEGA' | 'CVC4' | 'Z3' | 'YICES'
+					    @solver = 'CVC4';
+
+//						@format = 'BASIC';
+						@format = 'TTCN#XLIA';
+//						@format = 'TTCN#SDL';
+//						@format = 'BASIC#SDL';
+
+						@normalize = true; // pour supprimer les scénarios redondants
+						@print_initialization_values = false;
+
+						@data#selection = 'MODIFIED';	// ALL | MODIFIED
+					endsection PROPERTY
+
+					section INIT
+						// TODO : variables dont on veut afficher la valeur initiale
+//						@variable = "toto";
+					endsection INIT
+
+					 section FORMAT
+					  // %1% --> trace number
+					  @header = "TRACE NUMBER %1%\n\n";
+					  @end    = "\n";
+
+					  // %1% --> ec#id
+					  // %2% --> ec#eval
+					  // %3% --> ec#hight
+					  // %4% --> ec#width
+					  // %5% --> ec#weight
+					  // %6% --> statemachine configuration i.e. control node
+					  @context#ufid = "ctx< id:%1% , ev:%2% , H:%3% > %6%";
+
+					  // %1% --> trace number
+					  // %2% --> execution context leaf ufid
+					  //@step#begin = "step %1% %2%\n";
+
+					  @separator = "%1%";
+
+					  //@step#begin = "step %1%\n";
+					  //@step#end   = "}\n";
+
+					  // %1% --> machine
+					  // %2% --> port | signal | variable
+					  // %3% --> value
+					  @time   = "\tdelta = %3%\n";
+
+					  @assign = "\t%2% = %3%\n";
+
+					  @newfresh = "\tnewfresh %1%->%2%( %3% )\n";
+
+					  //@input  = "\tinput  %1%->%2%( %3% )\n";
+					  @input  = "\tINPUT  %2%( %3% )\n";
+
+					  //@output = "\toutput %1%->%2%( %3% )\n";
+					  @output = "\tOUTPUT %2%( %3% )\n";
+					 endsection FORMAT
+
+					section TRACE
+						// Avec cette option, seuls les échanges avec l'environnement sont "tracés"
+						@input#env = "[*]";
+						@output#env = "[*]";
+					endsection TRACE
+				endprototype
+//END_TTCN_TRACE_GENERATOR_PHASE2
+
+//BEGIN_SERIALIZER_EXECUTION_GRAPH_PHASE2
+				//processor< serializer > serializer#execution_graph
+				prototype processor::serializer#execution_graph as &avm::processor.SERIALIZER is
+					section PROPERTY
+						@form = 'FSCN';   		// XFSP | FEXE | FSCN
+						@format = 'DOT';  		// TEXT | HTML | DOT
+
+						@info = 'ALL';   		// ALL | ARCHI | MODIFIED
+
+						@data#selection = 'MODIFIED';  // ALL | MODIFIED
+
+					endsection PROPERTY
+					section FORMAT
+						@line#wrap#width = 42;
+						@line#wrap#separator = "\\l";
+
+						// %1% --> graph name#id
+						@header = "digraph model_%1% {\n";
+						@end    = "\n}";
+
+						// %1% --> node#id
+						// %2% --> node#header
+						// %3% --> node#data
+						// %4% --> node#info
+						// %5% --> node#fired
+						// %6% --> node#trace
+						@node = "\nEC%1% [\n\tlabel=\"%2%\"\n\tcolor=\"lightblue\"\n\tstyle=\"filled\"\n]%4%%3%";
+
+						// %1% --> node#source#id
+						// %2% --> node#target#id
+						// %3% --> node#target#data
+						// %4% --> node#target#info
+						// %5% --> node#target#fired
+						// %6% --> node#target#trace
+						@edge = "\nEC%1% -> EC%2% [\n\tlabel=\"%5%%6%\"\n]";
+
+						// %1% --> ec#id
+						// %2% --> ec#eval
+						// %3% --> ec#hight
+						// %4% --> ec#width
+						// %5% --> ec#weight
+						// %6% --> statemachine configuration i.e. control node
+						@node#header = "EC#%1%<Ev:%2%>\r%6%";
+
+						// %1% --> ec#id
+						// %2% --> ec#assign
+						// %3% --> ec#path#condition
+						// %4% --> ec#path#timed#condition
+						// %5% --> ec#fired#condition
+						// %6% --> ec#fired#timed#condition
+						@node#data = "\nEC%1% -> ED%1%\nED%1% [\n\tlabel=\"%3%%4%%5%%6%%2%\"\n\tshape=box\n]";
+
+						// %1% --> node#id
+						// %2% --> execution info
+						@node#info = "\nEC%1% -> EI%1%\nEI%1% [\n\tlabel=\"%2%\"\n\tshape=box\n\tcolor=\"yellow\"\n\tstyle=\"filled\"\n]";
+
+						// %1% --> node#id
+						// %2% --> execution fired
+						@node#fired = "%2%";
+
+						// %1% --> node#id
+						// %2% --> execution trace
+						@node#trace = "%2%";
+
+
+						// %1% --> info id
+						// %2% --> info data
+						@info = "%2%";
+
+						// %1% --> condition
+						@path#condition = "";//"PC: %1%";
+						@path#timed#condition = "";//"PtC: %1%";
+						@fired#condition = "FC: %1%";
+						@fired#timed#condition = "";//"FtC: %1%";
+
+						// %1% --> machine runtime pid
+						// %2% --> machine identifier name
+						// %3% --> port | signal | variable | machine | transition | routine
+						// %4% --> value
+						@assign     = "%2%:%3%=%4%";
+
+						@newfresh   = "newfresh(%1%:%3%) <- %4%";
+
+						@machine    = "";
+						@machine    = "run %1%:%3%";
+
+						@transition = "fired %3%";
+						@routine    = "invoke %2%:%3%";
+
+						@input  = "%3% ? %4%";
+						@input  = "%1%->%3% ? ( %4% )";
+
+						@output = "%3% ! %4%";
+						@output = "%1%->%3% ! ( %4% )";
+					endsection FORMAT
+					section TRACE
+						// Avec cette option, seuls les échanges avec l'environnement sont "tracés"
+						//@newfresh = "#time";
+						//@newfresh = "total_time";
+						//@var = "total_time";
+
+						//@com = "[*]";
+						//@com = "Prog_Return";
+
+						//@routine = "[*]";
+
+						//@transition = "[*]";
+
+						//@input = "[*]";
+						//@output = "[*]";
+
+						//@variable = "coffee";
+						//@variable = "[*]";
+					endsection TRACE
+					section VFS
+						//@file = "phase2_execution_graph.gv";
+						//__@file_phase2_execution_graph = "phase2_execution_graph.gv";
+					endsection VFS
+				endprototype
+//END_SERIALIZER_EXECUTION_GRAPH_PHASE2
+
+			endsection PROCESSOR
+
+			section QUEUE
+				prototype avm::execution_queue "execution_queue" as &avm::core.EXECUTION_QUEUE is
+					section PROPERTY
+						// 'DFS' | 'DEPTH_FIRST_SEARCH'
+						// 'BFS' | 'BREADTH_FIRST_SEARCH'
+						// 'RFS' | 'RANDOM_FIRST_SEARCH'
+						// 'WEIGHT_{DFS | BFS | RFS | XFS}'
+						@strategy = 'WEIGHT_BFS';
+					endsection PROPERTY
+				endprototype
+			endsection QUEUE
+
+			section MOE
+				@queue = &avm::execution_queue;
+
+				@pre_filter = ${ |;|
+					&filter::stop_criteria_2
+					//__PHASE2_&process::hit_or_jump
+				};
+
+				@post_filter = ${ |;|
+					&filter::stop_criteria_2
+				};
+
+				@pre_process  = &process::execution_chain;
+
+				// phase statique sur le l'arbre d'évaluation obtenu
+				@post_process = ${ |;|
+					//__&process::graph_slicer_io
+					//__&process::BASIC_trace_generator
+					//__&process::TTCN_trace_generator
+					//__PHASE2_&processor::serializer#execution_graph
+				};
+
+			endsection MOE
+
+			section OUTPUT
+    			@specification = "phase2.xfsp";
+				// intermediate format of the specification (eventually to consider for debug)
+				//__PHASE2_@executable = "__PHASE2_EXE__";
+
+				// symbolic execution tree in Diversity text format
+				//	(use the existing diversity translator to get the gv file for grahical reprepresentation)
+				//__PHASE2_@scenarii = "__PHASE2_FSCN__";
+				//@graph = "phase2.fet";
+			endsection OUTPUT
+
+		endprototype
+
+		@moc = ${ |;|
+			&engine::main
+			//__&engine::io_continuation
+		};
+	endsection MOC // Model Of Computation
+
+	section AVM
+		@separation_of_pc_disjunction = false;
+		@check_pathcondition_satisfiability = true;
+
+		@constraint_solver = 'CVC4'; // OMEGA | CVC4 | CVC3_INT | CVC3_BV32 | Z3 | YICES
+
+		// Critère d'arrêt inconditionnel multi-plateforme !
+		// Diversity vérifie périodiquement (tous les 1000 pas de calcul, "paramètre en dur"!)
+		// l'existence de ce fichier dans le sous-dossier "log" de LOCATION@project
+		@stop = "stop.avm";
+
+		// Niveau de trace sur la console
+		@verbose = "__CONSOLE_TRACE_LEVEL__"; // SILENT < MINIMUM < MEDIUM < MAXIMUM
+	endsection AVM
+
+	section TRACE
+		//__@log = "__AVM_LOG__";
+		//__@debug = "__AVM_TRACE__";
+
+		@level = '__TRACE_LEVEL__'; // ZERO < LOW < MEDIUM < HIGH < ULTRA
+
+		//__@kind = 'PARSING';
+		//__@kind = 'COMPILING';
+		//__@kind = 'COMPUTING';
+
+		//__@kind = 'PROCESSOR';
+		//__@kind = 'PROGRAM';
+
+		//__@kind = 'STMNT_ASSIGN';
+		//__@kind = 'STATEMENT';
+		//__@kind = 'BYTECODE';
+		//__@kind = 'STMNT_COM';
+		//__@kind = 'SOLVER';
+		//__@kind = 'DATA';
+		//__@kind = 'REPORTING';
+		//__@kind = 'CONFIGURE';
+		//__@kind = 'REDUNDANCE';
+		//__@kind = 'TRACE';
+	endsection TRACE
+endform

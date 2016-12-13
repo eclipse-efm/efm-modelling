@@ -6,15 +6,16 @@
 		<groupId>org.eclipse.efm</groupId>
 		<artifactId>org.eclipse.efm.modeling.parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-	</parent>	
-	<artifactId>org.eclipse.efm.modeling.core</artifactId>
+	</parent>
+	<artifactId>org.eclipse.efm.modeling.gui</artifactId>
 	<packaging>pom</packaging>
-	<name>org.eclipse.efm-modeling Core</name>
-	<description>org.eclipse.efm-modeling Core contains all semantic information for modeling profile. These modules should'nt contain any gui elements.</description>
+	<name>org.eclipse.efm-modeling GUI</name>
+	<description>This module contains the different plugins relative to the graphical user interface for efm-modeling</description>
+
 	<modules>
-		<!--  module>org.eclipse.efm.formalml</module>
-		<module>org.eclipse.efm.formalml.tests</module>
-		<module>org.eclipse.efm.papyrus.service.types</module-->
-		<module>org.eclipse.efm.modeling</module>
+		<module>org.eclipse.efm.runconfiguration</module>
+		<!--  module>org.eclipse.efm.ui.wizard.newproject</module>
+		<module>org.eclipse.efm.papyrus.views.common</module>
+		<module>org.eclipse.efm.papyrus.views.property.concretesyntax</module-->
 	</modules>
 </project>

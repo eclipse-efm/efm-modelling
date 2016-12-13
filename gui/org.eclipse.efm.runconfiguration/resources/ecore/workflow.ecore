@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="workflow" nsURI="http://www.eclipse.org/efm/Workflow" nsPrefix="Workflow">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Workflow" eSuperTypes="#//NamedObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="manifest" lowerBound="1"
+        eType="#//common/Manifest" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="workspace" eType="#//common/Workspace"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="director" upperBound="-1"
+        eType="#//Director" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="symbexOption" eType="#//common/SymbexOption"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="console" eType="#//common/ConsoleLogFormat"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shellMode" eType="#//common/ShellMode"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="developerTuning" eType="#//common/DeveloperTuningOption"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Director" eSuperTypes="#//NamedObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="manifest" lowerBound="1"
+        eType="#//common/Manifest" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="workflow" eType="#//Workflow"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="project" eType="#//common/Project"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supervisor" eType="#//SupervisorWorker"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="worker" upperBound="-1"
+        eType="#//Worker" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="console" eType="#//common/ConsoleLogFormat"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="developerTuning" eType="#//common/DeveloperTuningOption"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Worker" eSuperTypes="#//NamedObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="manifest" lowerBound="1"
+        eType="#//common/Manifest" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="director" eType="#//Director"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="console" eType="#//common/ConsoleLogFormat"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SupervisorWorker" eSuperTypes="#//Worker">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="limit" eType="#//common/GraphExplorationLimit"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="queue" eType="#//common/GraphExplorationQueue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extender" eType="#//common/TraceSpecification"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CoverageWorker" abstract="true" eSuperTypes="#//Worker">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trace" eType="#//common/TraceSpecification"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="normalizationEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimizationEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stopWhenComplete" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="breakEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sliceWhenComplete" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="heuristicEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scope" eType="#//common/CoverageScopeKind"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="heuristicConfig" eType="#//common/CoverageHeuristic"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestWorker" abstract="true" eSuperTypes="#//Worker"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Serializer" abstract="true" eSuperTypes="#//Worker">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="format" eType="#//common/TraceSpecification"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trace" eType="#//common/TraceSpecification"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="folderName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledNormalization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showInitialization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eSubpackages name="common" nsURI="http://www.eclipse.org/efm/Workflow/Common" nsPrefix="Common">
+    <eClassifiers xsi:type="ecore:EClass" name="Workspace">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="location" eType="#//common/Location"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="project" eType="#//common/Project"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Location">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="root" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="output" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="output"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="log" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="log"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="debug" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="debug"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Project">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="."/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="model" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="GraphExplorationStrategyKind">
+      <eLiterals name="BEST_FIRST_SEARCH" literal="BEST_FIRST_SEARCH"/>
+      <eLiterals name="BREADTH_FIRST_SEARCH" value="1" literal="BREADTH_FIRST_SEARCH"/>
+      <eLiterals name="DEPTH_FIRST_SEARCH" value="2" literal="DEPTH_FIRST_SEARCH"/>
+      <eLiterals name="RANDOM_FIRST_SEARCH" value="3" literal="RANDOM_FIRST_SEARCH"/>
+      <eLiterals name="XFS" value="4"/>
+      <eLiterals name="FIRST" value="5"/>
+      <eLiterals name="LAST" value="6"/>
+      <eLiterals name="ALL" value="7" literal="ALL"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GraphExplorationLimit">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="eval" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="node" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="report" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="save" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GraphExplorationQueue">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="strategy" eType="#//common/GraphExplorationStrategyKind"
+          defaultValueLiteral="BREADTH_FIRST_SEARCH"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="heuristic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ConsoleVerboseKind">
+      <eLiterals name="UNDEFINED"/>
+      <eLiterals name="SILENT" value="1" literal="SILENT"/>
+      <eLiterals name="MINIMUM" value="2"/>
+      <eLiterals name="MEDIUM" value="3"/>
+      <eLiterals name="MAXIMUM" value="4"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConsoleLogFormat">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="format" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="bound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="step" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="result" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="report" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="verbose" eType="#//common/ConsoleVerboseKind"
+          defaultValueLiteral="UNDEFINED"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="TraceElementKind">
+      <eLiterals name="UNDEFINED" literal="undefined"/>
+      <eLiterals name="CONDITION" value="1" literal="condition"/>
+      <eLiterals name="DECISION" value="2" literal="decision"/>
+      <eLiterals name="FORMULA" value="3" literal="formula"/>
+      <eLiterals name="PATH_CONDITION" value="4" literal="path#condition"/>
+      <eLiterals name="PATH_CONDITION_LEAF" value="5" literal="path#condition#leaf"/>
+      <eLiterals name="PATH_TIMED_CONDITION" value="6" literal="path#timed#condition"/>
+      <eLiterals name="PATH_TIMED_CONDITION_LEAF" value="7" literal="path#timed#condition#leaf"/>
+      <eLiterals name="NODE_CONDITION" value="8" literal="node#condition"/>
+      <eLiterals name="NODE_CONDITION_LEAF" value="9" literal="node#condition#leaf"/>
+      <eLiterals name="NODE_TIMED_CONDITION" value="10" literal="node#timed#condition"/>
+      <eLiterals name="NODE_TIMED_CONDITION_LEAF" value="11" literal="node#timed#condition#leaf"/>
+      <eLiterals name="ASSIGN" value="12" literal="assign"/>
+      <eLiterals name="DELTA" value="13" literal="delta"/>
+      <eLiterals name="TIME" value="14" literal="time"/>
+      <eLiterals name="VARIABLE" value="15" literal="variable"/>
+      <eLiterals name="NEWFRESH" value="16" literal="newfresh"/>
+      <eLiterals name="COM" value="17" literal="com"/>
+      <eLiterals name="INOUT" value="18" literal="inout"/>
+      <eLiterals name="INPUT" value="19" literal="input"/>
+      <eLiterals name="OUTPUT" value="20" literal="output"/>
+      <eLiterals name="INPUT_ENV" value="21" literal="input#env"/>
+      <eLiterals name="OUTPUT_ENV" value="22" literal="output#env"/>
+      <eLiterals name="INPUT_RDV" value="23" literal="input#rdv"/>
+      <eLiterals name="OUTPUT_RDV" value="24" literal="output#rdv"/>
+      <eLiterals name="INPUT_BUFFER" value="25" literal="input#buffer"/>
+      <eLiterals name="OUTPUT_BUFFER" value="26" literal="output#buffer"/>
+      <eLiterals name="INPUT_VAR" value="27" literal="input#var"/>
+      <eLiterals name="OUTPUT_VAR" value="28" literal="output#var"/>
+      <eLiterals name="PORT" value="29" literal="port"/>
+      <eLiterals name="SIGNAL" value="30" literal="signal"/>
+      <eLiterals name="MESSAGE" value="31" literal="message"/>
+      <eLiterals name="CHANNEL" value="32" literal="channel"/>
+      <eLiterals name="BUFFER" value="33" literal="buffer"/>
+      <eLiterals name="RUNNABLE" value="34" literal="runnable"/>
+      <eLiterals name="ROUTINE" value="35" literal="routine"/>
+      <eLiterals name="TRANSITION" value="36" literal="transition"/>
+      <eLiterals name="MACHINE" value="37" literal="machine"/>
+      <eLiterals name="STATE" value="38" literal="state"/>
+      <eLiterals name="STATEMACHINE" value="39" literal="statemachine"/>
+      <eLiterals name="SYSTEM" value="40" literal="system"/>
+      <eLiterals name="FILE_HEADER" value="41" literal="header"/>
+      <eLiterals name="FILE_BEGIN" value="42" literal="begin"/>
+      <eLiterals name="FILE_END" value="43" literal="end"/>
+      <eLiterals name="TESTCASE_HEADER" value="44" literal="testcase#header"/>
+      <eLiterals name="TESTCASE_BEGIN" value="45" literal="testcase#begin"/>
+      <eLiterals name="TESTCASE_END" value="46" literal="testcase#end"/>
+      <eLiterals name="INIT_HEADER" value="47" literal="init#header"/>
+      <eLiterals name="INIT_BEGIN" value="48" literal="init#begin"/>
+      <eLiterals name="INIT_END" value="49" literal="init#end"/>
+      <eLiterals name="STEP_HEADER" value="50" literal="step#header"/>
+      <eLiterals name="STEP_BEGIN" value="51" literal="step#begin"/>
+      <eLiterals name="STEP_END" value="52" literal="step#end"/>
+      <eLiterals name="COMMENT" value="53" literal="comment"/>
+      <eLiterals name="SEPARATOR" value="54" literal="separator"/>
+      <eLiterals name="NEWLINE" value="55" literal="newline"/>
+      <eLiterals name="NEXT" value="56" literal="next"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TraceElement">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="nature" eType="#//common/TraceElementKind"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TraceSpecification" eSuperTypes="#//NamedObject">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="element" upperBound="-1"
+          eType="#//common/TraceElement" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Manifest">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoconf" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="autostart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SymbexOption"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ShellMode" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="stop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="&quot;stop.symbex&quot;"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="HeuristicClassKind">
+      <eLiterals name="BASIC"/>
+      <eLiterals name="NAIVE" value="1" literal="NAIVE"/>
+      <eLiterals name="SMART" value="2"/>
+      <eLiterals name="AGRESSIVE" value="3" literal="AGRESSIVE"/>
+      <eLiterals name="NOTHING_ELSE" value="4"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CoverageHeuristic">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="heuristicTrials" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectiveRateGoal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectiveRestGoal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="heuristicStart" eType="#//common/HeuristicClassKind"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directiveTraceCount"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directiveTraceSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directiveTraceHeuristic"
+          eType="#//common/HeuristicClassKind"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lookaheadDepth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lookaheadWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitStronglyRandomEnabled"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitStronglyCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitWeaklyRandomEnabled"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitWeaklyCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitOtherRandomEnabled"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitOtherCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="CoverageScopeKind">
+      <eLiterals name="MODEL" literal="MODEL"/>
+      <eLiterals name="INSTANCE" value="1" literal="INSTANCE"/>
+      <eLiterals name="DETAILS" value="2" literal="DETAILS"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="CheckingScopeKind">
+      <eLiterals name="GLOBALLY" literal="GLOBALLY"/>
+      <eLiterals name="LOCALLY" value="1" literal="LOCALLY"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DeveloperTuningOption">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="logTraceFilename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="debugTraceFilename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="debugLevel" eType="#//common/DebuglevelKind"
+          defaultValueLiteral="ZERO"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="debugFilename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="outputFilename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="specificationFilename"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="executableFilename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="symbexGraphFilename"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="parsedModelFilename"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="compiledModelFilename"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="symbexTraceFilename"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledParsing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledConfigure" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledCompiling" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledLoading" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledComputing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledReporting" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledSolver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledProfiling" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledAllProcessStage"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledPreProcessing"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledPostProcessing"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledProcessing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledPreFiltering"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledPostFiltering"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledFiltering" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledQueue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledProgram" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledStatement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledStatementAssignment"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledStatementCommunication"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledStatementTestDecision"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledBytecode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledData" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledVariable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledBuffer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledPort" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledSignal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledConnexion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledExecutable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledActivity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledRoutine" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledTransition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledMachine" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledStatemachine"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledNameId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledQualifiedNameId"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledFullyQualifiedNameId"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledRedundance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledReferenceCounting"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledNothing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledGodMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="DebuglevelKind">
+      <eLiterals name="NONE" value="-1"/>
+      <eLiterals name="ZERO" literal="ZERO"/>
+      <eLiterals name="LOW" value="1" literal="LOW"/>
+      <eLiterals name="MEDIUM" value="2" literal="MEDIUM"/>
+      <eLiterals name="HIGH" value="3" literal="HIGH"/>
+      <eLiterals name="ULTRA" value="4"/>
+      <eLiterals name="GOD_MODE" value="5" literal="GOD_MODE"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="coverage" nsURI="http://www.eclipse.org/efm/Workflow/Coverage"
+      nsPrefix="Coverage">
+    <eClassifiers xsi:type="ecore:EClass" name="TransitionCoverageWorker" eSuperTypes="#//CoverageWorker"/>
+    <eClassifiers xsi:type="ecore:EClass" name="InputOutputCoverageWorker" eSuperTypes="#//CoverageWorker"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ConditionCoverageWorker" eSuperTypes="#//CoverageWorker"/>
+    <eClassifiers xsi:type="ecore:EClass" name="DecisionCoverageWorker" eSuperTypes="#//CoverageWorker"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ConditionDecisionCoverageWorker" eSuperTypes="#//CoverageWorker"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ModifiedConditionDecisionCoverageWorker"
+        eSuperTypes="#//CoverageWorker"/>
+    <eClassifiers xsi:type="ecore:EClass" name="BehaviorCoverageWorker" eSuperTypes="#//CoverageWorker">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkingScope" eType="#//common/CheckingScopeKind"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="orderedTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitConsecutive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitFolding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitMax" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitLucky" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="jumpHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="jumpTrialsLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="jumpCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="jumpSlice" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" eType="#//common/TraceSpecification"
+          containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="test" nsURI="http://www.eclipse.org/efm/Workflow/Test" nsPrefix="Test">
+    <eClassifiers xsi:type="ecore:EClass" name="OfflineTestWorker" eSuperTypes="#//Worker">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mergedTraceFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="testPurposeFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="observable" eType="#//common/TraceSpecification"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="controllable" eType="#//common/TraceSpecification"
+          containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="serializer" nsURI="http://www.eclipse.org/efm/Workflow/Serializer"
+      nsPrefix="Serializer">
+    <eClassifiers xsi:type="ecore:EClass" name="ModelGraphvizSerializerWorker" eSuperTypes="#//Serializer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SymbexGraphVizSerializerWorker" eSuperTypes="#//Serializer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="BasicTraceSerializer" eSuperTypes="#//Serializer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TTCNTraceSerializer" eSuperTypes="#//Serializer">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledCustomization"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledAdapters" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="controlModuleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="declarationsModuleName"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="templatesModuleName"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="testcasesModuleName"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="testcasesStartingWrapper"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="testcasesEndingWrapper"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="testcasesSendingWrapper"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="testcasesReceivingWrapper"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="adaptationModuleName"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="adaptationUtilsImpl"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="adaptationStartingEndingImpl"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="adaptationSendingImpl"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="adaptationReceivingImpl"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>
