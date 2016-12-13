@@ -73,6 +73,7 @@
 
 	<modules>
 		<module>core</module>
+		<module>codegen</module>
 		<module>diagram</module>
 		<module>editor</module>
 		<module>gui</module>

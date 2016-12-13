@@ -1,0 +1,199 @@
+/*******************************************************************************
+ * Copyright (c) 2016 CEA LIST
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - initial API and implementation
+ *******************************************************************************/
+package org.eclipse.efm.formalml.concretesyntax.m2t.factory;
+
+import org.eclipse.efm.formalml.concretesyntax.m2t.util.PrettyPrintWriter;
+import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.DataType;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.Enumeration;
+import org.eclipse.uml2.uml.EnumerationLiteral;
+import org.eclipse.uml2.uml.MultiplicityElement;
+import org.eclipse.uml2.uml.PrimitiveType;
+import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.TypedElement;
+import org.eclipse.uml2.uml.ValueSpecification;
+
+public class DataTypeCodeGenerator extends AbstractCodeGenerator {
+
+	/**
+	 * Constructor
+	 */
+	public DataTypeCodeGenerator(MainCodeGenerator supervisor) {
+		super(supervisor);
+	}
+
+
+	/**
+	 * performTransform dispatcher for any element to a writer
+	 * @param element
+	 * @param writer
+	 */
+	public void performTransformImpl(Element element, PrettyPrintWriter writer) {
+		if( element instanceof Enumeration ) {
+			transformEnumeration((Enumeration)element, writer);
+		}
+
+		else if( element instanceof EnumerationLiteral ) {
+			transformEnumerationLiteral((EnumerationLiteral)element, writer);
+		}
+
+		else if( element instanceof DataType ) {
+			transformDataType((DataType)element, writer);
+		}
+
+		else {
+			performTransformError(this, element);
+		}
+	}
+
+
+	/**
+	 * performTransform an Enumeration element to a writer
+	 * @param element
+	 * @param writer
+	 */
+	public void transformEnumeration(
+			Enumeration element, PrettyPrintWriter writer) {
+		writer.appendTab(element.getVisibility().toString())
+			.append(" type ")
+			.append(element.getName())
+			.appendEol(" enum {");
+		boolean firstElt = true;
+		for( EnumerationLiteral literal : ((Enumeration)element).getOwnedLiterals() ) {
+			if(  firstElt ) {
+				writer.appendTab2(literal.getName());
+				firstElt = false;
+			}
+			else {
+				writer.appendEol(",")
+				.appendTab2(literal.getName());
+			}
+		}
+		writer.appendEolTab_Eol("}");
+	}
+
+	/**
+	 * performTransform an Enumeration Literal element to a writer
+	 * @param element
+	 * @param writer
+	 */
+	public void transformEnumerationLiteral(
+			EnumerationLiteral element, PrettyPrintWriter writer) {
+		writer.appendTab(element.getVisibility().toString())
+			.append(' ')
+			.append(element.getName());
+
+		ValueSpecification value = element.getSpecification();
+		if( value != null ) {
+			writer.append(" = ");
+			fSupervisor.transformValueSpecification(value, writer);
+		}
+
+		writer.appendEol();
+	}
+
+	/**
+	 * performTransform a DataType as StructuredType element to a writer
+	 * @param element
+	 * @param writer
+	 */
+	public void transformStructuredType(
+			DataType element, PrettyPrintWriter writer) {
+		writer.appendTab(element.getVisibility().toString())
+			.append(" type ")
+			.append(element.getName())
+			.appendEol(" struct {");
+
+		// A writer indenting with TAB + iTAB -> TAB2
+		PrettyPrintWriter writer2 = writer.itab2();
+
+		for( Property itProperty : element.getOwnedAttributes() ) {
+			fSupervisor.transformProperty(itProperty, writer2);
+		}
+		writer.appendTabEol("}");
+	}
+
+	/**
+	 * performTransform a DataType element to a writer
+	 * @param element
+	 * @param writer
+	 */
+	public void transformDataType(
+			DataType element, PrettyPrintWriter writer) {
+		if( element instanceof Enumeration ) {
+			transformEnumeration((Enumeration)element, writer);
+		}
+		else if( element.getOwnedAttributes().size() >= 1 ) {
+			transformStructuredType(element, writer);
+		}
+		else {
+			writer.appendTab("dataType");
+			if( element.getName() != null ) {
+				writer.append(' ')
+					.append(element.getName());
+			}
+			writer.appendEol(" { /* TODO */ }");
+		}
+	}
+
+
+	/**
+	 * performTransform type name of a TypedElement element to a string
+	 * @param element
+	 * @return
+	 */
+	public String typeName(TypedElement element) {
+		String typeString;
+
+		if( element.getType() == null ) {
+			typeString = "null<type>";
+		}
+		else {
+			typeString = element.getType().getName();
+
+			if( element.getType() instanceof PrimitiveType ) {
+				typeString = typeString.toLowerCase();
+			}
+			else if( element.getType() instanceof Class ){
+				typeString = "machine" + "/*< " + typeString + " >*/";
+			}
+
+			if( element instanceof MultiplicityElement ) {
+				MultiplicityElement multElem = (MultiplicityElement)element;
+				if( ( multElem.getLower() == 1 ) &&
+						( multElem.getUpper() == 1 ) ) {
+					// Cas basique
+					//
+					// rien à faire
+				}
+				else if( ( multElem.getLower() == multElem.getUpper() ) &&
+						 ( multElem.getLower() != 0 ) &&
+					 	 ( multElem.getLower() != -1 ) ) {
+					// Cas tableau
+					//
+					typeString = typeString + "[" + multElem.getLower() + "]";
+				}
+				else if( //( element.getLower() == 0 ) &&
+						( multElem.getUpper() == -1 ) ) {
+					// Cas vector
+					//
+					typeString = "vector< " + typeString + " >";
+				}
+				else {
+					typeString = "??? " + typeString;
+				}
+			}
+		}
+		return typeString;
+	}
+
+}

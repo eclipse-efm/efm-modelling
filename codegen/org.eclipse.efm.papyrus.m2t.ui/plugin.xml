@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.eclipse.efm.papyrus.m2t.ui.definition.isEnabledDebugCodegen">
+         <or>
+             <with
+                  variable="activeEditorId">
+               <equals
+                     value="org.eclipse.papyrus.infra.core.papyrusEditor">
+               </equals>
+            </with>
+            <with
+                  variable="selection">
+               <count
+                     value="1">
+               </count>
+               <iterate
+                     operator="or">
+                  <adapt
+                        type="org.eclipse.uml2.uml.Class">
+                  </adapt>
+                  <adapt
+                        type="org.eclipse.uml2.uml.Package">
+                  </adapt>
+               </iterate>
+            </with>
+         </or>
+      </definition>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.papyrus.designer.popup?after=codegen">
+         <command
+               commandId="org.eclipse.efm.papyrus.m2t.ui.command"
+               icon="icons/alt_diversity.png"
+               label="Generate FML Concrete Syntax code"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="org.eclipse.efm.papyrus.m2t.ui.command.debug"
+               icon="icons/alt_diversity.png"
+               label="Debug: Generate FML Concrete Syntax code"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <reference
+                     definitionId="org.eclipse.efm.papyrus.m2t.ui.definition.isEnabledDebugCodegen">
+               </reference>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            defaultHandler="org.eclipse.efm.papyrus.m2t.ui.handlers.CodegenHandler"
+            description="Generate FML Concrete Syntax code"
+            id="org.eclipse.efm.papyrus.m2t.ui.command"
+            name="Generate FML Concrete Syntax code">
+      </command>
+      <command
+            categoryId="org.eclipse.papyrus.editor.category"
+            defaultHandler="org.eclipse.efm.papyrus.m2t.ui.handlers.CodegenHandler"
+            description="Debug: Generate FML Concrete Syntax code"
+            id="org.eclipse.efm.papyrus.m2t.ui.command.debug"
+            name="Debug: Generate FML Concrete Syntax code">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.papyrus.infra.core.sasheditor.preferences.generalcategory"
+            class="org.eclipse.efm.papyrus.m2t.ui.preferences.CodegenPreferencePage"
+            id="org.eclipse.efm.papyrus.m2t.ui.CodegenPreferencePage"
+            name="FML Code Generation">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.papyrus.designer.languages.common.extensionpoints.languageCodegen">
+      <generator
+            class="org.eclipse.efm.papyrus.m2t.ui.LangCodegen"
+            id="FormalMLCodegen"
+            language="org.eclipse.efm.papyrus.m2t.ui.generatorFML">
+      </generator>
+   </extension>
+
+</plugin>

@@ -21,5 +21,12 @@
       <unit id="org.eclipse.papyrus.sdk.feature.feature.group" version="0.0.0"/>
       <repository id="eclipse-papyrus-nighlty-neon" location="http://download.eclipse.org/modeling/mdt/papyrus/updates/nightly/neon/main/"/>
     </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.papyrus.designer.languages.common.feature.feature.group" version="0.0.0"/>
+      <!--unit id="org.eclipse.papyrus.designer.languages.cpp.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.papyrus.designer.languages.main.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.papyrus.designer.languages.tracing.feature.feature.group" version="0.0.0"/-->
+      <repository id="eclipse-papyrus-designer-nighlty-neon" location="http://download.eclipse.org/modeling/mdt/papyrus/components/designer/"/>
+    </location>
   </locations>
 </target>
