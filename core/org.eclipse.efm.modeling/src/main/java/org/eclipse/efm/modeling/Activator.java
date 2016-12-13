@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  */
-package org;
+package org.eclipse.efm.modeling;
 
 import org.eclipse.core.runtime.Plugin;
 
