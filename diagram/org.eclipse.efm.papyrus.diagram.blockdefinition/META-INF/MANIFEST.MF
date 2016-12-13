@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Blockdescription
+Bundle-SymbolicName: org.eclipse.efm.papyrus.diagram.blockdefinition;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: org.eclipse.efm.formalml.diagram.blockdescription.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.papyrus.infra.viewpoints.policy,
+ org.eclipse.efm.papyrus.service.types;bundle-version="[0.0.1,1.0.0)",
+ org.eclipse.papyrus.uml.service.types;bundle-version="2.0.0",
+ org.eclipse.papyrus.uml.diagram.composite;bundle-version="2.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

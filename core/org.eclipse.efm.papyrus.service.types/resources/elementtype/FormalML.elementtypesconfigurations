@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ASCII"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:applystereotypeadvice="http://www.eclipse.org/papyrus/uml/types/applystereotypeadvice/1.1" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1" xmlns:stereotypematcher="http://www.eclipse.org/papyrus/uml/types/stereotypematcher/1.1" identifier="org.eclipse.efm.fml.elementTypes" metamodelNsURI="http://www.eclipse.org/uml2/5.0.0/UML">
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.ConnectorBehavior" name="ConnectorBehavior" hint="UML::OpaqueBehavior">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.OpaqueBehavior</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::ConnectorBehavior</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.FifoBehavior" name="FifoBehavior" hint="UML::OpaqueBehavior">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.OpaqueBehavior</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::FifoBehavior</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.FlowPort" name="FlowPort" hint="UML::Port">
+    <iconEntry iconPath="/icons/full/obj16/Port.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Port</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::FlowPort</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.FlowVariable" name="FlowVariable" hint="UML::Property">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Property</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::FlowVariable</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.FormalBlock" name="FormalBlock" hint="UML::Class">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Class</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::FormalBlock</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.FormalContext" name="FormalContext" hint="UML::Class">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Class</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::FormalContext</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.FormalEnvironment" name="FormalEnvironment" hint="UML::Property">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Property</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::FormalEnvironment</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.FormalModel" name="FormalModel" hint="UML::Model">
+    <iconEntry iconPath="/icons/full/obj16/Model.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Model</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::FormalModel</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.FormalPart" name="FormalPart" hint="UML::Property">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Property</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::FormalPart</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.RdvBehavior" name="RdvBehavior" hint="UML::OpaqueBehavior">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.OpaqueBehavior</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::RdvBehavior</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.ReceiveAnyEvent" name="ReceiveAnyEvent" hint="UML::AnyReceiveEvent">
+    <iconEntry iconPath="/icons/full/obj16/AnyReceiveEvent.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.AnyReceiveEvent</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::ReceiveAnyEvent</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.ReceiveSignalEvent" name="ReceiveSignalEvent" hint="UML::SignalEvent">
+    <iconEntry iconPath="/icons/full/obj16/SignalEvent.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.SignalEvent</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::ReceiveSignalEvent</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fml.TimedTransition" name="TimedTransition" hint="UML::Transition">
+    <iconEntry iconPath="/icons/full/obj16/Transition.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Transition</specializedTypesID>
+    <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration">
+      <stereotypesQualifiedNames>fml::TimedTransition</stereotypesQualifiedNames>
+    </matcherConfiguration>
+  </elementTypeConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.connectorBehavior" target="//@elementTypeConfigurations.0">
+    <stereotypesToApply stereotypeQualifiedName="fml::ConnectorBehavior" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.fifoBehavior" target="//@elementTypeConfigurations.1">
+    <stereotypesToApply stereotypeQualifiedName="fml::FifoBehavior" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.flowPort" target="//@elementTypeConfigurations.2">
+    <stereotypesToApply stereotypeQualifiedName="fml::FlowPort" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.flowVariable" target="//@elementTypeConfigurations.3">
+    <stereotypesToApply stereotypeQualifiedName="fml::FlowVariable" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.formalBlock" target="//@elementTypeConfigurations.4">
+    <stereotypesToApply stereotypeQualifiedName="fml::FormalBlock" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.formalContext" target="//@elementTypeConfigurations.5">
+    <stereotypesToApply stereotypeQualifiedName="fml::FormalContext" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.formalEnvironment" target="//@elementTypeConfigurations.6">
+    <stereotypesToApply stereotypeQualifiedName="fml::FormalEnvironment" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.formalModel" target="//@elementTypeConfigurations.7">
+    <stereotypesToApply stereotypeQualifiedName="fml::FormalModel" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.formalPart" target="//@elementTypeConfigurations.8">
+    <stereotypesToApply stereotypeQualifiedName="fml::FormalPart" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.rdvBehavior" target="//@elementTypeConfigurations.9">
+    <stereotypesToApply stereotypeQualifiedName="fml::RdvBehavior" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.receiveAnyEvent" target="//@elementTypeConfigurations.10">
+    <stereotypesToApply stereotypeQualifiedName="fml::ReceiveAnyEvent" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.receiveSignalEvent" target="//@elementTypeConfigurations.11">
+    <stereotypesToApply stereotypeQualifiedName="fml::ReceiveSignalEvent" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" identifier="org.eclipse.efm.fml.timedTransition" target="//@elementTypeConfigurations.12">
+    <stereotypesToApply stereotypeQualifiedName="fml::TimedTransition" updateName="true">
+      <requiredProfiles>fml</requiredProfiles>
+    </stereotypesToApply>
+  </adviceBindingsConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

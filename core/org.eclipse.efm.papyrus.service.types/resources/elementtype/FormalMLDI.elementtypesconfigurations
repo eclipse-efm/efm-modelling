@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="ASCII"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1" identifier="org.eclipse.efm.fmldi.elementTypes" metamodelNsURI="http://www.eclipse.org/uml2/5.0.0/UML">
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.ConnectorBehavior_OpaqueBehavior_NestedClassifierLabel" name="ConnectorBehavior (OpaqueBehavior_NestedClassifierLabel)" hint="OpaqueBehavior_NestedClassifierLabel">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.ConnectorBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_NestedClassifierLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.ConnectorBehavior_OpaqueBehavior_OwnedBehaviorLabel" name="ConnectorBehavior (OpaqueBehavior_OwnedBehaviorLabel)" hint="OpaqueBehavior_OwnedBehaviorLabel">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.ConnectorBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_OwnedBehaviorLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.ConnectorBehavior_OpaqueBehavior_Shape" name="ConnectorBehavior (OpaqueBehavior_Shape)" hint="OpaqueBehavior_Shape">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.ConnectorBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.ConnectorBehavior_OpaqueBehavior_Shape_CN" name="ConnectorBehavior (OpaqueBehavior_Shape_CN)" hint="OpaqueBehavior_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.ConnectorBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FifoBehavior_OpaqueBehavior_NestedClassifierLabel" name="FifoBehavior (OpaqueBehavior_NestedClassifierLabel)" hint="OpaqueBehavior_NestedClassifierLabel">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FifoBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_NestedClassifierLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FifoBehavior_OpaqueBehavior_OwnedBehaviorLabel" name="FifoBehavior (OpaqueBehavior_OwnedBehaviorLabel)" hint="OpaqueBehavior_OwnedBehaviorLabel">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FifoBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_OwnedBehaviorLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FifoBehavior_OpaqueBehavior_Shape" name="FifoBehavior (OpaqueBehavior_Shape)" hint="OpaqueBehavior_Shape">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FifoBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FifoBehavior_OpaqueBehavior_Shape_CN" name="FifoBehavior (OpaqueBehavior_Shape_CN)" hint="OpaqueBehavior_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FifoBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowPort_Port_AttributeLabel" name="FlowPort (Port_AttributeLabel)" hint="Port_AttributeLabel">
+    <iconEntry iconPath="/icons/full/obj16/Port.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowPort</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Port_AttributeLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowPort_Port_BehaviorEdge" name="FlowPort (Port_BehaviorEdge)" hint="Port_BehaviorEdge">
+    <iconEntry iconPath="/icons/full/obj16/Port.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowPort</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Port_BehaviorEdge</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowPort_Port_BehaviorShape" name="FlowPort (Port_BehaviorShape)" hint="Port_BehaviorShape">
+    <iconEntry iconPath="/icons/full/obj16/Port.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowPort</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Port_BehaviorShape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowPort_Port_Edge" name="FlowPort (Port_Edge)" hint="Port_Edge">
+    <iconEntry iconPath="/icons/full/obj16/Port.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowPort</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Port_Edge</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowPort_Port_Shape" name="FlowPort (Port_Shape)" hint="Port_Shape">
+    <iconEntry iconPath="/icons/full/obj16/Port.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowPort</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Port_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowPort_Port_Shape_CN" name="FlowPort (Port_Shape_CN)" hint="Port_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/Port.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowPort</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Port_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowVariable_Property_AttributeLabel" name="FlowVariable (Property_AttributeLabel)" hint="Property_AttributeLabel">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowVariable</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_AttributeLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowVariable_Property_Edge" name="FlowVariable (Property_Edge)" hint="Property_Edge">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowVariable</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Edge</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowVariable_Property_Shape" name="FlowVariable (Property_Shape)" hint="Property_Shape">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowVariable</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FlowVariable_Property_Shape_CN" name="FlowVariable (Property_Shape_CN)" hint="Property_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FlowVariable</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalBlock_Class_MetaclassShape" name="FormalBlock (Class_MetaclassShape)" hint="Class_MetaclassShape">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalBlock</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_MetaclassShape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalBlock_Class_MetaclassShape_CN" name="FormalBlock (Class_MetaclassShape_CN)" hint="Class_MetaclassShape_CN">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalBlock</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_MetaclassShape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalBlock_Class_NestedClassifierLabel" name="FormalBlock (Class_NestedClassifierLabel)" hint="Class_NestedClassifierLabel">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalBlock</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_NestedClassifierLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalBlock_Class_Shape" name="FormalBlock (Class_Shape)" hint="Class_Shape">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalBlock</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalBlock_Class_Shape_CN" name="FormalBlock (Class_Shape_CN)" hint="Class_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalBlock</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalContext_Class_MetaclassShape" name="FormalContext (Class_MetaclassShape)" hint="Class_MetaclassShape">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalContext</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_MetaclassShape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalContext_Class_MetaclassShape_CN" name="FormalContext (Class_MetaclassShape_CN)" hint="Class_MetaclassShape_CN">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalContext</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_MetaclassShape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalContext_Class_NestedClassifierLabel" name="FormalContext (Class_NestedClassifierLabel)" hint="Class_NestedClassifierLabel">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalContext</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_NestedClassifierLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalContext_Class_Shape" name="FormalContext (Class_Shape)" hint="Class_Shape">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalContext</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalContext_Class_Shape_CN" name="FormalContext (Class_Shape_CN)" hint="Class_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/Class.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalContext</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Class_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalEnvironment_Property_AttributeLabel" name="FormalEnvironment (Property_AttributeLabel)" hint="Property_AttributeLabel">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalEnvironment</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_AttributeLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalEnvironment_Property_Edge" name="FormalEnvironment (Property_Edge)" hint="Property_Edge">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalEnvironment</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Edge</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalEnvironment_Property_Shape" name="FormalEnvironment (Property_Shape)" hint="Property_Shape">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalEnvironment</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalEnvironment_Property_Shape_CN" name="FormalEnvironment (Property_Shape_CN)" hint="Property_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalEnvironment</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalModel_Model_Shape" name="FormalModel (Model_Shape)" hint="Model_Shape">
+    <iconEntry iconPath="/icons/full/obj16/Model.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalModel</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Model_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalModel_Model_Shape_CN" name="FormalModel (Model_Shape_CN)" hint="Model_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/Model.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalModel</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Model_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalPart_Property_AttributeLabel" name="FormalPart (Property_AttributeLabel)" hint="Property_AttributeLabel">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalPart</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_AttributeLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalPart_Property_Edge" name="FormalPart (Property_Edge)" hint="Property_Edge">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalPart</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Edge</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalPart_Property_Shape" name="FormalPart (Property_Shape)" hint="Property_Shape">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalPart</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.FormalPart_Property_Shape_CN" name="FormalPart (Property_Shape_CN)" hint="Property_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.FormalPart</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.RdvBehavior_OpaqueBehavior_NestedClassifierLabel" name="RdvBehavior (OpaqueBehavior_NestedClassifierLabel)" hint="OpaqueBehavior_NestedClassifierLabel">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.RdvBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_NestedClassifierLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.RdvBehavior_OpaqueBehavior_OwnedBehaviorLabel" name="RdvBehavior (OpaqueBehavior_OwnedBehaviorLabel)" hint="OpaqueBehavior_OwnedBehaviorLabel">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.RdvBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_OwnedBehaviorLabel</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.RdvBehavior_OpaqueBehavior_Shape" name="RdvBehavior (OpaqueBehavior_Shape)" hint="OpaqueBehavior_Shape">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.RdvBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.RdvBehavior_OpaqueBehavior_Shape_CN" name="RdvBehavior (OpaqueBehavior_Shape_CN)" hint="OpaqueBehavior_Shape_CN">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.RdvBehavior</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.OpaqueBehavior_Shape_CN</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.ReceiveAnyEvent_AnyReceiveEvent_Shape" name="ReceiveAnyEvent" hint="AnyReceiveEvent_Shape">
+    <iconEntry iconPath="/icons/full/obj16/AnyReceiveEvent.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.ReceiveAnyEvent</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.AnyReceiveEvent_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.ReceiveSignalEvent_SignalEvent_Shape" name="ReceiveSignalEvent" hint="SignalEvent_Shape">
+    <iconEntry iconPath="/icons/full/obj16/SignalEvent.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.ReceiveSignalEvent</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.SignalEvent_Shape</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.TimedTransition_Transition_Edge" name="TimedTransition (Transition_Edge)" hint="Transition_Edge">
+    <iconEntry iconPath="/icons/full/obj16/Transition.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.TimedTransition</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Transition_Edge</specializedTypesID>
+  </elementTypeConfigurations>
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.TimedTransition_Transition_InternalTransitionLabel" name="TimedTransition (Transition_InternalTransitionLabel)" hint="Transition_InternalTransitionLabel">
+    <iconEntry iconPath="/icons/full/obj16/Transition.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.TimedTransition</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Transition_InternalTransitionLabel</specializedTypesID>
+  </elementTypeConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

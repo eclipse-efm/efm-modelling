@@ -1,0 +1,52 @@
+/**
+ * Formal Block Style
+ */
+[appliedStereotypes~=FormalBlock] {
+	fillColor:lightGreen;
+	elementIcon:false;
+}
+
+[appliedStereotypes~=FormalBlock] Compartment[type="7019"]{
+	visible:false;
+}
+
+
+/*
+ * TestContext Style
+ */
+
+[appliedStereotypes~=FormalContext]{
+	fillColor:lightBlue;
+	elementIcon:false;	
+}
+
+[appliedStereotypes~=FormalBlock] Compartment[type="7019"]{
+	visible:false;
+}
+
+/*
+ * Variable Style
+ */
+
+[appliedStereotypes~=FlowVariable]{
+	masklabel : name type multiplicity;
+	elementIcon:false;
+}
+
+[appliedStereotypes~=FlowVariable] Label[type="StereotypeLabel"] {
+	visible:false;
+}
+
+/*
+ *  Clock Style
+ */
+ [appliedStereotypes~=FlowVariable]{
+	masklabel : name type multiplicity;
+	elementIcon:false;
+}
+ 
+ 
+ [appliedStereotypes~=FlowVariable] Label[type="StereotypeLabel"] {
+	visible:false;
+}
+ 

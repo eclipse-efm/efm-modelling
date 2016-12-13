@@ -1,0 +1,75 @@
+Label[type=StereotypeLabel]{
+	depth:"none";
+	visible:false;
+}
+
+/*
+ * TestContext style 
+ */
+
+[appliedStereotypes~="TimedTransition"]{
+	fillColor:red;
+}
+
+
+/*
+ * Block Instance style
+ */
+
+Property[appliedStereotypes~="FormalPart"] Compartment{
+	visible:false;
+}
+
+Property[appliedStereotypes~="FormalPart"]{
+	masklabel:name type multiplicity;
+	elementIcon:false;
+	fillColor:lightGreen;	
+}
+
+/*
+ * Environment style
+ */
+
+
+Property[appliedStereotypes~="FormalEnvironment"]{
+	fillColor:red;
+	masklabel:name;
+	elementIcon:false;
+}
+
+Property[appliedStereotypes~="FormalEnvironment"] Compartment{
+	visible:false;
+}
+
+/*
+ * Connector style
+ */
+
+
+Connector Label[type="6025"]{
+	visible:false;
+}
+
+Connector Label[type="6050"]{
+	visible:false;
+}
+
+Connector Label[type="6051"]{
+	visible:false;
+}
+
+Connector Label[type="6052"]{
+	visible:false;
+}
+
+/*
+ * Port style
+ */
+
+Block Port{
+	masklabel : name type;
+}
+
+[appliedStereotypes~="FormalPart"] Port{
+	masklabel : name;
+}

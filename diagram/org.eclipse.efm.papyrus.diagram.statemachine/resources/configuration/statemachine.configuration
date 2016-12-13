@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration:PapyrusConfiguration
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:configuration="http://www.eclipse.org/papyrus/infra/viewpoints/configuration"
+    xmi:id="_l9nt8IPWEeWCz_r4jM2EGA">
+  <viewpoints
+      xsi:type="configuration:PapyrusViewpoint"
+      xmi:id="_XbazUIPXEeWCz_r4jM2EGA"
+      name="Default Papyrus Viewpoint">
+    <modelKinds
+        xsi:type="configuration:PapyrusDiagram"
+        xmi:id="_VmLooIPaEeWCz_r4jM2EGA"
+        name="EFM Statemachine Diagram"
+        icon="platform:/plugin/org.eclipse.efm.papyrus.diagram.statemachine/resources/icons/Diagram_StateMachine.gif"
+        implementationID="PapyrusUMLStateMachineDiagram"
+        customPalette="platform:/plugin/org.eclipse.efm.papyrus.diagram.statemachine/resources/palette/statemachine.paletteconfiguration"
+        customStyle="platform:/plugin/org.eclipse.efm.papyrus.diagram.statemachine/resources/style/statemachine.css">
+      <modelRules
+          xmi:id="_Ig_ekIPbEeWCz_r4jM2EGA">
+        <element
+            href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+      </modelRules>
+      <modelRules
+          xmi:id="_cFoWEISPEeWEJZY9P3BJRQ">
+        <element
+            href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </modelRules>
+      <owningRules
+          xmi:id="_HkO7YIPbEeWCz_r4jM2EGA">
+        <element
+            href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+      </owningRules>
+      <owningRules
+          xmi:id="_TYHZIIPbEeWCz_r4jM2EGA">
+        <element
+            href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+      </owningRules>
+      <childRules
+          xmi:id="_DFNLUIPbEeWCz_r4jM2EGA"/>
+      <paletteRules
+          xmi:id="_8yWtMIPaEeWCz_r4jM2EGA"
+          permit="false"
+          element="createNodesGroup"/>
+      <paletteRules
+          xmi:id="_36-SkC2DEeaYcsavIFX7Vg"
+          permit="false"
+          element="createEdgesGroup"/>
+    </modelKinds>
+  </viewpoints>
+  <defaultStakeholder
+      href="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/builtin/default.configuration#_7wLmkdxhEeOqHvRyiN87hA"/>
+  <metamodel
+      href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+  <categories
+      xmi:id="_PiiykIPXEeWCz_r4jM2EGA"
+      name="FormalML"/>
+</configuration:PapyrusConfiguration>

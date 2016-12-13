@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1" identifier="org.eclipse.efm.fmldi.elementTypesCustom" metamodelNsURI="http://www.eclipse.org/uml2/5.0.0/UML">
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" identifier="org.eclipse.efm.fmldi.Clock_Property_ClassAttributeLabel" name="Clock (Clock_AttributeLabel)" hint="Property_ClassAttributeLabel">
+    <iconEntry iconPath="/icons/full/obj16/OpaqueBehavior.gif" bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.efm.fml.Clock</specializedTypesID>
+    <specializedTypesID>org.eclipse.papyrus.umldi.Property_ClassAttributeLabel</specializedTypesID>
+  </elementTypeConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

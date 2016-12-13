@@ -1,0 +1,27 @@
+/*Stereotype > Compartment[kind="operations"]{
+	visible: false;
+}*/
+
+Stereotype{
+	fillColor: lightgreen;
+}
+
+Connector{
+	routing: Rectilinear;
+}
+
+Generalization{
+	routing: Tree;
+}
+
+Association{
+	routing: Rectilinear;
+}
+
+Extension{
+	routing: Rectilinear;
+}
+
+Enumeration{
+	fillColor: lightblue;
+}

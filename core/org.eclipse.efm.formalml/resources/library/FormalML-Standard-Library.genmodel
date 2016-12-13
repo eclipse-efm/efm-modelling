@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel" copyrightText="Copyright (c) 2016 CEA LIST.&#xA;&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License v1.0&#xA; which accompanies this distribution, and is available at&#xA; http://www.eclipse.org/legal/epl-v10.html"
+    modelDirectory="/org.eclipse.efm.formalml/src-gen" editDirectory="/org.eclipse.efm.formalml.edit/src-gen"
+    editorDirectory="/org.eclipse.efm.formalml.editor/src-gen" modelPluginID="org.eclipse.efm.formalml"
+    modelName="FormalML-Standard-Library" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.uml2.uml.ecore.importer" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
+    <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURES" value="DISCARD"/>
+    <details key="ANNOTATION_DETAILS" value="PROCESS"/>
+    <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURE_INHERITANCE" value="DISCARD"/>
+    <details key="COMMENTS" value="PROCESS"/>
+    <details key="DERIVED_FEATURES" value="PROCESS"/>
+    <details key="SUPER_CLASS_ORDER" value="PROCESS"/>
+    <details key="DUPLICATE_OPERATION_INHERITANCE" value="DISCARD"/>
+    <details key="REDEFINING_OPERATIONS" value="REPORT"/>
+    <details key="INVARIANT_CONSTRAINTS" value="PROCESS"/>
+    <details key="UNION_PROPERTIES" value="REPORT"/>
+    <details key="DUPLICATE_OPERATIONS" value="DISCARD"/>
+    <details key="NON_API_INVARIANTS" value="IGNORE"/>
+    <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
+    <details key="SUBSETTING_PROPERTIES" value="REPORT"/>
+    <details key="OPERATION_BODIES" value="IGNORE"/>
+    <details key="ECORE_TAGGED_VALUES" value="PROCESS"/>
+    <details key="UNTYPED_PROPERTIES" value="REPORT"/>
+    <details key="REDEFINING_PROPERTIES" value="REPORT"/>
+    <details key="INVOCATION_DELEGATES" value="IGNORE"/>
+    <details key="VALIDATION_DELEGATES" value="IGNORE"/>
+  </genAnnotations>
+  <foreignModel>FormalML-Standard-Library.uml</foreignModel>
+  <genPackages xsi:type="genmodel:GenPackage" prefix="FormalMLStandardLibrary" disposableProviderFactory="true"
+      ecorePackage="FormalMLStandardLibrary.ecore#/">
+    <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="DataType" basePackage="FormalMLStandardLibrary"
+        disposableProviderFactory="true" ecorePackage="FormalMLStandardLibrary.ecore#//DataType">
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalMLStandardLibrary.ecore#//DataType/AnyType"/>
+    </nestedGenPackages>
+    <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="Class" basePackage="FormalMLStandardLibrary"
+        disposableProviderFactory="true" ecorePackage="FormalMLStandardLibrary.ecore#//Class">
+      <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalMLStandardLibrary.ecore#//Class/Env"/>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

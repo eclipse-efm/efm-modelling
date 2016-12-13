@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:configuration="http://www.eclipse.org/papyrus/infra/viewpoints/configuration" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/viewpoints/policy/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_OHj2YOohEeWVSqbNzcM85A" type="PapyrusUMLClassDiagram" name="FormalML-Standard-Library" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_QIyuUOohEeWVSqbNzcM85A" type="Model_Shape">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_RYYt8OohEeWVSqbNzcM85A" source="PapyrusCSSForceValue">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_RYYt8eohEeWVSqbNzcM85A" key="canonical" value="true"/>
+    </eAnnotations>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QIzVYOohEeWVSqbNzcM85A" type="Model_NameLabel"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_QIz8cOohEeWVSqbNzcM85A" type="Model_PackagedElementCompartment">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_RZgIQOohEeWVSqbNzcM85A" source="PapyrusCSSForceValue">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_RZgIQeohEeWVSqbNzcM85A" key="mutable" value="true"/>
+      </eAnnotations>
+      <children xmi:type="notation:Shape" xmi:id="_zbhx0KGtEeao9M8nBNrVQw" type="Package_Shape_CN">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_znH90KGtEeao9M8nBNrVQw" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_znH90aGtEeao9M8nBNrVQw" key="mutable" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:DecorationNode" xmi:id="_zbi_8KGtEeao9M8nBNrVQw" type="Package_NameLabel_CN"/>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_zbi_8aGtEeao9M8nBNrVQw" type="Package_PackagedElementCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_zbi_8qGtEeao9M8nBNrVQw"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zbi_86GtEeao9M8nBNrVQw"/>
+        </children>
+        <element xmi:type="uml:Package" href="FormalML-Standard-Library.uml#_M5sUQJeoEeaN6eM4hBtwog"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zbhx0aGtEeao9M8nBNrVQw"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_zbkOEKGtEeao9M8nBNrVQw" type="Package_Shape_CN">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_znH90qGtEeao9M8nBNrVQw" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_znH906GtEeao9M8nBNrVQw" key="mutable" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:DecorationNode" xmi:id="_zbkOEqGtEeao9M8nBNrVQw" type="Package_NameLabel_CN"/>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_zbkOE6GtEeao9M8nBNrVQw" type="Package_PackagedElementCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_zbkOFKGtEeao9M8nBNrVQw"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zbkOFaGtEeao9M8nBNrVQw"/>
+        </children>
+        <element xmi:type="uml:Package" href="FormalML-Standard-Library.uml#_qbxukJenEeaN6eM4hBtwog"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zbkOEaGtEeao9M8nBNrVQw" x="260"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_QIz8ceohEeWVSqbNzcM85A"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QIz8cuohEeWVSqbNzcM85A"/>
+    </children>
+    <styles xmi:type="notation:CanonicalStyle" xmi:id="_RYXf0OohEeWVSqbNzcM85A"/>
+    <element xmi:type="uml:Model" href="FormalML-Standard-Library.uml#_XfuxkOeuEeWhBfCNf_PCVQ"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QIyuUeohEeWVSqbNzcM85A" x="9" y="16" width="494" height="169"/>
+  </children>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_OHj2YeohEeWVSqbNzcM85A" name="diagram_compatibility_version" stringValue="1.2.0"/>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_OHj2YuohEeWVSqbNzcM85A"/>
+  <styles xmi:type="style:PapyrusViewStyle" xmi:id="_OHj2Y-ohEeWVSqbNzcM85A">
+    <owner xmi:type="uml:Model" href="FormalML-Standard-Library.uml#_XfuxkOeuEeWhBfCNf_PCVQ"/>
+    <configuration xmi:type="configuration:PapyrusDiagram" href="platform:/plugin/org.eclipse.papyrus.infra.viewpoints.policy/builtin/default.configuration#_7wLmpNxhEeOqHvRyiN87hA"/>
+  </styles>
+  <element xmi:type="uml:Model" href="FormalML-Standard-Library.uml#_XfuxkOeuEeWhBfCNf_PCVQ"/>
+</notation:Diagram>
