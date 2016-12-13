@@ -1,0 +1,48 @@
+<html>
+<body>
+
+
+<h1>"@enable{...}" activity primitive</h1> 
+
+<h2>Generalities</h2>
+<p>The "@enable{...}" activity primitive corresponds to the activity of a UML statemachine entering a state.</p>
+<p>It can only have a "state" for parent. It is evaluated when activating any state.</p>
+
+<p>The evaluation of a transition will follow this pattern :</p>
+<ul>
+<li>source state deactivation</li>
+<li>action evaluation</li>
+<li>and then target state activation (which is what is done within the "@enable{...}" activity primitive)</li>
+</ul>
+
+<h2>Example</h2>
+<p>Below is an example of the syntax in use :</p>
+
+<img src="images/enabledisable001.png" width=800, border="3">
+<p>Here, if during the execution, the machine goes from state :</p>
+<ul>
+<li> s1 to s2, will be triggered in order :
+	<ul>
+	<li>actions inside the "@disable" of state s1</li>
+	<li>actions for the transition s1TOs2</li>
+	<li>actions inside the "@enable" of state s2</li>
+	</ul>
+</li>
+<li> s1 to s3, will be triggered in order :
+	<ul>
+	<li>actions inside the "@disable" of state s1</li>
+	<li>actions for the transition s1TOs3</li>
+	<li>nothing else because state s3 doesn't have an "@enable" action primitive</li>
+	</ul>
+</li>
+</ul>
+
+<h2>Remarks</h2>
+<p>Other scheduling possibilities will be available in further XLIA versions.</p>
+<p>It is worth noticing that <a href="../../4_examples/2_robotpetsimple.html">The Simple Robot Pet</a> example makes use of the "@enable{...}" activity primitive.</p>
+<p></p>
+
+
+
+</body>
+</html>

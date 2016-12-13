@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_MRGsYNoNEeWTDd-MKu4Zpw" name="SEPArchitecture">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_ztnRINsMEeWhz9Bf7B-yqA">
+    <body>External dependency to solvers:&#xD;
+SEM and FAM</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_M7sLYNoWEeWhBfCNf_PCVQ" annotatedElement="_IQY54NoWEeWhBfCNf_PCVQ">
+    <body>fam : formal analysis modules&#xD;
+</body>
+  </ownedComment>
+  <packagedElement xmi:type="uml:Package" xmi:id="_G7-EoNoWEeWhBfCNf_PCVQ" name="sem">
+    <packagedElement xmi:type="uml:Package" xmi:id="_8YlI8NoWEeWhBfCNf_PCVQ" name="semachine"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_CuXFwNsIEeWhz9Bf7B-yqA" name="builder"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Ggf6oNsIEeWhz9Bf7B-yqA" name="internal">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_L_FDMNsIEeWhz9Bf7B-yqA">
+        <body>internal representation&#xD;
+executable bytecode&#xD;
+SE primitives&#xD;
+</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_-ACqkNsJEeWhz9Bf7B-yqA" client="_G7-EoNoWEeWhBfCNf_PCVQ" supplier="_km87YNsJEeWhz9Bf7B-yqA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_IQY54NoWEeWhBfCNf_PCVQ" name="fam">
+    <packagedElement xmi:type="uml:Package" xmi:id="_h65aQNsIEeWhz9Bf7B-yqA" name="api"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_3r6PgNsIEeWhz9Bf7B-yqA" name="AbstractProcessUnit"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Qawu4NsJEeWhz9Bf7B-yqA" name="ConcreteProcessUnit"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Sh9E4NsJEeWhz9Bf7B-yqA" name="Exporter"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_c8B3ENsJEeWhz9Bf7B-yqA" client="_Qawu4NsJEeWhz9Bf7B-yqA" supplier="_3r6PgNsIEeWhz9Bf7B-yqA"/>
+    <packagedElement xmi:type="uml:Abstraction" xmi:id="_d-OT4NsJEeWhz9Bf7B-yqA" client="_Sh9E4NsJEeWhz9Bf7B-yqA" supplier="_3r6PgNsIEeWhz9Bf7B-yqA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_sCOaINsJEeWhz9Bf7B-yqA" client="_IQY54NoWEeWhBfCNf_PCVQ" supplier="_MRGsYNoNEeWTDd-MKu4Zpw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_rYDAINoWEeWhBfCNf_PCVQ" name="sew">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_yA4b0NsHEeWhz9Bf7B-yqA">
+      <body>AST&#xD;
+concrete syntax&#xD;
+XLIA</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_y5PnMNsHEeWhz9Bf7B-yqA">
+      <body>AST&#xD;
+concrete syntax&#xD;
+favm</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_xR5HgNsKEeWhz9Bf7B-yqA" client="_rYDAINoWEeWhBfCNf_PCVQ" supplier="_bkSS8NsHEeWhz9Bf7B-yqA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_bkSS8NsHEeWhz9Bf7B-yqA" name="sel">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_bkSS9NsHEeWhz9Bf7B-yqA">
+      <body>Symbolic Execution Language&#xD;
+AST&#xD;
+concrete syntax&#xD;
+XLIA</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_4X0IsNsHEeWhz9Bf7B-yqA" name="engine">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_Syb7cNsKEeWhz9Bf7B-yqA">
+      <body>workflow:&#xD;
+- building&#xD;
+- preprocessing&#xD;
+- (prefiltering->symbolic execution->postfiltering)*&#xD;
+- postprocessing (e.g. exporting)</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_SqrYgNsIEeWhz9Bf7B-yqA" client="_4X0IsNsHEeWhz9Bf7B-yqA" supplier="_G7-EoNoWEeWhBfCNf_PCVQ"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_Uz-nUNsIEeWhz9Bf7B-yqA" client="_4X0IsNsHEeWhz9Bf7B-yqA" supplier="_IQY54NoWEeWhBfCNf_PCVQ"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_rbOEgNsJEeWhz9Bf7B-yqA" client="_MRGsYNoNEeWTDd-MKu4Zpw" supplier="_km87YNsJEeWhz9Bf7B-yqA"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_rJDhANsKEeWhz9Bf7B-yqA" client="_4X0IsNsHEeWhz9Bf7B-yqA" supplier="_rYDAINoWEeWhBfCNf_PCVQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_km87YNsJEeWhz9Bf7B-yqA" name="sed">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_30g8cNsJEeWhz9Bf7B-yqA">
+      <body>Symbolic Execution Data&#xD;
+- queue&#xD;
+- EC&#xD;
+- ED&#xD;
+- EXEC&#xD;
+- EVAL</body>
+    </ownedComment>
+  </packagedElement>
+</uml:Model>

@@ -1,0 +1,13 @@
+@xlia< system , 1.0 >:
+
+system<and> mySystem {
+
+	@private:
+		var list<string> my_list_of_strings = {"ET", "phone"};
+		
+	@moe:
+		@init{my_list_of_strings <=< "home";}
+		
+}
+
+

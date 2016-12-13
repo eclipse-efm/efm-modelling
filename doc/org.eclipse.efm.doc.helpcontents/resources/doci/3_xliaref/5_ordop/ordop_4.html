@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>The "|and|" order operator : strong synchronism</h1>
+<p>Both processes are evaluated from the initial context. If they both terminate, both contexts of resulting sets will be merged, providing that there are no concurrent accesses and the merge of their reachability constraints is satisfiable. Thus, we will simulate their strict simultaneous evaluation, i.e. their synchronous evaluation. Otherwise, the evaluation fails.</p>
+<p>Considering 2 processes : P and Q, with strong synchronism, both processes are evaluated from the initial context and, if they both finish, we will merge two by two the contexts of both of the resulting ensembles when no concurrent access is effective and their common reachability constrains are satisfied. This way we will have simulated a strictly simultaneous evaluation which means a synchronous one. </p>
+
+<h2>Application on the most basic example</h2>
+<p>Applying this on our <a href="../../4_examples/1_mostbasic.html" shape="rect">most basic example</a>, the "@moe:" section looks like :</p>
+<img src="images/moc004.png" width=1250, border="3">
+<p>And exploring the different paths with the symbolic engine (3, 4 and 5 evaluation steps) gives us (here the execution is simultaneous) :</p>
+<img src="images/moc004_3steps.png" width=600, border="3">
+<img src="images/moc004_4steps.png" width=600, border="3">
+<img src="images/moc004_5steps.png" width=600, border="3">
+
+</body>
+</html>

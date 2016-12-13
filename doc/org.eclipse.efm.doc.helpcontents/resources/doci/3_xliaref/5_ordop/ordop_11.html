@@ -1,0 +1,26 @@
+<html>
+<body>
+
+<h1>The "|.|" order operator : edge effect sequence</h1>
+
+<p>This sequence terminates only if P terminates. If Q does not terminate, the resulting context will be P's resulting context: P side-effects are preserved.</p>
+<p>For example, from context EC(CS, VD, BD, PC, ET), if Q does not terminate, the evaluation of a transition labeled with (P |.| Q) will fail, but still, the result will be a new context EC'(CS, VD', BD', PC', ET') with, at least, the same control CS as EC. The evaluation of this transition will be tried again from EC' at the next step.</p>
+
+<p>Considering 2 processes : P and Q, with edge effect sequence we execute first P then Q from the context resulting from the execution of P (non-reflexive operator) :
+<ul>
+<li>if P and Q succeed, the new context is resulting from the execution of Q (itself starting from the intermediate context)</li>
+<li>if P succeeds and Q fails, the next context is the one resulting from the execution of P alone (from the initial context). We therefore keep the "edge effect" from the execution of P</li>
+</ul>
+</p>
+
+<h2>Application on the most basic example</h2>
+<p>Applying this on our <a href="../../4_examples/1_mostbasic.html" shape="rect">most basic example</a>, the "@moe:" section looks like :</p>
+<img src="images/moc0011.png" width=1250, border="3">
+<p>And exploring the different paths with the symbolic engine (3, 4 and 5 evaluation steps) gives us (here the execution is simultaneous because nothing prevents it from doing so) :</p>
+<img src="images/moc0011_3steps.png" width=600, border="3">
+<img src="images/moc0011_4steps.png" width=600, border="3">
+<img src="images/moc0011_5steps.png" width=600, border="3">
+
+
+</body>
+</html>

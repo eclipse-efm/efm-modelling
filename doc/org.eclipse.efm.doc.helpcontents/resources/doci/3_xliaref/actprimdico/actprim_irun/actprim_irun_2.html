@@ -1,0 +1,21 @@
+<html>
+<body>
+
+<h1>Fiddling with a statemachine's "@irun{...}"</h1> 
+
+
+<h2>Example Application</h2>
+<p>Let's go back to back to the <a href="actprim_irun_1_1.html">video game example</a> of before that was used to showcase the "@irun{...}" of basic states.</p>
+<p>We can factorize the "@irun{...}" of the states "level_1" and "level_2" into a single "@irun{...}" in the parent "myGameProgression" statemachine as in the following code :</p>
+
+<img src="images/irun_2_001.png" width=800, border="3">
+<p>We notice that, unlike for states, the "@irun{...}" activity primitive of statemachines needs to be within an "<a href="../sectiondico/dico_moe.html">@moe:</a>" section.</p>
+<p>Which gives the following graph :</p>
+<img src="images/irun_2_002.png" width=500, border="3">
+
+<p>As a consequence, at each given step of evaluation, the player, starting from a given level, gets a new "currentScore" through the port "obtained_score" and can either stay in the same level or go to the next according to the score value :</p>
+<img src="images/irun_2_003.png" width=1100, border="3">
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<body>
+
+
+<h1>Statemachine as subsystem</h1>
+<p>This kind of statemachine models a system within a system. The submachines of a subsytem are of type "statemachine". Most of what we've said about <a href="1_system.html">systems</a> can be used here :
+<ul>
+<li>we declare inner automata within an "@machine:" section</li>
+<li>we use the "@com:" section to describe the interactions between sub-submachines or between sub-submachines and the subsystem</li>
+</ul>
+<p>Those sub-submachines evolve in parallel. Therefore, the statemachine is declared with a "<a href="../1_4_moc.html">moc</a>" either "and" or "xand".</p>
+
+<p>See <a href="../1_4_moc.html#schedul">scheduling</a> for the notion of "scheduling".</p>
+
+<p>Difference between "and" and "xand" :</p>
+<ul>
+<li>"moc: and", Diversity may provide the scheduling for us if we don't define it ourselves : the default scheduling is the "interlacing" (notation : "|i|") which is the most used</li>
+<li>"moc : xand", the user must entirely define the scheduling (NOT AVAILABLE (compiling error) IN XLIA 2016/03/02)</li>
+</ul>
+
+
+<p>To specify the scheduling we use the "@schedule{...}" action primitive which is inside the "@moe:" section. For instance :</p>
+<img src="images/subsystem001.png" width=1250, border="3">
+
+<p>From the code above we can generate the following statemachines graph :</p>
+<img src="images/subsystem002.png" width=950, border="3">
+
+</body>
+</html>

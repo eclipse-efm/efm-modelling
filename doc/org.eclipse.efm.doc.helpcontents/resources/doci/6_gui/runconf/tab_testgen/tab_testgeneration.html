@@ -1,0 +1,69 @@
+<html>
+<body>
+
+<h1>Test Generation Tab</h1>
+
+<p>The tab is shown below :</p>
+<img src="images/tab_testgen_001.png" width=900, border="3">
+
+
+<h2>Trace Extension Page</h2>
+<p>When checking "Trace Extension to Next Output", we can override the "Evaluation Steps" limit defined in the <a href="tab_commoncriteria.html">Common Criteria Tab</a>. This allows to extend a given symbolic execution configuration for certain purposes. We can add a fixed number of steps or allow an infinite number of steps by entering "-1".</p>
+
+<h2>BASIC Page</h2>
+<p>When checking "Basic Format", additional widgets appear as follows :</p>
+<img src="images/tab_testgen_basic.png" width=900, border="3">
+<p>When launching a symbolic execution, the following file appear :</p>
+<img src="images/testgen_basic001.png" width=400, border="3">
+<p>For a simple model, the content of the "tests.txt" is as follows :</p>
+<img src="images/testgen_basic002.png" width=600, border="3">
+<p>As we can guess, this file records events as they unfold during the symbolic execution. Those events can be (among others) :</p>
+<ul>
+<li>when a machine starts ("run" keyword on a statemachine, a state ...)</li>
+<li>when a transition is triggered ("fire" keyword)</li>
+<li>when an input communication port is used ("INPUT" keyword )</li>
+<li>when an output communication port is used ("OUTPUT" keyword )</li>
+<li>...</li>
+</ul>
+<p>When several branches are explored, the diverse possibilities are recorded under different sections named "TRACE NUMBER X".</p>
+<p>We can lighten this report or flesh it out using the following options :</p>
+<ul>
+<li>in "Observable Input/Output Selection" :
+	<ul>
+	<li>"None" will retain no communication at all in the report</li>
+	<li>"Input/Output" will retain all "INPUT" and "OUTPUT" external events</li>
+	<li>"Input" will retain only external "INPUT" events</li>
+	<li>"Output" will retain only external "OUTPUT" events</li>
+	<li>"All" will retain all communication events (both "INPUT" and "OUTPUT", both external (to the environment) and internal (between machines...))</li>
+	<li>by selecting "Details" you can filter out which communication events to track by giving out their names</li>
+	</ul>
+</li>
+<li>in "Observable Transition Selection" :
+	<ul>
+	<li>"None" will retain no transitions at all in the report</li>
+	<li>"All" will retain all transition events</li>
+	<li>by selecting "Details" you can filter out which transitional events to track by giving out their names</li>
+	</ul>
+</li>
+</ul>
+<p>By checking "Redundance Elimination", you allow Diversity to prune some of the "TRACE NUMBER X" sections if several of them have identical contents.</p>
+
+
+<h2>TTCN Page</h2>
+<p>When checking "TTCN Format", the following files are generated :</p>
+<img src="images/ttcn_files001.png" width=400, border="3">
+<p>Those files describe the system and the symbolic execution using the TTCN-3 Format (see <a href="http://www.ttcn-3.org/">TTCN-3</a>)</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+
+
+
+
+
+</body>
+</html>

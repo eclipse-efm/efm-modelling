@@ -1,0 +1,30 @@
+<html>
+<body>
+
+<h1>The "|xor|" order operator : exclusivity</h1>
+
+<p>Considering 2 processes : P and Q, with exclusivity, both processes are evaluated from the initial context, i.e. without taking into consideration the evaluation of the other.</p>
+<ul>
+<li>if P succeeds :
+	<ul>
+	<li>if Q succeeds : no transitions are taken into account, the systems stays in the initial context</li>
+	<li>if Q fails : the context changes to the context resulting from the execution of P alone</li>
+	</ul>
+</li>
+<li>if P fails :
+	<ul>
+	<li>if Q succeeds : the context changes to the context resulting from the execution of Q alone</li>
+	<li>if Q fails : no transitions are taken into account, the systems stays in the initial context</li>
+	</ul>
+</li>
+</ul>
+
+<h2>Application on the most basic example</h2>
+<p>Applying this on our <a href="../../4_examples/1_mostbasic.html" shape="rect">most basic example</a>, the "@moe:" section looks like :</p>
+<img src="images/moc006.png" width=1250, border="3">
+<p>When exploring the different paths with the symbolic engine Diversity realizes that the system is in a deadlock. Indeed, as both ""A1to2" and "B1to2" transitions can only succeed, the system is bound to indefinitely stay in the initial context. The following graph is the same for any number (>1) of evaluation steps we choose to simulate :</p>
+<img src="images/moc006_anysteps.png" width=600, border="3">
+
+
+</body>
+</html>

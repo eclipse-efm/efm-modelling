@@ -1,0 +1,33 @@
+<html>
+<body>
+
+<h2>The Dispenser</h2>
+
+<p>In the same fashion, we define the Dispenser automaton. We also added a new output port : "monitor_level" which retransmits the current level of water at each transition.</p>
+<img src="pmp010.png" width=950, border="3">
+<p>There are other keywords and concepts in XLIA such as clocks, timed guard ... but we won't discuss those in this present tutorial.</p>
+
+<h2>Communications between automata</h2>
+
+<p>One last thing is left to do : connecting the ports we have defined earlier. To do that, in the same level as the "@machine:" annotation of the beginning, we will list our communications declarations after a "@com:" annotation (see picture)</p>
+<p>To distinguish between two kinds of communications, we'll use two different flags to declare them :</p>
+<ul>
+<li>the "env" flag connects the given ports to the symbolic execution engine which will provide random input data</li>
+<li>the "rdv" flag links two existing ports of different automata : one input port and one output port. The data of the input port will be transmitted to the output port.</li>
+</ul>
+
+<img src="pmp011.png" width=950, border="3">
+
+<h2>Conclusion</h2>
+<p>We've now build a fully working system with XLIA :</p>
+<img src="pmp012.png" width=450, border="3">
+
+<p>You can retrieve the complete code by following the steps described in the pictures below :</p>
+<img src="retrieve_exam001.png" width=850, border="3">
+<img src="retrieve_exam002.png" width=850, border="3">
+<img src="retrieve_exam003.png" width=850, border="3">
+<img src="retrieve_exam004.png" width=850, border="3">
+<img src="retrieve_exam005.png" width=850, border="3">
+
+</body>
+</html>

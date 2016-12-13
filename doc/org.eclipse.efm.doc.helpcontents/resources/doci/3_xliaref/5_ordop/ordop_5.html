@@ -1,0 +1,24 @@
+<html>
+<body>
+
+<h1>The "|>|" order operator : priority</h1>
+<p>Process P is evaluated in the initial context. Process Q is evaluated in the initial context with in addition, if P terminates, the Boolean negation of conditions resulting from P's evaluation. Thus, if both P and Q terminate, there are two possible resulting contexts.</p>
+<p>Considering 2 processes : P and Q, when assuming the priority P |>| Q :</p>
+<p>Q is evaluated in the initial context</p>
+<ul>
+<li>if P succeeds, Q is not evaluated</li>
+<li>if P fails, Q is evaluated in the initial context, negating the eventual consequences of the failed symbolic execution of P</li>
+</ul>
+
+<h2>Application on the most basic example</h2>
+<p>Applying this on our <a href="../../4_examples/1_mostbasic.html">most basic example</a>, the "@moe:" section looks like :</p>
+<img src="images/moc005.png" width=1250, border="3">
+<p>Here the transitions concerning the automaton "A" will be prioritized over the ones concerning the automaton "B"</p>
+<p>WARNING : as you can see, this scheduling operator is not a reflexive binary operator : "P |>| Q" is not the same thing as "Q |>| P".</p>
+<p>And exploring the different paths with the symbolic engine (3, 4 and 5 evaluation steps) gives us (here the execution is simultaneous) :</p>
+<img src="images/moc005_3steps.png" width=600, border="3">
+<img src="images/moc005_4steps.png" width=600, border="3">
+<img src="images/moc005_5steps.png" width=600, border="3">
+
+</body>
+</html>

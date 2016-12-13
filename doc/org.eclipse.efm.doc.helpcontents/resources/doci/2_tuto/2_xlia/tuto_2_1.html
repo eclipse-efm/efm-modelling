@@ -1,0 +1,75 @@
+<html>
+<body>
+
+
+<h2 id="1">System and Automata declarations</h2>
+
+<p>First, we will declare the <a href="../../3_xliaref/1_3_machtype_1_system.html">system</a> : an object of type "system" (and for this present tutorial, of name "WaterSystem").</p> 
+<p>The system object will be fleshed-out with code written inside a block between brackets as seen in the picture below.</p>
+
+<img src="pmp001.png" width=450, border="3">
+
+<p>Then, we will list all the automata (<a href="../../3_xliaref/1_3_machtype_2_stmach.html">state-machines</a>) that exist within our system (in this present tutorial there are "Pump" and "Dispenser").</p>
+<p>The state-machine object will be fleshed-out with code written inside a block between brackets as seen in the picture below.</p>
+
+<img src="pmp002.png" width=950, border="3">
+
+<h2 id="2">Defining an automaton</h2>
+
+<p>After that, we need to declare the different attributes or (CONSTANTS and variables) and channels of communication (ports) that constitute the <a href="../../3_xliaref/2_0_properties.html">properties</a> of our automaton.</p>
+<p>We will do it here for the "Pump" state-machine which has, as we've defined it, 2 variables and 2 ports.</p>
+<p>There are several equivalent ways to do it (as we can see in "<a href="../../3_xliaref/2_0_properties.html">properties</a>") and here is one :</p>
+
+<img src="pmp003.png" width=1250, border="3">
+
+<p>NOTE : "flow" is an <a href="../../workinprog.html">XLIA Keyword</a> (see <a href="../../3_xliaref/0_overv.html">XLIA Reference Documentation</a>). Therefore we can't use it in our code. We will instead use "FLOW" (case sensitive).</p>
+<p>XLIA is a typed language; we need to specify the types of the attributes (here "integer") and of the objects that travel through the ports (here also "int"). The different possible base types are :</p>
+<ul>
+<li>"int" or "integer"</li>
+<li>"float"</li>
+<li>"bool" or "boolean"</li>
+<li>"string"</li>
+</ul>
+
+<h2 id="3">Declaring states</h2>
+
+<p>Then, we need to declare all the possible <a href="../../3_xliaref/1_3_machtype_3_state.html">states</a> for the different state-machines. To declare the states of a given state-machine, we list declarations in an area that begins with the annotation "@region" in the body of the parent state-machine.</p>
+
+<p>As we've defined <a href="../1_design/tuto_1.html#pump">previously</a>, the "Pump" state-machine has 2 states : "inactive" and "active". This gives us the code :</p>
+<img src="pmp004.png" width=950, border="3">
+<p>The state objects will be fleshed-out with code written inside a block between brackets as seen in the picture above.</p>
+
+<h2 id="4">Declaring transitions</h2>
+<p>Transitions are events that lead a state-machine to change from one state to another. In this tutorial, we won't cover everything about transitions (see <a href="../../3_xliaref/2_0_transitions.html">transitions</a> for details).</p>
+<p>All the transitions that leave an origin state must be specified inside the body of that origin state. In the body of the state, we list all transitions with the keyword "transition".</p>
+<p>For the "Pump" state-machine, we define the transitions in the picture below (see comments or <a href="../../3_xliaref/2_0_transitions.html">transitions</a> for basic syntax explanations) :</p>
+<img src="pmp005.png" width=950, border="3">
+
+
+<h2 id="5">Setting the starting states</h2>
+
+<p>However, for our system to be working, we must specify for each state-machine in which one of its declared state the it must start i.e. which is the initial state.</p>
+<p>Let's suppose we want the simulation to begin with an inactive pump. Diversity provides two methods of doing so (see <a href="../../4_examples/2_initial_vs_start.html">"initial" vs "start"</a>).</p>
+
+<h3>The UML compliant method</h3>
+<p>With this method, we must add a third state to the "Pump" state-machine. This state is an unstable "source-state" that will be immediately left at the beginning of the simulation.</p>
+<p>To do that, we define an "initialstate" with the keyword "initial". We fit this "initialstate" with a <a href="../../3_xliaref/1_3_machtype_3_state.html">transition</a> to the "inactive" state.</p>
+<p>By following this method, we will end up with the following code and state-machine :</p>
+<img src="pmp006.png" width=750, border="3">
+<img src="pmp007.png" width=300 border="3">
+<p>We strongly recommend using this method over the next one, as it reproduces the standard UML design.</p>
+
+<h3>The Quick method</h3>
+<p>With this method there is no need to have a third state. We just add the keyword "start" to the "inactive" state so that the "Pump" state-machine will go to this state at the beginning of the simulation.</p>
+<p>To do that we use a flag "start" in the declaration of the state.</p>
+<img src="pmp008.png" width=750 border="3">
+<img src="pmp009.png" width=300 border="3">
+
+
+
+
+
+
+
+</body>
+</html>

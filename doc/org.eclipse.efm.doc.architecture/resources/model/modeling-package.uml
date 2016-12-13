@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_QmySMNoYEeWhBfCNf_PCVQ" name="ModelingArchitecture">
+  <packagedElement xmi:type="uml:Package" xmi:id="_Bz4XMNobEeWhBfCNf_PCVQ" name="formalml">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_5Uz1sOR5EeWlq_hSd-Zjhg">
+      <body>FM Language</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Package" xmi:id="_pF66kNoYEeWhBfCNf_PCVQ" name="profile">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_eAUCoNoZEeWhBfCNf_PCVQ" annotatedElement="_pF66kNoYEeWhBfCNf_PCVQ">
+        <body>efm profile</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_AC62QNojEeWhBfCNf_PCVQ" name="concretesyntax">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_CUU4MNojEeWhBfCNf_PCVQ">
+        <body>known as xlia (doc xlia); &#xD;
+lien vers la grammaire xtext</body>
+      </ownedComment>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_14JvkNobEeWhBfCNf_PCVQ" name="sew">
+    <packagedElement xmi:type="uml:Package" xmi:id="_3TpdMNobEeWhBfCNf_PCVQ" name="launcher"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="__e9RwNobEeWhBfCNf_PCVQ" name="sewtext">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_EyY6QNocEeWhBfCNf_PCVQ">
+        <body>favm + favm editor</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_3aHqANsKEeWhz9Bf7B-yqA" client="_14JvkNobEeWhBfCNf_PCVQ" supplier="_Bz4XMNobEeWhBfCNf_PCVQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_-WTLINocEeWhBfCNf_PCVQ" name="papyrus-fm">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_6Gx-ENoZEeWhBfCNf_PCVQ">
+      <body>papyrusbasededitor: diagram, property view, modelexplorer, services,&#xD;
+utils(xtext editors)</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Package" xmi:id="_k0qEQNoZEeWhBfCNf_PCVQ" name="diagram"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_075UENsKEeWhz9Bf7B-yqA" client="_-WTLINocEeWhBfCNf_PCVQ" supplier="_Bz4XMNobEeWhBfCNf_PCVQ"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_1p1YINsKEeWhz9Bf7B-yqA" client="_-WTLINocEeWhBfCNf_PCVQ" supplier="_14JvkNobEeWhBfCNf_PCVQ"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_aJV7YOR9EeWlq_hSd-Zjhg" name="core">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_bwkX4OR9EeWlq_hSd-Zjhg">
+        <body>services</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_spVEwOR9EeWlq_hSd-Zjhg" name="gui">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_vJt94OR9EeWlq_hSd-Zjhg">
+        <body>Wizards (new project)&#xD;
+Properties /Model Explorer views&#xD;
+FM2T: Model to Text (Concrete Syntax) transformation</body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Package" xmi:id="_KMDCUOSrEeWOpstPf_GX1w" name="CopyOf_fm2t_1"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Jv-DwOR-EeWlq_hSd-Zjhg" name="m2t"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_LCW_QOSrEeWOpstPf_GX1w" name="view"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_L98skNodEeWhBfCNf_PCVQ" name="doc">
+    <packagedElement xmi:type="uml:Package" xmi:id="_VMtiMNodEeWhBfCNf_PCVQ" name="training"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_WVS64NodEeWhBfCNf_PCVQ" name="cheatsheets"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_knGzoNodEeWhBfCNf_PCVQ" name="examples"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_pm5HYNodEeWhBfCNf_PCVQ" name="tests"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_SsYK8NuzEeWcBPkO41CMgg" name="Communication">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_1E5y8Nu2EeWcBPkO41CMgg" annotatedElement="_SsYK8NuzEeWcBPkO41CMgg">
+      <body>-ReceiveSignalEvent&#xD;
+-ReceiveAnyEvent&#xD;
+-Connector? </body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Package" xmi:id="_pgQrENu2EeWcBPkO41CMgg" name="Communication"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_V41N8Nu1EeWcBPkO41CMgg" name="Block">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_X-_pMNu1EeWcBPkO41CMgg">
+      <body>- Block&#xD;
+- Environment&#xD;
+- ExecutionContext (old TestContext)&#xD;
+-Variable&#xD;
+-BlockInstance&#xD;
+-MultiValuedPart&#xD;
+-Clock&#xD;
+-Port (old DPort)&#xD;
+-Model (DModel)</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_qP3jENu2EeWcBPkO41CMgg" name="MOE">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_xhUXcNu2EeWcBPkO41CMgg" annotatedElement="_qP3jENu2EeWcBPkO41CMgg">
+      <body>-SchedulingKind&#xD;
+-SchedulingBehavior: Expression OpaqueExpression&#xD;
+N.B used when SchedulingKind = TEXTUAL_EXPRESSION&#xD;
+(block attribute SchedulingBehavior becomes -> SchedulingExpression)</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Package" xmi:id="_qP3jEdu2EeWcBPkO41CMgg" name="Communication"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_jzFAkNobEeWhBfCNf_PCVQ" name="xtext">
+    <packagedElement xmi:type="uml:Package" xmi:id="_IpJhsNoiEeWhBfCNf_PCVQ" name="core">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_NAIwENoiEeWhBfCNf_PCVQ">
+        <body>ecore xlia </body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="_jJyLsOR-EeWlq_hSd-Zjhg" name="editor">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_mDtxANocEeWhBfCNf_PCVQ">
+        <body>xtext.xlia</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_UeemUOSpEeWOpstPf_GX1w" client="_jzFAkNobEeWhBfCNf_PCVQ" supplier="_Bz4XMNobEeWhBfCNf_PCVQ"/>
+  </packagedElement>
+</uml:Model>

@@ -1,0 +1,23 @@
+<html>
+<body>
+
+
+
+<h1>The modifiers</h1>
+
+<p>A machine can own/have several characteristics, specified through its "modifier" attribute.</p>
+
+
+<h2>The "input_enabled" attribute </h2>
+
+<p>This allows to specify if a communicating machine will react at every moment to every incoming event. For instance, in the case of a statemachine, this means that the statemachine must react to every input whichever state it is in.</p>
+<p>This has a semantical consequence that musn't be overlooked. For example in an asynchronous communication via buffers, the messages that aren't expected at a given time by a transition will be ignored and lost! It is as if there was another transition from the given state, this one without any effect, that was expecting the input (therefore this input is unused).</p>
+
+
+<h2 id="timed">The "timed" attribute</h2>
+
+<p>Putting this attribute on a machine imposes, in the machine's code, to implement an interface. This interface adds elements that are necessary to the implicit management of the elapsed time on Diversity's symbolic engine.</p>
+
+
+</body>
+</html>

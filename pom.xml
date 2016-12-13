@@ -76,6 +76,7 @@
 		<module>codegen</module>
 		<module>diagram</module>
 		<module>editor</module>
+		<module>doc</module>
 		<module>gui</module>
 		<module>releng</module>
 		<module>targetplatform</module>

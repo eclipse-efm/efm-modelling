@@ -1,0 +1,43 @@
+@xlia< system , 1.0 >:
+
+system<and> CountSimulation {
+
+	@machine:
+	
+		statemachine CountMachine {
+			// This machine receives random integers and adds them together
+			@property:
+				// on this variable, we will store the value of the most recent received integer
+				public var int increment;
+				// this is the port where we will receive integer values which will be stored in the "increment" variable
+				public port input received(int);
+				
+				
+				// on this integer, we will add everything that we receive
+				public var int counter = 0;
+				// through this port, we can look at the current value of the "counter" variable
+				public port output infocast(int);
+			
+			@region:
+				state<initial> source {
+					transition startup --> stand_by {}
+				}
+				
+				state stand_by{
+					transition received --> stand_by{
+						input received(increment);
+						counter += increment;
+						output infocast(counter);
+					}
+				}
+		}
+				
+	@com:
+		connect<env> {
+		    input CountMachine->received;
+		    output CountMachine->infocast;
+		  }
+	
+}
+
+

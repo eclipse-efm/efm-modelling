@@ -1,0 +1,31 @@
+@xlia< system , 1.0 >:
+
+system mySystem {
+	
+	@property:
+		public var vector<int> xyz_coordinates = {4, 3, 7};
+		
+		public var int x_pos;
+		public var int y_pos;
+		public var int z_pos;
+		
+	@macro:
+		routine get_X(vector<int> coords) --> int {
+			return coords[0];
+		}
+		routine get_Y(vector<int> coords) --> int {
+			return coords[1];
+		}
+		routine get_Z(vector<int> coords) --> int {
+			return coords[2];
+		}
+		
+	@moe:
+		@init{
+			x_pos = get_X(xyz_coordinates);
+			y_pos = get_Y(xyz_coordinates);
+			z_pos = get_Z(xyz_coordinates);
+		}
+
+}
+

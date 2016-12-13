@@ -1,0 +1,40 @@
+<html>
+<body>
+
+
+<h1>Fiddling with a basic state's "@irun{...}"</h1>
+
+<h2>Hypothesis</h2>
+<p>We must consider a basic state :</p>
+<ul>
+<li>with NO substates (of course because it is a basic state)</li>
+<li>we won't consider any specific flag (there may be edge effects with certain flags)</li>
+</ul>
+
+<h2>Example Application</h2>
+<p>The following example is that of a video game (the system). The statemachine represents the progression in the current game. Each one of its state represent a level in the game.</p>
+<p>When the player is playing a level, he can either win or lose :</p>
+<ul>
+<li>to win, he must have a score higher than the MINIMUMSCORE</li>
+<li>to lose, he must have a score lower than the MINIMUMSCORE</li>
+</ul>
+
+<p>Here is the code within the system :</p>
+<img src="images/irun_1_1_001.png" width=800, border="3">
+<p>Which gives the following graph :</p>
+<img src="images/irun_1_1_002.png" width=500, border="3">
+<p>The "@irun{...}" of the state is evaluated before evaluating the transitions. Therefore this is equivalent to having :</p>
+<img src="images/irun_1_1_003.png" width=600, border="3">
+<p>As a consequence, at each given step of evaluation, the player, starting from a given level, gets a new "currentScore" through the port "obtained_score" and can either stay in the same level or go to the next according to the score value :</p>
+<img src="images/irun_1_1_004.png" width=1100, border="3">
+
+<p>Here, the "@irun{...}" of the state is used to factorize the same code in each outgoing transition of the origin state.</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+
+
+</body>
+</html>

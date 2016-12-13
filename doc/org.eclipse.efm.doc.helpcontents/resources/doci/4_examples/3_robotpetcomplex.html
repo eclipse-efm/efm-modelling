@@ -1,0 +1,57 @@
+<html>
+<body>
+
+
+<h1>The Complex Robot Pet</h1>
+
+<h2>Introduction</h2>
+<p>We will try to add more depth and personality to our <a href="1_robotpetsimple.html" shape="rect">Simple Robot Pet</a>.</p>
+<p>The robot will also be able to sit.</p>
+<p>The robot will be able to execute an additional order ("SIT") and the way the orders are executed will change :</p>
+<ul>
+<li>"UP" : stands if sitting and sits if lying</li>
+<li>"DOWN" : sits if standing and lies if sitting</li>
+<li>"SIT" : sits if in any position</li>
+</ul>
+<p>The robot will also be able to execute some animations :</p>
+<ul>
+<li>"BARKS" : idle animation when standing</li>
+<li>"SCRATCHES" : idle animation when sitting</li>
+<li>"ROLLS" : idle animation when lying</li>
+<li>"SHIFTHEAD" : animation when order is strange</li>
+</ul>
+<p>If given an order that makes not sense in the current situation (for instance "SIT" when already sitting), the robot will have a certain animation ("SHIFTHEAD").</p>
+
+
+<h2>XLIA code</h2>
+
+<p>Following the same steps than for the <a href="1_robotpetsimple.html" shape="rect">Simple Robot Pet</a>, we define the statemachine :</p>
+<ul>
+<li>the "position" variable has a new possible value</li>
+<li>specified types for the different possible animations; a port and a variable to allow communication</li>
+</ul>
+<img src="images/robotpet_complex_1.png" width=750, border="3">
+<p>We then define the "standing", "sitting" and "lying" states. Additional transitions integrate the idle animations of the dog (guards can be further implemented (for instance time span between animations ...)).</p>
+<img src="images/robotpet_complex_2.png" width=750, border="3">
+<p>Like before, we define the "receivedOrder" state with the flag "choice". We notice that with the additional states and orders, the different transitions and guards are much more complex than for the <a href="1_robotpetsimple.html" shape="rect">Simple Robot Pet</a>. This inevitable combinatorial explosion can be controlled by Diversity which can point out modeling errors, unintended uses and not covered cases.</p>
+<img src="images/robotpet_complex_3.png" width=750, border="3">
+<p>Finally, we program the simulation by running the machine RobotPet. And we connect its input ports to the environment that will simulate a panel of possible input.</p>
+<img src="images/robotpet_complex_4.png" width=750, border="3">
+
+<h2>Exploration of the behavior</h2>
+
+<p>We can generate a graph of the statemachine as follows :</p>
+<img src="images/robotpet_complex_5.png" width=750, border="3">
+<p>We will then look for possible paths that would lead to the error state.</p>
+
+
+
+<p></p>
+<p></p>
+<p></p>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<toc label="Eclipse Formal Modeling">
+    <topic href="resources/doc/rcp_intro.html" label="RCP Documentation Introduction">
+    </topic>
+    <topic label="Basic Step by Step Tutorial" href="resources/doc/2_tuto/tuto_0.html">
+       <topic href="resources/doc/2_tuto/1_design/tuto_1.html" label="Designing the water system">
+       </topic>
+       <topic href="resources/doc/2_tuto/2_xlia/tuto_2_0.html" label="Modeling with XLIA">
+          <topic href="resources/doc/2_tuto/2_xlia/tuto_2_1.html" label="Building an automaton">
+          </topic>
+          <topic href="resources/doc/2_tuto/2_xlia/tuto_2_2.html" label="Communications">
+          </topic>
+       </topic>
+       <topic href="resources/doc/2_tuto/3_exploit/tuto_3_0.html" label="Model exploitation">
+          <topic href="resources/doc/2_tuto/3_exploit/tuto_3_1.html" label="Symbolic Execution and Exploration">
+          </topic>
+          <topic href="resources/doc/2_tuto/3_exploit/tuto_3_2.html" label="Behavior Selection">
+          </topic>
+          <topic href="resources/doc/2_tuto/3_exploit/tuto_3_3.html" label="Transition Coverage">
+          </topic>
+       </topic>
+    </topic>
+    <topic href="resources/doc/3_xliaref/0_overv.html" label="XLIA Reference Documentation">
+       <topic href="resources/doc/3_xliaref/0_header.html" label="XLIA file header">
+       </topic>
+       <topic href="resources/doc/3_xliaref/0_bnf_syntax.html" label="BNF syntax">
+       </topic>
+       <topic href="resources/doc/3_xliaref/1_machines/1_0_machines.html" label="Machines">
+          <topic href="resources/doc/3_xliaref/1_machines/1_1_design.html" label="Design : model-instance paradigm">
+          </topic>
+          <topic href="resources/doc/3_xliaref/1_machines/1_2_modifier.html" label="Modifiers">
+          </topic>
+          <topic href="resources/doc/3_xliaref/1_machines/1_3_machtype/0_machtype.html" label="Types of machine">
+             <topic href="resources/doc/3_xliaref/1_machines/1_3_machtype/1_system.html" label="System">
+             </topic>
+             <topic href="resources/doc/3_xliaref/1_machines/1_3_machtype/2_0_stmach.html" label="Statemachine">
+                <topic href="resources/doc/3_xliaref/1_machines/1_3_machtype/2_1_automaton.html" label="Automaton">
+                </topic>
+                <topic href="resources/doc/3_xliaref/1_machines/1_3_machtype/2_2_subsystem.html" label="Subsystem">
+                </topic>
+             </topic>
+             <topic href="resources/doc/3_xliaref/1_machines/1_3_machtype/3_0_state.html" label="State">
+                <topic href="resources/doc/3_xliaref/1_machines/1_3_machtype/3_1_simpsta.html" label="Basic State">
+                </topic>
+                <topic href="resources/doc/3_xliaref/1_machines/1_3_machtype/3_2_composta.html" label="Composite State">
+                </topic>
+             </topic>
+          </topic>
+          <topic href="resources/doc/3_xliaref/1_machines/1_4_moc.html" label="MOC">
+          </topic>
+       </topic>
+       <topic href="resources/doc/3_xliaref/2_properties/2_0_properties.html" label="Properties">
+          <topic href="resources/doc/3_xliaref/2_properties/2_1_0_variables.html" label="Variables">
+             <topic href="resources/doc/3_xliaref/2_properties/2_1_1_varmods.html" label="Variable Modifiers">
+             </topic>
+             <topic href="resources/doc/3_xliaref/2_properties/2_1_2_varbehavs.html" label="Variable Behaviors">
+             </topic>
+          </topic>
+          <topic href="resources/doc/3_xliaref/2_properties/2_2_ports.html" label="Ports">
+          </topic>
+          <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_0_overv.html" label="Types">
+             <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_1_bound.html" label="Bounded numbers and Intervals">
+             </topic>
+             <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_2_0_collec.html" label="Collections">
+                <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_2_1_array.html" label="Arrays">
+                </topic>
+                <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_2_2_vector.html" label="Vectors">
+                </topic>
+                <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_2_3_rvector.html" label="R Vectors">
+                </topic>
+                <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_2_4_list.html" label="Lists">
+                </topic>
+                <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_2_5_set.html" label="Sets">
+                </topic>
+                <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_2_6_multiset.html" label="Multisets">
+                </topic>
+             </topic>
+             <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_4_queue.html" label="Queues">
+             </topic>
+             <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_5_enum.html" label="Enumerations">
+             </topic>
+             <topic href="resources/doc/3_xliaref/2_properties/2_3_types/type_6_struct.html" label="Structures">
+             </topic>
+          </topic>
+       </topic>
+       <topic href="resources/doc/3_xliaref/3_transitions/3_0_transitions.html" label="Transitions">
+          <topic href="resources/doc/3_xliaref/3_transitions/3_1_trans_statements.html" label="Transition Statements">
+          </topic>
+       </topic>
+       <topic href="resources/doc/3_xliaref/4_instructions/4_0_foreword.html" label="Instructions">
+          <topic href="resources/doc/3_xliaref/4_instructions/4_1_block.html" label="Instruction Block">
+          </topic>
+          <topic href="resources/doc/3_xliaref/4_instructions/4_2_assignment.html" label="Assignement Instructions">
+          </topic>
+          <topic href="resources/doc/3_xliaref/4_instructions/4_3_guards.html" label="Guarded Instructions">
+          </topic>
+          <topic href="resources/doc/3_xliaref/4_instructions/4_4_communication.html" label="Communication Instructions">
+          </topic>
+          <topic href="resources/doc/3_xliaref/4_instructions/4_5_conditions.html" label="Conditional Instructions">
+          </topic>
+          <topic href="resources/doc/3_xliaref/4_instructions/4_6_iterations.html" label="Iteration Instructions">
+          </topic>
+       </topic>
+       <topic href="resources/doc/3_xliaref/5_ordop/ordop_0.html" label="Order Operators">
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_1.html" label="Interlacing : |i|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_2.html" label="Simple Parallel : |,|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_3.html" label="Weak Synchronism : |or|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_4.html" label="Strong Synchronism : |and|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_5.html" label="Priority : |&gt;|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_6.html" label="Exclusivity : |xor|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_7.html" label="Non-determinism : |/\|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_8.html" label="Atomic Sequence : |§|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_9.html" label="Strong Sequence : |;|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_10.html" label="Weak Sequence : |;;|">
+          </topic>
+          <topic href="resources/doc/3_xliaref/5_ordop/ordop_11.html" label="Edge Effect Sequence : |.|">
+          </topic>
+       </topic>
+       <topic href="resources/doc/3_xliaref/sectiondico/dico_0.html" label="Sections Dictionary">
+          <topic href="resources/doc/3_xliaref/sectiondico/dico_com.html" label="@com:">
+          </topic>
+          <topic href="resources/doc/3_xliaref/sectiondico/dico_instance.html" label="@instance:">
+          </topic>
+          <topic href="resources/doc/3_xliaref/sectiondico/dico_machine.html" label="@machine:">
+          </topic>
+          <topic href="resources/doc/3_xliaref/sectiondico/dico_moe.html" label="@moe:">
+          </topic>
+          <topic href="resources/doc/3_xliaref/sectiondico/dico_parameter.html" label="@parameter:">
+          </topic>
+          <topic href="resources/doc/3_xliaref/sectiondico/dico_private.html" label="@private:">
+          </topic>
+          <topic href="resources/doc/3_xliaref/sectiondico/dico_property.html" label="@property:">
+          </topic>
+          <topic href="resources/doc/3_xliaref/sectiondico/dico_public.html" label="@public:">
+          </topic>
+          <topic href="resources/doc/3_xliaref/sectiondico/dico_region.html" label="@region:">
+          </topic>
+       </topic>
+       <topic href="resources/doc/3_xliaref/actprimdico/actprim_0.html" label="Activity Primitives Dictionary">
+          <topic href="resources/doc/3_xliaref/actprimdico/actprim_abort.html" label="@abort">
+          </topic>
+          <topic href="resources/doc/3_xliaref/actprimdico/actprim_concurrency.html" label="@concurrency">
+          </topic>
+          <topic href="resources/doc/3_xliaref/actprimdico/actprim_disable.html" label="@disable">
+          </topic>
+          <topic href="resources/doc/3_xliaref/actprimdico/actprim_enable.html" label="@enable">
+          </topic>
+          <topic href="resources/doc/3_xliaref/actprimdico/actprim_final.html" label="@final">
+          </topic>
+          <topic href="resources/doc/3_xliaref/actprimdico/actprim_init.html" label="@init">
+          </topic>
+          <topic href="resources/doc/3_xliaref/actprimdico/actprim_irun/actprim_irun_0.html" label="@irun">
+             <topic href="resources/doc/3_xliaref/actprimdico/actprim_irun/actprim_irun_1_0.html" label="@irun in states">
+                <topic href="resources/doc/3_xliaref/actprimdico/actprim_irun/actprim_irun_1_1.html" label="basic state">
+                </topic>
+                <topic href="resources/doc/3_xliaref/actprimdico/actprim_irun/actprim_irun_1_2.html" label="composite state: simple case">
+                </topic>
+                <topic href="resources/doc/3_xliaref/actprimdico/actprim_irun/actprim_irun_1_3.html" label="composite state: complex case">
+                </topic>
+             </topic>
+             <topic href="resources/doc/3_xliaref/actprimdico/actprim_irun/actprim_irun_2.html" label="@irun in statemachines">
+             </topic>
+             <topic href="resources/doc/3_xliaref/actprimdico/actprim_irun/actprim_irun_3.html" label="@irun in systems">
+             </topic>          
+          </topic>
+          <topic href="resources/doc/3_xliaref/actprimdico/actprim_run/actprim_run_0.html" label="@run">
+             <topic href="resources/doc/3_xliaref/actprimdico/actprim_run/actprim_run_3.html" label="@run in systems">
+             </topic>
+             <topic href="resources/doc/3_xliaref/actprimdico/actprim_run/actprim_run_2.html" label="@run in statemachines">
+             </topic>
+             <topic href="resources/doc/3_xliaref/actprimdico/actprim_run/actprim_run_1.html" label="@run in states">
+             </topic>
+          </topic>
+          <topic href="resources/doc/3_xliaref/actprimdico/actprim_schedule.html" label="@schedule">
+          </topic>
+       </topic>
+       <topic href="resources/doc/3_xliaref/0_namerules.html" label="Name rules">
+       </topic>
+    </topic>
+    <topic href="resources/doc/4_examples/0_examlist.html" label="Examples and other tutorials">
+       <topic href="resources/doc/4_examples/1_mostbasic.html" label="The Most Basic Example">
+       </topic>
+       <topic href="resources/doc/4_examples/2_robotpetsimple.html" label="The Simple Robot Pet">
+       </topic>
+       <topic href="resources/doc/4_examples/3_robotpetcomplex.html" label="The Complex Robot Pet">
+       </topic>
+       <topic href="resources/doc/4_examples/4_inefficientproject.html" label="Inefficient Project Workflow">
+       </topic>
+    </topic>
+    <topic href="resources/doc/5_symbexec/0_principle.html" label="Symbolic Execution">
+       <topic href="resources/doc/5_symbexec/1_exploration.html" label="Exploration Analysis">
+       </topic>
+       <topic href="resources/doc/5_symbexec/2_transition_coverage.html" label="Transition Coverage Analysis">
+       </topic>
+       <topic href="resources/doc/5_symbexec/3_behavior_selection.html" label="Behavior Selection Analysis">
+       </topic>
+    </topic>
+    <topic href="resources/doc/6_gui/intro.html" label="Graphical User Interface">
+       <topic href="resources/doc/6_gui/perspective/perspective.html" label="Perspective">
+          <topic href="resources/doc/6_gui/perspective/sew_menu.html" label="SEW Menu">
+          </topic>
+          <topic href="resources/doc/6_gui/perspective/sew_console.html" label="SEW Console">
+          </topic>
+          <topic href="resources/doc/6_gui/perspective/xlia_editor.html" label="XLIA Editor">
+          </topic>
+          <topic href="resources/doc/6_gui/perspective/model_explorer.html" label="Model Explorer">
+          </topic>
+       </topic>
+       <topic href="resources/doc/6_gui/runconf/run_configuration.html" label="Run Configurations">
+          <topic href="resources/doc/6_gui/runconf/tab_main.html" label="Main Tab">
+          </topic>
+          <topic href="resources/doc/6_gui/runconf/tab_commoncriteria.html" label="Common Criteria Tab">
+          </topic>
+          <topic href="resources/doc/6_gui/runconf/tab_testgen/tab_testgeneration.html" label="Test Generation">
+          </topic>
+          <topic href="resources/doc/6_gui/runconf/tab_debug/tab_debug.html" label="Debug">
+          </topic>
+          <topic href="resources/doc/6_gui/runconf/tab_expert.html" label="Expert">
+          </topic>
+       </topic>
+       <topic href="resources/doc/6_gui/preferences/preferences.html" label="User Preferences">
+       </topic>
+    </topic>
+</toc>

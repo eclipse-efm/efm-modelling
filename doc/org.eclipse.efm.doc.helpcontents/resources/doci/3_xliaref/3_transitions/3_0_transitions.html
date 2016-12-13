@@ -1,0 +1,71 @@
+<html>
+<body>
+
+<h1>Transitions</h1>
+
+<h2>Generalities</h2>
+<p>Transitions describe operational behaviors in peculiar machines, called symbolic state-transition machines.</p>
+
+
+<p>Transitions are to be defined and declared within a parent "<a href="../1_machines/1_3_machtype/3_state.html">state</a>". Remarks:</p>
+<ul>
+<li>Legacy code may include the declaration of an "@transition:" section in the body of a state before the declaration of transitions. However, for the sake a simplicity, in a state, the name of the "@transition:" section can be avoided.</li>
+<li>There is a possibility to define transitions for other machines (other than states). The user should in that case use the "@transition:" section (this is an advance use of Diversity).</li>
+</ul>
+
+<h2>Declaration</h2>
+<p>To declare a given transition, we use the following general syntax (see <a href="../0_bnf_syntax.html">BNF syntax</a>) :</p>
+<img src="images/transitions001.png" width=950, border="3">
+
+<p>In the following, we'll be explaining the different modifiers and arguments that make up this syntax.</p>
+
+<h2>The "moe4trans" argument</h2>
+<p>This gather the most important and commonly used pieces of information to define a transition.</p>
+<p>In this part, we can add "<a href="../4_instructions/4_1_block.html">block statements</a>" that will be checked and/or executed when the transition is in course. It is also in this part that we can specify the target state of the transition.</p>
+<p>If we define a transition without a block statement, this transition is not checked (therefore it can be taken at any given time without conditions) and has no other effects that changing the state of the parent machine (however, effects can be triggered by the "<a href="../actprimdico/actprim_disable.html">@disable{...}</a>" action primitive of the exited state and the "<a href="../actprimdico/actprim_enable.html">@enable{...}</a>" action primitive of the entered state).</p>
+<p>There are different possible syntaxes as shown below :</p>
+<img src="images/transitions002.png" width=950, border="3">
+<p>Block statements inside transitions have some specificities. You can find out about this <a href="3_1_trans_statements.html">here</a>.</p>
+
+<h2>The "modifier" argument (only "transient" or nothing)</h2>
+<p>The specificity of a "transient" transition is that its evaluation is followed by the evaluation of its target state, whatever state it is, stable or not.</p>
+
+<h2>The "transkind" argument</h2>
+<h3>The "simple" attribute</h3>
+<p>By default, and as usual, a transition type is "simple".</p>
+
+<h3 id="abort">The "abort" attribute</h3>
+<p>This attribute flag can only be used on transitions belonging to a <a href="../1_machines/1_3_machtype/3_2_composta.html">composite state</a>.</p>
+<p>A transition with the abort attribute is called an "abortion transition". In the parent composite state, the evaluation of the abortion transition has priority over the evaluation of the substate's transitions.</p>
+<p>Moreover, its evaluation will trigger the "@abort{...}" primitive of the composite state instead of the "@disable{...}" primitive.</p>
+<p>Please refer to the "<a href="../actprimdico/actprim_abort.html">@abort{...}</a>" primitive for further information and examples.</p>
+
+<h3>The "final" attribute</h3>
+<p>It indicates finalization transitions. Their evaluation starts when their source state, which is necessarily composite, has all its "final states" activated (see "@final{...}" primitive). </p>
+
+<h3>The "else" attribute</h3>
+<p>It indicates the transition(s) with the lowest priority in a given state. It is used when one wants to give a deterministic evaluation of a state's output transitions, using logical constraints or explicit priorities (see following section).</p>
+<p>The expression "transition&#60;else&#62;" is an alias for "transition&#60;simple &#38; else&#62;".</p>
+<p>It is worth noticing that <a href="../../4_examples/2_robotpetsimple.html">The Simple Robot Pet</a> example makes use of an "else" transition.</p>
+
+
+<h2>The Priority ("prior" argument)</h2>
+<p>Priorities schedule transitions of the same kind (simple, abort, final, etc.) and coming from the same source state. Usually, the highest priority is 0, and the transition with the lowest priority will be assigned the highest number of all transitions. Two transitions with the same priority will be evaluated in a non-deterministic way.</p>
+<p>For instance, in the following example the priority order is t0 (because default priority is 0), then t1, then t2, then t3 :</p>
+<img src="images/transitions003.png" width=750, border="3">
+<p>You can test this example by commenting the different transitions and verifying which one is executed by the engine. From left to right, results of "Exploration" when commenting :</p>
+<ul>
+<li>nothing</li>
+<li>the first transition</li>
+<li>the first and second transitions</li>
+<li>the three first transitions</li>
+</ul>
+<img src="images/transitions004.png" width=750, border="3">
+<p></p>
+
+
+
+
+
+</body>
+</html>

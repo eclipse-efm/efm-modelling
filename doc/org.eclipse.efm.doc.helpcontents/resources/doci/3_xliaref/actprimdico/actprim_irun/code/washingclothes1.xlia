@@ -1,0 +1,44 @@
+@xlia< system , 1.0 >:
+
+system<and> Laundry {
+		
+	@machine:
+		statemachine<or> BatchOfClothes {
+			
+			@property:
+				public var int washingMachineConsumption = 0;
+				public var int dryerConsumption = 0;
+			
+			@region:
+				state<initial> start_line {transition t_go --> prewash;}
+				
+				state<or> inWashingMachine {
+					@irun{washingMachineConsumption ++;}
+					
+					state prewash {
+						transition t_1 --> wash;
+					}
+					state wash {
+						transition t_2 --> spindry;
+					}
+					state spindry {
+						transition t_3 --> airdry;
+					}
+				}
+				
+				state<or> inDryer {
+					@irun{dryerConsumption ++;}
+					
+					state airdry {
+						transition t_4 --> ironing;
+					}
+					state ironing {
+						transition t_5 --> terminus;
+					}
+				}
+				
+				state<terminal> terminus;
+		}
+
+}
+

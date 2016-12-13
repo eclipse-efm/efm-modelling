@@ -1,0 +1,99 @@
+@xlia< system , 1.0 >:
+
+system EnergyAutonomy {
+	
+	@property:
+		// battery maximal capacity in ampere-hour
+		public const var int MAX_BATTERY_CHARGE = 110;
+		// battery minimal authorized capacity in ampere-hour
+		public const var int MIN_BATTERY_CHARGE = 10;
+		// threshold on top of which temperature (in celsius) can endanger the charging process
+		public const var int SAFETY_TEMPERATURE = 60;
+		// threshold on top of which humidity levels (in percentage) can endanger the charging process
+		public const var int SAFETY_HUMIDITY = 30;     
+		// typical request ranges for one user
+		type typical_capacity_request interval<int[2,10]>; 
+
+	@machine:
+	
+		model statemachine<or> ChargingStation {
+			
+			@parameter:
+				public var int current_charge;
+				
+			@property:
+				// energy requests
+				public port input Charge_Request(typical_capacity_request);
+				// variable to store request value
+				public var typical_capacity_request requested_charge = 0;
+				
+				// sensor inputs
+				public port input Humidity_Sensed(int);
+				public port input Temperature_Sensed(int);
+				public var int sensed_value;
+				
+				// information output
+				private var string reason;
+				public port output batteryLog(string);
+				
+			@region:
+				state<initial> source {transition startup --> idle;}
+				
+				state idle {
+					transition charge_requested --> discharging {input Charge_Request(requested_charge);}
+				}
+				
+				state<or> discharging {
+					@abort{
+						requested_charge = 0;
+						output batteryLog("aborted - " + reason);
+					}
+					
+					state<initial> discharge_source {transition startdischarge --> subcell_discharging;}
+					
+					state subcell_discharging {
+						transition t_discharge --> subcell_discharging {
+							guard(requested_charge > 0);
+							current_charge -= 1;
+							requested_charge -=1;
+						}
+						transition<else> t_enddischarge --> discharge_normal_end {
+							output batteryLog("normal discharge end");
+						}
+					}
+					
+					state<terminal> discharge_normal_end;
+					
+					transition<abort> min_capacity_reached --> requesting_refill {
+						guard(current_charge <= MIN_BATTERY_CHARGE);
+						reason = "minimal authorized battery capacity reached";
+					}
+					transition<abort> humidity_hazard --> idle {
+						input Humidity_Sensed(sensed_value);
+						guard(sensed_value > SAFETY_HUMIDITY);
+						reason = "abnormal humidity detected";
+					}
+					transition<abort> temperature_hazard --> idle {
+						input Temperature_Sensed(sensed_value);
+						guard(sensed_value > SAFETY_TEMPERATURE);
+						reason = "abnormal temperature detected";
+					}
+				}
+				
+				state<final> requesting_refill;
+		}
+	
+	@instance:
+		instance statemachine<ChargingStation> station1(current_charge:16);
+		
+	@com:
+	  connect<env> {
+	    input station1->Charge_Request;
+	    input station1->Humidity_Sensed;
+	    input station1->Temperature_Sensed;
+	    output station1->batteryLog;
+	  }
+}
+
+
+

@@ -1,0 +1,73 @@
+<html>
+<body>
+
+
+<h1>Fiddling with a composite state's "@irun{...}" : complex case</h1>
+
+
+<h2>Theory</h2>
+<p>When we have a composite state :</p>
+<ul>
+<li>with substates (of course because it is a composite state)</li>
+<li>with outgoing transitions</li>
+</ul>
+<p>When we implement the @irun{...} activity primitive and we put an instruction "action();" inside such as below :</p>
+<img src="images/irun_1_3_t001.png" width=500, border="3">
+<p>The XLIA compiler interprets it as in the following :</p>
+<img src="images/irun_1_3_t002.png" width=500, border="3">
+<p>Which is equivalent to :</p>
+<img src="images/irun_1_3_t003.png" width=500, border="3">
+
+<p>We notice that the "action();" is always taken beforehand, whatever the next step is. This is different than what happens when using the "<a href="../actprim_run/actprim_run_1.html">@run{...}</a>" primitive of composite states.</p>
+
+
+<h2>Hypothesis</h2>
+
+<p>Unlike the <a href="actprim_irun_1_2.html">previous case</a>, we will consider a composite state :</p>
+<ul>
+<li>with substates (of course because it is a composite state)</li>
+<li>WITH outgoing transitions (both defined in the body of the composite state and in the body of substates)</li>
+</ul>
+
+<h2>Example Application</h2>
+
+<p>Let's consider the following example. A parachutist is getting ready to do some parachutism.</p>
+<p>He must check three pieces of equipment : a buckle, some straps and a helmet. Therefore, in the "gettingReady" state, there are 3 substates :</p>
+<ul>
+<li>on for checking the buckle : when leaving this substate, the buckle is considered checked</li>
+<li>on for checking the straps : when leaving this substate, the straps are considered checked</li>
+<li>on for checking the helmet : when leaving this substate, the helmet is considered checked</li>
+</ul>
+<p>At any given time, he can jump out of the plane and gets into the "inFreeFall" state. If he waits too long, he gets into the "i_dont_wanna_do_dis" terminal state.</p>
+<p>According to the thoroughness of the equipment check, the fall can end in a good or in a bad way.</p>
+
+
+<h3>Implementation without "@irun{...}"</h3>
+<p>For each outgoing transition from any substate of "gettingReady", we write an instruction that increments the "checkListItemsChecked" integer. This allows keeping track of how many items have been checked.</p>
+<p>The code is the following :</p>
+<img src="images/irun_1_3_001.png" width=800, border="3">
+<p>And here the system's graph :</p>
+<img src="images/irun_1_3_002.png" width=600, border="3">
+<p>We get the following exploration graph, which respects our specifications :</p>
+<img src="images/irun_1_3_003.png" width=1100, border="3">
+
+
+<h3>Implementation with "@irun{...}"</h3>
+<p>We can obtain exactly the same system by factorizing the incrementation of the "checkListItemsChecked" integer into the "@irun{...}" of the composite state "gettingReady" as in the following code :</p>
+<img src="images/irun_1_3_004.png" width=800, border="3">
+
+
+<p>The instruction within the "@irun{...}" of "gettingReady" is executed each time :</p>
+<ul>
+<li>a transition of any SUBSTATE is evaluated</li>
+<li>a transition of the COMPOSITE state is evaluated</li>
+</ul>
+<p>The system's graph and the exploration graph are exactly the same as in the implementation without "@irun{...}".</p>
+
+
+
+
+
+
+</body>
+</html>

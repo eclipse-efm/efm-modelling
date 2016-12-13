@@ -1,0 +1,31 @@
+<html>
+<body>
+
+
+<h1>Bounded numbers and Intervals</h1>
+<p>We can create sub-types of numerical primitive types that implements boundary conditions on the value of the variable. There are two ways of doing so.</p>
+
+<h2>Bit-wise boundaries</h2>
+<p>By default, calculations on numbers are performed with arbitrary precision (according to "gnu/gmp" i.e. GNU Multiple Precision Arithmetic Library). But it is possible to give limits to types by defining an interval thanks to powers of two :</p>
+<ul>
+<li>[0 , 2<sup>N</sup>] for unsigned types</li>
+<li>[-2<sup>N-1</sup> , 2<sup>N-1</sup>-1] for signed types</li>
+</ul>
+<p>The concrete syntax is the following :</p>
+<img src="images/1_001.png" width=800, border="3">
+
+<h2>Intervals</h2>
+<p>Less symmetrical intervals can be defined via the "interval" type. This is the "anIntervalTypeDefinition" we've seen above. Intervals are defined upon a "support", which must be a primitive numerical type.</p>
+<p>The standard ISO notation will be used to tell if the interval is open or closed, i.e. if its limits are included or not :</p>
+<ul>
+<li>left  : open "]",  closed "["</li>
+<li>right : open "[",  closed "]"»</li>
+</ul>
+<p>To define a numerical variable which value is bounded to a certain interval, use the following syntax :</p>
+<img src="images/1_002.png" width=800, border="3">
+
+
+<p></p>
+<p></p>
+</body>
+</html>

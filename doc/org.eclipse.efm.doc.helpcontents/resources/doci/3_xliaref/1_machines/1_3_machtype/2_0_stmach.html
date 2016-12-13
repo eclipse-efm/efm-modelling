@@ -1,0 +1,48 @@
+<html>
+<body>
+
+
+
+<h1>Machine type : statemachine</h1>
+
+<p>In a XLIA file, the other high level machines that aren't the "system" are modeled by "statemachine" machines.</p>
+<p>By default, when no precisions are given, the <a href="../1_4_moc.html">moc</a> of a state-machine is "or".</p>
+
+<h2>Declaring state-machines</h2>
+<p>To declare a "statemachine", we use the keyword "statemachine" :</p>
+<img src="images/stmach001.png" width=850, border="3">
+
+<h2>Uses of the state-machine</h2>
+<p>Machines of type "statemachine" can be used to model two things :</p>
+<ul>
+<li><a href="2_1_automaton.html">automata</a></li>
+<li><a href="2_2_subsystem.html">sub-systems</a></li>
+</ul>
+
+<h2>Body of the state-machine</h2>
+<p>Statemachines and what they do is mainly defined by their sub-componenets. As for all machines, we list system sub-components in sections introduced by a "@XXX:" keyword. Those sections gather the declarations of all sub-components of a given type.</p>
+
+<p>For the "statemachine" type of machine, the most important sections to know about are :</p>
+<ul>
+<li>Generally speaking :
+	<ul>
+	<li>any section in which we can define objects of type "var", "port" and "type" as attributes of the statemachine such as "@property:"</li>
+	</ul>
+</li>
+<li>If we use the statemachine as an automaton :
+	<ul>
+	<li>the "@region:" section, in which we list all the "state" submachines which corresponds to the possible states in which the automaton can be</li>
+	</ul>
+</li>
+<li>If we use the statemachine as a subsystem :
+	<ul>
+	<li>the "@machine:" section, in which we list all the "statemachine" submachines which corresponds to the automata that interact within the substystem</li>
+	<li>the "@com:" section, in which we describe the interactions between subsubmachines or between subsubmachines and the subsystem</li>
+	</ul>
+</li>
+</ul>
+
+
+
+</body>
+</html>
