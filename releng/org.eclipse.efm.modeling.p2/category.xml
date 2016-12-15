@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-	<feature id="org.eclipse.efm.modeling.feature" url="features/org.eclipse.efm.modeling.feature_0.0.1.qualifier.jar" version="0.0.1.qualifier">
-		<category name="org.eclipse.efm.category"/>
-	</feature>
-	<feature id="org.eclipse.efm.modeling.feature.source" url="features/org.eclipse.efm.modeling.feature.source_0.0.1.qualifier.jar" version="0.0.1.qualifier">
-		<category name="org.eclipse.efm.category"/>
-	</feature>
-	<category-def label="EFM org.eclipse.efm-modeling Category" name="org.eclipse.efm.category">
-		<description>EFM org.eclipse.efm-modeling Category</description>
-	</category-def>
+   <feature url="features/org.eclipse.efm.modeling.feature_0.0.1.qualifier.jar" id="org.eclipse.efm.modeling.feature" version="0.0.1.qualifier">
+      <category name="org.eclipse.efm.category"/>
+   </feature>
+   <feature url="features/org.eclipse.efm.modeling.feature.source_0.0.1.qualifier.jar" id="org.eclipse.efm.modeling.feature.source" version="0.0.1.qualifier">
+      <category name="org.eclipse.efm.category"/>
+   </feature>
+   <category-def name="org.eclipse.efm.category" label="EFM org.eclipse.efm-modeling Category">
+      <description>
+         EFM org.eclipse.efm-modeling Category
+      </description>
+   </category-def>
+   <repository-reference location="http://download.eclipse.org/modeling/mdt/papyrus/updates/nightly/neon/main/" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/modeling/mdt/papyrus/components/designer/" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.10.0/" enabled="true" />
 </site>
