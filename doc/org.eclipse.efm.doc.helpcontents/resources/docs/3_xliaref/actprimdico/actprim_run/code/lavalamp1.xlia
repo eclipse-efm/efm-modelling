@@ -1,0 +1,43 @@
+@xlia< system , 1.0 >:
+
+system Lava {
+
+	@machine:
+	
+		statemachine<and> LavaLamp {
+			
+			@property:
+				public var int count_anything = 0;
+				
+			@region:
+				state<start> whichDrop {
+					transition blue_drop --> blue_high;
+					transition red_drop --> red_high;
+				}
+				
+				state blue_high {
+					transition blue_dw1 --> blue_mid;
+				}
+				state blue_mid {
+					transition blue_dw2 --> blue_low;
+				}
+				state<final> blue_low;
+				
+				state red_high {
+					transition red_dw1 --> red_mid;
+				}
+				state red_mid {
+					transition red_dw2 --> red_low;
+				}
+				state<final> red_low;
+				
+				state anyCounter{
+					@irun{count_anything ++;}
+				}
+
+			@moe:
+				@run{run anyCounter; schedule LavaLamp;}
+					
+		}
+	
+}

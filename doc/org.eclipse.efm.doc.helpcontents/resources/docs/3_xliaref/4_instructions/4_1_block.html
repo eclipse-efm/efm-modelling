@@ -1,0 +1,33 @@
+<html>
+<body>
+
+
+
+<h1>Blocks of Instructions</h1>
+
+
+<h2>Definition and Declaration</h2>
+<p>Instructions are lines of statements which can modify the model's data dynamically. They are gathered in instructions blocks (which might contain any number of instructions) which are delimited by brackets.</p>
+<p>To write an instruction block, use the following syntax (see <a href="../0_bnf_syntax.html">BNF syntax</a> for explanation) :</p>
+<img src="images/block001.png" width=550, border="3">
+<p>We'll explain in the following the meaning of the "operator".</p>
+
+<h2>Context</h2>
+<p>However, you can't write instruction blocks anywhere you want. It must make sense within the execution of the system. A non exhaustive list of the acceptable places to put instruction blocks is the following :</p>
+<ul>
+<li>in the body of a transition between two states; the instructions will then be executed when the parent statemachine switches state...</li>
+<li>in the body of all <a href="../actprimdico/actprim_0.html">activity primitives</a>; the instructions will be executed at the moment defined by the nature of the activity primitive</li>
+<li>...</li>
+</ul>
+
+<h2>Operators : Definition</h2>
+<p>An instruction block may contain several instructions. Each one of those may represent an independent process. Therefore, we may want to specify a scheduling defining the order and eventual interactions between those different processes.</p>
+<p>This "order" or "scheduling" of the instruction block can be manipulated by an optional "operator" modifier in the declaration of the instruction block.</p>
+<p>We'll call those operators "order operators".</p>
+<p>As seen in the picture above, there are several existing choices for the "order operator" modifier. Those are the same than those used to specify the "<a href="../1_machines/1_4_moc.html">model of computation</a>" of "and" machines. In the documentation, a part is dedicated to them : <a href="../5_ordop/ordop_0.html">here</a>.</p>
+
+
+<h2>Default Value and Override</h2>
+<p>By default, when we declare an instruction block without specifying an operator, the default operator is the standard sequence |;|.</p>
+</body>
+</html>

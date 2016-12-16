@@ -1,0 +1,54 @@
+<html>
+<body>
+
+<h1>"@abort{...}" activity primitive</h1>
+
+<h2>Introduction</h2>
+<p>When we leave a state with a normal transition, the <a href="../4_instructions/4_1_block.html">instruction block</a> inside the "<a href="actprim_disable.html">@disable{...}</a>" activity primitive of the state is executed.</p>
+
+<p>When we leave a state with an <a href="../3_transitions/3_0_transitions.html#abort">abortion transition</a>, instead of the "<a href="actprim_disable.html">@disable{...}</a>" primitive, it is the the <a href="../4_instructions/4_1_block.html">instruction block</a> inside the "@abort{...}" primitive that is executed.</p>
+
+<p>As <a href="../3_transitions/3_0_transitions.html#abort">abortion transitions</a> are only useful in <a href="../1_machines/1_3_machtype/3_2_composta.html">composite states</a>, you should define the "@abort{...}" activity primitive only in composite states.
+
+
+
+<h2>Example overview</h2>
+<p>We'll consider an electrical charging station for motorized vehicles. As it is out in the wilderness, it relies on a high capacity battery. Users can come and charge their vehicles. However, the charging process can be disrupted for several reasons :</p>
+<ul>
+<li>the station will refuse to discharge its battery below a certain capacity in order to keep a minimal level for emergency services (firefighters, ...)</li>
+<li>for safety issues, the station can disrupt the charging process :
+<ul>
+<li>if an abnormal humidity level is detected in the wiring</li>
+<li>if an abnormal temperature is detected in the wiring</li>
+</ul>
+</li>
+</ul>
+<p>This is a perfect example to showcase the "@abort{...}" activity primitive and <a href="../3_transitions/3_0_transitions.html#abort">abortion transitions</a>.</p>
+
+<h2>Example implementation</h2>
+<p>We'll start by defining some constants of the <a href="../1_machines/1_3_machtype/1_system.html">system</a> :</p>
+<img src="images/abort001.png" width=900, border="3">
+<p>Then the properties of the statemachine "ChargingStation" (here I used the <a href="../1_machines/1_1_design.html">model-instance paradigm</a>) :</p>
+<img src="images/abort002.png" width=900, border="3">
+<p>Then, we'll define the state and substates of the "ChargingStation" :</p>
+<img src="images/abort003.png" width=900, border="3">
+<p>The "discharging" composite state is the heart of this example as it is this state that we're using to showcase the "@abort{...}" primitive. While the charging process occurs for the user, the battery is discharging i.e. it loops on the "subcell_discharging" substate. Three <a href="../3_transitions/3_0_transitions.html#abort">abortion transitions</a> are defined in the parent "discharging" composite state; one for each of the three reasons mentioned earlier. Each one of those transition is guarded by an adapted condition and has the priority of evaluation over the loop on "subcell_discharging" if this condition is met. The declaration of the <a href="../3_transitions/3_0_transitions.html#abort">abortion transitions</a> is made by using the "abort" flag such as above. When evaluating the abort transition, the code within the "@abort{...}" activity primitive is evaluated. Here, the "ChargingStation" will produce an output explaining the reason of the abortion.</p>
+
+<p>Finally, we create an instance of "ChargingStation" (here I used a small value for "currrent_charge" so that the "min_capacity_reached" transition can be reached quickly) and we <a href="../sectiondico/dico_com.html">connect</a> the different ports to the environment :</p>
+<img src="images/abort004.png" width=900, border="3">
+
+<h2>Example analysis</h2>
+<p>The system's graph is the following :</p>
+<img src="images/abort005.png" width=1100, border="3">
+
+<p>When executing diverisy's "Transition Coverage" feature, we can find input arguments that allow to cover the abortion transitions :</p>
+<img src="images/abort006.png" width=900, border="3">
+<p>And also the "t_enddischarge" transition :</p>
+<img src="images/abort007.png" width=1100, border="3">
+
+
+
+
+
+</body>
+</html>

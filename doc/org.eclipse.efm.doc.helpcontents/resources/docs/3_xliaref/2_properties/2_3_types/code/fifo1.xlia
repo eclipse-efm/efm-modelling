@@ -1,0 +1,20 @@
+@xlia< system , 1.0 >:
+
+system mySystem {
+	
+	@property:
+		public var fifo<string> my_fifo_queue;
+		
+		public var string got_from_pop_queue;
+		
+	@moe:
+		@init{
+			my_fifo_queue <=< "first_added";
+			my_fifo_queue <=< "last_added";
+		}
+		@irun{
+			my_fifo_queue >=> got_from_pop_queue;
+		}
+
+}
+

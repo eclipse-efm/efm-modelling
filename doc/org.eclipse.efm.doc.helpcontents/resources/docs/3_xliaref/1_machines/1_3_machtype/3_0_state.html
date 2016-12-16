@@ -1,0 +1,107 @@
+<html>
+<body>
+
+
+
+<h1>Machine type : state</h1>
+
+<p>In XLIA, the lower-level machines that make up the "states" in which the <a href="2_0_stmach.html">state-machines</a> can find themselves are modeled by "state" machines.</p>
+
+<p>In other words, the "state" component is a particular machine, specialized to model in a simplified way the states, be they basic or composite, of a "statemachine" machine.</p>
+
+<p>One of the difference, as we'll see, with "statemachine" syntax lies in the possibility of omitting the name of sections.</p>
+
+<h2 id='flags'>Declaring states</h2>
+<p>The general syntax to declare a state is the following (see <a href="../../0_bnf_syntax.html">BNF syntax</a>) :</p>
+<img src="images/state001.png" width=950, border="3">
+<p>There are many variations and different uses, some very specific, a short overview would be :</p>
+<ul>
+<li>the "statekind" argument may contain a flag keyword, specifying a specific behavior for the state : see <a href="#flag">here</a>.</li>
+<li>in the body of the state, we can find any number of :
+	<ul>
+	<li>variable declarations</li>
+	<li>sub-state declarations in the case of a composite state (see <a href="#compo">here</a>)</li>
+	<li>transition declarations in the case of NON-composite state</li>
+	<li><a href="../../actprimdico/actprim_0.html">activity primitive</a> implementation, the most commonly used in states being listed on the picture above</li>
+	</ul>
+</li>
+</ul>
+
+<h2 id="flag">Basic state behaviors</h2>
+<p>The main keyword to use is "state". Here is a basic declaration within an xlia file :</p>
+<img src="images/state002.png" width=950, border="3">
+
+<p>We can specify a certain behavior for the state with flags as shown above. According to their behaviors, we can separate states into three main factions :</p>
+<h3>Basic States</h3>
+<p>A basic state is the only kind of state in which a "statemachine" ("or" moc) can be after a computation step (i.e. evaluation or initialization step).</p>
+<p>A basic state does not contain any sub-states.</p>
+
+<h3>Pseudo States</h3>
+<p>Pseudo states are unstable states in which a "<a href="2_0_stmach.html">state-machines</a>" cannot stay after a computation step.</p>
+<p>A pseudo state does not contain any sub-states.</p>
+
+<h3 id="compo">Composite States</h3>
+<p>A composite state has sub-states. Those can be either basic states and pseudo states. A composite state has no direct notion of being a simple or a pseudo state. The parent statemachine is considered to be in the current sub-state of the composite state.</p>
+<p>A state will be a composite state if we declare other states within its body. However, we also need to specify a flag for the inner concurrency of the sub-states.</p>
+
+<h2>Quick overview of the flag keywords</h2>
+<p>In this part, we'll have a quick overview of the most common flags per category.</p>
+
+<p>Common 'Basic State' flags :</p>
+<ul>
+<li>"simple" : this is the most basic 'Basic State'. If no flag is specified and no sub-state is defined in the state body, by default, the declared state is a "simple" state.</li>
+<li>"start" : it indicates that the parent state-machine must be in this state at the initial time when running the simulation. See this <a href="2_1_automaton.html#init">part of the documentation</a> or this <a href="../../../2_tuto/2_xlia/tuto_2_1.html#5">part of the tutorial</a> for further details. See also the 'initial' pseudo state flag ("start" can be considered to be "simple" plus "initial").</li>
+<li>"final" : it indicates that this state (which must not have any outgoing transitions) is final : the execution of the parent/container machine ends when reaching this state.</li>
+</ul>
+
+<p>Common 'Pseudo State' flags :</p>
+<ul>
+<li>"initial" : each state-machine must have one and only one "initial" (or "start") state. It is the state on which it is when the simulation starts. See this <a href="2_1_automaton.html#init">part of the documentation</a> or this <a href="../../../2_tuto/2_xlia/tuto_2_1.html#5">part of the tutorial</a> for further details.</li>
+<li>"choice" : this unstable state is resolved by going into one of it's possible targets after evaluation of diverse constraints or/and conditions. See this <a href="../../../4_examples/2_robotpetsimple.html">example</a>.</li>
+<li>"terminal" : such a state ends the evaluation of its container statemachine. It has no outgoing transition.</li>
+<li>"junction" : TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO </li>
+</ul>
+
+<p>Composite state flag :</p>
+<ul>
+<li>"or" : the sub-states of the composite state are mutually exclusive</li>
+<li>"and" : the sub-states of the composite state are not mutually exclusive (for instance if the state is reached a first time, and then a second time before all the inner sub-states have finished)</li>
+</ul>
+
+
+
+<h2>Body of the state</h2>
+<p>States and what they do is mainly defined by what is written in their body. Unlike other machines, we don't declare state sub-components in sections introduced by a "@XXX:" keyword.</p>
+
+<p>For the "state" type of machine, the most common components we can find in the body are :</p>
+<ul>
+<li>Generally speaking :
+	<ul>
+	<li>declarations of objects of type "var" or "type" as attributes (local variables, constants...)</li>
+	<li>specifications of "<a href="../../actprimdico/actprim_0.html">activity primitives</a>". This is a very important feature, not only for states, but for all machines. In other machines, activity primitives are specified in the "<a href="../../sectiondico/dico_moe.html">@moe:</a>" section. In states, as we don't use sections, they can be found directly in the body. See "<a href="../../actprimdico/actprim_0.html">activity primitives</a>" for further details.</li>
+	</ul>
+</li>
+<li>If we use the state as a simple or pseudo state :
+	<ul>
+	<li>we define the transitions from this state to itself or to other states directly in the body.</li>
+	</ul>
+</li>
+<li>If we use the state as a composite state :
+	<ul>
+	<li>we declare sub-states directly in the body.</li>
+	</ul>
+</li>
+</ul>
+
+
+<h2>Uses of the state</h2>
+<p>As we've explained, machines of type "state" can be used to model several different things. In the links below, we'll give example and focus on specifics concerning those uses :</p>
+<ul>
+<li><a href="3_1_simpsta.html">State as a basic state</a></li>
+<li><a href="3_2_composta.html">State as a composite state</a></li>
+</ul>
+
+
+
+</body>
+</html>

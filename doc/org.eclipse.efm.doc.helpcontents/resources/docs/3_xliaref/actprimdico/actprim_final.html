@@ -1,0 +1,48 @@
+<html>
+<body>
+
+<h1>"@final{...}" activity primitive</h1>
+
+<h2>Theory</h2>
+<p>The "@final{...}" activity primitive contains instructions that ought to be executed when elements of the system reach a final state.</p>
+<p>It can have as a parent a system, a statemachine or a state. According to the parent it is dedicated to different things :</p>
+<ul>
+<li>"statemachine" "or" with at least one "final" state: the activation of one of these "final" state will trigger the evaluation of the statemachine's "@final{...}" primitive</li>
+<li>"statemachine" "and" (used as a sub-system) whose sub-machines, all have at least one "final" state: when all the sub-states' "final" state are activated, then the statemachine's "@final{...}" primitive is evaluated</li>
+<li>"final" state: the state activation ends with the evaluation of the "@final{...}" primitive (just after the end of the "@enable{...}" primitive)</li>
+<li>...</li>
+</ul>
+
+<p>Remark : In composite states, the evaluation of "final" outgoing transitions is done as soon as their "@final{...}" primitive has been evaluated.</p>
+
+<h2>Example</h2>
+
+<p>In the following example, we'll see implementations of the "@final{...}" primitive of a <a href="../1_machines/1_3_machtype/1_system.html">system</a>, an <a href="../1_machines/1_3_machtype/2_1_automaton.html">automaton statemachine</a> and a <a href="../1_machines/1_3_machtype/3_1_simpsta.html">final basic state</a>.</p>
+<p>The code is the following (there are also "@init{...}" primitives used but it's not the point) :</p>
+<img src="images/init_and_final_001.png" width=900, border="3">
+<p>When executing an exploration, we get the following graph, where we can see what changes have been made on the variable values at each steps of calculus :</p>
+<img src="images/init_and_final_002.png" width=900, border="3">
+
+
+<h2>Orders and priorities</h2>
+<p>In the following example, all three "@final{...}" primitives of the previous example try to modify the same variable. It will allow us to find out the order or priority in which those modifications are made.</p>
+<p>The code is the following (we've removed the "@init{...}" primitives to simplify the example) :</p>
+<img src="images/final001.png" width=900, border="3">
+<p>The resulting graph is shown below; we see that the first retained value is the system's value :</p>
+<img src="images/final002.png" width=900, border="3">
+<p>To see what's next in the priority order, we remove the system value assignment instruction :</p>
+<img src="images/final003.png" width=900, border="3">
+<p>The resulting graph is shown below; we see that the second retained value is the statemachine's value :</p>
+<img src="images/final004.png" width=900, border="3">
+<p>Finally, with the following code, we can verify that the final state value is also taken into account :</p>
+<img src="images/final005.png" width=900, border="3">
+<img src="images/final006.png" width=900, border="3">
+<p>Finally, the priority order is from the outside to the inside. In other words, the highest priorities are the outermost "@final{...}" primitives.</p>
+<p>The priority order is the exact opposite of the one of the "<a href="actprim_init.html">@init{...}</a>" primitives.</p>
+
+
+
+
+
+</body>
+</html>

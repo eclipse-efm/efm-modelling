@@ -1,0 +1,95 @@
+<html>
+<body>
+
+
+<h1>"@init{...}" activity primitive</h1>
+
+<h2>Theory</h2>
+
+<p>The instructions within an "@init{...}" activity primitive are executed at the initialization of the parent object.</p>
+
+<p>It can naturally (but not exclusively) be implemented for any composite, "initial" or "start" state. It can also be implemented within the "@moe:" section of the system.</p>
+<p>This is where the user can, for example, set an initial value to variables.</p>
+
+<h2>Variations on the theme</h2>
+
+<p>According to the kind of parent object; the initialization will follow different patterns.</p>
+
+<h3>System as parent</h3>
+<p>The system's "@init{...}" activity primitive can be implemented in the "@moe:" section. From that position, we can only access variables and port that are defined in the system itself.</p>
+
+<h3>Statemachines as parents</h3>
+<p>The statemachine's "@init{...}" activity primitive can be implemented in the "@moe:" section. From that position, we can only access variables and port that are defined in the parent system, in the statemachine itself, and in the statemachines that share the same depth level relatively to the system (i.e. we can't access properties of states or submachines...).</p>
+<p>The pattern of initialization is the following :</p>
+<p>"or" statemachine :</p>
+<ul>
+<li>execution of its initialization primitive</li>
+<li>initialization of its unique "initial" state, or its unique "start" state, or, if they do not exist, of its "simple" states or composite states in a non-deterministic way</li>
+</ul>
+
+<p>"and" statemachine :</p>
+<ul>
+<li>execution of its initialization primitive</li>
+<li>simultaneous initialization of all its states (i.e. synchronous parallelism); if the initialization of one state fails, then the whole system's evaluation fails</li>
+</ul>
+
+<p>Remark : The user must make sure that all initializations terminate. Otherwise, its symbolic transition system might get blocked and not be evaluable later on. For this reason :</p>
+<ul>
+<li>it is highly recommended to use mainly assignment statements in this phase</li>
+<li>communication statements are not recommended</li>
+<li>guarded statements are to be used with parsimony (the user must make sure that the logical condition is satisfiable).</li>
+</ul>
+
+<h3>States as parents</h3>
+
+<p>"initial" state :</p>
+<ul>
+<li>execution of its initialization primitive</li>
+<li>execution of its "@run{...}" primitive, ending with the evaluation of its outgoing transitions</li>
+</ul>
+
+<p>"start" state :</p>
+<ul>
+<li>execution of its initialization primitive</li>
+</ul>
+
+<p>Remark : for "start" state which are basic states, we stay in the state after initialization. Therefore, the "@run{...}" primitive and the outgoing transitions are not evaluated immediately as it is the case for "initial" states.</p>
+
+
+
+
+<h2>Example</h2>
+<p>In the following example, we'll see implementations of the "@init{...}" primitive of a <a href="../1_machines/1_3_machtype/1_system.html">system</a>, an <a href="../1_machines/1_3_machtype/2_1_automaton.html">automaton statemachine</a> and an <a href="../1_machines/1_3_machtype/3_1_simpsta.html">initial state</a>.</p>
+<p>The code is the following (there are also "@final{...}" primitives used but it's not the point) :</p>
+<img src="images/init_and_final_001.png" width=900, border="3">
+<p>When executing an exploration, we get the following graph, where we can see what changes have been made on the variable values at each steps of calculus :</p>
+<img src="images/init_and_final_002.png" width=900, border="3">
+
+
+
+<h2>Orders and priorities</h2>
+
+<p>In the following example, all three "@init{...}" primitives of the previous example try to modify the same variable. It will allow us to find out the order or priority in which those modifications are made.</p>
+<p>The code is the following (we've removed the "@final{...}" primitives to simplify the example) :</p>
+<img src="images/init001.png" width=900, border="3">
+<p>The resulting graph is shown below; we see that the first retained value is the initial state's value :</p>
+<img src="images/init002.png" width=900, border="3">
+<p>To see what's next in the priority order, we remove the initial state value assignment instruction :</p>
+<img src="images/init003.png" width=900, border="3">
+<p>The resulting graph is shown below; we see that the second retained value is the statemachine's value :</p>
+<img src="images/init004.png" width=900, border="3">
+<p>Finally, with the following code, we can verify that the system value is also taken into account :</p>
+<img src="images/init005.png" width=900, border="3">
+<img src="images/init006.png" width=900, border="3">
+<p>Finally, the priority order is from the inside to the outside. In other words, the highest priorities are the innermost "@init{...}" primitives.</p>
+<p>The priority order is the exact opposite of the one of the "<a href="actprim_final.html">@final{...}</a>" primitives.</p>
+
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+<p></p>
+
+</body>
+</html>

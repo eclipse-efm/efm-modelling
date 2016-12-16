@@ -1,0 +1,59 @@
+<html>
+<body>
+
+<h1>Variables</h1>
+
+
+<p>Variables are objects that represent a type and a value. For instance the couple (INTEGER,2) which informs us that we face an integer of value 2, is a variable.</p>
+
+<p>In XLIA, a variable must belong to a parent machine. Machines use variables to keep track of things, to compute things...</p>
+
+<h2>General Variable Declaration</h2>
+<p>Every variable used in a machine must be previously declared, and it can be initialized with an expression. The general syntax is the following (see <a href="../0_bnf_syntax.html">BNF syntax</a>) :</p>
+<img src="images/variables001.png" width=800, border="3">
+
+<p>Where, in order of apparition :</p>
+<ul>
+<li>"modifier" can be one, none (depending on declaration context), or any sequence of the following keywords :
+	<ul>
+	<li>"public"</li>
+	<li>"private"</li>
+	<li>"static"</li>
+	<li>"final"</li>
+	<li>"macro"</li>
+	<li>"volatile"</li>
+	<li>"unsafe"</li>
+	<li>"transient"</li>
+	</ul>
+</li>
+<li>"var" is the mandatory non-modifiable keyword to declare variables (highlighted in the editor)</li>
+<li>"aTypeID" is a string that matches a property type name known by the machine (see <a href="3_3_types.html">types</a>)</li>
+<li>"aVariableID" is the name you want the variable to have</li>
+<li>"[=initial_value]" is an optional way of initializing the variable with a hard value either by:
+	<ul>
+	<li>writing a hard-coded value</li>
+	<li>writing an expression between brackets that can include more complex operations with other known variables</li>
+	</ul>
+</li>
+<li>"( ; | {rw_action})" means that we can either :
+	<ul>
+	<li>put a ";" sign and end the declaration</li>
+	<li>specify a set of behaviors linked to this variable between the brackets. Those behaviors can for instance be actions that are triggered when Diversity rewrite the value of the variable (hence "rw_action")</li>
+	</ul>
+</li>
+</ul>
+<p>This general presentation will be extended and given more detail with examples in the following.</p>
+
+<h2>Variables Modifiers</h2>
+<p>Please refer to <a href="2_1_1_varmods.html">Variables Modifiers</a>.</p>
+
+<h2>Initial Value</h2>
+<p>Initial values of variables can be given, either with raw values, or by evaluating an expression at the beginning of the simulation. For instance :</p>
+<img src="images/variables002.png" width=600, border="3">
+
+<h2>Variable Behaviors</h2>
+<p>Please refer to <a href="2_1_2_varbehavs.html">Variable Behaviors</a>.</p>
+
+
+</body>
+</html>

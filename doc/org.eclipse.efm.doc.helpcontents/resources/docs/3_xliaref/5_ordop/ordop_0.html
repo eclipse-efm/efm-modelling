@@ -1,0 +1,30 @@
+<html>
+<body>
+
+<h1>Order Operators</h1>
+<p>Let P and Q be two processes. We say that a process terminates when it has been totally evaluated (without being interrupted by, for example, the failure of a guarded instruction), and that it fails otherwise.</p>
+<p>Using the processes P and Q, the following graph gives an overview of the different schedulings by explaining their theoretical behaviors and the contexts they can explore from the same starting initial context :</p>
+<img src="images/moc000.png" width=950, border="3">
+<p>There are as many evaluation possibilities as there are red dots (starting states), the blue ones representing the several ECs that are resulting from the application of a MOC on a single red dot and that are retained by Diversity.</p>
+<p>For instance, "P |.| Q" can be reduced to P if Q does not terminate, or to P followed by Q. If P does not terminate, "P|.|Q" does not terminate either.</p>
+
+<h4>Remark :</h4>
+<p>These "order operators" can be put into three categories: sequencing, scheduling and concurrency.</p>
+<p>In the picture above :</p>
+<ul>
+<li>the first  line gathers the "sequencing"  operators</li>
+<li>the second line gathers the "concurrency" operators</li>
+<li>the third  line gathers the "scheduling"  operators</li>
+</ul>
+
+<p>In the following, we will consider two processes, P and Q to explain the difference between those scheduling operators. We will also apply them on examples in order to have a better understanding.</p>
+
+<p>We will assume that a process finishes :</p>
+<ul>
+<li>when its evaluation is entirely done (without interuption for instance by the failure of a guarded instruction)</li>
+<li>or when it fails</li>
+</ul>
+
+
+</body>
+</html>

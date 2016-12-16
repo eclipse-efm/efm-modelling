@@ -1,0 +1,22 @@
+@xlia< system , 1.0 >:
+
+system<and> Classroom {
+
+	@machine:
+		model statemachine Student {
+			@parameter:
+				public var string name;
+				
+			@region:
+				state<initial> source {transition startup --> studying;}
+				state studying {transition changes_course --> studying;}	
+		}
+		
+	@instance:
+		instance statemachine<Student> Bob(name:"Bob");
+		instance statemachine<Student> Jean(name:"Jean");
+		instance statemachine<Student> Claude(name:"Claude");
+		instance statemachine<Student> Francois(name:"Francois");
+
+}
+

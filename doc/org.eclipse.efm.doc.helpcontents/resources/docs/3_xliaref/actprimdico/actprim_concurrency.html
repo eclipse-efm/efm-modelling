@@ -1,0 +1,29 @@
+<html>
+<body>
+
+<h1>"@concurrency{...}" activity primitive</h1>
+
+<p>The "<a href="actprim_schedule.html">@schedule{...}</a>" and "@concurrency{...}" primitives are syntactic sugar to describe the scheduling of a machine’s executable components.</p>
+
+<p>The "@concurrency{...}" primitive may contain the scheduling operator for the remaining components (that are neither in "@schedule{...}" nor in "@run{...}"). If this primitive is empty, the default operator is the <a href="../5_ordop/ordop_1.html">interleaving operator</a> "|i|".</p>
+<p>The link between policies described with the "<a href="actprim_schedule.html">@schedule{...}</a>" and "@concurrency{...}" primitives is the <a href="../5_ordop/ordop_10.html">weak sequence</a> "|;;|"</p>
+
+<h2>Example</h2>
+<p>For example, suppose we have a machine M containing four executable components A, B, C and D, with primitives :</p>
+<ul>
+<li>@schedule{ |,| run A ; run C ; }</li>
+<li>@concurrency{ |;;| }</li>
+</ul>
+
+<p>Its implicit scheduling policy, triggered by primitive "@run{...}", will be :</p>
+<ul>
+<li>{ |;;|  { |,| run A ; run C ; }  { |;;| run B ; run D ; } }</li>
+</ul>
+<p>Which is equivalent, by transitivity of operator "|;;|", to :</p>
+<ul>
+<li>{ |;;|  { |,| run A ; run C ; }  run B ; run D ; }</li>
+</ul>
+
+
+</body>
+</html>

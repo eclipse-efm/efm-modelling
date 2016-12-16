@@ -1,0 +1,54 @@
+<html>
+<body>
+
+
+
+<h1>The MOC : Model Of Computation</h1>
+
+<p>For every composite machine (with several sub-components in the "@machine:" section), we can specify the nature of the concurrency for the evaluation of the sub-components.</p>
+<p>For instance, if we consider the system defined in the <a href="../4_examples/1_mostbasic.html">most basic example</a> : the system has 2 statemachines A and B. When the engine takes one step. Can the two statemachines simultaneously change their state ? Must there be interactions between the statemachines during the step ? If the fact that statemachine A goes from state A1 to state A2 can alter the ability of statemachine B to go from state B1 to state B2, the execution will be different if we give the priority to statemachine A and if we give the priority to statemachine B.</p>
+
+<p>The notion of MOC can answer all of those questions and issues. In diversity, when running several processes (a statemachine can be considered to be a process; an <a href="../4_instructions/4_1_block.html">instruction block</a> can also be considered to be a process ...) that share a same depth level and that could run in parallel, we can use the notion of MOC to fine tune the order of execution of the processes and their interactions.</p>
+<p>We must specify the MOC of the parent machine to specify how it's children can be executed in parallel.</p>
+<p>In our example, we would specify the MOC of the parent system that contains A and B.</p>
+
+<h2>General MOC and remarks</h2>
+<p>Specifying a general MOC can be done when declaring a machine (just after the type : "[type] &lt;moc &gt; machineID" : see <a href="1_0_machines.html">machine</a>).</p>
+
+<p>The possibilities for the "moc" modifier are :</p>
+<ul>
+<li>"and", which means that at every given moment, all the sub-components in the "@machine:" section are simultaneously active : pure and complete concurrency. By default, Diversity will simulate this using "interleaving" (notation "|i|" see below).</li>
+<li>"or", which means that at every given moment, only one or a few known components are simultaneously active. For instance, in Matlab/Simulink, when we simulate a "dataflow", at every given moment one or several blocks can be active.</li>
+<li>"xor", which means that at every given moment, one and only one of its components is active. There cannot be any concurrency.</li>
+</ul>
+
+
+<p>By default, the moc will be "or".</p>
+
+<p>The "moc" has absolutely no effect one machines that aren't composite (atomic machines)  because those don't have more than one sub-components.</p>
+
+
+
+<h2 id="schedul">Specifying a scheduling for the "and" MOC</h2>
+
+<h4>Notion of scheduling</h4>
+<p>The "xor" and "or" mocs are rather straightforward because nothing can run in parallel. On the other hand, the "and" moc involves the possibility that the submachines evolve in parallel.</p>
+<p>Diversity simulates this parallelism by alternatively taking one step (if possible) in one machine, then one step in another machine. Furthermore this step can be taken from the initial context or from a context derived from the execution of the other machine.</p>
+<p>When working with a greater number of machines, this can generate a lot of possible alternatives for a single step.</p>
+
+<p>The way in which the submachines are evaluated (which means we take one step on those) is therefore important. We call it the "scheduling".</p>
+
+<h4>The existing scheduling</h4>
+<p>In the documentation, there is a part dedicated to the description of the "scheduling" also called "order operators" or "models of computation". You can find it <a href="../5_ordop/ordop_0.html">here</a>.</p>
+
+<h4>Application on "and" machines</h4>
+<p>For a given "and" machine, we can configure the type of scheduling in the "@schedule{...}" action primitive which is inside the "@moe:"section as seen below :</p>
+<img src="images/moc000.png" width=800, border="3">
+
+
+<p></p>
+
+
+
+</body>
+</html>

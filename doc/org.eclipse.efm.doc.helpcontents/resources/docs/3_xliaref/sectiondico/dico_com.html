@@ -1,0 +1,60 @@
+<html>
+<body>
+
+
+<h1>"@com:" section</h1>
+
+<p>The "@com:" section describes interactions between machines, or between a machine and the environment, via ports and according to a given protocol.</p>
+<p>The syntax for this section is the following (see <a href="../0_bnf_syntax.html">BNF syntax</a>) :</p>
+<img src="images/com001.png" width=950, border="3">
+
+<h2>The communication protocol</h2>
+<p>The protocol tells whether the communication is between a machine and the environment ("env"), or between two machines ("rdv").</p>
+<p>When several input/outputs are possible ("multirdv"), constraints can be added via the cast option :</p>
+<ul>
+<li>"unicast" implies that, at any time, there can only be one sender and one receiver,</li>
+<li>"multicast" implies that all outputs must be emissions, and all inputs must be receptions,</li>
+<li>"broadcast" implies that there are at least one sender and one receiver.</li>
+</ul>
+
+<p>Remark : If there are several senders, messages should be without parameters: otherwise, it would not be possible to know which parameter is collected by a receiver.</p>
+<p>The "buffer" keyword indicates that a message or signal must be stored in a buffer.</p>
+<p>A default protocol can be given just after the section name.</p>
+
+
+<h2>Communication means</h2>
+<p>The "connect" keyword connects two ports or buses, possibly via a buffer.</p>
+<p>The "route" keyword indicates where to store information in the case of a signal.</p>
+<p>Remark : The "rdv" mode is not implemented for signals, thus it is not compatible with keyword "route".</p>
+
+<h2>Examples</h2>
+
+<h3>One state-machine communicates through ports with the environment</h3>
+<p>In this example system, a state-machine is given integers. Each time it receives an integer, it adds it to a counter that is initialized at 0 at the beginning of the simulation. Diversity can provide a simulated external environment for this system. This environment will be used to generate the random integers that are thrown to the state-machine.</p>
+<p>As seen in the code below, the state-machine receives integers through the 'received' port. To indicate that we want Diversity to simulate data entry on this port, we use the "@com:" section. The syntax is as used in the code below. We indicate that we want to connect to the environment (keyword/protocol 'env') :</p>
+<ul>
+<li>the port 'received' of the 'CountMachine' state-machine as an 'input' i.e. the environment will provide entry data</li>
+<li>the port 'infocast' of the 'CountMachine' state-machine as an 'output' i.e. the environment will gather output data from 'CountMachine'</li>
+</ul>
+<img src="images/com002.png" width=950, border="3">
+<p>Alternatively, we can put the 'env' keyword modifier next to 'com' as seen below. This way, all the connections described will be 'env' connections.</p>
+<img src="images/com002bis.png" width=950, border="3">
+<p>As seen in the exploration graph below, the state-machine evolves thanks to the input simulated by the environment :</p>
+<img src="images/com003.png" width=450, border="3">
+<img src="images/com004.png" width=950, border="3">
+
+<h3 id="PingPong">Two state-machines communicate through ports between themselves</h3>
+<p>In this example two state-machines, which represent players, exchange a single ball between them. The ball is 'send' and 'caught' through the ports of the same names in the two machines. In the "@com:" section, we'll use two different 'rdv' ('rendez-vous' protocol) type connections :</p>
+<ul>
+<li>one to connect the 'send' output port of the first machine to the 'caught' input port of the second machine</li>
+<li>the other to connect the 'send' output port of the second machine to the 'caught' input port of the first machine</li>
+</ul>
+<p>NB: in this example, we make us of the "<a href="../1_machines/1_1_0_design.html">model-instance paradigm</a>" :</p>
+<img src="images/com005.png" width=950, border="3">
+<p>As we can see in the execution graph below, the behavior of the system is what we expected; alternatively the booleans 'hasBall' of the two state-machines are exchanged :</p>
+<img src="images/com006.png" width=950, border="3">
+<img src="images/com007.png" width=950, border="3">
+
+
+</body>
+</html>

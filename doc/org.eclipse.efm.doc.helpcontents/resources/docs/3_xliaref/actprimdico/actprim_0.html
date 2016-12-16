@@ -1,0 +1,27 @@
+<html>
+<body>
+
+
+<h1>Activity Primitives Dictionary</h1>
+
+<p>Activity primitives define actions that will be realized at key moments during the execution of the system. Concretely, when implementing an activity primitive, the user can write executable instructions that will be executed when the primitive is triggered.</p>
+
+<p>There is a whole set of primitives that can be defined to be triggered by different kinds of events on different types of machines.</p>
+<p>Most of them can be defined within the "@moe:" section of a system or state-machine or within a state body.</p>
+
+<h2>Disambiguation</h2>
+<p>Sections and activity Primitive are different concepts. Even though we write both starting with a "@" sign, the syntax and the use is different :</p>
+<ul>
+<li>We write a ":" sign after a section name and afterwards we can list declarations of objects of a certain kind</li>
+<li>We write a pair of brackets : "{...}" after an activity primitive name and within those brackets, we write instructions</li>
+</ul>
+
+<h2>Compiling Activity Primitives</h2>
+<p>Diversity analyzes each specification and compiles it into "optimized pseudo code" for its symbolic evaluation engine. It can sometimes complete the user code written in primitives. Unless specified, specification code will always be evaluated before Diversity generated code.</p>
+ 
+
+
+
+
+</body>
+</html>

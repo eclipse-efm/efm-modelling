@@ -1,0 +1,45 @@
+<html>
+<body>
+
+
+
+<h1>Model-instance paradigm</h1>
+
+<h2>Formalism</h2>
+<p>XLIA supports the "model-instance" paradigm. Thus, a machine can be defined to be a :</p>
+<ul>
+<li>"model", which is destined to be instantiated, once or several times, in the sense of object-oriented programming of this concept</li>
+<li>"instance", that can be distinguished through its initialization, total or partial, of the parameters of its model when they exist, similar to the way to handle class constructors in the Object paradigm</li>
+<li>"prototype", a syntactic shortcut (or macro) to, in one fell swoop, define a model and declare its first instance, its parameters if any could be initialized during declaration</li>
+</ul>
+
+<p>The default mode, in a syntactic economy perspective, is that each machine is a "prototype".</p>
+
+<h2>Equivalence between the 2 formalisms</h2>
+
+<p>In the code below, we define two prototype statemachines : proto1 and proto2.</p>
+<img src="images/design_proto.png" width=950 border="3">
+
+
+<p>In the code below, we define two statemachine models : model1 and model2 and two statemachine instances : instanceofmodel1 and instanceofmodel2. Notice the use of the "<a href="../sectiondico/dico_machine.html">@machine:</a>" and "<a href="../sectiondico/dico_instance.html">@instance:</a>" sections :</p>
+<img src="images/design_model.png" width=950 border="3">
+<p>On the condition that the code in the statemachines works the same, we the "mySystemWithPrototypes" and the "mySystemWithModelAndInstances" systems can be exactly equivalent.</p>
+
+<h2>Purpose of the model-instance paradigm</h2>
+<p>So, if the two formalisms can lead to the same thing, what's the point in creating a model and an instance ?</p>
+<p>In facts, one of the forces of the "model-instance paradigm" is that we can , from a single model, create different instance, and not just equivalent instances with different names.</p>
+<p>Indeed, below is the general syntax (see <a href="../0_bnf_syntax.html">BNF syntax</a>) to create machine instances from machine models. The "params" field can be used to specify values for attributes (defined within the model) just for this instance.</p>
+<img src="images/design_instancedec.png" width=950 border="3">
+<p>This allows to give different parameters to different instances. We define parameters in the "<a href="../sectiondico/dico_parameter.html">@parameter:</a>" section.</p>
+
+<h2 id='specparam'>Specifying instance parameters : example application</h2>
+<p>In this example, from a single 'Student' model, we define several pupils in a Classroom. Each pupil will be an instance of the model, with a unique and different name.</p>
+<p>To implement this possibility, instead of using the classic "<a href="../sectiondico/dico_property.html">@property:</a>" section, we use the "<a href="../sectiondico/dico_parameter.html">@parameter:</a>" section when declaring the <a href="../2_properties/2_1_0_variables.html">variable</a> "name".</p>
+<p>This will allow a specification of the value of "name" when declaring the instances of the 'Student' model.</p>
+<p>You can see below the concrete syntax that is used :</p>
+<img src="images/design_specin001.png" width=950 border="3">
+<p>The generated statemachine graph being the following :</p>
+<img src="images/design_specin002.png" width=950 border="3">
+
+</body>
+</html>

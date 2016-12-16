@@ -1,0 +1,55 @@
+<html>
+<body>
+
+<h1>Queues</h1>
+<p></p>
+<p>Queues are ordered collections with specific addition and removal policies.</p>
+
+<p>The general syntax is the following (see <a href="../0_bnf_syntax.html">BNF syntax</a>) :</p>
+<img src="images/queue001.png" width=800, border="3">
+
+<h2>Overview</h2>
+<p>In the following we'll show among other things :</p>
+<ul>
+<li>how to create an empty queue</li>
+<li>how to put elements in it</li>
+<li>how to retrieve elements from it</li>
+<li>what happens when the queue is empty</li>
+</ul>
+
+<h2 id="lifo">LIFO Queue</h2>
+<p>Let's consider the following system :</p>
+<img src="images/lifo001.png" width=800, border="3">
+<p>We declare a Last In First Out queue. During the initialization of the system, we push 2 values into the queue in a specific order. Then, by implementing the "<a href="../../actprimdico/actprim_irun/actprim_irun_0.html">@irun{...}</a>" primitive of the system, we'll have the system retrieve a value from the queue at each evaluation step.</p>
+
+<p>When doing a symbolic exploration, the generated "phase1.fscn" is the following :</p>
+<img src="images/lifo002.png" width=1000, border="3">
+
+<p>We notice that at each Evaluation Context after the initialization, the "got_from_pop_queue" variable gets a new value taken from the "my_lifo_queue" variable.</p>
+<p>However, the LIFO behavior isn't respected, this queue behaves like a FIFO : the "first_added" value is retrieved first, and the "last_added" last.</p>
+
+<h2>FIFO Queue</h2>
+<p>Let's consider the following system :</p>
+<img src="images/fifo001.png" width=800, border="3">
+<p>We declare a First In First Out queue. During the initialization of the system, we push 2 values into the queue in a specific order. Then, by implementing the "<a href="../../actprimdico/actprim_irun/actprim_irun_0.html">@irun{...}</a>" primitive of the system, we'll have the system retrieve a value from the queue at each evaluation step.</p>
+
+<p>When doing a symbolic exploration, the generated "phase1.fscn" is the following :</p>
+<img src="images/fifo002.png" width=1000, border="3">
+
+<p>We notice that at each Evaluation Context after the initialization, the "got_from_pop_queue" variable gets a new value taken from the "my_lifo_queue" variable.</p>
+<p>However, the FIFO behavior isn't respected, this queue behaves like a LIFO : the "last_added" value is retrieved first, and the "first_added" last.</p>
+
+
+
+<h2>Empty Queues</h2>
+<p>When in an <a href="../../4_instructions/4_1_block.html">instruction block</a> we try to retrieve an element from a queue that is empty, the engine simply ignores the transition that may lead to trying that. If there is no other changes of Evaluation Context that is possible, the symbolic execution terminates.</p>
+<p>For instance if we have the following :</p>
+<img src="images/queue002.png" width=800, border="3">
+<p>We see that there will be 2 elements inside the queue at the end of the initialization. However, at each step the system will try to retrieve 3 elements from the queue. As it is not possible, the symbolic execution will simply terminate after the initialization as seen in the following "phase1.fscn" file :</p>
+<img src="images/queue003.png" width=1000, border="3">
+
+
+
+
+</body>
+</html>

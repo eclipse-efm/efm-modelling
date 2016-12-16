@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<h1>The "|§|" order operator : atomic sequence</h1>
+
+<p>Considering 2 processes : P and Q, with atomic sequence, each process must not be able to fail (except for external reasons (bugs, OS-related issues such as lack of memory...)).</p>
+<p>We execute first P and then Q (non-reflexive operator).</p>
+
+<h2>Application on the most basic example</h2>
+<p>Applying this on our <a href="../../4_examples/1_mostbasic.html" shape="rect">most basic example</a>, the "@moe:" section looks like :</p>
+<img src="images/moc008.png" width=1250, border="3">
+
+<p>UNFORTUNATELY ON THE 2016/02/11 THE "|§|" scheduling DOES NOT WORK FOR THIS PARTICULAR CASE OF BASIC EXAMPLE. ERROR MESSAGES APPEAR WHEN LAUNCHING THE SYMBOLIC EXECUTION :</p>
+ <img src="images/moc008_err.png" width=1250, border="3">
+
+</body>
+</html>

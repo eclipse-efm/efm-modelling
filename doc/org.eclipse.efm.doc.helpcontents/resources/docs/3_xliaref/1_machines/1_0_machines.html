@@ -1,0 +1,96 @@
+<html>
+<body>
+
+<h1>Machines</h1>
+<p>The machine is the basic component on which XLIA relies. A machine is entirely defined by the set of sections that it implements. To declare a machine in XLIA, we must use the following syntax (see <a href="../0_bnf_syntax.html">BNF syntax</a>) :</p>
+<img src="images/machine_declaration.png" width=800, border="3">
+
+<h2>The "design" field</h2>
+<p>The "design" field can be filled by one and only one the following keywords :</p>
+<ul>
+<li>"model"</li>
+<li>"instance"</li>
+<li>"prototype"</li>
+</ul>
+<p>If we leave the field blank, the default value "prototype" is taken.</p>
+<p>See "<a href="1_1_design.html">design</a>" for an explanation.</p>
+
+
+<h2>The "modifier" field</h2>
+<p>The "modifier" field can be left blank or be filled by any combination of the following keywords :</p>
+<ul>
+<li>"input_enabled"</li>
+<li>"unsafe"</li>
+<li>"timed"</li>
+</ul>
+<p>Those define additional properties for the machine we declare.</p>
+<p>See "<a href="1_2_modifier.html">modifier</a>" for an explanation.</p>
+
+
+<h2>The "type of machine" field</h2>
+<p>The "type of machine" field is mandatory. We can use one and only one of the following keywords :</p>
+<ul>
+<li>"system"</li>
+<li>"statemachine"</li>
+<li>"state"</li>
+</ul>
+
+<p>See "<a href="1_3_machtype.html">type of machine</a>" for an explanation.</p>
+
+<h2>The "model of computation" field</h2>
+<p>The "model of computation" field which we shorten to "moc" can be filled by one and only one of the following keywords :</p>
+<ul>
+<li>"or"</li>
+<li>"xor"</li>
+<li>"and"</li>
+<li>"xand"</li>
+</ul>
+<p>If we leave the field blank, the default value "or" is taken.</p>
+<p>See "<a href="1_4_moc.html">moc</a>" for an explanation.</p>
+
+
+<h2>The "machineID"</h2>
+<p>In this field, you can enter the name of the machine you declare. In XLIA, names must follow some rules to avoid errors. You can see those rules here : <a href="../0_namerules.html">naming conventions</a>.</p>
+
+
+<h2>The machine body</h2>
+<p>Like in C++ or Java, in XLIA we implement the contents of the object we've declared in a section delimited by brackets just after the object declaration.</p>
+
+<p>As we've seen in <a href="0_overv.html">the overview</a>, XLIA can be considered to be a "Declarative Language". In the body of the machine, we won't write any methods or functions, we'll only declare the existence of all the machine's sub-components. Those declarations are made following a certain logic. We group together sub-components of the same type in lists.</p>
+
+
+<p>Those lists form sections that must be delimited by keywords using the syntax "@XXX:" where "XXX" is associated with a certain type of sub-component. See the <a href="../sectiondico/dico_0.html">sections dictionary</a> for further details.</p>
+
+
+<p>The machine is characterized by this list of sections. In order to preserve consistency and to facilitate syntactic and semantics analyzes, it is crucial to respect the following precedence order in the declaration of these sections :</p>
+<ul>
+<li>first, parameters and state data (variables, buffer), interaction points (ports, ...). Those can be declared within the following sections :
+	<ul>
+	<li><a href="../sectiondico/dico_parameter.html">@parameter:</a></li>
+	<li><a href="../sectiondico/dico_property.html">@property:</a></li>
+	<li><a href="../sectiondico/dico_public.html">@public:</a></li>
+	<li><a href="../sectiondico/dico_private.html">@private:</a></li>
+	<li>...</li>
+	</ul>
+</li>
+<li>then components, reflecting the hierarchical characteristics of the model. Those can be declared within the following sections :
+	<ul>
+	<li><a href="../sectiondico/dico_machine.html">@machine:</a></li>
+	<li><a href="../sectiondico/dico_region.html">@region:</a></li>
+	<li><a href="../sectiondico/dico_transition.html">@transition:</a></li>
+	<li><a href="../sectiondico/dico_instance.html">@instance:</a></li>
+	<li>...</li>
+	</ul>
+</li>
+<li>finally, everything related to the models of computation, execution and communication. Those can be declared within the following sections :
+	<ul>
+	<li><a href="../sectiondico/dico_moe.html">@moe:</a></li>
+	<li><a href="../sectiondico/dico_com.html">@com:</a></li>
+	<li>...</li>
+	</ul>
+</li>
+</ul>
+<p>Remark : machines of type "<a href="1_3_machtype/3_0_state.html">state</a>" don't use sections so what's above doesn't apply in this case.</p>
+
+</body>
+</html>
