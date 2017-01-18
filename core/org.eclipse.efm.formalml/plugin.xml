@@ -16,19 +16,20 @@
             class="org.eclipse.efm.formalml.formalmlPackage"
             genModel="resources/profile/FormalML.profile.genmodel"/>
    </extension>
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated FormalML-Standard-Library -->
-      <package
-            uri="http:///FormalMLStandardLibrary/DataType.ecore"
-            class="FormalMLStandardLibrary.DataType.DataTypePackage"
-            genModel="resources/library/FormalML-Standard-Library.genmodel"/>
+   <extension
+         point="org.eclipse.papyrus.uml.extensionpoints.UMLProfile">
+      <profile
+            iconpath="platform:/plugin/org.eclipse.efm.runconfiguration/resources/icons/diversity.png"
+            name="EFM Profile"
+            path="platform:/plugin/org.eclipse.efm.formalml/resources/profile/FormalML.profile.uml">
+      </profile>
+   </extension>
+   <extension
+         point="org.eclipse.uml2.uml.generated_package">
+      <profile
+            location="platform:/plugin/org.eclipse.efm.formalml/resources/profile/FormalML.profile.uml#_Lh5xUDQ7EeWbQMVBWJmGrA"
+            uri="http://org.eclipse.efm.formalml">
+      </profile>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated FormalML-Standard-Library -->
-      <package
-            uri="http:///FormalMLStandardLibrary/Class.ecore"
-            class="FormalMLStandardLibrary.Class.ClassPackage"
-            genModel="resources/library/FormalML-Standard-Library.genmodel"/>
-   </extension>
 </plugin>
