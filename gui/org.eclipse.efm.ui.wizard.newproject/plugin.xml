@@ -162,5 +162,20 @@
          </projectDescriptor>
       </example>
    </extension>
+   <extension
+         name="EFM Projects"
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.efm.papyrus.wizard.newproject.EFM"
+            name="EFM Project">
+      </category>
+      <wizard
+            category="org.eclipse.efm.papyrus.wizard.newproject.EFM"
+            class="org.eclipse.efm.papyrus.wizard.newproject.NewEFMprojectWizard"
+            icon="icons/efm_project.png"
+            id="org.eclipse.efm.ui.wizard.newproject.EFMnp"
+            name="EFM Project">
+      </wizard>
+   </extension>
 
 </plugin>
