@@ -28,6 +28,7 @@ import org.eclipse.papyrus.infra.core.resource.ModelsReader;
 import org.eclipse.papyrus.infra.core.services.ExtensionServicesRegistry;
 import org.eclipse.papyrus.infra.core.services.ServiceException;
 import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
+import org.eclipse.papyrus.infra.core.utils.DiResourceSet;
 import org.eclipse.papyrus.infra.ui.extension.commands.IModelCreationCommand;
 import org.eclipse.papyrus.uml.diagram.common.commands.CreateUMLModelCommand;
 import org.eclipse.papyrus.uml.tools.model.UmlModel;
@@ -63,14 +64,11 @@ public class NewEFMprojectWizard extends BasicNewProjectResourceWizard implement
         model_page = new WizardNewEFMmodelCreationPage();
         addPage(model_page);
 	}
-
-
-	public boolean performFinish() {
-		return performFinish_RecordingCommand();
-	}
 	
-	public boolean performFinish_RecordingCommand() {
-		final ModelSet modelSet = new ModelSet();
+	public boolean performFinish() {
+		//final ModelSet modelSet = new ModelSet();
+		
+		final ModelSet modelSet = new ModelSet();//DiResourceSet();
 		
 		create_project_and_papyrus_model(modelSet);
 		
@@ -140,15 +138,7 @@ public class NewEFMprojectWizard extends BasicNewProjectResourceWizard implement
 
 		modelSet.createModels(modelPResURI); //Use an EMF URI instead of an Eclipse IFile
 		ServicesRegistry registry = new ExtensionServicesRegistry(org.eclipse.papyrus.infra.core.Activator.PLUGIN_ID);
-		try {
-			registry.add(ModelSet.class, Integer.MAX_VALUE, modelSet);
-			registry.startRegistry();
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			System.err.print("================================="+ "\n");
-			System.err.print(e.toString());
-			System.err.print("================================="+ "\n");
-		}
+		registry.startServicesByClassKeys(ModelSet.class);
 
 		IModelCreationCommand creationCommand = new CreateUMLModelCommand();
 		creationCommand.createModel(modelSet);
