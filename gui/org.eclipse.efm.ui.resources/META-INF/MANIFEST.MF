@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Resources
+Bundle-SymbolicName: org.eclipse.efm.ui.resources
+Bundle-Version: 0.0.1.qualifier
+Require-Bundle: org.eclipse.core.runtime
+Export-Package: org.eclipse.efm.ui.resources
+Bundle-Vendor: CEA - LIST
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
