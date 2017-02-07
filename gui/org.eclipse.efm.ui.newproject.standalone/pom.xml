@@ -7,8 +7,8 @@
 		<artifactId>org.eclipse.efm.modeling.gui</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>org.eclipse.efm.ui.wizard.newproject</artifactId>
+	<artifactId>org.eclipse.efm.ui.newproject.standalone</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<name>org.eclipse.efm.ui.wizard.newproject</name>
+	<name>org.eclipse.efm.ui.newproject.standalone</name>
 	<description>This plug-in contains the XXXXXXXXX.</description>
 </project>

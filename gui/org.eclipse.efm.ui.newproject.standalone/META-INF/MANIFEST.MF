@@ -1,9 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: EFM New Project Wizard
-Bundle-SymbolicName: org.eclipse.efm.ui.wizard.newproject;singleton:=true
+Bundle-SymbolicName: org.eclipse.efm.ui.newproject.standalone;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.efm.papyrus.wizard.newproject.Activator
 Bundle-Vendor: CEA - LIST
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

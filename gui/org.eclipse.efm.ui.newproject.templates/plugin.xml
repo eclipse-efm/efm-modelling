@@ -11,7 +11,7 @@
 	     <diagramCategory
 	     		id="FormalML"
 	            class="org.eclipse.efm.ui.newproject.templates.EFMModelCreationCommand"
-	            icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/efm_project.png"
+	            icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/diversity_icon.png"
 	            label="Eclipse Formal Modeling Language"
 	            description="EFM diagram category">
 	     </diagramCategory>

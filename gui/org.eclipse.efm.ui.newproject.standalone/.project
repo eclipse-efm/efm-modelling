@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.eclipse.efm.ui.wizard.newproject</name>
+	<name>org.eclipse.efm.ui.newproject.standalone</name>
 	<comment></comment>
 	<projects>
 	</projects>

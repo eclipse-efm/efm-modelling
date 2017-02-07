@@ -8,7 +8,7 @@
  * Contributors:
  *     Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - Initial API and implementation
  *******************************************************************************/
-package org.eclipse.efm.papyrus.wizard.newproject;
+package org.eclipse.efm.ui.newproject.standalone;
 
 import java.io.IOException;
 
@@ -28,7 +28,6 @@ import org.eclipse.papyrus.infra.core.resource.ModelsReader;
 import org.eclipse.papyrus.infra.core.services.ExtensionServicesRegistry;
 import org.eclipse.papyrus.infra.core.services.ServiceException;
 import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
-import org.eclipse.papyrus.infra.core.utils.DiResourceSet;
 import org.eclipse.papyrus.infra.ui.extension.commands.IModelCreationCommand;
 import org.eclipse.papyrus.uml.diagram.common.commands.CreateUMLModelCommand;
 import org.eclipse.papyrus.uml.tools.model.UmlModel;
@@ -144,12 +143,5 @@ public class NewEFMprojectWizard extends BasicNewProjectResourceWizard implement
 		creationCommand.createModel(modelSet);
 		modelSet.save(new NullProgressMonitor());
 	}
-	
-	private void throwCoreException(String message) throws CoreException {
-		IStatus status =
-			new Status(IStatus.ERROR, "org.eclipse.efm.ui.wizard.newproject", IStatus.OK, message, null);
-		throw new CoreException(status);
-	}
-
 
 }

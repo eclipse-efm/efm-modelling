@@ -293,7 +293,7 @@ public class EditingPropertySection extends
 		fRevertAction.setToolTipText("Reset edited element text");
 
 		fRevertAction.setImageDescriptor(ImageDescriptor.createFromFile(
-				ActivatorXLIAProperties.class, "/resources/icons/revert.gif"));
+				ActivatorXLIAProperties.class, "platform:/plugin/org.eclipse.efm.ui.resources/icons/revert.gif"));
 
 
 		ActionContributionItem aci = new ActionContributionItem(fRevertAction);
@@ -322,8 +322,8 @@ public class EditingPropertySection extends
 		fCommitAction.setToolTipText(COMMIT_ACTION_DEFAULT_DESCRIPTION);
 
 		fCommitAction.setImageDescriptor(ImageDescriptor.createFromFile(
-//				ActivatorXLIAProperties.class, "/resources/icons/commit.png"));
-				ActivatorXLIAProperties.class, "/resources/icons/push.png"));
+//				ActivatorXLIAProperties.class, "platform:/plugin/org.eclipse.efm.ui.resources/icons/commit.png"));
+				ActivatorXLIAProperties.class, "platform:/plugin/org.eclipse.efm.ui.resources/icons/push.png"));
 
 
 		ActionContributionItem aci = new ActionContributionItem(fCommitAction);

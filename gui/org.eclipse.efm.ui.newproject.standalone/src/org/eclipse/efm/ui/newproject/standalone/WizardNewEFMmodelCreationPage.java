@@ -8,7 +8,7 @@
  * Contributors:
  *     Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - Initial API and implementation
  *******************************************************************************/
-package org.eclipse.efm.papyrus.wizard.newproject;
+package org.eclipse.efm.ui.newproject.standalone;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;

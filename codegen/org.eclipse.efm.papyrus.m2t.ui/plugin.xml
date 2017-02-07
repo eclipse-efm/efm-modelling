@@ -37,7 +37,7 @@
             locationURI="popup:org.eclipse.papyrus.designer.popup?after=codegen">
          <command
                commandId="org.eclipse.efm.papyrus.m2t.ui.command"
-               icon="icons/alt_diversity.png"
+               icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/diversity_icon.png"
                label="Generate FML Concrete Syntax code"
                style="push">
             <visibleWhen
@@ -50,7 +50,7 @@
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <command
                commandId="org.eclipse.efm.papyrus.m2t.ui.command.debug"
-               icon="icons/alt_diversity.png"
+               icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/diversity_icon.png"
                label="Debug: Generate FML Concrete Syntax code"
                style="push">
             <visibleWhen

@@ -44,7 +44,7 @@
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
             configTypeID="org.eclipse.efm.runconfiguration.launchConfigurationType"
-            icon="resources/icons/diversity.png"
+            icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/diversity_icon.png"
             id="org.eclipse.efm.runconfiguration.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
    </extension>
@@ -213,14 +213,14 @@
                tooltip="Symbolic Execution Workflow">
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.runSEW"
-                  icon="resources/icons/play.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/play.gif"
                   id="org.eclipse.efm.runconfiguration.menu.runSEW"
                   label="Run Symbolic Execution Workflow"
                   mnemonic="S">
             </command>
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.graphviz"
-                  icon="resources/icons/modelExplorer.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/modelExplorer.gif"
                   id="org.eclipse.efm.runconfiguration.menu.graphviz"
                   mnemonic="V">
             </command>
@@ -230,7 +230,7 @@
             allPopups="true"
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <menu
-               icon="resources/icons/diversity.png"
+               icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/diversity_icon.png"
                id="org.eclipse.efm.runconfiguration.menu.popup.sew"
                label="Symbolic Execution Workflow">
             <visibleWhen
@@ -241,13 +241,13 @@
             </visibleWhen>
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.runSEW"
-                  icon="resources/icons/play.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/play.gif"
                   id="org.eclipse.efm.runconfiguration.menu.runSEW"
                   mnemonic="S">
             </command>
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.graphviz"
-                  icon="resources/icons/modelExplorer.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/modelExplorer.gif"
                   id="org.eclipse.efm.runconfiguration.menu.graphviz"
                   mnemonic="V">
             </command>
@@ -309,7 +309,7 @@
                label="SEW Tools">
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.tools"
-                  icon="resources/icons/diversity.png"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/diversity_icon.png"
                   id="org.eclipse.efm.runconfiguration.dropdowncommand.tools"
                   style="pulldown"
                   tooltip="Symbolic Execution Workflow Tools">
@@ -321,13 +321,13 @@
             locationURI="menu:org.eclipse.efm.runconfiguration.dropdowncommand.tools">
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.runSEW"
-                  icon="resources/icons/play.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/play.gif"
                   id="org.eclipse.efm.runconfiguration.toolbars.runSEW"
                   tooltip="run Symbolic Execution Workflow">
             </command>
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.graphviz"
-                  icon="resources/icons/modelExplorer.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/modelExplorer.gif"
                   id="org.eclipse.efm.runconfiguration.menu.graphviz"
                   mnemonic="V"
                   tooltip="Graph Visualization">
@@ -343,7 +343,7 @@
       <view
             category="org.eclipse.efm.runconfiguration.sewView"
             class="org.eclipse.efm.runconfiguration.ui.views.SymbolicExecutionView"
-            icon="icons/alt_diversity.png"
+            icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/diversity_icon.png"
             id="org.eclipse.efm.runconfiguration.ui.views.SymbolicExecutionView"
             name="SEW Console">
       </view>

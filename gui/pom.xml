@@ -13,9 +13,12 @@
 	<description>This module contains the different plugins relative to the graphical user interface for efm-modeling</description>
 
 	<modules>
-		<module>org.eclipse.efm.runconfiguration</module>
-		<module>org.eclipse.efm.ui.wizard.newproject</module>
 		<module>org.eclipse.efm.papyrus.views.common</module>
 		<module>org.eclipse.efm.papyrus.views.property.concretesyntax</module>
+		<module>org.eclipse.efm.runconfiguration</module>
+		<module>org.eclipse.efm.ui.newproject.examples</module>
+		<module>org.eclipse.efm.ui.newproject.standalone</module>
+		<module>org.eclipse.efm.ui.newproject.templates</module>
+		<module>org.eclipse.efm.ui.resources</module>
 	</modules>
 </project>

@@ -28,7 +28,7 @@
                afterTab="uml"
                category="org.eclipse.papyrus"
                id="fml_editing"
-               image="resources/icons/alt_diversity.png"
+               image="platform:/plugin/org.eclipse.efm.ui.resources/icons/diversity_icon.png"
                indented="true"
                label="FormalML">
          </propertyTab>

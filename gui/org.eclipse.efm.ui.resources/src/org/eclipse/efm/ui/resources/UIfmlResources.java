@@ -12,8 +12,11 @@ package org.eclipse.efm.ui.resources;
 
 public class UIfmlResources {
 	
-	private static final String PROFILES_PATHMAP = "platform:/plugin/";
+	private static final String PLUGINS_ROOT = "platform:/plugin/";
+	private static final String RESOURCES_PLUGIN_PATH = PLUGINS_ROOT + "org.eclipse.efm.ui.resources";
 	
-	public static final String FML_PROFILE_PATH = PROFILES_PATHMAP + "org.eclipse.efm.formalml/resources/profile/FormalML.profile.uml";
+	public static final String FML_PROFILE_PATH = PLUGINS_ROOT + "org.eclipse.efm.formalml/resources/profile/FormalML.profile.uml";
+	
+	public static final String IMAGE__DIVERSITY_ICON = RESOURCES_PLUGIN_PATH + "/icons/diversity_icon.png";
 	
 }
