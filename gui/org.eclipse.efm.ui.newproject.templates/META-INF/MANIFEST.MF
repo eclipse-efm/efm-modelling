@@ -10,5 +10,5 @@ Require-Bundle: org.eclipse.papyrus.uml.tools,
  org.eclipse.efm.ui.resources,
  org.eclipse.papyrus.uml.diagram.common;bundle-version="2.0.0"
 Export-Package: org.eclipse.efm.ui.newproject.templates
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
