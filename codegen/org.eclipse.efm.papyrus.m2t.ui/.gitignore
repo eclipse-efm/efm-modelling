@@ -1,2 +1,2 @@
-/bin/
-*.md.html
+xtend-gen/
+target/classes/
