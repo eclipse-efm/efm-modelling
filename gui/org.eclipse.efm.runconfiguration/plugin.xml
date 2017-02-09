@@ -255,32 +255,6 @@
       </menuContribution>
    </extension>
    <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            class="org.eclipse.efm.runconfiguration.ui.preferences.MainPreferencePage"
-            id="org.eclipse.efm.runconfiguration.preferencePages.sewPage"
-            name="Symbolic Execution Workflow">
-      </page>
-      <page
-            category="org.eclipse.efm.runconfiguration.preferencePages.sewPage"
-            class="org.eclipse.efm.runconfiguration.ui.preferences.ExternalToolsPreferencePage"
-            id="org.eclipse.efm.runconfiguration.ui.preferences.externalToolsPage"
-            name="External Tools">
-      </page>
-      <page
-            category="org.eclipse.efm.runconfiguration.preferencePages.sewPage"
-            class="org.eclipse.efm.runconfiguration.ui.preferences.LaunchConfigurationPreferencePage"
-            id="org.eclipse.efm.runconfiguration.ui.preferences.launchConfigurationPage"
-            name="Launch Configuration">
-      </page>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="org.eclipse.efm.runconfiguration.ui.preferences.ToolPreferenceInitializer">
-      </initializer>
-   </extension>
-   <extension
          point="org.eclipse.ui.commands">
       <category
             description="Symbolic Execution Workflow Tools"

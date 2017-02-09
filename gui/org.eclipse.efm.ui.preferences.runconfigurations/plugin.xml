@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.efm.ui.preferences_root.mainPage"
+            class="org.eclipse.efm.ui.preferences.runconfigurations.MainPreferencePage"
+            id="org.eclipse.efm.ui.preferences.runconfigurations.mainPage"
+            name="Symbolic Execution Workflow">
+      </page>
+      <page
+            category="org.eclipse.efm.ui.preferences.runconfigurations.mainPage"
+            class="org.eclipse.efm.ui.preferences.runconfigurations.ExternalToolsPreferencePage"
+            id="org.eclipse.efm.ui.preferences.runconfigurations.externalToolsPage"
+            name="External Tools">
+      </page>
+      <page
+            category="org.eclipse.efm.ui.preferences.runconfigurations.mainPage"
+            class="org.eclipse.efm.ui.preferences.runconfigurations.LaunchConfigurationPreferencePage"
+            id="org.eclipse.efm.ui.preferences.runconfigurations.launchConfigurationPage"
+            name="Launch Configuration">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.eclipse.efm.ui.preferences.runconfigurations.ToolPreferenceInitializer">
+      </initializer>
+   </extension>
+
+
+
+
+
+</plugin>

@@ -32,7 +32,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.views.properties.tabbed,
  org.eclipse.core.resources
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.eclipse.efm.runconfiguration.workflow,
+Export-Package: org.eclipse.efm.runconfiguration,
+ org.eclipse.efm.runconfiguration.ui.internal,
+ org.eclipse.efm.runconfiguration.workflow,
  org.eclipse.efm.runconfiguration.workflow.common,
  org.eclipse.efm.runconfiguration.workflow.common.impl,
  org.eclipse.efm.runconfiguration.workflow.common.util,

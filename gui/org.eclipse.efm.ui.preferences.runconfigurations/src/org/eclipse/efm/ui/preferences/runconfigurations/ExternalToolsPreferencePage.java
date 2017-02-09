@@ -8,7 +8,7 @@
  * Contributors:
  *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - Initial API and implementation
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui.preferences;
+package org.eclipse.efm.ui.preferences.runconfigurations;
 
 import java.util.Locale;
 
