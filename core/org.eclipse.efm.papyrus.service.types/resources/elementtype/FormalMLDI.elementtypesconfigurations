@@ -140,26 +140,6 @@
     <specializedTypesID>org.eclipse.efm.fml.Configuration</specializedTypesID>
     <specializedTypesID>org.eclipse.papyrus.umldi.Class_Shape_CN</specializedTypesID>
   </elementTypeConfigurations>
-  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbiie93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.FormalEnvironment_Property_AttributeLabel" name="FormalEnvironment (Property_AttributeLabel)" hint="Property_AttributeLabel">
-    <iconEntry xmi:id="_Gjbiiu93EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
-    <specializedTypesID>org.eclipse.efm.fml.FormalEnvironment</specializedTypesID>
-    <specializedTypesID>org.eclipse.papyrus.umldi.Property_AttributeLabel</specializedTypesID>
-  </elementTypeConfigurations>
-  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbii-93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.FormalEnvironment_Property_Edge" name="FormalEnvironment (Property_Edge)" hint="Property_Edge">
-    <iconEntry xmi:id="_GjbijO93EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
-    <specializedTypesID>org.eclipse.efm.fml.FormalEnvironment</specializedTypesID>
-    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Edge</specializedTypesID>
-  </elementTypeConfigurations>
-  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbije93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.FormalEnvironment_Property_Shape" name="FormalEnvironment (Property_Shape)" hint="Property_Shape">
-    <iconEntry xmi:id="_Gjbiju93EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
-    <specializedTypesID>org.eclipse.efm.fml.FormalEnvironment</specializedTypesID>
-    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape</specializedTypesID>
-  </elementTypeConfigurations>
-  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbij-93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.FormalEnvironment_Property_Shape_CN" name="FormalEnvironment (Property_Shape_CN)" hint="Property_Shape_CN">
-    <iconEntry xmi:id="_GjbikO93EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
-    <specializedTypesID>org.eclipse.efm.fml.FormalEnvironment</specializedTypesID>
-    <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape_CN</specializedTypesID>
-  </elementTypeConfigurations>
   <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbike93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.FormalModel_Model_Shape" name="FormalModel (Model_Shape)" hint="Model_Shape">
     <iconEntry xmi:id="_Gjbiku93EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Model.gif" bundleId="org.eclipse.uml2.uml.edit"/>
     <specializedTypesID>org.eclipse.efm.fml.FormalModel</specializedTypesID>
