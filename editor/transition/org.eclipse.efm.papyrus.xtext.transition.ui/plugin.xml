@@ -91,9 +91,10 @@
 	<extension
 			point="org.eclipse.ui.preferencePages">
 		<page
-			class="org.eclipse.efm.papyrus.xtext.ui.TransitionExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-			id="org.eclipse.efm.papyrus.xtext.Transition"
-			name="Transition">
+        category="org.eclipse.efm.ui.preferences.xtext_root.mainPage"
+        class="org.eclipse.efm.papyrus.xtext.ui.TransitionExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+        id="org.eclipse.efm.papyrus.xtext.Transition"
+        name="Xtext Transition EFM">
 			<keywordReference id="org.eclipse.efm.papyrus.xtext.ui.keyword_Transition"/>
 		</page>
 		<page

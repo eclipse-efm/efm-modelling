@@ -19,6 +19,9 @@
 		<module>org.eclipse.efm.ui.newproject.examples</module>
 		<module>org.eclipse.efm.ui.newproject.standalone</module>
 		<module>org.eclipse.efm.ui.newproject.templates</module>
+		<module>org.eclipse.efm.ui.preferences.runconfigurations</module>
+		<module>org.eclipse.efm.ui.preferences.xtext_root</module>
+		<module>org.eclipse.efm.ui.preferences_root</module>
 		<module>org.eclipse.efm.ui.resources</module>
 	</modules>
 </project>

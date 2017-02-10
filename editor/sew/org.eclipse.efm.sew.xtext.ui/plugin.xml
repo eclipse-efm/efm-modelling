@@ -91,9 +91,10 @@
 	<extension
 			point="org.eclipse.ui.preferencePages">
 		<page
-			class="org.eclipse.efm.sew.xtext.ui.SEWExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-			id="org.eclipse.efm.sew.xtext.SEW"
-			name="SEW">
+        category="org.eclipse.efm.ui.preferences.xtext_root.mainPage"
+        class="org.eclipse.efm.sew.xtext.ui.SEWExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+        id="org.eclipse.efm.sew.xtext.SEW"
+        name="Xtext SEW EFM">
 			<keywordReference id="org.eclipse.efm.sew.xtext.ui.keyword_SEW"/>
 		</page>
 		<page

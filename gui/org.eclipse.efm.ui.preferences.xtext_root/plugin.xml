@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.efm.ui.preferences_root.mainPage"
+            class="org.eclipse.efm.ui.runsession.preferences.xtext_root.XtextRootPreferencePage"
+            id="org.eclipse.efm.ui.preferences.xtext_root.mainPage"
+            name="Xtext EFM Languages Implementations">
+      </page>
+   </extension>
+
+
+
+
+
+</plugin>

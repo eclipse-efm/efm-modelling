@@ -91,9 +91,10 @@
 	<extension
 			point="org.eclipse.ui.preferencePages">
 		<page
-			class="org.eclipse.efm.formalml.xtext.ui.FormalMLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-			id="org.eclipse.efm.formalml.xtext.FormalML"
-			name="FormalML">
+        category="org.eclipse.efm.ui.preferences.xtext_root.mainPage"
+        class="org.eclipse.efm.formalml.xtext.ui.FormalMLExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+        id="org.eclipse.efm.formalml.xtext.FormalML"
+        name="Xtext FormalML EFM">
 			<keywordReference id="org.eclipse.efm.formalml.xtext.ui.keyword_FormalML"/>
 		</page>
 		<page
