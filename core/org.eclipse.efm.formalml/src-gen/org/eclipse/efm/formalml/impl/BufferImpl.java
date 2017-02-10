@@ -31,7 +31,7 @@ import org.eclipse.uml2.uml.Property;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.impl.BufferImpl#getBase_Property <em>Base Property</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.impl.BufferImpl#getBaseProperty <em>Base Property</em>}</li>
  *   <li>{@link org.eclipse.efm.formalml.impl.BufferImpl#getKind <em>Kind</em>}</li>
  * </ul>
  *
@@ -39,14 +39,14 @@ import org.eclipse.uml2.uml.Property;
  */
 public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	/**
-	 * The cached value of the '{@link #getBase_Property() <em>Base Property</em>}' reference.
+	 * The cached value of the '{@link #getBaseProperty() <em>Base Property</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBase_Property()
+	 * @see #getBaseProperty()
 	 * @generated
 	 * @ordered
 	 */
-	protected Property base_Property;
+	protected Property baseProperty;
 
 	/**
 	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
@@ -92,16 +92,16 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property getBase_Property() {
-		if (base_Property != null && base_Property.eIsProxy()) {
-			InternalEObject oldBase_Property = (InternalEObject)base_Property;
-			base_Property = (Property)eResolveProxy(oldBase_Property);
-			if (base_Property != oldBase_Property) {
+	public Property getBaseProperty() {
+		if (baseProperty != null && baseProperty.eIsProxy()) {
+			InternalEObject oldBaseProperty = (InternalEObject)baseProperty;
+			baseProperty = (Property)eResolveProxy(oldBaseProperty);
+			if (baseProperty != oldBaseProperty) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.BUFFER__BASE_PROPERTY, oldBase_Property, base_Property));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.BUFFER__BASE_PROPERTY, oldBaseProperty, baseProperty));
 			}
 		}
-		return base_Property;
+		return baseProperty;
 	}
 
 	/**
@@ -109,8 +109,8 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property basicGetBase_Property() {
-		return base_Property;
+	public Property basicGetBaseProperty() {
+		return baseProperty;
 	}
 
 	/**
@@ -118,11 +118,11 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBase_Property(Property newBase_Property) {
-		Property oldBase_Property = base_Property;
-		base_Property = newBase_Property;
+	public void setBaseProperty(Property newBaseProperty) {
+		Property oldBaseProperty = baseProperty;
+		baseProperty = newBaseProperty;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.BUFFER__BASE_PROPERTY, oldBase_Property, base_Property));
+			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.BUFFER__BASE_PROPERTY, oldBaseProperty, baseProperty));
 	}
 
 	/**
@@ -155,8 +155,8 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case formalmlPackage.BUFFER__BASE_PROPERTY:
-				if (resolve) return getBase_Property();
-				return basicGetBase_Property();
+				if (resolve) return getBaseProperty();
+				return basicGetBaseProperty();
 			case formalmlPackage.BUFFER__KIND:
 				return getKind();
 		}
@@ -172,7 +172,7 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case formalmlPackage.BUFFER__BASE_PROPERTY:
-				setBase_Property((Property)newValue);
+				setBaseProperty((Property)newValue);
 				return;
 			case formalmlPackage.BUFFER__KIND:
 				setKind((BufferKind)newValue);
@@ -190,7 +190,7 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.BUFFER__BASE_PROPERTY:
-				setBase_Property((Property)null);
+				setBaseProperty((Property)null);
 				return;
 			case formalmlPackage.BUFFER__KIND:
 				setKind(KIND_EDEFAULT);
@@ -208,7 +208,7 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.BUFFER__BASE_PROPERTY:
-				return base_Property != null;
+				return baseProperty != null;
 			case formalmlPackage.BUFFER__KIND:
 				return kind != KIND_EDEFAULT;
 		}

@@ -30,7 +30,7 @@ import org.eclipse.uml2.uml.OpaqueBehavior;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.impl.FormalBlockImpl#getBase_Class <em>Base Class</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.impl.FormalBlockImpl#getBaseClass <em>Base Class</em>}</li>
  *   <li>{@link org.eclipse.efm.formalml.impl.FormalBlockImpl#getRoutingBehavior <em>Routing Behavior</em>}</li>
  * </ul>
  *
@@ -38,14 +38,14 @@ import org.eclipse.uml2.uml.OpaqueBehavior;
  */
 public abstract class FormalBlockImpl extends MinimalEObjectImpl.Container implements FormalBlock {
 	/**
-	 * The cached value of the '{@link #getBase_Class() <em>Base Class</em>}' reference.
+	 * The cached value of the '{@link #getBaseClass() <em>Base Class</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBase_Class()
+	 * @see #getBaseClass()
 	 * @generated
 	 * @ordered
 	 */
-	protected org.eclipse.uml2.uml.Class base_Class;
+	protected org.eclipse.uml2.uml.Class baseClass;
 
 	/**
 	 * The cached value of the '{@link #getRoutingBehavior() <em>Routing Behavior</em>}' reference.
@@ -81,16 +81,16 @@ public abstract class FormalBlockImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public org.eclipse.uml2.uml.Class getBase_Class() {
-		if (base_Class != null && base_Class.eIsProxy()) {
-			InternalEObject oldBase_Class = (InternalEObject)base_Class;
-			base_Class = (org.eclipse.uml2.uml.Class)eResolveProxy(oldBase_Class);
-			if (base_Class != oldBase_Class) {
+	public org.eclipse.uml2.uml.Class getBaseClass() {
+		if (baseClass != null && baseClass.eIsProxy()) {
+			InternalEObject oldBaseClass = (InternalEObject)baseClass;
+			baseClass = (org.eclipse.uml2.uml.Class)eResolveProxy(oldBaseClass);
+			if (baseClass != oldBaseClass) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.FORMAL_BLOCK__BASE_CLASS, oldBase_Class, base_Class));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.FORMAL_BLOCK__BASE_CLASS, oldBaseClass, baseClass));
 			}
 		}
-		return base_Class;
+		return baseClass;
 	}
 
 	/**
@@ -98,8 +98,8 @@ public abstract class FormalBlockImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public org.eclipse.uml2.uml.Class basicGetBase_Class() {
-		return base_Class;
+	public org.eclipse.uml2.uml.Class basicGetBaseClass() {
+		return baseClass;
 	}
 
 	/**
@@ -107,11 +107,11 @@ public abstract class FormalBlockImpl extends MinimalEObjectImpl.Container imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBase_Class(org.eclipse.uml2.uml.Class newBase_Class) {
-		org.eclipse.uml2.uml.Class oldBase_Class = base_Class;
-		base_Class = newBase_Class;
+	public void setBaseClass(org.eclipse.uml2.uml.Class newBaseClass) {
+		org.eclipse.uml2.uml.Class oldBaseClass = baseClass;
+		baseClass = newBaseClass;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.FORMAL_BLOCK__BASE_CLASS, oldBase_Class, base_Class));
+			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.FORMAL_BLOCK__BASE_CLASS, oldBaseClass, baseClass));
 	}
 
 	/**
@@ -161,8 +161,8 @@ public abstract class FormalBlockImpl extends MinimalEObjectImpl.Container imple
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case formalmlPackage.FORMAL_BLOCK__BASE_CLASS:
-				if (resolve) return getBase_Class();
-				return basicGetBase_Class();
+				if (resolve) return getBaseClass();
+				return basicGetBaseClass();
 			case formalmlPackage.FORMAL_BLOCK__ROUTING_BEHAVIOR:
 				if (resolve) return getRoutingBehavior();
 				return basicGetRoutingBehavior();
@@ -179,7 +179,7 @@ public abstract class FormalBlockImpl extends MinimalEObjectImpl.Container imple
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case formalmlPackage.FORMAL_BLOCK__BASE_CLASS:
-				setBase_Class((org.eclipse.uml2.uml.Class)newValue);
+				setBaseClass((org.eclipse.uml2.uml.Class)newValue);
 				return;
 			case formalmlPackage.FORMAL_BLOCK__ROUTING_BEHAVIOR:
 				setRoutingBehavior((OpaqueBehavior)newValue);
@@ -197,7 +197,7 @@ public abstract class FormalBlockImpl extends MinimalEObjectImpl.Container imple
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.FORMAL_BLOCK__BASE_CLASS:
-				setBase_Class((org.eclipse.uml2.uml.Class)null);
+				setBaseClass((org.eclipse.uml2.uml.Class)null);
 				return;
 			case formalmlPackage.FORMAL_BLOCK__ROUTING_BEHAVIOR:
 				setRoutingBehavior((OpaqueBehavior)null);
@@ -215,7 +215,7 @@ public abstract class FormalBlockImpl extends MinimalEObjectImpl.Container imple
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.FORMAL_BLOCK__BASE_CLASS:
-				return base_Class != null;
+				return baseClass != null;
 			case formalmlPackage.FORMAL_BLOCK__ROUTING_BEHAVIOR:
 				return routingBehavior != null;
 		}

@@ -26,47 +26,47 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum BufferKind implements Enumerator {
 	/**
-	 * The '<em><b>FIFO</b></em>' literal object.
+	 * The '<em><b>Fifo</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #FIFO_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	FIFO(0, "FIFO", "FIFO"),
+	FIFO(0, "fifo", "fifo"),
 
 	/**
-	 * The '<em><b>LIFO</b></em>' literal object.
+	 * The '<em><b>Lifo</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #LIFO_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	LIFO(1, "LIFO", "LIFO"),
+	LIFO(1, "lifo", "lifo"),
 
 	/**
-	 * The '<em><b>MULTISET</b></em>' literal object.
+	 * The '<em><b>Multiset</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #MULTISET_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	MULTISET(2, "MULTISET", "MULTISET"),
+	MULTISET(2, "multiset", "multiset"),
 
 	/**
-	 * The '<em><b>RAM</b></em>' literal object.
+	 * The '<em><b>Ram</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #RAM_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	RAM(3, "RAM", "RAM");
+	RAM(3, "ram", "ram");
 
 	/**
-	 * The '<em><b>FIFO</b></em>' literal value.
+	 * The '<em><b>Fifo</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>FIFO</b></em>' literal object isn't clear,
@@ -74,14 +74,15 @@ public enum BufferKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #FIFO
-	 * @model
+	 * @model name="fifo"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='FIFO'"
 	 * @generated
 	 * @ordered
 	 */
 	public static final int FIFO_VALUE = 0;
 
 	/**
-	 * The '<em><b>LIFO</b></em>' literal value.
+	 * The '<em><b>Lifo</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>LIFO</b></em>' literal object isn't clear,
@@ -89,14 +90,15 @@ public enum BufferKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #LIFO
-	 * @model
+	 * @model name="lifo"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='LIFO'"
 	 * @generated
 	 * @ordered
 	 */
 	public static final int LIFO_VALUE = 1;
 
 	/**
-	 * The '<em><b>MULTISET</b></em>' literal value.
+	 * The '<em><b>Multiset</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>MULTISET</b></em>' literal object isn't clear,
@@ -104,14 +106,15 @@ public enum BufferKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MULTISET
-	 * @model
+	 * @model name="multiset"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='MULTISET'"
 	 * @generated
 	 * @ordered
 	 */
 	public static final int MULTISET_VALUE = 2;
 
 	/**
-	 * The '<em><b>RAM</b></em>' literal value.
+	 * The '<em><b>Ram</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>RAM</b></em>' literal object isn't clear,
@@ -119,7 +122,8 @@ public enum BufferKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #RAM
-	 * @model
+	 * @model name="ram"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='RAM'"
 	 * @generated
 	 * @ordered
 	 */

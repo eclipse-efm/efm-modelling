@@ -27,7 +27,7 @@ import org.eclipse.uml2.uml.Type;
  * <ul>
  *   <li>{@link org.eclipse.efm.formalml.Configuration#getEnv <em>Env</em>}</li>
  *   <li>{@link org.eclipse.efm.formalml.Configuration#isTimed <em>Timed</em>}</li>
- *   <li>{@link org.eclipse.efm.formalml.Configuration#isInput_enabled <em>Input enabled</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.Configuration#isInputEnabled <em>Input Enabled</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.formalml.formalmlPackage#getConfiguration()
@@ -105,30 +105,31 @@ public interface Configuration extends FormalBlock {
 	void setTimed(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Input enabled</b></em>' attribute.
+	 * Returns the value of the '<em><b>Input Enabled</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Input enabled</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Input Enabled</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Input enabled</em>' attribute.
-	 * @see #setInput_enabled(boolean)
-	 * @see org.eclipse.efm.formalml.formalmlPackage#getConfiguration_Input_enabled()
+	 * @return the value of the '<em>Input Enabled</em>' attribute.
+	 * @see #setInputEnabled(boolean)
+	 * @see org.eclipse.efm.formalml.formalmlPackage#getConfiguration_InputEnabled()
 	 * @model default="false" dataType="org.eclipse.uml2.types.Boolean" required="true" ordered="false"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='input_enabled'"
 	 * @generated
 	 */
-	boolean isInput_enabled();
+	boolean isInputEnabled();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.formalml.Configuration#isInput_enabled <em>Input enabled</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.formalml.Configuration#isInputEnabled <em>Input Enabled</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Input enabled</em>' attribute.
-	 * @see #isInput_enabled()
+	 * @param value the new value of the '<em>Input Enabled</em>' attribute.
+	 * @see #isInputEnabled()
 	 * @generated
 	 */
-	void setInput_enabled(boolean value);
+	void setInputEnabled(boolean value);
 
 } // Configuration

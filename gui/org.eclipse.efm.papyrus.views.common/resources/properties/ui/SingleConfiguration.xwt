@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Composite
+<Composite xmlns="http://www.eclipse.org/xwt/presentation"
+	xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets"
+	xmlns:j="clr-namespace:java.lang"
 	xmlns:ppel="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets.layout"
-	xmlns="http://www.eclipse.org/xwt/presentation" xmlns:j="clr-namespace:java.lang"
-	xmlns:x="http://www.eclipse.org/xwt" xmlns:ppe="clr-namespace:org.eclipse.papyrus.infra.properties.ui.widgets">
+	xmlns:x="http://www.eclipse.org/xwt">
 	<Composite.layout>
 		<ppel:PropertiesLayout></ppel:PropertiesLayout>
 	</Composite.layout>
@@ -10,20 +11,21 @@
 		<Composite.layout>
 			<ppel:PropertiesLayout numColumns="2"></ppel:PropertiesLayout>
 		</Composite.layout>
-		<ppe:BooleanRadio input="{Binding}" property="fml:FormalContext:timed"></ppe:BooleanRadio>
+		<ppe:BooleanRadio input="{Binding}" property="fml:Configuration:timed"></ppe:BooleanRadio>
 		<ppe:BooleanRadio input="{Binding}"
-			property="fml:FormalContext:input_enabled"></ppe:BooleanRadio>
+			property="fml:Configuration:input_enabled"></ppe:BooleanRadio>
 	</Composite>
 	<Composite>
 		<Composite.layout>
 			<ppel:PropertiesLayout numColumns="1"></ppel:PropertiesLayout>
 		</Composite.layout>
-		<ppe:ReferenceDialog input="{Binding}" property="fml:FormalContext:env"></ppe:ReferenceDialog>
+		<ppe:ReferenceDialog input="{Binding}"
+			property="fml:FormalBlock:routingBehavior"></ppe:ReferenceDialog>
 	</Composite>
 	<Composite>
 		<Composite.layout>
 			<ppel:PropertiesLayout numColumns="1"></ppel:PropertiesLayout>
 		</Composite.layout>
-		<ppe:MultiReference input="{Binding}" property="fml:FormalBlock:clocks"></ppe:MultiReference>
+		<ppe:MultiReference input="{Binding}" property="fml:Configuration:env"></ppe:MultiReference>
 	</Composite>
 </Composite>

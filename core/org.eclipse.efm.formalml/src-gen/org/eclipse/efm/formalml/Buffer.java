@@ -22,7 +22,7 @@ import org.eclipse.uml2.uml.Property;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.Buffer#getBase_Property <em>Base Property</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.Buffer#getBaseProperty <em>Base Property</em>}</li>
  *   <li>{@link org.eclipse.efm.formalml.Buffer#getKind <em>Kind</em>}</li>
  * </ul>
  *
@@ -40,22 +40,24 @@ public interface Buffer extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Property</em>' reference.
-	 * @see #setBase_Property(Property)
-	 * @see org.eclipse.efm.formalml.formalmlPackage#getBuffer_Base_Property()
+	 * @see #setBaseProperty(Property)
+	 * @see org.eclipse.efm.formalml.formalmlPackage#getBuffer_BaseProperty()
 	 * @model required="true" ordered="false"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='base_Property'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='extension_BufferVar'"
 	 * @generated
 	 */
-	Property getBase_Property();
+	Property getBaseProperty();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.formalml.Buffer#getBase_Property <em>Base Property</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.formalml.Buffer#getBaseProperty <em>Base Property</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Property</em>' reference.
-	 * @see #getBase_Property()
+	 * @see #getBaseProperty()
 	 * @generated
 	 */
-	void setBase_Property(Property value);
+	void setBaseProperty(Property value);
 
 	/**
 	 * Returns the value of the '<em><b>Kind</b></em>' attribute.

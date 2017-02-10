@@ -20,7 +20,7 @@ import org.eclipse.uml2.uml.AnyReceiveEvent;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.ReceiveAnyEvent#getBase_AnyReceiveEvent <em>Base Any Receive Event</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.ReceiveAnyEvent#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.formalml.formalmlPackage#getReceiveAnyEvent()
@@ -37,21 +37,23 @@ public interface ReceiveAnyEvent extends ReceiveEvent {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Any Receive Event</em>' reference.
-	 * @see #setBase_AnyReceiveEvent(AnyReceiveEvent)
-	 * @see org.eclipse.efm.formalml.formalmlPackage#getReceiveAnyEvent_Base_AnyReceiveEvent()
+	 * @see #setBaseAnyReceiveEvent(AnyReceiveEvent)
+	 * @see org.eclipse.efm.formalml.formalmlPackage#getReceiveAnyEvent_BaseAnyReceiveEvent()
 	 * @model required="true" ordered="false"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='base_AnyReceiveEvent'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='extension_ReceiveAnyEvent'"
 	 * @generated
 	 */
-	AnyReceiveEvent getBase_AnyReceiveEvent();
+	AnyReceiveEvent getBaseAnyReceiveEvent();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.formalml.ReceiveAnyEvent#getBase_AnyReceiveEvent <em>Base Any Receive Event</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.formalml.ReceiveAnyEvent#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Any Receive Event</em>' reference.
-	 * @see #getBase_AnyReceiveEvent()
+	 * @see #getBaseAnyReceiveEvent()
 	 * @generated
 	 */
-	void setBase_AnyReceiveEvent(AnyReceiveEvent value);
+	void setBaseAnyReceiveEvent(AnyReceiveEvent value);
 
 } // ReceiveAnyEvent

@@ -97,7 +97,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		return( false );
 	}
 
-	public boolean isBlockFormalContextDefinition(Class element) {
+	public boolean isBlockConfigurationDefinition(Class element) {
 		if( (StereotypeUtil.getConfiguration(element) != null) ) {
 			return( true );
 		}
@@ -126,7 +126,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 	public void collectElement(Package packageElement,
 			List<NamedElement> properties, List<Class> machinesAsBlock,
 			List<Property> blockInstances,
-			ArrayList<Class> machinesAsFormalContext) {
+			ArrayList<Class> machinesAsConfiguration) {
 		for( PackageableElement itPE : packageElement.getPackagedElements() ) {
 			if( itPE instanceof Property ) {
 				Property itProperty = (Property)itPE;
@@ -148,13 +148,13 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			else if( itPE instanceof Class ) {
 				Class itClass = (Class) itPE;
 
-				if( isBlockFormalContextDefinition(itClass) ) {
-					if( machinesAsFormalContext != null ) {
-						machinesAsFormalContext.add( itClass );
+				if( isBlockConfigurationDefinition(itClass) ) {
+					if( machinesAsConfiguration != null ) {
+						machinesAsConfiguration.add( itClass );
 					}
 					else {
 						System.out.println(
-								"Unexpected a null< machinesAsFormalContext > !");
+								"Unexpected a null< machinesAsConfiguration > !");
 					}
 				}
 				else if( isBlock(itClass) ) {
@@ -165,7 +165,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			}
 			else if( itPE instanceof Package ) {
 				collectElement((Package)itPE, properties, machinesAsBlock,
-						blockInstances, machinesAsFormalContext);
+						blockInstances, machinesAsConfiguration);
 			}
 			else {
 			}
@@ -177,7 +177,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			List<NamedElement> properties, List<Class> machinesAsBlock,
 			List<Property> blockInstances,
 			List<Behavior> blockBehaviors,
-			ArrayList<Class> machinesAsFormalContext) {
+			ArrayList<Class> machinesAsConfiguration) {
 		for( Property itAttribute : pack.getOwnedAttributes() ) {
 			if( isPart(itAttribute) ) {
 				blockInstances.add( itAttribute );
@@ -192,7 +192,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 				blockBehaviors.add(itBehavior);
 
 				collectElement(itBehavior, properties, machinesAsBlock,
-						blockInstances, machinesAsFormalContext);
+						blockInstances, machinesAsConfiguration);
 			}
 		}
 	}
@@ -201,10 +201,10 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 	public void collectElement(PackageableElement pack,
 			List<NamedElement> properties, List<Class> machinesAsBlock,
 			List<Property> blockInstances,
-			ArrayList<Class> machinesAsFormalContext) {
+			ArrayList<Class> machinesAsConfiguration) {
 		if( pack instanceof Package ) {
 			collectElement(pack, properties, machinesAsBlock,
-					blockInstances, machinesAsFormalContext);
+					blockInstances, machinesAsConfiguration);
 		}
 		else if( pack instanceof Property ) {
 			Property itProperty = (Property) pack;
@@ -226,13 +226,13 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		else if( pack instanceof Class ) {
 			Class itClass = (Class) pack;
 
-			if( isBlockFormalContextDefinition(itClass) ) {
-				if( machinesAsFormalContext != null ) {
-					machinesAsFormalContext.add( itClass );
+			if( isBlockConfigurationDefinition(itClass) ) {
+				if( machinesAsConfiguration != null ) {
+					machinesAsConfiguration.add( itClass );
 				}
 				else {
 					System.out.println(
-							"Unexpected a null< machinesAsFormalContext > !");
+							"Unexpected a null< machinesAsConfiguration > !");
 				}
 			}
 			else if( isBlock(itClass) ) {
@@ -263,10 +263,10 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		ArrayList<Class> machinesAsBlock = new ArrayList<Class>();
 		ArrayList<Property> blockInstances = new ArrayList<Property>();
 
-		ArrayList<Class> machinesAsFormalContext = new ArrayList<Class>();
+		ArrayList<Class> machinesAsConfiguration = new ArrayList<Class>();
 
 		collectElement(element, properties, machinesAsBlock,
-				blockInstances, machinesAsFormalContext);
+				blockInstances, machinesAsConfiguration);
 
 		writer.appendTabEol2("@xlia< system , 1.0 >:");
 
@@ -296,8 +296,8 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 				transformClassDefinition(clazz, writer2);
 			}
 
-			for( Class clazz : machinesAsFormalContext ) {
-				transformClassFormalContext(clazz, writer2);
+			for( Class clazz : machinesAsConfiguration ) {
+				transformClassConfiguration(clazz, writer2);
 			}
 		}
 		// Section instance statemachine
@@ -310,8 +310,8 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		}
 
 
-		int instancesFormalContextCount = machinesAsFormalContext.size();
-		if( instancesFormalContextCount > 0 ) {
+		int instancesConfigurationCount = machinesAsConfiguration.size();
+		if( instancesConfigurationCount > 0 ) {
 			// Section moe
 			//
 			writer.appendEolTab_Eol("@moe:");
@@ -319,8 +319,8 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			// Section init
 			//
 			writer.appendTab2Eol("@init{" +
-					((instancesFormalContextCount > 1) ? " |and|" : "") );
-			for( Class ctxClass : machinesAsFormalContext ) {
+					((instancesConfigurationCount > 1) ? " |and|" : "") );
+			for( Class ctxClass : machinesAsConfiguration ) {
 				writer.appendTab3("init ")
 					.append(ctxClass.getName())
 					.appendEol(";");
@@ -330,8 +330,8 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			// Section schedule
 			//
 			writer.appendTab2Eol("@schedule{" +
-					((instancesFormalContextCount > 1) ? " |i|" : "") );
-			for( Class ctxClass : machinesAsFormalContext ) {
+					((instancesConfigurationCount > 1) ? " |i|" : "") );
+			for( Class ctxClass : machinesAsConfiguration ) {
 				writer.appendTab3("run ")
 					.append(ctxClass.getName())
 					.appendEol(";");
@@ -370,14 +370,14 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 
 		writer.appendTabEol2("@xlia< system , 1.0 >:");
 
-		Configuration elementFormalContext =
+		Configuration elementConfiguration =
 				StereotypeUtil.getConfiguration(element);
 
 		writer.appendTab();
-		if( elementFormalContext.isTimed() ) {
+		if( elementConfiguration.isTimed() ) {
 			writer.append("timed ");
 		}
-		if( elementFormalContext.isInput_enabled() ) {
+		if( elementConfiguration.isInputEnabled() ) {
 			writer.append("input_enabled ");
 		}
 		writer.append("system< and > ")
@@ -504,7 +504,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 	 * @param element
 	 * @param writer
 	 */
-	public void transformClassFormalContext(
+	public void transformClassConfiguration(
 			Class element, PrettyPrintWriter writer) {
 		ArrayList<NamedElement> properties = new ArrayList<NamedElement>();
 		ArrayList<Class> machinesAsBlock = new ArrayList<Class>();
@@ -514,16 +514,16 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		collectElement(element, properties,
 				machinesAsBlock, blockInstances, behaviors, null);
 
-		Configuration elementFormalContext =
+		Configuration elementConfiguration =
 				StereotypeUtil.getConfiguration(element);
 
 		writer.appendTabEol("//!!FML:gen< Configuration >");
 
 		writer.appendTab();
-		if( elementFormalContext.isTimed() ) {
+		if( elementConfiguration.isTimed() ) {
 			writer.append("timed ");
 		}
-		if( elementFormalContext.isInput_enabled() ) {
+		if( elementConfiguration.isInputEnabled() ) {
 			writer.append("input_enabled ");
 		}
 		writer.append("machine< and > ")
@@ -549,7 +549,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		writer.appendEolTab_Eol("@moe:");
 
 		transformClassMoeDefinition(
-				elementFormalContext, behaviors, blockInstances, writer2);
+				elementConfiguration, behaviors, blockInstances, writer2);
 
 		writer.appendTab("} // end machine ")
 			.appendEol2(element.getName());
@@ -640,10 +640,10 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		Part formalPart;
 
 		if( behaviorCount > 0 ) {
-			if( block.getBase_Class().getClassifierBehavior() == null ) {
+			if( block.getBaseClass().getClassifierBehavior() == null ) {
 				LOGGER.error( ( new StringBuffer(this.getClass().getSimpleName()) )
 					.append( ":> unexpected Block Class " )
-					.append( block.getBase_Class().getQualifiedName() )
+					.append( block.getBaseClass().getQualifiedName() )
 					.append( " with ownedBehavior, without classifierBehavior" )
 					.toString() );
 			}
@@ -710,7 +710,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		//
 		writer.appendTab("@schedule{");
 
-		Class block_base_Class = block.getBase_Class();
+		Class block_base_Class = block.getBaseClass();
 		if (block_base_Class !=null){
 			Behavior scheduleBehavior = block_base_Class.getClassifierBehavior();
 
@@ -928,7 +928,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			}
 
 			String comment_on_part = "";
-			if (environmental_properties.contains(formalPart.getBase_Property())) {
+			if (environmental_properties.contains(formalPart.getBaseProperty())) {
 				comment_on_part = " /* in formal context 'environment' */";
 			}
 

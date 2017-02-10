@@ -22,7 +22,7 @@ import org.eclipse.uml2.uml.Port;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.DirectedPort#getBase_Port <em>Base Port</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.DirectedPort#getBasePort <em>Base Port</em>}</li>
  *   <li>{@link org.eclipse.efm.formalml.DirectedPort#getDirection <em>Direction</em>}</li>
  * </ul>
  *
@@ -40,22 +40,24 @@ public interface DirectedPort extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Port</em>' reference.
-	 * @see #setBase_Port(Port)
-	 * @see org.eclipse.efm.formalml.formalmlPackage#getDirectedPort_Base_Port()
+	 * @see #setBasePort(Port)
+	 * @see org.eclipse.efm.formalml.formalmlPackage#getDirectedPort_BasePort()
 	 * @model required="true" ordered="false"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='base_Port'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='extension_FlowPort'"
 	 * @generated
 	 */
-	Port getBase_Port();
+	Port getBasePort();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.formalml.DirectedPort#getBase_Port <em>Base Port</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.formalml.DirectedPort#getBasePort <em>Base Port</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Port</em>' reference.
-	 * @see #getBase_Port()
+	 * @see #getBasePort()
 	 * @generated
 	 */
-	void setBase_Port(Port value);
+	void setBasePort(Port value);
 
 	/**
 	 * Returns the value of the '<em><b>Direction</b></em>' attribute.

@@ -22,7 +22,7 @@ import org.eclipse.uml2.uml.OpaqueBehavior;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.FormalBlock#getBase_Class <em>Base Class</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.FormalBlock#getBaseClass <em>Base Class</em>}</li>
  *   <li>{@link org.eclipse.efm.formalml.FormalBlock#getRoutingBehavior <em>Routing Behavior</em>}</li>
  * </ul>
  *
@@ -40,22 +40,24 @@ public interface FormalBlock extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Class</em>' reference.
-	 * @see #setBase_Class(org.eclipse.uml2.uml.Class)
-	 * @see org.eclipse.efm.formalml.formalmlPackage#getFormalBlock_Base_Class()
+	 * @see #setBaseClass(org.eclipse.uml2.uml.Class)
+	 * @see org.eclipse.efm.formalml.formalmlPackage#getFormalBlock_BaseClass()
 	 * @model required="true" ordered="false"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='base_Class'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='extension_FormalBlock'"
 	 * @generated
 	 */
-	org.eclipse.uml2.uml.Class getBase_Class();
+	org.eclipse.uml2.uml.Class getBaseClass();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.formalml.FormalBlock#getBase_Class <em>Base Class</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.formalml.FormalBlock#getBaseClass <em>Base Class</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Class</em>' reference.
-	 * @see #getBase_Class()
+	 * @see #getBaseClass()
 	 * @generated
 	 */
-	void setBase_Class(org.eclipse.uml2.uml.Class value);
+	void setBaseClass(org.eclipse.uml2.uml.Class value);
 
 	/**
 	 * Returns the value of the '<em><b>Routing Behavior</b></em>' reference.

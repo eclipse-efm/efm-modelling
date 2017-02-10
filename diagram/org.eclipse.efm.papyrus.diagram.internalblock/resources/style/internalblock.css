@@ -7,7 +7,7 @@ Label[type=StereotypeLabel]{
  * TestContext style 
  */
 
-[appliedStereotypes~="FormalContext"]{
+[appliedStereotypes~="Configuration"]{
 	fillColor:orange;
 }
 

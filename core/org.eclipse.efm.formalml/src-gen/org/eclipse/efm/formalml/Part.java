@@ -26,7 +26,7 @@ import org.eclipse.uml2.uml.Property;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.Part#getBase_Property <em>Base Property</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.Part#getBaseProperty <em>Base Property</em>}</li>
  *   <li>{@link org.eclipse.efm.formalml.Part#getInstance <em>Instance</em>}</li>
  * </ul>
  *
@@ -44,22 +44,24 @@ public interface Part extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Property</em>' reference.
-	 * @see #setBase_Property(Property)
-	 * @see org.eclipse.efm.formalml.formalmlPackage#getPart_Base_Property()
+	 * @see #setBaseProperty(Property)
+	 * @see org.eclipse.efm.formalml.formalmlPackage#getPart_BaseProperty()
 	 * @model required="true" ordered="false"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='base_Property'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='extension_BlockPart'"
 	 * @generated
 	 */
-	Property getBase_Property();
+	Property getBaseProperty();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.formalml.Part#getBase_Property <em>Base Property</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.formalml.Part#getBaseProperty <em>Base Property</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Property</em>' reference.
-	 * @see #getBase_Property()
+	 * @see #getBaseProperty()
 	 * @generated
 	 */
-	void setBase_Property(Property value);
+	void setBaseProperty(Property value);
 
 	/**
 	 * Returns the value of the '<em><b>Instance</b></em>' reference list.

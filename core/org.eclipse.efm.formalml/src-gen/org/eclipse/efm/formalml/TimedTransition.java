@@ -24,7 +24,7 @@ import org.eclipse.uml2.uml.Transition;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.formalml.TimedTransition#getTguard <em>Tguard</em>}</li>
- *   <li>{@link org.eclipse.efm.formalml.TimedTransition#getBase_Transition <em>Base Transition</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.TimedTransition#getBaseTransition <em>Base Transition</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.formalml.formalmlPackage#getTimedTransition()
@@ -67,21 +67,23 @@ public interface TimedTransition extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Transition</em>' reference.
-	 * @see #setBase_Transition(Transition)
-	 * @see org.eclipse.efm.formalml.formalmlPackage#getTimedTransition_Base_Transition()
+	 * @see #setBaseTransition(Transition)
+	 * @see org.eclipse.efm.formalml.formalmlPackage#getTimedTransition_BaseTransition()
 	 * @model required="true" ordered="false"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='base_Transition'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='extension_Transition'"
 	 * @generated
 	 */
-	Transition getBase_Transition();
+	Transition getBaseTransition();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.formalml.TimedTransition#getBase_Transition <em>Base Transition</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.formalml.TimedTransition#getBaseTransition <em>Base Transition</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Transition</em>' reference.
-	 * @see #getBase_Transition()
+	 * @see #getBaseTransition()
 	 * @generated
 	 */
-	void setBase_Transition(Transition value);
+	void setBaseTransition(Transition value);
 
 } // TimedTransition

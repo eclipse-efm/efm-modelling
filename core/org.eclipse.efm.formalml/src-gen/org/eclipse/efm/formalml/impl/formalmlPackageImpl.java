@@ -213,7 +213,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClock_Base_Property() {
+	public EReference getClock_BaseProperty() {
 		return (EReference)clockEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -249,7 +249,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConfiguration_Input_enabled() {
+	public EAttribute getConfiguration_InputEnabled() {
 		return (EAttribute)configurationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -267,7 +267,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFormalBlock_Base_Class() {
+	public EReference getFormalBlock_BaseClass() {
 		return (EReference)formalBlockEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -303,7 +303,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTimedTransition_Base_Transition() {
+	public EReference getTimedTransition_BaseTransition() {
 		return (EReference)timedTransitionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -321,7 +321,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPart_Base_Property() {
+	public EReference getPart_BaseProperty() {
 		return (EReference)partEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -348,7 +348,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getReceiveAnyEvent_Base_AnyReceiveEvent() {
+	public EReference getReceiveAnyEvent_BaseAnyReceiveEvent() {
 		return (EReference)receiveAnyEventEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -384,7 +384,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getReceiveSignalEvent_Base_AnyReceiveEvent() {
+	public EReference getReceiveSignalEvent_BaseAnyReceiveEvent() {
 		return (EReference)receiveSignalEventEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -393,7 +393,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getReceiveSignalEvent_Base_SignalEvent() {
+	public EReference getReceiveSignalEvent_BaseSignalEvent() {
 		return (EReference)receiveSignalEventEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -411,7 +411,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDirectedPort_Base_Port() {
+	public EReference getDirectedPort_BasePort() {
 		return (EReference)directedPortEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -438,7 +438,7 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBuffer_Base_Property() {
+	public EReference getBuffer_BaseProperty() {
 		return (EReference)bufferEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -590,41 +590,41 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(clockEClass, Clock.class, "Clock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getClock_Base_Property(), theUMLPackage.getProperty(), null, "base_Property", null, 1, 1, Clock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getClock_BaseProperty(), theUMLPackage.getProperty(), null, "baseProperty", null, 1, 1, Clock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(configurationEClass, Configuration.class, "Configuration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConfiguration_Env(), theUMLPackage.getProperty(), null, "env", null, 0, -1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getConfiguration_Timed(), theTypesPackage.getBoolean(), "timed", "false", 1, 1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getConfiguration_Input_enabled(), theTypesPackage.getBoolean(), "input_enabled", "false", 1, 1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getConfiguration_InputEnabled(), theTypesPackage.getBoolean(), "inputEnabled", "false", 1, 1, Configuration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(formalBlockEClass, FormalBlock.class, "FormalBlock", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFormalBlock_Base_Class(), theUMLPackage.getClass_(), null, "base_Class", null, 1, 1, FormalBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getFormalBlock_BaseClass(), theUMLPackage.getClass_(), null, "baseClass", null, 1, 1, FormalBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getFormalBlock_RoutingBehavior(), theUMLPackage.getOpaqueBehavior(), null, "routingBehavior", null, 0, 1, FormalBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(timedTransitionEClass, TimedTransition.class, "TimedTransition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTimedTransition_Tguard(), theUMLPackage.getConstraint(), null, "tguard", null, 0, 1, TimedTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getTimedTransition_Base_Transition(), theUMLPackage.getTransition(), null, "base_Transition", null, 1, 1, TimedTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getTimedTransition_BaseTransition(), theUMLPackage.getTransition(), null, "baseTransition", null, 1, 1, TimedTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(partEClass, Part.class, "Part", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPart_Base_Property(), theUMLPackage.getProperty(), null, "base_Property", null, 1, 1, Part.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getPart_BaseProperty(), theUMLPackage.getProperty(), null, "baseProperty", null, 1, 1, Part.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getPart_Instance(), theUMLPackage.getInstanceSpecification(), null, "instance", null, 0, -1, Part.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(receiveAnyEventEClass, ReceiveAnyEvent.class, "ReceiveAnyEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getReceiveAnyEvent_Base_AnyReceiveEvent(), theUMLPackage.getAnyReceiveEvent(), null, "base_AnyReceiveEvent", null, 1, 1, ReceiveAnyEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getReceiveAnyEvent_BaseAnyReceiveEvent(), theUMLPackage.getAnyReceiveEvent(), null, "baseAnyReceiveEvent", null, 1, 1, ReceiveAnyEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(receiveEventEClass, ReceiveEvent.class, "ReceiveEvent", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReceiveEvent_Parameters(), theUMLPackage.getProperty(), null, "parameters", null, 1, -1, ReceiveEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(receiveSignalEventEClass, ReceiveSignalEvent.class, "ReceiveSignalEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getReceiveSignalEvent_Base_AnyReceiveEvent(), theUMLPackage.getAnyReceiveEvent(), null, "base_AnyReceiveEvent", null, 1, 1, ReceiveSignalEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getReceiveSignalEvent_Base_SignalEvent(), theUMLPackage.getSignalEvent(), null, "base_SignalEvent", null, 1, 1, ReceiveSignalEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getReceiveSignalEvent_BaseAnyReceiveEvent(), theUMLPackage.getAnyReceiveEvent(), null, "baseAnyReceiveEvent", null, 1, 1, ReceiveSignalEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getReceiveSignalEvent_BaseSignalEvent(), theUMLPackage.getSignalEvent(), null, "baseSignalEvent", null, 1, 1, ReceiveSignalEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(directedPortEClass, DirectedPort.class, "DirectedPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDirectedPort_Base_Port(), theUMLPackage.getPort(), null, "base_Port", null, 1, 1, DirectedPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getDirectedPort_BasePort(), theUMLPackage.getPort(), null, "basePort", null, 1, 1, DirectedPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getDirectedPort_Direction(), this.getPortDirectionKind(), "direction", null, 1, 1, DirectedPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(bufferEClass, Buffer.class, "Buffer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBuffer_Base_Property(), theUMLPackage.getProperty(), null, "base_Property", null, 1, 1, Buffer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getBuffer_BaseProperty(), theUMLPackage.getProperty(), null, "baseProperty", null, 1, 1, Buffer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getBuffer_Kind(), this.getBufferKind(), "kind", null, 1, 1, Buffer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(blockEClass, Block.class, "Block", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -647,6 +647,8 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 		// Create annotations
 		// http://www.eclipse.org/uml2/2.0.0/UML
 		createUMLAnnotations();
+		// http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName
+		createEmofAnnotations();
 	}
 
 	/**
@@ -662,6 +664,148 @@ public class formalmlPackageImpl extends EPackageImpl implements formalmlPackage
 		   source, 
 		   new String[] {
 			 "originalName", "fml"
+		   });	
+		addAnnotation
+		  (getClock_BaseProperty(), 
+		   source, 
+		   new String[] {
+			 "originalName", "base_Property"
+		   });	
+		addAnnotation
+		  (getConfiguration_InputEnabled(), 
+		   source, 
+		   new String[] {
+			 "originalName", "input_enabled"
+		   });	
+		addAnnotation
+		  (getFormalBlock_BaseClass(), 
+		   source, 
+		   new String[] {
+			 "originalName", "base_Class"
+		   });	
+		addAnnotation
+		  (getTimedTransition_BaseTransition(), 
+		   source, 
+		   new String[] {
+			 "originalName", "base_Transition"
+		   });	
+		addAnnotation
+		  (getPart_BaseProperty(), 
+		   source, 
+		   new String[] {
+			 "originalName", "base_Property"
+		   });	
+		addAnnotation
+		  (getReceiveAnyEvent_BaseAnyReceiveEvent(), 
+		   source, 
+		   new String[] {
+			 "originalName", "base_AnyReceiveEvent"
+		   });	
+		addAnnotation
+		  (getReceiveSignalEvent_BaseAnyReceiveEvent(), 
+		   source, 
+		   new String[] {
+			 "originalName", "base_AnyReceiveEvent"
+		   });	
+		addAnnotation
+		  (getReceiveSignalEvent_BaseSignalEvent(), 
+		   source, 
+		   new String[] {
+			 "originalName", "base_SignalEvent"
+		   });	
+		addAnnotation
+		  (getDirectedPort_BasePort(), 
+		   source, 
+		   new String[] {
+			 "originalName", "base_Port"
+		   });	
+		addAnnotation
+		  (getBuffer_BaseProperty(), 
+		   source, 
+		   new String[] {
+			 "originalName", "base_Property"
+		   });	
+		addAnnotation
+		  (bufferKindEEnum.getELiterals().get(0), 
+		   source, 
+		   new String[] {
+			 "originalName", "FIFO"
+		   });	
+		addAnnotation
+		  (bufferKindEEnum.getELiterals().get(1), 
+		   source, 
+		   new String[] {
+			 "originalName", "LIFO"
+		   });	
+		addAnnotation
+		  (bufferKindEEnum.getELiterals().get(2), 
+		   source, 
+		   new String[] {
+			 "originalName", "MULTISET"
+		   });	
+		addAnnotation
+		  (bufferKindEEnum.getELiterals().get(3), 
+		   source, 
+		   new String[] {
+			 "originalName", "RAM"
+		   });
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createEmofAnnotations() {
+		String source = "http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName";	
+		addAnnotation
+		  (getClock_BaseProperty(), 
+		   source, 
+		   new String[] {
+			 "body", "extension_ClockVar"
+		   });	
+		addAnnotation
+		  (getFormalBlock_BaseClass(), 
+		   source, 
+		   new String[] {
+			 "body", "extension_FormalBlock"
+		   });	
+		addAnnotation
+		  (getTimedTransition_BaseTransition(), 
+		   source, 
+		   new String[] {
+			 "body", "extension_Transition"
+		   });	
+		addAnnotation
+		  (getPart_BaseProperty(), 
+		   source, 
+		   new String[] {
+			 "body", "extension_BlockPart"
+		   });	
+		addAnnotation
+		  (getReceiveAnyEvent_BaseAnyReceiveEvent(), 
+		   source, 
+		   new String[] {
+			 "body", "extension_ReceiveAnyEvent"
+		   });	
+		addAnnotation
+		  (getReceiveSignalEvent_BaseSignalEvent(), 
+		   source, 
+		   new String[] {
+			 "body", "extension_ReceiveSignalEvent"
+		   });	
+		addAnnotation
+		  (getDirectedPort_BasePort(), 
+		   source, 
+		   new String[] {
+			 "body", "extension_FlowPort"
+		   });	
+		addAnnotation
+		  (getBuffer_BaseProperty(), 
+		   source, 
+		   new String[] {
+			 "body", "extension_BufferVar"
 		   });
 	}
 

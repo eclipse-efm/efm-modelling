@@ -37,7 +37,7 @@ import org.eclipse.uml2.uml.Property;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.impl.PartImpl#getBase_Property <em>Base Property</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.impl.PartImpl#getBaseProperty <em>Base Property</em>}</li>
  *   <li>{@link org.eclipse.efm.formalml.impl.PartImpl#getInstance <em>Instance</em>}</li>
  * </ul>
  *
@@ -45,14 +45,14 @@ import org.eclipse.uml2.uml.Property;
  */
 public class PartImpl extends MinimalEObjectImpl.Container implements Part {
 	/**
-	 * The cached value of the '{@link #getBase_Property() <em>Base Property</em>}' reference.
+	 * The cached value of the '{@link #getBaseProperty() <em>Base Property</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBase_Property()
+	 * @see #getBaseProperty()
 	 * @generated
 	 * @ordered
 	 */
-	protected Property base_Property;
+	protected Property baseProperty;
 
 	/**
 	 * The cached value of the '{@link #getInstance() <em>Instance</em>}' reference list.
@@ -88,16 +88,16 @@ public class PartImpl extends MinimalEObjectImpl.Container implements Part {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property getBase_Property() {
-		if (base_Property != null && base_Property.eIsProxy()) {
-			InternalEObject oldBase_Property = (InternalEObject)base_Property;
-			base_Property = (Property)eResolveProxy(oldBase_Property);
-			if (base_Property != oldBase_Property) {
+	public Property getBaseProperty() {
+		if (baseProperty != null && baseProperty.eIsProxy()) {
+			InternalEObject oldBaseProperty = (InternalEObject)baseProperty;
+			baseProperty = (Property)eResolveProxy(oldBaseProperty);
+			if (baseProperty != oldBaseProperty) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.PART__BASE_PROPERTY, oldBase_Property, base_Property));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.PART__BASE_PROPERTY, oldBaseProperty, baseProperty));
 			}
 		}
-		return base_Property;
+		return baseProperty;
 	}
 
 	/**
@@ -105,8 +105,8 @@ public class PartImpl extends MinimalEObjectImpl.Container implements Part {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property basicGetBase_Property() {
-		return base_Property;
+	public Property basicGetBaseProperty() {
+		return baseProperty;
 	}
 
 	/**
@@ -114,11 +114,11 @@ public class PartImpl extends MinimalEObjectImpl.Container implements Part {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBase_Property(Property newBase_Property) {
-		Property oldBase_Property = base_Property;
-		base_Property = newBase_Property;
+	public void setBaseProperty(Property newBaseProperty) {
+		Property oldBaseProperty = baseProperty;
+		baseProperty = newBaseProperty;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.PART__BASE_PROPERTY, oldBase_Property, base_Property));
+			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.PART__BASE_PROPERTY, oldBaseProperty, baseProperty));
 	}
 
 	/**
@@ -167,8 +167,8 @@ public class PartImpl extends MinimalEObjectImpl.Container implements Part {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case formalmlPackage.PART__BASE_PROPERTY:
-				if (resolve) return getBase_Property();
-				return basicGetBase_Property();
+				if (resolve) return getBaseProperty();
+				return basicGetBaseProperty();
 			case formalmlPackage.PART__INSTANCE:
 				return getInstance();
 		}
@@ -185,7 +185,7 @@ public class PartImpl extends MinimalEObjectImpl.Container implements Part {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case formalmlPackage.PART__BASE_PROPERTY:
-				setBase_Property((Property)newValue);
+				setBaseProperty((Property)newValue);
 				return;
 			case formalmlPackage.PART__INSTANCE:
 				getInstance().clear();
@@ -204,7 +204,7 @@ public class PartImpl extends MinimalEObjectImpl.Container implements Part {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.PART__BASE_PROPERTY:
-				setBase_Property((Property)null);
+				setBaseProperty((Property)null);
 				return;
 			case formalmlPackage.PART__INSTANCE:
 				getInstance().clear();
@@ -222,7 +222,7 @@ public class PartImpl extends MinimalEObjectImpl.Container implements Part {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.PART__BASE_PROPERTY:
-				return base_Property != null;
+				return baseProperty != null;
 			case formalmlPackage.PART__INSTANCE:
 				return instance != null && !instance.isEmpty();
 		}

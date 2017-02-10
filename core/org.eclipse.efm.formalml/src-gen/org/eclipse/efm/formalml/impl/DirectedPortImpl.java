@@ -31,7 +31,7 @@ import org.eclipse.uml2.uml.Port;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.impl.DirectedPortImpl#getBase_Port <em>Base Port</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.impl.DirectedPortImpl#getBasePort <em>Base Port</em>}</li>
  *   <li>{@link org.eclipse.efm.formalml.impl.DirectedPortImpl#getDirection <em>Direction</em>}</li>
  * </ul>
  *
@@ -39,14 +39,14 @@ import org.eclipse.uml2.uml.Port;
  */
 public class DirectedPortImpl extends MinimalEObjectImpl.Container implements DirectedPort {
 	/**
-	 * The cached value of the '{@link #getBase_Port() <em>Base Port</em>}' reference.
+	 * The cached value of the '{@link #getBasePort() <em>Base Port</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBase_Port()
+	 * @see #getBasePort()
 	 * @generated
 	 * @ordered
 	 */
-	protected Port base_Port;
+	protected Port basePort;
 
 	/**
 	 * The default value of the '{@link #getDirection() <em>Direction</em>}' attribute.
@@ -92,16 +92,16 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Port getBase_Port() {
-		if (base_Port != null && base_Port.eIsProxy()) {
-			InternalEObject oldBase_Port = (InternalEObject)base_Port;
-			base_Port = (Port)eResolveProxy(oldBase_Port);
-			if (base_Port != oldBase_Port) {
+	public Port getBasePort() {
+		if (basePort != null && basePort.eIsProxy()) {
+			InternalEObject oldBasePort = (InternalEObject)basePort;
+			basePort = (Port)eResolveProxy(oldBasePort);
+			if (basePort != oldBasePort) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.DIRECTED_PORT__BASE_PORT, oldBase_Port, base_Port));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.DIRECTED_PORT__BASE_PORT, oldBasePort, basePort));
 			}
 		}
-		return base_Port;
+		return basePort;
 	}
 
 	/**
@@ -109,8 +109,8 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Port basicGetBase_Port() {
-		return base_Port;
+	public Port basicGetBasePort() {
+		return basePort;
 	}
 
 	/**
@@ -118,11 +118,11 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBase_Port(Port newBase_Port) {
-		Port oldBase_Port = base_Port;
-		base_Port = newBase_Port;
+	public void setBasePort(Port newBasePort) {
+		Port oldBasePort = basePort;
+		basePort = newBasePort;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.DIRECTED_PORT__BASE_PORT, oldBase_Port, base_Port));
+			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.DIRECTED_PORT__BASE_PORT, oldBasePort, basePort));
 	}
 
 	/**
@@ -155,8 +155,8 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case formalmlPackage.DIRECTED_PORT__BASE_PORT:
-				if (resolve) return getBase_Port();
-				return basicGetBase_Port();
+				if (resolve) return getBasePort();
+				return basicGetBasePort();
 			case formalmlPackage.DIRECTED_PORT__DIRECTION:
 				return getDirection();
 		}
@@ -172,7 +172,7 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case formalmlPackage.DIRECTED_PORT__BASE_PORT:
-				setBase_Port((Port)newValue);
+				setBasePort((Port)newValue);
 				return;
 			case formalmlPackage.DIRECTED_PORT__DIRECTION:
 				setDirection((PortDirectionKind)newValue);
@@ -190,7 +190,7 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.DIRECTED_PORT__BASE_PORT:
-				setBase_Port((Port)null);
+				setBasePort((Port)null);
 				return;
 			case formalmlPackage.DIRECTED_PORT__DIRECTION:
 				setDirection(DIRECTION_EDEFAULT);
@@ -208,7 +208,7 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.DIRECTED_PORT__BASE_PORT:
-				return base_Port != null;
+				return basePort != null;
 			case formalmlPackage.DIRECTED_PORT__DIRECTION:
 				return direction != DIRECTION_EDEFAULT;
 		}

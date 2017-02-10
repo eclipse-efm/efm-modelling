@@ -21,8 +21,8 @@ import org.eclipse.uml2.uml.SignalEvent;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBase_AnyReceiveEvent <em>Base Any Receive Event</em>}</li>
- *   <li>{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBase_SignalEvent <em>Base Signal Event</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBaseSignalEvent <em>Base Signal Event</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.formalml.formalmlPackage#getReceiveSignalEvent()
@@ -39,22 +39,23 @@ public interface ReceiveSignalEvent extends ReceiveEvent {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Any Receive Event</em>' reference.
-	 * @see #setBase_AnyReceiveEvent(AnyReceiveEvent)
-	 * @see org.eclipse.efm.formalml.formalmlPackage#getReceiveSignalEvent_Base_AnyReceiveEvent()
+	 * @see #setBaseAnyReceiveEvent(AnyReceiveEvent)
+	 * @see org.eclipse.efm.formalml.formalmlPackage#getReceiveSignalEvent_BaseAnyReceiveEvent()
 	 * @model required="true" ordered="false"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='base_AnyReceiveEvent'"
 	 * @generated
 	 */
-	AnyReceiveEvent getBase_AnyReceiveEvent();
+	AnyReceiveEvent getBaseAnyReceiveEvent();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBase_AnyReceiveEvent <em>Base Any Receive Event</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Any Receive Event</em>' reference.
-	 * @see #getBase_AnyReceiveEvent()
+	 * @see #getBaseAnyReceiveEvent()
 	 * @generated
 	 */
-	void setBase_AnyReceiveEvent(AnyReceiveEvent value);
+	void setBaseAnyReceiveEvent(AnyReceiveEvent value);
 
 	/**
 	 * Returns the value of the '<em><b>Base Signal Event</b></em>' reference.
@@ -65,21 +66,23 @@ public interface ReceiveSignalEvent extends ReceiveEvent {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Signal Event</em>' reference.
-	 * @see #setBase_SignalEvent(SignalEvent)
-	 * @see org.eclipse.efm.formalml.formalmlPackage#getReceiveSignalEvent_Base_SignalEvent()
+	 * @see #setBaseSignalEvent(SignalEvent)
+	 * @see org.eclipse.efm.formalml.formalmlPackage#getReceiveSignalEvent_BaseSignalEvent()
 	 * @model required="true" ordered="false"
+	 *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='base_SignalEvent'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='extension_ReceiveSignalEvent'"
 	 * @generated
 	 */
-	SignalEvent getBase_SignalEvent();
+	SignalEvent getBaseSignalEvent();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBase_SignalEvent <em>Base Signal Event</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBaseSignalEvent <em>Base Signal Event</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Signal Event</em>' reference.
-	 * @see #getBase_SignalEvent()
+	 * @see #getBaseSignalEvent()
 	 * @generated
 	 */
-	void setBase_SignalEvent(SignalEvent value);
+	void setBaseSignalEvent(SignalEvent value);
 
 } // ReceiveSignalEvent

@@ -30,32 +30,32 @@ import org.eclipse.uml2.uml.SignalEvent;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.formalml.impl.ReceiveSignalEventImpl#getBase_AnyReceiveEvent <em>Base Any Receive Event</em>}</li>
- *   <li>{@link org.eclipse.efm.formalml.impl.ReceiveSignalEventImpl#getBase_SignalEvent <em>Base Signal Event</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.impl.ReceiveSignalEventImpl#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}</li>
+ *   <li>{@link org.eclipse.efm.formalml.impl.ReceiveSignalEventImpl#getBaseSignalEvent <em>Base Signal Event</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveSignalEvent {
 	/**
-	 * The cached value of the '{@link #getBase_AnyReceiveEvent() <em>Base Any Receive Event</em>}' reference.
+	 * The cached value of the '{@link #getBaseAnyReceiveEvent() <em>Base Any Receive Event</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBase_AnyReceiveEvent()
+	 * @see #getBaseAnyReceiveEvent()
 	 * @generated
 	 * @ordered
 	 */
-	protected AnyReceiveEvent base_AnyReceiveEvent;
+	protected AnyReceiveEvent baseAnyReceiveEvent;
 
 	/**
-	 * The cached value of the '{@link #getBase_SignalEvent() <em>Base Signal Event</em>}' reference.
+	 * The cached value of the '{@link #getBaseSignalEvent() <em>Base Signal Event</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBase_SignalEvent()
+	 * @see #getBaseSignalEvent()
 	 * @generated
 	 * @ordered
 	 */
-	protected SignalEvent base_SignalEvent;
+	protected SignalEvent baseSignalEvent;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -81,16 +81,16 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnyReceiveEvent getBase_AnyReceiveEvent() {
-		if (base_AnyReceiveEvent != null && base_AnyReceiveEvent.eIsProxy()) {
-			InternalEObject oldBase_AnyReceiveEvent = (InternalEObject)base_AnyReceiveEvent;
-			base_AnyReceiveEvent = (AnyReceiveEvent)eResolveProxy(oldBase_AnyReceiveEvent);
-			if (base_AnyReceiveEvent != oldBase_AnyReceiveEvent) {
+	public AnyReceiveEvent getBaseAnyReceiveEvent() {
+		if (baseAnyReceiveEvent != null && baseAnyReceiveEvent.eIsProxy()) {
+			InternalEObject oldBaseAnyReceiveEvent = (InternalEObject)baseAnyReceiveEvent;
+			baseAnyReceiveEvent = (AnyReceiveEvent)eResolveProxy(oldBaseAnyReceiveEvent);
+			if (baseAnyReceiveEvent != oldBaseAnyReceiveEvent) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT, oldBase_AnyReceiveEvent, base_AnyReceiveEvent));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT, oldBaseAnyReceiveEvent, baseAnyReceiveEvent));
 			}
 		}
-		return base_AnyReceiveEvent;
+		return baseAnyReceiveEvent;
 	}
 
 	/**
@@ -98,8 +98,8 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnyReceiveEvent basicGetBase_AnyReceiveEvent() {
-		return base_AnyReceiveEvent;
+	public AnyReceiveEvent basicGetBaseAnyReceiveEvent() {
+		return baseAnyReceiveEvent;
 	}
 
 	/**
@@ -107,11 +107,11 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBase_AnyReceiveEvent(AnyReceiveEvent newBase_AnyReceiveEvent) {
-		AnyReceiveEvent oldBase_AnyReceiveEvent = base_AnyReceiveEvent;
-		base_AnyReceiveEvent = newBase_AnyReceiveEvent;
+	public void setBaseAnyReceiveEvent(AnyReceiveEvent newBaseAnyReceiveEvent) {
+		AnyReceiveEvent oldBaseAnyReceiveEvent = baseAnyReceiveEvent;
+		baseAnyReceiveEvent = newBaseAnyReceiveEvent;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT, oldBase_AnyReceiveEvent, base_AnyReceiveEvent));
+			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT, oldBaseAnyReceiveEvent, baseAnyReceiveEvent));
 	}
 
 	/**
@@ -119,16 +119,16 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SignalEvent getBase_SignalEvent() {
-		if (base_SignalEvent != null && base_SignalEvent.eIsProxy()) {
-			InternalEObject oldBase_SignalEvent = (InternalEObject)base_SignalEvent;
-			base_SignalEvent = (SignalEvent)eResolveProxy(oldBase_SignalEvent);
-			if (base_SignalEvent != oldBase_SignalEvent) {
+	public SignalEvent getBaseSignalEvent() {
+		if (baseSignalEvent != null && baseSignalEvent.eIsProxy()) {
+			InternalEObject oldBaseSignalEvent = (InternalEObject)baseSignalEvent;
+			baseSignalEvent = (SignalEvent)eResolveProxy(oldBaseSignalEvent);
+			if (baseSignalEvent != oldBaseSignalEvent) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT, oldBase_SignalEvent, base_SignalEvent));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT, oldBaseSignalEvent, baseSignalEvent));
 			}
 		}
-		return base_SignalEvent;
+		return baseSignalEvent;
 	}
 
 	/**
@@ -136,8 +136,8 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SignalEvent basicGetBase_SignalEvent() {
-		return base_SignalEvent;
+	public SignalEvent basicGetBaseSignalEvent() {
+		return baseSignalEvent;
 	}
 
 	/**
@@ -145,11 +145,11 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBase_SignalEvent(SignalEvent newBase_SignalEvent) {
-		SignalEvent oldBase_SignalEvent = base_SignalEvent;
-		base_SignalEvent = newBase_SignalEvent;
+	public void setBaseSignalEvent(SignalEvent newBaseSignalEvent) {
+		SignalEvent oldBaseSignalEvent = baseSignalEvent;
+		baseSignalEvent = newBaseSignalEvent;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT, oldBase_SignalEvent, base_SignalEvent));
+			eNotify(new ENotificationImpl(this, Notification.SET, formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT, oldBaseSignalEvent, baseSignalEvent));
 	}
 
 	/**
@@ -161,11 +161,11 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT:
-				if (resolve) return getBase_AnyReceiveEvent();
-				return basicGetBase_AnyReceiveEvent();
+				if (resolve) return getBaseAnyReceiveEvent();
+				return basicGetBaseAnyReceiveEvent();
 			case formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT:
-				if (resolve) return getBase_SignalEvent();
-				return basicGetBase_SignalEvent();
+				if (resolve) return getBaseSignalEvent();
+				return basicGetBaseSignalEvent();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -179,10 +179,10 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT:
-				setBase_AnyReceiveEvent((AnyReceiveEvent)newValue);
+				setBaseAnyReceiveEvent((AnyReceiveEvent)newValue);
 				return;
 			case formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT:
-				setBase_SignalEvent((SignalEvent)newValue);
+				setBaseSignalEvent((SignalEvent)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -197,10 +197,10 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT:
-				setBase_AnyReceiveEvent((AnyReceiveEvent)null);
+				setBaseAnyReceiveEvent((AnyReceiveEvent)null);
 				return;
 			case formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT:
-				setBase_SignalEvent((SignalEvent)null);
+				setBaseSignalEvent((SignalEvent)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -215,9 +215,9 @@ public class ReceiveSignalEventImpl extends ReceiveEventImpl implements ReceiveS
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT:
-				return base_AnyReceiveEvent != null;
+				return baseAnyReceiveEvent != null;
 			case formalmlPackage.RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT:
-				return base_SignalEvent != null;
+				return baseSignalEvent != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -195,7 +195,7 @@ public interface formalmlPackage extends EPackage {
 	int CONFIGURATION__TIMED = FORMAL_BLOCK_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Input enabled</b></em>' attribute.
+	 * The feature id for the '<em><b>Input Enabled</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -621,15 +621,15 @@ public interface formalmlPackage extends EPackage {
 	EClass getClock();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.Clock#getBase_Property <em>Base Property</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.Clock#getBaseProperty <em>Base Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Property</em>'.
-	 * @see org.eclipse.efm.formalml.Clock#getBase_Property()
+	 * @see org.eclipse.efm.formalml.Clock#getBaseProperty()
 	 * @see #getClock()
 	 * @generated
 	 */
-	EReference getClock_Base_Property();
+	EReference getClock_BaseProperty();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.formalml.Configuration <em>Configuration</em>}'.
@@ -664,15 +664,15 @@ public interface formalmlPackage extends EPackage {
 	EAttribute getConfiguration_Timed();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.formalml.Configuration#isInput_enabled <em>Input enabled</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.formalml.Configuration#isInputEnabled <em>Input Enabled</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Input enabled</em>'.
-	 * @see org.eclipse.efm.formalml.Configuration#isInput_enabled()
+	 * @return the meta object for the attribute '<em>Input Enabled</em>'.
+	 * @see org.eclipse.efm.formalml.Configuration#isInputEnabled()
 	 * @see #getConfiguration()
 	 * @generated
 	 */
-	EAttribute getConfiguration_Input_enabled();
+	EAttribute getConfiguration_InputEnabled();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.formalml.FormalBlock <em>Formal Block</em>}'.
@@ -685,15 +685,15 @@ public interface formalmlPackage extends EPackage {
 	EClass getFormalBlock();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.FormalBlock#getBase_Class <em>Base Class</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.FormalBlock#getBaseClass <em>Base Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Class</em>'.
-	 * @see org.eclipse.efm.formalml.FormalBlock#getBase_Class()
+	 * @see org.eclipse.efm.formalml.FormalBlock#getBaseClass()
 	 * @see #getFormalBlock()
 	 * @generated
 	 */
-	EReference getFormalBlock_Base_Class();
+	EReference getFormalBlock_BaseClass();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.FormalBlock#getRoutingBehavior <em>Routing Behavior</em>}'.
@@ -728,15 +728,15 @@ public interface formalmlPackage extends EPackage {
 	EReference getTimedTransition_Tguard();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.TimedTransition#getBase_Transition <em>Base Transition</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.TimedTransition#getBaseTransition <em>Base Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Transition</em>'.
-	 * @see org.eclipse.efm.formalml.TimedTransition#getBase_Transition()
+	 * @see org.eclipse.efm.formalml.TimedTransition#getBaseTransition()
 	 * @see #getTimedTransition()
 	 * @generated
 	 */
-	EReference getTimedTransition_Base_Transition();
+	EReference getTimedTransition_BaseTransition();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.formalml.Part <em>Part</em>}'.
@@ -749,15 +749,15 @@ public interface formalmlPackage extends EPackage {
 	EClass getPart();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.Part#getBase_Property <em>Base Property</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.Part#getBaseProperty <em>Base Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Property</em>'.
-	 * @see org.eclipse.efm.formalml.Part#getBase_Property()
+	 * @see org.eclipse.efm.formalml.Part#getBaseProperty()
 	 * @see #getPart()
 	 * @generated
 	 */
-	EReference getPart_Base_Property();
+	EReference getPart_BaseProperty();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.efm.formalml.Part#getInstance <em>Instance</em>}'.
@@ -781,15 +781,15 @@ public interface formalmlPackage extends EPackage {
 	EClass getReceiveAnyEvent();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.ReceiveAnyEvent#getBase_AnyReceiveEvent <em>Base Any Receive Event</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.ReceiveAnyEvent#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Any Receive Event</em>'.
-	 * @see org.eclipse.efm.formalml.ReceiveAnyEvent#getBase_AnyReceiveEvent()
+	 * @see org.eclipse.efm.formalml.ReceiveAnyEvent#getBaseAnyReceiveEvent()
 	 * @see #getReceiveAnyEvent()
 	 * @generated
 	 */
-	EReference getReceiveAnyEvent_Base_AnyReceiveEvent();
+	EReference getReceiveAnyEvent_BaseAnyReceiveEvent();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.formalml.ReceiveEvent <em>Receive Event</em>}'.
@@ -823,26 +823,26 @@ public interface formalmlPackage extends EPackage {
 	EClass getReceiveSignalEvent();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBase_AnyReceiveEvent <em>Base Any Receive Event</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Any Receive Event</em>'.
-	 * @see org.eclipse.efm.formalml.ReceiveSignalEvent#getBase_AnyReceiveEvent()
+	 * @see org.eclipse.efm.formalml.ReceiveSignalEvent#getBaseAnyReceiveEvent()
 	 * @see #getReceiveSignalEvent()
 	 * @generated
 	 */
-	EReference getReceiveSignalEvent_Base_AnyReceiveEvent();
+	EReference getReceiveSignalEvent_BaseAnyReceiveEvent();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBase_SignalEvent <em>Base Signal Event</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.ReceiveSignalEvent#getBaseSignalEvent <em>Base Signal Event</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Signal Event</em>'.
-	 * @see org.eclipse.efm.formalml.ReceiveSignalEvent#getBase_SignalEvent()
+	 * @see org.eclipse.efm.formalml.ReceiveSignalEvent#getBaseSignalEvent()
 	 * @see #getReceiveSignalEvent()
 	 * @generated
 	 */
-	EReference getReceiveSignalEvent_Base_SignalEvent();
+	EReference getReceiveSignalEvent_BaseSignalEvent();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.formalml.DirectedPort <em>Directed Port</em>}'.
@@ -855,15 +855,15 @@ public interface formalmlPackage extends EPackage {
 	EClass getDirectedPort();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.DirectedPort#getBase_Port <em>Base Port</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.DirectedPort#getBasePort <em>Base Port</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Port</em>'.
-	 * @see org.eclipse.efm.formalml.DirectedPort#getBase_Port()
+	 * @see org.eclipse.efm.formalml.DirectedPort#getBasePort()
 	 * @see #getDirectedPort()
 	 * @generated
 	 */
-	EReference getDirectedPort_Base_Port();
+	EReference getDirectedPort_BasePort();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.formalml.DirectedPort#getDirection <em>Direction</em>}'.
@@ -887,15 +887,15 @@ public interface formalmlPackage extends EPackage {
 	EClass getBuffer();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.Buffer#getBase_Property <em>Base Property</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.formalml.Buffer#getBaseProperty <em>Base Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Property</em>'.
-	 * @see org.eclipse.efm.formalml.Buffer#getBase_Property()
+	 * @see org.eclipse.efm.formalml.Buffer#getBaseProperty()
 	 * @see #getBuffer()
 	 * @generated
 	 */
-	EReference getBuffer_Base_Property();
+	EReference getBuffer_BaseProperty();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.formalml.Buffer#getKind <em>Kind</em>}'.
@@ -977,7 +977,7 @@ public interface formalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CLOCK__BASE_PROPERTY = eINSTANCE.getClock_Base_Property();
+		EReference CLOCK__BASE_PROPERTY = eINSTANCE.getClock_BaseProperty();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.formalml.impl.ConfigurationImpl <em>Configuration</em>}' class.
@@ -1006,12 +1006,12 @@ public interface formalmlPackage extends EPackage {
 		EAttribute CONFIGURATION__TIMED = eINSTANCE.getConfiguration_Timed();
 
 		/**
-		 * The meta object literal for the '<em><b>Input enabled</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Input Enabled</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONFIGURATION__INPUT_ENABLED = eINSTANCE.getConfiguration_Input_enabled();
+		EAttribute CONFIGURATION__INPUT_ENABLED = eINSTANCE.getConfiguration_InputEnabled();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.formalml.impl.FormalBlockImpl <em>Formal Block</em>}' class.
@@ -1029,7 +1029,7 @@ public interface formalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FORMAL_BLOCK__BASE_CLASS = eINSTANCE.getFormalBlock_Base_Class();
+		EReference FORMAL_BLOCK__BASE_CLASS = eINSTANCE.getFormalBlock_BaseClass();
 
 		/**
 		 * The meta object literal for the '<em><b>Routing Behavior</b></em>' reference feature.
@@ -1063,7 +1063,7 @@ public interface formalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TIMED_TRANSITION__BASE_TRANSITION = eINSTANCE.getTimedTransition_Base_Transition();
+		EReference TIMED_TRANSITION__BASE_TRANSITION = eINSTANCE.getTimedTransition_BaseTransition();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.formalml.impl.PartImpl <em>Part</em>}' class.
@@ -1081,7 +1081,7 @@ public interface formalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PART__BASE_PROPERTY = eINSTANCE.getPart_Base_Property();
+		EReference PART__BASE_PROPERTY = eINSTANCE.getPart_BaseProperty();
 
 		/**
 		 * The meta object literal for the '<em><b>Instance</b></em>' reference list feature.
@@ -1107,7 +1107,7 @@ public interface formalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT = eINSTANCE.getReceiveAnyEvent_Base_AnyReceiveEvent();
+		EReference RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT = eINSTANCE.getReceiveAnyEvent_BaseAnyReceiveEvent();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.formalml.impl.ReceiveEventImpl <em>Receive Event</em>}' class.
@@ -1143,7 +1143,7 @@ public interface formalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT = eINSTANCE.getReceiveSignalEvent_Base_AnyReceiveEvent();
+		EReference RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT = eINSTANCE.getReceiveSignalEvent_BaseAnyReceiveEvent();
 
 		/**
 		 * The meta object literal for the '<em><b>Base Signal Event</b></em>' reference feature.
@@ -1151,7 +1151,7 @@ public interface formalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT = eINSTANCE.getReceiveSignalEvent_Base_SignalEvent();
+		EReference RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT = eINSTANCE.getReceiveSignalEvent_BaseSignalEvent();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.formalml.impl.DirectedPortImpl <em>Directed Port</em>}' class.
@@ -1169,7 +1169,7 @@ public interface formalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DIRECTED_PORT__BASE_PORT = eINSTANCE.getDirectedPort_Base_Port();
+		EReference DIRECTED_PORT__BASE_PORT = eINSTANCE.getDirectedPort_BasePort();
 
 		/**
 		 * The meta object literal for the '<em><b>Direction</b></em>' attribute feature.
@@ -1195,7 +1195,7 @@ public interface formalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BUFFER__BASE_PROPERTY = eINSTANCE.getBuffer_Base_Property();
+		EReference BUFFER__BASE_PROPERTY = eINSTANCE.getBuffer_BaseProperty();
 
 		/**
 		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.

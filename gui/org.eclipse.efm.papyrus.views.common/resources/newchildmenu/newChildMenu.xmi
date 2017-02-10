@@ -6,9 +6,9 @@
     xmlns:ElementCreationMenuModel="http://www.eclipse.org/papyrus/infra/newchild/elementcreationmenumodel"
     label="FormalML">
   <menu xsi:type="ElementCreationMenuModel:CreationMenu"
-      label="FormalContext"
+      label="Configuration"
       icon=""
-      elementTypeIdRef="org.eclipse.efm.fml.FormalContext"/>
+      elementTypeIdRef="org.eclipse.efm.fml.Configuration"/>
   <menu xsi:type="ElementCreationMenuModel:CreationMenu"
       label="Clock"
       elementTypeIdRef="org.eclipse.efm.fml.Clock"/>
