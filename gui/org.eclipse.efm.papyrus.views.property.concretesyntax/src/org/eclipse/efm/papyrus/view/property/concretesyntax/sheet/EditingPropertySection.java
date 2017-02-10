@@ -13,6 +13,9 @@
 
 package org.eclipse.efm.papyrus.view.property.concretesyntax.sheet;
 
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.efm.formalml.xtext.ui.internal.XtextActivator;
 import org.eclipse.efm.papyrus.view.property.concretesyntax.ActivatorXLIAProperties;
@@ -22,6 +25,7 @@ import org.eclipse.efm.papyrus.view.property.concretesyntax.internal.job.Execute
 import org.eclipse.efm.papyrus.view.property.concretesyntax.sheet.tooling.StyledTextWithUndoRedo;
 import org.eclipse.efm.papyrus.view.property.concretesyntax.sheet.tooling.UndoStyledTextManager;
 import org.eclipse.efm.papyrus.view.property.concretesyntax.sheet.tooling.listeners.EditorFocusListener;
+import org.eclipse.efm.ui.resources.UIfmlResources;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.diagram.ui.properties.sections.AbstractModelerPropertySection;
@@ -291,9 +295,8 @@ public class EditingPropertySection extends
 		};
 
 		fRevertAction.setToolTipText("Reset edited element text");
-
-		fRevertAction.setImageDescriptor(ImageDescriptor.createFromFile(
-				ActivatorXLIAProperties.class, "platform:/plugin/org.eclipse.efm.ui.resources/icons/revert.gif"));
+		
+		fRevertAction.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__REVERT_ICON));
 
 
 		ActionContributionItem aci = new ActionContributionItem(fRevertAction);
@@ -321,9 +324,7 @@ public class EditingPropertySection extends
 
 		fCommitAction.setToolTipText(COMMIT_ACTION_DEFAULT_DESCRIPTION);
 
-		fCommitAction.setImageDescriptor(ImageDescriptor.createFromFile(
-//				ActivatorXLIAProperties.class, "platform:/plugin/org.eclipse.efm.ui.resources/icons/commit.png"));
-				ActivatorXLIAProperties.class, "platform:/plugin/org.eclipse.efm.ui.resources/icons/push.png"));
+		fCommitAction.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__PUSH_ICON));
 
 
 		ActionContributionItem aci = new ActionContributionItem(fCommitAction);
