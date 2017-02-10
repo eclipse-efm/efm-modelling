@@ -419,10 +419,9 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 			else {
 				writer.appendTabEol( "/* Unexpected property typed by <class> HERE */" );
 
-				fClassFactory.transformPropertyFormalPart(element, writer);
+				fClassFactory.transformPropertyPart(element, writer);
 			}
 		}
-//		else if( StereotypeUtil.getFormalEnvironment(element) != null ) {
 		else if( (element.getType() != null)
 				&& element.getType().getName().equals(STD_ENV_TYPE_NAME) ) {
 			fClassFactory.transformPropertyEnvironment(element, writer);
@@ -702,7 +701,7 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 	/**
 	 * performTransform an environmental Connector element to a writer
 	 * @param element
-	 * @param port_connectorEnd i.e. prt of the formalPart that isn't the environment
+	 * @param port_connectorEnd i.e. prt of the Part that isn't the environment
 	 * @param writer
 	 */
 	private void transformEnvironmentConnector(Connector element, ConnectorEnd port_connectorEnd, PrettyPrintWriter writer) {
@@ -730,7 +729,7 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 	/**
 	 * performTransform an environmental Connector element to a writer
 	 * @param element
-	 * @param port_connectorEnd i.e. prt of the formalPart that isn't the environment
+	 * @param port_connectorEnd i.e. prt of the Part that isn't the environment
 	 * @param writer
 	 */
 	private void transformRelationshipConnector(Connector element, PrettyPrintWriter writer) {

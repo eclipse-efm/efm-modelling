@@ -7,7 +7,7 @@ Label[type=StereotypeLabel]{
  * TestContext style 
  */
 
-[appliedStereotypes~="Configuration"]{
+[appliedStereotypes~="fml::Configuration"]{
 	fillColor:orange;
 }
 
@@ -16,12 +16,12 @@ Label[type=StereotypeLabel]{
  * Block Instance style
  */
 
-Property[appliedStereotypes~="FormalPart"] Compartment{
+Property[appliedStereotypes~="fml::Part"] Compartment{
 	visible:false;
 }
 
-Property[appliedStereotypes~="FormalPart"]{
-	masklabel:name type multiplicity;
+Property[appliedStereotypes~="fml::Part"]{
+	/*masklabel:name type multiplicity;*/
 	elementIcon:false;
 	fillColor:lightGreen;	
 }
@@ -31,15 +31,17 @@ Property[appliedStereotypes~="FormalPart"]{
  */
 
 
-Property[appliedStereotypes~="FormalEnvironment"]{
+/*Property[appliedStereotypes~="FormalEnvironment"]{*/
+Property[type="FormalML-Standard-Library::Class::Env"]{
 	fillColor:red;
 	masklabel:name;
 	elementIcon:false;
 }
 
+/*
 Property[appliedStereotypes~="FormalEnvironment"] Compartment{
 	visible:false;
-}
+} */
 
 /*
  * Connector style
@@ -70,6 +72,6 @@ Block Port{
 	masklabel : name type;
 }
 
-[appliedStereotypes~="FormalPart"] Port{
+[appliedStereotypes~="fml::Part"] Port{
 	masklabel : name;
 }

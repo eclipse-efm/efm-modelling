@@ -16,11 +16,11 @@ Label[type=StereotypeLabel]{
  * Block Instance style
  */
 
-Property[appliedStereotypes~="FormalPart"] Compartment{
+Property[appliedStereotypes~="fml::Part"] Compartment{
 	visible:false;
 }
 
-Property[appliedStereotypes~="FormalPart"]{
+Property[appliedStereotypes~="fml::Part"]{
 	masklabel:name type multiplicity;
 	elementIcon:false;
 	fillColor:lightGreen;	
@@ -70,6 +70,6 @@ Block Port{
 	masklabel : name type;
 }
 
-[appliedStereotypes~="FormalPart"] Port{
+[appliedStereotypes~="fml::Part"] Port{
 	masklabel : name;
 }

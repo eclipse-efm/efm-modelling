@@ -49,11 +49,11 @@
       <stereotypesQualifiedNames>fml::FormalModel</stereotypesQualifiedNames>
     </matcherConfiguration>
   </elementTypeConfigurations>
-  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_uHg4Bu90EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fml.FormalPart" name="FormalPart" hint="UML::Property">
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_uHg4Bu90EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fml.Part" name="Part" hint="UML::Property">
     <iconEntry xmi:id="_uHg4B-90EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
     <specializedTypesID>org.eclipse.papyrus.uml.Property</specializedTypesID>
     <matcherConfiguration xsi:type="stereotypematcher:StereotypeApplicationMatcherConfiguration" xmi:id="_uHg4CO90EeaWHe1FUDLuKA">
-      <stereotypesQualifiedNames>fml::FormalPart</stereotypesQualifiedNames>
+      <stereotypesQualifiedNames>fml::Part</stereotypesQualifiedNames>
     </matcherConfiguration>
   </elementTypeConfigurations>
   <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_uHg4Ce90EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fml.RdvBehavior" name="RdvBehavior" hint="UML::OpaqueBehavior">
@@ -119,8 +119,8 @@
       <requiredProfiles>fml</requiredProfiles>
     </stereotypesToApply>
   </adviceBindingsConfigurations>
-  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_uHmXju90EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fml.formalPart" description="formal part" target="_uHg4Bu90EeaWHe1FUDLuKA">
-    <stereotypesToApply xmi:id="_uHmXj-90EeaWHe1FUDLuKA" stereotypeQualifiedName="fml::FormalPart" updateName="true">
+  <adviceBindingsConfigurations xsi:type="applystereotypeadvice:ApplyStereotypeAdviceConfiguration" xmi:id="_uHmXju90EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fml.Part" description="formal part" target="_uHg4Bu90EeaWHe1FUDLuKA">
+    <stereotypesToApply xmi:id="_uHmXj-90EeaWHe1FUDLuKA" stereotypeQualifiedName="fml::Part" updateName="true">
       <requiredProfiles>fml</requiredProfiles>
     </stereotypesToApply>
   </adviceBindingsConfigurations>

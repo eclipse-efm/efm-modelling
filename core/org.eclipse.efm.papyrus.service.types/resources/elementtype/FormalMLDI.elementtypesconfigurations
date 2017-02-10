@@ -170,24 +170,24 @@
     <specializedTypesID>org.eclipse.efm.fml.FormalModel</specializedTypesID>
     <specializedTypesID>org.eclipse.papyrus.umldi.Model_Shape_CN</specializedTypesID>
   </elementTypeConfigurations>
-  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbile93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.FormalPart_Property_AttributeLabel" name="FormalPart (Property_AttributeLabel)" hint="Property_AttributeLabel">
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbile93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.Part_Property_AttributeLabel" name="Part (Property_AttributeLabel)" hint="Property_AttributeLabel">
     <iconEntry xmi:id="_Gjbilu93EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
-    <specializedTypesID>org.eclipse.efm.fml.FormalPart</specializedTypesID>
+    <specializedTypesID>org.eclipse.efm.fml.Part</specializedTypesID>
     <specializedTypesID>org.eclipse.papyrus.umldi.Property_AttributeLabel</specializedTypesID>
   </elementTypeConfigurations>
-  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbil-93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.FormalPart_Property_Edge" name="FormalPart (Property_Edge)" hint="Property_Edge">
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbil-93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.Part_Property_Edge" name="Part (Property_Edge)" hint="Property_Edge">
     <iconEntry xmi:id="_GjbimO93EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
-    <specializedTypesID>org.eclipse.efm.fml.FormalPart</specializedTypesID>
+    <specializedTypesID>org.eclipse.efm.fml.Part</specializedTypesID>
     <specializedTypesID>org.eclipse.papyrus.umldi.Property_Edge</specializedTypesID>
   </elementTypeConfigurations>
-  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbime93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.FormalPart_Property_Shape" name="FormalPart (Property_Shape)" hint="Property_Shape">
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbime93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.Part_Property_Shape" name="Part (Property_Shape)" hint="Property_Shape">
     <iconEntry xmi:id="_Gjbimu93EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
-    <specializedTypesID>org.eclipse.efm.fml.FormalPart</specializedTypesID>
+    <specializedTypesID>org.eclipse.efm.fml.Part</specializedTypesID>
     <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape</specializedTypesID>
   </elementTypeConfigurations>
-  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbim-93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.FormalPart_Property_Shape_CN" name="FormalPart (Property_Shape_CN)" hint="Property_Shape_CN">
+  <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbim-93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.Part_Property_Shape_CN" name="Part (Property_Shape_CN)" hint="Property_Shape_CN">
     <iconEntry xmi:id="_GjbinO93EeaWHe1FUDLuKA" iconPath="/icons/full/obj16/Property.gif" bundleId="org.eclipse.uml2.uml.edit"/>
-    <specializedTypesID>org.eclipse.efm.fml.FormalPart</specializedTypesID>
+    <specializedTypesID>org.eclipse.efm.fml.Part</specializedTypesID>
     <specializedTypesID>org.eclipse.papyrus.umldi.Property_Shape_CN</specializedTypesID>
   </elementTypeConfigurations>
   <elementTypeConfigurations xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration" xmi:id="_Gjbine93EeaWHe1FUDLuKA" identifier="org.eclipse.efm.fmldi.RdvBehavior_OpaqueBehavior_NestedClassifierLabel" name="RdvBehavior (OpaqueBehavior_NestedClassifierLabel)" hint="OpaqueBehavior_NestedClassifierLabel">

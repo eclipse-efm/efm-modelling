@@ -305,7 +305,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		if( ! blockInstances.isEmpty() ) {
 			writer.appendEolTab_Eol("@instance:");
 			for( Property instance : blockInstances ) {
-				transformPropertyFormalPart(instance, writer2);
+				transformPropertyPart(instance, writer2);
 			}
 		}
 
@@ -408,7 +408,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		//
 		writer.appendEolTab_Eol("@instance:");
 		for( Property instance : blockInstances ) {
-			transformPropertyFormalPart(instance, writer2);
+			transformPropertyPart(instance, writer2);
 		}
 
 		// Section moe
@@ -601,7 +601,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		if( ! blockInstances.isEmpty() ) {
 			writer.appendEolTab_Eol("@instance:");
 			for( Property instance : blockInstances ) {
-				transformPropertyFormalPart(instance, writer2);
+				transformPropertyPart(instance, writer2);
 			}
 		}
 
@@ -632,18 +632,18 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 	 * @param writer
 	 */
 	public void transformClassMoeDefinition(
-			FormalBlock block, ArrayList<Behavior> behaviors,
+			FormalBlock formalBlock, ArrayList<Behavior> behaviors,
 			List<Property> blockInstances, PrettyPrintWriter writer) {
 		int blockInstancesCount = blockInstances.size();
 		int behaviorCount = behaviors.size();
 
-		Part formalPart;
+		Part Part;
 
 		if( behaviorCount > 0 ) {
-			if( block.getBaseClass().getClassifierBehavior() == null ) {
+			if( formalBlock.getBaseClass().getClassifierBehavior() == null ) {
 				LOGGER.error( ( new StringBuffer(this.getClass().getSimpleName()) )
 					.append( ":> unexpected Block Class " )
-					.append( block.getBaseClass().getQualifiedName() )
+					.append( formalBlock.getBaseClass().getQualifiedName() )
 					.append( " with ownedBehavior, without classifierBehavior" )
 					.toString() );
 			}
@@ -664,9 +664,9 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 				writer.appendEol( ((blockInstancesCount > 1) ? " |and|" : "") );
 
 				for( Property inst : blockInstances ) {
-					formalPart = StereotypeUtil.getPart(inst);
-					if( formalPart != null ) {
-						for( InstanceSpecification instance : formalPart.getInstance() ) {
+					Part = StereotypeUtil.getPart(inst);
+					if( Part != null ) {
+						for( InstanceSpecification instance : Part.getInstance() ) {
 							writer.appendTab3("init ")
 								.append(instance.getName())
 								.appendEol(";");
@@ -710,7 +710,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		//
 		writer.appendTab("@schedule{");
 
-		Class block_base_Class = block.getBaseClass();
+		Class block_base_Class = formalBlock.getBaseClass();
 		if (block_base_Class !=null){
 			Behavior scheduleBehavior = block_base_Class.getClassifierBehavior();
 
@@ -739,9 +739,9 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			if( isLibrarybehavior ) {
 				if( blockInstancesCount > 0 ) {
 					for( Property inst : blockInstances ) {
-						formalPart = StereotypeUtil.getPart(inst);
-						if( formalPart != null ) {
-							for( InstanceSpecification instance : formalPart.getInstance() ) {
+						Part = StereotypeUtil.getPart(inst);
+						if( Part != null ) {
+							for( InstanceSpecification instance : Part.getInstance() ) {
 								writer.appendTab3("run ")
 									.append(instance.getName())
 									.appendEol(";");
@@ -824,7 +824,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			//
 			writer.appendEolTab_Eol("@moe:");
 
-			Part formalPart;
+			Part Part;
 
 			// Section init
 			//
@@ -832,9 +832,9 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			if( blockInstancesCount > 0 ) {
 				writer.appendEol( ((blockInstancesCount > 1) ? " |and|" : "") );
 				for( Property inst : blockInstances ) {
-					formalPart = StereotypeUtil.getPart(inst);
-					if( formalPart != null ) {
-						for( InstanceSpecification instance : formalPart.getInstance() ) {
+					Part = StereotypeUtil.getPart(inst);
+					if( Part != null ) {
+						for( InstanceSpecification instance : Part.getInstance() ) {
 							writer.appendTab3("init ")
 								.append(instance.getName())
 								.appendEol(";");
@@ -868,9 +868,9 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			if( blockInstancesCount > 0 ) {
 				writer.appendEol( ((blockInstancesCount > 1) ? " |i|" : "") );
 				for( Property inst : blockInstances ) {
-					formalPart = StereotypeUtil.getPart(inst);
-					if( formalPart != null ) {
-						for( InstanceSpecification instance : formalPart.getInstance() ) {
+					Part = StereotypeUtil.getPart(inst);
+					if( Part != null ) {
+						for( InstanceSpecification instance : Part.getInstance() ) {
 							writer.appendTab3("run ")
 								.append(instance.getName())
 								.appendEol(";");
@@ -909,14 +909,14 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 	 * @param element
 	 * @param writer
 	 */
-	public void transformPropertyFormalPart(
+	public void transformPropertyPart(
 			Property element, PrettyPrintWriter writer) {
 
 		writer.appendTabEol("//!!FML:gen< Part >");
 
-		Part formalPart = StereotypeUtil.getPart(element);
+		Part Part = StereotypeUtil.getPart(element);
 
-		if( formalPart != null ) {
+		if( Part != null ) {
 
 			Configuration parent_context = StereotypeUtil.getConfiguration(element);
 
@@ -928,11 +928,11 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			}
 
 			String comment_on_part = "";
-			if (environmental_properties.contains(formalPart.getBaseProperty())) {
+			if (environmental_properties.contains(Part.getBaseProperty())) {
 				comment_on_part = " /* in formal context 'environment' */";
 			}
 
-			if( formalPart.getInstance().isEmpty() ) {
+			if( Part.getInstance().isEmpty() ) {
 				writer.appendTab( element.getVisibility().toString() )
 					.append(" instance machine< ")
 					.append(element.getType().getName());
@@ -962,7 +962,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 					.appendEol(comment_on_part);
 			}
 			else {
-				for( InstanceSpecification instance : formalPart.getInstance() ) {
+				for( InstanceSpecification instance : Part.getInstance() ) {
 					writer.appendTab( element.getVisibility().toString() )
 						.append(" instance machine< ")
 						.append(element.getType().getName())
