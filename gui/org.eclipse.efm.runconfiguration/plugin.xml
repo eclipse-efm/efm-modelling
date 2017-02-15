@@ -213,14 +213,14 @@
                tooltip="Symbolic Execution Workflow">
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.runSEW"
-                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/play.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/run_exc.gif"
                   id="org.eclipse.efm.runconfiguration.menu.runSEW"
                   label="Run Symbolic Execution Workflow"
                   mnemonic="S">
             </command>
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.graphviz"
-                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/modelExplorer.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/graph.ico"
                   id="org.eclipse.efm.runconfiguration.menu.graphviz"
                   mnemonic="V">
             </command>
@@ -241,13 +241,13 @@
             </visibleWhen>
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.runSEW"
-                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/play.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/run_exc.gif"
                   id="org.eclipse.efm.runconfiguration.menu.runSEW"
                   mnemonic="S">
             </command>
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.graphviz"
-                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/modelExplorer.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/graph.ico"
                   id="org.eclipse.efm.runconfiguration.menu.graphviz"
                   mnemonic="V">
             </command>
@@ -295,13 +295,13 @@
             locationURI="menu:org.eclipse.efm.runconfiguration.dropdowncommand.tools">
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.runSEW"
-                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/play.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/run_exc.gif"
                   id="org.eclipse.efm.runconfiguration.toolbars.runSEW"
                   tooltip="run Symbolic Execution Workflow">
             </command>
             <command
                   commandId="org.eclipse.efm.runconfiguration.command.graphviz"
-                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/modelExplorer.gif"
+                  icon="platform:/plugin/org.eclipse.efm.ui.resources/icons/graph.ico"
                   id="org.eclipse.efm.runconfiguration.menu.graphviz"
                   mnemonic="V"
                   tooltip="Graph Visualization">
