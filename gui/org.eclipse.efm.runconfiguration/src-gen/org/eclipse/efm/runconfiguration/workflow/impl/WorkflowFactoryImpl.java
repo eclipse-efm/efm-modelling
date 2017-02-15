@@ -12,7 +12,6 @@
  */
 package org.eclipse.efm.runconfiguration.workflow.impl;
 
-import org.eclipse.efm.runconfiguration.workflow.*;
 import org.eclipse.efm.runconfiguration.workflow.Director;
 import org.eclipse.efm.runconfiguration.workflow.NamedObject;
 import org.eclipse.efm.runconfiguration.workflow.SupervisorWorker;

@@ -12,7 +12,6 @@
  */
 package org.eclipse.efm.runconfiguration.workflow.coverage.impl;
 
-import org.eclipse.efm.runconfiguration.workflow.coverage.*;
 import org.eclipse.efm.runconfiguration.workflow.coverage.BehaviorCoverageWorker;
 import org.eclipse.efm.runconfiguration.workflow.coverage.ConditionCoverageWorker;
 import org.eclipse.efm.runconfiguration.workflow.coverage.ConditionDecisionCoverageWorker;

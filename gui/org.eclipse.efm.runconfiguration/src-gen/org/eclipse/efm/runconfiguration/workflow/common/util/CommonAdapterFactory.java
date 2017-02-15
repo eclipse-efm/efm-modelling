@@ -142,6 +142,10 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 				return createDeveloperTuningOptionAdapter();
 			}
 			@Override
+			public Adapter caseRedundancyDetection(RedundancyDetection object) {
+				return createRedundancyDetectionAdapter();
+			}
+			@Override
 			public Adapter caseNamedObject(NamedObject object) {
 				return createNamedObjectAdapter();
 			}
@@ -344,6 +348,20 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDeveloperTuningOptionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection <em>Redundancy Detection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection
+	 * @generated
+	 */
+	public Adapter createRedundancyDetectionAdapter() {
 		return null;
 	}
 

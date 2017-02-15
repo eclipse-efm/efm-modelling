@@ -14,7 +14,6 @@ package org.eclipse.efm.runconfiguration.workflow.test.util;
 
 import org.eclipse.efm.runconfiguration.workflow.NamedObject;
 import org.eclipse.efm.runconfiguration.workflow.Worker;
-import org.eclipse.efm.runconfiguration.workflow.test.*;
 import org.eclipse.efm.runconfiguration.workflow.test.OfflineTestWorker;
 import org.eclipse.efm.runconfiguration.workflow.test.TestPackage;
 import org.eclipse.emf.common.notify.Adapter;

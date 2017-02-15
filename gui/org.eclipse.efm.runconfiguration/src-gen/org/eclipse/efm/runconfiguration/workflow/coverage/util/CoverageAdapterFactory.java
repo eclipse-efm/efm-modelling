@@ -15,7 +15,6 @@ package org.eclipse.efm.runconfiguration.workflow.coverage.util;
 import org.eclipse.efm.runconfiguration.workflow.CoverageWorker;
 import org.eclipse.efm.runconfiguration.workflow.NamedObject;
 import org.eclipse.efm.runconfiguration.workflow.Worker;
-import org.eclipse.efm.runconfiguration.workflow.coverage.*;
 import org.eclipse.efm.runconfiguration.workflow.coverage.BehaviorCoverageWorker;
 import org.eclipse.efm.runconfiguration.workflow.coverage.ConditionCoverageWorker;
 import org.eclipse.efm.runconfiguration.workflow.coverage.ConditionDecisionCoverageWorker;

@@ -417,13 +417,13 @@ public interface CommonPackage extends EPackage {
 	int CONSOLE_LOG_FORMAT__REPORT = 4;
 
 	/**
-	 * The feature id for the '<em><b>Verbose</b></em>' attribute.
+	 * The feature id for the '<em><b>Verbosity</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSOLE_LOG_FORMAT__VERBOSE = 5;
+	int CONSOLE_LOG_FORMAT__VERBOSITY = 5;
 
 	/**
 	 * The number of structural features of the '<em>Console Log Format</em>' class.
@@ -946,13 +946,13 @@ public interface CommonPackage extends EPackage {
 	int DEVELOPER_TUNING_OPTION__ENABLED_PARSING = 11;
 
 	/**
-	 * The feature id for the '<em><b>Enabled Configure</b></em>' attribute.
+	 * The feature id for the '<em><b>Enabled Configuring</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURE = 12;
+	int DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING = 12;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Compiling</b></em>' attribute.
@@ -1342,6 +1342,70 @@ public interface CommonPackage extends EPackage {
 	int DEVELOPER_TUNING_OPTION_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.runconfiguration.workflow.common.impl.RedundancyDetectionImpl <em>Redundancy Detection</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.RedundancyDetectionImpl
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getRedundancyDetection()
+	 * @generated
+	 */
+	int REDUNDANCY_DETECTION = 13;
+
+	/**
+	 * The feature id for the '<em><b>Comparer</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUNDANCY_DETECTION__COMPARER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUNDANCY_DETECTION__SOLVER = 1;
+
+	/**
+	 * The feature id for the '<em><b>Path Scope</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUNDANCY_DETECTION__PATH_SCOPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Data Scope</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUNDANCY_DETECTION__DATA_SCOPE = 3;
+
+	/**
+	 * The number of structural features of the '<em>Redundancy Detection</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUNDANCY_DETECTION_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Redundancy Detection</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUNDANCY_DETECTION_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationStrategyKind <em>Graph Exploration Strategy Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1349,17 +1413,17 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getGraphExplorationStrategyKind()
 	 * @generated
 	 */
-	int GRAPH_EXPLORATION_STRATEGY_KIND = 13;
+	int GRAPH_EXPLORATION_STRATEGY_KIND = 14;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind <em>Console Verbose Kind</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind <em>Console Verbosity Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind
-	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getConsoleVerboseKind()
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getConsoleVerbosityKind()
 	 * @generated
 	 */
-	int CONSOLE_VERBOSE_KIND = 14;
+	int CONSOLE_VERBOSITY_KIND = 15;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.runconfiguration.workflow.common.TraceElementKind <em>Trace Element Kind</em>}' enum.
@@ -1369,7 +1433,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getTraceElementKind()
 	 * @generated
 	 */
-	int TRACE_ELEMENT_KIND = 15;
+	int TRACE_ELEMENT_KIND = 16;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.runconfiguration.workflow.common.HeuristicClassKind <em>Heuristic Class Kind</em>}' enum.
@@ -1379,7 +1443,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getHeuristicClassKind()
 	 * @generated
 	 */
-	int HEURISTIC_CLASS_KIND = 16;
+	int HEURISTIC_CLASS_KIND = 17;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.runconfiguration.workflow.common.CoverageScopeKind <em>Coverage Scope Kind</em>}' enum.
@@ -1389,7 +1453,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getCoverageScopeKind()
 	 * @generated
 	 */
-	int COVERAGE_SCOPE_KIND = 17;
+	int COVERAGE_SCOPE_KIND = 18;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.runconfiguration.workflow.common.CheckingScopeKind <em>Checking Scope Kind</em>}' enum.
@@ -1399,7 +1463,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getCheckingScopeKind()
 	 * @generated
 	 */
-	int CHECKING_SCOPE_KIND = 18;
+	int CHECKING_SCOPE_KIND = 19;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.runconfiguration.workflow.common.DebuglevelKind <em>Debuglevel Kind</em>}' enum.
@@ -1409,7 +1473,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getDebuglevelKind()
 	 * @generated
 	 */
-	int DEBUGLEVEL_KIND = 19;
+	int DEBUGLEVEL_KIND = 20;
 
 
 	/**
@@ -1715,15 +1779,15 @@ public interface CommonPackage extends EPackage {
 	EAttribute getConsoleLogFormat_Report();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getVerbose <em>Verbose</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getVerbosity <em>Verbosity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Verbose</em>'.
-	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getVerbose()
+	 * @return the meta object for the attribute '<em>Verbosity</em>'.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getVerbosity()
 	 * @see #getConsoleLogFormat()
 	 * @generated
 	 */
-	EAttribute getConsoleLogFormat_Verbose();
+	EAttribute getConsoleLogFormat_Verbosity();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.runconfiguration.workflow.common.TraceElement <em>Trace Element</em>}'.
@@ -2159,15 +2223,15 @@ public interface CommonPackage extends EPackage {
 	EAttribute getDeveloperTuningOption_EnabledParsing();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledConfigure <em>Enabled Configure</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledConfiguring <em>Enabled Configuring</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Enabled Configure</em>'.
-	 * @see org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledConfigure()
+	 * @return the meta object for the attribute '<em>Enabled Configuring</em>'.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledConfiguring()
 	 * @see #getDeveloperTuningOption()
 	 * @generated
 	 */
-	EAttribute getDeveloperTuningOption_EnabledConfigure();
+	EAttribute getDeveloperTuningOption_EnabledConfiguring();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledCompiling <em>Enabled Compiling</em>}'.
@@ -2621,6 +2685,60 @@ public interface CommonPackage extends EPackage {
 	EAttribute getDeveloperTuningOption_EnabledGodMode();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection <em>Redundancy Detection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Redundancy Detection</em>'.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection
+	 * @generated
+	 */
+	EClass getRedundancyDetection();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection#getComparer <em>Comparer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Comparer</em>'.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection#getComparer()
+	 * @see #getRedundancyDetection()
+	 * @generated
+	 */
+	EAttribute getRedundancyDetection_Comparer();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection#getSolver <em>Solver</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Solver</em>'.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection#getSolver()
+	 * @see #getRedundancyDetection()
+	 * @generated
+	 */
+	EAttribute getRedundancyDetection_Solver();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection#getPathScope <em>Path Scope</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Path Scope</em>'.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection#getPathScope()
+	 * @see #getRedundancyDetection()
+	 * @generated
+	 */
+	EAttribute getRedundancyDetection_PathScope();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection#getDataScope <em>Data Scope</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Scope</em>'.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection#getDataScope()
+	 * @see #getRedundancyDetection()
+	 * @generated
+	 */
+	EAttribute getRedundancyDetection_DataScope();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationStrategyKind <em>Graph Exploration Strategy Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2631,14 +2749,14 @@ public interface CommonPackage extends EPackage {
 	EEnum getGraphExplorationStrategyKind();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind <em>Console Verbose Kind</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind <em>Console Verbosity Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Console Verbose Kind</em>'.
-	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind
+	 * @return the meta object for enum '<em>Console Verbosity Kind</em>'.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind
 	 * @generated
 	 */
-	EEnum getConsoleVerboseKind();
+	EEnum getConsoleVerbosityKind();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.runconfiguration.workflow.common.TraceElementKind <em>Trace Element Kind</em>}'.
@@ -2950,12 +3068,12 @@ public interface CommonPackage extends EPackage {
 		EAttribute CONSOLE_LOG_FORMAT__REPORT = eINSTANCE.getConsoleLogFormat_Report();
 
 		/**
-		 * The meta object literal for the '<em><b>Verbose</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Verbosity</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONSOLE_LOG_FORMAT__VERBOSE = eINSTANCE.getConsoleLogFormat_Verbose();
+		EAttribute CONSOLE_LOG_FORMAT__VERBOSITY = eINSTANCE.getConsoleLogFormat_Verbosity();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.runconfiguration.workflow.common.impl.TraceElementImpl <em>Trace Element</em>}' class.
@@ -3292,12 +3410,12 @@ public interface CommonPackage extends EPackage {
 		EAttribute DEVELOPER_TUNING_OPTION__ENABLED_PARSING = eINSTANCE.getDeveloperTuningOption_EnabledParsing();
 
 		/**
-		 * The meta object literal for the '<em><b>Enabled Configure</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Enabled Configuring</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURE = eINSTANCE.getDeveloperTuningOption_EnabledConfigure();
+		EAttribute DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING = eINSTANCE.getDeveloperTuningOption_EnabledConfiguring();
 
 		/**
 		 * The meta object literal for the '<em><b>Enabled Compiling</b></em>' attribute feature.
@@ -3628,6 +3746,48 @@ public interface CommonPackage extends EPackage {
 		EAttribute DEVELOPER_TUNING_OPTION__ENABLED_GOD_MODE = eINSTANCE.getDeveloperTuningOption_EnabledGodMode();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.runconfiguration.workflow.common.impl.RedundancyDetectionImpl <em>Redundancy Detection</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.RedundancyDetectionImpl
+		 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getRedundancyDetection()
+		 * @generated
+		 */
+		EClass REDUNDANCY_DETECTION = eINSTANCE.getRedundancyDetection();
+
+		/**
+		 * The meta object literal for the '<em><b>Comparer</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REDUNDANCY_DETECTION__COMPARER = eINSTANCE.getRedundancyDetection_Comparer();
+
+		/**
+		 * The meta object literal for the '<em><b>Solver</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REDUNDANCY_DETECTION__SOLVER = eINSTANCE.getRedundancyDetection_Solver();
+
+		/**
+		 * The meta object literal for the '<em><b>Path Scope</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REDUNDANCY_DETECTION__PATH_SCOPE = eINSTANCE.getRedundancyDetection_PathScope();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Scope</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REDUNDANCY_DETECTION__DATA_SCOPE = eINSTANCE.getRedundancyDetection_DataScope();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationStrategyKind <em>Graph Exploration Strategy Kind</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3638,14 +3798,14 @@ public interface CommonPackage extends EPackage {
 		EEnum GRAPH_EXPLORATION_STRATEGY_KIND = eINSTANCE.getGraphExplorationStrategyKind();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind <em>Console Verbose Kind</em>}' enum.
+		 * The meta object literal for the '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind <em>Console Verbosity Kind</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind
-		 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getConsoleVerboseKind()
+		 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind
+		 * @see org.eclipse.efm.runconfiguration.workflow.common.impl.CommonPackageImpl#getConsoleVerbosityKind()
 		 * @generated
 		 */
-		EEnum CONSOLE_VERBOSE_KIND = eINSTANCE.getConsoleVerboseKind();
+		EEnum CONSOLE_VERBOSITY_KIND = eINSTANCE.getConsoleVerbosityKind();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.runconfiguration.workflow.common.TraceElementKind <em>Trace Element Kind</em>}' enum.

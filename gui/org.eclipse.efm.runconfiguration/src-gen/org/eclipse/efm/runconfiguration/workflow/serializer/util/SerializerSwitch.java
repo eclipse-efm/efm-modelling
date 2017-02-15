@@ -15,7 +15,6 @@ package org.eclipse.efm.runconfiguration.workflow.serializer.util;
 import org.eclipse.efm.runconfiguration.workflow.NamedObject;
 import org.eclipse.efm.runconfiguration.workflow.Serializer;
 import org.eclipse.efm.runconfiguration.workflow.Worker;
-import org.eclipse.efm.runconfiguration.workflow.serializer.*;
 import org.eclipse.efm.runconfiguration.workflow.serializer.BasicTraceSerializer;
 import org.eclipse.efm.runconfiguration.workflow.serializer.ModelGraphvizSerializerWorker;
 import org.eclipse.efm.runconfiguration.workflow.serializer.SerializerPackage;

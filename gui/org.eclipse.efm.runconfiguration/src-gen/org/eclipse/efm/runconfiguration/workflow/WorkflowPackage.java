@@ -532,13 +532,22 @@ public interface WorkflowPackage extends EPackage {
 	int SUPERVISOR_WORKER__EXTENDER = WORKER_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Redundancy</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUPERVISOR_WORKER__REDUNDANCY = WORKER_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Supervisor Worker</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUPERVISOR_WORKER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 3;
+	int SUPERVISOR_WORKER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Supervisor Worker</em>' class.
@@ -1235,6 +1244,17 @@ public interface WorkflowPackage extends EPackage {
 	EReference getSupervisorWorker_Extender();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.runconfiguration.workflow.SupervisorWorker#getRedundancy <em>Redundancy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Redundancy</em>'.
+	 * @see org.eclipse.efm.runconfiguration.workflow.SupervisorWorker#getRedundancy()
+	 * @see #getSupervisorWorker()
+	 * @generated
+	 */
+	EReference getSupervisorWorker_Redundancy();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.runconfiguration.workflow.CoverageWorker <em>Coverage Worker</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1685,6 +1705,14 @@ public interface WorkflowPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SUPERVISOR_WORKER__EXTENDER = eINSTANCE.getSupervisorWorker_Extender();
+
+		/**
+		 * The meta object literal for the '<em><b>Redundancy</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SUPERVISOR_WORKER__REDUNDANCY = eINSTANCE.getSupervisorWorker_Redundancy();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.runconfiguration.workflow.impl.CoverageWorkerImpl <em>Coverage Worker</em>}' class.

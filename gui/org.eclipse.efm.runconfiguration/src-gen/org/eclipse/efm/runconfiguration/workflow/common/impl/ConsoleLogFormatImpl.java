@@ -14,7 +14,7 @@ package org.eclipse.efm.runconfiguration.workflow.common.impl;
 
 import org.eclipse.efm.runconfiguration.workflow.common.CommonPackage;
 import org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat;
-import org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind;
+import org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.ConsoleLogFormatImpl#getStep <em>Step</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.ConsoleLogFormatImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.ConsoleLogFormatImpl#getReport <em>Report</em>}</li>
- *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.ConsoleLogFormatImpl#getVerbose <em>Verbose</em>}</li>
+ *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.ConsoleLogFormatImpl#getVerbosity <em>Verbosity</em>}</li>
  * </ul>
  *
  * @generated
@@ -140,24 +140,24 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	protected String report = REPORT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getVerbose() <em>Verbose</em>}' attribute.
+	 * The default value of the '{@link #getVerbosity() <em>Verbosity</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVerbose()
+	 * @see #getVerbosity()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final ConsoleVerboseKind VERBOSE_EDEFAULT = ConsoleVerboseKind.UNDEFINED;
+	protected static final ConsoleVerbosityKind VERBOSITY_EDEFAULT = ConsoleVerbosityKind.UNDEFINED;
 
 	/**
-	 * The cached value of the '{@link #getVerbose() <em>Verbose</em>}' attribute.
+	 * The cached value of the '{@link #getVerbosity() <em>Verbosity</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVerbose()
+	 * @see #getVerbosity()
 	 * @generated
 	 * @ordered
 	 */
-	protected ConsoleVerboseKind verbose = VERBOSE_EDEFAULT;
+	protected ConsoleVerbosityKind verbosity = VERBOSITY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -288,8 +288,8 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConsoleVerboseKind getVerbose() {
-		return verbose;
+	public ConsoleVerbosityKind getVerbosity() {
+		return verbosity;
 	}
 
 	/**
@@ -297,11 +297,11 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setVerbose(ConsoleVerboseKind newVerbose) {
-		ConsoleVerboseKind oldVerbose = verbose;
-		verbose = newVerbose == null ? VERBOSE_EDEFAULT : newVerbose;
+	public void setVerbosity(ConsoleVerbosityKind newVerbosity) {
+		ConsoleVerbosityKind oldVerbosity = verbosity;
+		verbosity = newVerbosity == null ? VERBOSITY_EDEFAULT : newVerbosity;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.CONSOLE_LOG_FORMAT__VERBOSE, oldVerbose, verbose));
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.CONSOLE_LOG_FORMAT__VERBOSITY, oldVerbosity, verbosity));
 	}
 
 	/**
@@ -322,8 +322,8 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 				return getResult();
 			case CommonPackage.CONSOLE_LOG_FORMAT__REPORT:
 				return getReport();
-			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSE:
-				return getVerbose();
+			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSITY:
+				return getVerbosity();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -351,8 +351,8 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 			case CommonPackage.CONSOLE_LOG_FORMAT__REPORT:
 				setReport((String)newValue);
 				return;
-			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSE:
-				setVerbose((ConsoleVerboseKind)newValue);
+			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSITY:
+				setVerbosity((ConsoleVerbosityKind)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -381,8 +381,8 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 			case CommonPackage.CONSOLE_LOG_FORMAT__REPORT:
 				setReport(REPORT_EDEFAULT);
 				return;
-			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSE:
-				setVerbose(VERBOSE_EDEFAULT);
+			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSITY:
+				setVerbosity(VERBOSITY_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -406,8 +406,8 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 				return RESULT_EDEFAULT == null ? result != null : !RESULT_EDEFAULT.equals(result);
 			case CommonPackage.CONSOLE_LOG_FORMAT__REPORT:
 				return REPORT_EDEFAULT == null ? report != null : !REPORT_EDEFAULT.equals(report);
-			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSE:
-				return verbose != VERBOSE_EDEFAULT;
+			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSITY:
+				return verbosity != VERBOSITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -432,8 +432,8 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 		result.append(result);
 		result.append(", report: ");
 		result.append(report);
-		result.append(", verbose: ");
-		result.append(verbose);
+		result.append(", verbosity: ");
+		result.append(verbosity);
 		result.append(')');
 		return result.toString();
 	}

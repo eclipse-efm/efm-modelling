@@ -12,7 +12,6 @@
  */
 package org.eclipse.efm.runconfiguration.workflow.util;
 
-import org.eclipse.efm.runconfiguration.workflow.*;
 import org.eclipse.efm.runconfiguration.workflow.CoverageWorker;
 import org.eclipse.efm.runconfiguration.workflow.Director;
 import org.eclipse.efm.runconfiguration.workflow.NamedObject;

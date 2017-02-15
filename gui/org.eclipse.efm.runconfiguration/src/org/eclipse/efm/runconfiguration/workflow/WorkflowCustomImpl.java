@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.runconfiguration.workflow.common.CommonFactory;
 import org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormatCustomImpl;
-import org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind;
+import org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind;
 import org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOptionCustomImpl;
 import org.eclipse.efm.runconfiguration.workflow.common.ManifestCustomImpl;
 import org.eclipse.efm.runconfiguration.workflow.common.ShellModeCustomImpl;
@@ -150,9 +150,9 @@ public class WorkflowCustomImpl extends WorkflowImpl
 
 			str = "MINIMUM";
 		}
-		ConsoleVerboseKind verbose = ConsoleVerboseKind.get( str );
+		ConsoleVerbosityKind verbose = ConsoleVerbosityKind.get( str );
 		if( verbose == null ) {
-			verbose = ConsoleVerboseKind.MINIMUM;
+			verbose = ConsoleVerbosityKind.MINIMUM;
 		}
 
 		ConsoleLogFormatCustomImpl console =

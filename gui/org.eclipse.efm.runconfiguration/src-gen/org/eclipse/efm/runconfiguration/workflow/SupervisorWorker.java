@@ -14,6 +14,7 @@ package org.eclipse.efm.runconfiguration.workflow;
 
 import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationLimit;
 import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationQueue;
+import org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection;
 import org.eclipse.efm.runconfiguration.workflow.common.TraceSpecification;
 
 /**
@@ -28,6 +29,7 @@ import org.eclipse.efm.runconfiguration.workflow.common.TraceSpecification;
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.SupervisorWorker#getLimit <em>Limit</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.SupervisorWorker#getQueue <em>Queue</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.SupervisorWorker#getExtender <em>Extender</em>}</li>
+ *   <li>{@link org.eclipse.efm.runconfiguration.workflow.SupervisorWorker#getRedundancy <em>Redundancy</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.runconfiguration.workflow.WorkflowPackage#getSupervisorWorker()
@@ -112,5 +114,31 @@ public interface SupervisorWorker extends Worker {
 	 * @generated
 	 */
 	void setExtender(TraceSpecification value);
+
+	/**
+	 * Returns the value of the '<em><b>Redundancy</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Redundancy</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Redundancy</em>' reference.
+	 * @see #setRedundancy(RedundancyDetection)
+	 * @see org.eclipse.efm.runconfiguration.workflow.WorkflowPackage#getSupervisorWorker_Redundancy()
+	 * @model
+	 * @generated
+	 */
+	RedundancyDetection getRedundancy();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.runconfiguration.workflow.SupervisorWorker#getRedundancy <em>Redundancy</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Redundancy</em>' reference.
+	 * @see #getRedundancy()
+	 * @generated
+	 */
+	void setRedundancy(RedundancyDetection value);
 
 } // SupervisorWorker

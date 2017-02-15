@@ -13,27 +13,6 @@
 package org.eclipse.efm.runconfiguration.workflow.common.impl;
 
 import org.eclipse.efm.runconfiguration.workflow.common.*;
-import org.eclipse.efm.runconfiguration.workflow.common.CheckingScopeKind;
-import org.eclipse.efm.runconfiguration.workflow.common.CommonFactory;
-import org.eclipse.efm.runconfiguration.workflow.common.CommonPackage;
-import org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat;
-import org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind;
-import org.eclipse.efm.runconfiguration.workflow.common.CoverageHeuristic;
-import org.eclipse.efm.runconfiguration.workflow.common.CoverageScopeKind;
-import org.eclipse.efm.runconfiguration.workflow.common.DebuglevelKind;
-import org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption;
-import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationLimit;
-import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationQueue;
-import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationStrategyKind;
-import org.eclipse.efm.runconfiguration.workflow.common.HeuristicClassKind;
-import org.eclipse.efm.runconfiguration.workflow.common.Location;
-import org.eclipse.efm.runconfiguration.workflow.common.Manifest;
-import org.eclipse.efm.runconfiguration.workflow.common.Project;
-import org.eclipse.efm.runconfiguration.workflow.common.SymbexOption;
-import org.eclipse.efm.runconfiguration.workflow.common.TraceElement;
-import org.eclipse.efm.runconfiguration.workflow.common.TraceElementKind;
-import org.eclipse.efm.runconfiguration.workflow.common.TraceSpecification;
-import org.eclipse.efm.runconfiguration.workflow.common.Workspace;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -97,6 +76,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 			case CommonPackage.SYMBEX_OPTION: return createSymbexOption();
 			case CommonPackage.COVERAGE_HEURISTIC: return createCoverageHeuristic();
 			case CommonPackage.DEVELOPER_TUNING_OPTION: return createDeveloperTuningOption();
+			case CommonPackage.REDUNDANCY_DETECTION: return createRedundancyDetection();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -112,8 +92,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 		switch (eDataType.getClassifierID()) {
 			case CommonPackage.GRAPH_EXPLORATION_STRATEGY_KIND:
 				return createGraphExplorationStrategyKindFromString(eDataType, initialValue);
-			case CommonPackage.CONSOLE_VERBOSE_KIND:
-				return createConsoleVerboseKindFromString(eDataType, initialValue);
+			case CommonPackage.CONSOLE_VERBOSITY_KIND:
+				return createConsoleVerbosityKindFromString(eDataType, initialValue);
 			case CommonPackage.TRACE_ELEMENT_KIND:
 				return createTraceElementKindFromString(eDataType, initialValue);
 			case CommonPackage.HEURISTIC_CLASS_KIND:
@@ -139,8 +119,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 		switch (eDataType.getClassifierID()) {
 			case CommonPackage.GRAPH_EXPLORATION_STRATEGY_KIND:
 				return convertGraphExplorationStrategyKindToString(eDataType, instanceValue);
-			case CommonPackage.CONSOLE_VERBOSE_KIND:
-				return convertConsoleVerboseKindToString(eDataType, instanceValue);
+			case CommonPackage.CONSOLE_VERBOSITY_KIND:
+				return convertConsoleVerbosityKindToString(eDataType, instanceValue);
 			case CommonPackage.TRACE_ELEMENT_KIND:
 				return convertTraceElementKindToString(eDataType, instanceValue);
 			case CommonPackage.HEURISTIC_CLASS_KIND:
@@ -281,6 +261,16 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public RedundancyDetection createRedundancyDetection() {
+		RedundancyDetectionImpl redundancyDetection = new RedundancyDetectionImpl();
+		return redundancyDetection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GraphExplorationStrategyKind createGraphExplorationStrategyKindFromString(EDataType eDataType, String initialValue) {
 		GraphExplorationStrategyKind result = GraphExplorationStrategyKind.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -301,8 +291,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConsoleVerboseKind createConsoleVerboseKindFromString(EDataType eDataType, String initialValue) {
-		ConsoleVerboseKind result = ConsoleVerboseKind.get(initialValue);
+	public ConsoleVerbosityKind createConsoleVerbosityKindFromString(EDataType eDataType, String initialValue) {
+		ConsoleVerbosityKind result = ConsoleVerbosityKind.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -312,7 +302,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertConsoleVerboseKindToString(EDataType eDataType, Object instanceValue) {
+	public String convertConsoleVerbosityKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

@@ -20,6 +20,7 @@ import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationLimit;
 import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationQueue;
 import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationStrategyKind;
 import org.eclipse.efm.runconfiguration.workflow.common.ManifestCustomImpl;
+import org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection;
 import org.eclipse.efm.runconfiguration.workflow.common.TraceSpecificationCustomImpl;
 import org.eclipse.efm.runconfiguration.workflow.impl.SupervisorWorkerImpl;
 import org.eclipse.efm.runconfiguration.workflow.util.PrettyPrintWriter;
@@ -295,6 +296,37 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 		}
 
 		writer.appendTab2Eol( "] // end queue" );
+
+		// REDUNDANCY DETECTION
+		writer.appendTab2Eol(
+				"redundancy 'detection strategy' [" );
+
+		RedundancyDetection redundancy = getRedundancy();
+		if( redundancy != null ) {
+			if( (str = redundancy.getComparer()) == null ) {
+				str = "NONE";
+			}
+			writer.appendTab3( "comparer = '" ).append( str ).appendEol( "'" );
+
+			if( (str = redundancy.getSolver()) == null ) {
+				str = "OMEGA";
+			}
+			writer.appendTab3( "solver = '" ).append( str ).appendEol( "'" );
+
+			if( (str = redundancy.getPathScope()) == null ) {
+				str = "CURRENT";
+			}
+			writer.appendTab3( "path_scope = '" ).append( str ).appendEol("'");
+
+			if( (str = redundancy.getDataScope()) == null ) {
+				str = "ALL";
+			}
+			writer.appendTab3( "data_scope = '" ).append( str ).appendEol("'");
+		}
+		else {
+		}
+
+		writer.appendTab2Eol( "] // end redundancy" );
 
 		// CONSOLE LOG
 		ConsoleLogFormatCustomImpl console =

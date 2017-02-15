@@ -137,7 +137,7 @@ public class SewJob extends Job {
 				return Status.CANCEL_STATUS;
 			}
 
-			String[] cmdLine = { SEW_EXE , fFileParameterLocation , "-server" };
+			String[] cmdLine = { SEW_EXE , fFileParameterLocation , "--server" };
 			File workingDir = ResourcesPlugin
 					.getWorkspace().getRoot().getLocation().toFile();
 

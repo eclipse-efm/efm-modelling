@@ -145,6 +145,7 @@ public class DirectorCustomImpl extends DirectorImpl
 			modelAnalysis = ANALYSIS_PROFILE_MODEL_EXPLORATION;
 		}
 
+		boolean isRedundancyDetectionPossible = false;
 
 		switch ( analysisProfile ) {
 			case ANALYSIS_PROFILE_MODEL: {
@@ -152,6 +153,9 @@ public class DirectorCustomImpl extends DirectorImpl
 					case ANALYSIS_PROFILE_MODEL_EXPLORATION: {
 						//!! NOTHING to do...
 						// --> only need a Supervisor worker for Model Exploration
+
+						isRedundancyDetectionPossible = true;
+
 						break;
 					}
 					case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION: {
@@ -163,7 +167,9 @@ public class DirectorCustomImpl extends DirectorImpl
 
 						supervisor.getQueue().setHeuristic(true);
 
-						supervisor.getQueue().setWeight(8);;
+						supervisor.getQueue().setWeight(8);
+
+						isRedundancyDetectionPossible = true;
 
 						break;
 					}
@@ -197,6 +203,24 @@ public class DirectorCustomImpl extends DirectorImpl
 			}
 			default: {
 				break;
+			}
+		}
+
+		if( isRedundancyDetectionPossible ) {
+			boolean enabledRedundancyDetection = false;
+			try {
+				enabledRedundancyDetection = configuration.getAttribute(
+						ATTR_ENABLED_INCLUSION_CRITERION, false);
+			}
+			catch( CoreException e ) {
+				e.printStackTrace();
+
+				enabledRedundancyDetection = false;
+			}
+
+			if( enabledRedundancyDetection ) {
+				getSupervisor().setRedundancy(
+						CommonFactory.eINSTANCE.createRedundancyDetection());
 			}
 		}
 

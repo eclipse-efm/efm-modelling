@@ -143,7 +143,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 		catch( CoreException e ) {
 			enabled = false;
 		}
-		setEnabledConfigure( enabled );
+		setEnabledConfiguring( enabled );
 
 		try {
 			enabled = configuration.getAttribute(
@@ -834,7 +834,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 						writer.appendTab2Eol( "flag = 'PARSING'" );
 					}
 
-					if( isEnabledConfigure() ) {
+					if( isEnabledConfiguring() ) {
 						writer.appendTab2Eol( "flag = 'CONFIGURE'" );
 					}
 

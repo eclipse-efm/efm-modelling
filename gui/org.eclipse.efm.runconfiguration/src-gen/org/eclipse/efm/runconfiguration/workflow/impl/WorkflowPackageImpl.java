@@ -431,6 +431,15 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSupervisorWorker_Redundancy() {
+		return (EReference)supervisorWorkerEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCoverageWorker() {
 		return coverageWorkerEClass;
 	}
@@ -648,6 +657,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		createEReference(supervisorWorkerEClass, SUPERVISOR_WORKER__LIMIT);
 		createEReference(supervisorWorkerEClass, SUPERVISOR_WORKER__QUEUE);
 		createEReference(supervisorWorkerEClass, SUPERVISOR_WORKER__EXTENDER);
+		createEReference(supervisorWorkerEClass, SUPERVISOR_WORKER__REDUNDANCY);
 
 		coverageWorkerEClass = createEClass(COVERAGE_WORKER);
 		createEReference(coverageWorkerEClass, COVERAGE_WORKER__TRACE);
@@ -752,6 +762,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		initEReference(getSupervisorWorker_Limit(), theCommonPackage.getGraphExplorationLimit(), null, "limit", null, 0, 1, SupervisorWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSupervisorWorker_Queue(), theCommonPackage.getGraphExplorationQueue(), null, "queue", null, 0, 1, SupervisorWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSupervisorWorker_Extender(), theCommonPackage.getTraceSpecification(), null, "extender", null, 0, 1, SupervisorWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSupervisorWorker_Redundancy(), theCommonPackage.getRedundancyDetection(), null, "redundancy", null, 0, 1, SupervisorWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(coverageWorkerEClass, CoverageWorker.class, "CoverageWorker", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCoverageWorker_Trace(), theCommonPackage.getTraceSpecification(), null, "trace", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

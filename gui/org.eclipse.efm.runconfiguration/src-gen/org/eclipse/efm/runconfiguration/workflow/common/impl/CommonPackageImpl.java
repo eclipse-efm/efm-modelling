@@ -17,7 +17,7 @@ import org.eclipse.efm.runconfiguration.workflow.common.CheckingScopeKind;
 import org.eclipse.efm.runconfiguration.workflow.common.CommonFactory;
 import org.eclipse.efm.runconfiguration.workflow.common.CommonPackage;
 import org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat;
-import org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind;
+import org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind;
 import org.eclipse.efm.runconfiguration.workflow.common.CoverageHeuristic;
 import org.eclipse.efm.runconfiguration.workflow.common.CoverageScopeKind;
 import org.eclipse.efm.runconfiguration.workflow.common.DebuglevelKind;
@@ -29,6 +29,7 @@ import org.eclipse.efm.runconfiguration.workflow.common.HeuristicClassKind;
 import org.eclipse.efm.runconfiguration.workflow.common.Location;
 import org.eclipse.efm.runconfiguration.workflow.common.Manifest;
 import org.eclipse.efm.runconfiguration.workflow.common.Project;
+import org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection;
 import org.eclipse.efm.runconfiguration.workflow.common.ShellMode;
 import org.eclipse.efm.runconfiguration.workflow.common.SymbexOption;
 import org.eclipse.efm.runconfiguration.workflow.common.TraceElement;
@@ -152,6 +153,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass redundancyDetectionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum graphExplorationStrategyKindEEnum = null;
 
 	/**
@@ -159,7 +167,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum consoleVerboseKindEEnum = null;
+	private EEnum consoleVerbosityKindEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -528,7 +536,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConsoleLogFormat_Verbose() {
+	public EAttribute getConsoleLogFormat_Verbosity() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -897,7 +905,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledConfigure() {
+	public EAttribute getDeveloperTuningOption_EnabledConfiguring() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -1275,6 +1283,51 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getRedundancyDetection() {
+		return redundancyDetectionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRedundancyDetection_Comparer() {
+		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRedundancyDetection_Solver() {
+		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRedundancyDetection_PathScope() {
+		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRedundancyDetection_DataScope() {
+		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getGraphExplorationStrategyKind() {
 		return graphExplorationStrategyKindEEnum;
 	}
@@ -1284,8 +1337,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getConsoleVerboseKind() {
-		return consoleVerboseKindEEnum;
+	public EEnum getConsoleVerbosityKind() {
+		return consoleVerbosityKindEEnum;
 	}
 
 	/**
@@ -1394,7 +1447,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__STEP);
 		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__RESULT);
 		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__REPORT);
-		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__VERBOSE);
+		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__VERBOSITY);
 
 		traceElementEClass = createEClass(TRACE_ELEMENT);
 		createEAttribute(traceElementEClass, TRACE_ELEMENT__NATURE);
@@ -1442,7 +1495,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__COMPILED_MODEL_FILENAME);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__SYMBEX_TRACE_FILENAME);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_PARSING);
-		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURE);
+		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_COMPILING);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_LOADING);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_COMPUTING);
@@ -1485,9 +1538,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_NOTHING);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_GOD_MODE);
 
+		redundancyDetectionEClass = createEClass(REDUNDANCY_DETECTION);
+		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__COMPARER);
+		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__SOLVER);
+		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__PATH_SCOPE);
+		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__DATA_SCOPE);
+
 		// Create enums
 		graphExplorationStrategyKindEEnum = createEEnum(GRAPH_EXPLORATION_STRATEGY_KIND);
-		consoleVerboseKindEEnum = createEEnum(CONSOLE_VERBOSE_KIND);
+		consoleVerbosityKindEEnum = createEEnum(CONSOLE_VERBOSITY_KIND);
 		traceElementKindEEnum = createEEnum(TRACE_ELEMENT_KIND);
 		heuristicClassKindEEnum = createEEnum(HEURISTIC_CLASS_KIND);
 		coverageScopeKindEEnum = createEEnum(COVERAGE_SCOPE_KIND);
@@ -1562,7 +1621,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getConsoleLogFormat_Step(), ecorePackage.getEString(), "step", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConsoleLogFormat_Result(), ecorePackage.getEString(), "result", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConsoleLogFormat_Report(), ecorePackage.getEString(), "report", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConsoleLogFormat_Verbose(), this.getConsoleVerboseKind(), "verbose", "UNDEFINED", 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConsoleLogFormat_Verbosity(), this.getConsoleVerbosityKind(), "verbosity", "UNDEFINED", 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(traceElementEClass, TraceElement.class, "TraceElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTraceElement_Nature(), this.getTraceElementKind(), "nature", null, 0, 1, TraceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1610,7 +1669,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getDeveloperTuningOption_CompiledModelFilename(), ecorePackage.getEString(), "compiledModelFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_SymbexTraceFilename(), ecorePackage.getEString(), "symbexTraceFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledParsing(), ecorePackage.getEBoolean(), "enabledParsing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledConfigure(), ecorePackage.getEBoolean(), "enabledConfigure", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledConfiguring(), ecorePackage.getEBoolean(), "enabledConfiguring", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledCompiling(), ecorePackage.getEBoolean(), "enabledCompiling", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledLoading(), ecorePackage.getEBoolean(), "enabledLoading", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledComputing(), ecorePackage.getEBoolean(), "enabledComputing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1653,6 +1712,12 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getDeveloperTuningOption_EnabledNothing(), ecorePackage.getEBoolean(), "enabledNothing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledGodMode(), ecorePackage.getEBoolean(), "enabledGodMode", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(redundancyDetectionEClass, RedundancyDetection.class, "RedundancyDetection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRedundancyDetection_Comparer(), ecorePackage.getEString(), "comparer", "INCLUSION", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_Solver(), ecorePackage.getEString(), "solver", "OMEGA", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_PathScope(), ecorePackage.getEString(), "pathScope", "CURRENT", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_DataScope(), ecorePackage.getEString(), "dataScope", "ALL", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.class, "GraphExplorationStrategyKind");
 		addEEnumLiteral(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.BEST_FIRST_SEARCH);
@@ -1664,12 +1729,12 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.LAST);
 		addEEnumLiteral(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.ALL);
 
-		initEEnum(consoleVerboseKindEEnum, ConsoleVerboseKind.class, "ConsoleVerboseKind");
-		addEEnumLiteral(consoleVerboseKindEEnum, ConsoleVerboseKind.UNDEFINED);
-		addEEnumLiteral(consoleVerboseKindEEnum, ConsoleVerboseKind.SILENT);
-		addEEnumLiteral(consoleVerboseKindEEnum, ConsoleVerboseKind.MINIMUM);
-		addEEnumLiteral(consoleVerboseKindEEnum, ConsoleVerboseKind.MEDIUM);
-		addEEnumLiteral(consoleVerboseKindEEnum, ConsoleVerboseKind.MAXIMUM);
+		initEEnum(consoleVerbosityKindEEnum, ConsoleVerbosityKind.class, "ConsoleVerbosityKind");
+		addEEnumLiteral(consoleVerbosityKindEEnum, ConsoleVerbosityKind.UNDEFINED);
+		addEEnumLiteral(consoleVerbosityKindEEnum, ConsoleVerbosityKind.SILENT);
+		addEEnumLiteral(consoleVerbosityKindEEnum, ConsoleVerbosityKind.MINIMUM);
+		addEEnumLiteral(consoleVerbosityKindEEnum, ConsoleVerbosityKind.MEDIUM);
+		addEEnumLiteral(consoleVerbosityKindEEnum, ConsoleVerbosityKind.MAXIMUM);
 
 		initEEnum(traceElementKindEEnum, TraceElementKind.class, "TraceElementKind");
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.UNDEFINED);

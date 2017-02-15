@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#getCompiledModelFilename <em>Compiled Model Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#getSymbexTraceFilename <em>Symbex Trace Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledParsing <em>Enabled Parsing</em>}</li>
- *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledConfigure <em>Enabled Configure</em>}</li>
+ *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledConfiguring <em>Enabled Configuring</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledCompiling <em>Enabled Compiling</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledLoading <em>Enabled Loading</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledComputing <em>Enabled Computing</em>}</li>
@@ -401,30 +401,30 @@ public interface DeveloperTuningOption extends EObject {
 	void setEnabledParsing(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Enabled Configure</b></em>' attribute.
+	 * Returns the value of the '<em><b>Enabled Configuring</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Enabled Configure</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Enabled Configuring</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Enabled Configure</em>' attribute.
-	 * @see #setEnabledConfigure(boolean)
-	 * @see org.eclipse.efm.runconfiguration.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledConfigure()
+	 * @return the value of the '<em>Enabled Configuring</em>' attribute.
+	 * @see #setEnabledConfiguring(boolean)
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledConfiguring()
 	 * @model
 	 * @generated
 	 */
-	boolean isEnabledConfigure();
+	boolean isEnabledConfiguring();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledConfigure <em>Enabled Configure</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.runconfiguration.workflow.common.DeveloperTuningOption#isEnabledConfiguring <em>Enabled Configuring</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Enabled Configure</em>' attribute.
-	 * @see #isEnabledConfigure()
+	 * @param value the new value of the '<em>Enabled Configuring</em>' attribute.
+	 * @see #isEnabledConfiguring()
 	 * @generated
 	 */
-	void setEnabledConfigure(boolean value);
+	void setEnabledConfiguring(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Enabled Compiling</b></em>' attribute.

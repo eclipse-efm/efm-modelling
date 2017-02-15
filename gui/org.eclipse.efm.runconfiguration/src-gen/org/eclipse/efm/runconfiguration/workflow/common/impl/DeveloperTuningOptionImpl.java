@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.DeveloperTuningOptionImpl#getCompiledModelFilename <em>Compiled Model Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.DeveloperTuningOptionImpl#getSymbexTraceFilename <em>Symbex Trace Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledParsing <em>Enabled Parsing</em>}</li>
- *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledConfigure <em>Enabled Configure</em>}</li>
+ *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledConfiguring <em>Enabled Configuring</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledCompiling <em>Enabled Compiling</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledLoading <em>Enabled Loading</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledComputing <em>Enabled Computing</em>}</li>
@@ -328,24 +328,24 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	protected boolean enabledParsing = ENABLED_PARSING_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isEnabledConfigure() <em>Enabled Configure</em>}' attribute.
+	 * The default value of the '{@link #isEnabledConfiguring() <em>Enabled Configuring</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isEnabledConfigure()
+	 * @see #isEnabledConfiguring()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean ENABLED_CONFIGURE_EDEFAULT = false;
+	protected static final boolean ENABLED_CONFIGURING_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isEnabledConfigure() <em>Enabled Configure</em>}' attribute.
+	 * The cached value of the '{@link #isEnabledConfiguring() <em>Enabled Configuring</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isEnabledConfigure()
+	 * @see #isEnabledConfiguring()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean enabledConfigure = ENABLED_CONFIGURE_EDEFAULT;
+	protected boolean enabledConfiguring = ENABLED_CONFIGURING_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isEnabledCompiling() <em>Enabled Compiling</em>}' attribute.
@@ -1443,8 +1443,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isEnabledConfigure() {
-		return enabledConfigure;
+	public boolean isEnabledConfiguring() {
+		return enabledConfiguring;
 	}
 
 	/**
@@ -1452,11 +1452,11 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEnabledConfigure(boolean newEnabledConfigure) {
-		boolean oldEnabledConfigure = enabledConfigure;
-		enabledConfigure = newEnabledConfigure;
+	public void setEnabledConfiguring(boolean newEnabledConfiguring) {
+		boolean oldEnabledConfiguring = enabledConfiguring;
+		enabledConfiguring = newEnabledConfiguring;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURE, oldEnabledConfigure, enabledConfigure));
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING, oldEnabledConfiguring, enabledConfiguring));
 	}
 
 	/**
@@ -2352,8 +2352,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 				return getSymbexTraceFilename();
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_PARSING:
 				return isEnabledParsing();
-			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURE:
-				return isEnabledConfigure();
+			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING:
+				return isEnabledConfiguring();
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_COMPILING:
 				return isEnabledCompiling();
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_LOADING:
@@ -2484,8 +2484,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_PARSING:
 				setEnabledParsing((Boolean)newValue);
 				return;
-			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURE:
-				setEnabledConfigure((Boolean)newValue);
+			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING:
+				setEnabledConfiguring((Boolean)newValue);
 				return;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_COMPILING:
 				setEnabledCompiling((Boolean)newValue);
@@ -2658,8 +2658,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_PARSING:
 				setEnabledParsing(ENABLED_PARSING_EDEFAULT);
 				return;
-			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURE:
-				setEnabledConfigure(ENABLED_CONFIGURE_EDEFAULT);
+			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING:
+				setEnabledConfiguring(ENABLED_CONFIGURING_EDEFAULT);
 				return;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_COMPILING:
 				setEnabledCompiling(ENABLED_COMPILING_EDEFAULT);
@@ -2820,8 +2820,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 				return SYMBEX_TRACE_FILENAME_EDEFAULT == null ? symbexTraceFilename != null : !SYMBEX_TRACE_FILENAME_EDEFAULT.equals(symbexTraceFilename);
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_PARSING:
 				return enabledParsing != ENABLED_PARSING_EDEFAULT;
-			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURE:
-				return enabledConfigure != ENABLED_CONFIGURE_EDEFAULT;
+			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING:
+				return enabledConfiguring != ENABLED_CONFIGURING_EDEFAULT;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_COMPILING:
 				return enabledCompiling != ENABLED_COMPILING_EDEFAULT;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_LOADING:
@@ -2942,8 +2942,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 		result.append(symbexTraceFilename);
 		result.append(", enabledParsing: ");
 		result.append(enabledParsing);
-		result.append(", enabledConfigure: ");
-		result.append(enabledConfigure);
+		result.append(", enabledConfiguring: ");
+		result.append(enabledConfiguring);
 		result.append(", enabledCompiling: ");
 		result.append(enabledCompiling);
 		result.append(", enabledLoading: ");

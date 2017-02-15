@@ -12,7 +12,6 @@
  */
 package org.eclipse.efm.runconfiguration.workflow.test.impl;
 
-import org.eclipse.efm.runconfiguration.workflow.test.*;
 import org.eclipse.efm.runconfiguration.workflow.test.OfflineTestWorker;
 import org.eclipse.efm.runconfiguration.workflow.test.TestFactory;
 import org.eclipse.efm.runconfiguration.workflow.test.TestPackage;

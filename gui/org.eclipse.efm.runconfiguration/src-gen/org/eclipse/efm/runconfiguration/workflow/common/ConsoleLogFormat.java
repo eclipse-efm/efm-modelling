@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getStep <em>Step</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getResult <em>Result</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getReport <em>Report</em>}</li>
- *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getVerbose <em>Verbose</em>}</li>
+ *   <li>{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getVerbosity <em>Verbosity</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.runconfiguration.workflow.common.CommonPackage#getConsoleLogFormat()
@@ -167,33 +167,33 @@ public interface ConsoleLogFormat extends EObject {
 	void setReport(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Verbose</b></em>' attribute.
+	 * Returns the value of the '<em><b>Verbosity</b></em>' attribute.
 	 * The default value is <code>"UNDEFINED"</code>.
-	 * The literals are from the enumeration {@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind}.
+	 * The literals are from the enumeration {@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Verbose</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Verbosity</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Verbose</em>' attribute.
-	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind
-	 * @see #setVerbose(ConsoleVerboseKind)
-	 * @see org.eclipse.efm.runconfiguration.workflow.common.CommonPackage#getConsoleLogFormat_Verbose()
+	 * @return the value of the '<em>Verbosity</em>' attribute.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind
+	 * @see #setVerbosity(ConsoleVerbosityKind)
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.CommonPackage#getConsoleLogFormat_Verbosity()
 	 * @model default="UNDEFINED"
 	 * @generated
 	 */
-	ConsoleVerboseKind getVerbose();
+	ConsoleVerbosityKind getVerbosity();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getVerbose <em>Verbose</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.runconfiguration.workflow.common.ConsoleLogFormat#getVerbosity <em>Verbosity</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Verbose</em>' attribute.
-	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind
-	 * @see #getVerbose()
+	 * @param value the new value of the '<em>Verbosity</em>' attribute.
+	 * @see org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind
+	 * @see #getVerbosity()
 	 * @generated
 	 */
-	void setVerbose(ConsoleVerboseKind value);
+	void setVerbosity(ConsoleVerbosityKind value);
 
 } // ConsoleLogFormat

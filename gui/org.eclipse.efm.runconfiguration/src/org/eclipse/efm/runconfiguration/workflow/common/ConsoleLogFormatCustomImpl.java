@@ -54,11 +54,11 @@ public class ConsoleLogFormatCustomImpl extends ConsoleLogFormatImpl {
 //		return( console );
 //	}
 
-	public static ConsoleLogFormatCustomImpl create(ConsoleVerboseKind verbose) {
+	public static ConsoleLogFormatCustomImpl create(ConsoleVerbosityKind verbosity) {
 
 		ConsoleLogFormatCustomImpl console = new ConsoleLogFormatCustomImpl();
 
-		console.setVerbose( verbose );
+		console.setVerbosity( verbosity );
 
 		return( console );
 	}
@@ -87,8 +87,8 @@ public class ConsoleLogFormatCustomImpl extends ConsoleLogFormatImpl {
 			writer.appendTab2( "report = \"" ).append( str ).appendEol( "\"" );
 		}
 
-		ConsoleVerboseKind verbose = getVerbose();
-		if( (verbose != null) && (verbose != ConsoleVerboseKind.UNDEFINED) ) {
+		ConsoleVerbosityKind verbose = getVerbosity();
+		if( (verbose != null) && (verbose != ConsoleVerbosityKind.UNDEFINED) ) {
 			writer.appendTab2( "verbose = \'" )
 				.append( verbose.getLiteral() ).appendEol( "\'" );
 		}

@@ -140,6 +140,15 @@ public interface CommonFactory extends EFactory {
 	DeveloperTuningOption createDeveloperTuningOption();
 
 	/**
+	 * Returns a new object of class '<em>Redundancy Detection</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Redundancy Detection</em>'.
+	 * @generated
+	 */
+	RedundancyDetection createRedundancyDetection();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

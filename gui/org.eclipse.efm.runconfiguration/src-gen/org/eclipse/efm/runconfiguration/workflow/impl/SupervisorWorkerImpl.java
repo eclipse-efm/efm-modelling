@@ -16,6 +16,7 @@ import org.eclipse.efm.runconfiguration.workflow.SupervisorWorker;
 import org.eclipse.efm.runconfiguration.workflow.WorkflowPackage;
 import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationLimit;
 import org.eclipse.efm.runconfiguration.workflow.common.GraphExplorationQueue;
+import org.eclipse.efm.runconfiguration.workflow.common.RedundancyDetection;
 import org.eclipse.efm.runconfiguration.workflow.common.TraceSpecification;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.impl.SupervisorWorkerImpl#getLimit <em>Limit</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.impl.SupervisorWorkerImpl#getQueue <em>Queue</em>}</li>
  *   <li>{@link org.eclipse.efm.runconfiguration.workflow.impl.SupervisorWorkerImpl#getExtender <em>Extender</em>}</li>
+ *   <li>{@link org.eclipse.efm.runconfiguration.workflow.impl.SupervisorWorkerImpl#getRedundancy <em>Redundancy</em>}</li>
  * </ul>
  *
  * @generated
@@ -68,6 +70,16 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * @ordered
 	 */
 	protected TraceSpecification extender;
+
+	/**
+	 * The cached value of the '{@link #getRedundancy() <em>Redundancy</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRedundancy()
+	 * @generated
+	 * @ordered
+	 */
+	protected RedundancyDetection redundancy;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -222,6 +234,44 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public RedundancyDetection getRedundancy() {
+		if (redundancy != null && redundancy.eIsProxy()) {
+			InternalEObject oldRedundancy = (InternalEObject)redundancy;
+			redundancy = (RedundancyDetection)eResolveProxy(oldRedundancy);
+			if (redundancy != oldRedundancy) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, WorkflowPackage.SUPERVISOR_WORKER__REDUNDANCY, oldRedundancy, redundancy));
+			}
+		}
+		return redundancy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RedundancyDetection basicGetRedundancy() {
+		return redundancy;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRedundancy(RedundancyDetection newRedundancy) {
+		RedundancyDetection oldRedundancy = redundancy;
+		redundancy = newRedundancy;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WorkflowPackage.SUPERVISOR_WORKER__REDUNDANCY, oldRedundancy, redundancy));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -249,6 +299,9 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 				return getQueue();
 			case WorkflowPackage.SUPERVISOR_WORKER__EXTENDER:
 				return getExtender();
+			case WorkflowPackage.SUPERVISOR_WORKER__REDUNDANCY:
+				if (resolve) return getRedundancy();
+				return basicGetRedundancy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -269,6 +322,9 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 				return;
 			case WorkflowPackage.SUPERVISOR_WORKER__EXTENDER:
 				setExtender((TraceSpecification)newValue);
+				return;
+			case WorkflowPackage.SUPERVISOR_WORKER__REDUNDANCY:
+				setRedundancy((RedundancyDetection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -291,6 +347,9 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 			case WorkflowPackage.SUPERVISOR_WORKER__EXTENDER:
 				setExtender((TraceSpecification)null);
 				return;
+			case WorkflowPackage.SUPERVISOR_WORKER__REDUNDANCY:
+				setRedundancy((RedundancyDetection)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -309,6 +368,8 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 				return queue != null;
 			case WorkflowPackage.SUPERVISOR_WORKER__EXTENDER:
 				return extender != null;
+			case WorkflowPackage.SUPERVISOR_WORKER__REDUNDANCY:
+				return redundancy != null;
 		}
 		return super.eIsSet(featureID);
 	}

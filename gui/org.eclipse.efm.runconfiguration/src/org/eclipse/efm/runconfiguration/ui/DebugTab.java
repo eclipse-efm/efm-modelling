@@ -20,7 +20,7 @@ import org.eclipse.efm.runconfiguration.ToolConstants;
 import org.eclipse.efm.runconfiguration.ui.internal.SWTFactory;
 import org.eclipse.efm.runconfiguration.ui.internal.fieldeditor.BooleanFieldEditor;
 import org.eclipse.efm.runconfiguration.ui.internal.fieldeditor.StringFieldEditor;
-import org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerboseKind;
+import org.eclipse.efm.runconfiguration.workflow.common.ConsoleVerbosityKind;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
@@ -39,18 +39,18 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 
 	// Console Log
 	private static final String[] CONSOLE_LEVEL_COMBO_ITEMS = new String[] {
-			ConsoleVerboseKind.SILENT.getLiteral(),
-			ConsoleVerboseKind.MINIMUM.getLiteral(),
-			ConsoleVerboseKind.MEDIUM.getLiteral(),
-			ConsoleVerboseKind.MAXIMUM.getLiteral()
+			ConsoleVerbosityKind.SILENT.getLiteral(),
+			ConsoleVerbosityKind.MINIMUM.getLiteral(),
+			ConsoleVerbosityKind.MEDIUM.getLiteral(),
+			ConsoleVerbosityKind.MAXIMUM.getLiteral()
 	};
 
-//	Arrays.stream(ConsoleVerboseKind.values()).map(
-//			ConsoleVerboseKind::getLiteral).toArray(String[]::new);
+//	Arrays.stream(ConsoleVerbosityKind.values()).map(
+//			ConsoleVerbosityKind::getLiteral).toArray(String[]::new);
 
 
 	private Combo fConsoleLevelCombo = null;
-	private ConsoleVerboseKind fConsoleLevel = ConsoleVerboseKind.MINIMUM;
+	private ConsoleVerbosityKind fConsoleLevel = ConsoleVerbosityKind.MINIMUM;
 
 	// First Symbex Workflow Page
 	private BooleanFieldEditor fFirstParsedModelTextualEnabledBooleanField;
@@ -352,9 +352,9 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 	}
 
 	private void handleConsoleLevelSelectionChange() {
-		fConsoleLevel = ConsoleVerboseKind.get( fConsoleLevelCombo.getText() );
+		fConsoleLevel = ConsoleVerbosityKind.get( fConsoleLevelCombo.getText() );
 		if( fConsoleLevel == null ) {
-			fConsoleLevel = ConsoleVerboseKind.MINIMUM;
+			fConsoleLevel = ConsoleVerbosityKind.MINIMUM;
 		}
 
 		updateLaunchConfigurationDialog();
@@ -490,18 +490,18 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			fConsoleLevel = ConsoleVerboseKind.get(
+			fConsoleLevel = ConsoleVerbosityKind.get(
 					configuration.getAttribute(ATTR_CONSOLE_LOG_VERBOSE_LEVEL,
-							ConsoleVerboseKind.MINIMUM.getLiteral()) );
+							ConsoleVerbosityKind.MINIMUM.getLiteral()) );
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
 
-			fConsoleLevel = ConsoleVerboseKind.MINIMUM;
+			fConsoleLevel = ConsoleVerbosityKind.MINIMUM;
 		}
 
 		if( fConsoleLevel == null ) {
-			fConsoleLevel = ConsoleVerboseKind.MINIMUM;
+			fConsoleLevel = ConsoleVerbosityKind.MINIMUM;
 		}
 		initializeConsoleLevel();
 
