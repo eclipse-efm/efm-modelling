@@ -54,6 +54,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extender" eType="#//common/TraceSpecification"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="redundancy" eType="#//common/RedundancyDetection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CoverageWorker" abstract="true" eSuperTypes="#//Worker">
     <eStructuralFeatures xsi:type="ecore:EReference" name="trace" eType="#//common/TraceSpecification"
@@ -124,7 +125,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="heuristic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EEnum" name="ConsoleVerboseKind">
+    <eClassifiers xsi:type="ecore:EEnum" name="ConsoleVerbosityKind">
       <eLiterals name="UNDEFINED"/>
       <eLiterals name="SILENT" value="1" literal="SILENT"/>
       <eLiterals name="MINIMUM" value="2"/>
@@ -137,7 +138,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="step" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="result" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="report" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="verbose" eType="#//common/ConsoleVerboseKind"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="verbosity" eType="#//common/ConsoleVerbosityKind"
           defaultValueLiteral="UNDEFINED"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="TraceElementKind">
@@ -273,7 +274,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="symbexTraceFilename"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledParsing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledConfigure" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledConfiguring" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledCompiling" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledLoading" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledComputing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -336,6 +337,16 @@
       <eLiterals name="HIGH" value="3" literal="HIGH"/>
       <eLiterals name="ULTRA" value="4"/>
       <eLiterals name="GOD_MODE" value="5" literal="GOD_MODE"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RedundancyDetection">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="comparer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="INCLUSION"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="solver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="OMEGA"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pathScope" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="CURRENT"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataScope" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="ALL"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="coverage" nsURI="http://www.eclipse.org/efm/Workflow/Coverage"

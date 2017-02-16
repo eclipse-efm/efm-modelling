@@ -41,6 +41,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//SupervisorWorker/limit"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//SupervisorWorker/queue"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//SupervisorWorker/extender"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference workflow.ecore#//SupervisorWorker/redundancy"/>
     </genClasses>
     <genClasses image="false" ecoreClass="workflow.ecore#//CoverageWorker">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//CoverageWorker/trace"/>
@@ -74,12 +75,12 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/LAST"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/ALL"/>
       </genEnums>
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/ConsoleVerboseKind">
-        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/UNDEFINED"/>
-        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/SILENT"/>
-        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/MINIMUM"/>
-        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/MEDIUM"/>
-        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerboseKind/MAXIMUM"/>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/ConsoleVerbosityKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerbosityKind/UNDEFINED"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerbosityKind/SILENT"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerbosityKind/MINIMUM"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerbosityKind/MEDIUM"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/ConsoleVerbosityKind/MAXIMUM"/>
       </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/TraceElementKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/UNDEFINED"/>
@@ -198,7 +199,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/step"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/result"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/report"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/verbose"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/verbosity"/>
       </genClasses>
       <genClasses ecoreClass="workflow.ecore#//common/TraceElement">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/TraceElement/nature"/>
@@ -245,7 +246,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/compiledModelFilename"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/symbexTraceFilename"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledParsing"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledConfigure"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledConfiguring"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledCompiling"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledLoading"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledComputing"/>
@@ -287,6 +288,12 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledReferenceCounting"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledNothing"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledGodMode"/>
+      </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//common/RedundancyDetection">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/comparer"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/solver"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/pathScope"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/dataScope"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Coverage" basePackage="org.eclipse.efm.runconfiguration.workflow"
