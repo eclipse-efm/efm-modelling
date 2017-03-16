@@ -33,8 +33,8 @@
 		<description>In this tab you can have access to options concerning refreshing the workspace after the symbolic execution.</description>
 		<topic href="resources/docs/workinprog.html" label="Test Link 1"/>
 	</context>
-	<context id="efm_runconf_sepruntime_tab" title="Run Configuration SEP-Runtime Tab">
-		<description>This tab allows to configure the SEP executable used for the symbolic execution.</description>
+	<context id="efm_runconf_sepruntime_tab" title="Run Configuration Symbex-Runtime Tab">
+		<description>This tab allows to configure the Symbex-Executable used for the symbolic execution workflow.</description>
 		<topic href="resources/docs/workinprog.html" label="Test Link 1"/>
 	</context>
 	<context id="efm_runconf_common_tab" title="Run Configuration Common Tab">

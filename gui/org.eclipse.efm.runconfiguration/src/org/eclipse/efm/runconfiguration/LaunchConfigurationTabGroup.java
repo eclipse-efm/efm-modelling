@@ -12,6 +12,7 @@ package org.eclipse.efm.runconfiguration;
 
 import java.util.ArrayList;
 
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
@@ -22,7 +23,7 @@ import org.eclipse.efm.runconfiguration.ui.DebugTab;
 import org.eclipse.efm.runconfiguration.ui.DeveloperTuningTab;
 import org.eclipse.efm.runconfiguration.ui.ExpertTab;
 import org.eclipse.efm.runconfiguration.ui.MainTab;
-import org.eclipse.efm.runconfiguration.ui.SEPRuntimeTab;
+import org.eclipse.efm.runconfiguration.ui.SymbexRuntimeTab;
 import org.eclipse.efm.runconfiguration.ui.TestGenerationTab;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -56,22 +57,34 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 		tabList.add( new CommonCriteriaTab(this) );
 		tabList.add( new TestGenerationTab(this) );
 
-		if ( prefs.getBoolean(ToolConstants.PREF_DEBUG_OPTIONS) ) {
-			tabList.add( new DebugTab(this) );
-		}
-		if ( prefs.getBoolean(ToolConstants.PREF_EXPERT_MODE) ) {
-			fExpertTab = new ExpertTab(this);
-			tabList.add( fExpertTab );
-		}
+		if( ILaunchManager.DEBUG_MODE.equals(mode) )
+		{
+			if( prefs.getBoolean(ToolConstants.PREF_DEBUG_OPTIONS) )
+			{
+				tabList.add( new DebugTab(this) );
+			}
+			if( prefs.getBoolean(ToolConstants.PREF_EXPERT_MODE) )
+			{
+				fExpertTab = new ExpertTab(this);
+				tabList.add( fExpertTab );
+			}
 
-		if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
-			if ( prefs.getBoolean(ToolConstants.PREF_SYMBEX_DEVELOPER_MODE) ) {
-				tabList.add( new DeveloperTuningTab(this) );
+			if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION )
+			{
+				if ( prefs.getBoolean(ToolConstants.PREF_SYMBEX_DEVELOPER_MODE) )
+				{
+					tabList.add( new DeveloperTuningTab(this) );
+				}
 			}
 		}
 
 		tabList.add( new RefreshTab() );
-		tabList.add( new SEPRuntimeTab() );
+
+		if( ILaunchManager.DEBUG_MODE.equals(mode) )
+		{
+			tabList.add( new SymbexRuntimeTab() );
+		}
+
 		tabList.add( new CommonTab() );
 
 		setTabs( tabList.toArray( new ILaunchConfigurationTab[tabList.size()] ) );

@@ -62,7 +62,7 @@ import org.eclipse.ui.dialogs.ResourceSelectionDialog;
  * @author lapitre_is148245
  * inspired by org.eclipse.ui.externaltools.internal.launchConfigurations.ExternalToolsMainTab
  */
-public class SEPRuntimeTab extends AbstractLaunchConfigurationTab
+public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 		implements ToolConstants {
 
 	public final static String FIRST_EDIT = "editedByDiversityAvmTab"; //$NON-NLS-1$
@@ -184,7 +184,7 @@ public class SEPRuntimeTab extends AbstractLaunchConfigurationTab
 
 
 
-	public SEPRuntimeTab() {
+	public SymbexRuntimeTab() {
 		fGlobalPrefLocation = Activator.strDiversityAvmExecLocation();
 
 //		System.out.println( Activator.strDiversityAvmExecLocation() );
@@ -195,7 +195,7 @@ public class SEPRuntimeTab extends AbstractLaunchConfigurationTab
 
 	@Override
 	public String getName() {
-		return "&SEP-Runtime";
+		return "&Symbex-Runtime";
 	}
 
 
@@ -506,7 +506,7 @@ public class SEPRuntimeTab extends AbstractLaunchConfigurationTab
 		ResourceSelectionDialog dialog =
 				new ResourceSelectionDialog(getShell(),
 						ResourcesPlugin.getWorkspace().getRoot(),
-						"Select a &Sep tool relative working location:");
+						"Select a &Symbex tool relative working location:");
 
         if (dialog.open() == Window.OK) {
     		Object[] results = dialog.getResult();
@@ -626,10 +626,10 @@ public class SEPRuntimeTab extends AbstractLaunchConfigurationTab
 			if (location.isFile()) {
 				return true;
 			}
-			setErrorMessage("SEP executable location does not exist");
+			setErrorMessage("Symbex executable location does not exist");
 			return false;
 		} else if (avmLocationPath.length() == 0) {
-			setErrorMessage("SEP executable AVM location not specified");
+			setErrorMessage("ymbex executable location not specified");
 			return false;
 		}
 		return true;
@@ -765,7 +765,7 @@ public class SEPRuntimeTab extends AbstractLaunchConfigurationTab
 	////////////////////////////////////////////////////////////////////////////
 	protected void createAvmLocationComponent(Composite parent) {
 		Group group = SWTFactory.createGroup(parent,
-				"&SEP Executable Location:", 2, 1, GridData.FILL_HORIZONTAL);
+				"&Symbex Executable Location:", 2, 1, GridData.FILL_HORIZONTAL);
 
 		Font font = parent.getFont();
 
@@ -906,7 +906,7 @@ public class SEPRuntimeTab extends AbstractLaunchConfigurationTab
 						ATTR_LAUNCH_AVM_LOCATION, (String)null);
 				if( ! fGlobalPrefLocation.equals(location) ) {
 					setWarningMessage("Global Preference "
-							+ "< SEP Executable Location > has changed !");
+							+ "< Symbex Executable Location > has changed !");
 				}
 			} catch (CoreException e) {
 				//!! NOTHING
@@ -932,7 +932,7 @@ public class SEPRuntimeTab extends AbstractLaunchConfigurationTab
 		performApplyAvmLocation(configuration);
 
 		if(userEdited) {
-			configuration.setAttribute(SEPRuntimeTab.FIRST_EDIT, (String)null);
+			configuration.setAttribute(SymbexRuntimeTab.FIRST_EDIT, (String)null);
 		}
 	}
 
