@@ -120,7 +120,7 @@
          </view>
          <view
                closeable="true"
-               id="org.eclipse.ui.views.TaskList"
+               id="org.eclipse.efm.ui.views.SymbexWorkflowView"
                minimized="false"
                moveable="true"
                ratio="0.7"
