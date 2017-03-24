@@ -15,10 +15,9 @@ package org.eclipse.efm.ui.views;
 
 
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.jface.action.Action;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ISharedImages;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.SWT;
@@ -32,12 +31,19 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.ui.DebugUITools;
+import org.eclipse.debug.ui.IDebugUIConstants;
+import org.eclipse.debug.ui.ILaunchGroup;
 import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.efm.ui.views.mitems.ManagerLinker;
 import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.AnalysisProfileCompositeCreator;
-import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.CollapsibleCompositeCreator;
+import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.DevelopperCompositeCreator;
+import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.ExecutionCompositeCreator;
+import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.ExpertCompositeCreator;
+import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.SectionCompositeCreator;
 import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.StopCriteriaCompositeCreator;
-
+import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.TestGenCompositeCreator;
+import org.eclipse.efm.ui.resources.UIfmlResources;
 
 public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
@@ -48,16 +54,19 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	
 	private ManagerLinker mLinker;
 	
-	public Set<CollapsibleCompositeCreator> collapsibles;
+	public Set<SectionCompositeCreator> compositeSections;
 	
 	private Text text_model_file_path;
+	
+	private Combo combo;
 	
 	/**
 	 * The constructor.
 	 */
 	public SymbexWorkflowView() {
 		mLinker = new ManagerLinker();
-		collapsibles = new HashSet<CollapsibleCompositeCreator>();
+		compositeSections = new HashSet<SectionCompositeCreator>();
+		makeActions();
 		}
 
 	/**
@@ -66,39 +75,31 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	 */
 	public void createPartControl(Composite parent) {
 		parentComposite = parent;
-		
-		selfCreatedMainComposite = GenericCompositeCreator.create_GridListing_HorizontalGrabbing_Composite(parentComposite, 1);
-				
-		createContents();
 
-		makeActions();
+		setupFormFrame();
+		createContents();
 
 		contributeToActionBars();
 	}
 	
-	private void addSeparator() {
-		Label label = new Label(selfCreatedMainComposite, SWT.LEFT);
-		label.setText("==========");
-	}
-	
 	private void createContents() {
-
-		Label label = new Label(selfCreatedMainComposite, SWT.LEFT);
-		label.setText("Selected Run Configuration");
-		
-		Combo combo = new Combo(selfCreatedMainComposite, SWT.READ_ONLY);
+		combo = new Combo(scrollform.getBody(), SWT.READ_ONLY);
 		String[] contents = mLinker.getSymbexRunConfigurationNames();
 		combo.setItems(contents);
 		
-		addSeparator();
+		text_model_file_path = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, scrollform.getBody(), "Model File :", 1);
 		
-		text_model_file_path = GenericCompositeCreator.createComposite_vertical_label_text(selfCreatedMainComposite, "Model File :");
-		
-		addSeparator();
 		new StopCriteriaCompositeCreator(mLinker, this);
 		
-		addSeparator();
 		new AnalysisProfileCompositeCreator(mLinker, this);
+		
+		new ExpertCompositeCreator(mLinker, this);
+		
+		new DevelopperCompositeCreator(mLinker, this);
+		
+		new ExecutionCompositeCreator(mLinker, this);
+		
+		new TestGenCompositeCreator(mLinker, this);
 		
 		combo.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -110,7 +111,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 					try {
 						lcAttributes = selectedLC.getAttributes();
 						text_model_file_path.setText((String) lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_MODEL_FILE_LOCATION));
-						for(CollapsibleCompositeCreator ccc: collapsibles) {
+						for(SectionCompositeCreator ccc: compositeSections) {
 							ccc.updateCollapsedContent(lcAttributes);
 						}
 					} catch (CoreException e1) {
@@ -119,7 +120,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 				}
 				else {
 					text_model_file_path.setText("...");
-					for(CollapsibleCompositeCreator ccc: collapsibles) {
+					for(SectionCompositeCreator ccc: compositeSections) {
 						ccc.updateCollapsedContent(new HashMap<String, Object>());
 					}
 				}
@@ -127,31 +128,53 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		});
 	}
 	
-	
-	
+	private void openLaunchConfigurationDialog(ILaunchConfiguration launchConfig, String mode) {
+		IStructuredSelection selection = new StructuredSelection(launchConfig);
+		ILaunchGroup group = DebugUITools.getLaunchGroup(launchConfig, mode);
+		String groupIdentifier = group == null ? IDebugUIConstants.ID_RUN_LAUNCH_GROUP : group.getIdentifier();
+		DebugUITools.openLaunchConfigurationDialogOnGroup(scrollform.getShell(), selection, groupIdentifier, null);
+	}
 
 	private void makeActions() {
-		Action action1 = new Action() {
+		Action action_runconf = new Action() {
 			public void run() {
-				showMessage("Action 1 executed");
+				int index = combo.getSelectionIndex();
+				if (index != -1) {
+					ILaunchConfiguration selectedLC = mLinker.getSymbexRunConfigurations()[index];
+					if (selectedLC != null) {
+						openLaunchConfigurationDialog(selectedLC, "run");
+					} else {
+						showMessage("Selected Launch Configuration not found");
+					}
+				} else {
+					showMessage("No Launch Configuration selected");
+				}
 			}
 		};
-		action1.setText("Action 1");
-		action1.setToolTipText("Action 1 tooltip");
-		action1.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-			getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		action_runconf.setText("Launch Run Configuration");
+		action_runconf.setToolTipText("Launch Selected Run Configuration");
+		action_runconf.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__RUNCONF_ICON));
 		
-		Action action2 = new Action() {
+		Action action_debugconf = new Action() {
 			public void run() {
-				showMessage("Action 2 executed");
+				int index = combo.getSelectionIndex();
+				if (index != -1) {
+					ILaunchConfiguration selectedLC = mLinker.getSymbexRunConfigurations()[index];
+					if (selectedLC != null) {
+						openLaunchConfigurationDialog(selectedLC, "debug");
+					} else {
+						showMessage("Selected Launch Configuration not found");
+					}
+				} else {
+					showMessage("No Launch Configuration selected");
+				}
 			}
 		};
-		action2.setText("Action 2");
-		action2.setToolTipText("Action 2 tooltip");
-		action2.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		action_debugconf.setText("Launch Debug Configuration");
+		action_debugconf.setToolTipText("Launch Selected Debug Configuration");
+		action_debugconf.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__RUNDEBUG_ICON));
 		
-		actions = (new Action[] {action1, action2});
+		actions = (new Action[] {action_runconf, action_debugconf});
 	}
 
 }

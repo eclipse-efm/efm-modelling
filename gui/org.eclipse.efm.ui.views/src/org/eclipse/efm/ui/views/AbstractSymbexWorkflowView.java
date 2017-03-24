@@ -23,15 +23,31 @@ import org.eclipse.jface.action.IToolBarManager;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IActionBars;
-//import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.forms.widgets.Form;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractSymbexWorkflowView extends ViewPart {
 	
 	protected Composite parentComposite;
-	public Composite selfCreatedMainComposite;
 	
-	protected Action[] actions;
+	public FormToolkit toolkit;
+	public ScrolledForm scrollform;
+	//public Form scrollform;
+	
+	
+	protected void setupFormFrame() {
+		toolkit = new FormToolkit(parentComposite.getDisplay());
+		scrollform = toolkit.createScrolledForm(parentComposite);
+		//scrollform = toolkit.createForm(parentComposite);
+		scrollform.setText("Run Configuration");
+		GridLayout layout = new GridLayout(1, false);
+		scrollform.getBody().setLayout(layout);
+	}
+	
+	public Action[] actions;
 
 	protected void contributeToActionBars() {
 		IActionBars bars = getViewSite().getActionBars();
@@ -62,7 +78,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart {
 	
 	void showMessage(String message) {
 		MessageDialog.openInformation(
-			selfCreatedMainComposite.getShell(),
+				scrollform.getShell(),
 			"Symbex Workflow",
 			message);
 	}
@@ -71,6 +87,6 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart {
 	 * Passing the focus request to the viewer's control.
 	 */
 	public void setFocus() {
-		selfCreatedMainComposite.setFocus();
+		scrollform.setFocus();
 	}
 }

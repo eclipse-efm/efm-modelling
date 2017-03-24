@@ -18,11 +18,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class GenericCompositeCreator {
-
-	public static Composite create_GridListing_HorizontalGrabbing_Composite(Composite parentComposite, int colnum) {
-		Composite composite = new Composite(parentComposite, SWT.NONE);
+	
+	public static Text createComposite_label_text_from_toolkit(FormToolkit toolkit, Composite parentComposite, String labeltext, int colnum) {
+		
+		Composite composite = toolkit.createComposite(parentComposite);
 		
 		GridLayout gl = new GridLayout(colnum, false);
 		composite.setLayout(gl);
@@ -30,39 +32,12 @@ public class GenericCompositeCreator {
 		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
 		composite.setLayoutData(gd);
 		
-		return composite;
-	}
-	
-	
-	public static Text createComposite_vertical_label_text(Composite parentComposite, String labeltext) {
-		
-		Composite composite = create_GridListing_HorizontalGrabbing_Composite(parentComposite, 1);
-		
-		Label label_title = new Label(composite, SWT.LEFT);
-		label_title.setText(labeltext);
-		
-		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
-		Text label_content = new Text(composite, SWT.LEFT);
-		label_content.setLayoutData(gd);
-		
-		label_content.setText("...");
-		label_content.setEditable(false);
-		 
-		return label_content;
-	}
-	
-	public static Text createComposite_horizontal_label_text(Composite parentComposite, String labeltext) {
-		
-		Composite composite = create_GridListing_HorizontalGrabbing_Composite(parentComposite, 2);
-		
-		Label label_title = new Label(composite, SWT.LEFT);
-		label_title.setText(labeltext);
+		toolkit.createLabel(composite, labeltext);
 		
 		GridData gd2 = new GridData(SWT.FILL,SWT.FILL, true, false);
-		Text label_content = new Text(composite, SWT.LEFT);
-		label_content.setLayoutData(gd2);
 		
-		label_content.setText("...");
+		Text label_content = toolkit.createText(composite, "...");
+		label_content.setLayoutData(gd2);
 		label_content.setEditable(false);
 		 
 		return label_content;

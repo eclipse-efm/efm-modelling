@@ -24,23 +24,18 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
-public class AnalysisProfileCompositeCreator extends SectionCompositeCreator {
-
-	private Text ana_profile;
-	private Text ana_strategy;
+public class ExpertCompositeCreator extends SectionCompositeCreator {
 	
-	public AnalysisProfileCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv) {
+	public ExpertCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv) {
 		super(ml, swv);
 	}
 	
 	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Action[] actions) {
-		addComposite_internal(toolkit, scrollform, actions, "Analysis");
+		addComposite_internal(toolkit, scrollform, actions, "Expert");
 	}
 
 	@Override
 	protected void addCollapsedContent(FormToolkit toolkit, ScrolledForm scrollform) {
-		ana_profile = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Profile :", 2);
-		ana_strategy = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Strategy :", 2); 
 	}
 
 	@Override
@@ -49,14 +44,9 @@ public class AnalysisProfileCompositeCreator extends SectionCompositeCreator {
 			lcAttributes = last_lcAttributes;
 		}
 		if(lcAttributes.isEmpty()) {
-			ana_profile.setText("...");
-			ana_strategy.setText("...");
+
 		} else {
-			String anap = (String) lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_MODEL_ANALYSIS);
-			ana_profile.setText(anap);
-			
-			String anas =(String) lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_ANALYZE_STRATEGY);
-			ana_strategy.setText(anas);
+
 		}
 		last_lcAttributes = lcAttributes;
 	}

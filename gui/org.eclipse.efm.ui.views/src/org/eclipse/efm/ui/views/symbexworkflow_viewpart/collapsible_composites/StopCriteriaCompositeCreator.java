@@ -17,12 +17,13 @@ import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants
 import org.eclipse.efm.ui.views.GenericCompositeCreator;
 import org.eclipse.efm.ui.views.SymbexWorkflowView;
 import org.eclipse.efm.ui.views.mitems.ManagerLinker;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.widgets.Form;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
 
-public class StopCriteriaCompositeCreator extends CollapsibleCompositeCreator {
+public class StopCriteriaCompositeCreator extends SectionCompositeCreator {
 
 	private Text gslim_nodes;
 	private Text gslim_width;
@@ -35,24 +36,22 @@ public class StopCriteriaCompositeCreator extends CollapsibleCompositeCreator {
 		super(ml, swv);
 	}
 	
-	public void addComposite(Composite parentComposite) {
-		addComposite_internal(parentComposite, "Stop Criteria");
+	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Action[] actions) {
+		addComposite_internal(toolkit, scrollform, actions, "Stop Criteria");
 	}
 
 	@Override
-	protected void addCollapsedContent() {
-		Label label_graphsize = new Label(collapsible_part, SWT.LEFT);
-		label_graphsize.setText("Graph size limits");
+	protected void addCollapsedContent(FormToolkit toolkit, ScrolledForm scrollform) {
+		toolkit.createLabel(sectionClient, "Graph size limits");
 		
-		gslim_nodes = GenericCompositeCreator.createComposite_horizontal_label_text(collapsible_part, "Nodes :");
-		gslim_width = GenericCompositeCreator.createComposite_horizontal_label_text(collapsible_part, "Width :");
-		gslim_height = GenericCompositeCreator.createComposite_horizontal_label_text(collapsible_part, "Height :");
+		gslim_nodes = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Nodes :", 2);
+		gslim_width = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Width :", 2);
+		gslim_height = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Height :", 2);
 	
-		Label label_evalimit = new Label(collapsible_part, SWT.LEFT);
-		label_evalimit.setText("Evaluation Limits");
+		toolkit.createLabel(sectionClient, "Evaluation Limits");
 		
-		evalim_steps = GenericCompositeCreator.createComposite_horizontal_label_text(collapsible_part, "Steps :");
-		evalim_timeout = GenericCompositeCreator.createComposite_horizontal_label_text(collapsible_part, "Timeout :");
+		evalim_steps = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Steps :", 2);
+		evalim_timeout = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Timeout :", 2);
 	}
 
 	@Override
@@ -60,7 +59,6 @@ public class StopCriteriaCompositeCreator extends CollapsibleCompositeCreator {
 		if(lcAttributes == null) {
 			lcAttributes = last_lcAttributes;
 		}
-		System.err.println("bip");
 		if(lcAttributes.isEmpty()) {
 			gslim_nodes.setText("...");
 			gslim_width.setText("...");
