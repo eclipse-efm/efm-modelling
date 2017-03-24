@@ -35,48 +35,35 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart {
 	
 	public FormToolkit toolkit;
 	public ScrolledForm scrollform;
-	//public Form scrollform;
-	
 	
 	protected void setupFormFrame() {
 		toolkit = new FormToolkit(parentComposite.getDisplay());
 		scrollform = toolkit.createScrolledForm(parentComposite);
-		//scrollform = toolkit.createForm(parentComposite);
 		scrollform.setText("Run Configuration");
 		GridLayout layout = new GridLayout(1, false);
 		scrollform.getBody().setLayout(layout);
 	}
-	
-	public Action[] actions;
 
-	protected void contributeToActionBars() {
+	protected void setupTopLevelActionBars(Action[] acts) {
 		IActionBars bars = getViewSite().getActionBars();
-		fillLocalPullDown(bars.getMenuManager());
-		fillLocalToolBar(bars.getToolBarManager());
-	}
-
-	private void fillLocalPullDown(IMenuManager manager) {
-		for(Action action: actions) {
-			manager.add(action);
-			manager.add(new Separator());
+		IMenuManager pullDownMenuManager = bars.getMenuManager();
+		pullDownMenuManager.removeAll();
+		for(Action action: acts) {
+			pullDownMenuManager.add(action);
+			pullDownMenuManager.add(new Separator());
 		}
+		IToolBarManager toolBarMenuManager = bars.getToolBarManager();
+		toolBarMenuManager.removeAll();
+		fillToolBar(toolBarMenuManager, acts);
 	}
-
-//	private void fillContextMenu(IMenuManager manager) {
-//		for(Action action: actions) {
-//			manager.add(action);
-//		}
-//		// Other plug-ins can contribute there actions here
-//		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-//	}
 	
-	private void fillLocalToolBar(IToolBarManager manager) {
-		for(Action action: actions) {
+	protected void fillToolBar(IToolBarManager manager, Action[] acts) {
+		for(Action action: acts) {
 			manager.add(action);
 		}
 	}
 	
-	void showMessage(String message) {
+	protected void showMessage(String message) {
 		MessageDialog.openInformation(
 				scrollform.getShell(),
 			"Symbex Workflow",

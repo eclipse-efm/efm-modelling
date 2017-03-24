@@ -19,6 +19,7 @@ import java.util.Map;
 import org.eclipse.efm.ui.views.SymbexWorkflowView;
 import org.eclipse.efm.ui.views.mitems.ManagerLinker;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -40,16 +41,16 @@ public abstract class SectionCompositeCreator {
 	private Section section;
 	protected Composite sectionClient;
 	
-	public SectionCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv) {
+	public SectionCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv, ToolBarManager tbm) {
 		this.ml = ml;
 		last_lcAttributes = new HashMap<String, Object>();
 		swv.compositeSections.add(this);
-		this.addComposite(swv.toolkit, swv.scrollform, swv.actions);
+		this.addComposite(swv.toolkit, swv.scrollform, tbm);
 	}
 	
-	public abstract void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Action[] actions);
+	public abstract void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm);
 	
-	protected void addComposite_internal(FormToolkit toolkit, ScrolledForm scrollform,  Action[] actions, String title) {
+	protected void addComposite_internal(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm, String title) {
 		section = toolkit.createSection(scrollform.getBody(), Section.DESCRIPTION|Section.TWISTIE|Section.TITLE_BAR|Section.EXPANDED);
 		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
 		section.setLayoutData(gd);
@@ -61,12 +62,8 @@ public abstract class SectionCompositeCreator {
 		});
 		section.setText(title);
 		
-		ToolBarManager tbm = new ToolBarManager(SWT.FLAT);
-		ToolBar toolbar = tbm.createControl(section);
-		for(Action action: actions) {
-			tbm.add(action);
-		}
-		tbm.update(true);
+		//ToolBarManager tbm = new ToolBarManager(SWT.FLAT);
+		ToolBar toolbar = ((ToolBarManager) tbm).createControl(section);
 		section.setTextClient(toolbar);
 		
 		sectionClient = toolkit.createComposite(section);

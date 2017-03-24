@@ -16,6 +16,7 @@ package org.eclipse.efm.ui.views;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Text;
@@ -37,9 +38,8 @@ import org.eclipse.debug.ui.ILaunchGroup;
 import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.efm.ui.views.mitems.ManagerLinker;
 import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.AnalysisProfileCompositeCreator;
-import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.DevelopperCompositeCreator;
+import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.DebugCompositeCreator;
 import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.ExecutionCompositeCreator;
-import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.ExpertCompositeCreator;
 import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.SectionCompositeCreator;
 import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.StopCriteriaCompositeCreator;
 import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.TestGenCompositeCreator;
@@ -59,15 +59,6 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	private Text text_model_file_path;
 	
 	private Combo combo;
-	
-	/**
-	 * The constructor.
-	 */
-	public SymbexWorkflowView() {
-		mLinker = new ManagerLinker();
-		compositeSections = new HashSet<SectionCompositeCreator>();
-		makeActions();
-		}
 
 	/**
 	 * This is a callback that will allow us
@@ -75,11 +66,14 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	 */
 	public void createPartControl(Composite parent) {
 		parentComposite = parent;
+		mLinker = new ManagerLinker();
+		compositeSections = new HashSet<SectionCompositeCreator>();
+		makeActions();
 
 		setupFormFrame();
 		createContents();
 
-		contributeToActionBars();
+		setupTopLevelActionBars(new Action[] {action_launch_runconf, action_launch_debugconf, action_opend_runconf, action_opend_debugconf});
 	}
 	
 	private void createContents() {
@@ -89,17 +83,27 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		
 		text_model_file_path = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, scrollform.getBody(), "Model File :", 1);
 		
-		new StopCriteriaCompositeCreator(mLinker, this);
+		ToolBarManager tbm;
 		
-		new AnalysisProfileCompositeCreator(mLinker, this);
+		tbm = new ToolBarManager(SWT.FLAT);
+		fillToolBar(tbm, new Action[] {action_launch_runconf});
+		new AnalysisProfileCompositeCreator(mLinker, this, tbm);
 		
-		new ExpertCompositeCreator(mLinker, this);
+		tbm = new ToolBarManager(SWT.FLAT);
+		fillToolBar(tbm, new Action[] {action_launch_runconf});
+		new StopCriteriaCompositeCreator(mLinker, this, tbm);
 		
-		new DevelopperCompositeCreator(mLinker, this);
+		tbm = new ToolBarManager(SWT.FLAT);
+		fillToolBar(tbm, new Action[] {action_launch_runconf, action_opend_runconf});
+		new ExecutionCompositeCreator(mLinker, this, tbm);
 		
-		new ExecutionCompositeCreator(mLinker, this);
+		tbm = new ToolBarManager(SWT.FLAT);
+		fillToolBar(tbm, new Action[] {action_launch_runconf});
+		new TestGenCompositeCreator(mLinker, this, tbm);
 		
-		new TestGenCompositeCreator(mLinker, this);
+		tbm = new ToolBarManager(SWT.FLAT);
+		fillToolBar(tbm, new Action[] {action_launch_debugconf, action_opend_debugconf});
+		new DebugCompositeCreator(mLinker, this, tbm);
 		
 		combo.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -135,8 +139,52 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		DebugUITools.openLaunchConfigurationDialogOnGroup(scrollform.getShell(), selection, groupIdentifier, null);
 	}
 
+	private Action action_launch_runconf;
+	private Action action_launch_debugconf;
+	private Action action_opend_runconf;
+	private Action action_opend_debugconf;
+	
 	private void makeActions() {
-		Action action_runconf = new Action() {
+		action_launch_runconf = new Action() {
+			public void run() {
+				int index = combo.getSelectionIndex();
+				if (index != -1) {
+					ILaunchConfiguration selectedLC = mLinker.getSymbexRunConfigurations()[index];
+					if (selectedLC != null) {
+						DebugUITools.launch(selectedLC, "run");
+					} else {
+						showMessage("Selected Launch Configuration not found");
+					}
+				} else {
+					showMessage("No Launch Configuration selected");
+				}
+			}
+		};
+		action_launch_runconf.setText("Launch Run Configuration");
+		action_launch_runconf.setToolTipText("Launch Selected Run Configuration");
+		action_launch_runconf.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__LAUNCHRUN_ICON));
+		
+		action_launch_debugconf = new Action() {
+			public void run() {
+				int index = combo.getSelectionIndex();
+				if (index != -1) {
+					ILaunchConfiguration selectedLC = mLinker.getSymbexRunConfigurations()[index];
+					if (selectedLC != null) {
+						DebugUITools.launch(selectedLC, "debug");
+					} else {
+						showMessage("Selected Launch Configuration not found");
+					}
+				} else {
+					showMessage("No Launch Configuration selected");
+				}
+			}
+		};
+		action_launch_debugconf.setText("Launch Debug Configuration");
+		action_launch_debugconf.setToolTipText("Launch Selected Debug Configuration");
+		action_launch_debugconf.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__LAUNCHDEBUG_ICON));
+
+		
+		action_opend_runconf = new Action() {
 			public void run() {
 				int index = combo.getSelectionIndex();
 				if (index != -1) {
@@ -151,11 +199,11 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 				}
 			}
 		};
-		action_runconf.setText("Launch Run Configuration");
-		action_runconf.setToolTipText("Launch Selected Run Configuration");
-		action_runconf.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__RUNCONF_ICON));
+		action_opend_runconf.setText("Open Run Configurations...");
+		action_opend_runconf.setToolTipText("Open the Run Configurations Dialog");
+		action_opend_runconf.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__DIALRUN_ICON));
 		
-		Action action_debugconf = new Action() {
+		action_opend_debugconf = new Action() {
 			public void run() {
 				int index = combo.getSelectionIndex();
 				if (index != -1) {
@@ -170,11 +218,9 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 				}
 			}
 		};
-		action_debugconf.setText("Launch Debug Configuration");
-		action_debugconf.setToolTipText("Launch Selected Debug Configuration");
-		action_debugconf.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__RUNDEBUG_ICON));
-		
-		actions = (new Action[] {action_runconf, action_debugconf});
+		action_opend_debugconf.setText("Open Debug Configuration...");
+		action_opend_debugconf.setToolTipText("Open the Debug Configuration Dialog");
+		action_opend_debugconf.setImageDescriptor(UIfmlResources.getImageDescriptor(UIfmlResources.IMAGE__DIALDEBUG_ICON));
 	}
 
 }

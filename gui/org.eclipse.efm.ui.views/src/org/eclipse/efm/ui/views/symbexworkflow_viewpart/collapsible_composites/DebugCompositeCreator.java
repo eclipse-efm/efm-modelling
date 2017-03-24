@@ -19,23 +19,28 @@ import org.eclipse.efm.ui.views.GenericCompositeCreator;
 import org.eclipse.efm.ui.views.SymbexWorkflowView;
 import org.eclipse.efm.ui.views.mitems.ManagerLinker;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
-public class ExpertCompositeCreator extends SectionCompositeCreator {
+public class DebugCompositeCreator extends SectionCompositeCreator {
 	
-	public ExpertCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv) {
-		super(ml, swv);
+	public DebugCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv, ToolBarManager tbm) {
+		super(ml, swv, tbm);
 	}
 	
-	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Action[] actions) {
-		addComposite_internal(toolkit, scrollform, actions, "Expert");
+	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm) {
+		addComposite_internal(toolkit, scrollform, tbm, "Debug");
 	}
 
 	@Override
 	protected void addCollapsedContent(FormToolkit toolkit, ScrolledForm scrollform) {
+		ExpandableComposite developper_composite = toolkit.createExpandableComposite(sectionClient, sectionClient.getStyle());
+		developper_composite.setText("Developper");
 	}
 
 	@Override

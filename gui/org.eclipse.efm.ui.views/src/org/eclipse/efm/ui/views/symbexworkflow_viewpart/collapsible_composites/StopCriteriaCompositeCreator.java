@@ -18,6 +18,8 @@ import org.eclipse.efm.ui.views.GenericCompositeCreator;
 import org.eclipse.efm.ui.views.SymbexWorkflowView;
 import org.eclipse.efm.ui.views.mitems.ManagerLinker;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -32,12 +34,12 @@ public class StopCriteriaCompositeCreator extends SectionCompositeCreator {
 	private Text evalim_steps;
 	private Text evalim_timeout;
 	
-	public StopCriteriaCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv) {
-		super(ml, swv);
+	public StopCriteriaCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv, ToolBarManager tbm) {
+		super(ml, swv, tbm);
 	}
 	
-	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Action[] actions) {
-		addComposite_internal(toolkit, scrollform, actions, "Stop Criteria");
+	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm) {
+		addComposite_internal(toolkit, scrollform, tbm, "Graph Browsing Criteria");
 	}
 
 	@Override
