@@ -16,23 +16,26 @@ package org.eclipse.efm.ui.views;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.part.*;
-import org.eclipse.jface.viewers.*;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.jface.action.*;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.*;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.jface.action.Action;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.efm.ui.views.mitems.ManagerLinker;
 import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.AnalysisProfileCompositeCreator;
+import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.CollapsibleCompositeCreator;
 import org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites.StopCriteriaCompositeCreator;
 
 
@@ -45,30 +48,16 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	
 	private ManagerLinker mLinker;
 	
-	private GridLayout gl_shell;
-	
-	private ILaunchConfiguration selectedLC;
+	public Set<CollapsibleCompositeCreator> collapsibles;
 	
 	private Text text_model_file_path;
-	private Text text_model_file_path2;
-	
-	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
-		public String getColumnText(Object obj, int index) {
-			return getText(obj);
-		}
-		public Image getColumnImage(Object obj, int index) {
-			return getImage(obj);
-		}
-		public Image getImage(Object obj) {
-			return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
-		}
-	}
 	
 	/**
 	 * The constructor.
 	 */
 	public SymbexWorkflowView() {
 		mLinker = new ManagerLinker();
+		collapsibles = new HashSet<CollapsibleCompositeCreator>();
 		}
 
 	/**
@@ -80,25 +69,11 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		
 		selfCreatedMainComposite = GenericCompositeCreator.create_GridListing_HorizontalGrabbing_Composite(parentComposite, 1);
 				
-
 		createContents();
-		//viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		
-		//viewer.setContentProvider(ArrayContentProvider.getInstance());
-		//viewer.setInput(new String[] { "One", "Two", "Three" });
-		//String[] contents = mLinker.getSymbexRunConfigurationNames();
 
-		//viewer.setInput(contents);
-		
-		//viewer.setLabelProvider(new ViewLabelProvider());
-		//getSite().setSelectionProvider(viewer);
 		makeActions();
-		//hookContextMenu();
-		//hookDoubleClickAction();
+
 		contributeToActionBars();
-		
-		
-		
 	}
 	
 	private void addSeparator() {
@@ -120,25 +95,33 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		text_model_file_path = GenericCompositeCreator.createComposite_vertical_label_text(selfCreatedMainComposite, "Model File :");
 		
 		addSeparator();
-		
-		text_model_file_path2 = GenericCompositeCreator.createComposite_horizontal_label_text(selfCreatedMainComposite, "Model File :");
-		
-		addSeparator();
-		StopCriteriaCompositeCreator sccc = new StopCriteriaCompositeCreator(mLinker, combo);
-		sccc.addComposite(selfCreatedMainComposite);
+		new StopCriteriaCompositeCreator(mLinker, this);
 		
 		addSeparator();
-		AnalysisProfileCompositeCreator apcc = new AnalysisProfileCompositeCreator(mLinker, combo);
-		apcc.addComposite(selfCreatedMainComposite);
+		new AnalysisProfileCompositeCreator(mLinker, this);
 		
 		combo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int index = combo.getSelectionIndex();
 				if (index != -1) {
-					String text = mLinker.getSymbexRunConfigurations()[index].getName();
-					text_model_file_path.setText(text);
-					text_model_file_path2.setText(text);
+					ILaunchConfiguration selectedLC = mLinker.getSymbexRunConfigurations()[index];
+					Map<String, Object> lcAttributes;
+					try {
+						lcAttributes = selectedLC.getAttributes();
+						text_model_file_path.setText((String) lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_MODEL_FILE_LOCATION));
+						for(CollapsibleCompositeCreator ccc: collapsibles) {
+							ccc.updateCollapsedContent(lcAttributes);
+						}
+					} catch (CoreException e1) {
+						e1.printStackTrace();
+					}
+				}
+				else {
+					text_model_file_path.setText("...");
+					for(CollapsibleCompositeCreator ccc: collapsibles) {
+						ccc.updateCollapsedContent(new HashMap<String, Object>());
+					}
 				}
 			}
 		});

@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites;
 
+import java.util.Map;
+import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.efm.ui.views.GenericCompositeCreator;
+import org.eclipse.efm.ui.views.SymbexWorkflowView;
 import org.eclipse.efm.ui.views.mitems.ManagerLinker;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -31,8 +31,8 @@ public class StopCriteriaCompositeCreator extends CollapsibleCompositeCreator {
 	private Text evalim_steps;
 	private Text evalim_timeout;
 	
-	public StopCriteriaCompositeCreator(ManagerLinker ml, Combo combo) {
-		super(ml, combo);
+	public StopCriteriaCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv) {
+		super(ml, swv);
 	}
 	
 	public void addComposite(Composite parentComposite) {
@@ -56,17 +56,34 @@ public class StopCriteriaCompositeCreator extends CollapsibleCompositeCreator {
 	}
 
 	@Override
-	protected void updateCollapsedContent() {
-		int index = combo.getSelectionIndex();
-		if (index != -1) {
-			String text = ml.getSymbexRunConfigurations()[index].getName();
-			
-			gslim_nodes.setText(text);
-			gslim_width.setText(text);
-			gslim_height.setText(text);
-			
-			evalim_steps.setText(text);
-			evalim_timeout.setText(text);
+	public void updateCollapsedContent(Map<String, Object> lcAttributes) {
+		if(lcAttributes == null) {
+			lcAttributes = last_lcAttributes;
 		}
+		System.err.println("bip");
+		if(lcAttributes.isEmpty()) {
+			gslim_nodes.setText("...");
+			gslim_width.setText("...");
+			gslim_height.setText("...");
+			
+			evalim_steps.setText("...");
+			evalim_timeout.setText("...");
+		} else {
+			String gsnodes = Integer.toString( (int) lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_STOP_CRITERIA_NODE) );
+			gslim_nodes.setText(gsnodes);
+			
+			String gswidth = Integer.toString( (int) lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_STOP_CRITERIA_WIDTH) );
+			gslim_width.setText(gswidth);
+			
+			String gsheight = Integer.toString( (int)  lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_STOP_CRITERIA_HEIGHT) );
+			gslim_height.setText(gsheight);
+			
+			String evsteps = Integer.toString( (int)  lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_STOP_CRITERIA_STEPS) );
+			evalim_steps.setText(evsteps);
+			
+			String evtimeout = Integer.toString( (int)  lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_STOP_CRITERIA_TIMEOUT) );
+			evalim_timeout.setText(evtimeout);
+		}
+		last_lcAttributes = lcAttributes;
 	}
 }

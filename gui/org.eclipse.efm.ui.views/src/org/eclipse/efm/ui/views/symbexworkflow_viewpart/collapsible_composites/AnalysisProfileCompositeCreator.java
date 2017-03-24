@@ -12,14 +12,13 @@
  *******************************************************************************/
 package org.eclipse.efm.ui.views.symbexworkflow_viewpart.collapsible_composites;
 
+import java.util.Map;
+
+import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.efm.ui.views.GenericCompositeCreator;
+import org.eclipse.efm.ui.views.SymbexWorkflowView;
 import org.eclipse.efm.ui.views.mitems.ManagerLinker;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 public class AnalysisProfileCompositeCreator extends CollapsibleCompositeCreator {
@@ -27,8 +26,8 @@ public class AnalysisProfileCompositeCreator extends CollapsibleCompositeCreator
 	private Text ana_profile;
 	private Text ana_strategy;
 	
-	public AnalysisProfileCompositeCreator(ManagerLinker ml, Combo combo) {
-		super(ml, combo);
+	public AnalysisProfileCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv) {
+		super(ml, swv);
 	}
 	
 	public void addComposite(Composite parentComposite) {
@@ -42,13 +41,20 @@ public class AnalysisProfileCompositeCreator extends CollapsibleCompositeCreator
 	}
 
 	@Override
-	protected void updateCollapsedContent() {
-		int index = combo.getSelectionIndex();
-		if (index != -1) {
-			String text = ml.getSymbexRunConfigurations()[index].getName();
-			
-			ana_profile.setText(text);
-			ana_strategy.setText(text);
+	public void updateCollapsedContent(Map<String, Object> lcAttributes) {
+		if(lcAttributes == null) {
+			lcAttributes = last_lcAttributes;
 		}
+		if(lcAttributes.isEmpty()) {
+			ana_profile.setText("...");
+			ana_strategy.setText("...");
+		} else {
+			String anap = (String) lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_MODEL_ANALYSIS);
+			ana_profile.setText(anap);
+			
+			String anas =(String) lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_ANALYZE_STRATEGY);
+			ana_strategy.setText(anas);
+		}
+		last_lcAttributes = lcAttributes;
 	}
 }
