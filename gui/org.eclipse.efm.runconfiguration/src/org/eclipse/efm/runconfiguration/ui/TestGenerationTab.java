@@ -18,6 +18,7 @@ import org.eclipse.efm.runconfiguration.ui.internal.SWTFactory;
 import org.eclipse.efm.runconfiguration.ui.internal.fieldeditor.BooleanFieldEditor;
 import org.eclipse.efm.runconfiguration.ui.internal.fieldeditor.IntegerFieldEditor;
 import org.eclipse.efm.runconfiguration.ui.internal.fieldeditor.StringFieldEditor;
+import org.eclipse.efm.ui.resources.HelpCoReferee;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -44,7 +45,7 @@ public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
 	 */
 	public TestGenerationTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_testgeneration_tab");
+		setHelpContextId(HelpCoReferee.efm_runconf_testgeneration_tab);
 
 		fBasicTracePage = new TestGenerationBasicTracePage(this);
 

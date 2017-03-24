@@ -15,6 +15,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.runconfiguration.LaunchConfigurationTabGroup;
 import org.eclipse.efm.runconfiguration.ui.internal.SWTFactory;
+import org.eclipse.efm.ui.resources.HelpCoReferee;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -38,7 +39,7 @@ public class ExpertTab extends AbstractSewLaunchConfigurationTab {
 	 */
 	public ExpertTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_expert_tab");
+		setHelpContextId(HelpCoReferee.efm_runconf_expert_tab);
 
 		fTabName = "Expert";
 

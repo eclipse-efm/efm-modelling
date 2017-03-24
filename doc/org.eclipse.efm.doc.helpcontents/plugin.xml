@@ -1,12 +1,11 @@
-<plugin name="EFM Help Contents" id="org.eclipse.diversity.documentation"
+<plugin name="EFM Help Contents" id="org.eclipse.efm.doc.helpcontents"
    version="1.0.0" provider-name="CEA_LIST">
    <extension point="org.eclipse.help.toc">
       <toc file="resources/docs/toc.xml" primary="true" />
    </extension>
 	<extension point="org.eclipse.help.contexts">
 		<contexts
-			file="help_contexts.xml"
-			plugin="org.eclipse.efm.sew.launcher">
+			file="help_contexts.xml">
 		</contexts> 
 	</extension>
 </plugin>

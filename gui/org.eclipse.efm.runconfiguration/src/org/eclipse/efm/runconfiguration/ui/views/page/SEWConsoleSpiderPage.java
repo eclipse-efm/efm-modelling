@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.IOConsole;
 import org.eclipse.ui.part.Page;
+import org.eclipse.efm.ui.resources.HelpCoReferee;
 
 @SuppressWarnings("unused")
 public class SEWConsoleSpiderPage extends Page
@@ -97,7 +98,7 @@ public class SEWConsoleSpiderPage extends Page
 	public void createControl(Composite parent) {
         fMainPageControl = new Composite(parent, SWT.RESIZE | SWT.BORDER);
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(fMainPageControl, "org.eclipse.efm.runconfiguration.efm_sew_console");
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(fMainPageControl, HelpCoReferee.efm_sew_console);
 
 		IPreferenceStore prefs = org.eclipse.efm.runconfiguration.
 				Activator.getDefault().getPreferenceStore();

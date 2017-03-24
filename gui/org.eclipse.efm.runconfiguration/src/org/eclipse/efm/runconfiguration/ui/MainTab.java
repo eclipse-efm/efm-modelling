@@ -26,6 +26,7 @@ import org.eclipse.efm.runconfiguration.LaunchDelegate;
 import org.eclipse.efm.runconfiguration.ToolConstants;
 import org.eclipse.efm.runconfiguration.ui.internal.SWTFactory;
 import org.eclipse.efm.runconfiguration.ui.internal.fieldeditor.StringFieldEditor;
+import org.eclipse.efm.ui.resources.HelpCoReferee;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -123,7 +124,7 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 	 */
 	public MainTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_main_tab");
+		setHelpContextId(HelpCoReferee.efm_runconf_main_tab);
 
 		if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
 

@@ -19,6 +19,7 @@ import org.eclipse.efm.runconfiguration.ui.internal.SWTFactory;
 import org.eclipse.efm.runconfiguration.ui.internal.fieldeditor.BooleanFieldEditor;
 import org.eclipse.efm.runconfiguration.ui.internal.fieldeditor.StringFieldEditor;
 import org.eclipse.efm.runconfiguration.workflow.common.DebuglevelKind;
+import org.eclipse.efm.ui.resources.HelpCoReferee;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -132,7 +133,7 @@ public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
 
 	public DeveloperTuningTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_debug_tab");
+		setHelpContextId(HelpCoReferee.efm_runconf_debug_tab);
 	}
 
 	Composite simpleComposite;

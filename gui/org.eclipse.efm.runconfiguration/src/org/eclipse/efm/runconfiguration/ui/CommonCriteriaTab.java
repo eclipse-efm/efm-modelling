@@ -30,12 +30,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
+import org.eclipse.efm.ui.resources.HelpCoReferee;
+
 
 public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 
 	public CommonCriteriaTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_commoncriteria_tab");
+		setHelpContextId(HelpCoReferee.efm_runconf_commoncriteria_tab);
 	}
 
 //	public static final String ATTR_BEHAVIOR_ANALYSIS_TRANSITION_NAME =

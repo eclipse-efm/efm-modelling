@@ -34,6 +34,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
+import org.eclipse.efm.ui.resources.HelpCoReferee;
+
 
 public class DebugTab extends AbstractSewLaunchConfigurationTab {
 
@@ -97,7 +99,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 	public DebugTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_debug_tab");
+		setHelpContextId(HelpCoReferee.efm_runconf_debug_tab);
 
 		if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
 			IPreferenceStore prefs =

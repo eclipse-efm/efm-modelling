@@ -27,10 +27,15 @@ public class UIfmlResources {
 	
 	
 	// Icons only below
-	
+	public static final String IMAGE__HELP_ICON = RESOURCES_PLUGIN_PATH + "/icons/help.png";
 	public static final String IMAGE__DIVERSITY_ICON = RESOURCES_PLUGIN_PATH + "/icons/diversity_icon.png";
 	public static final String IMAGE__REVERT_ICON = RESOURCES_PLUGIN_PATH + "/icons/revert.gif";
 	public static final String IMAGE__PUSH_ICON = RESOURCES_PLUGIN_PATH + "/icons/push.png";
+	public static final String IMAGE__LAUNCHDEBUG_ICON = RESOURCES_PLUGIN_PATH + "/icons/debug_exc.png";
+	public static final String IMAGE__LAUNCHRUN_ICON = RESOURCES_PLUGIN_PATH + "/icons/run_exc.png";
+	
+	public static final String IMAGE__DIALDEBUG_ICON = RESOURCES_PLUGIN_PATH + "/icons/debug_dial.png";
+	public static final String IMAGE__DIALRUN_ICON = RESOURCES_PLUGIN_PATH + "/icons/run_dial.png";
 	
 	// Helper/Util methods only below
 	

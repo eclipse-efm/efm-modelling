@@ -60,7 +60,6 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 
 	public NonRegressionTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_main_tab");
 	}
 
 	public static final String ATTR_ENABLED_NON_REGRESSION =
