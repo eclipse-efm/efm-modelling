@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 import org.eclipse.efm.ui.views.SymbexWorkflowView;
-import org.eclipse.efm.ui.views.mitems.ManagerLinker;
+import org.eclipse.efm.ui.views.mitems.LaunchManagerSWVlinker;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
@@ -37,12 +37,10 @@ public abstract class SectionCompositeCreator {
 
 	protected Map<String, Object> last_lcAttributes;
 	
-	protected ManagerLinker ml;
 	private Section section;
 	protected Composite sectionClient;
 	
-	public SectionCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv, ToolBarManager tbm) {
-		this.ml = ml;
+	public SectionCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm) {
 		last_lcAttributes = new HashMap<String, Object>();
 		swv.compositeSections.add(this);
 		this.addComposite(swv.toolkit, swv.scrollform, tbm);

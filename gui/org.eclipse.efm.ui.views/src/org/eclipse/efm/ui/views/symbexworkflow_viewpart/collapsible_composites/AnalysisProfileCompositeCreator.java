@@ -17,7 +17,7 @@ import java.util.Map;
 import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.efm.ui.views.GenericCompositeCreator;
 import org.eclipse.efm.ui.views.SymbexWorkflowView;
-import org.eclipse.efm.ui.views.mitems.ManagerLinker;
+import org.eclipse.efm.ui.views.mitems.LaunchManagerSWVlinker;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
@@ -32,8 +32,8 @@ public class AnalysisProfileCompositeCreator extends SectionCompositeCreator {
 	private Text ana_profile;
 	private Text ana_strategy;
 	
-	public AnalysisProfileCompositeCreator(ManagerLinker ml, SymbexWorkflowView swv, ToolBarManager tbm) {
-		super(ml, swv, tbm);
+	public AnalysisProfileCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm) {
+		super(swv, tbm);
 	}
 	
 	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm) {

@@ -42,6 +42,9 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart {
 		scrollform.setText("Run Configuration");
 		GridLayout layout = new GridLayout(1, false);
 		scrollform.getBody().setLayout(layout);
+
+		//scrollform.addHelpListener(listener);
+		//this.setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_commoncriteria_tab");
 	}
 
 	protected void setupTopLevelActionBars(Action[] acts) {

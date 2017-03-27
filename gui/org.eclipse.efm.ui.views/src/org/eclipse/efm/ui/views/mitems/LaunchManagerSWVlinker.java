@@ -18,17 +18,17 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
 
-public class ManagerLinker {
+public class LaunchManagerSWVlinker {
 	
-	private ILaunchManager lc_manager;
+	private static final String SYMBEX_LAUNCH_CONFIGURATION_ID = "org.eclipse.efm.runconfiguration.launchConfigurationType";
 	
-	private String SYMBEX_LAUNCH_CONFIGURATION_ID = "org.eclipse.efm.runconfiguration.launchConfigurationType";
-	private ILaunchConfigurationType lc_symbex_type;
+	private static ILaunchManager lc_manager;
+	private static ILaunchConfigurationType lc_symbex_type;
+	private static ILaunchConfiguration[] lcs;
 	
-	public ILaunchConfiguration[] getSymbexRunConfigurations() {
+	public static ILaunchConfiguration[] getSymbexRunConfigurations() {
 		lc_manager = DebugPlugin.getDefault().getLaunchManager();
 		lc_symbex_type = lc_manager.getLaunchConfigurationType(SYMBEX_LAUNCH_CONFIGURATION_ID);
-		ILaunchConfiguration[] lcs;
 		try {
 			lcs = lc_manager.getLaunchConfigurations(lc_symbex_type);
 		} catch (CoreException e) {
@@ -49,7 +49,7 @@ public class ManagerLinker {
 		
 	}
 	
-	public String[] getSymbexRunConfigurationNames() {
+	public static String[] getSymbexRunConfigurationNames() {
 		ILaunchConfiguration[] lcs = getSymbexRunConfigurations();
 		String[] contents = new String[lcs.length];
 		for (int i=0; i<lcs.length; i++) {
