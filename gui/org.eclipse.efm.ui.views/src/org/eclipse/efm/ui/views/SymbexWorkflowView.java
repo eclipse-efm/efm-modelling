@@ -15,18 +15,27 @@ package org.eclipse.efm.ui.views;
 
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.forms.widgets.ScrolledPageBook;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -69,16 +78,36 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	public void createPartControl(Composite parent) {
 		parentComposite = parent;
 		compositeSections = new HashSet<SectionCompositeCreator>();
+		
+		// Actions
 		makeActions();
-
-		setupFormFrame();
-		createContents();
-
 		setupTopLevelActionBars(new Action[] {action_launch_runconf, action_launch_debugconf, action_opend_runconf, action_opend_debugconf});
+		
+		// Frame
+		setupFormFrame();
+		
+		combo = new Combo(scrollform.getBody(), SWT.READ_ONLY);
+		UpdateSymbexWorkflowViewListener.updateAnySWVcombo(combo);
+		
+		text_model_file_path = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, scrollform.getBody(), "Model File :", 1);
+		
+		tabbedCompositeMaster = toolkit.createComposite(scrollform.getBody());
+		GridLayout gl = new GridLayout(1, false);
+		tabbedCompositeMaster.setLayout(gl);
+		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true);
+		tabbedCompositeMaster.setLayoutData(gd);
+		
+		tabFolder = new CTabFolder( tabbedCompositeMaster, SWT.BOTTOM );
+	    tabFolder.setLayoutData(new GridData(SWT.FILL,SWT.FILL, true, true));
+	    toolkit.adapt(tabFolder, true, true);
+		
+	    createSectionsContent();
 	
 		//PlatformUI.getWorkbench().getHelpSystem().setHelp(this, "");
 		
 		addUpdateSWVlistener();
+		
+
 	}
 	
 	private void addUpdateSWVlistener() {
@@ -96,36 +125,60 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
-	private void createContents() {
-		combo = new Combo(scrollform.getBody(), SWT.READ_ONLY);
-		UpdateSymbexWorkflowViewListener.updateAnySWVcombo(combo);
+	private Composite createTabItemAndComposite(String tabname) {
+		CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE );
+		tabItem.setText(tabname);
 		
-		text_model_file_path = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, scrollform.getBody(), "Model File :", 1);
+		Composite tbcomp = toolkit.createComposite(tabFolder);
 		
+		GridLayout gl = new GridLayout(1, false);
+		tbcomp.setLayout(gl);
+		
+		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true);
+		tbcomp.setLayoutData(gd);
+		
+		tabItem.setControl(tbcomp);
+		
+		return tbcomp;
+	}
+	
+	private void createSectionsContent() {
 		ToolBarManager tbm;
 		
-		tbm = new ToolBarManager(SWT.FLAT);
-		fillToolBar(tbm, new Action[] {action_launch_runconf});
-		new AnalysisProfileCompositeCreator(this, tbm);
+		Composite overview_tbcomp = createTabItemAndComposite("Overview");
 		
 		tbm = new ToolBarManager(SWT.FLAT);
 		fillToolBar(tbm, new Action[] {action_launch_runconf});
-		new StopCriteriaCompositeCreator(this, tbm);
+		new AnalysisProfileCompositeCreator(this, tbm, overview_tbcomp);
+		
+		tbm = new ToolBarManager(SWT.FLAT);
+		fillToolBar(tbm, new Action[] {action_launch_runconf});
+		new StopCriteriaCompositeCreator(this, tbm, overview_tbcomp);
 		
 		tbm = new ToolBarManager(SWT.FLAT);
 		fillToolBar(tbm, new Action[] {action_launch_runconf, action_opend_runconf});
-		new ExecutionCompositeCreator(this, tbm);
+		new ExecutionCompositeCreator(this, tbm, overview_tbcomp);
+		
+		
+		
+		Composite testgen_tbcomp = createTabItemAndComposite("Test Generation");
 		
 		tbm = new ToolBarManager(SWT.FLAT);
 		fillToolBar(tbm, new Action[] {action_launch_runconf});
-		new TestGenCompositeCreator(this, tbm);
+		new TestGenCompositeCreator(this, tbm, testgen_tbcomp);
+		
+		
+		
+		Composite debug_tbcomp = createTabItemAndComposite("Debug");
 		
 		tbm = new ToolBarManager(SWT.FLAT);
 		fillToolBar(tbm, new Action[] {action_launch_debugconf, action_opend_debugconf});
-		new DebugCompositeCreator(this, tbm);
+		new DebugCompositeCreator(this, tbm, debug_tbcomp);
+
+		
+	    tabFolder.setSelection(0);
 		
 		combo.addSelectionListener(new SelectionAdapter() {
 			@Override

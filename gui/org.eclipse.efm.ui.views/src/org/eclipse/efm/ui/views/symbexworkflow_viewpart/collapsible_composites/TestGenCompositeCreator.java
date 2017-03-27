@@ -22,6 +22,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -36,16 +37,16 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 public class TestGenCompositeCreator extends SectionCompositeCreator {
 	
-	public TestGenCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm) {
-		super(swv, tbm);
+	public TestGenCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm, Composite innertabcompo) {
+		super(swv, tbm, innertabcompo);
 	}
 	
-	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm) {
-		addComposite_internal(toolkit, scrollform, tbm, "Test Generation");
+	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Composite innertabcompo, IToolBarManager tbm) {
+		addComposite_internal(toolkit, scrollform, innertabcompo, tbm, "Test Generation");
 	}
 
 	@Override
-	protected void addCollapsedContent(FormToolkit toolkit, ScrolledForm scrollform) {
+	protected void addCollapsedContent(FormToolkit toolkit) {
 		ExpandableComposite tracext_composite = toolkit.createExpandableComposite(sectionClient, sectionClient.getStyle());
 		tracext_composite.setText("Trace Extension");
 		

@@ -21,6 +21,8 @@ import org.eclipse.efm.ui.views.mitems.LaunchManagerSWVlinker;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.Form;
@@ -32,16 +34,16 @@ public class AnalysisProfileCompositeCreator extends SectionCompositeCreator {
 	private Text ana_profile;
 	private Text ana_strategy;
 	
-	public AnalysisProfileCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm) {
-		super(swv, tbm);
+	public AnalysisProfileCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm, Composite innertabcompo) {
+		super(swv, tbm, innertabcompo);
 	}
 	
-	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm) {
-		addComposite_internal(toolkit, scrollform, tbm, "Analysis");
+	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Composite innertabcompo, IToolBarManager tbm) {
+		addComposite_internal(toolkit, scrollform, innertabcompo, tbm, "Analysis");
 	}
 
 	@Override
-	protected void addCollapsedContent(FormToolkit toolkit, ScrolledForm scrollform) {
+	protected void addCollapsedContent(FormToolkit toolkit) {
 		ana_profile = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Profile :", 2);
 		ana_strategy = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Strategy :", 2); 
 	

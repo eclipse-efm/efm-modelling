@@ -22,6 +22,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -37,19 +38,19 @@ public abstract class SectionCompositeCreator {
 
 	protected Map<String, Object> last_lcAttributes;
 	
-	private Section section;
+	public Section section;
 	protected Composite sectionClient;
 	
-	public SectionCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm) {
+	public SectionCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm, Composite innertabcompo) {
 		last_lcAttributes = new HashMap<String, Object>();
 		swv.compositeSections.add(this);
-		this.addComposite(swv.toolkit, swv.scrollform, tbm);
+		this.addComposite(swv.toolkit, swv.scrollform, innertabcompo, tbm);
 	}
 	
-	public abstract void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm);
+	public abstract void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Composite innertabcompo, IToolBarManager tbm);
 	
-	protected void addComposite_internal(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm, String title) {
-		section = toolkit.createSection(scrollform.getBody(), Section.DESCRIPTION|Section.TWISTIE|Section.TITLE_BAR|Section.EXPANDED);
+	protected void addComposite_internal(FormToolkit toolkit, ScrolledForm scrollform, Composite innertabcompo, IToolBarManager tbm, String title) {
+		section = toolkit.createSection(innertabcompo, Section.DESCRIPTION|Section.TWISTIE|Section.TITLE_BAR|Section.EXPANDED);
 		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
 		section.setLayoutData(gd);
 		section.addExpansionListener(new ExpansionAdapter() {
@@ -66,11 +67,11 @@ public abstract class SectionCompositeCreator {
 		
 		sectionClient = toolkit.createComposite(section);
 		sectionClient.setLayout(new GridLayout());
-		addCollapsedContent(toolkit, scrollform);
+		addCollapsedContent(toolkit);
 		section.setClient(sectionClient);
 	}
 	
-	protected abstract void addCollapsedContent(FormToolkit toolkit, ScrolledForm scrollform);
+	protected abstract void addCollapsedContent(FormToolkit toolkit);
 	
 	public abstract void updateCollapsedContent(Map<String, Object> lcAttributes);
 }

@@ -21,6 +21,8 @@ import org.eclipse.efm.ui.views.mitems.LaunchManagerSWVlinker;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -28,16 +30,16 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 public class ExecutionCompositeCreator extends SectionCompositeCreator {
 	
-	public ExecutionCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm) {
-		super(swv, tbm);
+	public ExecutionCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm, Composite innertabcompo) {
+		super(swv, tbm, innertabcompo);
 	}
 	
-	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm) {
-		addComposite_internal(toolkit, scrollform, tbm, "Execution");
+	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Composite innertabcompo, IToolBarManager tbm) {
+		addComposite_internal(toolkit, scrollform, innertabcompo, tbm, "Execution");
 	}
 
 	@Override
-	protected void addCollapsedContent(FormToolkit toolkit, ScrolledForm scrollform) {
+	protected void addCollapsedContent(FormToolkit toolkit) {
 	}
 
 	@Override

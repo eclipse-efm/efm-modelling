@@ -26,6 +26,7 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -35,6 +36,8 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart {
 	
 	public FormToolkit toolkit;
 	public ScrolledForm scrollform;
+	protected Composite tabbedCompositeMaster;
+	public CTabFolder tabFolder;
 	
 	protected void setupFormFrame() {
 		toolkit = new FormToolkit(parentComposite.getDisplay());

@@ -21,6 +21,8 @@ import org.eclipse.efm.ui.views.mitems.LaunchManagerSWVlinker;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.Form;
@@ -29,16 +31,16 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 public class DebugCompositeCreator extends SectionCompositeCreator {
 	
-	public DebugCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm) {
-		super(swv, tbm);
+	public DebugCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm, Composite innertabcompo) {
+		super(swv, tbm, innertabcompo);
 	}
 	
-	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm) {
-		addComposite_internal(toolkit, scrollform, tbm, "Debug");
+	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Composite innertabcompo, IToolBarManager tbm) {
+		addComposite_internal(toolkit, scrollform, innertabcompo, tbm, "Debug");
 	}
 
 	@Override
-	protected void addCollapsedContent(FormToolkit toolkit, ScrolledForm scrollform) {
+	protected void addCollapsedContent(FormToolkit toolkit) {
 		ExpandableComposite developper_composite = toolkit.createExpandableComposite(sectionClient, sectionClient.getStyle());
 		developper_composite.setText("Developper");
 	}

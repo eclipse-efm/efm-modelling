@@ -20,6 +20,8 @@ import org.eclipse.efm.ui.views.mitems.LaunchManagerSWVlinker;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -34,16 +36,16 @@ public class StopCriteriaCompositeCreator extends SectionCompositeCreator {
 	private Text evalim_steps;
 	private Text evalim_timeout;
 	
-	public StopCriteriaCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm) {
-		super(swv, tbm);
+	public StopCriteriaCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm, Composite innertabcompo) {
+		super(swv, tbm, innertabcompo);
 	}
 	
-	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, IToolBarManager tbm) {
-		addComposite_internal(toolkit, scrollform, tbm, "Graph Browsing Criteria");
+	public void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Composite innertabcompo, IToolBarManager tbm) {
+		addComposite_internal(toolkit, scrollform, innertabcompo, tbm, "Graph Browsing Criteria");
 	}
 
 	@Override
-	protected void addCollapsedContent(FormToolkit toolkit, ScrolledForm scrollform) {
+	protected void addCollapsedContent(FormToolkit toolkit) {
 		toolkit.createLabel(sectionClient, "Graph size limits");
 		
 		gslim_nodes = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, sectionClient, "Nodes :", 2);
