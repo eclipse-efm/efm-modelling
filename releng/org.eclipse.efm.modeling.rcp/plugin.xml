@@ -31,11 +31,11 @@
          </property>
          <property
                name="startupMessageRect"
-               value="7,4,445,16">
+               value="100,10,445,16">
          </property>
          <property
                name="startupProgressRect"
-               value="0,330,460,20">
+               value="8,316,470,15">
          </property>
          <property
 				name="cssTheme"

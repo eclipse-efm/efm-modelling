@@ -32,8 +32,8 @@ Apache Software Foundation http://www.apache.org/
 
    <splash
       location="org.eclipse.efm.modeling.rcp"
-      startupProgressRect="0,330,460,20"
-      startupMessageRect="7,4,445,16"
+      startupProgressRect="8,316,470,15"
+      startupMessageRect="100,10,445,16"
       startupForegroundColor="9C9E9F" />
    <launcher name="efm-papyrus">
       <linux icon="../org.eclipse.efm.modeling.rcp/icons/icon.xpm"/>
@@ -44,7 +44,6 @@ Apache Software Foundation http://www.apache.org/
          <bmp/>
       </win>
    </launcher>
-
 
    <vm>
       <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</windows>

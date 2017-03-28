@@ -28,8 +28,8 @@ Apache Software Foundation http://www.apache.org/
 
    <splash
       location="org.eclipse.efm.modeling.rcp"
-      startupProgressRect="0,330,460,20"
-      startupMessageRect="7,4,445,16"
+      startupProgressRect="8,316,470,15"
+      startupMessageRect="100,10,445,16"
       startupForegroundColor="9C9E9F" />
    <launcher name="efm-basic">
       <linux icon="../org.eclipse.efm.modeling.rcp/icons/icon.xpm"/>
