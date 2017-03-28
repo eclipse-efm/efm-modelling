@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,13 +7,14 @@
  *
  * Contributors:
  *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - Initial API and implementation
+ *     Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New Interfacing (ILaunchConfigurationEditorComposite)
  *******************************************************************************/
 package org.eclipse.efm.ui.views.editors.impls;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.ui.views.utils.LaunchConfigurationEditorCommunicationInterface;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -30,12 +31,12 @@ public class IntegerFieldEditor extends StringFieldEditor {
     private static final int DEFAULT_TEXT_LIMIT = 10;
 
 
-	public IntegerFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+	public IntegerFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
 			String storeKey, String labelText, Composite parent, int defaultValue) {
 		this(fLaunchConfCommInt, storeKey, labelText, parent, DEFAULT_TEXT_LIMIT, defaultValue);
 	}
 
-	public IntegerFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+	public IntegerFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
 			String storeKey, String labelText, Composite parent, int textLimit, int defaultValue) {
 		super( Integer.toString(defaultValue) , true );
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - Initial API and implementation
+ *     Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New Interfacing (ILaunchConfigurationEditorComposite)
  *******************************************************************************/
 package org.eclipse.efm.ui.views.editors.impls;
 
@@ -14,7 +15,7 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.ui.views.utils.LaunchConfigurationEditorCommunicationInterface;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -175,7 +176,7 @@ public class StringFieldEditor extends FieldEditor {
      * @param parent the parent of the field editor's control
      * @since 2.0
      */
-	public StringFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+	public StringFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
 			String storeKey, String labelText, int width,
             int strategy, Composite parent, String defaultValue, int textFieldStyle) {
 		this.fDefaultValue = defaultValue;
@@ -193,13 +194,13 @@ public class StringFieldEditor extends FieldEditor {
     }
 
 	
-	public StringFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+	public StringFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
 			String storeKey, String labelText, Composite parent, String defaultValue) {
         this(fLaunchConfCommInt, storeKey, labelText, UNLIMITED,
         		VALIDATE_ON_KEY_STROKE, parent, defaultValue, SWT.SINGLE);
 	}
 
-	public StringFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+	public StringFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
 			String storeKey, String labelText, Composite parent, String defaultValue, int textFieldStyle) {
         this(fLaunchConfCommInt, storeKey, labelText, UNLIMITED,
         		VALIDATE_ON_KEY_STROKE, parent, defaultValue, textFieldStyle);
@@ -215,7 +216,7 @@ public class StringFieldEditor extends FieldEditor {
      *  or <code>UNLIMITED</code> for no limit
      * @param parent the parent of the field editor's control
      */
-    public StringFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+    public StringFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
     		String storeKey, String labelText, int width, Composite parent) {
         this(fLaunchConfCommInt, storeKey, labelText, width,
         		VALIDATE_ON_KEY_STROKE, parent, "", SWT.SINGLE);
@@ -229,7 +230,7 @@ public class StringFieldEditor extends FieldEditor {
      * @param labelText the label text of the field editor
      * @param parent the parent of the field editor's control
      */
-    public StringFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+    public StringFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
     		String storeKey, String labelText, Composite parent) {
         this(fLaunchConfCommInt, storeKey, labelText, UNLIMITED, parent);
     }

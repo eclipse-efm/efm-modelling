@@ -1,25 +1,26 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial API and implementation
+ *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+
+package org.eclipse.efm.ui.views.launchconfigurations.components;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.core.workflow.Activator;
-import org.eclipse.efm.runconfiguration.LaunchConfigurationTabGroup;
+import org.eclipse.efm.core.workflow.common.GraphExplorationStrategyKind;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.IntegerFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
-import org.eclipse.efm.core.workflow.common.GraphExplorationStrategyKind;
-import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -28,67 +29,62 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ContainerSelectionDialog;
-import org.eclipse.efm.ui.resources.HelpCoReferee;
 
+public class CommonCriteriaCompositeMaker extends AbstractCompositeMaker {
 
-public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
-
-	public CommonCriteriaTab(LaunchConfigurationTabGroup groupTab) {
-		super(groupTab);
-		setHelpContextId(HelpCoReferee.efm_runconf_commoncriteria_tab);
-	}
-
-//	public static final String ATTR_BEHAVIOR_ANALYSIS_TRANSITION_NAME =
-//			Activator.PLUGIN_ID + ".ATTR_BEHAVIOR_ANALYSIS_TRANSITION_NAME"; //$NON-NLS-1$
+	//	public static final String ATTR_BEHAVIOR_ANALYSIS_TRANSITION_NAME =
+	//	Activator.PLUGIN_ID + ".ATTR_BEHAVIOR_ANALYSIS_TRANSITION_NAME"; //$NON-NLS-1$
 
 	private IntegerFieldEditor fNodeIntegerField;
 	private IntegerFieldEditor fWidthIntegerField;
 	private IntegerFieldEditor fHeightIntegerField;
 	private IntegerFieldEditor fStepsIntegerField;
 	private IntegerFieldEditor fTimeoutIntegerField;
-//	private StringFieldEditor fTransitionNameStringField;
+	//private StringFieldEditor fTransitionNameStringField;
 	private BooleanFieldEditor fInclusionCriterionBooleanField;
-
+	
 	private Button fBFSButton = null;
 	private Button fDFSButton = null;
 	private Button fRFSButton = null;
-
+	
 	private GraphExplorationStrategyKind fAnalyzeStrategy =
-			GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
-
+		GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
+	
 	private Group groupAnalyzeStrategy;
-//	private Group groupBehaviorCharacterization;
+	//private Group groupBehaviorCharacterization;
 	private Group groupInclusionCriterion;
 
+	public CommonCriteriaCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
+	}
+	
 
-	private class TabListener extends SelectionAdapter implements ModifyListener {
-
+	private final class TabListener extends SelectionAdapter implements ModifyListener {
+		
 		/* (non-Javadoc)
 		 * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
 		 */
 		@Override
 		public void modifyText(ModifyEvent e) {
-			updateLaunchConfigurationDialog();
+			propagateGUIupdate();
 		}
-
+		
 		/* (non-Javadoc)
 		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
 		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			Object source= e.getSource();
-//			if (source == fViewer.getTable() || source == fViewer) {
-//				setParametersButtonsEnableState();
-//			} else if (source == fParametersAddButton) {
-//				handleParametersAddButtonSelected();
-//			} else if (source == fParametersEditButton) {
-//				handleParametersEditButtonSelected();
-//			} else if (source == fParametersRemoveButton) {
-//				handleParametersRemoveButtonSelected();
-//			}
-
+		//	if (source == fViewer.getTable() || source == fViewer) {
+		//		setParametersButtonsEnableState();
+		//	} else if (source == fParametersAddButton) {
+		//		handleParametersAddButtonSelected();
+		//	} else if (source == fParametersEditButton) {
+		//		handleParametersEditButtonSelected();
+		//	} else if (source == fParametersRemoveButton) {
+		//		handleParametersRemoveButtonSelected();
+		//	}
+		
 			// Use case Analysis
 			if (source == fBFSButton) {
 				handleBFSButtonSelected();
@@ -105,58 +101,49 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 	private TabListener fListener= new TabListener();
 
 
-	/**
-	 * Returns the {@link IDialogSettings} for the given id
-	 *
-	 * @param id the id of the dialog settings to get
-	 * @return the {@link IDialogSettings} to pass into the {@link ContainerSelectionDialog}
-	 * @since 3.6
-	 */
-	IDialogSettings getDialogBoundsSettings(String id) {
-		IDialogSettings settings = Activator.getDefault().getDialogSettings();
-		IDialogSettings section = settings.getSection(id);
-		if (section == null) {
-			section = settings.addNewSection(id);
-		}
-		return section;
-	}
+	// ======================================================================================
+	//                              Buttons handling
+	// ======================================================================================
 
 	public void handleBFSButtonSelected() {
 		if( fBFSButton.getSelection() ) {
 			fAnalyzeStrategy = GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
 		}
-		updateLaunchConfigurationDialog();
+		propagateGUIupdate();
 	}
 
 	public void handleDFSButtonSelected() {
 		if( fDFSButton.getSelection() ) {
 			fAnalyzeStrategy = GraphExplorationStrategyKind.DEPTH_FIRST_SEARCH;
 		}
-		updateLaunchConfigurationDialog();
+		propagateGUIupdate();
 	}
 
 	public void handleRFSButtonSelected() {
 		if( fRFSButton.getSelection() ) {
 			fAnalyzeStrategy = GraphExplorationStrategyKind.RANDOM_FIRST_SEARCH;
 		}
-		updateLaunchConfigurationDialog();
+		propagateGUIupdate();
 	}
-
+	
+	// ======================================================================================
+	//                              Graphical Components Creation Methods
+	// ======================================================================================
+	
 	@Override
-	public void createControl(Composite parent) {
+	public Composite createControlMain(Composite parent) {
 		Composite simpleComposite = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
-		setControl(simpleComposite);
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), getHelpContextId());
 
 		createControlNodesHeightWidth(simpleComposite);
 		createControlEvaluationLimits(simpleComposite);
 		createAnalyzeStrategy(simpleComposite);
 		createControlInclusionCriterion(simpleComposite);
 //		createBehaviorCharacterization(simpleComposite);
+		
+		return simpleComposite;
 	}
-
-
-	public void createControlNodesHeightWidth(Composite parent) {
+	
+	private void createControlNodesHeightWidth(Composite parent) {
         Group group = SWTFactory.createGroup(parent, "Graph size limits", 5, 2, GridData.FILL_HORIZONTAL);
 
         Composite comp = SWTFactory.createComposite(group, 1, 1, GridData.FILL_HORIZONTAL);
@@ -177,7 +164,7 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 				"Maximal height (-1 <=> no-limit) of the symbolic execution tree");
 	}
 
-	public void createControlEvaluationLimits(Composite parent) {
+	private void createControlEvaluationLimits(Composite parent) {
         Group group = SWTFactory.createGroup(parent,
         		"Evaluation limits", 5, 2, GridData.FILL_HORIZONTAL);
 
@@ -197,7 +184,7 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 				+ "(-1 <=> no-limit) of the symbolic execution");
 	}
 
-	public void createControlInclusionCriterion(Composite parent) {
+	private void createControlInclusionCriterion(Composite parent) {
         groupInclusionCriterion = SWTFactory.createGroup(parent,
         		"Inclusion Criterion", 5, 2, GridData.FILL_HORIZONTAL);
 
@@ -244,48 +231,14 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 //				"&Transition Name List:", comp,
 //				"Select a transition name list");
 //	}
-
-
-	/**
-	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(ILaunchConfiguration)
-	 */
+	
+	
+	// ======================================================================================
+	//                              Fields Values Management
+	// ======================================================================================	
+	
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
-		setErrorMessage(null);
-
-		if( ! fNodeIntegerField.isValid() ) {
-			setErrorMessage("Node is not a valid integer");
-			return false;
-		}
-		if( ! fWidthIntegerField.isValid() ) {
-			setErrorMessage("Width is not a valid integer");
-			return false;
-		}
-		if( ! fHeightIntegerField.isValid() ) {
-			setErrorMessage("Height is not a valid integer");
-			return false;
-		}
-		if( ! fStepsIntegerField.isValid() ) {
-			setErrorMessage("Evaluation Steps is not a valid integer");
-			return false;
-		}
-
-		if( ! fTimeoutIntegerField.isValid() ) {
-			setErrorMessage("Timeout is not a valid integer");
-			return false;
-		}
-
-//		if( ! fTransitionNameStringField.isValid() ) {
-//			setErrorMessage("Transition Name is not a valid string");
-//			return false;
-//		}
-
-		return true;
-	}
-
-
-	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 //		fNodeIntegerField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_STOP_CRITERIA_NODE, -1);
@@ -302,7 +255,7 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
     	String fModelAnalysis;
 		try {
 			fModelAnalysis = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
+					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
 
 			if ( fModelAnalysis.equals(
 					ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
@@ -330,10 +283,9 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_ANALYZE_STRATEGY, "BFS");
 	}
-
-
+	
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
 		fNodeIntegerField.initializeFrom(configuration);
 		fWidthIntegerField.initializeFrom(configuration);
 		fHeightIntegerField.initializeFrom(configuration);
@@ -377,10 +329,10 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
     	String fAnalysisProfile;
 		try {
 			fModelAnalysis = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
+					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
 
 			fAnalysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 
 			if ( fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION)
 				|| fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR)
@@ -390,8 +342,8 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 //				fRFSButton.setEnabled(false);
 
 //				groupAnalyzeStrategy.setVisible(false);
-				visibleAndExclude(groupAnalyzeStrategy,false);
-				visibleAndExclude(groupInclusionCriterion,false);
+				propagateVisibility(groupAnalyzeStrategy,false);
+				propagateVisibility(groupInclusionCriterion,false);
 
 				fBFSButton.setSelection(false);
 				fDFSButton.setSelection(false);
@@ -402,8 +354,8 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 //				fDFSButton.setEnabled(true);
 //				fRFSButton.setEnabled(true);
 				groupAnalyzeStrategy.setVisible(true);
-				visibleAndExclude(groupAnalyzeStrategy,true);
-				visibleAndExclude(groupInclusionCriterion,true);
+				propagateVisibility(groupAnalyzeStrategy,true);
+				propagateVisibility(groupInclusionCriterion,true);
 
 				switch( fAnalyzeStrategy ) {
 				case BREADTH_FIRST_SEARCH:
@@ -456,11 +408,10 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//	}
-
+//	}	
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
 		fNodeIntegerField.performApply(configuration);
 		fWidthIntegerField.performApply(configuration);
 		fHeightIntegerField.performApply(configuration);
@@ -475,10 +426,31 @@ public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
 				ATTR_SPECIFICATION_ANALYZE_STRATEGY,
 				fAnalyzeStrategy.getLiteral());
 	}
-
+	
+	// ======================================================================================
+	//                              Fields Validation
+	// ======================================================================================
+	
 	@Override
-	public String getName() {
-		return "Common Criteria";
+	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+		if( ! fNodeIntegerField.isValid() ) {
+			return new FieldValidationReturn(false, "Node is not a valid integer");
+		}
+		if( ! fWidthIntegerField.isValid() ) {
+			return new FieldValidationReturn(false, "Width is not a valid integer");
+		}
+		if( ! fHeightIntegerField.isValid() ) {
+			return new FieldValidationReturn(false, "Height is not a valid integer");
+		}
+		if( ! fStepsIntegerField.isValid() ) {
+			return new FieldValidationReturn(false, "Evaluation Steps is not a valid integer");
+		}
+		if( ! fTimeoutIntegerField.isValid() ) {
+			return new FieldValidationReturn(false, "Timeout is not a valid integer");
+		}
+//		if( ! fTransitionNameStringField.isValid() ) {
+//			return new FieldValidationReturn(false, "Transition Name is not a valid string");
+//		}
+		return new FieldValidationReturn(true, null);
 	}
-
 }

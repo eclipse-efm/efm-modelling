@@ -1,14 +1,17 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial API and implementation
+ *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+
+package org.eclipse.efm.ui.views.launchconfigurations.components;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -25,11 +28,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.core.workflow.Activator;
-import org.eclipse.efm.runconfiguration.LaunchConfigurationTabGroup;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
+import org.eclipse.efm.ui.views.launchconfigurations.components.AbstractCompositeMaker.FieldValidationReturn;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
@@ -50,17 +53,12 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
 
-public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
-
-	public NonRegressionTab(LaunchConfigurationTabGroup groupTab) {
-		super(groupTab);
-	}
+public class NonRegressionCompositeMaker extends AbstractCompositeMaker {
 
 	public static final String ATTR_ENABLED_NON_REGRESSION =
 			Activator.PLUGIN_ID + ".ATTR_ENABLED_NON_REGRESSION"; //$NON-NLS-1$
@@ -107,7 +105,10 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 	private List< String > transitionsToBeSelected;
 	private List< String > selectedTransitions;
 
-
+	public NonRegressionCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
+	}
+	
 	private class TabListener extends SelectionAdapter implements ModifyListener {
 
 		/* (non-Javadoc)
@@ -115,7 +116,7 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 		 */
 		@Override
 		public void modifyText(ModifyEvent e) {
-			updateLaunchConfigurationDialog();
+			propagateGUIupdate();
 		}
 
 		/* (non-Javadoc)
@@ -136,6 +137,10 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 
 	private TabListener fListener = new TabListener();
 
+	// ======================================================================================
+	//                              Miscellaneous handling
+	// ======================================================================================	
+	
 	public void handleSelectedTransition() {
 
 		boolean refresh = false;
@@ -156,23 +161,23 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
     		updateTransitionTable2();
         }
 
-		updateLaunchConfigurationDialog();
+        propagateGUIupdate();
 	}
 
 	public void handleAllTransitionButtonSelected() {
 		if( fAllNonRegressionCaseButton.getSelection() ) {
 			fNonRegressionCaseButton = "All";
-			visibleAndExclude(compNonRegressionCaseCoverage,false);
+			propagateVisibility(compNonRegressionCaseCoverage,false);
 		}
-		updateLaunchConfigurationDialog();
+		propagateGUIupdate();
 	}
 
 	public void handleDetailedTransitionSelected() {
 		if( fDetailsNonRegressionCaseButton.getSelection() ) {
 			fNonRegressionCaseButton = "Details";
-			visibleAndExclude(compNonRegressionCaseCoverage,true);
+			propagateVisibility(compNonRegressionCaseCoverage,true);
 		}
-		updateLaunchConfigurationDialog();
+		propagateGUIupdate();
 	}
 
 	/**
@@ -181,43 +186,24 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 	private ModifyListener fBasicModifyListener = new ModifyListener() {
 		@Override
 		public void modifyText(ModifyEvent evt) {
-			scheduleUpdateJob();
+			propagateUpdateJobScheduling();
 		}
-	};
-
-	/**
-	 * Returns the {@link IDialogSettings} for the given id
-	 *
-	 * @param id the id of the dialog settings to get
-	 * @return the {@link IDialogSettings} to pass into the {@link ContainerSelectionDialog}
-	 * @since 3.6
-	 */
-	IDialogSettings getDialogBoundsSettings(String id) {
-		IDialogSettings settings = Activator.getDefault().getDialogSettings();
-		IDialogSettings section = settings.getSection(id);
-		if(section == null) {
-			section = settings.addNewSection(id);
-		}
-		return section;
-	}
-
-
+	};	
+	
+	
+	// ======================================================================================
+	//                              Graphical Components Creation Methods
+	// ======================================================================================
+	
 	@Override
-	public void createControl(Composite parent) {
-
+	public Composite createControlMain(Composite parent) {
 		Composite simpleComposite = SWTFactory.createComposite(parent,
 				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
-
-		setControl(simpleComposite);
-
-		PlatformUI.getWorkbench().getHelpSystem()
-				.setHelp(getControl(), getHelpContextId());
-
 		createNonRegressionSelectionComponent(simpleComposite);
-
 		createModelFileSelectionComponent(simpleComposite);
-
 		createAnalyseProfileComponent(simpleComposite);
+		
+		return simpleComposite;
 	}
 
 
@@ -256,12 +242,12 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 		ld.marginHeight = 1;
 		ld.marginWidth = 0;
 
-		fModelWorkspaceBrowse = createPushButton(bcomp, "&Workspace...", null);
+		fModelWorkspaceBrowse = SWTFactory.createPushButton(bcomp, "&Workspace...", null);	
 		fModelWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ElementTreeSelectionDialog dialog =
-						new ElementTreeSelectionDialog(getShell(),
+						new ElementTreeSelectionDialog(parent.getShell(),
 								new WorkbenchLabelProvider(),
 								new WorkbenchContentProvider());
 				dialog.setTitle("Select a &Diversity Specification:");
@@ -269,9 +255,9 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 				dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
 				dialog.setComparator(
 						new ResourceComparator(ResourceComparator.NAME));
-				dialog.setDialogBoundsSettings(
-						getDialogBoundsSettings(WORKSPACE_SELECTION_DIALOG),
-						Dialog.DIALOG_PERSISTSIZE);
+//				dialog.setDialogBoundsSettings(
+//						getDialogBoundsSettings(WORKSPACE_SELECTION_DIALOG),
+//						Dialog.DIALOG_PERSISTSIZE);
 
 				if(dialog.open() == Window.OK) {
 					IResource resource = (IResource) dialog.getFirstResult();
@@ -480,13 +466,13 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 		            selectedTransitions.sort(null);
 		    		updateTransitionTable2();
 		        }
-		        updateLaunchConfigurationDialog();
+		        propagateGUIupdate();
 		      }
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-		    	  updateLaunchConfigurationDialog();
+				propagateGUIupdate();
 			}
 		});
 	}
@@ -620,23 +606,14 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 	}
 
 
-	/**
-	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(ILaunchConfiguration)
-	 */
-	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
-		setErrorMessage(null);
 
-		if( fNonRegressionCaseButton.equals("Details") &&
-			 ( selectedTransitions.size() == 0 ) ) {
-			setErrorMessage("You must select at least one transition");
-			return false;
-		}
-		return true;
-	}
 
+	// ======================================================================================
+	//                              Fields Values Management
+	// ======================================================================================	
+	
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_PROJECT_NAME, "<project location>");
 
@@ -651,7 +628,7 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
 		try {
 			fNonRegressionBooleanField.initializeFrom(configuration);
 
@@ -688,12 +665,12 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 		case "All":
 			fAllNonRegressionCaseButton.setSelection(true);
 			fDetailsNonRegressionCaseButton.setSelection(false);
-			visibleAndExclude(compNonRegressionCaseCoverage,false);
+			propagateVisibility(compNonRegressionCaseCoverage,false);
 			break;
 		case "Details":
 			fAllNonRegressionCaseButton.setSelection(false);
 			fDetailsNonRegressionCaseButton.setSelection(true);
-			visibleAndExclude(compNonRegressionCaseCoverage,true);
+			propagateVisibility(compNonRegressionCaseCoverage,true);
 			break;
 		default:
 			// Error !!!
@@ -702,7 +679,7 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
 		fNonRegressionBooleanField.performApply(configuration);
 
 		configuration.setAttribute(
@@ -721,9 +698,17 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 		configuration.setAttribute(
 				ATTR_SELECTED_TRANSITIONS, selectedTransitions);
 	}
-
+	
+	// ======================================================================================
+	//                              Fields Validation
+	// ======================================================================================
+	
 	@Override
-	public String getName() {
-		return "Non Regression";
+	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+		if( fNonRegressionCaseButton.equals("Details") &&
+			 ( selectedTransitions.size() == 0 ) ) {
+			return new FieldValidationReturn(false, "You must select at least one transition");
+		}
+		return new FieldValidationReturn(true, null);
 	}
 }

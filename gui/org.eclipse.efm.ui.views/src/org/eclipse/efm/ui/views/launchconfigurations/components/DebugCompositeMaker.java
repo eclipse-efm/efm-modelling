@@ -1,27 +1,29 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial API and implementation
+ *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+
+package org.eclipse.efm.ui.views.launchconfigurations.components;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.efm.core.workflow.AbstractLaunchDelegate;
 import org.eclipse.efm.core.workflow.Activator;
 import org.eclipse.efm.core.workflow.ToolConstants;
-import org.eclipse.efm.runconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.runconfiguration.LaunchDelegate;
+import org.eclipse.efm.core.workflow.common.ConsoleVerbosityKind;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
-import org.eclipse.efm.core.workflow.common.ConsoleVerbosityKind;
-import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -32,12 +34,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ContainerSelectionDialog;
-import org.eclipse.efm.ui.resources.HelpCoReferee;
 
-
-public class DebugTab extends AbstractSewLaunchConfigurationTab {
+public class DebugCompositeMaker extends AbstractCompositeMaker {
 
 	// Console Log
 	private static final String[] CONSOLE_LEVEL_COMBO_ITEMS = new String[] {
@@ -47,61 +45,55 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 			ConsoleVerbosityKind.MAXIMUM.getLiteral()
 	};
 
-//	Arrays.stream(ConsoleVerbosityKind.values()).map(
-//			ConsoleVerbosityKind::getLiteral).toArray(String[]::new);
-
+//		Arrays.stream(ConsoleVerbosityKind.values()).map(
+//				ConsoleVerbosityKind::getLiteral).toArray(String[]::new);
 
 	private Combo fConsoleLevelCombo = null;
 	private ConsoleVerbosityKind fConsoleLevel = ConsoleVerbosityKind.MINIMUM;
 
 	// First Symbex Workflow Page
 	private BooleanFieldEditor fFirstParsedModelTextualEnabledBooleanField;
-//	private StringFieldEditor  fFirstparsedModelTextualFileNameStringField;
+//		private StringFieldEditor  fFirstparsedModelTextualFileNameStringField;
 
 	private BooleanFieldEditor fFirstParsedModelGraphizEnabledBooleanField;
-//	private StringFieldEditor  fFirstParsedModelGraphizFileNameStringField;
+//		private StringFieldEditor  fFirstParsedModelGraphizFileNameStringField;
 
 	private BooleanFieldEditor fFirstCompiledModelTextualEnabledBooleanField;
-//	private StringFieldEditor  fFirstCompiledModelTextualFileNameStringField;
+//		private StringFieldEditor  fFirstCompiledModelTextualFileNameStringField;
 	private boolean fEnabledSymbexDeveloperMode;
 
 	private BooleanFieldEditor fFirstSymbexOutputTextualEnabledBooleanField;
-//	private StringFieldEditor  fFirstSymbexOutputTextualFileNameStringField;
+//		private StringFieldEditor  fFirstSymbexOutputTextualFileNameStringField;
 
 	private BooleanFieldEditor fFirstSymbexOutputGraphizEnabledBooleanField;
-//	private StringFieldEditor  fFirstSymbexOutputGraphizFileNameStringField;
+//		private StringFieldEditor  fFirstSymbexOutputGraphizFileNameStringField;
 	private StringFieldEditor  fFirstSymbexOutputGraphizTraceStringField;
 	private StringFieldEditor  fFirstSymbexOutputGraphizFormatStringField;
 	private Composite fCompositeFirstSymbexOutputGraphiz;
 
 
 	// Second Symbex Workflow Page
-//	private BooleanFieldEditor fSecondParsedModelGraphizEnabledBooleanField;
-////	private StringFieldEditor  fSecondParsedModelGraphizFileNameStringField;
+//		private BooleanFieldEditor fSecondParsedModelGraphizEnabledBooleanField;
+////		private StringFieldEditor  fSecondParsedModelGraphizFileNameStringField;
 //
-//	private BooleanFieldEditor fSecondParsedModelTextualEnabledBooleanField;
-////	private StringFieldEditor  fSecondparsedModelTextualFileNameStringField;
+//		private BooleanFieldEditor fSecondParsedModelTextualEnabledBooleanField;
+////		private StringFieldEditor  fSecondparsedModelTextualFileNameStringField;
 //
-//	private BooleanFieldEditor fSecondCompiledModelTextualEnabledBooleanField;
-////	private StringFieldEditor  fSecondCompiledModelTextualFileNameStringField;
+//		private BooleanFieldEditor fSecondCompiledModelTextualEnabledBooleanField;
+////		private StringFieldEditor  fSecondCompiledModelTextualFileNameStringField;
 
 	private BooleanFieldEditor fSecondSymbexOutputTextualEnabledBooleanField;
-//	private StringFieldEditor  fSecondSymbexOutputTextualFileNameStringField;
+//		private StringFieldEditor  fSecondSymbexOutputTextualFileNameStringField;
 
 	private BooleanFieldEditor fSecondSymbexOutputGraphizEnabledBooleanField;
-//	private StringFieldEditor  fSecondSymbexOutputGraphizFileNameStringField;
+//		private StringFieldEditor  fSecondSymbexOutputGraphizFileNameStringField;
 	private StringFieldEditor  fSecondSymbexOutputGraphizTraceStringField;
 	private StringFieldEditor  fSecondSymbexOutputGraphizFormatStringField;
 	private Composite fCompositeSecondSymbexOutputGraphiz;
 
-
-
-	public DebugTab(LaunchConfigurationTabGroup groupTab) {
-		super(groupTab);
-
-		setHelpContextId(HelpCoReferee.efm_runconf_debug_tab);
-
-		if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
+	public DebugCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
+		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
 			IPreferenceStore prefs =
 					Activator.getDefault().getPreferenceStore();
 
@@ -112,21 +104,60 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 			fEnabledSymbexDeveloperMode = false;
 		}
 	}
+	
+	// ======================================================================================
+	//                              Miscellaneous handling
+	// ======================================================================================
+	
+	private class TabListener extends SelectionAdapter implements ModifyListener {
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
+		 */
+		@Override
+		public void modifyText(ModifyEvent e) {
+			propagateGUIupdate();
+		}
 
-	@Override
-	public void createControl(Composite parent) {
-		Composite simpleComposite = SWTFactory.createComposite(parent,
-				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
-		setControl(simpleComposite);
+		/* (non-Javadoc)
+		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+		 */
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			final Object source= e.getSource();
 
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(
-				getControl(), getHelpContextId());
-
-		createDebugTracePage(simpleComposite);
+			if (source == fConsoleLevelCombo) {
+				handleConsoleLevelSelectionChange();
+			}
+		}
 	}
 
-	public void createDebugTracePage(Composite parent) {
+	private TabListener fListener= new TabListener();	
+	
+	private void handleConsoleLevelSelectionChange() {
+		fConsoleLevel = ConsoleVerbosityKind.get( fConsoleLevelCombo.getText() );
+		if( fConsoleLevel == null ) {
+			fConsoleLevel = ConsoleVerbosityKind.MINIMUM;
+		}
+
+		propagateGUIupdate();
+	}
+	
+	// ======================================================================================
+	//                              Graphical Components Creation Methods
+	// ======================================================================================
+	
+	@Override
+	public Composite createControlMain(Composite parent) {
+		Composite simpleComposite = SWTFactory.createComposite(parent,
+				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
+
+		createDebugTracePage(simpleComposite);
+		
+		return simpleComposite;
+	}
+
+	private void createDebugTracePage(Composite parent) {
 		Group group = SWTFactory.createGroup(parent,
 				"Debug Trace", 1, 1, GridData.FILL_HORIZONTAL);
 
@@ -228,7 +259,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 	private void setEnableFirstExecutionPage(boolean checked) {
 		fCompositeFirstSymbexOutputGraphiz.setVisible(checked);
 
-		visibleAndExclude(fCompositeFirstSymbexOutputGraphiz, checked);
+		propagateVisibility(fCompositeFirstSymbexOutputGraphiz, checked);
 	}
 
 
@@ -237,35 +268,35 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 				"Second Stage Symbex Workflow Page",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-//		createSecondInputModelGraphicComponent(group);
+//			createSecondInputModelGraphicComponent(group);
 
 		createSecondSymbexOutputComponent(group);
 	}
 
 
-//	private void createSecondInputModelGraphicComponent(Composite parent) {
-//		Group group = SWTFactory.createGroup(parent,
-//				"Input Model Generated Traces",
-//				1, 1, GridData.FILL_HORIZONTAL);
+//		private void createSecondInputModelGraphicComponent(Composite parent) {
+//			Group group = SWTFactory.createGroup(parent,
+//					"Input Model Generated Traces",
+//					1, 1, GridData.FILL_HORIZONTAL);
 //
-//		Composite comp = SWTFactory.createComposite(
-//				group, 1, 1, GridData.FILL_HORIZONTAL);
+//			Composite comp = SWTFactory.createComposite(
+//					group, 1, 1, GridData.FILL_HORIZONTAL);
 //
-//		fSecondParsedModelTextualEnabledBooleanField = new BooleanFieldEditor(
-//				this, ATTR_ENABLED_SECOND_PARSED_MODEL_TEXTUAL_GENERATION,
-//				"&Parsed Model as Textual Representation", comp, false);
+//			fSecondParsedModelTextualEnabledBooleanField = new BooleanFieldEditor(
+//					this, ATTR_ENABLED_SECOND_PARSED_MODEL_TEXTUAL_GENERATION,
+//					"&Parsed Model as Textual Representation", comp, false);
 //
-//		fSecondParsedModelGraphizEnabledBooleanField = new BooleanFieldEditor(
-//				this, ATTR_ENABLED_SECOND_PARSED_MODEL_GRAPHVIZ_GENERATION,
-//				"&Parsed Model as <Graphiz> Representation", comp, false);
+//			fSecondParsedModelGraphizEnabledBooleanField = new BooleanFieldEditor(
+//					this, ATTR_ENABLED_SECOND_PARSED_MODEL_GRAPHVIZ_GENERATION,
+//					"&Parsed Model as <Graphiz> Representation", comp, false);
 //
-//		if( fEnabledSymbexDeveloperMode ) {
-//			fSecondCompiledModelTextualEnabledBooleanField =
-//				new BooleanFieldEditor(this,
-//					ATTR_ENABLED_SECOND_COMPILED_MODEL_TEXTUAL_GENERATION,
-//					"&Compiled Model as Textual Representation", comp, false);
+//			if( fEnabledSymbexDeveloperMode ) {
+//				fSecondCompiledModelTextualEnabledBooleanField =
+//					new BooleanFieldEditor(this,
+//						ATTR_ENABLED_SECOND_COMPILED_MODEL_TEXTUAL_GENERATION,
+//						"&Compiled Model as Textual Representation", comp, false);
+//			}
 //		}
-//	}
 
 	private void createSecondSymbexOutputComponent(Composite parent) {
 		Group group = SWTFactory.createGroup(parent,
@@ -309,81 +340,21 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 	private void setEnableSecondExecutionPage(boolean checked) {
 		fCompositeSecondSymbexOutputGraphiz.setVisible(checked);
 
-		visibleAndExclude(fCompositeSecondSymbexOutputGraphiz, checked);
+		propagateVisibility(fCompositeSecondSymbexOutputGraphiz, checked);
 
 	}
 
-
-	/**
-	 * Returns the {@link IDialogSettings} for the given id
-	 *
-	 * @param id the id of the dialog settings to get
-	 * @return the {@link IDialogSettings} to pass into the {@link ContainerSelectionDialog}
-	 * @since 3.6
-	 */
-	IDialogSettings getDialogBoundsSettings(String id) {
-		IDialogSettings settings = Activator.getDefault().getDialogSettings();
-		IDialogSettings section = settings.getSection(id);
-		if (section == null) {
-			section = settings.addNewSection(id);
-		}
-		return section;
-	}
-
-	private class TabListener extends SelectionAdapter implements ModifyListener {
-
-		/* (non-Javadoc)
-		 * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
-		 */
-		@Override
-		public void modifyText(ModifyEvent e) {
-			updateLaunchConfigurationDialog();
-		}
-
-		/* (non-Javadoc)
-		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-		 */
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			final Object source= e.getSource();
-
-			if (source == fConsoleLevelCombo) {
-				handleConsoleLevelSelectionChange();
-			}
-		}
-	}
-
-	private void handleConsoleLevelSelectionChange() {
-		fConsoleLevel = ConsoleVerbosityKind.get( fConsoleLevelCombo.getText() );
-		if( fConsoleLevel == null ) {
-			fConsoleLevel = ConsoleVerbosityKind.MINIMUM;
-		}
-
-		updateLaunchConfigurationDialog();
-	}
-
-
-	private TabListener fListener= new TabListener();
-
-
-
-	/**
-	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(ILaunchConfiguration)
-	 */
-	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
-		setErrorMessage(null);
-
-		return true;
-	}
+	// ======================================================================================
+	//                              Fields Values Management
+	// ======================================================================================	
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, "MINIMUM");
 
 		// First Symbex Workflow Page
-//		fFirstParsedModelTextualEnabledBooleanField.setDefaults(configuration);
+//			fFirstParsedModelTextualEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_FIRST_PARSED_MODEL_TEXTUAL_GENERATION, false);
 
@@ -391,7 +362,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 				ATTR_FIRST_PARSED_MODEL_TEXTUAL_FILENAME,
 				"model_parsed.xlia");
 
-//		fFirstParsedModelGraphizEnabledBooleanField.setDefaults(configuration);
+//			fFirstParsedModelGraphizEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_FIRST_PARSED_MODEL_GRAPHVIZ_GENERATION, false);
 
@@ -400,7 +371,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 				"model_parsed_graph.gv");
 
 		if( fEnabledSymbexDeveloperMode ) {
-//			fFirstCompiledModelTextualEnabledBooleanField.setDefaults(configuration);
+//				fFirstCompiledModelTextualEnabledBooleanField.setDefaults(configuration);
 			configuration.setAttribute(
 					ATTR_ENABLED_FIRST_COMPILED_MODEL_TEXTUAL_GENERATION, false);
 
@@ -409,7 +380,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 					"phase1_compiled_model.fexe");
 		}
 
-//		fFirstSymbexOutputTextualEnabledBooleanField.setDefaults(configuration);
+//			fFirstSymbexOutputTextualEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_TEXTUAL_GENERATION, false);
 
@@ -417,7 +388,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 				ATTR_FIRST_SYMBEX_OUTPUT_TEXTUAL_FILENAME,
 				DEFAULT_FIRST_SYMBEX_OUTPUT_TEXTUAL_FILENAME);
 
-//		fFirstSymbexOutputGraphizEnabledBooleanField.setDefaults(configuration);
+//			fFirstSymbexOutputGraphizEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION, false);
 
@@ -425,35 +396,35 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FILENAME,
 				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FILENAME);
 
-//		fFirstSymbexOutputGraphizTraceStringField.setDefaults(configuration);
+//			fFirstSymbexOutputGraphizTraceStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
 				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC);
 
-//		fFirstSymbexOutputGraphizFormatStringField.setDefaults(configuration);
+//			fFirstSymbexOutputGraphizFormatStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
 				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC);
 
 		// Second Symbex Workflow Page
-//		fSecondParsedModelTextualEnabledBooleanField.setDefaults(configuration);
-//		configuration.setAttribute(
-//				ATTR_ENABLED_SECOND_PARSED_MODEL_TEXTUAL_GENERATION, false);
+//			fSecondParsedModelTextualEnabledBooleanField.setDefaults(configuration);
+//			configuration.setAttribute(
+//					ATTR_ENABLED_SECOND_PARSED_MODEL_TEXTUAL_GENERATION, false);
 
 		configuration.setAttribute(
 				ATTR_SECOND_PARSED_MODEL_TEXTUAL_FILENAME,
 				"phase2_parsed_model.xlia");
 
-//		fSecondParsedModelGraphizEnabledBooleanField.setDefaults(configuration);
-//		configuration.setAttribute(
-//				ATTR_ENABLED_SECOND_PARSED_MODEL_GRAPHVIZ_GENERATION, false);
+//			fSecondParsedModelGraphizEnabledBooleanField.setDefaults(configuration);
+//			configuration.setAttribute(
+//					ATTR_ENABLED_SECOND_PARSED_MODEL_GRAPHVIZ_GENERATION, false);
 
 		configuration.setAttribute(
 				ATTR_SECOND_PARSED_MODEL_GRAPHVIZ_FILENAME,
 				"phase2_parsed_model.gv");
 
 		if( fEnabledSymbexDeveloperMode ) {
-//			fSecondCompiledModelTextualEnabledBooleanField.setDefaults(configuration);
+//				fSecondCompiledModelTextualEnabledBooleanField.setDefaults(configuration);
 			configuration.setAttribute(
 					ATTR_ENABLED_SECOND_COMPILED_MODEL_TEXTUAL_GENERATION, false);
 
@@ -462,7 +433,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 					"phase2_compiled_model.fexe");
 		}
 
-//		fSecondSymbexOutputTextualEnabledBooleanField.setDefaults(configuration);
+//			fSecondSymbexOutputTextualEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_TEXTUAL_GENERATION, false);
 
@@ -470,7 +441,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 				ATTR_SECOND_SYMBEX_OUTPUT_TEXTUAL_FILENAME,
 				DEFAULT_SECOND_SYMBEX_OUTPUT_TEXTUAL_FILENAME);
 
-//		fSecondSymbexOutputGraphizEnabledBooleanField.setDefaults(configuration);
+//			fSecondSymbexOutputGraphizEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION, false);
 
@@ -478,19 +449,19 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FILENAME,
 				DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FILENAME);
 
-//		fSecondSymbexOutputGraphizTraceStringField.setDefaults(configuration);
+//			fSecondSymbexOutputGraphizTraceStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
 				DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC);
 
-//		fSecondSymbexOutputGraphizFormatStringField.setDefaults(configuration);
+//			fSecondSymbexOutputGraphizFormatStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
 				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC);
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
 		try {
 			fConsoleLevel = ConsoleVerbosityKind.get(
 					configuration.getAttribute(ATTR_CONSOLE_LOG_VERBOSE_LEVEL,
@@ -520,11 +491,11 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 		fFirstSymbexOutputGraphizFormatStringField.initializeFrom(configuration);
 
 
-//		fSecondParsedModelTextualEnabledBooleanField.initializeFrom(configuration);
-//		fSecondParsedModelGraphizEnabledBooleanField.initializeFrom(configuration);
-//		if( fEnabledSymbexDeveloperMode ) {
-//			fSecondCompiledModelTextualEnabledBooleanField.initializeFrom(configuration);
-//		}
+//			fSecondParsedModelTextualEnabledBooleanField.initializeFrom(configuration);
+//			fSecondParsedModelGraphizEnabledBooleanField.initializeFrom(configuration);
+//			if( fEnabledSymbexDeveloperMode ) {
+//				fSecondCompiledModelTextualEnabledBooleanField.initializeFrom(configuration);
+//			}
 
 		fSecondSymbexOutputTextualEnabledBooleanField.initializeFrom(configuration);
 		fSecondSymbexOutputGraphizEnabledBooleanField.initializeFrom(configuration);
@@ -562,7 +533,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, fConsoleLevel.getLiteral());
 
@@ -579,28 +550,35 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 		fFirstSymbexOutputGraphizFormatStringField.performApply(configuration);
 
 
-//		fSecondParsedModelTextualEnabledBooleanField.performApply(configuration);
-//		fSecondParsedModelGraphizEnabledBooleanField.performApply(configuration);
-//		if( fEnabledSymbexDeveloperMode ) {
-//			fSecondCompiledModelTextualEnabledBooleanField.performApply(configuration);
-//		}
+//			fSecondParsedModelTextualEnabledBooleanField.performApply(configuration);
+//			fSecondParsedModelGraphizEnabledBooleanField.performApply(configuration);
+//			if( fEnabledSymbexDeveloperMode ) {
+//				fSecondCompiledModelTextualEnabledBooleanField.performApply(configuration);
+//			}
 
-		fSecondSymbexOutputTextualEnabledBooleanField.performApply(configuration);
-		fSecondSymbexOutputGraphizEnabledBooleanField.performApply(configuration);
-		fSecondSymbexOutputGraphizTraceStringField.performApply(configuration);
+			fSecondSymbexOutputTextualEnabledBooleanField.performApply(configuration);
+			fSecondSymbexOutputGraphizEnabledBooleanField.performApply(configuration);
+			fSecondSymbexOutputGraphizTraceStringField.performApply(configuration);
 
-		fSecondSymbexOutputGraphizFormatStringField.performApply(configuration);
+			fSecondSymbexOutputGraphizFormatStringField.performApply(configuration);
 
 
-		setEnableFirstExecutionPage(
-				fFirstSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
+			setEnableFirstExecutionPage(
+					fFirstSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
 
-		setEnableSecondExecutionPage(
-				fSecondSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
-	}
+			setEnableSecondExecutionPage(
+					fSecondSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
+		}
 
+	
+	// ======================================================================================
+	//                              Fields Validation
+	// ======================================================================================
+	
 	@Override
-	public String getName() {
-		return "Debug";
-	}
+	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+		return new FieldValidationReturn(true, null);
+	}	
+	
 }
+

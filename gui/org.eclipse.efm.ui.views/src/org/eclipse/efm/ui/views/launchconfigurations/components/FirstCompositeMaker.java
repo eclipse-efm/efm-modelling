@@ -1,14 +1,16 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial API and implementation
+ *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.ui.views.launchconfigurations.components;
 
 import java.io.File;
 
@@ -20,15 +22,18 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.efm.core.workflow.AbstractLaunchDelegate;
 import org.eclipse.efm.core.workflow.Activator;
 import org.eclipse.efm.core.workflow.ToolConstants;
-import org.eclipse.efm.runconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.runconfiguration.LaunchDelegate;
-import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
-import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.efm.ui.resources.HelpCoReferee;
+import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.ui.views.launchconfigurations.components.AbstractCompositeMaker.FieldValidationReturn;
+import org.eclipse.efm.ui.views.launchconfigurations.components.pages.MainTabBehaviorSelectionPage;
+import org.eclipse.efm.ui.views.launchconfigurations.components.pages.MainTabTestOfflinePage;
+import org.eclipse.efm.ui.views.launchconfigurations.components.pages.MainTabTransitionCoveragePage;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -45,13 +50,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
 
-public class MainTab extends AbstractSewLaunchConfigurationTab {
+public class FirstCompositeMaker extends AbstractCompositeMaker {
 
 	private static final String[] MODEL_COMBO_ITEMS = new String[] {
 			ANALYSIS_PROFILE_MODEL_EXPLORATION ,
@@ -116,17 +120,11 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 	private Button fTestOfflineButton = null;
 
 	MainTabTestOfflinePage fTestOfflinePage;
+	
 
-
-	/**
-	 * Constructor
-	 * @param groupTab
-	 */
-	public MainTab(LaunchConfigurationTabGroup groupTab) {
-		super(groupTab);
-		setHelpContextId(HelpCoReferee.efm_runconf_main_tab);
-
-		if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
+	public FirstCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
+		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
 
 			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 
@@ -137,7 +135,7 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 			fEnabledSymbexDeveloperMode = false;
 		}
 
-		if( LaunchDelegate.ENABLED_SYMBEX_INCUBATION_MODE_OPTION ) {
+		if( AbstractLaunchDelegate.ENABLED_SYMBEX_INCUBATION_MODE_OPTION ) {
 
 			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 
@@ -159,8 +157,7 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 			fTestOfflinePage = new MainTabTestOfflinePage(this);
 		}
 	}
-
-
+	
 	private class TabListener extends SelectionAdapter implements ModifyListener {
 
 		/* (non-Javadoc)
@@ -168,7 +165,7 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 		 */
 		@Override
 		public void modifyText(ModifyEvent e) {
-			updateLaunchConfigurationDialog();
+			propagateGUIupdate();
 		}
 
 		/* (non-Javadoc)
@@ -191,8 +188,11 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 	}
 
 	private TabListener fListener = new TabListener();
-
-
+	
+	// ======================================================================================
+	//                              Miscellaneous handling
+	// ======================================================================================
+	
 	public void handleModelButtonSelected() {
 		if( fModelButton.getSelection() ) {
 			fAnalysisProfile = ANALYSIS_PROFILE_MODEL;
@@ -225,7 +225,7 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 				fBehaviorSelectionPage.setVisible(false);
 			}
 		}
-		updateLaunchConfigurationDialog();
+		propagateGUIupdate();
 	}
 
 	public void handleTestOfflineButtonSelected() {
@@ -240,16 +240,16 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 
 			enableAnalysisTestOfflineTrace(true);
 		}
-		updateLaunchConfigurationDialog();
+		propagateGUIupdate();
 	}
 
 	private void handleModelSelectionChange() {
 		fModelAnalysis = fModelCombo.getText();
 
-		ExpertTab expertTab = getGroupTab().getExpertTab();
-		if( expertTab != null ) {
-			expertTab.setTabName("Expert <" + fModelAnalysis + ">");
-		}
+//		ExpertTab expertTab = getGroupTab().getExpertTab();
+//		if( expertTab != null ) {
+//			expertTab.setTabName("Expert <" + fModelAnalysis + ">");
+//		}
 
 		if( fModelAnalysis.equals(
 				ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) )
@@ -270,54 +270,61 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 
 			fBehaviorSelectionPage.setVisible(false);
 		}
-		updateLaunchConfigurationDialog();
+		propagateGUIupdate();
 	}
-
-
+	
+	private void handleModelFileChange() {
+		if( (fAnalysisProfile == ANALYSIS_PROFILE_MODEL)
+		&& fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
+		{
+			fTransitionCoveragePage.handleModelFilePathChanged(
+					fModelPathText.getText());
+		}
+	}	
+	
 	/**
 	 * Modify listener that simply updates the owning launch configuration dialog.
 	 */
 	private ModifyListener fBasicModifyListener = new ModifyListener() {
 		@Override
 		public void modifyText(ModifyEvent evt) {
-			scheduleUpdateJob();
+			propagateUpdateJobScheduling();
 
 			handleModelFileChange();
 		}
 	};
-
+	
 	/**
-	 * Returns the {@link IDialogSettings} for the given id
-	 *
-	 * @param id the id of the dialog settings to get
-	 * @return the {@link IDialogSettings} to pass into the {@link ContainerSelectionDialog}
-	 * @since 3.6
+	 * Enable Model / Trace  Use Case Analysis radio button has been selected
 	 */
-	IDialogSettings getDialogBoundsSettings(String id) {
-		IDialogSettings settings = Activator.getDefault().getDialogSettings();
-		IDialogSettings section = settings.getSection(id);
-		if(section == null) {
-			section = settings.addNewSection(id);
-		}
-		return section;
+	private void enableAnalysisModel(boolean bEnabled) {
+		fModelButton.setSelection(bEnabled);
+
+		fModelCombo.setEnabled(bEnabled);
 	}
+
+	// TEST OFFLINE // INCUBATION MODE
+	private void enableAnalysisTestOfflineTrace(boolean bEnabled) {
+		fTestOfflineButton.setSelection(bEnabled);
+
+		fTestOfflinePage.setVisible(bEnabled);
+	}	
+	
+	// ======================================================================================
+	//                              Graphical Components Creation Methods
+	// ======================================================================================	
+	
 
 
 	@Override
-	public void createControl(Composite parent) {
-
+	public Composite createControlMain(Composite parent) {
 		Composite simpleComposite = SWTFactory.createComposite(parent,
 				parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
-		setControl(simpleComposite);
-
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(
-				getControl(), getHelpContextId());
-
 		createModelFileSelectionComponent(simpleComposite);
-
 		createWorkspaceComponent(simpleComposite);
-
 		createAnalyseProfileComponent(simpleComposite);
+		
+		return simpleComposite;
 	}
 
 
@@ -341,13 +348,13 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 		});
 		fModelPathText.addModifyListener(fBasicModifyListener);
 
-		fModelWorkspaceBrowse = createPushButton(comp, "&Workspace...", null);
+		fModelWorkspaceBrowse = SWTFactory.createPushButton(comp, "&Workspace...", null);
 		fModelWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ElementTreeSelectionDialog dialog =
 						new ElementTreeSelectionDialog(
-								getShell(),
+								parent.getShell(),
 								new WorkbenchLabelProvider(),
 								new WorkbenchContentProvider() );
 				dialog.setTitle("Select a Diversity Specification:");
@@ -355,9 +362,9 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 				dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
 				dialog.setComparator(
 						new ResourceComparator(ResourceComparator.NAME));
-				dialog.setDialogBoundsSettings(
-						getDialogBoundsSettings(WORKSPACE_SELECTION_DIALOG),
-						Dialog.DIALOG_PERSISTSIZE);
+//				dialog.setDialogBoundsSettings(
+//						getDialogBoundsSettings(WORKSPACE_SELECTION_DIALOG),
+//						Dialog.DIALOG_PERSISTSIZE);
 				if(dialog.open() == Window.OK) {
 					IResource resource = (IResource) dialog.getFirstResult();
 					if(resource != null) {
@@ -554,107 +561,16 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 	}
 
 
-	private void handleModelFileChange() {
-		if( (fAnalysisProfile == ANALYSIS_PROFILE_MODEL)
-		&& fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
-		{
-			fTransitionCoveragePage.handleModelFilePathChanged(
-					fModelPathText.getText());
-		}
-	}
 
 
-	/**
-	 * Enable Model / Trace  Use Case Analysis radio button has been selected
-	 */
-	private void enableAnalysisModel(boolean bEnabled) {
-		fModelButton.setSelection(bEnabled);
-
-		fModelCombo.setEnabled(bEnabled);
-	}
-
-	// TEST OFFLINE // INCUBATION MODE
-	private void enableAnalysisTestOfflineTrace(boolean bEnabled) {
-		fTestOfflineButton.setSelection(bEnabled);
-
-		fTestOfflinePage.setVisible(bEnabled);
-	}
-
-	/**
-	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(ILaunchConfiguration)
-	 */
-	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
-		setErrorMessage(null);
-		setWarningMessage(null);
-
-		String filePath = fModelPathText.getText();
-		if( (filePath == null) || filePath.isEmpty() ) {
-			setErrorMessage("The resource model file path is empty (or null)");
-		}
-		else {
-			File aFile = new File(filePath);
-			if( ! aFile.exists() ) {
-				setErrorMessage("The resource model file \"" +
-						filePath + "\" does not exist.");
-			}
-			else if( ! aFile.isFile() ) {
-				setErrorMessage("The resource model \"" +
-						filePath + "\" is not a file.");
-			}
-		}
-
-		switch( fAnalysisProfile ) {
-			case ANALYSIS_PROFILE_MODEL: {
-				switch( fModelAnalysis )
-				{
-					case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
-					{
-						// BEHAVIOR SELECTION ANALYSIS
-						if( ! fBehaviorSelectionPage.isValid(launchConfig) )
-						{
-							return false;
-						}
-
-						break;
-					}
-					case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
-					{
-						// TRANSITION COVERAGE ANALYSIS
-						if( ! fTransitionCoveragePage.isValid(launchConfig) )
-						{
-							return false;
-						}
-
-						break;
-					}
-
-					default:
-						break;
-				}
-				break;
-			}
-			case ANALYSIS_PROFILE_TEST_OFFLINE:
-			{
-				// TEST OFFLINE // INCUBATION MODE
-				if( fEnabledSymbexIncubationMode ) {
-					if( ! fTestOfflinePage.isValid(launchConfig) )
-					{
-						return false;
-					}
-				}
-
-				break;
-			}
-			default:
-				break;
-		}
-
-		return true;
-	}
+	
+	
+	// ======================================================================================
+	//                              Fields Values Management
+	// ======================================================================================	
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_PROJECT_NAME, "<project-name>");
 
@@ -709,7 +625,7 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
 		try {
 			fProjectName = configuration.getAttribute(
 					ATTR_SPECIFICATION_PROJECT_NAME, "");
@@ -882,12 +798,12 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 			}
 		}
 
-		updateLaunchConfigurationDialog();
+		propagateGUIupdate();
 	}
 
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_PROJECT_NAME, fProjectName);
 
@@ -920,9 +836,79 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 			fTestOfflinePage.performApply(configuration);
 		}
 	}
+	
+	// ======================================================================================
+	//                              Fields Validation
+	// ======================================================================================
+	
 
 	@Override
-	public String getName() {
-		return "Main";
-	}
+	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+		String messageToSend = null;
+
+		String filePath = fModelPathText.getText();
+		if( (filePath == null) || filePath.isEmpty() ) {
+			messageToSend = "The resource model file path is empty (or null)";
+		}
+		else {
+			File aFile = new File(filePath);
+			if( ! aFile.exists() ) {
+				messageToSend="The resource model file \"" +
+						filePath + "\" does not exist.";
+			}
+			else if( ! aFile.isFile() ) {
+				messageToSend = "The resource model \"" +
+						filePath + "\" is not a file.";
+			}
+		}
+
+		switch( fAnalysisProfile ) {
+			case ANALYSIS_PROFILE_MODEL: {
+				switch( fModelAnalysis )
+				{
+					case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
+					{
+						// BEHAVIOR SELECTION ANALYSIS
+						if( ! fBehaviorSelectionPage.isValid(launchConfig) )
+						{
+							return new FieldValidationReturn(false, messageToSend);
+						}
+
+						break;
+					}
+					case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
+					{
+						// TRANSITION COVERAGE ANALYSIS
+						if( ! fTransitionCoveragePage.isValid(launchConfig) )
+						{
+							return new FieldValidationReturn(false, messageToSend);
+						}
+
+						break;
+					}
+
+					default:
+						break;
+				}
+				break;
+			}
+			case ANALYSIS_PROFILE_TEST_OFFLINE:
+			{
+				// TEST OFFLINE // INCUBATION MODE
+				if( fEnabledSymbexIncubationMode ) {
+					if( ! fTestOfflinePage.isValid(launchConfig) )
+					{
+						return new FieldValidationReturn(false, messageToSend);
+					}
+				}
+
+				break;
+			}
+			default:
+				break;
+		}
+
+		return new FieldValidationReturn(true, messageToSend);
+	}	
+	
 }

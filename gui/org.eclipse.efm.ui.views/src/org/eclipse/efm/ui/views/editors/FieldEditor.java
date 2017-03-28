@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - Initial API and implementation
+ *     Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New Interfacing (ILaunchConfigurationEditorComposite)
  *******************************************************************************/
 
 package org.eclipse.efm.ui.views.editors;
@@ -14,7 +15,7 @@ package org.eclipse.efm.ui.views.editors;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.ui.views.utils.LaunchConfigurationEditorCommunicationInterface;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -75,7 +76,7 @@ public abstract class FieldEditor {
     /**
      * The page containing this field editor
      */
-    private LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt;
+    private ILaunchConfigurationEditorComposite fLaunchConfCommInt;
 
 
     /**
@@ -91,7 +92,7 @@ public abstract class FieldEditor {
      * @param labelText the label text of the field editor
      * @param parent the parent of the field editor's control
      */
-    protected FieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+    protected FieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
     		String storeKey, String labelText, Composite parent) {
     	this.fLaunchConfCommInt = fLaunchConfCommInt;
     	this.fStoreKey = storeKey;
@@ -141,7 +142,7 @@ public abstract class FieldEditor {
      */
     protected void clearErrorMessage() {
         if (fLaunchConfCommInt != null) {
-        	fLaunchConfCommInt.setErrorMessage(null);
+        	fLaunchConfCommInt.propagateErrorMessage(null);
 		}
     }
 
@@ -150,7 +151,7 @@ public abstract class FieldEditor {
      */
     protected void clearMessage() {
         if (fLaunchConfCommInt != null) {
-        	fLaunchConfCommInt.setMessage(null);
+        	fLaunchConfCommInt.propagateMessage(null);
 		}
     }
 
@@ -402,7 +403,7 @@ public abstract class FieldEditor {
      *
      * @since 3.1
      */
-    protected LaunchConfigurationEditorCommunicationInterface getLaunchConfCommInt(){
+    protected ILaunchConfigurationEditorComposite getLaunchConfCommInt(){
     	return fLaunchConfCommInt;
     }
 
@@ -413,7 +414,7 @@ public abstract class FieldEditor {
      * @param name the name of the preference this field editor works on
      * @param text the label text of the field editor
      */
-    protected void init(LaunchConfigurationEditorCommunicationInterface launchConfigurationTab,
+    protected void init(ILaunchConfigurationEditorComposite launchConfigurationTab,
     		String storeKey, String labelText) {
         Assert.isNotNull(launchConfigurationTab);
     	this.fLaunchConfCommInt = launchConfigurationTab;
@@ -548,7 +549,7 @@ public abstract class FieldEditor {
      */
     protected void showErrorMessage(String msg) {
         if (fLaunchConfCommInt != null) {
-			fLaunchConfCommInt.setErrorMessage(msg);
+			fLaunchConfCommInt.propagateErrorMessage(msg);
 		}
     }
 
@@ -560,13 +561,13 @@ public abstract class FieldEditor {
      */
     protected void showMessage(String msg) {
         if (fLaunchConfCommInt != null) {
-			fLaunchConfCommInt.setMessage(msg);
+			fLaunchConfCommInt.propagateMessage(msg);
 		}
     }
 
     public void updateLaunchConfigurationDialog() {
         if (fLaunchConfCommInt != null) {
-			fLaunchConfCommInt.updateGUI();
+			fLaunchConfCommInt.propagateGUIupdate();
 		}
     }
 

@@ -1,29 +1,33 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial API and implementation
+ *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+
+package org.eclipse.efm.ui.views.launchconfigurations.components;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.runconfiguration.LaunchConfigurationTabGroup;
 import org.eclipse.efm.ui.resources.HelpCoReferee;
+import org.eclipse.efm.ui.views.launchconfigurations.components.AbstractCompositeMaker.FieldValidationReturn;
+import org.eclipse.efm.ui.views.launchconfigurations.components.pages.ExpertBehaviorSelectionPage;
+import org.eclipse.efm.ui.views.launchconfigurations.components.pages.ExpertTransitionCoveragePage;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.PlatformUI;
 
-public class ExpertTab extends AbstractSewLaunchConfigurationTab {
-
-	private String fTabName;
+public class ExpertCompositeMaker extends AbstractCompositeMaker {
 
 	private Group groupExplorationPage;
 
@@ -33,35 +37,25 @@ public class ExpertTab extends AbstractSewLaunchConfigurationTab {
 	// TRANSITION COVERAGE
 	ExpertTransitionCoveragePage fTransitionCoveragePage;
 
-	/**
-	 * Constructor
-	 * @param groupTab
-	 */
-	public ExpertTab(LaunchConfigurationTabGroup groupTab) {
-		super(groupTab);
-		setHelpContextId(HelpCoReferee.efm_runconf_expert_tab);
-
-		fTabName = "Expert";
-
+	public ExpertCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
 		// BEHAVIOR SELECTION : HIT OR JUMP
 		fBehaviorSelectionPage = new ExpertBehaviorSelectionPage(this);
 
 		//  TRANSITION COVERAGE
 		fTransitionCoveragePage = new ExpertTransitionCoveragePage(this);
 	}
-
-
-	private Composite simpleComposite;
-
+	
+	
+	
+	// ======================================================================================
+	//                              Graphical Components Creation Methods
+	// ======================================================================================
 
 	@Override
-	public void createControl(Composite parent) {
-		simpleComposite = SWTFactory.createComposite(parent,
+	public Composite createControlMain(Composite parent) {
+		Composite simpleComposite = SWTFactory.createComposite(parent,
 				parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
-		setControl(simpleComposite);
-
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(
-				getControl(), getHelpContextId());
 
 		// EXPLORATION PAGE
 		createExplorationPage(simpleComposite);
@@ -71,17 +65,19 @@ public class ExpertTab extends AbstractSewLaunchConfigurationTab {
 
 		// TRANSITION COVERAGE
 		fTransitionCoveragePage.createControl(simpleComposite);
+		
+		return simpleComposite;
 	}
 
 	private void setEnableGroupExplorationPage(ILaunchConfiguration configuration) {
 		try {
 			String fAnalysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 
 			String fModelAnalysis = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
+					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
 
-			visibleAndExclude(groupExplorationPage,
+			propagateVisibility(groupExplorationPage,
 					(fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
 					&& fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_EXPLORATION)
 					) || fAnalysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE) );
@@ -91,8 +87,7 @@ public class ExpertTab extends AbstractSewLaunchConfigurationTab {
 		}
 	}
 
-
-	public void createExplorationPage(Composite parent) {
+	private void createExplorationPage(Composite parent) {
 		groupExplorationPage = SWTFactory.createGroup(parent,
 				"Exploration Page", 1, 2, GridData.FILL_HORIZONTAL);
 
@@ -103,30 +98,12 @@ public class ExpertTab extends AbstractSewLaunchConfigurationTab {
         		+ "of Model Analysis and Test Verdict Computation !", 1);
 	}
 
-
-	/**
-	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(ILaunchConfiguration)
-	 */
-	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
-		setErrorMessage(null);
-
-		// BEHAVIOR SELECTION : HIT OR JUMP
-		if( ! fBehaviorSelectionPage.isValid(launchConfig) ) {
-			return false;
-		}
-
-		// TRANSITION COVERAGE
-		if( ! fTransitionCoveragePage.isValid(launchConfig) ) {
-			return false;
-		}
-
-		return true;
-	}
-
+	// ======================================================================================
+	//                              Fields Values Management
+	// ======================================================================================	
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 		// BEHAVIOR SELECTION : HIT OR JUMP
 		fBehaviorSelectionPage.setDefaults(configuration);
 
@@ -136,7 +113,7 @@ public class ExpertTab extends AbstractSewLaunchConfigurationTab {
 
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
 		setEnableGroupExplorationPage(configuration);
 
 		// BEHAVIOR SELECTION : HIT OR JUMP
@@ -153,7 +130,7 @@ public class ExpertTab extends AbstractSewLaunchConfigurationTab {
 
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
 		performApplyExploration(configuration);
 
 		// BEHAVIOR SELECTION : HIT OR JUMP
@@ -161,16 +138,23 @@ public class ExpertTab extends AbstractSewLaunchConfigurationTab {
 
 		// TRANSITION COVERAGE
 		fTransitionCoveragePage.performApply(configuration);
-	}
+	}	
+	
+	// ======================================================================================
+	//                              Fields Validation
+	// ======================================================================================
 
 	@Override
-	public String getName() {
-		return fTabName;
+	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+		// BEHAVIOR SELECTION : HIT OR JUMP
+		if( ! fBehaviorSelectionPage.isValid(launchConfig) ) {
+			return new FieldValidationReturn(false, null);
+		}
+		// TRANSITION COVERAGE
+		if( ! fTransitionCoveragePage.isValid(launchConfig) ) {
+			return new FieldValidationReturn(false, null);
+		}
+		return new FieldValidationReturn(true, null);
 	}
-
-	public void setTabName(String tabName) {
-		this.fTabName = tabName;
-	}
-
-
+	
 }

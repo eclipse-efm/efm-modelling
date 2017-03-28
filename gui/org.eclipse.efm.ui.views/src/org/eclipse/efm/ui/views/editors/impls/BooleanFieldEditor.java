@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,13 +7,14 @@
  *
  * Contributors:
  *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - Initial API and implementation
+ *     Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New Interfacing (ILaunchConfigurationEditorComposite)
  *******************************************************************************/
 package org.eclipse.efm.ui.views.editors.impls;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.ui.views.utils.LaunchConfigurationEditorCommunicationInterface;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.ui.views.editors.FieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -79,7 +80,7 @@ public class BooleanFieldEditor extends FieldEditor {
 	 * @see #DEFAULT
 	 * @see #SEPARATE_LABEL
 	 */
-	public BooleanFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+	public BooleanFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
 			String storeKey, String labelText, int style, Composite parent, boolean defaultValue) {
 		this.fDefaultValue = defaultValue;
 
@@ -99,12 +100,12 @@ public class BooleanFieldEditor extends FieldEditor {
 	 * @param parent
 	 *            the parent of the field editor's control
 	 */
-	public BooleanFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+	public BooleanFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
 			String storeKey, String labelText, Composite parent, boolean defaultValue) {
 		this(fLaunchConfCommInt, storeKey, labelText, DEFAULT, parent, defaultValue);
 	}
 
-	public BooleanFieldEditor(LaunchConfigurationEditorCommunicationInterface fLaunchConfCommInt,
+	public BooleanFieldEditor(ILaunchConfigurationEditorComposite fLaunchConfCommInt,
 			String storeKey, String labelText, Composite parent) {
 		this(fLaunchConfCommInt, storeKey, labelText, DEFAULT, parent, false);
 	}

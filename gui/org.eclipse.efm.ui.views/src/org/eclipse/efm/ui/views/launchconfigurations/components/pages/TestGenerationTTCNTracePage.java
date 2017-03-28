@@ -10,13 +10,14 @@
  *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
  *   - Initial API and Implementation
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.ui.views.launchconfigurations.components.pages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -55,7 +56,7 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 	 * @param parentTab
 	 */
 	public TestGenerationTTCNTracePage(
-			AbstractSewLaunchConfigurationTab parentTab) {
+			ILaunchConfigurationEditorComposite parentTab) {
 		super(parentTab);
 	}
 
@@ -315,7 +316,7 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 		String fAnalysisProfile;
 		try {
 			fAnalysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 		} catch (CoreException e) {
 			e.printStackTrace();
 
@@ -328,13 +329,13 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 
 		fTTCNEnabledAdaptationModuleBooleanField.setEnabled(enabledGeneration);
 
-		fParentTab.visibleAndExclude(groupTTCNConfiguration, enabledGeneration);
+		fParentTab.propagateVisibility(groupTTCNConfiguration, enabledGeneration);
 
 
 		boolean enabledAdaptation =
 				fTTCNEnabledAdaptationModuleBooleanField.getBooleanValue();
 
-		fParentTab.visibleAndExclude(groupTTCNModule,
+		fParentTab.propagateVisibility(groupTTCNModule,
 				enabledGeneration && enabledAdaptation);
 	}
 
@@ -434,7 +435,7 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 		String analysisProfile;
 		try {
 			analysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 		}
 		catch (CoreException e) {
 			e.printStackTrace();

@@ -10,11 +10,12 @@
  *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
  *   - Initial API and Implementation
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.ui.views.launchconfigurations.components.pages;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -30,7 +31,7 @@ public class MainTabBehaviorSelectionPage extends AbstractTabComponentPage {
 	 * @param parentTab
 	 */
 	public MainTabBehaviorSelectionPage(
-			AbstractSewLaunchConfigurationTab parentTab) {
+			ILaunchConfigurationEditorComposite parentTab) {
 		super(parentTab);
 	}
 

@@ -8,7 +8,7 @@
  * Contributors:
  *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - Initial API and implementation
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.runconfiguration.ui.tabs;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -10,13 +10,14 @@
  *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
  *   - Initial API and Implementation
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.ui.views.launchconfigurations.components.pages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.IntegerFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -53,7 +54,7 @@ public class ExpertBehaviorSelectionPage extends AbstractTabComponentPage {
 	 * @param parentTab
 	 */
 	public ExpertBehaviorSelectionPage(
-			AbstractSewLaunchConfigurationTab parentTab) {
+			ILaunchConfigurationEditorComposite parentTab) {
 		super(parentTab);
 	}
 
@@ -194,9 +195,9 @@ public class ExpertBehaviorSelectionPage extends AbstractTabComponentPage {
 		String fModelAnalysis;
 		try {
 			fAnalysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 			fModelAnalysis = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
+					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
 
 			setVisible(fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
 					&& fModelAnalysis.equals(

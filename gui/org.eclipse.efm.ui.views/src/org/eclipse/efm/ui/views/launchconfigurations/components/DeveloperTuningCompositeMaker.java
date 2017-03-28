@@ -1,26 +1,26 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial API and implementation
+ *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+
+package org.eclipse.efm.ui.views.launchconfigurations.components;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.core.workflow.Activator;
-import org.eclipse.efm.runconfiguration.LaunchConfigurationTabGroup;
+import org.eclipse.efm.core.workflow.common.DebuglevelKind;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
-import org.eclipse.efm.core.workflow.common.DebuglevelKind;
-import org.eclipse.efm.ui.resources.HelpCoReferee;
-import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -31,11 +31,8 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
-public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
-
+public class DeveloperTuningCompositeMaker extends AbstractCompositeMaker {
 
 	private static final String[] TRACE_LEVEL_COMBO_ITEMS = new String[] {
 			DebuglevelKind.ZERO.getLiteral(),
@@ -129,25 +126,64 @@ public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
 	private BooleanFieldEditor fNothingEnabledBooleanField;
 	private BooleanFieldEditor fGodModeEnabledBooleanField;
 
+	public DeveloperTuningCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
+	}
+	
+	
+	// ======================================================================================
+	//                              Miscellaneous Handling
+	// ======================================================================================
+	
+	private class TabListener extends SelectionAdapter implements ModifyListener {
 
+		/* (non-Javadoc)
+		 * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
+		 */
+		@Override
+		public void modifyText(ModifyEvent e) {
+			propagateGUIupdate();
+		}
 
-	public DeveloperTuningTab(LaunchConfigurationTabGroup groupTab) {
-		super(groupTab);
-		setHelpContextId(HelpCoReferee.efm_runconf_debug_tab);
+		/* (non-Javadoc)
+		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
+		 */
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			final Object source= e.getSource();
+
+			if (source == fDebugTraceLevelCombo) {
+				handleDebugTraceLevelSelectionChange();
+			}
+		}
+	}
+	
+	private TabListener fListener= new TabListener();	
+
+	private void handleDebugTraceLevelSelectionChange() {
+		fDebugTraceLevel = DebuglevelKind.get( fDebugTraceLevelCombo.getText() );
+		if( fDebugTraceLevel == null ) {
+			fDebugTraceLevel = DebuglevelKind.ZERO;
+		}
+
+		propagateVisibility(fGroupDebugTraceOptions,
+				(fDebugTraceLevel != DebuglevelKind.ZERO));
+
+		propagateGUIupdate();
 	}
 
-	Composite simpleComposite;
-
+	// ======================================================================================
+	//                              Graphical Components Creation Methods
+	// ======================================================================================
+	
 	@Override
-	public void createControl(Composite parent) {
-		simpleComposite = SWTFactory.createComposite(parent,
+	public Composite createControlMain(Composite parent) {
+		Composite simpleComposite = SWTFactory.createComposite(parent,
 				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
-		setControl(simpleComposite);
-
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(
-				getControl(), getHelpContextId());
 
 		createDeveloperTuningOptionsComponent(simpleComposite);
+		
+		return simpleComposite;
 	}
 
 	private void createDeveloperTuningOptionsComponent(Composite parent) {
@@ -173,63 +209,9 @@ public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
 				&& (fDebugTraceLevel != DebuglevelKind.ZERO)
 				&& (! fGodModeEnabledBooleanField.getBooleanValue());
 
-		visibleAndExclude(fGroupDebugTraceOptions, enabled);
+		propagateVisibility(fGroupDebugTraceOptions, enabled);
 	}
 
-
-	/**
-	 * Returns the {@link IDialogSettings} for the given id
-	 *
-	 * @param id the id of the dialog settings to get
-	 * @return the {@link IDialogSettings} to pass into the {@link ContainerSelectionDialog}
-	 * @since 3.6
-	 */
-	IDialogSettings getDialogBoundsSettings(String id) {
-		IDialogSettings settings = Activator.getDefault().getDialogSettings();
-		IDialogSettings section = settings.getSection(id);
-		if (section == null) {
-			section = settings.addNewSection(id);
-		}
-		return section;
-	}
-
-	private class TabListener extends SelectionAdapter implements ModifyListener {
-
-		/* (non-Javadoc)
-		 * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
-		 */
-		@Override
-		public void modifyText(ModifyEvent e) {
-			updateLaunchConfigurationDialog();
-		}
-
-		/* (non-Javadoc)
-		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-		 */
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			final Object source= e.getSource();
-
-			if (source == fDebugTraceLevelCombo) {
-				handleDebugTraceLevelSelectionChange();
-			}
-		}
-	}
-
-
-	private void handleDebugTraceLevelSelectionChange() {
-		fDebugTraceLevel = DebuglevelKind.get( fDebugTraceLevelCombo.getText() );
-		if( fDebugTraceLevel == null ) {
-			fDebugTraceLevel = DebuglevelKind.ZERO;
-		}
-
-		visibleAndExclude(fGroupDebugTraceOptions,
-				(fDebugTraceLevel != DebuglevelKind.ZERO));
-
-		updateLaunchConfigurationDialog();
-	}
-
-	private TabListener fListener= new TabListener();
 
 
 	private void createDeveloperModeComponent(Composite parent) {
@@ -457,20 +439,14 @@ public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
 		fGodModeEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_GOD_MODE, "GOD_MODE", comp, false);
 	}
-
-
-	/**
-	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(ILaunchConfiguration)
-	 */
-	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
-		setErrorMessage(null);
-
-		return true;
-	}
+	
+	// ======================================================================================
+	//                              Fields Values Management
+	// ======================================================================================	
+	
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 //		fDeveloperModeEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(ATTR_ENABLED_DEVELOPER_TUNING, false);
 
@@ -630,7 +606,7 @@ public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
 		fDeveloperModeEnabledBooleanField.initializeFrom(configuration);
 		fLogFileNameStringField.initializeFrom(configuration);
 		fDebugTraceFileNameStringField.initializeFrom(configuration);
@@ -749,9 +725,8 @@ public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
 		}
 	}
 
-
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
 		fDeveloperModeEnabledBooleanField.performApply(configuration);
 
 		setEnableDeveloperTuningOptionsPage(configuration,
@@ -828,10 +803,14 @@ public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
 		fNothingEnabledBooleanField.performApply(configuration);
 		fGodModeEnabledBooleanField.performApply(configuration);
 	}
-
+	
+	// ======================================================================================
+	//                              Fields Validation
+	// ======================================================================================
 
 	@Override
-	public String getName() {
-		return "Developer";
+	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+		return new FieldValidationReturn(true, null);
 	}
+	
 }

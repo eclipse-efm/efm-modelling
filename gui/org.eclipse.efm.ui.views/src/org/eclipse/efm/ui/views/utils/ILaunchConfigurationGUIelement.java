@@ -11,11 +11,16 @@
 
 package org.eclipse.efm.ui.views.utils;
 
-public interface LaunchConfigurationEditorCommunicationInterface {
-
-	public void setErrorMessage(String errormessage);
+public interface ILaunchConfigurationGUIelement {
 	
 	public void setMessage(String message);
+
+	public void setWarningMessage(String warningmessage);
+	
+	public void setErrorMessage(String errormessage);
 	
 	public void updateGUI();
+	
+	public void scheduleUpdateJob();
+	
 }

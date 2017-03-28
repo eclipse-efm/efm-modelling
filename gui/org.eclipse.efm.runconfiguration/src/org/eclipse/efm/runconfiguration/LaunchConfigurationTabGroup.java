@@ -20,13 +20,13 @@ import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.debug.ui.RefreshTab;
 import org.eclipse.efm.core.workflow.Activator;
 import org.eclipse.efm.core.workflow.ToolConstants;
-import org.eclipse.efm.runconfiguration.ui.CommonCriteriaTab;
-import org.eclipse.efm.runconfiguration.ui.DebugTab;
-import org.eclipse.efm.runconfiguration.ui.DeveloperTuningTab;
-import org.eclipse.efm.runconfiguration.ui.ExpertTab;
-import org.eclipse.efm.runconfiguration.ui.MainTab;
-import org.eclipse.efm.runconfiguration.ui.SymbexRuntimeTab;
-import org.eclipse.efm.runconfiguration.ui.TestGenerationTab;
+import org.eclipse.efm.runconfiguration.ui.tabs.CommonCriteriaTab;
+import org.eclipse.efm.runconfiguration.ui.tabs.DebugTab;
+import org.eclipse.efm.runconfiguration.ui.tabs.DeveloperTuningTab;
+import org.eclipse.efm.runconfiguration.ui.tabs.ExpertTab;
+import org.eclipse.efm.runconfiguration.ui.tabs.MainTab;
+import org.eclipse.efm.runconfiguration.ui.tabs.SymbexRuntimeTab;
+import org.eclipse.efm.runconfiguration.ui.tabs.TestGenerationTab;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {

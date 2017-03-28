@@ -8,7 +8,7 @@
  * Contributors:
  *     Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial API and implementation
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.ui.views.launchconfigurations.components.pages;
 
 import java.io.File;
 
@@ -18,8 +18,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.core.workflow.Activator;
+//import org.eclipse.efm.runconfiguration.ui.tabs.MainTab;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -61,16 +63,15 @@ public class MainTabTestOfflinePage extends AbstractTabComponentPage {
 
 	private Group fGroupControllable;
 	private StringFieldEditor fControllableStringField;
-
-
+	
 	/**
 	 * Constructor
 	 * @param parentTab
 	 */
-	public MainTabTestOfflinePage(MainTab parentTab) {
-		super( parentTab );
+	public MainTabTestOfflinePage(
+			ILaunchConfigurationEditorComposite parentTab) {
+		super(parentTab);
 	}
-
 
 	/**
 	 * Modify listener that simply updates the owning launch configuration dialog.
@@ -78,7 +79,7 @@ public class MainTabTestOfflinePage extends AbstractTabComponentPage {
 	private ModifyListener fBasicModifyListener = new ModifyListener() {
 		@Override
 		public void modifyText(ModifyEvent evt) {
-			fParentTab.scheduleUpdateJob();
+			fParentTab.propagateUpdateJobScheduling();
 		}
 	};
 
@@ -130,7 +131,7 @@ public class MainTabTestOfflinePage extends AbstractTabComponentPage {
 			public void widgetSelected(SelectionEvent e) {
 				ElementTreeSelectionDialog dialog =
 						new ElementTreeSelectionDialog(
-								fParentTab.getShell(),
+								parent.getShell(),
 								new WorkbenchLabelProvider(),
 								new WorkbenchContentProvider() );
 				dialog.setTitle("Select a Resource:");
@@ -176,7 +177,7 @@ public class MainTabTestOfflinePage extends AbstractTabComponentPage {
 					public void widgetSelected(SelectionEvent e) {
 						ElementTreeSelectionDialog dialog =
 								new ElementTreeSelectionDialog(
-										fParentTab.getShell(),
+										parent.getShell(),
 										new WorkbenchLabelProvider(),
 										new WorkbenchContentProvider());
 						dialog.setTitle("Select a Resource:");
@@ -243,8 +244,8 @@ public class MainTabTestOfflinePage extends AbstractTabComponentPage {
 		boolean enabled =
 				fEnabledTraceConfigurationBooleanField.getBooleanValue();
 
-		fParentTab.visibleAndExclude(fGroupObservable, enabled);
-		fParentTab.visibleAndExclude(fGroupControllable, enabled);
+		fParentTab.propagateVisibility(fGroupObservable, enabled);
+		fParentTab.propagateVisibility(fGroupControllable, enabled);
 	}
 
 

@@ -10,17 +10,18 @@
  *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
  *   - Initial API and Implementation
  */
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.ui.views.launchconfigurations.components.pages;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractTabComponentPage
 		implements IWorkflowConfigurationConstants {
 
-	protected AbstractSewLaunchConfigurationTab fParentTab;
+	protected ILaunchConfigurationEditorComposite fParentTab;
 
 	protected Composite fCompositeParent;
 
@@ -31,7 +32,7 @@ public abstract class AbstractTabComponentPage
 	 * Constructor
 	 * @param parentTab
 	 */
-	public AbstractTabComponentPage(AbstractSewLaunchConfigurationTab parentTab) {
+	public AbstractTabComponentPage(ILaunchConfigurationEditorComposite parentTab) {
 		fParentTab = parentTab;
 
 		fCompositeParent = null;
@@ -43,7 +44,7 @@ public abstract class AbstractTabComponentPage
 
 	public void setVisible(boolean visible) {
 		if( fCompositeControl != null ) {
-			fParentTab.visibleAndExclude(fCompositeControl, visible);
+			fParentTab.propagateVisibility(fCompositeControl, visible);
 		}
 	}
 
@@ -64,11 +65,11 @@ public abstract class AbstractTabComponentPage
 	abstract public boolean isValid(ILaunchConfiguration launchConfig);
 
 	protected void setWarningMessage(String warningMessage) {
-		fParentTab.setWarningMessage(warningMessage);
+		fParentTab.propagateWarningMessage(warningMessage);
 	}
 
 	protected void setErrorMessage(String errorMessage) {
-		fParentTab.setErrorMessage(errorMessage);
+		fParentTab.propagateErrorMessage(errorMessage);
 	}
 
 }

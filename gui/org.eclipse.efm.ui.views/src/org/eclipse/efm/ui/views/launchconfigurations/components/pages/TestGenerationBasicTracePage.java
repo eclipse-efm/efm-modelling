@@ -10,13 +10,14 @@
  *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
  *   - Initial API and Implementation
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.ui.views.launchconfigurations.components.pages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -57,7 +58,7 @@ public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 	 * @param parentTab
 	 */
 	public TestGenerationBasicTracePage(
-			AbstractSewLaunchConfigurationTab parentTab) {
+			ILaunchConfigurationEditorComposite parentTab) {
 		super(parentTab);
 	}
 
@@ -261,13 +262,13 @@ public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 
 		try {
 			fAnalysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 
 			localEnable = fBasicTraceEnabledGenerationBooleanField.getBooleanValue()
 				&& (! fAnalysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) );
 
-			fParentTab.visibleAndExclude(groupBasicConfiguration,localEnable);
-			fParentTab.visibleAndExclude(groupBasicObservable,localEnable);
+			fParentTab.propagateVisibility(groupBasicConfiguration,localEnable);
+			fParentTab.propagateVisibility(groupBasicObservable,localEnable);
 		}
 		catch (CoreException e) {
 			// TODO Auto-generated catch block
@@ -350,7 +351,7 @@ public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 		String analysisProfile;
 		try {
 			analysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 		}
 		catch (CoreException e) {
 			e.printStackTrace();

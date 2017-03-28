@@ -10,7 +10,7 @@
  *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
  *   - Initial API and Implementation
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.ui.views.launchconfigurations.components.pages;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -60,7 +61,7 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 	 * @param parentTab
 	 */
 	public MainTabTransitionCoveragePage(
-			AbstractSewLaunchConfigurationTab parentTab) {
+			ILaunchConfigurationEditorComposite parentTab) {
 		super(parentTab);
 
 		fModelFilePath = null;
@@ -219,12 +220,12 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 						}
 					}
 
-					fParentTab.updateLaunchConfigurationDialog();
+					fParentTab.propagateGUIupdate();
 				}
 
 				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
-			    	  fParentTab.updateLaunchConfigurationDialog();
+			    	  fParentTab.propagateGUIupdate();
 				}
 			});
 
@@ -254,7 +255,7 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 
 							fSelectedTransitionsTable.remove(index);
 
-							fParentTab.updateLaunchConfigurationDialog();
+							fParentTab.propagateGUIupdate();
 
 							break;
 						}
@@ -267,15 +268,15 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 
 	@Override
 	public void setVisible(boolean visible) {
-		fParentTab.visibleAndExclude(fCompositeControl,visible);
+		fParentTab.propagateVisibility(fCompositeControl,visible);
 
 		if( visible ) {
 			if( fEnabledDetailedSelectionBooleanField.getBooleanValue() )
 			{
-				fParentTab.visibleAndExclude(fCompDetailedSelection, true);
+				fParentTab.propagateVisibility(fCompDetailedSelection, true);
 			}
 			else {
-				fParentTab.visibleAndExclude(fCompDetailedSelection, false);
+				fParentTab.propagateVisibility(fCompDetailedSelection, false);
 			}
 		}
 	}
@@ -461,7 +462,7 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 
 		fEnabledDetailedSelectionBooleanField.initializeFrom(configuration);
 
-		fParentTab.visibleAndExclude(fCompDetailedSelection,
+		fParentTab.propagateVisibility(fCompDetailedSelection,
 				fEnabledDetailedSelectionBooleanField.getBooleanValue());
 
 		try {
@@ -487,7 +488,7 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 	{
 		fEnabledDetailedSelectionBooleanField.performApply(configuration);
 
-		fParentTab.visibleAndExclude(fCompDetailedSelection,
+		fParentTab.propagateVisibility(fCompDetailedSelection,
 				fEnabledDetailedSelectionBooleanField.getBooleanValue());
 
 

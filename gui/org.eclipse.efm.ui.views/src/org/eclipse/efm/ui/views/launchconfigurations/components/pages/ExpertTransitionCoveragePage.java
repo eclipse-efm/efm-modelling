@@ -10,13 +10,14 @@
  *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
  *   - Initial API and Implementation
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+package org.eclipse.efm.ui.views.launchconfigurations.components.pages;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.IntegerFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -99,7 +100,7 @@ public class ExpertTransitionCoveragePage extends AbstractTabComponentPage {
 	 * @param parentTab
 	 */
 	public ExpertTransitionCoveragePage(
-			AbstractSewLaunchConfigurationTab parentTab) {
+			ILaunchConfigurationEditorComposite parentTab) {
 		super(parentTab);
 	}
 
@@ -111,7 +112,7 @@ public class ExpertTransitionCoveragePage extends AbstractTabComponentPage {
 		 */
 		@Override
 		public void modifyText(ModifyEvent e) {
-			fParentTab.updateLaunchConfigurationDialog();
+			fParentTab.propagateGUIupdate();
 		}
 
 		/* (non-Javadoc)
@@ -136,17 +137,17 @@ public class ExpertTransitionCoveragePage extends AbstractTabComponentPage {
 
 	private void handleScopeSelectionChange() {
 		fTCScope = fTCScopeCombo.getText();
-		fParentTab.updateLaunchConfigurationDialog();
+		fParentTab.propagateGUIupdate();
 	}
 
 	private void handleHeuristicStartSelectionChange() {
 		fTCHeuristicStart = fTCHeuristicStartCombo.getText();
-		fParentTab.updateLaunchConfigurationDialog();
+		fParentTab.propagateGUIupdate();
 	}
 
 	private void handleDirectiveTraceHeuristicSelectionChange() {
 		fTCDirectiveTraceHeuristic = fTCDirectiveTraceHeuristicCombo.getText();
-		fParentTab.updateLaunchConfigurationDialog();
+		fParentTab.propagateGUIupdate();
 	}
 
 
@@ -365,9 +366,9 @@ public class ExpertTransitionCoveragePage extends AbstractTabComponentPage {
 		String fModelAnalysis;
 		try {
 			fAnalysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 			fModelAnalysis = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
+					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
 
 			setVisible(fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
 					&& fModelAnalysis.equals(

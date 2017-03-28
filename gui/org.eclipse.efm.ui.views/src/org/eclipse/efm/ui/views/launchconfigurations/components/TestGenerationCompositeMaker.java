@@ -1,32 +1,37 @@
 /*******************************************************************************
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2017 CEA LIST.
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial API and implementation
+ *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
  *******************************************************************************/
-package org.eclipse.efm.runconfiguration.ui;
+
+package org.eclipse.efm.ui.views.launchconfigurations.components;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.runconfiguration.LaunchConfigurationTabGroup;
+import org.eclipse.efm.ui.views.launchconfigurations.components.pages.TestGenerationTTCNTracePage;
+import org.eclipse.efm.ui.views.launchconfigurations.components.AbstractCompositeMaker.FieldValidationReturn;
+import org.eclipse.efm.ui.views.launchconfigurations.components.pages.TestGenerationBasicTracePage;
+import org.eclipse.efm.ui.resources.HelpCoReferee;
 import org.eclipse.efm.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.IntegerFieldEditor;
 import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.ui.views.utils.SWTFactory;
-import org.eclipse.efm.ui.resources.HelpCoReferee;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.PlatformUI;
 
-public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
-
+public class TestGenerationCompositeMaker extends AbstractCompositeMaker {
 	private Group groupExtensionObjective;
 
 	private BooleanFieldEditor fTraceExtensionEnabledBooleanField;
@@ -39,35 +44,29 @@ public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
 	// TTCN TRACE GENERATION
 	private TestGenerationTTCNTracePage fTTCNTracePage;
 
-	/**
-	 * Constructor
-	 * @param groupTab
-	 */
-	public TestGenerationTab(LaunchConfigurationTabGroup groupTab) {
-		super(groupTab);
-		setHelpContextId(HelpCoReferee.efm_runconf_testgeneration_tab);
-
+	public TestGenerationCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
 		fBasicTracePage = new TestGenerationBasicTracePage(this);
 
 		fTTCNTracePage = new TestGenerationTTCNTracePage(this);
 	}
 
-	Composite simpleComposite;
+	// ======================================================================================
+	//                              Graphical Components Creation Methods
+	// ======================================================================================
 
 	@Override
-	public void createControl(Composite parent) {
-		simpleComposite = SWTFactory.createComposite(parent,
+	public Composite createControlMain(Composite parent) {
+		Composite simpleComposite = SWTFactory.createComposite(parent,
 				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
-		setControl(simpleComposite);
-
-		PlatformUI.getWorkbench().getHelpSystem()
-			.setHelp(getControl(), getHelpContextId());
 
 		createExtensionFormatPage(simpleComposite);
 
 		fBasicTracePage.createControl(simpleComposite);
 
 		fTTCNTracePage.createControl(simpleComposite);
+		
+		return simpleComposite;
 	}
 
 	public void createExtensionFormatPage(Composite parent) {
@@ -125,49 +124,26 @@ public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
 
 		try {
 			fAnalysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 
 			localEnable = fTraceExtensionEnabledBooleanField.getBooleanValue() &&
 				(! fAnalysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) );
 
 			fTraceExtensionEvaluationStepsLimitIntegerField.setEnabled(localEnable);
 
-			visibleAndExclude(groupExtensionObjective, localEnable);
+			propagateVisibility(groupExtensionObjective, localEnable);
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
 		}
 	}
-
-
-	/**
-	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(ILaunchConfiguration)
-	 */
+	
+	// ======================================================================================
+	//                              Fields Values Management
+	// ======================================================================================	
+	
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
-		setErrorMessage(null);
-
-		if( ! fTraceExtensionEvaluationStepsLimitIntegerField.isValid() ) {
-			setErrorMessage("Evaluation Steps is not a valid integer");
-			return false;
-		}
-
-		if( ! fBasicTracePage.isValid(launchConfig) )
-		{
-			return false;
-		}
-
-		if( ! fTTCNTracePage.isValid(launchConfig) )
-		{
-			return false;
-		}
-
-
-		return true;
-	}
-
-	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 
 //		fTraceExtensionEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
@@ -190,11 +166,11 @@ public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
 		String analysisProfile;
 		try {
 			analysisProfile = configuration.getAttribute(
-					MainTab.ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
@@ -222,7 +198,7 @@ public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
 
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration)
+	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration)
 	{
 		fTraceExtensionEnabledBooleanField.performApply(configuration);
 
@@ -235,9 +211,28 @@ public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
 
 		fTTCNTracePage.performApply(configuration);
 	}
-
+	
+	// ======================================================================================
+	//                              Fields Validation
+	// ======================================================================================
+	
 	@Override
-	public String getName() {
-		return "Test Generation";
+	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+		if( ! fTraceExtensionEvaluationStepsLimitIntegerField.isValid() ) {
+			return new FieldValidationReturn(false, "Evaluation Steps is not a valid integer");
+		}
+
+		if( ! fBasicTracePage.isValid(launchConfig) )
+		{
+			return new FieldValidationReturn(false, null);
+		}
+
+		if( ! fTTCNTracePage.isValid(launchConfig) )
+		{
+			return new FieldValidationReturn(false, null);
+		}
+		return new FieldValidationReturn(true, null);
 	}
+
+
 }
