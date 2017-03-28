@@ -14,8 +14,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.efm.runconfiguration.Activator;
-import org.eclipse.efm.runconfiguration.ToolConstants;
+import org.eclipse.efm.core.workflow.Activator;
+import org.eclipse.efm.core.workflow.ToolConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.osgi.service.datalocation.Location;
 

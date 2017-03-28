@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.efm.runconfiguration.ui.views.page;
 
+import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.efm.runconfiguration.LaunchDelegate;
-import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.PaintEvent;

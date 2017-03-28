@@ -25,8 +25,10 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.efm.core.workflow.Activator;
+import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
+import org.eclipse.efm.core.workflow.ToolConstants;
 import org.eclipse.efm.runconfiguration.ui.views.page.LaunchExecConsoleManager;
-import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osgi.framework.Bundle;
 
@@ -496,8 +498,7 @@ public class WorkflowFAVM implements IWorkflowConfigurationConstants {
 
 	private String filterTransitionCoveragePhase1(
 			ILaunchConfiguration configuration, String currentFavmString) {
-		IPreferenceStore prefs = org.eclipse.efm.runconfiguration.
-				Activator.getDefault().getPreferenceStore();
+		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
 		boolean expertMode = prefs.getBoolean(
 				ToolConstants.PREF_EXPERT_MODE);
 
@@ -763,8 +764,7 @@ public class WorkflowFAVM implements IWorkflowConfigurationConstants {
 
 	private String processHOJPhase1(
 			ILaunchConfiguration configuration, String currentFavmString) {
-		IPreferenceStore prefs = org.eclipse.efm.runconfiguration.
-				Activator.getDefault().getPreferenceStore();
+		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
 		boolean expertMode = prefs.getBoolean(
 				ToolConstants.PREF_EXPERT_MODE);
 
@@ -910,8 +910,7 @@ public class WorkflowFAVM implements IWorkflowConfigurationConstants {
 
 	private String modeDebug(
 			ILaunchConfiguration configuration, String currentFavmString) {
-		IPreferenceStore prefs = org.eclipse.efm.runconfiguration.
-				Activator.getDefault().getPreferenceStore();
+		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
 
 		boolean debugOptionMode = prefs.getBoolean(
 				ToolConstants.PREF_DEBUG_OPTIONS);

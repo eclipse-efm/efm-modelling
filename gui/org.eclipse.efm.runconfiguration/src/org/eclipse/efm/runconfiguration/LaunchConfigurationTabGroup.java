@@ -18,6 +18,8 @@ import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.debug.ui.RefreshTab;
+import org.eclipse.efm.core.workflow.Activator;
+import org.eclipse.efm.core.workflow.ToolConstants;
 import org.eclipse.efm.runconfiguration.ui.CommonCriteriaTab;
 import org.eclipse.efm.runconfiguration.ui.DebugTab;
 import org.eclipse.efm.runconfiguration.ui.DeveloperTuningTab;

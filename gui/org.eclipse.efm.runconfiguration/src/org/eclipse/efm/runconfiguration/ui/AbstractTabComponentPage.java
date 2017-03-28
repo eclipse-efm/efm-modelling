@@ -14,7 +14,7 @@ package org.eclipse.efm.runconfiguration.ui;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
+import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractTabComponentPage

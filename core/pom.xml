@@ -12,6 +12,7 @@
 	<name>org.eclipse.efm-modeling Core</name>
 	<description>org.eclipse.efm-modeling Core contains all semantic information for modeling profile. These modules should'nt contain any gui elements.</description>
 	<modules>
+		<module>org.eclipse.efm.core.workflow</module>
 		<module>org.eclipse.efm.formalml</module>
 		<module>org.eclipse.efm.formalml.tests</module>
 		<module>org.eclipse.efm.papyrus.service.types</module>

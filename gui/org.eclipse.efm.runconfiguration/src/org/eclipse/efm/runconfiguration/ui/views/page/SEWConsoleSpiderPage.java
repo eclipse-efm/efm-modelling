@@ -24,9 +24,9 @@ import java.io.OutputStreamWriter;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
+import org.eclipse.efm.core.workflow.ToolConstants;
 import org.eclipse.efm.runconfiguration.LaunchDelegate;
-import org.eclipse.efm.runconfiguration.ToolConstants;
-import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -100,8 +100,7 @@ public class SEWConsoleSpiderPage extends Page
 
         PlatformUI.getWorkbench().getHelpSystem().setHelp(fMainPageControl, HelpCoReferee.efm_sew_console);
 
-		IPreferenceStore prefs = org.eclipse.efm.runconfiguration.
-				Activator.getDefault().getPreferenceStore();
+		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
         consoleView = prefs.getBoolean(
 				ToolConstants.PREF_CONSOLE_VIEW);
         spiderView = prefs.getBoolean(
@@ -183,8 +182,7 @@ public class SEWConsoleSpiderPage extends Page
 			String mode, ILaunch launch, IProgressMonitor monitor,
 			String[] cmdLine, File workingDir, String[] envp) {
 
-		IPreferenceStore prefs = org.eclipse.efm.runconfiguration.
-				Activator.getDefault().getPreferenceStore();
+		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
 
         consoleView = prefs.getBoolean(
 				ToolConstants.PREF_CONSOLE_VIEW);

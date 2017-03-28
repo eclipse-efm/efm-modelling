@@ -10,9 +10,9 @@
  *******************************************************************************/
 package org.eclipse.efm.ui.preferences.runconfigurations;
 
-import org.eclipse.efm.runconfiguration.Activator;
-import org.eclipse.efm.runconfiguration.LaunchDelegate;
-import org.eclipse.efm.runconfiguration.ToolConstants;
+import org.eclipse.efm.core.workflow.Activator;
+import org.eclipse.efm.core.workflow.ToolConstants;
+import org.eclipse.efm.core.workflow.AbstractLaunchDelegate;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
@@ -61,7 +61,7 @@ public class LaunchConfigurationPreferencePage
 				ToolConstants.PREF_EXPERT_MODE,
 				"&Expert Mode",getFieldEditorParent()));
 
-		if( LaunchDelegate.ENABLED_SYMBEX_INCUBATION_MODE_OPTION ) {
+		if( AbstractLaunchDelegate.ENABLED_SYMBEX_INCUBATION_MODE_OPTION ) {
 			addField(new BooleanFieldEditor(
 					ToolConstants.PREF_INCUBATION_MODE,
 					"&Incubation Mode",getFieldEditorParent()));
@@ -71,7 +71,7 @@ public class LaunchConfigurationPreferencePage
 				ToolConstants.PREF_DEBUG_OPTIONS,
 				"&Debug Option",getFieldEditorParent()));
 
-		if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
+		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
 			addField(new BooleanFieldEditor(
 					ToolConstants.PREF_SYMBEX_DEVELOPER_MODE,
 					"&Symbex Developer Mode",getFieldEditorParent()));

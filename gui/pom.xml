@@ -24,5 +24,6 @@
 		<module>org.eclipse.efm.ui.preferences.xtext_root</module>
 		<module>org.eclipse.efm.ui.preferences_root</module>
 		<module>org.eclipse.efm.ui.resources</module>
+		<module>org.eclipse.efm.ui.views</module>
 	</modules>
 </project>

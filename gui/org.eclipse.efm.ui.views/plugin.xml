@@ -9,7 +9,7 @@
       </category>
       <view
             category="org.eclipse.efm.ui.views"
-            class="org.eclipse.efm.ui.views.SymbexWorkflowView"
+            class="org.eclipse.efm.ui.views.viewparts.swv.SymbexWorkflowView"
             icon="icons/sample.gif"
             id="org.eclipse.efm.ui.views.SymbexWorkflowView"
             name="Symbex Workflow">

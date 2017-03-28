@@ -22,8 +22,8 @@ import org.eclipse.core.variables.IStringVariableManager;
 import org.eclipse.core.variables.VariablesPlugin;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.efm.runconfiguration.Activator;
-import org.eclipse.efm.runconfiguration.ToolConstants;
+import org.eclipse.efm.core.workflow.Activator;
+import org.eclipse.efm.core.workflow.ToolConstants;
 import org.eclipse.osgi.util.NLS;
 
 /**

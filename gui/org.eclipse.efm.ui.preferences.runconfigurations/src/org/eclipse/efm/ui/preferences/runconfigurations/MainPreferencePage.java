@@ -11,9 +11,9 @@
 package org.eclipse.efm.ui.preferences.runconfigurations;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.efm.runconfiguration.Activator;
-import org.eclipse.efm.runconfiguration.ToolConstants;
-import org.eclipse.efm.runconfiguration.ui.internal.SWTFactory;
+import org.eclipse.efm.core.workflow.Activator;
+import org.eclipse.efm.core.workflow.ToolConstants;
+import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;

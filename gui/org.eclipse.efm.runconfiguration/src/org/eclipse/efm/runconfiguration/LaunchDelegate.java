@@ -32,30 +32,19 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.RefreshUtil;
-import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.ui.IDebugUIConstants;
+import org.eclipse.efm.core.workflow.Activator;
+import org.eclipse.efm.core.workflow.AbstractLaunchDelegate;
+import org.eclipse.efm.core.workflow.ToolConstants;
+import org.eclipse.efm.core.workflow.WorkflowCustomImpl;
 import org.eclipse.efm.runconfiguration.ui.CoreUtil;
 import org.eclipse.efm.runconfiguration.ui.views.page.LaunchExecConsoleManager;
 import org.eclipse.efm.runconfiguration.util.BackgroundResourceRefresher;
-import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
-import org.eclipse.efm.runconfiguration.workflow.WorkflowCustomImpl;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.osgi.util.NLS;
 
-public class LaunchDelegate implements ILaunchConfigurationDelegate ,
-		IWorkflowConfigurationConstants {
-
-	////////////////////////////////////////////////////////////////////////////
-	// DEVELOPER OPTIONS
-	////////////////////////////////////////////////////////////////////////////
-
-	public final static boolean ENABLED_SYMBEX_DEVELOPER_MODE_OPTION = true;
-
-	public final static boolean ENABLED_SYMBEX_INCUBATION_MODE_OPTION = true;
-
-	////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////
+public class LaunchDelegate extends AbstractLaunchDelegate {
 
 
 //	private final String PROJECT_FAVM = "project.favm";
@@ -95,8 +84,7 @@ public class LaunchDelegate implements ILaunchConfigurationDelegate ,
 			String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
 
-		IPreferenceStore prefs = org.eclipse.efm.runconfiguration.
-				Activator.getDefault().getPreferenceStore();
+		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
 
 		fEnabledDebugOrDeveloperMode = ILaunchManager.DEBUG_MODE.equals(mode)
 				&& ( prefs.getBoolean(ToolConstants.PREF_DEBUG_OPTIONS)
@@ -251,8 +239,7 @@ public class LaunchDelegate implements ILaunchConfigurationDelegate ,
 		File workingDir = (fWorkingDirectory != null) ?
 				fWorkingDirectory.toFile() : null;
 
-		IPreferenceStore prefs = org.eclipse.efm.runconfiguration.
-				Activator.getDefault().getPreferenceStore();
+		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
 
 		boolean debugOptionMode = prefs.getBoolean(
 				ToolConstants.PREF_DEBUG_OPTIONS);

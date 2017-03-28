@@ -18,7 +18,7 @@ import java.io.File;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.efm.runconfiguration.Activator;
+import org.eclipse.efm.core.workflow.Activator;
 import org.eclipse.efm.runconfiguration.ui.views.page.SEWConsoleSpiderPage;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;

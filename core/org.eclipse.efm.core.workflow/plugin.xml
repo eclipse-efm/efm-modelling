@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated workflow -->
+      <package
+            uri="http://www.eclipse.org/efm/Workflow"
+            class="org.eclipse.efm.core.workflow.WorkflowPackage"
+            genModel="resources/ecore/workflow.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated workflow -->
+      <package
+            uri="http://www.eclipse.org/efm/Workflow/Common"
+            class="org.eclipse.efm.core.workflow.common.CommonPackage"
+            genModel="resources/ecore/workflow.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated workflow -->
+      <package
+            uri="http://www.eclipse.org/efm/Workflow/Coverage"
+            class="org.eclipse.efm.core.workflow.coverage.CoveragePackage"
+            genModel="resources/ecore/workflow.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated workflow -->
+      <package
+            uri="http://www.eclipse.org/efm/Workflow/Test"
+            class="org.eclipse.efm.core.workflow.test.TestPackage"
+            genModel="resources/ecore/workflow.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated workflow -->
+      <package
+            uri="http://www.eclipse.org/efm/Workflow/Serializer"
+            class="org.eclipse.efm.core.workflow.serializer.SerializerPackage"
+            genModel="resources/ecore/workflow.genmodel"/>
+   </extension>
+   
+</plugin>

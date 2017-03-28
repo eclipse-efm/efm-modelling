@@ -14,8 +14,8 @@ package org.eclipse.efm.runconfiguration.ui;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.runconfiguration.ui.internal.SWTFactory;
-import org.eclipse.efm.runconfiguration.ui.internal.fieldeditor.StringFieldEditor;
+import org.eclipse.efm.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;

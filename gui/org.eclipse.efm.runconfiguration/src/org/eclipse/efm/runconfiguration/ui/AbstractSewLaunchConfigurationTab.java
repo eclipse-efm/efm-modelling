@@ -11,15 +11,16 @@
 package org.eclipse.efm.runconfiguration.ui;
 
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
+import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
 import org.eclipse.efm.runconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.runconfiguration.workflow.IWorkflowConfigurationConstants;
+import org.eclipse.efm.ui.views.utils.LaunchConfigurationEditorCommunicationInterface;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
 public abstract class AbstractSewLaunchConfigurationTab
 		extends AbstractLaunchConfigurationTab
-		implements IWorkflowConfigurationConstants {
+		implements IWorkflowConfigurationConstants, LaunchConfigurationEditorCommunicationInterface{
 
 	protected LaunchConfigurationTabGroup fGroupTab;
 
@@ -69,6 +70,11 @@ public abstract class AbstractSewLaunchConfigurationTab
 	@Override
 	protected Shell getShell() {
 		return super.getShell();
+	}
+	
+	@Override
+	public void updateGUI() {
+		updateLaunchConfigurationDialog();
 	}
 
 	/**

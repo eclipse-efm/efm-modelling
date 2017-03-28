@@ -334,44 +334,5 @@
          </view>
       </perspectiveExtension>
    </extension>
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated workflow -->
-      <package
-            uri="http://www.eclipse.org/efm/Workflow"
-            class="org.eclipse.efm.runconfiguration.workflow.WorkflowPackage"
-            genModel="resources/ecore/workflow.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated workflow -->
-      <package
-            uri="http://www.eclipse.org/efm/Workflow/Common"
-            class="org.eclipse.efm.runconfiguration.workflow.common.CommonPackage"
-            genModel="resources/ecore/workflow.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated workflow -->
-      <package
-            uri="http://www.eclipse.org/efm/Workflow/Coverage"
-            class="org.eclipse.efm.runconfiguration.workflow.coverage.CoveragePackage"
-            genModel="resources/ecore/workflow.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated workflow -->
-      <package
-            uri="http://www.eclipse.org/efm/Workflow/Test"
-            class="org.eclipse.efm.runconfiguration.workflow.test.TestPackage"
-            genModel="resources/ecore/workflow.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated workflow -->
-      <package
-            uri="http://www.eclipse.org/efm/Workflow/Serializer"
-            class="org.eclipse.efm.runconfiguration.workflow.serializer.SerializerPackage"
-            genModel="resources/ecore/workflow.genmodel"/>
-   </extension>
 
 </plugin>
