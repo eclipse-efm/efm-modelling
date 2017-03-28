@@ -9,5 +9,5 @@
 	<artifactId>org.eclipse.efm.modeling.targetplatform.neon</artifactId>
 	<packaging>eclipse-target-definition</packaging>
 	<name>org.eclipse.efm.modeling.targetplatform.neon</name>
-	<description>This plug-in contains the target definition for Papyrus org.eclipse.efm-modeling in Neon.</description>
+	<description>This plug-in contains the target definition for Eclipse Formal Modeling in Neon.</description>
 </project>

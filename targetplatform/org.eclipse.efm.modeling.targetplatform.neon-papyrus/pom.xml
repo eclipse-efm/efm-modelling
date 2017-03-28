@@ -7,8 +7,8 @@
 		<artifactId>org.eclipse.efm.modeling.targetplatform</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>org.eclipse.efm.modeling.targetplatform.neon-papyrusnightly</artifactId>
+	<artifactId>org.eclipse.efm.modeling.targetplatform.neon-papyrus</artifactId>
 	<packaging>eclipse-target-definition</packaging>
-	<name>org.eclipse.efm.modeling.targetplatform.neon-papyrusnightly</name>
-	<description>This plug-in contains the target definition for Papyrus org.eclipse.efm-modeling in Neon with Papyrus nightly.</description>
+	<name>org.eclipse.efm.modeling.targetplatform.neon-papyrus</name>
+	<description>This plug-in contains the target definition for Eclipse Formal Modeling  in Neon with Papyrus.</description>
 </project>

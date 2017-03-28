@@ -13,12 +13,21 @@
 	<description>This module contains the different Eclipse target platform definitions.</description>
 	<profiles>
 		<profile>
-			<id>neon-papyrusnightly</id>
+			<id>neon</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-				<module>org.eclipse.efm.modeling.targetplatform.neon-papyrusnightly</module>
+				<module>org.eclipse.efm.modeling.targetplatform.neon</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>neon-papyrus</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>org.eclipse.efm.modeling.targetplatform.neon-papyrus</module>
 			</modules>
 		</profile>
 	</profiles>

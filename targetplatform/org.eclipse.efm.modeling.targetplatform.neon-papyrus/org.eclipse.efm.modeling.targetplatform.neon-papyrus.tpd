@@ -1,4 +1,4 @@
-target "Papyrus Neon Nightly" with source requirements
+target "Eclipse Formal Modeling with Papyrus Neon" with source requirements
 
 location "http://download.eclipse.org/releases/neon/" eclipse-neon {
  org.eclipse.platform.feature.group lazy
