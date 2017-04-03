@@ -149,7 +149,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 				sep = "."
 			}
 		}
-		if( qualifiedname.unqualifiedName != null ) {
+		if( qualifiedname.unqualifiedName !== null ) {
 			path += sep + qualifiedname.unqualifiedName
 		}
 
@@ -195,7 +195,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(Port decl) {
 		val fqn = nameProvider.getFullyQualifiedName(decl);
-		if( fqn != null ) {
+		if( fqn !== null ) {
 			fqn.toString();
 		}
 		else {
@@ -217,7 +217,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(Signal decl) {
 		val fqn = nameProvider.getFullyQualifiedName(decl);
-		if( fqn != null ) {
+		if( fqn !== null ) {
 			fqn.toString();
 		}
 		else {
@@ -232,7 +232,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(Buffer decl) {
 		val fqn = nameProvider.getFullyQualifiedName(decl);
-		if( fqn != null ) {
+		if( fqn !== null ) {
 			fqn.toString();
 		}
 		else {
@@ -247,10 +247,10 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(Variable decl) {
 		val fqn = nameProvider.getFullyQualifiedName(decl);
-		if( fqn != null ) {
+		if( fqn !== null ) {
 			fqn.toString();
 		}
-		else if( (decl.name == null) && (decl.type != null) ) {
+		else if( (decl.name === null) && (decl.type !== null) ) {
 	  		text( decl.type )
 		}
 		else {
@@ -265,10 +265,10 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(SlotProperty slot) {
-		if( slot.xliaProperty != null) {
+		if( slot.xliaProperty !== null) {
 	  		text( slot.xliaProperty )
 		}
-//		else if( slot.umlProperty != null) {
+//		else if( slot.umlProperty !== null) {
 //	  		text( slot.umlProperty )
 //		}
 		else {
@@ -277,10 +277,10 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def image(SlotProperty slot) {
-		if( slot.xliaProperty != null ) {
+		if( slot.xliaProperty !== null ) {
 			"fml/QualifierValue.gif"
 		}
-//		else if( slot.umlProperty != null ) {
+//		else if( slot.umlProperty !== null ) {
 //			"fml/QualifierValue.gif"
 //		}
 		else {
@@ -291,7 +291,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(Type type) {
 		val fqn = nameProvider.getFullyQualifiedName(type);
-		if( fqn != null ) {
+		if( fqn !== null ) {
 			fqn.toString();
 		}
 		else {
@@ -302,7 +302,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(DataType type) {
 		val fqn = nameProvider.getFullyQualifiedName(type);
-		if( fqn != null ) {
+		if( fqn !== null ) {
 			fqn.toString();
 		}
 		else {
@@ -321,10 +321,10 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 			ChoiceType     : "fml/ChoiceType.gif"
 
 			DataTypeReference :  {
-				if( type.typeref != null ) {
+				if( type.typeref !== null ) {
 					type.typeref.image
 				}
-				else if( type.support != null ) {
+				else if( type.support !== null ) {
 					type.support.image
 				}
 				else {
@@ -342,25 +342,25 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(DataTypeReference type) {
 		var str =
-			if( type.name != null ) {
-				if( type.typeref != null ) {
+			if( type.name !== null ) {
+				if( type.typeref !== null ) {
 					type.name + " " + text( type.typeref )
 				}
 				else {
 					type.name
 				}
 			}
-			else if( type.typeref != null ) {
+			else if( type.typeref !== null ) {
 				text( type.typeref )
 			}
-			else if( type.support != null ) {
+			else if( type.support !== null ) {
 				text( type.support )
 			}
 			else {
 				"<datatype>"
 			}
 
-		if( type.multiplicity != null) {
+		if( type.multiplicity !== null) {
 			str + " [ " + type.multiplicity + " ]"
 		}
 		else {
@@ -369,10 +369,10 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def image(DataTypeReference type) {
-		if( type.typeref != null ) {
+		if( type.typeref !== null ) {
 			image( type.typeref )
 		}
-		else if( type.support != null ) {
+		else if( type.support !== null ) {
 			text( type.support )
 		}
 		else {
@@ -382,7 +382,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(EnumerationType type) {
-		if( type.name != null ) {
+		if( type.name !== null ) {
 			"enum " + type.name
 		}
 		else {
@@ -420,7 +420,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(StructureType type) {
-		if( type.name != null ) {
+		if( type.name !== null ) {
 			"struct " + type.name
 		}
 		else {
@@ -434,7 +434,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(UnionType type) {
-		if( type.name != null ) {
+		if( type.name !== null ) {
 			"union " + type.name
 		}
 		else {
@@ -448,7 +448,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(ChoiceType type) {
-		if( type.name != null ) {
+		if( type.name !== null ) {
 			"choice " + type.name
 		}
 		else {
@@ -500,7 +500,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(PrimitiveInstanceType type) {
 		type.expected.toString +
-			if( type.model != null ) {
+			if( type.model !== null ) {
 				"< " + type.model.name + " >"
 			}
 			else {
@@ -545,10 +545,10 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(Region region) {
-		if( region.name != null ) {
+		if( region.name !== null ) {
 			val str = new StyledString(region.name)
 
-			if( region.unrestrictedName != null ) {
+			if( region.unrestrictedName !== null ) {
 				str.append( new StyledString(
 					" " + region.unrestrictedName,
 					StyledString::DECORATIONS_STYLER ) )
@@ -573,7 +573,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	def text(System system) {
 		val str = new StyledString(system.name)
 
-		if( system.unrestrictedName != null ) {
+		if( system.unrestrictedName !== null ) {
 			str.append( new StyledString(
 				" " + system.unrestrictedName,
 				StyledString::DECORATIONS_STYLER ) )
@@ -591,7 +591,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	def text(Machine machine) {
 		val str = new StyledString(machine.name)
 
-		if( machine.unrestrictedName != null ) {
+		if( machine.unrestrictedName !== null ) {
 			str.append( new StyledString(
 				" " + machine.unrestrictedName,
 				StyledString::DECORATIONS_STYLER ) )
@@ -609,12 +609,12 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	def text(InstanceMachine instance) {
 		val str = new StyledString(instance.name)
 
-		if( instance.unrestrictedName != null ) {
+		if( instance.unrestrictedName !== null ) {
 			str.append( new StyledString(
 				" " + instance.unrestrictedName,
 				StyledString::DECORATIONS_STYLER ) )
 		}
-		else if( instance.slot.empty && (instance.model != null) ) {
+		else if( instance.slot.empty && (instance.model !== null) ) {
 			str.append( new StyledString(" as ",
 				StyledString::DECORATIONS_STYLER ).append(
 				 	 new StyledString( instance.model.name,
@@ -652,7 +652,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 		val str = new StyledString(statemachine.name)
 
-		if( statemachine.unrestrictedName != null ) {
+		if( statemachine.unrestrictedName !== null ) {
 			str.append( new StyledString(
 				" " + statemachine.unrestrictedName,
 				StyledString::DECORATIONS_STYLER  ) )
@@ -670,7 +670,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	def text(State state) {
 		val str = new StyledString(state.name)
 
-		if( state.unrestrictedName != null ) {
+		if( state.unrestrictedName !== null ) {
 			str.append( new StyledString(
 				" " + state.unrestrictedName,
 				StyledString::DECORATIONS_STYLER  ) )
@@ -681,7 +681,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def image(State state) {
-		if( (state.region != null) ) {
+		if( (state.region !== null) ) {
 			if( state.region.isEmpty ) {
 				"fml/State.gif"
 			}
@@ -709,7 +709,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	def text(Pseudostate state) {
 		val str = new StyledString(state.name)
 
-		if( state.unrestrictedName != null ) {
+		if( state.unrestrictedName !== null ) {
 			str.append( new StyledString(
 				" " + state.unrestrictedName,
 				StyledString::DECORATIONS_STYLER  ) )
@@ -741,7 +741,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	def text(Transition transition) {
 		val str = new StyledString( transition.name ?: "<transition>" )
 
-		if( transition.unrestrictedName != null ) {
+		if( transition.unrestrictedName !== null ) {
 			str.append(	new StyledString(
 				" " + transition.unrestrictedName,
 				StyledString::DECORATIONS_STYLER ) ).append(
@@ -796,10 +796,10 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(Routine routine) {
-		if( routine.name != null ) {
+		if( routine.name !== null ) {
 			val str = new StyledString(routine.name)
 
-			if( routine.unrestrictedName != null ) {
+			if( routine.unrestrictedName !== null ) {
 				str.append( new StyledString(
 					" " + routine.unrestrictedName,
 					StyledString::DECORATIONS_STYLER ) )
@@ -898,10 +898,10 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	def text(ComProtocol com) {
 		switch( com.protocol ) {
 			case BUFFER: {
-				if( com.inner_buffer != null ) {
+				if( com.inner_buffer !== null ) {
 					"buffer: " + text( com.inner_buffer )
 				}
-				else if( com.ref_buffer != null ) {
+				else if( com.ref_buffer !== null ) {
 					"buffer: " + text( com.ref_buffer )
 				}
 				else {
@@ -952,7 +952,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 			}
 		}
 
-		if( (statement.op != null) && (! statement.op.isEmpty) ) {
+		if( (statement.op !== null) && (! statement.op.isEmpty) ) {
 			strBlock += " { " + statement.op + " }"
 		}
 
@@ -1173,7 +1173,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def text(LiteralReferenceElement expression) {
-		if( expression.value != null ) {
+		if( expression.value !== null ) {
 			val fqn = nameProvider.getFullyQualifiedName(expression.value);
 
 			fqn?.toString ?: "no qfn: " + ( expression.value.name ?: "<reference>" )
@@ -1184,7 +1184,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def image(LiteralReferenceElement expression) {
-		if( expression.value != null ) {
+		if( expression.value !== null ) {
 			image(expression.value)
 		}
 		else {
@@ -1353,7 +1353,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(ValueElementSpecification ves) {
 		var str =
-			if( ves.element != null ) {
+			if( ves.element !== null ) {
 				if( ves.element instanceof NamedElement ) {
 					(ves.element as NamedElement).name
 				}
@@ -1365,7 +1365,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 				"<ves>"
 			}
 
-		if( ves.arg != null ) {
+		if( ves.arg !== null ) {
 			val arg = text( ves.arg ) ?: "<arg>"
 
 			switch( ves.kind ) {

@@ -59,18 +59,18 @@ class SEWLabelProvider extends DefaultEObjectLabelProvider {
 	def text(SEWorkflow workflow) {
 		val str = new StyledString("SymbEx-Workflow")
 
-		if( (workflow.type != null)
+		if( (workflow.type !== null)
 			&& (! workflow.type.toLowerCase().contains("workflow"))
 			&& (workflow.type != "SEW") ) {
 			str.append( new StyledString( " <" + workflow.type + ">",
 				StyledString::DECORATIONS_STYLER ) )
 		}
 
-		if( workflow.name != null  ) {
+		if( workflow.name !== null  ) {
 			str.append( new StyledString( " " + workflow.name,
 				StyledString::DECORATIONS_STYLER ) )
 		}
-		else if( workflow.description != null  ) {
+		else if( workflow.description !== null  ) {
 			str.append( new StyledString( " " + workflow.description,
 				StyledString::DECORATIONS_STYLER ) )
 		}
@@ -85,15 +85,15 @@ class SEWLabelProvider extends DefaultEObjectLabelProvider {
 	def text(WObject object) {
 		val str = new StyledString()
 
-		if( object.type != null  ) {
+		if( object.type !== null  ) {
 			str.append( new StyledString( " <" + object.type + ">" ) )
 		}
 
-		if( object.name != null  ) {
+		if( object.name !== null  ) {
 			str.append( new StyledString( " " + object.name,
 				StyledString::DECORATIONS_STYLER ) )
 		}
-		else if( object.description != null  ) {
+		else if( object.description !== null  ) {
 			str.append( new StyledString( " " + object.description,
 				StyledString::DECORATIONS_STYLER ) )
 		}
@@ -110,7 +110,7 @@ class SEWLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(WSection section) {
-		if( section.name != null ) {
+		if( section.name !== null ) {
 			if( section.name.startsWith("@") ) {
 				section.name.substring(1)
 			}
@@ -131,7 +131,7 @@ class SEWLabelProvider extends DefaultEObjectLabelProvider {
 	def text(WAttribute attribute) {
 		val str = new StyledString()
 		
-		if( attribute.name != null ) {
+		if( attribute.name !== null ) {
 			if( attribute.name.startsWith("@") ) {
 				str.append( attribute.name.substring(1) )
 			}
@@ -176,10 +176,10 @@ class SEWLabelProvider extends DefaultEObjectLabelProvider {
 			
 			LiteralObjectReference: {
 				val objID =
-					if( valueSpec.object.name != null ) { 
+					if( valueSpec.object.name !== null ) { 
 						valueSpec.object.name
 					}
-					else if( valueSpec.object.type != null ) {
+					else if( valueSpec.object.type !== null ) {
 						valueSpec.object.type
 					}
 					else {

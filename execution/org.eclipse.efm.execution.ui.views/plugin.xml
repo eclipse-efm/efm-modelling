@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.efm.ui.category.views"
+            class="org.eclipse.efm.execution.ui.views.viewparts.swv.SymbexWorkflowView"
+            icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/diversity_icon.png"
+            id="org.eclipse.efm.execution.ui.views.SymbexWorkflowView"
+            name="Symbex Workflow">
+      </view>
+   </extension>
+
+</plugin>

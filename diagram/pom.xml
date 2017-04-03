@@ -11,9 +11,9 @@
 	<name>org.eclipse.efm-modeling Diagram</name>
 	<description>This set of modules are in charge of defining the org.eclipse.efm-modeling diagrams using the following frameworks: viewpoint, expansion model, palette and css.</description>
 	<modules>
-		<module>org.eclipse.efm.papyrus.diagram.common</module>
-		<module>org.eclipse.efm.papyrus.diagram.blockdefinition</module>
-		<module>org.eclipse.efm.papyrus.diagram.internalblock</module>
-		<module>org.eclipse.efm.papyrus.diagram.statemachine</module>
+		<module>org.eclipse.efm.modeling.diagram.common</module>
+		<module>org.eclipse.efm.modeling.diagram.blockdefinition</module>
+		<module>org.eclipse.efm.modeling.diagram.internalblock</module>
+		<module>org.eclipse.efm.modeling.diagram.statemachine</module>
 	</modules>
 </project>

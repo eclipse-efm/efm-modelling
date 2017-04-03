@@ -26,11 +26,11 @@
 		<component.rcp.name>org.eclipse.efm.modeling.rcp</component.rcp.name>
 		<component.apibaseline.url>http://download.eclipse.org/efm/components/org.eclipse.efm-modeling/</component.apibaseline.url>
 		<component.servicetype>org.eclipse.efm.modeling.service.types</component.servicetype>
-		<eclipse.targetrelease>neon-papyrusnightly</eclipse.targetrelease>
+		<eclipse.targetrelease>neon-papyrus</eclipse.targetrelease>
 		<target.version>${project.version}</target.version>
 		<!-- Default header linked to EPL license -->
 		<component.header>header.epl.txt</component.header>
-		<eclipse.release>neon-papyrusnightly</eclipse.release>
+		<eclipse.release>neon-papyrus</eclipse.release>
 
 	</properties>
 
@@ -47,7 +47,7 @@
 	<repositories>
 		<repository>
 			<id>pap.repo.eclipse.org</id>
-			<name>Papyrus Repository - Releases</name>
+			<name>Eclipse Formal Modeling Repository - Releases</name>
 			<url>https://repo.eclipse.org/content/repositories/papyrus-releases/</url>
 			<releases>
 				<enabled>true</enabled>
@@ -59,7 +59,7 @@
 		</repository>
 		<repository>
 			<id>paps.repo.eclipse.org</id>
-			<name>Papyrus Repository - Snapshots</name>
+			<name>Eclipse Formal Modeling Repository - Snapshots</name>
 			<url>https://repo.eclipse.org/content/repositories/papyrus-snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
@@ -76,6 +76,7 @@
 		<module>codegen</module>
 		<module>diagram</module>
 		<module>editor</module>
+		<module>execution</module>
 		<module>doc</module>
 		<module>gui</module>
 		<module>releng</module>

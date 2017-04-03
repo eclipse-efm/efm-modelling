@@ -34,6 +34,8 @@ public class EFMStandardLibraryTest {
 		URI createPlatformPluginURI = URI.createPlatformPluginURI(LIBRARY_PATH, true);
 		Resource resource = new ResourceSetImpl().getResource(createPlatformPluginURI, true);
 		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(resource.getContents().get(0));
-		Assert.assertEquals("The FormalML-Standard-Library is not valid ", Diagnostic.OK, diagnostic.getSeverity()); //$NON-NLS-1$
+		
+		Assert.assertEquals("The FormalML-Standard-Library is not valid ", 
+				Diagnostic.OK, diagnostic.getSeverity()); //$NON-NLS-1$
 	}	
 }

@@ -130,11 +130,11 @@ class FormalMLTypeProvider {
 			}
 
 			DataTypeReference : {
-				if( type.multiplicity == null ) {
-					if( type.support != null ) {
+				if( type.multiplicity === null ) {
+					if( type.support !== null ) {
 						type.support.typeClass
 					}
-					else if( type.typeref != null ) {
+					else if( type.typeref !== null ) {
 						type.typeref.typeClass
 					}
 					else {
@@ -328,8 +328,8 @@ class FormalMLTypeProvider {
 
 		for( operand : exp.operand ) {
 			val operandType = operand.typeClassFor
-			if( operandType != null ) {
-				if( prevType != null ) {
+			if( operandType !== null ) {
+				if( prevType !== null ) {
 					if( prevType.isConformant(operandType) ) {
 						// prevType < operandType 
 						prevType = operandType
@@ -353,7 +353,7 @@ class FormalMLTypeProvider {
 	def containerOfTypes(EObject context,
 		Class< ? extends EObject > type, Class< ? extends EObject > typeElse) {
 
-		for( var it = context ; it != null; it = it.eContainer()) {
+		for( var it = context ; it !== null; it = it.eContainer()) {
 			if( type.isInstance(it) || typeElse.isInstance(it) ) {
 				return it
 			}
@@ -369,10 +369,10 @@ class FormalMLTypeProvider {
 			DataSupportedType : type.support.typeSpecifier
 
 			DataTypeReference :  {
-				if( type.typeref != null ) {
+				if( type.typeref !== null ) {
 					type.typeref.typeSpecifier
 				}
-				else if( type.support != null ) {
+				else if( type.support !== null ) {
 					type.support.typeSpecifier
 				}
 				else {
@@ -389,21 +389,21 @@ class FormalMLTypeProvider {
 			CollectionType : type.support
 
 			DataTypeReference :  {
-				if( type.multiplicity != null ) {
-					if( type.typeref != null ) {
+				if( type.multiplicity !== null ) {
+					if( type.typeref !== null ) {
 						type.typeref
 					}
-					else if( type.support != null ) {
+					else if( type.support !== null ) {
 						type.support
 					}
 					else {
 						type
 					}
 				}
-				else if( type.typeref != null ) {
+				else if( type.typeref !== null ) {
 					type.typeref.typeOfCollectionElement
 				}
-				else if( type.support != null ) {
+				else if( type.support !== null ) {
 					type.support.typeOfCollectionElement
 				}
 				else {
@@ -437,10 +437,10 @@ class FormalMLTypeProvider {
 			DataStructuredType: type.property.empty
 
 			DataTypeReference :  {
-				if( type.typeref != null ) {
+				if( type.typeref !== null ) {
 					type.typeref.isPrimitive
 				}
-				else if( type.support != null ) {
+				else if( type.support !== null ) {
 					type.support.isPrimitive
 				}
 				else {

@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="formalml" nsURI="http://org.eclipse.efm.formalml" nsPrefix="formalml">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="formalml" nsURI="http://org.eclipse.efm.formalml" nsPrefix="FormalML">
   <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-    <details key="originalName" value="fml"/>
+    <details key="originalName" value="FormalML"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Clock">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Properties in clocks shall have a type stereotype by [to define:TimedType]&#xD;&#xA;Reset is the only allowed action on properties in clock&#xD;&#xA;"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseProperty" ordered="false"
-        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="base_Property"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="extension_ClockVar"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Configuration" eSuperTypes="#//FormalBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="env" ordered="false" upperBound="-1"
@@ -26,61 +19,29 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inputEnabled" ordered="false"
         lowerBound="1" eType="ecore:EDataType ../../../org.eclipse.uml2.types/model/Types.ecore#//Boolean"
-        defaultValueLiteral="false">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="input_enabled"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        defaultValueLiteral="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FormalBlock" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="baseClass" ordered="false"
-        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Class">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="base_Class"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="extension_FormalBlock"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+  <eClassifiers xsi:type="ecore:EClass" name="FormalBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="routingBehavior" ordered="false"
         eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//OpaqueBehavior"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseClass" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Class"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TimedTransition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tguard" ordered="false"
         eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Constraint"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseTransition" ordered="false"
-        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Transition">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="base_Transition"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="extension_Transition"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Transition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Part">
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseProperty" ordered="false"
-        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="base_Property"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="extension_BlockPart"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instance" ordered="false"
         upperBound="-1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//InstanceSpecification"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReceiveAnyEvent" eSuperTypes="#//ReceiveEvent">
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseAnyReceiveEvent" ordered="false"
-        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//AnyReceiveEvent">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="base_AnyReceiveEvent"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="extension_ReceiveAnyEvent"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//AnyReceiveEvent"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReceiveEvent" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" ordered="false"
@@ -88,31 +49,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReceiveSignalEvent" eSuperTypes="#//ReceiveEvent">
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseAnyReceiveEvent" ordered="false"
-        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//AnyReceiveEvent">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="base_AnyReceiveEvent"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//AnyReceiveEvent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseSignalEvent" ordered="false"
-        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//SignalEvent">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="base_SignalEvent"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="extension_ReceiveSignalEvent"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//SignalEvent"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DirectedPort">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="basePort" ordered="false"
-        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Port">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="base_Port"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="extension_FlowPort"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="base_Port" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Port"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
         lowerBound="1" eType="#//PortDirectionKind"/>
   </eClassifiers>
@@ -123,38 +66,15 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Buffer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseProperty" ordered="false"
-        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="base_Property"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="extension_BufferVar"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//BufferKind"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BufferKind">
-    <eLiterals name="fifo">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="FIFO"/>
-      </eAnnotations>
-    </eLiterals>
-    <eLiterals name="lifo" value="1">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="LIFO"/>
-      </eAnnotations>
-    </eLiterals>
-    <eLiterals name="multiset" value="2">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="MULTISET"/>
-      </eAnnotations>
-    </eLiterals>
-    <eLiterals name="ram" value="3">
-      <eAnnotations source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <details key="originalName" value="RAM"/>
-      </eAnnotations>
-    </eLiterals>
+    <eLiterals name="FIFO"/>
+    <eLiterals name="LIFO" value="1"/>
+    <eLiterals name="MULTISET" value="2"/>
+    <eLiterals name="RAM" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Block" eSuperTypes="#//FormalBlock"/>
 </ecore:EPackage>

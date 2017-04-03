@@ -1,0 +1,168 @@
+/**
+ * Copyright (c) 2017 CEA LIST.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
+ *   - Initial API and Implementation
+ */
+package org.eclipse.efm.modeling.formalml.impl;
+
+import org.eclipse.efm.modeling.formalml.Clock;
+import org.eclipse.efm.modeling.formalml.FormalMLPackage;
+
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.uml2.uml.Property;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Clock</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.impl.ClockImpl#getBaseProperty <em>Base Property</em>}</li>
+ * </ul>
+ *
+ * @generated
+ */
+public class ClockImpl extends MinimalEObjectImpl.Container implements Clock {
+	/**
+	 * The cached value of the '{@link #getBaseProperty() <em>Base Property</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBaseProperty()
+	 * @generated
+	 * @ordered
+	 */
+	protected Property baseProperty;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ClockImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return FormalMLPackage.Literals.CLOCK;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Property getBaseProperty() {
+		if (baseProperty != null && baseProperty.eIsProxy()) {
+			InternalEObject oldBaseProperty = (InternalEObject)baseProperty;
+			baseProperty = (Property)eResolveProxy(oldBaseProperty);
+			if (baseProperty != oldBaseProperty) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FormalMLPackage.CLOCK__BASE_PROPERTY, oldBaseProperty, baseProperty));
+			}
+		}
+		return baseProperty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Property basicGetBaseProperty() {
+		return baseProperty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBaseProperty(Property newBaseProperty) {
+		Property oldBaseProperty = baseProperty;
+		baseProperty = newBaseProperty;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.CLOCK__BASE_PROPERTY, oldBaseProperty, baseProperty));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case FormalMLPackage.CLOCK__BASE_PROPERTY:
+				if (resolve) return getBaseProperty();
+				return basicGetBaseProperty();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case FormalMLPackage.CLOCK__BASE_PROPERTY:
+				setBaseProperty((Property)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case FormalMLPackage.CLOCK__BASE_PROPERTY:
+				setBaseProperty((Property)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case FormalMLPackage.CLOCK__BASE_PROPERTY:
+				return baseProperty != null;
+		}
+		return super.eIsSet(featureID);
+	}
+
+} //ClockImpl

@@ -9,20 +9,6 @@
  */
 package org.eclipse.efm.formalml.tests;
 
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
-
-//import org.eclipse.efm.formalml.util.EFMResource;
-
-import org.eclipse.uml2.uml.Interface;
-import org.eclipse.uml2.uml.Model;
-import org.eclipse.uml2.uml.Property;
-import org.eclipse.uml2.uml.util.UMLUtil.StereotypeApplicationHelper;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-
 public class PortDirectionKindTest {
 
 } 

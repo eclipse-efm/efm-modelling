@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<elementtypesconfigurations:ElementTypeSetConfiguration
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:elementtypesconfigurations="http://www.eclipse.org/papyrus/infra/elementtypesconfigurations/1.1"
+    identifier="org.eclipse.efm.fml.elementTypesCustom"
+    metamodelNsURI="http://www.eclipse.org/uml2/5.0.0/UML">
+  <elementTypeConfigurations
+      xsi:type="elementtypesconfigurations:SpecializationTypeConfiguration"
+      identifier="org.eclipse.efm.fml.Clock"
+      name="Clock"
+      hint="UML::Property">
+    <iconEntry
+        iconPath="/icons/full/obj16/OpaqueBehavior.gif"
+        bundleId="org.eclipse.uml2.uml.edit"/>
+    <specializedTypesID>org.eclipse.papyrus.uml.Property</specializedTypesID>
+    <editHelperAdviceConfiguration
+        xsi:type="elementtypesconfigurations:EditHelperAdviceConfiguration"
+        description=""
+        editHelperAdviceClassName="org.eclipse.efm.formal.service.types.advice.ClockCreationEditHelperAdvice"/>
+  </elementTypeConfigurations>
+</elementtypesconfigurations:ElementTypeSetConfiguration>

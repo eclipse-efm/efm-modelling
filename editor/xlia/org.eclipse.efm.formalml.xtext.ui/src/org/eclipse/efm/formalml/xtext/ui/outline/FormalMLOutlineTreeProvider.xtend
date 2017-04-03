@@ -124,7 +124,7 @@ class FormalMLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 
 	def createNodeProperty(IOutlineNode parentNode, InstanceMachine instance) {
-		if( instance.model != null ) {
+		if( instance.model !== null ) {
 			createEStructuralFeatureNode(parentNode, instance,
 				InfrastructurePackage.Literals.INSTANCE_MACHINE__MODEL,
 				imageHelper.getImage("fml/Model.gif"),
@@ -153,7 +153,7 @@ class FormalMLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 				"Behaviors", false);
 		}
 
-		if( machine.main != null ) {
+		if( machine.main !== null ) {
 			createNode(parentNode, machine.main);
 		}
 	}
@@ -167,25 +167,25 @@ class FormalMLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 				"Behaviors", false);
 		}
 
-		if( behavior.main != null ) {
+		if( behavior.main !== null ) {
 			createNode(parentNode, behavior.main);
 		}
 
 
-		if( behavior.computation != null ) {
+		if( behavior.computation !== null ) {
 			createNode(parentNode, behavior.computation);
 		}
 
-		if( behavior.execution != null ) {
+		if( behavior.execution !== null ) {
 			createNode(parentNode, behavior.execution);
 		}
 
-		if( behavior.interaction != null ) {
+		if( behavior.interaction !== null ) {
 			createNode(parentNode, behavior.interaction);
 		}
 
 
-		if( behavior.main != null ) {
+		if( behavior.main !== null ) {
 			createNode(parentNode, behavior.main);
 		}
 	}
@@ -254,7 +254,7 @@ class FormalMLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 //			createNode(parentNode, transition);
 //  		}
 //
-//		if( state.execution != null ) {
+//		if( state.execution !== null ) {
 //			createNode(parentNode, state.execution);
 //		}
 //	}
@@ -277,7 +277,7 @@ class FormalMLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 
 //protected void _createChildren(DocumentRootNode parentNode,XtendFile xtendFile){
-//  if (xtendFile.getPackage() != null)
+//  if (xtendFile.getPackage() !== null)
 //     createEStructuralFeatureNode(parentNode,xtendFile,
 //     	XtendPackage.Literals.XTEND_FILE__PACKAGE,
 //		images.forPackage(),xtendFile.getPackage(),true
@@ -329,7 +329,7 @@ class FormalMLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 //	}
 //
 //	def _isLeaf(Routine routine) {
-//		(routine.name == null)
+//		(routine.name === null)
 //	}
 
 }

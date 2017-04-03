@@ -31,7 +31,7 @@ public class FormalMLQualifiedNameProvider extends DefaultDeclarativeQualifiedNa
 	def QualifiedName getFullyQualifiedName(NamedElement form) {
 		val FQN = new LinkedList<String>()
 		var name = form.getName()
-		if (name != null) {
+		if (name !== null) {
 			FQN.add(name)
 		} 
 		else {
@@ -40,10 +40,10 @@ public class FormalMLQualifiedNameProvider extends DefaultDeclarativeQualifiedNa
 		}
 
 		var container = form.eContainer();
-		while (container != null) {
+		while (container !== null) {
 			if (container instanceof NamedElement) {
 				name = container.getName();
-				if (name != null) {
+				if (name !== null) {
 					FQN.addFirst(name)
 				}
 			}
@@ -55,11 +55,11 @@ public class FormalMLQualifiedNameProvider extends DefaultDeclarativeQualifiedNa
 
 	def QualifiedName qualifiedName(NamedElement form) {
 		var container = form.eContainer();
-		while ((container != null) && (! (container instanceof NamedElement))) {
+		while ((container !== null) && (! (container instanceof NamedElement))) {
 			container = container.eContainer()
 		}
 		
-		if (container != null) {
+		if (container !== null) {
 			QualifiedName.create((container as NamedElement).getName(), form.getName())
 		} 
 		else {

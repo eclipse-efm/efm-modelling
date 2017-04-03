@@ -21,7 +21,7 @@ import java.util.List;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.efm.formalml.util.PrintingUtil;
+import org.eclipse.efm.modeling.formalml.helpers.PrintingUtil;
 import org.eclipse.efm.papyrus.xtext.transition.TransitionRule;
 import org.eclipse.efm.papyrus.xtext.transition.TriggerRule;
 import org.eclipse.efm.papyrus.xtext.transition.ui.internal.TransitionActivator;

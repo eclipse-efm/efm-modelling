@@ -9,10 +9,10 @@
  */
 package org.eclipse.efm.formalml.tests;
 
+import org.eclipse.efm.modeling.formalml.FormalMLPackage;
 import org.eclipse.uml2.uml.UMLPlugin;
 import org.junit.Assert;
 import org.junit.Test;
-import org.eclipse.efm.formalml.formalmlPackage;
 
 /**
  * Basic test for EFM profile
@@ -27,7 +27,7 @@ public class formalMLProfileTest {
 	@Test
 	public void testProfilRegistration() {
 		Assert.assertNotNull(
-				UMLPlugin.getEPackageNsURIToProfileLocationMap().get(formalmlPackage.eNS_URI));
+				UMLPlugin.getEPackageNsURIToProfileLocationMap().get(FormalMLPackage.eNS_URI));
 	}
 
 }

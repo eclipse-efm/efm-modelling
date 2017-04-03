@@ -31,8 +31,8 @@
     <details key="VALIDATION_DELEGATES" value="IGNORE"/>
   </genAnnotations>
   <foreignModel>FormalML-Standard-Library.uml</foreignModel>
-  <genPackages xsi:type="genmodel:GenPackage" prefix="FormalMLStandardLibrary" disposableProviderFactory="true"
-      ecorePackage="FormalMLStandardLibrary.ecore#/">
+  <genPackages xsi:type="genmodel:GenPackage" prefix="FormalMLStandardLibrary" basePackage="org.eclipse.efm.modeling"
+      disposableProviderFactory="true" ecorePackage="FormalMLStandardLibrary.ecore#/">
     <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="DataType" basePackage="FormalMLStandardLibrary"
         disposableProviderFactory="true" ecorePackage="FormalMLStandardLibrary.ecore#//DataType">
       <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalMLStandardLibrary.ecore#//DataType/AnyType"/>

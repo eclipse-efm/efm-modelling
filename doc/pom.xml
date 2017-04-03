@@ -13,8 +13,8 @@
 	<description>This module contains the different plugins relative to documentation for efm-modeling</description>
 	
 	<modules>
-		<module>org.eclipse.efm.doc.architecture</module>
-		<module>org.eclipse.efm.doc.helpcontents</module>
-		<module>org.eclipse.efm.formalml.concretesyntax</module>
+		<module>org.eclipse.efm.modeling.doc.architecture</module>
+		<module>org.eclipse.efm.modeling.doc.helpcontents</module>
+		<module>org.eclipse.efm.modeling.doc.xlia</module>
 	</modules>
 </project>

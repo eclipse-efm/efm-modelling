@@ -51,7 +51,7 @@ class SEWScopeProvider extends AbstractSEWScopeProvider {
 		var container = EcoreUtil2.getContainerOfType(
 			object.eContainer, typeof(WObject) )
 
-		while( container != null ) {
+		while( container !== null ) {
 			hierarchy.add( container )
 
 			container = EcoreUtil2.getContainerOfType(

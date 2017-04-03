@@ -98,11 +98,11 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	def isAncestorOf(EObject container, EObject element) {
 		var ancestor = element.eContainer
 
-		while( (ancestor != null) && (ancestor != container) ) {
+		while( (ancestor !== null) && (ancestor != container) ) {
 			ancestor = ancestor.eContainer
 		}
 
-		( ancestor != null )
+		( ancestor !== null )
 	}
 
 
@@ -169,13 +169,13 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	def scopeForComPoint(AbstractComStatement context, ChannelDirection direction) {
 		var thisMachine = EcoreUtil2.getContainerOfType(context, typeof(Machine))
 
-		while( (thisMachine != null) && thisMachine.port.empty ) {
+		while( (thisMachine !== null) && thisMachine.port.empty ) {
 			thisMachine = EcoreUtil2.getContainerOfType(
 				thisMachine.eContainer, typeof(Machine) )
 		}
 
 		var parentScope = IScope::NULLSCOPE
-		if( thisMachine != null ) {
+		if( thisMachine !== null ) {
 			parentScope =
 				Scopes::scopeFor(thisMachine.property.selectTypedElement(
 						PrimitiveInstanceKind.COM_POINT),
@@ -250,13 +250,13 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		NamedElement comElement, ChannelDirection direction) {
 		var thisMachine = EcoreUtil2.getContainerOfType(context, typeof(Machine))
 
-		while( (thisMachine != null) && thisMachine.port.empty ) {
+		while( (thisMachine !== null) && thisMachine.port.empty ) {
 			thisMachine = EcoreUtil2.getContainerOfType(
 				thisMachine.eContainer, typeof(Machine) )
 		}
 
 		var parentScope = IScope::NULLSCOPE
-		if( thisMachine != null ) {
+		if( thisMachine !== null ) {
 			parentScope = Scopes::scopeFor(
 				thisMachine.channel.selectChannel(comElement, direction),
 				parentScope)
@@ -343,7 +343,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	def scope_NamedElement(LiteralReferenceElement context, EReference r) {
 		var container = context.eContainer
 
-		for( ; container != null ; container = container.eContainer ) {
+		for( ; container !== null ; container = container.eContainer ) {
 			switch( container ) {
 				ValueElementSpecification :
 						return container.scopeForThis(context)
@@ -387,7 +387,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 		val type = context.target.typeFor
 
-		if( (type == null) || type.isPrimitive ) {
+		if( (type === null) || type.isPrimitive ) {
 			return parentScope
 		}
 
@@ -464,7 +464,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		var current = EcoreUtil2.getContainerOfType(
 				block.eContainer, typeof(Machine))
 
-		while( current != null ) {
+		while( current !== null ) {
 			hierarchy.add( current )
 
 			current = EcoreUtil2.getContainerOfType(
@@ -514,10 +514,10 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				DataSupportedType : type.support.selectElements(ves)
 
 				DataTypeReference : {
-					if( type.typeref != null ) {
+					if( type.typeref !== null ) {
 						type.typeref.selectElements(ves)
 					}
-					else if( type.support != null ) {
+					else if( type.support !== null ) {
 						type.support.selectElements(ves)
 					}
 				}
@@ -925,10 +925,10 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		switch( expected ) {
 			case ANY     : {
 				var lvalue = routine.parameter
-				if( routine.domain != null ) {
+				if( routine.domain !== null ) {
 					lvalue += routine.domain.parameter
 				}
-				if( routine.codomain != null ) {
+				if( routine.codomain !== null ) {
 					lvalue += routine.codomain.parameter
 				}
 
@@ -937,10 +937,10 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 			case VARIABLE: {
 				var lvalue = routine.parameter
-				if( routine.domain != null ) {
+				if( routine.domain !== null ) {
 					lvalue += routine.domain.parameter
 				}
-				if( routine.codomain != null ) {
+				if( routine.codomain !== null ) {
 					lvalue += routine.codomain.parameter
 				}
 
@@ -955,11 +955,11 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		Routine routine, ValueElementSpecificationScheme expected) {
 		var properties = routine.parameter.selectProperty(expected)
 
-		if( routine.domain != null ) {
+		if( routine.domain !== null ) {
 			properties = properties +
 				routine.domain.parameter.selectProperty(expected)
 		}
-		if( routine.codomain != null ) {
+		if( routine.codomain !== null ) {
 			properties = properties +
 				routine.codomain.parameter.selectProperty(expected)
 		}
@@ -977,14 +977,14 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			}
 		}
 
-		if( routine.domain != null ) {
+		if( routine.domain !== null ) {
 			for( it : routine.domain.parameter ) {
 				if( it.type.isStructured ) {
 					roots += it
 				}
 			}
 		}
-		if( routine.codomain != null ) {
+		if( routine.codomain !== null ) {
 			for( it : routine.codomain.parameter ) {
 				if( it.type.isStructured ) {
 					roots += it
@@ -1018,7 +1018,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 	def scopeForSelfMachineInstance(Machine thisMachine, IScope outer) {
 		val selfMachine =
-			if( (thisMachine.name == null) &&
+			if( (thisMachine.name === null) &&
 				(thisMachine.eContainer instanceof Machine) ) {
 				thisMachine.eContainer as Machine
 			}
@@ -1041,7 +1041,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				thisMachine.signal.selectSignal(direction),
 				IScope::NULLSCOPE))
 
-		if( (thisMachine.name == null) &&
+		if( (thisMachine.name === null) &&
 			(thisMachine.eContainer instanceof Machine) ) {
 			val selfMachine = thisMachine.eContainer as Machine
 
@@ -1063,7 +1063,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 	def scopeForThis(
 		LeftHandSideExpression container, LiteralReferenceElement context) {
-		for( var EObject it = container ; it != null; it = it.eContainer()) {
+		for( var EObject it = container ; it !== null; it = it.eContainer()) {
 			switch( it ) {
 				Routine: return it.scopeForHierarchicLeftElement(
 					ValueElementSpecificationScheme.VARIABLE)
@@ -1174,7 +1174,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 	def scopeForThis(
 		ValueElementSpecification thisElement, LiteralReferenceElement context) {
-		for( var EObject it = context ; it != null; it = it.eContainer()) {
+		for( var EObject it = context ; it !== null; it = it.eContainer()) {
 			switch( it ) {
 				Routine: return it.scopeForHierarchicStructuredElement(
 					ValueElementSpecificationScheme.ANY)
@@ -1310,7 +1310,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		Machine thisMachine, ValueElementSpecificationScheme expected) {
 		var parentScope = IScope::NULLSCOPE
 
-		if( (thisMachine.name == null) &&
+		if( (thisMachine.name === null) &&
 			(thisMachine.eContainer instanceof Machine) ) {
 			val selfMachine = thisMachine.eContainer as Machine
 
@@ -1327,7 +1327,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		Machine thisMachine, ValueElementSpecificationScheme expected) {
 		var parentScope = IScope::NULLSCOPE
 
-		if( (thisMachine.name == null) &&
+		if( (thisMachine.name === null) &&
 			(thisMachine.eContainer instanceof Machine) ) {
 			val selfMachine = thisMachine.eContainer as Machine
 
@@ -1449,7 +1449,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 	def scopeForHierarchicLeftElement(
 		EObject context, ValueElementSpecificationScheme expected) {
-		for( var it = context ; it != null; it = it.eContainer() ) {
+		for( var it = context ; it !== null; it = it.eContainer() ) {
 			switch( it ) {
 				Routine: return it.scopeForHierarchicLeftElement(expected)
 
@@ -1462,7 +1462,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 	def scopeForHierarchicRigthElement(
 		EObject context, ValueElementSpecificationScheme expected) {
-		for( var it = context ; it != null; it = it.eContainer() ) {
+		for( var it = context ; it !== null; it = it.eContainer() ) {
 			switch( it ) {
 				Routine: return it.scopeForHierarchicRigthElement(expected)
 

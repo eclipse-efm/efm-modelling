@@ -196,8 +196,8 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 
 	@Check
 	def checkClassHierarchy(System system) {
-		if ( system.name == null) {
-			error("system.name == null",
+		if ( system.name === null) {
+			error("system.name === null",
 				CommonPackage::eINSTANCE.namedElement_Name,
 				NAME_NULL, system.name)
 		}
@@ -229,7 +229,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	def void checkCompatibleTypes(BinaryExpression exp) {
 		val leftType = exp.leftOperand.typeClassFor
 		val rigthType = exp.rigthOperand.typeClassFor
-		if( (leftType == null) || (rigthType == null) ) {
+		if( (leftType === null) || (rigthType === null) ) {
 			return; // nothing to check
 		}
 		else if( ! rigthType.isConformant(leftType) ) {
@@ -247,7 +247,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	@Check
 	def void checkCompatibleTypes(LogicalUnaryExpression exp) {
 		val operandType = exp.operand.typeClassFor
-		if( operandType != null ) {
+		if( operandType !== null ) {
 			if( ! operandType.isConformant(FormalMLTypeProvider.booleanType) ) {
 				error("Incompatible types. Expected '"
 						+ FormalMLTypeProvider.booleanType.name
@@ -261,7 +261,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	def void checkCompatibleTypes(LogicalAssociativeExpression exp) {
 		for( operand : exp.operand ) {
 			val operandType = operand.typeClassFor
-			if( operandType != null ) {
+			if( operandType !== null ) {
 				if( ! operandType.isConformant(FormalMLTypeProvider.booleanType) ) {
 					error("Incompatible types. Expected '"
 							+ FormalMLTypeProvider.booleanType.name
@@ -280,7 +280,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	@Check
 	def void checkCompatibleTypes(ArithmeticUnaryExpression exp) {
 		val operandType = exp.operand.typeClassFor
-		if( operandType != null ) {
+		if( operandType !== null ) {
 			if( ! operandType.isConformant(FormalMLTypeProvider.realType) ) {
 				error("Incompatible types. Expected '"
 						+ FormalMLTypeProvider.realType.name
@@ -296,8 +296,8 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 
 		for( operand : exp.operand ) {
 			val operandType = operand.typeClassFor
-			if( operandType != null ) {
-				if( prevType != null ) {
+			if( operandType !== null ) {
+				if( prevType !== null ) {
 					if( prevType.isConformant(operandType) ) {
 						// prevType < operandType 
 						prevType = operandType
@@ -328,7 +328,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	@Check
 	def void checkCompatibleTypes(BitwiseUnaryExpression exp) {
 		val operandType = exp.operand.typeClassFor
-		if( operandType != null ) {
+		if( operandType !== null ) {
 			if( ! operandType.isConformant(FormalMLTypeProvider.integerType) ) {
 				error("Incompatible types. Expected '"
 						+ FormalMLTypeProvider.integerType.name
@@ -342,7 +342,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	def void checkCompatibleTypes(BitwiseAssociativeExpression exp) {
 		for( operand : exp.operand ) {
 			val operandType = operand.typeClassFor
-			if( operandType != null ) {
+			if( operandType !== null ) {
 				if( ! operandType.isConformant(FormalMLTypeProvider.integerType) ) {
 					error("Incompatible types. Expected '"
 							+ FormalMLTypeProvider.integerType.name
@@ -362,7 +362,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	def void checkCompatibleTypes(Expression exp) {
 		val actualType = exp.typeClassFor
 		val expectedType = exp.expectedTypeClass
-		if( (expectedType == null) || (actualType == null) ) {
+		if( (expectedType === null) || (actualType === null) ) {
 			return; // nothing to check
 		}
 		else if( ! actualType.isConformant(expectedType) ) {
@@ -376,7 +376,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 
 //	@Check
 //	def void checkMethodInvocationArguments(Routine sel) {
-//		if (sel.member != null && sel.member instanceof SJMethod) {
+//		if (sel.member !== null && sel.member instanceof SJMethod) {
 //			val method = sel.member as SJMethod
 //			if (method.params.size != sel.args.size) {
 //				error(

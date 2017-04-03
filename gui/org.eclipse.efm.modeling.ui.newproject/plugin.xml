@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         name="EFM Projects"
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.eclipse.efm.ui.category.newproject"
+            class="org.eclipse.efm.modeling.ui.newproject.WizardNewFormalModelProject"
+            icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/diversity_icon.png"
+            id="org.eclipse.efm.modeling.ui.newproject.wizard"
+            name="EFM Project">
+      </wizard>
+   </extension>
+
+</plugin>

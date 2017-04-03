@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="EFM org.eclipse.efm-modeling as textual editor" uid="org.eclipse.efm.modeling.textual.product" id="org.eclipse.efm.modeling.rcp.product" application="org.eclipse.ui.ide.workbench" version="0.0.1.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="Eclipse Formal Modeling &amp; Symbex Tools" uid="org.eclipse.efm.modeling.textual.product" id="org.eclipse.efm.modeling.rcp.product" application="org.eclipse.ui.ide.workbench" version="0.0.1.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/papyrus_lg.png"/>
       <text>
-         EFM org.eclipse.efm-modeling (Beta - Incubation)
+         Eclipse Formal Modeling  (Incubation)
 
 (c) Copyright Eclipse contributors and others 2000, 2016.  All rights reserved.
 Visit http://www.eclipse.org/platform
@@ -39,6 +39,7 @@ Apache Software Foundation http://www.apache.org/
          <bmp/>
       </win>
    </launcher>
+
 
    <vm>
       <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</windows>

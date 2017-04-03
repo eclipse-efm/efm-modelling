@@ -13,7 +13,7 @@
 	<description>This module contains the different plugins relative to the textual code generation for efm-modeling diagrams</description>
 	
 	<modules>
-		<module>org.eclipse.efm.formalml.concretesyntax.m2t</module>
-		<module>org.eclipse.efm.papyrus.m2t.ui</module>
+		<module>org.eclipse.efm.modeling.codegen.xlia</module>
+		<module>org.eclipse.efm.modeling.codegen.xlia.ui</module>
 	</modules>
 </project>

@@ -9,27 +9,6 @@
  */
 package org.eclipse.efm.formalml.tests;
 
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
-import org.eclipse.efm.formalml.DirectedPort;
-//import org.eclipse.efm.formalml.util.EFMResource;
-
-
-
-import org.eclipse.uml2.uml.Class;
-import org.eclipse.uml2.uml.Image;
-import org.eclipse.uml2.uml.Interface;
-import org.eclipse.uml2.uml.Model;
-import org.eclipse.uml2.uml.Port;
-import org.eclipse.uml2.uml.PrimitiveType;
-import org.eclipse.uml2.uml.Stereotype;
-import org.eclipse.uml2.uml.util.UMLUtil;
-import org.eclipse.uml2.uml.util.UMLUtil.StereotypeApplicationHelper;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-
 public class DirectedPortTest {
 
 }
