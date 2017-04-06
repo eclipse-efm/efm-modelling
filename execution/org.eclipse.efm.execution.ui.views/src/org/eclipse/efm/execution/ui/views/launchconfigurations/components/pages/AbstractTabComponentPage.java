@@ -16,17 +16,22 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public abstract class AbstractTabComponentPage
 		implements IWorkflowConfigurationConstants {
 
 	protected ILaunchConfigurationEditorComposite fParentTab;
 
-	protected Composite fCompositeParent;
+	public Composite fCompositeParent;
 
-	protected Composite fCompositeControl;
-
+	private ExpandableComposite masterExpandableComposite;
+	public Composite fCompositeControl;
 
 	/**
 	 * Constructor
@@ -34,23 +39,44 @@ public abstract class AbstractTabComponentPage
 	 */
 	public AbstractTabComponentPage(ILaunchConfigurationEditorComposite parentTab) {
 		fParentTab = parentTab;
-
-		fCompositeParent = null;
-
-		fCompositeControl = null;
 	}
 
-	abstract public void createControl(Composite parent);
-
-	public void setVisible(boolean visible) {
-		if( fCompositeControl != null ) {
-			fParentTab.propagateVisibility(fCompositeControl, visible);
+	abstract public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit);
+	
+	public void collapseAndLockPage() {
+		masterExpandableComposite.setExpanded(false);
+		masterExpandableComposite.setEnabled(false);
+	}
+	public void unlockAndExpandPage() {
+		masterExpandableComposite.setEnabled(true);
+		masterExpandableComposite.setExpanded(true);
+	}
+	
+	public void updateLayouts() {
+		fCompositeControl.layout(true);
+		masterExpandableComposite.layout(true);
+		fCompositeControl.layout(true);
+	}
+	
+	protected void createExpandableFrameWithToolkit(Composite parentComposite, FormToolkit toolkit, String compo_title) {
+		fCompositeParent = parentComposite;
+		masterExpandableComposite = toolkit.createExpandableComposite(fCompositeParent,
+				ExpandableComposite.CLIENT_INDENT | ExpandableComposite.TWISTIE);
+		masterExpandableComposite.setText(compo_title);
+		GridLayout gl = new GridLayout(1, false);
+		masterExpandableComposite.setLayout(gl);
+		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
+		masterExpandableComposite.setLayoutData(gd);
+		
+		fCompositeControl = toolkit.createComposite(masterExpandableComposite, fCompositeParent.getStyle());
+		GridLayout gl2 = new GridLayout(1, false);
+		fCompositeControl.setLayout(gl2);
+		GridData gd2 = new GridData(SWT.FILL,SWT.FILL, true, false);
+		fCompositeControl.setLayoutData(gd2);
+		
+		masterExpandableComposite.setClient(fCompositeControl);
+		collapseAndLockPage();
 		}
-	}
-
-	public void setEnabled(boolean enabled) {
-		setVisible(enabled);
-	}
 
 
 	abstract public void setDefaults(

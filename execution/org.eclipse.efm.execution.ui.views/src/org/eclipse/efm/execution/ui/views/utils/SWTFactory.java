@@ -137,7 +137,7 @@ public static Button createPushButton(Composite parent, String label, Image imag
  *
  */
 public static Label createLabel(Composite parent, String text, int hspan) {
-	Label l = new Label(parent, SWT.NONE);
+	Label l = new Label(parent, parent.getStyle());
 	l.setFont(parent.getFont());
 	l.setText(text);
 	GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -157,7 +157,7 @@ public static Label createLabel(Composite parent, String text, int hspan) {
  * @since 3.3
  */
 public static Label createLabel(Composite parent, String text, Font font, int hspan) {
-	Label l = new Label(parent, SWT.NONE);
+	Label l = new Label(parent, parent.getStyle());
 	l.setFont(font);
 	l.setText(text);
 	GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -176,7 +176,7 @@ public static Label createLabel(Composite parent, String text, Font font, int hs
  * @since 3.3
  */
 public static Label createWrapLabel(Composite parent, String text, int hspan, int wrapwidth) {
-	Label l = new Label(parent, SWT.NONE | SWT.WRAP);
+	Label l = new Label(parent, parent.getStyle() | SWT.WRAP);
 	l.setFont(parent.getFont());
 	l.setText(text);
 	GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -197,7 +197,7 @@ public static Label createWrapLabel(Composite parent, String text, int hspan, in
  * @since 3.3
  */
 public static CLabel createWrapCLabel(Composite parent, String text, Image image, int hspan, int wrapwidth) {
-	CLabel label = new CLabel(parent, SWT.NONE | SWT.WRAP);
+	CLabel label = new CLabel(parent, parent.getStyle() | SWT.WRAP);
 	label.setFont(parent.getFont());
 	if(text != null) {
 		label.setText(text);
@@ -221,7 +221,7 @@ public static CLabel createWrapCLabel(Composite parent, String text, Image image
  * @since 3.3
  */
 public static Label createWrapLabel(Composite parent, String text, int hspan) {
-	Label l = new Label(parent, SWT.NONE | SWT.WRAP);
+	Label l = new Label(parent, parent.getStyle() | SWT.WRAP);
 	l.setFont(parent.getFont());
 	l.setText(text);
 	GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -357,7 +357,7 @@ public static Text createText(Composite parent, int style, int hspan, String tex
  *
  */
 public static Group createGroup(Composite parent, String text, int columns, int hspan, int fill) {
-	Group g = new Group(parent, SWT.NONE);
+	Group g = new Group(parent, parent.getStyle());
 	g.setLayout(new GridLayout(columns, false));
 	g.setText(text);
 	g.setFont(parent.getFont());
@@ -378,7 +378,7 @@ public static Group createGroup(Composite parent, String text, int columns, int 
  * @since 3.3
  */
 public static Composite createComposite(Composite parent, Font font, int columns, int hspan, int fill) {
-	Composite g = new Composite(parent, SWT.NONE);
+	Composite g = new Composite(parent, parent.getStyle());
 	g.setLayout(new GridLayout(columns, false));
 	g.setFont(font);
 	GridData gd = new GridData(fill);
@@ -399,7 +399,7 @@ public static Composite createComposite(Composite parent, Font font, int columns
  * @since 3.3
  */
 public static Composite createComposite(Composite parent, int columns, int hspan, int fill) {
-	Composite g = new Composite(parent, SWT.NONE);
+	Composite g = new Composite(parent, parent.getStyle());
 	g.setLayout(new GridLayout(columns, false));
 	g.setFont(parent.getFont());
 	GridData gd = new GridData(fill);
@@ -418,7 +418,7 @@ public static Composite createComposite(Composite parent, int columns, int hspan
  * @since 3.3
  */
 public static void createVerticalSpacer(Composite parent, int numlines) {
-	Label lbl = new Label(parent, SWT.NONE);
+	Label lbl = new Label(parent, parent.getStyle());
 	GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 	Layout layout = parent.getLayout();
 	if(layout instanceof GridLayout) {
@@ -435,7 +435,7 @@ public static void createVerticalSpacer(Composite parent, int numlines) {
  * @since 3.3
  */
 public static void createHorizontalSpacer(Composite comp, int numlines) {
-	Label lbl = new Label(comp, SWT.NONE);
+	Label lbl = new Label(comp, comp.getStyle());
 	GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 	gd.horizontalSpan = numlines;
 	lbl.setLayoutData(gd);
@@ -454,7 +454,7 @@ public static void createHorizontalSpacer(Composite comp, int numlines) {
  * @since 3.3
  */
 public static Composite createComposite(Composite parent, Font font, int columns, int hspan, int fill, int marginwidth, int marginheight) {
-	Composite g = new Composite(parent, SWT.NONE);
+	Composite g = new Composite(parent, parent.getStyle());
 	GridLayout layout = new GridLayout(columns, false);
 	layout.marginWidth = marginwidth;
 	layout.marginHeight = marginheight;

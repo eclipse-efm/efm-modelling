@@ -12,23 +12,38 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractCompositeMaker;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractCompositeMaker.FieldValidationReturn;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchConfigurationTab implements ILaunchConfigurationGUIelement {
 
+	private FormToolkit toolkit;
 	protected LaunchConfigurationTabGroup fGroupTab;
-	protected AbstractCompositeMaker contentCompositeManager;
+	protected AbstractTabItemContentCreator contentCompositeManager;
+	
+	protected Class<?> tabItemContentClass;
 
 	/**
 	 * Constructor
@@ -36,7 +51,17 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 	 */
 	public AbstractSewLaunchConfigurationTab(LaunchConfigurationTabGroup groupTab) {
 		super();
+		Display display = Display.getCurrent();
+		if (display == null) {
+			display = Display.getDefault();
+		}
+		toolkit = new FormToolkit(display);
 		this.fGroupTab = groupTab;
+	}
+	
+	@Override
+	public FormToolkit getFormToolkit() {
+		return toolkit;
 	}
 	
 	public LaunchConfigurationTabGroup getGroupTab() {
@@ -49,8 +74,37 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 
 	@Override
 	public void createControl(Composite parent) {
-		Composite simpleComposite = contentCompositeManager.createControlMain(parent);
-		setControl(simpleComposite);
+		Composite main_composite = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
+//		Font font =  parent.getFont();
+//		int columns = 1;
+//		int hspan = 1;
+//		int fill = GridData.FILL_BOTH;
+//		int marginwidth = 0;
+//		int marginheight = 0;
+//		System.err.println(parent.getStyle());
+//		Composite main_composite = new Composite(parent, parent.getStyle()|SWT.NO_SCROLL);
+//		GridLayout layout = new GridLayout(columns, false);
+//		layout.marginWidth = marginwidth;
+//		layout.marginHeight = marginheight;
+//		main_composite.setLayout(layout);
+//		main_composite.setFont(font);
+//		GridData gd = new GridData(fill);
+//		gd.horizontalSpan = hspan;
+//		main_composite.setLayoutData(gd);
+//		
+		
+		try {
+			Constructor<?> constructor = tabItemContentClass.getConstructor(ILaunchConfigurationGUIelement.class, Composite.class);
+			contentCompositeManager = (AbstractTabItemContentCreator) constructor.newInstance(new Object[] { this, main_composite });
+			//contentCompositeManager = (AbstractTabItemContentCreator) constructor.newInstance(new Object[] { this, parent });
+			contentCompositeManager.createTabItemContent();
+			setControl(main_composite);
+			//setControl(parent);
+		} catch(InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+		setControl(main_composite);
+		//setControl(parent);
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), getHelpContextId());
 	}
 	
@@ -130,4 +184,5 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 	public void scheduleUpdateJob(){
 		super.scheduleUpdateJob();
 	}
+
 }

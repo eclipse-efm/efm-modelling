@@ -20,21 +20,21 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.debug.ui.ILaunchGroup;
-import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
-import org.eclipse.efm.execution.ui.views.delegates.LaunchManagerSWVlinker;
-import org.eclipse.efm.execution.ui.views.utils.GenericCompositeCreator;
-import org.eclipse.efm.execution.ui.views.viewparts.swv.sectionimpls.AnalysisProfileCompositeCreator;
-import org.eclipse.efm.execution.ui.views.viewparts.swv.sectionimpls.DebugCompositeCreator;
-import org.eclipse.efm.execution.ui.views.viewparts.swv.sectionimpls.ExecutionCompositeCreator;
-import org.eclipse.efm.execution.ui.views.viewparts.swv.sectionimpls.StopCriteriaCompositeCreator;
-import org.eclipse.efm.execution.ui.views.viewparts.swv.sectionimpls.TestGenCompositeCreator;
 import org.eclipse.efm.ui.utils.ImageResources;
+import org.eclipse.efm.execution.ui.views.delegates.LaunchManagerSWVlinker;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.CommonCriteriaTabItemContentCreator;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.MainTabItemContentCreator;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.TestGenerationTabItemContentCreator;
+import org.eclipse.efm.execution.ui.views.utils.GenericCompositeCreator;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -48,18 +48,17 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 
 public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
-	public static final String ID = "org.eclipse.efm.execution.ui.views.SymbexWorkflowView";
+	public static final String ID = "org.eclipse.efm.ui.views.SymbexWorkflowView";
 	
-	public Set<SectionCompositeCreator> compositeSections;
+	//public Set<SectionCompositeCreator> compositeSections;
 	
-	private Text text_model_file_path;
+	private Set<AbstractTabItemContentCreator> compMakers;
 	
 	private Combo combo;
 
@@ -69,21 +68,21 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	 */
 	public void createPartControl(Composite parent) {
 		parentComposite = parent;
-		compositeSections = new HashSet<SectionCompositeCreator>();
+		//compositeSections = new HashSet<SectionCompositeCreator>();
 		
 		// Actions
 		makeActions();
-		setupTopLevelActionBars(new Action[] {action_launch_runconf, action_launch_debugconf, action_opend_runconf, action_opend_debugconf});
+		setupTopLevelActionBars(new Action[] {action_launch_runconf, action_launch_debugconf, action_opend_runconf, action_opend_debugconf, action_apply_changes});
 		
 		// Frame
 		setupFormFrame();
 		
-		combo = new Combo(scrollform.getBody(), SWT.READ_ONLY);
+		combo = GenericCompositeCreator.createComposite_combo_text_from_toolkit(getFormToolkit(), scrollform.getBody(), "Run Configuration :", 2);
+				//new Combo(scrollform.getBody(), SWT.READ_ONLY);
 		UpdateSymbexWorkflowViewListener.updateAnySWVcombo(combo);
+		//text_model_file_path = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, scrollform.getBody(), "Model File :", 2);
 		
-		text_model_file_path = GenericCompositeCreator.createComposite_label_text_from_toolkit(toolkit, scrollform.getBody(), "Model File :", 1);
-		
-		tabbedCompositeMaster = toolkit.createComposite(scrollform.getBody());
+		tabbedCompositeMaster = getFormToolkit().createComposite(scrollform.getBody());
 		GridLayout gl = new GridLayout(1, false);
 		tabbedCompositeMaster.setLayout(gl);
 		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true);
@@ -91,7 +90,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		
 		tabFolder = new CTabFolder( tabbedCompositeMaster, SWT.BOTTOM );
 	    tabFolder.setLayoutData(new GridData(SWT.FILL,SWT.FILL, true, true));
-	    toolkit.adapt(tabFolder, true, true);
+	    getFormToolkit().adapt(tabFolder, true, true);
 		
 	    createSectionsContent();
 	
@@ -104,7 +103,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	
 	private void addUpdateSWVlistener() {
 		try {
-			UpdateSymbexWorkflowViewListener uSWVl = new UpdateSymbexWorkflowViewListener(combo);
+			UpdateSymbexWorkflowViewListener uSWVl = new UpdateSymbexWorkflowViewListener(combo, this);
 			this.parentComposite.addDisposeListener(new DisposeListener() {
 
 	            @Override
@@ -119,11 +118,11 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		}
 	}
 	
-	private Composite createTabItemAndComposite(String tabname) {
+	private CTabItem createTabItemAndComposite(String tabname) {
 		CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE );
 		tabItem.setText(tabname);
 		
-		Composite tbcomp = toolkit.createComposite(tabFolder);
+		Composite tbcomp = getFormToolkit().createComposite(tabFolder);
 		
 		GridLayout gl = new GridLayout(1, false);
 		tbcomp.setLayout(gl);
@@ -133,70 +132,113 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		
 		tabItem.setControl(tbcomp);
 		
-		return tbcomp;
+		return tabItem;
 	}
 	
+	private Composite first_tbcomp;
+	private CTabItem fst_tabitem;
+	
+	//private Map<Integer, AbstractCompositeMaker> quickDico;
+	private Composite cc_tbcomp;
+	private CTabItem cc_tabitem;
+	private Composite tg_tbcomp;
+	private CTabItem tg_tabitem;
+	
 	private void createSectionsContent() {
-		ToolBarManager tbm;
 		
-		Composite overview_tbcomp = createTabItemAndComposite("Overview");
+		compMakers = new HashSet<AbstractTabItemContentCreator>();
 		
-		tbm = new ToolBarManager(SWT.FLAT);
-		fillToolBar(tbm, new Action[] {action_launch_runconf});
-		new AnalysisProfileCompositeCreator(this, tbm, overview_tbcomp);
-		
-		tbm = new ToolBarManager(SWT.FLAT);
-		fillToolBar(tbm, new Action[] {action_launch_runconf});
-		new StopCriteriaCompositeCreator(this, tbm, overview_tbcomp);
-		
-		tbm = new ToolBarManager(SWT.FLAT);
-		fillToolBar(tbm, new Action[] {action_launch_runconf, action_opend_runconf});
-		new ExecutionCompositeCreator(this, tbm, overview_tbcomp);
-		
-		
-		
-		Composite testgen_tbcomp = createTabItemAndComposite("Test Generation");
-		
-		tbm = new ToolBarManager(SWT.FLAT);
-		fillToolBar(tbm, new Action[] {action_launch_runconf});
-		new TestGenCompositeCreator(this, tbm, testgen_tbcomp);
-		
-		
-		
-		Composite debug_tbcomp = createTabItemAndComposite("Debug");
-		
-		tbm = new ToolBarManager(SWT.FLAT);
-		fillToolBar(tbm, new Action[] {action_launch_debugconf, action_opend_debugconf});
-		new DebugCompositeCreator(this, tbm, debug_tbcomp);
+		fst_tabitem = createTabItemAndComposite("Main");
+		first_tbcomp = (Composite) fst_tabitem.getControl();
+		MainTabItemContentCreator firstcmp = new MainTabItemContentCreator(this, first_tbcomp);
+		Map<String, Action> firstacts = new HashMap<String, Action>();
+		firstacts.put("action_apply_changes", action_apply_changes);
+		firstcmp.setRegisteredActions(firstacts);
+		firstcmp.createTabItemContent();
+		compMakers.add(firstcmp);
+//		quickDico.put(1, firstcmp);
 
+		cc_tabitem = createTabItemAndComposite("Common Criteria");
+		cc_tbcomp = (Composite) cc_tabitem.getControl();
+		CommonCriteriaTabItemContentCreator cccmp = new CommonCriteriaTabItemContentCreator(this, cc_tbcomp);
+		cccmp.createTabItemContent();
+		compMakers.add(cccmp);
+//		quickDico.put(1, cccmp);
 		
-	    tabFolder.setSelection(0);
+		tg_tabitem = createTabItemAndComposite("Test Generation");
+		tg_tbcomp = (Composite) tg_tabitem.getControl();
+		TestGenerationTabItemContentCreator tgcmp = new TestGenerationTabItemContentCreator(this, tg_tbcomp);
+		tgcmp.createTabItemContent();
+		compMakers.add(tgcmp);
+//		quickDico.put(3, tgcmp);		
 		
-		combo.addSelectionListener(new SelectionAdapter() {
+//
+//		tg_tabitem = createTabItemAndComposite("Test Generation");
+//		tg_tbcomp = (Composite) tg_tabitem.getControl();
+//		AbstractCompositeMaker tgcmp = new TestGenerationCompositeMaker(this);
+//		//tgcmp.initializeFieldValuesFrom(null);
+//		tgcmp.createControlMain(tg_tbcomp);
+//		compMakers.add(tgcmp);
+//		quickDico.put(3, tgcmp);
+//		//toolkit.adapt(inner_tg_tbcomp);
+//		//tgcmp.propagateVisibility(tg_tbcomp, false);
+//
+//	    tabFolder.setSelection(0);
+//	    updateEnableTab(false);
+		
+		
+		
+	    //tabFolder.setTabHeight(height);
+	    //tabFolder.getSelection()
+	    //tabFolder.pack();
+	    
+//	    tabFolder.addSelectionListener(new SelectionAdapter() {
+//			@Override
+//			public void widgetSelected(SelectionEvent e) {
+//				tabFolder.update();
+//				System.err.println("bip");
+//				System.err.println( Integer.toString(tabFolder.getTabHeight()) );
+//				Control tbicontr = tabFolder.getSelection().getControl();
+//				Integer content_height = tbicontr.getSize().y;
+//				System.err.println( content_height );
+//				scrollform.reflow(true);
+//				System.err.println("bip");
+//				System.err.println( Integer.toString(tabFolder.getTabHeight()) );
+//				tbicontr = tabFolder.getSelection().getControl();
+//				content_height = tbicontr.getSize().y;
+//				System.err.println( content_height );
+//				System.err.println( "===" );
+//				if (quickDico.containsKey(tabFolder.getSelectionIndex())) {
+//					AbstractCompositeMaker current = quickDico.get(tabFolder.getSelectionIndex());
+//					Integer mysize = current.getControlMain().getSize().y;
+//					System.err.println( "==" );
+//					System.err.println(Integer.toString(mysize));
+//					System.err.println( "==" );
+//					
+//				}
+//			}
+//	    });
+	    
+	    
+	    
+	    combo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int index = combo.getSelectionIndex();
-				if (index != -1) {
-					ILaunchConfiguration selectedLC = LaunchManagerSWVlinker.getSymbexRunConfigurations()[index];
-					Map<String, Object> lcAttributes;
-					try {
-						lcAttributes = selectedLC.getAttributes();
-						text_model_file_path.setText((String) lcAttributes.get(IWorkflowConfigurationConstants.ATTR_SPECIFICATION_MODEL_FILE_LOCATION));
-						for(SectionCompositeCreator ccc: compositeSections) {
-							ccc.updateCollapsedContent(lcAttributes);
-						}
-					} catch (CoreException e1) {
-						e1.printStackTrace();
-					}
-				}
-				else {
-					text_model_file_path.setText("...");
-					for(SectionCompositeCreator ccc: compositeSections) {
-						ccc.updateCollapsedContent(new HashMap<String, Object>());
-					}
-				}
+				updateGUI();
 			}
 		});
+	}
+	
+	private void updateEnableTab(boolean isLaunchConfSelected) {
+		if(isLaunchConfSelected) {
+		    first_tbcomp.setEnabled(true);
+		    //tg_tbcomp.setEnabled(true);
+		    //cc_tbcomp.setEnabled(true);
+		} else {
+		    first_tbcomp.setEnabled(false);
+		    //tg_tbcomp.setEnabled(false);
+		    //cc_tbcomp.setEnabled(false);
+		}
 	}
 	
 	private void openLaunchConfigurationDialog(ILaunchConfiguration launchConfig, String mode) {
@@ -205,6 +247,12 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		String groupIdentifier = group == null ? IDebugUIConstants.ID_RUN_LAUNCH_GROUP : group.getIdentifier();
 		DebugUITools.openLaunchConfigurationDialogOnGroup(scrollform.getShell(), selection, groupIdentifier, null);
 	}
+	
+	
+	
+	// ======================================================================================
+	//                              Actions for menus
+	// ======================================================================================	
 
 	private Action action_launch_runconf;
 	private Action action_launch_debugconf;
@@ -212,6 +260,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	private Action action_opend_debugconf;
 	
 	private Action action_opend_help;
+	private Action action_apply_changes;
 	
 	private void makeActions() {
 		action_launch_runconf = new Action() {
@@ -299,6 +348,75 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		action_opend_help.setText("Open Diversity Help");
 		action_opend_help.setToolTipText("Open the Diversity Help");
 		action_opend_help.setImageDescriptor(ImageResources.getImageDescriptor(ImageResources.IMAGE__HELP_ICON));
+	
+		action_apply_changes = new Action() {
+			public void run() {
+				int index = combo.getSelectionIndex();
+				if (index != -1) {
+					ILaunchConfiguration selectedLC = LaunchManagerSWVlinker.getSymbexRunConfigurations()[index];
+					ILaunchConfigurationWorkingCopy newcopy;
+					try {
+						newcopy = selectedLC.getWorkingCopy();
+						for(AbstractTabItemContentCreator acm : compMakers) {
+							acm.applyUpdatesOnFieldValuesFrom(newcopy);
+						}
+						newcopy.doSave();
+					} catch (CoreException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+		};
+		action_apply_changes.setText("Apply changes on Launch Configuration");
+		action_apply_changes.setToolTipText("Apply changes on Launch Configuration");
+		action_apply_changes.setImageDescriptor(ImageResources.getImageDescriptor(ImageResources.IMAGE__PUSH_ICON));
 	}
 
+	// ======================================================================================
+	//                              ILaunchConfigurationGUIelement interface methods
+	// ======================================================================================	
+	
+	private ILaunchConfigurationWorkingCopy lastlcwc;
+	
+	@Override
+	public void updateGUI() {
+		int index = combo.getSelectionIndex();
+		if (index != -1) {
+			ILaunchConfiguration selectedLC = LaunchManagerSWVlinker.getSymbexRunConfigurations()[index];
+			updateEnableTab(true);
+			
+			try {
+				ILaunchConfigurationWorkingCopy newcopy = selectedLC.getWorkingCopy();
+				if(lastlcwc != null && lastlcwc.contentsEqual(newcopy)) {
+					return;
+				} else {
+					lastlcwc = newcopy;
+					System.err.println("++++---- Biopp");
+					for(AbstractTabItemContentCreator acm : compMakers) {
+						acm.initializeFieldValuesFrom(newcopy);
+					}
+				}
+				
+			} catch (CoreException e) {
+				setErrorMessage("could not get launch configuration working copy");
+				e.printStackTrace();
+			}
+		}
+		else {
+			tabFolder.setSelection(0);
+			updateEnableTab(false);
+		}
+	}	
+
+	@Override // to change visibility to public
+	public void scheduleUpdateJob(){
+		scrollform.reflow(true);
+		tabbedCompositeMaster.layout();
+		tabFolder.layout();
+		tabbedCompositeMaster.layout();
+		scrollform.reflow(true);
+	}	
+	
 }

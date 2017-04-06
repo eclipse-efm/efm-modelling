@@ -35,8 +35,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-public class DebugCompositeMaker extends AbstractCompositeMaker
-		implements IWorkflowPreferenceConstants {
+public class DebugTabItemContentCreator extends AbstractTabItemContentCreator {
 
 	// Console Log
 	private static final String[] CONSOLE_LEVEL_COMBO_ITEMS = new String[] {
@@ -92,13 +91,14 @@ public class DebugCompositeMaker extends AbstractCompositeMaker
 	private StringFieldEditor  fSecondSymbexOutputGraphizFormatStringField;
 	private Composite fCompositeSecondSymbexOutputGraphiz;
 
-	public DebugCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
-		super(masterGUIelement);
-		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) 
-		{
-			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
+	public DebugTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
+		super(masterGUIelement, parentComposite);
+		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
+			IPreferenceStore prefs =
+					Activator.getDefault().getPreferenceStore();
 
-			fEnabledSymbexDeveloperMode = prefs.getBoolean(PREF_SYMBEX_DEVELOPER_MODE);
+			fEnabledSymbexDeveloperMode = prefs.getBoolean(
+					IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE);
 		}
 		else {
 			fEnabledSymbexDeveloperMode = false;
@@ -148,13 +148,10 @@ public class DebugCompositeMaker extends AbstractCompositeMaker
 	// ======================================================================================
 	
 	@Override
-	public Composite createControlMain(Composite parent) {
-		Composite simpleComposite = SWTFactory.createComposite(parent,
-				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
+	public void createTabItemContent() {
+		//inner_main_composite = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
 
-		createDebugTracePage(simpleComposite);
-		
-		return simpleComposite;
+		createDebugTracePage(getParentComposite());
 	}
 
 	private void createDebugTracePage(Composite parent) {

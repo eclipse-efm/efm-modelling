@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-public class CommonCriteriaCompositeMaker extends AbstractCompositeMaker {
+public class CommonCriteriaTabItemContentCreator extends AbstractTabItemContentCreator {
 
 	//	public static final String ATTR_BEHAVIOR_ANALYSIS_TRANSITION_NAME =
 	//	Activator.PLUGIN_ID + ".ATTR_BEHAVIOR_ANALYSIS_TRANSITION_NAME"; //$NON-NLS-1$
@@ -54,8 +54,8 @@ public class CommonCriteriaCompositeMaker extends AbstractCompositeMaker {
 	//private Group groupBehaviorCharacterization;
 	private Group groupInclusionCriterion;
 
-	public CommonCriteriaCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
-		super(masterGUIelement);
+	public CommonCriteriaTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
+		super(masterGUIelement, parentComposite);
 	}
 	
 
@@ -131,16 +131,14 @@ public class CommonCriteriaCompositeMaker extends AbstractCompositeMaker {
 	// ======================================================================================
 	
 	@Override
-	public Composite createControlMain(Composite parent) {
-		Composite simpleComposite = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
+	public void createTabItemContent() {
+		//inner_main_composite = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
 
-		createControlNodesHeightWidth(simpleComposite);
-		createControlEvaluationLimits(simpleComposite);
-		createAnalyzeStrategy(simpleComposite);
-		createControlInclusionCriterion(simpleComposite);
-//		createBehaviorCharacterization(simpleComposite);
-		
-		return simpleComposite;
+		createControlNodesHeightWidth(getParentComposite());
+		createControlEvaluationLimits(getParentComposite());
+		createAnalyzeStrategy(getParentComposite());
+		createControlInclusionCriterion(getParentComposite());
+//		createBehaviorCharacterization(getParentComposite());
 	}
 	
 	private void createControlNodesHeightWidth(Composite parent) {

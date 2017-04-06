@@ -28,10 +28,10 @@ import org.eclipse.efm.execution.launchconfiguration.ui.tabs.MainTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.SymbexRuntimeTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.TestGenerationTab;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup
-		implements IWorkflowPreferenceConstants {
-
+public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {
+	
 	protected MainTab fMainTab;
 
 	protected ExpertTab fExpertTab;
@@ -44,11 +44,12 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 		return fExpertTab;
 	}
 
+	
 
 
 	@Override
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-
+		
 		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 
 		ArrayList<ILaunchConfigurationTab> tabList =
@@ -62,11 +63,11 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 
 		if( ILaunchManager.DEBUG_MODE.equals(mode) )
 		{
-			if( prefs.getBoolean(PREF_DEBUG_OPTIONS) )
+			if( prefs.getBoolean(IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS) )
 			{
 				tabList.add( new DebugTab(this) );
 			}
-			if( prefs.getBoolean(PREF_EXPERT_MODE) )
+			if( prefs.getBoolean(IWorkflowPreferenceConstants.PREF_EXPERT_MODE) )
 			{
 				fExpertTab = new ExpertTab(this);
 				tabList.add( fExpertTab );
@@ -74,7 +75,7 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 
 			if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION )
 			{
-				if ( prefs.getBoolean(PREF_SYMBEX_DEVELOPER_MODE) )
+				if ( prefs.getBoolean(IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE) )
 				{
 					tabList.add( new DeveloperTuningTab(this) );
 				}

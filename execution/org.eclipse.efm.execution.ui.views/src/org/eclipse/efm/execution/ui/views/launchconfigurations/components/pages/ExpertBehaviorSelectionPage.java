@@ -19,9 +19,12 @@ import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.IntegerFieldEditor;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class ExpertBehaviorSelectionPage extends AbstractTabComponentPage {
 
@@ -58,13 +61,12 @@ public class ExpertBehaviorSelectionPage extends AbstractTabComponentPage {
 		super(parentTab);
 	}
 
-
 	@Override
-	public void createControl(Composite parent) {
-		fCompositeParent = parent;
-
-		fCompositeControl = SWTFactory.createGroup(fCompositeParent,
-				"Behavior Selection Page", 1, 2, GridData.FILL_HORIZONTAL);
+	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
+		createExpandableFrameWithToolkit(parentComposite, toolkit, "Behavior Selection Page");
+				
+//				SWTFactory.createGroup(fCompositeParent,
+//				"Behavior Selection Page", 1, 2, GridData.FILL_HORIZONTAL);
 
 		Group groupHoJProperty = SWTFactory.createGroup(fCompositeControl,
 				"Section PROPERTY", 1, 1, GridData.FILL_HORIZONTAL);
@@ -199,9 +201,13 @@ public class ExpertBehaviorSelectionPage extends AbstractTabComponentPage {
 			fModelAnalysis = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
 
-			setVisible(fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
+			if (fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
 					&& fModelAnalysis.equals(
-							ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) );
+							ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) ) {
+				unlockAndExpandPage();
+			} else {
+				collapseAndLockPage();
+			}
 		}
 		catch (CoreException e) {
 			e.printStackTrace();

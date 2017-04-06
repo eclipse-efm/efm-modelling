@@ -31,7 +31,7 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.debug.ui.StringVariableSelectionDialog;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.launchconfiguration.util.SWTFactory;
+import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;

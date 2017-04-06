@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.Activator;
+//import org.eclipse.efm.runconfiguration.ui.tabs.MainTab;
 import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
@@ -39,6 +40,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
@@ -100,12 +103,12 @@ public class MainTabTestOfflinePage extends AbstractTabComponentPage {
 
 
 	@Override
-	public void createControl(Composite parent) {
-		fCompositeParent = parent;
-
-		fCompositeControl = SWTFactory.createGroup(
-				fCompositeParent, "&Offline Testing Configuration",
-				1, 1, GridData.FILL_HORIZONTAL);
+	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
+		createExpandableFrameWithToolkit(parentComposite, toolkit, "&Offline Testing Configuration Page");
+				
+//				SWTFactory.createGroup(
+//				fCompositeParent, "&Offline Testing Configuration",
+//				1, 1, GridData.FILL_HORIZONTAL);
 
 		Group group  = SWTFactory.createGroup(fCompositeControl,
 				"&Trace File Selection", 1, 1, GridData.FILL_HORIZONTAL);
@@ -130,7 +133,7 @@ public class MainTabTestOfflinePage extends AbstractTabComponentPage {
 			public void widgetSelected(SelectionEvent e) {
 				ElementTreeSelectionDialog dialog =
 						new ElementTreeSelectionDialog(
-								parent.getShell(),
+								fCompositeParent.getShell(),
 								new WorkbenchLabelProvider(),
 								new WorkbenchContentProvider() );
 				dialog.setTitle("Select a Resource:");
@@ -176,7 +179,7 @@ public class MainTabTestOfflinePage extends AbstractTabComponentPage {
 					public void widgetSelected(SelectionEvent e) {
 						ElementTreeSelectionDialog dialog =
 								new ElementTreeSelectionDialog(
-										parent.getShell(),
+										fCompositeParent.getShell(),
 										new WorkbenchLabelProvider(),
 										new WorkbenchContentProvider());
 						dialog.setTitle("Select a Resource:");

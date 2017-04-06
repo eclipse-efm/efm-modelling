@@ -13,8 +13,8 @@
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.FirstCompositeMaker;
 import org.eclipse.efm.ui.utils.HelpCoReferee;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.MainTabItemContentCreator;
 
 
 public class MainTab extends AbstractSewLaunchConfigurationTab {
@@ -28,7 +28,7 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 	 */
 	public MainTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		contentCompositeManager = new FirstCompositeMaker(this);
+		tabItemContentClass = MainTabItemContentCreator.class;
 		setHelpContextId(HelpCoReferee.efm_runconf_main_tab);
 	}
 
@@ -37,4 +37,5 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 	public String getName() {
 		return "Main";
 	}
+
 }

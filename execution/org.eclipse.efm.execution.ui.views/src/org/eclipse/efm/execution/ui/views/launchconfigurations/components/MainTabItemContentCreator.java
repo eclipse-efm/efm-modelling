@@ -25,12 +25,21 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.ui.utils.HelpCoReferee;
+import org.eclipse.efm.execution.ui.views.editors.FieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.MainTabBehaviorSelectionPage;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.MainTabTestOfflinePage;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.MainTabTransitionCoveragePage;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.sections.AnalysisProfile1SectionCreator;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.sections.WorkspaceFolderNameSectionCreator;
+import org.eclipse.efm.execution.ui.views.utils.GenericCompositeCreator;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -46,42 +55,31 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
 
-public class FirstCompositeMaker extends AbstractCompositeMaker 
-		implements IWorkflowPreferenceConstants {
-
-	private static final String[] MODEL_COMBO_ITEMS = new String[] {
-			ANALYSIS_PROFILE_MODEL_EXPLORATION ,
-			ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION ,
-			ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR
-	};
-
+public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 
 	private boolean fEnabledSymbexDeveloperMode;
 	private boolean fEnabledSymbexIncubationMode;
-
-
 
 	/////////////////////////////////////
 	// MODEL SELECTION
 	/////////////////////////////////////
 
-	// AVM Location
 	private String fProjectName;
     private Text fModelPathText;
     private Button fModelWorkspaceBrowse;
-
-	private Button fModelButton = null;
 
 	/////////////////////////////////////
 	// WORKSPACE // DEVELOPER MODE
 	/////////////////////////////////////
 
-	private StringFieldEditor fWorkspaceRootLoacationStringField;
+	private StringFieldEditor fWorkspaceRootLocationStringField;
 	private StringFieldEditor fWorkspaceOuputFolderNameStringField;
 	private StringFieldEditor fWorkspaceLogFolderNameStringField;
 	private StringFieldEditor fWorkspaceDebugFolderNameStringField;
@@ -114,159 +112,72 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 	// TEST OFFLINE // INCUBATION MODE
 	/////////////////////////////////////
 
-	private Button fTestOfflineButton = null;
-
 	MainTabTestOfflinePage fTestOfflinePage;
 	
 
-	public FirstCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
-		super(masterGUIelement);
+	public MainTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
+		super(masterGUIelement, parentComposite);
 		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
-
 			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
-
 			fEnabledSymbexDeveloperMode =
-					prefs.getBoolean(PREF_SYMBEX_DEVELOPER_MODE);
-		}
-		else {
+					prefs.getBoolean(IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE);
+		} else {
 			fEnabledSymbexDeveloperMode = false;
 		}
 
 		if( AbstractLaunchDelegate.ENABLED_SYMBEX_INCUBATION_MODE_OPTION ) {
-
 			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
-
 			fEnabledSymbexIncubationMode =
-					prefs.getBoolean(PREF_INCUBATION_MODE);
-		}
-		else {
+					prefs.getBoolean(IWorkflowPreferenceConstants.PREF_INCUBATION_MODE);
+		} else {
 			fEnabledSymbexIncubationMode = false;
 		}
-
-		// TRANSITION COVERAGE ANALYSIS
-		fTransitionCoveragePage = new MainTabTransitionCoveragePage(this);
-
-		// BEHAVIOR SELECTION ANALYSIS
-		fBehaviorSelectionPage = new MainTabBehaviorSelectionPage(this);
-
-		// TEST OFFLINE // INCUBATION MODE
-		if( fEnabledSymbexIncubationMode ) {
-			fTestOfflinePage = new MainTabTestOfflinePage(this);
-		}
 	}
-	
-	private class TabListener extends SelectionAdapter implements ModifyListener {
-
-		/* (non-Javadoc)
-		 * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
-		 */
-		@Override
-		public void modifyText(ModifyEvent e) {
-			propagateGUIupdate();
-		}
-
-		/* (non-Javadoc)
-		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-		 */
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			Object source = e.getSource();
-
-			if(source == fModelButton) {
-				handleModelButtonSelected();
-			}
-			else if(source == fTestOfflineButton) {
-				handleTestOfflineButtonSelected();
-			}
-			else if(source == fModelCombo) {
-				handleModelSelectionChange();
-			}
-		}
-	}
-
-	private TabListener fListener = new TabListener();
 	
 	// ======================================================================================
 	//                              Miscellaneous handling
 	// ======================================================================================
-	
-	public void handleModelButtonSelected() {
-		if( fModelButton.getSelection() ) {
-			fAnalysisProfile = ANALYSIS_PROFILE_MODEL;
-
-			enableAnalysisModel(true);
-
-			// TEST OFFLINE // INCUBATION MODE
-			if( fEnabledSymbexIncubationMode )
-			{
-				enableAnalysisTestOfflineTrace(false);
-			}
-
-			if( fModelAnalysis.equals(
-					ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) )
-			{
-				fTransitionCoveragePage.setVisible(false);
-
-				fBehaviorSelectionPage.setVisible(true);
-			}
-			else if( fModelAnalysis.equals(
-					ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
-			{
-				fTransitionCoveragePage.setVisible(true);
-
-				fBehaviorSelectionPage.setVisible(false);
-			}
-			else {
-				fTransitionCoveragePage.setVisible(false);
-
-				fBehaviorSelectionPage.setVisible(false);
-			}
-		}
-		propagateGUIupdate();
-	}
-
-	public void handleTestOfflineButtonSelected() {
-		if( fTestOfflineButton.getSelection() ) {
-			fAnalysisProfile = ANALYSIS_PROFILE_TEST_OFFLINE;
-
-			enableAnalysisModel(false);
-
-			fTransitionCoveragePage.setVisible(false);
-
-			fBehaviorSelectionPage.setVisible(false);
-
-			enableAnalysisTestOfflineTrace(true);
-		}
-		propagateGUIupdate();
-	}
 
 	private void handleModelSelectionChange() {
-		fModelAnalysis = fModelCombo.getText();
-
+		String model_combo_selected_text = fModelCombo.getText();
 //		ExpertTab expertTab = getGroupTab().getExpertTab();
 //		if( expertTab != null ) {
 //			expertTab.setTabName("Expert <" + fModelAnalysis + ">");
 //		}
 
-		if( fModelAnalysis.equals(
-				ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) )
-		{
-			fBehaviorSelectionPage.setVisible(true);
-
-			fTransitionCoveragePage.setVisible(false);
+		if(model_combo_selected_text.equals(ANALYSIS_PROFILE_MODEL_EXPLORATION)) {
+			fBehaviorSelectionPage.collapseAndLockPage();
+			fTransitionCoveragePage.collapseAndLockPage();
+			fTestOfflinePage.collapseAndLockPage();
+		} else if(model_combo_selected_text.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR)) {
+			fBehaviorSelectionPage.unlockAndExpandPage();
+			fTransitionCoveragePage.collapseAndLockPage();
+			fTestOfflinePage.collapseAndLockPage();
+		} else if(model_combo_selected_text.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION)) {
+			fBehaviorSelectionPage.collapseAndLockPage();
+			fTransitionCoveragePage.unlockAndExpandPage();
+			fTestOfflinePage.collapseAndLockPage();
+		} else if(model_combo_selected_text.equals(ANALYSIS_PROFILE_TEST_OFFLINE)) {
+			fBehaviorSelectionPage.collapseAndLockPage();
+			fTransitionCoveragePage.collapseAndLockPage();
+			fTestOfflinePage.unlockAndExpandPage();
+		} else {
+			fBehaviorSelectionPage.collapseAndLockPage();
+			fTransitionCoveragePage.collapseAndLockPage();
+			fTestOfflinePage.collapseAndLockPage();
 		}
-		else if( fModelAnalysis.equals(
-				ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
-		{
-			fTransitionCoveragePage.setVisible(true);
-
-			fBehaviorSelectionPage.setVisible(false);
+		
+		if (model_combo_selected_text.equals(ANALYSIS_PROFILE_TEST_OFFLINE)) {
+			fAnalysisProfile = ANALYSIS_PROFILE_TEST_OFFLINE;
+			fModelAnalysis = ANALYSIS_PROFILE_UNDEFINED;
+		} else if (model_combo_selected_text.equals(ANALYSIS_PROFILE_MODEL_EXPLORATION) ||
+				model_combo_selected_text.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) ||
+				model_combo_selected_text.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION)
+				) {
+			fAnalysisProfile = ANALYSIS_PROFILE_MODEL;
+			fModelAnalysis = model_combo_selected_text;
 		}
-		else {
-			fTransitionCoveragePage.setVisible(false);
-
-			fBehaviorSelectionPage.setVisible(false);
-		}
+		
 		propagateGUIupdate();
 	}
 	
@@ -291,37 +202,15 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 		}
 	};
 	
-	/**
-	 * Enable Model / Trace  Use Case Analysis radio button has been selected
-	 */
-	private void enableAnalysisModel(boolean bEnabled) {
-		fModelButton.setSelection(bEnabled);
-
-		fModelCombo.setEnabled(bEnabled);
-	}
-
-	// TEST OFFLINE // INCUBATION MODE
-	private void enableAnalysisTestOfflineTrace(boolean bEnabled) {
-		fTestOfflineButton.setSelection(bEnabled);
-
-		fTestOfflinePage.setVisible(bEnabled);
-	}	
-	
 	// ======================================================================================
 	//                              Graphical Components Creation Methods
 	// ======================================================================================	
 	
-
-
 	@Override
-	public Composite createControlMain(Composite parent) {
-		Composite simpleComposite = SWTFactory.createComposite(parent,
-				parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
-		createModelFileSelectionComponent(simpleComposite);
-		createWorkspaceComponent(simpleComposite);
-		createAnalyseProfileComponent(simpleComposite);
-		
-		return simpleComposite;
+	public void createTabItemContent() {
+		createModelFileSelectionComponent(getParentComposite());
+		createWorkspaceComponent(getParentComposite());
+		createAnalyseProfileComponent(getParentComposite());
 	}
 
 
@@ -330,13 +219,15 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 	 * @param parent the parent to add this component to
 	 */
 	private void createModelFileSelectionComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(
-				parent, "Model File Selection", 1, 1, GridData.FILL_HORIZONTAL);
+		FormToolkit toolkit = getMasterFormToolkit();
+		fModelWorkspaceBrowse = GenericCompositeCreator.createComposite_label_pushbutton_from_toolkit(toolkit, 
+				parent,
+				"Model File Selection",
+				"&Workspace...", 
+				2);
 
-		Composite comp = SWTFactory.createComposite(
-				group, group.getFont(), 2, 1, GridData.FILL_BOTH, 0, 0);
-
-		fModelPathText = SWTFactory.createSingleText(comp, 1);
+		fModelPathText = toolkit.createText(parent, "", SWT.NONE);
+		fModelPathText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		fModelPathText.getAccessible().addAccessibleListener(new AccessibleAdapter() {
 			@Override
 			public void getName(AccessibleEvent e) {
@@ -345,7 +236,6 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 		});
 		fModelPathText.addModifyListener(fBasicModifyListener);
 
-		fModelWorkspaceBrowse = SWTFactory.createPushButton(comp, "&Workspace...", null);
 		fModelWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -373,60 +263,14 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 						updateWorkspaceRootPath(resource);
 					}
 				}
-
-//				org.eclipse.ui.dialogs.ResourceSelectionDialog dialog =
-//						new ResourceSelectionDialog(getShell(),
-//								ResourcesPlugin.getWorkspace().getRoot(),
-//								"Select a &Diversity Specification:");
-//
-//				if(dialog.open() == Window.OK) {
-//					Object[] results = dialog.getResult();
-//					if(results == null || results.length < 1) {
-//						return;
-//					}
-//					else if( results[0] instanceof IPath ) {
-//						IPath path = (IPath)results[0];
-//						String specFile = path.toString();
-//						fModelPathText.setText(specFile);
-//					}
-//				}
 			}
 		});
-
-//		fFileBrowse = createPushButton(bcomp, "File &System...", null);
-//		fFileBrowse.addSelectionListener(new SelectionAdapter() {
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				String filePath = fModelPathText.getText();
-//				org.eclipse.swt.widgets.FileDialog dialog =
-//						new FileDialog(getShell(), SWT.SAVE);
-//				filePath = dialog.open();
-//				if(filePath != null) {
-//					fModelPathText.setText(filePath);
-//				}
-//			}
-//		});
-//		fVariables = createPushButton(bcomp, "Variables...", null);
-//		fVariables.addSelectionListener(new SelectionListener() {
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				StringVariableSelectionDialog dialog =
-//						new StringVariableSelectionDialog(getShell());
-//				dialog.open();
-//				String variable = dialog.getVariableExpression();
-//				if(variable != null) {
-//					fModelPathText.insert(variable);
-//				}
-//			}
-//			@Override
-//			public void widgetDefaultSelected(SelectionEvent e) {}
-//		});
 
 	}
 
 
 	private void updateWorkspaceRootPath(IResource resource) {
-		fWorkspaceRootLoacationStringField.setStringValue(
+		fWorkspaceRootLocationStringField.setStringValue(
 				resource.getProject().getLocation().toString());
 	}
 
@@ -435,127 +279,66 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 		IPath path = new Path(modelPath);
 		IResource resource = root.findMember(path);
 		if( (resource != null) && resource.exists() ) {
-			fWorkspaceRootLoacationStringField.setStringValue(
+			fWorkspaceRootLocationStringField.setStringValue(
 					resource.getProject().getLocation().toString());
 		}
 		else if( root.getLocation().isPrefixOf(path) ) {
 			path = root.getLocation().append( path.segment(
 					path.matchingFirstSegments( root.getLocation() ) ));
-			fWorkspaceRootLoacationStringField.setStringValue(path.toString());
+			fWorkspaceRootLocationStringField.setStringValue(path.toString());
 		}
 		else {
-			fWorkspaceRootLoacationStringField.setStringValue(
+			fWorkspaceRootLocationStringField.setStringValue(
 				root.getLocation().append(
 						"<project-folder-name>" ).toString() );
 		}
 
-		fWorkspaceRootLoacationStringField.updateLaunchConfigurationDialog();
+		fWorkspaceRootLocationStringField.updateLaunchConfigurationDialog();
 	}
 
 
 	protected void createWorkspaceComponent(Composite parent) {
-		String root =  ResourcesPlugin.getWorkspace().getRoot()
-				.getLocation().append( "<project-folder-name>" ).toString();
-
-		String toolTipText = "Name of the subfolder in the root folder";
-		String toolTipText2 = "Name of the subfolder in the output folder";
-
-		Group group = SWTFactory.createGroup(parent,
-				"&Workspace Folder Name", 1, 1, GridData.FILL_HORIZONTAL);
-		group.setToolTipText( toolTipText );
-
-		Composite comp = SWTFactory.createComposite(
-				group, 1, 1, GridData.FILL_HORIZONTAL);
-		comp.setToolTipText( toolTipText );
-
-		fWorkspaceRootLoacationStringField = new StringFieldEditor(this,
-				ATTR_WORKSPACE_ROOT_LOCATION, "Root", comp, root);
-		fWorkspaceRootLoacationStringField.setEnabled(false);
-
-		fWorkspaceOuputFolderNameStringField = new StringFieldEditor(this,
-				ATTR_WORKSPACE_OUTPUT_FOLDER_NAME, "Output", comp,
-				DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
-		fWorkspaceOuputFolderNameStringField.setToolTipText( toolTipText );
-
-		if( fEnabledSymbexDeveloperMode ) {
-			fWorkspaceLogFolderNameStringField = new StringFieldEditor(
-					this, ATTR_WORKSPACE_LOG_FOLDER_NAME, "Log",
-					comp, DEFAULT_WORKSPACE_LOG_FOLDER_NAME);
-			fWorkspaceLogFolderNameStringField.setToolTipText( toolTipText2 );
-
-			fWorkspaceDebugFolderNameStringField = new StringFieldEditor(
-					this, ATTR_WORKSPACE_DEBUG_FOLDER_NAME, "Debug",
-					comp, DEFAULT_WORKSPACE_DEBUG_FOLDER_NAME);
-			fWorkspaceDebugFolderNameStringField.setToolTipText( toolTipText2 );
-		}
+		ToolBarManager tbm = new ToolBarManager(SWT.FLAT);
+		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
+		GenericCompositeCreator.fillToolBar(tbm, toputinbar);
+		
+		WorkspaceFolderNameSectionCreator wfnsc = new WorkspaceFolderNameSectionCreator(this.getMasterGUIelement(), this, tbm, parent);		
+		FieldEditor[] editors = wfnsc.getFieldEditors();
+		fWorkspaceRootLocationStringField = (StringFieldEditor) editors[0];
+		fWorkspaceOuputFolderNameStringField = (StringFieldEditor) editors[1];
+		fWorkspaceLogFolderNameStringField = (StringFieldEditor) editors[2];
+		fWorkspaceDebugFolderNameStringField = (StringFieldEditor) editors[3];
 	}
-
 
 	protected void createAnalyseProfileComponent(Composite parent) {
-		Group groupAnalysisProfile= SWTFactory.createGroup(
-				parent, "&Analysis Profile", 1, 1, GridData.FILL_HORIZONTAL);
+		ToolBarManager tbm = new ToolBarManager(SWT.FLAT);
+		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
+		GenericCompositeCreator.fillToolBar(tbm, toputinbar);
+		AnalysisProfile1SectionCreator apsc = new AnalysisProfile1SectionCreator(this.getMasterGUIelement(), this, tbm, parent);		
+		
 
-		Group group = SWTFactory.createGroup(groupAnalysisProfile,
-				"&Classical Model Analysis: Exploration, Transition Coverage...",
-				2, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp1 = SWTFactory.createComposite(
-				group, 1, 2, GridData.FILL_HORIZONTAL);
-		fModelButton = SWTFactory.createRadioButton(comp1, "&Selected");
-		fModelButton.setToolTipText("Symbolic execution of the model");
-		fModelButton.addSelectionListener(fListener);
-
-		fModelCombo = SWTFactory.createCombo(comp1,
-				SWT.DROP_DOWN | SWT.READ_ONLY, 1, MODEL_COMBO_ITEMS);
-		fModelCombo.setToolTipText(
-				  "Choice of the strategy for the symbolic execution of the model\n"
-				+ "\t- Exploration: basic symbolic execution of the model\n"
-				+ "\t- Transition Coverage: compute a symbolic tree which covers all transitions of the model\n"
-				+ "\t- Behavior Selection: compute one or more symbolic path(s) which cover(s)\n"
-				+ "\t\t\t   a predefined behavior\n");
-		fModelCombo.addSelectionListener(fListener);
+		fModelCombo = apsc.fModelCombo;
+		fModelCombo.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				handleModelSelectionChange();
+				propagateUpdateJobScheduling();	
+			}
+		});
 
 		// TRANSITION COVERAGE ANALYSIS
-		fTransitionCoveragePage.createControl(group);
+		fTransitionCoveragePage = apsc.fTransitionCoveragePage;
 
 		// BEHAVIOR SELECTION ANALYSIS
-		fBehaviorSelectionPage.createControl(group);
+		fBehaviorSelectionPage = apsc.fBehaviorSelectionPage;
+		
+		fTestOfflinePage = apsc.fTestOfflinePage;
 
-		if( fEnabledSymbexIncubationMode ) {
-			createIncubationTestOfflineComponent(groupAnalysisProfile);
-		}
-		else
-		{
-			fModelButton.setSelection(true);
-		}
 	}
 
 
-	protected void createIncubationTestOfflineComponent(Composite parent) {
-		//user enter choice
-		Group groupTestOffline = SWTFactory.createGroup(
-				parent, "&Test Verdict Computation: Offline testing...",
-				2, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
-				groupTestOffline, 1, 5, GridData.FILL_HORIZONTAL);
-		fTestOfflineButton = SWTFactory.createRadioButton(
-				comp, "&Selected");
-		fTestOfflineButton.addSelectionListener(fListener);
-
-		// WARNING WARNING WARNING WARNING WARNING
-		//
-		// Functionality not available at this time
-		//
-		// WARNING WARNING WARNING WARNING WARNING
-//		groupTestOffline.setVisible(fEnabledSymbexIncubationMode);
-//
-//		fTestOfflineButton.setEnabled(fEnabledSymbexIncubationMode);
-
-		// Trace File Selection
-		//
-		fTestOfflinePage.createControl(comp);
-	}
 
 
 
@@ -577,7 +360,7 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 				DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
 
 		// WORKSPACE // DEVELOPER MODE
-//		fWorkspaceRootLoacationStringField.setDefaults(configuration);
+//		fWorkspaceRootLocationStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_WORKSPACE_ROOT_LOCATION,
 				DEFAULT_WORKSPACE_ROOT_LOCATION);
@@ -633,7 +416,7 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 			fModelPathText.setText( specMainFileLocation );
 			updateWorkspaceRootPath( specMainFileLocation );
 
-			fWorkspaceRootLoacationStringField.initializeFrom(configuration);
+			fWorkspaceRootLocationStringField.initializeFrom(configuration);
 			fWorkspaceOuputFolderNameStringField.initializeFrom(configuration);
 
 			if( fEnabledSymbexDeveloperMode ) {
@@ -654,26 +437,18 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 		catch (CoreException e) {
 			e.printStackTrace();
 		}
-
 		if( fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL) &&
-			fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR)	)
-		{
-			fTransitionCoveragePage.setVisible(false);
-
-			fBehaviorSelectionPage.setVisible(true);
-		}
-		else if( fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL) &&
+			fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR)	){
+			fTransitionCoveragePage.collapseAndLockPage();
+			fBehaviorSelectionPage.unlockAndExpandPage();
+		} else if( fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL) &&
 				fModelAnalysis.equals(
-						ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
-		{
-			fTransitionCoveragePage.setVisible(true);
-
-			fBehaviorSelectionPage.setVisible(false);
-		}
-		else {
-			fTransitionCoveragePage.setVisible(false);
-
-			fBehaviorSelectionPage.setVisible(false);
+						ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) ) {
+			fTransitionCoveragePage.unlockAndExpandPage();
+			fBehaviorSelectionPage.collapseAndLockPage();
+		} else {
+			fTransitionCoveragePage.collapseAndLockPage();
+			fBehaviorSelectionPage.collapseAndLockPage();
 		}
 
 		// TRANSITION COVERAGE ANALYSIS
@@ -700,6 +475,9 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
 			fModelCombo.select(2);
 			break;
+		case ANALYSIS_PROFILE_TEST_OFFLINE:
+			fModelCombo.select(3);
+			break;
 		default:
 			fModelCombo.select(0);
 			break;
@@ -712,85 +490,56 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 		}
 
 		switch ( fAnalysisProfile ) {
-			case ANALYSIS_PROFILE_MODEL:
-			{
-				fModelButton.setSelection(true);
-				enableAnalysisModel(true);
-
+			case ANALYSIS_PROFILE_MODEL: {
 				if( fEnabledSymbexIncubationMode ) {
-					fTestOfflineButton.setSelection(false);
-					enableAnalysisTestOfflineTrace(false);
+					fTestOfflinePage.collapseAndLockPage();
 				}
-
 				if( fModelAnalysis.equals(
-						ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) )
-				{
-					fTransitionCoveragePage.setVisible(false);
-
-					fBehaviorSelectionPage.setVisible(true);
+						ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) ) {
+					fTransitionCoveragePage.collapseAndLockPage();
+					fBehaviorSelectionPage.unlockAndExpandPage();
 				}
 				else if( fModelAnalysis.equals(
-						ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
-				{
-					fTransitionCoveragePage.setVisible(true);
-
-					fBehaviorSelectionPage.setVisible(false);
+						ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) ) {
+					fTransitionCoveragePage.unlockAndExpandPage();
+					fBehaviorSelectionPage.collapseAndLockPage();
+				} else {
+					fTransitionCoveragePage.collapseAndLockPage();
+					fBehaviorSelectionPage.collapseAndLockPage();
 				}
-				else {
-					fTransitionCoveragePage.setVisible(false);
-
-					fBehaviorSelectionPage.setVisible(false);
-				}
-
 				break;
 			}
-			case ANALYSIS_PROFILE_TEST_OFFLINE:
-			{
-				fModelButton.setSelection(false);
-				enableAnalysisModel(false);
-
+			case ANALYSIS_PROFILE_TEST_OFFLINE: {
 				if( fEnabledSymbexIncubationMode ) {
-					fTestOfflineButton.setSelection(true);
-					enableAnalysisTestOfflineTrace(true);
+					fTestOfflinePage.unlockAndExpandPage();
 				}
 
-				fTransitionCoveragePage.setVisible(false);
+				fTransitionCoveragePage.collapseAndLockPage();
 
-				fBehaviorSelectionPage.setVisible(false);
+				fBehaviorSelectionPage.collapseAndLockPage();
 
 				break;
 			}
 			default:
 			{
-				fModelButton.setSelection(true);
 				fAnalysisProfile = ANALYSIS_PROFILE_MODEL;
-				enableAnalysisModel(true);
-
 				if( fEnabledSymbexIncubationMode ) {
-					fTestOfflineButton.setSelection(false);
-					enableAnalysisTestOfflineTrace(false);
+					fTestOfflinePage.collapseAndLockPage();
 				}
 
 				if( fModelAnalysis.equals(
-						ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) )
-				{
-					fTransitionCoveragePage.setVisible(false);
-
-					fBehaviorSelectionPage.setVisible(true);
+						ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) ) {
+					fTransitionCoveragePage.collapseAndLockPage();
+					fBehaviorSelectionPage.unlockAndExpandPage();
 				}
 				else if( fModelAnalysis.equals(
-						ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
-				{
-					fTransitionCoveragePage.setVisible(true);
-
-					fBehaviorSelectionPage.setVisible(false);
+						ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) ) {
+					fTransitionCoveragePage.unlockAndExpandPage();
+					fBehaviorSelectionPage.collapseAndLockPage();
+				} else {
+					fTransitionCoveragePage.collapseAndLockPage();
+					fBehaviorSelectionPage.collapseAndLockPage();
 				}
-				else {
-					fTransitionCoveragePage.setVisible(false);
-
-					fBehaviorSelectionPage.setVisible(false);
-				}
-
 				break;
 			}
 		}
@@ -808,7 +557,7 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 				ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
 				fModelPathText.getText());
 
-		fWorkspaceRootLoacationStringField.performApply(configuration);
+		fWorkspaceRootLocationStringField.performApply(configuration);
 		fWorkspaceOuputFolderNameStringField.performApply(configuration);
 
 		if( fEnabledSymbexDeveloperMode ) {
@@ -818,10 +567,10 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_ANALYSIS_PROFILE, fAnalysisProfile);
-
+		//System.err.println("+++++" + fAnalysisProfile);
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_MODEL_ANALYSIS, fModelAnalysis);
-
+		//System.err.println("+++++" + fModelAnalysis);
 		// TRANSITION COVERAGE ANALYSIS
 		fTransitionCoveragePage.performApply(configuration);
 
@@ -907,5 +656,7 @@ public class FirstCompositeMaker extends AbstractCompositeMaker
 
 		return new FieldValidationReturn(true, messageToSend);
 	}	
+	
+
 	
 }

@@ -11,15 +11,15 @@
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.CommonCriteriaCompositeMaker;
 import org.eclipse.efm.ui.utils.HelpCoReferee;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.CommonCriteriaTabItemContentCreator;
 
 
 public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
-
+	
 	public CommonCriteriaTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		contentCompositeManager = new CommonCriteriaCompositeMaker(this);
+		tabItemContentClass = CommonCriteriaTabItemContentCreator.class;
 		setHelpContextId(HelpCoReferee.efm_runconf_commoncriteria_tab);
 	}
 

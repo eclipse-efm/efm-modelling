@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 
-public class DeveloperTuningCompositeMaker extends AbstractCompositeMaker {
+public class DeveloperTuningTabItemContentCreator extends AbstractTabItemContentCreator {
 
 	private static final String[] TRACE_LEVEL_COMBO_ITEMS = new String[] {
 			DebuglevelKind.ZERO.getLiteral(),
@@ -126,8 +126,8 @@ public class DeveloperTuningCompositeMaker extends AbstractCompositeMaker {
 	private BooleanFieldEditor fNothingEnabledBooleanField;
 	private BooleanFieldEditor fGodModeEnabledBooleanField;
 
-	public DeveloperTuningCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
-		super(masterGUIelement);
+	public DeveloperTuningTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
+		super(masterGUIelement, parentComposite);
 	}
 	
 	
@@ -177,13 +177,10 @@ public class DeveloperTuningCompositeMaker extends AbstractCompositeMaker {
 	// ======================================================================================
 	
 	@Override
-	public Composite createControlMain(Composite parent) {
-		Composite simpleComposite = SWTFactory.createComposite(parent,
-				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
+	public void createTabItemContent() {
+		//inner_main_composite = SWTFactory.createComposite(parent,parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
 
-		createDeveloperTuningOptionsComponent(simpleComposite);
-		
-		return simpleComposite;
+		createDeveloperTuningOptionsComponent(getParentComposite());
 	}
 
 	private void createDeveloperTuningOptionsComponent(Composite parent) {

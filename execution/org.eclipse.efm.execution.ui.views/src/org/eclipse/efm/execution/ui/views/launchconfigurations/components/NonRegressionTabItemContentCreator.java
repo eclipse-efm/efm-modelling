@@ -29,8 +29,10 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
@@ -50,12 +52,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
 
-public class NonRegressionCompositeMaker extends AbstractCompositeMaker {
+public class NonRegressionTabItemContentCreator extends AbstractTabItemContentCreator {
 
 	public static final String ATTR_ENABLED_NON_REGRESSION =
 			Activator.PLUGIN_ID + ".ATTR_ENABLED_NON_REGRESSION"; //$NON-NLS-1$
@@ -102,8 +105,8 @@ public class NonRegressionCompositeMaker extends AbstractCompositeMaker {
 	private List< String > transitionsToBeSelected;
 	private List< String > selectedTransitions;
 
-	public NonRegressionCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
-		super(masterGUIelement);
+	public NonRegressionTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
+		super(masterGUIelement, parentComposite);
 	}
 	
 	private class TabListener extends SelectionAdapter implements ModifyListener {
@@ -193,14 +196,12 @@ public class NonRegressionCompositeMaker extends AbstractCompositeMaker {
 	// ======================================================================================
 	
 	@Override
-	public Composite createControlMain(Composite parent) {
-		Composite simpleComposite = SWTFactory.createComposite(parent,
-				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
-		createNonRegressionSelectionComponent(simpleComposite);
-		createModelFileSelectionComponent(simpleComposite);
-		createAnalyseProfileComponent(simpleComposite);
-		
-		return simpleComposite;
+	public void createTabItemContent() {
+//		inner_main_composite = SWTFactory.createComposite(parent,
+//				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
+		createNonRegressionSelectionComponent(getParentComposite());
+		createModelFileSelectionComponent(getParentComposite());
+		createAnalyseProfileComponent(getParentComposite());
 	}
 
 

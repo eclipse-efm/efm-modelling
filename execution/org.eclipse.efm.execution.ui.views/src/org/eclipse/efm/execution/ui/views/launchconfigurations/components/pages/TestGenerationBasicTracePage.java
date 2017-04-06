@@ -17,16 +17,18 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.execution.ui.views.utils.GenericCompositeCreator;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 
-	private Group groupBASIC;
 	private Group groupBasicConfiguration;
 	private Group groupBasicObservable;
 
@@ -63,22 +65,20 @@ public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 	}
 
 	@Override
-	public void createControl(Composite parent) {
-		groupBASIC = SWTFactory.createGroup(parent,
-				"BASIC <Ad'hoc> Tests Generation Page",
-				1, 1, GridData.FILL_HORIZONTAL);
+	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
+		createExpandableFrameWithToolkit(parentComposite, toolkit, "BASIC <Ad'hoc> Tests Generation Page");
 
 		Composite comp = SWTFactory.createComposite(
-				groupBASIC, 1, 1, GridData.FILL_HORIZONTAL);
+				fCompositeControl, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceEnabledGenerationBooleanField =
 				new BooleanFieldEditor(fParentTab,
 						ATTR_BASIC_TRACE_ENABLED_GENERATION,
 						"&Enabled Generation", comp, false);
 
-		createBasicConfigurationComponent(groupBASIC);
+		createBasicConfigurationComponent(fCompositeControl);
 
-		createObservableSelectionComponent(groupBASIC);
+		createObservableSelectionComponent(fCompositeControl);
 	}
 
 
@@ -255,28 +255,6 @@ public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 				HELPER_TRACE_FORMAT_SPECIFICATION );
 	}
 
-
-	private void setEnableBasicPage(ILaunchConfiguration configuration) {
-		String fAnalysisProfile;
-		boolean localEnable;
-
-		try {
-			fAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
-
-			localEnable = fBasicTraceEnabledGenerationBooleanField.getBooleanValue()
-				&& (! fAnalysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) );
-
-			fParentTab.propagateVisibility(groupBasicConfiguration,localEnable);
-			fParentTab.propagateVisibility(groupBasicObservable,localEnable);
-		}
-		catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration)
 	{
@@ -346,8 +324,7 @@ public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 				DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST);
 	}
 
-	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	private String getAnalysisProfile(ILaunchConfiguration configuration) {
 		String analysisProfile;
 		try {
 			analysisProfile = configuration.getAttribute(
@@ -355,18 +332,50 @@ public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
-
 			analysisProfile = "";
 		}
-
+		return analysisProfile;
+	}
+	
+	private boolean getBasicTraceEnableGeneration(ILaunchConfiguration configuration) {
+		boolean basicTraceEnableGeneration;
+		try {
+			basicTraceEnableGeneration = configuration.getAttribute(ATTR_BASIC_TRACE_ENABLED_GENERATION, false);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			basicTraceEnableGeneration = false;
+		}
+		return basicTraceEnableGeneration;
+	}
+	
+	private void updateGreyedOutAreas(String analysisProfile, boolean basicTraceEnableGeneration) {
 		if ( analysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) ) {
 			fBasicTraceEnabledGenerationBooleanField.setEnabled(false);
+			GenericCompositeCreator.recursiveSetEnabled(groupBasicConfiguration, false);
+			GenericCompositeCreator.recursiveSetEnabled(groupBasicObservable, false);
 		}
 		else {
 			fBasicTraceEnabledGenerationBooleanField.setEnabled(true);
+			if (basicTraceEnableGeneration) {
+				GenericCompositeCreator.recursiveSetEnabled(groupBasicConfiguration, true);
+				GenericCompositeCreator.recursiveSetEnabled(groupBasicObservable, true);
+			} else {
+				GenericCompositeCreator.recursiveSetEnabled(groupBasicConfiguration, false);
+				GenericCompositeCreator.recursiveSetEnabled(groupBasicObservable, false);
+			}
 			fBasicTraceNormalizationBooleanField.setEnabled(true);
 			fBasicTraceShowInitializationBooleanField.setEnabled(true);
+		}
+	}
+	
+	@Override
+	public void initializeFrom(ILaunchConfiguration configuration) {
+		String analysisProfile = getAnalysisProfile(configuration);
+		boolean basicTraceEnableGeneration = getBasicTraceEnableGeneration(configuration);
+		updateGreyedOutAreas(analysisProfile, basicTraceEnableGeneration);
 
+		if ( !analysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) ) {
 			fBasicTraceEnabledGenerationBooleanField.initializeFrom(configuration);
 			fBasicTraceFolderNameStringField.initializeFrom(configuration);
 			fBasicTraceFileNameStringField.initializeFrom(configuration);
@@ -386,8 +395,6 @@ public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 			fBasicTraceObservableTraceDetailsStringField.initializeFrom(configuration);
 			fBasicTraceObservableFormatStringField.initializeFrom(configuration);
 		}
-
-		setEnableBasicPage(configuration);
 	}
 
 	@Override
@@ -412,8 +419,9 @@ public class TestGenerationBasicTracePage extends AbstractTabComponentPage {
 
 		fBasicTraceObservableTraceDetailsStringField.performApply(configuration);
 		fBasicTraceObservableFormatStringField.performApply(configuration);
-
-		setEnableBasicPage( configuration );
+		
+		updateGreyedOutAreas(getAnalysisProfile(configuration),
+				getBasicTraceEnableGeneration(configuration));
 	}
 
 	@Override

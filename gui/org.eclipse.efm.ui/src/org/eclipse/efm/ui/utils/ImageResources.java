@@ -50,7 +50,9 @@ public class ImageResources {
 	
 	public static final String IMAGE__DIALRUN_ICON = ICONS_PLUGIN_PATH + "run_dial.png";
 	
-	
+	public static final String IMAGE__WARNING_ICON = ICONS_PLUGIN_PATH + "warning_st_obj.png";
+	public static final String IMAGE__ERROR_ICON = ICONS_PLUGIN_PATH + "error_st_obj.png";
+
 	
 	public static final String IMAGE__REFRESH_ICON = ICONS_PLUGIN_PATH + "refresh_tab.png";
 	

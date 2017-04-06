@@ -11,7 +11,13 @@
 
 package org.eclipse.efm.execution.ui.views.utils;
 
+import org.eclipse.ui.forms.widgets.FormToolkit;
+
+
+
 public interface ILaunchConfigurationGUIelement {
+	
+	public FormToolkit getFormToolkit();
 	
 	public void setMessage(String message);
 

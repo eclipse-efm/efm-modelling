@@ -13,6 +13,12 @@
 
 package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.eclipse.jface.action.Action;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
@@ -21,9 +27,11 @@ import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public abstract class AbstractCompositeMaker implements ILaunchConfigurationEditorComposite, IWorkflowConfigurationConstants {
+public abstract class AbstractTabItemContentCreator implements ILaunchConfigurationEditorComposite, IWorkflowConfigurationConstants {
 
+	private Composite parentComposite;
 	private ILaunchConfigurationGUIelement masterGUIelement;
 	
 	public abstract void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration);
@@ -32,8 +40,38 @@ public abstract class AbstractCompositeMaker implements ILaunchConfigurationEdit
 	
 	public abstract void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration);
 	
-	public AbstractCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
+	public AbstractTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
 		this.masterGUIelement = masterGUIelement;
+		this.parentComposite = parentComposite;
+		this.registered_actions = new HashMap<String, Action>();
+	}
+	
+	public void setRegisteredActions(Map<String, Action> acts) {
+		this.registered_actions = acts;
+	}
+	
+	protected Action[] getActionsByStringKey(String[] kids) {
+		Set<Action> foundActions = new HashSet<Action>();
+		Action current;
+		for(String kid: kids) {
+			current = registered_actions.get(kid);
+			if(current != null) {
+				foundActions.add(current);
+			}
+		}
+		return foundActions.toArray(new Action[foundActions.size()]);
+	}
+	
+	public Composite getParentComposite() {
+		return parentComposite;
+	}
+	
+	protected FormToolkit getMasterFormToolkit() {
+		return masterGUIelement.getFormToolkit();
+	}
+	
+	protected ILaunchConfigurationGUIelement getMasterGUIelement() {
+		return masterGUIelement;
 	}
 	
 	// ======================================================================================
@@ -60,7 +98,7 @@ public abstract class AbstractCompositeMaker implements ILaunchConfigurationEdit
 	
 	public abstract FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig);
 	
-	public abstract Composite createControlMain(Composite parent);
+	public abstract void createTabItemContent();
 	
 	@Override
 	public void propagateMessage(String message) {
@@ -97,7 +135,11 @@ public abstract class AbstractCompositeMaker implements ILaunchConfigurationEdit
 
 		Object gd = aControl.getLayoutData();
 		if (gd instanceof GridData) {
-			((GridData)gd).exclude = (! visible);
+			GridData data = (GridData) gd;
+			data.exclude = (! visible);
+			aControl.getShell().layout(false);
+		} else {
+			//
 		}
 	}	
 	
@@ -106,6 +148,13 @@ public abstract class AbstractCompositeMaker implements ILaunchConfigurationEdit
 		if (masterGUIelement != null) {
 			masterGUIelement.scheduleUpdateJob();
 		}
+	}
+	
+	private Map<String, Action> registered_actions;
+	
+	@Override
+	public Map<String, Action> getRunnableActions() {
+		return registered_actions;
 	}
 	
 }

@@ -10,11 +10,15 @@
  *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr
  *   - Initial API and Implementation
  *******************************************************************************/
-package org.eclipse.efm.execution.ui.views.viewparts.swv;
+package org.eclipse.efm.execution.ui.views.launchconfigurations.components.sections;
 
-import java.util.HashMap;
+
 import java.util.Map;
 
+import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.ui.views.editors.FieldEditor;
+import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
+import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
@@ -25,40 +29,35 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
-public abstract class SectionCompositeCreator {
-
-	protected Map<String, Object> last_lcAttributes;
+public abstract class AbstractSectionCreator implements IWorkflowConfigurationConstants {
 	
 	public Section section;
 	protected Composite sectionClient;
+	protected ILaunchConfigurationEditorComposite fLaunchConfCommInt;
+	protected ILaunchConfigurationGUIelement guielt;
 	
-	public SectionCompositeCreator(SymbexWorkflowView swv, ToolBarManager tbm, Composite innertabcompo) {
-		last_lcAttributes = new HashMap<String, Object>();
-		swv.compositeSections.add(this);
-		this.addComposite(swv.toolkit, swv.scrollform, innertabcompo, tbm);
+	public AbstractSectionCreator(ILaunchConfigurationGUIelement guielt, 
+			ILaunchConfigurationEditorComposite fLaunchConfCommInt, ToolBarManager tbm, Composite innertabcompo) {
+		this.fLaunchConfCommInt = fLaunchConfCommInt;
+		this.guielt = guielt;
+		this.addComposite(innertabcompo, tbm);
 	}
 	
-	public abstract void addComposite(FormToolkit toolkit, ScrolledForm scrollform, Composite innertabcompo, IToolBarManager tbm);
+	public abstract void addComposite(Composite innertabcompo, IToolBarManager tbm);
 	
-	protected void addComposite_internal(FormToolkit toolkit, ScrolledForm scrollform, Composite innertabcompo, IToolBarManager tbm, String title) {
+	protected void addComposite_internal(Composite innertabcompo, IToolBarManager tbm, String title) {
+		FormToolkit toolkit = guielt.getFormToolkit();
 		section = toolkit.createSection(innertabcompo, Section.DESCRIPTION|Section.TWISTIE|Section.TITLE_BAR|Section.EXPANDED);
 		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
 		section.setLayoutData(gd);
-		section.addExpansionListener(new ExpansionAdapter() {
-			public void expansionStateChanged(ExpansionEvent e) {
-				scrollform.reflow(true);
-				updateCollapsedContent(null);
-			}
-		});
 		section.setText(title);
 		
-		//ToolBarManager tbm = new ToolBarManager(SWT.FLAT);
-		ToolBar toolbar = ((ToolBarManager) tbm).createControl(section);
-		section.setTextClient(toolbar);
-		
+		if (tbm != null) {
+			ToolBar toolbar = ((ToolBarManager) tbm).createControl(section);
+			section.setTextClient(toolbar);
+		}
 		sectionClient = toolkit.createComposite(section);
 		sectionClient.setLayout(new GridLayout());
 		addCollapsedContent(toolkit);
@@ -67,5 +66,6 @@ public abstract class SectionCompositeCreator {
 	
 	protected abstract void addCollapsedContent(FormToolkit toolkit);
 	
-	public abstract void updateCollapsedContent(Map<String, Object> lcAttributes);
+	public abstract FieldEditor[] getFieldEditors();
+	
 }

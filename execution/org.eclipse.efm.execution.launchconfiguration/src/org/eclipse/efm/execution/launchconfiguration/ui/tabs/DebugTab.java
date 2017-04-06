@@ -13,15 +13,15 @@
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.DebugCompositeMaker;
 import org.eclipse.efm.ui.utils.HelpCoReferee;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.DebugTabItemContentCreator;
 
 
 public class DebugTab extends AbstractSewLaunchConfigurationTab {
 
 	public DebugTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		contentCompositeManager = new DebugCompositeMaker(this);
+		tabItemContentClass = DebugTabItemContentCreator.class;
 		setHelpContextId(HelpCoReferee.efm_runconf_debug_tab);
 	}
 

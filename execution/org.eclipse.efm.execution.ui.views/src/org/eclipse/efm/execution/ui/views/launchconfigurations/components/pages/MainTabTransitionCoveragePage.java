@@ -37,12 +37,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 
-	private BooleanFieldEditor fEnabledDetailedSelectionBooleanField;
+	public BooleanFieldEditor fEnabledDetailedSelectionBooleanField;
 
-	private Composite fCompDetailedSelection;
+	public Composite fCompDetailedSelection;
 
 	private Table fAllTransitionsListTable;
 	private TableColumn fAllTransitionsListTableColumn;
@@ -69,26 +71,26 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 
 
 	@Override
-	public void createControl(Composite parent) {
-		fCompositeParent = parent;
+	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
+		createExpandableFrameWithToolkit(parentComposite, toolkit, "Transition Coverage Page");
+				
+//				SWTFactory.createGroup(
+//				fCompositeParent,
+//				"&Selection of Transitions (default: all)",
+//				1, 1, GridData.FILL_HORIZONTAL );
 
-		fCompositeControl = SWTFactory.createGroup(
-				fCompositeParent,
-				"&Selection of Transitions (default: all)",
-				1, 1, GridData.FILL_HORIZONTAL );
-
-		Composite comp = SWTFactory.createComposite(
-				fCompositeControl, 1, 1, GridData.FILL_HORIZONTAL);
+//		Composite comp = SWTFactory.createComposite(
+//				fCompositeControl, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fEnabledDetailedSelectionBooleanField =
 				new BooleanFieldEditor(fParentTab,
 						ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION,
-						"&Enable Transitions Selection", comp, false);
+						"&Enable Transitions Selection", fCompositeControl, false);
 
 // ==================================================================================
 
 		fCompDetailedSelection = SWTFactory.createComposite(
-				comp, 2, 1,  GridData.FILL_HORIZONTAL);
+				fCompositeControl, 2, 1,  GridData.FILL_HORIZONTAL);
 
 //		IntegerFieldEditor test = new IntegerFieldEditor(this,
 //				TestGenerationTab.ATTR_PROLONGATION_EVALUATION_STEPS,
@@ -266,20 +268,20 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 	}
 
 
-	@Override
-	public void setVisible(boolean visible) {
-		fParentTab.propagateVisibility(fCompositeControl,visible);
-
-		if( visible ) {
-			if( fEnabledDetailedSelectionBooleanField.getBooleanValue() )
-			{
-				fParentTab.propagateVisibility(fCompDetailedSelection, true);
-			}
-			else {
-				fParentTab.propagateVisibility(fCompDetailedSelection, false);
-			}
-		}
-	}
+//	@Override
+//	public void setVisible(boolean visible) {
+//		fParentTab.propagateVisibility(fCompositeControl,visible);
+//
+//		if( visible ) {
+//			if( fEnabledDetailedSelectionBooleanField.getBooleanValue() )
+//			{
+//				fParentTab.propagateVisibility(fCompDetailedSelection, true);
+//			}
+//			else {
+//				fParentTab.propagateVisibility(fCompDetailedSelection, false);
+//			}
+//		}
+//	}
 
 	private void initTransitionTable() {
 		loadTransitionListToBeSelected();

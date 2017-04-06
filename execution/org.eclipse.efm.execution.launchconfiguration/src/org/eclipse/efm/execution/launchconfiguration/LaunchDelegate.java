@@ -34,18 +34,17 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.RefreshUtil;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.workflow.WorkflowCustomImpl;
+import org.eclipse.efm.execution.launchconfiguration.util.CoreUtil;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.LaunchExecConsoleManager;
 import org.eclipse.efm.execution.launchconfiguration.util.BackgroundResourceRefresher;
-import org.eclipse.efm.execution.launchconfiguration.util.CoreUtil;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.osgi.util.NLS;
 
-public class LaunchDelegate extends AbstractLaunchDelegate
-		implements IWorkflowPreferenceConstants {
+public class LaunchDelegate extends AbstractLaunchDelegate {
 
 
 //	private final String PROJECT_FAVM = "project.favm";
@@ -85,11 +84,12 @@ public class LaunchDelegate extends AbstractLaunchDelegate
 			String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
 
-		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
+		IPreferenceStore prefs = org.eclipse.efm.execution.core.Activator.getDefault().getPreferenceStore();
 
 		fEnabledDebugOrDeveloperMode = ILaunchManager.DEBUG_MODE.equals(mode)
-				&& ( prefs.getBoolean(PREF_DEBUG_OPTIONS)
-					|| prefs.getBoolean(PREF_SYMBEX_DEVELOPER_MODE) );
+				&& ( prefs.getBoolean(IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS)
+					|| prefs.getBoolean(
+							IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE) );
 
 		if( fEnabledDebugOrDeveloperMode ) {
 			System.out.println("RUN DIVERSITY");
@@ -239,16 +239,19 @@ public class LaunchDelegate extends AbstractLaunchDelegate
 		File workingDir = (fWorkingDirectory != null) ?
 				fWorkingDirectory.toFile() : null;
 
-		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
+		IPreferenceStore prefs = org.eclipse.efm.execution.core.Activator.getDefault().getPreferenceStore();
 
-		boolean debugOptionMode = prefs.getBoolean(PREF_DEBUG_OPTIONS);
+		boolean debugOptionMode = prefs.getBoolean(
+				IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS);
 
 		String consoleLevel = configuration.getAttribute(
 				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, "MINIMUM");
 
-		boolean spiderView = prefs.getBoolean(PREF_SPIDER_VIEW);
+		boolean spiderView = prefs.getBoolean(
+				IWorkflowPreferenceConstants.PREF_SPIDER_VIEW);
 
-		boolean consoleView = prefs.getBoolean(PREF_CONSOLE_VIEW);
+		boolean consoleView = prefs.getBoolean(
+				IWorkflowPreferenceConstants.PREF_CONSOLE_VIEW);
 
 
 // Modif pour non-régression

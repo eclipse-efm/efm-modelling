@@ -20,6 +20,8 @@ import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class MainTabBehaviorSelectionPage extends AbstractTabComponentPage {
 
@@ -35,27 +37,25 @@ public class MainTabBehaviorSelectionPage extends AbstractTabComponentPage {
 		super(parentTab);
 	}
 
-	public void createControl(Composite parent) {
-		fCompositeParent = parent;
 
-		fCompositeControl = SWTFactory.createGroup(parent,
-				"&Behavior Characterization", 1, 1, GridData.FILL_HORIZONTAL);
+	@Override
+	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
+		createExpandableFrameWithToolkit(parentComposite, toolkit, "Behavior Selection Page");
 		fCompositeControl.setToolTipText(BEHAVIOR_DESCRIPTION);
-
-//		compModelAnalysisBehavior = SWTFactory.createComposite(parent, 1, 1,
-//				GridData.FILL_HORIZONTAL);
-//		GridData gridData1 = new GridData(GridData.FILL_HORIZONTAL);
-//		gridData1.horizontalIndent = DETAIL_HORIZONTAL_INDENT;
-//		compModelAnalysisBehavior.setLayoutData(gridData1);
-
-		Composite comp2 = SWTFactory.createComposite(
-				fCompositeControl, 1, 1, GridData.FILL_HORIZONTAL);
+		
 		fBehaviorSpecificationStringField = new StringFieldEditor(fParentTab,
 				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST, "",
-				comp2, BEHAVIOR_DESCRIPTION, SWT.MULTI);
+				fCompositeControl, BEHAVIOR_DESCRIPTION, SWT.MULTI);
 
 		fBehaviorSpecificationStringField.setToolTipText(BEHAVIOR_DESCRIPTION);
-	}
+		
+//		compModelAnalysisBehavior = SWTFactory.createComposite(parent, 1, 1,
+//		GridData.FILL_HORIZONTAL);
+//GridData gridData1 = new GridData(GridData.FILL_HORIZONTAL);
+//gridData1.horizontalIndent = DETAIL_HORIZONTAL_INDENT;
+//compModelAnalysisBehavior.setLayoutData(gridData1);
+
+	}	
 
 
 	@Override
@@ -135,5 +135,6 @@ public class MainTabBehaviorSelectionPage extends AbstractTabComponentPage {
 
 		return true;
 	}
+
 
 }

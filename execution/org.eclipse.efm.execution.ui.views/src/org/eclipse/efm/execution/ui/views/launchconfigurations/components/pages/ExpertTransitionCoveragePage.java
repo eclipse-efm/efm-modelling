@@ -28,6 +28,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class ExpertTransitionCoveragePage extends AbstractTabComponentPage {
 
@@ -152,11 +154,11 @@ public class ExpertTransitionCoveragePage extends AbstractTabComponentPage {
 
 
 	@Override
-	public void createControl(Composite parent) {
-		fCompositeParent = parent;
-
-		fCompositeControl = SWTFactory.createGroup(parent,
-				"Transition Coverage Page", 1, 2, GridData.FILL_HORIZONTAL);
+	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
+		createExpandableFrameWithToolkit(parentComposite, toolkit, "Transition Coverage Page");
+				
+//				SWTFactory.createGroup(parent,
+//				"Transition Coverage Page", 1, 2, GridData.FILL_HORIZONTAL);
 
 		// TRANSITION COVERAGE - section PROPERTY
 		//
@@ -370,9 +372,13 @@ public class ExpertTransitionCoveragePage extends AbstractTabComponentPage {
 			fModelAnalysis = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
 
-			setVisible(fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
+			if (fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
 					&& fModelAnalysis.equals(
-							ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) );
+							ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) ) {
+				unlockAndExpandPage();
+			} else {
+				collapseAndLockPage();
+			}
 		}
 		catch (CoreException e) {
 			// TODO Auto-generated catch block

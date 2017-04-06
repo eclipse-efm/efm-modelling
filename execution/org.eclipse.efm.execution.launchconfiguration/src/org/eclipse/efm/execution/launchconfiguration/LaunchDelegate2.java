@@ -44,17 +44,17 @@ package org.eclipse.efm.execution.launchconfiguration;
 //import org.eclipse.debug.ui.IDebugUIConstants;
 //import org.eclipse.efm.core.workflow.Activator;
 //import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
-//import org.eclipse.efm.core.workflow.IWorkflowPreferenceConstants;
+//import org.eclipse.efm.core.workflow.ToolConstants;
 //import org.eclipse.efm.core.workflow.WorkflowCustomImpl;
-//import org.eclipse.efm.execution.launchconfiguration.ui.CoreUtil;
-//import org.eclipse.efm.execution.launchconfiguration.ui.views.page.LaunchExecConsoleManager;
-//import org.eclipse.efm.execution.launchconfiguration.util.BackgroundResourceRefresher;
+//import org.eclipse.efm.runconfiguration.ui.CoreUtil;
+//import org.eclipse.efm.runconfiguration.ui.views.page.LaunchExecConsoleManager;
+//import org.eclipse.efm.runconfiguration.util.BackgroundResourceRefresher;
 //import org.eclipse.jface.preference.IPreferenceStore;
 //import org.eclipse.osgi.util.NLS;
 //import org.osgi.framework.Bundle;
 
 public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
-//		IWorkflowConfigurationConstants , IWorkflowPreferenceConstants {
+//		IWorkflowConfigurationConstants {
 //
 //	private final String FAVM_TEMPLATE = "resources/sew/template.favm";
 //
@@ -101,8 +101,8 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
 //
 //		fEnabledDebugOrDeveloperMode =
-//				prefs.getBoolean(PREF_DEBUG_OPTIONS) ||
-//				prefs.getBoolean(PREF_SYMBEX_DEVELOPER_MODE);
+//				prefs.getBoolean(ToolConstants.PREF_DEBUG_OPTIONS) ||
+//				prefs.getBoolean(ToolConstants.PREF_SYMBEX_DEVELOPER_MODE);
 //
 //		if( fEnabledDebugOrDeveloperMode ) {
 //			System.out.println("RUN DIVERSITY");
@@ -573,7 +573,8 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //	private String filterTransitionCoveragePhase1(
 //			ILaunchConfiguration configuration, String currentFavmString) {
 //		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
-//		boolean expertMode = prefs.getBoolean(PREF_EXPERT_MODE);
+//		boolean expertMode = prefs.getBoolean(
+//				ToolConstants.PREF_EXPERT_MODE);
 //
 //		if ( fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
 //			&& fModelAnalysis.equals(
@@ -838,7 +839,8 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //	private String processHOJPhase1(
 //			ILaunchConfiguration configuration, String currentFavmString) {
 //		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
-//		boolean expertMode = prefs.getBoolean(PREF_EXPERT_MODE);
+//		boolean expertMode = prefs.getBoolean(
+//				ToolConstants.PREF_EXPERT_MODE);
 //
 //		if ( fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL) &&
 //			fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR)	) {
@@ -984,7 +986,8 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //			ILaunchConfiguration configuration, String currentFavmString) {
 //		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
 //
-//		boolean debugOptionMode = prefs.getBoolean(PREF_DEBUG_OPTIONS);
+//		boolean debugOptionMode = prefs.getBoolean(
+//				ToolConstants.PREF_DEBUG_OPTIONS);
 //
 //		if ( debugOptionMode ) {
 //			// On récupère les informations de l'onglet Debug
@@ -1363,14 +1366,17 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //
 //		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
 //
-//		boolean debugOptionMode = prefs.getBoolean(PREF_DEBUG_OPTIONS);
+//		boolean debugOptionMode = prefs.getBoolean(
+//				ToolConstants.PREF_DEBUG_OPTIONS);
 //
 //		String consoleLevel = configuration.getAttribute(
 //				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, "MINIMUM");
 //
-//		boolean spiderView = prefs.getBoolean(PREF_SPIDER_VIEW);
+//		boolean spiderView = prefs.getBoolean(
+//				ToolConstants.PREF_SPIDER_VIEW);
 //
-//		boolean consoleView = prefs.getBoolean(PREF_CONSOLE_VIEW);
+//		boolean consoleView = prefs.getBoolean(
+//				ToolConstants.PREF_CONSOLE_VIEW);
 //
 //
 //// Modif pour non-régression

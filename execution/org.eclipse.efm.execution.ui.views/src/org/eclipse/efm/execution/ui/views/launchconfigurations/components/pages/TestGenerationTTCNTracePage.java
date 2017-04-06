@@ -17,16 +17,18 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.execution.ui.views.utils.GenericCompositeCreator;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 
-	private Group groupTTCN;
 	private Group groupTTCNConfiguration;
 	private Group groupTTCNModule;
 
@@ -61,12 +63,10 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 	}
 
 	@Override
-	public void createControl(Composite parent) {
-		groupTTCN = SWTFactory.createGroup(parent,
-				"TTCN Tests Generation Page",
-				1, 1, GridData.FILL_HORIZONTAL);
+	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
+		createExpandableFrameWithToolkit(parentComposite, toolkit, "TTCN Tests Generation Page");
 
-		Group group = SWTFactory.createGroup(groupTTCN,
+		Group group = SWTFactory.createGroup(fCompositeControl,
 				"Enabled Options", 2, 1, GridData.FILL_HORIZONTAL);
 
 		Composite comp = SWTFactory.createComposite(
@@ -86,9 +86,9 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 						"&Customization", comp,
 						DEFAULT_TTCN_ENABLED_CUSTOMIZATION);
 
-		createTTCNConfigurationComponent(groupTTCN);
+		createTTCNConfigurationComponent(fCompositeControl);
 
-		createTTCNModuleConfigurationComponent(groupTTCN);
+		createTTCNModuleConfigurationComponent(fCompositeControl);
 	}
 
 
@@ -312,34 +312,6 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 	}
 
 
-	private void setEnableTTCNPage(ILaunchConfiguration configuration) {
-		String fAnalysisProfile;
-		try {
-			fAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
-		} catch (CoreException e) {
-			e.printStackTrace();
-
-			fAnalysisProfile = "";
-		}
-
-		boolean enabledGeneration =
-				fTTCNEnabledGenerationBooleanField.getBooleanValue()
-				&& (! fAnalysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) );
-
-		fTTCNEnabledAdaptationModuleBooleanField.setEnabled(enabledGeneration);
-
-		fParentTab.propagateVisibility(groupTTCNConfiguration, enabledGeneration);
-
-
-		boolean enabledAdaptation =
-				fTTCNEnabledAdaptationModuleBooleanField.getBooleanValue();
-
-		fParentTab.propagateVisibility(groupTTCNModule,
-				enabledGeneration && enabledAdaptation);
-	}
-
-
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 //		fTTCNEnabledGenerationBooleanField.setDefaults(configuration);
@@ -430,8 +402,7 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 				DEFAULT_TTCN_TESTCASES_RECEIVING_IMPL);
 	}
 
-	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	private String getAnalysisProfile(ILaunchConfiguration configuration) {
 		String analysisProfile;
 		try {
 			analysisProfile = configuration.getAttribute(
@@ -439,23 +410,60 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
-
 			analysisProfile = "";
 		}
-
+		return analysisProfile;
+	}
+	
+	private boolean getTTCNTraceEnableGeneration(ILaunchConfiguration configuration) {
+		boolean basicTraceEnableGeneration;
+		try {
+			basicTraceEnableGeneration = configuration.getAttribute(ATTR_TTCN_ENABLED_GENERATION, false);
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			basicTraceEnableGeneration = false;
+		}
+		return basicTraceEnableGeneration;
+	}
+	
+	private void updateGreyedOutAreas(String analysisProfile, boolean TTCNEnableGeneration) {
 		if ( analysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) ) {
 			fTTCNEnabledGenerationBooleanField.setEnabled(false);
 			fTTCNEnabledAdaptationModuleBooleanField.setEnabled(false);
+			
+			fTTCNEnabledAdaptationModuleBooleanField.setEnabled(false);
+			GenericCompositeCreator.recursiveSetEnabled(groupTTCNConfiguration, false);
+			GenericCompositeCreator.recursiveSetEnabled(groupTTCNModule, false);
 		}
 		else {
 			fTTCNEnabledGenerationBooleanField.setEnabled(true);
 			fTTCNEnabledAdaptationModuleBooleanField.setEnabled(true);
-
+			if (TTCNEnableGeneration) {
+				fTTCNEnabledAdaptationModuleBooleanField.setEnabled(true);
+				GenericCompositeCreator.recursiveSetEnabled(groupTTCNConfiguration, true);
+				boolean enabledAdaptation = fTTCNEnabledAdaptationModuleBooleanField.getBooleanValue();
+				GenericCompositeCreator.recursiveSetEnabled(groupTTCNModule, enabledAdaptation);
+			} else {
+				fTTCNEnabledAdaptationModuleBooleanField.setEnabled(false);
+				GenericCompositeCreator.recursiveSetEnabled(groupTTCNConfiguration, false);
+				GenericCompositeCreator.recursiveSetEnabled(groupTTCNModule, false);
+			}
+		}
+		
+		
+	}
+		
+	
+	@Override
+	public void initializeFrom(ILaunchConfiguration configuration) {
+		String analysisProfile = getAnalysisProfile(configuration);
+		boolean ttcn3TraceEnableGeneration = getTTCNTraceEnableGeneration(configuration);
+		updateGreyedOutAreas(analysisProfile, ttcn3TraceEnableGeneration);
+		if ( ! analysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) ) {
 			fTTCNEnabledGenerationBooleanField.initializeFrom(configuration);
 			fTTCNEnabledAdaptationModuleBooleanField.initializeFrom(configuration);
-
 			fTTCNFolderNameStringField.initializeFrom(configuration);
-
 			fTTCNControlModuleNameStringField.initializeFrom(configuration);
 			fTTCNDeclarationsModuleNameStringField.initializeFrom(configuration);
 			fTTCNTemplatesModuleNameStringField.initializeFrom(configuration);
@@ -472,8 +480,6 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 			fTTCNTestcasesSendingImplStringField.initializeFrom(configuration);
 			fTTCNTestcasesReceivingImplStringField.initializeFrom(configuration);
 		}
-
-		setEnableTTCNPage(configuration);
 	}
 
 	@Override
@@ -499,7 +505,9 @@ public class TestGenerationTTCNTracePage extends AbstractTabComponentPage {
 		fTTCNTestcasesSendingImplStringField.performApply(configuration);
 		fTTCNTestcasesReceivingImplStringField.performApply(configuration);
 
-		setEnableTTCNPage(configuration);
+		String analysisProfile = getAnalysisProfile(configuration);
+		boolean ttcn3TraceEnableGeneration = getTTCNTraceEnableGeneration(configuration);
+		updateGreyedOutAreas(analysisProfile, ttcn3TraceEnableGeneration);
 	}
 
 	@Override

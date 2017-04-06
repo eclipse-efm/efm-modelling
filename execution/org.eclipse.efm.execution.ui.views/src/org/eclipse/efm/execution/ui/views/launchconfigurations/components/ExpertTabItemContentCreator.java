@@ -16,6 +16,8 @@ package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.efm.ui.utils.HelpCoReferee;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.ExpertBehaviorSelectionPage;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.ExpertTransitionCoveragePage;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
@@ -23,8 +25,9 @@ import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.ui.PlatformUI;
 
-public class ExpertCompositeMaker extends AbstractCompositeMaker {
+public class ExpertTabItemContentCreator extends AbstractTabItemContentCreator {
 
 	private Group groupExplorationPage;
 
@@ -34,8 +37,8 @@ public class ExpertCompositeMaker extends AbstractCompositeMaker {
 	// TRANSITION COVERAGE
 	ExpertTransitionCoveragePage fTransitionCoveragePage;
 
-	public ExpertCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
-		super(masterGUIelement);
+	public ExpertTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
+		super(masterGUIelement, parentComposite);
 		// BEHAVIOR SELECTION : HIT OR JUMP
 		fBehaviorSelectionPage = new ExpertBehaviorSelectionPage(this);
 
@@ -50,20 +53,18 @@ public class ExpertCompositeMaker extends AbstractCompositeMaker {
 	// ======================================================================================
 
 	@Override
-	public Composite createControlMain(Composite parent) {
-		Composite simpleComposite = SWTFactory.createComposite(parent,
-				parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
+	public void createTabItemContent() {
+//		inner_main_composite = SWTFactory.createComposite(parent,
+//				parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
 
 		// EXPLORATION PAGE
-		createExplorationPage(simpleComposite);
+		createExplorationPage(getParentComposite());
 
 		// BEHAVIOR SELECTION : HIT OR JUMP
-		fBehaviorSelectionPage.createControl(simpleComposite);
+		fBehaviorSelectionPage.createPageWithToolkit(getParentComposite(), getMasterFormToolkit());
 
 		// TRANSITION COVERAGE
-		fTransitionCoveragePage.createControl(simpleComposite);
-		
-		return simpleComposite;
+		fTransitionCoveragePage.createPageWithToolkit(getParentComposite(),getMasterFormToolkit());
 	}
 
 	private void setEnableGroupExplorationPage(ILaunchConfiguration configuration) {

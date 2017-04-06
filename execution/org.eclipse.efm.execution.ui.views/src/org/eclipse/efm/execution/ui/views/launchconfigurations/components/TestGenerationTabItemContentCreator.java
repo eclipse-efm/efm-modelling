@@ -16,19 +16,22 @@ package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.TestGenerationTTCNTracePage;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.TestGenerationBasicTracePage;
+import org.eclipse.efm.ui.utils.HelpCoReferee;
 import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.IntegerFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.TestGenerationBasicTracePage;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.TestGenerationTTCNTracePage;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.ui.PlatformUI;
 
-public class TestGenerationCompositeMaker extends AbstractCompositeMaker {
+public class TestGenerationTabItemContentCreator extends AbstractTabItemContentCreator {
 	private Group groupExtensionObjective;
 
 	private BooleanFieldEditor fTraceExtensionEnabledBooleanField;
@@ -41,8 +44,8 @@ public class TestGenerationCompositeMaker extends AbstractCompositeMaker {
 	// TTCN TRACE GENERATION
 	private TestGenerationTTCNTracePage fTTCNTracePage;
 
-	public TestGenerationCompositeMaker(ILaunchConfigurationGUIelement masterGUIelement) {
-		super(masterGUIelement);
+	public TestGenerationTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
+		super(masterGUIelement, parentComposite);
 		fBasicTracePage = new TestGenerationBasicTracePage(this);
 
 		fTTCNTracePage = new TestGenerationTTCNTracePage(this);
@@ -53,17 +56,15 @@ public class TestGenerationCompositeMaker extends AbstractCompositeMaker {
 	// ======================================================================================
 
 	@Override
-	public Composite createControlMain(Composite parent) {
-		Composite simpleComposite = SWTFactory.createComposite(parent,
-				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
+	public void createTabItemContent() {
+//		inner_main_composite = SWTFactory.createComposite(parent,
+//				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
 
-		createExtensionFormatPage(simpleComposite);
+		createExtensionFormatPage(getParentComposite());
 
-		fBasicTracePage.createControl(simpleComposite);
+		fBasicTracePage.createPageWithToolkit(getParentComposite(), getMasterFormToolkit());
 
-		fTTCNTracePage.createControl(simpleComposite);
-		
-		return simpleComposite;
+		fTTCNTracePage.createPageWithToolkit(getParentComposite(), getMasterFormToolkit());
 	}
 
 	public void createExtensionFormatPage(Composite parent) {
@@ -171,7 +172,6 @@ public class TestGenerationCompositeMaker extends AbstractCompositeMaker {
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
-
 			analysisProfile = "";
 		}
 
@@ -188,9 +188,12 @@ public class TestGenerationCompositeMaker extends AbstractCompositeMaker {
 
 		setEnableExtensionPage(configuration);
 
+		
 		fBasicTracePage.initializeFrom(configuration);
-
+		fBasicTracePage.unlockAndExpandPage();
+		
 		fTTCNTracePage.initializeFrom(configuration);
+		fTTCNTracePage.unlockAndExpandPage();
 	}
 
 
@@ -218,14 +221,10 @@ public class TestGenerationCompositeMaker extends AbstractCompositeMaker {
 		if( ! fTraceExtensionEvaluationStepsLimitIntegerField.isValid() ) {
 			return new FieldValidationReturn(false, "Evaluation Steps is not a valid integer");
 		}
-
-		if( ! fBasicTracePage.isValid(launchConfig) )
-		{
+		if( ! fBasicTracePage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
-
-		if( ! fTTCNTracePage.isValid(launchConfig) )
-		{
+		if( ! fTTCNTracePage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
 		return new FieldValidationReturn(true, null);

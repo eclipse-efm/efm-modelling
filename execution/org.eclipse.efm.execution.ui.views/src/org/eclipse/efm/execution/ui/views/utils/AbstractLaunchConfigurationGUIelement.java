@@ -11,25 +11,15 @@
 
 package org.eclipse.efm.execution.ui.views.utils;
 
-import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import java.util.Map;
-
-import org.eclipse.jface.action.Action;
-
-public interface ILaunchConfigurationEditorComposite {
+public abstract class AbstractLaunchConfigurationGUIelement implements ILaunchConfigurationGUIelement {
 	
-	public void propagateMessage(String message);
-
-	public void propagateWarningMessage(String warningmessage);
+	protected FormToolkit toolkit;
 	
-	public void propagateErrorMessage(String errormessage);
+	@Override
+	public FormToolkit getFormToolkit() {
+		return toolkit;
+	}	
 	
-	public void propagateGUIupdate();
-	
-	public void propagateVisibility(Control smp, boolean isVisible);
-	
-	public void propagateUpdateJobScheduling();
-	
-	public Map<String, Action> getRunnableActions();
 }
