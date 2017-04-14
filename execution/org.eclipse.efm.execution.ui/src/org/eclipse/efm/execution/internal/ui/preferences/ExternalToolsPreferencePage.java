@@ -14,11 +14,10 @@ import java.util.Locale;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -28,7 +27,7 @@ public class ExternalToolsPreferencePage extends FieldEditorPreferencePage
 	public ExternalToolsPreferencePage() {
 		super(GRID);
 
-		setPreferenceStore( Activator.getDefault().getPreferenceStore() );
+		setPreferenceStore( SymbexPreferenceUtil.getDefaultPreferenceStore() );
 
 		setDescription( "External tool for Dot Format (from GraphViz.org) Graph Viewer" );
 	}
@@ -41,7 +40,7 @@ public class ExternalToolsPreferencePage extends FieldEditorPreferencePage
 	@Override
 	protected void createFieldEditors() {
 		FileFieldEditor fileField = new FileFieldEditor(
-				ATTR_DIVERSITY_GRAPH_VIEWER_LOCATION,
+				PREF_DIVERSITY_GRAPH_VIEWER_LOCATION,
 				//		"The Diversity AVM executable location:",
 				"Graph Viewer:",
 				true, FileFieldEditor.VALIDATE_ON_FOCUS_LOST,
@@ -65,10 +64,9 @@ public class ExternalToolsPreferencePage extends FieldEditorPreferencePage
 	@Override
 	public boolean performOk() {
 		if( super.performOk() ) {
-			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
-
-			Activator.setExternalDotGraphViewerPath( new Path( prefs.getString(
-					IWorkflowPreferenceConstants.ATTR_DIVERSITY_GRAPH_VIEWER_LOCATION) ) );
+			SymbexPreferenceUtil.setExternalDotGraphViewerPath(
+					new Path( SymbexPreferenceUtil.getStringPreference(
+							IWorkflowPreferenceConstants.PREF_DIVERSITY_GRAPH_VIEWER_LOCATION) ) );
 
 			return true;
 		}

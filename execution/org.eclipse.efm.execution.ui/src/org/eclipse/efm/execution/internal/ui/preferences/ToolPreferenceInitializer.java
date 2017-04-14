@@ -14,8 +14,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.ui.Activator;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.osgi.service.datalocation.Location;
 
@@ -28,8 +28,6 @@ public class ToolPreferenceInitializer extends AbstractPreferenceInitializer
 
 	@Override
 	public void initializeDefaultPreferences() {
-		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
-
 		Location location = Platform.getInstallLocation();
 		if( location == null ) {
 			location = Platform.getInstanceLocation();
@@ -38,23 +36,25 @@ public class ToolPreferenceInitializer extends AbstractPreferenceInitializer
 			}
 		}
 		if( location != null ) {
+			IPreferenceStore prefs = SymbexPreferenceUtil.getDefaultPreferenceStore();
+
 			IPath installPath = new Path( location.getURL().getPath() );
 
-			prefs.setDefault(ATTR_DIVERSITY_INSTALLATION_LOCATION,
+			prefs.setDefault(PREF_DIVERSITY_INSTALLATION_LOCATION,
 					installPath.toOSString());
 
 
 			IPath execPath = installPath.removeLastSegments(1).
 					append("bin").append("avm.exe");
 
-			prefs.setDefault(ATTR_DIVERSITY_AVM_EXECUTABLE_LOCATION,
+			prefs.setDefault(PREF_DIVERSITY_AVM_EXECUTABLE_LOCATION,
 					execPath.toOSString());
 
 
 			IPath viewerPath = installPath.removeLastSegments(1).
 					append("tools").append("zgrviewer").append("run.bat");
 
-			prefs.setDefault(ATTR_DIVERSITY_GRAPH_VIEWER_LOCATION,
+			prefs.setDefault(PREF_DIVERSITY_GRAPH_VIEWER_LOCATION,
 					viewerPath.toOSString());
 		}
 	}

@@ -16,9 +16,9 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.efm.execution.ui.views.editors.FieldEditor;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.efm.execution.ui.views.editors.FieldEditor;
 
 public class ListOfStringFieldEditor extends FieldEditor {
 

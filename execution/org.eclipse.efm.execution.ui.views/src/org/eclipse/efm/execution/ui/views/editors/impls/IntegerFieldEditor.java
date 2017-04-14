@@ -18,7 +18,6 @@ import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorCompos
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.efm.execution.ui.views.editors.FieldEditor;
 
 public class IntegerFieldEditor extends StringFieldEditor {
 

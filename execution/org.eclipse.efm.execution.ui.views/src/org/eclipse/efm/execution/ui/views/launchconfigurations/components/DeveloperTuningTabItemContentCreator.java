@@ -8,7 +8,7 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 
 package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
@@ -126,15 +126,15 @@ public class DeveloperTuningTabItemContentCreator extends AbstractTabItemContent
 	private BooleanFieldEditor fNothingEnabledBooleanField;
 	private BooleanFieldEditor fGodModeEnabledBooleanField;
 
-	public DeveloperTuningTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
-		super(masterGUIelement, parentComposite);
+	public DeveloperTuningTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
 	}
-	
-	
+
+
 	// ======================================================================================
 	//                              Miscellaneous Handling
 	// ======================================================================================
-	
+
 	private class TabListener extends SelectionAdapter implements ModifyListener {
 
 		/* (non-Javadoc)
@@ -157,8 +157,8 @@ public class DeveloperTuningTabItemContentCreator extends AbstractTabItemContent
 			}
 		}
 	}
-	
-	private TabListener fListener= new TabListener();	
+
+	private TabListener fListener= new TabListener();
 
 	private void handleDebugTraceLevelSelectionChange() {
 		fDebugTraceLevel = DebuglevelKind.get( fDebugTraceLevelCombo.getText() );
@@ -175,12 +175,12 @@ public class DeveloperTuningTabItemContentCreator extends AbstractTabItemContent
 	// ======================================================================================
 	//                              Graphical Components Creation Methods
 	// ======================================================================================
-	
+
 	@Override
-	public void createTabItemContent() {
+	public void createTabItemContent(Composite parentComposite) {
 		//inner_main_composite = SWTFactory.createComposite(parent,parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
 
-		createDeveloperTuningOptionsComponent(getParentComposite());
+		createDeveloperTuningOptionsComponent(parentComposite);
 	}
 
 	private void createDeveloperTuningOptionsComponent(Composite parent) {
@@ -436,11 +436,11 @@ public class DeveloperTuningTabItemContentCreator extends AbstractTabItemContent
 		fGodModeEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_GOD_MODE, "GOD_MODE", comp, false);
 	}
-	
+
 	// ======================================================================================
 	//                              Fields Values Management
-	// ======================================================================================	
-	
+	// ======================================================================================
+
 
 	@Override
 	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
@@ -800,7 +800,7 @@ public class DeveloperTuningTabItemContentCreator extends AbstractTabItemContent
 		fNothingEnabledBooleanField.performApply(configuration);
 		fGodModeEnabledBooleanField.performApply(configuration);
 	}
-	
+
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
@@ -809,5 +809,5 @@ public class DeveloperTuningTabItemContentCreator extends AbstractTabItemContent
 	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
 		return new FieldValidationReturn(true, null);
 	}
-	
+
 }

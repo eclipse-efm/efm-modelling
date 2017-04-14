@@ -8,7 +8,7 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
@@ -18,7 +18,7 @@ public class NonRegressionTab extends AbstractSewLaunchConfigurationTab {
 
 	public NonRegressionTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
-		
+
 	}
 
 	@Override

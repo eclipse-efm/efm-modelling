@@ -12,14 +12,17 @@ package org.eclipse.efm.execution.launchconfiguration;
 
 import java.util.ArrayList;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.core.RefreshUtil;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.debug.ui.RefreshTab;
-import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.CommonCriteriaTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.DebugTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.DeveloperTuningTab;
@@ -27,11 +30,9 @@ import org.eclipse.efm.execution.launchconfiguration.ui.tabs.ExpertTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.MainTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.SymbexRuntimeTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.TestGenerationTab;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {
-	
+
 	protected MainTab fMainTab;
 
 	protected ExpertTab fExpertTab;
@@ -44,14 +45,9 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 		return fExpertTab;
 	}
 
-	
-
 
 	@Override
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-		
-		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
-
 		ArrayList<ILaunchConfigurationTab> tabList =
 				new ArrayList<ILaunchConfigurationTab>();
 
@@ -63,11 +59,13 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 
 		if( ILaunchManager.DEBUG_MODE.equals(mode) )
 		{
-			if( prefs.getBoolean(IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS) )
+			if( SymbexPreferenceUtil.getBooleanPreference(
+					IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS) )
 			{
 				tabList.add( new DebugTab(this) );
 			}
-			if( prefs.getBoolean(IWorkflowPreferenceConstants.PREF_EXPERT_MODE) )
+			if( SymbexPreferenceUtil.getBooleanPreference(
+					IWorkflowPreferenceConstants.PREF_EXPERT_MODE) )
 			{
 				fExpertTab = new ExpertTab(this);
 				tabList.add( fExpertTab );
@@ -75,7 +73,8 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 
 			if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION )
 			{
-				if ( prefs.getBoolean(IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE) )
+				if ( SymbexPreferenceUtil.getBooleanPreference(
+						IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE) )
 				{
 					tabList.add( new DeveloperTuningTab(this) );
 				}
@@ -93,4 +92,35 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 
 		setTabs( tabList.toArray( new ILaunchConfigurationTab[tabList.size()] ) );
 	}
+
+
+	public void setDefaultAttributes(ILaunchConfigurationWorkingCopy configuration) {
+		// Enabling REFRESH
+		try {
+			String refreshScope = configuration.getAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, "");
+			if( (refreshScope == null) || refreshScope.isEmpty() )
+			{
+				configuration.setAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, "${project}");
+			}
+		} catch (CoreException e) {
+			configuration.setAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, "${project}");
+		}
+	}
+
+	@Override
+	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+		super.setDefaults(configuration);
+
+		setDefaultAttributes(configuration);
+	}
+
+	@Override
+	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+		// TODO Auto-generated method stub
+		super.performApply(configuration);
+
+		setDefaultAttributes(configuration);
+	}
+
+
 }

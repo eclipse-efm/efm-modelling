@@ -8,7 +8,7 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 
 package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
@@ -27,12 +27,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
@@ -52,29 +49,12 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
 
 public class NonRegressionTabItemContentCreator extends AbstractTabItemContentCreator {
-
-	public static final String ATTR_ENABLED_NON_REGRESSION =
-			Activator.PLUGIN_ID + ".ATTR_ENABLED_NON_REGRESSION"; //$NON-NLS-1$
-
-	public static final String ATTR_SPECIFICATION_PROJECT_NAME =
-			Activator.PLUGIN_ID + ".ATTR_SPECIFICATION_PROJECT_NAME"; //$NON-NLS-1$
-
-	public static final String ATTR_SPECIFICATION_MODEL_FILE_LOCATION =
-			Activator.PLUGIN_ID + ".ATTR_SPECIFICATION_MODEL_FILE_LOCATION"; //$NON-NLS-1$
-
-	public static final String ATTR_BASIC_TRANSITION_BUTTON =
-			Activator.PLUGIN_ID + ".ATTR_BASIC_TRANSITION_BUTTON"; //$NON-NLS-1$
-
-	public static final String ATTR_SELECTED_TRANSITIONS =
-			Activator.PLUGIN_ID + ".ATTR_SELECTED_TRANSITIONS"; //$NON-NLS-1$
-
 
     private BooleanFieldEditor fNonRegressionBooleanField;
 
@@ -105,10 +85,10 @@ public class NonRegressionTabItemContentCreator extends AbstractTabItemContentCr
 	private List< String > transitionsToBeSelected;
 	private List< String > selectedTransitions;
 
-	public NonRegressionTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
-		super(masterGUIelement, parentComposite);
+	public NonRegressionTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
 	}
-	
+
 	private class TabListener extends SelectionAdapter implements ModifyListener {
 
 		/* (non-Javadoc)
@@ -139,8 +119,8 @@ public class NonRegressionTabItemContentCreator extends AbstractTabItemContentCr
 
 	// ======================================================================================
 	//                              Miscellaneous handling
-	// ======================================================================================	
-	
+	// ======================================================================================
+
 	public void handleSelectedTransition() {
 
 		boolean refresh = false;
@@ -188,20 +168,20 @@ public class NonRegressionTabItemContentCreator extends AbstractTabItemContentCr
 		public void modifyText(ModifyEvent evt) {
 			propagateUpdateJobScheduling();
 		}
-	};	
-	
-	
+	};
+
+
 	// ======================================================================================
 	//                              Graphical Components Creation Methods
 	// ======================================================================================
-	
+
 	@Override
-	public void createTabItemContent() {
+	public void createTabItemContent(Composite parentComposite) {
 //		inner_main_composite = SWTFactory.createComposite(parent,
 //				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
-		createNonRegressionSelectionComponent(getParentComposite());
-		createModelFileSelectionComponent(getParentComposite());
-		createAnalyseProfileComponent(getParentComposite());
+		createNonRegressionSelectionComponent(parentComposite);
+		createModelFileSelectionComponent(parentComposite);
+		createAnalyseProfileComponent(parentComposite);
 	}
 
 
@@ -240,7 +220,7 @@ public class NonRegressionTabItemContentCreator extends AbstractTabItemContentCr
 		ld.marginHeight = 1;
 		ld.marginWidth = 0;
 
-		fModelWorkspaceBrowse = SWTFactory.createPushButton(bcomp, "&Workspace...", null);	
+		fModelWorkspaceBrowse = SWTFactory.createPushButton(bcomp, "&Workspace...", null);
 		fModelWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -608,8 +588,8 @@ public class NonRegressionTabItemContentCreator extends AbstractTabItemContentCr
 
 	// ======================================================================================
 	//                              Fields Values Management
-	// ======================================================================================	
-	
+	// ======================================================================================
+
 	@Override
 	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
@@ -696,11 +676,11 @@ public class NonRegressionTabItemContentCreator extends AbstractTabItemContentCr
 		configuration.setAttribute(
 				ATTR_SELECTED_TRANSITIONS, selectedTransitions);
 	}
-	
+
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
-	
+
 	@Override
 	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
 		if( fNonRegressionCaseButton.equals("Details") &&

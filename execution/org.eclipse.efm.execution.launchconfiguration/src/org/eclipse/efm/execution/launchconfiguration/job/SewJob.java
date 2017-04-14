@@ -26,7 +26,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.efm.execution.core.Activator;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
@@ -52,7 +52,7 @@ public class SewJob extends Job {
 	protected MessageConsole mc;
 	protected MessageConsoleStream mcs;
 
-	String SEW_EXE = Activator.strDiversityAvmExecLocation();
+	String SEW_EXE = SymbexPreferenceUtil.strDiversityAvmExecLocation();
 
 	/**
 	 * Some useful colors.

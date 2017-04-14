@@ -8,8 +8,8 @@ Bundle-Vendor: %pluginVendor
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.efm.execution.core,
- org.eclipse.efm.execution.ui.views
+ org.eclipse.efm.execution.ui.views,
+ org.eclipse.efm.execution.launchconfiguration
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.efm.execution.ui.views.utils
 Export-Package: org.eclipse.efm.execution.ui

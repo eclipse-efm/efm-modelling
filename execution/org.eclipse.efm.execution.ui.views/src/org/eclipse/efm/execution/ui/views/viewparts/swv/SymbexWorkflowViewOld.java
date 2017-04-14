@@ -12,40 +12,6 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.ui.views.viewparts.swv;
 
-
-
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.ui.DebugUITools;
-import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.debug.ui.ILaunchGroup;
-//import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
-//import org.eclipse.efm.ui.views.delegates.LaunchManagerSWVlinker;
-//import org.eclipse.efm.ui.views.utils.GenericCompositeCreator;
-//import org.eclipse.efm.ui.resources.UIfmlResources;
-
 //public class SymbexWorkflowViewOld {//extends AbstractSymbexWorkflowView {
 //
 //	/**

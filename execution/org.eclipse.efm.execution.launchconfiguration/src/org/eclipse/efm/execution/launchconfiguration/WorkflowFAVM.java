@@ -25,7 +25,7 @@
 //import org.eclipse.core.runtime.IPath;
 //import org.eclipse.core.runtime.Platform;
 //import org.eclipse.debug.core.ILaunchConfiguration;
-//import org.eclipse.efm.core.workflow.Activator;
+//import org.eclipse.efm.execution.core.Activator;
 //import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
 //import org.eclipse.efm.core.workflow.ToolConstants;
 //import org.eclipse.efm.runconfiguration.ui.views.page.LaunchExecConsoleManager;
@@ -498,7 +498,7 @@
 //
 //	private String filterTransitionCoveragePhase1(
 //			ILaunchConfiguration configuration, String currentFavmString) {
-//		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
+//		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 //		boolean expertMode = prefs.getBoolean(
 //				ToolConstants.PREF_EXPERT_MODE);
 //
@@ -764,7 +764,7 @@
 //
 //	private String processHOJPhase1(
 //			ILaunchConfiguration configuration, String currentFavmString) {
-//		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
+//		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 //		boolean expertMode = prefs.getBoolean(
 //				ToolConstants.PREF_EXPERT_MODE);
 //
@@ -910,7 +910,7 @@
 //
 //	private String modeDebug(
 //			ILaunchConfiguration configuration, String currentFavmString) {
-//		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
+//		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 //
 //		boolean debugOptionMode = prefs.getBoolean(
 //				ToolConstants.PREF_DEBUG_OPTIONS);

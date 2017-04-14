@@ -8,7 +8,7 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 
 package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
@@ -17,14 +17,13 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
-import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleVerbosityKind;
 import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -91,24 +90,22 @@ public class DebugTabItemContentCreator extends AbstractTabItemContentCreator {
 	private StringFieldEditor  fSecondSymbexOutputGraphizFormatStringField;
 	private Composite fCompositeSecondSymbexOutputGraphiz;
 
-	public DebugTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
-		super(masterGUIelement, parentComposite);
-		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
-			IPreferenceStore prefs =
-					Activator.getDefault().getPreferenceStore();
+	public DebugTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
 
-			fEnabledSymbexDeveloperMode = prefs.getBoolean(
+		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
+			fEnabledSymbexDeveloperMode = SymbexPreferenceUtil.getBooleanPreference(
 					IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE);
 		}
 		else {
 			fEnabledSymbexDeveloperMode = false;
 		}
 	}
-	
+
 	// ======================================================================================
 	//                              Miscellaneous handling
 	// ======================================================================================
-	
+
 	private class TabListener extends SelectionAdapter implements ModifyListener {
 
 		/* (non-Javadoc)
@@ -132,8 +129,8 @@ public class DebugTabItemContentCreator extends AbstractTabItemContentCreator {
 		}
 	}
 
-	private TabListener fListener= new TabListener();	
-	
+	private TabListener fListener= new TabListener();
+
 	private void handleConsoleLevelSelectionChange() {
 		fConsoleLevel = ConsoleVerbosityKind.get( fConsoleLevelCombo.getText() );
 		if( fConsoleLevel == null ) {
@@ -142,16 +139,16 @@ public class DebugTabItemContentCreator extends AbstractTabItemContentCreator {
 
 		propagateGUIupdate();
 	}
-	
+
 	// ======================================================================================
 	//                              Graphical Components Creation Methods
 	// ======================================================================================
-	
+
 	@Override
-	public void createTabItemContent() {
+	public void createTabItemContent(Composite parentComposite) {
 		//inner_main_composite = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
 
-		createDebugTracePage(getParentComposite());
+		createDebugTracePage(parentComposite);
 	}
 
 	private void createDebugTracePage(Composite parent) {
@@ -343,7 +340,7 @@ public class DebugTabItemContentCreator extends AbstractTabItemContentCreator {
 
 	// ======================================================================================
 	//                              Fields Values Management
-	// ======================================================================================	
+	// ======================================================================================
 
 	@Override
 	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
@@ -567,15 +564,15 @@ public class DebugTabItemContentCreator extends AbstractTabItemContentCreator {
 					fSecondSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
 		}
 
-	
+
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
-	
+
 	@Override
 	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
 		return new FieldValidationReturn(true, null);
-	}	
-	
+	}
+
 }
 

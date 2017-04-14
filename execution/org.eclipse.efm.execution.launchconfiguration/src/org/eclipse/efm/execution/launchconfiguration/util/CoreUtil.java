@@ -23,7 +23,8 @@ import org.eclipse.core.variables.VariablesPlugin;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.Activator;
-import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.osgi.util.NLS;
 
 /**
@@ -33,7 +34,7 @@ import org.eclipse.osgi.util.NLS;
  * </p>
  * inspired by org.eclipse.core.externaltools.internal.IExternalToolCoreUtil
 */
-public class CoreUtil implements IWorkflowPreferenceConstants {
+public class CoreUtil implements IWorkflowConfigurationConstants {
 
 	/**
 	 * Throws a core exception with an error status object built from
@@ -44,7 +45,7 @@ public class CoreUtil implements IWorkflowPreferenceConstants {
 	 * @param code error code
 	 */
 	protected static void abort(String message, Throwable exception, int code) throws CoreException {
-		throw new CoreException(new Status(IStatus.ERROR, PLUGIN_ID, code, message, exception));
+		throw new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, code, message, exception));
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class CoreUtil implements IWorkflowPreferenceConstants {
 					ATTR_LAUNCH_AVM_LOCATION_USED_DEFAULT, false);
 
 			if( usedDefault ) {
-				location = Activator.strDiversityAvmExecLocation();
+				location = SymbexPreferenceUtil.strDiversityAvmExecLocation();
 			}
 			else {
 				location = configuration.getAttribute(
@@ -93,7 +94,7 @@ public class CoreUtil implements IWorkflowPreferenceConstants {
 		}
 
 		if( location == null ) {
-			location = Activator.strDiversityAvmExecLocation();
+			location = SymbexPreferenceUtil.strDiversityAvmExecLocation();
 		}
 
 		if( (location == null) || location.isEmpty() ) {
@@ -158,7 +159,8 @@ public class CoreUtil implements IWorkflowPreferenceConstants {
 				if (path.isDirectory()) {
 					return new Path(expandedLocation);
 				}
-				String msg = NLS.bind(" The working directory {0} does not exist for the external tool named {1}.", new Object[] { expandedLocation, configuration.getName()});
+				String msg = NLS.bind(" The working directory {0} does not exist for the external tool named {1}.",
+						new Object[] { expandedLocation, configuration.getName()});
 				abort(msg, null, 0);
 			}
 		}

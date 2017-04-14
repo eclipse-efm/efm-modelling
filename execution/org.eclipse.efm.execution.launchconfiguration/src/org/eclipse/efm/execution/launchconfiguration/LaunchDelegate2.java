@@ -42,7 +42,7 @@ package org.eclipse.efm.execution.launchconfiguration;
 //import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 //import org.eclipse.debug.core.model.IProcess;
 //import org.eclipse.debug.ui.IDebugUIConstants;
-//import org.eclipse.efm.core.workflow.Activator;
+//import org.eclipse.efm.execution.core.Activator;
 //import org.eclipse.efm.core.workflow.IWorkflowConfigurationConstants;
 //import org.eclipse.efm.core.workflow.ToolConstants;
 //import org.eclipse.efm.core.workflow.WorkflowCustomImpl;
@@ -98,7 +98,7 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //			String mode, ILaunch launch, IProgressMonitor monitor)
 //			throws CoreException {
 //
-//		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
+//		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 //
 //		fEnabledDebugOrDeveloperMode =
 //				prefs.getBoolean(ToolConstants.PREF_DEBUG_OPTIONS) ||
@@ -572,7 +572,7 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //
 //	private String filterTransitionCoveragePhase1(
 //			ILaunchConfiguration configuration, String currentFavmString) {
-//		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
+//		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 //		boolean expertMode = prefs.getBoolean(
 //				ToolConstants.PREF_EXPERT_MODE);
 //
@@ -838,7 +838,7 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //
 //	private String processHOJPhase1(
 //			ILaunchConfiguration configuration, String currentFavmString) {
-//		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
+//		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 //		boolean expertMode = prefs.getBoolean(
 //				ToolConstants.PREF_EXPERT_MODE);
 //
@@ -984,7 +984,7 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //
 //	private String modeDebug(
 //			ILaunchConfiguration configuration, String currentFavmString) {
-//		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
+//		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 //
 //		boolean debugOptionMode = prefs.getBoolean(
 //				ToolConstants.PREF_DEBUG_OPTIONS);
@@ -1364,7 +1364,7 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //		File workingDir = (fWorkingDirectory != null) ?
 //				fWorkingDirectory.toFile() : null;
 //
-//		IPreferenceStore prefs = org.eclipse.efm.core.workflow.Activator.getDefault().getPreferenceStore();
+//		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 //
 //		boolean debugOptionMode = prefs.getBoolean(
 //				ToolConstants.PREF_DEBUG_OPTIONS);

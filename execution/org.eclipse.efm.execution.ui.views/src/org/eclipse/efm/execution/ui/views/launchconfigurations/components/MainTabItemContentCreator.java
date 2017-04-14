@@ -8,11 +8,12 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -23,12 +24,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
-import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.ui.utils.HelpCoReferee;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.ui.views.editors.FieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.MainTabBehaviorSelectionPage;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.MainTabTestOfflinePage;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.MainTabTransitionCoveragePage;
@@ -36,11 +35,8 @@ import org.eclipse.efm.execution.ui.views.launchconfigurations.components.sectio
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.sections.WorkspaceFolderNameSectionCreator;
 import org.eclipse.efm.execution.ui.views.utils.GenericCompositeCreator;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
-import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
@@ -53,16 +49,15 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
 
-public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
+public class MainTabItemContentCreator extends AbstractTabItemContentCreator
+		implements IWorkflowPreferenceConstants {
 
 	private boolean fEnabledSymbexDeveloperMode;
 	private boolean fEnabledSymbexIncubationMode;
@@ -113,27 +108,26 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 	/////////////////////////////////////
 
 	MainTabTestOfflinePage fTestOfflinePage;
-	
 
-	public MainTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
-		super(masterGUIelement, parentComposite);
+
+	public MainTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
+
 		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
-			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 			fEnabledSymbexDeveloperMode =
-					prefs.getBoolean(IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE);
+					SymbexPreferenceUtil.getBooleanPreference(PREF_SYMBEX_DEVELOPER_MODE);
 		} else {
 			fEnabledSymbexDeveloperMode = false;
 		}
 
 		if( AbstractLaunchDelegate.ENABLED_SYMBEX_INCUBATION_MODE_OPTION ) {
-			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 			fEnabledSymbexIncubationMode =
-					prefs.getBoolean(IWorkflowPreferenceConstants.PREF_INCUBATION_MODE);
+					SymbexPreferenceUtil.getBooleanPreference(PREF_INCUBATION_MODE);
 		} else {
 			fEnabledSymbexIncubationMode = false;
 		}
 	}
-	
+
 	// ======================================================================================
 	//                              Miscellaneous handling
 	// ======================================================================================
@@ -166,7 +160,7 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 			fTransitionCoveragePage.collapseAndLockPage();
 			fTestOfflinePage.collapseAndLockPage();
 		}
-		
+
 		if (model_combo_selected_text.equals(ANALYSIS_PROFILE_TEST_OFFLINE)) {
 			fAnalysisProfile = ANALYSIS_PROFILE_TEST_OFFLINE;
 			fModelAnalysis = ANALYSIS_PROFILE_UNDEFINED;
@@ -177,10 +171,10 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 			fAnalysisProfile = ANALYSIS_PROFILE_MODEL;
 			fModelAnalysis = model_combo_selected_text;
 		}
-		
+
 		propagateGUIupdate();
 	}
-	
+
 	private void handleModelFileChange() {
 		if( (fAnalysisProfile == ANALYSIS_PROFILE_MODEL)
 		&& fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
@@ -188,8 +182,8 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 			fTransitionCoveragePage.handleModelFilePathChanged(
 					fModelPathText.getText());
 		}
-	}	
-	
+	}
+
 	/**
 	 * Modify listener that simply updates the owning launch configuration dialog.
 	 */
@@ -201,16 +195,16 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 			handleModelFileChange();
 		}
 	};
-	
+
 	// ======================================================================================
 	//                              Graphical Components Creation Methods
-	// ======================================================================================	
-	
+	// ======================================================================================
+
 	@Override
-	public void createTabItemContent() {
-		createModelFileSelectionComponent(getParentComposite());
-		createWorkspaceComponent(getParentComposite());
-		createAnalyseProfileComponent(getParentComposite());
+	public void createTabItemContent(Composite parentComposite) {
+		createModelFileSelectionComponent(parentComposite);
+		createWorkspaceComponent(parentComposite);
+		createAnalyseProfileComponent(parentComposite);
 	}
 
 
@@ -220,10 +214,10 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 	 */
 	private void createModelFileSelectionComponent(Composite parent) {
 		FormToolkit toolkit = getMasterFormToolkit();
-		fModelWorkspaceBrowse = GenericCompositeCreator.createComposite_label_pushbutton_from_toolkit(toolkit, 
+		fModelWorkspaceBrowse = GenericCompositeCreator.createComposite_label_pushbutton_from_toolkit(toolkit,
 				parent,
 				"Model File Selection",
-				"&Workspace...", 
+				"&Workspace...",
 				2);
 
 		fModelPathText = toolkit.createText(parent, "", SWT.NONE);
@@ -301,8 +295,10 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 		ToolBarManager tbm = new ToolBarManager(SWT.FLAT);
 		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
 		GenericCompositeCreator.fillToolBar(tbm, toputinbar);
-		
-		WorkspaceFolderNameSectionCreator wfnsc = new WorkspaceFolderNameSectionCreator(this.getMasterGUIelement(), this, tbm, parent);		
+
+		WorkspaceFolderNameSectionCreator wfnsc =
+				new WorkspaceFolderNameSectionCreator(
+						this.getMasterGUIelement(), this, tbm, parent);
 		FieldEditor[] editors = wfnsc.getFieldEditors();
 		fWorkspaceRootLocationStringField = (StringFieldEditor) editors[0];
 		fWorkspaceOuputFolderNameStringField = (StringFieldEditor) editors[1];
@@ -314,8 +310,10 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 		ToolBarManager tbm = new ToolBarManager(SWT.FLAT);
 		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
 		GenericCompositeCreator.fillToolBar(tbm, toputinbar);
-		AnalysisProfile1SectionCreator apsc = new AnalysisProfile1SectionCreator(this.getMasterGUIelement(), this, tbm, parent);		
-		
+		AnalysisProfile1SectionCreator apsc =
+				new AnalysisProfile1SectionCreator(
+						this.getMasterGUIelement(), this, tbm, parent);
+
 
 
 		fModelCombo = apsc.fModelCombo;
@@ -323,7 +321,7 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleModelSelectionChange();
-				propagateUpdateJobScheduling();	
+				propagateUpdateJobScheduling();
 			}
 		});
 
@@ -332,7 +330,7 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 
 		// BEHAVIOR SELECTION ANALYSIS
 		fBehaviorSelectionPage = apsc.fBehaviorSelectionPage;
-		
+
 		fTestOfflinePage = apsc.fTestOfflinePage;
 
 	}
@@ -343,11 +341,11 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 
 
 
-	
-	
+
+
 	// ======================================================================================
 	//                              Fields Values Management
-	// ======================================================================================	
+	// ======================================================================================
 
 	@Override
 	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
@@ -392,14 +390,42 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 				ANALYSIS_PROFILE_MODEL_EXPLORATION);
 
 		// TRANSITION COVERAGE ANALYSIS
-		fTransitionCoveragePage.setDefaults(configuration);
+//		fTransitionCoveragePage.setDefaults(configuration);
+
+		configuration.setAttribute(
+				ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false);
+
+		configuration.setAttribute(
+				ATTR_TRANSITION_COVERAGE_SELECTION, new ArrayList<String>());
 
 		// BEHAVIOR SELECTION ANALYSIS
-		fBehaviorSelectionPage.setDefaults(configuration);
+//		fBehaviorSelectionPage.setDefaults(configuration);
+		configuration.setAttribute(
+				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST,
+				BEHAVIOR_INITIAL_SAMPLE);
 
 		// TEST OFFLINE // INCUBATION MODE
 		if( fEnabledSymbexIncubationMode ) {
-			fTestOfflinePage.setDefaults(configuration);
+//			fTestOfflinePage.setDefaults(configuration);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
+					DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
+					DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION, false);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+					DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+					DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION);
 		}
 	}
 
@@ -582,11 +608,11 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 			fTestOfflinePage.performApply(configuration);
 		}
 	}
-	
+
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
-	
+
 
 	@Override
 	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
@@ -655,8 +681,8 @@ public class MainTabItemContentCreator extends AbstractTabItemContentCreator {
 		}
 
 		return new FieldValidationReturn(true, messageToSend);
-	}	
-	
+	}
 
-	
+
+
 }

@@ -29,6 +29,18 @@
          </view>
          <view
                closeable="true"
+               id="org.eclipse.ui.views.ContentOutline"
+               minimized="false"
+               moveable="true"
+               ratio="0.6"
+               relationship="bottom"
+               relative="org.eclipse.ui.navigator.ProjectExplorer"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view>
+         <view
+               closeable="true"
                id="org.eclipse.efm.execution.ui.views.SymbexWorkflowView"
                minimized="false"
                moveable="true"
@@ -62,6 +74,17 @@
                standalone="false"
                visible="true">
          </view>
+         <view
+               closeable="true"
+               id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbolicExecutionView"
+               minimized="false"
+               moveable="true"
+               relationship="stack"
+               relative="org.eclipse.ui.views.PropertySheet"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view>
          <actionSet
                id="org.eclipse.debug.ui.launchActionSet">
          </actionSet>
@@ -70,6 +93,9 @@
          </actionSet>
          <viewShortcut
                id="org.eclipse.efm.execution.ui.views.SymbexWorkflowView">
+         </viewShortcut>
+         <viewShortcut
+               id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbolicExecutionView">
          </viewShortcut>
          <perspectiveShortcut
                id="org.eclipse.efm.editing.ui.perspectiveEditing">
@@ -106,5 +132,5 @@
             class="org.eclipse.efm.execution.internal.ui.preferences.ToolPreferenceInitializer">
       </initializer>
    </extension>
-   
+
 </plugin>

@@ -8,7 +8,7 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 
 package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
@@ -42,25 +42,25 @@ public class CommonCriteriaTabItemContentCreator extends AbstractTabItemContentC
 	private IntegerFieldEditor fTimeoutIntegerField;
 	//private StringFieldEditor fTransitionNameStringField;
 	private BooleanFieldEditor fInclusionCriterionBooleanField;
-	
+
 	private Button fBFSButton = null;
 	private Button fDFSButton = null;
 	private Button fRFSButton = null;
-	
+
 	private GraphExplorationStrategyKind fAnalyzeStrategy =
 		GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
-	
+
 	private Group groupAnalyzeStrategy;
 	//private Group groupBehaviorCharacterization;
 	private Group groupInclusionCriterion;
 
-	public CommonCriteriaTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
-		super(masterGUIelement, parentComposite);
+	public CommonCriteriaTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
 	}
-	
+
 
 	private final class TabListener extends SelectionAdapter implements ModifyListener {
-		
+
 		/* (non-Javadoc)
 		 * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
 		 */
@@ -68,7 +68,7 @@ public class CommonCriteriaTabItemContentCreator extends AbstractTabItemContentC
 		public void modifyText(ModifyEvent e) {
 			propagateGUIupdate();
 		}
-		
+
 		/* (non-Javadoc)
 		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
 		 */
@@ -84,7 +84,7 @@ public class CommonCriteriaTabItemContentCreator extends AbstractTabItemContentC
 		//	} else if (source == fParametersRemoveButton) {
 		//		handleParametersRemoveButtonSelected();
 		//	}
-		
+
 			// Use case Analysis
 			if (source == fBFSButton) {
 				handleBFSButtonSelected();
@@ -125,22 +125,22 @@ public class CommonCriteriaTabItemContentCreator extends AbstractTabItemContentC
 		}
 		propagateGUIupdate();
 	}
-	
+
 	// ======================================================================================
 	//                              Graphical Components Creation Methods
 	// ======================================================================================
-	
+
 	@Override
-	public void createTabItemContent() {
+	public void createTabItemContent(Composite parentComposite) {
 		//inner_main_composite = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
 
-		createControlNodesHeightWidth(getParentComposite());
-		createControlEvaluationLimits(getParentComposite());
-		createAnalyzeStrategy(getParentComposite());
-		createControlInclusionCriterion(getParentComposite());
-//		createBehaviorCharacterization(getParentComposite());
+		createControlNodesHeightWidth(parentComposite);
+		createControlEvaluationLimits(parentComposite);
+		createAnalyzeStrategy(parentComposite);
+		createControlInclusionCriterion(parentComposite);
+//		createBehaviorCharacterization(parentComposite);
 	}
-	
+
 	private void createControlNodesHeightWidth(Composite parent) {
         Group group = SWTFactory.createGroup(parent, "Graph size limits", 5, 2, GridData.FILL_HORIZONTAL);
 
@@ -229,12 +229,12 @@ public class CommonCriteriaTabItemContentCreator extends AbstractTabItemContentC
 //				"&Transition Name List:", comp,
 //				"Select a transition name list");
 //	}
-	
-	
+
+
 	// ======================================================================================
 	//                              Fields Values Management
-	// ======================================================================================	
-	
+	// ======================================================================================
+
 	@Override
 	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 //		fNodeIntegerField.setDefaults(configuration);
@@ -281,7 +281,7 @@ public class CommonCriteriaTabItemContentCreator extends AbstractTabItemContentC
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_ANALYZE_STRATEGY, "BFS");
 	}
-	
+
 	@Override
 	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
 		fNodeIntegerField.initializeFrom(configuration);
@@ -406,7 +406,7 @@ public class CommonCriteriaTabItemContentCreator extends AbstractTabItemContentC
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//	}	
+//	}
 
 	@Override
 	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
@@ -424,11 +424,11 @@ public class CommonCriteriaTabItemContentCreator extends AbstractTabItemContentC
 				ATTR_SPECIFICATION_ANALYZE_STRATEGY,
 				fAnalyzeStrategy.getLiteral());
 	}
-	
+
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
-	
+
 	@Override
 	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
 		if( ! fNodeIntegerField.isValid() ) {

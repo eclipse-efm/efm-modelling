@@ -11,12 +11,11 @@
 package org.eclipse.efm.execution.internal.ui.preferences;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -30,7 +29,7 @@ public class MainPreferencePage extends FieldEditorPreferencePage
 	public MainPreferencePage() {
 		super(GRID);
 
-		setPreferenceStore( Activator.getDefault().getPreferenceStore() );
+		setPreferenceStore( SymbexPreferenceUtil.getDefaultPreferenceStore() );
 
 		setDescription( "The SEW Abstract Virtual Machine" );
 	}
@@ -40,7 +39,7 @@ public class MainPreferencePage extends FieldEditorPreferencePage
 
 	@Override
 	protected void createFieldEditors() {
-		addField( new DirectoryFieldEditor( ATTR_DIVERSITY_INSTALLATION_LOCATION,
+		addField( new DirectoryFieldEditor( PREF_DIVERSITY_INSTALLATION_LOCATION,
 //				"The Diversity tool installation directory:",
 				"Installation:",
 				getFieldEditorParent()) );
@@ -53,7 +52,7 @@ public class MainPreferencePage extends FieldEditorPreferencePage
 		createHorizontalSpacer(getFieldEditorParent(), 3);
 
 		fSEPLocationFileField = new FileFieldEditor(
-				ATTR_DIVERSITY_AVM_EXECUTABLE_LOCATION,
+				PREF_DIVERSITY_AVM_EXECUTABLE_LOCATION,
 //				"The Diversity AVM executable location:",
 				"Executable:",
 				true, FileFieldEditor.VALIDATE_ON_FOCUS_LOST,
@@ -83,10 +82,9 @@ public class MainPreferencePage extends FieldEditorPreferencePage
 	@Override
 	public boolean performOk() {
 		if( super.performOk() ) {
-			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
-
-			Activator.setDiversityAvmExecLocation( new Path( prefs.getString(
-					ATTR_DIVERSITY_AVM_EXECUTABLE_LOCATION) ) );
+			SymbexPreferenceUtil.setDiversityAvmExecLocation(
+					new Path( SymbexPreferenceUtil.getStringPreference(
+							PREF_DIVERSITY_AVM_EXECUTABLE_LOCATION) ) );
 
 //			Activator.setDiversityAvmExecLocation(
 //					new Path( fSEPLocationFileField.getStringValue() ) );

@@ -18,38 +18,37 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jface.action.Action;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
+import org.eclipse.jface.action.Action;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public abstract class AbstractTabItemContentCreator implements ILaunchConfigurationEditorComposite, IWorkflowConfigurationConstants {
+public abstract class AbstractTabItemContentCreator
+		implements ILaunchConfigurationEditorComposite, IWorkflowConfigurationConstants {
 
-	private Composite parentComposite;
 	private ILaunchConfigurationGUIelement masterGUIelement;
-	
+
 	public abstract void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration);
-	
+
 	public abstract void initializeFieldValuesFrom(ILaunchConfiguration configuration);
-	
+
 	public abstract void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration);
-	
-	public AbstractTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
+
+	public AbstractTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement) {
 		this.masterGUIelement = masterGUIelement;
-		this.parentComposite = parentComposite;
 		this.registered_actions = new HashMap<String, Action>();
 	}
-	
+
 	public void setRegisteredActions(Map<String, Action> acts) {
 		this.registered_actions = acts;
 	}
-	
+
 	protected Action[] getActionsByStringKey(String[] kids) {
 		Set<Action> foundActions = new HashSet<Action>();
 		Action current;
@@ -61,22 +60,19 @@ public abstract class AbstractTabItemContentCreator implements ILaunchConfigurat
 		}
 		return foundActions.toArray(new Action[foundActions.size()]);
 	}
-	
-	public Composite getParentComposite() {
-		return parentComposite;
-	}
-	
+
+
 	protected FormToolkit getMasterFormToolkit() {
 		return masterGUIelement.getFormToolkit();
 	}
-	
+
 	protected ILaunchConfigurationGUIelement getMasterGUIelement() {
 		return masterGUIelement;
 	}
-	
+
 	// ======================================================================================
 	//                              Fields Validation
-	// ======================================================================================	
+	// ======================================================================================
 
 	public final class FieldValidationReturn {
 	    private final boolean fieldValidation;
@@ -95,25 +91,25 @@ public abstract class AbstractTabItemContentCreator implements ILaunchConfigurat
 	        return reasonString;
 	    }
 	}
-	
+
 	public abstract FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig);
-	
-	public abstract void createTabItemContent();
-	
+
+	public abstract void createTabItemContent(Composite parentComposite);
+
 	@Override
 	public void propagateMessage(String message) {
 		if (masterGUIelement != null) {
 			masterGUIelement.setMessage(message);
 		}
 	}
-	
+
 	@Override
 	public void propagateWarningMessage(String warningmessage) {
 		if (masterGUIelement != null) {
 			masterGUIelement.setWarningMessage(warningmessage);
 		}
 	}
-	
+
 	@Override
 	public void propagateErrorMessage(String errormessage) {
 		if (masterGUIelement != null) {
@@ -121,7 +117,7 @@ public abstract class AbstractTabItemContentCreator implements ILaunchConfigurat
 		}
 
 	}
-	
+
 	@Override
 	public void propagateGUIupdate() {
 		if (masterGUIelement != null) {
@@ -141,20 +137,20 @@ public abstract class AbstractTabItemContentCreator implements ILaunchConfigurat
 		} else {
 			//
 		}
-	}	
-	
+	}
+
 	@Override
 	public void propagateUpdateJobScheduling() {
 		if (masterGUIelement != null) {
 			masterGUIelement.scheduleUpdateJob();
 		}
 	}
-	
+
 	private Map<String, Action> registered_actions;
-	
+
 	@Override
 	public Map<String, Action> getRunnableActions() {
 		return registered_actions;
 	}
-	
+
 }

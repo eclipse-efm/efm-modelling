@@ -8,13 +8,12 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
+//import java.lang.reflect.Constructor;
+//import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -25,12 +24,8 @@ import org.eclipse.efm.execution.ui.views.launchconfigurations.components.Abstra
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
@@ -42,7 +37,7 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 	private FormToolkit toolkit;
 	protected LaunchConfigurationTabGroup fGroupTab;
 	protected AbstractTabItemContentCreator contentCompositeManager;
-	
+
 	protected Class<?> tabItemContentClass;
 
 	/**
@@ -57,13 +52,15 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 		}
 		toolkit = new FormToolkit(display);
 		this.fGroupTab = groupTab;
+
+		this.contentCompositeManager = null;
 	}
-	
+
 	@Override
 	public FormToolkit getFormToolkit() {
 		return toolkit;
 	}
-	
+
 	public LaunchConfigurationTabGroup getGroupTab() {
 		return fGroupTab;
 	}
@@ -91,30 +88,30 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 //		GridData gd = new GridData(fill);
 //		gd.horizontalSpan = hspan;
 //		main_composite.setLayoutData(gd);
-//		
-		
-		try {
-			Constructor<?> constructor = tabItemContentClass.getConstructor(ILaunchConfigurationGUIelement.class, Composite.class);
-			contentCompositeManager = (AbstractTabItemContentCreator) constructor.newInstance(new Object[] { this, main_composite });
+//
+
+//		try {
+//			Constructor<?> constructor = tabItemContentClass.getConstructor(ILaunchConfigurationGUIelement.class, Composite.class);
+//			contentCompositeManager = (AbstractTabItemContentCreator) constructor.newInstance(new Object[] { this, main_composite });
 			//contentCompositeManager = (AbstractTabItemContentCreator) constructor.newInstance(new Object[] { this, parent });
-			contentCompositeManager.createTabItemContent();
+			contentCompositeManager.createTabItemContent(main_composite);
 			setControl(main_composite);
 			//setControl(parent);
-		} catch(InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		}
+//		} catch(InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+//			e.printStackTrace();
+//		}
 		setControl(main_composite);
 		//setControl(parent);
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), getHelpContextId());
 	}
-	
-	
+
+
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 		contentCompositeManager.setDefaultFieldValues(configuration);
 	}
-	
+
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		contentCompositeManager.initializeFieldValuesFrom(configuration);
@@ -124,7 +121,7 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		contentCompositeManager.applyUpdatesOnFieldValuesFrom(configuration);
 	}
-	
+
 	/**
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(ILaunchConfiguration)
 	 */
@@ -138,8 +135,8 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 		}
 		return fieldValidation.areFieldsValid();
 	}
-	
-	
+
+
 	/**
 	 * Returns the {@link IDialogSettings} for the given id
 	 *
@@ -155,16 +152,16 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 		}
 		return section;
 	}
-	
+
 	// ======================================================================================
 	//                              ILaunchConfigurationGUIelement interface methods
-	// ======================================================================================	
-	
+	// ======================================================================================
+
 	@Override
 	public void updateGUI() {
 		updateLaunchConfigurationDialog();
-	}	
-	
+	}
+
 	@Override // to change visibility to public
 	public void setMessage(String message){
 		super.setMessage(message);
@@ -174,7 +171,7 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 	public void setWarningMessage(String warningmessage){
 		super.setWarningMessage(warningmessage);
 	}
-	
+
 	@Override // to change visibility to public
 	public void setErrorMessage(String errormessage){
 		super.setErrorMessage(errormessage);

@@ -16,12 +16,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
-import org.eclipse.efm.execution.core.Activator;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl;
-import org.eclipse.jface.preference.IPreferenceStore;
 
 public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 		implements IWorkflowConfigurationConstants {
@@ -41,13 +40,11 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 	public static void setEnabledFlags(
 			ILaunchConfiguration configuration) {
 
-		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
-
-		fEnabledDebugOptions = prefs.getBoolean(
+		fEnabledDebugOptions = SymbexPreferenceUtil.getBooleanPreference(
 				IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS);
 
 		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
-			fEnabledSymbexDeveloperMode = prefs.getBoolean(
+			fEnabledSymbexDeveloperMode = SymbexPreferenceUtil.getBooleanPreference(
 					IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE);
 		}
 		else {

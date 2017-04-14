@@ -29,8 +29,9 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.debug.ui.StringVariableSelectionDialog;
-import org.eclipse.efm.execution.core.Activator;
-import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.window.Window;
@@ -63,7 +64,7 @@ import org.eclipse.ui.dialogs.ResourceSelectionDialog;
  * inspired by org.eclipse.ui.externaltools.internal.launchConfigurations.ExternalToolsMainTab
  */
 public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
-		implements IWorkflowPreferenceConstants {
+		implements IWorkflowConfigurationConstants {
 
 	public final static String FIRST_EDIT = "editedByDiversityAvmTab"; //$NON-NLS-1$
 
@@ -185,11 +186,13 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 
 
 	public SymbexRuntimeTab() {
-		fGlobalPrefLocation = Activator.strDiversityAvmExecLocation();
+		fGlobalPrefLocation = SymbexPreferenceUtil.strDiversityAvmExecLocation();
 
 //		System.out.println( Activator.strDiversityAvmExecLocation() );
 
 		fAvmLocations = new ArrayList<>();
+
+		setHelpContextId(HelpContextIdConstants.sew_launch_SymbexRuntime_tab);
 	}
 
 
@@ -833,7 +836,7 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 	// Argument
 	////////////////////////////////////////////////////////////////////////////
 	public void initializeFromArgument(ILaunchConfiguration configuration) {
-		String arguments= EMPTY_STRING;
+		String arguments = EMPTY_STRING;
 		try {
 			arguments= configuration.getAttribute(
 					ATTR_TOOL_ARGUMENTS, EMPTY_STRING);

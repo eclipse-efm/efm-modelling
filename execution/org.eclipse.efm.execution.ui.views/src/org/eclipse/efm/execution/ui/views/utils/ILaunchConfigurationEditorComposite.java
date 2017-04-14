@@ -11,11 +11,10 @@
 
 package org.eclipse.efm.execution.ui.views.utils;
 
-import org.eclipse.swt.widgets.Control;
-
 import java.util.Map;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.swt.widgets.Control;
 
 public interface ILaunchConfigurationEditorComposite {
 	

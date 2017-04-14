@@ -8,7 +8,7 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 
 package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
@@ -16,8 +16,6 @@ package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.ui.utils.HelpCoReferee;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.ExpertBehaviorSelectionPage;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.ExpertTransitionCoveragePage;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
@@ -25,7 +23,6 @@ import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.ui.PlatformUI;
 
 public class ExpertTabItemContentCreator extends AbstractTabItemContentCreator {
 
@@ -37,34 +34,34 @@ public class ExpertTabItemContentCreator extends AbstractTabItemContentCreator {
 	// TRANSITION COVERAGE
 	ExpertTransitionCoveragePage fTransitionCoveragePage;
 
-	public ExpertTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
-		super(masterGUIelement, parentComposite);
+	public ExpertTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
 		// BEHAVIOR SELECTION : HIT OR JUMP
 		fBehaviorSelectionPage = new ExpertBehaviorSelectionPage(this);
 
 		//  TRANSITION COVERAGE
 		fTransitionCoveragePage = new ExpertTransitionCoveragePage(this);
 	}
-	
-	
-	
+
+
+
 	// ======================================================================================
 	//                              Graphical Components Creation Methods
 	// ======================================================================================
 
 	@Override
-	public void createTabItemContent() {
+	public void createTabItemContent(Composite parentComposite) {
 //		inner_main_composite = SWTFactory.createComposite(parent,
 //				parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
 
 		// EXPLORATION PAGE
-		createExplorationPage(getParentComposite());
+		createExplorationPage(parentComposite);
 
 		// BEHAVIOR SELECTION : HIT OR JUMP
-		fBehaviorSelectionPage.createPageWithToolkit(getParentComposite(), getMasterFormToolkit());
+		fBehaviorSelectionPage.createPageWithToolkit(parentComposite, getMasterFormToolkit());
 
 		// TRANSITION COVERAGE
-		fTransitionCoveragePage.createPageWithToolkit(getParentComposite(),getMasterFormToolkit());
+		fTransitionCoveragePage.createPageWithToolkit(parentComposite,getMasterFormToolkit());
 	}
 
 	private void setEnableGroupExplorationPage(ILaunchConfiguration configuration) {
@@ -98,7 +95,7 @@ public class ExpertTabItemContentCreator extends AbstractTabItemContentCreator {
 
 	// ======================================================================================
 	//                              Fields Values Management
-	// ======================================================================================	
+	// ======================================================================================
 
 	@Override
 	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
@@ -136,8 +133,8 @@ public class ExpertTabItemContentCreator extends AbstractTabItemContentCreator {
 
 		// TRANSITION COVERAGE
 		fTransitionCoveragePage.performApply(configuration);
-	}	
-	
+	}
+
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
@@ -154,5 +151,5 @@ public class ExpertTabItemContentCreator extends AbstractTabItemContentCreator {
 		}
 		return new FieldValidationReturn(true, null);
 	}
-	
+
 }

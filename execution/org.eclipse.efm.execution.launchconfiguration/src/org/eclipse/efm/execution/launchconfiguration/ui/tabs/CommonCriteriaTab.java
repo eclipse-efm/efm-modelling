@@ -10,17 +10,20 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
+import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.ui.utils.HelpCoReferee;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.CommonCriteriaTabItemContentCreator;
 
 
 public class CommonCriteriaTab extends AbstractSewLaunchConfigurationTab {
-	
+
 	public CommonCriteriaTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
+
+		contentCompositeManager = new CommonCriteriaTabItemContentCreator(this);
+
 		tabItemContentClass = CommonCriteriaTabItemContentCreator.class;
-		setHelpContextId(HelpCoReferee.efm_runconf_commoncriteria_tab);
+		setHelpContextId(HelpContextIdConstants.sew_launch_CommonCriteria_tab);
 	}
 
 	@Override

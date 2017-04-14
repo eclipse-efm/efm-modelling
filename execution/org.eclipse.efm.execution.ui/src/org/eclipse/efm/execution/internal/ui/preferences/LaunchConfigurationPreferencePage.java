@@ -12,7 +12,7 @@ package org.eclipse.efm.execution.internal.ui.preferences;
 
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.ui.Activator;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
@@ -39,7 +39,7 @@ public class LaunchConfigurationPreferencePage
 
 	public LaunchConfigurationPreferencePage() {
 		super(GRID);
-		setPreferenceStore(Activator.getDefault().getPreferenceStore());
+		setPreferenceStore(SymbexPreferenceUtil.getDefaultPreferenceStore());
 		setDescription("Preferences for Launch Configuration");
 		initializeDefaults();
 	}

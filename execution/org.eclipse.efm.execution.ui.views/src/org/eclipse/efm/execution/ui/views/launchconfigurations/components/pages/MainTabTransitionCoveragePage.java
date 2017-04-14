@@ -37,7 +37,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
@@ -73,7 +72,7 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 	@Override
 	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
 		createExpandableFrameWithToolkit(parentComposite, toolkit, "Transition Coverage Page");
-				
+
 //				SWTFactory.createGroup(
 //				fCompositeParent,
 //				"&Selection of Transitions (default: all)",
@@ -446,7 +445,6 @@ public class MainTabTransitionCoveragePage extends AbstractTabComponentPage {
 
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_SELECTION, new ArrayList<String>());
-
 	}
 
 	@Override

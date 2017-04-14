@@ -8,7 +8,7 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 
 package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
@@ -16,20 +16,17 @@ package org.eclipse.efm.execution.ui.views.launchconfigurations.components;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.TestGenerationTTCNTracePage;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.TestGenerationBasicTracePage;
-import org.eclipse.efm.ui.utils.HelpCoReferee;
 import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.IntegerFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.TestGenerationBasicTracePage;
+import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.TestGenerationTTCNTracePage;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.ui.PlatformUI;
 
 public class TestGenerationTabItemContentCreator extends AbstractTabItemContentCreator {
 	private Group groupExtensionObjective;
@@ -44,8 +41,8 @@ public class TestGenerationTabItemContentCreator extends AbstractTabItemContentC
 	// TTCN TRACE GENERATION
 	private TestGenerationTTCNTracePage fTTCNTracePage;
 
-	public TestGenerationTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement, Composite parentComposite) {
-		super(masterGUIelement, parentComposite);
+	public TestGenerationTabItemContentCreator(ILaunchConfigurationGUIelement masterGUIelement) {
+		super(masterGUIelement);
 		fBasicTracePage = new TestGenerationBasicTracePage(this);
 
 		fTTCNTracePage = new TestGenerationTTCNTracePage(this);
@@ -56,15 +53,15 @@ public class TestGenerationTabItemContentCreator extends AbstractTabItemContentC
 	// ======================================================================================
 
 	@Override
-	public void createTabItemContent() {
+	public void createTabItemContent(Composite parentComposite) {
 //		inner_main_composite = SWTFactory.createComposite(parent,
 //				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
 
-		createExtensionFormatPage(getParentComposite());
+		createExtensionFormatPage(parentComposite);
 
-		fBasicTracePage.createPageWithToolkit(getParentComposite(), getMasterFormToolkit());
+		fBasicTracePage.createPageWithToolkit(parentComposite, getMasterFormToolkit());
 
-		fTTCNTracePage.createPageWithToolkit(getParentComposite(), getMasterFormToolkit());
+		fTTCNTracePage.createPageWithToolkit(parentComposite, getMasterFormToolkit());
 	}
 
 	public void createExtensionFormatPage(Composite parent) {
@@ -135,11 +132,11 @@ public class TestGenerationTabItemContentCreator extends AbstractTabItemContentC
 			e.printStackTrace();
 		}
 	}
-	
+
 	// ======================================================================================
 	//                              Fields Values Management
-	// ======================================================================================	
-	
+	// ======================================================================================
+
 	@Override
 	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
 
@@ -188,10 +185,10 @@ public class TestGenerationTabItemContentCreator extends AbstractTabItemContentC
 
 		setEnableExtensionPage(configuration);
 
-		
+
 		fBasicTracePage.initializeFrom(configuration);
 		fBasicTracePage.unlockAndExpandPage();
-		
+
 		fTTCNTracePage.initializeFrom(configuration);
 		fTTCNTracePage.unlockAndExpandPage();
 	}
@@ -211,11 +208,11 @@ public class TestGenerationTabItemContentCreator extends AbstractTabItemContentC
 
 		fTTCNTracePage.performApply(configuration);
 	}
-	
+
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
-	
+
 	@Override
 	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
 		if( ! fTraceExtensionEvaluationStepsLimitIntegerField.isValid() ) {

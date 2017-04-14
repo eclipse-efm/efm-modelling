@@ -8,19 +8,16 @@
  *
  * Contributors:
  *  Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial Implementation (tab-based, inserted in Run Configurations dialog)
- *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent) 
+ *  Erwan Mahe (CEA LIST) erwan.mahe@cea.fr - New API (free-composite-based, no type assumptions on parent)
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
+import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.ui.utils.HelpCoReferee;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.MainTabItemContentCreator;
 
 
 public class MainTab extends AbstractSewLaunchConfigurationTab {
-
-
-
 
 	/**
 	 * Constructor
@@ -28,8 +25,11 @@ public class MainTab extends AbstractSewLaunchConfigurationTab {
 	 */
 	public MainTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
+
+		contentCompositeManager = new MainTabItemContentCreator(this);
+
 		tabItemContentClass = MainTabItemContentCreator.class;
-		setHelpContextId(HelpCoReferee.efm_runconf_main_tab);
+		setHelpContextId(HelpContextIdConstants.sew_launch_Main_tab);
 	}
 
 

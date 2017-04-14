@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <contexts>
-	<context id="efm_runconf_tabgroup" title="Run Configuration for Symbolic Execution Workflow">
+	<context id="sew_launch_tabgroup" title="Launch Configuration for EFM Symbex Workflow">
 		<description>This dialog allows creation and configuration of Symbolic Execution Workflows</description>
 		<topic href="resources/docs/6_gui/runconf/run_configuration.html" label="SEW Run Configuration"/>
 		<topic href="resources/docs/6_gui/runconf/tab_main.html" label="SEW Main Tab"/>
@@ -9,39 +9,39 @@
 		<topic href="resources/docs/6_gui/runconf/tab_debug.html" label="SEW Debug Tab"/>
 		<topic href="resources/docs/6_gui/runconf/tab_expert.html" label="SEW Expert Tab"/>
 	</context>
-	<context id="efm_runconf_main_tab" title="Run Configuration Main Tab">
+	<context id="sew_launch_Main_tab" title="Launch Configuration Main Tab">
 		<description>In this tab you can choose which XLIA model to analyse and the type of analysis to do.</description>
 		<topic href="resources/docs/6_gui/runconf/tab_main.html" label="SEW Main Tab"/>
 	</context>
-	<context id="efm_runconf_commoncriteria_tab" title="Run Configuration Common Criteria Tab">
+	<context id="sew_launch_CommonCriteria_tab" title="Launch Configuration Common Criteria Tab">
 		<description>In this tab you can configure some criteria that are common to all 3 existing types of analysis. This includes setting arbitrary size limits to the generated graph, choosing the algorithm for graph generation or limiting the exploration though a limit number of steps.</description>
 		<topic href="resources/docs/6_gui/runconf/tab_commoncriteria.html" label="SEW Common Criteria Tab"/>
 	</context>
-	<context id="efm_runconf_testgeneration_tab" title="Run Configuration Test Generation Tab">
+	<context id="sew_launch_TestGeneration_tab" title="Launch Configuration Test Generation Tab">
 		<description>In this tab you can choose to generate text files during the symbolice execution. Those files contain execution traces and other informations.</description>
 		<topic href="resources/docs/6_gui/runconf/tab_testgen/tab_testgeneration.html" label="SEW Test Generation Tab"/>
 	</context>
-	<context id="efm_runconf_debug_tab" title="Run Configuration Debug Tab">
+	<context id="sew_launch_Debug_tab" title="Launch Configuration Debug Tab">
 		<description>This tab allows debug traces and files generation (graphs, input/output...) for the symbolic execution.</description>
 		<topic href="resources/docs/6_gui/runconf/tab_debug/tab_debug.html" label="SEW Debug Tab"/>
 	</context>
-	<context id="efm_runconf_expert_tab" title="Run Configuration Expert Tab">
+	<context id="sew_launch_Expert_tab" title="Launch Configuration Expert Tab">
 		<description>In this tab you can have access to more advanced options that depend on the type of analysis selected.</description>
 		<topic href="resources/docs/6_gui/runconf/tab_expert.html" label="SEW Expert Tab"/>
 	</context>
-	<context id="efm_runconf_refresh_tab" title="Run Configuration Refresh Tab">
+	<context id="sew_launch_Refresh_tab" title="Launch Configuration Refresh Tab">
 		<description>In this tab you can have access to options concerning refreshing the workspace after the symbolic execution.</description>
 		<topic href="resources/docs/workinprog.html" label="Test Link 1"/>
 	</context>
-	<context id="efm_runconf_sepruntime_tab" title="Run Configuration Symbex-Runtime Tab">
+	<context id="sew_launch_SymbexRuntime_tab" title="Launch Configuration Symbex-Runtime Tab">
 		<description>This tab allows to configure the Symbex-Executable used for the symbolic execution workflow.</description>
 		<topic href="resources/docs/workinprog.html" label="Test Link 1"/>
 	</context>
-	<context id="efm_runconf_common_tab" title="Run Configuration Common Tab">
+	<context id="sew_launch_Common_tab" title="Launch Configuration Common Tab">
 		<description>Other options...</description>
 		<topic href="resources/docs/workinprog.html" label="Test Link 1"/>
 	</context>
-	<context id="efm_sew_console" title="SEW Console">
+	<context id="sew_view_SymbexConsoleSpider" title="Symbex Console Spider View">
 		<description>This console shows symbolic execution log and spidergraph</description>
 		<topic href="resources/docs/workinprog.html" label="Test Link 1"/>
 	</context>

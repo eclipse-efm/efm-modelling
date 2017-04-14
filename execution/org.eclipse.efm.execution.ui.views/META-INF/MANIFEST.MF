@@ -22,3 +22,4 @@ Export-Package: org.eclipse.efm.execution.ui.views.editors,
  org.eclipse.efm.execution.ui.views.editors.impls,
  org.eclipse.efm.execution.ui.views.launchconfigurations.components,
  org.eclipse.efm.execution.ui.views.utils
+Bundle-Activator: org.eclipse.efm.execution.ui.views.Activator

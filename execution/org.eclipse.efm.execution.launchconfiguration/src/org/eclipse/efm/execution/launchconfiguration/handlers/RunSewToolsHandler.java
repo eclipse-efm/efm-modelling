@@ -17,7 +17,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.efm.execution.core.Activator;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.launchconfiguration.job.RunSewFactory;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -62,10 +62,10 @@ public class RunSewToolsHandler extends AbstractHandler {
 
 		fLastSelectionFile = gvFile;
 
-		if( Activator.hasExternalDotGraphViewerPath() ) {
+		if( SymbexPreferenceUtil.hasExternalDotGraphViewerPath() ) {
 			try {
 				String[] cmdLine = {
-						Activator.strExternalDotGraphViewerPath(),
+						SymbexPreferenceUtil.strExternalDotGraphViewerPath(),
 						gvFile.getLocation().toOSString()
 					};
 

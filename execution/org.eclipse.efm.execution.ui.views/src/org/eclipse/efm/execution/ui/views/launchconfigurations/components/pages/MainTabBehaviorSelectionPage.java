@@ -16,11 +16,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
-import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class MainTabBehaviorSelectionPage extends AbstractTabComponentPage {
@@ -42,20 +39,20 @@ public class MainTabBehaviorSelectionPage extends AbstractTabComponentPage {
 	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
 		createExpandableFrameWithToolkit(parentComposite, toolkit, "Behavior Selection Page");
 		fCompositeControl.setToolTipText(BEHAVIOR_DESCRIPTION);
-		
+
 		fBehaviorSpecificationStringField = new StringFieldEditor(fParentTab,
 				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST, "",
 				fCompositeControl, BEHAVIOR_DESCRIPTION, SWT.MULTI);
 
 		fBehaviorSpecificationStringField.setToolTipText(BEHAVIOR_DESCRIPTION);
-		
+
 //		compModelAnalysisBehavior = SWTFactory.createComposite(parent, 1, 1,
 //		GridData.FILL_HORIZONTAL);
 //GridData gridData1 = new GridData(GridData.FILL_HORIZONTAL);
 //gridData1.horizontalIndent = DETAIL_HORIZONTAL_INDENT;
 //compModelAnalysisBehavior.setLayoutData(gridData1);
 
-	}	
+	}
 
 
 	@Override
@@ -63,7 +60,6 @@ public class MainTabBehaviorSelectionPage extends AbstractTabComponentPage {
 		configuration.setAttribute(
 				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST,
 				BEHAVIOR_INITIAL_SAMPLE);
-
 	}
 
 	@Override

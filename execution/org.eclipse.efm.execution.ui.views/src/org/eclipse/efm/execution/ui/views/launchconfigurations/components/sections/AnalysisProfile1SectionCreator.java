@@ -12,36 +12,21 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.ui.views.launchconfigurations.components.sections;
 
-import java.util.Map;
-
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
-import org.eclipse.efm.execution.ui.views.delegates.LaunchManagerSWVlinker;
 import org.eclipse.efm.execution.ui.views.editors.FieldEditor;
-import org.eclipse.efm.execution.ui.views.editors.impls.StringFieldEditor;
-import org.eclipse.efm.execution.ui.views.utils.GenericCompositeCreator;
-import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
-import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
-import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
-import org.eclipse.efm.execution.ui.views.viewparts.swv.SymbexWorkflowView;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.MainTabBehaviorSelectionPage;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.MainTabTestOfflinePage;
 import org.eclipse.efm.execution.ui.views.launchconfigurations.components.pages.MainTabTransitionCoveragePage;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.sections.AbstractSectionCreator;
-import org.eclipse.jface.action.Action;
+import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
+import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class AnalysisProfile1SectionCreator extends AbstractSectionCreator {

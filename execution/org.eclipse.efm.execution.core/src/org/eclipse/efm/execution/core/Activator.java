@@ -15,11 +15,8 @@ package org.eclipse.efm.execution.core;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -37,15 +34,6 @@ public class Activator extends AbstractUIPlugin {
 	// The shared instance
 	private static Activator plugin;
 
-	private static IPath fDiversityInstallationLocation = null;
-
-
-	private static IPath fDiversityAvmExecLocation = null;
-
-	// The external dot viewer path
-	private static IPath fExternalDotGraphViewerPath;
-
-
 	/**
 	 * The constructor
 	 */
@@ -60,17 +48,7 @@ public class Activator extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 
-
-		IPreferenceStore prefs = getPreferenceStore();
-
-		fDiversityInstallationLocation = new Path( prefs.getString(
-				IWorkflowPreferenceConstants.ATTR_DIVERSITY_INSTALLATION_LOCATION) );
-
-		fDiversityAvmExecLocation = new Path( prefs.getString(
-				IWorkflowPreferenceConstants.ATTR_DIVERSITY_AVM_EXECUTABLE_LOCATION) );
-
-		fExternalDotGraphViewerPath = new Path( prefs.getString(
-				IWorkflowPreferenceConstants.ATTR_DIVERSITY_GRAPH_VIEWER_LOCATION) );
+		SymbexPreferenceUtil.loadGlobals( getPreferenceStore() );
 	}
 
 	/*
@@ -89,71 +67,6 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static Activator getDefault() {
 		return plugin;
-	}
-
-
-	/**
-	 * GETTER - SETTER
-	 * Diversity Installation Location
-	 */
-	public static IPath getDiversityInstallationLocation() {
-		return fDiversityInstallationLocation;
-	}
-
-	public static String strDiversityInstallationLocation() {
-		return fDiversityInstallationLocation.toOSString();
-	}
-
-	public static boolean hasDiversityInstallationLocation() {
-		return( fDiversityInstallationLocation != null );
-	}
-
-	public static void setDiversityInstallationLocation(IPath path) {
-		fDiversityInstallationLocation = path;
-	}
-
-
-	/**
-	 * GETTER - SETTER
-	 * Diversity AVM tool Installation Location
-	 */
-	public static IPath getDiversityAvmExecLocation() {
-		return fDiversityAvmExecLocation;
-	}
-
-	public static String strDiversityAvmExecLocation() {
-		return fDiversityAvmExecLocation.toOSString();
-	}
-
-	public static boolean hasDiversityAvmExecLocation() {
-		return( (fDiversityAvmExecLocation != null) &&
-				fDiversityAvmExecLocation.toFile().exists() );
-	}
-
-	public static void setDiversityAvmExecLocation(IPath path) {
-		fDiversityAvmExecLocation = path;
-	}
-
-
-	/**
-	 * GETTER - SETTER
-	 * External Dot Graph Viewer
-	 */
-	public static IPath getExternalDotGraphViewerPath() {
-		return fExternalDotGraphViewerPath;
-	}
-
-	public static String strExternalDotGraphViewerPath() {
-		return fExternalDotGraphViewerPath.toOSString();
-	}
-
-	public static boolean hasExternalDotGraphViewerPath() {
-		return( (fExternalDotGraphViewerPath != null) &&
-				fExternalDotGraphViewerPath.toFile().exists() );
-	}
-
-	public static void setExternalDotGraphViewerPath(IPath path) {
-		fExternalDotGraphViewerPath = path;
 	}
 
 

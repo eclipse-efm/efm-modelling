@@ -19,11 +19,9 @@ import org.eclipse.efm.execution.ui.views.editors.impls.BooleanFieldEditor;
 import org.eclipse.efm.execution.ui.views.editors.impls.IntegerFieldEditor;
 import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationEditorComposite;
 import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class ExpertBehaviorSelectionPage extends AbstractTabComponentPage {
@@ -64,7 +62,7 @@ public class ExpertBehaviorSelectionPage extends AbstractTabComponentPage {
 	@Override
 	public void createPageWithToolkit(Composite parentComposite, FormToolkit toolkit) {
 		createExpandableFrameWithToolkit(parentComposite, toolkit, "Behavior Selection Page");
-				
+
 //				SWTFactory.createGroup(fCompositeParent,
 //				"Behavior Selection Page", 1, 2, GridData.FILL_HORIZONTAL);
 

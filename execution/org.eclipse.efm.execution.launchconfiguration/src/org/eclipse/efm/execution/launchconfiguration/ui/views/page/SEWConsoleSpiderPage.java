@@ -24,12 +24,11 @@ import java.io.OutputStreamWriter;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchDelegate;
-import org.eclipse.efm.ui.utils.HelpCoReferee;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.FillLayout;
@@ -99,11 +98,10 @@ public class SEWConsoleSpiderPage extends Page
 	public void createControl(Composite parent) {
         fMainPageControl = new Composite(parent, SWT.RESIZE | SWT.BORDER);
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(fMainPageControl, HelpCoReferee.efm_sew_console);
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(fMainPageControl, HelpContextIdConstants.sew_view_SymbexConsoleSpider);
 
-		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
-        consoleView = prefs.getBoolean(PREF_CONSOLE_VIEW);
-        spiderView = prefs.getBoolean(PREF_SPIDER_VIEW);
+        consoleView = SymbexPreferenceUtil.getBooleanPreference(PREF_CONSOLE_VIEW);
+        spiderView = SymbexPreferenceUtil.getBooleanPreference(PREF_SPIDER_VIEW);
 
         GridLayout layout = new GridLayout();
         layout.numColumns = 3;
@@ -181,9 +179,7 @@ public class SEWConsoleSpiderPage extends Page
 			String mode, ILaunch launch, IProgressMonitor monitor,
 			String[] cmdLine, File workingDir, String[] envp) {
 
-		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
-
-        consoleView = prefs.getBoolean(PREF_CONSOLE_VIEW);
+        consoleView = SymbexPreferenceUtil.getBooleanPreference(PREF_CONSOLE_VIEW);
 //        spiderView = prefs.getBoolean(P_SPIDER_VIEW);
 
         try {
