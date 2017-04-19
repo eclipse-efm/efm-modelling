@@ -23,21 +23,21 @@ import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.debug.ui.RefreshTab;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
-import org.eclipse.efm.execution.launchconfiguration.ui.tabs.CommonCriteriaTab;
+import org.eclipse.efm.execution.launchconfiguration.ui.tabs.SupervisorTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.DebugTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.DeveloperTuningTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.ExpertTab;
-import org.eclipse.efm.execution.launchconfiguration.ui.tabs.MainTab;
+import org.eclipse.efm.execution.launchconfiguration.ui.tabs.OverviewTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.SymbexRuntimeTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.TestGenerationTab;
 
 public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {
 
-	protected MainTab fMainTab;
+	protected OverviewTab fMainTab;
 
 	protected ExpertTab fExpertTab;
 
-	public MainTab getMainTab() {
+	public OverviewTab getMainTab() {
 		return fMainTab;
 	}
 
@@ -51,10 +51,10 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 		ArrayList<ILaunchConfigurationTab> tabList =
 				new ArrayList<ILaunchConfigurationTab>();
 
-		fMainTab = new MainTab(this);
+		fMainTab = new OverviewTab(this);
 		tabList.add( fMainTab );
 
-		tabList.add( new CommonCriteriaTab(this) );
+		tabList.add( new SupervisorTab(this) );
 		tabList.add( new TestGenerationTab(this) );
 
 		if( ILaunchManager.DEBUG_MODE.equals(mode) )

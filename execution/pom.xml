@@ -13,6 +13,7 @@
 	<description>This module contains the different plugins relative to the workflow configuration of Execution by Symbex </description>
 
 	<modules>
+		<module>org.eclipse.efm.execution.configuration.common.ui</module>
 		<module>org.eclipse.efm.execution.core</module>
 		<module>org.eclipse.efm.execution.launchconfiguration</module>
 		<module>org.eclipse.efm.execution.ui</module>

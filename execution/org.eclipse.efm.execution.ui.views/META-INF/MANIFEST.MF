@@ -8,8 +8,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.jface,
  org.eclipse.pde,
- org.eclipse.efm.execution.core,
- org.eclipse.efm.ui
+ org.eclipse.efm.ui,
+ org.eclipse.ui.forms,
+ org.eclipse.efm.execution.configuration.common.ui
 Import-Package: org.eclipse.core.resources,
  org.eclipse.debug.core,
  org.eclipse.debug.ui,
@@ -18,8 +19,4 @@ Import-Package: org.eclipse.core.resources,
  org.eclipse.ui.forms.widgets,
  org.eclipse.ui.model,
  org.eclipse.ui.views.navigator
-Export-Package: org.eclipse.efm.execution.ui.views.editors,
- org.eclipse.efm.execution.ui.views.editors.impls,
- org.eclipse.efm.execution.ui.views.launchconfigurations.components,
- org.eclipse.efm.execution.ui.views.utils
 Bundle-Activator: org.eclipse.efm.execution.ui.views.Activator

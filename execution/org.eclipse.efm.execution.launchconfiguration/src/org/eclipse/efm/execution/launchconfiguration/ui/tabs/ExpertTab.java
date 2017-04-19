@@ -12,18 +12,17 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
+import org.eclipse.efm.execution.configuration.common.ui.page.expert.ExpertConfigurationPage;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.ExpertTabItemContentCreator;
 
 public class ExpertTab extends AbstractSewLaunchConfigurationTab {
 
 	public ExpertTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new ExpertTabItemContentCreator(this);
+		contentCompositeManager = new ExpertConfigurationPage(this);
 
-		tabItemContentClass = ExpertTabItemContentCreator.class;
 		setHelpContextId(HelpContextIdConstants.sew_launch_Expert_tab);
 	}
 

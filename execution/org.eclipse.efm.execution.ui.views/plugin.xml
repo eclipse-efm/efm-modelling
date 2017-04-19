@@ -5,7 +5,7 @@
          point="org.eclipse.ui.views">
       <view
             category="org.eclipse.efm.ui.category.views"
-            class="org.eclipse.efm.execution.ui.views.viewparts.swv.SymbexWorkflowView"
+            class="org.eclipse.efm.execution.ui.views.symbexlauncher.SymbexWorkflowView"
             icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/diversity_icon.png"
             id="org.eclipse.efm.execution.ui.views.SymbexWorkflowView"
             name="Symbex Workflow">

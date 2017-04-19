@@ -12,9 +12,9 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
+import org.eclipse.efm.execution.configuration.common.ui.page.testgen.TestGenerationConfigurationPage;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.TestGenerationTabItemContentCreator;
 
 public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
 
@@ -25,9 +25,8 @@ public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
 	public TestGenerationTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new TestGenerationTabItemContentCreator(this);
+		contentCompositeManager = new TestGenerationConfigurationPage(this);
 
-		tabItemContentClass = TestGenerationTabItemContentCreator.class;
 		setHelpContextId(HelpContextIdConstants.sew_launch_TestGeneration_tab);
 	}
 

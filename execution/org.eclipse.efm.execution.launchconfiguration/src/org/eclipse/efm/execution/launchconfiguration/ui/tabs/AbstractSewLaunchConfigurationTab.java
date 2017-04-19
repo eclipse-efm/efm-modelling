@@ -18,16 +18,17 @@ package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage.FieldValidationReturn;
+import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.AbstractTabItemContentCreator.FieldValidationReturn;
-import org.eclipse.efm.execution.ui.views.utils.ILaunchConfigurationGUIelement;
-import org.eclipse.efm.execution.ui.views.utils.SWTFactory;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -36,9 +37,7 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 
 	private FormToolkit toolkit;
 	protected LaunchConfigurationTabGroup fGroupTab;
-	protected AbstractTabItemContentCreator contentCompositeManager;
-
-	protected Class<?> tabItemContentClass;
+	protected AbstractConfigurationPage contentCompositeManager;
 
 	/**
 	 * Constructor
@@ -55,17 +54,40 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 
 		this.contentCompositeManager = null;
 	}
+	
 
 	@Override
 	public FormToolkit getFormToolkit() {
 		return toolkit;
 	}
+	
+	@Override
+	public Composite createComposite(Composite parent) {
+		return SWTFactory.createComposite(parent, 1, 1, GridData.FILL_HORIZONTAL);
+	}
+	
+	@Override
+	public Composite createComposite(Composite parent, int style) {
+		return SWTFactory.createComposite(parent, style, 1, 1, GridData.FILL_HORIZONTAL);
+	}
+	
+	@Override
+	public Text createText(Composite parent, String value, int style) {
+		Text text = SWTFactory.createText(parent, style, 1);
+		
+		if (value != null) {
+			text.setText(value);
+		}
+
+		return text;
+	}
+	
 
 	public LaunchConfigurationTabGroup getGroupTab() {
 		return fGroupTab;
 	}
 
-	public MainTab getMainTab() {
+	public OverviewTab getMainTab() {
 		return fGroupTab.getMainTab();
 	}
 
@@ -91,15 +113,14 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 //
 
 //		try {
-//			Constructor<?> constructor = tabItemContentClass.getConstructor(ILaunchConfigurationGUIelement.class, Composite.class);
-//			contentCompositeManager = (AbstractTabItemContentCreator) constructor.newInstance(new Object[] { this, main_composite });
-			//contentCompositeManager = (AbstractTabItemContentCreator) constructor.newInstance(new Object[] { this, parent });
 			contentCompositeManager.createTabItemContent(main_composite);
 			setControl(main_composite);
 			//setControl(parent);
-//		} catch(InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+//		} catch(InstantiationException | IllegalAccessException | IllegalArgumentException
+//				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 //			e.printStackTrace();
 //		}
+
 		setControl(main_composite);
 		//setControl(parent);
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), getHelpContextId());
@@ -153,9 +174,9 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 		return section;
 	}
 
-	// ======================================================================================
-	//                              ILaunchConfigurationGUIelement interface methods
-	// ======================================================================================
+	// =========================================================================
+	//         ILaunchConfigurationGUIelement interface methods
+	// =========================================================================
 
 	@Override
 	public void updateGUI() {

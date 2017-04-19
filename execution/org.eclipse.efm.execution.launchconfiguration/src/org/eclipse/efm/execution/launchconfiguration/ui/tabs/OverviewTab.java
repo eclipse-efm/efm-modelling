@@ -12,22 +12,29 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
-import org.eclipse.efm.execution.configuration.common.ui.page.developer.DeveloperTuningConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.page.overview.OverviewConfigurationPage;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
 
-public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
 
-	public DeveloperTuningTab(LaunchConfigurationTabGroup groupTab) {
+public class OverviewTab extends AbstractSewLaunchConfigurationTab {
+
+	/**
+	 * Constructor
+	 * @param groupTab
+	 */
+	public OverviewTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new DeveloperTuningConfigurationPage(this);
+		contentCompositeManager = new OverviewConfigurationPage(this);
 
-		setHelpContextId(HelpContextIdConstants.sew_launch_Debug_tab);
+		setHelpContextId(HelpContextIdConstants.sew_launch_Main_tab);
 	}
+
 
 	@Override
 	public String getName() {
-		return "Developer";
+		return "Main";
 	}
+
 }

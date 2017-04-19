@@ -12,9 +12,9 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
+import org.eclipse.efm.execution.configuration.common.ui.page.debug.DebugConfigurationPage;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
-import org.eclipse.efm.execution.ui.views.launchconfigurations.components.DebugTabItemContentCreator;
 
 
 public class DebugTab extends AbstractSewLaunchConfigurationTab {
@@ -22,9 +22,8 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 	public DebugTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new DebugTabItemContentCreator(this);
+		contentCompositeManager = new DebugConfigurationPage(this);
 
-		tabItemContentClass = DebugTabItemContentCreator.class;
 		setHelpContextId(HelpContextIdConstants.sew_launch_Debug_tab);
 	}
 
