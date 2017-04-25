@@ -23,13 +23,14 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationComponent;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Rectangle;
@@ -39,7 +40,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-public class OverviewTransitionCoverageConfigurationProfile extends AbstractConfigurationComponent {
+public class OverviewTransitionCoverageConfigurationProfile extends AbstractConfigurationProfile {
 
 	public BooleanFieldEditor fEnabledDetailedSelectionBooleanField;
 
@@ -69,33 +70,37 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 
 
 	@Override
-	public void createPageWithToolkit(Composite parentComposite) {
-		createExpandableFrameWithToolkit(parentComposite, "Transition Coverage Page");
+	public String getSectionTitle() {
+		return "Transition Coverage";
+	}
 
-//				SWTFactory.createGroup(
-//				fCompositeParent,
-//				"&Selection of Transitions (default: all)",
-//				1, 1, GridData.FILL_HORIZONTAL );
+	@Override
+	public String getSectionDescription() {
+		return "Transition Coverage, configuration section";
+	}
 
-//		Composite comp = SWTFactory.createComposite(
-//				fCompositeControl, 1, 1, GridData.FILL_HORIZONTAL);
-
+		
+	@Override
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
 		fEnabledDetailedSelectionBooleanField =
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION,
-						"&Enable Transitions Selection", fCompositeControl, false);
+						"&Enable Transitions Selection", parent, false);
+
+		fEnabledDetailedSelectionBooleanField.addSelectionListener(
+			new SelectionAdapter() {
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					fConfigurationPage.propagateVisibility(fCompDetailedSelection,
+							fEnabledDetailedSelectionBooleanField.getBooleanValue());
+				}
+			});
 
 // ==================================================================================
 
-		fCompDetailedSelection = SWTFactory.createComposite(
-				fCompositeControl, 2, 1,  GridData.FILL_HORIZONTAL);
-
-//		IntegerFieldEditor test = new IntegerFieldEditor(this,
-//				TestGenerationTab.ATTR_PROLONGATION_EVALUATION_STEPS,
-//				"&Evaluation Steps:", fCompDetailedSelection, -1);
-//		test = new IntegerFieldEditor(this,
-//				TestGenerationTab.ATTR_PROLONGATION_EVALUATION_STEPS,
-//				"&Evaluation Steps:", fCompDetailedSelection, -1);
+		fCompDetailedSelection = widgetToolkit.createComposite(
+				parent, 2, 1,  GridData.FILL_HORIZONTAL);
 
 		fAllTransitionsListTable = new Table(
 				fCompDetailedSelection, SWT.CHECK | SWT.BORDER);
@@ -268,7 +273,7 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 
 //	@Override
 //	public void setVisible(boolean visible) {
-//		fConfigurationPage.propagateVisibility(fCompositeControl,visible);
+//		fConfigurationPage.propagateVisibility(parent,visible);
 //
 //		if( visible ) {
 //			if( fEnabledDetailedSelectionBooleanField.getBooleanValue() )
@@ -312,6 +317,7 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 		}
 
 		if( (fAllTransitionsList != null)
+			&& (fSelectedTransitionsList != null)
 			&& (! fAllTransitionsList.isEmpty())
 			&& (! fSelectedTransitionsList.isEmpty()) )
 		{
@@ -487,9 +493,8 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	{
 		fEnabledDetailedSelectionBooleanField.performApply(configuration);
 
-		fConfigurationPage.propagateVisibility(fCompDetailedSelection,
-				fEnabledDetailedSelectionBooleanField.getBooleanValue());
-
+//		fConfigurationPage.propagateVisibility(fCompDetailedSelection,
+//				fEnabledDetailedSelectionBooleanField.getBooleanValue());
 
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_SELECTION, fSelectedTransitionsList);

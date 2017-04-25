@@ -18,9 +18,9 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
@@ -146,53 +146,54 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void createTabItemContent(Composite parentComposite) {
-		//inner_main_composite = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
-
-		createDebugTracePage(parentComposite);
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		createDebugTracePage(parent, widgetToolkit);
 	}
 
-	private void createDebugTracePage(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createDebugTracePage(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		Group group = widgetToolkit.createGroup(parent,
 				"Debug Trace", 1, 1, GridData.FILL_HORIZONTAL);
 
-		createConsoleLogComponent(group);
+		createConsoleLogComponent(group, widgetToolkit);
 
-		createFirstSymbexWorkflowPage(group);
+		createFirstSymbexWorkflowPage(group, widgetToolkit);
 
-		createSecondSymbexWorkflowtPage(group);
+		createSecondSymbexWorkflowtPage(group, widgetToolkit);
 	}
 
 
-	private void createConsoleLogComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createConsoleLogComponent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		Group group = widgetToolkit.createGroup(parent,
 				"Console Log", 2, 1, GridData.FILL_HORIZONTAL);
 
-		SWTFactory.createLabel(group, "&Verbose Level:", 1);
+		widgetToolkit.createLabel(group, "&Verbose Level:", 1);
 
-		fConsoleLevelCombo = SWTFactory.createCombo(group,
+		fConsoleLevelCombo = widgetToolkit.createCombo(group,
 				SWT.DROP_DOWN | SWT.READ_ONLY, 1, CONSOLE_LEVEL_COMBO_ITEMS);
 
 		fConsoleLevelCombo.addSelectionListener(fListener);
 	}
 
 
-	public void createFirstSymbexWorkflowPage(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	public void createFirstSymbexWorkflowPage(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"First Stage Symbex Workflow Page",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		createFirstInputModelGraphicComponent(group);
+		createFirstInputModelGraphicComponent(group, widgetToolkit);
 
-		createFirstSymbexOutputComponent(group);
+		createFirstSymbexOutputComponent(group, widgetToolkit);
 	}
 
-	private void createFirstInputModelGraphicComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createFirstInputModelGraphicComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Input Model Generated Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fFirstParsedModelTextualEnabledBooleanField = new BooleanFieldEditor(
@@ -211,12 +212,12 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		}
 	}
 
-	private void createFirstSymbexOutputComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createFirstSymbexOutputComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Symbex Output Generated Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fFirstSymbexOutputTextualEnabledBooleanField = new BooleanFieldEditor(
@@ -224,18 +225,18 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				"&Basic Textual Representation", comp, false);
 
 
-		group = SWTFactory.createGroup(comp,
+		group = widgetToolkit.createGroup(comp,
 				"Symbex Output Generated Graphic Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fFirstSymbexOutputGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION,
 				"&<Graphiz> Representation", comp, false);
 
-		fCompositeFirstSymbexOutputGraphiz = SWTFactory.createComposite(
+		fCompositeFirstSymbexOutputGraphiz = widgetToolkit.createComposite(
 				comp, 2, 2, GridData.FILL_HORIZONTAL);
 
 		fFirstSymbexOutputGraphizTraceStringField = new StringFieldEditor(
@@ -258,14 +259,14 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	public void createSecondSymbexWorkflowtPage(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	public void createSecondSymbexWorkflowtPage(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Second Stage Symbex Workflow Page",
 				1, 1, GridData.FILL_HORIZONTAL);
 
 //			createSecondInputModelGraphicComponent(group);
 
-		createSecondSymbexOutputComponent(group);
+		createSecondSymbexOutputComponent(group, widgetToolkit);
 	}
 
 
@@ -293,12 +294,12 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 //			}
 //		}
 
-	private void createSecondSymbexOutputComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createSecondSymbexOutputComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Symbex Output Generated Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fSecondSymbexOutputTextualEnabledBooleanField = new BooleanFieldEditor(
@@ -306,18 +307,18 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				"&Basic Textual Representation", comp, false);
 
 
-		group = SWTFactory.createGroup(comp,
+		group = widgetToolkit.createGroup(comp,
 				"Symbex Output Generated Graphic Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fSecondSymbexOutputGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION,
 				"&<Graphiz> Representation", comp, false);
 
-		fCompositeSecondSymbexOutputGraphiz = SWTFactory.createComposite(
+		fCompositeSecondSymbexOutputGraphiz = widgetToolkit.createComposite(
 				comp, 2, 2, GridData.FILL_HORIZONTAL);
 
 		fSecondSymbexOutputGraphizTraceStringField = new StringFieldEditor(

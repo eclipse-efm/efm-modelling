@@ -21,16 +21,38 @@ import java.util.Set;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public abstract class AbstractConfigurationPage implements IWorkflowConfigurationConstants {
+public abstract class AbstractConfigurationPage
+		implements IWorkflowConfigurationConstants, IWorkflowPreferenceConstants {
 
 	private ILaunchConfigurationGUIelement masterGUIelement;
+
+	/**
+	 * The control for this page, or <code>null</code>
+	 */
+	protected Composite fControl;
+
+	protected boolean fEnabledSymbexDeveloperMode;
+
+	protected boolean fEnabledSymbexIncubationMode;
+
+
+	public boolean isEnabledSymbexDeveloperMode() {
+		return fEnabledSymbexDeveloperMode;
+	}
+
+	public boolean isEnabledSymbexIncubationMode() {
+		return fEnabledSymbexIncubationMode;
+	}
+
 
 	public abstract void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration);
 
@@ -38,10 +60,26 @@ public abstract class AbstractConfigurationPage implements IWorkflowConfiguratio
 
 	public abstract void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration);
 
+
 	public AbstractConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
         Assert.isNotNull(masterGUIelement);
 		this.masterGUIelement = masterGUIelement;
-		
+
+		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
+			fEnabledSymbexDeveloperMode =
+					SymbexPreferenceUtil.getBooleanPreference(PREF_SYMBEX_DEVELOPER_MODE);
+		} else {
+			fEnabledSymbexDeveloperMode = false;
+		}
+
+		if( AbstractLaunchDelegate.ENABLED_SYMBEX_INCUBATION_MODE_OPTION ) {
+			fEnabledSymbexIncubationMode =
+					SymbexPreferenceUtil.getBooleanPreference(
+							IWorkflowPreferenceConstants.PREF_INCUBATION_MODE);
+		} else {
+			fEnabledSymbexIncubationMode = false;
+		}
+
 		this.registered_actions = new HashMap<String, Action>();
 	}
 
@@ -62,17 +100,19 @@ public abstract class AbstractConfigurationPage implements IWorkflowConfiguratio
 	}
 
 
-	protected FormToolkit getMasterFormToolkit() {
-		return masterGUIelement.getFormToolkit();
-	}
-
 	public ILaunchConfigurationGUIelement getMasterGUIelement() {
 		return masterGUIelement;
 	}
 
-	public ILaunchConfigurationGUIelement getWidgetToolkit() {
-		return masterGUIelement;
+	public IWidgetToolkit getWidgetToolkit() {
+		return masterGUIelement.getWidgetToolkit();
 	}
+
+
+	public Composite getControl() {
+		return fControl;
+	}
+
 
 	// ======================================================================================
 	//                              Fields Validation
@@ -98,7 +138,23 @@ public abstract class AbstractConfigurationPage implements IWorkflowConfiguratio
 
 	public abstract FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig);
 
-	public abstract void createTabItemContent(Composite parentComposite);
+
+	// ======================================================================================
+	//                              Graphical Components Creation Methods
+	// ======================================================================================
+
+	public void createControl(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		fControl = widgetToolkit.createComposite(
+				parent, 1, 1, GridData.FILL_BOTH);
+
+		createContent(fControl, widgetToolkit);
+	}
+
+	protected abstract void createContent(
+			Composite parent, IWidgetToolkit widgetToolkit);
+
+
 
 	public void propagateMessage(String message) {
 		masterGUIelement.setMessage(message);
@@ -111,7 +167,7 @@ public abstract class AbstractConfigurationPage implements IWorkflowConfiguratio
 	public void propagateErrorMessage(String errormessage) {
 		masterGUIelement.setErrorMessage(errormessage);
 	}
-	
+
 	/**
 	 * API Interface
 	 */

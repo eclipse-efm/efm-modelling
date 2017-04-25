@@ -57,8 +57,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	private IPath fSewLocation;
 	private IPath fWorkingDirectory;
 
-	public static String fAnalysisProfile = ANALYSIS_PROFILE_UNDEFINED;
-	public static String fModelAnalysis = ANALYSIS_PROFILE_MODEL_UNDEFINED;
+	public static String fModelAnalysisProfile = ANALYSIS_PROFILE_MODEL_UNDEFINED;
 
 	public static boolean fEnableTraceExtension = false;
 
@@ -119,17 +118,9 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 //				}
 
 
-				fAnalysisProfile = configuration.getAttribute(
-						ATTR_SPECIFICATION_ANALYSIS_PROFILE,
-						ANALYSIS_PROFILE_UNDEFINED);
-				if( fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL) ) {
-					fModelAnalysis = configuration.getAttribute(
-							ATTR_SPECIFICATION_MODEL_ANALYSIS,
-							ANALYSIS_PROFILE_MODEL_UNDEFINED);
-				}
-				else {
-					fModelAnalysis = ANALYSIS_PROFILE_MODEL_UNDEFINED;
-				}
+				fModelAnalysisProfile = configuration.getAttribute(
+						ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
+						ANALYSIS_PROFILE_MODEL_UNDEFINED);
 
 				fEnableTraceExtension = configuration.getAttribute(
 						ATTR_ENABLED_TRACE_EXTENSION, false);

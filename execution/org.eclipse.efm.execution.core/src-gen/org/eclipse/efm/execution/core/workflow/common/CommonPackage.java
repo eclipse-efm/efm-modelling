@@ -992,13 +992,13 @@ public interface CommonPackage extends EPackage {
 	int DEVELOPER_TUNING_OPTION__ENABLED_REPORTING = 16;
 
 	/**
-	 * The feature id for the '<em><b>Enabled Solver</b></em>' attribute.
+	 * The feature id for the '<em><b>Enabled Solving</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_SOLVER = 17;
+	int DEVELOPER_TUNING_OPTION__ENABLED_SOLVING = 17;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Profiling</b></em>' attribute.
@@ -2279,15 +2279,15 @@ public interface CommonPackage extends EPackage {
 	EAttribute getDeveloperTuningOption_EnabledReporting();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledSolver <em>Enabled Solver</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledSolving <em>Enabled Solving</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Enabled Solver</em>'.
-	 * @see org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledSolver()
+	 * @return the meta object for the attribute '<em>Enabled Solving</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledSolving()
 	 * @see #getDeveloperTuningOption()
 	 * @generated
 	 */
-	EAttribute getDeveloperTuningOption_EnabledSolver();
+	EAttribute getDeveloperTuningOption_EnabledSolving();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledProfiling <em>Enabled Profiling</em>}'.
@@ -3451,12 +3451,12 @@ public interface CommonPackage extends EPackage {
 		EAttribute DEVELOPER_TUNING_OPTION__ENABLED_REPORTING = eINSTANCE.getDeveloperTuningOption_EnabledReporting();
 
 		/**
-		 * The meta object literal for the '<em><b>Enabled Solver</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Enabled Solving</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DEVELOPER_TUNING_OPTION__ENABLED_SOLVER = eINSTANCE.getDeveloperTuningOption_EnabledSolver();
+		EAttribute DEVELOPER_TUNING_OPTION__ENABLED_SOLVING = eINSTANCE.getDeveloperTuningOption_EnabledSolving();
 
 		/**
 		 * The meta object literal for the '<em><b>Enabled Profiling</b></em>' attribute feature.

@@ -89,18 +89,18 @@ public static Button createRadioButton(Composite parent, String label) {
  * @return a new radio button
  * @since 3.6
  */
-//public static Button createRadioButton(Composite parent, String label, int hspan) {
-//	Button button = new Button(parent, SWT.RADIO);
-//	button.setFont(parent.getFont());
-//	if (label != null) {
-//		button.setText(label);
-//	}
-//	GridData gd = new GridData(GridData.BEGINNING);
-//	gd.horizontalSpan = hspan;
-//	button.setLayoutData(gd);
-//	setButtonDimensionHint(button);
-//	return button;
-//}
+public static Button createRadioButton(Composite parent, String label, int hspan) {
+	Button button = new Button(parent, SWT.RADIO);
+	button.setFont(parent.getFont());
+	if (label != null) {
+		button.setText(label);
+	}
+	GridData gd = new GridData(GridData.BEGINNING);
+	gd.horizontalSpan = hspan;
+	button.setLayoutData(gd);
+	setButtonDimensionHint(button);
+	return button;
+}
 
 /**
  * Creates and returns a new push button with the given

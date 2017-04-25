@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledLoading <em>Enabled Loading</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledComputing <em>Enabled Computing</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledReporting <em>Enabled Reporting</em>}</li>
- *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledSolver <em>Enabled Solver</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledSolving <em>Enabled Solving</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledProfiling <em>Enabled Profiling</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledAllProcessStage <em>Enabled All Process Stage</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledPreProcessing <em>Enabled Pre Processing</em>}</li>
@@ -531,30 +531,30 @@ public interface DeveloperTuningOption extends EObject {
 	void setEnabledReporting(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Enabled Solver</b></em>' attribute.
+	 * Returns the value of the '<em><b>Enabled Solving</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Enabled Solver</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Enabled Solving</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Enabled Solver</em>' attribute.
-	 * @see #setEnabledSolver(boolean)
-	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledSolver()
+	 * @return the value of the '<em>Enabled Solving</em>' attribute.
+	 * @see #setEnabledSolving(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledSolving()
 	 * @model
 	 * @generated
 	 */
-	boolean isEnabledSolver();
+	boolean isEnabledSolving();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledSolver <em>Enabled Solver</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#isEnabledSolving <em>Enabled Solving</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Enabled Solver</em>' attribute.
-	 * @see #isEnabledSolver()
+	 * @param value the new value of the '<em>Enabled Solving</em>' attribute.
+	 * @see #isEnabledSolving()
 	 * @generated
 	 */
-	void setEnabledSolver(boolean value);
+	void setEnabledSolving(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Enabled Profiling</b></em>' attribute.

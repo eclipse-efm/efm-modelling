@@ -29,7 +29,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.debug.ui.StringVariableSelectionDialog;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
+import org.eclipse.efm.execution.configuration.common.ui.util.StandardWidgetToolkit;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
@@ -639,6 +640,11 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 	}
 
 
+	
+	
+	IWidgetToolkit widgetToolkit = new StandardWidgetToolkit();
+
+
 	/**
 	 * createControl
 	 */
@@ -667,7 +673,7 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 	// Argument
 	////////////////////////////////////////////////////////////////////////////
 	protected void createArgumentComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(
+		Group group = widgetToolkit.createGroup(
 				parent, "&Arguments:", 1, 1, GridData.FILL_BOTH);
 
 		fArgumentField = new Text(group,
@@ -688,7 +694,7 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 		fArgumentField.addModifyListener(fListener);
 		addControlAccessibleListener(fArgumentField, group.getText());
 
-		Composite buttonComposite = SWTFactory.createComposite(group,
+		Composite buttonComposite = widgetToolkit.createComposite(group,
 				parent.getFont(), 1, 1, GridData.HORIZONTAL_ALIGN_END, 0, 0);
 
 		fArgumentVariablesButton= createPushButton(
@@ -731,21 +737,21 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 	// Working Directory
 	////////////////////////////////////////////////////////////////////////////
 	protected void createWorkingDirectoryComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(
+		Group group = widgetToolkit.createGroup(
 				parent, "&Working directory:", 2, 1, GridData.FILL_HORIZONTAL);
 
 		Font font = parent.getFont();
 
 		//default choice
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, font, 2, 2, GridData.FILL_BOTH, 0, 0);
 		fWorkingDirectoryUseDefaultButton = createCheckButton(comp, "Defa&ult:");
 		fWorkingDirectoryUseDefaultButton.addSelectionListener(fListener);
-		fWorkingDirectoryText = SWTFactory.createSingleText(comp, 1);
+		fWorkingDirectoryText = widgetToolkit.createSingleText(comp, 1);
 		fWorkingDirectoryText.addModifyListener(fListener);
 
 		//buttons
-		Composite buttonComp = SWTFactory.createComposite(
+		Composite buttonComp = widgetToolkit.createComposite(
 				comp, font, 3, 2, GridData.HORIZONTAL_ALIGN_END);
 		GridLayout ld = (GridLayout)buttonComp.getLayout();
 		ld.marginHeight = 1;
@@ -767,35 +773,35 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 	// Avm Location
 	////////////////////////////////////////////////////////////////////////////
 	protected void createAvmLocationComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+		Group group = widgetToolkit.createGroup(parent,
 				"&Symbex Executable Location:", 2, 1, GridData.FILL_HORIZONTAL);
 
 		Font font = parent.getFont();
 
 		//default choice
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, font, 2, 2, GridData.FILL_BOTH, 0, 0);
 
 		fAvmLocationUseDefaultButton =
-				SWTFactory.createRadioButton(comp, "Defa&ult:");
+				widgetToolkit.createRadioButton(comp, "Defa&ult:");
 		fAvmLocationUseDefaultButton.addSelectionListener(fListener);
 
-		fAvmLocationDefaultText = SWTFactory.createSingleText(comp, 1);
+		fAvmLocationDefaultText = widgetToolkit.createSingleText(comp, 1);
 		fAvmLocationDefaultText.addModifyListener(fListener);
 		fAvmLocationDefaultText.setEnabled(false);
 
 		//user enter choice
 		fAvmLocationUseOtherButton =
-				SWTFactory.createRadioButton(comp, "Ot&her:");
+				widgetToolkit.createRadioButton(comp, "Ot&her:");
 		fAvmLocationUseOtherButton.addSelectionListener(fListener);
 
-		fSelectedAvmLocationCombo = SWTFactory.createCombo(
+		fSelectedAvmLocationCombo = widgetToolkit.createCombo(
 				comp, SWT.DROP_DOWN, 1, getAvmLocationItems());
 		fSelectedAvmLocationCombo.addSelectionListener(fListener);
 		fSelectedAvmLocationCombo.addModifyListener(fListener);
 
 		//buttons
-		Composite buttonComp = SWTFactory.createComposite(
+		Composite buttonComp = widgetToolkit.createComposite(
 				comp, font, 3, 2, GridData.HORIZONTAL_ALIGN_END);
 		GridLayout ld = (GridLayout)buttonComp.getLayout();
 		ld.marginHeight = 1;

@@ -29,23 +29,15 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	// DIRECTOR: ANALYSIS PROFILE a.k.a. MODEL | TESTOFFLINE
 	////////////////////////////////////////////////////////////////////////////
 
-	public static final String ANALYSIS_PROFILE_MODEL = "MODEL";
-
-	public static final String ANALYSIS_PROFILE_TEST_OFFLINE = "TESTOFFLINE";
-
-	public static final String ANALYSIS_PROFILE_UNDEFINED = "";
-
 	public static final String ANALYSIS_PROFILE_MODEL_UNDEFINED = "";
 
-	public static final String ANALYSIS_PROFILE_MODEL_EXPLORATION =
-			"Exploration";
+	public static final String ANALYSIS_PROFILE_MODEL_EXPLORATION = "Exploration";
 
-	public static final String ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION =
-			"Transition Coverage";
+	public static final String ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION = "Transition Coverage";
 
-	public static final String ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR =
-			"Behavior Selection";
+	public static final String ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR = "Behavior Selection";
 
+	public static final String ANALYSIS_PROFILE_MODEL_TEST_OFFLINE = "Test Offline";
 
 	////////////////////////////////////////////////////////////////////////////
 	// LAUNCH CONFIGURATION PLUGIN PREFIX ID
@@ -101,11 +93,8 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public static final String DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION =
 			"<spec-model-file-location>"; //$NON-NLS-1$
 
-	public static final String ATTR_SPECIFICATION_ANALYSIS_PROFILE =
-			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_ANALYSIS_PROFILE"; //$NON-NLS-1$
-
-	public static final String ATTR_SPECIFICATION_MODEL_ANALYSIS =
-			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_MODEL_ANALYSIS"; //$NON-NLS-1$
+	public static final String ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE =
+			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE"; //$NON-NLS-1$
 
 	public static final String ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST =
 			PLUGIN_LAUNCH_ID + ".ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST"; //$NON-NLS-1$

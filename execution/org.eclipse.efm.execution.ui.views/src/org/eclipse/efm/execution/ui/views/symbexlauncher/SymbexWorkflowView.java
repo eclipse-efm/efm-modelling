@@ -12,11 +12,10 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.ui.views.symbexlauncher;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -26,6 +25,7 @@ import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.debug.ui.ILaunchGroup;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.page.overview.OverviewConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.page.supervisor.SupervisorConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.page.testgen.TestGenerationConfigurationPage;
@@ -37,15 +37,13 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.forms.IFormColors;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
 public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
@@ -56,9 +54,11 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 	//public Set<SectionCompositeCreator> compositeSections;
 
-	private Set<AbstractConfigurationPage> compMakers;
+	private ArrayList<AbstractConfigurationPage> compMakers;
 
-	private Combo combo;
+	protected Composite tabbedCompositeMaster;
+	protected CTabFolder fTabFolder;
+	protected Combo combo;
 
 	protected LaunchConfigurationManager launchConfigurationManager;
 
@@ -82,15 +82,15 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		setupTopLevelActionBars(new Action[] {
 				action_launch_runconf,
 				action_launch_debugconf,
-				action_opend_runconf, 
+				action_opend_runconf,
 				action_opend_debugconf,
 				action_apply_changes
 			});
 
 		// Frame
 		setupFormFrame();
-		
-		FormToolkit toolkit = getFormToolkit();
+
+		FormWidgetToolkit toolkit = getFormWidgetToolkit();
 
 		combo = GenericCompositeCreator.createComposite_combo_text_from_toolkit(
 				toolkit, scrollform.getBody(), "Run Configuration :", 2);
@@ -107,31 +107,22 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true);
 		tabbedCompositeMaster.setLayoutData(gd);
 
-		tabFolder = new CTabFolder( tabbedCompositeMaster, SWT.FLAT | SWT.TOP );
-		toolkit.adapt(tabFolder, true, true);
-//	    tabFolder.setLayoutData(new GridData(SWT.FILL,SWT.FILL, true, true));
-		gd = new GridData(SWT.FILL,SWT.FILL, true, true);
-//		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		tabFolder.setLayoutData(gd);
-		gd.heightHint = 2;
-		toolkit.getColors().initializeSectionToolBarColors();
-		Color selectedColor = toolkit.getColors().getColor(IFormColors.TB_BG);
-		tabFolder.setSelectionBackground(
-				new Color[] {selectedColor, toolkit.getColors().getBackground()},
-				new int[] {100}, true);
+		fTabFolder = toolkit.createTabFolder( tabbedCompositeMaster, SWT.FLAT | SWT.TOP );
 
-	    createSectionsContent();
+	    createSectionsContent(toolkit);
 
 		//PlatformUI.getWorkbench().getHelpSystem().setHelp(this, "");
 
 		combo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				launchConfigurationManager.select(combo.getSelectionIndex());
-
-				refreshGUI();
-
 				int index = combo.getSelectionIndex();
+
+				launchConfigurationManager.select(index);
+
+				initializeFieldValuesFrom(launchConfigurationManager.getSelection());
+
+//				refreshGUI();
 				if (index != -1) {
 					launchConfigurationManager.select(index);
 				}
@@ -142,14 +133,16 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 			launchConfigurationManager.select(0);
 
 			combo.select(0);
+
+			initializeFieldValuesFrom(launchConfigurationManager.getSelection());
 		}
 	}
 
-	
+
 	@Override
 	public void dispose() {
 		launchConfigurationManager.dispose();
-	
+
 		super.dispose();
 	}
 
@@ -175,7 +168,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		} else if( launchConfigurationManager.isPopulated() ) {
 			launchConfigurationManager.select(0);
 			combo.select(0);
-		} else {			
+		} else {
 			combo.deselectAll();
 			launchConfigurationManager.select(-1);
 		}
@@ -184,134 +177,136 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		scheduleUpdateJob();
 	}
 
-	
+
 	public void launchConfigurationChanged(ILaunchConfiguration configuration, int index) {
 		if( index >= 0 ) {
 			combo.select(index);
-			
-			updateGUI();
-			
-			scheduleUpdateJob();
+
+			initializeFieldValuesFrom(configuration);
 		} else {
 			combo.deselectAll();
 		}
 	}
 
+	
+	//private Map<Integer, AbstractCompositeMaker> quickDico;
 
-	private CTabItem createTabItemAndComposite(String tabname) {
-		CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE );
-		tabItem.setText(tabname);
+	private void createSectionsContent(IWidgetToolkit widgetToolkit)
+	{
+		compMakers = new ArrayList<AbstractConfigurationPage>();
 
-		Composite tbcomp = getFormToolkit().createComposite(tabFolder);
+		createOverviewTabItem(widgetToolkit);
 
-		GridLayout gl = new GridLayout(1, false);
-		tbcomp.setLayout(gl);
+		createSupervisorTabItem(widgetToolkit);
 
-		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true);
-		tbcomp.setLayoutData(gd);
+		createTestGenerationTabItem(widgetToolkit);
 
-		tabItem.setControl(tbcomp);
-
-		return tabItem;
+		fTabFolder.setSelection(fOverviewTabItem);
 	}
 
-	private Composite first_tbcomp;
-	private CTabItem fst_tabitem;
 
-	//private Map<Integer, AbstractCompositeMaker> quickDico;
-	private Composite cc_tbcomp;
-	private CTabItem cc_tabitem;
-	private Composite tg_tbcomp;
-	private CTabItem tg_tabitem;
+	private CTabItem fOverviewTabItem;
+	private Composite fOverviewControl;
 
-	private void createSectionsContent() {
+	private void createOverviewTabItem(IWidgetToolkit widgetToolkit)
+	{
+		fOverviewTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fOverviewTabItem.setText("Main");
 
-		compMakers = new HashSet<AbstractConfigurationPage>();
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
 
-		fst_tabitem = createTabItemAndComposite("Main");
-		first_tbcomp = (Composite) fst_tabitem.getControl();
-		OverviewConfigurationPage firstcmp = new OverviewConfigurationPage(this);
+		OverviewConfigurationPage overviewPage = new OverviewConfigurationPage(this);
+
 		Map<String, Action> firstacts = new HashMap<String, Action>();
 		firstacts.put("action_apply_changes", action_apply_changes);
-		firstcmp.setRegisteredActions(firstacts);
-		firstcmp.createTabItemContent(first_tbcomp);
-		compMakers.add(firstcmp);
-//		quickDico.put(1, firstcmp);
+		overviewPage.setRegisteredActions(firstacts);
 
-		cc_tabitem = createTabItemAndComposite("Common Criteria");
-		cc_tbcomp = (Composite) cc_tabitem.getControl();
-		SupervisorConfigurationPage cccmp = new SupervisorConfigurationPage(this);
-		cccmp.createTabItemContent(cc_tbcomp);
-		compMakers.add(cccmp);
-//		quickDico.put(1, cccmp);
+		overviewPage.createControl(scrolledComposite, widgetToolkit);
 
-		tg_tabitem = createTabItemAndComposite("Test Generation");
-		tg_tbcomp = (Composite) tg_tabitem.getControl();
-		TestGenerationConfigurationPage tgcmp = new TestGenerationConfigurationPage(this);
-		tgcmp.createTabItemContent(tg_tbcomp);
-		compMakers.add(tgcmp);
-//		quickDico.put(3, tgcmp);
+		fOverviewControl = overviewPage.getControl();
+		if (fOverviewControl != null) {
+			scrolledComposite.setContent(fOverviewControl);
+			scrolledComposite.setMinSize(
+					fOverviewControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
+			fOverviewTabItem.setControl(scrolledComposite);
+		}
+
+		compMakers.add(overviewPage);
+//		quickDico.put(1, overviewPage);
+
+
+//		GridLayout gl = new GridLayout(1, false);
+//		control.setLayout(gl);
 //
-//		tg_tabitem = createTabItemAndComposite("Test Generation");
-//		tg_tbcomp = (Composite) tg_tabitem.getControl();
-//		AbstractCompositeMaker tgcmp = new TestGenerationCompositeMaker(this);
-//		//tgcmp.initializeFieldValuesFrom(null);
-//		tgcmp.createControlMain(tg_tbcomp);
-//		compMakers.add(tgcmp);
-//		quickDico.put(3, tgcmp);
-//		//toolkit.adapt(inner_tg_tbcomp);
-//		//tgcmp.propagateVisibility(tg_tbcomp, false);
-//
-//	    tabFolder.setSelection(0);
-//	    updateEnableTab(false);
-
-
-
-	    //tabFolder.setTabHeight(height);
-	    //tabFolder.getSelection()
-	    //tabFolder.pack();
-
-//	    tabFolder.addSelectionListener(new SelectionAdapter() {
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				tabFolder.update();
-//				System.err.println("bip");
-//				System.err.println( Integer.toString(tabFolder.getTabHeight()) );
-//				Control tbicontr = tabFolder.getSelection().getControl();
-//				Integer content_height = tbicontr.getSize().y;
-//				System.err.println( content_height );
-//				scrollform.reflow(true);
-//				System.err.println("bip");
-//				System.err.println( Integer.toString(tabFolder.getTabHeight()) );
-//				tbicontr = tabFolder.getSelection().getControl();
-//				content_height = tbicontr.getSize().y;
-//				System.err.println( content_height );
-//				System.err.println( "===" );
-//				if (quickDico.containsKey(tabFolder.getSelectionIndex())) {
-//					AbstractCompositeMaker current = quickDico.get(tabFolder.getSelectionIndex());
-//					Integer mysize = current.getControlMain().getSize().y;
-//					System.err.println( "==" );
-//					System.err.println(Integer.toString(mysize));
-//					System.err.println( "==" );
-//
-//				}
-//			}
-//	    });
-		
-		tabFolder.setSelection(0);
+//		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
+//		control.setLayoutData(gd);
 	}
 
-	private void updateEnableTab(boolean isLaunchConfSelected) {
-		if(isLaunchConfSelected) {
-		    first_tbcomp.setEnabled(true);
-		    //tg_tbcomp.setEnabled(true);
-		    //cc_tbcomp.setEnabled(true);
-		} else {
-		    first_tbcomp.setEnabled(false);
-		    //tg_tbcomp.setEnabled(false);
-		    //cc_tbcomp.setEnabled(false);
+
+	private CTabItem fSupervisorTabItem;
+	private Composite fSupervisorControl;
+
+	private void createSupervisorTabItem(IWidgetToolkit widgetToolkit)
+	{
+		fSupervisorTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fSupervisorTabItem.setText("Supervisor");
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		SupervisorConfigurationPage supervisorPage = new SupervisorConfigurationPage(this);
+
+		supervisorPage.createControl(scrolledComposite, widgetToolkit);
+
+		fSupervisorControl = supervisorPage.getControl();
+		if (fSupervisorControl != null) {
+			scrolledComposite.setContent(fSupervisorControl);
+			scrolledComposite.setMinSize(
+					fSupervisorControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fSupervisorTabItem.setControl(scrolledComposite);
 		}
+
+		compMakers.add(supervisorPage);
+//		quickDico.put(3, supervisorPage);
+	}
+
+
+	private CTabItem fTestGenTabItem;
+	private Composite fTestGenControl;
+
+	private void createTestGenerationTabItem(IWidgetToolkit widgetToolkit)
+	{
+		fTestGenTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fTestGenTabItem.setText("Test Generation");
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		TestGenerationConfigurationPage testGenPage = new TestGenerationConfigurationPage(this);
+
+		testGenPage.createControl(scrolledComposite, widgetToolkit);
+
+		fTestGenControl = testGenPage.getControl();
+		if (fTestGenControl != null) {
+			scrolledComposite.setContent(fTestGenControl);
+			scrolledComposite.setMinSize(
+					fTestGenControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fTestGenTabItem.setControl(scrolledComposite);
+		}
+
+		compMakers.add(testGenPage);
+//		quickDico.put(3, testGenPage);
+	}
+
+
+	private void updateEnableTab(boolean isLaunchConfSelected) {
+	    fOverviewControl.setEnabled(isLaunchConfSelected);
+	    //fTestGenControl.setEnabled(isLaunchConfSelected);
+	    //fSupervisorControl.setEnabled(isLaunchConfSelected);
 	}
 
 	private void openLaunchConfigurationDialog(ILaunchConfiguration launchConfig, String mode) {
@@ -440,6 +435,14 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 	private ILaunchConfigurationWorkingCopy fLasLaunchConfigurationWorkingCopy;
 
+	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
+		for(AbstractConfigurationPage acm : compMakers) {
+			acm.initializeFieldValuesFrom(configuration);
+		}
+
+		scheduleUpdateJob();
+	}
+
 	public void refreshGUI() {
 		if( launchConfigurationManager.hasSelection() ) {
 			ILaunchConfiguration selectedLC = launchConfigurationManager.getSelection();
@@ -451,7 +454,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 					|| (! fLasLaunchConfigurationWorkingCopy.contentsEqual(newcopy)) ) {
 					fLasLaunchConfigurationWorkingCopy = newcopy;
 					System.err.println("++++---- Biopp");
-					
+
 					for(AbstractConfigurationPage acm : compMakers) {
 						acm.initializeFieldValuesFrom(selectedLC);
 					}
@@ -462,7 +465,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 			}
 		}
 		else {
-			tabFolder.setSelection(0);
+			fTabFolder.setSelection(fOverviewTabItem);
 			updateEnableTab(false);
 		}
 	}
@@ -477,7 +480,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	public void scheduleUpdateJob(){
 		scrollform.reflow(true);
 		tabbedCompositeMaster.layout();
-		tabFolder.layout();
+		fTabFolder.layout();
 		tabbedCompositeMaster.layout();
 		scrollform.reflow(true);
 	}

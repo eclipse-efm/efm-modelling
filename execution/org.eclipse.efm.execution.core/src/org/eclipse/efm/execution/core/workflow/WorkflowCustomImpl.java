@@ -95,7 +95,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		String modelAnalysis;
 		try {
 			modelAnalysis = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS,
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
 					ANALYSIS_PROFILE_MODEL_EXPLORATION);
 		}
 		catch (CoreException e) {

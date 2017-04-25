@@ -394,9 +394,9 @@ public class StringFieldEditor extends FieldEditor {
      */
     public Text getTextControl(Composite parent) {
     	if (textField == null) {
-    		textField = new Text(parent, textFieldStyle | SWT.BORDER);
+    		textField = getConfigurationPage().getWidgetToolkit().newText(
+    				parent, fDefaultValue, textFieldStyle | SWT.BORDER);
     		textField.setFont(parent.getFont());
-    		textField.setText(fDefaultValue);
 
     		if( (textFieldStyle & SWT.MULTI) != 0 ) {
     			GridData gridData = new GridData(SWT.FILL, SWT.CENTER, true, false);

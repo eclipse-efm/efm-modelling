@@ -48,7 +48,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledLoading <em>Enabled Loading</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledComputing <em>Enabled Computing</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledReporting <em>Enabled Reporting</em>}</li>
- *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledSolver <em>Enabled Solver</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledSolving <em>Enabled Solving</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledProfiling <em>Enabled Profiling</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledAllProcessStage <em>Enabled All Process Stage</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#isEnabledPreProcessing <em>Enabled Pre Processing</em>}</li>
@@ -431,24 +431,24 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	protected boolean enabledReporting = ENABLED_REPORTING_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isEnabledSolver() <em>Enabled Solver</em>}' attribute.
+	 * The default value of the '{@link #isEnabledSolving() <em>Enabled Solving</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isEnabledSolver()
+	 * @see #isEnabledSolving()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean ENABLED_SOLVER_EDEFAULT = false;
+	protected static final boolean ENABLED_SOLVING_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isEnabledSolver() <em>Enabled Solver</em>}' attribute.
+	 * The cached value of the '{@link #isEnabledSolving() <em>Enabled Solving</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isEnabledSolver()
+	 * @see #isEnabledSolving()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean enabledSolver = ENABLED_SOLVER_EDEFAULT;
+	protected boolean enabledSolving = ENABLED_SOLVING_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isEnabledProfiling() <em>Enabled Profiling</em>}' attribute.
@@ -1551,8 +1551,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isEnabledSolver() {
-		return enabledSolver;
+	public boolean isEnabledSolving() {
+		return enabledSolving;
 	}
 
 	/**
@@ -1560,11 +1560,11 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEnabledSolver(boolean newEnabledSolver) {
-		boolean oldEnabledSolver = enabledSolver;
-		enabledSolver = newEnabledSolver;
+	public void setEnabledSolving(boolean newEnabledSolving) {
+		boolean oldEnabledSolving = enabledSolving;
+		enabledSolving = newEnabledSolving;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVER, oldEnabledSolver, enabledSolver));
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVING, oldEnabledSolving, enabledSolving));
 	}
 
 	/**
@@ -2365,8 +2365,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 				return isEnabledComputing();
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_REPORTING:
 				return isEnabledReporting();
-			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVER:
-				return isEnabledSolver();
+			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVING:
+				return isEnabledSolving();
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_PROFILING:
 				return isEnabledProfiling();
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_ALL_PROCESS_STAGE:
@@ -2502,8 +2502,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_REPORTING:
 				setEnabledReporting((Boolean)newValue);
 				return;
-			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVER:
-				setEnabledSolver((Boolean)newValue);
+			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVING:
+				setEnabledSolving((Boolean)newValue);
 				return;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_PROFILING:
 				setEnabledProfiling((Boolean)newValue);
@@ -2676,8 +2676,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_REPORTING:
 				setEnabledReporting(ENABLED_REPORTING_EDEFAULT);
 				return;
-			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVER:
-				setEnabledSolver(ENABLED_SOLVER_EDEFAULT);
+			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVING:
+				setEnabledSolving(ENABLED_SOLVING_EDEFAULT);
 				return;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_PROFILING:
 				setEnabledProfiling(ENABLED_PROFILING_EDEFAULT);
@@ -2833,8 +2833,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 				return enabledComputing != ENABLED_COMPUTING_EDEFAULT;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_REPORTING:
 				return enabledReporting != ENABLED_REPORTING_EDEFAULT;
-			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVER:
-				return enabledSolver != ENABLED_SOLVER_EDEFAULT;
+			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_SOLVING:
+				return enabledSolving != ENABLED_SOLVING_EDEFAULT;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_PROFILING:
 				return enabledProfiling != ENABLED_PROFILING_EDEFAULT;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__ENABLED_ALL_PROCESS_STAGE:
@@ -2955,8 +2955,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 		result.append(enabledComputing);
 		result.append(", enabledReporting: ");
 		result.append(enabledReporting);
-		result.append(", enabledSolver: ");
-		result.append(enabledSolver);
+		result.append(", enabledSolving: ");
+		result.append(enabledSolving);
 		result.append(", enabledProfiling: ");
 		result.append(enabledProfiling);
 		result.append(", enabledAllProcessStage: ");

@@ -18,9 +18,9 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.efm.execution.core.workflow.common.DebuglevelKind;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -178,19 +178,20 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 	// ======================================================================================
 
 	@Override
-	public void createTabItemContent(Composite parentComposite) {
-		//inner_main_composite = SWTFactory.createComposite(parent,parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
-
-		createDeveloperTuningOptionsComponent(parentComposite);
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		createDeveloperTuningOptionsComponent(parent, widgetToolkit);
 	}
 
-	private void createDeveloperTuningOptionsComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createDeveloperTuningOptionsComponent(
+			Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		Group group = widgetToolkit.createGroup(parent,
 				"Developer Tuning Options", 2, 2, GridData.FILL_HORIZONTAL);
 
-		createDeveloperModeComponent(group);
+		createDeveloperModeComponent(group, widgetToolkit);
 
-		createDebugTraceOptionsComponent(group);
+		createDebugTraceOptionsComponent(group, widgetToolkit);
 	}
 
 	private void setEnableDeveloperTuningOptionsPage(
@@ -212,14 +213,14 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 
 
-	private void createDeveloperModeComponent(Composite parent) {
-		Composite comp = SWTFactory.createComposite(
+	private void createDeveloperModeComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Composite comp = widgetToolkit.createComposite(
 				parent, 1, 5, GridData.FILL_HORIZONTAL);
 
 		fDeveloperModeEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_DEVELOPER_TUNING, "&Developer Mode", comp, false);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				parent, 1, 5, GridData.FILL_HORIZONTAL);
 
 		fLogFileNameStringField = new StringFieldEditor(this,
@@ -231,25 +232,24 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 				DEFAULT_DEVELOPER_TUNING_DEBUG_FILENAME);
 
 
-		fDebugTraceLevelLabel = SWTFactory.createLabel(
-				comp, "&Debug Level:", 1);
+		fDebugTraceLevelLabel = widgetToolkit.createLabel(comp, "&Debug Level:", 1);
 
-		fDebugTraceLevelCombo = SWTFactory.createCombo(comp,
+		fDebugTraceLevelCombo = widgetToolkit.createCombo(comp,
 				SWT.DROP_DOWN | SWT.READ_ONLY, 1, TRACE_LEVEL_COMBO_ITEMS);
 
 		fDebugTraceLevelCombo.addSelectionListener(fListener);
 	}
 
 
-	private void createDebugTraceOptionsComponent(Composite parent) {
-		fGroupDebugTraceOptions = SWTFactory.createGroup(parent,
+	private void createDebugTraceOptionsComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		fGroupDebugTraceOptions = widgetToolkit.createGroup(parent,
 				"Debug Trace Options", 3, 2, GridData.FILL_HORIZONTAL);
 
 		// General Context
-		Group group = SWTFactory.createGroup(fGroupDebugTraceOptions,
+		Group group = widgetToolkit.createGroup(fGroupDebugTraceOptions,
 				"General Context", 1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fParsingEnabledBooleanField = new BooleanFieldEditor(this,
@@ -278,10 +278,10 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 
 		// Process Stage: Processing, Filtering, ...
-		group = SWTFactory.createGroup(fGroupDebugTraceOptions,
+		group = widgetToolkit.createGroup(fGroupDebugTraceOptions,
 				"Symbex Process Stage", 1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fSymbexProcessEnabledBooleanField = new BooleanFieldEditor(this,
@@ -315,10 +315,10 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 
 		// Statement Evaluation
-		group = SWTFactory.createGroup(fGroupDebugTraceOptions,
+		group = widgetToolkit.createGroup(fGroupDebugTraceOptions,
 				"Evaluation: Statement, Trace, ...", 1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fProgramEnabledBooleanField = new BooleanFieldEditor(this,
@@ -350,10 +350,10 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 
 		// Element: Property, Signal...
-		group = SWTFactory.createGroup(fGroupDebugTraceOptions,
+		group = widgetToolkit.createGroup(fGroupDebugTraceOptions,
 				"Element: Property, Signal, ...", 1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fVariableEnabledBooleanField = new BooleanFieldEditor(this,
@@ -376,10 +376,10 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 
 		// Executable Component...
-		group = SWTFactory.createGroup(fGroupDebugTraceOptions,
+		group = widgetToolkit.createGroup(fGroupDebugTraceOptions,
 				"Executable Component", 1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fExecutableEnabledBooleanField = new BooleanFieldEditor(this,
@@ -402,11 +402,11 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 
 		// Others: [Qualified]NameID, RefCount, ...
-		group = SWTFactory.createGroup(fGroupDebugTraceOptions,
+		group = widgetToolkit.createGroup(fGroupDebugTraceOptions,
 				"Others: NameID, RefCount, ...",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fNameIdEnabledBooleanField = new BooleanFieldEditor(this,
@@ -431,7 +431,7 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 				ATTR_ENABLED_TRACE_NOTHING, "NOTHING", comp, false);
 
 		// God Mode
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				parent, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fGodModeEnabledBooleanField = new BooleanFieldEditor(this,

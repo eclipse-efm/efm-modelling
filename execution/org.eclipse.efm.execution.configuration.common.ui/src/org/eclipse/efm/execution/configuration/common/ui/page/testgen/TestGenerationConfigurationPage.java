@@ -18,10 +18,10 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -51,32 +51,29 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	//                              Graphical Components Creation Methods
 	// ======================================================================================
 
-	@Override
-	public void createTabItemContent(Composite parentComposite) {
-//		inner_main_composite = SWTFactory.createComposite(parent,
-//				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		createExtensionFormatPage(parent, widgetToolkit);
 
-		createExtensionFormatPage(parentComposite);
+		fBasicTracePage.createControl(parent, widgetToolkit);
 
-		fBasicTracePage.createPageWithToolkit(parentComposite);
-
-		fTTCNTracePage.createPageWithToolkit(parentComposite);
+		fTTCNTracePage.createControl(parent, widgetToolkit);
 	}
 
-	public void createExtensionFormatPage(Composite parent) {
-		Group group = SWTFactory.createGroup(
+	public void createExtensionFormatPage(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(
 				parent, "Trace Extension Page",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		createExtensionSelectionComponent(group);
+		createExtensionSelectionComponent(group, widgetToolkit);
 	}
 
-	private void createExtensionSelectionComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createExtensionSelectionComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Trace Extension for Test Generation Purpose",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1,  GridData.FILL_HORIZONTAL);
 
 		fTraceExtensionEnabledBooleanField = new BooleanFieldEditor(
@@ -84,11 +81,11 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 				"&Enabled Extension", comp, false);
 
 
-		groupExtensionObjective = SWTFactory.createGroup(
+		groupExtensionObjective = widgetToolkit.createGroup(
 				group, "Extension of Traces to reach Observables",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				groupExtensionObjective,
 				1, 1, GridData.FILL_HORIZONTAL);
 
@@ -118,10 +115,10 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 
 		try {
 			fAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
 
 			localEnable = fTraceExtensionEnabledBooleanField.getBooleanValue() &&
-				(! fAnalysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) );
+				(! fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) );
 
 			fTraceExtensionEvaluationStepsLimitIntegerField.setEnabled(localEnable);
 
@@ -164,14 +161,14 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 		String analysisProfile;
 		try {
 			analysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
 			analysisProfile = "";
 		}
 
-		if ( analysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) ) {
+		if ( analysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
 			fTraceExtensionEnabledBooleanField.setEnabled(false);
 		}
 		else {
@@ -186,10 +183,10 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 
 
 		fBasicTracePage.initializeFrom(configuration);
-		fBasicTracePage.unlockAndExpandPage();
+		fBasicTracePage.setVisibleAndEnabled(true);
 
 		fTTCNTracePage.initializeFrom(configuration);
-		fTTCNTracePage.unlockAndExpandPage();
+		fTTCNTracePage.setVisibleAndEnabled(true);
 	}
 
 

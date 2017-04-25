@@ -252,7 +252,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledLoading"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledComputing"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledReporting"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledSolver"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledSolving"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledProfiling"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledAllProcessStage"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledPreProcessing"/>

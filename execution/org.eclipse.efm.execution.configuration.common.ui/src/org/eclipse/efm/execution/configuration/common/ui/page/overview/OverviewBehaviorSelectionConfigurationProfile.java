@@ -14,13 +14,14 @@ package org.eclipse.efm.execution.configuration.common.ui.page.overview;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationComponent;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfigurationComponent {
+public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfigurationProfile {
 
 	private StringFieldEditor fBehaviorSpecificationStringField;
 
@@ -35,22 +36,31 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 
 
 	@Override
-	public void createPageWithToolkit(Composite parentComposite) {
-		createExpandableFrameWithToolkit(parentComposite, "Behavior Selection Page");
-		fCompositeControl.setToolTipText(BEHAVIOR_DESCRIPTION);
+	public String getSectionTitle() {
+		return "Behavior Selection";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Behavior Selection, configuration section";
+	}
+
+	
+	@Override
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
+		parent.setToolTipText(BEHAVIOR_DESCRIPTION);
 
 		fBehaviorSpecificationStringField = new StringFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST, "",
-				fCompositeControl, BEHAVIOR_DESCRIPTION, SWT.MULTI);
+				parent, BEHAVIOR_DESCRIPTION, SWT.MULTI);
 
 		fBehaviorSpecificationStringField.setToolTipText(BEHAVIOR_DESCRIPTION);
 
 //		compModelAnalysisBehavior = SWTFactory.createComposite(parent, 1, 1,
 //		GridData.FILL_HORIZONTAL);
-//GridData gridData1 = new GridData(GridData.FILL_HORIZONTAL);
-//gridData1.horizontalIndent = DETAIL_HORIZONTAL_INDENT;
-//compModelAnalysisBehavior.setLayoutData(gridData1);
-
+//		GridData gridData1 = new GridData(GridData.FILL_HORIZONTAL);
+//		gridData1.horizontalIndent = DETAIL_HORIZONTAL_INDENT;
+//		compModelAnalysisBehavior.setLayoutData(gridData1);
 	}
 
 

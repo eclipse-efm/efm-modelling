@@ -17,13 +17,19 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
 public class ExpertConfigurationPage extends AbstractConfigurationPage {
+
+	public Composite fCompositeStack;
+	public StackLayout fStackLayout;
 
 	private Group groupExplorationPage;
 
@@ -43,52 +49,78 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-
 	// ======================================================================================
 	//                              Graphical Components Creation Methods
 	// ======================================================================================
 
 	@Override
-	public void createTabItemContent(Composite parentComposite) {
-//		inner_main_composite = SWTFactory.createComposite(parent,
-//				parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		// Stack Composite w.r.t. analysis profile
+		fCompositeStack =  widgetToolkit.createComposite(parent, SWT.BORDER);
+		fCompositeStack.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		fStackLayout = new StackLayout();
+		fCompositeStack.setLayout(fStackLayout);
 
 		// EXPLORATION PAGE
-		createExplorationPage(parentComposite);
+		createExplorationPage(fCompositeStack, widgetToolkit);
+		
+		fStackLayout.topControl = groupExplorationPage;
+		fCompositeStack.layout();
 
 		// BEHAVIOR SELECTION : HIT OR JUMP
-		fBehaviorSelectionPage.createPageWithToolkit(parentComposite);
+		fBehaviorSelectionPage.createControl(fCompositeStack, widgetToolkit);
 
 		// TRANSITION COVERAGE
-		fTransitionCoveragePage.createPageWithToolkit(parentComposite);
+		fTransitionCoveragePage.createControl(fCompositeStack, widgetToolkit);
 	}
 
 	private void setEnableGroupExplorationPage(ILaunchConfiguration configuration) {
 		try {
-			String fAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+			String modelAnalysisProfile = configuration.getAttribute(
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
 
-			String fModelAnalysis = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
-
-			propagateVisibility(groupExplorationPage,
-					(fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
-					&& fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_EXPLORATION)
-					) || fAnalysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE) );
+			setVisibleProfilePage( modelAnalysisProfile );
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void setVisibleProfilePage(AbstractConfigurationProfile aProfilePage) {
+		fStackLayout.topControl = aProfilePage.getSection();
+		fCompositeStack.layout();
+	}
 
-	private void createExplorationPage(Composite parent) {
-		groupExplorationPage = SWTFactory.createGroup(parent,
+	public void setVisibleProfilePage(String profile) {
+		switch ( profile ) {
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
+			setVisibleProfilePage( fTransitionCoveragePage );
+			break;
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
+			setVisibleProfilePage( fBehaviorSelectionPage );
+			break;
+			
+		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
+		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+		default:
+			fStackLayout.topControl = groupExplorationPage;
+			fCompositeStack.layout();
+			break;
+		}
+	}
+
+
+
+	private void createExplorationPage(Composite parent, IWidgetToolkit widgetToolkit) {
+		groupExplorationPage = widgetToolkit.createGroup(parent,
 				"Exploration Page", 1, 2, GridData.FILL_HORIZONTAL);
 
-        Composite comp = SWTFactory.createComposite(groupExplorationPage, 1, 1,
+        Composite comp = widgetToolkit.createComposite(groupExplorationPage, 1, 1,
         		GridData.FILL_HORIZONTAL);
 
-        SWTFactory.createLabel(comp, "&No expert mode for Exploration "
+        widgetToolkit.createLabel(comp, "&No expert mode for Exploration "
         		+ "of Model Analysis and Test Verdict Computation !", 1);
 	}
 

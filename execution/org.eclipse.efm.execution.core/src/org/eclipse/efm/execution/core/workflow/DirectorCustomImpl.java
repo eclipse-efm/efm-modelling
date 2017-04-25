@@ -122,76 +122,56 @@ public class DirectorCustomImpl extends DirectorImpl
 
 		setSupervisor( supervisor );
 
-		String analysisProfile;
+		String modelAnalysisProfile;
 		try {
-			analysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE,
-					ANALYSIS_PROFILE_MODEL);
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-
-			analysisProfile = ANALYSIS_PROFILE_MODEL;
-		}
-
-		String modelAnalysis;
-		try {
-			modelAnalysis = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS,
+			modelAnalysisProfile = configuration.getAttribute(
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
 					ANALYSIS_PROFILE_MODEL_EXPLORATION);
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
 
-			modelAnalysis = ANALYSIS_PROFILE_MODEL_EXPLORATION;
+			modelAnalysisProfile = ANALYSIS_PROFILE_MODEL_EXPLORATION;
 		}
 
 		boolean isRedundancyDetectionPossible = false;
 
-		switch ( analysisProfile ) {
-			case ANALYSIS_PROFILE_MODEL: {
-				switch ( modelAnalysis ) {
-					case ANALYSIS_PROFILE_MODEL_EXPLORATION: {
-						//!! NOTHING to do...
-						// --> only need a Supervisor worker for Model Exploration
+		switch ( modelAnalysisProfile ) {
+			case ANALYSIS_PROFILE_MODEL_EXPLORATION: {
+				//!! NOTHING to do...
+				// --> only need a Supervisor worker for Model Exploration
 
-						isRedundancyDetectionPossible = true;
+				isRedundancyDetectionPossible = true;
 
-						break;
-					}
-					case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION: {
-						TransitionCoverageWorkerCustomImpl worker =
-								TransitionCoverageWorkerCustomImpl.create(
-										this, configuration);
-
-						getWorker().add( worker );
-
-						supervisor.getQueue().setHeuristic(true);
-
-						supervisor.getQueue().setWeight(8);
-
-						isRedundancyDetectionPossible = true;
-
-						break;
-					}
-					case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR: {
-						BehaviorCoverageWorkerCustomImpl worker =
-								BehaviorCoverageWorkerCustomImpl.create(
-										this, configuration);
-
-						getWorker().add( worker );
-
-						supervisor.getQueue().setHeuristic(true);
-
-						break;
-					}
-					default: {
-						break;
-					}
-				}
 				break;
 			}
-			case ANALYSIS_PROFILE_TEST_OFFLINE: {
+			case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION: {
+				TransitionCoverageWorkerCustomImpl worker =
+						TransitionCoverageWorkerCustomImpl.create(
+								this, configuration);
+
+				getWorker().add( worker );
+
+				supervisor.getQueue().setHeuristic(true);
+
+				supervisor.getQueue().setWeight(8);
+
+				isRedundancyDetectionPossible = true;
+
+				break;
+			}
+			case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR: {
+				BehaviorCoverageWorkerCustomImpl worker =
+						BehaviorCoverageWorkerCustomImpl.create(
+								this, configuration);
+
+				getWorker().add( worker );
+
+				supervisor.getQueue().setHeuristic(true);
+
+				break;
+			}
+			case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE: {
 				OfflineTestWorkerCustomImpl worker =
 						OfflineTestWorkerCustomImpl.create(
 								this, configuration);
@@ -202,6 +182,7 @@ public class DirectorCustomImpl extends DirectorImpl
 
 				break;
 			}
+
 			default: {
 				break;
 			}

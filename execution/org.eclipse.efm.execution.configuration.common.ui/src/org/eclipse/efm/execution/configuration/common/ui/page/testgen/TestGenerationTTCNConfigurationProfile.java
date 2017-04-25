@@ -15,18 +15,18 @@ package org.eclipse.efm.execution.configuration.common.ui.page.testgen;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationComponent;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-public class TestGenerationTTCNConfigurationProfile extends AbstractConfigurationComponent {
+public class TestGenerationTTCNConfigurationProfile extends AbstractConfigurationProfile {
 
 	private Group groupTTCNConfiguration;
 	private Group groupTTCNModule;
@@ -60,14 +60,24 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		super(configurationPage);
 	}
 
-	@Override
-	public void createPageWithToolkit(Composite parentComposite) {
-		createExpandableFrameWithToolkit(parentComposite, "TTCN Tests Generation Page");
 
-		Group group = SWTFactory.createGroup(fCompositeControl,
+	@Override
+	public String getSectionTitle() {
+		return "TTCN Tests Generation";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "TTCN Tests Generation, configuration section";
+	}
+
+
+	@Override
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Enabled Options", 2, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTTCNEnabledGenerationBooleanField =
@@ -75,7 +85,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						ATTR_TTCN_ENABLED_GENERATION,
 						"&Generation", comp, false);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTTCNEnabledAdaptationModuleBooleanField =
@@ -84,17 +94,17 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						"&Customization", comp,
 						DEFAULT_TTCN_ENABLED_CUSTOMIZATION);
 
-		createTTCNConfigurationComponent(fCompositeControl);
+		createTTCNConfigurationComponent(parent, widgetToolkit);
 
-		createTTCNModuleConfigurationComponent(fCompositeControl);
+		createTTCNModuleConfigurationComponent(parent, widgetToolkit);
 	}
 
 
-	private void createTTCNConfigurationComponent(Composite parent) {
-		groupTTCNConfiguration = SWTFactory.createGroup(parent,
+	private void createTTCNConfigurationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		groupTTCNConfiguration = widgetToolkit.createGroup(parent,
 				"&Configuration", 2, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				groupTTCNConfiguration, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fTTCNFolderNameStringField = new StringFieldEditor(fConfigurationPage,
@@ -104,23 +114,23 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				"Folder name w.r.t. <workspace-root>/<output>");
 	}
 
-	private void createTTCNModuleConfigurationComponent(Composite parent) {
-		groupTTCNModule = SWTFactory.createGroup(parent,
+	private void createTTCNModuleConfigurationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		groupTTCNModule = widgetToolkit.createGroup(parent,
 				"Modules Configuration", 3, 1, GridData.FILL_HORIZONTAL);
 
-		createTTCNModuleControlComponent(groupTTCNModule);
-		createTTCNModuleDeclarationComponent(groupTTCNModule);
-		createTTCNModuleTemplatesComponent(groupTTCNModule);
-		createTTCNModuleTestcasesComponent(groupTTCNModule);
-		createTTCNModuleAdaptationComponent(groupTTCNModule);
+		createTTCNModuleControlComponent(groupTTCNModule, widgetToolkit);
+		createTTCNModuleDeclarationComponent(groupTTCNModule, widgetToolkit);
+		createTTCNModuleTemplatesComponent(groupTTCNModule, widgetToolkit);
+		createTTCNModuleTestcasesComponent(groupTTCNModule, widgetToolkit);
+		createTTCNModuleAdaptationComponent(groupTTCNModule, widgetToolkit);
 	}
 
 
-	private void createTTCNModuleControlComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createTTCNModuleControlComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Control", 1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fTTCNControlModuleNameStringField =
@@ -130,11 +140,11 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						DEFAULT_TTCN_CONTROL_MODULE_NAME);
 	}
 
-	private void createTTCNModuleDeclarationComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createTTCNModuleDeclarationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Declaration", 1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fTTCNDeclarationsModuleNameStringField =
@@ -144,11 +154,11 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						DEFAULT_TTCN_DECLARATIONS_MODULE_NAME);
 	}
 
-	private void createTTCNModuleTemplatesComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createTTCNModuleTemplatesComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Templates", 1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTTCNTemplatesModuleNameStringField =
@@ -159,12 +169,12 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 	}
 
 
-	private void createTTCNModuleTestcasesComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createTTCNModuleTestcasesComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Testcases", 1, 3, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( HELPER_MODULE_TESTCASE_IMPLEMENTATION_TEMPLATE );
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTTCNTestcasesModuleNameStringField =
@@ -173,18 +183,18 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						"&Name:", comp,
 						DEFAULT_TTCN_TESTCASES_MODULE_NAME);
 
-		Group groupAdapters = SWTFactory.createGroup(group,
+		Group groupAdapters = widgetToolkit.createGroup(group,
 				"Adapters", 2, 1, GridData.FILL_HORIZONTAL);
 		groupAdapters.setToolTipText(
 				HELPER_MODULE_TESTCASE_IMPLEMENTATION_TEMPLATE );
 
-		group = SWTFactory.createGroup(groupAdapters,
+		group = widgetToolkit.createGroup(groupAdapters,
 				"Wrappers for testcases Starting / Ending operations",
 				2, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
@@ -201,13 +211,13 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		fTTCNTestcasesEndingWrapperStringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
 
-		group = SWTFactory.createGroup(groupAdapters,
+		group = widgetToolkit.createGroup(groupAdapters,
 				"Wrappers for testcases Sending / Receiving Operations",
 				1, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText(
 				HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS );
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText(
 				HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS );
@@ -226,12 +236,12 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 	}
 
 
-	private void createTTCNModuleAdaptationComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createTTCNModuleAdaptationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"Adaptation", 1, 3, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( HELPER_MODULE_ADAPTATION_IMPLEMENTATION_TEMPLATE );
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTTCNAdaptationModuleNameStringField =
@@ -241,18 +251,18 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						DEFAULT_TTCN_ADAPTATION_MODULE_NAME);
 
 
-		Group groupImpl = SWTFactory.createGroup(group,
+		Group groupImpl = widgetToolkit.createGroup(group,
 				"Implementations", 1, 1, GridData.FILL_HORIZONTAL);
 		groupImpl.setToolTipText(
 				HELPER_MODULE_ADAPTATION_IMPLEMENTATION_TEMPLATE );
 
-		group = SWTFactory.createGroup(groupImpl,
+		group = widgetToolkit.createGroup(groupImpl,
 				"Implementations for Starting / Ending wrappers",
 				2, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
@@ -263,13 +273,13 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		fTTCNTestcasesStartingEndingImplStringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
 
-		group = SWTFactory.createGroup(groupImpl,
+		group = widgetToolkit.createGroup(groupImpl,
 				"Implementation of testcases Sending / Receiving wrappers",
 				1, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText(
 				HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS );
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText(
 				HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS );
@@ -289,13 +299,13 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS );
 
 
-		group = SWTFactory.createGroup(groupImpl,
+		group = widgetToolkit.createGroup(groupImpl,
 				"Implementation of utility functions such as 'f_timeout'",
 				2, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
@@ -404,7 +414,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		String analysisProfile;
 		try {
 			analysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
@@ -412,24 +422,23 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		}
 		return analysisProfile;
 	}
-	
+
 	private boolean getTTCNTraceEnableGeneration(ILaunchConfiguration configuration) {
 		boolean basicTraceEnableGeneration;
 		try {
 			basicTraceEnableGeneration = configuration.getAttribute(ATTR_TTCN_ENABLED_GENERATION, false);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			basicTraceEnableGeneration = false;
 		}
 		return basicTraceEnableGeneration;
 	}
-	
+
 	private void updateGreyedOutAreas(String analysisProfile, boolean TTCNEnableGeneration) {
-		if ( analysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) ) {
+		if ( analysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
 			fTTCNEnabledGenerationBooleanField.setEnabled(false);
 			fTTCNEnabledAdaptationModuleBooleanField.setEnabled(false);
-			
+
 			fTTCNEnabledAdaptationModuleBooleanField.setEnabled(false);
 			GenericCompositeCreator.recursiveSetEnabled(groupTTCNConfiguration, false);
 			GenericCompositeCreator.recursiveSetEnabled(groupTTCNModule, false);
@@ -448,17 +457,17 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				GenericCompositeCreator.recursiveSetEnabled(groupTTCNModule, false);
 			}
 		}
-		
-		
+
+
 	}
-		
-	
+
+
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		String analysisProfile = getAnalysisProfile(configuration);
 		boolean ttcn3TraceEnableGeneration = getTTCNTraceEnableGeneration(configuration);
 		updateGreyedOutAreas(analysisProfile, ttcn3TraceEnableGeneration);
-		if ( ! analysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) ) {
+		if ( ! analysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
 			fTTCNEnabledGenerationBooleanField.initializeFrom(configuration);
 			fTTCNEnabledAdaptationModuleBooleanField.initializeFrom(configuration);
 			fTTCNFolderNameStringField.initializeFrom(configuration);

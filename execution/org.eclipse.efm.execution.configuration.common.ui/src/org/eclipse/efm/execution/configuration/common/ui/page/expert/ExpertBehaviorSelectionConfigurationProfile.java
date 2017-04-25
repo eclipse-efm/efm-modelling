@@ -15,16 +15,16 @@ package org.eclipse.efm.execution.configuration.common.ui.page.expert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationComponent;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigurationComponent {
+public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigurationProfile {
 
 	// HIT OR JUMP
 	//
@@ -58,18 +58,28 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		super(configurationPage);
 	}
 
+
 	@Override
-	public void createPageWithToolkit(Composite parentComposite) {
-		createExpandableFrameWithToolkit(parentComposite, "Behavior Selection Page");
+	public String getSectionTitle() {
+		return "Behavior Selection Configuration";
+	}
 
-//				SWTFactory.createGroup(fCompositeParent,
-//				"Behavior Selection Page", 1, 2, GridData.FILL_HORIZONTAL);
+	@Override
+	public String getSectionDescription() {
+		return "Behavior Selection, heuristic (expert) configuration section";
+	}
 
-		Group groupHoJProperty = SWTFactory.createGroup(fCompositeControl,
+	
+	@Override
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
+//		SWTFactory.createGroup(parent,
+//		"Behavior Selection Page", 1, 2, GridData.FILL_HORIZONTAL);
+
+		Group groupHoJProperty = widgetToolkit.createGroup(parent,
 				"Section PROPERTY", 1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp1 = SWTFactory.createComposite(groupHoJProperty, 1, 1,
-				GridData.FILL_HORIZONTAL);
+		Composite comp1 = widgetToolkit.createComposite(
+				groupHoJProperty, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fHoJBeginStep = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_BEGIN_STEP,
@@ -77,24 +87,24 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		fHoJBeginStep.setToolTipText("Number of \"cumulated\" steps "
 				+ "before begining the research of the behavior");
 
-		Group groupCommon = SWTFactory.createGroup(groupHoJProperty,
+		Group groupCommon = widgetToolkit.createGroup(groupHoJProperty,
 				"&Common", 3, 2, GridData.FILL_HORIZONTAL);
 
-		Composite compCommon = SWTFactory.createComposite(
+		Composite compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJHeuristic = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HEURISTIC,
 				"&Heuristic", compCommon, true);
 		fHoJHeuristic.setToolTipText("Activate the use of heuristics");
 
-		compCommon = SWTFactory.createComposite(
+		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJStop = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_STOP, "&Stop", compCommon, true);
 		fHoJStop.setToolTipText("Stop the symbolic excution "
 				+ "as soon as the behavior is covered");
 
-		compCommon = SWTFactory.createComposite(
+		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJSlice = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_SLICE, "&Slice", compCommon, true);
@@ -102,27 +112,27 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				+ "at the end of the analysis");
 
 
-		Group groupScope = SWTFactory.createGroup(groupHoJProperty,
+		Group groupScope = widgetToolkit.createGroup(groupHoJProperty,
 				"&Search Scope", 2, 2, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				groupScope, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fHoJLocallySearchScope = new BooleanFieldEditor(
 				fConfigurationPage, ATTR_BEHAVIOR_SELECTION_HOJ_SEARCH_SCOPE_LOCALLY,
 				"&Search Locally scope instead Globally", comp, false);
 
-		Group groupScheduler = SWTFactory.createGroup(groupHoJProperty,
+		Group groupScheduler = widgetToolkit.createGroup(groupHoJProperty,
 				"&Scheduler", 2, 2, GridData.FILL_HORIZONTAL);
 
-		Composite compScheduler = SWTFactory.createComposite(
+		Composite compScheduler = widgetToolkit.createComposite(
 				groupScheduler, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJSchedulerOrdered = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_SCHEDULER_ORDERED,
 				"&Ordered", compScheduler, true);
 		fHoJSchedulerOrdered.setToolTipText("Search ordered traces");
 
-		compScheduler = SWTFactory.createComposite(
+		compScheduler = widgetToolkit.createComposite(
 				groupScheduler, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJHitConsecutive = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_CONSECUTIVE,
@@ -131,10 +141,10 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				"Search ordered traces with consecutive observables");
 
 
-		Group groupOption = SWTFactory.createGroup(groupHoJProperty,
+		Group groupOption = widgetToolkit.createGroup(groupHoJProperty,
 				"&Options", 4, 2, GridData.FILL_HORIZONTAL);
 
-		Composite compOption = SWTFactory.createComposite(
+		Composite compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJHitFolding = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_FOLDING,
@@ -142,7 +152,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		fHoJHitFolding.setToolTipText(
 				"Enabled checking many trace point in one context");
 
-		compOption = SWTFactory.createComposite(
+		compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJHitLucky = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_LUCKY,
@@ -150,14 +160,14 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		fHoJHitLucky.setToolTipText(
 				"Search one trace in a lucky way - no backtracking");
 
-		compOption = SWTFactory.createComposite(
+		compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJHitMax = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_MAX,
 				"&Maximun Trace", compOption, false);
 		fHoJHitMax.setToolTipText("Search a maximun trace");
 
-		compOption = SWTFactory.createComposite(
+		compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJJumpSlice = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_SLICE,
@@ -166,10 +176,10 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				"Pruning intermediate at the end of hit or jump");
 
 
-		Group groupHoJHeuristic = SWTFactory.createGroup(fCompositeControl,
+		Group groupHoJHeuristic = widgetToolkit.createGroup(parent,
 				"Section HEURISTIC", 1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite compHeuristic = SWTFactory.createComposite(
+		Composite compHeuristic = widgetToolkit.createComposite(
 				groupHoJHeuristic, 1, 1, GridData.FILL_HORIZONTAL);
 		fHoJJumpHeight = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
@@ -190,21 +200,12 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 
 
 	private void setEnableGroupHOJPage(ILaunchConfiguration configuration) {
-		String fAnalysisProfile;
-		String fModelAnalysis;
 		try {
-			fAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
-			fModelAnalysis = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
+			String modelAnalysisProfile = configuration.getAttribute(
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
 
-			if (fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
-					&& fModelAnalysis.equals(
-							ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) ) {
-				unlockAndExpandPage();
-			} else {
-				collapseAndLockPage();
-			}
+			setVisibleAndEnabled( modelAnalysisProfile.equals(
+					ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) );
 		}
 		catch (CoreException e) {
 			e.printStackTrace();

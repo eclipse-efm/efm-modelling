@@ -29,8 +29,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
@@ -177,20 +177,21 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void createTabItemContent(Composite parentComposite) {
-//		inner_main_composite = SWTFactory.createComposite(parent,
-//				parent.getFont(), 1, 1, GridData.FILL_HORIZONTAL, 0, 0);
-		createNonRegressionSelectionComponent(parentComposite);
-		createModelFileSelectionComponent(parentComposite);
-		createAnalyseProfileComponent(parentComposite);
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		createNonRegressionSelectionComponent(parent, widgetToolkit);
+		createModelFileSelectionComponent(parent, widgetToolkit);
+		createAnalyseProfileComponent(parent, widgetToolkit);
 	}
 
 
-	private void createNonRegressionSelectionComponent(Composite parent) {
-        Group group = SWTFactory.createGroup(parent,
+	private void createNonRegressionSelectionComponent(
+			Composite parent, IWidgetToolkit widgetToolkit)
+	{
+        Group group = widgetToolkit.createGroup(parent,
         		"Non Regression", 1, 1, GridData.FILL_HORIZONTAL);
 
-        Composite comp = SWTFactory.createComposite(
+        Composite comp = widgetToolkit.createComposite(
         		group, 1, 1, GridData.FILL_HORIZONTAL);
 
         fNonRegressionBooleanField = new BooleanFieldEditor(this,
@@ -198,14 +199,16 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
         		"&Non Regression Execution", comp, false);
 	}
 
-	private void createModelFileSelectionComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(
+	private void createModelFileSelectionComponent(
+			Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		Group group = widgetToolkit.createGroup(
 				parent, "Non Regression Folder Selection",
 				5, 1, GridData.FILL_HORIZONTAL);
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, group.getFont(), 5, 5, GridData.FILL_BOTH, 0, 0);
 
-		fModelPathText = SWTFactory.createSingleText(comp, 4);
+		fModelPathText = widgetToolkit.createSingleText(comp, 4);
 		fModelPathText.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
@@ -215,13 +218,13 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 				});
 		fModelPathText.addModifyListener(fBasicModifyListener);
 
-		Composite bcomp = SWTFactory.createComposite(comp,
+		Composite bcomp = widgetToolkit.createComposite(comp,
 				3, 5, GridData.HORIZONTAL_ALIGN_END);
 		GridLayout ld = (GridLayout)bcomp.getLayout();
 		ld.marginHeight = 1;
 		ld.marginWidth = 0;
 
-		fModelWorkspaceBrowse = SWTFactory.createPushButton(bcomp, "&Workspace...", null);
+		fModelWorkspaceBrowse = widgetToolkit.createPushButton(bcomp, "&Workspace...");
 		fModelWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -298,37 +301,37 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 
 	}
 
-	protected void createAnalyseProfileComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	protected void createAnalyseProfileComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"&Non Regression Profile", 2, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 2, GridData.FILL_HORIZONTAL);
 
-		createNonRegressionListComponent(comp);
+		createNonRegressionListComponent(comp, widgetToolkit);
 
 	}
 
-	private void createNonRegressionListComponent(Composite parent) {
-		compNonRegressionCaseButton = SWTFactory.createComposite(parent, 1, 1,
+	private void createNonRegressionListComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		compNonRegressionCaseButton = widgetToolkit.createComposite(parent, 1, 1,
 				GridData.FILL_HORIZONTAL);
 		GridData gridData1 = new GridData();
 		gridData1.horizontalIndent = 50;
 		compNonRegressionCaseButton.setLayoutData(gridData1);
 
-		SWTFactory.createLabel(compNonRegressionCaseButton,
+		widgetToolkit.createLabel(compNonRegressionCaseButton,
 				"&Non Regression Case To Be Covered", 1);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				compNonRegressionCaseButton, 2, 1, GridData.FILL_HORIZONTAL);
 		fAllNonRegressionCaseButton =
-				SWTFactory.createRadioButton(comp, "&All");
+				widgetToolkit.createRadioButton(comp, "&All");
 		fAllNonRegressionCaseButton.addSelectionListener(fListener);
 		fAllNonRegressionCaseButton.setToolTipText(
 				"All transitions must be covered");
 
 		fDetailsNonRegressionCaseButton =
-				SWTFactory.createRadioButton(comp, "&Details");
+				widgetToolkit.createRadioButton(comp, "&Details");
 		fDetailsNonRegressionCaseButton.addSelectionListener(fListener);
 		fDetailsNonRegressionCaseButton.setToolTipText(
 				"Select a detailed list of transitions to be covered");
@@ -342,7 +345,7 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 // ==================================================================================
 
 
-		compNonRegressionCaseCoverage = SWTFactory.createComposite(parent, 2, 1,
+		compNonRegressionCaseCoverage = widgetToolkit.createComposite(parent, 2, 1,
 				GridData.FILL_HORIZONTAL);
 
 		fNonRegressionCaseTable1 = new Table(compNonRegressionCaseCoverage,

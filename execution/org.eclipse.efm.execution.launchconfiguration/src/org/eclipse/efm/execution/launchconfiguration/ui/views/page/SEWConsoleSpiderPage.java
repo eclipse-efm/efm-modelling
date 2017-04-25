@@ -389,9 +389,9 @@ public class SEWConsoleSpiderPage extends Page
 		resizeHeight = s.equals(CONSOLE_INIFINITE_SYMBOL);
 
 		if ( ( nbExe == 1 ) &&
-			 ( LaunchDelegate.fModelAnalysis.equals(
+			 ( LaunchDelegate.fModelAnalysisProfile.equals(
 					 ANALYSIS_PROFILE_MODEL_EXPLORATION)
-			|| LaunchDelegate.fModelAnalysis.equals(
+			|| LaunchDelegate.fModelAnalysisProfile.equals(
 					 ANALYSIS_PROFILE_MODEL_UNDEFINED)) ) {
 
 			s = aString.substring(
@@ -447,9 +447,9 @@ public class SEWConsoleSpiderPage extends Page
 				currentNbHeight : oldNbHeight;
 
 		if ( ( nbExe == 1 ) &&
-			 ( LaunchDelegate.fModelAnalysis.equals(
+			 ( LaunchDelegate.fModelAnalysisProfile.equals(
 					 ANALYSIS_PROFILE_MODEL_EXPLORATION)
-			|| LaunchDelegate.fModelAnalysis.equals(
+			|| LaunchDelegate.fModelAnalysisProfile.equals(
 					ANALYSIS_PROFILE_MODEL_UNDEFINED) ) ) {
 			beginIndex = currentIndex + 6;
 			endIndex = aString.length();

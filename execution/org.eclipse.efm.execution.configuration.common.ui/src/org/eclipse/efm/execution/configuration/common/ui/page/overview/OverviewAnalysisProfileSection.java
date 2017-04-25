@@ -12,98 +12,383 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.configuration.common.ui.page.overview;
 
+import java.util.ArrayList;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationSection;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
 public class OverviewAnalysisProfileSection extends AbstractConfigurationSection {
-	
-	private static final String[] MODEL_COMBO_ITEMS = new String[] {
-			ANALYSIS_PROFILE_MODEL_EXPLORATION ,
-			ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION ,
-			ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR,
-			ANALYSIS_PROFILE_TEST_OFFLINE
-	};
-	
+
 	public OverviewAnalysisProfileSection(
 			AbstractConfigurationPage configurationPage,
-			ToolBarManager tbm, Composite innertabcompo)
+			Composite parent, ToolBarManager toolBarManager)
 	{
-		super(configurationPage, tbm, innertabcompo);
-	}
-	
-	@Override
-	public void addComposite(Composite innertabcompo, IToolBarManager tbm) {
-		addComposite_internal(innertabcompo, tbm, "&Analysis Profile");
+		super(configurationPage, parent, toolBarManager);
 	}
 
 	private FieldEditor[] contentFieldEdit;
-	
 
-	public Combo fModelCombo;
+	protected CTabFolder fTabFolder;
+
+	protected CTabItem fExplorationTabItem;
+
+	protected CTabItem fTransitionCoverageTabItem;
+	protected CTabItem fBehaviorSelectionTabItem;
+	protected CTabItem fTestOfflineTabItem;
+
 	public OverviewTransitionCoverageConfigurationProfile fTransitionCoveragePage;
 	public OverviewBehaviorSelectionConfigurationProfile fBehaviorSelectionPage;
 	public OverviewTestOfflineConfigurationProfile fTestOfflinePage;
-	public Button fTestOfflineButton;
-	
-	
+
+	/////////////////////////////////////
+	// ANALYSIS SELECTION
+	/////////////////////////////////////
+
+	private String fModelAnalysisProfile = ANALYSIS_PROFILE_MODEL_EXPLORATION;
+
+
+	@Override
+	public String getSectionTitle() {
+		return "Analysis Profile";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Select and configure one profile for model analysis";
+	}
+
+
 	@Override
 	public void requestLayout() {
 		super.requestLayout();
 	}
-	
+
 	@Override
-	protected void addCollapsedContent() {		
-		fModelCombo = SWTFactory.createCombo(sectionClient,
-				SWT.DROP_DOWN | SWT.READ_ONLY, 1, MODEL_COMBO_ITEMS);
-		fModelCombo.setToolTipText(
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		fTabFolder = widgetToolkit.createTabFolder( parent, SWT.TOP );
+
+		fTabFolder.setToolTipText(
 				  "Choice of the strategy for the symbolic execution of the model\n"
 				+ "\t- Exploration: basic symbolic execution of the model\n"
 				+ "\t- Transition Coverage: compute a symbolic tree which covers all transitions of the model\n"
 				+ "\t- Behavior Selection: compute one or more symbolic path(s) which cover(s)\n"
 				+ "\t\t\t   a predefined behavior\n"
 				+ "\t- TESTOFFLINE : Test Verdict Computation: Offline testing...\n");
-		fModelCombo.addSelectionListener(new SelectionListener() {
+
+		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true, 2, 1);
+		fTabFolder.setLayoutData(gd);
+
+		createExplorationTabItem(widgetToolkit);
+		createTransitionCoverageTabItem(widgetToolkit);
+		createBehaviorSelectionTabItem(widgetToolkit);
+
+		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+			createTestOfflineTabItem(widgetToolkit);
+		} else {
+			fTestOfflineTabItem = null;
+		}
+
+		fTabFolder.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				fConfigurationPage.getMasterGUIelement().scheduleUpdateJob();
+				handleModelSelectionChange();
+
+				fConfigurationPage.propagateUpdateJobScheduling();
 				requestLayout();
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				fConfigurationPage.getMasterGUIelement().scheduleUpdateJob();
+				fConfigurationPage.propagateUpdateJobScheduling();
 				requestLayout();
 			}
 		});
+	}
 
-		// TRANSITION COVERAGE ANALYSIS
-		fTransitionCoveragePage = new OverviewTransitionCoverageConfigurationProfile(this.fConfigurationPage);
-		fTransitionCoveragePage.createPageWithToolkit(sectionClient);
-		fTransitionCoveragePage.updateLayouts();
 
-		// BEHAVIOR SELECTION ANALYSIS
-		fBehaviorSelectionPage = new OverviewBehaviorSelectionConfigurationProfile(this.fConfigurationPage);
-		fBehaviorSelectionPage.createPageWithToolkit(sectionClient);
-		fBehaviorSelectionPage.updateLayouts();
+	private void createExplorationTabItem(IWidgetToolkit widgetToolkit)
+	{
+		fExplorationTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fExplorationTabItem.setText(ANALYSIS_PROFILE_MODEL_EXPLORATION);
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
 		
-		fTestOfflinePage = new OverviewTestOfflineConfigurationProfile(this.fConfigurationPage);
-		fTestOfflinePage.createPageWithToolkit(sectionClient);
-		fTestOfflinePage.updateLayouts();
+		scrolledComposite.setContent(
+				widgetToolkit.createLabel(scrolledComposite,
+				"Configure Exploration limitation in Supervisor Tab", 2) );
+
+		fExplorationTabItem.setControl(scrolledComposite);
+	}
+
+	private void createTransitionCoverageTabItem(IWidgetToolkit widgetToolkit)
+	{
+		fTransitionCoverageTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fTransitionCoverageTabItem.setText(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION);
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		fTransitionCoveragePage =
+				new OverviewTransitionCoverageConfigurationProfile(this.fConfigurationPage);
+
+		fTransitionCoveragePage.createControl(scrolledComposite, widgetToolkit);
+
+		Composite control = fTransitionCoveragePage.getControl();
+		if (control != null) {
+			scrolledComposite.setContent(control);
+//			scrolledComposite.setMinSize(
+//					control.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fTransitionCoverageTabItem.setControl(scrolledComposite);
+		}
+	}
+
+	private void createBehaviorSelectionTabItem(IWidgetToolkit widgetToolkit)
+	{
+		fBehaviorSelectionTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fBehaviorSelectionTabItem.setText(ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR);
+
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		fBehaviorSelectionPage =
+				new OverviewBehaviorSelectionConfigurationProfile(this.fConfigurationPage);
+
+		fBehaviorSelectionPage.createControl(scrolledComposite, widgetToolkit);
+
+		Composite control = fBehaviorSelectionPage.getControl();
+		if (control != null) {
+			scrolledComposite.setContent(control);
+//			scrolledComposite.setMinSize(
+//					control.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fBehaviorSelectionTabItem.setControl(scrolledComposite);
+		}
+	}
+
+	private void createTestOfflineTabItem(IWidgetToolkit widgetToolkit)
+	{
+		fTestOfflineTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fTestOfflineTabItem.setText(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE);
+
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		fTestOfflinePage =
+				new OverviewTestOfflineConfigurationProfile(this.fConfigurationPage);
+
+		fTestOfflinePage.createControl(scrolledComposite, widgetToolkit);
+
+		Composite control = fTestOfflinePage.getControl();
+		if (control != null) {
+			scrolledComposite.setContent(control);
+//			scrolledComposite.setMinSize(
+//					control.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fTestOfflineTabItem.setControl(scrolledComposite);
+		}
+	}
+
+
+	public void setVisibleProfilePage(String profile) {
+		switch ( profile ) {
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
+			fTabFolder.setSelection( fTransitionCoverageTabItem );
+			break;
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
+			fTabFolder.setSelection( fBehaviorSelectionTabItem );
+			break;
+		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
+			fTabFolder.setSelection( (fTestOfflineTabItem != null) ?
+					fTestOfflineTabItem : fExplorationTabItem );
+			break;
+
+		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+		default:
+			fTabFolder.setSelection( fExplorationTabItem );
+			break;
+		}
+	}
+
+	// ======================================================================================
+	//                              Miscellaneous handling
+	// ======================================================================================
+	public void handleModelFileChange() {
+		if( fModelAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
+		{
+			fTransitionCoveragePage.handleModelFilePathChanged(
+					((OverviewConfigurationPage) fConfigurationPage).getModelPathText());
+		}
+	}
+
+	private void handleModelSelectionChange() {
+		CTabItem selectionTabItem = fTabFolder.getItem( fTabFolder.getSelectionIndex() );
+		fModelAnalysisProfile = selectionTabItem.getText();
+
+//		getConfigurationPage().propagateGUIupdate();
 	}
 
 	@Override
 	public FieldEditor[] getFieldEditors() {
 		return contentFieldEdit;
 	}
-	
+
+
+	// ======================================================================================
+	//                              Fields Value Update
+	// ======================================================================================
+
+	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
+		configuration.setAttribute(
+				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
+				ANALYSIS_PROFILE_MODEL_EXPLORATION);
+
+		// TRANSITION COVERAGE ANALYSIS
+//		fTransitionCoveragePage.setDefaults(configuration);
+
+		configuration.setAttribute(
+				ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false);
+
+		configuration.setAttribute(
+				ATTR_TRANSITION_COVERAGE_SELECTION, new ArrayList<String>());
+
+		// BEHAVIOR SELECTION ANALYSIS
+//		fBehaviorSelectionPage.setDefaults(configuration);
+		configuration.setAttribute(
+				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST,
+				BEHAVIOR_INITIAL_SAMPLE);
+
+		// TEST OFFLINE // INCUBATION MODE
+		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+//			fTestOfflinePage.setDefaults(configuration);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
+					DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
+					DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION, false);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+					DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION);
+
+			configuration.setAttribute(
+					ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+					DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION);
+		}
+	}
+
+	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
+		try {
+			fModelAnalysisProfile = configuration.getAttribute(
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
+					ANALYSIS_PROFILE_MODEL_EXPLORATION);
+
+			setVisibleProfilePage(fModelAnalysisProfile);
+		}
+		catch (CoreException e) {
+			e.printStackTrace();
+		}
+
+		setVisibleProfilePage( fModelAnalysisProfile );
+
+		fConfigurationPage.propagateGUIupdate();
+
+		// TRANSITION COVERAGE ANALYSIS
+		fTransitionCoveragePage.initializeFrom(configuration);
+
+		// BEHAVIOR SELECTION ANALYSIS
+		fBehaviorSelectionPage.initializeFrom(configuration);
+
+
+		// TEST OFFLINE // INCUBATION MODE
+		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+			fTestOfflinePage.initializeFrom(configuration);
+		}
+	}
+
+
+	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
+		configuration.setAttribute(
+				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, fModelAnalysisProfile);
+		//System.err.println("+++++" + fModelAnalysisProfile);
+		// TRANSITION COVERAGE ANALYSIS
+		fTransitionCoveragePage.performApply(configuration);
+
+		// BEHAVIOR SELECTION ANALYSIS
+		fBehaviorSelectionPage.performApply(configuration);
+
+		// TEST OFFLINE // INCUBATION MODE
+		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+			fTestOfflinePage.performApply(configuration);
+		}
+	}
+
+	// ======================================================================================
+	//                              Fields Validation
+	// ======================================================================================
+
+	public boolean areFieldsValid(ILaunchConfiguration launchConfig) {
+		switch( fModelAnalysisProfile ) {
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR: {
+			// BEHAVIOR SELECTION ANALYSIS
+			if( ! fBehaviorSelectionPage.isValid(launchConfig) )
+			{
+				return false;
+			}
+
+			break;
+		}
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION: {
+			// TRANSITION COVERAGE ANALYSIS
+			if( ! fTransitionCoveragePage.isValid(launchConfig) )
+			{
+				return false;
+			}
+
+			break;
+		}
+
+		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE: {
+			// TEST OFFLINE // INCUBATION MODE
+			if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+				if( ! fTestOfflinePage.isValid(launchConfig) )
+				{
+					return false;
+				}
+			}
+
+			break;
+		}
+
+		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+		default:
+			break;
+		}
+
+		return true;
+	}
 
 }

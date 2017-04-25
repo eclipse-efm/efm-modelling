@@ -15,30 +15,38 @@ package org.eclipse.efm.execution.configuration.common.ui.page.overview;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationSection;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.Composite;
 
-public class OverviewWorkspaceSection extends AbstractConfigurationSection {
-	
-	public OverviewWorkspaceSection(
+public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
+
+	public OverviewWorkspaceDataSection(
 			AbstractConfigurationPage configurationPage,
-			ToolBarManager tbm, Composite innertabcompo)
+			Composite parent, ToolBarManager toolBarManager)
 	{
-		super(configurationPage, tbm, innertabcompo);
-	}
-	
-	@Override
-	public void addComposite(Composite innertabcompo, IToolBarManager tbm) {
-		addComposite_internal(innertabcompo, tbm, "Workspace Folder Name");
+		super(configurationPage, parent, toolBarManager);
 	}
 
-	private FieldEditor[] contentFieldEdit;
-	
+
 	@Override
-	protected void addCollapsedContent() {
+	public String getSectionTitle() {
+		return "Workspace Data";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Enter forlders name for workspace configuration";
+	}
+
+	
+	private FieldEditor[] contentFieldEdit;
+
+	@Override
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
 		String root =  ResourcesPlugin.getWorkspace().getRoot()
 				.getLocation().append( "<project-folder-name>" ).toString();
 
@@ -49,28 +57,28 @@ public class OverviewWorkspaceSection extends AbstractConfigurationSection {
 
 		StringFieldEditor fWorkspaceRootLocationStringField =
 				new StringFieldEditor(fConfigurationPage,
-						ATTR_WORKSPACE_ROOT_LOCATION, "Root", sectionClient, root);
+						ATTR_WORKSPACE_ROOT_LOCATION, "Location", parent, root);
 		fWorkspaceRootLocationStringField.setEnabled(false);
 		fWorkspaceRootLocationStringField.setToolTipText(toolTipText2);
 
 		StringFieldEditor fWorkspaceOuputFolderNameStringField =
 				new StringFieldEditor(fConfigurationPage,
-						ATTR_WORKSPACE_OUTPUT_FOLDER_NAME, "Output", sectionClient,
+						ATTR_WORKSPACE_OUTPUT_FOLDER_NAME, "Output", parent,
 						DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
 		fWorkspaceOuputFolderNameStringField.setToolTipText(toolTipText2);
 
 		StringFieldEditor fWorkspaceLogFolderNameStringField =
 				new StringFieldEditor(fConfigurationPage,
 						ATTR_WORKSPACE_LOG_FOLDER_NAME, "Log",
-						sectionClient, DEFAULT_WORKSPACE_LOG_FOLDER_NAME);
+						parent, DEFAULT_WORKSPACE_LOG_FOLDER_NAME);
 		fWorkspaceLogFolderNameStringField.setToolTipText(toolTipText3);
 
 		StringFieldEditor fWorkspaceDebugFolderNameStringField =
 				new StringFieldEditor(fConfigurationPage,
 						ATTR_WORKSPACE_DEBUG_FOLDER_NAME, "Debug",
-						sectionClient, DEFAULT_WORKSPACE_DEBUG_FOLDER_NAME);
+						parent, DEFAULT_WORKSPACE_DEBUG_FOLDER_NAME);
 		fWorkspaceDebugFolderNameStringField.setToolTipText(toolTipText3);
-		
+
 		contentFieldEdit = new FieldEditor[]{
 				fWorkspaceRootLocationStringField,
 				fWorkspaceOuputFolderNameStringField,

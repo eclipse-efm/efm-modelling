@@ -15,18 +15,18 @@ package org.eclipse.efm.execution.configuration.common.ui.page.testgen;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationComponent;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfigurationComponent {
+public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfigurationProfile {
 
 	private Group groupBasicConfiguration;
 	private Group groupBasicObservable;
@@ -62,29 +62,38 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 		super(configurationPage);
 	}
 
-	@Override
-	public void createPageWithToolkit(Composite parentComposite) {
-		createExpandableFrameWithToolkit(parentComposite, "BASIC <Ad'hoc> Tests Generation Page");
 
-		Composite comp = SWTFactory.createComposite(
-				fCompositeControl, 1, 1, GridData.FILL_HORIZONTAL);
+	@Override
+	public String getSectionTitle() {
+		return "Basic Tests Generation";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Basic <Ad'hoc> Tests Generation, configuration section";
+	}
+
+
+	@Override
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Composite comp = widgetToolkit.createComposite(
+				parent, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceEnabledGenerationBooleanField =
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_BASIC_TRACE_ENABLED_GENERATION,
 						"&Enabled Generation", comp, false);
 
-		createBasicConfigurationComponent(fCompositeControl);
+		createBasicConfigurationComponent(parent, widgetToolkit);
 
-		createObservableSelectionComponent(fCompositeControl);
+		createObservableSelectionComponent(parent, widgetToolkit);
 	}
 
-
-	private void createBasicConfigurationComponent(Composite parent) {
-		groupBasicConfiguration = SWTFactory.createGroup(parent,
+	private void createBasicConfigurationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		groupBasicConfiguration = widgetToolkit.createGroup(parent,
 				"&Configuration", 2, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				groupBasicConfiguration, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceFolderNameStringField = new StringFieldEditor(fConfigurationPage,
@@ -93,7 +102,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 		fBasicTraceFolderNameStringField.setToolTipText(
 				"Folder name w.r.t. <workspace-root>/<output>");
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				groupBasicConfiguration, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceFileNameStringField = new StringFieldEditor(fConfigurationPage,
@@ -101,14 +110,14 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				comp, DEFAULT_BASIC_TRACE_FILE_NAME);
 		fBasicTraceFileNameStringField.setToolTipText("File name");
 
-		comp = SWTFactory.createComposite(groupBasicConfiguration,
+		comp = widgetToolkit.createComposite(groupBasicConfiguration,
 				1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceNormalizationBooleanField = new BooleanFieldEditor(
 				fConfigurationPage, ATTR_BASIC_TRACE_ENABLED_NORMALIZATION,
 				"&Normalization (Redundance Elimination...)", comp, true);
 
-		comp = SWTFactory.createComposite(groupBasicConfiguration,
+		comp = widgetToolkit.createComposite(groupBasicConfiguration,
 				1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceShowInitializationBooleanField = new BooleanFieldEditor(
@@ -116,29 +125,29 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				"&Show Parameters Initialization", comp, false);
 	}
 
-	public void createObservableSelectionComponent(Composite parent) {
-		groupBasicObservable = SWTFactory.createGroup(parent,
+	public void createObservableSelectionComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		groupBasicObservable = widgetToolkit.createGroup(parent,
 				"&Observable Traces Selection", 3, 1, GridData.FILL_HORIZONTAL);
 
-		createExternalCommunicationComponent(groupBasicObservable);
+		createExternalCommunicationComponent(groupBasicObservable, widgetToolkit);
 
-		createInternalCommunicationComponent(groupBasicObservable);
+		createInternalCommunicationComponent(groupBasicObservable, widgetToolkit);
 
-		createOtherObservableComponent(groupBasicObservable);
+		createOtherObservableComponent(groupBasicObservable, widgetToolkit);
 
-		createObservableDetailsComponent(groupBasicObservable);
+		createObservableDetailsComponent(groupBasicObservable, widgetToolkit);
 
-		createObservableFormatComponent(groupBasicObservable);
+		createObservableFormatComponent(groupBasicObservable, widgetToolkit);
 	}
 
-	private void createExternalCommunicationComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createExternalCommunicationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"External Communication", 2, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText(
 				"External, Input or Output, Communication Selection" );
 
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceAllExternalInputComBooleanField =
@@ -147,7 +156,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						"&Input", comp, true);
 
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceAllExternalOutputComBooleanField =
@@ -156,14 +165,14 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						"&Output", comp, true);
 	}
 
-	private void createInternalCommunicationComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createInternalCommunicationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"&Any Communication", 2, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( "External or Internal, "
 				+ "Input or Output, Communication Selection" );
 
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceAllInternalInputComBooleanField =
@@ -172,7 +181,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						"&Input", comp, false);
 
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceAllInternalOutputComBooleanField =
@@ -181,13 +190,13 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						"&Output", comp, false);
 	}
 
-	private void createOtherObservableComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createOtherObservableComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"&Other Elements", 4, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( "Other Elements like, Time, Variable, "
 				+ "Transition, State..., Communication Selection" );
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceTimeBooleanField =
@@ -196,7 +205,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						"&Time", comp, true);
 
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceAllVariableBooleanField =
@@ -205,7 +214,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						"&Variable", comp, false);
 
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceAllTransitionBooleanField =
@@ -214,7 +223,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						"&Transition", comp, false);
 
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceAllStateBooleanField =
@@ -223,11 +232,11 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						"&State", comp, false);
 	}
 
-	private void createObservableDetailsComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createObservableDetailsComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"&Details", 1, 3, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceObservableTraceDetailsStringField = new StringFieldEditor(
@@ -236,13 +245,13 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	}
 
 
-	private void createObservableFormatComponent(Composite parent) {
-		Group group = SWTFactory.createGroup(parent,
+	private void createObservableFormatComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+		Group group = widgetToolkit.createGroup(parent,
 				"&Ad'Hoc Element Format for Tests",
 				1, 3, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( HELPER_TRACE_FORMAT_SPECIFICATION );
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText( HELPER_TRACE_FORMAT_SPECIFICATION );
 
@@ -323,32 +332,31 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	}
 
 	private String getAnalysisProfile(ILaunchConfiguration configuration) {
-		String analysisProfile;
+		String modelAnalysisProfile;
 		try {
-			analysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
+			modelAnalysisProfile = configuration.getAttribute(
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
-			analysisProfile = "";
+			modelAnalysisProfile = "";
 		}
-		return analysisProfile;
+		return modelAnalysisProfile;
 	}
-	
+
 	private boolean getBasicTraceEnableGeneration(ILaunchConfiguration configuration) {
 		boolean basicTraceEnableGeneration;
 		try {
 			basicTraceEnableGeneration = configuration.getAttribute(ATTR_BASIC_TRACE_ENABLED_GENERATION, false);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			basicTraceEnableGeneration = false;
 		}
 		return basicTraceEnableGeneration;
 	}
-	
-	private void updateGreyedOutAreas(String analysisProfile, boolean basicTraceEnableGeneration) {
-		if ( analysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) ) {
+
+	private void updateGreyedOutAreas(String modelAnalysisProfile, boolean basicTraceEnableGeneration) {
+		if ( modelAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
 			fBasicTraceEnabledGenerationBooleanField.setEnabled(false);
 			GenericCompositeCreator.recursiveSetEnabled(groupBasicConfiguration, false);
 			GenericCompositeCreator.recursiveSetEnabled(groupBasicObservable, false);
@@ -366,14 +374,14 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 			fBasicTraceShowInitializationBooleanField.setEnabled(true);
 		}
 	}
-	
+
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		String analysisProfile = getAnalysisProfile(configuration);
 		boolean basicTraceEnableGeneration = getBasicTraceEnableGeneration(configuration);
 		updateGreyedOutAreas(analysisProfile, basicTraceEnableGeneration);
 
-		if ( !analysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE ) ) {
+		if ( ! analysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
 			fBasicTraceEnabledGenerationBooleanField.initializeFrom(configuration);
 			fBasicTraceFolderNameStringField.initializeFrom(configuration);
 			fBasicTraceFileNameStringField.initializeFrom(configuration);
@@ -417,7 +425,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 		fBasicTraceObservableTraceDetailsStringField.performApply(configuration);
 		fBasicTraceObservableFormatStringField.performApply(configuration);
-		
+
 		updateGreyedOutAreas(getAnalysisProfile(configuration),
 				getBasicTraceEnableGeneration(configuration));
 	}

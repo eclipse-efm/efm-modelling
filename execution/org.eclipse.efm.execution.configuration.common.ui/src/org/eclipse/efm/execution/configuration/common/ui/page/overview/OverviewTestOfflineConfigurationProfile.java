@@ -17,11 +17,11 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationComponent;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -44,7 +44,7 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
 
-public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurationComponent {
+public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurationProfile {
 
 	/////////////////////////////////////
 	// TEST OFFLINE // INCUBATION MODE
@@ -63,7 +63,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 	private Group fGroupControllable;
 	private StringFieldEditor fControllableStringField;
-	
+
 	/**
 	 * Constructor
 	 * @param parentTab
@@ -100,20 +100,29 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	public void createPageWithToolkit(Composite parentComposite) {
-		createExpandableFrameWithToolkit(parentComposite, "&Offline Testing Configuration Page");
-				
+	public String getSectionTitle() {
+		return "Offline Testing";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Offline Testing, configuration section";
+	}
+
+	
+	@Override
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
 //		SWTFactory.createGroup(
-//				fCompositeParent, "&Offline Testing Configuration",
+//				parent, "&Offline Testing Configuration",
 //				1, 1, GridData.FILL_HORIZONTAL);
 
-		Group group  = SWTFactory.createGroup(fCompositeControl,
+		Group group  = widgetToolkit.createGroup(parent,
 				"&Trace File Selection", 1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				group, 3, 1, GridData.FILL_HORIZONTAL);
 
-		fTracePathText = SWTFactory.createSingleText(comp, 1);
+		fTracePathText = widgetToolkit.createSingleText(comp, 1);
 		fTracePathText.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
@@ -124,7 +133,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		fTracePathText.addModifyListener(fBasicModifyListener);
 
 		fTraceWorkspaceBrowse =
-				SWTFactory.createPushButton(comp, "&Workspace...", null);
+				widgetToolkit.createPushButton(comp, "&Workspace...");
 		fTraceWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -153,12 +162,12 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 		// Test Purpose File Selection
 		//
-		group = SWTFactory.createGroup(fCompositeControl,
+		group = widgetToolkit.createGroup(parent,
 				"&Test Purpose File Selection", 1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
-		fTestPurposePathText = SWTFactory.createSingleText(comp, 1);
+		fTestPurposePathText = widgetToolkit.createSingleText(comp, 1);
 		fTestPurposePathText.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
@@ -169,7 +178,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		fTestPurposePathText.addModifyListener(fBasicModifyListener);
 
 		fTestPurposeWorkspaceBrowse =
-				SWTFactory.createPushButton(comp, "&Workspace...", null);
+				widgetToolkit.createPushButton(comp, "&Workspace...");
 		fTestPurposeWorkspaceBrowse.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
@@ -203,8 +212,8 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 				});
 
 
-		comp = SWTFactory.createComposite(
-				fCompositeControl, 1, 1, GridData.FILL_HORIZONTAL);
+		comp = widgetToolkit.createComposite(
+				parent, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fEnabledTraceConfigurationBooleanField =
 				new BooleanFieldEditor(fConfigurationPage,
@@ -213,11 +222,11 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 						comp, false);
 
 
-		fGroupObservable  = SWTFactory.createGroup(fCompositeControl,
+		fGroupObservable  = widgetToolkit.createGroup(parent,
 				"&Observable", 1, 1, GridData.FILL_HORIZONTAL);
 		fGroupObservable.setToolTipText(TEST_OFFLINE_OBSERVABLE);
 
-		comp = SWTFactory.createComposite(fGroupObservable,
+		comp = widgetToolkit.createComposite(fGroupObservable,
 				1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText(TEST_OFFLINE_OBSERVABLE);
 
@@ -225,11 +234,11 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 				ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION, "", comp,
 				DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION, SWT.MULTI);
 
-		fGroupControllable = SWTFactory.createGroup(fCompositeControl,
+		fGroupControllable = widgetToolkit.createGroup(parent,
 				"&Controllable", 1, 1, GridData.FILL_HORIZONTAL);
 		fGroupControllable.setToolTipText(TEST_OFFLINE_CONTROLLABLE);
 
-		comp = SWTFactory.createComposite(fGroupControllable,
+		comp = widgetToolkit.createComposite(fGroupControllable,
 				1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText(TEST_OFFLINE_CONTROLLABLE);
 

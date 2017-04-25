@@ -18,9 +18,9 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -132,20 +132,20 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void createTabItemContent(Composite parentComposite) {
-		//inner_main_composite = SWTFactory.createComposite(parent, parent.getFont(), 1, 1, GridData.FILL_BOTH, 0, 0);
-
-		createControlNodesHeightWidth(parentComposite);
-		createControlEvaluationLimits(parentComposite);
-		createAnalyzeStrategy(parentComposite);
-		createControlInclusionCriterion(parentComposite);
-//		createBehaviorCharacterization(parentComposite);
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		createControlNodesHeightWidth(parent, widgetToolkit);
+		createControlEvaluationLimits(parent, widgetToolkit);
+		createAnalyzeStrategy(parent, widgetToolkit);
+		createControlInclusionCriterion(parent, widgetToolkit);
+//		createBehaviorCharacterization(parent, widgetToolkit);
 	}
 
-	private void createControlNodesHeightWidth(Composite parent) {
-        Group group = SWTFactory.createGroup(parent, "Graph size limits", 5, 2, GridData.FILL_HORIZONTAL);
+	private void createControlNodesHeightWidth(Composite parent, IWidgetToolkit widgetToolkit) {
+        Group group = widgetToolkit.createGroup(parent,
+        		"Graph size limits", 5, 2, GridData.FILL_HORIZONTAL);
 
-        Composite comp = SWTFactory.createComposite(group, 1, 1, GridData.FILL_HORIZONTAL);
+        Composite comp = widgetToolkit.createComposite(group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fNodeIntegerField = new IntegerFieldEditor(this,
 				ATTR_SPECIFICATION_STOP_CRITERIA_NODE, "&Nodes:", comp, -1);
@@ -163,11 +163,11 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 				"Maximal height (-1 <=> no-limit) of the symbolic execution tree");
 	}
 
-	private void createControlEvaluationLimits(Composite parent) {
-        Group group = SWTFactory.createGroup(parent,
+	private void createControlEvaluationLimits(Composite parent, IWidgetToolkit widgetToolkit) {
+        Group group = widgetToolkit.createGroup(parent,
         		"Evaluation limits", 5, 2, GridData.FILL_HORIZONTAL);
 
-        Composite comp = SWTFactory.createComposite(
+        Composite comp = widgetToolkit.createComposite(
         		group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fStepsIntegerField = new IntegerFieldEditor(this,
@@ -183,11 +183,11 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 				+ "(-1 <=> no-limit) of the symbolic execution");
 	}
 
-	private void createControlInclusionCriterion(Composite parent) {
-        groupInclusionCriterion = SWTFactory.createGroup(parent,
+	private void createControlInclusionCriterion(Composite parent, IWidgetToolkit widgetToolkit) {
+        groupInclusionCriterion = widgetToolkit.createGroup(parent,
         		"Inclusion Criterion", 5, 2, GridData.FILL_HORIZONTAL);
 
-        Composite comp = SWTFactory.createComposite(
+        Composite comp = widgetToolkit.createComposite(
         		groupInclusionCriterion, 1, 1, GridData.FILL_HORIZONTAL);
 
         fInclusionCriterionBooleanField = new BooleanFieldEditor(this,
@@ -196,19 +196,19 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	protected void createAnalyzeStrategy(Composite parent) {
-		groupAnalyzeStrategy = SWTFactory.createGroup(
+	protected void createAnalyzeStrategy(Composite parent, IWidgetToolkit widgetToolkit) {
+		groupAnalyzeStrategy = widgetToolkit.createGroup(
 				parent, "&Analyze Strategy", 3, 1, GridData.FILL_HORIZONTAL);
 
-		fBFSButton = SWTFactory.createRadioButton(groupAnalyzeStrategy, "&BFS");
+		fBFSButton = widgetToolkit.createRadioButton(groupAnalyzeStrategy, "&BFS");
 		fBFSButton.addSelectionListener(fListener);
 		fBFSButton.setToolTipText("Breadth First Search");
 
-		fDFSButton = SWTFactory.createRadioButton(groupAnalyzeStrategy, "&DFS");
+		fDFSButton = widgetToolkit.createRadioButton(groupAnalyzeStrategy, "&DFS");
 		fDFSButton.addSelectionListener(fListener);
 		fDFSButton.setToolTipText("Depth First Search");
 
-		fRFSButton = SWTFactory.createRadioButton(groupAnalyzeStrategy, "&RFS");
+		fRFSButton = widgetToolkit.createRadioButton(groupAnalyzeStrategy, "&RFS");
 		fRFSButton.addSelectionListener(fListener);
 		fRFSButton.setToolTipText("Random First Search");
 
@@ -217,12 +217,12 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 		fRFSButton.setSelection(false);
 	}
 
-//	public void createBehaviorCharacterization(Composite parent) {
-//        groupBehaviorCharacterization = SWTFactory.createGroup(
+//	public void createBehaviorCharacterization(Composite parent, IWidgetToolkit widgetToolkit) {
+//        groupBehaviorCharacterization = widgetToolkit.createGroup(
 //        		parent, "Behavior Characterization",
 //        		5, 2, GridData.FILL_HORIZONTAL);
 //
-//        Composite comp = SWTFactory.createComposite(
+//        Composite comp = widgetToolkit.createComposite(
 //        		groupBehaviorCharacterization, 1, 1, GridData.FILL_HORIZONTAL);
 //
 //		fTransitionNameStringField = new StringFieldEditor(this,
@@ -254,7 +254,7 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
     	String fModelAnalysis;
 		try {
 			fModelAnalysis = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
 
 			if ( fModelAnalysis.equals(
 					ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
@@ -324,18 +324,12 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 	}
 
 	private void initializeAnalyzeStrategy(ILaunchConfiguration configuration) {
-    	String fModelAnalysis;
-    	String fAnalysisProfile;
 		try {
-			fModelAnalysis = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
+			String modelAnalysisProfile = configuration.getAttribute(
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
 
-			fAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
 
-			if ( fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION)
-				|| fModelAnalysis.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR)
-				|| fAnalysisProfile.equals(ANALYSIS_PROFILE_TEST_OFFLINE) ) {
+			if ( ! modelAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL_EXPLORATION) ) {
 //				fBFSButton.setEnabled(false);
 //				fDFSButton.setEnabled(false);
 //				fRFSButton.setEnabled(false);

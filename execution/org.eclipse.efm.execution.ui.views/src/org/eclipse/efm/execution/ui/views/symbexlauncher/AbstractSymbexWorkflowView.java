@@ -13,6 +13,7 @@
 package org.eclipse.efm.execution.ui.views.symbexlauncher;
 
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
@@ -21,12 +22,10 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
@@ -36,16 +35,15 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 
 	protected Composite parentComposite;
 
-	private FormToolkit toolkit;
+	protected FormWidgetToolkit toolkit;
+
 	public ScrolledForm scrollform;
-	protected Composite tabbedCompositeMaster;
-	public CTabFolder tabFolder;
 
 	private Label message_text_display;
 	private Label message_image_display;
 
 	protected void setupFormFrame() {
-		toolkit = new FormToolkit(parentComposite.getDisplay());
+		toolkit = new FormWidgetToolkit(parentComposite.getDisplay());
 		scrollform = toolkit.createScrolledForm(parentComposite);
 		//scrollform.setText("Run Configuration");
 		GridLayout layout = new GridLayout(1, false);
@@ -56,27 +54,6 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 		//this.setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_commoncriteria_tab");
 	}
 
-	
-	@Override
-	public FormToolkit getFormToolkit() {
-		return toolkit;
-	}
-	
-	@Override
-	public Composite createComposite(Composite parent) {
-		return toolkit.createComposite(parent);
-	}
-	
-	@Override
-	public Composite createComposite(Composite parent, int style) {
-		return toolkit.createComposite(parent, style);
-	}
-	
-	@Override
-	public Text createText(Composite parent, String value, int style) {
-		return toolkit.createText(parent, value, style);
-	}
-	
 
 	private Composite message_display_parentcomposite;
 
@@ -111,10 +88,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 	}
 
 	protected void showMessage(String message) {
-		MessageDialog.openInformation(
-				scrollform.getShell(),
-			"Symbex Workflow",
-			message);
+		MessageDialog.openInformation(scrollform.getShell(), "Symbex Workflow", message);
 	}
 
 	/**
@@ -128,6 +102,29 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 	//                              ILaunchConfigurationGUIelement interface methods
 	// ======================================================================================
 
+
+	///////////////////////////////////////////////////////////////////////////
+	// Form / Widget Toolkit
+	///////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public FormToolkit getFormToolkit() {
+		return toolkit;
+	}
+
+	@Override
+	public IWidgetToolkit getWidgetToolkit() {
+		return toolkit;
+	}
+
+	public FormWidgetToolkit getFormWidgetToolkit() {
+		return toolkit;
+	}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// Message API
+	///////////////////////////////////////////////////////////////////////////
 
 	@Override // to change visibility to public
 	public void setMessage(String message){

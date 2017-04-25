@@ -11,29 +11,33 @@
 
 package org.eclipse.efm.execution.configuration.common.ui.api;
 
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 
 
 public interface ILaunchConfigurationGUIelement {
-	
+
+	///////////////////////////////////////////////////////////////////////////
+	// Form / Widget Toolkit
+	///////////////////////////////////////////////////////////////////////////
+
 	public FormToolkit getFormToolkit();
-	
-	public Composite createComposite(Composite parent);
-	public Composite createComposite(Composite parent, int style);
-	public Text createText(Composite parent, String value, int style);
-	
-	
+
+	public IWidgetToolkit getWidgetToolkit();
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// Message API
+	///////////////////////////////////////////////////////////////////////////
+
 	public void setMessage(String message);
 
 	public void setWarningMessage(String warningmessage);
-	
+
 	public void setErrorMessage(String errormessage);
-	
+
 	public void updateGUI();
-	
+
 	public void scheduleUpdateJob();
-	
+
 }

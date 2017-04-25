@@ -17,56 +17,37 @@ import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
-public abstract class AbstractConfigurationSection implements IWorkflowConfigurationConstants {
-	
+public abstract class AbstractConfigurationSection extends AbstractSectionPart
+		implements IWorkflowConfigurationConstants {
+
 	protected AbstractConfigurationPage fConfigurationPage;
-	
-	public Section section;
-	protected Composite sectionClient;
-	
+
 	public AbstractConfigurationSection(AbstractConfigurationPage configurationPage,
-			ToolBarManager tbm, Composite innertabcompo)
+			Composite parent, ToolBarManager toolBarManager)
 	{
 		this.fConfigurationPage = configurationPage;
-		
-		this.addComposite(innertabcompo, tbm);
+
+		this.initialize(parent, toolBarManager);
 	}
-	
-	public abstract void addComposite(Composite innertabcompo, IToolBarManager tbm);
-	
-	protected void addComposite_internal(Composite innertabcompo, IToolBarManager tbm, String title) {
-		FormToolkit toolkit = fConfigurationPage.getMasterFormToolkit();
-		section = toolkit.createSection(innertabcompo,
-				Section.DESCRIPTION|Section.TWISTIE|Section.TITLE_BAR|Section.EXPANDED);
-		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
-		section.setLayoutData(gd);
-		section.setText(title);
-		
-		if (tbm != null) {
-			ToolBar toolbar = ((ToolBarManager) tbm).createControl(section);
-			section.setTextClient(toolbar);
-		}
-		sectionClient = toolkit.createComposite(section);
-		sectionClient.setLayout(new GridLayout());
-		
-		addCollapsedContent();
-		
-		section.setClient(sectionClient);
+
+	public AbstractConfigurationPage getConfigurationPage() {
+		return fConfigurationPage;
 	}
-	
-	public void requestLayout() {
-		section.layout();
-		section.requestLayout();
+
+	public void initialize(Composite parent, IToolBarManager toolBarManager) {
+		IWidgetToolkit toolkit = fConfigurationPage.getWidgetToolkit();
+		
+		toolkit.createSectionPart(this, parent,
+				Section.TITLE_BAR | Section.DESCRIPTION |
+				Section.EXPANDED  | Section.TWISTIE, toolBarManager);
+		
+		createContent(getSectionClient(), fConfigurationPage.getWidgetToolkit());
 	}
-	
+
+
     /**
      * Sets the label control's tool tip text to the argument
      */
@@ -74,9 +55,9 @@ public abstract class AbstractConfigurationSection implements IWorkflowConfigura
 //    	section.setToolTipText(string);
     }
 
-	
-	protected abstract void addCollapsedContent();
-	
+
+	protected abstract void createContent(Composite parent, IWidgetToolkit widgetToolkit);
+
 	public abstract FieldEditor[] getFieldEditors();
-	
+
 }

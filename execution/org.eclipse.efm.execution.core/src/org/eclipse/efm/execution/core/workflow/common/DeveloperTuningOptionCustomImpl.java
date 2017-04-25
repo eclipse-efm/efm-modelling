@@ -185,7 +185,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 		catch( CoreException e ) {
 			enabled = false;
 		}
-		setEnabledSolver( enabled );
+		setEnabledSolving( enabled );
 
 		try {
 			enabled = configuration.getAttribute(
@@ -851,8 +851,8 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 						writer.appendTab2Eol( "flag = 'REPORTING'" );
 					}
 
-					if( isEnabledSolver() ) {
-						writer.appendTab2Eol( "flag = 'SOLVER'" );
+					if( isEnabledSolving() ) {
+						writer.appendTab2Eol( "flag = 'SOLVING'" );
 					}
 
 					if( isEnabledProfiling() ) {

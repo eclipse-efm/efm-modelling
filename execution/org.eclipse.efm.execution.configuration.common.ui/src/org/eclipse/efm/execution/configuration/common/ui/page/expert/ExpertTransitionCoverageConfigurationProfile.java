@@ -15,11 +15,11 @@ package org.eclipse.efm.execution.configuration.common.ui.page.expert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationComponent;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
+import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.SWTFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
-public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfigurationComponent {
+public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfigurationProfile {
 
 	private static final String SCOPE_COMBO_ITEM_INSTANCE = "INSTANCE";
 	private static final String SCOPE_COMBO_ITEM_MODEL = "MODEL";
@@ -152,21 +152,30 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 
 	@Override
-	public void createPageWithToolkit(Composite parentComposite) {
-		createExpandableFrameWithToolkit(parentComposite, "Transition Coverage Page");
-				
-//				SWTFactory.createGroup(parent,
-//				"Transition Coverage Page", 1, 2, GridData.FILL_HORIZONTAL);
+	public String getSectionTitle() {
+		return "Transition Coverage Configuration";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Transition Coverage, heuristic (expert) configuration section";
+	}
+
+	
+	@Override
+	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
+//		widgetToolkit.createGroup(parent,
+//		"Transition Coverage Page", 1, 2, GridData.FILL_HORIZONTAL);
 
 		// TRANSITION COVERAGE - section PROPERTY
 		//
-		Group groupTCProperty = SWTFactory.createGroup(
-				fCompositeControl, "Section PROPERTY",
+		Group groupTCProperty = widgetToolkit.createGroup(
+				parent, "Section PROPERTY",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = SWTFactory.createComposite(
+		Composite comp = widgetToolkit.createComposite(
 				groupTCProperty, 1, 1, GridData.FILL_HORIZONTAL);
-//				GridData.HORIZONTAL_ALIGN_BEGINNING);
+		//		GridData.HORIZONTAL_ALIGN_BEGINNING);
 		fTCBeginStep = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_BEGIN_STEP,
 				"&Begin Step:", comp, 0);
@@ -174,32 +183,32 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				+ "before begining the verification cover");
 		fTCBeginStep.setEnabled(false);
 
-		Group groupCommon = SWTFactory.createGroup(groupTCProperty,
+		Group groupCommon = widgetToolkit.createGroup(groupTCProperty,
 				"&Common Coverage Configuration",
 				4, 2, GridData.FILL_HORIZONTAL);
 
-		Composite compCommon = SWTFactory.createComposite(
+		Composite compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
 		fTCHeuristic = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HEURISTIC,
 				"&Heuristic", compCommon, true);
 		fTCHeuristic.setToolTipText("Activate the use of heuristics");
 
-		compCommon = SWTFactory.createComposite(
+		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
 		fTCStop = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_STOP, "&Stop", compCommon, true);
 		fTCStop.setToolTipText("Stop the symbolic excution "
 				+ "as soon as the coverage is completed");
 
-		compCommon = SWTFactory.createComposite(
+		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
 		fTCSlice = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_SLICE, "&Slice", compCommon, true);
 		fTCSlice.setToolTipText("Pruning symbolic execution "
 				+ "graph at the end of the analysis");
 
-		compCommon = SWTFactory.createComposite(
+		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
 		fTCMinimize = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_MINIMIZE,
@@ -208,28 +217,27 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				"Stop the symbolic execution at the earliest");
 
 
-		Composite comp3 = SWTFactory.createComposite(
+		Composite comp3 = widgetToolkit.createComposite(
 				groupTCProperty, 2, 1, GridData.FILL_HORIZONTAL);
-		SWTFactory.createLabel(comp3, "&Scope:", 1);
-		fTCScopeCombo = SWTFactory.createCombo(comp3,
+		widgetToolkit.createLabel(comp3, "&Scope:", 1);
+		fTCScopeCombo = widgetToolkit.createCombo(comp3,
 				SWT.DROP_DOWN | SWT.READ_ONLY, 1, SCOPE_COMBO_ITEMS);
 		fTCScopeCombo.addSelectionListener(fListener);
 
 		// TRANSITION COVERAGE - section HEURISTIC
 		//
-		Group groupTCHeuristic = SWTFactory.createGroup(
-				fCompositeControl,
-				"First Heuristic Configuration",
+		Group groupTCHeuristic = widgetToolkit.createGroup(
+				parent, "First Heuristic Configuration",
 				2, 1, GridData.FILL_HORIZONTAL);
 
-		Group group = SWTFactory.createGroup(groupTCHeuristic,
+		Group group = widgetToolkit.createGroup(groupTCHeuristic,
 				"&Configuration", 1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
-		SWTFactory.createLabel(comp, "&Start:", 1);
-		fTCHeuristicStartCombo = SWTFactory.createCombo(
+		widgetToolkit.createLabel(comp, "&Start:", 1);
+		fTCHeuristicStartCombo = widgetToolkit.createCombo(
 				comp, SWT.DROP_DOWN | SWT.READ_ONLY,
 				1, HEURISTIC_START_COMBO_ITEMS);
 		fTCHeuristicStartCombo.addSelectionListener(fListener);
@@ -240,10 +248,10 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		//fTCHeuristicTrials.setTextLimit(20);
 
 
-		group = SWTFactory.createGroup(groupTCHeuristic,
+		group = widgetToolkit.createGroup(groupTCHeuristic,
 				"&Target Objective", 1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTCObjectiveRate = new IntegerFieldEditor(fConfigurationPage,
@@ -257,10 +265,10 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		fTCObjectiveRest.setTextLimit(3);
 
 
-		group = SWTFactory.createGroup(groupTCHeuristic,
+		group = widgetToolkit.createGroup(groupTCHeuristic,
 				"&Lookahead Scope", 1, 2, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTCCoverageHeight = new IntegerFieldEditor(fConfigurationPage,
@@ -270,20 +278,20 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_WIDTH, "&Width:", comp, 42);
 
 
-		Group groupStrategy = SWTFactory.createGroup(groupTCHeuristic,
+		Group groupStrategy = widgetToolkit.createGroup(groupTCHeuristic,
 				"Strategy of Selection of Contexts in the Queue w.r.t. "
-				+ "the number of Fireable transitions",
-				3, 2, GridData.FILL_HORIZONTAL);
+						+ "the number of Fireable transitions",
+						3, 2, GridData.FILL_HORIZONTAL);
 
 
-		group = SWTFactory.createGroup(groupStrategy,
+		group = widgetToolkit.createGroup(groupStrategy,
 				"&Strongly Fireable Transition Selection",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite compGroup = SWTFactory.createComposite(
+		Composite compGroup = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				compGroup, 1, 2, GridData.FILL_HORIZONTAL);
 
 		fTCHitStronglyRandom = new BooleanFieldEditor(fConfigurationPage,
@@ -295,14 +303,14 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				"&Hit Count:", compGroup, 1);
 
 
-		group = SWTFactory.createGroup(groupStrategy,
+		group = widgetToolkit.createGroup(groupStrategy,
 				"&Weakly Fireable Transition Selection",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		compGroup = SWTFactory.createComposite(
+		compGroup = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				compGroup, 1, 2, GridData.FILL_HORIZONTAL);
 
 		fTCHitWeaklyRandom = new BooleanFieldEditor(fConfigurationPage,
@@ -314,14 +322,14 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				"&Hit Count:", compGroup, 1);
 
 
-		group = SWTFactory.createGroup(groupStrategy,
+		group = widgetToolkit.createGroup(groupStrategy,
 				"&Other Fireable Transition Selection",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		compGroup = SWTFactory.createComposite(
+		compGroup = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				compGroup, 1, 2, GridData.FILL_HORIZONTAL);
 
 		fTCHitOtherRandom = new BooleanFieldEditor(fConfigurationPage,
@@ -333,20 +341,19 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				"&Hit Count:", compGroup, 1);
 
 
-		groupTCHeuristic = SWTFactory.createGroup(
-				fCompositeControl,
-				"Second Heuristic Configuration",
+		groupTCHeuristic = widgetToolkit.createGroup(
+				parent, "Second Heuristic Configuration",
 				2, 1, GridData.FILL_HORIZONTAL);
 
-		group = SWTFactory.createGroup(groupTCHeuristic,
+		group = widgetToolkit.createGroup(groupTCHeuristic,
 				"&Directive Trace: Strategy & Limit",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		comp = SWTFactory.createComposite(
+		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		SWTFactory.createLabel(comp, "&Heuristic:", 1);
-		fTCDirectiveTraceHeuristicCombo = SWTFactory.createCombo(
+		widgetToolkit.createLabel(comp, "&Heuristic:", 1);
+		fTCDirectiveTraceHeuristicCombo = widgetToolkit.createCombo(
 				comp, SWT.DROP_DOWN | SWT.READ_ONLY, 1,
 				DIRECTIVE_TRACE_HEURISTIC_COMBO_ITEMS);
 		fTCDirectiveTraceHeuristicCombo.addSelectionListener(fListener);
@@ -362,24 +369,14 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 
 	private void setEnableGroupTCPage(ILaunchConfiguration configuration) {
-		String fAnalysisProfile;
-		String fModelAnalysis;
 		try {
-			fAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_ANALYSIS_PROFILE, "");
-			fModelAnalysis = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS, "");
+			String modelAnalysisProfile = configuration.getAttribute(
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
 
-			if (fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL)
-					&& fModelAnalysis.equals(
-							ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) ) {
-				unlockAndExpandPage();
-			} else {
-				collapseAndLockPage();
-			}
+			setVisibleAndEnabled( modelAnalysisProfile.equals(
+					ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) );
 		}
 		catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

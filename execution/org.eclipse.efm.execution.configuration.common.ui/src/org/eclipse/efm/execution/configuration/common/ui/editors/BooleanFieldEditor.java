@@ -20,6 +20,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -177,7 +178,8 @@ public class BooleanFieldEditor extends FieldEditor {
 	 */
 	protected Button getChangeControl(Composite parent) {
 		if (checkBox == null) {
-			checkBox = new Button(parent, SWT.CHECK | SWT.LEFT);
+			checkBox = getConfigurationPage().getWidgetToolkit().newButton(
+					parent, null, SWT.CHECK | SWT.LEFT);
 			checkBox.setFont(parent.getFont());
 			checkBox.addSelectionListener(new SelectionAdapter() {
 				@Override
@@ -279,6 +281,18 @@ public class BooleanFieldEditor extends FieldEditor {
     }
 
 
+	/**
+	 * Adds the listener to the collection of listeners who will
+	 * be notified when the control is selected by the user, by sending
+	 * it one of the messages defined in the <code>SelectionListener</code>
+	 * interface.
+	 * @param listener
+	 */
+	public void addSelectionListener (SelectionListener listener) {
+		if (checkBox != null) {
+			checkBox.addSelectionListener(listener);
+		}
+	}
 
 
 

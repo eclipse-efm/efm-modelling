@@ -960,7 +960,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledSolver() {
+	public EAttribute getDeveloperTuningOption_EnabledSolving() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -1510,7 +1510,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_LOADING);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_COMPUTING);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_REPORTING);
-		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_SOLVER);
+		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_SOLVING);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_PROFILING);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_ALL_PROCESS_STAGE);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_PRE_PROCESSING);
@@ -1684,7 +1684,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getDeveloperTuningOption_EnabledLoading(), ecorePackage.getEBoolean(), "enabledLoading", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledComputing(), ecorePackage.getEBoolean(), "enabledComputing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledReporting(), ecorePackage.getEBoolean(), "enabledReporting", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledSolver(), ecorePackage.getEBoolean(), "enabledSolver", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledSolving(), ecorePackage.getEBoolean(), "enabledSolving", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledProfiling(), ecorePackage.getEBoolean(), "enabledProfiling", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledAllProcessStage(), ecorePackage.getEBoolean(), "enabledAllProcessStage", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_EnabledPreProcessing(), ecorePackage.getEBoolean(), "enabledPreProcessing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

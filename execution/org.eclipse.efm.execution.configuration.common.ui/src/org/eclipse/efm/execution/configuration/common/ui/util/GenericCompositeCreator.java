@@ -30,11 +30,11 @@ public class GenericCompositeCreator {
 	public static Text createComposite_label_text_from_toolkit(FormToolkit toolkit, Composite parentComposite, String labeltext, int colnum) {
 		
 		Composite composite = toolkit.createComposite(parentComposite);
-		
+
 		GridLayout gl = new GridLayout(colnum, false);
 		composite.setLayout(gl);
 		
-		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
+		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, false);
 		composite.setLayoutData(gd);
 		
 		toolkit.createLabel(composite, labeltext);
@@ -48,14 +48,15 @@ public class GenericCompositeCreator {
 		return label_content;
 	}
 	
-	public static Button createComposite_label_pushbutton_from_toolkit(FormToolkit toolkit, Composite parentComposite, String labeltext, String buttontext, int colnum) {
-		
+	public static Button createComposite_label_pushbutton_from_toolkit(FormToolkit toolkit,
+			Composite parentComposite, String labeltext, String buttontext, int colnum)
+	{
 		Composite composite = toolkit.createComposite(parentComposite);
-		
+
 		GridLayout gl = new GridLayout(colnum, false);
 		composite.setLayout(gl);
 		
-		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
+		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, false);
 		composite.setLayoutData(gd);
 		
 		toolkit.createLabel(composite, labeltext);
@@ -72,10 +73,11 @@ public class GenericCompositeCreator {
 	
 
 	
-	public static Combo createComposite_combo_text_from_toolkit(FormToolkit toolkit, Composite parentComposite, String labeltext, int colnum) {
+	public static Combo createComposite_combo_text_from_toolkit(
+			FormToolkit toolkit, Composite parentComposite, String labeltext, int colnum) {
 		
 		Composite composite = toolkit.createComposite(parentComposite);
-		
+
 		//RowLayout rl = new RowLayout(SWT.HORIZONTAL);
 		//rl.wrap = false;
 		GridLayout gl = new GridLayout(colnum, false);
@@ -85,9 +87,9 @@ public class GenericCompositeCreator {
 		//RowLayout rl = new RowLayout(SWT.HORIZONTAL);
 		composite.setLayout(gl);
 		
-		//GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
-		//RowData rd = new RowData();
-		//composite.setLayoutData(gd);
+		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, false);
+//		RowData rd = new RowData();
+		composite.setLayoutData(gd);
 		
 		
 		//Composite labelhost = toolkit.createComposite(composite);
@@ -110,13 +112,14 @@ public class GenericCompositeCreator {
 		//GridData gdcb = new GridData(SWT.RIGHT,SWT.TOP, true, false);
 		
 		Combo combo = new Combo(composite, SWT.READ_ONLY);
-		//combo.setLayoutData(new GridData(SWT.FILL,SWT.FILL, true, false));
-		//combo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		combo.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
+		combo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//		combo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+//		combo.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		
 		//combo.setLayoutData(gdcb);
 		//combo.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-		//toolkit.adapt(combo);
+		
+		toolkit.adapt(combo, true, true);
 		 
 		return combo;
 	}	

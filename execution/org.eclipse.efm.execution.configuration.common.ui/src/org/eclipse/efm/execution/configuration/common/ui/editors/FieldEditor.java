@@ -360,12 +360,9 @@ public abstract class FieldEditor {
      */
     public Label getLabelControl(Composite parent) {
         if (label == null) {
-            label = new Label(parent, SWT.LEFT);
+            label = fConfigurationPage.getWidgetToolkit().newLabel(
+            		parent, getLabelText(), SWT.LEFT);
             label.setFont(parent.getFont());
-            String text = getLabelText();
-            if (text != null) {
-				label.setText(text);
-			}
             label.addDisposeListener(new DisposeListener() {
                 @Override
 				public void widgetDisposed(DisposeEvent event) {
