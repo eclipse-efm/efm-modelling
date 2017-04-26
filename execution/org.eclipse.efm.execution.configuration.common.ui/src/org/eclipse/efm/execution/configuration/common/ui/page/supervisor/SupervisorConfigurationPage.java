@@ -288,10 +288,10 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 		fNodeIntegerField.initializeFrom(configuration);
 		fWidthIntegerField.initializeFrom(configuration);
 		fHeightIntegerField.initializeFrom(configuration);
+		
 		fStepsIntegerField.initializeFrom(configuration);
 		fTimeoutIntegerField.initializeFrom(configuration);
 
-		fInclusionCriterionBooleanField.setEnabled(false);
 		fInclusionCriterionBooleanField.initializeFrom(configuration);
 
 		// Timeout grisé tant que pas de solution pour le prendre en compte
@@ -413,7 +413,6 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 //		fTransitionNameStringField.performApply(configuration);
 
 		fInclusionCriterionBooleanField.performApply(configuration);
-		fInclusionCriterionBooleanField.setEnabled(true);
 
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_ANALYZE_STRATEGY,

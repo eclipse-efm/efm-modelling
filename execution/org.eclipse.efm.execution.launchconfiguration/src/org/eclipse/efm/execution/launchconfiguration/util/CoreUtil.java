@@ -104,7 +104,7 @@ public class CoreUtil implements IWorkflowConfigurationConstants {
 			String expandedLocation = getStringVariableManager().
 					performStringSubstitution(location.toString());
 			if (expandedLocation == null || expandedLocation.length() == 0) {
-				String msg = NLS.bind(" The file does not exist for the Avm Executable tool named {0}.",
+				String msg = NLS.bind(" The file does not exist for the Symbex Executable tool named {0}.",
 						new Object[] { configuration.getName()});
 				abort(msg, null, 0);
 			} else {
@@ -113,7 +113,7 @@ public class CoreUtil implements IWorkflowConfigurationConstants {
 					return new Path(expandedLocation);
 				}
 
-				String msg = NLS.bind(" The file does not exist for the Avm Executable tool named {0}.",
+				String msg = NLS.bind(" The file does not exist for the Symbex Executable tool named {0}.",
 						new Object[] { configuration.getName()});
 				abort(msg, null, 0);
 			}

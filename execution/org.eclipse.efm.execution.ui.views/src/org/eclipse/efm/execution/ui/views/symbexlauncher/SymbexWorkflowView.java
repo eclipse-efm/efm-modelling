@@ -308,14 +308,48 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	    //fTestGenControl.setEnabled(isLaunchConfSelected);
 	    //fSupervisorControl.setEnabled(isLaunchConfSelected);
 	}
-
-	private void openLaunchConfigurationDialog(ILaunchConfiguration launchConfig, String mode) {
-		IStructuredSelection selection = new StructuredSelection(launchConfig);
-		ILaunchGroup group = DebugUITools.getLaunchGroup(launchConfig, mode);
-		String groupIdentifier = group == null ? IDebugUIConstants.ID_RUN_LAUNCH_GROUP : group.getIdentifier();
-		DebugUITools.openLaunchConfigurationDialogOnGroup(scrollform.getShell(), selection, groupIdentifier, null);
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Action utils
+	//
+	public void launchConfiguration(
+			final ILaunchConfiguration configuration, final String mode)
+	{
+		saveLaunchConfiguration( configuration );
+		
+		DebugUITools.launch(configuration, mode);
 	}
 
+
+	private void openLaunchConfigurationDialog(
+			final ILaunchConfiguration configuration, final String mode)
+	{
+		saveLaunchConfiguration( configuration );
+		
+		IStructuredSelection selection = new StructuredSelection(configuration);
+		ILaunchGroup group = DebugUITools.getLaunchGroup(configuration, mode);
+		
+		String groupIdentifier = group == null ?
+				IDebugUIConstants.ID_RUN_LAUNCH_GROUP : group.getIdentifier();
+		
+		DebugUITools.openLaunchConfigurationDialogOnGroup(
+				scrollform.getShell(), selection, groupIdentifier, null);
+	}
+
+	private void saveLaunchConfiguration(final ILaunchConfiguration configuration) {
+		ILaunchConfigurationWorkingCopy rwConfiguration;
+		try {
+			rwConfiguration = configuration.getWorkingCopy();
+			for(AbstractConfigurationPage acm : compMakers) {
+				acm.applyUpdatesOnFieldValuesFrom(rwConfiguration);
+			}
+			rwConfiguration.doSave();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 
 	// ======================================================================================
@@ -334,7 +368,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		action_launch_runconf = new Action() {
 			public void run() {
 				if( launchConfigurationManager.hasSelection() ) {
-					DebugUITools.launch(
+					launchConfiguration(
 							launchConfigurationManager.getSelection(),
 							ILaunchManager.RUN_MODE);
 				} else {
@@ -350,7 +384,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		action_launch_debugconf = new Action() {
 			public void run() {
 				if( launchConfigurationManager.hasSelection() ) {
-					DebugUITools.launch(
+					launchConfiguration(
 							launchConfigurationManager.getSelection(),
 							ILaunchManager.DEBUG_MODE);
 				} else {
@@ -409,19 +443,8 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		action_apply_changes = new Action() {
 			public void run() {
 				if( launchConfigurationManager.hasSelection() ) {
-					ILaunchConfiguration selectedConfiguration = launchConfigurationManager.getSelection();
-					ILaunchConfigurationWorkingCopy rwConfiguration;
-					try {
-						rwConfiguration = selectedConfiguration.getWorkingCopy();
-						for(AbstractConfigurationPage acm : compMakers) {
-							acm.applyUpdatesOnFieldValuesFrom(rwConfiguration);
-						}
-						rwConfiguration.doSave();
-					} catch (CoreException e) {
-						e.printStackTrace();
-					}
+					saveLaunchConfiguration( launchConfigurationManager.getSelection() );
 				}
-
 			}
 		};
 		action_apply_changes.setText("Apply changes on Launch Configuration");
@@ -433,6 +456,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	//                              ILaunchConfigurationGUIelement interface methods
 	// ======================================================================================
 
+	
 	private ILaunchConfigurationWorkingCopy fLasLaunchConfigurationWorkingCopy;
 
 	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {

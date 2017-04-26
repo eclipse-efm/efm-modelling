@@ -34,10 +34,6 @@ public abstract class AbstractConfigurationProfile extends AbstractSectionPart
 		fConfigurationPage = configurationPage;
 	}
 
-	public Composite getControl() {
-		return getSectionClient();
-	}
-
 	public void setVisibleAndEnabled(boolean visible) {
 		fConfigurationPage.getWidgetToolkit().setVisibleAndEnabled(getSection(), visible);
 	}

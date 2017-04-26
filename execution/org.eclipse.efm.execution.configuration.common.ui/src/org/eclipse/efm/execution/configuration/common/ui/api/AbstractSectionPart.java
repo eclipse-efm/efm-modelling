@@ -48,6 +48,12 @@ public abstract class AbstractSectionPart {
 	}
 
 	
+	public Composite getControl() {
+		return fSection;
+	}
+
+
+	
 	// Layout
 	public void updateLayouts() {
 		fSectionClient.layout(true);
