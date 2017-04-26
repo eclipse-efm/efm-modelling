@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.configuration.common.ui.page.testgen;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
@@ -20,8 +19,9 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -85,6 +85,15 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						ATTR_TTCN_ENABLED_GENERATION,
 						"&Generation", comp, false);
 
+		fTTCNEnabledGenerationBooleanField.addSelectionListener(
+				new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						handleEnablingGeneration();
+					}
+				});
+
+		
 		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
@@ -94,9 +103,36 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						"&Customization", comp,
 						DEFAULT_TTCN_ENABLED_CUSTOMIZATION);
 
+		fTTCNEnabledAdaptationModuleBooleanField.addSelectionListener(
+				new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						handleEnablingAdaptationModule();
+					}
+				});
+
+		
 		createTTCNConfigurationComponent(parent, widgetToolkit);
 
 		createTTCNModuleConfigurationComponent(parent, widgetToolkit);
+	}
+
+	private void handleEnablingGeneration() {
+		fConfigurationPage.propagateVisibility(groupTTCNConfiguration,
+				fTTCNEnabledGenerationBooleanField.getBooleanValue() );
+		
+		fTTCNEnabledAdaptationModuleBooleanField.setEnabled(
+				fTTCNEnabledGenerationBooleanField.getBooleanValue() );
+		
+		fConfigurationPage.propagateVisibility(groupTTCNModule,
+				fTTCNEnabledAdaptationModuleBooleanField.getBooleanValue() &&
+				fTTCNEnabledGenerationBooleanField.getBooleanValue() );
+	}
+
+	private void handleEnablingAdaptationModule() {
+		fConfigurationPage.propagateVisibility(groupTTCNModule,
+				fTTCNEnabledAdaptationModuleBooleanField.getBooleanValue() &&
+				fTTCNEnabledGenerationBooleanField.getBooleanValue() );
 	}
 
 
@@ -410,83 +446,31 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				DEFAULT_TTCN_TESTCASES_RECEIVING_IMPL);
 	}
 
-	private String getAnalysisProfile(ILaunchConfiguration configuration) {
-		String analysisProfile;
-		try {
-			analysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-			analysisProfile = "";
-		}
-		return analysisProfile;
-	}
-
-	private boolean getTTCNTraceEnableGeneration(ILaunchConfiguration configuration) {
-		boolean basicTraceEnableGeneration;
-		try {
-			basicTraceEnableGeneration = configuration.getAttribute(ATTR_TTCN_ENABLED_GENERATION, false);
-		} catch (CoreException e) {
-			e.printStackTrace();
-			basicTraceEnableGeneration = false;
-		}
-		return basicTraceEnableGeneration;
-	}
-
-	private void updateGreyedOutAreas(String analysisProfile, boolean TTCNEnableGeneration) {
-		if ( analysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
-			fTTCNEnabledGenerationBooleanField.setEnabled(false);
-			fTTCNEnabledAdaptationModuleBooleanField.setEnabled(false);
-
-			fTTCNEnabledAdaptationModuleBooleanField.setEnabled(false);
-			GenericCompositeCreator.recursiveSetEnabled(groupTTCNConfiguration, false);
-			GenericCompositeCreator.recursiveSetEnabled(groupTTCNModule, false);
-		}
-		else {
-			fTTCNEnabledGenerationBooleanField.setEnabled(true);
-			fTTCNEnabledAdaptationModuleBooleanField.setEnabled(true);
-			if (TTCNEnableGeneration) {
-				fTTCNEnabledAdaptationModuleBooleanField.setEnabled(true);
-				GenericCompositeCreator.recursiveSetEnabled(groupTTCNConfiguration, true);
-				boolean enabledAdaptation = fTTCNEnabledAdaptationModuleBooleanField.getBooleanValue();
-				GenericCompositeCreator.recursiveSetEnabled(groupTTCNModule, enabledAdaptation);
-			} else {
-				fTTCNEnabledAdaptationModuleBooleanField.setEnabled(false);
-				GenericCompositeCreator.recursiveSetEnabled(groupTTCNConfiguration, false);
-				GenericCompositeCreator.recursiveSetEnabled(groupTTCNModule, false);
-			}
-		}
-
-
-	}
-
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		String analysisProfile = getAnalysisProfile(configuration);
-		boolean ttcn3TraceEnableGeneration = getTTCNTraceEnableGeneration(configuration);
-		updateGreyedOutAreas(analysisProfile, ttcn3TraceEnableGeneration);
-		if ( ! analysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
-			fTTCNEnabledGenerationBooleanField.initializeFrom(configuration);
-			fTTCNEnabledAdaptationModuleBooleanField.initializeFrom(configuration);
-			fTTCNFolderNameStringField.initializeFrom(configuration);
-			fTTCNControlModuleNameStringField.initializeFrom(configuration);
-			fTTCNDeclarationsModuleNameStringField.initializeFrom(configuration);
-			fTTCNTemplatesModuleNameStringField.initializeFrom(configuration);
+		fTTCNEnabledGenerationBooleanField.initializeFrom(configuration);
+		fTTCNEnabledAdaptationModuleBooleanField.initializeFrom(configuration);
 
-			fTTCNTestcasesModuleNameStringField.initializeFrom(configuration);
-			fTTCNTestcasesStartingWrapperStringField.initializeFrom(configuration);
-			fTTCNTestcasesEndingWrapperStringField.initializeFrom(configuration);
-			fTTCNTestcasesSendingWrapperStringField.initializeFrom(configuration);
-			fTTCNTestcasesReceivingWrapperStringField.initializeFrom(configuration);
+		handleEnablingGeneration();
+		handleEnablingAdaptationModule();
 
-			fTTCNAdaptationModuleNameStringField.initializeFrom(configuration);
-			fTTCNAdaptationUtilsImplStringField.initializeFrom(configuration);
-			fTTCNTestcasesStartingEndingImplStringField.initializeFrom(configuration);
-			fTTCNTestcasesSendingImplStringField.initializeFrom(configuration);
-			fTTCNTestcasesReceivingImplStringField.initializeFrom(configuration);
-		}
+		fTTCNFolderNameStringField.initializeFrom(configuration);
+		fTTCNControlModuleNameStringField.initializeFrom(configuration);
+		fTTCNDeclarationsModuleNameStringField.initializeFrom(configuration);
+		fTTCNTemplatesModuleNameStringField.initializeFrom(configuration);
+
+		fTTCNTestcasesModuleNameStringField.initializeFrom(configuration);
+		fTTCNTestcasesStartingWrapperStringField.initializeFrom(configuration);
+		fTTCNTestcasesEndingWrapperStringField.initializeFrom(configuration);
+		fTTCNTestcasesSendingWrapperStringField.initializeFrom(configuration);
+		fTTCNTestcasesReceivingWrapperStringField.initializeFrom(configuration);
+
+		fTTCNAdaptationModuleNameStringField.initializeFrom(configuration);
+		fTTCNAdaptationUtilsImplStringField.initializeFrom(configuration);
+		fTTCNTestcasesStartingEndingImplStringField.initializeFrom(configuration);
+		fTTCNTestcasesSendingImplStringField.initializeFrom(configuration);
+		fTTCNTestcasesReceivingImplStringField.initializeFrom(configuration);
 	}
 
 	@Override
@@ -512,9 +496,8 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		fTTCNTestcasesSendingImplStringField.performApply(configuration);
 		fTTCNTestcasesReceivingImplStringField.performApply(configuration);
 
-		String analysisProfile = getAnalysisProfile(configuration);
-		boolean ttcn3TraceEnableGeneration = getTTCNTraceEnableGeneration(configuration);
-		updateGreyedOutAreas(analysisProfile, ttcn3TraceEnableGeneration);
+//		String analysisProfile = getAnalysisProfile(configuration);
+//		updateGreyedOutAreas(analysisProfile, fTTCNEnabledGenerationBooleanField.getBooleanValue());
 	}
 
 	@Override

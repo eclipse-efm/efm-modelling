@@ -25,7 +25,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -50,14 +49,14 @@ public class FormWidgetToolkit extends FormToolkit implements IWidgetToolkit {
 	 * @param control the receiver
 	 * @param visible visible the new visibility state
 	 */
-	public void setVisibleAndEnabled(Control control, boolean visible) {
-		if( control instanceof ExpandableComposite ) {
-			((ExpandableComposite)control).setExpanded(visible);
+	public void setVisibleAndEnabled(Composite aComposite, boolean visible) {
+		if( aComposite instanceof ExpandableComposite ) {
+			((ExpandableComposite)aComposite).setExpanded(visible);
 		} else {
-			control.setVisible(visible);
+			propagateVisibility(aComposite, visible);
 		}
 		
-		control.setEnabled(visible);
+		aComposite.setEnabled(visible);
 	}
 	
 

@@ -12,9 +12,6 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.ui.tabs;
 
-//import java.lang.reflect.Constructor;
-//import java.lang.reflect.InvocationTargetException;
-
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
@@ -30,16 +27,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchConfigurationTab implements ILaunchConfigurationGUIelement {
-
-	protected FormToolkit fFormToolkit;
+public abstract class AbstractSewLaunchConfigurationTab 
+		extends AbstractLaunchConfigurationTab
+		implements ILaunchConfigurationGUIelement {
 
 	protected IWidgetToolkit fWidgetToolkit;
 
 	protected LaunchConfigurationTabGroup fGroupTab;
-	protected AbstractConfigurationPage contentCompositeManager;
+	protected AbstractConfigurationPage fContentCompositeManager;
 
 	/**
 	 * Constructor
@@ -51,13 +47,12 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 		if (display == null) {
 			display = Display.getDefault();
 		}
-		fFormToolkit = new FormToolkit(display);
 
 		fWidgetToolkit = new StandardWidgetToolkit();
 
 		this.fGroupTab = groupTab;
 
-		this.contentCompositeManager = null;
+		this.fContentCompositeManager = null;
 	}
 
 
@@ -65,15 +60,27 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 		return fGroupTab;
 	}
 
-	public OverviewTab getMainTab() {
-		return fGroupTab.getMainTab();
+	public OverviewTab getOverviewTab() {
+		return fGroupTab.getOverviewTab();
 	}
+	
+	public AbstractConfigurationPage getConfigurationPage() {
+		return fContentCompositeManager;
+	}
+	
+
+	
+	@Override
+	public AbstractConfigurationPage[] getConfigurationPages() {
+		return fGroupTab.getConfigurationPages();
+	}
+
 
 	@Override
 	public void createControl(Composite parent) {
-		contentCompositeManager.createControl(parent, fWidgetToolkit);
+		fContentCompositeManager.createControl(parent, fWidgetToolkit);
 
-		setControl( contentCompositeManager.getControl() );
+		setControl( fContentCompositeManager.getControl() );
 
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), getHelpContextId());
 	}
@@ -82,17 +89,17 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
-		contentCompositeManager.setDefaultFieldValues(configuration);
+		fContentCompositeManager.setDefaultFieldValues(configuration);
 	}
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		contentCompositeManager.initializeFieldValuesFrom(configuration);
+		fContentCompositeManager.initializeFieldValuesFrom(configuration);
 	}
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		contentCompositeManager.applyUpdatesOnFieldValuesFrom(configuration);
+		fContentCompositeManager.applyUpdatesOnFieldValuesFrom(configuration);
 	}
 
 	/**
@@ -100,7 +107,7 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 	 */
 	@Override
 	public boolean isValid(ILaunchConfiguration launchConfig) {
-		FieldValidationReturn fieldValidation = contentCompositeManager.areFieldsValid(launchConfig);
+		FieldValidationReturn fieldValidation = fContentCompositeManager.areFieldsValid(launchConfig);
 		if (fieldValidation.areFieldsValid()) {
 			setMessage(fieldValidation.getReason());
 		} else {
@@ -133,11 +140,6 @@ public abstract class AbstractSewLaunchConfigurationTab extends AbstractLaunchCo
 	///////////////////////////////////////////////////////////////////////////
 	// Form Toolkit
 	///////////////////////////////////////////////////////////////////////////
-
-	@Override
-	public FormToolkit getFormToolkit() {
-		return fFormToolkit;
-	}
 
 	@Override
 	public IWidgetToolkit getWidgetToolkit() {

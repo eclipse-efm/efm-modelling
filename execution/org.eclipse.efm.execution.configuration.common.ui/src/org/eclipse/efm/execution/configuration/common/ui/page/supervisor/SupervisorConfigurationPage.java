@@ -330,23 +330,10 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 
 
 			if ( ! modelAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL_EXPLORATION) ) {
-//				fBFSButton.setEnabled(false);
-//				fDFSButton.setEnabled(false);
-//				fRFSButton.setEnabled(false);
-
-//				groupAnalyzeStrategy.setVisible(false);
 				propagateVisibility(groupAnalyzeStrategy,false);
 				propagateVisibility(groupInclusionCriterion,false);
-
-				fBFSButton.setSelection(false);
-				fDFSButton.setSelection(false);
-				fRFSButton.setSelection(false);
 			}
 			else {
-//				fBFSButton.setEnabled(true);
-//				fDFSButton.setEnabled(true);
-//				fRFSButton.setEnabled(true);
-				groupAnalyzeStrategy.setVisible(true);
 				propagateVisibility(groupAnalyzeStrategy,true);
 				propagateVisibility(groupInclusionCriterion,true);
 
@@ -369,7 +356,6 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 			}
 
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -398,7 +384,6 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 //			}
 //
 //		} catch (CoreException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 //	}
@@ -445,4 +430,28 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 //		}
 		return new FieldValidationReturn(true, null);
 	}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// Model Analysis Profile changed
+	//
+	@Override
+	public void handleModelAnalysisProfileSelectionChanged(String analysisProfile) {
+		switch ( analysisProfile ) {
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
+		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
+			propagateVisibility(groupAnalyzeStrategy   , false);
+			propagateVisibility(groupInclusionCriterion, false);
+			
+			break;
+			
+		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+		default:
+			propagateVisibility(groupAnalyzeStrategy   , true);
+			propagateVisibility(groupInclusionCriterion, true);
+			break;
+		}
+	}
+
 }

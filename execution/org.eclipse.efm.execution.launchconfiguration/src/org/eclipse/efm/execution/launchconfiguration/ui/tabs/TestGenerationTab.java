@@ -25,7 +25,7 @@ public class TestGenerationTab extends AbstractSewLaunchConfigurationTab {
 	public TestGenerationTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new TestGenerationConfigurationPage(this);
+		fContentCompositeManager = new TestGenerationConfigurationPage(this);
 
 		setHelpContextId(HelpContextIdConstants.sew_launch_TestGeneration_tab);
 	}

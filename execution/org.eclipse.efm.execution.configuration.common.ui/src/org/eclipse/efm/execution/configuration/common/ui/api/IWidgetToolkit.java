@@ -26,7 +26,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -43,7 +42,20 @@ public interface IWidgetToolkit {
 	 * @param control the receiver
 	 * @param visible visible the new visibility state
 	 */
-	abstract public void setVisibleAndEnabled(Control control, boolean visible);
+	abstract public void setVisibleAndEnabled(Composite aComposite, boolean visible);
+	
+	public default void propagateVisibility(Composite aComposite, boolean visible) { 
+		aComposite.setVisible(visible);
+
+		Object gd = aComposite.getLayoutData();
+		if (gd instanceof GridData) {
+			GridData data = (GridData) gd;
+			data.exclude = (! visible);
+			aComposite.requestLayout();
+		} else {
+			//
+		}
+	}
 	
 
 	/**

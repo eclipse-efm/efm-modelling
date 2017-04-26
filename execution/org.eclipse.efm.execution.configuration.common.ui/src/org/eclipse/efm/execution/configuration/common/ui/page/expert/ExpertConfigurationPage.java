@@ -93,8 +93,8 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 		fCompositeStack.layout();
 	}
 
-	public void setVisibleProfilePage(String profile) {
-		switch ( profile ) {
+	public void setVisibleProfilePage(String analysisProfile) {
+		switch ( analysisProfile ) {
 		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
 			setVisibleProfilePage( fTransitionCoveragePage );
 			break;
@@ -149,16 +149,9 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 		fTransitionCoveragePage.initializeFrom(configuration);
 	}
 
-	public void performApplyExploration(
-			ILaunchConfigurationWorkingCopy configuration) {
-		setEnableGroupExplorationPage(configuration);
-	}
-
 
 	@Override
 	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
-		performApplyExploration(configuration);
-
 		// BEHAVIOR SELECTION : HIT OR JUMP
 		fBehaviorSelectionPage.performApply(configuration);
 
@@ -182,5 +175,15 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 		}
 		return new FieldValidationReturn(true, null);
 	}
+
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Model Analysis Profile changed
+	//
+	@Override
+	public void handleModelAnalysisProfileSelectionChanged(String analysisProfile) {
+		setVisibleProfilePage(analysisProfile);
+	}
+
 
 }

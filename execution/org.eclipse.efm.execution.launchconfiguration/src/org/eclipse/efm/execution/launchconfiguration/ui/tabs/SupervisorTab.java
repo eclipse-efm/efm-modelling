@@ -20,9 +20,9 @@ public class SupervisorTab extends AbstractSewLaunchConfigurationTab {
 	public SupervisorTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new SupervisorConfigurationPage(this);
+		fContentCompositeManager = new SupervisorConfigurationPage(this);
 
-		setHelpContextId(HelpContextIdConstants.sew_launch_CommonCriteria_tab);
+		setHelpContextId(HelpContextIdConstants.sew_launch_Supervisor_tab);
 	}
 
 	@Override

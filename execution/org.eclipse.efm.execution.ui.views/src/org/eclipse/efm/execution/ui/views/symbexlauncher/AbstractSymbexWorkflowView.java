@@ -27,7 +27,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.part.ViewPart;
 
@@ -44,14 +43,13 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 
 	protected void setupFormFrame() {
 		toolkit = new FormWidgetToolkit(parentComposite.getDisplay());
+		
 		scrollform = toolkit.createScrolledForm(parentComposite);
 		//scrollform.setText("Run Configuration");
 		GridLayout layout = new GridLayout(1, false);
 		scrollform.getBody().setLayout(layout);
 
 		createMessageDisplayGraphics();
-		//scrollform.addHelpListener(listener);
-		//this.setHelpContextId("org.eclipse.efm.runconfiguration.efm_runconf_commoncriteria_tab");
 	}
 
 
@@ -106,11 +104,6 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 	///////////////////////////////////////////////////////////////////////////
 	// Form / Widget Toolkit
 	///////////////////////////////////////////////////////////////////////////
-
-	@Override
-	public FormToolkit getFormToolkit() {
-		return toolkit;
-	}
 
 	@Override
 	public IWidgetToolkit getWidgetToolkit() {

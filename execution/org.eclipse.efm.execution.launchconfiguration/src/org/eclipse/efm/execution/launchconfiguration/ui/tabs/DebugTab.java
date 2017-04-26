@@ -22,7 +22,7 @@ public class DebugTab extends AbstractSewLaunchConfigurationTab {
 	public DebugTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new DebugConfigurationPage(this);
+		fContentCompositeManager = new DebugConfigurationPage(this);
 
 		setHelpContextId(HelpContextIdConstants.sew_launch_Debug_tab);
 	}

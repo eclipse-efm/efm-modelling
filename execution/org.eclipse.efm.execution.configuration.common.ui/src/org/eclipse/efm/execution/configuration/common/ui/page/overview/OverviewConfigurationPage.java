@@ -77,6 +77,8 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 	public OverviewConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
+		
+		fAnalysisProfileSection = new OverviewAnalysisProfileSection(this);
 	}
 
 
@@ -215,8 +217,9 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
 		GenericCompositeCreator.fillToolBar(toolBarManager, toputinbar);
 
-		OverviewWorkspaceDataSection wfnsc =
-				new OverviewWorkspaceDataSection(this, parent, toolBarManager);
+		OverviewWorkspaceDataSection wfnsc = new OverviewWorkspaceDataSection(this);
+		wfnsc.createControl(parent, toolBarManager, widgetToolkit);
+		
 		FieldEditor[] editors = wfnsc.getFieldEditors();
 		fWorkspaceRootLocationStringField = (StringFieldEditor) editors[0];
 		fWorkspaceOuputFolderNameStringField = (StringFieldEditor) editors[1];
@@ -228,7 +231,8 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
 		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
 		GenericCompositeCreator.fillToolBar(toolBarManager, toputinbar);
-		fAnalysisProfileSection = new OverviewAnalysisProfileSection(this, parent, toolBarManager);
+		
+		fAnalysisProfileSection.createControl(parent, toolBarManager, widgetToolkit);
 	}
 
 
@@ -352,5 +356,6 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 		return new FieldValidationReturn(isValid, messageToSend);
 	}
+
 
 }

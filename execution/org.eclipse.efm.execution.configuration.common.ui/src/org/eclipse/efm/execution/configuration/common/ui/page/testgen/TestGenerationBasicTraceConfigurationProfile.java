@@ -12,16 +12,16 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.configuration.common.ui.page.testgen;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
-import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -84,10 +84,27 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						ATTR_BASIC_TRACE_ENABLED_GENERATION,
 						"&Enabled Generation", comp, false);
 
+		fBasicTraceEnabledGenerationBooleanField.addSelectionListener(
+				new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						handleEnablingGeneration();
+					}
+				});
+
 		createBasicConfigurationComponent(parent, widgetToolkit);
 
 		createObservableSelectionComponent(parent, widgetToolkit);
 	}
+
+	private void handleEnablingGeneration() {
+		fConfigurationPage.propagateVisibility(groupBasicConfiguration,
+				fBasicTraceEnabledGenerationBooleanField.getBooleanValue() );
+		
+		fConfigurationPage.propagateVisibility(groupBasicObservable,
+				fBasicTraceEnabledGenerationBooleanField.getBooleanValue() );
+	}
+
 
 	private void createBasicConfigurationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
 		groupBasicConfiguration = widgetToolkit.createGroup(parent,
@@ -331,76 +348,30 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST);
 	}
 
-	private String getAnalysisProfile(ILaunchConfiguration configuration) {
-		String modelAnalysisProfile;
-		try {
-			modelAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-			modelAnalysisProfile = "";
-		}
-		return modelAnalysisProfile;
-	}
-
-	private boolean getBasicTraceEnableGeneration(ILaunchConfiguration configuration) {
-		boolean basicTraceEnableGeneration;
-		try {
-			basicTraceEnableGeneration = configuration.getAttribute(ATTR_BASIC_TRACE_ENABLED_GENERATION, false);
-		} catch (CoreException e) {
-			e.printStackTrace();
-			basicTraceEnableGeneration = false;
-		}
-		return basicTraceEnableGeneration;
-	}
-
-	private void updateGreyedOutAreas(String modelAnalysisProfile, boolean basicTraceEnableGeneration) {
-		if ( modelAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
-			fBasicTraceEnabledGenerationBooleanField.setEnabled(false);
-			GenericCompositeCreator.recursiveSetEnabled(groupBasicConfiguration, false);
-			GenericCompositeCreator.recursiveSetEnabled(groupBasicObservable, false);
-		}
-		else {
-			fBasicTraceEnabledGenerationBooleanField.setEnabled(true);
-			if (basicTraceEnableGeneration) {
-				GenericCompositeCreator.recursiveSetEnabled(groupBasicConfiguration, true);
-				GenericCompositeCreator.recursiveSetEnabled(groupBasicObservable, true);
-			} else {
-				GenericCompositeCreator.recursiveSetEnabled(groupBasicConfiguration, false);
-				GenericCompositeCreator.recursiveSetEnabled(groupBasicObservable, false);
-			}
-			fBasicTraceNormalizationBooleanField.setEnabled(true);
-			fBasicTraceShowInitializationBooleanField.setEnabled(true);
-		}
-	}
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		String analysisProfile = getAnalysisProfile(configuration);
-		boolean basicTraceEnableGeneration = getBasicTraceEnableGeneration(configuration);
-		updateGreyedOutAreas(analysisProfile, basicTraceEnableGeneration);
+		fBasicTraceEnabledGenerationBooleanField.initializeFrom(configuration);	
+		
+		handleEnablingGeneration();
 
-		if ( ! analysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
-			fBasicTraceEnabledGenerationBooleanField.initializeFrom(configuration);
-			fBasicTraceFolderNameStringField.initializeFrom(configuration);
-			fBasicTraceFileNameStringField.initializeFrom(configuration);
-			fBasicTraceNormalizationBooleanField.initializeFrom(configuration);
-			fBasicTraceShowInitializationBooleanField.initializeFrom(configuration);
+		fBasicTraceFolderNameStringField.initializeFrom(configuration);
+		fBasicTraceFileNameStringField.initializeFrom(configuration);
+		fBasicTraceNormalizationBooleanField.initializeFrom(configuration);
+		fBasicTraceShowInitializationBooleanField.initializeFrom(configuration);
 
-			fBasicTraceAllExternalInputComBooleanField.initializeFrom(configuration);
-			fBasicTraceAllExternalOutputComBooleanField.initializeFrom(configuration);
-			fBasicTraceAllInternalInputComBooleanField.initializeFrom(configuration);
-			fBasicTraceAllInternalOutputComBooleanField.initializeFrom(configuration);
+		fBasicTraceAllExternalInputComBooleanField.initializeFrom(configuration);
+		fBasicTraceAllExternalOutputComBooleanField.initializeFrom(configuration);
+		fBasicTraceAllInternalInputComBooleanField.initializeFrom(configuration);
+		fBasicTraceAllInternalOutputComBooleanField.initializeFrom(configuration);
 
-			fBasicTraceTimeBooleanField.initializeFrom(configuration);
-			fBasicTraceAllVariableBooleanField.initializeFrom(configuration);
-			fBasicTraceAllTransitionBooleanField.initializeFrom(configuration);
-			fBasicTraceAllStateBooleanField.initializeFrom(configuration);
+		fBasicTraceTimeBooleanField.initializeFrom(configuration);
+		fBasicTraceAllVariableBooleanField.initializeFrom(configuration);
+		fBasicTraceAllTransitionBooleanField.initializeFrom(configuration);
+		fBasicTraceAllStateBooleanField.initializeFrom(configuration);
 
-			fBasicTraceObservableTraceDetailsStringField.initializeFrom(configuration);
-			fBasicTraceObservableFormatStringField.initializeFrom(configuration);
-		}
+		fBasicTraceObservableTraceDetailsStringField.initializeFrom(configuration);
+		fBasicTraceObservableFormatStringField.initializeFrom(configuration);
 	}
 
 	@Override
@@ -425,9 +396,6 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 		fBasicTraceObservableTraceDetailsStringField.performApply(configuration);
 		fBasicTraceObservableFormatStringField.performApply(configuration);
-
-		updateGreyedOutAreas(getAnalysisProfile(configuration),
-				getBasicTraceEnableGeneration(configuration));
 	}
 
 	@Override

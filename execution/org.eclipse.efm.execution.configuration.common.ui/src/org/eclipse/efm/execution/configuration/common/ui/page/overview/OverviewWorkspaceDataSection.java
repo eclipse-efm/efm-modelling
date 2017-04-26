@@ -18,16 +18,13 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
-import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.Composite;
 
 public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
-	public OverviewWorkspaceDataSection(
-			AbstractConfigurationPage configurationPage,
-			Composite parent, ToolBarManager toolBarManager)
+	public OverviewWorkspaceDataSection(AbstractConfigurationPage configurationPage)
 	{
-		super(configurationPage, parent, toolBarManager);
+		super(configurationPage);
 	}
 
 

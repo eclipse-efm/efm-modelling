@@ -28,7 +28,6 @@ import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 
 public abstract class AbstractConfigurationPage
 		implements IWorkflowConfigurationConstants, IWorkflowPreferenceConstants {
@@ -113,7 +112,20 @@ public abstract class AbstractConfigurationPage
 		return fControl;
 	}
 
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Model Analysis Profile changed
+	//
+	public void handleModelAnalysisProfileSelectionChanged(String analysisProfile) {
+		//!! Nothing 
+	}
 
+	
+	public AbstractConfigurationPage[] getConfigurationPages() {
+		return masterGUIelement.getConfigurationPages();
+	}
+
+	
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
@@ -176,17 +188,12 @@ public abstract class AbstractConfigurationPage
 		masterGUIelement.updateGUI();
 	}
 
-	public void propagateVisibility(Control aControl, boolean visible) {
-		aControl.setVisible(visible);
+	public void setVisibleAndEnabled(Composite aComposite, boolean visible) {
+		getWidgetToolkit().setVisibleAndEnabled(aComposite, visible);
+	}
 
-		Object gd = aControl.getLayoutData();
-		if (gd instanceof GridData) {
-			GridData data = (GridData) gd;
-			data.exclude = (! visible);
-			aControl.getShell().layout(false);
-		} else {
-			//
-		}
+	public void propagateVisibility(Composite aComposite, boolean visible) {
+		getWidgetToolkit().propagateVisibility(aComposite, visible);
 	}
 
 	public void propagateUpdateJobScheduling() {

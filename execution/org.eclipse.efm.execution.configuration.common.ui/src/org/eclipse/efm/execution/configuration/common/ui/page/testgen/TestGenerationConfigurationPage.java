@@ -13,7 +13,6 @@
 
 package org.eclipse.efm.execution.configuration.common.ui.page.testgen;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
@@ -23,11 +22,15 @@ import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEdi
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
 public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
+	
+	private Group groupTraceExtension;
 	private Group groupExtensionObjective;
 
 	private BooleanFieldEditor fTraceExtensionEnabledBooleanField;
@@ -69,20 +72,28 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	}
 
 	private void createExtensionSelectionComponent(Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
+		groupTraceExtension = widgetToolkit.createGroup(parent,
 				"Trace Extension for Test Generation Purpose",
 				1, 1, GridData.FILL_HORIZONTAL);
 
 		Composite comp = widgetToolkit.createComposite(
-				group, 1, 1,  GridData.FILL_HORIZONTAL);
+				groupTraceExtension, 1, 1,  GridData.FILL_HORIZONTAL);
 
 		fTraceExtensionEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_TRACE_EXTENSION,
 				"&Enabled Extension", comp, false);
+		
+		fTraceExtensionEnabledBooleanField.addSelectionListener(
+				new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						handleEnablingTraceExtension();
+					}
+				});
 
 
 		groupExtensionObjective = widgetToolkit.createGroup(
-				group, "Extension of Traces to reach Observables",
+				groupTraceExtension, "Extension of Traces to reach Observables",
 				1, 1, GridData.FILL_HORIZONTAL);
 
 		comp = widgetToolkit.createComposite(
@@ -108,26 +119,11 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 				DEFAULT_TRACE_EXTENSION_OBJECTIVE, SWT.MULTI);
 	}
 
-
-	private void setEnableExtensionPage(ILaunchConfiguration configuration) {
-		String fAnalysisProfile;
-		boolean localEnable;
-
-		try {
-			fAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
-
-			localEnable = fTraceExtensionEnabledBooleanField.getBooleanValue() &&
-				(! fAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) );
-
-			fTraceExtensionEvaluationStepsLimitIntegerField.setEnabled(localEnable);
-
-			propagateVisibility(groupExtensionObjective, localEnable);
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-		}
+	private void handleEnablingTraceExtension() {
+		propagateVisibility(groupExtensionObjective,
+				fTraceExtensionEnabledBooleanField.getBooleanValue() );
 	}
+
 
 	// ======================================================================================
 	//                              Fields Values Management
@@ -158,35 +154,31 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 
 	@Override
 	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
-		String analysisProfile;
-		try {
-			analysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-			analysisProfile = "";
-		}
+		fTraceExtensionEnabledBooleanField.initializeFrom(configuration);
+		fTraceExtensionEvaluationStepsLimitIntegerField.initializeFrom(configuration);
+		fTraceExtensionObjectiveStringField.initializeFrom(configuration);
 
-		if ( analysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
-			fTraceExtensionEnabledBooleanField.setEnabled(false);
-		}
-		else {
-			fTraceExtensionEnabledBooleanField.setEnabled(true);
+//		String analysisProfile;
+//		try {
+//			analysisProfile = configuration.getAttribute(
+//					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
+//		}
+//		catch (CoreException e) {
+//			analysisProfile = "";
+//
+//			e.printStackTrace();
+//		}
+//
+//		if ( analysisProfile.equals(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE ) ) {
+//			fTraceExtensionEnabledBooleanField.setEnabled(false);
+//		}
 
-			fTraceExtensionEnabledBooleanField.initializeFrom(configuration);
-			fTraceExtensionEvaluationStepsLimitIntegerField.initializeFrom(configuration);
-			fTraceExtensionObjectiveStringField.initializeFrom(configuration);
-		}
-
-		setEnableExtensionPage(configuration);
+		handleEnablingTraceExtension();
 
 
 		fBasicTracePage.initializeFrom(configuration);
-		fBasicTracePage.setVisibleAndEnabled(true);
 
 		fTTCNTracePage.initializeFrom(configuration);
-		fTTCNTracePage.setVisibleAndEnabled(true);
 	}
 
 
@@ -194,8 +186,6 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration)
 	{
 		fTraceExtensionEnabledBooleanField.performApply(configuration);
-
-		setEnableExtensionPage(configuration);
 
 		fTraceExtensionEvaluationStepsLimitIntegerField.performApply(configuration);
 		fTraceExtensionObjectiveStringField.performApply(configuration);
@@ -221,6 +211,40 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 			return new FieldValidationReturn(false, null);
 		}
 		return new FieldValidationReturn(true, null);
+	}
+
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Model Analysis Profile changed
+	//
+	@Override
+	public void handleModelAnalysisProfileSelectionChanged(String analysisProfile) {
+		switch ( analysisProfile ) {
+		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
+			groupTraceExtension.setEnabled(false);
+			
+			propagateVisibility(groupExtensionObjective, false);
+			
+			setVisibleAndEnabled(fBasicTracePage.getSection(), false);
+			setVisibleAndEnabled(fTTCNTracePage.getSection() , false);
+			
+			break;
+			
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
+		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
+		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+		default:
+			groupTraceExtension.setEnabled(true);
+			
+			propagateVisibility(groupExtensionObjective, true);
+			
+			setVisibleAndEnabled(fBasicTracePage.getSection(), true);
+			setVisibleAndEnabled(fTTCNTracePage.getSection() , true);
+
+			
+			handleEnablingTraceExtension();;
+			break;
+		}
 	}
 
 

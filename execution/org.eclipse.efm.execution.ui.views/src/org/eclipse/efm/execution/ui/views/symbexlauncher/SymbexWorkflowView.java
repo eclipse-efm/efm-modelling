@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.ui.views.symbexlauncher;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +53,8 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 	//public Set<SectionCompositeCreator> compositeSections;
 
-	private ArrayList<AbstractConfigurationPage> compMakers;
+	private AbstractConfigurationPage[] fConfigurationPages;
+	
 
 	protected Composite tabbedCompositeMaster;
 	protected CTabFolder fTabFolder;
@@ -189,11 +189,9 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	}
 
 	
-	//private Map<Integer, AbstractCompositeMaker> quickDico;
-
 	private void createSectionsContent(IWidgetToolkit widgetToolkit)
 	{
-		compMakers = new ArrayList<AbstractConfigurationPage>();
+		fConfigurationPages = new AbstractConfigurationPage[3];
 
 		createOverviewTabItem(widgetToolkit);
 
@@ -202,6 +200,12 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		createTestGenerationTabItem(widgetToolkit);
 
 		fTabFolder.setSelection(fOverviewTabItem);
+	}
+	
+	
+	@Override
+	public AbstractConfigurationPage[] getConfigurationPages() {
+		return fConfigurationPages;
 	}
 
 
@@ -233,15 +237,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 			fOverviewTabItem.setControl(scrolledComposite);
 		}
 
-		compMakers.add(overviewPage);
-//		quickDico.put(1, overviewPage);
-
-
-//		GridLayout gl = new GridLayout(1, false);
-//		control.setLayout(gl);
-//
-//		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
-//		control.setLayoutData(gd);
+		fConfigurationPages[0] = overviewPage;
 	}
 
 
@@ -269,8 +265,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 			fSupervisorTabItem.setControl(scrolledComposite);
 		}
 
-		compMakers.add(supervisorPage);
-//		quickDico.put(3, supervisorPage);
+		fConfigurationPages[1] = supervisorPage;
 	}
 
 
@@ -298,8 +293,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 			fTestGenTabItem.setControl(scrolledComposite);
 		}
 
-		compMakers.add(testGenPage);
-//		quickDico.put(3, testGenPage);
+		fConfigurationPages[2] = testGenPage;
 	}
 
 
@@ -312,7 +306,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	///////////////////////////////////////////////////////////////////////////
 	// Action utils
 	//
-	public void launchConfiguration(
+	private void execLaunchConfiguration(
 			final ILaunchConfiguration configuration, final String mode)
 	{
 		saveLaunchConfiguration( configuration );
@@ -340,7 +334,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		ILaunchConfigurationWorkingCopy rwConfiguration;
 		try {
 			rwConfiguration = configuration.getWorkingCopy();
-			for(AbstractConfigurationPage acm : compMakers) {
+			for(AbstractConfigurationPage acm : fConfigurationPages) {
 				acm.applyUpdatesOnFieldValuesFrom(rwConfiguration);
 			}
 			rwConfiguration.doSave();
@@ -368,7 +362,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		action_launch_runconf = new Action() {
 			public void run() {
 				if( launchConfigurationManager.hasSelection() ) {
-					launchConfiguration(
+					execLaunchConfiguration(
 							launchConfigurationManager.getSelection(),
 							ILaunchManager.RUN_MODE);
 				} else {
@@ -384,7 +378,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		action_launch_debugconf = new Action() {
 			public void run() {
 				if( launchConfigurationManager.hasSelection() ) {
-					launchConfiguration(
+					execLaunchConfiguration(
 							launchConfigurationManager.getSelection(),
 							ILaunchManager.DEBUG_MODE);
 				} else {
@@ -460,7 +454,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	private ILaunchConfigurationWorkingCopy fLasLaunchConfigurationWorkingCopy;
 
 	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
-		for(AbstractConfigurationPage acm : compMakers) {
+		for(AbstractConfigurationPage acm : fConfigurationPages) {
 			acm.initializeFieldValuesFrom(configuration);
 		}
 
@@ -479,7 +473,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 					fLasLaunchConfigurationWorkingCopy = newcopy;
 					System.err.println("++++---- Biopp");
 
-					for(AbstractConfigurationPage acm : compMakers) {
+					for(AbstractConfigurationPage acm : fConfigurationPages) {
 						acm.initializeFieldValuesFrom(selectedLC);
 					}
 				}

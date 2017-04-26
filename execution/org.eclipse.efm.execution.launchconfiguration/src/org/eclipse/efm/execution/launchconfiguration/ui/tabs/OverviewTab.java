@@ -26,7 +26,7 @@ public class OverviewTab extends AbstractSewLaunchConfigurationTab {
 	public OverviewTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new OverviewConfigurationPage(this);
+		fContentCompositeManager = new OverviewConfigurationPage(this);
 
 		setHelpContextId(HelpContextIdConstants.sew_launch_Main_tab);
 	}

@@ -368,20 +368,6 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 	}
 
 
-	private void setEnableGroupTCPage(ILaunchConfiguration configuration) {
-		try {
-			String modelAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
-
-			setVisibleAndEnabled( modelAnalysisProfile.equals(
-					ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) );
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 //		fTCBeginStep.setDefaults(configuration);
@@ -462,8 +448,6 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		setEnableGroupTCPage(configuration);
-
 		fTCBeginStep.initializeFrom(configuration);
 		fTCStop.initializeFrom(configuration);
 		fTCMinimize.initializeFrom(configuration);
@@ -527,7 +511,6 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 					ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_HEURISTIC,
 					DIRECTIVE_TRACE_HEURISTIC_COMBO_ITEM_SMART);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -563,8 +546,6 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		setEnableGroupTCPage(configuration);
-
 		fTCBeginStep.performApply(configuration);
 		fTCStop.performApply(configuration);
 		fTCMinimize.performApply(configuration);

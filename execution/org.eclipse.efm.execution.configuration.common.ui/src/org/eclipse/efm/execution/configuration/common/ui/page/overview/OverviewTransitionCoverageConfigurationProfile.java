@@ -92,8 +92,7 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 			new SelectionAdapter() {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
-					fConfigurationPage.propagateVisibility(fCompDetailedSelection,
-							fEnabledDetailedSelectionBooleanField.getBooleanValue());
+					handleEnablingDetailedSelection();
 				}
 			});
 
@@ -271,20 +270,11 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	}
 
 
-//	@Override
-//	public void setVisible(boolean visible) {
-//		fConfigurationPage.propagateVisibility(parent,visible);
-//
-//		if( visible ) {
-//			if( fEnabledDetailedSelectionBooleanField.getBooleanValue() )
-//			{
-//				fConfigurationPage.propagateVisibility(fCompDetailedSelection, true);
-//			}
-//			else {
-//				fConfigurationPage.propagateVisibility(fCompDetailedSelection, false);
-//			}
-//		}
-//	}
+	private void handleEnablingDetailedSelection() {
+		fConfigurationPage.propagateVisibility(fCompDetailedSelection,
+				fEnabledDetailedSelectionBooleanField.getBooleanValue());
+	}
+
 
 	private void initTransitionTable() {
 		loadTransitionListToBeSelected();
@@ -467,8 +457,7 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 
 		fEnabledDetailedSelectionBooleanField.initializeFrom(configuration);
 
-		fConfigurationPage.propagateVisibility(fCompDetailedSelection,
-				fEnabledDetailedSelectionBooleanField.getBooleanValue());
+		handleEnablingDetailedSelection();
 
 		try {
 			fSelectedTransitionsList = new ArrayList<String>();
@@ -492,9 +481,6 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	public void performApply(ILaunchConfigurationWorkingCopy configuration)
 	{
 		fEnabledDetailedSelectionBooleanField.performApply(configuration);
-
-//		fConfigurationPage.propagateVisibility(fCompDetailedSelection,
-//				fEnabledDetailedSelectionBooleanField.getBooleanValue());
 
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_SELECTION, fSelectedTransitionsList);

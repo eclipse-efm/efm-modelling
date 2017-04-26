@@ -21,7 +21,7 @@ public class DeveloperTuningTab extends AbstractSewLaunchConfigurationTab {
 	public DeveloperTuningTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new DeveloperTuningConfigurationPage(this);
+		fContentCompositeManager = new DeveloperTuningConfigurationPage(this);
 
 		setHelpContextId(HelpContextIdConstants.sew_launch_Debug_tab);
 	}

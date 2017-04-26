@@ -21,7 +21,6 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationSection;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
-import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -33,11 +32,9 @@ import org.eclipse.swt.widgets.Composite;
 
 public class OverviewAnalysisProfileSection extends AbstractConfigurationSection {
 
-	public OverviewAnalysisProfileSection(
-			AbstractConfigurationPage configurationPage,
-			Composite parent, ToolBarManager toolBarManager)
+	public OverviewAnalysisProfileSection(AbstractConfigurationPage configurationPage)
 	{
-		super(configurationPage, parent, toolBarManager);
+		super(configurationPage);
 	}
 
 	private FieldEditor[] contentFieldEdit;
@@ -242,6 +239,10 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		CTabItem selectionTabItem = fTabFolder.getItem( fTabFolder.getSelectionIndex() );
 		fModelAnalysisProfile = selectionTabItem.getText();
 
+		for( AbstractConfigurationPage confPage : getConfigurationPages() ) {
+			confPage.handleModelAnalysisProfileSelectionChanged(fModelAnalysisProfile);
+		}
+		
 //		getConfigurationPage().propagateGUIupdate();
 	}
 

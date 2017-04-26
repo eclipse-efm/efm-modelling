@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.configuration.common.ui.page.expert;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
@@ -199,20 +198,6 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 	}
 
 
-	private void setEnableGroupHOJPage(ILaunchConfiguration configuration) {
-		try {
-			String modelAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
-
-			setVisibleAndEnabled( modelAnalysisProfile.equals(
-					ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) );
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 //		fHoJBeginStep.setDefaults(configuration);
@@ -270,8 +255,6 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		setEnableGroupHOJPage(configuration);
-
 		fHoJBeginStep.initializeFrom(configuration);
 		fHoJHeuristic.initializeFrom(configuration);
 		fHoJStop.initializeFrom(configuration);
@@ -295,8 +278,6 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		setEnableGroupHOJPage(configuration);
-
 		fHoJBeginStep.performApply(configuration);
 		fHoJHeuristic.performApply(configuration);
 		fHoJStop.performApply(configuration);

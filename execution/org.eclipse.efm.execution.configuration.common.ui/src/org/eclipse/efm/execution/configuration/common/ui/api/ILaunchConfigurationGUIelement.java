@@ -11,19 +11,15 @@
 
 package org.eclipse.efm.execution.configuration.common.ui.api;
 
-import org.eclipse.ui.forms.widgets.FormToolkit;
-
-
-
 public interface ILaunchConfigurationGUIelement {
 
 	///////////////////////////////////////////////////////////////////////////
-	// Form / Widget Toolkit
+	// Widget Toolkit
 	///////////////////////////////////////////////////////////////////////////
 
-	public FormToolkit getFormToolkit();
-
 	public IWidgetToolkit getWidgetToolkit();
+	
+	public AbstractConfigurationPage[] getConfigurationPages();
 
 
 	///////////////////////////////////////////////////////////////////////////

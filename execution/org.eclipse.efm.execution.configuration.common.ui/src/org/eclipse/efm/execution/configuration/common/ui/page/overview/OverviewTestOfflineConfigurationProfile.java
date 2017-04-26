@@ -221,6 +221,14 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 						"&Enable Observable / Controllable Configuration",
 						comp, false);
 
+		fEnabledTraceConfigurationBooleanField.addSelectionListener(
+				new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						handleEnablingTraceConfiguration();
+					}
+				});
+
 
 		fGroupObservable  = widgetToolkit.createGroup(parent,
 				"&Observable", 1, 1, GridData.FILL_HORIZONTAL);
@@ -248,7 +256,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	}
 
 
-	private void updateEnablingTraceConfiguration() {
+	private void handleEnablingTraceConfiguration() {
 		boolean enabled =
 				fEnabledTraceConfigurationBooleanField.getBooleanValue();
 
@@ -309,7 +317,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		fObservableStringField.initializeFrom(configuration);
 		fControllableStringField.initializeFrom(configuration);
 
-		updateEnablingTraceConfiguration();
+		handleEnablingTraceConfiguration();
 	}
 
 	@Override
@@ -327,8 +335,6 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 		fObservableStringField.performApply(configuration);
 		fControllableStringField.performApply(configuration);
-
-		updateEnablingTraceConfiguration();
 	}
 
 

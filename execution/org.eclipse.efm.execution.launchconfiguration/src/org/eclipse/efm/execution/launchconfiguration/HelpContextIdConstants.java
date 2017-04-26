@@ -20,7 +20,7 @@ public class HelpContextIdConstants {
 
 	public static final String sew_launch_tabgroup = CONTEXT_ID + ".sew_launch_tabgroup";
 
-	public static final String sew_launch_CommonCriteria_tab = CONTEXT_ID + ".sew_launch_CommonCriteria_tab";
+	public static final String sew_launch_Supervisor_tab = CONTEXT_ID + ".sew_launch_Supervisor_tab";
 
 	public static final String sew_launch_Main_tab = CONTEXT_ID + ".sew_launch_Main_tab";
 

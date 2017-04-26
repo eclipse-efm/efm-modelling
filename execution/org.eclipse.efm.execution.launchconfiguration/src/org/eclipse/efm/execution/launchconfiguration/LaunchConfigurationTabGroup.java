@@ -21,6 +21,7 @@ import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.debug.ui.RefreshTab;
+import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.SupervisorTab;
@@ -33,12 +34,19 @@ import org.eclipse.efm.execution.launchconfiguration.ui.tabs.TestGenerationTab;
 
 public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {
 
-	protected OverviewTab fMainTab;
+	private AbstractConfigurationPage[] fConfigurationPages;
+	
+	protected OverviewTab fOverviewTab;
 
 	protected ExpertTab fExpertTab;
 
-	public OverviewTab getMainTab() {
-		return fMainTab;
+	
+	public AbstractConfigurationPage[] getConfigurationPages() {
+		return fConfigurationPages;
+	}
+
+	public OverviewTab getOverviewTab() {
+		return fOverviewTab;
 	}
 
 	public ExpertTab getExpertTab() {
@@ -51,11 +59,23 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 		ArrayList<ILaunchConfigurationTab> tabList =
 				new ArrayList<ILaunchConfigurationTab>();
 
-		fMainTab = new OverviewTab(this);
-		tabList.add( fMainTab );
+		ArrayList<AbstractConfigurationPage> confPageList =
+				new ArrayList<AbstractConfigurationPage>();
 
-		tabList.add( new SupervisorTab(this) );
-		tabList.add( new TestGenerationTab(this) );
+		// OverviewTab
+		fOverviewTab = new OverviewTab(this);
+		tabList.add( fOverviewTab );
+		confPageList.add( fOverviewTab.getConfigurationPage() );
+
+		// SupervisorTab
+		SupervisorTab supervisorTab = new SupervisorTab(this);
+		tabList.add( supervisorTab );
+		confPageList.add( supervisorTab.getConfigurationPage() );
+		
+		// TestGenerationTab
+		TestGenerationTab testGenerationTab = new TestGenerationTab(this);
+		tabList.add( testGenerationTab );
+		confPageList.add( testGenerationTab.getConfigurationPage() );
 
 		if( ILaunchManager.DEBUG_MODE.equals(mode) )
 		{
@@ -68,7 +88,9 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 					IWorkflowPreferenceConstants.PREF_EXPERT_MODE) )
 			{
 				fExpertTab = new ExpertTab(this);
+				
 				tabList.add( fExpertTab );
+				confPageList.add( fExpertTab.getConfigurationPage() );
 			}
 
 			if( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION )
@@ -90,7 +112,13 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 
 		tabList.add( new CommonTab() );
 
-		setTabs( tabList.toArray( new ILaunchConfigurationTab[tabList.size()] ) );
+		setTabs( tabList.toArray(
+				new ILaunchConfigurationTab[tabList.size()] ) );
+		
+		fConfigurationPages = confPageList.toArray(
+				new AbstractConfigurationPage[confPageList.size()]);
+		
+
 	}
 
 
@@ -116,11 +144,9 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		// TODO Auto-generated method stub
 		super.performApply(configuration);
 
 		setDefaultAttributes(configuration);
 	}
-
 
 }

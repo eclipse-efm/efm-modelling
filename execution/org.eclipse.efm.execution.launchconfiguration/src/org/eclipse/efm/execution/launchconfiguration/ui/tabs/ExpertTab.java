@@ -21,7 +21,7 @@ public class ExpertTab extends AbstractSewLaunchConfigurationTab {
 	public ExpertTab(LaunchConfigurationTabGroup groupTab) {
 		super(groupTab);
 
-		contentCompositeManager = new ExpertConfigurationPage(this);
+		fContentCompositeManager = new ExpertConfigurationPage(this);
 
 		setHelpContextId(HelpContextIdConstants.sew_launch_Expert_tab);
 	}

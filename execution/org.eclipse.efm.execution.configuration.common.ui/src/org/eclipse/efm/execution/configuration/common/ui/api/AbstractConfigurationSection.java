@@ -16,7 +16,6 @@ package org.eclipse.efm.execution.configuration.common.ui.api;
 import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -25,26 +24,27 @@ public abstract class AbstractConfigurationSection extends AbstractSectionPart
 
 	protected AbstractConfigurationPage fConfigurationPage;
 
-	public AbstractConfigurationSection(AbstractConfigurationPage configurationPage,
-			Composite parent, ToolBarManager toolBarManager)
+	public AbstractConfigurationSection(AbstractConfigurationPage configurationPage)
 	{
 		this.fConfigurationPage = configurationPage;
-
-		this.initialize(parent, toolBarManager);
 	}
 
 	public AbstractConfigurationPage getConfigurationPage() {
 		return fConfigurationPage;
 	}
 
-	public void initialize(Composite parent, IToolBarManager toolBarManager) {
-		IWidgetToolkit toolkit = fConfigurationPage.getWidgetToolkit();
-		
-		toolkit.createSectionPart(this, parent,
+	public AbstractConfigurationPage[] getConfigurationPages() {
+		return fConfigurationPage.getConfigurationPages();
+	}
+
+	public void createControl(Composite parent,
+			IToolBarManager toolBarManager, IWidgetToolkit widgetToolkit)
+	{
+		widgetToolkit.createSectionPart(this, parent,
 				Section.TITLE_BAR | Section.DESCRIPTION |
 				Section.EXPANDED  | Section.TWISTIE, toolBarManager);
 		
-		createContent(getSectionClient(), fConfigurationPage.getWidgetToolkit());
+		createContent(getSectionClient(), widgetToolkit);
 	}
 
 
