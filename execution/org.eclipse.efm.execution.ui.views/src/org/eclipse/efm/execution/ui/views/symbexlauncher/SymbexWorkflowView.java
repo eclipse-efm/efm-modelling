@@ -150,7 +150,6 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		int cur_index = combo.getSelectionIndex();
 		String cur_name = null;
 		if (cur_index != -1) {
-			System.err.println(cur_index);
 			cur_name = combo.getItem(cur_index);
 		}
 

@@ -12,8 +12,6 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.configuration.common.ui.page.overview;
 
-import java.util.ArrayList;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -32,11 +30,6 @@ import org.eclipse.swt.widgets.Composite;
 
 public class OverviewAnalysisProfileSection extends AbstractConfigurationSection {
 
-	public OverviewAnalysisProfileSection(AbstractConfigurationPage configurationPage)
-	{
-		super(configurationPage);
-	}
-
 	private FieldEditor[] contentFieldEdit;
 
 	protected CTabFolder fTabFolder;
@@ -45,10 +38,15 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 	protected CTabItem fTransitionCoverageTabItem;
 	protected CTabItem fBehaviorSelectionTabItem;
+	
 	protected CTabItem fTestOfflineTabItem;
+
+	
+	public OverviewExplorationConfigurationProfile fExplorationPage;
 
 	public OverviewTransitionCoverageConfigurationProfile fTransitionCoveragePage;
 	public OverviewBehaviorSelectionConfigurationProfile fBehaviorSelectionPage;
+	
 	public OverviewTestOfflineConfigurationProfile fTestOfflinePage;
 
 	/////////////////////////////////////
@@ -58,6 +56,30 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	private String fModelAnalysisProfile = ANALYSIS_PROFILE_MODEL_EXPLORATION;
 
 
+	public OverviewAnalysisProfileSection(AbstractConfigurationPage configurationPage)
+	{
+		super(configurationPage);
+		
+		fExplorationPage =
+				new OverviewExplorationConfigurationProfile(configurationPage);
+		
+		fTransitionCoveragePage =
+				new OverviewTransitionCoverageConfigurationProfile(configurationPage);
+
+		fBehaviorSelectionPage =
+				new OverviewBehaviorSelectionConfigurationProfile(configurationPage);
+
+		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+			fTestOfflinePage =
+					new OverviewTestOfflineConfigurationProfile(configurationPage);
+
+		} else {
+			fTestOfflinePage = null;
+		}
+
+	}
+
+	
 	@Override
 	public String getSectionTitle() {
 		return "Analysis Profile";
@@ -125,11 +147,16 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 		
-		scrolledComposite.setContent(
-				widgetToolkit.createLabel(scrolledComposite,
-				"Configure Exploration limitation in Supervisor Tab", 2) );
+		fExplorationPage.createControl(scrolledComposite, widgetToolkit);
 
-		fExplorationTabItem.setControl(scrolledComposite);
+		Composite control = fExplorationPage.getControl();
+		if (control != null) {
+			scrolledComposite.setContent(control);
+//			scrolledComposite.setMinSize(
+//					control.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fExplorationTabItem.setControl(scrolledComposite);
+		}
 	}
 
 	private void createTransitionCoverageTabItem(IWidgetToolkit widgetToolkit)
@@ -139,9 +166,6 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 		ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
-
-		fTransitionCoveragePage =
-				new OverviewTransitionCoverageConfigurationProfile(this.fConfigurationPage);
 
 		fTransitionCoveragePage.createControl(scrolledComposite, widgetToolkit);
 
@@ -164,9 +188,6 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
-		fBehaviorSelectionPage =
-				new OverviewBehaviorSelectionConfigurationProfile(this.fConfigurationPage);
-
 		fBehaviorSelectionPage.createControl(scrolledComposite, widgetToolkit);
 
 		Composite control = fBehaviorSelectionPage.getControl();
@@ -187,9 +208,6 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 		ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
-
-		fTestOfflinePage =
-				new OverviewTestOfflineConfigurationProfile(this.fConfigurationPage);
 
 		fTestOfflinePage.createControl(scrolledComposite, widgetToolkit);
 
@@ -261,43 +279,18 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
 				ANALYSIS_PROFILE_MODEL_EXPLORATION);
 
+		// MODEL EXPLORATION
+		fExplorationPage.setDefaults(configuration);
+
 		// TRANSITION COVERAGE ANALYSIS
-//		fTransitionCoveragePage.setDefaults(configuration);
-
-		configuration.setAttribute(
-				ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false);
-
-		configuration.setAttribute(
-				ATTR_TRANSITION_COVERAGE_SELECTION, new ArrayList<String>());
+		fTransitionCoveragePage.setDefaults(configuration);
 
 		// BEHAVIOR SELECTION ANALYSIS
-//		fBehaviorSelectionPage.setDefaults(configuration);
-		configuration.setAttribute(
-				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST,
-				BEHAVIOR_INITIAL_SAMPLE);
+		fBehaviorSelectionPage.setDefaults(configuration);
 
 		// TEST OFFLINE // INCUBATION MODE
 		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
-//			fTestOfflinePage.setDefaults(configuration);
-
-			configuration.setAttribute(
-					ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
-					DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
-
-			configuration.setAttribute(
-					ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
-					DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
-
-			configuration.setAttribute(
-					ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION, false);
-
-			configuration.setAttribute(
-					ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
-					DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION);
-
-			configuration.setAttribute(
-					ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
-					DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION);
+			fTestOfflinePage.setDefaults(configuration);
 		}
 	}
 
@@ -317,6 +310,9 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 		fConfigurationPage.propagateGUIupdate();
 
+		// MODEL EXPLORATION
+		fExplorationPage.initializeFrom(configuration);
+
 		// TRANSITION COVERAGE ANALYSIS
 		fTransitionCoveragePage.initializeFrom(configuration);
 
@@ -335,6 +331,10 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, fModelAnalysisProfile);
 		//System.err.println("+++++" + fModelAnalysisProfile);
+		
+		// MODEL EXPLORATION
+		fExplorationPage.performApply(configuration);
+
 		// TRANSITION COVERAGE ANALYSIS
 		fTransitionCoveragePage.performApply(configuration);
 
@@ -353,6 +353,16 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 	public boolean areFieldsValid(ILaunchConfiguration launchConfig) {
 		switch( fModelAnalysisProfile ) {
+		case ANALYSIS_PROFILE_MODEL_EXPLORATION: {
+			// TRANSITION COVERAGE ANALYSIS
+			if( ! fExplorationPage.isValid(launchConfig) )
+			{
+				return false;
+			}
+
+			break;
+		}
+
 		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR: {
 			// BEHAVIOR SELECTION ANALYSIS
 			if( ! fBehaviorSelectionPage.isValid(launchConfig) )
@@ -384,7 +394,6 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			break;
 		}
 
-		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
 		default:
 			break;
 		}

@@ -19,15 +19,8 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
-import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
-import org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
@@ -42,90 +35,14 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 	private IntegerFieldEditor fStepsIntegerField;
 	private IntegerFieldEditor fTimeoutIntegerField;
 	//private StringFieldEditor fTransitionNameStringField;
-	private BooleanFieldEditor fInclusionCriterionBooleanField;
 
-	private Button fBFSButton = null;
-	private Button fDFSButton = null;
-	private Button fRFSButton = null;
-
-	private GraphExplorationStrategyKind fAnalyzeStrategy =
-		GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
-
-	private Group groupAnalyzeStrategy;
 	//private Group groupBehaviorCharacterization;
-	private Group groupInclusionCriterion;
 
+	
 	public SupervisorConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
 	}
 
-
-	private final class TabListener extends SelectionAdapter implements ModifyListener {
-
-		/* (non-Javadoc)
-		 * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
-		 */
-		@Override
-		public void modifyText(ModifyEvent e) {
-			propagateGUIupdate();
-		}
-
-		/* (non-Javadoc)
-		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
-		 */
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			Object source= e.getSource();
-		//	if (source == fViewer.getTable() || source == fViewer) {
-		//		setParametersButtonsEnableState();
-		//	} else if (source == fParametersAddButton) {
-		//		handleParametersAddButtonSelected();
-		//	} else if (source == fParametersEditButton) {
-		//		handleParametersEditButtonSelected();
-		//	} else if (source == fParametersRemoveButton) {
-		//		handleParametersRemoveButtonSelected();
-		//	}
-
-			// Use case Analysis
-			if (source == fBFSButton) {
-				handleBFSButtonSelected();
-			}
-			else if (source == fDFSButton) {
-				handleDFSButtonSelected();
-			}
-			else if (source == fRFSButton) {
-				handleRFSButtonSelected();
-			}
-		}
-	}
-
-	private TabListener fListener= new TabListener();
-
-
-	// ======================================================================================
-	//                              Buttons handling
-	// ======================================================================================
-
-	public void handleBFSButtonSelected() {
-		if( fBFSButton.getSelection() ) {
-			fAnalyzeStrategy = GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
-		}
-		propagateGUIupdate();
-	}
-
-	public void handleDFSButtonSelected() {
-		if( fDFSButton.getSelection() ) {
-			fAnalyzeStrategy = GraphExplorationStrategyKind.DEPTH_FIRST_SEARCH;
-		}
-		propagateGUIupdate();
-	}
-
-	public void handleRFSButtonSelected() {
-		if( fRFSButton.getSelection() ) {
-			fAnalyzeStrategy = GraphExplorationStrategyKind.RANDOM_FIRST_SEARCH;
-		}
-		propagateGUIupdate();
-	}
 
 	// ======================================================================================
 	//                              Graphical Components Creation Methods
@@ -136,8 +53,7 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 	{
 		createControlNodesHeightWidth(parent, widgetToolkit);
 		createControlEvaluationLimits(parent, widgetToolkit);
-		createAnalyzeStrategy(parent, widgetToolkit);
-		createControlInclusionCriterion(parent, widgetToolkit);
+
 //		createBehaviorCharacterization(parent, widgetToolkit);
 	}
 
@@ -183,39 +99,6 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 				+ "(-1 <=> no-limit) of the symbolic execution");
 	}
 
-	private void createControlInclusionCriterion(Composite parent, IWidgetToolkit widgetToolkit) {
-        groupInclusionCriterion = widgetToolkit.createGroup(parent,
-        		"Inclusion Criterion", 5, 2, GridData.FILL_HORIZONTAL);
-
-        Composite comp = widgetToolkit.createComposite(
-        		groupInclusionCriterion, 1, 1, GridData.FILL_HORIZONTAL);
-
-        fInclusionCriterionBooleanField = new BooleanFieldEditor(this,
-        		ATTR_ENABLED_INCLUSION_CRITERION,
-        		"&Apply Inclusion", comp, false);
-	}
-
-
-	protected void createAnalyzeStrategy(Composite parent, IWidgetToolkit widgetToolkit) {
-		groupAnalyzeStrategy = widgetToolkit.createGroup(
-				parent, "&Analyze Strategy", 3, 1, GridData.FILL_HORIZONTAL);
-
-		fBFSButton = widgetToolkit.createRadioButton(groupAnalyzeStrategy, "&BFS");
-		fBFSButton.addSelectionListener(fListener);
-		fBFSButton.setToolTipText("Breadth First Search");
-
-		fDFSButton = widgetToolkit.createRadioButton(groupAnalyzeStrategy, "&DFS");
-		fDFSButton.addSelectionListener(fListener);
-		fDFSButton.setToolTipText("Depth First Search");
-
-		fRFSButton = widgetToolkit.createRadioButton(groupAnalyzeStrategy, "&RFS");
-		fRFSButton.addSelectionListener(fListener);
-		fRFSButton.setToolTipText("Random First Search");
-
-		fBFSButton.setSelection(false);
-		fDFSButton.setSelection(false);
-		fRFSButton.setSelection(false);
-	}
 
 //	public void createBehaviorCharacterization(Composite parent, IWidgetToolkit widgetToolkit) {
 //        groupBehaviorCharacterization = widgetToolkit.createGroup(
@@ -274,13 +157,6 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 //		fTimeoutIntegerField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_STOP_CRITERIA_TIMEOUT, -1);
-
-//		fInclusionCriterionBooleanField.setDefaults(configuration);
-		configuration.setAttribute(
-				ATTR_ENABLED_INCLUSION_CRITERION, false);
-
-		configuration.setAttribute(
-				ATTR_SPECIFICATION_ANALYZE_STRATEGY, "BFS");
 	}
 
 	@Override
@@ -292,72 +168,14 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 		fStepsIntegerField.initializeFrom(configuration);
 		fTimeoutIntegerField.initializeFrom(configuration);
 
-		fInclusionCriterionBooleanField.initializeFrom(configuration);
-
 		// Timeout grisé tant que pas de solution pour le prendre en compte
 		//
 		// fTimeoutIntegerField.setEnabled(false);
-
-		// Cas fAnalyzeStrategy
-		//
-		try {
-			fAnalyzeStrategy = GraphExplorationStrategyKind.get(
-					configuration.getAttribute(
-							ATTR_SPECIFICATION_ANALYZE_STRATEGY,
-							GraphExplorationStrategyKind.
-									BREADTH_FIRST_SEARCH.getLiteral()) );
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-		finally {
-			if( fAnalyzeStrategy == null ) {
-				fAnalyzeStrategy = GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
-			}
-		}
-
-		initializeAnalyzeStrategy(configuration);
 
 //		// Cas fTransitionNameStringField
 //		//
 //		fTransitionNameStringField.initializeFrom(configuration);
 //		initializeBehaviorCharacterization(configuration);
-	}
-
-	private void initializeAnalyzeStrategy(ILaunchConfiguration configuration) {
-		try {
-			String modelAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
-
-
-			if ( ! modelAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL_EXPLORATION) ) {
-				propagateVisibility(groupAnalyzeStrategy,false);
-				propagateVisibility(groupInclusionCriterion,false);
-			}
-			else {
-				propagateVisibility(groupAnalyzeStrategy,true);
-				propagateVisibility(groupInclusionCriterion,true);
-
-				switch( fAnalyzeStrategy ) {
-				case BREADTH_FIRST_SEARCH:
-					fBFSButton.setSelection(true);
-					break;
-				case DEPTH_FIRST_SEARCH:
-					fDFSButton.setSelection(true);
-					break;
-				case RANDOM_FIRST_SEARCH:
-					fRFSButton.setSelection(true);
-					break;
-				default:
-					fBFSButton.setSelection(true);
-					fAnalyzeStrategy =
-							GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
-					break;
-				}
-			}
-
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
 	}
 
 //	private void initializeBehaviorCharacterization(ILaunchConfiguration configuration) {
@@ -393,15 +211,11 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 		fNodeIntegerField.performApply(configuration);
 		fWidthIntegerField.performApply(configuration);
 		fHeightIntegerField.performApply(configuration);
+		
 		fStepsIntegerField.performApply(configuration);
 		fTimeoutIntegerField.performApply(configuration);
+		
 //		fTransitionNameStringField.performApply(configuration);
-
-		fInclusionCriterionBooleanField.performApply(configuration);
-
-		configuration.setAttribute(
-				ATTR_SPECIFICATION_ANALYZE_STRATEGY,
-				fAnalyzeStrategy.getLiteral());
 	}
 
 	// ======================================================================================
@@ -429,29 +243,6 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 //			return new FieldValidationReturn(false, "Transition Name is not a valid string");
 //		}
 		return new FieldValidationReturn(true, null);
-	}
-
-
-	///////////////////////////////////////////////////////////////////////////
-	// Model Analysis Profile changed
-	//
-	@Override
-	public void handleModelAnalysisProfileSelectionChanged(String analysisProfile) {
-		switch ( analysisProfile ) {
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
-		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
-			propagateVisibility(groupAnalyzeStrategy   , false);
-			propagateVisibility(groupInclusionCriterion, false);
-			
-			break;
-			
-		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
-		default:
-			propagateVisibility(groupAnalyzeStrategy   , true);
-			propagateVisibility(groupInclusionCriterion, true);
-			break;
-		}
 	}
 
 }

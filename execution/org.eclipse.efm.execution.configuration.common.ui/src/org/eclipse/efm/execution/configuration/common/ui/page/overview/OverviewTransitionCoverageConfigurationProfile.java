@@ -46,8 +46,8 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 
 	public Composite fCompDetailedSelection;
 
-	private Table fAllTransitionsListTable;
-	private TableColumn fAllTransitionsListTableColumn;
+	private Table fModelTransitionsTable;
+	private TableColumn fModelTransitionsTableColumn;
 
 	private Table fSelectedTransitionsTable;
 	private TableColumn fSelectedTransitionsTableColumn;
@@ -101,13 +101,13 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 		fCompDetailedSelection = widgetToolkit.createComposite(
 				parent, 2, 1,  GridData.FILL_HORIZONTAL);
 
-		fAllTransitionsListTable = new Table(
+		fModelTransitionsTable = new Table(
 				fCompDetailedSelection, SWT.CHECK | SWT.BORDER);
-		fAllTransitionsListTableColumn =
-				new TableColumn (fAllTransitionsListTable, SWT.NONE);
-		fAllTransitionsListTableColumn.setText("Transitions List");
-		fAllTransitionsListTable.setHeaderVisible(true);
-
+		fModelTransitionsTableColumn =
+				new TableColumn (fModelTransitionsTable, SWT.NONE);
+		fModelTransitionsTableColumn.setText("Model Transitions");
+		fModelTransitionsTable.setHeaderVisible(true);
+		
 		fSelectedTransitionsTable =
 				new Table(fCompDetailedSelection, SWT.BORDER);
 		fSelectedTransitionsTableColumn =
@@ -115,75 +115,22 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 		fSelectedTransitionsTableColumn.setText("Selected transitions");
 		fSelectedTransitionsTable.setHeaderVisible(true);
 
-// ==================================================================================
-/*
-		fCompDetailedSelection = SWTFactory.createComposite(
-				parent, 2, 1, GridData.FILL_HORIZONTAL);
+		int listHeight = fModelTransitionsTable.getItemHeight() * 10;
+		Rectangle trim = fModelTransitionsTable.computeTrim(0, 0, 0, listHeight);
 
-		ScrolledComposite scrolledComposite1 = new ScrolledComposite(
-				fCompDetailedSelection, SWT.H_SCROLL | SWT.V_SCROLL);
-		scrolledComposite1.setLayout(new GridLayout());
-		scrolledComposite1.setLayoutData(
-				new GridData(SWT.FILL, SWT.FILL, true, true));
-
-		fAllTransitionsListTable = new Table(scrolledComposite1,
-				SWT.CHECK | SWT.BORDER);
-		fAllTransitionsListTable.setHeaderVisible(true);
-
-		scrolledComposite1.setContent(fAllTransitionsListTable);
-		scrolledComposite1.setExpandHorizontal(true);
-		scrolledComposite1.setExpandVertical(true);
-		scrolledComposite1.setMinSize(
-				fAllTransitionsListTable.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-
-
-		ScrolledComposite scrolledComposite2 = new ScrolledComposite(
-				fCompDetailedSelection, SWT.H_SCROLL | SWT.V_SCROLL);
-		scrolledComposite2.setLayout(new GridLayout());
-		scrolledComposite2.setLayoutData(
-				new GridData(SWT.FILL, SWT.FILL, true, true));
-
-		fSelectedTransitionsTable = new Table(scrolledComposite2, SWT.BORDER);
-		fSelectedTransitionsTable.setHeaderVisible(true);
-
-		scrolledComposite2.setContent(fSelectedTransitionsTable);
-		scrolledComposite2.setExpandHorizontal(true);
-		scrolledComposite2.setExpandVertical(true);
-		scrolledComposite2.setMinSize(
-				fSelectedTransitionsTable.computeSize(
-						SWT.DEFAULT, SWT.DEFAULT));
-
-		fAllTransitionsListTableColumn =
-		 		new TableColumn(fAllTransitionsListTable, SWT.NONE);
-		fAllTransitionsListTableColumn.setText("Transitions to be selected");
-		fAllTransitionsListTableColumn.setWidth(10);
-
-		fSelectedTransitionsTableColumn =
-				new TableColumn(fSelectedTransitionsTable, SWT.NONE);
-		fSelectedTransitionsTableColumn.setText("Selected transitions");
-		fSelectedTransitionsTableColumn.setWidth(10);
-
-*/
-
-// ==================================================================================
-
-		int listHeight = fAllTransitionsListTable.getItemHeight() * 10;
-		Rectangle trim =
-				fAllTransitionsListTable.computeTrim(0, 0, 0, listHeight);
-
-		GridData gridDataLeft = new GridData();
+		GridData gridDataLeft = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridDataLeft.heightHint = trim.height;
 		gridDataLeft.horizontalIndent = 0;
 		gridDataLeft.verticalIndent = 10;
-		fAllTransitionsListTable.setLayoutData(gridDataLeft);
+		fModelTransitionsTable.setLayoutData(gridDataLeft);
 
-		GridData gridDataRight = new GridData();
+		GridData gridDataRight = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridDataRight.heightHint = trim.height;
 		gridDataRight.horizontalIndent = 0;
 		gridDataRight.verticalIndent = 10;
 		fSelectedTransitionsTable.setLayoutData(gridDataRight);
 
-		fAllTransitionsListTable.addSelectionListener(
+		fModelTransitionsTable.addSelectionListener(
 			new SelectionListener() {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
@@ -249,7 +196,7 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 				{
 					strItem2 = fSelectedTransitionsTable.getItem(index).getText();
 
-					for( TableItem tableItem1 : fAllTransitionsListTable.getItems() )
+					for( TableItem tableItem1 : fModelTransitionsTable.getItems() )
 					{
 						if( tableItem1.getText().equals(strItem2) )
 						{
@@ -279,10 +226,10 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	private void initTransitionTable() {
 		loadTransitionListToBeSelected();
 
-		fAllTransitionsListTable.removeAll();
+		fModelTransitionsTable.removeAll();
 
 		for(int i = 0; i < fAllTransitionsList.size(); i++) {
-			TableItem item = new TableItem(fAllTransitionsListTable, SWT.NONE);
+			TableItem item = new TableItem(fModelTransitionsTable, SWT.NONE);
 			item.setChecked(false);
 			item.setText( fAllTransitionsList.get(i) );
 		}
@@ -325,7 +272,7 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 				if( fSelectedTransitionsList.contains(
 						fAllTransitionsList.get(i)) )
 				{
-					fAllTransitionsListTable.getItem( i ).setChecked(true);
+					fModelTransitionsTable.getItem( i ).setChecked(true);
 				}
 			}
 		}
@@ -406,18 +353,18 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 				fAllTransitionsList.sort(null);
 
 				if( maxSizetransitionName <= 30 ) {
-					fAllTransitionsListTableColumn.setWidth(200);
+					fModelTransitionsTableColumn.setWidth(200);
 					fSelectedTransitionsTableColumn.setWidth(200);
 				}
 //				else if( maxSizetransitionName <= 60 ) {
-//					fAllTransitionsListTableColumn.setWidth(
+//					fModelTransitionsTableColumn.setWidth(
 //							maxSizetransitionName * 9 + 30);
 //					fSelectedTransitionsTableColumn.setWidth(
 //							maxSizetransitionName * 9 + 10);
 //				}
 				else {
-//					fAllTransitionsListTableColumn.setWidth(700);
-					fAllTransitionsListTableColumn.setWidth(
+//					fModelTransitionsTableColumn.setWidth(700);
+					fModelTransitionsTableColumn.setWidth(
 							maxSizetransitionName * 9 + 30);
 
 //					fSelectedTransitionsTableColumn.setWidth(700);

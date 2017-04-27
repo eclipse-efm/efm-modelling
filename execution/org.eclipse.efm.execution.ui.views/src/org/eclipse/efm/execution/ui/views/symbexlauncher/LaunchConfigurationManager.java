@@ -166,7 +166,7 @@ public class LaunchConfigurationManager implements ILaunchConfigurationListener 
 		String chg_name = configuration.getName();
 
 		if(contents.contains(chg_name)) {
-			System.err.println("conf changed detected on symbex launch conf " + chg_name);
+//			System.err.println("conf changed detected on symbex launch conf " + chg_name);
 			int new_index = contents.indexOf(chg_name);
 			
 			symbexWorkflowView.launchConfigurationChanged(configuration, new_index);
