@@ -182,6 +182,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		fTCBeginStep.setToolTipText("Number of \"cumulated\" steps "
 				+ "before begining the verification cover");
 		fTCBeginStep.setEnabled(false);
+		addField(fTCBeginStep);
 
 		Group groupCommon = widgetToolkit.createGroup(groupTCProperty,
 				"&Common Coverage Configuration",
@@ -193,13 +194,15 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				ATTR_TRANSITION_COVERAGE_HEURISTIC,
 				"&Heuristic", compCommon, true);
 		fTCHeuristic.setToolTipText("Activate the use of heuristics");
-
+		addField(fTCHeuristic);
+				
 		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
 		fTCStop = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_STOP, "&Stop", compCommon, true);
 		fTCStop.setToolTipText("Stop the symbolic excution "
 				+ "as soon as the coverage is completed");
+		addField(fTCStop);
 
 		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
@@ -207,6 +210,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				ATTR_TRANSITION_COVERAGE_SLICE, "&Slice", compCommon, true);
 		fTCSlice.setToolTipText("Pruning symbolic execution "
 				+ "graph at the end of the analysis");
+		addField(fTCSlice);
 
 		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
@@ -215,7 +219,8 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				"&Minimize", compCommon, true);
 		fTCMinimize.setToolTipText(
 				"Stop the symbolic execution at the earliest");
-
+		addField(fTCMinimize);
+		
 
 		Composite comp3 = widgetToolkit.createComposite(
 				groupTCProperty, 2, 1, GridData.FILL_HORIZONTAL);
@@ -246,6 +251,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				ATTR_TRANSITION_COVERAGE_HEURISTIC_TRIALS, "&Trials:", comp, -1);
 		fTCHeuristicTrials.widthInChars = 10;
 		//fTCHeuristicTrials.setTextLimit(20);
+		addField(fTCHeuristicTrials);
 
 
 		group = widgetToolkit.createGroup(groupTCHeuristic,
@@ -258,11 +264,13 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				ATTR_TRANSITION_COVERAGE_OBJECTIVE_RATE, "&Rate:", comp, 100);
 		//fTCObjectiveRate.widthInChars = 3;
 		fTCObjectiveRate.setTextLimit(3);
+		addField(fTCObjectiveRate);
 
 		fTCObjectiveRest = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_OBJECTIVE_REST, "&Rest:", comp, 0);
 		//fTCObjectiveRest.widthInChars = 3;
 		fTCObjectiveRest.setTextLimit(3);
+		addField(fTCObjectiveRest);
 
 
 		group = widgetToolkit.createGroup(groupTCHeuristic,
@@ -273,9 +281,11 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		fTCCoverageHeight = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_DEPTH, "&Depth:", comp, 7);
+		addField(fTCCoverageHeight);
 
 		fTCCoverageHeightReachedLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_WIDTH, "&Width:", comp, 42);
+		addField(fTCCoverageHeightReachedLimit);
 
 
 		Group groupStrategy = widgetToolkit.createGroup(groupTCHeuristic,
@@ -297,10 +307,12 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		fTCHitStronglyRandom = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_STRONGLY_RANDOM,
 				"&Hit Random", comp, false);
+		addField(fTCHitStronglyRandom);
 
 		fTCHitStronglyCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_STRONGLY_COUNT,
 				"&Hit Count:", compGroup, 1);
+		addField(fTCHitStronglyCount);
 
 
 		group = widgetToolkit.createGroup(groupStrategy,
@@ -316,10 +328,12 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		fTCHitWeaklyRandom = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_WEAKLY_RANDOM,
 				"&Hit Random", comp, false);
+		addField(fTCHitWeaklyRandom);
 
 		fTCHitWeaklyCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_WEAKLY_COUNT,
 				"&Hit Count:", compGroup, 1);
+		addField(fTCHitWeaklyCount);
 
 
 		group = widgetToolkit.createGroup(groupStrategy,
@@ -335,10 +349,12 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		fTCHitOtherRandom = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_OTHER_RANDOM,
 				"&Hit Random", comp, false);
+		addField(fTCHitOtherRandom);
 
 		fTCHitOtherCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_OTHER_COUNT,
 				"&Hit Count:", compGroup, 1);
+		addField(fTCHitOtherCount);
 
 
 		groupTCHeuristic = widgetToolkit.createGroup(
@@ -361,15 +377,17 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		fTCDirectiveTraceCountLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_COUNT_LIMIT,
 				"&Count:", comp, 8);
+		addField(fTCDirectiveTraceCountLimit);
 
 		fTCDirectiveTraceSizeLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_SIZE_LIMIT,
 				"&Size:", comp, 8);
+		addField(fTCDirectiveTraceSizeLimit);
 	}
 
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 //		fTCBeginStep.setDefaults(configuration);
 		configuration.setAttribute(ATTR_TRANSITION_COVERAGE_BEGIN_STEP, 0);
 
@@ -447,13 +465,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
-		fTCBeginStep.initializeFrom(configuration);
-		fTCStop.initializeFrom(configuration);
-		fTCMinimize.initializeFrom(configuration);
-		fTCSlice.initializeFrom(configuration);
-		fTCHeuristic.initializeFrom(configuration);
-
+	protected void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
 			fTCScope = configuration.getAttribute(
 					ATTR_TRANSITION_COVERAGE_SCOPE, SCOPE_COMBO_ITEM_MODEL);
@@ -473,7 +485,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 			fTCScopeCombo.select(0);
 			break;
 		}
-
+		
 
 		try {
 			fTCHeuristicStart = configuration.getAttribute(
@@ -502,10 +514,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 			break;
 		}
 
-		fTCHeuristicTrials.initializeFrom(configuration);
-		fTCObjectiveRate.initializeFrom(configuration);
-		fTCObjectiveRest.initializeFrom(configuration);
-
+		
 		try {
 			fTCDirectiveTraceHeuristic = configuration.getAttribute(
 					ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_HEURISTIC,
@@ -513,7 +522,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
-
+		
 		switch ( fTCDirectiveTraceHeuristic ) {
 		case DIRECTIVE_TRACE_HEURISTIC_COMBO_ITEM_BASIC:
 			fTCDirectiveTraceHeuristicCombo.select(0);
@@ -531,55 +540,23 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 			fTCDirectiveTraceHeuristicCombo.select(0);
 			break;
 		}
-
-		fTCDirectiveTraceCountLimit.initializeFrom(configuration);
-		fTCDirectiveTraceSizeLimit.initializeFrom(configuration);
-		fTCCoverageHeight.initializeFrom(configuration);
-		fTCCoverageHeightReachedLimit.initializeFrom(configuration);
-		fTCHitStronglyRandom.initializeFrom(configuration);
-		fTCHitStronglyCount.initializeFrom(configuration);
-		fTCHitWeaklyRandom.initializeFrom(configuration);
-		fTCHitWeaklyCount.initializeFrom(configuration);
-		fTCHitOtherRandom.initializeFrom(configuration);
-		fTCHitOtherCount.initializeFrom(configuration);
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		fTCBeginStep.performApply(configuration);
-		fTCStop.performApply(configuration);
-		fTCMinimize.performApply(configuration);
-		fTCSlice.performApply(configuration);
-		fTCHeuristic.performApply(configuration);
-
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_SCOPE, fTCScope);
 
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_HEURISTIC_START, fTCHeuristicStart);
 
-		fTCHeuristicTrials.performApply(configuration);
-		fTCObjectiveRate.performApply(configuration);
-		fTCObjectiveRest.performApply(configuration);
-
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_HEURISTIC,
 				fTCDirectiveTraceHeuristic);
-
-		fTCDirectiveTraceCountLimit.performApply(configuration);
-		fTCDirectiveTraceSizeLimit.performApply(configuration);
-		fTCCoverageHeight.performApply(configuration);
-		fTCCoverageHeightReachedLimit.performApply(configuration);
-		fTCHitStronglyRandom.performApply(configuration);
-		fTCHitStronglyCount.performApply(configuration);
-		fTCHitWeaklyRandom.performApply(configuration);
-		fTCHitWeaklyCount.performApply(configuration);
-		fTCHitOtherRandom.performApply(configuration);
-		fTCHitOtherCount.performApply(configuration);
 	}
 
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		if( ! fTCBeginStep.isValid() ) {
 			setErrorMessage("Begin Step is not a valid integer");
 			return false;

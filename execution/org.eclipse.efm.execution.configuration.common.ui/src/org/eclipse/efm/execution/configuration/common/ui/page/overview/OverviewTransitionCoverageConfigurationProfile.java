@@ -87,6 +87,7 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION,
 						"&Enable Transitions Selection", parent, false);
+		addField(fEnabledDetailedSelectionBooleanField);
 
 		fEnabledDetailedSelectionBooleanField.addSelectionListener(
 			new SelectionAdapter() {
@@ -379,9 +380,8 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration)
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration)
 	{
-//		fEnabledDetailedSelectionBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false);
 
@@ -390,7 +390,7 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration)
+	protected void initializeFromImpl(ILaunchConfiguration configuration)
 	{
 		try {
 			fModelFilePath = configuration.getAttribute(
@@ -401,8 +401,6 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 			fModelFilePath = null;
 			e2.printStackTrace();
 		}
-
-		fEnabledDetailedSelectionBooleanField.initializeFrom(configuration);
 
 		handleEnablingDetailedSelection();
 
@@ -425,16 +423,14 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration)
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration)
 	{
-		fEnabledDetailedSelectionBooleanField.performApply(configuration);
-
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_SELECTION, fSelectedTransitionsList);
 	}
 
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		if( fEnabledDetailedSelectionBooleanField.getBooleanValue()
 			&& ( fSelectedTransitionsList.size() == 0 ) )
 		{

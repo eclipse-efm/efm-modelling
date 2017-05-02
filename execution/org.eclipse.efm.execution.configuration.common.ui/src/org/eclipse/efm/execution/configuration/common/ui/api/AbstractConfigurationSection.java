@@ -13,7 +13,6 @@
 package org.eclipse.efm.execution.configuration.common.ui.api;
 
 
-import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.widgets.Composite;
@@ -57,7 +56,5 @@ public abstract class AbstractConfigurationSection extends AbstractSectionPart
 
 
 	protected abstract void createContent(Composite parent, IWidgetToolkit widgetToolkit);
-
-	public abstract FieldEditor[] getFieldEditors();
 
 }

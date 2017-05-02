@@ -15,18 +15,13 @@ package org.eclipse.efm.execution.configuration.common.ui.page.overview;
 import java.io.File;
 
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
-import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
@@ -62,11 +57,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	// WORKSPACE // DEVELOPER MODE
 	/////////////////////////////////////
 
-	private StringFieldEditor fWorkspaceRootLocationStringField;
-	private StringFieldEditor fWorkspaceOuputFolderNameStringField;
-	private StringFieldEditor fWorkspaceLogFolderNameStringField;
-	private StringFieldEditor fWorkspaceDebugFolderNameStringField;
-
+    OverviewWorkspaceDataSection fOverviewWorkspaceDataSection;
 
 	/////////////////////////////////////
 	// ANALYSIS PROFILE
@@ -79,6 +70,8 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		super(masterGUIelement);
 		
 		fAnalysisProfileSection = new OverviewAnalysisProfileSection(this);
+		
+		fOverviewWorkspaceDataSection = new OverviewWorkspaceDataSection(this);
 	}
 
 
@@ -175,7 +168,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 						String specFile = resource.getLocation().toString();
 						fModelPathText.setText(specFile);
 
-						updateWorkspaceRootPath(resource);
+						fOverviewWorkspaceDataSection.updateWorkspaceRootPath(resource);
 					}
 				}
 			}
@@ -184,47 +177,12 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	private void updateWorkspaceRootPath(IResource resource) {
-		fWorkspaceRootLocationStringField.setStringValue(
-				resource.getProject().getLocation().toString());
-	}
-
-	private void updateWorkspaceRootPath(String modelPath) {
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IPath path = new Path(modelPath);
-		IResource resource = root.findMember(path);
-		if( (resource != null) && resource.exists() ) {
-			fWorkspaceRootLocationStringField.setStringValue(
-					resource.getProject().getLocation().toString());
-		}
-		else if( root.getLocation().isPrefixOf(path) ) {
-			path = root.getLocation().append( path.segment(
-					path.matchingFirstSegments( root.getLocation() ) ));
-			fWorkspaceRootLocationStringField.setStringValue(path.toString());
-		}
-		else {
-			fWorkspaceRootLocationStringField.setStringValue(
-				root.getLocation().append(
-						"<project-folder-name>" ).toString() );
-		}
-
-		fWorkspaceRootLocationStringField.updateLaunchConfigurationDialog();
-	}
-
-
 	protected void createWorkspaceComponent(Composite parent, IWidgetToolkit widgetToolkit) {
 		ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
 		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
 		GenericCompositeCreator.fillToolBar(toolBarManager, toputinbar);
 
-		OverviewWorkspaceDataSection wfnsc = new OverviewWorkspaceDataSection(this);
-		wfnsc.createControl(parent, toolBarManager, widgetToolkit);
-		
-		FieldEditor[] editors = wfnsc.getFieldEditors();
-		fWorkspaceRootLocationStringField = (StringFieldEditor) editors[0];
-		fWorkspaceOuputFolderNameStringField = (StringFieldEditor) editors[1];
-		fWorkspaceLogFolderNameStringField = (StringFieldEditor) editors[2];
-		fWorkspaceDebugFolderNameStringField = (StringFieldEditor) editors[3];
+		fOverviewWorkspaceDataSection.createControl(parent, toolBarManager, widgetToolkit);
 	}
 
 	protected void createAnalyseProfileComponent(Composite parent, IWidgetToolkit widgetToolkit) {
@@ -249,32 +207,12 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
 				DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
-
-		// WORKSPACE // DEVELOPER MODE
-//		fWorkspaceRootLocationStringField.setDefaults(configuration);
-		configuration.setAttribute(
-				ATTR_WORKSPACE_ROOT_LOCATION,
-				DEFAULT_WORKSPACE_ROOT_LOCATION);
-
-//		fWorkspaceOuputFolderNameStringField.setDefaults(configuration);
-		configuration.setAttribute(
-				ATTR_WORKSPACE_OUTPUT_FOLDER_NAME,
-				DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
-
-		if( fEnabledSymbexDeveloperMode ) {
-//			fWorkspaceLogFolderNameStringField.setDefaults(configuration);
-			configuration.setAttribute(
-					ATTR_WORKSPACE_LOG_FOLDER_NAME,
-					DEFAULT_WORKSPACE_LOG_FOLDER_NAME);
-
-//			fWorkspaceDebugFolderNameStringField.setDefaults(configuration);
-			configuration.setAttribute(
-					ATTR_WORKSPACE_DEBUG_FOLDER_NAME,
-					DEFAULT_WORKSPACE_DEBUG_FOLDER_NAME);
-		}
+		
+		// WORKSPACE DATA
+		fOverviewWorkspaceDataSection.setDefaults(configuration);
 
 		// ANALYSIS PROFILE
-		fAnalysisProfileSection.setDefaultFieldValues(configuration);
+		fAnalysisProfileSection.setDefaults(configuration);
 	}
 
 	@Override
@@ -282,27 +220,21 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		try {
 			fProjectName = configuration.getAttribute(
 					ATTR_SPECIFICATION_PROJECT_NAME, "");
-
+			
 			String specMainFileLocation = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
 					DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
 			fModelPathText.setText( specMainFileLocation );
-			updateWorkspaceRootPath( specMainFileLocation );
-
-			fWorkspaceRootLocationStringField.initializeFrom(configuration);
-			fWorkspaceOuputFolderNameStringField.initializeFrom(configuration);
-
-			if( fEnabledSymbexDeveloperMode ) {
-				fWorkspaceLogFolderNameStringField.initializeFrom(configuration);
-				fWorkspaceDebugFolderNameStringField.initializeFrom(configuration);
-			}
-
-			// ANALYSIS PROFILE
-			fAnalysisProfileSection.initializeFieldValuesFrom(configuration);
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
 		}
+		
+		// WORKSPACE DATA
+		fOverviewWorkspaceDataSection.initializeFrom(configuration);
+
+		// ANALYSIS PROFILE
+		fAnalysisProfileSection.initializeFrom(configuration);
 	}
 
 
@@ -315,16 +247,11 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 				ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
 				fModelPathText.getText());
 
-		fWorkspaceRootLocationStringField.performApply(configuration);
-		fWorkspaceOuputFolderNameStringField.performApply(configuration);
-
-		if( fEnabledSymbexDeveloperMode ) {
-			fWorkspaceLogFolderNameStringField.performApply(configuration);
-			fWorkspaceDebugFolderNameStringField.performApply(configuration);
-		}
+		// WORKSPACE DATA
+		fOverviewWorkspaceDataSection.performApply(configuration);
 
 		// ANALYSIS PROFILE
-		fAnalysisProfileSection.applyUpdatesOnFieldValuesFrom(configuration);
+		fAnalysisProfileSection.performApply(configuration);
 	}
 
 	// ======================================================================================
@@ -352,7 +279,8 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		}
 
 		// ANALYSIS PROFILE
-		boolean isValid = fAnalysisProfileSection.areFieldsValid(launchConfig);
+		boolean isValid = fOverviewWorkspaceDataSection.isValid(launchConfig)
+				&& fAnalysisProfileSection.isValid(launchConfig);
 
 		return new FieldValidationReturn(isValid, messageToSend);
 	}

@@ -18,6 +18,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
+import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -28,20 +29,6 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 	// HIT OR JUMP
 	//
 	private IntegerFieldEditor fHoJBeginStep;
-
-	private BooleanFieldEditor fHoJHeuristic;
-	private BooleanFieldEditor fHoJStop;
-	private BooleanFieldEditor fHoJSlice;
-
-	private BooleanFieldEditor fHoJLocallySearchScope;
-
-	private BooleanFieldEditor fHoJSchedulerOrdered;
-	private BooleanFieldEditor fHoJHitConsecutive;
-
-	private BooleanFieldEditor fHoJHitFolding;
-	private BooleanFieldEditor fHoJHitLucky;
-	private BooleanFieldEditor fHoJHitMax;
-	private BooleanFieldEditor fHoJJumpSlice;
 
 	private IntegerFieldEditor fHoJJumpHeight;
 	private IntegerFieldEditor fHoJJumpLimit;
@@ -85,30 +72,36 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				"&Begin Step:", comp1, 0);
 		fHoJBeginStep.setToolTipText("Number of \"cumulated\" steps "
 				+ "before begining the research of the behavior");
-
+		addField( fHoJBeginStep );
+		
 		Group groupCommon = widgetToolkit.createGroup(groupHoJProperty,
 				"&Common", 3, 2, GridData.FILL_HORIZONTAL);
+		
+		FieldEditor fieldEditor;
 
 		Composite compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJHeuristic = new BooleanFieldEditor(fConfigurationPage,
+		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HEURISTIC,
 				"&Heuristic", compCommon, true);
-		fHoJHeuristic.setToolTipText("Activate the use of heuristics");
+		fieldEditor.setToolTipText("Activate the use of heuristics");
+		addField( fieldEditor );
 
 		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJStop = new BooleanFieldEditor(fConfigurationPage,
+		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_STOP, "&Stop", compCommon, true);
-		fHoJStop.setToolTipText("Stop the symbolic excution "
+		fieldEditor.setToolTipText("Stop the symbolic excution "
 				+ "as soon as the behavior is covered");
+		addField( fieldEditor );
 
 		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJSlice = new BooleanFieldEditor(fConfigurationPage,
+		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_SLICE, "&Slice", compCommon, true);
-		fHoJSlice.setToolTipText("Pruning the symbolic execution graph "
+		fieldEditor.setToolTipText("Pruning the symbolic execution graph "
 				+ "at the end of the analysis");
+		addField( fieldEditor );
 
 
 		Group groupScope = widgetToolkit.createGroup(groupHoJProperty,
@@ -117,27 +110,29 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		Composite comp = widgetToolkit.createComposite(
 				groupScope, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fHoJLocallySearchScope = new BooleanFieldEditor(
+		addField( new BooleanFieldEditor(
 				fConfigurationPage, ATTR_BEHAVIOR_SELECTION_HOJ_SEARCH_SCOPE_LOCALLY,
-				"&Search Locally scope instead Globally", comp, false);
+				"&Search Locally scope instead Globally", comp, false) );
 
 		Group groupScheduler = widgetToolkit.createGroup(groupHoJProperty,
 				"&Scheduler", 2, 2, GridData.FILL_HORIZONTAL);
 
 		Composite compScheduler = widgetToolkit.createComposite(
 				groupScheduler, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJSchedulerOrdered = new BooleanFieldEditor(fConfigurationPage,
+		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_SCHEDULER_ORDERED,
 				"&Ordered", compScheduler, true);
-		fHoJSchedulerOrdered.setToolTipText("Search ordered traces");
-
+		fieldEditor.setToolTipText("Search ordered traces");
+		addField( fieldEditor );
+		
 		compScheduler = widgetToolkit.createComposite(
 				groupScheduler, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJHitConsecutive = new BooleanFieldEditor(fConfigurationPage,
+		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_CONSECUTIVE,
 				"&Consecutive", compScheduler, false);
-		fHoJHitConsecutive.setToolTipText(
+		fieldEditor.setToolTipText(
 				"Search ordered traces with consecutive observables");
+		addField( fieldEditor );
 
 
 		Group groupOption = widgetToolkit.createGroup(groupHoJProperty,
@@ -145,34 +140,38 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 
 		Composite compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJHitFolding = new BooleanFieldEditor(fConfigurationPage,
+		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_FOLDING,
 				"&Folding", compOption, true);
-		fHoJHitFolding.setToolTipText(
+		fieldEditor.setToolTipText(
 				"Enabled checking many trace point in one context");
+		addField( fieldEditor );
 
 		compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJHitLucky = new BooleanFieldEditor(fConfigurationPage,
+		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_LUCKY,
 				"&Lucky", compOption, false);
-		fHoJHitLucky.setToolTipText(
+		fieldEditor.setToolTipText(
 				"Search one trace in a lucky way - no backtracking");
+		addField( fieldEditor );
 
 		compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJHitMax = new BooleanFieldEditor(fConfigurationPage,
+		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_MAX,
 				"&Maximun Trace", compOption, false);
-		fHoJHitMax.setToolTipText("Search a maximun trace");
+		fieldEditor.setToolTipText("Search a maximun trace");
+		addField( fieldEditor );
 
 		compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJJumpSlice = new BooleanFieldEditor(fConfigurationPage,
+		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_SLICE,
 				"&Jump Slice", compOption, false);
-		fHoJJumpSlice.setToolTipText(
+		fieldEditor.setToolTipText(
 				"Pruning intermediate at the end of hit or jump");
+		addField( fieldEditor );
 
 
 		Group groupHoJHeuristic = widgetToolkit.createGroup(parent,
@@ -183,23 +182,27 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		fHoJJumpHeight = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
 				"&Jump Height:", compHeuristic, 6);
+		addField( fHoJJumpHeight );
 
 		fHoJJumpLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT,
 				"&Jump Trials Limit:", compHeuristic, -1);
+		addField( fHoJJumpLimit );
 
 		fHoJHitCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_COUNT,
 				"&Hit Count:", compHeuristic, 1);
+		addField( fHoJHitCount );
 
 		fHoJJumpCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_COUNT,
 				"&Jump Count:", compHeuristic, 1);
+		addField( fHoJJumpCount );
 	}
 
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 //		fHoJBeginStep.setDefaults(configuration);
 		configuration.setAttribute(ATTR_BEHAVIOR_SELECTION_HOJ_BEGIN_STEP, 0);
 
@@ -254,53 +257,17 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
-		fHoJBeginStep.initializeFrom(configuration);
-		fHoJHeuristic.initializeFrom(configuration);
-		fHoJStop.initializeFrom(configuration);
-		fHoJSlice.initializeFrom(configuration);
-
-		fHoJLocallySearchScope.initializeFrom(configuration);
-
-		fHoJSchedulerOrdered.initializeFrom(configuration);
-		fHoJHitConsecutive.initializeFrom(configuration);
-
-		fHoJHitFolding.initializeFrom(configuration);
-		fHoJHitLucky.initializeFrom(configuration);
-		fHoJHitMax.initializeFrom(configuration);
-		fHoJJumpSlice.initializeFrom(configuration);
-
-		fHoJJumpHeight.initializeFrom(configuration);
-		fHoJJumpLimit.initializeFrom(configuration);
-		fHoJHitCount.initializeFrom(configuration);
-		fHoJJumpCount.initializeFrom(configuration);
+	protected void initializeFromImpl(ILaunchConfiguration configuration) {
+		//!! NOTHING
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		fHoJBeginStep.performApply(configuration);
-		fHoJHeuristic.performApply(configuration);
-		fHoJStop.performApply(configuration);
-		fHoJSlice.performApply(configuration);
-
-		fHoJLocallySearchScope.performApply(configuration);
-
-		fHoJSchedulerOrdered.performApply(configuration);
-		fHoJHitConsecutive.performApply(configuration);
-
-		fHoJHitFolding.performApply(configuration);
-		fHoJHitLucky.performApply(configuration);
-		fHoJHitMax.performApply(configuration);
-		fHoJJumpSlice.performApply(configuration);
-
-		fHoJJumpHeight.performApply(configuration);
-		fHoJJumpLimit.performApply(configuration);
-		fHoJHitCount.performApply(configuration);
-		fHoJJumpCount.performApply(configuration);
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+		//!! NOTHING
 	}
 
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		if( ! fHoJBeginStep.isValid() ) {
 			setErrorMessage("Begin Step is not a valid integer");
 			return false;

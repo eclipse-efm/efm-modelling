@@ -12,8 +12,6 @@
  */
 package org.eclipse.efm.execution.configuration.common.ui.api;
 
-import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.Section;
@@ -51,17 +49,6 @@ public abstract class AbstractConfigurationProfile extends AbstractSectionPart
 
 	abstract protected void createContent(Composite parent, IWidgetToolkit widgetToolkit);
 
-
-	abstract public void setDefaults(
-			ILaunchConfigurationWorkingCopy configuration);
-
-	abstract public void initializeFrom(ILaunchConfiguration configuration);
-
-	abstract public void performApply(
-			ILaunchConfigurationWorkingCopy configuration);
-
-
-	abstract public boolean isValid(ILaunchConfiguration launchConfig);
 
 	protected void setWarningMessage(String warningMessage) {
 		fConfigurationPage.propagateWarningMessage(warningMessage);

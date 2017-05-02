@@ -18,19 +18,16 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationSection;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
-import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
 public class OverviewAnalysisProfileSection extends AbstractConfigurationSection {
-
-	private FieldEditor[] contentFieldEdit;
 
 	protected CTabFolder fTabFolder;
 
@@ -87,14 +84,9 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 	@Override
 	public String getSectionDescription() {
-		return "Select and configure one profile for model analysis";
+		return "Select the analysis profile of the model by selecting a tab";
 	}
 
-
-	@Override
-	public void requestLayout() {
-		super.requestLayout();
-	}
 
 	@Override
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
@@ -122,18 +114,12 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			fTestOfflineTabItem = null;
 		}
 
-		fTabFolder.addSelectionListener(new SelectionListener() {
+		fTabFolder.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleModelSelectionChange();
 
 				fConfigurationPage.propagateUpdateJobScheduling();
-				requestLayout();
-			}
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				fConfigurationPage.propagateUpdateJobScheduling();
-				requestLayout();
 			}
 		});
 	}
@@ -264,17 +250,12 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 //		getConfigurationPage().propagateGUIupdate();
 	}
 
-	@Override
-	public FieldEditor[] getFieldEditors() {
-		return contentFieldEdit;
-	}
 
-
-	// ======================================================================================
-	//                              Fields Value Update
-	// ======================================================================================
-
-	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
+	///////////////////////////////////////////////////////////////////////////
+	// Fields Editors API
+	///////////////////////////////////////////////////////////////////////////
+	
+	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
 				ANALYSIS_PROFILE_MODEL_EXPLORATION);
@@ -294,7 +275,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 	}
 
-	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
+	public void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
 			fModelAnalysisProfile = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
@@ -327,7 +308,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	}
 
 
-	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, fModelAnalysisProfile);
 		//System.err.println("+++++" + fModelAnalysisProfile);
@@ -351,7 +332,8 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	//                              Fields Validation
 	// ======================================================================================
 
-	public boolean areFieldsValid(ILaunchConfiguration launchConfig) {
+	@Override
+	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		switch( fModelAnalysisProfile ) {
 		case ANALYSIS_PROFILE_MODEL_EXPLORATION: {
 			// TRANSITION COVERAGE ANALYSIS

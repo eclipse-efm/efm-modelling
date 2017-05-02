@@ -33,26 +33,6 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 	private BooleanFieldEditor fBasicTraceEnabledGenerationBooleanField;
 
-	private StringFieldEditor fBasicTraceFolderNameStringField;
-	private StringFieldEditor fBasicTraceFileNameStringField;
-
-	private BooleanFieldEditor fBasicTraceNormalizationBooleanField;
-	private BooleanFieldEditor fBasicTraceShowInitializationBooleanField;
-
-	private BooleanFieldEditor fBasicTraceAllExternalInputComBooleanField;
-	private BooleanFieldEditor fBasicTraceAllExternalOutputComBooleanField;
-
-	private BooleanFieldEditor fBasicTraceAllInternalInputComBooleanField;
-	private BooleanFieldEditor fBasicTraceAllInternalOutputComBooleanField;
-
-	private BooleanFieldEditor fBasicTraceTimeBooleanField;
-	private BooleanFieldEditor fBasicTraceAllVariableBooleanField;
-	private BooleanFieldEditor fBasicTraceAllTransitionBooleanField;
-	private BooleanFieldEditor fBasicTraceAllStateBooleanField;
-
-	private StringFieldEditor fBasicTraceObservableTraceDetailsStringField;
-	private StringFieldEditor fBasicTraceObservableFormatStringField;
-
 
 	/**
 	 * Constructor
@@ -83,6 +63,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_BASIC_TRACE_ENABLED_GENERATION,
 						"&Enabled Generation", comp, false);
+		addField(fBasicTraceEnabledGenerationBooleanField);
 
 		fBasicTraceEnabledGenerationBooleanField.addSelectionListener(
 				new SelectionAdapter() {
@@ -106,45 +87,52 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	}
 
 
-	private void createBasicConfigurationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	private void createBasicConfigurationComponent(
+			Composite parent, IWidgetToolkit widgetToolkit) {
 		groupBasicConfiguration = widgetToolkit.createGroup(parent,
 				"&Configuration", 2, 1, GridData.FILL_HORIZONTAL);
 
 		Composite comp = widgetToolkit.createComposite(
 				groupBasicConfiguration, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceFolderNameStringField = new StringFieldEditor(fConfigurationPage,
+		StringFieldEditor resourceNameStringField =
+				new StringFieldEditor(fConfigurationPage,
 				ATTR_BASIC_TRACE_FOLDER_NAME, "&Folder:",
 				comp, DEFAULT_BASIC_TRACE_FOLDER_NAME);
-		fBasicTraceFolderNameStringField.setToolTipText(
+		resourceNameStringField.setToolTipText(
 				"Folder name w.r.t. <workspace-root>/<output>");
+		addField(resourceNameStringField);
 
 		comp = widgetToolkit.createComposite(
 				groupBasicConfiguration, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceFileNameStringField = new StringFieldEditor(fConfigurationPage,
+		resourceNameStringField = new StringFieldEditor(fConfigurationPage,
 				ATTR_BASIC_TRACE_FILE_NAME, "&File:",
 				comp, DEFAULT_BASIC_TRACE_FILE_NAME);
-		fBasicTraceFileNameStringField.setToolTipText("File name");
+		resourceNameStringField.setToolTipText("File name");
+		addField(resourceNameStringField);
 
 		comp = widgetToolkit.createComposite(groupBasicConfiguration,
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceNormalizationBooleanField = new BooleanFieldEditor(
+		BooleanFieldEditor flagBooleanFieldEditor = new BooleanFieldEditor(
 				fConfigurationPage, ATTR_BASIC_TRACE_ENABLED_NORMALIZATION,
 				"&Normalization (Redundance Elimination...)", comp, true);
+		addField(flagBooleanFieldEditor);
 
 		comp = widgetToolkit.createComposite(groupBasicConfiguration,
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceShowInitializationBooleanField = new BooleanFieldEditor(
+		flagBooleanFieldEditor = new BooleanFieldEditor(
 				fConfigurationPage, ATTR_BASIC_TRACE_SHOW_INITIALIZATION,
 				"&Show Parameters Initialization", comp, false);
+		addField(flagBooleanFieldEditor);
 	}
 
-	public void createObservableSelectionComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	public void createObservableSelectionComponent(
+			Composite parent, IWidgetToolkit widgetToolkit) {
 		groupBasicObservable = widgetToolkit.createGroup(parent,
-				"&Observable Traces Selection", 3, 1, GridData.FILL_HORIZONTAL);
+				"&Observable Traces Selection", 2, 1, GridData.FILL_HORIZONTAL);
 
 		createExternalCommunicationComponent(groupBasicObservable, widgetToolkit);
 
@@ -157,7 +145,8 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 		createObservableFormatComponent(groupBasicObservable, widgetToolkit);
 	}
 
-	private void createExternalCommunicationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	private void createExternalCommunicationComponent(
+			Composite parent, IWidgetToolkit widgetToolkit) {
 		Group group = widgetToolkit.createGroup(parent,
 				"External Communication", 2, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText(
@@ -167,22 +156,24 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceAllExternalInputComBooleanField =
+		BooleanFieldEditor flagBooleanFieldEditor =
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_BASIC_TRACE_ALL_EXTERNAL_INPUT_COM_SELECTION,
 						"&Input", comp, true);
+		addField(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceAllExternalOutputComBooleanField =
-				new BooleanFieldEditor(fConfigurationPage,
-						ATTR_BASIC_TRACE_ALL_EXTERNAL_OUTPUT_COM_SELECTION,
-						"&Output", comp, true);
+		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
+				ATTR_BASIC_TRACE_ALL_EXTERNAL_OUTPUT_COM_SELECTION,
+				"&Output", comp, true);
+		addField(flagBooleanFieldEditor);
 	}
 
-	private void createInternalCommunicationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	private void createInternalCommunicationComponent(
+			Composite parent, IWidgetToolkit widgetToolkit) {
 		Group group = widgetToolkit.createGroup(parent,
 				"&Any Communication", 2, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( "External or Internal, "
@@ -192,157 +183,146 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceAllInternalInputComBooleanField =
+		BooleanFieldEditor flagBooleanFieldEditor =
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_BASIC_TRACE_ALL_INPUT_COM_SELECTION,
 						"&Input", comp, false);
+		addField(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceAllInternalOutputComBooleanField =
-				new BooleanFieldEditor(fConfigurationPage,
-						ATTR_BASIC_TRACE_ALL_OUTPUT_COM_SELECTION,
-						"&Output", comp, false);
+		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
+				ATTR_BASIC_TRACE_ALL_OUTPUT_COM_SELECTION, "&Output", comp, false);
+		addField(flagBooleanFieldEditor);
 	}
 
-	private void createOtherObservableComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	private void createOtherObservableComponent(
+			Composite parent, IWidgetToolkit widgetToolkit) {
 		Group group = widgetToolkit.createGroup(parent,
-				"&Other Elements", 4, 1, GridData.FILL_HORIZONTAL);
+				"&Other Elements", 4, 2, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( "Other Elements like, Time, Variable, "
 				+ "Transition, State..., Communication Selection" );
 
 		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceTimeBooleanField =
+		BooleanFieldEditor flagBooleanFieldEditor =
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_BASIC_TRACE_TIME_SELECTION,
 						"&Time", comp, true);
+		addField(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceAllVariableBooleanField =
-				new BooleanFieldEditor(fConfigurationPage,
-						ATTR_BASIC_TRACE_ALL_VARIABLE_SELECTION,
-						"&Variable", comp, false);
+		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
+				ATTR_BASIC_TRACE_ALL_VARIABLE_SELECTION, "&Variable", comp, false);
+		addField(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceAllTransitionBooleanField =
-				new BooleanFieldEditor(fConfigurationPage,
-						ATTR_BASIC_TRACE_ALL_TRANSITION_SELECTION,
-						"&Transition", comp, false);
+		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
+				ATTR_BASIC_TRACE_ALL_TRANSITION_SELECTION, "&Transition", comp, false);
+		addField(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceAllStateBooleanField =
-				new BooleanFieldEditor(fConfigurationPage,
-						ATTR_BASIC_TRACE_ALL_STATE_SELECTION,
-						"&State", comp, false);
+		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
+				ATTR_BASIC_TRACE_ALL_STATE_SELECTION, "&State", comp, false);
+		addField(flagBooleanFieldEditor);
 	}
 
-	private void createObservableDetailsComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	private void createObservableDetailsComponent(
+			Composite parent, IWidgetToolkit widgetToolkit) {
 		Group group = widgetToolkit.createGroup(parent,
-				"&Details", 1, 3, GridData.FILL_HORIZONTAL);
+				"&Details", 1, 2, GridData.FILL_HORIZONTAL);
 
 		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		fBasicTraceObservableTraceDetailsStringField = new StringFieldEditor(
-				fConfigurationPage, ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST, "",
+		StringFieldEditor observableTraceDetailsStringField =
+				new StringFieldEditor(fConfigurationPage,
+						ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST, "",
 				comp, DEFAULT_BASIC_TRACE_DETAILS_ELEMENT_LIST, SWT.MULTI);
+		addField(observableTraceDetailsStringField);
 	}
 
 
-	private void createObservableFormatComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	private void createObservableFormatComponent(
+			Composite parent, IWidgetToolkit widgetToolkit) {
 		Group group = widgetToolkit.createGroup(parent,
 				"&Ad'Hoc Element Format for Tests",
-				1, 3, GridData.FILL_HORIZONTAL);
+				1, 2, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( HELPER_TRACE_FORMAT_SPECIFICATION );
 
 		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText( HELPER_TRACE_FORMAT_SPECIFICATION );
 
-		fBasicTraceObservableFormatStringField = new StringFieldEditor(
-				fConfigurationPage, ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST, "", comp,
-				DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST, SWT.MULTI);
-		fBasicTraceObservableFormatStringField.setToolTipText(
+		StringFieldEditor observableFormatStringField = new StringFieldEditor(
+				fConfigurationPage, ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST, "",
+				comp, DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST, SWT.MULTI);
+		observableFormatStringField.setToolTipText(
 				HELPER_TRACE_FORMAT_SPECIFICATION );
+		addField(observableFormatStringField);
 	}
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration)
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration)
 	{
-//		fBasicTraceEnabledGenerationBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ENABLED_GENERATION, false);
 
-//		fBasicTraceFolderNameStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_FOLDER_NAME, DEFAULT_BASIC_TRACE_FOLDER_NAME);
 
-//		fBasicTraceFileNameStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_FILE_NAME, DEFAULT_BASIC_TRACE_FILE_NAME);
 
-//		fBasicTraceNormalizationBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ENABLED_NORMALIZATION, true);
 
-//		fBasicTraceShowInitializationBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_SHOW_INITIALIZATION, false);
 
-//		fBasicTraceAllExternalInputComBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ALL_EXTERNAL_INPUT_COM_SELECTION, true);
 
-//		fBasicTraceAllExternalOutputComBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ALL_EXTERNAL_OUTPUT_COM_SELECTION, true);
 
-//		fBasicTraceAllInternalInputComBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ALL_INTERNAL_INPUT_COM_SELECTION, true);
 
-//		fBasicTraceAllInternalOutputComBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ALL_INTERNAL_OUTPUT_COM_SELECTION, true);
 
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ALL_OUTPUT_COM_SELECTION, false);
 
-//		fBasicTraceTimeBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_TIME_SELECTION, true);
 
-//		fBasicTraceAllVariableBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ALL_VARIABLE_SELECTION, false);
 
-//		fBasicTraceAllTransitionBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ALL_TRANSITION_SELECTION, false);
 
-//		fBasicTraceAllStateBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ALL_STATE_SELECTION, false);
 
-//		fBasicTraceObservableTraceDetailsStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST,
 				DEFAULT_BASIC_TRACE_DETAILS_ELEMENT_LIST);
 
-//		fBasicTraceObservableFormatStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST,
 				DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST);
@@ -350,56 +330,17 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
-		fBasicTraceEnabledGenerationBooleanField.initializeFrom(configuration);	
-		
+	protected void initializeFromImpl(ILaunchConfiguration configuration) {
 		handleEnablingGeneration();
-
-		fBasicTraceFolderNameStringField.initializeFrom(configuration);
-		fBasicTraceFileNameStringField.initializeFrom(configuration);
-		fBasicTraceNormalizationBooleanField.initializeFrom(configuration);
-		fBasicTraceShowInitializationBooleanField.initializeFrom(configuration);
-
-		fBasicTraceAllExternalInputComBooleanField.initializeFrom(configuration);
-		fBasicTraceAllExternalOutputComBooleanField.initializeFrom(configuration);
-		fBasicTraceAllInternalInputComBooleanField.initializeFrom(configuration);
-		fBasicTraceAllInternalOutputComBooleanField.initializeFrom(configuration);
-
-		fBasicTraceTimeBooleanField.initializeFrom(configuration);
-		fBasicTraceAllVariableBooleanField.initializeFrom(configuration);
-		fBasicTraceAllTransitionBooleanField.initializeFrom(configuration);
-		fBasicTraceAllStateBooleanField.initializeFrom(configuration);
-
-		fBasicTraceObservableTraceDetailsStringField.initializeFrom(configuration);
-		fBasicTraceObservableFormatStringField.initializeFrom(configuration);
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		fBasicTraceEnabledGenerationBooleanField.performApply(configuration);
-
-		fBasicTraceFolderNameStringField.performApply(configuration);
-		fBasicTraceFileNameStringField.performApply(configuration);
-
-		fBasicTraceNormalizationBooleanField.performApply(configuration);
-		fBasicTraceShowInitializationBooleanField.performApply(configuration);
-
-		fBasicTraceAllExternalInputComBooleanField.performApply(configuration);
-		fBasicTraceAllExternalOutputComBooleanField.performApply(configuration);
-		fBasicTraceAllInternalInputComBooleanField.performApply(configuration);
-		fBasicTraceAllInternalOutputComBooleanField.performApply(configuration);
-
-		fBasicTraceTimeBooleanField.performApply(configuration);
-		fBasicTraceAllVariableBooleanField.performApply(configuration);
-		fBasicTraceAllTransitionBooleanField.performApply(configuration);
-		fBasicTraceAllStateBooleanField.performApply(configuration);
-
-		fBasicTraceObservableTraceDetailsStringField.performApply(configuration);
-		fBasicTraceObservableFormatStringField.performApply(configuration);
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+		//!! NOTHING
 	}
 
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		return true;
 	}
 

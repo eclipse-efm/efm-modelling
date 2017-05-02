@@ -619,13 +619,6 @@ public abstract class FieldEditor {
     }
 
 
-
-
-
-
-
-
-
 	/**
 	 * Diversity Field Editor Configuration API
 	 * @param configuration

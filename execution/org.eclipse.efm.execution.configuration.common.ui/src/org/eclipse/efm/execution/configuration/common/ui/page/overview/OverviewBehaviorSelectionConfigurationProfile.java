@@ -53,37 +53,30 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 		fBehaviorSpecificationStringField = new StringFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST, "",
 				parent, BEHAVIOR_DESCRIPTION, SWT.MULTI);
-
 		fBehaviorSpecificationStringField.setToolTipText(BEHAVIOR_DESCRIPTION);
-
-//		compModelAnalysisBehavior = SWTFactory.createComposite(parent, 1, 1,
-//		GridData.FILL_HORIZONTAL);
-//		GridData gridData1 = new GridData(GridData.FILL_HORIZONTAL);
-//		gridData1.horizontalIndent = DETAIL_HORIZONTAL_INDENT;
-//		compModelAnalysisBehavior.setLayoutData(gridData1);
+		addField(fBehaviorSpecificationStringField);
 	}
 
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST,
 				BEHAVIOR_INITIAL_SAMPLE);
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
-		fBehaviorSpecificationStringField.initializeFrom(configuration);
-
+	protected void initializeFromImpl(ILaunchConfiguration configuration) {
+		//!! NOTHING
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		fBehaviorSpecificationStringField.performApply(configuration);
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+		//!! NOTHING
 	}
 
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		String[] tabString = fBehaviorSpecificationStringField
 				.getStringValue().split(";\n");
 

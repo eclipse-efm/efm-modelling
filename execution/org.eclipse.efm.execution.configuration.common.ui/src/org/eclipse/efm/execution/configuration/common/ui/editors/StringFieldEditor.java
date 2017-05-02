@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 
 public class StringFieldEditor extends FieldEditor {
@@ -616,7 +617,33 @@ public class StringFieldEditor extends FieldEditor {
 
 
 
+    /**
+     * Clears the error message from the message line.
+     */
+	@Override
+    protected void clearErrorMessage() {
+        if (textField != null) {
+        	textField.setBackground(null);
+        }
+		
+        super.clearErrorMessage();
+    }
 
+
+    /**
+     * Shows the given error message in the page for this
+     * field editor if it has one.
+     *
+     * @param msg the error message
+     */
+    protected void showErrorMessage(String msg) {
+        if (textField != null) {
+        	textField.setBackground(
+        			Display.getCurrent().getSystemColor(SWT.COLOR_RED));
+        }
+		
+        super.showErrorMessage(msg);
+    }
 
 
 }

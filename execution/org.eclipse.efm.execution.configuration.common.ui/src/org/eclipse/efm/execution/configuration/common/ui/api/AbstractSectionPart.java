@@ -13,14 +13,33 @@
 
 package org.eclipse.efm.execution.configuration.common.ui.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractSectionPart {
 	
+    /**
+     * The field editors, or <code>null</code> if not created yet.
+     */
+    private List<FieldEditor> fFields = null;
+
+
 	private Composite fSection;
 	
 	private Composite fSectionClient;
 
+	
+	public AbstractSectionPart() {
+		this.fFields = null;
+		
+		this.fSection = null;
+		this.fSectionClient = null;
+	}
 
 	// Title / Description
 	public abstract String getSectionTitle();
@@ -53,20 +72,86 @@ public abstract class AbstractSectionPart {
 	}
 
 
+	///////////////////////////////////////////////////////////////////////////
+	// Fields Editors API
+	///////////////////////////////////////////////////////////////////////////
 	
-	// Layout
-	public void updateLayouts() {
-		fSectionClient.layout(true);
-		
-		fSection.layout(true);
-		
-		fSectionClient.layout(true);
+    /**
+     * Adds the given field editor to this page.
+     * @param editor the field editor
+     */
+    protected void addField(FieldEditor editor) {
+        if (fFields == null) {
+			fFields = new ArrayList<>();
+		}
+        fFields.add(editor);
+    }
+
+	public List<FieldEditor> getFieldEditors() {
+		return fFields;
 	}
 
-	public void requestLayout() {
-		fSection.layout();
-		fSection.requestLayout();
+	
+	
+	abstract protected void setDefaultsImpl(
+			ILaunchConfigurationWorkingCopy configuration);
+
+	public final void setDefaults(
+			ILaunchConfigurationWorkingCopy configuration) {
+		if( fFields != null ) {
+			for (FieldEditor fieldEditor : fFields) {
+				fieldEditor.setDefaults(configuration);
+			}
+		}
+		
+		setDefaultsImpl(configuration);
+	}
+
+	
+	abstract protected void initializeFromImpl(ILaunchConfiguration configuration);
+
+	public final void initializeFrom(ILaunchConfiguration configuration) {
+		if( fFields != null ) {
+			for (FieldEditor fieldEditor : fFields) {
+				fieldEditor.initializeFrom(configuration);
+			}
+		}
+		
+		initializeFromImpl( configuration );
+	}
+
+	
+	abstract protected void performApplyImpl(
+			ILaunchConfigurationWorkingCopy configuration);
+
+	public final void performApply(
+			ILaunchConfigurationWorkingCopy configuration) {
+		if( fFields != null ) {
+			for (FieldEditor fieldEditor : fFields) {
+				fieldEditor.performApply(configuration);
+			}
+		}
+		
+		performApplyImpl(configuration);
 	}
 
 
+	abstract protected boolean isValidImpl(ILaunchConfiguration launchConfig);
+
+	public final boolean isValid(ILaunchConfiguration launchConfig) {
+		if( isValidImpl(launchConfig) ) {
+			if( fFields != null ) {
+				for (FieldEditor fieldEditor : fFields) {
+					if( ! fieldEditor.isValid() ) {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+
+	
 }

@@ -59,10 +59,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	private BooleanFieldEditor fEnabledTraceConfigurationBooleanField;
 
 	private Group fGroupObservable;
-	private StringFieldEditor fObservableStringField;
-
 	private Group fGroupControllable;
-	private StringFieldEditor fControllableStringField;
 
 	/**
 	 * Constructor
@@ -238,9 +235,11 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 				1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText(TEST_OFFLINE_OBSERVABLE);
 
-		fObservableStringField = new StringFieldEditor(fConfigurationPage,
+		StringFieldEditor textStringField =
+				new StringFieldEditor(fConfigurationPage,
 				ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION, "", comp,
 				DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION, SWT.MULTI);
+		addField(textStringField);
 
 		fGroupControllable = widgetToolkit.createGroup(parent,
 				"&Controllable", 1, 1, GridData.FILL_HORIZONTAL);
@@ -250,9 +249,10 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 				1, 1, GridData.FILL_HORIZONTAL);
 		comp.setToolTipText(TEST_OFFLINE_CONTROLLABLE);
 
-		fControllableStringField = new StringFieldEditor(fConfigurationPage,
+		textStringField = new StringFieldEditor(fConfigurationPage,
 				ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION, "", comp,
 				DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION, SWT.MULTI);
+		addField(textStringField);
 	}
 
 
@@ -267,7 +267,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
 				DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
@@ -290,7 +290,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	protected void initializeFromImpl(ILaunchConfiguration configuration) {
 		String traceFile;
 		try {
 			traceFile = configuration.getAttribute(
@@ -313,15 +313,11 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		}
 		fTestPurposePathText.setText(testPurposeFile);
 
-		fEnabledTraceConfigurationBooleanField.initializeFrom(configuration);
-		fObservableStringField.initializeFrom(configuration);
-		fControllableStringField.initializeFrom(configuration);
-
 		handleEnablingTraceConfiguration();
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
 				fTracePathText.getText());
@@ -329,17 +325,11 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		configuration.setAttribute(
 				ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
 				fTestPurposePathText.getText());
-
-
-		fEnabledTraceConfigurationBooleanField.performApply(configuration);
-
-		fObservableStringField.performApply(configuration);
-		fControllableStringField.performApply(configuration);
 	}
 
 
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 
 		String filePath = fTestPurposePathText.getText();
 

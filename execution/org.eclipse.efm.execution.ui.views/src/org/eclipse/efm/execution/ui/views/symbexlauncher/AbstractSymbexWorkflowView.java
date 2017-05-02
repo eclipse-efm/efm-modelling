@@ -40,6 +40,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 
 	private Label message_text_display;
 	private Label message_image_display;
+	
 
 	protected void setupFormFrame() {
 		toolkit = new FormWidgetToolkit(parentComposite.getDisplay());
@@ -131,28 +132,33 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 	}
 
 	@Override // to change visibility to public
-	public void setWarningMessage(String warningmessage){
-		if(warningmessage != null) {
-			message_text_display.setText(warningmessage);
+	public void setWarningMessage(String warningMessage){
+		if(warningMessage != null) {
+			message_text_display.setText(warningMessage);
+			
+			message_image_display.setImage(
+					ImageResources.getImageDescriptor(
+							ImageResources.IMAGE__WARNING_ICON).createImage());
 		} else {
 			message_text_display.setText("");
+			message_image_display.setImage(null);
 		}
-		message_image_display.setImage(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__WARNING_ICON).createImage());
 		message_display_parentcomposite.layout();
 	}
 
 	@Override // to change visibility to public
-	public void setErrorMessage(String errormessage){
-		if(errormessage != null) {
-			message_text_display.setText(errormessage);
+	public void setErrorMessage(String errorMessage){
+		if(errorMessage != null) {
+			message_text_display.setText(errorMessage);
+			
+			message_image_display.setImage(
+					ImageResources.getImageDescriptor(
+							ImageResources.IMAGE__ERROR_ICON).createImage());
 		} else {
 			message_text_display.setText("");
+			message_image_display.setImage(null);
 		}
-//!!!		message_image_display.setImage(
-//				ImageResources.getImageDescriptor(
-//						ImageResources.IMAGE__ERROR_ICON).createImage());
+		
 		message_display_parentcomposite.layout();
 	}
 

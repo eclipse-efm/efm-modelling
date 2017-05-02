@@ -214,7 +214,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	private void createOverviewTabItem(IWidgetToolkit widgetToolkit)
 	{
 		fOverviewTabItem = new CTabItem(fTabFolder, SWT.NONE );
-		fOverviewTabItem.setText("Main");
+		fOverviewTabItem.setText("Overview");
 
 		ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
@@ -230,8 +230,9 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		fOverviewControl = overviewPage.getControl();
 		if (fOverviewControl != null) {
 			scrolledComposite.setContent(fOverviewControl);
-			scrolledComposite.setMinSize(
-					fOverviewControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			
+//			scrolledComposite.setMinSize(
+//					fOverviewControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 			fOverviewTabItem.setControl(scrolledComposite);
 		}
@@ -258,8 +259,9 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		fSupervisorControl = supervisorPage.getControl();
 		if (fSupervisorControl != null) {
 			scrolledComposite.setContent(fSupervisorControl);
-			scrolledComposite.setMinSize(
-					fSupervisorControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			
+//			scrolledComposite.setMinSize(
+//					fSupervisorControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 			fSupervisorTabItem.setControl(scrolledComposite);
 		}
@@ -286,8 +288,9 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		fTestGenControl = testGenPage.getControl();
 		if (fTestGenControl != null) {
 			scrolledComposite.setContent(fTestGenControl);
-			scrolledComposite.setMinSize(
-					fTestGenControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			
+//			scrolledComposite.setMinSize(
+//					fTestGenControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 			fTestGenTabItem.setControl(scrolledComposite);
 		}
@@ -501,5 +504,45 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		tabbedCompositeMaster.layout();
 		scrollform.reflow(true);
 	}
+
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Message API
+	///////////////////////////////////////////////////////////////////////////
+
+	@Override // to change visibility to public
+	public void setWarningMessage(String warningMessage){
+		CTabItem selectedTabItem = fTabFolder.getSelection();
+		if( selectedTabItem != null ) {
+			if(warningMessage != null) {
+				selectedTabItem.setToolTipText(warningMessage);
+				
+				selectedTabItem.setImage(
+						ImageResources.getImageDescriptor(
+								ImageResources.IMAGE__WARNING_ICON).createImage());
+			} else {
+				selectedTabItem.setImage(null);
+			}
+		}
+		super.setWarningMessage(warningMessage);
+	}
+
+	@Override // to change visibility to public
+	public void setErrorMessage(String errorMessage){
+		CTabItem selectedTabItem = fTabFolder.getSelection();
+		if( selectedTabItem != null ) {
+			if(errorMessage != null) {
+				selectedTabItem.setToolTipText(errorMessage);
+				
+				selectedTabItem.setImage(
+						ImageResources.getImageDescriptor(
+								ImageResources.IMAGE__ERROR_ICON).createImage());
+			} else {
+				selectedTabItem.setImage(null);
+			}
+		}
+		super.setErrorMessage(errorMessage);
+	}
+
 
 }

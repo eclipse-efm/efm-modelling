@@ -40,8 +40,6 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 	private Group groupInclusionCriterion;
 
-	private BooleanFieldEditor fInclusionCriterionBooleanField;
-
 	
 	/**
 	 * Constructor
@@ -127,8 +125,10 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
         Composite comp = widgetToolkit.createComposite(
         		groupInclusionCriterion, 1, 1, GridData.FILL_HORIZONTAL);
 
-        fInclusionCriterionBooleanField = new BooleanFieldEditor(this.fConfigurationPage,
+        BooleanFieldEditor applyInclusionBooleanField =
+        		new BooleanFieldEditor(this.fConfigurationPage,
         		ATTR_ENABLED_INCLUSION_CRITERION, "&Apply Inclusion", comp, false);
+        addField(applyInclusionBooleanField);
 	}
 
 
@@ -151,17 +151,15 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration)
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration)
 	{
 		configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY, "BFS");
 
-//		fInclusionCriterionBooleanField.setDefaults(configuration);
-		configuration.setAttribute(
-				ATTR_ENABLED_INCLUSION_CRITERION, false);
+		configuration.setAttribute(ATTR_ENABLED_INCLUSION_CRITERION, false);
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration)
+	protected void initializeFromImpl(ILaunchConfiguration configuration)
 	{
 		// Case Analyze Strategy
 		//
@@ -181,10 +179,6 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		}
 
 		initializeAnalyzeStrategy();
-		
-		// Case Inclusion Criterion
-		//
-		fInclusionCriterionBooleanField.initializeFrom(configuration);
 	}
 
 	
@@ -215,17 +209,15 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration)
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration)
 	{
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_ANALYZE_STRATEGY,
 				fAnalyzeStrategy.getLiteral());
-
-		fInclusionCriterionBooleanField.performApply(configuration);
 	}
 
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		return true;
 	}
 

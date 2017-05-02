@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.efm.ui.utils;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
+import org.eclipse.efm.ui.Activator;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public class ImageResources {
 	
@@ -51,7 +50,7 @@ public class ImageResources {
 	public static final String IMAGE__DIALRUN_ICON = ICONS_PLUGIN_PATH + "run_dial.png";
 	
 	public static final String IMAGE__WARNING_ICON = ICONS_PLUGIN_PATH + "warning_st_obj.png";
-	public static final String IMAGE__ERROR_ICON = ICONS_PLUGIN_PATH + "error_st_obj.png";
+	public static final String IMAGE__ERROR_ICON = ICONS_PLUGIN_PATH + "error_st_obj.gif";
 
 	
 	public static final String IMAGE__REFRESH_ICON = ICONS_PLUGIN_PATH + "refresh_tab.png";
@@ -62,14 +61,16 @@ public class ImageResources {
 	// Helper/Util methods only below
 	
 	public static final ImageDescriptor getImageDescriptor(String imagePath) {
-		ImageDescriptor image_descriptor = null;
-		try {
-			image_descriptor = ImageDescriptor.createFromURL(new URL(imagePath));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		ImageDescriptor image_descriptor = null;
+//		try {
+//			image_descriptor = ImageDescriptor.createFromURL(new URL(imagePath));
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return(image_descriptor);
 		
-		return(image_descriptor);
+		return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, imagePath);
+
 	}
 }
