@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_DY2JADDbEee6FsEFun8ceg" name="FormalMLVariableTypes" metaclassReference="_c3u-MDDbEee6FsEFun8ceg">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NvUYITDcEee6FsEFun8ceg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_Wo9SUTDcEee6FsEFun8ceg" name="FormalMLVariableTypes" nsURI="http:///schemas/FormalMLVariableTypes/_Wo9SUDDcEee6FsEFun8ceg/1" nsPrefix="FormalMLVariableTypes">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Wo9SWTDcEee6FsEFun8ceg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo9SWjDcEee6FsEFun8ceg" key="Version" value="0.0.2"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo9SWzDcEee6FsEFun8ceg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo9SXDDcEee6FsEFun8ceg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo9SXTDcEee6FsEFun8ceg" key="Date" value="2017-05-04"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo9SXjDcEee6FsEFun8ceg" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_Wo9SUjDcEee6FsEFun8ceg" name="IntSizedContract">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Wo9SUzDcEee6FsEFun8ceg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_dkYBwDDbEee6FsEFun8ceg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_Wo9SVDDcEee6FsEFun8ceg" name="base_Behavior" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_Wo9SVjDcEee6FsEFun8ceg" name="size" ordered="false" lowerBound="1" defaultValueLiteral="-1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//UnlimitedNatural"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_NvUYIjDcEee6FsEFun8ceg" name="FormalMLVariableTypes" nsURI="http:///schemas/FormalMLVariableTypes/_NvUYIDDcEee6FsEFun8ceg/0" nsPrefix="FormalMLVariableTypes">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NvU_MTDcEee6FsEFun8ceg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NvU_MjDcEee6FsEFun8ceg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NvU_MzDcEee6FsEFun8ceg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NvU_NDDcEee6FsEFun8ceg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NvU_NTDcEee6FsEFun8ceg" key="Date" value="2017-05-04"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NvU_NjDcEee6FsEFun8ceg" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_NvUYIzDcEee6FsEFun8ceg" name="IntSizedContract">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NvUYJDDcEee6FsEFun8ceg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_dkYBwDDbEee6FsEFun8ceg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_NvUYJTDcEee6FsEFun8ceg" name="base_Behavior" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_NvUYJzDcEee6FsEFun8ceg" name="size" ordered="false" lowerBound="1" defaultValueLiteral="-1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/5.0.0/Types#//UnlimitedNatural"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_SyU_ADDcEee6FsEFun8ceg">
+    <annotatedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Behavior"/>
+    <body>Stereotype pour le MultiRdv pour gérer le : OneToOne, OneToMany, OneToAll, ...</body>
+  </ownedComment>
+  <elementImport xmi:type="uml:ElementImport" xmi:id="_c3u-MDDbEee6FsEFun8ceg" alias="Behavior">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Behavior"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_dkYBwDDbEee6FsEFun8ceg" name="IntSizedContract">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_mznYgTDbEee6FsEFun8ceg" name="base_Behavior" association="_mzmxcDDbEee6FsEFun8ceg">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Behavior"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_nJCO4DDbEee6FsEFun8ceg" name="size">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+      <defaultValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sOSRcDDbEee6FsEFun8ceg" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_mzmxcDDbEee6FsEFun8ceg" name="E_IntSizedContract_Behavior1" memberEnd="_mznYgDDbEee6FsEFun8ceg _mznYgTDbEee6FsEFun8ceg">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_mznYgDDbEee6FsEFun8ceg" name="extension_IntSizedContract" type="_dkYBwDDbEee6FsEFun8ceg" aggregation="composite" association="_mzmxcDDbEee6FsEFun8ceg"/>
+  </packagedElement>
+</uml:Profile>

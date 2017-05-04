@@ -4,17 +4,19 @@
     <packagedElement xmi:type="uml:DataType" xmi:id="_CqJXEJeoEeaN6eM4hBtwog" name="AnyType"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_qbxukJenEeaN6eM4hBtwog" name="Class">
-    <packagedElement xmi:type="uml:Class" xmi:id="_wuK5sJenEeaN6eM4hBtwog" name="Env"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_wuK5sJenEeaN6eM4hBtwog" name="DefaultEmptyEnv"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_eMLKcOPgEeag-YFRc8zsgw" name="Routing">
-    <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_hFGfYOPgEeag-YFRc8zsgw" name="allFifo">
+    <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_hFGfYOPgEeag-YFRc8zsgw" name="FifoContract">
       <language>xLIA</language>
       <body>connector all { protocol: buffered ; policy: fifo ; size: * ; }</body>
     </packagedElement>
-    <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_nA2FEOPgEeag-YFRc8zsgw" name="allRdv">
+    <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_nA2FEOPgEeag-YFRc8zsgw" name="RdvContract">
       <language>xLIA</language>
       <body>connector all { protocol: sync ; policy: rdv ;}</body>
     </packagedElement>
+    <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_NBwZcDDaEee6FsEFun8ceg" name="LifoContract"/>
+    <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_S6-PkDDaEee6FsEFun8ceg" name="MultiRdvContract"/>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_3w5y4OeuEeWhBfCNf_PCVQ">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_3w5y4eeuEeWhBfCNf_PCVQ" source="http://www.eclipse.org/uml2/2.0.0/UML">

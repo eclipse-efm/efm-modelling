@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:FormalMLVariableTypes="http:///schemas/FormalMLVariableTypes/_Wo9SUDDcEee6FsEFun8ceg/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/FormalMLVariableTypes/_Wo9SUDDcEee6FsEFun8ceg/1 ../profile/FormalMLVariableTypes.profile.uml#_Wo9SUTDcEee6FsEFun8ceg">
+  <uml:Model xmi:id="_gfy5UOetEeWhBfCNf_PCVQ" name="MyMiniFormalModel">
+    <packagedElement xmi:type="uml:Class" xmi:id="_te2JsOetEeWhBfCNf_PCVQ" name="myExecutionContext">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_vnROwOetEeWhBfCNf_PCVQ" name="ping" visibility="public" type="_7KvR8OetEeWhBfCNf_PCVQ"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_zfQM8OetEeWhBfCNf_PCVQ" name="pong" visibility="public" type="_-dcY0OetEeWhBfCNf_PCVQ"/>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_C8n54OeuEeWhBfCNf_PCVQ" name="Connector1" type="_FvqscOeyEeWhBfCNf_PCVQ">
+        <contract xmi:type="uml:OpaqueBehavior" href="../library/FormalML-Standard-Library.uml#_hFGfYOPgEeag-YFRc8zsgw"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_C8n54eeuEeWhBfCNf_PCVQ" partWithPort="_vnROwOetEeWhBfCNf_PCVQ" role="_AgOI4OeuEeWhBfCNf_PCVQ"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_C8n54ueuEeWhBfCNf_PCVQ" partWithPort="_zfQM8OetEeWhBfCNf_PCVQ" role="_BrWfQOeuEeWhBfCNf_PCVQ"/>
+      </ownedConnector>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_7KvR8OetEeWhBfCNf_PCVQ" name="PingExecutableBlock" classifierBehavior="_F4g74OexEeWhBfCNf_PCVQ">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_AgOI4OeuEeWhBfCNf_PCVQ" name="Port1" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_AXbR4OexEeWhBfCNf_PCVQ" name="myProperty">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_F4g74OexEeWhBfCNf_PCVQ" name="StateMachine1">
+        <region xmi:type="uml:Region" xmi:id="_GV0i8OexEeWhBfCNf_PCVQ" name="Region1">
+          <transition xmi:type="uml:Transition" xmi:id="_I72xEOexEeWhBfCNf_PCVQ" name="t1" source="_IMZDAOexEeWhBfCNf_PCVQ" target="_HRx04OexEeWhBfCNf_PCVQ"/>
+          <transition xmi:type="uml:Transition" xmi:id="_KI9dYOexEeWhBfCNf_PCVQ" name="receivePing" source="_HRx04OexEeWhBfCNf_PCVQ" target="_JdDZoOexEeWhBfCNf_PCVQ"/>
+          <transition xmi:type="uml:Transition" xmi:id="_ugTp4OexEeWhBfCNf_PCVQ" name="sendPong" source="_JdDZoOexEeWhBfCNf_PCVQ" target="_HRx04OexEeWhBfCNf_PCVQ"/>
+          <subvertex xmi:type="uml:State" xmi:id="_HRx04OexEeWhBfCNf_PCVQ" name="State1"/>
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_IMZDAOexEeWhBfCNf_PCVQ" name="Initial1"/>
+          <subvertex xmi:type="uml:State" xmi:id="_JdDZoOexEeWhBfCNf_PCVQ" name="State2"/>
+        </region>
+      </ownedBehavior>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_-dcY0OetEeWhBfCNf_PCVQ" name="PongExecutableBlock" classifierBehavior="_XlSfoOexEeWhBfCNf_PCVQ">
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_BrWfQOeuEeWhBfCNf_PCVQ" name="Port1" aggregation="composite">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_XlSfoOexEeWhBfCNf_PCVQ" name="StateMachine1">
+        <region xmi:type="uml:Region" xmi:id="_YEGikOexEeWhBfCNf_PCVQ" name="Region1">
+          <transition xmi:type="uml:Transition" xmi:id="_ayeNUOexEeWhBfCNf_PCVQ" source="_ZBG9YOexEeWhBfCNf_PCVQ" target="_ZgpZEOexEeWhBfCNf_PCVQ"/>
+          <transition xmi:type="uml:Transition" xmi:id="_ey5V0OexEeWhBfCNf_PCVQ" name="receivePong" source="_ZgpZEOexEeWhBfCNf_PCVQ" target="_b3NAwOexEeWhBfCNf_PCVQ">
+            <trigger xmi:type="uml:Trigger" xmi:id="_g0y8IOexEeWhBfCNf_PCVQ" name="ReceivePong" event="_nBcRwDDeEee6FsEFun8ceg"/>
+          </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_h-UI8OexEeWhBfCNf_PCVQ" name="sendPing" source="_b3NAwOexEeWhBfCNf_PCVQ" target="_ZgpZEOexEeWhBfCNf_PCVQ"/>
+          <subvertex xmi:type="uml:Pseudostate" xmi:id="_ZBG9YOexEeWhBfCNf_PCVQ" name="Initial1"/>
+          <subvertex xmi:type="uml:State" xmi:id="_ZgpZEOexEeWhBfCNf_PCVQ" name="Ping"/>
+          <subvertex xmi:type="uml:State" xmi:id="_b3NAwOexEeWhBfCNf_PCVQ" name="Pong"/>
+        </region>
+      </ownedBehavior>
+    </packagedElement>
+    <packagedElement xmi:type="uml:AssociationClass" xmi:id="_FvqscOeyEeWhBfCNf_PCVQ" name="Fifo">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_JdJq0OeyEeWhBfCNf_PCVQ" name="size">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+        <defaultValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QNYogOeyEeWhBfCNf_PCVQ" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_3um6kOezEeWhBfCNf_PCVQ" name="Fifo12"/>
+    <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_ZZ8WwDDdEee6FsEFun8ceg" name="Fifo42">
+      <generalization xmi:type="uml:Generalization" xmi:id="_c3T1gDDdEee6FsEFun8ceg">
+        <general xmi:type="uml:OpaqueBehavior" href="../library/FormalML-Standard-Library.uml#_hFGfYOPgEeag-YFRc8zsgw"/>
+      </generalization>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Signal" xmi:id="_mzFssDDeEee6FsEFun8ceg" name="PongSignal">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_mzFssTDeEee6FsEFun8ceg" name="theBall">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:SignalEvent" xmi:id="_nBcRwDDeEee6FsEFun8ceg" name="PongEvent" signal="_mzFssDDeEee6FsEFun8ceg"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_07fcsDDcEee6FsEFun8ceg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_07gDwTDcEee6FsEFun8ceg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gDwjDcEee6FsEFun8ceg" key="Version" value="0.0.5"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gDwzDcEee6FsEFun8ceg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gDxDDcEee6FsEFun8ceg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gDxTDcEee6FsEFun8ceg" key="Date" value="2017-05-04"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gDxjDcEee6FsEFun8ceg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_07gDwDDcEee6FsEFun8ceg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../profile/FormalML.profile.uml#_wXDacDDXEee6FsEFun8ceg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../profile/FormalML.profile.uml#_QLYUQDDDEee6FsEFun8ceg"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_07gq0DDcEee6FsEFun8ceg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_07gq0jDcEee6FsEFun8ceg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gq0zDcEee6FsEFun8ceg" key="Version" value="0.0.2"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gq1DDcEee6FsEFun8ceg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gq1TDcEee6FsEFun8ceg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gq1jDcEee6FsEFun8ceg" key="Date" value="2017-05-04"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_07gq1zDcEee6FsEFun8ceg" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_07gq0TDcEee6FsEFun8ceg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../profile/FormalMLVariableTypes.profile.uml#_Wo9SUTDcEee6FsEFun8ceg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../profile/FormalMLVariableTypes.profile.uml#_DY2JADDbEee6FsEFun8ceg"/>
+    </profileApplication>
+  </uml:Model>
+  <FormalMLVariableTypes:IntSizedContract xmi:id="_fHJKIDDdEee6FsEFun8ceg" base_Behavior="_ZZ8WwDDdEee6FsEFun8ceg" size="42"/>
+</xmi:XMI>
