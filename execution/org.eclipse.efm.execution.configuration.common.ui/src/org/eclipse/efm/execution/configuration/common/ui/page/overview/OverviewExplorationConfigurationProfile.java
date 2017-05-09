@@ -38,7 +38,9 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	private GraphExplorationStrategyKind fAnalyzeStrategy =
 		GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
 
-	private Group groupInclusionCriterion;
+	private Group fGroupInclusionCriterion;
+	private BooleanFieldEditor fApplyInclusionBooleanField;
+	private Composite fLoopDetectionTrivialComposite;
 
 	
 	/**
@@ -118,18 +120,46 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		createControlInclusionCriterion(parent, widgetToolkit);
 	}
 
-	private void createControlInclusionCriterion(Composite parent, IWidgetToolkit widgetToolkit) {
-        groupInclusionCriterion = widgetToolkit.createGroup(parent,
-        		"Inclusion Criterion", 5, 2, GridData.FILL_HORIZONTAL);
+	private void createControlInclusionCriterion(
+			Composite parent, IWidgetToolkit widgetToolkit)
+	{
+        fGroupInclusionCriterion = widgetToolkit.createGroup(parent,
+        		"Inclusion Criterion", 2, 2, GridData.FILL_HORIZONTAL);
 
         Composite comp = widgetToolkit.createComposite(
-        		groupInclusionCriterion, 1, 1, GridData.FILL_HORIZONTAL);
+        		fGroupInclusionCriterion, 2, 1, GridData.FILL_HORIZONTAL);
 
-        BooleanFieldEditor applyInclusionBooleanField =
+        fApplyInclusionBooleanField =
         		new BooleanFieldEditor(this.fConfigurationPage,
-        		ATTR_ENABLED_INCLUSION_CRITERION, "&Apply Inclusion", comp, false);
-        addField(applyInclusionBooleanField);
+        				ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION,
+        				"&Apply Inclusion", comp, false);
+        addField(fApplyInclusionBooleanField);
+
+        
+        fLoopDetectionTrivialComposite = widgetToolkit.createComposite(
+        		fGroupInclusionCriterion, 2, 1, GridData.FILL_HORIZONTAL);
+
+        BooleanFieldEditor loopDetectionTrivialBooleanField =
+        		new BooleanFieldEditor(this.fConfigurationPage,
+        				ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL,
+        				"&Loop Detection Trivial",
+        				fLoopDetectionTrivialComposite, false);
+        addField(loopDetectionTrivialBooleanField);
+        
+        fApplyInclusionBooleanField.addSelectionListener( new SelectionAdapter() {
+        	@Override
+        	public void widgetSelected(SelectionEvent e) {
+        		handleEnablingRedundancyDetection();
+        	}
+		});
 	}
+
+	
+	private void handleEnablingRedundancyDetection() {
+		fConfigurationPage.setVisibleAndEnabled(fLoopDetectionTrivialComposite,
+        		! fApplyInclusionBooleanField.getBooleanValue());
+	}
+
 
 
 	protected void createAnalyzeStrategy(Composite parent, IWidgetToolkit widgetToolkit) {
@@ -155,7 +185,9 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	{
 		configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY, "BFS");
 
-		configuration.setAttribute(ATTR_ENABLED_INCLUSION_CRITERION, false);
+		configuration.setAttribute(ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION, false);
+
+		configuration.setAttribute(ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL, true);
 	}
 
 	@Override
@@ -179,6 +211,8 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		}
 
 		initializeAnalyzeStrategy();
+		
+		handleEnablingRedundancyDetection();
 	}
 
 	

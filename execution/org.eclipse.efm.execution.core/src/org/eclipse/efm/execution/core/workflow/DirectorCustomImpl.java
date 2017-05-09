@@ -22,6 +22,7 @@ import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl
 import org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOptionCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.Project;
+import org.eclipse.efm.execution.core.workflow.common.RedundancyDetection;
 import org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.coverage.TransitionCoverageWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.impl.DirectorImpl;
@@ -189,10 +190,14 @@ public class DirectorCustomImpl extends DirectorImpl
 		}
 
 		if( isRedundancyDetectionPossible ) {
+			RedundancyDetection redundancy = 
+					CommonFactory.eINSTANCE.createRedundancyDetection();
+			getSupervisor().setRedundancy(redundancy);
+			
 			boolean enabledRedundancyDetection = false;
 			try {
 				enabledRedundancyDetection = configuration.getAttribute(
-						ATTR_ENABLED_INCLUSION_CRITERION, false);
+						ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION, false);
 			}
 			catch( CoreException e ) {
 				e.printStackTrace();
@@ -200,10 +205,21 @@ public class DirectorCustomImpl extends DirectorImpl
 				enabledRedundancyDetection = false;
 			}
 
-			if( enabledRedundancyDetection ) {
-				getSupervisor().setRedundancy(
-						CommonFactory.eINSTANCE.createRedundancyDetection());
+			if( ! enabledRedundancyDetection ) {
+				redundancy.setComparer( null );;
 			}
+			
+			try {
+				enabledRedundancyDetection = configuration.getAttribute(
+						ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL, false);
+			}
+			catch( CoreException e ) {
+				e.printStackTrace();
+
+				enabledRedundancyDetection = false;
+			}
+
+			redundancy.setLoopDetetctionTrivial(enabledRedundancyDetection);
 		}
 
 		return( true );

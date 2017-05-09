@@ -295,6 +295,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/solver"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/pathScope"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/dataScope"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/loopDetetctionTrivial"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Coverage" basePackage="org.eclipse.efm.execution.core.workflow"

@@ -168,8 +168,11 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	// SUPERVISOR: REDUNDANCY DETECTOR a.k.a. INCLUSION CRITERION
 	////////////////////////////////////////////////////////////////////////////
 
-	public static final String ATTR_ENABLED_INCLUSION_CRITERION =
-			PLUGIN_LAUNCH_ID + ".ATTR_ENABLED_INCLUSION_CRITERION"; //$NON-NLS-1$
+	public static final String ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION =
+			PLUGIN_LAUNCH_ID + ".ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION"; //$NON-NLS-1$
+
+	public static final String ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL =
+			PLUGIN_LAUNCH_ID + ".ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL"; //$NON-NLS-1$
 
 
 	////////////////////////////////////////////////////////////////////////////

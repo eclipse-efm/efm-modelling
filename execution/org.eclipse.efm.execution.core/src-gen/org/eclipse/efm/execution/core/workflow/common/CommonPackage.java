@@ -1389,13 +1389,22 @@ public interface CommonPackage extends EPackage {
 	int REDUNDANCY_DETECTION__DATA_SCOPE = 3;
 
 	/**
+	 * The feature id for the '<em><b>Loop Detetction Trivial</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL = 4;
+
+	/**
 	 * The number of structural features of the '<em>Redundancy Detection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUNDANCY_DETECTION_FEATURE_COUNT = 4;
+	int REDUNDANCY_DETECTION_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Redundancy Detection</em>' class.
@@ -2740,6 +2749,17 @@ public interface CommonPackage extends EPackage {
 	EAttribute getRedundancyDetection_DataScope();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isLoopDetetctionTrivial <em>Loop Detetction Trivial</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Loop Detetction Trivial</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isLoopDetetctionTrivial()
+	 * @see #getRedundancyDetection()
+	 * @generated
+	 */
+	EAttribute getRedundancyDetection_LoopDetetctionTrivial();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind <em>Graph Exploration Strategy Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3787,6 +3807,14 @@ public interface CommonPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute REDUNDANCY_DETECTION__DATA_SCOPE = eINSTANCE.getRedundancyDetection_DataScope();
+
+		/**
+		 * The meta object literal for the '<em><b>Loop Detetction Trivial</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL = eINSTANCE.getRedundancyDetection_LoopDetetctionTrivial();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind <em>Graph Exploration Strategy Kind</em>}' enum.

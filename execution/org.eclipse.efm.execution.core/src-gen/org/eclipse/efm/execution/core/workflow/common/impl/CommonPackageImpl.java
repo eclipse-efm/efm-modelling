@@ -1338,6 +1338,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRedundancyDetection_LoopDetetctionTrivial() {
+		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getGraphExplorationStrategyKind() {
 		return graphExplorationStrategyKindEEnum;
 	}
@@ -1553,6 +1562,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__SOLVER);
 		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__PATH_SCOPE);
 		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__DATA_SCOPE);
+		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL);
 
 		// Create enums
 		graphExplorationStrategyKindEEnum = createEEnum(GRAPH_EXPLORATION_STRATEGY_KIND);
@@ -1727,6 +1737,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getRedundancyDetection_Solver(), ecorePackage.getEString(), "solver", "OMEGA", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRedundancyDetection_PathScope(), ecorePackage.getEString(), "pathScope", "CURRENT", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRedundancyDetection_DataScope(), ecorePackage.getEString(), "dataScope", "ALL", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_LoopDetetctionTrivial(), ecorePackage.getEBoolean(), "loopDetetctionTrivial", "true", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.class, "GraphExplorationStrategyKind");

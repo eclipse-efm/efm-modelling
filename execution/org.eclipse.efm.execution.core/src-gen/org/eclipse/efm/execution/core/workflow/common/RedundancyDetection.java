@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getSolver <em>Solver</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getPathScope <em>Path Scope</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getDataScope <em>Data Scope</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isLoopDetetctionTrivial <em>Loop Detetction Trivial</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getRedundancyDetection()
@@ -141,5 +142,32 @@ public interface RedundancyDetection extends EObject {
 	 * @generated
 	 */
 	void setDataScope(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Loop Detetction Trivial</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Loop Detetction Trivial</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Loop Detetction Trivial</em>' attribute.
+	 * @see #setLoopDetetctionTrivial(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getRedundancyDetection_LoopDetetctionTrivial()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isLoopDetetctionTrivial();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isLoopDetetctionTrivial <em>Loop Detetction Trivial</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Loop Detetction Trivial</em>' attribute.
+	 * @see #isLoopDetetctionTrivial()
+	 * @generated
+	 */
+	void setLoopDetetctionTrivial(boolean value);
 
 } // RedundancyDetection

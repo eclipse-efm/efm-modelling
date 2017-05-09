@@ -304,27 +304,31 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 
 		RedundancyDetection redundancy = getRedundancy();
 		if( redundancy != null ) {
-			if( (str = redundancy.getComparer()) == null ) {
-				str = "NONE";
-			}
-			writer.appendTab3( "comparer = '" ).append( str ).appendEol( "'" );
+			if( (str = redundancy.getComparer()) != null ) {
+				writer.appendTab3( "comparer = '" ).append( str ).appendEol( "'" );
 
-			if( (str = redundancy.getSolver()) == null ) {
-				str = "OMEGA";
-			}
-			writer.appendTab3( "solver = '" ).append( str ).appendEol( "'" );
+				if( (str = redundancy.getSolver()) == null ) {
+					str = "OMEGA";
+				}
+				writer.appendTab3( "solver = '" ).append( str ).appendEol( "'" );
 
-			if( (str = redundancy.getPathScope()) == null ) {
-				str = "CURRENT";
-			}
-			writer.appendTab3( "path_scope = '" ).append( str ).appendEol("'");
+				if( (str = redundancy.getPathScope()) == null ) {
+					str = "CURRENT";
+				}
+				writer.appendTab3( "path_scope = '" ).append( str ).appendEol("'");
 
-			if( (str = redundancy.getDataScope()) == null ) {
-				str = "ALL";
+				if( (str = redundancy.getDataScope()) == null ) {
+					str = "ALL";
+				}
+				writer.appendTab3( "data_scope = '" ).append( str ).appendEol("'");
 			}
-			writer.appendTab3( "data_scope = '" ).append( str ).appendEol("'");
+			else {
+				writer.appendTab3( "loop#detection#trivial = " )
+						.appendEol( redundancy.isLoopDetetctionTrivial() );
+			}
 		}
 		else {
+			writer.appendTab3Eol( "loop#detection#trivial = true" );
 		}
 
 		writer.appendTab2Eol( "] // end redundancy" );

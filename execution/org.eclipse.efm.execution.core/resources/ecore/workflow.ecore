@@ -347,6 +347,9 @@
           defaultValueLiteral="CURRENT"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataScope" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           defaultValueLiteral="ALL"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="loopDetetctionTrivial"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="true"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="coverage" nsURI="http://www.eclipse.org/efm/Workflow/Coverage"

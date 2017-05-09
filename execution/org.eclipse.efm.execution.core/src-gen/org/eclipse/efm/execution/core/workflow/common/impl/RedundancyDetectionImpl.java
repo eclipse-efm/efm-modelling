@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.RedundancyDetectionImpl#getSolver <em>Solver</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.RedundancyDetectionImpl#getPathScope <em>Path Scope</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.RedundancyDetectionImpl#getDataScope <em>Data Scope</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.RedundancyDetectionImpl#isLoopDetetctionTrivial <em>Loop Detetction Trivial</em>}</li>
  * </ul>
  *
  * @generated
@@ -118,6 +119,26 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * @ordered
 	 */
 	protected String dataScope = DATA_SCOPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isLoopDetetctionTrivial() <em>Loop Detetction Trivial</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLoopDetetctionTrivial()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean LOOP_DETETCTION_TRIVIAL_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isLoopDetetctionTrivial() <em>Loop Detetction Trivial</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isLoopDetetctionTrivial()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean loopDetetctionTrivial = LOOP_DETETCTION_TRIVIAL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -227,6 +248,27 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isLoopDetetctionTrivial() {
+		return loopDetetctionTrivial;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLoopDetetctionTrivial(boolean newLoopDetetctionTrivial) {
+		boolean oldLoopDetetctionTrivial = loopDetetctionTrivial;
+		loopDetetctionTrivial = newLoopDetetctionTrivial;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL, oldLoopDetetctionTrivial, loopDetetctionTrivial));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -238,6 +280,8 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 				return getPathScope();
 			case CommonPackage.REDUNDANCY_DETECTION__DATA_SCOPE:
 				return getDataScope();
+			case CommonPackage.REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL:
+				return isLoopDetetctionTrivial();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -261,6 +305,9 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 				return;
 			case CommonPackage.REDUNDANCY_DETECTION__DATA_SCOPE:
 				setDataScope((String)newValue);
+				return;
+			case CommonPackage.REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL:
+				setLoopDetetctionTrivial((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -286,6 +333,9 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 			case CommonPackage.REDUNDANCY_DETECTION__DATA_SCOPE:
 				setDataScope(DATA_SCOPE_EDEFAULT);
 				return;
+			case CommonPackage.REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL:
+				setLoopDetetctionTrivial(LOOP_DETETCTION_TRIVIAL_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -306,6 +356,8 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 				return PATH_SCOPE_EDEFAULT == null ? pathScope != null : !PATH_SCOPE_EDEFAULT.equals(pathScope);
 			case CommonPackage.REDUNDANCY_DETECTION__DATA_SCOPE:
 				return DATA_SCOPE_EDEFAULT == null ? dataScope != null : !DATA_SCOPE_EDEFAULT.equals(dataScope);
+			case CommonPackage.REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL:
+				return loopDetetctionTrivial != LOOP_DETETCTION_TRIVIAL_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -328,6 +380,8 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 		result.append(pathScope);
 		result.append(", dataScope: ");
 		result.append(dataScope);
+		result.append(", loopDetetctionTrivial: ");
+		result.append(loopDetetctionTrivial);
 		result.append(')');
 		return result.toString();
 	}
