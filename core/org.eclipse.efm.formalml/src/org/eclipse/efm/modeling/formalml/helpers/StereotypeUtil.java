@@ -13,9 +13,9 @@ import org.eclipse.efm.modeling.formalml.Block;
 import org.eclipse.efm.modeling.formalml.Configuration;
 import org.eclipse.efm.modeling.formalml.DirectedPort;
 import org.eclipse.efm.modeling.formalml.Part;
-import org.eclipse.efm.modeling.formalml.ReceiveAnyEvent;
-import org.eclipse.efm.modeling.formalml.ReceiveEvent;
-import org.eclipse.efm.modeling.formalml.ReceiveSignalEvent;
+//import org.eclipse.efm.modeling.formalml.ReceiveAnyEvent;
+//import org.eclipse.efm.modeling.formalml.ReceiveEvent;
+//import org.eclipse.efm.modeling.formalml.ReceiveSignalEvent;
 import org.eclipse.efm.modeling.formalml.TimedTransition;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.util.UMLUtil;
@@ -113,10 +113,10 @@ public class StereotypeUtil {
 //		return context.getAppliedStereotype( DiversityStereotype.RECEIVE_EVENT );
 //	}
 
-	public static ReceiveEvent getReceiveEvent(Element context) {
-
-		return UMLUtil.getStereotypeApplication(context, ReceiveEvent.class);
-	}
+//	public static ReceiveEvent getReceiveEvent(Element context) {
+//
+//		return UMLUtil.getStereotypeApplication(context, ReceiveEvent.class);
+//	}
 
 
 	/////////////////////////////////////
@@ -127,10 +127,10 @@ public class StereotypeUtil {
 //		return context.getAppliedStereotype( DiversityStereotype.RECEIVE_ANY_EVENT );
 //	}
 
-	public static ReceiveAnyEvent getReceiveAnyEvent(Element context) {
-
-		return UMLUtil.getStereotypeApplication(context, ReceiveAnyEvent.class);
-	}
+//	public static ReceiveAnyEvent getReceiveAnyEvent(Element context) {
+//
+//		return UMLUtil.getStereotypeApplication(context, ReceiveAnyEvent.class);
+//	}
 
 
 	/////////////////////////////////////
@@ -141,10 +141,10 @@ public class StereotypeUtil {
 //		return context.getAppliedStereotype( DiversityStereotype.RECEIVE_SIGNAL_EVENT );
 //	}
 
-	public static ReceiveSignalEvent getReceiveSignalEvent(Element context) {
-
-		return UMLUtil.getStereotypeApplication(context, ReceiveSignalEvent.class);
-	}
+//	public static ReceiveSignalEvent getReceiveSignalEvent(Element context) {
+//
+//		return UMLUtil.getStereotypeApplication(context, ReceiveSignalEvent.class);
+//	}
 
 
 	/////////////////////////////////////

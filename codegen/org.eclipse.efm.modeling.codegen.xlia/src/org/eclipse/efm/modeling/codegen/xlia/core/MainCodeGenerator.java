@@ -754,8 +754,8 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 		Configuration parent_context = StereotypeUtil.getConfiguration(element);
 
 		EList<Property> environmental_properties;
-		if (parent_context != null && parent_context.getEnv() != null) {
-			environmental_properties = parent_context.getEnv();
+		if (parent_context != null && parent_context.getEnvironment() != null) {
+			environmental_properties = parent_context.getEnvironment();
 		} else {
 			environmental_properties = new BasicEList.UnmodifiableEList<Property>(0, null);
 		}

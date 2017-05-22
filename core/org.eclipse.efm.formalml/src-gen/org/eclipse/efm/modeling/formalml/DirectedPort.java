@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml;
 
@@ -62,6 +62,7 @@ public interface DirectedPort extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Direction</b></em>' attribute.
+	 * The default value is <code>"inout"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.efm.modeling.formalml.PortDirectionKind}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -71,22 +72,10 @@ public interface DirectedPort extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Direction</em>' attribute.
 	 * @see org.eclipse.efm.modeling.formalml.PortDirectionKind
-	 * @see #setDirection(PortDirectionKind)
 	 * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getDirectedPort_Direction()
-	 * @model required="true" ordered="false"
+	 * @model default="inout" required="true" changeable="false" ordered="false"
 	 * @generated
 	 */
 	PortDirectionKind getDirection();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.efm.modeling.formalml.DirectedPort#getDirection <em>Direction</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Direction</em>' attribute.
-	 * @see org.eclipse.efm.modeling.formalml.PortDirectionKind
-	 * @see #getDirection()
-	 * @generated
-	 */
-	void setDirection(PortDirectionKind value);
 
 } // DirectedPort

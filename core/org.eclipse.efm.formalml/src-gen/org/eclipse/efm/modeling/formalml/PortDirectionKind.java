@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml;
 

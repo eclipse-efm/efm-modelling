@@ -12,25 +12,25 @@
  */
 package org.eclipse.efm.modeling.formalml.impl;
 
-import org.eclipse.efm.modeling.formalml.Block;
 import org.eclipse.efm.modeling.formalml.FormalMLPackage;
+import org.eclipse.efm.modeling.formalml.MultiSetContract;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Block</b></em>'.
+ * An implementation of the model object '<em><b>Multi Set Contract</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class BlockImpl extends FormalBlockImpl implements Block {
+public class MultiSetContractImpl extends ConnectorContractImpl implements MultiSetContract {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BlockImpl() {
+	protected MultiSetContractImpl() {
 		super();
 	}
 
@@ -41,7 +41,7 @@ public class BlockImpl extends FormalBlockImpl implements Block {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return FormalMLPackage.Literals.BLOCK;
+		return FormalMLPackage.Literals.MULTI_SET_CONTRACT;
 	}
 
-} //BlockImpl
+} //MultiSetContractImpl

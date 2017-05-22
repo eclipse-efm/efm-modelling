@@ -9,7 +9,7 @@
  */
 package org.eclipse.efm.modeling.formalml.helpers;
 
-import org.eclipse.efm.modeling.formalml.ReceiveEvent;
+//import org.eclipse.efm.modeling.formalml.ReceiveEvent;
 import org.eclipse.efm.modeling.formalml.TimedTransition;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Constraint;
@@ -19,7 +19,6 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.OpaqueBehavior;
 import org.eclipse.uml2.uml.OpaqueExpression;
 import org.eclipse.uml2.uml.Port;
-import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.SignalEvent;
 import org.eclipse.uml2.uml.Trigger;
 import org.eclipse.uml2.uml.ValueSpecification;
@@ -75,25 +74,25 @@ public class PrintingUtil {
 				res.append(((SignalEvent) event).getSignal().getName());
 			}
 
-			ReceiveEvent receiveEvent =
-					StereotypeUtil.getReceiveEvent(event);
-			if( (receiveEvent!=null) &&
-				(! receiveEvent.getParameters().isEmpty()) ) {
-				res.append('(');
-
-				boolean hasAPropertyBefore = false;
-
-				for(Property p : receiveEvent.getParameters()){
-					if(hasAPropertyBefore){
-						res.append(',');
-					}
-					else {
-						hasAPropertyBefore=true;
-					}
-					res.append(printNamedElement(p));
-				}
-				res.append(')');
-			}
+//			ReceiveEvent receiveEvent =
+//					StereotypeUtil.getReceiveEvent(event);
+//			if( (receiveEvent!=null) &&
+//				(! receiveEvent.getParameters().isEmpty()) ) {
+//				res.append('(');
+//
+//				boolean hasAPropertyBefore = false;
+//
+//				for(Property p : receiveEvent.getParameters()){
+//					if(hasAPropertyBefore){
+//						res.append(',');
+//					}
+//					else {
+//						hasAPropertyBefore=true;
+//					}
+//					res.append(printNamedElement(p));
+//				}
+//				res.append(')');
+//			}
 		}
 
 		return res.toString();

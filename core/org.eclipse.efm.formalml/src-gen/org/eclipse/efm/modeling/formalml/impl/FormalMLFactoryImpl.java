@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml.impl;
 
@@ -67,16 +67,19 @@ public class FormalMLFactoryImpl extends EFactoryImpl implements FormalMLFactory
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case FormalMLPackage.CLOCK: return createClock();
 			case FormalMLPackage.CONFIGURATION: return createConfiguration();
-			case FormalMLPackage.FORMAL_BLOCK: return createFormalBlock();
-			case FormalMLPackage.TIMED_TRANSITION: return createTimedTransition();
 			case FormalMLPackage.PART: return createPart();
-			case FormalMLPackage.RECEIVE_ANY_EVENT: return createReceiveAnyEvent();
-			case FormalMLPackage.RECEIVE_SIGNAL_EVENT: return createReceiveSignalEvent();
-			case FormalMLPackage.DIRECTED_PORT: return createDirectedPort();
-			case FormalMLPackage.BUFFER: return createBuffer();
 			case FormalMLPackage.BLOCK: return createBlock();
+			case FormalMLPackage.CLOCK: return createClock();
+			case FormalMLPackage.BUFFER: return createBuffer();
+			case FormalMLPackage.DIRECTED_PORT: return createDirectedPort();
+			case FormalMLPackage.TIMED_TRANSITION: return createTimedTransition();
+			case FormalMLPackage.FIFO_CONTRACT: return createFifoContract();
+			case FormalMLPackage.CONNECTOR_CONTRACT: return createConnectorContract();
+			case FormalMLPackage.LIFO_CONTRACT: return createLifoContract();
+			case FormalMLPackage.MULTI_SET_CONTRACT: return createMultiSetContract();
+			case FormalMLPackage.RENDEZ_VOUS_CONTRACT: return createRendezVousContract();
+			case FormalMLPackage.MULTI_RENDEZ_VOUS_CONTRACT: return createMultiRendezVousContract();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -90,10 +93,10 @@ public class FormalMLFactoryImpl extends EFactoryImpl implements FormalMLFactory
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case FormalMLPackage.PORT_DIRECTION_KIND:
-				return createPortDirectionKindFromString(eDataType, initialValue);
 			case FormalMLPackage.BUFFER_KIND:
 				return createBufferKindFromString(eDataType, initialValue);
+			case FormalMLPackage.PORT_DIRECTION_KIND:
+				return createPortDirectionKindFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -107,23 +110,13 @@ public class FormalMLFactoryImpl extends EFactoryImpl implements FormalMLFactory
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case FormalMLPackage.PORT_DIRECTION_KIND:
-				return convertPortDirectionKindToString(eDataType, instanceValue);
 			case FormalMLPackage.BUFFER_KIND:
 				return convertBufferKindToString(eDataType, instanceValue);
+			case FormalMLPackage.PORT_DIRECTION_KIND:
+				return convertPortDirectionKindToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Clock createClock() {
-		ClockImpl clock = new ClockImpl();
-		return clock;
 	}
 
 	/**
@@ -141,69 +134,9 @@ public class FormalMLFactoryImpl extends EFactoryImpl implements FormalMLFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FormalBlock createFormalBlock() {
-		FormalBlockImpl formalBlock = new FormalBlockImpl();
-		return formalBlock;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TimedTransition createTimedTransition() {
-		TimedTransitionImpl timedTransition = new TimedTransitionImpl();
-		return timedTransition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Part createPart() {
 		PartImpl part = new PartImpl();
 		return part;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ReceiveAnyEvent createReceiveAnyEvent() {
-		ReceiveAnyEventImpl receiveAnyEvent = new ReceiveAnyEventImpl();
-		return receiveAnyEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ReceiveSignalEvent createReceiveSignalEvent() {
-		ReceiveSignalEventImpl receiveSignalEvent = new ReceiveSignalEventImpl();
-		return receiveSignalEvent;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DirectedPort createDirectedPort() {
-		DirectedPortImpl directedPort = new DirectedPortImpl();
-		return directedPort;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Buffer createBuffer() {
-		BufferImpl buffer = new BufferImpl();
-		return buffer;
 	}
 
 	/**
@@ -221,10 +154,9 @@ public class FormalMLFactoryImpl extends EFactoryImpl implements FormalMLFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PortDirectionKind createPortDirectionKindFromString(EDataType eDataType, String initialValue) {
-		PortDirectionKind result = PortDirectionKind.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
+	public Clock createClock() {
+		ClockImpl clock = new ClockImpl();
+		return clock;
 	}
 
 	/**
@@ -232,8 +164,89 @@ public class FormalMLFactoryImpl extends EFactoryImpl implements FormalMLFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertPortDirectionKindToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
+	public Buffer createBuffer() {
+		BufferImpl buffer = new BufferImpl();
+		return buffer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DirectedPort createDirectedPort() {
+		DirectedPortImpl directedPort = new DirectedPortImpl();
+		return directedPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TimedTransition createTimedTransition() {
+		TimedTransitionImpl timedTransition = new TimedTransitionImpl();
+		return timedTransition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FifoContract createFifoContract() {
+		FifoContractImpl fifoContract = new FifoContractImpl();
+		return fifoContract;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConnectorContract createConnectorContract() {
+		ConnectorContractImpl connectorContract = new ConnectorContractImpl();
+		return connectorContract;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LifoContract createLifoContract() {
+		LifoContractImpl lifoContract = new LifoContractImpl();
+		return lifoContract;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MultiSetContract createMultiSetContract() {
+		MultiSetContractImpl multiSetContract = new MultiSetContractImpl();
+		return multiSetContract;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RendezVousContract createRendezVousContract() {
+		RendezVousContractImpl rendezVousContract = new RendezVousContractImpl();
+		return rendezVousContract;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MultiRendezVousContract createMultiRendezVousContract() {
+		MultiRendezVousContractImpl multiRendezVousContract = new MultiRendezVousContractImpl();
+		return multiRendezVousContract;
 	}
 
 	/**
@@ -253,6 +266,26 @@ public class FormalMLFactoryImpl extends EFactoryImpl implements FormalMLFactory
 	 * @generated
 	 */
 	public String convertBufferKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PortDirectionKind createPortDirectionKindFromString(EDataType eDataType, String initialValue) {
+		PortDirectionKind result = PortDirectionKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPortDirectionKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

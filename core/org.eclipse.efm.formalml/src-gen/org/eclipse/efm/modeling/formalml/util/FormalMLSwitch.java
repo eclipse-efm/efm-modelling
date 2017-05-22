@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml.util;
 
@@ -76,12 +76,6 @@ public class FormalMLSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case FormalMLPackage.CLOCK: {
-				Clock clock = (Clock)theEObject;
-				T result = caseClock(clock);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case FormalMLPackage.CONFIGURATION: {
 				Configuration configuration = (Configuration)theEObject;
 				T result = caseConfiguration(configuration);
@@ -95,47 +89,9 @@ public class FormalMLSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case FormalMLPackage.TIMED_TRANSITION: {
-				TimedTransition timedTransition = (TimedTransition)theEObject;
-				T result = caseTimedTransition(timedTransition);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case FormalMLPackage.PART: {
 				Part part = (Part)theEObject;
 				T result = casePart(part);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case FormalMLPackage.RECEIVE_ANY_EVENT: {
-				ReceiveAnyEvent receiveAnyEvent = (ReceiveAnyEvent)theEObject;
-				T result = caseReceiveAnyEvent(receiveAnyEvent);
-				if (result == null) result = caseReceiveEvent(receiveAnyEvent);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case FormalMLPackage.RECEIVE_EVENT: {
-				ReceiveEvent receiveEvent = (ReceiveEvent)theEObject;
-				T result = caseReceiveEvent(receiveEvent);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case FormalMLPackage.RECEIVE_SIGNAL_EVENT: {
-				ReceiveSignalEvent receiveSignalEvent = (ReceiveSignalEvent)theEObject;
-				T result = caseReceiveSignalEvent(receiveSignalEvent);
-				if (result == null) result = caseReceiveEvent(receiveSignalEvent);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case FormalMLPackage.DIRECTED_PORT: {
-				DirectedPort directedPort = (DirectedPort)theEObject;
-				T result = caseDirectedPort(directedPort);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case FormalMLPackage.BUFFER: {
-				Buffer buffer = (Buffer)theEObject;
-				T result = caseBuffer(buffer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -146,23 +102,73 @@ public class FormalMLSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case FormalMLPackage.CLOCK: {
+				Clock clock = (Clock)theEObject;
+				T result = caseClock(clock);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case FormalMLPackage.BUFFER: {
+				Buffer buffer = (Buffer)theEObject;
+				T result = caseBuffer(buffer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case FormalMLPackage.DIRECTED_PORT: {
+				DirectedPort directedPort = (DirectedPort)theEObject;
+				T result = caseDirectedPort(directedPort);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case FormalMLPackage.TIMED_TRANSITION: {
+				TimedTransition timedTransition = (TimedTransition)theEObject;
+				T result = caseTimedTransition(timedTransition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case FormalMLPackage.FIFO_CONTRACT: {
+				FifoContract fifoContract = (FifoContract)theEObject;
+				T result = caseFifoContract(fifoContract);
+				if (result == null) result = caseConnectorContract(fifoContract);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case FormalMLPackage.CONNECTOR_CONTRACT: {
+				ConnectorContract connectorContract = (ConnectorContract)theEObject;
+				T result = caseConnectorContract(connectorContract);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case FormalMLPackage.LIFO_CONTRACT: {
+				LifoContract lifoContract = (LifoContract)theEObject;
+				T result = caseLifoContract(lifoContract);
+				if (result == null) result = caseConnectorContract(lifoContract);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case FormalMLPackage.MULTI_SET_CONTRACT: {
+				MultiSetContract multiSetContract = (MultiSetContract)theEObject;
+				T result = caseMultiSetContract(multiSetContract);
+				if (result == null) result = caseConnectorContract(multiSetContract);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case FormalMLPackage.RENDEZ_VOUS_CONTRACT: {
+				RendezVousContract rendezVousContract = (RendezVousContract)theEObject;
+				T result = caseRendezVousContract(rendezVousContract);
+				if (result == null) result = caseConnectorContract(rendezVousContract);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case FormalMLPackage.MULTI_RENDEZ_VOUS_CONTRACT: {
+				MultiRendezVousContract multiRendezVousContract = (MultiRendezVousContract)theEObject;
+				T result = caseMultiRendezVousContract(multiRendezVousContract);
+				if (result == null) result = caseConnectorContract(multiRendezVousContract);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Clock</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Clock</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseClock(Clock object) {
-		return null;
 	}
 
 	/**
@@ -196,21 +202,6 @@ public class FormalMLSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Timed Transition</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Timed Transition</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseTimedTransition(TimedTransition object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Part</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -226,62 +217,32 @@ public class FormalMLSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Receive Any Event</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Block</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Receive Any Event</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Block</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseReceiveAnyEvent(ReceiveAnyEvent object) {
+	public T caseBlock(Block object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Receive Event</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Clock</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Receive Event</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Clock</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseReceiveEvent(ReceiveEvent object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Receive Signal Event</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Receive Signal Event</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseReceiveSignalEvent(ReceiveSignalEvent object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Directed Port</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Directed Port</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDirectedPort(DirectedPort object) {
+	public T caseClock(Clock object) {
 		return null;
 	}
 
@@ -301,17 +262,122 @@ public class FormalMLSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Block</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Directed Port</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Block</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Directed Port</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBlock(Block object) {
+	public T caseDirectedPort(DirectedPort object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Timed Transition</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Timed Transition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTimedTransition(TimedTransition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fifo Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fifo Contract</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFifoContract(FifoContract object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Connector Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connector Contract</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConnectorContract(ConnectorContract object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Lifo Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Lifo Contract</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLifoContract(LifoContract object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Multi Set Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Multi Set Contract</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMultiSetContract(MultiSetContract object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Rendez Vous Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rendez Vous Contract</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRendezVousContract(RendezVousContract object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Multi Rendez Vous Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Multi Rendez Vous Contract</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMultiRendezVousContract(MultiRendezVousContract object) {
 		return null;
 	}
 

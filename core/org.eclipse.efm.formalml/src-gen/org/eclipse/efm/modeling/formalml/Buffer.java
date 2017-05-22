@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml;
 
@@ -25,8 +25,9 @@ import org.eclipse.uml2.uml.Property;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.modeling.formalml.Buffer#getBaseProperty <em>Base Property</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.Buffer#getBase_Property <em>Base Property</em>}</li>
  *   <li>{@link org.eclipse.efm.modeling.formalml.Buffer#getKind <em>Kind</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.Buffer#getSize <em>Size</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getBuffer()
@@ -43,25 +44,26 @@ public interface Buffer extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Property</em>' reference.
-	 * @see #setBaseProperty(Property)
-	 * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getBuffer_BaseProperty()
+	 * @see #setBase_Property(Property)
+	 * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getBuffer_Base_Property()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Property getBaseProperty();
+	Property getBase_Property();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.modeling.formalml.Buffer#getBaseProperty <em>Base Property</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.modeling.formalml.Buffer#getBase_Property <em>Base Property</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Property</em>' reference.
-	 * @see #getBaseProperty()
+	 * @see #getBase_Property()
 	 * @generated
 	 */
-	void setBaseProperty(Property value);
+	void setBase_Property(Property value);
 
 	/**
 	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
+	 * The default value is <code>"FIFO"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.efm.modeling.formalml.BufferKind}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -71,22 +73,37 @@ public interface Buffer extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Kind</em>' attribute.
 	 * @see org.eclipse.efm.modeling.formalml.BufferKind
-	 * @see #setKind(BufferKind)
 	 * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getBuffer_Kind()
-	 * @model required="true" ordered="false"
+	 * @model default="FIFO" required="true" changeable="false" ordered="false"
 	 * @generated
 	 */
 	BufferKind getKind();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.modeling.formalml.Buffer#getKind <em>Kind</em>}' attribute.
+	 * Returns the value of the '<em><b>Size</b></em>' attribute.
+	 * The default value is <code>"-1"</code>.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Size</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Kind</em>' attribute.
-	 * @see org.eclipse.efm.modeling.formalml.BufferKind
-	 * @see #getKind()
+	 * @return the value of the '<em>Size</em>' attribute.
+	 * @see #setSize(int)
+	 * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getBuffer_Size()
+	 * @model default="-1" dataType="org.eclipse.uml2.types.UnlimitedNatural" required="true" ordered="false"
 	 * @generated
 	 */
-	void setKind(BufferKind value);
+	int getSize();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.modeling.formalml.Buffer#getSize <em>Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Size</em>' attribute.
+	 * @see #getSize()
+	 * @generated
+	 */
+	void setSize(int value);
 
 } // Buffer

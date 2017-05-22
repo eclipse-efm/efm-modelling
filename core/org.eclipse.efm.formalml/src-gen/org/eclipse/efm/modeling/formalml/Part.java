@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml;
 
@@ -25,11 +25,15 @@ import org.eclipse.uml2.uml.Property;
  * A representation of the model object '<em><b>Part</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Pourquoi ne pas utiliser le Part de SysML plutôt que d'en faire un stéréotype ?
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.modeling.formalml.Part#getBaseProperty <em>Base Property</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.Part#getBase_Property <em>Base Property</em>}</li>
  *   <li>{@link org.eclipse.efm.modeling.formalml.Part#getInstance <em>Instance</em>}</li>
  * </ul>
  *
@@ -47,22 +51,22 @@ public interface Part extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Property</em>' reference.
-	 * @see #setBaseProperty(Property)
-	 * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getPart_BaseProperty()
+	 * @see #setBase_Property(Property)
+	 * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getPart_Base_Property()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Property getBaseProperty();
+	Property getBase_Property();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.modeling.formalml.Part#getBaseProperty <em>Base Property</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.modeling.formalml.Part#getBase_Property <em>Base Property</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Property</em>' reference.
-	 * @see #getBaseProperty()
+	 * @see #getBase_Property()
 	 * @generated
 	 */
-	void setBaseProperty(Property value);
+	void setBase_Property(Property value);
 
 	/**
 	 * Returns the value of the '<em><b>Instance</b></em>' reference list.

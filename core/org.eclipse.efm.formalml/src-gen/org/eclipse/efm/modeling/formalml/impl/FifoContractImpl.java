@@ -12,25 +12,25 @@
  */
 package org.eclipse.efm.modeling.formalml.impl;
 
-import org.eclipse.efm.modeling.formalml.Block;
+import org.eclipse.efm.modeling.formalml.FifoContract;
 import org.eclipse.efm.modeling.formalml.FormalMLPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Block</b></em>'.
+ * An implementation of the model object '<em><b>Fifo Contract</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class BlockImpl extends FormalBlockImpl implements Block {
+public class FifoContractImpl extends ConnectorContractImpl implements FifoContract {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BlockImpl() {
+	protected FifoContractImpl() {
 		super();
 	}
 
@@ -41,7 +41,7 @@ public class BlockImpl extends FormalBlockImpl implements Block {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return FormalMLPackage.Literals.BLOCK;
+		return FormalMLPackage.Literals.FIFO_CONTRACT;
 	}
 
-} //BlockImpl
+} //FifoContractImpl

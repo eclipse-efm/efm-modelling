@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml.impl;
 
@@ -35,7 +35,7 @@ import org.eclipse.uml2.uml.Transition;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl#getTguard <em>Tguard</em>}</li>
- *   <li>{@link org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl#getBaseTransition <em>Base Transition</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl#getBase_Transition <em>Base Transition</em>}</li>
  * </ul>
  *
  * @generated
@@ -52,14 +52,14 @@ public class TimedTransitionImpl extends MinimalEObjectImpl.Container implements
 	protected Constraint tguard;
 
 	/**
-	 * The cached value of the '{@link #getBaseTransition() <em>Base Transition</em>}' reference.
+	 * The cached value of the '{@link #getBase_Transition() <em>Base Transition</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBaseTransition()
+	 * @see #getBase_Transition()
 	 * @generated
 	 * @ordered
 	 */
-	protected Transition baseTransition;
+	protected Transition base_Transition;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,16 +123,16 @@ public class TimedTransitionImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Transition getBaseTransition() {
-		if (baseTransition != null && baseTransition.eIsProxy()) {
-			InternalEObject oldBaseTransition = (InternalEObject)baseTransition;
-			baseTransition = (Transition)eResolveProxy(oldBaseTransition);
-			if (baseTransition != oldBaseTransition) {
+	public Transition getBase_Transition() {
+		if (base_Transition != null && base_Transition.eIsProxy()) {
+			InternalEObject oldBase_Transition = (InternalEObject)base_Transition;
+			base_Transition = (Transition)eResolveProxy(oldBase_Transition);
+			if (base_Transition != oldBase_Transition) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FormalMLPackage.TIMED_TRANSITION__BASE_TRANSITION, oldBaseTransition, baseTransition));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FormalMLPackage.TIMED_TRANSITION__BASE_TRANSITION, oldBase_Transition, base_Transition));
 			}
 		}
-		return baseTransition;
+		return base_Transition;
 	}
 
 	/**
@@ -140,8 +140,8 @@ public class TimedTransitionImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Transition basicGetBaseTransition() {
-		return baseTransition;
+	public Transition basicGetBase_Transition() {
+		return base_Transition;
 	}
 
 	/**
@@ -149,11 +149,11 @@ public class TimedTransitionImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBaseTransition(Transition newBaseTransition) {
-		Transition oldBaseTransition = baseTransition;
-		baseTransition = newBaseTransition;
+	public void setBase_Transition(Transition newBase_Transition) {
+		Transition oldBase_Transition = base_Transition;
+		base_Transition = newBase_Transition;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.TIMED_TRANSITION__BASE_TRANSITION, oldBaseTransition, baseTransition));
+			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.TIMED_TRANSITION__BASE_TRANSITION, oldBase_Transition, base_Transition));
 	}
 
 	/**
@@ -168,8 +168,8 @@ public class TimedTransitionImpl extends MinimalEObjectImpl.Container implements
 				if (resolve) return getTguard();
 				return basicGetTguard();
 			case FormalMLPackage.TIMED_TRANSITION__BASE_TRANSITION:
-				if (resolve) return getBaseTransition();
-				return basicGetBaseTransition();
+				if (resolve) return getBase_Transition();
+				return basicGetBase_Transition();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -186,7 +186,7 @@ public class TimedTransitionImpl extends MinimalEObjectImpl.Container implements
 				setTguard((Constraint)newValue);
 				return;
 			case FormalMLPackage.TIMED_TRANSITION__BASE_TRANSITION:
-				setBaseTransition((Transition)newValue);
+				setBase_Transition((Transition)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -204,7 +204,7 @@ public class TimedTransitionImpl extends MinimalEObjectImpl.Container implements
 				setTguard((Constraint)null);
 				return;
 			case FormalMLPackage.TIMED_TRANSITION__BASE_TRANSITION:
-				setBaseTransition((Transition)null);
+				setBase_Transition((Transition)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -221,7 +221,7 @@ public class TimedTransitionImpl extends MinimalEObjectImpl.Container implements
 			case FormalMLPackage.TIMED_TRANSITION__TGUARD:
 				return tguard != null;
 			case FormalMLPackage.TIMED_TRANSITION__BASE_TRANSITION:
-				return baseTransition != null;
+				return base_Transition != null;
 		}
 		return super.eIsSet(featureID);
 	}

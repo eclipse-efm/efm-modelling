@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml.util;
 
@@ -78,10 +78,6 @@ public class FormalMLAdapterFactory extends AdapterFactoryImpl {
 	protected FormalMLSwitch<Adapter> modelSwitch =
 		new FormalMLSwitch<Adapter>() {
 			@Override
-			public Adapter caseClock(Clock object) {
-				return createClockAdapter();
-			}
-			@Override
 			public Adapter caseConfiguration(Configuration object) {
 				return createConfigurationAdapter();
 			}
@@ -90,36 +86,52 @@ public class FormalMLAdapterFactory extends AdapterFactoryImpl {
 				return createFormalBlockAdapter();
 			}
 			@Override
-			public Adapter caseTimedTransition(TimedTransition object) {
-				return createTimedTransitionAdapter();
-			}
-			@Override
 			public Adapter casePart(Part object) {
 				return createPartAdapter();
 			}
 			@Override
-			public Adapter caseReceiveAnyEvent(ReceiveAnyEvent object) {
-				return createReceiveAnyEventAdapter();
+			public Adapter caseBlock(Block object) {
+				return createBlockAdapter();
 			}
 			@Override
-			public Adapter caseReceiveEvent(ReceiveEvent object) {
-				return createReceiveEventAdapter();
-			}
-			@Override
-			public Adapter caseReceiveSignalEvent(ReceiveSignalEvent object) {
-				return createReceiveSignalEventAdapter();
-			}
-			@Override
-			public Adapter caseDirectedPort(DirectedPort object) {
-				return createDirectedPortAdapter();
+			public Adapter caseClock(Clock object) {
+				return createClockAdapter();
 			}
 			@Override
 			public Adapter caseBuffer(Buffer object) {
 				return createBufferAdapter();
 			}
 			@Override
-			public Adapter caseBlock(Block object) {
-				return createBlockAdapter();
+			public Adapter caseDirectedPort(DirectedPort object) {
+				return createDirectedPortAdapter();
+			}
+			@Override
+			public Adapter caseTimedTransition(TimedTransition object) {
+				return createTimedTransitionAdapter();
+			}
+			@Override
+			public Adapter caseFifoContract(FifoContract object) {
+				return createFifoContractAdapter();
+			}
+			@Override
+			public Adapter caseConnectorContract(ConnectorContract object) {
+				return createConnectorContractAdapter();
+			}
+			@Override
+			public Adapter caseLifoContract(LifoContract object) {
+				return createLifoContractAdapter();
+			}
+			@Override
+			public Adapter caseMultiSetContract(MultiSetContract object) {
+				return createMultiSetContractAdapter();
+			}
+			@Override
+			public Adapter caseRendezVousContract(RendezVousContract object) {
+				return createRendezVousContractAdapter();
+			}
+			@Override
+			public Adapter caseMultiRendezVousContract(MultiRendezVousContract object) {
+				return createMultiRendezVousContractAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -140,20 +152,6 @@ public class FormalMLAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.Clock <em>Clock</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.efm.modeling.formalml.Clock
-	 * @generated
-	 */
-	public Adapter createClockAdapter() {
-		return null;
-	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.Configuration <em>Configuration</em>}'.
@@ -184,20 +182,6 @@ public class FormalMLAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.TimedTransition <em>Timed Transition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.efm.modeling.formalml.TimedTransition
-	 * @generated
-	 */
-	public Adapter createTimedTransitionAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.Part <em>Part</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -212,58 +196,30 @@ public class FormalMLAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.ReceiveAnyEvent <em>Receive Any Event</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.Block <em>Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveAnyEvent
+	 * @see org.eclipse.efm.modeling.formalml.Block
 	 * @generated
 	 */
-	public Adapter createReceiveAnyEventAdapter() {
+	public Adapter createBlockAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.ReceiveEvent <em>Receive Event</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.Clock <em>Clock</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveEvent
+	 * @see org.eclipse.efm.modeling.formalml.Clock
 	 * @generated
 	 */
-	public Adapter createReceiveEventAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.ReceiveSignalEvent <em>Receive Signal Event</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveSignalEvent
-	 * @generated
-	 */
-	public Adapter createReceiveSignalEventAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.DirectedPort <em>Directed Port</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.efm.modeling.formalml.DirectedPort
-	 * @generated
-	 */
-	public Adapter createDirectedPortAdapter() {
+	public Adapter createClockAdapter() {
 		return null;
 	}
 
@@ -282,16 +238,114 @@ public class FormalMLAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.Block <em>Block</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.DirectedPort <em>Directed Port</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.efm.modeling.formalml.Block
+	 * @see org.eclipse.efm.modeling.formalml.DirectedPort
 	 * @generated
 	 */
-	public Adapter createBlockAdapter() {
+	public Adapter createDirectedPortAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.TimedTransition <em>Timed Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.modeling.formalml.TimedTransition
+	 * @generated
+	 */
+	public Adapter createTimedTransitionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.FifoContract <em>Fifo Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.modeling.formalml.FifoContract
+	 * @generated
+	 */
+	public Adapter createFifoContractAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.ConnectorContract <em>Connector Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.modeling.formalml.ConnectorContract
+	 * @generated
+	 */
+	public Adapter createConnectorContractAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.LifoContract <em>Lifo Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.modeling.formalml.LifoContract
+	 * @generated
+	 */
+	public Adapter createLifoContractAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.MultiSetContract <em>Multi Set Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.modeling.formalml.MultiSetContract
+	 * @generated
+	 */
+	public Adapter createMultiSetContractAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.RendezVousContract <em>Rendez Vous Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.modeling.formalml.RendezVousContract
+	 * @generated
+	 */
+	public Adapter createRendezVousContractAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.modeling.formalml.MultiRendezVousContract <em>Multi Rendez Vous Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.modeling.formalml.MultiRendezVousContract
+	 * @generated
+	 */
+	public Adapter createMultiRendezVousContractAdapter() {
 		return null;
 	}
 

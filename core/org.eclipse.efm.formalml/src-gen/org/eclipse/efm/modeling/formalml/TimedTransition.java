@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml;
 
@@ -27,7 +27,7 @@ import org.eclipse.uml2.uml.Transition;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.modeling.formalml.TimedTransition#getTguard <em>Tguard</em>}</li>
- *   <li>{@link org.eclipse.efm.modeling.formalml.TimedTransition#getBaseTransition <em>Base Transition</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.TimedTransition#getBase_Transition <em>Base Transition</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getTimedTransition()
@@ -70,21 +70,21 @@ public interface TimedTransition extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Base Transition</em>' reference.
-	 * @see #setBaseTransition(Transition)
-	 * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getTimedTransition_BaseTransition()
+	 * @see #setBase_Transition(Transition)
+	 * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getTimedTransition_Base_Transition()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Transition getBaseTransition();
+	Transition getBase_Transition();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.modeling.formalml.TimedTransition#getBaseTransition <em>Base Transition</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.modeling.formalml.TimedTransition#getBase_Transition <em>Base Transition</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Base Transition</em>' reference.
-	 * @see #getBaseTransition()
+	 * @see #getBase_Transition()
 	 * @generated
 	 */
-	void setBaseTransition(Transition value);
+	void setBase_Transition(Transition value);
 
 } // TimedTransition

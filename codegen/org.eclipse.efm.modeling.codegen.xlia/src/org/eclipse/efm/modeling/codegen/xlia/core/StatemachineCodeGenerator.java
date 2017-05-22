@@ -11,7 +11,7 @@
 package org.eclipse.efm.modeling.codegen.xlia.core;
 
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
-import org.eclipse.efm.modeling.formalml.ReceiveEvent;
+//import org.eclipse.efm.modeling.formalml.ReceiveEvent;
 import org.eclipse.efm.modeling.formalml.TimedTransition;
 import org.eclipse.efm.modeling.formalml.helpers.StereotypeUtil;
 import org.eclipse.emf.common.util.EList;
@@ -22,7 +22,6 @@ import org.eclipse.uml2.uml.Event;
 import org.eclipse.uml2.uml.FinalState;
 import org.eclipse.uml2.uml.OpaqueExpression;
 import org.eclipse.uml2.uml.Port;
-import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.Region;
 import org.eclipse.uml2.uml.SignalEvent;
@@ -471,21 +470,21 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 				writer.append(((SignalEvent) event).getSignal().getName());
 			}
 
-			ReceiveEvent inputEvent = StereotypeUtil.getReceiveEvent(event);
-			if( (inputEvent!=null) && (! inputEvent.getParameters().isEmpty()) ) {
-				writer.append('(');
-				boolean isnotFirst = false;
-				for( Property param : inputEvent.getParameters() ) {
-					if( isnotFirst ) {
-						writer.append(", ");
-					}
-					else {
-						isnotFirst = true;
-					}
-					writer.append(param.getName());
-				}
-				writer.append(")");
-			}
+//			ReceiveEvent inputEvent = StereotypeUtil.getReceiveEvent(event);
+//			if( (inputEvent!=null) && (! inputEvent.getParameters().isEmpty()) ) {
+//				writer.append('(');
+//				boolean isnotFirst = false;
+//				for( Property param : inputEvent.getParameters() ) {
+//					if( isnotFirst ) {
+//						writer.append(", ");
+//					}
+//					else {
+//						isnotFirst = true;
+//					}
+//					writer.append(param.getName());
+//				}
+//				writer.append(")");
+//			}
 		}
 
 		writer.appendEol(";");

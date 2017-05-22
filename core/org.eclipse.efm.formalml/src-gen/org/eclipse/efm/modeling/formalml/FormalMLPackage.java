@@ -7,14 +7,15 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -32,7 +33,6 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see org.eclipse.efm.modeling.formalml.FormalMLFactory
  * @model kind="package"
- *        annotation="http://www.eclipse.org/uml2/2.0.0/UML originalName='FormalML'"
  * @generated
  */
 public interface FormalMLPackage extends EPackage {
@@ -50,7 +50,7 @@ public interface FormalMLPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://org.eclipse.efm.formalml";
+	String eNS_URI = "http://www.eclipse.org/efm/FormalML/profile";
 
 	/**
 	 * The package namespace name.
@@ -69,43 +69,6 @@ public interface FormalMLPackage extends EPackage {
 	FormalMLPackage eINSTANCE = org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.ClockImpl <em>Clock</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.modeling.formalml.impl.ClockImpl
-	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getClock()
-	 * @generated
-	 */
-	int CLOCK = 0;
-
-	/**
-	 * The feature id for the '<em><b>Base Property</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLOCK__BASE_PROPERTY = 0;
-
-	/**
-	 * The number of structural features of the '<em>Clock</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLOCK_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Clock</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLOCK_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.FormalBlockImpl <em>Formal Block</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -113,16 +76,7 @@ public interface FormalMLPackage extends EPackage {
 	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getFormalBlock()
 	 * @generated
 	 */
-	int FORMAL_BLOCK = 2;
-
-	/**
-	 * The feature id for the '<em><b>Routing Behavior</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FORMAL_BLOCK__ROUTING_BEHAVIOR = 0;
+	int FORMAL_BLOCK = 1;
 
 	/**
 	 * The feature id for the '<em><b>Base Class</b></em>' reference.
@@ -131,7 +85,16 @@ public interface FormalMLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FORMAL_BLOCK__BASE_CLASS = 1;
+	int FORMAL_BLOCK__BASE_CLASS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Routing Behavior</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORMAL_BLOCK__ROUTING_BEHAVIOR = 1;
 
 	/**
 	 * The number of structural features of the '<em>Formal Block</em>' class.
@@ -159,16 +122,7 @@ public interface FormalMLPackage extends EPackage {
 	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getConfiguration()
 	 * @generated
 	 */
-	int CONFIGURATION = 1;
-
-	/**
-	 * The feature id for the '<em><b>Routing Behavior</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONFIGURATION__ROUTING_BEHAVIOR = FORMAL_BLOCK__ROUTING_BEHAVIOR;
+	int CONFIGURATION = 0;
 
 	/**
 	 * The feature id for the '<em><b>Base Class</b></em>' reference.
@@ -180,31 +134,40 @@ public interface FormalMLPackage extends EPackage {
 	int CONFIGURATION__BASE_CLASS = FORMAL_BLOCK__BASE_CLASS;
 
 	/**
-	 * The feature id for the '<em><b>Env</b></em>' reference list.
+	 * The feature id for the '<em><b>Routing Behavior</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIGURATION__ENV = FORMAL_BLOCK_FEATURE_COUNT + 0;
+	int CONFIGURATION__ROUTING_BEHAVIOR = FORMAL_BLOCK__ROUTING_BEHAVIOR;
 
 	/**
-	 * The feature id for the '<em><b>Timed</b></em>' attribute.
+	 * The feature id for the '<em><b>Environment</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIGURATION__TIMED = FORMAL_BLOCK_FEATURE_COUNT + 1;
+	int CONFIGURATION__ENVIRONMENT = FORMAL_BLOCK_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Input Enabled</b></em>' attribute.
+	 * The feature id for the '<em><b>Is Timed</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIGURATION__INPUT_ENABLED = FORMAL_BLOCK_FEATURE_COUNT + 2;
+	int CONFIGURATION__IS_TIMED = FORMAL_BLOCK_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Is Input Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIGURATION__IS_INPUT_ENABLED = FORMAL_BLOCK_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Configuration</em>' class.
@@ -225,52 +188,6 @@ public interface FormalMLPackage extends EPackage {
 	int CONFIGURATION_OPERATION_COUNT = FORMAL_BLOCK_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl <em>Timed Transition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl
-	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getTimedTransition()
-	 * @generated
-	 */
-	int TIMED_TRANSITION = 3;
-
-	/**
-	 * The feature id for the '<em><b>Tguard</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIMED_TRANSITION__TGUARD = 0;
-
-	/**
-	 * The feature id for the '<em><b>Base Transition</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIMED_TRANSITION__BASE_TRANSITION = 1;
-
-	/**
-	 * The number of structural features of the '<em>Timed Transition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIMED_TRANSITION_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Timed Transition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIMED_TRANSITION_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.PartImpl <em>Part</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -278,7 +195,7 @@ public interface FormalMLPackage extends EPackage {
 	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getPart()
 	 * @generated
 	 */
-	int PART = 4;
+	int PART = 2;
 
 	/**
 	 * The feature id for the '<em><b>Base Property</b></em>' reference.
@@ -317,142 +234,151 @@ public interface FormalMLPackage extends EPackage {
 	int PART_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.ReceiveEventImpl <em>Receive Event</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.BlockImpl <em>Block</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.modeling.formalml.impl.ReceiveEventImpl
-	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getReceiveEvent()
+	 * @see org.eclipse.efm.modeling.formalml.impl.BlockImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getBlock()
 	 * @generated
 	 */
-	int RECEIVE_EVENT = 6;
+	int BLOCK = 3;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' reference list.
+	 * The feature id for the '<em><b>Base Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_EVENT__PARAMETERS = 0;
+	int BLOCK__BASE_CLASS = FORMAL_BLOCK__BASE_CLASS;
 
 	/**
-	 * The number of structural features of the '<em>Receive Event</em>' class.
+	 * The feature id for the '<em><b>Routing Behavior</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_EVENT_FEATURE_COUNT = 1;
+	int BLOCK__ROUTING_BEHAVIOR = FORMAL_BLOCK__ROUTING_BEHAVIOR;
 
 	/**
-	 * The number of operations of the '<em>Receive Event</em>' class.
+	 * The number of structural features of the '<em>Block</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_EVENT_OPERATION_COUNT = 0;
+	int BLOCK_FEATURE_COUNT = FORMAL_BLOCK_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.ReceiveAnyEventImpl <em>Receive Any Event</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.modeling.formalml.impl.ReceiveAnyEventImpl
-	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getReceiveAnyEvent()
-	 * @generated
-	 */
-	int RECEIVE_ANY_EVENT = 5;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' reference list.
+	 * The number of operations of the '<em>Block</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_ANY_EVENT__PARAMETERS = RECEIVE_EVENT__PARAMETERS;
+	int BLOCK_OPERATION_COUNT = FORMAL_BLOCK_OPERATION_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Base Any Receive Event</b></em>' reference.
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.ClockImpl <em>Clock</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.modeling.formalml.impl.ClockImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getClock()
+	 * @generated
+	 */
+	int CLOCK = 4;
+
+	/**
+	 * The feature id for the '<em><b>Base Property</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT = RECEIVE_EVENT_FEATURE_COUNT + 0;
+	int CLOCK__BASE_PROPERTY = 0;
 
 	/**
-	 * The number of structural features of the '<em>Receive Any Event</em>' class.
+	 * The number of structural features of the '<em>Clock</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_ANY_EVENT_FEATURE_COUNT = RECEIVE_EVENT_FEATURE_COUNT + 1;
+	int CLOCK_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>Receive Any Event</em>' class.
+	 * The operation id for the '<em>Constraint1</em>' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_ANY_EVENT_OPERATION_COUNT = RECEIVE_EVENT_OPERATION_COUNT + 0;
+	int CLOCK___CONSTRAINT1__DIAGNOSTICCHAIN_MAP = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.ReceiveSignalEventImpl <em>Receive Signal Event</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.modeling.formalml.impl.ReceiveSignalEventImpl
-	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getReceiveSignalEvent()
-	 * @generated
-	 */
-	int RECEIVE_SIGNAL_EVENT = 7;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' reference list.
+	 * The number of operations of the '<em>Clock</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_SIGNAL_EVENT__PARAMETERS = RECEIVE_EVENT__PARAMETERS;
+	int CLOCK_OPERATION_COUNT = 1;
 
 	/**
-	 * The feature id for the '<em><b>Base Any Receive Event</b></em>' reference.
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.BufferImpl <em>Buffer</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.modeling.formalml.impl.BufferImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getBuffer()
+	 * @generated
+	 */
+	int BUFFER = 5;
+
+	/**
+	 * The feature id for the '<em><b>Base Property</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT = RECEIVE_EVENT_FEATURE_COUNT + 0;
+	int BUFFER__BASE_PROPERTY = 0;
 
 	/**
-	 * The feature id for the '<em><b>Base Signal Event</b></em>' reference.
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT = RECEIVE_EVENT_FEATURE_COUNT + 1;
+	int BUFFER__KIND = 1;
 
 	/**
-	 * The number of structural features of the '<em>Receive Signal Event</em>' class.
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_SIGNAL_EVENT_FEATURE_COUNT = RECEIVE_EVENT_FEATURE_COUNT + 2;
+	int BUFFER__SIZE = 2;
 
 	/**
-	 * The number of operations of the '<em>Receive Signal Event</em>' class.
+	 * The number of structural features of the '<em>Buffer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEIVE_SIGNAL_EVENT_OPERATION_COUNT = RECEIVE_EVENT_OPERATION_COUNT + 0;
+	int BUFFER_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Buffer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUFFER_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.DirectedPortImpl <em>Directed Port</em>}' class.
@@ -462,7 +388,7 @@ public interface FormalMLPackage extends EPackage {
 	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getDirectedPort()
 	 * @generated
 	 */
-	int DIRECTED_PORT = 8;
+	int DIRECTED_PORT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Base Port</b></em>' reference.
@@ -501,106 +427,272 @@ public interface FormalMLPackage extends EPackage {
 	int DIRECTED_PORT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.BufferImpl <em>Buffer</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl <em>Timed Transition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.modeling.formalml.impl.BufferImpl
-	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getBuffer()
+	 * @see org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getTimedTransition()
 	 * @generated
 	 */
-	int BUFFER = 9;
+	int TIMED_TRANSITION = 7;
 
 	/**
-	 * The feature id for the '<em><b>Base Property</b></em>' reference.
+	 * The feature id for the '<em><b>Tguard</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUFFER__BASE_PROPERTY = 0;
+	int TIMED_TRANSITION__TGUARD = 0;
 
 	/**
-	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * The feature id for the '<em><b>Base Transition</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUFFER__KIND = 1;
+	int TIMED_TRANSITION__BASE_TRANSITION = 1;
 
 	/**
-	 * The number of structural features of the '<em>Buffer</em>' class.
+	 * The number of structural features of the '<em>Timed Transition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUFFER_FEATURE_COUNT = 2;
+	int TIMED_TRANSITION_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>Buffer</em>' class.
+	 * The number of operations of the '<em>Timed Transition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUFFER_OPERATION_COUNT = 0;
+	int TIMED_TRANSITION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.BlockImpl <em>Block</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.ConnectorContractImpl <em>Connector Contract</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.modeling.formalml.impl.BlockImpl
-	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getBlock()
+	 * @see org.eclipse.efm.modeling.formalml.impl.ConnectorContractImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getConnectorContract()
 	 * @generated
 	 */
-	int BLOCK = 10;
+	int CONNECTOR_CONTRACT = 9;
 
 	/**
-	 * The feature id for the '<em><b>Routing Behavior</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BLOCK__ROUTING_BEHAVIOR = FORMAL_BLOCK__ROUTING_BEHAVIOR;
-
-	/**
-	 * The feature id for the '<em><b>Base Class</b></em>' reference.
+	 * The feature id for the '<em><b>Base Opaque Behavior</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BLOCK__BASE_CLASS = FORMAL_BLOCK__BASE_CLASS;
+	int CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR = 0;
 
 	/**
-	 * The number of structural features of the '<em>Block</em>' class.
+	 * The number of structural features of the '<em>Connector Contract</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BLOCK_FEATURE_COUNT = FORMAL_BLOCK_FEATURE_COUNT + 0;
+	int CONNECTOR_CONTRACT_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>Block</em>' class.
+	 * The number of operations of the '<em>Connector Contract</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BLOCK_OPERATION_COUNT = FORMAL_BLOCK_OPERATION_COUNT + 0;
+	int CONNECTOR_CONTRACT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.PortDirectionKind <em>Port Direction Kind</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.FifoContractImpl <em>Fifo Contract</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.modeling.formalml.PortDirectionKind
-	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getPortDirectionKind()
+	 * @see org.eclipse.efm.modeling.formalml.impl.FifoContractImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getFifoContract()
 	 * @generated
 	 */
-	int PORT_DIRECTION_KIND = 11;
+	int FIFO_CONTRACT = 8;
+
+	/**
+	 * The feature id for the '<em><b>Base Opaque Behavior</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIFO_CONTRACT__BASE_OPAQUE_BEHAVIOR = CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR;
+
+	/**
+	 * The number of structural features of the '<em>Fifo Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIFO_CONTRACT_FEATURE_COUNT = CONNECTOR_CONTRACT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Fifo Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIFO_CONTRACT_OPERATION_COUNT = CONNECTOR_CONTRACT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.LifoContractImpl <em>Lifo Contract</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.modeling.formalml.impl.LifoContractImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getLifoContract()
+	 * @generated
+	 */
+	int LIFO_CONTRACT = 10;
+
+	/**
+	 * The feature id for the '<em><b>Base Opaque Behavior</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIFO_CONTRACT__BASE_OPAQUE_BEHAVIOR = CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR;
+
+	/**
+	 * The number of structural features of the '<em>Lifo Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIFO_CONTRACT_FEATURE_COUNT = CONNECTOR_CONTRACT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Lifo Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIFO_CONTRACT_OPERATION_COUNT = CONNECTOR_CONTRACT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.MultiSetContractImpl <em>Multi Set Contract</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.modeling.formalml.impl.MultiSetContractImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getMultiSetContract()
+	 * @generated
+	 */
+	int MULTI_SET_CONTRACT = 11;
+
+	/**
+	 * The feature id for the '<em><b>Base Opaque Behavior</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_SET_CONTRACT__BASE_OPAQUE_BEHAVIOR = CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR;
+
+	/**
+	 * The number of structural features of the '<em>Multi Set Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_SET_CONTRACT_FEATURE_COUNT = CONNECTOR_CONTRACT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Multi Set Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_SET_CONTRACT_OPERATION_COUNT = CONNECTOR_CONTRACT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.RendezVousContractImpl <em>Rendez Vous Contract</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.modeling.formalml.impl.RendezVousContractImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getRendezVousContract()
+	 * @generated
+	 */
+	int RENDEZ_VOUS_CONTRACT = 12;
+
+	/**
+	 * The feature id for the '<em><b>Base Opaque Behavior</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RENDEZ_VOUS_CONTRACT__BASE_OPAQUE_BEHAVIOR = CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR;
+
+	/**
+	 * The number of structural features of the '<em>Rendez Vous Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RENDEZ_VOUS_CONTRACT_FEATURE_COUNT = CONNECTOR_CONTRACT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Rendez Vous Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RENDEZ_VOUS_CONTRACT_OPERATION_COUNT = CONNECTOR_CONTRACT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.impl.MultiRendezVousContractImpl <em>Multi Rendez Vous Contract</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.modeling.formalml.impl.MultiRendezVousContractImpl
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getMultiRendezVousContract()
+	 * @generated
+	 */
+	int MULTI_RENDEZ_VOUS_CONTRACT = 13;
+
+	/**
+	 * The feature id for the '<em><b>Base Opaque Behavior</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_RENDEZ_VOUS_CONTRACT__BASE_OPAQUE_BEHAVIOR = CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR;
+
+	/**
+	 * The number of structural features of the '<em>Multi Rendez Vous Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_RENDEZ_VOUS_CONTRACT_FEATURE_COUNT = CONNECTOR_CONTRACT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Multi Rendez Vous Contract</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTI_RENDEZ_VOUS_CONTRACT_OPERATION_COUNT = CONNECTOR_CONTRACT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.BufferKind <em>Buffer Kind</em>}' enum.
@@ -610,29 +702,18 @@ public interface FormalMLPackage extends EPackage {
 	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getBufferKind()
 	 * @generated
 	 */
-	int BUFFER_KIND = 12;
-
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.Clock <em>Clock</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Clock</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.Clock
-	 * @generated
-	 */
-	EClass getClock();
+	int BUFFER_KIND = 14;
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.Clock#getBaseProperty <em>Base Property</em>}'.
+	 * The meta object id for the '{@link org.eclipse.efm.modeling.formalml.PortDirectionKind <em>Port Direction Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Base Property</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.Clock#getBaseProperty()
-	 * @see #getClock()
+	 * @see org.eclipse.efm.modeling.formalml.PortDirectionKind
+	 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getPortDirectionKind()
 	 * @generated
 	 */
-	EReference getClock_BaseProperty();
+	int PORT_DIRECTION_KIND = 15;
+
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.Configuration <em>Configuration</em>}'.
@@ -645,37 +726,37 @@ public interface FormalMLPackage extends EPackage {
 	EClass getConfiguration();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.efm.modeling.formalml.Configuration#getEnv <em>Env</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.efm.modeling.formalml.Configuration#getEnvironment <em>Environment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Env</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.Configuration#getEnv()
+	 * @return the meta object for the reference list '<em>Environment</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.Configuration#getEnvironment()
 	 * @see #getConfiguration()
 	 * @generated
 	 */
-	EReference getConfiguration_Env();
+	EReference getConfiguration_Environment();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.modeling.formalml.Configuration#isTimed <em>Timed</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.modeling.formalml.Configuration#isTimed <em>Is Timed</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Timed</em>'.
+	 * @return the meta object for the attribute '<em>Is Timed</em>'.
 	 * @see org.eclipse.efm.modeling.formalml.Configuration#isTimed()
 	 * @see #getConfiguration()
 	 * @generated
 	 */
-	EAttribute getConfiguration_Timed();
+	EAttribute getConfiguration_IsTimed();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.modeling.formalml.Configuration#isInputEnabled <em>Input Enabled</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.modeling.formalml.Configuration#isInputEnabled <em>Is Input Enabled</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Input Enabled</em>'.
+	 * @return the meta object for the attribute '<em>Is Input Enabled</em>'.
 	 * @see org.eclipse.efm.modeling.formalml.Configuration#isInputEnabled()
 	 * @see #getConfiguration()
 	 * @generated
 	 */
-	EAttribute getConfiguration_InputEnabled();
+	EAttribute getConfiguration_IsInputEnabled();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.FormalBlock <em>Formal Block</em>}'.
@@ -686,6 +767,17 @@ public interface FormalMLPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFormalBlock();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.FormalBlock#getBase_Class <em>Base Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Base Class</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.FormalBlock#getBase_Class()
+	 * @see #getFormalBlock()
+	 * @generated
+	 */
+	EReference getFormalBlock_Base_Class();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.FormalBlock#getRoutingBehavior <em>Routing Behavior</em>}'.
@@ -699,49 +791,6 @@ public interface FormalMLPackage extends EPackage {
 	EReference getFormalBlock_RoutingBehavior();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.FormalBlock#getBaseClass <em>Base Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Base Class</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.FormalBlock#getBaseClass()
-	 * @see #getFormalBlock()
-	 * @generated
-	 */
-	EReference getFormalBlock_BaseClass();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.TimedTransition <em>Timed Transition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Timed Transition</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.TimedTransition
-	 * @generated
-	 */
-	EClass getTimedTransition();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.TimedTransition#getTguard <em>Tguard</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Tguard</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.TimedTransition#getTguard()
-	 * @see #getTimedTransition()
-	 * @generated
-	 */
-	EReference getTimedTransition_Tguard();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.TimedTransition#getBaseTransition <em>Base Transition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Base Transition</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.TimedTransition#getBaseTransition()
-	 * @see #getTimedTransition()
-	 * @generated
-	 */
-	EReference getTimedTransition_BaseTransition();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.Part <em>Part</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -752,15 +801,15 @@ public interface FormalMLPackage extends EPackage {
 	EClass getPart();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.Part#getBaseProperty <em>Base Property</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.Part#getBase_Property <em>Base Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Base Property</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.Part#getBaseProperty()
+	 * @see org.eclipse.efm.modeling.formalml.Part#getBase_Property()
 	 * @see #getPart()
 	 * @generated
 	 */
-	EReference getPart_BaseProperty();
+	EReference getPart_Base_Property();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.efm.modeling.formalml.Part#getInstance <em>Instance</em>}'.
@@ -774,78 +823,88 @@ public interface FormalMLPackage extends EPackage {
 	EReference getPart_Instance();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.ReceiveAnyEvent <em>Receive Any Event</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.Block <em>Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Receive Any Event</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveAnyEvent
+	 * @return the meta object for class '<em>Block</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.Block
 	 * @generated
 	 */
-	EClass getReceiveAnyEvent();
+	EClass getBlock();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.ReceiveAnyEvent#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.Clock <em>Clock</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Base Any Receive Event</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveAnyEvent#getBaseAnyReceiveEvent()
-	 * @see #getReceiveAnyEvent()
+	 * @return the meta object for class '<em>Clock</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.Clock
 	 * @generated
 	 */
-	EReference getReceiveAnyEvent_BaseAnyReceiveEvent();
+	EClass getClock();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.ReceiveEvent <em>Receive Event</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.Clock#getBase_Property <em>Base Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Receive Event</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveEvent
+	 * @return the meta object for the reference '<em>Base Property</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.Clock#getBase_Property()
+	 * @see #getClock()
 	 * @generated
 	 */
-	EClass getReceiveEvent();
+	EReference getClock_Base_Property();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.efm.modeling.formalml.ReceiveEvent#getParameters <em>Parameters</em>}'.
+	 * Returns the meta object for the '{@link org.eclipse.efm.modeling.formalml.Clock#Constraint1(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Constraint1</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Parameters</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveEvent#getParameters()
-	 * @see #getReceiveEvent()
+	 * @return the meta object for the '<em>Constraint1</em>' operation.
+	 * @see org.eclipse.efm.modeling.formalml.Clock#Constraint1(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
 	 * @generated
 	 */
-	EReference getReceiveEvent_Parameters();
+	EOperation getClock__Constraint1__DiagnosticChain_Map();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.ReceiveSignalEvent <em>Receive Signal Event</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.Buffer <em>Buffer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Receive Signal Event</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveSignalEvent
+	 * @return the meta object for class '<em>Buffer</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.Buffer
 	 * @generated
 	 */
-	EClass getReceiveSignalEvent();
+	EClass getBuffer();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.ReceiveSignalEvent#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.Buffer#getBase_Property <em>Base Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Base Any Receive Event</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveSignalEvent#getBaseAnyReceiveEvent()
-	 * @see #getReceiveSignalEvent()
+	 * @return the meta object for the reference '<em>Base Property</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.Buffer#getBase_Property()
+	 * @see #getBuffer()
 	 * @generated
 	 */
-	EReference getReceiveSignalEvent_BaseAnyReceiveEvent();
+	EReference getBuffer_Base_Property();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.ReceiveSignalEvent#getBaseSignalEvent <em>Base Signal Event</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.modeling.formalml.Buffer#getKind <em>Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Base Signal Event</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.ReceiveSignalEvent#getBaseSignalEvent()
-	 * @see #getReceiveSignalEvent()
+	 * @return the meta object for the attribute '<em>Kind</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.Buffer#getKind()
+	 * @see #getBuffer()
 	 * @generated
 	 */
-	EReference getReceiveSignalEvent_BaseSignalEvent();
+	EAttribute getBuffer_Kind();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.modeling.formalml.Buffer#getSize <em>Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Size</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.Buffer#getSize()
+	 * @see #getBuffer()
+	 * @generated
+	 */
+	EAttribute getBuffer_Size();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.DirectedPort <em>Directed Port</em>}'.
@@ -880,56 +939,107 @@ public interface FormalMLPackage extends EPackage {
 	EAttribute getDirectedPort_Direction();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.Buffer <em>Buffer</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.TimedTransition <em>Timed Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Buffer</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.Buffer
+	 * @return the meta object for class '<em>Timed Transition</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.TimedTransition
 	 * @generated
 	 */
-	EClass getBuffer();
+	EClass getTimedTransition();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.Buffer#getBaseProperty <em>Base Property</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.TimedTransition#getTguard <em>Tguard</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Base Property</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.Buffer#getBaseProperty()
-	 * @see #getBuffer()
+	 * @return the meta object for the reference '<em>Tguard</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.TimedTransition#getTguard()
+	 * @see #getTimedTransition()
 	 * @generated
 	 */
-	EReference getBuffer_BaseProperty();
+	EReference getTimedTransition_Tguard();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.modeling.formalml.Buffer#getKind <em>Kind</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.TimedTransition#getBase_Transition <em>Base Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Kind</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.Buffer#getKind()
-	 * @see #getBuffer()
+	 * @return the meta object for the reference '<em>Base Transition</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.TimedTransition#getBase_Transition()
+	 * @see #getTimedTransition()
 	 * @generated
 	 */
-	EAttribute getBuffer_Kind();
+	EReference getTimedTransition_Base_Transition();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.Block <em>Block</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.FifoContract <em>Fifo Contract</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Block</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.Block
+	 * @return the meta object for class '<em>Fifo Contract</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.FifoContract
 	 * @generated
 	 */
-	EClass getBlock();
+	EClass getFifoContract();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.efm.modeling.formalml.PortDirectionKind <em>Port Direction Kind</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.ConnectorContract <em>Connector Contract</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Port Direction Kind</em>'.
-	 * @see org.eclipse.efm.modeling.formalml.PortDirectionKind
+	 * @return the meta object for class '<em>Connector Contract</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.ConnectorContract
 	 * @generated
 	 */
-	EEnum getPortDirectionKind();
+	EClass getConnectorContract();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.modeling.formalml.ConnectorContract#getBase_OpaqueBehavior <em>Base Opaque Behavior</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Base Opaque Behavior</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.ConnectorContract#getBase_OpaqueBehavior()
+	 * @see #getConnectorContract()
+	 * @generated
+	 */
+	EReference getConnectorContract_Base_OpaqueBehavior();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.LifoContract <em>Lifo Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Lifo Contract</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.LifoContract
+	 * @generated
+	 */
+	EClass getLifoContract();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.MultiSetContract <em>Multi Set Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Multi Set Contract</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.MultiSetContract
+	 * @generated
+	 */
+	EClass getMultiSetContract();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.RendezVousContract <em>Rendez Vous Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rendez Vous Contract</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.RendezVousContract
+	 * @generated
+	 */
+	EClass getRendezVousContract();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.modeling.formalml.MultiRendezVousContract <em>Multi Rendez Vous Contract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Multi Rendez Vous Contract</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.MultiRendezVousContract
+	 * @generated
+	 */
+	EClass getMultiRendezVousContract();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.modeling.formalml.BufferKind <em>Buffer Kind</em>}'.
@@ -940,6 +1050,16 @@ public interface FormalMLPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getBufferKind();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.efm.modeling.formalml.PortDirectionKind <em>Port Direction Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Port Direction Kind</em>'.
+	 * @see org.eclipse.efm.modeling.formalml.PortDirectionKind
+	 * @generated
+	 */
+	EEnum getPortDirectionKind();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -965,24 +1085,6 @@ public interface FormalMLPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.ClockImpl <em>Clock</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.modeling.formalml.impl.ClockImpl
-		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getClock()
-		 * @generated
-		 */
-		EClass CLOCK = eINSTANCE.getClock();
-
-		/**
-		 * The meta object literal for the '<em><b>Base Property</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CLOCK__BASE_PROPERTY = eINSTANCE.getClock_BaseProperty();
-
-		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.ConfigurationImpl <em>Configuration</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -993,28 +1095,28 @@ public interface FormalMLPackage extends EPackage {
 		EClass CONFIGURATION = eINSTANCE.getConfiguration();
 
 		/**
-		 * The meta object literal for the '<em><b>Env</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Environment</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONFIGURATION__ENV = eINSTANCE.getConfiguration_Env();
+		EReference CONFIGURATION__ENVIRONMENT = eINSTANCE.getConfiguration_Environment();
 
 		/**
-		 * The meta object literal for the '<em><b>Timed</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Is Timed</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONFIGURATION__TIMED = eINSTANCE.getConfiguration_Timed();
+		EAttribute CONFIGURATION__IS_TIMED = eINSTANCE.getConfiguration_IsTimed();
 
 		/**
-		 * The meta object literal for the '<em><b>Input Enabled</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Is Input Enabled</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONFIGURATION__INPUT_ENABLED = eINSTANCE.getConfiguration_InputEnabled();
+		EAttribute CONFIGURATION__IS_INPUT_ENABLED = eINSTANCE.getConfiguration_IsInputEnabled();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.FormalBlockImpl <em>Formal Block</em>}' class.
@@ -1027,46 +1129,20 @@ public interface FormalMLPackage extends EPackage {
 		EClass FORMAL_BLOCK = eINSTANCE.getFormalBlock();
 
 		/**
+		 * The meta object literal for the '<em><b>Base Class</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FORMAL_BLOCK__BASE_CLASS = eINSTANCE.getFormalBlock_Base_Class();
+
+		/**
 		 * The meta object literal for the '<em><b>Routing Behavior</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference FORMAL_BLOCK__ROUTING_BEHAVIOR = eINSTANCE.getFormalBlock_RoutingBehavior();
-
-		/**
-		 * The meta object literal for the '<em><b>Base Class</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FORMAL_BLOCK__BASE_CLASS = eINSTANCE.getFormalBlock_BaseClass();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl <em>Timed Transition</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl
-		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getTimedTransition()
-		 * @generated
-		 */
-		EClass TIMED_TRANSITION = eINSTANCE.getTimedTransition();
-
-		/**
-		 * The meta object literal for the '<em><b>Tguard</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TIMED_TRANSITION__TGUARD = eINSTANCE.getTimedTransition_Tguard();
-
-		/**
-		 * The meta object literal for the '<em><b>Base Transition</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TIMED_TRANSITION__BASE_TRANSITION = eINSTANCE.getTimedTransition_BaseTransition();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.PartImpl <em>Part</em>}' class.
@@ -1084,7 +1160,7 @@ public interface FormalMLPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PART__BASE_PROPERTY = eINSTANCE.getPart_BaseProperty();
+		EReference PART__BASE_PROPERTY = eINSTANCE.getPart_Base_Property();
 
 		/**
 		 * The meta object literal for the '<em><b>Instance</b></em>' reference list feature.
@@ -1095,66 +1171,74 @@ public interface FormalMLPackage extends EPackage {
 		EReference PART__INSTANCE = eINSTANCE.getPart_Instance();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.ReceiveAnyEventImpl <em>Receive Any Event</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.BlockImpl <em>Block</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.modeling.formalml.impl.ReceiveAnyEventImpl
-		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getReceiveAnyEvent()
+		 * @see org.eclipse.efm.modeling.formalml.impl.BlockImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getBlock()
 		 * @generated
 		 */
-		EClass RECEIVE_ANY_EVENT = eINSTANCE.getReceiveAnyEvent();
+		EClass BLOCK = eINSTANCE.getBlock();
 
 		/**
-		 * The meta object literal for the '<em><b>Base Any Receive Event</b></em>' reference feature.
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.ClockImpl <em>Clock</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.modeling.formalml.impl.ClockImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getClock()
 		 * @generated
 		 */
-		EReference RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT = eINSTANCE.getReceiveAnyEvent_BaseAnyReceiveEvent();
+		EClass CLOCK = eINSTANCE.getClock();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.ReceiveEventImpl <em>Receive Event</em>}' class.
+		 * The meta object literal for the '<em><b>Base Property</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.modeling.formalml.impl.ReceiveEventImpl
-		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getReceiveEvent()
 		 * @generated
 		 */
-		EClass RECEIVE_EVENT = eINSTANCE.getReceiveEvent();
+		EReference CLOCK__BASE_PROPERTY = eINSTANCE.getClock_Base_Property();
 
 		/**
-		 * The meta object literal for the '<em><b>Parameters</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Constraint1</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RECEIVE_EVENT__PARAMETERS = eINSTANCE.getReceiveEvent_Parameters();
+		EOperation CLOCK___CONSTRAINT1__DIAGNOSTICCHAIN_MAP = eINSTANCE.getClock__Constraint1__DiagnosticChain_Map();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.ReceiveSignalEventImpl <em>Receive Signal Event</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.BufferImpl <em>Buffer</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.modeling.formalml.impl.ReceiveSignalEventImpl
-		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getReceiveSignalEvent()
+		 * @see org.eclipse.efm.modeling.formalml.impl.BufferImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getBuffer()
 		 * @generated
 		 */
-		EClass RECEIVE_SIGNAL_EVENT = eINSTANCE.getReceiveSignalEvent();
+		EClass BUFFER = eINSTANCE.getBuffer();
 
 		/**
-		 * The meta object literal for the '<em><b>Base Any Receive Event</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Base Property</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RECEIVE_SIGNAL_EVENT__BASE_ANY_RECEIVE_EVENT = eINSTANCE.getReceiveSignalEvent_BaseAnyReceiveEvent();
+		EReference BUFFER__BASE_PROPERTY = eINSTANCE.getBuffer_Base_Property();
 
 		/**
-		 * The meta object literal for the '<em><b>Base Signal Event</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RECEIVE_SIGNAL_EVENT__BASE_SIGNAL_EVENT = eINSTANCE.getReceiveSignalEvent_BaseSignalEvent();
+		EAttribute BUFFER__KIND = eINSTANCE.getBuffer_Kind();
+
+		/**
+		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BUFFER__SIZE = eINSTANCE.getBuffer_Size();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.DirectedPortImpl <em>Directed Port</em>}' class.
@@ -1183,50 +1267,98 @@ public interface FormalMLPackage extends EPackage {
 		EAttribute DIRECTED_PORT__DIRECTION = eINSTANCE.getDirectedPort_Direction();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.BufferImpl <em>Buffer</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl <em>Timed Transition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.modeling.formalml.impl.BufferImpl
-		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getBuffer()
+		 * @see org.eclipse.efm.modeling.formalml.impl.TimedTransitionImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getTimedTransition()
 		 * @generated
 		 */
-		EClass BUFFER = eINSTANCE.getBuffer();
+		EClass TIMED_TRANSITION = eINSTANCE.getTimedTransition();
 
 		/**
-		 * The meta object literal for the '<em><b>Base Property</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Tguard</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BUFFER__BASE_PROPERTY = eINSTANCE.getBuffer_BaseProperty();
+		EReference TIMED_TRANSITION__TGUARD = eINSTANCE.getTimedTransition_Tguard();
 
 		/**
-		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Base Transition</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BUFFER__KIND = eINSTANCE.getBuffer_Kind();
+		EReference TIMED_TRANSITION__BASE_TRANSITION = eINSTANCE.getTimedTransition_Base_Transition();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.BlockImpl <em>Block</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.FifoContractImpl <em>Fifo Contract</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.modeling.formalml.impl.BlockImpl
-		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getBlock()
+		 * @see org.eclipse.efm.modeling.formalml.impl.FifoContractImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getFifoContract()
 		 * @generated
 		 */
-		EClass BLOCK = eINSTANCE.getBlock();
+		EClass FIFO_CONTRACT = eINSTANCE.getFifoContract();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.PortDirectionKind <em>Port Direction Kind</em>}' enum.
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.ConnectorContractImpl <em>Connector Contract</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.modeling.formalml.PortDirectionKind
-		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getPortDirectionKind()
+		 * @see org.eclipse.efm.modeling.formalml.impl.ConnectorContractImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getConnectorContract()
 		 * @generated
 		 */
-		EEnum PORT_DIRECTION_KIND = eINSTANCE.getPortDirectionKind();
+		EClass CONNECTOR_CONTRACT = eINSTANCE.getConnectorContract();
+
+		/**
+		 * The meta object literal for the '<em><b>Base Opaque Behavior</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR = eINSTANCE.getConnectorContract_Base_OpaqueBehavior();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.LifoContractImpl <em>Lifo Contract</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.modeling.formalml.impl.LifoContractImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getLifoContract()
+		 * @generated
+		 */
+		EClass LIFO_CONTRACT = eINSTANCE.getLifoContract();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.MultiSetContractImpl <em>Multi Set Contract</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.modeling.formalml.impl.MultiSetContractImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getMultiSetContract()
+		 * @generated
+		 */
+		EClass MULTI_SET_CONTRACT = eINSTANCE.getMultiSetContract();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.RendezVousContractImpl <em>Rendez Vous Contract</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.modeling.formalml.impl.RendezVousContractImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getRendezVousContract()
+		 * @generated
+		 */
+		EClass RENDEZ_VOUS_CONTRACT = eINSTANCE.getRendezVousContract();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.impl.MultiRendezVousContractImpl <em>Multi Rendez Vous Contract</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.modeling.formalml.impl.MultiRendezVousContractImpl
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getMultiRendezVousContract()
+		 * @generated
+		 */
+		EClass MULTI_RENDEZ_VOUS_CONTRACT = eINSTANCE.getMultiRendezVousContract();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.BufferKind <em>Buffer Kind</em>}' enum.
@@ -1237,6 +1369,16 @@ public interface FormalMLPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum BUFFER_KIND = eINSTANCE.getBufferKind();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.modeling.formalml.PortDirectionKind <em>Port Direction Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.modeling.formalml.PortDirectionKind
+		 * @see org.eclipse.efm.modeling.formalml.impl.FormalMLPackageImpl#getPortDirectionKind()
+		 * @generated
+		 */
+		EEnum PORT_DIRECTION_KIND = eINSTANCE.getPortDirectionKind();
 
 	}
 

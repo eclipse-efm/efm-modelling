@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
-    copyrightText="Copyright (c) 2017 CEA LIST.&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA; Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr&#xD;&#xA;  - Initial API and Implementation"
+    copyrightText="Copyright (c) 2017 CEA LIST.&#xD;&#xA;&#xD;&#xA;All rights reserved. This program and the accompanying materials&#xD;&#xA;are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA;which accompanies this distribution, and is available at&#xD;&#xA;http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA; Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr&#xD;&#xA; - Initial API and Implementation"
     modelDirectory="/org.eclipse.efm.formalml/src-gen" editDirectory="/org.eclipse.efm.formalml.edit/src-gen"
     editorDirectory="/org.eclipse.efm.formalml.editor/src-gen" modelPluginID="org.eclipse.efm.formalml"
     modelName="FormalML" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     testsDirectory="/org.eclipse.efm.formalml.tests/src-gen" importerID="org.eclipse.uml2.uml.ecore.importer"
-    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../../org.eclipse.uml2.types/model/Types.genmodel#//types ../../../org.eclipse.uml2.uml/model/UML.genmodel#//uml"
+    complianceLevel="8.0" copyrightFields="false" providerRootExtendsClass="" usedGenPackages="../../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../../org.eclipse.uml2.types/model/Types.genmodel#//types ../../../org.eclipse.uml2.uml/model/UML.genmodel#//uml"
     operationReflection="true" importOrganizing="true">
   <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
     <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
@@ -34,70 +34,72 @@
   </genAnnotations>
   <foreignModel>FormalML.profile.uml</foreignModel>
   <genPackages xsi:type="genmodel:GenPackage" prefix="FormalML" basePackage="org.eclipse.efm.modeling"
-      disposableProviderFactory="true" ecorePackage="formalml.ecore#/">
-    <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="formalml.ecore#//PortDirectionKind">
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="formalml.ecore#//PortDirectionKind/inout"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="formalml.ecore#//PortDirectionKind/in"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="formalml.ecore#//PortDirectionKind/out"/>
+      disposableProviderFactory="true" ecorePackage="FormalML.ecore#/">
+    <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="FormalML.ecore#//BufferKind">
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="FormalML.ecore#//BufferKind/FIFO"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="FormalML.ecore#//BufferKind/LIFO"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="FormalML.ecore#//BufferKind/MULTISET"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="FormalML.ecore#//BufferKind/RAM"/>
     </genEnums>
-    <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="formalml.ecore#//BufferKind">
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="formalml.ecore#//BufferKind/FIFO"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="formalml.ecore#//BufferKind/LIFO"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="formalml.ecore#//BufferKind/MULTISET"/>
-      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="formalml.ecore#//BufferKind/RAM"/>
+    <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="FormalML.ecore#//PortDirectionKind">
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="FormalML.ecore#//PortDirectionKind/inout"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="FormalML.ecore#//PortDirectionKind/in"/>
+      <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="FormalML.ecore#//PortDirectionKind/out"/>
     </genEnums>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//Clock">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//Configuration">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//Clock/baseProperty"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//Configuration/environment"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute FormalML.ecore#//Configuration/isTimed"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute FormalML.ecore#//Configuration/isInputEnabled"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//Configuration">
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="FormalML.ecore#//FormalBlock">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//Configuration/env"/>
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute formalml.ecore#//Configuration/timed"/>
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute formalml.ecore#//Configuration/inputEnabled"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//FormalBlock/base_Class"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//FormalBlock/routingBehavior"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//FormalBlock">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//Part">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//FormalBlock/routingBehavior"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//Part/base_Property"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//FormalBlock/baseClass"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//Part/instance"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//TimedTransition">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//Block"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//Clock">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//TimedTransition/tguard"/>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//TimedTransition/baseTransition"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//Clock/base_Property"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="FormalML.ecore#//Clock/Constraint1">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="FormalML.ecore#//Clock/Constraint1/diagnostics"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="FormalML.ecore#//Clock/Constraint1/context"/>
+      </genOperations>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//Part">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//Buffer">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//Part/baseProperty"/>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//Part/instance"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//Buffer/base_Property"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute FormalML.ecore#//Buffer/kind"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute FormalML.ecore#//Buffer/size"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//ReceiveAnyEvent">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//DirectedPort">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//ReceiveAnyEvent/baseAnyReceiveEvent"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//DirectedPort/base_Port"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute FormalML.ecore#//DirectedPort/direction"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="formalml.ecore#//ReceiveEvent">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//TimedTransition">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//ReceiveEvent/parameters"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//TimedTransition/tguard"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//TimedTransition/base_Transition"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//ReceiveSignalEvent">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//FifoContract"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//ConnectorContract">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//ReceiveSignalEvent/baseAnyReceiveEvent"/>
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//ReceiveSignalEvent/baseSignalEvent"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference FormalML.ecore#//ConnectorContract/base_OpaqueBehavior"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//DirectedPort">
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//DirectedPort/base_Port"/>
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute formalml.ecore#//DirectedPort/direction"/>
-    </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//Buffer">
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference formalml.ecore#//Buffer/baseProperty"/>
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute formalml.ecore#//Buffer/kind"/>
-    </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="formalml.ecore#//Block"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//LifoContract"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//MultiSetContract"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//RendezVousContract"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="FormalML.ecore#//MultiRendezVousContract"/>
   </genPackages>
 </genmodel:GenModel>

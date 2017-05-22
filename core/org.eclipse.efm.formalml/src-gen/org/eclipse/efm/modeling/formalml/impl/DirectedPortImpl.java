@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml.impl;
 
@@ -142,18 +142,6 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDirection(PortDirectionKind newDirection) {
-		PortDirectionKind oldDirection = direction;
-		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.DIRECTED_PORT__DIRECTION, oldDirection, direction));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -177,9 +165,6 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 			case FormalMLPackage.DIRECTED_PORT__BASE_PORT:
 				setBase_Port((Port)newValue);
 				return;
-			case FormalMLPackage.DIRECTED_PORT__DIRECTION:
-				setDirection((PortDirectionKind)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -194,9 +179,6 @@ public class DirectedPortImpl extends MinimalEObjectImpl.Container implements Di
 		switch (featureID) {
 			case FormalMLPackage.DIRECTED_PORT__BASE_PORT:
 				setBase_Port((Port)null);
-				return;
-			case FormalMLPackage.DIRECTED_PORT__DIRECTION:
-				setDirection(DIRECTION_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);

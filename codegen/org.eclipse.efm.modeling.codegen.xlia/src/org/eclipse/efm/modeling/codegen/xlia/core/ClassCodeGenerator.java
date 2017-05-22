@@ -640,10 +640,10 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		Part Part;
 
 		if( behaviorCount > 0 ) {
-			if( formalBlock.getBaseClass().getClassifierBehavior() == null ) {
+			if( formalBlock.getBase_Class().getClassifierBehavior() == null ) {
 				LOGGER.error( ( new StringBuffer(this.getClass().getSimpleName()) )
 					.append( ":> unexpected Block Class " )
-					.append( formalBlock.getBaseClass().getQualifiedName() )
+					.append( formalBlock.getBase_Class().getQualifiedName() )
 					.append( " with ownedBehavior, without classifierBehavior" )
 					.toString() );
 			}
@@ -710,7 +710,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		//
 		writer.appendTab("@schedule{");
 
-		Class block_base_Class = formalBlock.getBaseClass();
+		Class block_base_Class = formalBlock.getBase_Class();
 		if (block_base_Class !=null){
 			Behavior scheduleBehavior = block_base_Class.getClassifierBehavior();
 
@@ -921,14 +921,14 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			Configuration parent_context = StereotypeUtil.getConfiguration(element);
 
 			EList<Property> environmental_properties;
-			if (parent_context != null && parent_context.getEnv() != null) {
-				environmental_properties = parent_context.getEnv();
+			if (parent_context != null && parent_context.getEnvironment() != null) {
+				environmental_properties = parent_context.getEnvironment();
 			} else {
 				environmental_properties = new BasicEList.UnmodifiableEList<Property>(0, null);
 			}
 
 			String comment_on_part = "";
-			if (environmental_properties.contains(Part.getBaseProperty())) {
+			if (environmental_properties.contains(Part.getBase_Property())) {
 				comment_on_part = " /* in formal context 'environment' */";
 			}
 

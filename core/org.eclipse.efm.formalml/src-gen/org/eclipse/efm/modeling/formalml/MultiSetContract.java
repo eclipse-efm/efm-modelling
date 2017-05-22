@@ -15,13 +15,13 @@ package org.eclipse.efm.modeling.formalml;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Block</b></em>'.
+ * A representation of the model object '<em><b>Multi Set Contract</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getBlock()
+ * @see org.eclipse.efm.modeling.formalml.FormalMLPackage#getMultiSetContract()
  * @model
  * @generated
  */
-public interface Block extends FormalBlock {
-} // Block
+public interface MultiSetContract extends ConnectorContract {
+} // MultiSetContract

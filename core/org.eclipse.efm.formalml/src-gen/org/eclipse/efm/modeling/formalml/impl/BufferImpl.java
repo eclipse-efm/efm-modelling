@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml.impl;
 
@@ -34,22 +34,23 @@ import org.eclipse.uml2.uml.Property;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.modeling.formalml.impl.BufferImpl#getBaseProperty <em>Base Property</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.impl.BufferImpl#getBase_Property <em>Base Property</em>}</li>
  *   <li>{@link org.eclipse.efm.modeling.formalml.impl.BufferImpl#getKind <em>Kind</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.impl.BufferImpl#getSize <em>Size</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	/**
-	 * The cached value of the '{@link #getBaseProperty() <em>Base Property</em>}' reference.
+	 * The cached value of the '{@link #getBase_Property() <em>Base Property</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBaseProperty()
+	 * @see #getBase_Property()
 	 * @generated
 	 * @ordered
 	 */
-	protected Property baseProperty;
+	protected Property base_Property;
 
 	/**
 	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
@@ -70,6 +71,26 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	 * @ordered
 	 */
 	protected BufferKind kind = KIND_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSize() <em>Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int SIZE_EDEFAULT = -1;
+
+	/**
+	 * The cached value of the '{@link #getSize() <em>Size</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected int size = SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -95,16 +116,16 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property getBaseProperty() {
-		if (baseProperty != null && baseProperty.eIsProxy()) {
-			InternalEObject oldBaseProperty = (InternalEObject)baseProperty;
-			baseProperty = (Property)eResolveProxy(oldBaseProperty);
-			if (baseProperty != oldBaseProperty) {
+	public Property getBase_Property() {
+		if (base_Property != null && base_Property.eIsProxy()) {
+			InternalEObject oldBase_Property = (InternalEObject)base_Property;
+			base_Property = (Property)eResolveProxy(oldBase_Property);
+			if (base_Property != oldBase_Property) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FormalMLPackage.BUFFER__BASE_PROPERTY, oldBaseProperty, baseProperty));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FormalMLPackage.BUFFER__BASE_PROPERTY, oldBase_Property, base_Property));
 			}
 		}
-		return baseProperty;
+		return base_Property;
 	}
 
 	/**
@@ -112,8 +133,8 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property basicGetBaseProperty() {
-		return baseProperty;
+	public Property basicGetBase_Property() {
+		return base_Property;
 	}
 
 	/**
@@ -121,11 +142,11 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBaseProperty(Property newBaseProperty) {
-		Property oldBaseProperty = baseProperty;
-		baseProperty = newBaseProperty;
+	public void setBase_Property(Property newBase_Property) {
+		Property oldBase_Property = base_Property;
+		base_Property = newBase_Property;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.BUFFER__BASE_PROPERTY, oldBaseProperty, baseProperty));
+			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.BUFFER__BASE_PROPERTY, oldBase_Property, base_Property));
 	}
 
 	/**
@@ -142,11 +163,20 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setKind(BufferKind newKind) {
-		BufferKind oldKind = kind;
-		kind = newKind == null ? KIND_EDEFAULT : newKind;
+	public int getSize() {
+		return size;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSize(int newSize) {
+		int oldSize = size;
+		size = newSize;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.BUFFER__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.BUFFER__SIZE, oldSize, size));
 	}
 
 	/**
@@ -158,10 +188,12 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case FormalMLPackage.BUFFER__BASE_PROPERTY:
-				if (resolve) return getBaseProperty();
-				return basicGetBaseProperty();
+				if (resolve) return getBase_Property();
+				return basicGetBase_Property();
 			case FormalMLPackage.BUFFER__KIND:
 				return getKind();
+			case FormalMLPackage.BUFFER__SIZE:
+				return getSize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -175,10 +207,10 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case FormalMLPackage.BUFFER__BASE_PROPERTY:
-				setBaseProperty((Property)newValue);
+				setBase_Property((Property)newValue);
 				return;
-			case FormalMLPackage.BUFFER__KIND:
-				setKind((BufferKind)newValue);
+			case FormalMLPackage.BUFFER__SIZE:
+				setSize((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -193,10 +225,10 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case FormalMLPackage.BUFFER__BASE_PROPERTY:
-				setBaseProperty((Property)null);
+				setBase_Property((Property)null);
 				return;
-			case FormalMLPackage.BUFFER__KIND:
-				setKind(KIND_EDEFAULT);
+			case FormalMLPackage.BUFFER__SIZE:
+				setSize(SIZE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -211,9 +243,11 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case FormalMLPackage.BUFFER__BASE_PROPERTY:
-				return baseProperty != null;
+				return base_Property != null;
 			case FormalMLPackage.BUFFER__KIND:
 				return kind != KIND_EDEFAULT;
+			case FormalMLPackage.BUFFER__SIZE:
+				return size != SIZE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -230,6 +264,8 @@ public class BufferImpl extends MinimalEObjectImpl.Container implements Buffer {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (kind: ");
 		result.append(kind);
+		result.append(", size: ");
+		result.append(size);
 		result.append(')');
 		return result.toString();
 	}

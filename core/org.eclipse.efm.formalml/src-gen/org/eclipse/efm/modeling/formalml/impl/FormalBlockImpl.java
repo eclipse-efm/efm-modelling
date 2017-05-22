@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml.impl;
 
@@ -33,13 +33,23 @@ import org.eclipse.uml2.uml.OpaqueBehavior;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.impl.FormalBlockImpl#getBase_Class <em>Base Class</em>}</li>
  *   <li>{@link org.eclipse.efm.modeling.formalml.impl.FormalBlockImpl#getRoutingBehavior <em>Routing Behavior</em>}</li>
- *   <li>{@link org.eclipse.efm.modeling.formalml.impl.FormalBlockImpl#getBaseClass <em>Base Class</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class FormalBlockImpl extends MinimalEObjectImpl.Container implements FormalBlock {
+public abstract class FormalBlockImpl extends MinimalEObjectImpl.Container implements FormalBlock {
+	/**
+	 * The cached value of the '{@link #getBase_Class() <em>Base Class</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBase_Class()
+	 * @generated
+	 * @ordered
+	 */
+	protected org.eclipse.uml2.uml.Class base_Class;
+
 	/**
 	 * The cached value of the '{@link #getRoutingBehavior() <em>Routing Behavior</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -49,16 +59,6 @@ public class FormalBlockImpl extends MinimalEObjectImpl.Container implements For
 	 * @ordered
 	 */
 	protected OpaqueBehavior routingBehavior;
-
-	/**
-	 * The cached value of the '{@link #getBaseClass() <em>Base Class</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBaseClass()
-	 * @generated
-	 * @ordered
-	 */
-	protected org.eclipse.uml2.uml.Class baseClass;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -77,6 +77,44 @@ public class FormalBlockImpl extends MinimalEObjectImpl.Container implements For
 	@Override
 	protected EClass eStaticClass() {
 		return FormalMLPackage.Literals.FORMAL_BLOCK;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public org.eclipse.uml2.uml.Class getBase_Class() {
+		if (base_Class != null && base_Class.eIsProxy()) {
+			InternalEObject oldBase_Class = (InternalEObject)base_Class;
+			base_Class = (org.eclipse.uml2.uml.Class)eResolveProxy(oldBase_Class);
+			if (base_Class != oldBase_Class) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FormalMLPackage.FORMAL_BLOCK__BASE_CLASS, oldBase_Class, base_Class));
+			}
+		}
+		return base_Class;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public org.eclipse.uml2.uml.Class basicGetBase_Class() {
+		return base_Class;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBase_Class(org.eclipse.uml2.uml.Class newBase_Class) {
+		org.eclipse.uml2.uml.Class oldBase_Class = base_Class;
+		base_Class = newBase_Class;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.FORMAL_BLOCK__BASE_CLASS, oldBase_Class, base_Class));
 	}
 
 	/**
@@ -122,53 +160,15 @@ public class FormalBlockImpl extends MinimalEObjectImpl.Container implements For
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public org.eclipse.uml2.uml.Class getBaseClass() {
-		if (baseClass != null && baseClass.eIsProxy()) {
-			InternalEObject oldBaseClass = (InternalEObject)baseClass;
-			baseClass = (org.eclipse.uml2.uml.Class)eResolveProxy(oldBaseClass);
-			if (baseClass != oldBaseClass) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FormalMLPackage.FORMAL_BLOCK__BASE_CLASS, oldBaseClass, baseClass));
-			}
-		}
-		return baseClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public org.eclipse.uml2.uml.Class basicGetBaseClass() {
-		return baseClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setBaseClass(org.eclipse.uml2.uml.Class newBaseClass) {
-		org.eclipse.uml2.uml.Class oldBaseClass = baseClass;
-		baseClass = newBaseClass;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.FORMAL_BLOCK__BASE_CLASS, oldBaseClass, baseClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case FormalMLPackage.FORMAL_BLOCK__BASE_CLASS:
+				if (resolve) return getBase_Class();
+				return basicGetBase_Class();
 			case FormalMLPackage.FORMAL_BLOCK__ROUTING_BEHAVIOR:
 				if (resolve) return getRoutingBehavior();
 				return basicGetRoutingBehavior();
-			case FormalMLPackage.FORMAL_BLOCK__BASE_CLASS:
-				if (resolve) return getBaseClass();
-				return basicGetBaseClass();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -181,11 +181,11 @@ public class FormalBlockImpl extends MinimalEObjectImpl.Container implements For
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case FormalMLPackage.FORMAL_BLOCK__BASE_CLASS:
+				setBase_Class((org.eclipse.uml2.uml.Class)newValue);
+				return;
 			case FormalMLPackage.FORMAL_BLOCK__ROUTING_BEHAVIOR:
 				setRoutingBehavior((OpaqueBehavior)newValue);
-				return;
-			case FormalMLPackage.FORMAL_BLOCK__BASE_CLASS:
-				setBaseClass((org.eclipse.uml2.uml.Class)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -199,11 +199,11 @@ public class FormalBlockImpl extends MinimalEObjectImpl.Container implements For
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case FormalMLPackage.FORMAL_BLOCK__BASE_CLASS:
+				setBase_Class((org.eclipse.uml2.uml.Class)null);
+				return;
 			case FormalMLPackage.FORMAL_BLOCK__ROUTING_BEHAVIOR:
 				setRoutingBehavior((OpaqueBehavior)null);
-				return;
-			case FormalMLPackage.FORMAL_BLOCK__BASE_CLASS:
-				setBaseClass((org.eclipse.uml2.uml.Class)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -217,10 +217,10 @@ public class FormalBlockImpl extends MinimalEObjectImpl.Container implements For
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case FormalMLPackage.FORMAL_BLOCK__BASE_CLASS:
+				return base_Class != null;
 			case FormalMLPackage.FORMAL_BLOCK__ROUTING_BEHAVIOR:
 				return routingBehavior != null;
-			case FormalMLPackage.FORMAL_BLOCK__BASE_CLASS:
-				return baseClass != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -7,13 +7,13 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml.impl;
 
+import org.eclipse.efm.modeling.formalml.ConnectorContract;
 import org.eclipse.efm.modeling.formalml.FormalMLPackage;
-import org.eclipse.efm.modeling.formalml.ReceiveAnyEvent;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -21,39 +21,40 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.uml2.uml.AnyReceiveEvent;
+import org.eclipse.uml2.uml.OpaqueBehavior;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Receive Any Event</b></em>'.
+ * An implementation of the model object '<em><b>Connector Contract</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.modeling.formalml.impl.ReceiveAnyEventImpl#getBaseAnyReceiveEvent <em>Base Any Receive Event</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.impl.ConnectorContractImpl#getBase_OpaqueBehavior <em>Base Opaque Behavior</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ReceiveAnyEventImpl extends ReceiveEventImpl implements ReceiveAnyEvent {
+public class ConnectorContractImpl extends MinimalEObjectImpl.Container implements ConnectorContract {
 	/**
-	 * The cached value of the '{@link #getBaseAnyReceiveEvent() <em>Base Any Receive Event</em>}' reference.
+	 * The cached value of the '{@link #getBase_OpaqueBehavior() <em>Base Opaque Behavior</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBaseAnyReceiveEvent()
+	 * @see #getBase_OpaqueBehavior()
 	 * @generated
 	 * @ordered
 	 */
-	protected AnyReceiveEvent baseAnyReceiveEvent;
+	protected OpaqueBehavior base_OpaqueBehavior;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ReceiveAnyEventImpl() {
+	protected ConnectorContractImpl() {
 		super();
 	}
 
@@ -64,7 +65,7 @@ public class ReceiveAnyEventImpl extends ReceiveEventImpl implements ReceiveAnyE
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return FormalMLPackage.Literals.RECEIVE_ANY_EVENT;
+		return FormalMLPackage.Literals.CONNECTOR_CONTRACT;
 	}
 
 	/**
@@ -72,16 +73,16 @@ public class ReceiveAnyEventImpl extends ReceiveEventImpl implements ReceiveAnyE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnyReceiveEvent getBaseAnyReceiveEvent() {
-		if (baseAnyReceiveEvent != null && baseAnyReceiveEvent.eIsProxy()) {
-			InternalEObject oldBaseAnyReceiveEvent = (InternalEObject)baseAnyReceiveEvent;
-			baseAnyReceiveEvent = (AnyReceiveEvent)eResolveProxy(oldBaseAnyReceiveEvent);
-			if (baseAnyReceiveEvent != oldBaseAnyReceiveEvent) {
+	public OpaqueBehavior getBase_OpaqueBehavior() {
+		if (base_OpaqueBehavior != null && base_OpaqueBehavior.eIsProxy()) {
+			InternalEObject oldBase_OpaqueBehavior = (InternalEObject)base_OpaqueBehavior;
+			base_OpaqueBehavior = (OpaqueBehavior)eResolveProxy(oldBase_OpaqueBehavior);
+			if (base_OpaqueBehavior != oldBase_OpaqueBehavior) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FormalMLPackage.RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT, oldBaseAnyReceiveEvent, baseAnyReceiveEvent));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FormalMLPackage.CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR, oldBase_OpaqueBehavior, base_OpaqueBehavior));
 			}
 		}
-		return baseAnyReceiveEvent;
+		return base_OpaqueBehavior;
 	}
 
 	/**
@@ -89,8 +90,8 @@ public class ReceiveAnyEventImpl extends ReceiveEventImpl implements ReceiveAnyE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnyReceiveEvent basicGetBaseAnyReceiveEvent() {
-		return baseAnyReceiveEvent;
+	public OpaqueBehavior basicGetBase_OpaqueBehavior() {
+		return base_OpaqueBehavior;
 	}
 
 	/**
@@ -98,11 +99,11 @@ public class ReceiveAnyEventImpl extends ReceiveEventImpl implements ReceiveAnyE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBaseAnyReceiveEvent(AnyReceiveEvent newBaseAnyReceiveEvent) {
-		AnyReceiveEvent oldBaseAnyReceiveEvent = baseAnyReceiveEvent;
-		baseAnyReceiveEvent = newBaseAnyReceiveEvent;
+	public void setBase_OpaqueBehavior(OpaqueBehavior newBase_OpaqueBehavior) {
+		OpaqueBehavior oldBase_OpaqueBehavior = base_OpaqueBehavior;
+		base_OpaqueBehavior = newBase_OpaqueBehavior;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT, oldBaseAnyReceiveEvent, baseAnyReceiveEvent));
+			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR, oldBase_OpaqueBehavior, base_OpaqueBehavior));
 	}
 
 	/**
@@ -113,9 +114,9 @@ public class ReceiveAnyEventImpl extends ReceiveEventImpl implements ReceiveAnyE
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case FormalMLPackage.RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT:
-				if (resolve) return getBaseAnyReceiveEvent();
-				return basicGetBaseAnyReceiveEvent();
+			case FormalMLPackage.CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR:
+				if (resolve) return getBase_OpaqueBehavior();
+				return basicGetBase_OpaqueBehavior();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -128,8 +129,8 @@ public class ReceiveAnyEventImpl extends ReceiveEventImpl implements ReceiveAnyE
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case FormalMLPackage.RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT:
-				setBaseAnyReceiveEvent((AnyReceiveEvent)newValue);
+			case FormalMLPackage.CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR:
+				setBase_OpaqueBehavior((OpaqueBehavior)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -143,8 +144,8 @@ public class ReceiveAnyEventImpl extends ReceiveEventImpl implements ReceiveAnyE
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case FormalMLPackage.RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT:
-				setBaseAnyReceiveEvent((AnyReceiveEvent)null);
+			case FormalMLPackage.CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR:
+				setBase_OpaqueBehavior((OpaqueBehavior)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -158,10 +159,10 @@ public class ReceiveAnyEventImpl extends ReceiveEventImpl implements ReceiveAnyE
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case FormalMLPackage.RECEIVE_ANY_EVENT__BASE_ANY_RECEIVE_EVENT:
-				return baseAnyReceiveEvent != null;
+			case FormalMLPackage.CONNECTOR_CONTRACT__BASE_OPAQUE_BEHAVIOR:
+				return base_OpaqueBehavior != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ReceiveAnyEventImpl
+} //ConnectorContractImpl

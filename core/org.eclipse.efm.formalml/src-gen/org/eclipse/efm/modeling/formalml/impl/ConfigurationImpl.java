@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml.impl;
 
@@ -38,63 +38,63 @@ import org.eclipse.uml2.uml.Type;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.modeling.formalml.impl.ConfigurationImpl#getEnv <em>Env</em>}</li>
- *   <li>{@link org.eclipse.efm.modeling.formalml.impl.ConfigurationImpl#isTimed <em>Timed</em>}</li>
- *   <li>{@link org.eclipse.efm.modeling.formalml.impl.ConfigurationImpl#isInputEnabled <em>Input Enabled</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.impl.ConfigurationImpl#getEnvironment <em>Environment</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.impl.ConfigurationImpl#isTimed <em>Is Timed</em>}</li>
+ *   <li>{@link org.eclipse.efm.modeling.formalml.impl.ConfigurationImpl#isInputEnabled <em>Is Input Enabled</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ConfigurationImpl extends FormalBlockImpl implements Configuration {
 	/**
-	 * The cached value of the '{@link #getEnv() <em>Env</em>}' reference list.
+	 * The cached value of the '{@link #getEnvironment() <em>Environment</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEnv()
+	 * @see #getEnvironment()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Property> env;
+	protected EList<Property> environment;
 
 	/**
-	 * The default value of the '{@link #isTimed() <em>Timed</em>}' attribute.
+	 * The default value of the '{@link #isTimed() <em>Is Timed</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isTimed()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean TIMED_EDEFAULT = false;
+	protected static final boolean IS_TIMED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isTimed() <em>Timed</em>}' attribute.
+	 * The cached value of the '{@link #isTimed() <em>Is Timed</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isTimed()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean timed = TIMED_EDEFAULT;
+	protected boolean isTimed = IS_TIMED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isInputEnabled() <em>Input Enabled</em>}' attribute.
+	 * The default value of the '{@link #isInputEnabled() <em>Is Input Enabled</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isInputEnabled()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean INPUT_ENABLED_EDEFAULT = false;
+	protected static final boolean IS_INPUT_ENABLED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isInputEnabled() <em>Input Enabled</em>}' attribute.
+	 * The cached value of the '{@link #isInputEnabled() <em>Is Input Enabled</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isInputEnabled()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean inputEnabled = INPUT_ENABLED_EDEFAULT;
+	protected boolean isInputEnabled = IS_INPUT_ENABLED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -120,11 +120,11 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Property> getEnv() {
-		if (env == null) {
-			env = new EObjectResolvingEList<Property>(Property.class, this, FormalMLPackage.CONFIGURATION__ENV);
+	public EList<Property> getEnvironment() {
+		if (environment == null) {
+			environment = new EObjectResolvingEList<Property>(Property.class, this, FormalMLPackage.CONFIGURATION__ENVIRONMENT);
 		}
-		return env;
+		return environment;
 	}
 
 	/**
@@ -132,8 +132,8 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property getEnv(String name, Type type) {
-		return getEnv(name, type, false, null);
+	public Property getEnvironment(String name, Type type) {
+		return getEnvironment(name, type, false, null);
 	}
 
 	/**
@@ -141,15 +141,15 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property getEnv(String name, Type type, boolean ignoreCase, EClass eClass) {
-		envLoop: for (Property env : getEnv()) {
-			if (eClass != null && !eClass.isInstance(env))
-				continue envLoop;
-			if (name != null && !(ignoreCase ? name.equalsIgnoreCase(env.getName()) : name.equals(env.getName())))
-				continue envLoop;
-			if (type != null && !type.equals(env.getType()))
-				continue envLoop;
-			return env;
+	public Property getEnvironment(String name, Type type, boolean ignoreCase, EClass eClass) {
+		environmentLoop: for (Property environment : getEnvironment()) {
+			if (eClass != null && !eClass.isInstance(environment))
+				continue environmentLoop;
+			if (name != null && !(ignoreCase ? name.equalsIgnoreCase(environment.getName()) : name.equals(environment.getName())))
+				continue environmentLoop;
+			if (type != null && !type.equals(environment.getType()))
+				continue environmentLoop;
+			return environment;
 		}
 		return null;
 	}
@@ -160,7 +160,7 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	 * @generated
 	 */
 	public boolean isTimed() {
-		return timed;
+		return isTimed;
 	}
 
 	/**
@@ -168,11 +168,11 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTimed(boolean newTimed) {
-		boolean oldTimed = timed;
-		timed = newTimed;
+	public void setIsTimed(boolean newIsTimed) {
+		boolean oldIsTimed = isTimed;
+		isTimed = newIsTimed;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.CONFIGURATION__TIMED, oldTimed, timed));
+			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.CONFIGURATION__IS_TIMED, oldIsTimed, isTimed));
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	 * @generated
 	 */
 	public boolean isInputEnabled() {
-		return inputEnabled;
+		return isInputEnabled;
 	}
 
 	/**
@@ -189,11 +189,11 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInputEnabled(boolean newInputEnabled) {
-		boolean oldInputEnabled = inputEnabled;
-		inputEnabled = newInputEnabled;
+	public void setIsInputEnabled(boolean newIsInputEnabled) {
+		boolean oldIsInputEnabled = isInputEnabled;
+		isInputEnabled = newIsInputEnabled;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.CONFIGURATION__INPUT_ENABLED, oldInputEnabled, inputEnabled));
+			eNotify(new ENotificationImpl(this, Notification.SET, FormalMLPackage.CONFIGURATION__IS_INPUT_ENABLED, oldIsInputEnabled, isInputEnabled));
 	}
 
 	/**
@@ -204,11 +204,11 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case FormalMLPackage.CONFIGURATION__ENV:
-				return getEnv();
-			case FormalMLPackage.CONFIGURATION__TIMED:
+			case FormalMLPackage.CONFIGURATION__ENVIRONMENT:
+				return getEnvironment();
+			case FormalMLPackage.CONFIGURATION__IS_TIMED:
 				return isTimed();
-			case FormalMLPackage.CONFIGURATION__INPUT_ENABLED:
+			case FormalMLPackage.CONFIGURATION__IS_INPUT_ENABLED:
 				return isInputEnabled();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -223,15 +223,15 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case FormalMLPackage.CONFIGURATION__ENV:
-				getEnv().clear();
-				getEnv().addAll((Collection<? extends Property>)newValue);
+			case FormalMLPackage.CONFIGURATION__ENVIRONMENT:
+				getEnvironment().clear();
+				getEnvironment().addAll((Collection<? extends Property>)newValue);
 				return;
-			case FormalMLPackage.CONFIGURATION__TIMED:
-				setTimed((Boolean)newValue);
+			case FormalMLPackage.CONFIGURATION__IS_TIMED:
+				setIsTimed((Boolean)newValue);
 				return;
-			case FormalMLPackage.CONFIGURATION__INPUT_ENABLED:
-				setInputEnabled((Boolean)newValue);
+			case FormalMLPackage.CONFIGURATION__IS_INPUT_ENABLED:
+				setIsInputEnabled((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -245,14 +245,14 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case FormalMLPackage.CONFIGURATION__ENV:
-				getEnv().clear();
+			case FormalMLPackage.CONFIGURATION__ENVIRONMENT:
+				getEnvironment().clear();
 				return;
-			case FormalMLPackage.CONFIGURATION__TIMED:
-				setTimed(TIMED_EDEFAULT);
+			case FormalMLPackage.CONFIGURATION__IS_TIMED:
+				setIsTimed(IS_TIMED_EDEFAULT);
 				return;
-			case FormalMLPackage.CONFIGURATION__INPUT_ENABLED:
-				setInputEnabled(INPUT_ENABLED_EDEFAULT);
+			case FormalMLPackage.CONFIGURATION__IS_INPUT_ENABLED:
+				setIsInputEnabled(IS_INPUT_ENABLED_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -266,12 +266,12 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case FormalMLPackage.CONFIGURATION__ENV:
-				return env != null && !env.isEmpty();
-			case FormalMLPackage.CONFIGURATION__TIMED:
-				return timed != TIMED_EDEFAULT;
-			case FormalMLPackage.CONFIGURATION__INPUT_ENABLED:
-				return inputEnabled != INPUT_ENABLED_EDEFAULT;
+			case FormalMLPackage.CONFIGURATION__ENVIRONMENT:
+				return environment != null && !environment.isEmpty();
+			case FormalMLPackage.CONFIGURATION__IS_TIMED:
+				return isTimed != IS_TIMED_EDEFAULT;
+			case FormalMLPackage.CONFIGURATION__IS_INPUT_ENABLED:
+				return isInputEnabled != IS_INPUT_ENABLED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -286,10 +286,10 @@ public class ConfigurationImpl extends FormalBlockImpl implements Configuration 
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (timed: ");
-		result.append(timed);
-		result.append(", inputEnabled: ");
-		result.append(inputEnabled);
+		result.append(" (isTimed: ");
+		result.append(isTimed);
+		result.append(", isInputEnabled: ");
+		result.append(isInputEnabled);
 		result.append(')');
 		return result.toString();
 	}

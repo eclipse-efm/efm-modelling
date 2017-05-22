@@ -6,26 +6,10 @@
 
 <plugin>
 
-   <extension
-         point="org.eclipse.papyrus.uml.extensionpoints.UMLProfile">
-      <profile
-            iconpath="platform:/plugin/org.eclipse.efm.ui/resources/icons/diversity_icon.png"
-            name="Eclipse Formal Modeling"
-            path="platform:/plugin/org.eclipse.efm.formalml/resources/profile/FormalML.profile.uml">
-      </profile>
-   </extension>
-   <extension
-         point="org.eclipse.uml2.uml.generated_package">
-      <profile
-            location="platform:/plugin/org.eclipse.efm.formalml/resources/profile/FormalML.profile.uml#_Lh5xUDQ7EeWbQMVBWJmGrA"
-            uri="http://org.eclipse.efm.formalml">
-      </profile>
-   </extension>
-
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated FormalML.profile -->
       <package
-            uri="http://org.eclipse.efm.formalml"
+            uri="http://www.eclipse.org/efm/FormalML/profile"
             class="org.eclipse.efm.modeling.formalml.FormalMLPackage"
             genModel="resources/profile/FormalML.profile.genmodel"/>
    </extension>

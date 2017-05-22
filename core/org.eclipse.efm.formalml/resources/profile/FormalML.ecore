@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="formalml" nsURI="http://www.eclipse.org/efm/FormalML/profile"
+    nsPrefix="FormalML">
+  <eClassifiers xsi:type="ecore:EClass" name="Configuration" eSuperTypes="#//FormalBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="environment" ordered="false"
+        upperBound="-1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isTimed" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../../org.eclipse.uml2.types/model/Types.ecore#//Boolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isInputEnabled" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../../org.eclipse.uml2.types/model/Types.ecore#//Boolean"
+        defaultValueLiteral="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>isInputEnabled : est-ce le bon terme&lt;/p>&#xA;&#xA;&lt;p>&amp;nbsp;&lt;/p>&#xA;"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FormalBlock" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="base_Class" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Class"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="routingBehavior" ordered="false"
+        eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//OpaqueBehavior"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Part">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Pourquoi ne pas utiliser le Part de SysML plutôt que d'en faire un stéréotype ?"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="base_Property" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instance" ordered="false"
+        upperBound="-1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//InstanceSpecification"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Block" eSuperTypes="#//FormalBlock"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Clock">
+    <eOperations name="Constraint1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Type should be numeric (integer, rational, ...)"/>
+      </eAnnotations>
+      <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The chain of diagnostics to which problems are to be appended."/>
+        </eAnnotations>
+      </eParameters>
+      <eParameters name="context">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The cache of context-specific information."/>
+        </eAnnotations>
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EMap">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="base_Property" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Buffer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="base_Property" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
+        eType="#//BufferKind" changeable="false" defaultValueLiteral="FIFO"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" ordered="false" lowerBound="1"
+        eType="ecore:EDataType ../../../org.eclipse.uml2.types/model/Types.ecore#//UnlimitedNatural"
+        defaultValueLiteral="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BufferKind">
+    <eLiterals name="FIFO"/>
+    <eLiterals name="LIFO" value="1"/>
+    <eLiterals name="MULTISET" value="2"/>
+    <eLiterals name="RAM" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DirectedPort">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="base_Port" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Port"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
+        lowerBound="1" eType="#//PortDirectionKind" changeable="false" defaultValueLiteral="inout"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PortDirectionKind">
+    <eLiterals name="inout"/>
+    <eLiterals name="in" value="1"/>
+    <eLiterals name="out" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimedTransition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tguard" ordered="false"
+        eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Constraint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="base_Transition" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Transition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FifoContract" eSuperTypes="#//ConnectorContract"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectorContract">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="base_OpaqueBehavior" ordered="false"
+        lowerBound="1" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//OpaqueBehavior"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LifoContract" eSuperTypes="#//ConnectorContract"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MultiSetContract" eSuperTypes="#//ConnectorContract"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RendezVousContract" eSuperTypes="#//ConnectorContract"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MultiRendezVousContract" eSuperTypes="#//ConnectorContract"/>
+</ecore:EPackage>

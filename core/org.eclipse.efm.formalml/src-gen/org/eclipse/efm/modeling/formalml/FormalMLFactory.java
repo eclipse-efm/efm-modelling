@@ -7,8 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
- *   - Initial API and Implementation
+ *  Boutheina Bannour (CEA LIST) boutheina.bannour@cea.fr
+ *  - Initial API and Implementation
  */
 package org.eclipse.efm.modeling.formalml;
 
@@ -32,15 +32,6 @@ public interface FormalMLFactory extends EFactory {
 	FormalMLFactory eINSTANCE = org.eclipse.efm.modeling.formalml.impl.FormalMLFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Clock</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Clock</em>'.
-	 * @generated
-	 */
-	Clock createClock();
-
-	/**
 	 * Returns a new object of class '<em>Configuration</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -48,24 +39,6 @@ public interface FormalMLFactory extends EFactory {
 	 * @generated
 	 */
 	Configuration createConfiguration();
-
-	/**
-	 * Returns a new object of class '<em>Formal Block</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Formal Block</em>'.
-	 * @generated
-	 */
-	FormalBlock createFormalBlock();
-
-	/**
-	 * Returns a new object of class '<em>Timed Transition</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Timed Transition</em>'.
-	 * @generated
-	 */
-	TimedTransition createTimedTransition();
 
 	/**
 	 * Returns a new object of class '<em>Part</em>'.
@@ -77,31 +50,22 @@ public interface FormalMLFactory extends EFactory {
 	Part createPart();
 
 	/**
-	 * Returns a new object of class '<em>Receive Any Event</em>'.
+	 * Returns a new object of class '<em>Block</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Receive Any Event</em>'.
+	 * @return a new object of class '<em>Block</em>'.
 	 * @generated
 	 */
-	ReceiveAnyEvent createReceiveAnyEvent();
+	Block createBlock();
 
 	/**
-	 * Returns a new object of class '<em>Receive Signal Event</em>'.
+	 * Returns a new object of class '<em>Clock</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Receive Signal Event</em>'.
+	 * @return a new object of class '<em>Clock</em>'.
 	 * @generated
 	 */
-	ReceiveSignalEvent createReceiveSignalEvent();
-
-	/**
-	 * Returns a new object of class '<em>Directed Port</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Directed Port</em>'.
-	 * @generated
-	 */
-	DirectedPort createDirectedPort();
+	Clock createClock();
 
 	/**
 	 * Returns a new object of class '<em>Buffer</em>'.
@@ -113,13 +77,76 @@ public interface FormalMLFactory extends EFactory {
 	Buffer createBuffer();
 
 	/**
-	 * Returns a new object of class '<em>Block</em>'.
+	 * Returns a new object of class '<em>Directed Port</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Block</em>'.
+	 * @return a new object of class '<em>Directed Port</em>'.
 	 * @generated
 	 */
-	Block createBlock();
+	DirectedPort createDirectedPort();
+
+	/**
+	 * Returns a new object of class '<em>Timed Transition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Timed Transition</em>'.
+	 * @generated
+	 */
+	TimedTransition createTimedTransition();
+
+	/**
+	 * Returns a new object of class '<em>Fifo Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fifo Contract</em>'.
+	 * @generated
+	 */
+	FifoContract createFifoContract();
+
+	/**
+	 * Returns a new object of class '<em>Connector Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Connector Contract</em>'.
+	 * @generated
+	 */
+	ConnectorContract createConnectorContract();
+
+	/**
+	 * Returns a new object of class '<em>Lifo Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Lifo Contract</em>'.
+	 * @generated
+	 */
+	LifoContract createLifoContract();
+
+	/**
+	 * Returns a new object of class '<em>Multi Set Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Multi Set Contract</em>'.
+	 * @generated
+	 */
+	MultiSetContract createMultiSetContract();
+
+	/**
+	 * Returns a new object of class '<em>Rendez Vous Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Rendez Vous Contract</em>'.
+	 * @generated
+	 */
+	RendezVousContract createRendezVousContract();
+
+	/**
+	 * Returns a new object of class '<em>Multi Rendez Vous Contract</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Multi Rendez Vous Contract</em>'.
+	 * @generated
+	 */
+	MultiRendezVousContract createMultiRendezVousContract();
 
 	/**
 	 * Returns the package supported by this factory.
