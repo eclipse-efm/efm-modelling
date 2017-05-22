@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.ui.views.symbexlauncher;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,10 +26,16 @@ import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.debug.ui.ILaunchGroup;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
+import org.eclipse.efm.execution.configuration.common.ui.page.debug.DebugConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.page.developer.DeveloperTuningConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.page.expert.ExpertConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.page.overview.OverviewConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.page.supervisor.SupervisorConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.page.testgen.TestGenerationConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
+import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.launchconfiguration.LaunchDelegate;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -55,7 +62,6 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 	private AbstractConfigurationPage[] fConfigurationPages;
 	
-
 	protected Composite tabbedCompositeMaster;
 	protected CTabFolder fTabFolder;
 	protected Combo combo;
@@ -190,13 +196,34 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	
 	private void createSectionsContent(IWidgetToolkit widgetToolkit)
 	{
-		fConfigurationPages = new AbstractConfigurationPage[3];
+		ArrayList< AbstractConfigurationPage > confPage = new ArrayList<>();
+		
+		createOverviewTabItem(widgetToolkit, confPage);
 
-		createOverviewTabItem(widgetToolkit);
+		createSupervisorTabItem(widgetToolkit, confPage);
 
-		createSupervisorTabItem(widgetToolkit);
+		createTestGenerationTabItem(widgetToolkit, confPage);
 
-		createTestGenerationTabItem(widgetToolkit);
+		if( SymbexPreferenceUtil.getBooleanPreference(
+				IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS) )
+		{
+			createDebugTabItem(widgetToolkit, confPage);
+		}
+		if( SymbexPreferenceUtil.getBooleanPreference(
+				IWorkflowPreferenceConstants.PREF_EXPERT_MODE) )
+		{
+			createExpertTabItem(widgetToolkit, confPage);
+		}
+
+		if ( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION
+			&& SymbexPreferenceUtil.getBooleanPreference(
+					IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE) )
+		{
+			createDeveloperTuningTabItem(widgetToolkit, confPage);
+		}
+		
+		fConfigurationPages = confPage.toArray(
+				new AbstractConfigurationPage[confPage.size()]);
 
 		fTabFolder.setSelection(fOverviewTabItem);
 	}
@@ -211,7 +238,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	private CTabItem fOverviewTabItem;
 	private Composite fOverviewControl;
 
-	private void createOverviewTabItem(IWidgetToolkit widgetToolkit)
+	private void createOverviewTabItem(IWidgetToolkit widgetToolkit, ArrayList<AbstractConfigurationPage> confPage)
 	{
 		fOverviewTabItem = new CTabItem(fTabFolder, SWT.NONE );
 		fOverviewTabItem.setText("Overview");
@@ -231,20 +258,20 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		if (fOverviewControl != null) {
 			scrolledComposite.setContent(fOverviewControl);
 			
-//			scrolledComposite.setMinSize(
-//					fOverviewControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			scrolledComposite.setMinSize(
+					fOverviewControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 			fOverviewTabItem.setControl(scrolledComposite);
 		}
 
-		fConfigurationPages[0] = overviewPage;
+		confPage.add( overviewPage );
 	}
 
 
 	private CTabItem fSupervisorTabItem;
 	private Composite fSupervisorControl;
 
-	private void createSupervisorTabItem(IWidgetToolkit widgetToolkit)
+	private void createSupervisorTabItem(IWidgetToolkit widgetToolkit, ArrayList<AbstractConfigurationPage> confPage)
 	{
 		fSupervisorTabItem = new CTabItem(fTabFolder, SWT.NONE );
 		fSupervisorTabItem.setText("Supervisor");
@@ -260,20 +287,20 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		if (fSupervisorControl != null) {
 			scrolledComposite.setContent(fSupervisorControl);
 			
-//			scrolledComposite.setMinSize(
-//					fSupervisorControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			scrolledComposite.setMinSize(
+					fSupervisorControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 			fSupervisorTabItem.setControl(scrolledComposite);
 		}
 
-		fConfigurationPages[1] = supervisorPage;
+		confPage.add( supervisorPage );
 	}
 
 
 	private CTabItem fTestGenTabItem;
 	private Composite fTestGenControl;
 
-	private void createTestGenerationTabItem(IWidgetToolkit widgetToolkit)
+	private void createTestGenerationTabItem(IWidgetToolkit widgetToolkit, ArrayList<AbstractConfigurationPage> confPage)
 	{
 		fTestGenTabItem = new CTabItem(fTabFolder, SWT.NONE );
 		fTestGenTabItem.setText("Test Generation");
@@ -289,20 +316,103 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		if (fTestGenControl != null) {
 			scrolledComposite.setContent(fTestGenControl);
 			
-//			scrolledComposite.setMinSize(
-//					fTestGenControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+			scrolledComposite.setMinSize(
+					fTestGenControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 			fTestGenTabItem.setControl(scrolledComposite);
 		}
 
-		fConfigurationPages[2] = testGenPage;
+		confPage.add( testGenPage );
+	}
+	
+	private CTabItem fDebugTabItem;
+	private Composite fDebugControl;
+
+	private void createDebugTabItem(IWidgetToolkit widgetToolkit, ArrayList<AbstractConfigurationPage> confPage)
+	{
+		fDebugTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fDebugTabItem.setText("Debug");
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		DebugConfigurationPage devugPage = new DebugConfigurationPage(this);
+
+		devugPage.createControl(scrolledComposite, widgetToolkit);
+
+		fDebugControl = devugPage.getControl();
+		if (fDebugControl != null) {
+			scrolledComposite.setContent(fDebugControl);
+			
+			scrolledComposite.setMinSize(
+					fSupervisorControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fDebugTabItem.setControl(scrolledComposite);
+		}
+
+		confPage.add( devugPage );
+	}
+
+	private CTabItem fExpertTabItem;
+	private Composite fExpertControl;
+
+	private void createExpertTabItem(IWidgetToolkit widgetToolkit, ArrayList<AbstractConfigurationPage> confPage)
+	{
+		fExpertTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fExpertTabItem.setText("Expert");
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		ExpertConfigurationPage expertPage = new ExpertConfigurationPage(this);
+
+		expertPage.createControl(scrolledComposite, widgetToolkit);
+
+		fExpertControl = expertPage.getControl();
+		if (fExpertControl != null) {
+			scrolledComposite.setContent(fExpertControl);
+			
+			scrolledComposite.setMinSize(
+					fExpertControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fExpertTabItem.setControl(scrolledComposite);
+		}
+
+		confPage.add( expertPage );
+	}
+
+	private CTabItem fDeveloperTuningTabItem;
+	private Composite fDeveloperTuningControl;
+
+	private void createDeveloperTuningTabItem(IWidgetToolkit widgetToolkit, ArrayList<AbstractConfigurationPage> confPage)
+	{
+		fDeveloperTuningTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fDeveloperTuningTabItem.setText("Developer");
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		DeveloperTuningConfigurationPage developerPage =
+				new DeveloperTuningConfigurationPage(this);
+
+		developerPage.createControl(scrolledComposite, widgetToolkit);
+
+		fDeveloperTuningControl = developerPage.getControl();
+		if (fDeveloperTuningControl != null) {
+			scrolledComposite.setContent(fDeveloperTuningControl);
+			
+			scrolledComposite.setMinSize(
+					fSupervisorControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fDeveloperTuningTabItem.setControl(scrolledComposite);
+		}
+
+		confPage.add( developerPage );
 	}
 
 
 	private void updateEnableTab(boolean isLaunchConfSelected) {
 	    fOverviewControl.setEnabled(isLaunchConfSelected);
-	    //fTestGenControl.setEnabled(isLaunchConfSelected);
-	    //fSupervisorControl.setEnabled(isLaunchConfSelected);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////

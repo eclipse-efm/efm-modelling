@@ -64,6 +64,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 						ATTR_WORKSPACE_ROOT_LOCATION, "Location", parent, root);
 		fWorkspaceRootLocationStringField.setEnabled(false);
 		fWorkspaceRootLocationStringField.setToolTipText(toolTipText2);
+		fWorkspaceRootLocationStringField.setEmptyStringAllowed(false);
 		addField(fWorkspaceRootLocationStringField);
 
 		StringFieldEditor folderNameStringFieldEditor =
@@ -72,6 +73,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 						DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
 		folderNameStringFieldEditor.setToolTipText(toolTipText2);
 		addField(folderNameStringFieldEditor);
+		folderNameStringFieldEditor.setEmptyStringAllowed(false);
 
 		if( getConfigurationPage().isEnabledSymbexDeveloperMode() ) {
 			folderNameStringFieldEditor =
@@ -80,13 +82,15 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 							parent, DEFAULT_WORKSPACE_LOG_FOLDER_NAME);
 			folderNameStringFieldEditor.setToolTipText(toolTipText3);
 			addField(folderNameStringFieldEditor);
-	
+			folderNameStringFieldEditor.setEmptyStringAllowed(false);
+
 			folderNameStringFieldEditor =
 					new StringFieldEditor(fConfigurationPage,
 							ATTR_WORKSPACE_DEBUG_FOLDER_NAME, "Debug",
 							parent, DEFAULT_WORKSPACE_DEBUG_FOLDER_NAME);
 			folderNameStringFieldEditor.setToolTipText(toolTipText3);
 			addField(folderNameStringFieldEditor);
+			folderNameStringFieldEditor.setEmptyStringAllowed(false);
 		}
 	}
 

@@ -72,7 +72,8 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 			writer.appendTab( getNature().getLiteral() ).append( " = " );
 			if( value instanceof String ) {
 				final String str = value.toString();
-				if( (! str.startsWith("\"")) && (! str.startsWith("'")) ) {
+				if( (! str.startsWith("\"")) && (! str.startsWith("'"))
+					&& ((! str.startsWith("[")) || str.startsWith("[*]")) ) {
 					writer.append( "\"" ).append( str ).appendEol( "\"" );
 				}
 				else {

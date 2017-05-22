@@ -52,10 +52,14 @@ public class ImageResources {
 	public static final String IMAGE__WARNING_ICON = ICONS_PLUGIN_PATH + "warning_st_obj.png";
 	public static final String IMAGE__ERROR_ICON = ICONS_PLUGIN_PATH + "error_st_obj.gif";
 
+	public static final String IMAGE__PINNED_OVR_ICON = ICONS_PLUGIN_PATH + "pinned_ovr.gif";
+
 	
 	public static final String IMAGE__REFRESH_ICON = ICONS_PLUGIN_PATH + "refresh_tab.png";
 	
 	public static final String IMAGE__SYNCED_ICON = ICONS_PLUGIN_PATH + "synced.gif";
+
+	public static final String IMAGE__VALIDATE_ICON = ICONS_PLUGIN_PATH + "validate.gif";
 
 	
 	// Helper/Util methods only below

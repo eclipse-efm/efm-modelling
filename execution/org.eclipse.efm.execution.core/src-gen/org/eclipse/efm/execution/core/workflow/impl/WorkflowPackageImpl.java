@@ -603,8 +603,17 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSerializer_ShowInitialization() {
+	public EAttribute getSerializer_EnabledInitialValuesPrinting() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSerializer_EnabledLifelinesPrinting() {
+		return (EAttribute)serializerEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -688,7 +697,8 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		createEAttribute(serializerEClass, SERIALIZER__FOLDER_NAME);
 		createEAttribute(serializerEClass, SERIALIZER__FILE_NAME);
 		createEAttribute(serializerEClass, SERIALIZER__ENABLED_NORMALIZATION);
-		createEAttribute(serializerEClass, SERIALIZER__SHOW_INITIALIZATION);
+		createEAttribute(serializerEClass, SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING);
+		createEAttribute(serializerEClass, SERIALIZER__ENABLED_LIFELINES_PRINTING);
 	}
 
 	/**
@@ -793,7 +803,8 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		initEAttribute(getSerializer_FolderName(), ecorePackage.getEString(), "folderName", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_FileName(), ecorePackage.getEString(), "fileName", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_EnabledNormalization(), ecorePackage.getEBoolean(), "enabledNormalization", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSerializer_ShowInitialization(), ecorePackage.getEBoolean(), "showInitialization", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSerializer_EnabledInitialValuesPrinting(), ecorePackage.getEBoolean(), "enabledInitialValuesPrinting", "false", 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSerializer_EnabledLifelinesPrinting(), ecorePackage.getEBoolean(), "enabledLifelinesPrinting", "false", 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

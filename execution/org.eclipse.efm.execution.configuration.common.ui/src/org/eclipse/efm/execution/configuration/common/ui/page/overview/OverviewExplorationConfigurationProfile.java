@@ -19,6 +19,8 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
+//import org.eclipse.efm.execution.configuration.common.ui.page.supervisor.SupervisorEvaluationLimitsSection;
+//import org.eclipse.efm.execution.configuration.common.ui.page.supervisor.SupervisorGraphSizeLimitsSection;
 import org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -37,6 +39,12 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 	private GraphExplorationStrategyKind fAnalyzeStrategy =
 		GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
+	
+	
+//	private SupervisorGraphSizeLimitsSection  fGraphSizeLimitsSection;
+//	
+//	private SupervisorEvaluationLimitsSection fEvaluationLimitsSection;
+
 
 	private Group fGroupInclusionCriterion;
 	private BooleanFieldEditor fApplyInclusionBooleanField;
@@ -49,6 +57,10 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	 */
 	public OverviewExplorationConfigurationProfile(AbstractConfigurationPage configurationPage) {
 		super(configurationPage);
+		
+//		fGraphSizeLimitsSection  = new SupervisorGraphSizeLimitsSection(configurationPage);
+//		
+//		fEvaluationLimitsSection = new SupervisorEvaluationLimitsSection(configurationPage);
 	}
 
 
@@ -63,7 +75,6 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 				+ "set a limitation in Supervisor Tab";
 	}
 
-	
 	
 	private final class TabListener extends SelectionAdapter {
 		@Override
@@ -117,14 +128,19 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
 	{
 		createAnalyzeStrategy(parent, widgetToolkit);
+
 		createControlInclusionCriterion(parent, widgetToolkit);
+
+//		fGraphSizeLimitsSection.createControl(parent, widgetToolkit);
+//		
+//		fEvaluationLimitsSection.createControl(parent, widgetToolkit);
 	}
 
 	private void createControlInclusionCriterion(
 			Composite parent, IWidgetToolkit widgetToolkit)
 	{
         fGroupInclusionCriterion = widgetToolkit.createGroup(parent,
-        		"Inclusion Criterion", 2, 2, GridData.FILL_HORIZONTAL);
+        		"Inclusion Criterion", 1, 2, GridData.FILL_HORIZONTAL);
 
         Composite comp = widgetToolkit.createComposite(
         		fGroupInclusionCriterion, 2, 1, GridData.FILL_HORIZONTAL);
@@ -188,6 +204,10 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		configuration.setAttribute(ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION, false);
 
 		configuration.setAttribute(ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL, true);
+		
+//		fGraphSizeLimitsSection.setDefaults(configuration);
+//		
+//		fEvaluationLimitsSection.setDefaults(configuration);
 	}
 
 	@Override
@@ -210,6 +230,10 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 			}
 		}
 
+//		fGraphSizeLimitsSection.initializeFrom(configuration);
+//		
+//		fEvaluationLimitsSection.initializeFrom(configuration);
+		
 		initializeAnalyzeStrategy();
 		
 		handleEnablingRedundancyDetection();
@@ -248,6 +272,10 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_ANALYZE_STRATEGY,
 				fAnalyzeStrategy.getLiteral());
+		
+//		fGraphSizeLimitsSection.performApply(configuration);
+//		
+//		fEvaluationLimitsSection.performApply(configuration);
 	}
 
 	@Override

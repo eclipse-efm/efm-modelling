@@ -231,27 +231,23 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 				"&Observable", 1, 1, GridData.FILL_HORIZONTAL);
 		fGroupObservable.setToolTipText(TEST_OFFLINE_OBSERVABLE);
 
-		comp = widgetToolkit.createComposite(fGroupObservable,
-				1, 1, GridData.FILL_HORIZONTAL);
-		comp.setToolTipText(TEST_OFFLINE_OBSERVABLE);
-
 		StringFieldEditor textStringField =
 				new StringFieldEditor(fConfigurationPage,
-				ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION, "", comp,
-				DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION, SWT.MULTI);
+				ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+				"", fGroupObservable,
+				DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		addField(textStringField);
 
 		fGroupControllable = widgetToolkit.createGroup(parent,
 				"&Controllable", 1, 1, GridData.FILL_HORIZONTAL);
 		fGroupControllable.setToolTipText(TEST_OFFLINE_CONTROLLABLE);
 
-		comp = widgetToolkit.createComposite(fGroupControllable,
-				1, 1, GridData.FILL_HORIZONTAL);
-		comp.setToolTipText(TEST_OFFLINE_CONTROLLABLE);
-
 		textStringField = new StringFieldEditor(fConfigurationPage,
-				ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION, "", comp,
-				DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION, SWT.MULTI);
+				ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+				"", fGroupControllable,
+				DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		addField(textStringField);
 	}
 
@@ -331,7 +327,23 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	@Override
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 
-		String filePath = fTestPurposePathText.getText();
+		String filePath = fTracePathText.getText();
+
+		if( (filePath == null) || filePath.isEmpty() ) {
+			setWarningMessage("The ressource Test Offline trace "
+					+ "file path is empty (or null)");
+
+			return false;
+		}
+		else if( ! ( new File(filePath) ).exists() ) {
+			setWarningMessage("The ressource Test Offline trace "
+					+ "file \"" + filePath + "\" does not exist.");
+
+			return false;
+		}
+
+		
+		filePath = fTestPurposePathText.getText();
 
 		if( (filePath == null) || filePath.isEmpty() ) {
 			setWarningMessage("The ressource Test Offline test "
@@ -346,22 +358,6 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		else if( ! ( new File(filePath) ).isFile() ) {
 			setWarningMessage("The ressource Test Offline test "
 					+ "purpose file \"" + filePath + "\" does not exist.");
-
-			return false;
-		}
-
-
-		filePath = fTracePathText.getText();
-
-		if( (filePath == null) || filePath.isEmpty() ) {
-			setErrorMessage("The ressource Test Offline trace "
-					+ "file path is empty (or null)");
-
-			return false;
-		}
-		else if( ! ( new File(filePath) ).exists() ) {
-			setErrorMessage("The ressource Test Offline trace "
-					+ "file \"" + filePath + "\" does not exist.");
 
 			return false;
 		}

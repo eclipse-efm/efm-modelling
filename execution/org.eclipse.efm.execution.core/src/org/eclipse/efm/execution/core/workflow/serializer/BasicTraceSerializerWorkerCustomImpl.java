@@ -69,14 +69,25 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 
 		try {
 			enabled = configuration.getAttribute(
-					ATTR_BASIC_TRACE_SHOW_INITIALIZATION, false);
+					ATTR_BASIC_TRACE_INITIAL_VALUES_ENABLED_PRINTING, false);
 		}
 		catch( CoreException e2 ) {
 			e2.printStackTrace();
 
 			enabled = false;
 		}
-		serializerWorker.setShowInitialization( enabled );
+		serializerWorker.setEnabledInitialValuesPrinting( enabled );
+
+		try {
+			enabled = configuration.getAttribute(
+					ATTR_BASIC_TRACE_LIFELINES_ENABLED_PRINTING, false);
+		}
+		catch( CoreException e2 ) {
+			e2.printStackTrace();
+
+			enabled = false;
+		}
+		serializerWorker.setEnabledLifelinesPrinting( enabled );
 
 
 		try {
@@ -310,8 +321,11 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		writer2.appendTab2( "normalize = " )
 			.appendEol( isEnabledNormalization() );
 
-		writer2.appendTab2( "show#initialization = " )
-			.appendEol( isShowInitialization() );
+		writer2.appendTab2( "print#initial#values = " )
+		.appendEol( isEnabledInitialValuesPrinting() );
+
+		writer2.appendTab2( "print#lifelines = " )
+		.appendEol( isEnabledLifelinesPrinting() );
 
 		writer2.appendTabEol( "] // end property" );
 

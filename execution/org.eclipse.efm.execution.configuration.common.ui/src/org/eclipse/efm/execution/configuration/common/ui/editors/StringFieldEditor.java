@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -44,13 +45,12 @@ public class StringFieldEditor extends FieldEditor {
 	}
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(getStoreKey(), fDefaultValue);
-
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	protected void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
 			setStringValue( configuration.getAttribute(getStoreKey(), fDefaultValue) );
 		} catch (CoreException e) {
@@ -59,7 +59,7 @@ public class StringFieldEditor extends FieldEditor {
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		if( isValid() ) {
 			configuration.setAttribute(getStoreKey(), fValue);
 		}
@@ -353,12 +353,12 @@ public class StringFieldEditor extends FieldEditor {
      * @return the error message, or <code>null</code> if none
      */
     public String getErrorMessage() {
-        return errorMessage;
+    	return errorMessage;
     }
 
     @Override
-	public int getNumberOfControls() {
-        return 2;
+    public int getNumberOfControls() {
+    	return 2;
     }
 
     /**
@@ -367,11 +367,11 @@ public class StringFieldEditor extends FieldEditor {
      * @return the current value
      */
     public String getStringValue() {
-        if (textField != null) {
-			return textField.getText();
-		}
+    	if (textField != null) {
+    		return textField.getText();
+    	}
 
-        return fValue;
+    	return fValue;
     }
 
     /**
@@ -381,7 +381,7 @@ public class StringFieldEditor extends FieldEditor {
      * text field is created yet
      */
     protected Text getTextControl() {
-        return textField;
+    	return textField;
     }
 
     /**
@@ -401,7 +401,8 @@ public class StringFieldEditor extends FieldEditor {
 
     		if( (textFieldStyle & SWT.MULTI) != 0 ) {
     			GridData gridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
-    			gridData.heightHint = 3 * textField.getLineHeight();
+    			gridData.widthHint = IDialogConstants.ENTRY_FIELD_WIDTH;
+    			gridData.heightHint = 5 * textField.getLineHeight();
     			textField.setLayoutData(gridData);
     		}
 
@@ -472,17 +473,17 @@ public class StringFieldEditor extends FieldEditor {
      * @see #setEmptyStringAllowed
      */
     public boolean isEmptyStringAllowed() {
-        return emptyStringAllowed;
+    	return emptyStringAllowed;
     }
 
     @Override
-	public boolean isValid() {
-        return isValid;
+    public boolean isValid() {
+    	return isValid;
     }
 
     @Override
-	protected void refreshValidState() {
-        isValid = checkState();
+    protected void refreshValidState() {
+    	isValid = checkState();
     }
 
     /**
@@ -492,7 +493,7 @@ public class StringFieldEditor extends FieldEditor {
      *  and <code>false</code> if it is considered invalid
      */
     public void setEmptyStringAllowed(boolean b) {
-        emptyStringAllowed = b;
+    	emptyStringAllowed = b;
     }
 
     /**
@@ -502,14 +503,14 @@ public class StringFieldEditor extends FieldEditor {
      * @param message the error message
      */
     public void setErrorMessage(String message) {
-        errorMessage = message;
+    	errorMessage = message;
     }
 
     @Override
-	public void setFocus() {
-        if (textField != null) {
-            textField.setFocus();
-        }
+    public void setFocus() {
+    	if (textField != null) {
+    		textField.setFocus();
+    	}
     }
 
     /**
@@ -518,16 +519,16 @@ public class StringFieldEditor extends FieldEditor {
      * @param value the new value, or <code>null</code> meaning the empty string
      */
     public void setStringValue(String value) {
-        if (textField != null) {
-            if (value == null) {
-				value = "";//$NON-NLS-1$
-			}
-            fValue = textField.getText();
-            if (!fValue.equals(value)) {
-                textField.setText(value);
-                valueChanged();
-            }
-        }
+    	if (textField != null) {
+    		if (value == null) {
+    			value = "";//$NON-NLS-1$
+    		}
+    		fValue = textField.getText();
+    		if (!fValue.equals(value)) {
+    			textField.setText(value);
+    			valueChanged();
+    		}
+    	}
     }
 
     /**
@@ -538,10 +539,10 @@ public class StringFieldEditor extends FieldEditor {
 
      */
     public void setTextLimit(int limit) {
-        textLimit = limit;
-        if (textField != null) {
-			textField.setTextLimit(limit);
-		}
+    	textLimit = limit;
+    	if (textField != null) {
+    		textField.setTextLimit(limit);
+    	}
     }
 
     /**
@@ -558,16 +559,16 @@ public class StringFieldEditor extends FieldEditor {
      *  perform validation only after the text has been typed in
      */
     public void setValidateStrategy(int value) {
-        Assert.isTrue(value == VALIDATE_ON_FOCUS_LOST
-                || value == VALIDATE_ON_KEY_STROKE);
-        validateStrategy = value;
+    	Assert.isTrue(value == VALIDATE_ON_FOCUS_LOST
+    			|| value == VALIDATE_ON_KEY_STROKE);
+    	validateStrategy = value;
     }
 
     /**
      * Shows the error message set via <code>setErrorMessage</code>.
      */
     public void showErrorMessage() {
-        showErrorMessage(errorMessage);
+    	showErrorMessage(errorMessage);
     }
 
     /**
@@ -580,38 +581,38 @@ public class StringFieldEditor extends FieldEditor {
      * </p>
      */
     protected void valueChanged() {
-        setPresentsDefaultValue(false);
-        boolean oldState = isValid;
-        refreshValidState();
+    	setPresentsDefaultValue(false);
+    	boolean oldState = isValid;
+    	refreshValidState();
 
-        if (isValid != oldState) {
-			fireStateChanged(IS_VALID, oldState, isValid);
-		}
+    	if (isValid != oldState) {
+    		fireStateChanged(IS_VALID, oldState, isValid);
+    	}
 
-        String newValue = textField.getText();
-        if (!newValue.equals(fValue)) {
-            fireValueChanged(fStoreKey, fValue, newValue);
-            fValue = newValue;
-        }
+    	String newValue = textField.getText();
+    	if (!newValue.equals(fValue)) {
+    		fireValueChanged(fStoreKey, fValue, newValue);
+    		fValue = newValue;
+    	}
 
-        updateLaunchConfigurationDialog();
+    	updateLaunchConfigurationDialog();
     }
 
     /*
      * @see FieldEditor.setEnabled(boolean,Composite).
      */
     @Override
-	public void setEnabled(boolean enabled, Composite parent) {
-        super.setEnabled(enabled, parent);
-        getTextControl(parent).setEnabled(enabled);
+    public void setEnabled(boolean enabled, Composite parent) {
+    	super.setEnabled(enabled, parent);
+    	getTextControl(parent).setEnabled(enabled);
     }
 
-	public void setEnabled(boolean enabled) {
-        if (textField != null) {
-        	super.setEnabled(enabled, textField.getParent());
+    public void setEnabled(boolean enabled) {
+    	if (textField != null) {
+    		super.setEnabled(enabled, textField.getParent());
 
-        	textField.setEnabled(enabled);
-        }
+    		textField.setEnabled(enabled);
+    	}
     }
 
 
@@ -620,13 +621,13 @@ public class StringFieldEditor extends FieldEditor {
     /**
      * Clears the error message from the message line.
      */
-	@Override
+    @Override
     protected void clearErrorMessage() {
-        if (textField != null) {
-        	textField.setBackground(null);
-        }
-		
-        super.clearErrorMessage();
+    	if (textField != null) {
+    		textField.setBackground(null);
+    	}
+
+    	super.clearErrorMessage();
     }
 
 
@@ -637,13 +638,12 @@ public class StringFieldEditor extends FieldEditor {
      * @param msg the error message
      */
     protected void showErrorMessage(String msg) {
-        if (textField != null) {
-        	textField.setBackground(
-        			Display.getCurrent().getSystemColor(SWT.COLOR_RED));
-        }
-		
-        super.showErrorMessage(msg);
-    }
+    	if (textField != null) {
+    		textField.setBackground(
+    				Display.getCurrent().getSystemColor(SWT.COLOR_RED));
+    	}
 
+    	super.showErrorMessage(msg);
+    }
 
 }

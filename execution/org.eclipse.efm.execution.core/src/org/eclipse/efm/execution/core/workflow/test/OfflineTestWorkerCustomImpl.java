@@ -84,14 +84,38 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 			testWorker.setTestPurposeFile(path);
 		}
 
-		TraceSpecificationCustomImpl trace =
-				TraceSpecificationCustomImpl.create("observable",
-						DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION);
-		testWorker.setObservable( trace );
+		
+		String observableTrace;
+		try {
+			observableTrace = configuration.getAttribute(
+					ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+					DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION);
+		}
+		catch( CoreException e ) {
+			e.printStackTrace();
 
-		trace = TraceSpecificationCustomImpl.create("controllable",
-				DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION);
-		testWorker.setControllable( trace );
+			observableTrace = DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION;
+		}
+
+		testWorker.setObservable(
+				TraceSpecificationCustomImpl.create(
+						"observable", observableTrace) );
+
+		String controllableTrace;
+		try {
+			controllableTrace = configuration.getAttribute(
+					ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+					DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION);
+		}
+		catch( CoreException e ) {
+			e.printStackTrace();
+
+			controllableTrace = DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION;
+		}
+
+		testWorker.setControllable(
+				TraceSpecificationCustomImpl.create(
+						"controllable", controllableTrace) );
 
 
 //		ConsoleLogFormatCustomImpl console =
@@ -127,6 +151,11 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 			manifest.toWriter(writer2);
 		}
 
+
+		writer.appendTab2Eol( "property [" )
+			.appendTab3Eol( "format = \"myformat\"" )
+			.appendTab2Eol( "] // end property" );
+						
 		writer.appendTab2Eol( "merged_trace [" );
 
 		if( (str = getMergedTraceFile()) != null ) {

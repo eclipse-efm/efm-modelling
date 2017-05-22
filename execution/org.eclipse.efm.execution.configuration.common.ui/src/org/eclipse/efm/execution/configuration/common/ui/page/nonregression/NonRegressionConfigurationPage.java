@@ -689,8 +689,10 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
 		if( fNonRegressionCaseButton.equals("Details") &&
 			 ( selectedTransitions.size() == 0 ) ) {
-			return new FieldValidationReturn(false, "You must select at least one transition");
+			return new FieldValidationReturn(false,
+					"You must select at least one transition");
 		}
+		
 		return new FieldValidationReturn(true, null);
 	}
 }

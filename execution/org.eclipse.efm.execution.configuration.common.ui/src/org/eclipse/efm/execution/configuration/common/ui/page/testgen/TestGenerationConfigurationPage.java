@@ -109,14 +109,14 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 				"Maximal evaluation steps (-1 <=> no-limit) " +
 				"during the extension of symbolic execution");
 
-//		comp = SWTFactory.createComposite(
-//				groupExtensionObjective,
-//				1, 1,  GridData.FILL_HORIZONTAL);
+		Group group = widgetToolkit.createGroup(
+				groupTraceExtension, "Trace Ending with:",
+				1, 1, GridData.FILL_HORIZONTAL);
 
 		fTraceExtensionObjectiveStringField = new StringFieldEditor(
 				this, ATTR_TRACE_EXTENSION_OBJECTIVE,
-				"Trace Ending with:", comp,
-				DEFAULT_TRACE_EXTENSION_OBJECTIVE, SWT.MULTI);
+				"", group, DEFAULT_TRACE_EXTENSION_OBJECTIVE,
+				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 	}
 
 	private void handleEnablingTraceExtension() {
@@ -204,12 +204,15 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 		if( ! fTraceExtensionEvaluationStepsLimitIntegerField.isValid() ) {
 			return new FieldValidationReturn(false, "Evaluation Steps is not a valid integer");
 		}
+		
 		if( ! fBasicTracePage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
+		
 		if( ! fTTCNTracePage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
+		
 		return new FieldValidationReturn(true, null);
 	}
 

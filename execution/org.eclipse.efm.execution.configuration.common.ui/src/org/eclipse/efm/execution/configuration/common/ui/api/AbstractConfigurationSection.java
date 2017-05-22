@@ -36,6 +36,15 @@ public abstract class AbstractConfigurationSection extends AbstractSectionPart
 		return fConfigurationPage.getConfigurationPages();
 	}
 
+	public void createControl(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		widgetToolkit.createSectionPart(this, parent,
+				Section.TITLE_BAR | Section.DESCRIPTION |
+				Section.EXPANDED  | Section.TWISTIE, null);
+		
+		createContent(getSectionClient(), widgetToolkit);
+	}
+
 	public void createControl(Composite parent,
 			IToolBarManager toolBarManager, IWidgetToolkit widgetToolkit)
 	{

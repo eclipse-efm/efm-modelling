@@ -107,7 +107,8 @@ public abstract class AbstractSewLaunchConfigurationTab
 	 */
 	@Override
 	public boolean isValid(ILaunchConfiguration launchConfig) {
-		FieldValidationReturn fieldValidation = fContentCompositeManager.areFieldsValid(launchConfig);
+		FieldValidationReturn fieldValidation =
+				fContentCompositeManager.areFieldsValid(launchConfig);
 		if (fieldValidation.areFieldsValid()) {
 			setMessage(fieldValidation.getReason());
 		} else {

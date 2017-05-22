@@ -18,6 +18,7 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationSection;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
+import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -38,7 +39,9 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	
 	protected CTabItem fTestOfflineTabItem;
 
+	protected CTabItem fModelAnalysisProfileSelectionTabItem;
 	
+
 	public OverviewExplorationConfigurationProfile fExplorationPage;
 
 	public OverviewTransitionCoverageConfigurationProfile fTransitionCoveragePage;
@@ -117,7 +120,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		fTabFolder.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				handleModelSelectionChange();
+				handleModelAnalysisProfileSelectionChange( true );
 
 				fConfigurationPage.propagateUpdateJobScheduling();
 			}
@@ -208,7 +211,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	}
 
 
-	public void setVisibleProfilePage(String profile) {
+	public void setVisibleModelAnalysisProfilePage(String profile) {
 		switch ( profile ) {
 		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
 			fTabFolder.setSelection( fTransitionCoverageTabItem );
@@ -226,6 +229,8 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			fTabFolder.setSelection( fExplorationTabItem );
 			break;
 		}
+		
+		handleModelAnalysisProfileSelectionChange( false );
 	}
 
 	// ======================================================================================
@@ -239,15 +244,28 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 	}
 
-	private void handleModelSelectionChange() {
-		CTabItem selectionTabItem = fTabFolder.getItem( fTabFolder.getSelectionIndex() );
-		fModelAnalysisProfile = selectionTabItem.getText();
-
-		for( AbstractConfigurationPage confPage : getConfigurationPages() ) {
-			confPage.handleModelAnalysisProfileSelectionChanged(fModelAnalysisProfile);
+	
+	private void handleModelAnalysisProfileSelectionChange(boolean notifyAll) {
+		if( fModelAnalysisProfileSelectionTabItem != null ) {
+			fModelAnalysisProfileSelectionTabItem.setImage(null);
 		}
 		
-//		getConfigurationPage().propagateGUIupdate();
+		fModelAnalysisProfileSelectionTabItem =
+				fTabFolder.getItem( fTabFolder.getSelectionIndex() );
+		fModelAnalysisProfile = fModelAnalysisProfileSelectionTabItem.getText();
+		
+		fModelAnalysisProfileSelectionTabItem.setImage(
+				ImageResources.getImageDescriptor(
+						ImageResources.IMAGE__VALIDATE_ICON).createImage());
+
+		
+		if( notifyAll ) {
+			for( AbstractConfigurationPage confPage : getConfigurationPages() ) {
+				confPage.handleModelAnalysisProfileSelectionChanged(fModelAnalysisProfile);
+			}
+			
+//			getConfigurationPage().propagateGUIupdate();
+		}
 	}
 
 
@@ -280,14 +298,14 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			fModelAnalysisProfile = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
 					ANALYSIS_PROFILE_MODEL_EXPLORATION);
-
-			setVisibleProfilePage(fModelAnalysisProfile);
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
+			
+			fModelAnalysisProfile = ANALYSIS_PROFILE_MODEL_EXPLORATION;
 		}
 
-		setVisibleProfilePage( fModelAnalysisProfile );
+		setVisibleModelAnalysisProfilePage( fModelAnalysisProfile );
 
 		fConfigurationPage.propagateGUIupdate();
 

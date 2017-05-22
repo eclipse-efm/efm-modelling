@@ -32,13 +32,12 @@ public class ListOfStringFieldEditor extends FieldEditor {
 
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(getStoreKey(), fDefaultValue);
-
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	protected void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
 			fValue = configuration.getAttribute( getStoreKey(), fDefaultValue);
 		} catch (CoreException e) {
@@ -47,7 +46,7 @@ public class ListOfStringFieldEditor extends FieldEditor {
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(getStoreKey(), fValue);
 
 	}

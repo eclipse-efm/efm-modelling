@@ -169,10 +169,12 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 		if( ! fBehaviorSelectionPage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
+		
 		// TRANSITION COVERAGE
 		if( ! fTransitionCoveragePage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
+		
 		return new FieldValidationReturn(true, null);
 	}
 

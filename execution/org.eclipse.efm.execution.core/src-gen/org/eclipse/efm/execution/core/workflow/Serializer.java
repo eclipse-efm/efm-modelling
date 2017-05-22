@@ -28,7 +28,8 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecification;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getFolderName <em>Folder Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getFileName <em>File Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNormalization <em>Enabled Normalization</em>}</li>
- *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isShowInitialization <em>Show Initialization</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledLifelinesPrinting <em>Enabled Lifelines Printing</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer()
@@ -167,29 +168,57 @@ public interface Serializer extends Worker {
 	void setEnabledNormalization(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Show Initialization</b></em>' attribute.
+	 * Returns the value of the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Show Initialization</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Enabled Initial Values Printing</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Show Initialization</em>' attribute.
-	 * @see #setShowInitialization(boolean)
-	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_ShowInitialization()
-	 * @model
+	 * @return the value of the '<em>Enabled Initial Values Printing</em>' attribute.
+	 * @see #setEnabledInitialValuesPrinting(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_EnabledInitialValuesPrinting()
+	 * @model default="false"
 	 * @generated
 	 */
-	boolean isShowInitialization();
+	boolean isEnabledInitialValuesPrinting();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.Serializer#isShowInitialization <em>Show Initialization</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Show Initialization</em>' attribute.
-	 * @see #isShowInitialization()
+	 * @param value the new value of the '<em>Enabled Initial Values Printing</em>' attribute.
+	 * @see #isEnabledInitialValuesPrinting()
 	 * @generated
 	 */
-	void setShowInitialization(boolean value);
+	void setEnabledInitialValuesPrinting(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Enabled Lifelines Printing</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Enabled Lifelines Printing</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enabled Lifelines Printing</em>' attribute.
+	 * @see #setEnabledLifelinesPrinting(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_EnabledLifelinesPrinting()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isEnabledLifelinesPrinting();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledLifelinesPrinting <em>Enabled Lifelines Printing</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Enabled Lifelines Printing</em>' attribute.
+	 * @see #isEnabledLifelinesPrinting()
+	 * @generated
+	 */
+	void setEnabledLifelinesPrinting(boolean value);
 
 } // Serializer

@@ -62,7 +62,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/folderName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/fileName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledNormalization"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/showInitialization"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledInitialValuesPrinting"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledLifelinesPrinting"/>
     </genClasses>
     <nestedGenPackages prefix="Common" basePackage="org.eclipse.efm.execution.core.workflow"
         disposableProviderFactory="true" ecorePackage="workflow.ecore#//common">
@@ -85,6 +86,7 @@
       </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/TraceElementKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/UNDEFINED"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/UNKNOWN"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/CONDITION"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/DECISION"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/FORMULA"/>
@@ -141,6 +143,12 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/SEPARATOR"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NEWLINE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NEXT"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_HEADER"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_BEGIN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_END"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_ID"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_STATE"/>
       </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/HeuristicClassKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/BASIC"/>

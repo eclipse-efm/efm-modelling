@@ -38,7 +38,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getFolderName <em>Folder Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getFileName <em>File Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledNormalization <em>Enabled Normalization</em>}</li>
- *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isShowInitialization <em>Show Initialization</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledLifelinesPrinting <em>Enabled Lifelines Printing</em>}</li>
  * </ul>
  *
  * @generated
@@ -125,24 +126,44 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	protected boolean enabledNormalization = ENABLED_NORMALIZATION_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isShowInitialization() <em>Show Initialization</em>}' attribute.
+	 * The default value of the '{@link #isEnabledInitialValuesPrinting() <em>Enabled Initial Values Printing</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isShowInitialization()
+	 * @see #isEnabledInitialValuesPrinting()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean SHOW_INITIALIZATION_EDEFAULT = false;
+	protected static final boolean ENABLED_INITIAL_VALUES_PRINTING_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isShowInitialization() <em>Show Initialization</em>}' attribute.
+	 * The cached value of the '{@link #isEnabledInitialValuesPrinting() <em>Enabled Initial Values Printing</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isShowInitialization()
+	 * @see #isEnabledInitialValuesPrinting()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean showInitialization = SHOW_INITIALIZATION_EDEFAULT;
+	protected boolean enabledInitialValuesPrinting = ENABLED_INITIAL_VALUES_PRINTING_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnabledLifelinesPrinting() <em>Enabled Lifelines Printing</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabledLifelinesPrinting()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLED_LIFELINES_PRINTING_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnabledLifelinesPrinting() <em>Enabled Lifelines Printing</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabledLifelinesPrinting()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enabledLifelinesPrinting = ENABLED_LIFELINES_PRINTING_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -317,8 +338,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isShowInitialization() {
-		return showInitialization;
+	public boolean isEnabledInitialValuesPrinting() {
+		return enabledInitialValuesPrinting;
 	}
 
 	/**
@@ -326,11 +347,32 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setShowInitialization(boolean newShowInitialization) {
-		boolean oldShowInitialization = showInitialization;
-		showInitialization = newShowInitialization;
+	public void setEnabledInitialValuesPrinting(boolean newEnabledInitialValuesPrinting) {
+		boolean oldEnabledInitialValuesPrinting = enabledInitialValuesPrinting;
+		enabledInitialValuesPrinting = newEnabledInitialValuesPrinting;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, WorkflowPackage.SERIALIZER__SHOW_INITIALIZATION, oldShowInitialization, showInitialization));
+			eNotify(new ENotificationImpl(this, Notification.SET, WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING, oldEnabledInitialValuesPrinting, enabledInitialValuesPrinting));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isEnabledLifelinesPrinting() {
+		return enabledLifelinesPrinting;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnabledLifelinesPrinting(boolean newEnabledLifelinesPrinting) {
+		boolean oldEnabledLifelinesPrinting = enabledLifelinesPrinting;
+		enabledLifelinesPrinting = newEnabledLifelinesPrinting;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING, oldEnabledLifelinesPrinting, enabledLifelinesPrinting));
 	}
 
 	/**
@@ -367,8 +409,10 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return getFileName();
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				return isEnabledNormalization();
-			case WorkflowPackage.SERIALIZER__SHOW_INITIALIZATION:
-				return isShowInitialization();
+			case WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING:
+				return isEnabledInitialValuesPrinting();
+			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
+				return isEnabledLifelinesPrinting();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -396,8 +440,11 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				setEnabledNormalization((Boolean)newValue);
 				return;
-			case WorkflowPackage.SERIALIZER__SHOW_INITIALIZATION:
-				setShowInitialization((Boolean)newValue);
+			case WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING:
+				setEnabledInitialValuesPrinting((Boolean)newValue);
+				return;
+			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
+				setEnabledLifelinesPrinting((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -426,8 +473,11 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				setEnabledNormalization(ENABLED_NORMALIZATION_EDEFAULT);
 				return;
-			case WorkflowPackage.SERIALIZER__SHOW_INITIALIZATION:
-				setShowInitialization(SHOW_INITIALIZATION_EDEFAULT);
+			case WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING:
+				setEnabledInitialValuesPrinting(ENABLED_INITIAL_VALUES_PRINTING_EDEFAULT);
+				return;
+			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
+				setEnabledLifelinesPrinting(ENABLED_LIFELINES_PRINTING_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -451,8 +501,10 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return FILE_NAME_EDEFAULT == null ? fileName != null : !FILE_NAME_EDEFAULT.equals(fileName);
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				return enabledNormalization != ENABLED_NORMALIZATION_EDEFAULT;
-			case WorkflowPackage.SERIALIZER__SHOW_INITIALIZATION:
-				return showInitialization != SHOW_INITIALIZATION_EDEFAULT;
+			case WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING:
+				return enabledInitialValuesPrinting != ENABLED_INITIAL_VALUES_PRINTING_EDEFAULT;
+			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
+				return enabledLifelinesPrinting != ENABLED_LIFELINES_PRINTING_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -473,8 +525,10 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 		result.append(fileName);
 		result.append(", enabledNormalization: ");
 		result.append(enabledNormalization);
-		result.append(", showInitialization: ");
-		result.append(showInitialization);
+		result.append(", enabledInitialValuesPrinting: ");
+		result.append(enabledInitialValuesPrinting);
+		result.append(", enabledLifelinesPrinting: ");
+		result.append(enabledLifelinesPrinting);
 		result.append(')');
 		return result.toString();
 	}

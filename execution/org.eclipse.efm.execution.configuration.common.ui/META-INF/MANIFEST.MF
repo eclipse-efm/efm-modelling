@@ -21,6 +21,7 @@ Export-Package: org.eclipse.efm.execution.configuration.common.ui.api,
  org.eclipse.efm.execution.configuration.common.ui.page.supervisor,
  org.eclipse.efm.execution.configuration.common.ui.page.testgen,
  org.eclipse.efm.execution.configuration.common.ui.util
-Import-Package: org.eclipse.ui.dialogs,
+Import-Package: org.eclipse.efm.ui.utils,
+ org.eclipse.ui.dialogs,
  org.eclipse.ui.model,
  org.eclipse.ui.views.navigator

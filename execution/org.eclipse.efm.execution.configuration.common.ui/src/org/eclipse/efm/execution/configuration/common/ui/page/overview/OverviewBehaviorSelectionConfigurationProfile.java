@@ -52,7 +52,7 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 
 		fBehaviorSpecificationStringField = new StringFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST, "",
-				parent, BEHAVIOR_DESCRIPTION, SWT.MULTI);
+				parent, BEHAVIOR_DESCRIPTION, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		fBehaviorSpecificationStringField.setToolTipText(BEHAVIOR_DESCRIPTION);
 		addField(fBehaviorSpecificationStringField);
 	}

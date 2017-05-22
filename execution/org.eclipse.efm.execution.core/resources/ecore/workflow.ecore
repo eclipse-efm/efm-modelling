@@ -78,7 +78,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="folderName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledNormalization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showInitialization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledInitialValuesPrinting"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledLifelinesPrinting"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
   <eSubpackages name="common" nsURI="http://www.eclipse.org/efm/Workflow/Common" nsPrefix="Common">
     <eClassifiers xsi:type="ecore:EClass" name="Workspace">
@@ -199,6 +202,12 @@
       <eLiterals name="SEPARATOR" value="54" literal="separator"/>
       <eLiterals name="NEWLINE" value="55" literal="newline"/>
       <eLiterals name="NEXT" value="56" literal="next"/>
+      <eLiterals name="LIFELINE" value="57" literal="lifeline"/>
+      <eLiterals name="LIFELINE_HEADER" value="58" literal="lifeline#header"/>
+      <eLiterals name="LIFELINE_BEGIN" value="59" literal="lifeline#begin"/>
+      <eLiterals name="LIFELINE_END" value="60" literal="lifeline#end"/>
+      <eLiterals name="LIFELINE_ID" value="61" literal="lifeline#id"/>
+      <eLiterals name="LIFELINE_STATE" value="62" literal="lifeline#state"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TraceElement">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="nature" eType="#//common/TraceElementKind"/>

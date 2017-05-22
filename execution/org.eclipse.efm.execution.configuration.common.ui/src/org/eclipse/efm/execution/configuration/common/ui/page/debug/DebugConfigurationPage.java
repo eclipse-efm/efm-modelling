@@ -67,10 +67,12 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 	private BooleanFieldEditor fFirstSymbexOutputGraphizEnabledBooleanField;
 //		private StringFieldEditor  fFirstSymbexOutputGraphizFileNameStringField;
+	private Group fGroupFirstSymbexOutputTrace;
+	private Group fGroupFirstSymbexOutputFormat;
+
 	private StringFieldEditor  fFirstSymbexOutputGraphizTraceStringField;
 	private StringFieldEditor  fFirstSymbexOutputGraphizFormatStringField;
-	private Composite fCompositeFirstSymbexOutputGraphiz;
-
+	
 
 	// Second Symbex Workflow Page
 //		private BooleanFieldEditor fSecondParsedModelGraphizEnabledBooleanField;
@@ -87,10 +89,14 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 	private BooleanFieldEditor fSecondSymbexOutputGraphizEnabledBooleanField;
 //		private StringFieldEditor  fSecondSymbexOutputGraphizFileNameStringField;
+	private Group fGroupSecondSymbexOutputTrace;
+	private Group fGroupSecondSymbexOutputFormat;
+
 	private StringFieldEditor  fSecondSymbexOutputGraphizTraceStringField;
 	private StringFieldEditor  fSecondSymbexOutputGraphizFormatStringField;
-	private Composite fCompositeSecondSymbexOutputGraphiz;
+	
 
+	
 	public DebugConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
 
@@ -236,26 +242,31 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				this, ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION,
 				"&<Graphiz> Representation", comp, false);
 
-		fCompositeFirstSymbexOutputGraphiz = widgetToolkit.createComposite(
-				comp, 2, 2, GridData.FILL_HORIZONTAL);
-
+		
+		fGroupFirstSymbexOutputTrace = widgetToolkit.createGroup(
+				comp, "&Trace:", 1, 2, GridData.FILL_BOTH);
 		fFirstSymbexOutputGraphizTraceStringField = new StringFieldEditor(
 				this, ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				"&Trace:", fCompositeFirstSymbexOutputGraphiz,
-				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC, SWT.MULTI);
+				"", fGroupFirstSymbexOutputTrace,
+				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 
+		fGroupFirstSymbexOutputFormat = widgetToolkit.createGroup(
+				comp, "&Format:", 1, 2, GridData.FILL_BOTH);
 		fFirstSymbexOutputGraphizFormatStringField = new StringFieldEditor(
 				this, ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				"&Format:", fCompositeFirstSymbexOutputGraphiz,
+				"", fGroupFirstSymbexOutputFormat,
 				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				SWT.MULTI);
+				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 	}
 
 
 	private void setEnableFirstExecutionPage(boolean checked) {
-		fCompositeFirstSymbexOutputGraphiz.setVisible(checked);
-
-		propagateVisibility(fCompositeFirstSymbexOutputGraphiz, checked);
+		fGroupFirstSymbexOutputTrace.setVisible(checked);
+		propagateVisibility(fGroupFirstSymbexOutputTrace, checked);
+		
+		fGroupFirstSymbexOutputFormat.setVisible(checked);
+		propagateVisibility(fGroupFirstSymbexOutputFormat, checked);
 	}
 
 
@@ -312,32 +323,36 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				1, 1, GridData.FILL_HORIZONTAL);
 
 		comp = widgetToolkit.createComposite(
-				group, 2, 1, GridData.FILL_HORIZONTAL);
+				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fSecondSymbexOutputGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION,
 				"&<Graphiz> Representation", comp, false);
 
-		fCompositeSecondSymbexOutputGraphiz = widgetToolkit.createComposite(
-				comp, 2, 2, GridData.FILL_HORIZONTAL);
-
+		fGroupSecondSymbexOutputTrace = widgetToolkit.createGroup(
+				comp, "&Trace:", 1, 2, GridData.FILL_BOTH);
 		fSecondSymbexOutputGraphizTraceStringField = new StringFieldEditor(
 				this, ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				"&Trace:", fCompositeSecondSymbexOutputGraphiz,
-				DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC, SWT.MULTI);
+				"", fGroupSecondSymbexOutputTrace,
+				DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 
+		fGroupSecondSymbexOutputFormat = widgetToolkit.createGroup(
+				comp, "&Format:", 1, 2, GridData.FILL_BOTH);
 		fSecondSymbexOutputGraphizFormatStringField = new StringFieldEditor(
 				this, ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				"&Format:", fCompositeSecondSymbexOutputGraphiz,
-				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC, SWT.MULTI);
+				"", fGroupSecondSymbexOutputFormat,
+				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 	}
 
 
 	private void setEnableSecondExecutionPage(boolean checked) {
-		fCompositeSecondSymbexOutputGraphiz.setVisible(checked);
-
-		propagateVisibility(fCompositeSecondSymbexOutputGraphiz, checked);
-
+		fGroupSecondSymbexOutputTrace.setVisible(checked);
+		propagateVisibility(fGroupSecondSymbexOutputTrace, checked);
+		
+		fGroupSecondSymbexOutputFormat.setVisible(checked);
+		propagateVisibility(fGroupSecondSymbexOutputFormat, checked);
 	}
 
 	// ======================================================================================

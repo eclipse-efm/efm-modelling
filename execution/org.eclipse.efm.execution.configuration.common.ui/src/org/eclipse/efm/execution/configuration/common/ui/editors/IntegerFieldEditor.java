@@ -97,12 +97,12 @@ public class IntegerFieldEditor extends StringFieldEditor {
 
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(getStoreKey(), fDefaultValue);
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	protected void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
 			setStringValue( Integer.toString(
 					configuration.getAttribute(getStoreKey(), fDefaultValue)) );
@@ -112,7 +112,7 @@ public class IntegerFieldEditor extends StringFieldEditor {
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		if( isValid() ) {
 			try {
 				configuration.setAttribute(getStoreKey(), getIntValue());

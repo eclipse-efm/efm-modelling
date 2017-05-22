@@ -1759,6 +1759,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 
 		initEEnum(traceElementKindEEnum, TraceElementKind.class, "TraceElementKind");
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.UNDEFINED);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.UNKNOWN);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.CONDITION);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.DECISION);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.FORMULA);
@@ -1815,6 +1816,12 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.SEPARATOR);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NEWLINE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NEXT);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_HEADER);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_BEGIN);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_END);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_ID);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_STATE);
 
 		initEEnum(heuristicClassKindEEnum, HeuristicClassKind.class, "HeuristicClassKind");
 		addEEnumLiteral(heuristicClassKindEEnum, HeuristicClassKind.BASIC);

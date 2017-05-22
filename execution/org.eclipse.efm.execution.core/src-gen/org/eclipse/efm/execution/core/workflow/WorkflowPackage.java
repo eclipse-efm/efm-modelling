@@ -913,13 +913,22 @@ public interface WorkflowPackage extends EPackage {
 	int SERIALIZER__ENABLED_NORMALIZATION = WORKER_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Show Initialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__SHOW_INITIALIZATION = WORKER_FEATURE_COUNT + 5;
+	int SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING = WORKER_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Lifelines Printing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERIALIZER__ENABLED_LIFELINES_PRINTING = WORKER_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Serializer</em>' class.
@@ -928,7 +937,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 6;
+	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of operations of the '<em>Serializer</em>' class.
@@ -1439,15 +1448,26 @@ public interface WorkflowPackage extends EPackage {
 	EAttribute getSerializer_EnabledNormalization();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.Serializer#isShowInitialization <em>Show Initialization</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Show Initialization</em>'.
-	 * @see org.eclipse.efm.execution.core.workflow.Serializer#isShowInitialization()
+	 * @return the meta object for the attribute '<em>Enabled Initial Values Printing</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.Serializer#isEnabledInitialValuesPrinting()
 	 * @see #getSerializer()
 	 * @generated
 	 */
-	EAttribute getSerializer_ShowInitialization();
+	EAttribute getSerializer_EnabledInitialValuesPrinting();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledLifelinesPrinting <em>Enabled Lifelines Printing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled Lifelines Printing</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.Serializer#isEnabledLifelinesPrinting()
+	 * @see #getSerializer()
+	 * @generated
+	 */
+	EAttribute getSerializer_EnabledLifelinesPrinting();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1857,12 +1877,20 @@ public interface WorkflowPackage extends EPackage {
 		EAttribute SERIALIZER__ENABLED_NORMALIZATION = eINSTANCE.getSerializer_EnabledNormalization();
 
 		/**
-		 * The meta object literal for the '<em><b>Show Initialization</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Enabled Initial Values Printing</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute SERIALIZER__SHOW_INITIALIZATION = eINSTANCE.getSerializer_ShowInitialization();
+		EAttribute SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING = eINSTANCE.getSerializer_EnabledInitialValuesPrinting();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled Lifelines Printing</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERIALIZER__ENABLED_LIFELINES_PRINTING = eINSTANCE.getSerializer_EnabledLifelinesPrinting();
 
 	}
 

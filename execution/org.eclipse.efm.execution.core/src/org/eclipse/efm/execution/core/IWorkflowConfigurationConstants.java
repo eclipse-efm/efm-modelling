@@ -380,8 +380,17 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 
 
 	public static final String ATTR_BASIC_TRACE_ENABLED_GENERATION =
-			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_TRACE_ENABLED"; //$NON-NLS-1$
+			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_TRACE_ENABLED_GENERATION"; //$NON-NLS-1$
 
+	public static final boolean DEFAULT_BASIC_TRACE_ENABLED_GENERATION = false;
+
+	
+	public static final String ATTR_BASIC_TRACE_LIFELINES_ENABLED_PRINTING =
+			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_LIFELINES_TRACE_ENABLED_PRINTING"; //$NON-NLS-1$
+
+	public static final boolean DEFAULT_BASIC_TRACE_LIFELINES_ENABLED_PRINTING = false;
+
+	
 	public static final String DEFAULT_BASIC_TRACE_FOLDER_NAME =
 			"basic"; //$NON-NLS-1$
 
@@ -399,8 +408,8 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public static final String ATTR_BASIC_TRACE_ENABLED_NORMALIZATION =
 			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_TRACE_ELIMINATION_REDUNDANCE"; //$NON-NLS-1$
 
-	public static final String ATTR_BASIC_TRACE_SHOW_INITIALIZATION =
-			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_TRACE_SHOW_INITIALIZATION"; //$NON-NLS-1$
+	public static final String ATTR_BASIC_TRACE_INITIAL_VALUES_ENABLED_PRINTING =
+			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_TRACE_INITIAL_VALUES_ENABLED_PRINTING"; //$NON-NLS-1$
 
 
 	public static final String ATTR_BASIC_TRACE_ALL_EXTERNAL_INPUT_COM_SELECTION =
@@ -460,28 +469,29 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 //			%2% --> machine identifier name
 //			%3% --> port | signal | variable | machine | transition | routine
 //			%4% --> value
+//			%5% --> machine target identifier name
 			+ "\ntime       = \"\\tdelta = %4%\\n\""
 //			+ "\nassign     = \"\\t2%:%3%=%4%\\n\""
 			+ "\nassign     = \"\\t%3%=%4%\\n\""
 			+ "\nnewfresh   = \"\\tnewfresh(%2%:%3%) <- %4%\\n\""
 
-			+ "\ninput#env  = \"\\tINPUT  %2%->%3%%4%\\n\""
-			+ "\ninput#rdv  = \"\\tinput  %2%->%3%%4%\\n\""
-			+ "\ninput      = \"\\tinput  %2%->%3%%4%\\n\""
+			+ "\ninput#env  = \"\\tINPUT  %2%:%3%%4%\\n\""
+			+ "\ninput#rdv  = \"\\tinput  %2%:%3%%4%\\n\""
+			+ "\ninput      = \"\\tinput  %2%:%3%%4%\\n\""
 //			+ "\ninput      = \"\\t%2%->%3% ? %4%\\n\""
-			+ "\noutput#env = \"\\tOUTPUT %2%->%3%%4%\\n\""
-			+ "\noutput#rdv = \"\\toutput %2%->%3%%4%\\n\""
-			+ "\noutput     = \"\\toutput %2%->%3%%4%\\n\""
+			+ "\noutput#env = \"\\tOUTPUT %2%:%3%%4%\\n\""
+			+ "\noutput#rdv = \"\\toutput %2%:%3%%4%\\n\""
+			+ "\noutput     = \"\\toutput %2%:%3%%4%\\n\""
 
 			+ "\nroutine    = \"\\tinvoke %2%:%3%\\n\""
 			+ "\ntransition = \"\\tfired transition %2%:%3%\\n\""
 
-			+ "\nmachine    = \"\\trun %1%:%2%\\n\""; //$NON-NLS-1$
+			+ "\nmachine    = \"\\trun %2%:%3%\\n\""; //$NON-NLS-1$
 
 
 	// TTCN Tests Generation
 	public static final String ATTR_TTCN_ENABLED_GENERATION =
-			PLUGIN_LAUNCH_ID + ".ATTR_TTCN_ENABLED"; //$NON-NLS-1$
+			PLUGIN_LAUNCH_ID + ".ATTR_TTCN_ENABLED_GENERATION"; //$NON-NLS-1$
 
 	public static final String ATTR_TTCN_ENABLED_CUSTOMIZATION =
 			PLUGIN_LAUNCH_ID + ".ATTR_TTCN_ENABLED_CUSTOMIZATION"; //$NON-NLS-1$
@@ -696,22 +706,22 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			// %4% --> value
 //			+ "\nassign     = %2%:%3%=%4%"
 			+ "\nassign     = %3%=%4%"
-			+ "\nnewfresh   = newfresh(%1%:%3%) <- %4%"
+			+ "\nnewfresh   = newfresh(%2%:%3%) <- %4%"
 
-			+ "\ninput#env  = INPUT %3%%4%"
-			+ "\ninput#rdv  = input %3%%4%"
-			+ "\ninput      = input %3%%4%"
+			+ "\ninput#env  = INPUT %2%:%3%%4%"
+			+ "\ninput#rdv  = input %2%:%3%%4%"
+			+ "\ninput      = input %2%:%3%%4%"
 //			+ "\ninput      = %1%->%3% ? %4%"
 
-			+ "\noutput#env = OUTPUT %3%%4%"
-			+ "\noutput#rdv = output %3%%4%"
-			+ "\noutput     = output %3%%4%"
+			+ "\noutput#env = OUTPUT %2%:%3%%4%"
+			+ "\noutput#rdv = output %2%:%3%%4%"
+			+ "\noutput     = output %2%:%3%%4%"
 //			+ "\noutput     = %1%->%3% ? %4%"
 
 			+ "\nroutine    = invoke %2%:%3%"
 			+ "\ntransition = fired transition %3%"
 
-			+ "\nmachine    = \"run %1%:%3%\""; //$NON-NLS-1$
+			+ "\nmachine    = \"run %2%:%3%\""; //$NON-NLS-1$
 
 
 	// Second Symbex Workflow Page

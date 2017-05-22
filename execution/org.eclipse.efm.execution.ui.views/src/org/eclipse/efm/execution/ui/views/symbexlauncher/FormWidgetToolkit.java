@@ -117,11 +117,16 @@ public class FormWidgetToolkit extends FormToolkit implements IWidgetToolkit {
 //		gd.heightHint = 2;
 		tabFolder.setLayoutData(gd);
 
-		FormColors colors = super.getColors();
+		FormColors formColors = super.getColors();
+
+//		String tabItemSelKey = "__tisk__";
+//		RGB selRGB = formColors.getSystemColor(SWT.COLOR_GREEN);
+
 		tabFolder.setSelectionBackground(
 				new Color[] {
-						colors.getColor(IFormColors.TB_BG),
-						colors.getBackground()
+						formColors.getColor(IFormColors.TB_BG),
+						formColors.getBackground()
+//						formColors.createColor(tabItemSelKey, selRGB)
 					},
 				new int[] {100}, true);
 

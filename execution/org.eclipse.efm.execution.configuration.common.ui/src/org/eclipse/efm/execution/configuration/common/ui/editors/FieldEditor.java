@@ -623,10 +623,26 @@ public abstract class FieldEditor {
 	 * Diversity Field Editor Configuration API
 	 * @param configuration
 	 */
-	public abstract void setDefaults(ILaunchConfigurationWorkingCopy configuration);
+    abstract protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration);
 
-	public abstract void initializeFrom(ILaunchConfiguration configuration);
+	public final void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+		setDefaultsImpl(configuration);
+		
+		refreshValidState();
+	}
 
-	public abstract void performApply(ILaunchConfigurationWorkingCopy configuration);
+	abstract protected void initializeFromImpl(ILaunchConfiguration configuration);
+
+	public final void initializeFrom(ILaunchConfiguration configuration) {
+		initializeFromImpl(configuration);
+		
+		refreshValidState();
+	}
+
+	abstract protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration);
+
+	public final void performApply(ILaunchConfigurationWorkingCopy configuration) {
+		performApplyImpl(configuration);
+	}
 
 }
