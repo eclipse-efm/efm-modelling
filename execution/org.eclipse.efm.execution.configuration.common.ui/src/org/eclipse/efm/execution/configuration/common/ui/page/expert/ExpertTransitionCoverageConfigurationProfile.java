@@ -32,12 +32,12 @@ import org.eclipse.swt.widgets.Group;
 
 public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfigurationProfile {
 
-	private static final String SCOPE_COMBO_ITEM_INSTANCE = "INSTANCE";
-	private static final String SCOPE_COMBO_ITEM_MODEL = "MODEL";
-	private static final String SCOPE_COMBO_ITEM_DETAILS = "DETAILS";
-	private static final String[] SCOPE_COMBO_ITEMS = new String[] {
-			SCOPE_COMBO_ITEM_INSTANCE ,
+	public static final String SCOPE_COMBO_ITEM_MODEL = "MODEL";
+	public static final String SCOPE_COMBO_ITEM_INSTANCE = "INSTANCE";
+	public static final String SCOPE_COMBO_ITEM_DETAILS = "DETAILS";
+	public static final String[] SCOPE_COMBO_ITEMS = new String[] {
 			SCOPE_COMBO_ITEM_MODEL ,
+			SCOPE_COMBO_ITEM_INSTANCE ,
 			SCOPE_COMBO_ITEM_DETAILS
 	};
 	private static final String HEURISTIC_START_COMBO_ITEM_BASIC = "BASIC";
@@ -463,7 +463,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_HIT_OTHER_COUNT, 1);
 	}
-
+	
 	@Override
 	protected void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
@@ -474,12 +474,29 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 			e.printStackTrace();
 		}
 
+		try {
+			if( configuration.getAttribute(
+					ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false) )
+			{
+				fTCScope = SCOPE_COMBO_ITEM_DETAILS;
+			}
+			else if( fTCScope.equals( SCOPE_COMBO_ITEM_DETAILS ) ) {
+				fTCScope = SCOPE_COMBO_ITEM_MODEL;
+			}
+		}
+		catch (CoreException e) {
+			e.printStackTrace();
+		}
+
 		switch ( fTCScope ) {
-		case SCOPE_COMBO_ITEM_INSTANCE:
+		case SCOPE_COMBO_ITEM_MODEL:
 			fTCScopeCombo.select(0);
 			break;
-		case SCOPE_COMBO_ITEM_MODEL:
+		case SCOPE_COMBO_ITEM_INSTANCE:
 			fTCScopeCombo.select(1);
+			break;
+		case SCOPE_COMBO_ITEM_DETAILS:
+			fTCScopeCombo.select(2);
 			break;
 		default:
 			fTCScopeCombo.select(0);
@@ -544,6 +561,19 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 	@Override
 	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+		try {
+			if( configuration.getAttribute(
+					ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false) )
+			{
+				fTCScope = SCOPE_COMBO_ITEM_DETAILS;
+			}
+			else if( fTCScope.equals( SCOPE_COMBO_ITEM_DETAILS ) ) {
+				fTCScope = SCOPE_COMBO_ITEM_MODEL;
+			}
+		}
+		catch (CoreException e) {
+			e.printStackTrace();
+		}
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_SCOPE, fTCScope);
 

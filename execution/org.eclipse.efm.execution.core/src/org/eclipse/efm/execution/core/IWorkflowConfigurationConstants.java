@@ -695,8 +695,13 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			PLUGIN_LAUNCH_ID + ".ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC"; //$NON-NLS-1$
 
 	public static final String DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC
+			// %1% --> lifeline runtime pid
+			// %2% --> lifeline identifier
+			// %3% --> state runtime pid
+			// %3% --> state identifier
+			= "lifeline#state = %2%:%4%"
 			// %1% --> condition
-			= "path#condition = PC: %1%"
+			+ "path#condition = PC: %1%"
 			+ "\npath#timed#condition = PtC: %1%"
 			+ "\nnode#condition = "//NC: %1%"
 			+ "\nnode#timed#condition = "//NtC: %1%"

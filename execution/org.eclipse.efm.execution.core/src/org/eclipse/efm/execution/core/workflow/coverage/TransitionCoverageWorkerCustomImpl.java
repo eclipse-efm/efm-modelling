@@ -101,11 +101,12 @@ public class TransitionCoverageWorkerCustomImpl extends TransitionCoverageWorker
 
 		String str;
 		try {
-			str = configuration.getAttribute(ATTR_TRANSITION_COVERAGE_SCOPE, "MODEL");
+			str = configuration.getAttribute(ATTR_TRANSITION_COVERAGE_SCOPE,
+					CoverageScopeKind.MODEL.getLiteral());
 		}
 		catch( CoreException e1 ) {
 			e1.printStackTrace();
-			str = "MODEL";
+			str = CoverageScopeKind.MODEL.getLiteral();
 		}
 		CoverageScopeKind scope = CoverageScopeKind.get(str);
 		coverageWorker.setScope(
@@ -127,6 +128,8 @@ public class TransitionCoverageWorkerCustomImpl extends TransitionCoverageWorker
 
 		if ( enabledTransitionSelection )
 		{
+			coverageWorker.setScope( CoverageScopeKind.DETAILS );
+
 			List< String > transitions;
 			try {
 				transitions = configuration.getAttribute(

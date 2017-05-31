@@ -324,14 +324,17 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 			.append( getCheckingScope().getLiteral() )
 			.appendEol( "'" );
 
-		if( isOrderedTrace() ) {
-			writer.appendTab3Eol( "scheduler = '|;|'" );
+		writer.appendTab3( "scheduler = " )
+			.appendEol( isOrderedTrace() ? "'|;|'" : "'|i|'" );
 
+		writer.appendTab2Eol( "] // end property" );
+
+
+		writer.appendTab2Eol( "heuristic [" );
+
+		if( isOrderedTrace() ) {
 			writer.appendTab3( "hit#consecutive = " )
 				.appendEol( isHitConsecutive() );
-		}
-		else {
-			writer.appendTab3Eol( "scheduler = '|i|'" );
 		}
 
 		writer.appendTab3( "hit#folding = " ).appendEol( isHitFolding() );
@@ -341,11 +344,6 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 		writer.appendTab3( "hit#max     = " ).appendEol( isHitMax() );
 
 		writer.appendTab3( "jump#slice  = " ).appendEol( isJumpSlice() );
-
-		writer.appendTab2Eol( "] // end property" );
-
-
-		writer.appendTab2Eol( "heuristic [" );
 
 		writer.appendTab3( "jump#height = " ).appendEol( getJumpHeight() );
 

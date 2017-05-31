@@ -199,7 +199,8 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	@Override
 	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration)
 	{
-		configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY, "BFS");
+		configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY,
+				GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH.getLiteral());
 
 		configuration.setAttribute(ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION, false);
 

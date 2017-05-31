@@ -27,6 +27,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
+import org.eclipse.efm.execution.configuration.common.ui.page.expert.ExpertTransitionCoverageConfigurationProfile;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
@@ -427,6 +428,14 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	{
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_SELECTION, fSelectedTransitionsList);
+		
+		if( fEnabledDetailedSelectionBooleanField.getBooleanValue() ) {
+			configuration.setAttribute(
+					ATTR_TRANSITION_COVERAGE_SCOPE,
+					ExpertTransitionCoverageConfigurationProfile.SCOPE_COMBO_ITEM_DETAILS);
+		}
+		
+		configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY, "WEIGHT_BFS");
 	}
 
 	@Override

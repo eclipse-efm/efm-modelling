@@ -23,6 +23,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
 import org.eclipse.efm.execution.core.Activator;
+import org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.window.Window;
@@ -321,6 +322,9 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		configuration.setAttribute(
 				ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
 				fTestPurposePathText.getText());
+		
+		configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY,
+				GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH.getLiteral());
 	}
 
 
