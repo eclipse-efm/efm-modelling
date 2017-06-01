@@ -421,6 +421,9 @@ public abstract class FieldEditor {
 
         Assert.isNotNull(labelText);
         this.labelText = labelText;
+        
+        // @NOT SYSTEMATIC, used with parsimony
+//      setPropertyChangeListener( configurationPage );
     }
 
     /**

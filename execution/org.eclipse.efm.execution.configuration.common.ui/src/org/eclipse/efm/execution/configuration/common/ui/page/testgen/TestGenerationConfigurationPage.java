@@ -21,6 +21,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -218,37 +219,44 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 
 	
 	///////////////////////////////////////////////////////////////////////////
-	// Model Analysis Profile changed
+	// Property Change
 	//
 	@Override
-	public void handleModelAnalysisProfileSelectionChanged(String analysisProfile) {
-		switch ( analysisProfile ) {
-		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
-			groupTraceExtension.setEnabled(false);
-			
-			propagateVisibility(groupExtensionObjective, false);
-			
-			setVisibleAndEnabled(fBasicTracePage.getSection(), false);
-			setVisibleAndEnabled(fTTCNTracePage.getSection() , false);
+	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		switch( event.getProperty() ) {
+		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE:
+			switch ( event.getNewValue().toString() ) {
+			case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
+				groupTraceExtension.setEnabled(false);
+				
+				propagateVisibility(groupExtensionObjective, false);
+				
+				setVisibleAndEnabled(fBasicTracePage.getSection(), false);
+				setVisibleAndEnabled(fTTCNTracePage.getSection() , false);
+				
+				break;
+				
+			case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
+			case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
+			case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+			default:
+				groupTraceExtension.setEnabled(true);
+				
+				propagateVisibility(groupExtensionObjective, true);
+				
+				setVisibleAndEnabled(fBasicTracePage.getSection(), true);
+				setVisibleAndEnabled(fTTCNTracePage.getSection() , true);
+
+				
+				handleEnablingTraceExtension();;
+				break;
+			}
 			
 			break;
-			
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
-		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
-		default:
-			groupTraceExtension.setEnabled(true);
-			
-			propagateVisibility(groupExtensionObjective, true);
-			
-			setVisibleAndEnabled(fBasicTracePage.getSection(), true);
-			setVisibleAndEnabled(fTTCNTracePage.getSection() , true);
 
-			
-			handleEnablingTraceExtension();;
+		default:
 			break;
 		}
 	}
-
-
+	
 }

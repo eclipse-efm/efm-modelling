@@ -143,13 +143,6 @@ public class StringFieldEditor extends FieldEditor {
      */
     private int validateStrategy = VALIDATE_ON_KEY_STROKE;
 
-
-    /**
-     * Creates a new string field editor
-     */
-    protected StringFieldEditor() {
-    }
-
     /**
      * Creates a new string field editor
      */

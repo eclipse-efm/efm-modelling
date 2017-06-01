@@ -26,11 +26,13 @@ import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
-public abstract class AbstractConfigurationPage
-		implements IWorkflowConfigurationConstants, IWorkflowPreferenceConstants {
+public abstract class AbstractConfigurationPage implements IPropertyChangeListener,
+		IWorkflowConfigurationConstants, IWorkflowPreferenceConstants {
 
 	private ILaunchConfigurationGUIelement masterGUIelement;
 
@@ -114,10 +116,22 @@ public abstract class AbstractConfigurationPage
 
 	
 	///////////////////////////////////////////////////////////////////////////
-	// Model Analysis Profile changed
+	// Property Change as Model Analysis Profile changed
 	//
-	public void handleModelAnalysisProfileSelectionChanged(String analysisProfile) {
-		//!! Nothing 
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+//		System.out.print( "PropertyChangeEvent : " );
+//		System.out.print( event.getProperty() );
+//		System.out.print( " <-- " );
+//		System.out.println( event.getNewValue().toString() );
+
+		for( AbstractConfigurationPage confPage : getConfigurationPages() ) {
+			confPage.handleConfigurationPropertyChange(event);
+		}
+	}
+
+	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		//!! Default 
 	}
 
 	
@@ -129,6 +143,7 @@ public abstract class AbstractConfigurationPage
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
+
 
 	public final class FieldValidationReturn {
 	    private final boolean fieldValidation;

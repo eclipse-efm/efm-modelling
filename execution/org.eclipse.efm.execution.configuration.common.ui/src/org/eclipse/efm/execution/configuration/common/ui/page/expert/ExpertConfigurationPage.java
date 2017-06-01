@@ -20,6 +20,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.GridData;
@@ -180,12 +181,23 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 
 	
 	///////////////////////////////////////////////////////////////////////////
-	// Model Analysis Profile changed
+	// Property Change
 	//
 	@Override
-	public void handleModelAnalysisProfileSelectionChanged(String analysisProfile) {
-		setVisibleProfilePage(analysisProfile);
+	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		switch( event.getProperty() ) {
+		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE: {
+			setVisibleProfilePage( event.getNewValue().toString() );
+
+			break;
+		}
+		default:
+			break;
+		}
+		
+		fBehaviorSelectionPage.handleConfigurationPropertyChange(event); 
+		
+		fTransitionCoveragePage.handleConfigurationPropertyChange(event); 
 	}
-
-
+	
 }

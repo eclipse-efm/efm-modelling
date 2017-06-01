@@ -27,7 +27,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.page.expert.ExpertTransitionCoverageConfigurationProfile;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
@@ -89,6 +89,9 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 						ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION,
 						"&Enable Transitions Selection", parent, false);
 		addField(fEnabledDetailedSelectionBooleanField);
+		
+		fEnabledDetailedSelectionBooleanField.
+				setPropertyChangeListener(fConfigurationPage);
 
 		fEnabledDetailedSelectionBooleanField.addSelectionListener(
 			new SelectionAdapter() {
@@ -429,12 +432,6 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_SELECTION, fSelectedTransitionsList);
 		
-		if( fEnabledDetailedSelectionBooleanField.getBooleanValue() ) {
-			configuration.setAttribute(
-					ATTR_TRANSITION_COVERAGE_SCOPE,
-					ExpertTransitionCoverageConfigurationProfile.SCOPE_COMBO_ITEM_DETAILS);
-		}
-		
 		configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY, "WEIGHT_BFS");
 	}
 
@@ -449,6 +446,23 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 		}
 
 		return true;
+	}
+
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Property Change
+	//
+	@Override
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		switch( event.getProperty() ) {
+		case ATTR_SPECIFICATION_MODEL_FILE_LOCATION: {
+			handleModelFilePathChanged( event.getNewValue().toString() );
+			
+			break;
+		}
+		default:
+			break;
+		}
 	}
 
 }

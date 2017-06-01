@@ -22,6 +22,7 @@ import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEdi
 //import org.eclipse.efm.execution.configuration.common.ui.page.supervisor.SupervisorEvaluationLimitsSection;
 //import org.eclipse.efm.execution.configuration.common.ui.page.supervisor.SupervisorGraphSizeLimitsSection;
 import org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -216,18 +217,19 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	{
 		// Case Analyze Strategy
 		//
+		GraphExplorationStrategyKind oldAnalyzeStrategy = fAnalyzeStrategy;
+		
 		try {
 			fAnalyzeStrategy = GraphExplorationStrategyKind.get(
-					configuration.getAttribute(
-							ATTR_SPECIFICATION_ANALYZE_STRATEGY,
-							GraphExplorationStrategyKind.
-									BREADTH_FIRST_SEARCH.getLiteral()) );
+					configuration.getAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY,
+							GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH.getLiteral()) );
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
 		finally {
 			if( fAnalyzeStrategy == null ) {
-				fAnalyzeStrategy = GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
+				fAnalyzeStrategy = (oldAnalyzeStrategy != null) ? oldAnalyzeStrategy :
+						GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
 			}
 		}
 
@@ -283,5 +285,38 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		return true;
 	}
+
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Property Change
+	//
+	@Override
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		switch( event.getProperty() ) {
+		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE:
+
+			switch( event.getNewValue().toString() ) {
+			case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
+			case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
+			case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE: {
+				fDFSButton.setSelection(false);
+				fRFSButton.setSelection(false);
+
+				fBFSButton.setSelection(true); // BREADTH_FIRST_SEARCH
+				break;
+			}
+
+			case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+			default:
+				break;
+			}
+
+			break;
+
+		default:
+			break;
+		}
+	}
+
 
 }

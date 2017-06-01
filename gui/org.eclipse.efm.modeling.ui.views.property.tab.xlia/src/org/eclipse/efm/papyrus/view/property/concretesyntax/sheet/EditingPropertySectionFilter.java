@@ -85,7 +85,7 @@ public class EditingPropertySectionFilter implements IFilter {
 			return( true );
 		}
 		else if( (element instanceof Model   ) ||
-				(element instanceof Class ) ||
+				(element instanceof Class    ) ||
 				(element instanceof Property ) ||
 				(element instanceof Parameter) ||
 				(element instanceof Operation) ||

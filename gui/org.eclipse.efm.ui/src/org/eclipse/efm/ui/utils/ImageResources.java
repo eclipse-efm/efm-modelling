@@ -39,15 +39,21 @@ public class ImageResources {
 	
 	public static final String IMAGE__PUSH_ICON = ICONS_PLUGIN_PATH + "push.png";
 	
+	
+	public static final String IMAGE__SAVE_ICON = ICONS_PLUGIN_PATH + "save.gif";
+
+	public static final String IMAGE__SAVE_AS_ICON = ICONS_PLUGIN_PATH + "save_as.gis";
+
+	
 	public static final String IMAGE__LAUNCHDEBUG_ICON = ICONS_PLUGIN_PATH + "debug_exc.png";
 	
 	public static final String IMAGE__LAUNCHRUN_ICON = ICONS_PLUGIN_PATH + "run_exc.png";
 	
 	
-	
 	public static final String IMAGE__DIALDEBUG_ICON = ICONS_PLUGIN_PATH + "debug_dial.png";
 	
 	public static final String IMAGE__DIALRUN_ICON = ICONS_PLUGIN_PATH + "run_dial.png";
+	
 	
 	public static final String IMAGE__WARNING_ICON = ICONS_PLUGIN_PATH + "warning_st_obj.png";
 	public static final String IMAGE__ERROR_ICON = ICONS_PLUGIN_PATH + "error_st_obj.gif";

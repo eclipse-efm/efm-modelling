@@ -19,6 +19,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationSection;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.ui.utils.ImageResources;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -120,7 +121,12 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		fTabFolder.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				handleModelAnalysisProfileSelectionChange( true );
+				handleModelAnalysisProfileSelectionChange();
+				
+		        fConfigurationPage.propertyChange(
+		        		new PropertyChangeEvent(this,
+		        				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
+		        				fModelAnalysisProfile, fModelAnalysisProfile) );
 
 				fConfigurationPage.propagateUpdateJobScheduling();
 			}
@@ -230,22 +236,13 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			break;
 		}
 		
-		handleModelAnalysisProfileSelectionChange( false );
+		handleModelAnalysisProfileSelectionChange();
 	}
 
 	// ======================================================================================
 	//                              Miscellaneous handling
 	// ======================================================================================
-	public void handleModelFileChange() {
-		if( fModelAnalysisProfile.equals(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
-		{
-			fTransitionCoveragePage.handleModelFilePathChanged(
-					((OverviewConfigurationPage) fConfigurationPage).getModelPathText());
-		}
-	}
-
-	
-	private void handleModelAnalysisProfileSelectionChange(boolean notifyAll) {
+	private void handleModelAnalysisProfileSelectionChange() {
 		if( fModelAnalysisProfileSelectionTabItem != null ) {
 			fModelAnalysisProfileSelectionTabItem.setImage(null);
 		}
@@ -257,15 +254,6 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		fModelAnalysisProfileSelectionTabItem.setImage(
 				ImageResources.getImageDescriptor(
 						ImageResources.IMAGE__VALIDATE_ICON).createImage());
-
-		
-		if( notifyAll ) {
-			for( AbstractConfigurationPage confPage : getConfigurationPages() ) {
-				confPage.handleModelAnalysisProfileSelectionChanged(fModelAnalysisProfile);
-			}
-			
-//			getConfigurationPage().propagateGUIupdate();
-		}
 	}
 
 
@@ -354,7 +342,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		switch( fModelAnalysisProfile ) {
 		case ANALYSIS_PROFILE_MODEL_EXPLORATION: {
-			// TRANSITION COVERAGE ANALYSIS
+			// MODEL EXPLORATION ANALYSIS
 			if( ! fExplorationPage.isValid(launchConfig) )
 			{
 				return false;
@@ -399,6 +387,21 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 
 		return true;
+	}
+	
+
+	///////////////////////////////////////////////////////////////////////////
+	// Property Change
+	//
+	@Override
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		fExplorationPage.handleConfigurationPropertyChange(event); 
+		
+		fTransitionCoveragePage.handleConfigurationPropertyChange(event); 
+		
+		fBehaviorSelectionPage.handleConfigurationPropertyChange(event); 
+		
+		fTestOfflinePage.handleConfigurationPropertyChange(event); 
 	}
 
 }

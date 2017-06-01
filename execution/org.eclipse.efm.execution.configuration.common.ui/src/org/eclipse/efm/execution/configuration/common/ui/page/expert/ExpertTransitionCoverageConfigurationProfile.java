@@ -20,6 +20,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -633,6 +634,29 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		}
 
 		return true;
+	}
+
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Property Change
+	//
+	@Override
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		switch( event.getProperty() ) {
+		case ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION: {
+			if( event.getNewValue() instanceof Boolean ) {
+				if( (Boolean)(event.getNewValue()) ) {
+					fTCScopeCombo.select(2); // SCOPE_COMBO_ITEM_DETAILS:
+				}
+				else {
+					fTCScopeCombo.select(0); // SCOPE_COMBO_ITEM_MODEL:
+				}
+			}
+			break;
+		}
+		default:
+			break;
+		}
 	}
 
 }

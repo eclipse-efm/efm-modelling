@@ -25,6 +25,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
@@ -75,11 +76,6 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	public String getModelPathText() {
-		return fModelPathText.getText();
-	}
-
-
 	/**
 	 * Modify listener that simply updates the owning launch configuration dialog.
 	 */
@@ -88,7 +84,9 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		public void modifyText(ModifyEvent evt) {
 			propagateUpdateJobScheduling();
 
-			fAnalysisProfileSection.handleModelFileChange();
+	        propertyChange( new PropertyChangeEvent(this,
+	        		ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
+	        		fModelPathText.getText(), fModelPathText.getText()) );
 		}
 	};
 
@@ -285,5 +283,15 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		return new FieldValidationReturn(isValid, messageToSend);
 	}
 
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Property Change
+	//
+	@Override
+	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		fOverviewWorkspaceDataSection.handleConfigurationPropertyChange(event); 
+		
+		fAnalysisProfileSection.handleConfigurationPropertyChange(event); 
+	}
 
 }

@@ -60,12 +60,6 @@ public class BooleanFieldEditor extends FieldEditor {
 	private Button checkBox = null;
 
 	/**
-	 * Creates a new boolean field editor
-	 */
-	public BooleanFieldEditor() {
-	}
-
-	/**
 	 * Creates a boolean field editor in the given style.
 	 *
 	 * @param name

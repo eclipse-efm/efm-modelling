@@ -19,6 +19,7 @@ import java.util.List;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractSectionPart {
@@ -153,5 +154,11 @@ public abstract class AbstractSectionPart {
 	}
 
 
-	
+	///////////////////////////////////////////////////////////////////////////
+	// Property Change
+	//
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		//!! Default 
+	}
+
 }

@@ -86,11 +86,13 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		// Actions
 		makeActions();
 		setupTopLevelActionBars(new Action[] {
+				action_apply_changes,
+
 				action_launch_runconf,
 				action_launch_debugconf,
+				
 				action_opend_runconf,
-				action_opend_debugconf,
-				action_apply_changes
+				action_opend_debugconf
 			});
 
 		// Frame
@@ -450,6 +452,10 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 				acm.applyUpdatesOnFieldValuesFrom(rwConfiguration);
 			}
 			rwConfiguration.doSave();
+			
+			if( action_apply_changes != null ) {
+				action_apply_changes.setEnabled(false);
+			}
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
@@ -471,6 +477,22 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	private Action action_apply_changes;
 
 	private void makeActions() {
+		action_apply_changes = new Action() {
+			public void run() {
+				if( launchConfigurationManager.hasSelection() ) {
+					saveLaunchConfiguration( launchConfigurationManager.getSelection() );
+				}
+			}
+		};
+		action_apply_changes.setText("Apply changes on Launch Configuration");
+		action_apply_changes.setToolTipText("Apply changes on Launch Configuration");
+		action_apply_changes.setImageDescriptor(
+				ImageResources.getImageDescriptor(
+//						ImageResources.IMAGE__PUSH_ICON));
+						ImageResources.IMAGE__SAVE_ICON));
+		
+		action_apply_changes.setEnabled(false);
+
 		action_launch_runconf = new Action() {
 			public void run() {
 				if( launchConfigurationManager.hasSelection() ) {
@@ -545,17 +567,6 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		action_opend_help.setToolTipText("Open the Diversity Help");
 		action_opend_help.setImageDescriptor(
 				ImageResources.getImageDescriptor(ImageResources.IMAGE__HELP_ICON));
-
-		action_apply_changes = new Action() {
-			public void run() {
-				if( launchConfigurationManager.hasSelection() ) {
-					saveLaunchConfiguration( launchConfigurationManager.getSelection() );
-				}
-			}
-		};
-		action_apply_changes.setText("Apply changes on Launch Configuration");
-		action_apply_changes.setToolTipText("Apply changes on Launch Configuration");
-		action_apply_changes.setImageDescriptor(ImageResources.getImageDescriptor(ImageResources.IMAGE__PUSH_ICON));
 	}
 
 	// ======================================================================================
@@ -577,6 +588,10 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		if( launchConfigurationManager.hasSelection() ) {
 			ILaunchConfiguration selectedLC = launchConfigurationManager.getSelection();
 			updateEnableTab(true);
+			
+			if( action_apply_changes != null ) {
+				action_apply_changes.setEnabled(true);
+			}
 
 			try {
 				ILaunchConfigurationWorkingCopy newcopy = selectedLC.getWorkingCopy();
