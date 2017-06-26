@@ -832,7 +832,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 					}
 
 					if( isEnabledConfiguring() ) {
-						writer.appendTab2Eol( "flag = 'CONFIGURE'" );
+						writer.appendTab2Eol( "flag = 'CONFIGURING'" );
 					}
 
 					if( isEnabledCompiling() ) {

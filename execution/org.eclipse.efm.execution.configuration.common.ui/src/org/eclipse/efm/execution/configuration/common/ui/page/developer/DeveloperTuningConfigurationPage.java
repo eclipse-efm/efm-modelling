@@ -194,8 +194,7 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 		createDebugTraceOptionsComponent(group, widgetToolkit);
 	}
 
-	private void setEnableDeveloperTuningOptionsPage(
-			ILaunchConfiguration configuration, boolean enabled) {
+	private void setEnableDeveloperTuningOptionsPage(boolean enabled) {
 		fLogFileNameStringField.setEnabled(enabled);
 		fDebugTraceFileNameStringField.setEnabled(enabled);
 
@@ -219,6 +218,15 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 		fDeveloperModeEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_DEVELOPER_TUNING, "&Developer Mode", comp, false);
+		
+		fDeveloperModeEnabledBooleanField.addSelectionListener(
+				new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						setEnableDeveloperTuningOptionsPage(
+								fDeveloperModeEnabledBooleanField.getBooleanValue() );
+					}
+				});
 
 		comp = widgetToolkit.createComposite(
 				parent, 1, 5, GridData.FILL_HORIZONTAL);
@@ -691,7 +699,7 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 		fNothingEnabledBooleanField.initializeFrom(configuration);
 		fGodModeEnabledBooleanField.initializeFrom(configuration);
 
-		setEnableDeveloperTuningOptionsPage(configuration,
+		setEnableDeveloperTuningOptionsPage(
 				fDeveloperModeEnabledBooleanField.getBooleanValue() );
 	}
 
@@ -727,7 +735,7 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
 		fDeveloperModeEnabledBooleanField.performApply(configuration);
 
-		setEnableDeveloperTuningOptionsPage(configuration,
+		setEnableDeveloperTuningOptionsPage(
 				fDeveloperModeEnabledBooleanField.getBooleanValue() );
 
 		fLogFileNameStringField.performApply(configuration);

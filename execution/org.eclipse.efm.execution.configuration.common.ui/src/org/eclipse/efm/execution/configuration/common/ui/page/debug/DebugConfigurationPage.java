@@ -25,6 +25,7 @@ import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleVerbosityKind;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -75,6 +76,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	
 
 	// Second Symbex Workflow Page
+	private Group fGroupSecondStageSymbexWorkflow;
 //		private BooleanFieldEditor fSecondParsedModelGraphizEnabledBooleanField;
 ////		private StringFieldEditor  fSecondParsedModelGraphizFileNameStringField;
 //
@@ -84,6 +86,8 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 //		private BooleanFieldEditor fSecondCompiledModelTextualEnabledBooleanField;
 ////		private StringFieldEditor  fSecondCompiledModelTextualFileNameStringField;
 
+	private Group fGroupSymbexOutputGeneratedTraces;
+	
 	private BooleanFieldEditor fSecondSymbexOutputTextualEnabledBooleanField;
 //		private StringFieldEditor  fSecondSymbexOutputTextualFileNameStringField;
 
@@ -262,22 +266,19 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 
 	private void setEnableFirstExecutionPage(boolean checked) {
-		fGroupFirstSymbexOutputTrace.setVisible(checked);
 		propagateVisibility(fGroupFirstSymbexOutputTrace, checked);
 		
-		fGroupFirstSymbexOutputFormat.setVisible(checked);
 		propagateVisibility(fGroupFirstSymbexOutputFormat, checked);
 	}
 
 
 	public void createSecondSymbexWorkflowtPage(Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
-				"Second Stage Symbex Workflow Page",
-				1, 1, GridData.FILL_HORIZONTAL);
+		fGroupSecondStageSymbexWorkflow = widgetToolkit.createGroup(parent,
+				"Second Stage Symbex Workflow Page", 1, 1, GridData.FILL_HORIZONTAL);
 
 //			createSecondInputModelGraphicComponent(group);
 
-		createSecondSymbexOutputComponent(group, widgetToolkit);
+		createSecondSymbexOutputComponent(fGroupSecondStageSymbexWorkflow, widgetToolkit);
 	}
 
 
@@ -306,19 +307,19 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 //		}
 
 	private void createSecondSymbexOutputComponent(Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
+		fGroupSymbexOutputGeneratedTraces = widgetToolkit.createGroup(parent,
 				"Symbex Output Generated Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
 
 		Composite comp = widgetToolkit.createComposite(
-				group, 1, 1, GridData.FILL_HORIZONTAL);
+				fGroupSymbexOutputGeneratedTraces, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fSecondSymbexOutputTextualEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_TEXTUAL_GENERATION,
 				"&Basic Textual Representation", comp, false);
 
 
-		group = widgetToolkit.createGroup(comp,
+		Group group = widgetToolkit.createGroup(comp,
 				"Symbex Output Generated Graphic Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
 
@@ -348,10 +349,8 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 
 	private void setEnableSecondExecutionPage(boolean checked) {
-		fGroupSecondSymbexOutputTrace.setVisible(checked);
 		propagateVisibility(fGroupSecondSymbexOutputTrace, checked);
 		
-		fGroupSecondSymbexOutputFormat.setVisible(checked);
 		propagateVisibility(fGroupSecondSymbexOutputFormat, checked);
 	}
 
@@ -561,25 +560,25 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		fFirstSymbexOutputGraphizFormatStringField.performApply(configuration);
 
 
-//			fSecondParsedModelTextualEnabledBooleanField.performApply(configuration);
-//			fSecondParsedModelGraphizEnabledBooleanField.performApply(configuration);
-//			if( fEnabledSymbexDeveloperMode ) {
-//				fSecondCompiledModelTextualEnabledBooleanField.performApply(configuration);
-//			}
+//		fSecondParsedModelTextualEnabledBooleanField.performApply(configuration);
+//		fSecondParsedModelGraphizEnabledBooleanField.performApply(configuration);
+//		if( fEnabledSymbexDeveloperMode ) {
+//			fSecondCompiledModelTextualEnabledBooleanField.performApply(configuration);
+//		}
 
-			fSecondSymbexOutputTextualEnabledBooleanField.performApply(configuration);
-			fSecondSymbexOutputGraphizEnabledBooleanField.performApply(configuration);
-			fSecondSymbexOutputGraphizTraceStringField.performApply(configuration);
+		fSecondSymbexOutputTextualEnabledBooleanField.performApply(configuration);
+		fSecondSymbexOutputGraphizEnabledBooleanField.performApply(configuration);
+		fSecondSymbexOutputGraphizTraceStringField.performApply(configuration);
 
-			fSecondSymbexOutputGraphizFormatStringField.performApply(configuration);
+		fSecondSymbexOutputGraphizFormatStringField.performApply(configuration);
 
 
-			setEnableFirstExecutionPage(
-					fFirstSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
+		setEnableFirstExecutionPage(
+				fFirstSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
 
-			setEnableSecondExecutionPage(
-					fSecondSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
-		}
+		setEnableSecondExecutionPage(
+				fSecondSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
+	}
 
 
 	// ======================================================================================
@@ -590,6 +589,29 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
 		return new FieldValidationReturn(true, null);
 	}
+
+	
+	///////////////////////////////////////////////////////////////////////////
+	// Property Change
+	//
+	@Override
+	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		switch( event.getProperty() ) {
+		case ATTR_ENABLED_TRACE_EXTENSION:
+//			fGroupSecondStageSymbexWorkflow.setEnabled( (Boolean)( event.getNewValue() ) );
+			
+			propagateVisibility(fGroupSecondStageSymbexWorkflow,
+					(Boolean)( event.getNewValue() ) );
+			
+//			propagateVisibility(fGroupSymbexOutputGeneratedTraces,
+//					(Boolean)( event.getNewValue() ) );
+			break;
+				
+		default:
+			break;
+		}
+	}
+	
 
 }
 

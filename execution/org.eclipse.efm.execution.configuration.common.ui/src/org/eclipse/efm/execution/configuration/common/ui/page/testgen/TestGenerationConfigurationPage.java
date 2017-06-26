@@ -89,6 +89,11 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
 						handleEnablingTraceExtension();
+						
+						propertyChange( new PropertyChangeEvent(this, ATTR_ENABLED_TRACE_EXTENSION,
+								new Boolean(fTraceExtensionEnabledBooleanField.getBooleanValue()),
+								new Boolean(fTraceExtensionEnabledBooleanField.getBooleanValue()) ));
+
 					}
 				});
 
