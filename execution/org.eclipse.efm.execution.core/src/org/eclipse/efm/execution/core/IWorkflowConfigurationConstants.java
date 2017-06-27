@@ -566,7 +566,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 //			%2% --> <environment channel> | <(system|environment) port>
 //			%4% --> <template port as type>
 //			%4% --> <template port identifier>
-			"\t\t%2%_send_%3%( %4% )";
+			"\t\t%2%_send_%3%( %4% );";
 
 
 	public static final String ATTR_TTCN_TESTCASES_RECEIVING_WRAPPER =
@@ -577,7 +577,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 //			%2% --> <environment channel> | <(system|environment) port>
 //			%3% --> <template port as type>
 //			%4% --> <template port identifier>
-			"\t\t%2%_receive_%3%( %4% )";
+			"\t\t%2%_receive_%3%( %4% );";
 
 
 	public static final String ATTR_TTCN_ADAPTATION_MODULE_NAME =
@@ -622,7 +622,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 //			%3% --> <template port identifier>
 //			%4% --> <system>
 			= "\tfunction %2%_send_%3%( template %3% pdu ) runs on runsOn_%1% {"
-			+ "\n\t\t%2%.send( %3% )"
+			+ "\n\t\t%2%.send( %3% );"
 			+ "\n\t}"; //$NON-NLS-1$
 
 
@@ -631,7 +631,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 
 	public static final String DEFAULT_TTCN_TESTCASES_RECEIVING_IMPL
 			= "\tfunction %2%_receive_%3%( template %3% pdu ) runs on runsOn_%1% {"
-			+ "\n\t\t%2%.receive( %3% )"
+			+ "\n\t\t%2%.receive( %3% );"
 			+ "\n\t}"; //$NON-NLS-1$
 
 

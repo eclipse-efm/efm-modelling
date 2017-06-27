@@ -735,9 +735,6 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
 		fDeveloperModeEnabledBooleanField.performApply(configuration);
 
-		setEnableDeveloperTuningOptionsPage(
-				fDeveloperModeEnabledBooleanField.getBooleanValue() );
-
 		fLogFileNameStringField.performApply(configuration);
 		fDebugTraceFileNameStringField.performApply(configuration);
 

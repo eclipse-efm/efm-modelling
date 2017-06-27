@@ -245,8 +245,16 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		fFirstSymbexOutputGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION,
 				"&<Graphiz> Representation", comp, false);
+		fFirstSymbexOutputGraphizEnabledBooleanField.addSelectionListener(
+				new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						setEnableFirstExecutionPage(
+								fFirstSymbexOutputGraphizEnabledBooleanField.
+								getBooleanValue() );
+					}
+				});
 
-		
 		fGroupFirstSymbexOutputTrace = widgetToolkit.createGroup(
 				comp, "&Trace:", 1, 2, GridData.FILL_BOTH);
 		fFirstSymbexOutputGraphizTraceStringField = new StringFieldEditor(
@@ -329,6 +337,15 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		fSecondSymbexOutputGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION,
 				"&<Graphiz> Representation", comp, false);
+		fSecondSymbexOutputGraphizEnabledBooleanField.addSelectionListener(
+				new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						setEnableSecondExecutionPage(
+								fSecondSymbexOutputGraphizEnabledBooleanField.
+								getBooleanValue() );
+					}
+				});
 
 		fGroupSecondSymbexOutputTrace = widgetToolkit.createGroup(
 				comp, "&Trace:", 1, 2, GridData.FILL_BOTH);
@@ -519,6 +536,14 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 		setEnableSecondExecutionPage(
 				fSecondSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
+		
+		try {
+			propagateVisibility(fGroupSecondStageSymbexWorkflow,
+					configuration.getAttribute(ATTR_ENABLED_TRACE_EXTENSION, false));
+		}
+		catch (CoreException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initializeConsoleLevel() {
