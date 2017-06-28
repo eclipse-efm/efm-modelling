@@ -41,6 +41,9 @@ import org.eclipse.uml2.uml.ValueSpecification;
 
 public class ClassCodeGenerator extends AbstractCodeGenerator {
 
+	public static final String XLIA_SYSTEM_1_0 = "@xlia< system , 1.0 >:";
+
+
 	/**
 	 * Constructor
 	 */
@@ -268,7 +271,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		collectElement(element, properties, machinesAsBlock,
 				blockInstances, machinesAsConfiguration);
 
-		writer.appendTabEol2("@xlia< system , 1.0 >:");
+		writer.appendTabEol2(XLIA_SYSTEM_1_0);
 
 
 		writer.appendTabEol("//!!FML:gen< FormalModel >");
@@ -368,7 +371,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		collectElement(element, properties,
 				machinesAsBlock, blockInstances, behaviors, null);
 
-		writer.appendTabEol2("@xlia< system , 1.0 >:");
+		writer.appendTabEol2(XLIA_SYSTEM_1_0);
 
 		Configuration elementConfiguration =
 				StereotypeUtil.getConfiguration(element);

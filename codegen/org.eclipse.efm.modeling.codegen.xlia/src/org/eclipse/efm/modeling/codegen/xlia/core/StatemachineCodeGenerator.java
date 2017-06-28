@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.core;
 
+import java.util.ArrayList;
+
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 //import org.eclipse.efm.modeling.formalml.ReceiveEvent;
 import org.eclipse.efm.modeling.formalml.TimedTransition;
@@ -20,8 +22,10 @@ import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Event;
 import org.eclipse.uml2.uml.FinalState;
+import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.OpaqueExpression;
 import org.eclipse.uml2.uml.Port;
+import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.Region;
 import org.eclipse.uml2.uml.SignalEvent;
@@ -33,6 +37,9 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.Vertex;
 
 public class StatemachineCodeGenerator extends AbstractCodeGenerator {
+
+	public static final String TRANSITION_GUARD_ELSE = "else";
+
 
 	/**
 	 * Constructor
@@ -92,6 +99,62 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			.append(element.getName())
 			.appendEol(" {");
 
+		EList<Property> properties = element.getOwnedAttributes();
+		if( (properties != null) && (! properties.isEmpty()) ) {
+			// Section property
+			//
+			writer.appendTabEol("@property:");
+			
+			// A writer indenting with TAB + iTAB -> TAB2
+			PrettyPrintWriter writer2 = writer.itab2();
+			for( Element property : properties ) {
+				fSupervisor.performTransform(property, writer2);
+			}
+		}
+		
+		transformRegion(listOfRegion, writer);
+
+		writer.appendTab("} // end statemachine ")
+			.appendEol2(element.getName());
+	}
+
+
+	public void transformStatemachine(StateMachine element,
+			ArrayList<Message> inputMessage, PrettyPrintWriter writer) {
+		final EList<Region> listOfRegion = element.getRegions();
+
+		writer.appendTab("statemachine< ")
+			.append( (listOfRegion.size() > 1) ? "and" : "or" )
+			.append(" > ")
+			.append(element.getName())
+			.appendEol(" {");
+
+		EList<Property> properties = element.getOwnedAttributes();
+		if( (properties != null) && (! properties.isEmpty())
+			|| ((inputMessage != null) && (! inputMessage.isEmpty())) ) {
+			// Section property
+			//
+			writer.appendTabEol("@property:");
+			
+			// A writer indenting with TAB + iTAB -> TAB2
+			PrettyPrintWriter writer2 = writer.itab2();
+
+			writer2.appendTabEol("// message");
+			
+			// TODO declarer les variables necessaires pour l'input
+//			for (Message message : inputMessage) {
+//				writer2.appendTab("input message " )
+//					.append(message.getName())
+//					.appendEol(";");
+//			}
+						
+			writer2.appendTabEol("// end message");
+
+			for( Element property : properties ) {
+				fSupervisor.performTransform(property, writer2);
+			}
+		}
+		
 		transformRegion(listOfRegion, writer);
 
 		writer.appendTab("} // end statemachine ")
@@ -336,7 +399,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 				StereotypeUtil.getTimedTransition(element);
 		
 		boolean isElseGuard =
-				fSupervisor.isConstraintSymbol(element.getGuard(), "else");
+				fSupervisor.isConstraintSymbol(element.getGuard(), TRANSITION_GUARD_ELSE);
 
 		boolean isElseTransition = isElseGuard && (timedTransition == null);
 		

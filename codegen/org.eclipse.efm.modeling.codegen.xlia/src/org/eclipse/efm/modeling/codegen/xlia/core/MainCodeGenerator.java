@@ -22,9 +22,12 @@ import org.eclipse.efm.modeling.formalml.helpers.StereotypeUtil;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.uml2.uml.ActionExecutionSpecification;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Behavior;
+import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.ConnectableElement;
 import org.eclipse.uml2.uml.Connector;
 import org.eclipse.uml2.uml.ConnectorEnd;
@@ -33,17 +36,24 @@ import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.EnumerationLiteral;
+import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.Expression;
 import org.eclipse.uml2.uml.FinalState;
+import org.eclipse.uml2.uml.Gate;
 import org.eclipse.uml2.uml.Interaction;
+import org.eclipse.uml2.uml.InteractionOperand;
+import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.LiteralBoolean;
 import org.eclipse.uml2.uml.LiteralInteger;
 import org.eclipse.uml2.uml.LiteralReal;
 import org.eclipse.uml2.uml.LiteralString;
 import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
+import org.eclipse.uml2.uml.Message;
+import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.OpaqueBehavior;
+import org.eclipse.uml2.uml.OpaqueExpression;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.PackageableElement;
@@ -90,6 +100,11 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 	 */
 	public StatemachineCodeGenerator fStatemachineFactory;
 
+	/**
+	 * Co-Codegenfactory for Interaction Element
+	 */
+	public InteractionCodeGenerator fInteractionFactory;
+
 
 	/**
 	 * Constructor
@@ -102,6 +117,9 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 		this.fDataTypeFactory = new DataTypeCodeGenerator(this);
 
 		this.fStatemachineFactory = new StatemachineCodeGenerator(this);
+		
+		this.fInteractionFactory = new InteractionCodeGenerator(this);
+
 	}
 
 
@@ -197,14 +215,23 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 			transformOpaqueBehavior((OpaqueBehavior)element, writer);
 		}
 
-		// ClassFactory
-		else if( element instanceof Class ) {
-			fClassFactory.transformClassDefinition((Class)element, writer);
+		
+		// Interaction Factory
+		else if( (element instanceof Interaction )
+				|| (element instanceof Lifeline )
+				|| (element instanceof Message )
+				|| (element instanceof MessageOccurrenceSpecification )
+				|| (element instanceof Gate )
+				|| (element instanceof Constraint)
+				|| (element instanceof InteractionOperand)
+				|| (element instanceof CombinedFragment)
+				|| (element instanceof ActionExecutionSpecification)
+				|| (element instanceof ExecutionOccurrenceSpecification)
+				|| (element instanceof BehaviorExecutionSpecification ) )
+		{
+			fInteractionFactory.performTransformImpl(element, writer);
 		}
 
-		else if( element instanceof Model ) {
-			fClassFactory.transformFormalModel((Model)element, writer);
-		}
 
 		// DataTypeFactory
 		else if( element instanceof Enumeration ) {
@@ -244,6 +271,15 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 		}
 		else if( element instanceof Signal ) {
 			transformSignal((Signal)element, writer);
+		}
+
+		// ClassFactory
+		else if( element instanceof Class ) {
+			fClassFactory.transformClassDefinition((Class)element, writer);
+		}
+
+		else if( element instanceof Model ) {
+			fClassFactory.transformFormalModel((Model)element, writer);
 		}
 
 		else if( element instanceof NamedElement ) {
@@ -825,6 +861,13 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 	public boolean isExpressionSymbol(ValueSpecification value, String aSymbol) {
 		if( value instanceof Expression ) {
 			return( aSymbol.equals( ((Expression) value).getSymbol() ) );
+		}
+		else if( value instanceof OpaqueExpression ) {
+			OpaqueExpression opaqExpr = ((OpaqueExpression) value);
+			
+			if( ! opaqExpr.getBodies().isEmpty() ) {
+				return( aSymbol.equals( opaqExpr.getBodies().get(0) ) );
+			}
 		}
 
 		return( false );
