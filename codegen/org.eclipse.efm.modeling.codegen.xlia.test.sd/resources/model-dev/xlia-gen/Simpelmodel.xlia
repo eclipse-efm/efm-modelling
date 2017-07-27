@@ -1,0 +1,558 @@
+@xlia< system , 1.0 >:
+
+system< and > Interaction1 {
+@property: 
+// message
+	message msg1;
+	message S2_Message;
+	message S1_Message;
+	message SeqMsg;
+	message Message;
+// end message
+	var fifo<integer , 30> sched_alice;
+	var fifo<integer , 30> sched_alice2;
+	var fifo<integer , 30> sched_bob;
+	var fifo<integer , *> fifo_alice;
+	var fifo<integer , *> fifo_alice2;
+	var fifo<integer , *> fifo_bob;
+@composite: 
+	statemachine< or > alice {
+	@property:
+		// message
+		// end message
+		public var int loopIndex_LoopFrag;
+	@region: // name: alice
+		state< initial > init_alice {
+			transition t_init_alice {
+			} --> BhExec#Bh0;
+		} // end pseudo-state init_alice
+
+		state BhExec#Bh0 {
+			transition Bh0 {
+				 x=1;
+			} --> BhExec#Bh1;
+		} // end state BhExec#Bh0
+
+		state< final > final_alice {
+		} // end final-state final_alice
+
+		state BhExec#Bh1 {
+			transition Bh1 {
+				 pin = pin +1;
+			} --> MsgOcc#msg1_Send;
+		} // end state BhExec#Bh1
+
+		state MsgOcc#msg1_Send {
+			transition tr_msg1_Send {
+				output msg --> alice2;
+			} --> LoopFragment#LoopFrag;
+		} // end state MsgOcc#msg1_Send
+
+		state LoopFragment#LoopFrag {
+			transition tr_loop_first {
+				guard(  pin<8 );
+			} --> loop_LoopFrag;
+
+			transition tr_loop_not_first {
+				guard(  pin<8 );
+			} --> loop_LoopFrag;
+		} // end state LoopFragment#LoopFrag
+
+		state loop_LoopFrag {
+			transition tr_loop {
+				guard(  pin<8 );
+				guard( loopIndex_LoopFrag >= 0 && loopIndex_LoopFrag <= 1 );
+			} --> loop_LoopFrag;
+
+			transition< else > tr_quit_loop {
+			} --> MsgOcc#MsgGate;
+		} // end state loop_LoopFrag
+
+		state< or > MsgOcc#MsgGate {
+		@region: // name: LoopFrag
+			state< initial > init_LoopFrag {
+				transition t_init_LoopFrag {
+				} --> final_LoopFrag;
+			} // end pseudo-state init_LoopFrag
+
+			state< final > final_LoopFrag {
+			} // end final-state final_LoopFrag
+
+		// end @region: LoopFrag
+			@transition:
+			transition tr_MsgGate {
+				output S1( x ) --> env;
+			} --> MsgOcc#S2_Recv;
+		} // end state MsgOcc#MsgGate
+
+		state MsgOcc#S2_Recv {
+			transition tr_S2_Recv {
+				input S2( x,  y );
+			} --> targetMsgOcc#S2_Recv;
+		} // end state MsgOcc#S2_Recv
+
+		state targetMsgOcc#S2_Recv {
+			transition tr_alt_first#InteractionOperand0 {
+				guard(  x>2 );
+			} --> region_alt#InteractionOperand0;
+
+			transition tr_alt_not_first#InteractionOperand0 {
+				guard(  x>2 );
+			} --> region_alt#InteractionOperand0;
+
+			transition tr_alt_first#InteractionOperand1 {
+				guard(  x<10 );
+			} --> region_alt#InteractionOperand1;
+
+			transition tr_alt_not_first#InteractionOperand1 {
+				guard(  x<10 );
+			} --> region_alt#InteractionOperand1;
+
+			transition< else > tr_alt_first#ElseOperand {
+			} --> region_alt#ElseOperand;
+
+			transition< else > tr_alt_not_first#ElseOperand {
+			} --> region_alt#ElseOperand;
+		} // end state targetMsgOcc#S2_Recv
+
+		state exit_alt#AltFrag {
+		} // end state exit_alt#AltFrag
+
+		state< or > region_alt#InteractionOperand0 {
+		@region: // name: AltFrag
+			state< initial > init_AltFrag {
+				transition t_init_AltFrag {
+				} --> final_AltFrag;
+			} // end pseudo-state init_AltFrag
+
+			state< final > final_AltFrag {
+			} // end final-state final_AltFrag
+
+		// end @region: AltFrag
+			@transition:
+			transition tr_alt_quit#InteractionOperand0 {
+			} --> exit_alt#AltFrag;
+		} // end state region_alt#InteractionOperand0
+
+		state< or > region_alt#InteractionOperand1 {
+		@region: // name: AltFrag
+			state< initial > init_AltFrag {
+				transition t_init_AltFrag {
+				} --> MsgOcc#S1_Send;
+			} // end pseudo-state init_AltFrag
+
+			state MsgOcc#S1_Send {
+				transition tr_S1_Send {
+					output S1( k ) --> alice2;
+				} --> final_AltFrag;
+			} // end state MsgOcc#S1_Send
+
+			state< final > final_AltFrag {
+			} // end final-state final_AltFrag
+
+		// end @region: AltFrag
+			@transition:
+			transition tr_alt_quit#InteractionOperand1 {
+			} --> exit_alt#AltFrag;
+		} // end state region_alt#InteractionOperand1
+
+		state< or > region_alt#ElseOperand {
+		@region: // name: AltFrag
+			state< initial > init_AltFrag {
+				transition t_init_AltFrag {
+				} --> final_AltFrag;
+			} // end pseudo-state init_AltFrag
+
+			state< final > final_AltFrag {
+			} // end final-state final_AltFrag
+
+		// end @region: AltFrag
+			@transition:
+			transition tr_alt_quit#ElseOperand {
+			} --> exit_alt#AltFrag;
+		} // end state region_alt#ElseOperand
+
+	// end @region: alice
+	} // end statemachine alice
+
+	statemachine< or > alice2 {
+	@property:
+		// message
+		// end message
+		public var int loopIndex_LoopFrag;
+	@region: // name: alice2
+		state< initial > init_alice2 {
+			transition t_init_alice2 {
+			} --> MsgOcc#msg_MessageRecv;
+		} // end pseudo-state init_alice2
+
+		state MsgOcc#msg_MessageRecv {
+			transition tr_msg_MessageRecv {
+				input msg;
+			} --> LoopFragment#LoopFrag;
+		} // end state MsgOcc#msg_MessageRecv
+
+		state< final > final_alice2 {
+		} // end final-state final_alice2
+
+		state LoopFragment#LoopFrag {
+			transition tr_loop_first {
+				guard(  pin<8 );
+			} --> loop_LoopFrag;
+
+			transition tr_loop_not_first {
+				guard(  pin<8 );
+			} --> loop_LoopFrag;
+		} // end state LoopFragment#LoopFrag
+
+		state loop_LoopFrag {
+			transition tr_loop {
+				guard(  pin<8 );
+				guard( loopIndex_LoopFrag >= 0 && loopIndex_LoopFrag <= 1 );
+			} --> loop_LoopFrag;
+
+			transition< else > tr_quit_loop {
+			} --> BhExec#Bh3;
+		} // end state loop_LoopFrag
+
+		state< or > BhExec#Bh3 {
+		@region: // name: LoopFrag
+			state< initial > init_LoopFrag {
+				transition t_init_LoopFrag {
+				} --> final_LoopFrag;
+			} // end pseudo-state init_LoopFrag
+
+			state< final > final_LoopFrag {
+			} // end final-state final_LoopFrag
+
+		// end @region: LoopFrag
+			@transition:
+			transition Bh3 {
+			} --> targetBhExec#Bh3;
+		} // end state BhExec#Bh3
+
+		state targetBhExec#Bh3 {
+			transition tr_alt_first#InteractionOperand0 {
+				guard(  x>2 );
+			} --> region_alt#InteractionOperand0;
+
+			transition tr_alt_not_first#InteractionOperand0 {
+				guard(  x>2 );
+			} --> region_alt#InteractionOperand0;
+
+			transition tr_alt_first#InteractionOperand1 {
+				guard(  x<10 );
+			} --> region_alt#InteractionOperand1;
+
+			transition tr_alt_not_first#InteractionOperand1 {
+				guard(  x<10 );
+			} --> region_alt#InteractionOperand1;
+
+			transition< else > tr_alt_first#ElseOperand {
+			} --> region_alt#ElseOperand;
+
+			transition< else > tr_alt_not_first#ElseOperand {
+			} --> region_alt#ElseOperand;
+		} // end state targetBhExec#Bh3
+
+		state exit_alt#AltFrag {
+		} // end state exit_alt#AltFrag
+
+		state< or > region_alt#InteractionOperand0 {
+		@region: // name: AltFrag
+			state< initial > init_AltFrag {
+				transition t_init_AltFrag {
+				} --> final_AltFrag;
+			} // end pseudo-state init_AltFrag
+
+			state< final > final_AltFrag {
+			} // end final-state final_AltFrag
+
+		// end @region: AltFrag
+			@transition:
+			transition tr_alt_quit#InteractionOperand0 {
+			} --> exit_alt#AltFrag;
+		} // end state region_alt#InteractionOperand0
+
+		state< or > region_alt#InteractionOperand1 {
+		@region: // name: AltFrag
+			state< initial > init_AltFrag {
+				transition t_init_AltFrag {
+				} --> MsgOcc#S1_MessageRecv;
+			} // end pseudo-state init_AltFrag
+
+			state MsgOcc#S1_MessageRecv {
+				transition tr_S1_MessageRecv {
+					input S1( k );
+				} --> final_AltFrag;
+			} // end state MsgOcc#S1_MessageRecv
+
+			state< final > final_AltFrag {
+			} // end final-state final_AltFrag
+
+		// end @region: AltFrag
+			@transition:
+			transition tr_alt_quit#InteractionOperand1 {
+			} --> exit_alt#AltFrag;
+		} // end state region_alt#InteractionOperand1
+
+		state< or > region_alt#ElseOperand {
+		@region: // name: AltFrag
+			state< initial > init_AltFrag {
+				transition t_init_AltFrag {
+				} --> StrictFragment#StrictFrag;
+			} // end pseudo-state init_AltFrag
+
+			state StrictFragment#StrictFrag {
+				transition tr_strict_region#StrictOp0 {
+					guard(  y<9 );
+				} --> strict#StrictOp0;
+
+				transition tr_else_strict_region#StrictOp0 {
+					guard(  y>11 );
+				} --> strict#StrictOp1;
+			} // end state StrictFragment#StrictFrag
+
+			state< final > final_AltFrag {
+			} // end final-state final_AltFrag
+
+			state< or > strict#StrictOp0 {
+			@region: // name: StrictOp0
+				state< initial > init_StrictOp0 {
+					transition t_init_StrictOp0 {
+					} --> MsgOcc#msgSeq_Send;
+				} // end pseudo-state init_StrictOp0
+
+				state MsgOcc#msgSeq_Send {
+					transition tr_msgSeq_Send {
+						output msg --> bob;
+					} --> final_StrictOp0;
+				} // end state MsgOcc#msgSeq_Send
+
+				state< final > final_StrictOp0 {
+				} // end final-state final_StrictOp0
+
+			// end @region: StrictOp0
+				@transition:
+				transition tr_strict_region#StrictOp1 {
+					guard(  y>11 );
+				} --> strict#StrictOp1;
+
+				transition tr_else_strict_region#StrictOp1 {
+				} --> exit_strict#StrictFrag;
+			} // end state strict#StrictOp0
+
+			state< or > strict#StrictOp1 {
+			@region: // name: StrictOp1
+				state< initial > init_StrictOp1 {
+					transition t_init_StrictOp1 {
+					} --> final_StrictOp1;
+				} // end pseudo-state init_StrictOp1
+
+				state< final > final_StrictOp1 {
+				} // end final-state final_StrictOp1
+
+			// end @region: StrictOp1
+				@transition:
+				transition tr_strict_quit#StrictFrag {
+				} --> exit_strict#StrictFrag;
+			} // end state strict#StrictOp1
+
+			state exit_strict#StrictFrag {
+			} // end state exit_strict#StrictFrag
+
+		// end @region: AltFrag
+			@transition:
+			transition tr_alt_quit#ElseOperand {
+			} --> exit_alt#AltFrag;
+		} // end state region_alt#ElseOperand
+
+	// end @region: alice2
+	} // end statemachine alice2
+
+	statemachine< or > bob {
+	@property:
+		// message
+		// end message
+		public var int loopIndex_LoopFrag;
+	@region: // name: bob
+		state< initial > init_bob {
+			transition t_init_bob {
+			} --> LoopFragment#LoopFrag;
+		} // end pseudo-state init_bob
+
+		state LoopFragment#LoopFrag {
+			transition tr_loop_first {
+				guard(  pin<8 );
+			} --> loop_LoopFrag;
+
+			transition tr_loop_not_first {
+				guard(  pin<8 );
+			} --> loop_LoopFrag;
+		} // end state LoopFragment#LoopFrag
+
+		state< final > final_bob {
+		} // end final-state final_bob
+
+		state loop_LoopFrag {
+			transition tr_loop {
+				guard(  pin<8 );
+				guard( loopIndex_LoopFrag >= 0 && loopIndex_LoopFrag <= 1 );
+			} --> loop_LoopFrag;
+
+			transition< else > tr_quit_loop {
+			} --> MsgOcc#S2_MessageSend;
+		} // end state loop_LoopFrag
+
+		state< or > MsgOcc#S2_MessageSend {
+		@region: // name: LoopFrag
+			state< initial > init_LoopFrag {
+				transition t_init_LoopFrag {
+				} --> final_LoopFrag;
+			} // end pseudo-state init_LoopFrag
+
+			state< final > final_LoopFrag {
+			} // end final-state final_LoopFrag
+
+		// end @region: LoopFrag
+			@transition:
+			transition tr_S2_MessageSend {
+				output S2( x,  y ) --> alice;
+			} --> targetMsgOcc#S2_MessageSend;
+		} // end state MsgOcc#S2_MessageSend
+
+		state targetMsgOcc#S2_MessageSend {
+			transition tr_alt_first#InteractionOperand0 {
+				guard(  x>2 );
+			} --> region_alt#InteractionOperand0;
+
+			transition tr_alt_not_first#InteractionOperand0 {
+				guard(  x>2 );
+			} --> region_alt#InteractionOperand0;
+
+			transition tr_alt_first#InteractionOperand1 {
+				guard(  x<10 );
+			} --> region_alt#InteractionOperand1;
+
+			transition tr_alt_not_first#InteractionOperand1 {
+				guard(  x<10 );
+			} --> region_alt#InteractionOperand1;
+
+			transition< else > tr_alt_first#ElseOperand {
+			} --> region_alt#ElseOperand;
+
+			transition< else > tr_alt_not_first#ElseOperand {
+			} --> region_alt#ElseOperand;
+		} // end state targetMsgOcc#S2_MessageSend
+
+		state exit_alt#AltFrag {
+		} // end state exit_alt#AltFrag
+
+		state< or > region_alt#InteractionOperand0 {
+		@region: // name: AltFrag
+			state< initial > init_AltFrag {
+				transition t_init_AltFrag {
+				} --> final_AltFrag;
+			} // end pseudo-state init_AltFrag
+
+			state< final > final_AltFrag {
+			} // end final-state final_AltFrag
+
+		// end @region: AltFrag
+			@transition:
+			transition tr_alt_quit#InteractionOperand0 {
+			} --> exit_alt#AltFrag;
+		} // end state region_alt#InteractionOperand0
+
+		state< or > region_alt#InteractionOperand1 {
+		@region: // name: AltFrag
+			state< initial > init_AltFrag {
+				transition t_init_AltFrag {
+				} --> final_AltFrag;
+			} // end pseudo-state init_AltFrag
+
+			state< final > final_AltFrag {
+			} // end final-state final_AltFrag
+
+		// end @region: AltFrag
+			@transition:
+			transition tr_alt_quit#InteractionOperand1 {
+			} --> exit_alt#AltFrag;
+		} // end state region_alt#InteractionOperand1
+
+		state< or > region_alt#ElseOperand {
+		@region: // name: AltFrag
+			state< initial > init_AltFrag {
+				transition t_init_AltFrag {
+				} --> StrictFragment#StrictFrag;
+			} // end pseudo-state init_AltFrag
+
+			state StrictFragment#StrictFrag {
+				transition tr_strict_region#StrictOp0 {
+					guard(  y<9 );
+				} --> strict#StrictOp0;
+
+				transition tr_else_strict_region#StrictOp0 {
+					guard(  y>11 );
+				} --> strict#StrictOp1;
+			} // end state StrictFragment#StrictFrag
+
+			state< final > final_AltFrag {
+			} // end final-state final_AltFrag
+
+			state< or > strict#StrictOp0 {
+			@region: // name: StrictOp0
+				state< initial > init_StrictOp0 {
+					transition t_init_StrictOp0 {
+					} --> MsgOcc#msg_Message0Recv;
+				} // end pseudo-state init_StrictOp0
+
+				state MsgOcc#msg_Message0Recv {
+					transition tr_msg_Message0Recv {
+						input msg;
+					} --> final_StrictOp0;
+				} // end state MsgOcc#msg_Message0Recv
+
+				state< final > final_StrictOp0 {
+				} // end final-state final_StrictOp0
+
+			// end @region: StrictOp0
+				@transition:
+				transition tr_strict_region#StrictOp1 {
+					guard(  y>11 );
+				} --> strict#StrictOp1;
+
+				transition tr_else_strict_region#StrictOp1 {
+				} --> exit_strict#StrictFrag;
+			} // end state strict#StrictOp0
+
+			state< or > strict#StrictOp1 {
+			@region: // name: StrictOp1
+				state< initial > init_StrictOp1 {
+					transition t_init_StrictOp1 {
+					} --> final_StrictOp1;
+				} // end pseudo-state init_StrictOp1
+
+				state< final > final_StrictOp1 {
+				} // end final-state final_StrictOp1
+
+			// end @region: StrictOp1
+				@transition:
+				transition tr_strict_quit#StrictFrag {
+				} --> exit_strict#StrictFrag;
+			} // end state strict#StrictOp1
+
+			state exit_strict#StrictFrag {
+			} // end state exit_strict#StrictFrag
+
+		// end @region: AltFrag
+			@transition:
+			transition tr_alt_quit#ElseOperand {
+			} --> exit_alt#AltFrag;
+		} // end state region_alt#ElseOperand
+
+	// end @region: bob
+	} // end statemachine bob
+
+} // end Interaction Interaction1
+
