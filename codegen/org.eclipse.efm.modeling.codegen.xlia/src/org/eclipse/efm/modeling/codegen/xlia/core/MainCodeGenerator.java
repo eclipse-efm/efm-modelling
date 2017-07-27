@@ -204,7 +204,7 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 			fStatemachineFactory.transformState((State)element, writer);
 		}
 		else if( element instanceof Vertex ) {
-			fStatemachineFactory.transformVertexContent((Vertex)element, writer);
+			fStatemachineFactory.transformVertexTransition((Vertex)element, writer);
 		}
 		else if( element instanceof Transition ) {
 			fStatemachineFactory.transformTransition((Transition)element, writer);

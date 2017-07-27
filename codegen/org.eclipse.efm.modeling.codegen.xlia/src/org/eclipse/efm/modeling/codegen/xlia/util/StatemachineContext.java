@@ -16,9 +16,9 @@ import org.eclipse.efm.modeling.codegen.xlia.core.StatemachineCodeGenerator;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Expression;
 import org.eclipse.uml2.uml.FinalState;
+import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
-import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.Region;
 import org.eclipse.uml2.uml.State;
@@ -31,6 +31,8 @@ import org.eclipse.uml2.uml.Vertex;
 public class StatemachineContext {
 	
 	public Lifeline coveredLifeline;
+	
+	protected InteractionFragment interactionFragment;
 
 	public StatemachineContext parentContext;
 	
@@ -63,11 +65,10 @@ public class StatemachineContext {
 //	}	
 //	
 	
-	
-	
-	
 	public StatemachineContext(Lifeline lifeline) {
 		coveredLifeline = lifeline;
+		
+		interactionFragment = null;
 		
 		inputMessage = new ArrayList<Message>();
 		outputMessage = new ArrayList<Message>();
@@ -90,8 +91,10 @@ public class StatemachineContext {
 //		Property varY = UmlFactory.createVariable(statemachine, "top_" + lifeline.getName(), UmlFactory.integerType());
 	}	
 	
-	public StatemachineContext(StatemachineContext parentCtx, NamedElement element) {
+	public StatemachineContext(StatemachineContext parentCtx, InteractionFragment element) {
 		coveredLifeline = parentCtx.coveredLifeline;
+		
+		interactionFragment = element;
 		
 		inputMessage = parentCtx.inputMessage;
 		outputMessage = parentCtx.outputMessage;
@@ -101,7 +104,7 @@ public class StatemachineContext {
 		statemachine = parentCtx.statemachine;
 		
 		region = parentCtx.currentState.createRegion(element.getName());
-		
+
 		initializeState(element.getName());
 	}
 	
@@ -117,6 +120,25 @@ public class StatemachineContext {
 		finalState = (FinalState) region.createSubvertex(
 				"final_" + name, UMLPackage.eINSTANCE.getFinalState());
 	}
+	
+	
+	public void performNoCoveredFragment() {
+		if( (interactionFragment != null)
+			&& (region.getTransitions().size() == 1)
+			&& (region.getSubvertices().size() == 3)
+			&& (region.getTransitions().get(0).getSource() == initialState)
+			&& (region.getTransitions().get(0).getTarget() == currentState) )
+		{
+			region.getTransitions().get(0).setTarget(finalState);
+			region.getSubvertices().remove(currentState);
+			
+			currentState = finalState;
+			
+			System.out.println("performNoCoveredFragment for lifeline <" +
+					coveredLifeline.getName() + "> covered by fragment : " + interactionFragment.getName() );
+		}
+	}
+
 	
 	///////////////////////////////////////////////////////////////////////////
 	// [COMPOSITE] STATE 
@@ -140,6 +162,13 @@ public class StatemachineContext {
 			
 			return( state );
 		}
+	}
+
+	
+	public State createNewState(String name) {
+		State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
+		
+		return( state );
 	}
 
 	
@@ -193,5 +222,6 @@ public class StatemachineContext {
 		statemachineCodegen.transformStatemachine(
 				statemachine, inputMessage, writer);
 	}
+
 }
 

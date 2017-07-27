@@ -73,7 +73,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			transformState((State)element, writer);
 		}
 		else if( element instanceof Vertex ) {
-			transformVertexContent((Vertex)element, writer);
+			transformVertexTransition((Vertex)element, writer);
 		}
 		else if( element instanceof Transition ) {
 			transformTransition((Transition)element, writer);
@@ -257,7 +257,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			.append(element.getName())
 			.appendEol(" {");
 
-		transformVertexContent(element, writer);
+		transformVertexTransition(element, writer);
 
 		writer.appendTab("} // end pseudo-state ")
 			.appendEol2(element.getName());
@@ -274,7 +274,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			.append(element.getName())
 			.appendEol(" {");
 
-		transformVertexContent(element, writer);
+		transformVertexTransition(element, writer);
 
 		writer.appendTab("} // end final-state ")
 			.appendEol2(element.getName());
@@ -299,11 +299,14 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 
 		transformStateActivity(element, writer);
 
-		transformVertexContent(element, writer);
-
 		transformConnectionPoint(element, writer);
 
 		transformRegion(element.getRegions(), writer);
+
+		if( ! element.getRegions().isEmpty() ) {
+			writer.appendTab2Eol("@transition:");
+		}
+		transformVertexTransition(element, writer);
 
 		writer.appendTab("} // end state ")
 			.appendEol2(element.getName());
@@ -362,7 +365,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			.append(element.getName())
 			.appendEol(" {");
 
-		transformVertexContent(element, writer);
+		transformVertexTransition(element, writer);
 
 		writer.appendTab("} // end vertex ")
 			.appendEol2(element.getName());
@@ -373,7 +376,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 	 * @param element
 	 * @param writer
 	 */
-	public void transformVertexContent(
+	public void transformVertexTransition(
 			Vertex element, PrettyPrintWriter writer) {
 		// A writer indenting with TAB + iTAB -> TAB2
 		PrettyPrintWriter writer2 = writer.itab2();
