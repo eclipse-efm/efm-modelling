@@ -81,5 +81,6 @@
 		<module>gui</module>
 		<module>releng</module>
 		<module>targetplatform</module>
+		<module>tutorial</module>
 	</modules>
 </project>

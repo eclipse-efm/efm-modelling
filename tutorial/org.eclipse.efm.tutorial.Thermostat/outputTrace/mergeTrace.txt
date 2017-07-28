@@ -1,0 +1,8 @@
+delta = 1
+INPUT sens(0)
+delta = 1
+OUTPUT screen(1)
+delta = 1
+OUTPUT dt(20)
+delta = 2
+OUTPUT equip(4)

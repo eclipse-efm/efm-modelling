@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Thermostat Tutorial
+Bundle-SymbolicName: org.eclipse.efm.tutorial.Thermostat;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Activator: org.eclipse.efm.tutorial.thermostat.Activator
+Bundle-Vendor: CEA LIST
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.cheatsheets;bundle-version="3.5.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy

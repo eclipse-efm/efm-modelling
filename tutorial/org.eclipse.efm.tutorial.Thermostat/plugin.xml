@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.cheatsheets.cheatSheetContent">
+      <category
+            id="org.eclipse.efm.tutorial.Thermostat.category"
+            name="ThermostTutorial">
+      </category>
+      <cheatsheet
+            category="org.eclipse.efm.tutorial.Thermostat.category"
+            composite="false"
+            contentFile="cheatsheet/getting_started.xml"
+            id="org.eclipse.efm.tutorial.Thermostat.cheatsheet"
+            name="org.eclipse.efm.tutorial.Thermostat.cheatsheet">
+      </cheatsheet>
+   </extension>
+
+</plugin>

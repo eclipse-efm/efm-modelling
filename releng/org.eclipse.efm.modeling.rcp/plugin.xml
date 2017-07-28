@@ -16,7 +16,7 @@
          </property>
          <property
               name="introBrandingImage"
-              value="product:icons/intro-papyrus.png"/>
+              value="product:icons/intro-efm.png"/>
          <property
                name="introTitle"
                value="Welcome to Eclipse Formal Modeling">

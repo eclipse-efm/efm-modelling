@@ -21,5 +21,6 @@
 		<module>org.eclipse.efm.modeling.ui.views.common</module>
 		<module>org.eclipse.efm.modeling.ui.views.property.tab.xlia</module>
 		<module>org.eclipse.efm.ui</module>
+		<module>org.eclipse.efm.ui.intro</module>
 	</modules>
 </project>

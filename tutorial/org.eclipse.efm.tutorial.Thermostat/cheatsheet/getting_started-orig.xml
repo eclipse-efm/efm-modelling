@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Getting started with EFM">
+<intro>
+	<description>
+		This tutorial introduces the basic user interface of EFM and demonstrates how to create a simple project.
+	</description>
+</intro>
+<item title="Get to know your environment">
+	<description>
+		The most important step is to familiarize yourself with the EFM environment.<br/>
+		What you see and what you can do in EFM is governed by the current perspective. There are three different perspective associated with different business activities : Requirement Design, Test Design and Test Execution. <br/>
+		You can switch between different perspectives by clicking the button in the upper right corner of this window. Alternatively, you may open the selection dialog through the menu 'Window' > 'Perspective' > 'Open Perspective'.<br/>
+	</description>
+	<subitem>
+		<description>
+			<b>Requirement Design Perspective</b><br/>
+			Within this perspective, you can define and organize requirements of the system.<br/>
+			To open this perspective, click the green action arrow.
+		</description>
+  <command
+        required="false"
+        serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.eclipse.efm.ui.perspective.RequirementDesign)"/>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Test Design Perspective</b><br/>
+			Within this perspective, you can define and organize test suites and test cases.<br/>
+			To open this perspective, click the green action arrow.
+			<br/>
+		</description>
+		<command required="true" confirm="true"
+			     serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.eclipse.efm.ui.perspective.TestDesign)"/>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Test Execution Perspective</b><br/>
+			Within this perspective, you can define and execute test campaigns.<br/>
+			To open this perspective, click the green action arrow.
+		</description>
+		<command required="true" confirm="true"
+				 serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.eclipse.efm.ui.perspective.TestExecution)"/>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Project Explorer</b><br/>
+			The Project Explorer shows a list of all projects and its contained files in your workspace. This explorer is available in every QS perspective.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Project Tree Explorer</b><br/>
+			The Project Tree Explorer shows the contents of the currently opened project. This explorer is available in every QS perspective, but displays only concepts relevant to the current perspective. <br/>
+			For example, the Project Tree Explorer does not show requirements if the Test Execution Perspective is active.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Project Dictionary</b><br/>
+			NOT AVAILABLE YET
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Form Editor View</b><br/>
+			The Form Editor View shows and editable form associated to an element of the Project Tree Explorer.
+			You will have to double-click on an element to open its Form Editor View.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Properties View</b><br/>
+			The Properties view shows additional properties of the currently selected element of the Project Tree Explorer.
+		</description>
+	</subitem>
+</item>
+<item title="Create a new EFM Project" dialog="true">
+	<description>
+		The EFM Project Wizard allows you to initialize a new project automatically.<br/>
+		To create a new project, you can select 'File' > 'New' > 'Create a New QS Project' from the menu or right-click in the Project explorer and select 'New' > 'Create a New QS Project'.
+	</description>
+	<subitem>
+		<description>
+			Start the EFM Project Wizard.
+		</description>
+		<command required="true"
+				 serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.papyrus.uml.diagram.wizards.createproject)"/>
+	</subitem>
+	<subitem label="Select the parent Checkout in which the project will be created." />
+	<subitem label="Specify a 'Project name' and hit 'Next'." />
+	<subitem label="To Be Continued." />
+</item>
+<item title="Connect to EFM Server" dialog="true">
+	<description>
+		Not Available Yet
+	</description>
+</item>
+<item title="Inspect the created project content">
+	<description>
+		After creating the project, the Project Tree Explorer shows a project structure with three business activities : Requirement Design, Test Design and Test Execution.
+	</description>
+	<subitem>
+		<description>
+			<b>Requirement Design</b><br/>
+			This business activity contains all elements associated with requirements.<br/>
+			Requirements can be hierarchically organized using Requirement Design Packages.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Test Design</b><br/>
+			This business activity contains all elements associated with test definition. You can see the two standard oracles which were automatically created.<br/>
+			Test suites and tests cases can be hierarchically organized using Test Design Packages.<br/>
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Test Execution</b><br/>
+			This business activity contains all elements associated with test execution.<br/>
+			Test campaigns can be hierarchically organized using Test Execution Packages.<br/>
+		</description>
+	</subitem>
+</item>
+<item title="Create your first test case">
+	<description>
+		Here we will create a test suite, a test case and several test steps. We will use the ATM example consisting of a credit card, an automatic cash dispenser and a bank account.
+		Our test case will verify that the credit card is swallowed after a bad PIN code has been given three times.
+	</description>
+	<subitem>
+		<description>
+			<b>Create a Test Design Package</b><br/>
+			Select the 'Test Design' business activity, right click to open the contextual menu and choose 'Test Design > New Package'.<br/>
+			A Test Design Package is created and contains three sub folders: 'Steps Folder', 'Cases Folder' and 'Data'.
+			After the package is created, you can change its name in the associated form.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Create a Test Case</b><br/>
+		Select the 'Test Cases Folder', right click to open the contextual menu and choose 'Test Design > New Test Case'.
+		A test case is created and its properties are displayed in the associated form. Give a name to the test case, for example: 'Bad Pin Three Times'.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Create and Add a Test Step</b><br/>
+			In the test case form, press the 'Create And Add A Step' button. The new test step is created in the 'Test Steps Folder' and associated to the test case.<br/>
+			Note the slightly different icons when seeing the test step from the test step forlder and from the test case. This express the fact the test step is stored in the test steps folder and is only referenced in the test case.<br/>
+			In the test step form, set the step name to 'Enter false code PIN', the stimulation to 'input $userPID_ko$' and the expected to 'output message $Enter_another_pin_code_msg$'.<br/>
+			The stimulation and the expected references parameters with the $parameter_name$ convention.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Create a Parameter</b><br/>
+			Select the 'Data' folder, right click to open the contextual menu, choose 'Test Design' > 'New Parameter' and select 'Integer' in the popping dialog.<br/>
+			The new parameter is created in the 'Data' folder. Set its name to 'userPID_ko'. To set a default value, click on the green '+', choose 'LiteralInteger' and set '3782' as name and value.<br/>
+			We also need to create the Enter_another_pin_code_msg. Follow the previous procedure but choose String and LiteralString, and set default value to 'Enter PIN code'.<br/>
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Associate a Parameter to a Test Step</b><br/>
+			Select the previously created test step. In the form editor, click on the green '+' close to the Parameters List and select the parameters we have just created.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Add an existing Test Step</b><br/>
+			The second step of our test case is the same than the first one. If is very easy to reuse the same step two times.<br/>
+			Go back to the 'Test Case Folder' and select our test case. In the form editor, press the 'Add an Existing Step' button and choose 'Enter false code PIN'. The test step is referenced two times in the test case.<br/>
+			Basically, it is the same test step, so it is already associated with the two parameters previously created.
+		</description>
+	</subitem>
+</item>
+<item title="Create and organize a Test Suite">
+	<description>
+		Now, we going to create a test suite in which we will add our test case.
+	</description>
+	<subitem>
+		<description>
+			<b>Create a Test Suite</b><br/>
+			Select the Test Design Package, right click to open the contextual menu and choose 'Test Design > New Test Suite'.<br/>
+			A Test Suite is created and its properties are displayed on the Form Editor.
+			In the test step form, give the name 'ATM_func_tests' to the test suite.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Add a Test Case</b><br/>
+			In the test suite form, press on the 'Add a TestCase' button and select our test case from the popping dialog.
+			Note that a test suite cannot contains two times the same test case.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>TODO</b><br/>
+			TODO
+		</description>
+	</subitem>
+</item>
+<item title="Create a Test Campaign">
+	<description>
+		TODO
+	</description>
+</item>
+<item title="Execute a Test Campaign">
+	<description>
+		TODO
+	</description>
+</item>
+<item title="Create and organize Requirements">
+	<description>
+		TODO
+	</description>
+</item>
+<item title="Going further">
+	<description>
+		Here we show optional (but useful) capabilities of EFM
+	</description>
+	<subitem>
+		<description>
+			<b>Using a SUT model</b><br/>
+			TODO
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Using a Test Context model</b><br/>
+			TODO
+		</description>
+	</subitem>
+</item>
+<item skip="true" title="More Information" href="/org.eclipse.papyrus.uml.doc/target/generated-eclipse-help/PapyrusStarterGuide.html">
+	<description>
+	TODO
+	</description>
+	<command required="false"
+		serialization="org.eclipse.ui.help.helpContents"/>
+</item>
+<item skip="true" title="Example: ATM">
+	<description>
+		TODO
+	</description>
+	<command required="false"
+		serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.efm.ui.wizard.createproject)"/>
+</item>
+</cheatsheet>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Getting started with EFM">
+<intro>
+	<description>
+		Model-based testing (MBT) uses models of systems for the derivation of test cases. We use timed automata as models that manipulate variables to abstractly
+denote system states (we call them data variables) and variables to capture timing constraints (we call them clocks) on system executions. 
+The objective is to get familiar with model-based testing using symbolic techniques. Symbolic execution is a technique used here to analyze model behavior. It works by using symbols, instead of concrete values. Hence, variables during the execution are assigned with expressions based on those symbols rather than concrete values.
+
+This exercise sheet is divided in two parts.
+	</description>
+</intro>
+<item title="Part I Symbolic framework">
+	<description>
+		The most important step is to familiarize yourself with the symbolic framework.<br/>
+	</description>
+	<subitem>
+		<description>
+			<b>Modeling</b><br/>
+			Consider the automaton of the thermostat control component in Figure 2.
+		</description>
+  <command
+        required="false"
+        serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.eclipse.efm.ui.perspective.RequirementDesign)"/>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Test Design Perspective</b><br/>
+			Within this perspective, you can define and organize test suites and test cases.<br/>
+			To open this perspective, click the green action arrow.
+			<br/>
+		</description>
+		<command required="true" confirm="true"
+			     serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.eclipse.efm.ui.perspective.TestDesign)"/>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Test Execution Perspective</b><br/>
+			Within this perspective, you can define and execute test campaigns.<br/>
+			To open this perspective, click the green action arrow.
+		</description>
+		<command required="true" confirm="true"
+				 serialization="org.eclipse.ui.perspectives.showPerspective(org.eclipse.ui.perspectives.showPerspective.perspectiveId=org.eclipse.efm.ui.perspective.TestExecution)"/>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Project Explorer</b><br/>
+			The Project Explorer shows a list of all projects and its contained files in your workspace. This explorer is available in every QS perspective.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Project Tree Explorer</b><br/>
+			The Project Tree Explorer shows the contents of the currently opened project. This explorer is available in every QS perspective, but displays only concepts relevant to the current perspective. <br/>
+			For example, the Project Tree Explorer does not show requirements if the Test Execution Perspective is active.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Project Dictionary</b><br/>
+			NOT AVAILABLE YET
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Form Editor View</b><br/>
+			The Form Editor View shows and editable form associated to an element of the Project Tree Explorer.
+			You will have to double-click on an element to open its Form Editor View.
+		</description>
+	</subitem>
+	<subitem>
+		<description>
+			<b>Properties View</b><br/>
+			The Properties view shows additional properties of the currently selected element of the Project Tree Explorer.
+		</description>
+	</subitem>
+</item>
+<item title="Create a new EFM Project" dialog="true">
+	<description>
+		The EFM Project Wizard allows you to initialize a new project automatically.<br/>
+		To create a new project, you can select 'File' > 'New' > 'Create a New QS Project' from the menu or right-click in the Project explorer and select 'New' > 'Create a New QS Project'.
+	</description>
+	<subitem>
+		<description>
+			Start the EFM Project Wizard.
+		</description>
+		<command required="true"
+				 serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.papyrus.uml.diagram.wizards.createproject)"/>
+	</subitem>
+	<subitem label="Select the parent Checkout in which the project will be created." />
+	<subitem label="Specify a 'Project name' and hit 'Next'." />
+	<subitem label="To Be Continued." />
+</item>
+<item title="Connect to EFM Server" dialog="true">
+	<description>
+		Not Available Yet
+	</description>
+</item>
+</cheatsheet>
