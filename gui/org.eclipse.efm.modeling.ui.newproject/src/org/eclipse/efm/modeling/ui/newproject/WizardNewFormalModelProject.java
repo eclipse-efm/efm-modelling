@@ -26,7 +26,6 @@ import org.eclipse.papyrus.infra.core.resource.ModelsReader;
 import org.eclipse.papyrus.infra.core.services.ExtensionServicesRegistry;
 import org.eclipse.papyrus.infra.core.services.ServiceException;
 import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
-import org.eclipse.papyrus.infra.ui.extension.commands.IModelCreationCommand;
 import org.eclipse.papyrus.uml.diagram.common.commands.CreateUMLModelCommand;
 import org.eclipse.papyrus.uml.tools.model.UmlModel;
 import org.eclipse.papyrus.uml.tools.model.UmlUtils;
@@ -137,7 +136,7 @@ public class WizardNewFormalModelProject extends BasicNewProjectResourceWizard i
 		ServicesRegistry registry = new ExtensionServicesRegistry(org.eclipse.papyrus.infra.core.Activator.PLUGIN_ID);
 		registry.startServicesByClassKeys(ModelSet.class);
 
-		IModelCreationCommand creationCommand = new CreateUMLModelCommand();
+		CreateUMLModelCommand creationCommand = new CreateUMLModelCommand();
 		creationCommand.createModel(modelSet);
 		modelSet.save(new NullProgressMonitor());
 	}

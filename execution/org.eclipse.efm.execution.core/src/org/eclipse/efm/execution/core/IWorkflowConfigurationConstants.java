@@ -562,22 +562,22 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			PLUGIN_LAUNCH_ID + ".ATTR_TTCN_TESTCASES_SENDING_WRAPPER"; //$NON-NLS-1$
 
 	public static final String DEFAULT_TTCN_TESTCASES_SENDING_WRAPPER =
-//			%1% --> <system identifier>
-//			%2% --> <environment channel> | <(system|environment) port>
-//			%4% --> <template port as type>
-//			%4% --> <template port identifier>
-			"\t\t%2%_send_%3%( %4% );";
+			"\t\t%7%_send( %8% );";
 
+//	%1% --> <port name id>
+//	%2% --> <container/lifeline/component name id>
+//	%3% --> <system name id>
+//	%4% --> <environment channel id>
+//	%5% --> <message type name id>
+//	%6% --> <port type name id>
+//	%7% --> <port instance name id>
+//	%8% --> <port parameters template message>
 
 	public static final String ATTR_TTCN_TESTCASES_RECEIVING_WRAPPER =
 			PLUGIN_LAUNCH_ID + ".ATTR_TTCN_TESTCASES_RECEIVING_WRAPPER"; //$NON-NLS-1$
 
 	public static final String DEFAULT_TTCN_TESTCASES_RECEIVING_WRAPPER =
-//			%1% --> <system identifier>
-//			%2% --> <environment channel> | <(system|environment) port>
-//			%3% --> <template port as type>
-//			%4% --> <template port identifier>
-			"\t\t%2%_receive_%3%( %4% );";
+			"\t\t%7%_receive( %8% );";
 
 
 	public static final String ATTR_TTCN_ADAPTATION_MODULE_NAME =
@@ -617,21 +617,25 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			PLUGIN_LAUNCH_ID + ".ATTR_TTCN_TESTCASES_SENDING_IMPL"; //$NON-NLS-1$
 
 	public static final String DEFAULT_TTCN_TESTCASES_SENDING_IMPL
-//			%1% --> <environment channel> | <(system|environment) port>
-//			%2% --> <template port as type>
-//			%3% --> <template port identifier>
-//			%4% --> <system>
-			= "\tfunction %2%_send_%3%( template %3% pdu ) runs on runsOn_%1% {"
-			+ "\n\t\t%2%.send( %3% );"
+			= "\tfunction %1%_send( template %5% pdu ) runs on runsOn_%3% {"
+			+ "\n\t\t%7%.send( %5% );"
 			+ "\n\t}"; //$NON-NLS-1$
 
+//	%1% --> <port name id>
+//	%2% --> <container/lifeline/component name id>
+//	%3% --> <system name id>
+//	%4% --> <environment channel id>
+//	%5% --> <message type name id>
+//	%6% --> <port type name id>
+//	%7% --> <port instance name id>
+//	%8% --> <port parameters template message>
 
 	public static final String ATTR_TTCN_TESTCASES_RECEIVING_IMPL =
 			PLUGIN_LAUNCH_ID + ".ATTR_TTCN_TESTCASES_RECEIVING_IMPL"; //$NON-NLS-1$
 
 	public static final String DEFAULT_TTCN_TESTCASES_RECEIVING_IMPL
-			= "\tfunction %2%_receive_%3%( template %3% pdu ) runs on runsOn_%1% {"
-			+ "\n\t\t%2%.receive( %3% );"
+			= "\tfunction %1%_receive( template %5% pdu ) runs on runsOn_%3% {"
+			+ "\n\t\t%7%.receive( %5% );"
 			+ "\n\t}"; //$NON-NLS-1$
 
 

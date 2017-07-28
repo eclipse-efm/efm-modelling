@@ -201,10 +201,14 @@ public interface IWorkflowConfigurationSyntax {
 
 
 	public final String HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS
-			= "%1% --> <system identifier>"
-			+ "\n%2% --> <environment channel> | <(system|environment) port>"
-			+ "\n%3% --> <template port as type>"
-			+ "\n%4% --> <template port identifier>";
+			=   "%1% --> <port name id>"
+			+ "\n%2% --> <container/lifeline/component name id>"
+			+ "\n%3% --> <system name id>"
+			+ "\n%4% --> <environment channel id>"
+			+ "\n%5% --> <message type name id>"
+			+ "\n%6% --> <port type name id>"
+			+ "\n%7% --> <port instance name id>"
+			+ "\n%8% --> <port parameters template message>";
 
 
 	public final String HELPER_MODULE_ADAPTATION_IMPLEMENTATION_TEMPLATE

@@ -4,7 +4,7 @@
 <product name="Eclipse Formal Modeling &amp; Symbex Tools" uid="org.eclipse.efm.modeling.product" id="org.eclipse.efm.modeling.rcp.product" application="org.eclipse.ui.ide.workbench" version="0.0.1.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
-      <image path="/org.eclipse.efm.modeling.rcp/icons/papyrus_lg.png"/>
+      <image path="/org.eclipse.efm.modeling.rcp/icons/efm_lg.png"/>
       <text>
          Eclipse Formal Modeling (Incubation)
 
@@ -28,7 +28,7 @@ Apache Software Foundation http://www.apache.org/
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages i16="/org.eclipse.efm.modeling.rcp/icons/papyrus16.png" i32="/org.eclipse.efm.modeling.rcp/icons/papyrus32.png" i48="/org.eclipse.efm.modeling.rcp/icons/papyrus48.png" i64="/org.eclipse.efm.modeling.rcp/icons/papyrus64.png" i128="/org.eclipse.efm.modeling.rcp/icons/papyrus128.png"/>
+   <windowImages i16="icons/efm16.png" i32="icons/efm32.png" i48="icons/efm48.png" i64="icons/efm64.png" i128="icons/efm128.png" i256="icons/efm256.png"/>
 
    <splash
       location="org.eclipse.efm.modeling.rcp"
@@ -38,9 +38,8 @@ Apache Software Foundation http://www.apache.org/
    <launcher name="efm-papyrus">
       <linux icon="../org.eclipse.efm.modeling.rcp/icons/icon.xpm"/>
       <macosx icon="../org.eclipse.efm.modeling.rcp/icons/papyrus.icns"/>
-      <solaris/>
       <win useIco="true">
-         <ico path="../org.eclipse.efm.modeling.rcp/icons/papyrus.ico"/>
+         <ico path="../org.eclipse.efm.modeling.rcp/icons/efm.ico"/>
          <bmp/>
       </win>
    </launcher>

@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.configuration.common.ui.page.overview;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -29,6 +30,8 @@ import org.eclipse.swt.widgets.Composite;
 public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 	private StringFieldEditor fWorkspaceRootLocationStringField;
+	
+	private StringFieldEditor fWorkspaceOutputLocationStringField;
 
 	
 	public OverviewWorkspaceDataSection(AbstractConfigurationPage configurationPage)
@@ -67,16 +70,16 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 		fWorkspaceRootLocationStringField.setEmptyStringAllowed(false);
 		addField(fWorkspaceRootLocationStringField);
 
-		StringFieldEditor folderNameStringFieldEditor =
+		fWorkspaceOutputLocationStringField =
 				new StringFieldEditor(fConfigurationPage,
 						ATTR_WORKSPACE_OUTPUT_FOLDER_NAME, "Output", parent,
 						DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
-		folderNameStringFieldEditor.setToolTipText(toolTipText2);
-		addField(folderNameStringFieldEditor);
-		folderNameStringFieldEditor.setEmptyStringAllowed(false);
+		fWorkspaceOutputLocationStringField.setToolTipText(toolTipText2);
+		addField(fWorkspaceOutputLocationStringField);
+		fWorkspaceOutputLocationStringField.setEmptyStringAllowed(false);
 
 		if( getConfigurationPage().isEnabledSymbexDeveloperMode() ) {
-			folderNameStringFieldEditor =
+			StringFieldEditor folderNameStringFieldEditor =
 					new StringFieldEditor(fConfigurationPage,
 							ATTR_WORKSPACE_LOG_FOLDER_NAME, "Log",
 							parent, DEFAULT_WORKSPACE_LOG_FOLDER_NAME);
@@ -119,8 +122,13 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 	
 	public void updateWorkspaceRootPath(IResource resource) {
+		final String projectLocation =
+				resource.getProject().getLocation().toString();
+				
 		fWorkspaceRootLocationStringField.setStringValue(
-				resource.getProject().getLocation().toString());
+				projectLocation);
+		
+		updateWorkspaceOutputPath( resource );
 	}
 
 	public void updateWorkspaceRootPath(String modelPath) {
@@ -130,6 +138,12 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 		if( (resource != null) && resource.exists() ) {
 			fWorkspaceRootLocationStringField.setStringValue(
 					resource.getProject().getLocation().toString());
+			
+			if( DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME.equals(
+					fWorkspaceOutputLocationStringField.getStringValue()) )
+			{
+				updateWorkspaceOutputPath( resource );
+			}
 		}
 		else if( root.getLocation().isPrefixOf(path) ) {
 			path = root.getLocation().append( path.segment(
@@ -144,7 +158,25 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 		fWorkspaceRootLocationStringField.updateLaunchConfigurationDialog();
 	}
-	
+
+	public void updateWorkspaceOutputPath(IResource resource) {
+		final IResource parentResource = resource.getParent();
+		
+		if( (resource instanceof IFile) && (resource.getProject() != parentResource)
+			&& fWorkspaceOutputLocationStringField.getStringValue().endsWith(
+					DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME)
+			&& (! parentResource.getName().endsWith( "src"           ))
+			&& (! parentResource.getName().endsWith( "source"        ))
+			&& (! parentResource.getName().endsWith( "model"         ))
+			&& (! parentResource.getName().endsWith( "spec"          ))
+			&& (! parentResource.getName().endsWith( "specification" )) )
+		{
+			fWorkspaceOutputLocationStringField.setStringValue(
+					parentResource.getProjectRelativePath().toString()
+					+ IPath.SEPARATOR + DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
+		}
+	}
+
 
 	@Override
 	public void initializeFromImpl(ILaunchConfiguration configuration) {

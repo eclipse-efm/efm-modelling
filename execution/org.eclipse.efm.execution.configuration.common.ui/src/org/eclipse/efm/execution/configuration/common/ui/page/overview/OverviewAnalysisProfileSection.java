@@ -276,7 +276,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		fBehaviorSelectionPage.setDefaults(configuration);
 
 		// TEST OFFLINE // INCUBATION MODE
-		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+		if( fTestOfflinePage != null ) {
 			fTestOfflinePage.setDefaults(configuration);
 		}
 	}
@@ -308,7 +308,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 
 		// TEST OFFLINE // INCUBATION MODE
-		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+		if( fTestOfflinePage != null ) {
 			fTestOfflinePage.initializeFrom(configuration);
 		}
 	}
@@ -329,7 +329,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		fBehaviorSelectionPage.performApply(configuration);
 
 		// TEST OFFLINE // INCUBATION MODE
-		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+		if( fTestOfflinePage != null ) {
 			fTestOfflinePage.performApply(configuration);
 		}
 	}
@@ -372,7 +372,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE: {
 			// TEST OFFLINE // INCUBATION MODE
-			if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
+			if( fTestOfflinePage != null ) {
 				if( ! fTestOfflinePage.isValid(launchConfig) )
 				{
 					return false;
@@ -401,7 +401,9 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		
 		fBehaviorSelectionPage.handleConfigurationPropertyChange(event); 
 		
-		fTestOfflinePage.handleConfigurationPropertyChange(event); 
+		if( fTestOfflinePage != null ) {
+			fTestOfflinePage.handleConfigurationPropertyChange(event); 
+		}
 	}
 
 }
