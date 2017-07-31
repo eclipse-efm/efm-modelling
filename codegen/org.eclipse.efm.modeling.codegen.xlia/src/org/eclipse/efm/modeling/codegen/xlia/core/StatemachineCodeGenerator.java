@@ -28,6 +28,7 @@ import org.eclipse.uml2.uml.Port;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.Region;
+import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.SignalEvent;
 import org.eclipse.uml2.uml.State;
 import org.eclipse.uml2.uml.StateMachine;
@@ -142,11 +143,13 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			writer2.appendTabEol("// message");
 			
 			// TODO declarer les variables necessaires pour l'input
-//			for (Message message : inputMessage) {
-//				writer2.appendTab("input message " )
-//					.append(message.getName())
-//					.appendEol(";");
-//			}
+			for (Message message : inputMessage) {
+				if( message.getSignature() instanceof Signal ) {	
+					writer2.appendTab(((Signal) message.getSignature()).getName())
+						.append(" ")
+						.appendEol(message.getName() + "#in;");
+				}
+			}
 						
 			writer2.appendTabEol("// end message");
 

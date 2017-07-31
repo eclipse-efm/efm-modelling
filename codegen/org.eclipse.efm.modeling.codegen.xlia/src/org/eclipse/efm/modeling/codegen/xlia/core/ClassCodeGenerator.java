@@ -908,6 +908,130 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 
 
 	/**
+	 * performTransform an Unspecify Class element to a writer
+	 * @param element
+	 * @param writer
+	 */
+	public void transformClassLifelineDefinition(Class element,
+			Behavior lifelineBehavior, PrettyPrintWriter writer) {
+		ArrayList<NamedElement> properties = new ArrayList<NamedElement>();
+		ArrayList<Class> machinesAsBlock = new ArrayList<Class>();
+		ArrayList<Property> blockInstances = new ArrayList<Property>();
+		ArrayList<Behavior> behaviors = new ArrayList<Behavior>();
+
+		collectElement(element, properties,
+				machinesAsBlock, blockInstances, behaviors, null);
+
+		writer.appendTab("machine ")
+			.append(element.getName()).append('#').append(lifelineBehavior.getName())
+			.appendEol2(" {");
+
+		// Section property
+		//
+		writer.appendTabEol("@property:");
+
+		writer.appendTab2("public buffer fifo<*> buffer_")
+				.append(element.getName())
+				.appendEol2(";");
+
+		
+		behaviors.add(lifelineBehavior);
+
+		transformClassContentDefinition(element, writer,
+				properties, machinesAsBlock, blockInstances, behaviors);
+
+
+		// Section moe
+		//
+		int blockInstancesCount = blockInstances.size();
+		int behaviorCount = behaviors.size();
+
+		if( (blockInstancesCount + behaviorCount) > 0 ) {
+			// Section moe
+			//
+			writer.appendEolTab_Eol("@moe:");
+
+			Part Part;
+
+			// Section init
+			//
+			writer.appendTab2("@init{");
+			if( blockInstancesCount > 0 ) {
+				writer.appendEol( ((blockInstancesCount > 1) ? " |and|" : "") );
+				for( Property inst : blockInstances ) {
+					Part = StereotypeUtil.getPart(inst);
+					if( Part != null ) {
+						for( InstanceSpecification instance : Part.getInstance() ) {
+							writer.appendTab3("init ")
+								.append(instance.getName())
+								.appendEol(";");
+						}
+					}
+					else if( StereotypeUtil.getPart(inst) != null ) {
+						writer.appendTab3("init ")
+							.append(inst.getName())
+							.appendEol(";");
+					}
+					else {
+						writer.appendTab3("init ")
+						.append(inst.getName())
+						.appendEol(";");
+					}
+				}
+			}
+			else if( behaviorCount > 0 ) {
+				writer.appendEol( ((behaviorCount > 1) ? " |and|" : "") );
+				for( Behavior behavior : behaviors ) {
+					writer.appendTab3("init ")
+						.append(behavior.getName())
+						.appendEol(";");
+				}
+			}
+			writer.appendTab2Eol2("}");
+
+			// Section schedule
+			//
+			writer.appendTab2("@schedule{");
+			if( blockInstancesCount > 0 ) {
+				writer.appendEol( ((blockInstancesCount > 1) ? " |i|" : "") );
+				for( Property inst : blockInstances ) {
+					Part = StereotypeUtil.getPart(inst);
+					if( Part != null ) {
+						for( InstanceSpecification instance : Part.getInstance() ) {
+							writer.appendTab3("run ")
+								.append(instance.getName())
+								.appendEol(";");
+						}
+					}
+					else if( StereotypeUtil.getPart(inst) != null ) {
+						writer.appendTab3("run ")
+							.append(inst.getName())
+							.appendEol(";");
+					}
+					else {
+						writer.appendTab3("run ")
+						.append(inst.getName())
+						.appendEol(";");
+					}
+				}
+			}
+			else if( behaviorCount > 0 ) {
+				writer.appendEol( ((behaviorCount > 1) ? " |i|" : "") );
+				for( Behavior behavior : behaviors ) {
+					writer.appendTab3("run ")
+						.append(behavior.getName())
+						.appendEol(";");
+				}
+			}
+			writer.appendTab2Eol2("}");
+		}
+
+		writer.appendTab("} // end machine ")
+			.appendEol2(element.getName());
+	}
+
+
+	/**
 	 * performTransform a Property as Class Block Instance element to a writer
 	 * @param element
 	 * @param writer

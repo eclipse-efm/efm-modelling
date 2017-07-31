@@ -11,6 +11,9 @@
 package org.eclipse.efm.modeling.codegen.xlia.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.efm.modeling.codegen.xlia.util.StatemachineContext;
@@ -28,8 +31,11 @@ import org.eclipse.uml2.uml.InteractionOperatorKind;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.State;
+import org.eclipse.uml2.uml.TimeObservation;
 import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.ValueSpecification;
 
@@ -84,6 +90,25 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 		}
 	}
 
+	
+	
+	
+	public void declareSignalMessageType(Signal signal, PrettyPrintWriter writer) {
+	    writer.appendTab2("type ")
+	        .append(signal.getName())
+	        .appendEol(" struct {");
+	    
+	    for (Property property : signal.getAllAttributes()) {
+	        writer.appendTab3("var ")
+	            .append( fSupervisor.fDataTypeFactory.typeName(property) )
+	            .append(" ")
+	            .append(property.getName())
+	            .appendEol(";");
+	    }
+
+		writer.appendTab2Eol("};");
+	}
+
 	/**
 	 * performTransform an Interaction element to a writer
 	 * @param element
@@ -98,43 +123,74 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 				.append(element.getName())
 				.appendEol(" {");
 			
+			Map<NamedElement, Boolean> declaredSignatures = new HashMap<NamedElement, Boolean>();
 			writer.appendEol("@property: ");
 			writer.appendTabEol("// message");
 			for( Message message : element.getMessages() ) {
-				writer.appendTab2("message " )
-					.append(message.getName())
-					.appendEol(";");
+				//declare signal structure
+				NamedElement signature = message.getSignature();
+				if( (signature instanceof Signal) && (declaredSignatures.get(signature) == null) ) {					
+					declaredSignatures.put(signature, Boolean.TRUE);
+
+					if( ! ((Signal) signature).getAllAttributes().isEmpty() ) {
+						declareSignalMessageType((Signal) signature, writer);
+					}
+				}
+				// declare message
+				writer.appendTab2("message ")
+					.append(message.getName());
+				
+				if( (signature instanceof Signal)
+					&& (! ((Signal) signature).getAllAttributes().isEmpty()) ) {
+					writer.append("( " )
+						.append(signature.getName())
+						.append(" )");
+				}
+				
+				writer.appendEol(";");
+				
+				// declare input message occurrence variables (signature instance)
+//				writer.appendTab2(signature.getName())
+//				.append(" ")
+//				.append(message.getName())
+//				.append("#in");
+//				writer.appendEol(";");
+				
 			}
 			writer.appendTabEol("// end message");
 			
 			// Extra element needed to respect model semantic
-			for( Lifeline lifeline : element.getLifelines() ) {
-				writer.appendTab2("var fifo<integer , 30> " )
-					.append( "sched_").append(lifeline.getName())
-					.appendEol(";");
-			
-			}
-			
-			//
-			for( Lifeline lifeline : element.getLifelines() ) {
-				writer.appendTab2("var fifo<integer , *> " )
-					.append( "fifo_").append(lifeline.getName())
-					.appendEol(";");
-			}
+		//	for( Lifeline lifeline : element.getLifelines() ) {
+		//		writer.appendTab2("var fifo<integer , 30> " )
+//					.append( "sched_").append(lifeline.getName())
+//					.appendEol(";");
+//			
+//			}
+//			
+//			//
+//			for( Lifeline lifeline : element.getLifelines() ) {
+//				writer.appendTab2("var fifo<integer , *> " )
+//					.append( "fifo_").append(lifeline.getName())
+//					.appendEol(";");
+//			}
 			
 			
 			writer.appendEol("@composite: ");
 			PrettyPrintWriter writer2 = writer.itab2();
 			
+			lfContext = new StatemachineContext(element);
+
 			for( Lifeline lifeline : element.getLifelines() ) {
 				
-				transformLifeline(lifeline, new StatemachineContext(lifeline), writer2);
+				transformLifeline(lifeline, new StatemachineContext(lfContext, lifeline), writer2);
 			}
 			
 			writer.appendTab("} // end Interaction ")
 				.appendEol2(element.getName());
 		}
 		else {
+			lfContext.initializeConstraintMap(element);
+
 			// A writer indenting with TAB + iTAB -> TAB2
 			PrettyPrintWriter writer2 = writer.itab2();
 			
@@ -222,8 +278,44 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 		}
 	}
 
-
+ // transform data constraint
+	public void transformElementConstraints(
+			Element element, Transition transition, StatemachineContext lfContext) {
+			
+		List<Constraint> constraints = lfContext.getElementConstraints(element);
+		if( constraints != null ) {
+			for (Constraint constraint : constraints) {
+				UmlFactory.setGuard(transition, constraint);
+			};
+		}
+	}
 	
+
+	// transform timed constraint
+		public void transformElementTimedConstraints(
+				Element element, Transition transition, StatemachineContext lfContext) {
+				
+			List<Constraint> constraints = lfContext.getElementConstraints(element);
+			if( constraints != null ) {
+				for (Constraint constraint : constraints) {
+					UmlFactory.setGuard(transition, constraint);
+				};
+			}
+		}
+		
+	// transform TimeObservation
+	public void transformElementTimeObservation(
+			NamedElement element, Transition transition, StatemachineContext lfContext) {
+			
+		List<TimeObservation> timeObservations = lfContext.getTimeObservation(element);
+		if( timeObservations != null ) {
+			for (TimeObservation tObs : timeObservations) {
+//				UmlFactory.setGuard(transition, tObs);
+			};
+		}
+	}
+	
+
 	/**
 	 * performTransform a InteractionOperand element
 	 * @param element
@@ -564,7 +656,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		
 		transformLifeline(element, lfContext);
 		
-		lfContext.toWriter(fSupervisor.fStatemachineFactory, writer);
+		lfContext.toWriter(fSupervisor, writer);
 	}
 
 	public void transformLifeline(Lifeline element,
@@ -608,6 +700,8 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		//String effect = act.getBehavior().toString().concat(";");
 		
 		UmlFactory.addOpaqueBehaviorEffect(BH_tr, act.getBehavior());
+		
+		transformElementConstraints(element.getStart(), BH_tr, lfContext);
 	}
 	
 	
@@ -627,27 +721,69 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		Transition MsgOcc_tr= lfContext.createTransition(
 				"tr_" + element.getName(), lfContext.currentState, targetState);
 			
+//		Message message = element.getMessage();
+//		if( element.isReceive() ){
+//
+//			StringBuffer MsgReceiveAction = new StringBuffer("input ");
+//			lfContext.inputMessage.add(message);
+//
+//			MsgReceiveAction.append( message.getName() );//.getSignature().getLabel() )
+////			if (! (message.getArguments().isEmpty()) ){
+//				boolean isnotFirst = false;
+//
+//				MsgReceiveAction.append("( { ");
+//				
+//				if( message.getSignature() instanceof Signal ) {	
+//					Signal signal = (Signal) message.getSignature();
+//					
+//					final String paramPrefix = message.getName() + "#in.";
+//					
+//					for (Property property : signal.getAllAttributes()) {
+//												
+//						if( isnotFirst ) {
+//							MsgReceiveAction.append(" , ");
+//						}
+//						else {
+//							isnotFirst = true;
+//						}
+//						MsgReceiveAction.append( paramPrefix)
+//							.append(property.getName());
+//					}
+//
+//				}
+		
+		
+		
 		Message message = element.getMessage();
 		if( element.isReceive() ){
 
-			StringBuffer MsgReceiveAction = new StringBuffer("input ");
-			lfContext.inputMessage.add(message);
+		    StringBuffer MsgReceiveAction = new StringBuffer("input ");
+		    lfContext.inputMessage.add(message);
 
-			MsgReceiveAction.append( message.getSignature().getLabel() );//.getSignature().getLabel() )
-			if (! (message.getArguments().isEmpty()) ){
-				boolean isnotFirst = false;
+		    MsgReceiveAction.append( message.getName() );
+		    if (! (message.getArguments().isEmpty()) ){
+		        
+		        NamedElement signature = message.getSignature();
+		        if( signature instanceof Signal ) {                    
+		            lfContext.addLocalVariable(message.getName() + "#params", (Signal) signature);
+		        }
+		        
+		        MsgReceiveAction.append("( ")
+		            .append( message.getName() )
+		            .append( "#params" );
 
-				MsgReceiveAction.append("(");
+
+				//TO DELETE
+				//	for (ValueSpecification itArg : message.getArguments()) {
+				//	if( isnotFirst ) {
+				//	MsgReceiveAction.append(" , ");
+				//	}
+				//	else {
+				//	isnotFirst = true;
+				//	}
+				//	MsgReceiveAction.append(itArg.stringValue());
+				//	}
 				
-				for (ValueSpecification itArg : message.getArguments()) {
-					if( isnotFirst ) {
-						MsgReceiveAction.append(", ");
-					}
-					else {
-						isnotFirst = true;
-					}
-					MsgReceiveAction.append(itArg.stringValue());
-				}
 				MsgReceiveAction.append(" )");	
 			}
 			MsgReceiveAction.append(";");	
@@ -659,23 +795,23 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 			StringBuffer MsgReceiveAction = new StringBuffer("output ");
 			lfContext.outputMessage.add(message);
 			
-			MsgReceiveAction.append( message.getSignature().getLabel() );
+			MsgReceiveAction.append( message.getName() );
 			
 			if (! (message.getArguments().isEmpty()) ){
-				MsgReceiveAction.append("(");
+				MsgReceiveAction.append("( { ");
 
 				boolean isnotFirst = false;
 				
 				for (ValueSpecification itArg : message.getArguments()) {
 					if( isnotFirst ) {
-						MsgReceiveAction.append(", ");
+						MsgReceiveAction.append(" , ");
 					}
 					else {
 						isnotFirst = true;
 					}
 					MsgReceiveAction.append(itArg.stringValue());
 				}
-				MsgReceiveAction.append(" )");	
+				MsgReceiveAction.append(" } )");	
 			}
 			
 			MsgReceiveAction.append(" --> ");
