@@ -5,7 +5,7 @@
       <link label="Getting Started with Model-based testing with Thermostat example" 
       		id="im-tutorial-getting-started" 
       		style-id="content-link"
-      		url="http://org.eclipse.ui.intro/showStandby?partId=org.eclipse.platform.cheatsheet&amp;input=org.eclipse.efm.tutorial.Thermostat.cheatsheet" >
+      		url="http://org.eclipse.ui.intro/showStandby?partId=org.eclipse.platform.cheatsheet&amp;input=org.eclipse.efm.tutorial.thermostat.cheatsheet" >
         <text>This tutorial provides an introduction into the symbolic modeling framework and offline testing process.</text>
       </link>
     </group>

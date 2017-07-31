@@ -4,15 +4,15 @@
    <extension
          point="org.eclipse.ui.cheatsheets.cheatSheetContent">
       <category
-            id="org.eclipse.efm.tutorial.Thermostat.category"
+            id="org.eclipse.efm.tutorial.thermostat.category"
             name="ThermostTutorial">
       </category>
       <cheatsheet
-            category="org.eclipse.efm.tutorial.Thermostat.category"
+            category="org.eclipse.efm.tutorial.thermostat.category"
             composite="false"
             contentFile="cheatsheet/getting_started.xml"
-            id="org.eclipse.efm.tutorial.Thermostat.cheatsheet"
-            name="org.eclipse.efm.tutorial.Thermostat.cheatsheet">
+            id="org.eclipse.efm.tutorial.thermostat.cheatsheet"
+            name="org.eclipse.efm.tutorial.thermostat.cheatsheet">
       </cheatsheet>
    </extension>
 

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Thermostat Tutorial
-Bundle-SymbolicName: org.eclipse.efm.tutorial.Thermostat;singleton:=true
+Bundle-SymbolicName: org.eclipse.efm.tutorial.thermostat;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: org.eclipse.efm.tutorial.thermostat.Activator
 Bundle-Vendor: CEA LIST

@@ -1,9 +1,9 @@
 a#im-tutorial-getting-started img {
-	background-image : url(../../img/efm-48.png);
+	background-image : url(../../images/efm48.png);
 }
 
 a#im-tutorial-getting-started:hover img {
-	background-image : url(../../img/efm-48_hover.png);
+	background-image : url(../../images/efm48_hover.png);
 }
 
 .content-group {

@@ -7,8 +7,8 @@
 		<artifactId>org.eclipse.efm.modeling.tutorial</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>org.eclipse.efm.tutorial.Thermostat</artifactId>
+	<artifactId>org.eclipse.efm.tutorial.thermostat</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<name>org.eclipse.efm.tutorial.Thermostat</name>
+	<name>org.eclipse.efm.tutorial.thermostat</name>
 	<description>This plug-in contains Thermostat tutorial...</description>
 </project>
