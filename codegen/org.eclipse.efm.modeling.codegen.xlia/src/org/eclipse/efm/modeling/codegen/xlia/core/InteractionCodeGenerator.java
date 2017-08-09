@@ -12,16 +12,20 @@ package org.eclipse.efm.modeling.codegen.xlia.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.efm.modeling.codegen.xlia.util.StatemachineContext;
 import org.eclipse.efm.modeling.codegen.xlia.util.UmlFactory;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
 import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.Gate;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionConstraint;
@@ -32,12 +36,17 @@ import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.OpaqueBehavior;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.State;
 import org.eclipse.uml2.uml.TimeObservation;
 import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.ValueSpecification;
+import org.eclipse.uml2.uml.internal.impl.BehaviorExecutionSpecificationImpl;
+
+//import com.cea.aide.core.factory.Creator;
+//import com.cea.aide.core.form.Verbatim;
 
 
 public class InteractionCodeGenerator extends AbstractCodeGenerator {
@@ -97,6 +106,8 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 	    writer.appendTab2("type ")
 	        .append(signal.getName())
 	        .appendEol(" struct {");
+	        writer.appendTab3("var ")
+            .appendEol( "string signature;" );
 	    
 	    for (Property property : signal.getAllAttributes()) {
 	        writer.appendTab3("var ")
@@ -185,6 +196,22 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 				transformLifeline(lifeline, new StatemachineContext(lfContext, lifeline), writer2);
 			}
 			
+			//route fifo messages
+			
+			writer.appendEol("@com: ");
+			writer.appendTabEol("// route: message fifo");
+			for( Message message : element.getMessages() ) {
+				//declare message fifo
+				
+				writer.appendTab2("route<fifo> ")
+					.append(message.getName());
+
+				writer.appendEol(";");
+				
+			}
+			writer.appendTabEol("// end route");
+			
+			
 			writer.appendTab("} // end Interaction ")
 				.appendEol2(element.getName());
 		}
@@ -210,7 +237,9 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 			//TODO DELETE Transition tr_final
 			Transition tr_final = lfContext.createTransition(
 					"tr_final", lfContext.currentState, lfContext.finalState);
-		}		
+		}
+		
+		
 	}
 
 
@@ -690,7 +719,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	public void transformBehaviorExecutionSpecification(
 			BehaviorExecutionSpecification element,
 			StatemachineContext lfContext) {
-	
+		if(element.getStart() instanceof ExecutionOccurrenceSpecification){
 		BehaviorExecutionSpecification act = (BehaviorExecutionSpecification) element;
 		State targetState = lfContext.createTargetState("targetBhExec#" + element.getName());
 		lfContext.currentState.setName("BhExec#" + element.getName());
@@ -702,6 +731,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		UmlFactory.addOpaqueBehaviorEffect(BH_tr, act.getBehavior());
 		
 		transformElementConstraints(element.getStart(), BH_tr, lfContext);
+		}
 	}
 	
 	
@@ -761,9 +791,51 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		    lfContext.inputMessage.add(message);
 
 		    MsgReceiveAction.append( message.getName() );
-		    if (! (message.getArguments().isEmpty()) ){
-		        
+		   
+		    
+		//    if (! (message.getArguments().isEmpty()) ){
+		    	// check if there is a behaviorExecution that specifies the variables on which we receive the message
+				EList<InteractionFragment> fragments = lfContext.coveredLifeline.getCoveredBys();
+				Boolean isStartExecBehavExecution = false;
+				BehaviorExecutionSpecification behavExecSpecOfComAct = null;
+				for (Iterator<InteractionFragment> iterator = fragments.iterator(); iterator.hasNext();) {
+					InteractionFragment interactionFragment = iterator
+							.next();
+					if (interactionFragment instanceof BehaviorExecutionSpecification){
+						
+						behavExecSpecOfComAct = (BehaviorExecutionSpecification) interactionFragment;
+						if (behavExecSpecOfComAct.getStart() == element){
+							isStartExecBehavExecution = true;
+							break;
+						}	
+					}	
+				}				
+
+				if (isStartExecBehavExecution){
+					MsgReceiveAction.append("( { ")
+					.append(message.getName() )
+		            .append( "#in" )
+		            .append(".signature, ");
+					
+					
+					Behavior behavior = behavExecSpecOfComAct.getBehavior();
+					if (behavior instanceof OpaqueBehavior){
+						OpaqueBehavior opaqueBehavior = (OpaqueBehavior) behavior;
+						if (opaqueBehavior.getBodies().size() > 0){
+							String strinBehavior = opaqueBehavior.getBodies().get(0);
+							strinBehavior = strinBehavior.replaceAll("\\s","");
+							strinBehavior = strinBehavior.substring(2);
+							MsgReceiveAction.append(strinBehavior);
+							MsgReceiveAction.append(" } );");
+						}
+					}
+					
+					UmlFactory.addOpaqueBehaviorEffect(MsgOcc_tr, MsgReceiveAction.toString());
+				}
+	    	
+		        //ancien
 		        NamedElement signature = message.getSignature();
+		        if( ! isStartExecBehavExecution ) {
 		        if( signature instanceof Signal ) {                    
 		            lfContext.addLocalVariable(message.getName() + "#params", (Signal) signature);
 		        }
@@ -772,33 +844,27 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		            .append( message.getName() )
 		            .append( "#params" );
 
-
-				//TO DELETE
-				//	for (ValueSpecification itArg : message.getArguments()) {
-				//	if( isnotFirst ) {
-				//	MsgReceiveAction.append(" , ");
-				//	}
-				//	else {
-				//	isnotFirst = true;
-				//	}
-				//	MsgReceiveAction.append(itArg.stringValue());
-				//	}
-				
 				MsgReceiveAction.append(" )");	
-			}
-			MsgReceiveAction.append(";");	
-			UmlFactory.addOpaqueBehaviorEffect(MsgOcc_tr, MsgReceiveAction.toString());
 			
+		    
+				MsgReceiveAction.append(";");	
+				UmlFactory.addOpaqueBehaviorEffect(MsgOcc_tr, MsgReceiveAction.toString());
+			    }
+	//	    }
 		}
 		else if( element.isSend() ) {
 
 			StringBuffer MsgReceiveAction = new StringBuffer("output ");
 			lfContext.outputMessage.add(message);
 			
-			MsgReceiveAction.append( message.getName() );
+			MsgReceiveAction.append( message.getName() )
+			.append("( ")
+			.append("\"")
+			.append(message.getSignature().getName())
+			.append("\"");
 			
 			if (! (message.getArguments().isEmpty()) ){
-				MsgReceiveAction.append("( { ");
+				MsgReceiveAction.append(", { ");
 
 				boolean isnotFirst = false;
 				

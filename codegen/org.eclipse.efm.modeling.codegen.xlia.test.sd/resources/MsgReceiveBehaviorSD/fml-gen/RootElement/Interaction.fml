@@ -1,0 +1,107 @@
+@xlia< system , 1.0 >:
+
+system< and > Interaction {
+@property: 
+// message
+	type S2 struct {
+		var string signature;
+		var integer sender;
+		var integer token;
+	};
+	message S2_Msg( S2 );
+// end message
+@composite: 
+	machine A#alice {
+
+	@property:
+		public buffer fifo<*> buffer_A;
+
+		public var integer ID;
+		public var integer pin;
+		public var machine/*< A >*/ alice;
+
+	@behavior:
+		statemachine< or > alice {
+		@region: // name: alice
+			state< initial > init_alice {
+				transition t_init_alice {
+				} --> MsgOcc#S2_MessageSend;
+			} // end pseudo-state init_alice
+
+			state MsgOcc#S2_MessageSend {
+				transition tr_S2_MessageSend {
+					output S2_Msg( "S2", { ID , pin } ) --> bob;
+				} --> targetMsgOcc#S2_MessageSend;
+			} // end state MsgOcc#S2_MessageSend
+
+			state< final > final_alice {
+			} // end final-state final_alice
+
+			state targetMsgOcc#S2_MessageSend {
+			} // end state targetMsgOcc#S2_MessageSend
+
+		// end @region: alice
+		} // end statemachine alice
+
+
+	@moe:
+		@init{
+			init alice;
+		}
+
+		@schedule{
+			run alice;
+		}
+
+	} // end machine A
+
+	machine B#bob {
+
+	@property:
+		public buffer fifo<*> buffer_B;
+
+		public var integer x;
+		public var machine/*< B >*/ c1;
+		public var integer y;
+
+	@behavior:
+		statemachine< or > bob {
+		@region: // name: bob
+			state< initial > init_bob {
+				transition t_init_bob {
+				} --> MsgOcc#S2_MessageRecv;
+			} // end pseudo-state init_bob
+
+			state MsgOcc#S2_MessageRecv {
+				transition tr_S2_MessageRecv {
+					input S2_Msg( { S2_Msg#in.signature, x,y } );
+				} --> targetMsgOcc#S2_MessageRecv;
+			} // end state MsgOcc#S2_MessageRecv
+
+			state< final > final_bob {
+			} // end final-state final_bob
+
+			state targetMsgOcc#S2_MessageRecv {
+			} // end state targetMsgOcc#S2_MessageRecv
+
+		// end @region: bob
+		} // end statemachine bob
+
+
+	@moe:
+		@init{
+			init bob;
+		}
+
+		@schedule{
+			run bob;
+		}
+
+	} // end machine B
+
+@com: 
+// route: message fifo
+	route<fifo> S2_Msg;
+// end route
+} // end Interaction Interaction
+
