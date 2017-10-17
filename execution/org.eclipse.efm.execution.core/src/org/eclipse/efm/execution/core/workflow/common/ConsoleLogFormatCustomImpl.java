@@ -17,7 +17,7 @@ import org.eclipse.efm.execution.core.workflow.common.impl.ConsoleLogFormatImpl;
 
 public class ConsoleLogFormatCustomImpl extends ConsoleLogFormatImpl {
 
-	public ConsoleLogFormatCustomImpl() {
+	protected ConsoleLogFormatCustomImpl() {
 		super();
 	}
 

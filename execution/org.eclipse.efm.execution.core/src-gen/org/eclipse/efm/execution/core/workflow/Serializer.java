@@ -24,6 +24,7 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecification;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getFormat <em>Format</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getCSS <em>CSS</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getTrace <em>Trace</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getFolderName <em>Folder Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getFileName <em>File Name</em>}</li>
@@ -62,6 +63,32 @@ public interface Serializer extends Worker {
 	 * @generated
 	 */
 	void setFormat(TraceSpecification value);
+
+	/**
+	 * Returns the value of the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>CSS</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>CSS</em>' containment reference.
+	 * @see #setCSS(TraceSpecification)
+	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_CSS()
+	 * @model containment="true"
+	 * @generated
+	 */
+	TraceSpecification getCSS();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.Serializer#getCSS <em>CSS</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>CSS</em>' containment reference.
+	 * @see #getCSS()
+	 * @generated
+	 */
+	void setCSS(TraceSpecification value);
 
 	/**
 	 * Returns the value of the '<em><b>Trace</b></em>' containment reference.

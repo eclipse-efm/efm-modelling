@@ -26,14 +26,14 @@ import org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWor
 public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 		implements IWorkflowConfigurationConstants {
 
-	public BehaviorCoverageWorkerCustomImpl(Director director, String name) {
+	protected BehaviorCoverageWorkerCustomImpl(Director director, String name) {
 		super();
 
 		setDirector(director);
 		setName(name);
 	}
 
-	public BehaviorCoverageWorkerCustomImpl(
+	protected BehaviorCoverageWorkerCustomImpl(
 			Director director, String name, String description) {
 		super();
 

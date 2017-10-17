@@ -19,9 +19,7 @@ import org.eclipse.efm.execution.core.workflow.common.impl.TraceSpecificationImp
 
 public class TraceSpecificationCustomImpl extends TraceSpecificationImpl {
 
-
-
-	public TraceSpecificationCustomImpl(String name) {
+	protected TraceSpecificationCustomImpl(String name) {
 		super();
 
 		setName(name);
@@ -38,6 +36,17 @@ public class TraceSpecificationCustomImpl extends TraceSpecificationImpl {
 				new TraceSpecificationCustomImpl(name);
 
 		trace.parseAll( specification );
+
+		return( trace );
+	}
+
+	public static TraceSpecificationCustomImpl create(
+			String name, String specification, TraceElementKind defaultNature) {
+
+		TraceSpecificationCustomImpl trace =
+				new TraceSpecificationCustomImpl(name);
+
+		trace.parseAll( specification , defaultNature );
 
 		return( trace );
 	}

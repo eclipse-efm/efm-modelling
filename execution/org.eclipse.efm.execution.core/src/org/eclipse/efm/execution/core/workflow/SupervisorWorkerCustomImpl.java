@@ -29,7 +29,7 @@ import org.eclipse.efm.execution.core.workflow.impl.SupervisorWorkerImpl;
 public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 		implements IWorkflowConfigurationConstants {
 
-	public SupervisorWorkerCustomImpl() {
+	protected SupervisorWorkerCustomImpl() {
 		super();
 	}
 
@@ -46,8 +46,18 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 				CommonFactory.eINSTANCE.createGraphExplorationLimit();
 
 		try {
-			limit.setEval( configuration.getAttribute(
+			limit.setStep( configuration.getAttribute(
 					ATTR_SPECIFICATION_STOP_CRITERIA_STEPS, -1) );
+		}
+		catch (CoreException e) {
+			e.printStackTrace();
+
+			limit.setStep( -1 );
+		}
+
+		try {
+			limit.setEval( configuration.getAttribute(
+					ATTR_SPECIFICATION_STOP_CRITERIA_EVALS, -1) );
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
@@ -160,15 +170,16 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 				CommonFactory.eINSTANCE.createGraphExplorationLimit();
 
 		try {
-			limit.setEval( configuration.getAttribute(
+			limit.setStep( configuration.getAttribute(
 					ATTR_TRACE_EXTENSION_EVALUATION_STEPS, -1) );
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
 
-			limit.setEval( -1 );
+			limit.setStep( -1 );
 		}
 
+		limit.setEval( -1 );
 		limit.setNode( -1 );
 		limit.setHeight( -1 );
 		limit.setWidth( -1 );
@@ -251,7 +262,8 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 		writer.appendTab2Eol( "limit 'of graph exploration' [" );
 //				"limit 'defining the maximum step & size of the graph' [" );
 
-		writer.appendTab3( "step = " ).appendEol( limit.getEval() );
+		writer.appendTab3( "step = " ).appendEol( limit.getStep() );
+		writer.appendTab3( "eval = " ).appendEol( limit.getEval() );
 
 		long value = -1;
 

@@ -17,14 +17,14 @@ import org.eclipse.efm.execution.core.workflow.common.impl.ManifestImpl;
 
 public class ManifestCustomImpl extends ManifestImpl {
 
-	public ManifestCustomImpl(boolean autoconf, boolean autostart) {
+	protected ManifestCustomImpl(boolean autoconf, boolean autostart) {
 		super();
 
 		setAutoconf(autoconf);
 		setAutostart(autostart);
 	}
 
-	public ManifestCustomImpl(boolean autostart) {
+	protected ManifestCustomImpl(boolean autostart) {
 		super();
 
 		setAutostart(autostart);

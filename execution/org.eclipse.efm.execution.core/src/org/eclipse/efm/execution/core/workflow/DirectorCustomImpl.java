@@ -35,13 +35,13 @@ import org.eclipse.efm.execution.core.workflow.test.OfflineTestWorkerCustomImpl;
 public class DirectorCustomImpl extends DirectorImpl
 		implements IWorkflowConfigurationConstants {
 
-	public DirectorCustomImpl(Workflow workflow) {
+	protected DirectorCustomImpl(Workflow workflow) {
 		super();
 
 		setWorkflow(workflow);
 	}
 
-	public DirectorCustomImpl(Workflow workflow, String name) {
+	protected DirectorCustomImpl(Workflow workflow, String name) {
 		super();
 
 		setWorkflow(workflow);

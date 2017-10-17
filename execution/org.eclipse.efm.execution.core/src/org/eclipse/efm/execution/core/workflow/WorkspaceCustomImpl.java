@@ -24,7 +24,7 @@ import org.eclipse.efm.execution.core.workflow.common.impl.WorkspaceImpl;
 public class WorkspaceCustomImpl extends WorkspaceImpl
 		implements IWorkflowConfigurationConstants {
 
-	public WorkspaceCustomImpl() {
+	protected WorkspaceCustomImpl() {
 		super();
 	}
 

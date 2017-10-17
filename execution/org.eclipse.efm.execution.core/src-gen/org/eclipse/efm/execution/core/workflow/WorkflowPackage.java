@@ -877,13 +877,22 @@ public interface WorkflowPackage extends EPackage {
 	int SERIALIZER__FORMAT = WORKER_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERIALIZER__CSS = WORKER_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Trace</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__TRACE = WORKER_FEATURE_COUNT + 1;
+	int SERIALIZER__TRACE = WORKER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Folder Name</b></em>' attribute.
@@ -892,7 +901,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__FOLDER_NAME = WORKER_FEATURE_COUNT + 2;
+	int SERIALIZER__FOLDER_NAME = WORKER_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>File Name</b></em>' attribute.
@@ -901,7 +910,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__FILE_NAME = WORKER_FEATURE_COUNT + 3;
+	int SERIALIZER__FILE_NAME = WORKER_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
@@ -910,7 +919,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_NORMALIZATION = WORKER_FEATURE_COUNT + 4;
+	int SERIALIZER__ENABLED_NORMALIZATION = WORKER_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
@@ -919,7 +928,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING = WORKER_FEATURE_COUNT + 5;
+	int SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING = WORKER_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Lifelines Printing</b></em>' attribute.
@@ -928,7 +937,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_LIFELINES_PRINTING = WORKER_FEATURE_COUNT + 6;
+	int SERIALIZER__ENABLED_LIFELINES_PRINTING = WORKER_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Serializer</em>' class.
@@ -937,7 +946,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 7;
+	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of operations of the '<em>Serializer</em>' class.
@@ -1404,6 +1413,17 @@ public interface WorkflowPackage extends EPackage {
 	EReference getSerializer_Format();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.execution.core.workflow.Serializer#getCSS <em>CSS</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>CSS</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.Serializer#getCSS()
+	 * @see #getSerializer()
+	 * @generated
+	 */
+	EReference getSerializer_CSS();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.execution.core.workflow.Serializer#getTrace <em>Trace</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1843,6 +1863,14 @@ public interface WorkflowPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SERIALIZER__FORMAT = eINSTANCE.getSerializer_Format();
+
+		/**
+		 * The meta object literal for the '<em><b>CSS</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERIALIZER__CSS = eINSTANCE.getSerializer_CSS();
 
 		/**
 		 * The meta object literal for the '<em><b>Trace</b></em>' containment reference feature.

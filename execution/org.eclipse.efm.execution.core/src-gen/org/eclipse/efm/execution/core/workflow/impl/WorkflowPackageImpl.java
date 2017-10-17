@@ -567,7 +567,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSerializer_Trace() {
+	public EReference getSerializer_CSS() {
 		return (EReference)serializerEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -576,8 +576,8 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSerializer_FolderName() {
-		return (EAttribute)serializerEClass.getEStructuralFeatures().get(2);
+	public EReference getSerializer_Trace() {
+		return (EReference)serializerEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -585,7 +585,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSerializer_FileName() {
+	public EAttribute getSerializer_FolderName() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -594,7 +594,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSerializer_EnabledNormalization() {
+	public EAttribute getSerializer_FileName() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -603,7 +603,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSerializer_EnabledInitialValuesPrinting() {
+	public EAttribute getSerializer_EnabledNormalization() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -612,8 +612,17 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSerializer_EnabledLifelinesPrinting() {
+	public EAttribute getSerializer_EnabledInitialValuesPrinting() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSerializer_EnabledLifelinesPrinting() {
+		return (EAttribute)serializerEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -693,6 +702,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 
 		serializerEClass = createEClass(SERIALIZER);
 		createEReference(serializerEClass, SERIALIZER__FORMAT);
+		createEReference(serializerEClass, SERIALIZER__CSS);
 		createEReference(serializerEClass, SERIALIZER__TRACE);
 		createEAttribute(serializerEClass, SERIALIZER__FOLDER_NAME);
 		createEAttribute(serializerEClass, SERIALIZER__FILE_NAME);
@@ -799,6 +809,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 
 		initEClass(serializerEClass, Serializer.class, "Serializer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSerializer_Format(), theCommonPackage.getTraceSpecification(), null, "format", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSerializer_CSS(), theCommonPackage.getTraceSpecification(), null, "CSS", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSerializer_Trace(), theCommonPackage.getTraceSpecification(), null, "trace", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_FolderName(), ecorePackage.getEString(), "folderName", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_FileName(), ecorePackage.getEString(), "fileName", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

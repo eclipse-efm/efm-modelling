@@ -26,7 +26,7 @@ import org.eclipse.efm.execution.core.workflow.serializer.impl.BasicTraceSeriali
 public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerImpl
 		implements IWorkflowConfigurationConstants {
 
-	public BasicTraceSerializerWorkerCustomImpl(
+	protected BasicTraceSerializerWorkerCustomImpl(
 			Director director, String name) {
 		super();
 
@@ -34,7 +34,7 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		setName(name);
 	}
 
-	public BasicTraceSerializerWorkerCustomImpl(
+	protected BasicTraceSerializerWorkerCustomImpl(
 			Director director, String name, String description) {
 		super();
 

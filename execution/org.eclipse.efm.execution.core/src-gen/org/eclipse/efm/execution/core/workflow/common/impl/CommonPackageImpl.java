@@ -402,7 +402,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGraphExplorationLimit_Eval() {
+	public EAttribute getGraphExplorationLimit_Step() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -411,7 +411,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGraphExplorationLimit_Node() {
+	public EAttribute getGraphExplorationLimit_Eval() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -420,7 +420,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGraphExplorationLimit_Height() {
+	public EAttribute getGraphExplorationLimit_Node() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -429,7 +429,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGraphExplorationLimit_Width() {
+	public EAttribute getGraphExplorationLimit_Height() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -438,7 +438,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGraphExplorationLimit_Report() {
+	public EAttribute getGraphExplorationLimit_Width() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -447,8 +447,17 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGraphExplorationLimit_Save() {
+	public EAttribute getGraphExplorationLimit_Report() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGraphExplorationLimit_Save() {
+		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1448,6 +1457,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(projectEClass, PROJECT__MODEL);
 
 		graphExplorationLimitEClass = createEClass(GRAPH_EXPLORATION_LIMIT);
+		createEAttribute(graphExplorationLimitEClass, GRAPH_EXPLORATION_LIMIT__STEP);
 		createEAttribute(graphExplorationLimitEClass, GRAPH_EXPLORATION_LIMIT__EVAL);
 		createEAttribute(graphExplorationLimitEClass, GRAPH_EXPLORATION_LIMIT__NODE);
 		createEAttribute(graphExplorationLimitEClass, GRAPH_EXPLORATION_LIMIT__HEIGHT);
@@ -1623,6 +1633,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getProject_Model(), ecorePackage.getEString(), "model", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(graphExplorationLimitEClass, GraphExplorationLimit.class, "GraphExplorationLimit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGraphExplorationLimit_Step(), ecorePackage.getELong(), "step", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGraphExplorationLimit_Eval(), ecorePackage.getELong(), "eval", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGraphExplorationLimit_Node(), ecorePackage.getELong(), "node", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGraphExplorationLimit_Height(), ecorePackage.getELong(), "height", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1759,7 +1770,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 
 		initEEnum(traceElementKindEEnum, TraceElementKind.class, "TraceElementKind");
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.UNDEFINED);
-		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.UNKNOWN);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.CONDITION);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.DECISION);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.FORMULA);
@@ -1822,6 +1832,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_END);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_ID);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_STATE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.RAW_ATTRIBUTE);
 
 		initEEnum(heuristicClassKindEEnum, HeuristicClassKind.class, "HeuristicClassKind");
 		addEEnumLiteral(heuristicClassKindEEnum, HeuristicClassKind.BASIC);

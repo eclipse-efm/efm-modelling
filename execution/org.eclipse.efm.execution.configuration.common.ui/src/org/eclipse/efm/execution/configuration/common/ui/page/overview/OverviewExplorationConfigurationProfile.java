@@ -37,6 +37,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	private Button fBFSButton = null;
 	private Button fDFSButton = null;
 	private Button fRFSButton = null;
+	private Button fALLButton = null;
 
 	private GraphExplorationStrategyKind fAnalyzeStrategy =
 		GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
@@ -92,6 +93,9 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 			else if (source == fRFSButton) {
 				handleRFSButtonSelected();
 			}
+			else if (source == fALLButton) {
+				handleALLButtonSelected();
+			}
 		}
 	}
 
@@ -119,6 +123,13 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	public void handleRFSButtonSelected() {
 		if( fRFSButton.getSelection() ) {
 			fAnalyzeStrategy = GraphExplorationStrategyKind.RANDOM_FIRST_SEARCH;
+		}
+		fConfigurationPage.propagateGUIupdate();
+	}
+
+	public void handleALLButtonSelected() {
+		if( fALLButton.getSelection() ) {
+			fAnalyzeStrategy = GraphExplorationStrategyKind.ALL;
 		}
 		fConfigurationPage.propagateGUIupdate();
 	}
@@ -181,7 +192,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 	protected void createAnalyzeStrategy(Composite parent, IWidgetToolkit widgetToolkit) {
 		groupAnalyzeStrategy = widgetToolkit.createGroup(
-				parent, "&Analyze Strategy", 3, 1, GridData.FILL_HORIZONTAL);
+				parent, "&Analyze Strategy", 4, 1, GridData.FILL_HORIZONTAL);
 
 		fBFSButton = widgetToolkit.createRadioButton(groupAnalyzeStrategy, "&BFS");
 		fBFSButton.addSelectionListener(fListener);
@@ -194,6 +205,10 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		fRFSButton = widgetToolkit.createRadioButton(groupAnalyzeStrategy, "&RFS");
 		fRFSButton.addSelectionListener(fListener);
 		fRFSButton.setToolTipText("Random First Search");
+
+		fALLButton = widgetToolkit.createRadioButton(groupAnalyzeStrategy, "&ALL");
+		fALLButton.addSelectionListener(fListener);
+		fALLButton.setToolTipText("SEARCH IN ALL");
 	}
 
 
@@ -247,6 +262,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		fBFSButton.setSelection(false);
 		fDFSButton.setSelection(false);
 		fRFSButton.setSelection(false);
+		fALLButton.setSelection(false);
 
 		switch( fAnalyzeStrategy ) {
 		case BREADTH_FIRST_SEARCH:
@@ -257,6 +273,9 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 			break;
 		case RANDOM_FIRST_SEARCH:
 			fRFSButton.setSelection(true);
+			break;
+		case ALL:
+			fALLButton.setSelection(true);
 			break;
 		default:
 			fBFSButton.setSelection(true);
@@ -301,6 +320,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 			case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE: {
 				fDFSButton.setSelection(false);
 				fRFSButton.setSelection(false);
+				fALLButton.setSelection(false);
 
 				fBFSButton.setSelection(true); // BREADTH_FIRST_SEARCH
 				break;

@@ -18,13 +18,14 @@ import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
+import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.impl.ModelGraphvizSerializerWorkerImpl;
 
 public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSerializerWorkerImpl
 		implements IWorkflowConfigurationConstants {
 
-	public SymbexGraphvizSerializerWorkerCustomImpl(
+	protected SymbexGraphvizSerializerWorkerCustomImpl(
 			Director director, String name) {
 		super();
 
@@ -32,7 +33,7 @@ public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSeria
 		setName(name);
 	}
 
-	public SymbexGraphvizSerializerWorkerCustomImpl(
+	protected SymbexGraphvizSerializerWorkerCustomImpl(
 			Director director, String name, String description) {
 		super();
 
@@ -68,6 +69,25 @@ public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSeria
 					TraceSpecificationCustomImpl.create("format", strFormat);
 
 			serializerWorker.setFormat( format );
+		}
+
+		String strCSS;
+		try {
+			strCSS = configuration.getAttribute(
+					ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC,
+					DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC);
+		}
+		catch( CoreException e ) {
+			e.printStackTrace();
+
+			strCSS = DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC;
+		}
+		if( (strCSS != null) && (! strCSS.isEmpty()) ) {
+			TraceSpecificationCustomImpl css =
+					TraceSpecificationCustomImpl.create("css",
+							strCSS, TraceElementKind.RAW_ATTRIBUTE);
+
+			serializerWorker.setCSS( css );
 		}
 
 		String strTrace;
@@ -130,6 +150,25 @@ public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSeria
 					TraceSpecificationCustomImpl.create("format", strFormat);
 
 			serializerWorker.setFormat( format );
+		}
+
+		String strCSS;
+		try {
+			strCSS = configuration.getAttribute(
+					ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC,
+					DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC);
+		}
+		catch( CoreException e ) {
+			e.printStackTrace();
+
+			strCSS = DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC;
+		}
+		if( (strCSS != null) && (! strCSS.isEmpty()) ) {
+			TraceSpecificationCustomImpl css =
+					TraceSpecificationCustomImpl.create("css",
+							strCSS, TraceElementKind.RAW_ATTRIBUTE);
+
+			serializerWorker.setCSS( css );
 		}
 
 		String strTrace;
@@ -200,6 +239,12 @@ public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSeria
 				(TraceSpecificationCustomImpl) getFormat();
 		if( format != null ) {
 			format.toWriter( writer2 );
+		}
+
+		TraceSpecificationCustomImpl css =
+				(TraceSpecificationCustomImpl) getCSS();
+		if( css != null ) {
+			css.toWriter( writer2 );
 		}
 
 		TraceSpecificationCustomImpl trace =

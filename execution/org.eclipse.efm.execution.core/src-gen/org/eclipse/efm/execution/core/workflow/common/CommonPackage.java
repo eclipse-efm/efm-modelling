@@ -236,13 +236,22 @@ public interface CommonPackage extends EPackage {
 	int GRAPH_EXPLORATION_LIMIT = 3;
 
 	/**
+	 * The feature id for the '<em><b>Step</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRAPH_EXPLORATION_LIMIT__STEP = 0;
+
+	/**
 	 * The feature id for the '<em><b>Eval</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_EXPLORATION_LIMIT__EVAL = 0;
+	int GRAPH_EXPLORATION_LIMIT__EVAL = 1;
 
 	/**
 	 * The feature id for the '<em><b>Node</b></em>' attribute.
@@ -251,7 +260,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_EXPLORATION_LIMIT__NODE = 1;
+	int GRAPH_EXPLORATION_LIMIT__NODE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Height</b></em>' attribute.
@@ -260,7 +269,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_EXPLORATION_LIMIT__HEIGHT = 2;
+	int GRAPH_EXPLORATION_LIMIT__HEIGHT = 3;
 
 	/**
 	 * The feature id for the '<em><b>Width</b></em>' attribute.
@@ -269,7 +278,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_EXPLORATION_LIMIT__WIDTH = 3;
+	int GRAPH_EXPLORATION_LIMIT__WIDTH = 4;
 
 	/**
 	 * The feature id for the '<em><b>Report</b></em>' attribute.
@@ -278,7 +287,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_EXPLORATION_LIMIT__REPORT = 4;
+	int GRAPH_EXPLORATION_LIMIT__REPORT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Save</b></em>' attribute.
@@ -287,7 +296,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_EXPLORATION_LIMIT__SAVE = 5;
+	int GRAPH_EXPLORATION_LIMIT__SAVE = 6;
 
 	/**
 	 * The number of structural features of the '<em>Graph Exploration Limit</em>' class.
@@ -296,7 +305,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_EXPLORATION_LIMIT_FEATURE_COUNT = 6;
+	int GRAPH_EXPLORATION_LIMIT_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Graph Exploration Limit</em>' class.
@@ -1613,6 +1622,17 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getGraphExplorationLimit();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationLimit#getStep <em>Step</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Step</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.GraphExplorationLimit#getStep()
+	 * @see #getGraphExplorationLimit()
+	 * @generated
+	 */
+	EAttribute getGraphExplorationLimit_Step();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationLimit#getEval <em>Eval</em>}'.
@@ -2955,6 +2975,14 @@ public interface CommonPackage extends EPackage {
 		 * @generated
 		 */
 		EClass GRAPH_EXPLORATION_LIMIT = eINSTANCE.getGraphExplorationLimit();
+
+		/**
+		 * The meta object literal for the '<em><b>Step</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GRAPH_EXPLORATION_LIMIT__STEP = eINSTANCE.getGraphExplorationLimit_Step();
 
 		/**
 		 * The meta object literal for the '<em><b>Eval</b></em>' attribute feature.

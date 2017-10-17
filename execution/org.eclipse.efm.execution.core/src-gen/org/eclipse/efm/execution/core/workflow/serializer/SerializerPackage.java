@@ -141,6 +141,15 @@ public interface SerializerPackage extends EPackage {
 	int MODEL_GRAPHVIZ_SERIALIZER_WORKER__FORMAT = WorkflowPackage.SERIALIZER__FORMAT;
 
 	/**
+	 * The feature id for the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHVIZ_SERIALIZER_WORKER__CSS = WorkflowPackage.SERIALIZER__CSS;
+
+	/**
 	 * The feature id for the '<em><b>Trace</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -284,6 +293,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER__FORMAT = WorkflowPackage.SERIALIZER__FORMAT;
+
+	/**
+	 * The feature id for the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER__CSS = WorkflowPackage.SERIALIZER__CSS;
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' containment reference.
@@ -431,6 +449,15 @@ public interface SerializerPackage extends EPackage {
 	int BASIC_TRACE_SERIALIZER__FORMAT = WorkflowPackage.SERIALIZER__FORMAT;
 
 	/**
+	 * The feature id for the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_TRACE_SERIALIZER__CSS = WorkflowPackage.SERIALIZER__CSS;
+
+	/**
 	 * The feature id for the '<em><b>Trace</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -574,6 +601,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int TTCN_TRACE_SERIALIZER__FORMAT = WorkflowPackage.SERIALIZER__FORMAT;
+
+	/**
+	 * The feature id for the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TTCN_TRACE_SERIALIZER__CSS = WorkflowPackage.SERIALIZER__CSS;
 
 	/**
 	 * The feature id for the '<em><b>Trace</b></em>' containment reference.

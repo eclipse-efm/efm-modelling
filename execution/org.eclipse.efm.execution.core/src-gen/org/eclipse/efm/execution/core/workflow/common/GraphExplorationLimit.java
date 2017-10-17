@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationLimit#getStep <em>Step</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationLimit#getEval <em>Eval</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationLimit#getNode <em>Node</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationLimit#getHeight <em>Height</em>}</li>
@@ -36,6 +37,32 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface GraphExplorationLimit extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Step</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Step</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Step</em>' attribute.
+	 * @see #setStep(long)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationLimit_Step()
+	 * @model
+	 * @generated
+	 */
+	long getStep();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationLimit#getStep <em>Step</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Step</em>' attribute.
+	 * @see #getStep()
+	 * @generated
+	 */
+	void setStep(long value);
+
 	/**
 	 * Returns the value of the '<em><b>Eval</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -24,7 +24,7 @@ import org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphVizSer
 public class ModelGraphvizSerializerWorkerCustomImpl extends SymbexGraphVizSerializerWorkerImpl
 		implements IWorkflowConfigurationConstants {
 
-	public ModelGraphvizSerializerWorkerCustomImpl(
+	protected ModelGraphvizSerializerWorkerCustomImpl(
 			Director director, String name) {
 		super();
 
@@ -32,7 +32,7 @@ public class ModelGraphvizSerializerWorkerCustomImpl extends SymbexGraphVizSeria
 		setName(name);
 	}
 
-	public ModelGraphvizSerializerWorkerCustomImpl(
+	protected ModelGraphvizSerializerWorkerCustomImpl(
 			Director director, String name, String description) {
 		super();
 

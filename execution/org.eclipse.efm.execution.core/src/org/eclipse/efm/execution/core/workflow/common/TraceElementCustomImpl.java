@@ -68,6 +68,9 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 		if( getNature() == TraceElementKind.UNDEFINED ) {
 			writer.commentLine( value );
 		}
+		else if( getNature() == TraceElementKind.RAW_ATTRIBUTE ) {
+			writer.appendTabEol( value.toString() );
+		}
 		else {
 			writer.appendTab( getNature().getLiteral() ).append( " = " );
 			if( value instanceof String ) {

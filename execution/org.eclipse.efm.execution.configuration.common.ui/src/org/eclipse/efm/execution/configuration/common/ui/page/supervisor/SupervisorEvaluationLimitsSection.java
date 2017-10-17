@@ -49,18 +49,25 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 	@Override
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
 	{
-        IntegerFieldEditor integerField = new IntegerFieldEditor(fConfigurationPage,
+		IntegerFieldEditor integerField = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_SPECIFICATION_STOP_CRITERIA_STEPS,
-				"&Evaluation Steps:", parent, 1000);
-		integerField.setToolTipText("Maximal steps of calculus "
-				+ "(-1 <=> no-limit) during the symbolic execution");
+				"&Symbex Step Count:", parent, 1000);
+		integerField.setToolTipText("Maximal symbex step (possibly many evaluations by step)"
+				+ " (-1 <=> no-limit) during the dynamic process");
+		addField( integerField );
+
+		integerField = new IntegerFieldEditor(fConfigurationPage,
+				ATTR_SPECIFICATION_STOP_CRITERIA_EVALS,
+				"&Symbex Eval Count:", parent, 1000);
+		integerField.setToolTipText("Maximal symbex evaluation count"
+				+ " (-1 <=> no-limit) during the dynamic process");
 		addField( integerField );
 
 		integerField = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_SPECIFICATION_STOP_CRITERIA_TIMEOUT,
 				"&Timeout (seconds):", parent, -1);
 		integerField.setToolTipText("Maximal duration "
-				+ "(-1 <=> no-limit) of the symbolic execution");
+				+ "(-1 <=> no-limit) of the symbex dynamic process");
 		addField( integerField );
 
 		integerField.setEnabled(false);
@@ -98,10 +105,14 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 		{
 			configuration.setAttribute(
 					ATTR_SPECIFICATION_STOP_CRITERIA_STEPS, -1);
+			configuration.setAttribute(
+					ATTR_SPECIFICATION_STOP_CRITERIA_EVALS, -1);
 		}
 		else {
 			configuration.setAttribute(
 					ATTR_SPECIFICATION_STOP_CRITERIA_STEPS, 1000);
+			configuration.setAttribute(
+					ATTR_SPECIFICATION_STOP_CRITERIA_EVALS, 1000);
 		}
 
 		configuration.setAttribute(

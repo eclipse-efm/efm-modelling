@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.GraphExplorationLimitImpl#getStep <em>Step</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.GraphExplorationLimitImpl#getEval <em>Eval</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.GraphExplorationLimitImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.GraphExplorationLimitImpl#getHeight <em>Height</em>}</li>
@@ -41,6 +42,26 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * @generated
  */
 public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container implements GraphExplorationLimit {
+	/**
+	 * The default value of the '{@link #getStep() <em>Step</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStep()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final long STEP_EDEFAULT = 0L;
+
+	/**
+	 * The cached value of the '{@link #getStep() <em>Step</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStep()
+	 * @generated
+	 * @ordered
+	 */
+	protected long step = STEP_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getEval() <em>Eval</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -185,6 +206,27 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public long getStep() {
+		return step;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStep(long newStep) {
+		long oldStep = step;
+		step = newStep;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.GRAPH_EXPLORATION_LIMIT__STEP, oldStep, step));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public long getEval() {
 		return eval;
 	}
@@ -314,6 +356,8 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case CommonPackage.GRAPH_EXPLORATION_LIMIT__STEP:
+				return getStep();
 			case CommonPackage.GRAPH_EXPLORATION_LIMIT__EVAL:
 				return getEval();
 			case CommonPackage.GRAPH_EXPLORATION_LIMIT__NODE:
@@ -338,6 +382,9 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case CommonPackage.GRAPH_EXPLORATION_LIMIT__STEP:
+				setStep((Long)newValue);
+				return;
 			case CommonPackage.GRAPH_EXPLORATION_LIMIT__EVAL:
 				setEval((Long)newValue);
 				return;
@@ -368,6 +415,9 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case CommonPackage.GRAPH_EXPLORATION_LIMIT__STEP:
+				setStep(STEP_EDEFAULT);
+				return;
 			case CommonPackage.GRAPH_EXPLORATION_LIMIT__EVAL:
 				setEval(EVAL_EDEFAULT);
 				return;
@@ -398,6 +448,8 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case CommonPackage.GRAPH_EXPLORATION_LIMIT__STEP:
+				return step != STEP_EDEFAULT;
 			case CommonPackage.GRAPH_EXPLORATION_LIMIT__EVAL:
 				return eval != EVAL_EDEFAULT;
 			case CommonPackage.GRAPH_EXPLORATION_LIMIT__NODE:
@@ -424,7 +476,9 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (eval: ");
+		result.append(" (step: ");
+		result.append(step);
+		result.append(", eval: ");
 		result.append(eval);
 		result.append(", node: ");
 		result.append(node);

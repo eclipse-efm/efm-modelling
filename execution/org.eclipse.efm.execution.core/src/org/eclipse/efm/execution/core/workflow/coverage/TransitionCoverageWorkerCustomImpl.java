@@ -35,14 +35,14 @@ import org.eclipse.efm.execution.core.workflow.coverage.impl.TransitionCoverageW
 public class TransitionCoverageWorkerCustomImpl extends TransitionCoverageWorkerImpl
 		implements IWorkflowConfigurationConstants {
 
-	public TransitionCoverageWorkerCustomImpl(Director director, String name) {
+	protected TransitionCoverageWorkerCustomImpl(Director director, String name) {
 		super();
 
 		setDirector(director);
 		setName(name);
 	}
 
-	public TransitionCoverageWorkerCustomImpl(
+	protected TransitionCoverageWorkerCustomImpl(
 			Director director, String name, String description) {
 		super();
 

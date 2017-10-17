@@ -44,17 +44,17 @@ public class WorkflowCustomImpl extends WorkflowImpl
 			"CEA - LIST";
 
 
-	public WorkflowCustomImpl() {
+	protected WorkflowCustomImpl() {
 		super();
 	}
 
-	public WorkflowCustomImpl(String name) {
+	protected WorkflowCustomImpl(String name) {
 		super();
 
 		setName(name);
 	}
 
-	public WorkflowCustomImpl(String name, String description) {
+	protected WorkflowCustomImpl(String name, String description) {
 		super();
 
 		setName(name);
@@ -231,6 +231,8 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		SymbexOption symbexMode = getSymbexOption();
 		if( symbexMode != null ) {
 			writer.appendTab2Eol( "symbex 'option' [" );
+			
+			writer.appendTab3Eol( "node_condition_enabled = false");
 
 			writer.appendTab3Eol( "separation_of_pc_disjunction = false" );
 			writer.appendTab3Eol( "check_pathcondition_satisfiability = true" );

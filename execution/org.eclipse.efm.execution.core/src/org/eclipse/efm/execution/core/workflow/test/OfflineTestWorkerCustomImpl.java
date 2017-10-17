@@ -25,14 +25,14 @@ import org.eclipse.efm.execution.core.workflow.test.impl.OfflineTestWorkerImpl;
 public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 		implements IWorkflowConfigurationConstants {
 
-	public OfflineTestWorkerCustomImpl(Director director, String name) {
+	protected OfflineTestWorkerCustomImpl(Director director, String name) {
 		super();
 
 		setDirector(director);
 		setName(name);
 	}
 
-	public OfflineTestWorkerCustomImpl(
+	protected OfflineTestWorkerCustomImpl(
 			Director director, String name, String description) {
 		super();
 

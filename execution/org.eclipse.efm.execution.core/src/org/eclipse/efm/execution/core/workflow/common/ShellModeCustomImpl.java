@@ -18,7 +18,7 @@ import org.eclipse.efm.execution.core.workflow.common.impl.ShellModeImpl;
 
 public class ShellModeCustomImpl extends ShellModeImpl {
 
-	public ShellModeCustomImpl() {
+	protected ShellModeCustomImpl() {
 		super();
 	}
 

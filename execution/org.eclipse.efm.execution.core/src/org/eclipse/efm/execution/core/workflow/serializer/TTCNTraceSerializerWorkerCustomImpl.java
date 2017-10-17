@@ -24,7 +24,7 @@ import org.eclipse.efm.execution.core.workflow.serializer.impl.TTCNTraceSerializ
 public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 		implements IWorkflowConfigurationConstants {
 
-	public TTCNTraceSerializerWorkerCustomImpl(
+	protected TTCNTraceSerializerWorkerCustomImpl(
 			Director director, String name) {
 		super();
 
@@ -32,7 +32,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 		setName(name);
 	}
 
-	public TTCNTraceSerializerWorkerCustomImpl(
+	protected TTCNTraceSerializerWorkerCustomImpl(
 			Director director, String name, String description) {
 		super();
 

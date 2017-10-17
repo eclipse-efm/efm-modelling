@@ -147,6 +147,9 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public static final String ATTR_SPECIFICATION_STOP_CRITERIA_STEPS =
 			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_STOP_CRITERIA_STEPS"; //$NON-NLS-1$
 
+	public static final String ATTR_SPECIFICATION_STOP_CRITERIA_EVALS =
+			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_STOP_CRITERIA_EVALS"; //$NON-NLS-1$
+
 
 	////////////////////////////////////////////////////////////////////////////
 	// SUPERVISOR: TIME EXPLORATION LIMIT a.k.a. TIMEOUT
@@ -705,7 +708,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			// %3% --> state identifier
 			= "lifeline#state = %2%:%4%"
 			// %1% --> condition
-			+ "path#condition = PC: %1%"
+			+ "\npath#condition = PC: %1%"
 			+ "\npath#timed#condition = PtC: %1%"
 			+ "\nnode#condition = "//NC: %1%"
 			+ "\nnode#timed#condition = "//NtC: %1%"
@@ -731,6 +734,72 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			+ "\ntransition = fired transition %3%"
 
 			+ "\nmachine    = \"run %2%:%3%\""; //$NON-NLS-1$
+
+	public static final String ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC =
+			PLUGIN_LAUNCH_ID + ".ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC"; //$NON-NLS-1$
+
+	public static final String DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC
+			= // Node color / shape
+			    "node#color = 'lightblue'"
+			+ "\nnode#shape = 'ellipse'"
+			+ "\nnode#style = 'filled'"
+
+			+ "\nnode#passed#color = 'yellow'"
+			+ "\nnode#passed#shape = 'ellipse'"
+			+ "\nnode#passed#style = 'filled'"
+
+			+ "\nnode#failed#color = 'red'"
+			+ "\nnode#failed#shape = 'doubleoctagon'"
+			+ "\nnode#failed#style = 'filled'"
+
+			+ "\nnode#inconclusive#color = 'orange'"
+			+ "\nnode#inconclusive#shape = 'octagon'"
+			+ "\nnode#inconclusive#style = 'filled'"
+
+			+ "\nnode#aborted#color = 'red'"
+			+ "\nnode#aborted#shape = 'octagon'"
+			+ "\nnode#aborted#style = 'filled'"
+
+			+ "\nnode#warning#color = 'orange'"
+			+ "\nnode#warning#shape = 'ellipse'"			
+			+ "\nnode#warning#style = 'filled'"			
+
+			+ "\nnode#error#color = 'red'"
+			+ "\nnode#error#shape = 'ellipse'"
+			+ "\nnode#error#style = 'filled'"
+
+			+ "\nnode#alert#color = 'red'"
+			+ "\nnode#alert#shape = 'ellipse'"
+			+ "\nnode#alert#style = 'filled'"
+
+			+ "\nnode#exit#color = 'orange'"
+			+ "\nnode#exit#shape = 'tripleoctagon'"
+			+ "\nnode#exit#style = 'filled'"
+
+			+ "\nnode#redundancy#source#color = 'green'"
+			+ "\nnode#redundancy#source#shape = 'cds'"
+			+ "\nnode#redundancy#source#style = 'filled'"
+
+			+ "\nnode#redundancy#target#color = 'greenyellow'"
+			+ "\nnode#redundancy#target#shape = 'septagon'"
+			+ "\nnode#redundancy#target#style = 'filled'"
+
+			// Path color / shape
+			+ "\npath#passed#color = 'lawngreen'"
+			+ "\npath#passed#shape = 'tripleoctagon'"
+			+ "\npath#passed#style = 'filled'"
+
+			+ "\npath#failed#color = 'red'"
+			+ "\npath#failed#shape = 'doubleoctagon'"
+			+ "\npath#failed#style = 'filled'"
+
+			+ "\npath#inconclusive#color = 'orange'"
+			+ "\npath#inconclusive#shape = 'octagon'"
+			+ "\npath#inconclusive#style = 'filled'"
+
+			+ "\npath#aborted#color = 'red'"
+			+ "\npath#aborted#shape = 'octagon'"
+			+ "\npath#aborted#style = 'filled'";
 
 
 	// Second Symbex Workflow Page

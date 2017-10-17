@@ -25,14 +25,12 @@ import org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOption
 public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 		implements IWorkflowConfigurationConstants {
 
-
-
 	static boolean fEnabledDebugOptions;
 
 	static boolean fEnabledSymbexDeveloperMode;
 
 
-	public DeveloperTuningOptionCustomImpl() {
+	protected DeveloperTuningOptionCustomImpl() {
 		super();
 	}
 

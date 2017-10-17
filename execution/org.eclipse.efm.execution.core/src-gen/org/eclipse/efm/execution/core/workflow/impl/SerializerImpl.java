@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getFormat <em>Format</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getCSS <em>CSS</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getTrace <em>Trace</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getFolderName <em>Folder Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getFileName <em>File Name</em>}</li>
@@ -54,6 +55,16 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * @ordered
 	 */
 	protected TraceSpecification format;
+
+	/**
+	 * The cached value of the '{@link #getCSS() <em>CSS</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCSS()
+	 * @generated
+	 * @ordered
+	 */
+	protected TraceSpecification css;
 
 	/**
 	 * The cached value of the '{@link #getTrace() <em>Trace</em>}' containment reference.
@@ -232,6 +243,49 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TraceSpecification getCSS() {
+		return css;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCSS(TraceSpecification newCSS, NotificationChain msgs) {
+		TraceSpecification oldCSS = css;
+		css = newCSS;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WorkflowPackage.SERIALIZER__CSS, oldCSS, newCSS);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCSS(TraceSpecification newCSS) {
+		if (newCSS != css) {
+			NotificationChain msgs = null;
+			if (css != null)
+				msgs = ((InternalEObject)css).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WorkflowPackage.SERIALIZER__CSS, null, msgs);
+			if (newCSS != null)
+				msgs = ((InternalEObject)newCSS).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WorkflowPackage.SERIALIZER__CSS, null, msgs);
+			msgs = basicSetCSS(newCSS, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WorkflowPackage.SERIALIZER__CSS, newCSS, newCSS));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TraceSpecification getTrace() {
 		return trace;
 	}
@@ -385,6 +439,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 		switch (featureID) {
 			case WorkflowPackage.SERIALIZER__FORMAT:
 				return basicSetFormat(null, msgs);
+			case WorkflowPackage.SERIALIZER__CSS:
+				return basicSetCSS(null, msgs);
 			case WorkflowPackage.SERIALIZER__TRACE:
 				return basicSetTrace(null, msgs);
 		}
@@ -401,6 +457,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 		switch (featureID) {
 			case WorkflowPackage.SERIALIZER__FORMAT:
 				return getFormat();
+			case WorkflowPackage.SERIALIZER__CSS:
+				return getCSS();
 			case WorkflowPackage.SERIALIZER__TRACE:
 				return getTrace();
 			case WorkflowPackage.SERIALIZER__FOLDER_NAME:
@@ -427,6 +485,9 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 		switch (featureID) {
 			case WorkflowPackage.SERIALIZER__FORMAT:
 				setFormat((TraceSpecification)newValue);
+				return;
+			case WorkflowPackage.SERIALIZER__CSS:
+				setCSS((TraceSpecification)newValue);
 				return;
 			case WorkflowPackage.SERIALIZER__TRACE:
 				setTrace((TraceSpecification)newValue);
@@ -461,6 +522,9 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 			case WorkflowPackage.SERIALIZER__FORMAT:
 				setFormat((TraceSpecification)null);
 				return;
+			case WorkflowPackage.SERIALIZER__CSS:
+				setCSS((TraceSpecification)null);
+				return;
 			case WorkflowPackage.SERIALIZER__TRACE:
 				setTrace((TraceSpecification)null);
 				return;
@@ -493,6 +557,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 		switch (featureID) {
 			case WorkflowPackage.SERIALIZER__FORMAT:
 				return format != null;
+			case WorkflowPackage.SERIALIZER__CSS:
+				return css != null;
 			case WorkflowPackage.SERIALIZER__TRACE:
 				return trace != null;
 			case WorkflowPackage.SERIALIZER__FOLDER_NAME:

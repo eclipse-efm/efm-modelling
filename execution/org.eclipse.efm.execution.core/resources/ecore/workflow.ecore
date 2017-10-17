@@ -73,6 +73,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Serializer" abstract="true" eSuperTypes="#//Worker">
     <eStructuralFeatures xsi:type="ecore:EReference" name="format" eType="#//common/TraceSpecification"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="CSS" eType="#//common/TraceSpecification"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="trace" eType="#//common/TraceSpecification"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="folderName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -115,6 +117,7 @@
       <eLiterals name="ALL" value="7" literal="ALL"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="GraphExplorationLimit">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="step" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="eval" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="node" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
@@ -208,6 +211,7 @@
       <eLiterals name="LIFELINE_END" value="60" literal="lifeline#end"/>
       <eLiterals name="LIFELINE_ID" value="61" literal="lifeline#id"/>
       <eLiterals name="LIFELINE_STATE" value="62" literal="lifeline#state"/>
+      <eLiterals name="RAW_ATTRIBUTE" value="63" literal="RAW_ATTRIBUTE"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TraceElement">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="nature" eType="#//common/TraceElementKind"/>

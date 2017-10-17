@@ -58,6 +58,7 @@
     <genClasses image="false" ecoreClass="workflow.ecore#//TestWorker"/>
     <genClasses image="false" ecoreClass="workflow.ecore#//Serializer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Serializer/format"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Serializer/CSS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Serializer/trace"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/folderName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/fileName"/>
@@ -86,7 +87,6 @@
       </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/TraceElementKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/UNDEFINED"/>
-        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/UNKNOWN"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/CONDITION"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/DECISION"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/FORMULA"/>
@@ -149,6 +149,7 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_END"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_ID"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_STATE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/RAW_ATTRIBUTE"/>
       </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/HeuristicClassKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/BASIC"/>
