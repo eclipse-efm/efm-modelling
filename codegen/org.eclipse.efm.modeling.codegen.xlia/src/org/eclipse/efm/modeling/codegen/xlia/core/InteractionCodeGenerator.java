@@ -26,6 +26,7 @@ import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
+import org.eclipse.uml2.uml.Expression;
 import org.eclipse.uml2.uml.Gate;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionConstraint;
@@ -37,11 +38,13 @@ import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.OpaqueBehavior;
+import org.eclipse.uml2.uml.OpaqueExpression;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.State;
 import org.eclipse.uml2.uml.TimeObservation;
 import org.eclipse.uml2.uml.Transition;
+import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.internal.impl.BehaviorExecutionSpecificationImpl;
 
@@ -117,9 +120,32 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 	            .appendEol(";");
 	    }
 
-		writer.appendTab2Eol("};");
+		writer.appendTab2Eol("}");
 	}
 
+	
+	/**
+	 * Lifeline Projection of dedicated Fragment Util
+	 * @param lifeline
+	 * @param fragments
+	 * @return
+	 */
+	private ArrayList<InteractionFragment> coveredFragments(
+			Lifeline lifeline, List<InteractionFragment> fragments) {
+		ArrayList<InteractionFragment> coveredFragmentList = new ArrayList<InteractionFragment>();
+
+		for( InteractionFragment iFragment : fragments ) {
+			if (iFragment.getCovereds().contains(lifeline)) {
+				if( !( iFragment instanceof ExecutionOccurrenceSpecification) ) {
+					coveredFragmentList.add(iFragment);
+				}
+			}
+		}
+		
+		return coveredFragmentList;
+	}
+
+	
 	/**
 	 * performTransform an Interaction element to a writer
 	 * @param element
@@ -148,7 +174,8 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 					}
 				}
 				// declare message
-				writer.appendTab2("message ")
+				//writer.appendTab2("message ") // TODO modif until Diversity support
+				writer.appendTab2("signal ")
 					.append(message.getName());
 				
 				if( (signature instanceof Signal)
@@ -169,6 +196,14 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 				
 			}
 			writer.appendTabEol("// end message");
+			
+			//function calls vectors
+			writer.appendTab2Eol("// function calls vectors");
+			writer.appendTab2Eol("public var vector globalProgramCallset;");
+			writer.appendTab2Eol("public var vector globalProgramTrace;");
+			writer.appendTab2Eol("public var vector globalTypeParamCalls;");
+			writer.appendTabEol("// end function calls vectors");
+			
 			
 			// Extra element needed to respect model semantic
 		//	for( Lifeline lifeline : element.getLifelines() ) {
@@ -225,18 +260,26 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 				.append(lfContext.coveredLifeline.getName())
 				.appendEol(" //////////////////////////////////////////////////////////////////////////////");
 			
-			for( InteractionFragment iFragment : element.getFragments() ) {
-				
-				if( iFragment.getCovereds().contains(lfContext.coveredLifeline)) {
-					// TODO lfContext.isLastFragmentTransformation ???
-					lfContext.isLastFragmentTransformation = false;
-					transformFragment(iFragment, lfContext, writer2);
+			ArrayList<InteractionFragment> coveredFragmentList =
+					coveredFragments(lfContext.coveredLifeline, element.getFragments());
+
+			lfContext.isLastFragmentTransformation = false;
+			int coveredFragmentListCount = coveredFragmentList.size()-1;
+			for( InteractionFragment iFragment : coveredFragmentList ) {
+				if(coveredFragmentList.indexOf(iFragment) == coveredFragmentListCount){
+					//Transition tr_final = lfContext.createTransition(
+					//"tr_final", lfContext.currentState, lfContext.finalState);
+					lfContext.isLastFragmentTransformation = true;
+
+//					lfContext.currentState = lfContext.finalState;
 				}
+
+				transformFragment(iFragment, lfContext, writer2);
 			}
 			
 			//TODO DELETE Transition tr_final
-			Transition tr_final = lfContext.createTransition(
-					"tr_final", lfContext.currentState, lfContext.finalState);
+//			Transition tr_final = lfContext.createTransition(
+//					"tr_final", lfContext.currentState, lfContext.finalState);
 		}
 		
 		
@@ -297,10 +340,10 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 					(BehaviorExecutionSpecification)iFragment, lfContext);
 		}
 
-		//else if( iFragment instanceof ExecutionOccurrenceSpecification ) {
-		//	transformExecutionOccurrenceSpecification(
-		//			(ExecutionOccurrenceSpecification)iFragment, lfContext);
-		//}
+		else if( iFragment instanceof ExecutionOccurrenceSpecification ) {
+			transformExecutionOccurrenceSpecification(
+					(ExecutionOccurrenceSpecification)iFragment, lfContext);
+		}
 
 		else {
 			performTransformError(this, iFragment);
@@ -353,31 +396,31 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 	private void transformInteractionOperand(InteractionOperand element,
 			StatemachineContext lfContext) {
 		
-		ArrayList<InteractionFragment> fragmentList = new ArrayList<InteractionFragment>();
+		lfContext.initialState.setName("init_" + element.getName());
+		lfContext.finalState.setName("final_" + element.getName());
 		
-		for( InteractionFragment iFragment : element.getFragments() ) {
-			if (iFragment.getCovereds().contains(lfContext.coveredLifeline)) {
-				fragmentList.add(iFragment);
-			}
-		}
-		
-		if( fragmentList.isEmpty() ) {
+		ArrayList<InteractionFragment> coveredFragmentList =
+				coveredFragments(lfContext.coveredLifeline, element.getFragments());
+								
+		if( coveredFragmentList.isEmpty() ) {
 			lfContext.performNoCoveredFragment();
 		}
 		else {
 			lfContext.isLastFragmentTransformation = false;
 			
-			for( InteractionFragment iFragment : fragmentList ){ //element.getFragments() ) {
-				
-				if (fragmentList.indexOf(iFragment) == fragmentList.size()-1 ) {
+			int coveredFragmentListCount = coveredFragmentList.size()-1;
+			for( InteractionFragment iFragment : coveredFragmentList ) {
+				if (coveredFragmentList.indexOf(iFragment) == coveredFragmentListCount ) {
 					// lfContext.isLastFragmentTransformation 
 					lfContext.isLastFragmentTransformation = true;
+
+//					lfContext.currentState = lfContext.finalState;
 				}
 				transformFragment(iFragment, lfContext);
 			}
 			
-			//Transition tr_final = lfContext.createTransition(
-			//		"tr_final", lfContext.currentState, lfContext.finalState);
+//			Transition tr_final = lfContext.createTransition(
+//					"tr_final", lfContext.currentState, lfContext.finalState);
 		}
 	}
 
@@ -425,6 +468,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 	
 	public void transformCombinedFragmentLoop(CombinedFragment element,
 			StatemachineContext lfContext) {
+	
 		
 		lfContext.currentState.setName("LoopFragment#" + element.getName());
 		Constraint loopGuard = element.getOperands().get(0).getGuard();
@@ -433,21 +477,26 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 		Transition entryLoop = lfContext.createTransition(
 				"tr_loop_first", lfContext.currentState, loopState);
 		UmlFactory.setGuard(entryLoop, loopGuard);
-		// TODO Add effect behavior
 		
 		entryLoop= lfContext.createTransition(
 				"tr_loop_not_first", lfContext.currentState, loopState);
 		UmlFactory.setGuard(entryLoop, loopGuard);
-		// TODO Add effect behavior
-
+		
+		
 		lfContext.currentState = loopState;
 		
 		// loop boucle with min/max index constraint
-		Transition trLoop = lfContext.createTransition(
+		Transition trLoop = lfContext.createFinalTransition(
 				"tr_loop", loopState, loopState);
+		Property loopIndex = UmlFactory.createVariable(lfContext.statemachine,
+				"loopIndex_" + element.getName(), UmlFactory.integerType());
+		
+		// Add effect behavior
+		//increment loopIndex
+		UmlFactory.addOpaqueBehaviorEffect(trLoop, loopIndex.getName()+" +=1 ;");
+		
+		
 		if( loopGuard instanceof InteractionConstraint ) {
-			Property loopIndex = UmlFactory.createVariable(lfContext.statemachine,
-					"loopIndex_" + element.getName(), UmlFactory.integerType());
 
 			UmlFactory.setGuard(trLoop, (InteractionConstraint) loopGuard, loopIndex);
 		} 
@@ -455,17 +504,22 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 			UmlFactory.setGuard(trLoop, loopGuard);
 		}
 		
-		// quit loop transition
-		State quitloopState = lfContext.createTargetState("quit_loop_" + element.getName());
-		Transition quitLoop = lfContext.createElseTransition(
-				"tr_quit_loop", loopState, quitloopState);
-		lfContext.currentState = quitloopState;
+
 		
 		StatemachineContext loopContext = new StatemachineContext(lfContext, element);
 		
 		for( InteractionOperand iFragment : element.getOperands()) {
 			transformInteractionOperand(iFragment, loopContext);
 		}
+
+		// quit loop transition
+		State quitloopState = lfContext.createTargetState("quit_loop_" + element.getName());
+		Transition quitLoop = lfContext.createFinalElseTransition(
+				"final#tr_quit_loop", loopState, quitloopState);
+		
+		lfContext.currentState = quitloopState;
+		
+	
 	}
 
 	
@@ -499,7 +553,7 @@ public void transformCombinedFragmentAlt(CombinedFragment element,
 		
 		transformInteractionOperand(iFragment, altContext);
 		
-		Transition exitRegionAlt = lfContext.createTransition(
+		Transition exitRegionAlt = lfContext.createFinalTransition(
 				"tr_alt_quit#" + iFragment.getName(), regionAltState, exitAltState);
 	}
 	
@@ -533,7 +587,7 @@ public void transformCombinedFragmentSequence(
 
 	}
 
-	Transition exitSeq = lfContext.createTransition(
+	Transition exitSeq = lfContext.createFinalTransition(
 			"tr_seq_quit#" + element.getName(), lfContext.currentState, exitSeqState);
 	lfContext.currentState = exitSeqState;
 }
@@ -655,7 +709,6 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	for( InteractionOperand iFragment : element.getOperands()) {
 		transformInteractionOperand(iFragment, optContext);
 	}
-
 }
 
 
@@ -665,10 +718,17 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	 * performTransform a ExecutionOccurrence element to a writer
 	 * @param element
 	 */
-//	public void transformExecutionOccurrenceSpecification(
-//			ExecutionOccurrenceSpecification element, StatemachineContext lfContext) {
-		//
-//	}
+	public void transformExecutionOccurrenceSpecification(
+			ExecutionOccurrenceSpecification element, StatemachineContext lfContext) {
+		
+		State execOccState = lfContext.createTargetState("execOcc#" + element.getName());
+
+		Transition execOccTrqns = lfContext.createTransition(
+				"tr_execOcc", lfContext.currentState, execOccState);
+
+
+		lfContext.currentState = execOccState;
+	}
 
 	
 	/**
@@ -698,12 +758,22 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		Interaction interaction = element.getInteraction();
 		
 		if( interaction != null ) {
-			for (InteractionFragment itFrag : interaction.getFragments()) {
-				if( itFrag.getCovereds().contains(element) ) {
-					// TODO lfContext.isLastFragmentTransformation ???
-					lfContext.isLastFragmentTransformation = false;
-					transformFragment(itFrag, lfContext);
+			ArrayList<InteractionFragment> coveredFragmentList =
+					coveredFragments(element, interaction.getFragments());
+
+			lfContext.isLastFragmentTransformation = false;
+			int coveredFragmentListCount = coveredFragmentList.size()-1;
+			for (InteractionFragment itFragment : coveredFragmentList) {
+				// TODO lfContext.isLastFragmentTransformation ???
+				if(coveredFragmentList.indexOf(itFragment) == coveredFragmentListCount){
+					//Transition tr_final = lfContext.createTransition(
+					//"tr_final", lfContext.currentState, lfContext.finalState);
+					lfContext.isLastFragmentTransformation = true;
+
+//					lfContext.currentState = lfContext.finalState;
 				}
+
+				transformFragment(itFragment, lfContext);
 			}
 		}
 	}
@@ -720,17 +790,40 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 			BehaviorExecutionSpecification element,
 			StatemachineContext lfContext) {
 		if(element.getStart() instanceof ExecutionOccurrenceSpecification){
-		BehaviorExecutionSpecification act = (BehaviorExecutionSpecification) element;
-		State targetState = lfContext.createTargetState("targetBhExec#" + element.getName());
-		lfContext.currentState.setName("BhExec#" + element.getName());
-		Transition BH_tr= lfContext.createTransition(
-				act.getName(), lfContext.currentState, targetState);
-		lfContext.currentState = targetState;
-		//String effect = act.getBehavior().toString().concat(";");
-		
-		UmlFactory.addOpaqueBehaviorEffect(BH_tr, act.getBehavior());
-		
-		transformElementConstraints(element.getStart(), BH_tr, lfContext);
+			BehaviorExecutionSpecification act = (BehaviorExecutionSpecification) element;
+			
+			//StringBuffer valueBuffer = new StringBuffer(act.getBehavior().toString());
+			
+			State targetState = lfContext.createTargetState("targetBhExec#" + element.getName());
+			lfContext.currentState.setName("BhExec#" + element.getName());
+			Transition BH_tr= lfContext.createTransition(
+					act.getName(), lfContext.currentState, targetState);
+			
+			//String effect = act.getBehavior().toString().concat(";");
+
+			transformElementConstraints(element.getStart(), BH_tr, lfContext);
+
+			UmlFactory.addOpaqueBehaviorEffect(BH_tr, act.getBehavior());
+			
+			//add constraint of finishOccurrence to the transition
+			if(element.getFinish() instanceof ExecutionOccurrenceSpecification ){
+
+				List<Constraint> constraints = lfContext.getElementConstraints(element.getFinish());
+				if( constraints != null ){
+//					State targetState2 = lfContext.createTargetState("targetBhExec2#" + element.getName());
+//					lfContext.currentState.setName("BhExec#2" + element.getName());
+//					Transition BH_tr2= lfContext.createTransition(
+//							act.getName()+"2", lfContext.currentState, targetState2);
+//					lfContext.currentState = targetState2;
+//
+//					transformElementConstraints(element.getFinish(), BH_tr2, lfContext);
+					
+					for (Constraint constraint : constraints) {
+						UmlFactory.addEffectGuard(BH_tr, constraint);
+					}
+				}
+			}
+			lfContext.currentState = targetState;
 		}
 	}
 	
@@ -799,8 +892,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 				Boolean isStartExecBehavExecution = false;
 				BehaviorExecutionSpecification behavExecSpecOfComAct = null;
 				for (Iterator<InteractionFragment> iterator = fragments.iterator(); iterator.hasNext();) {
-					InteractionFragment interactionFragment = iterator
-							.next();
+					InteractionFragment interactionFragment = iterator.next();
 					if (interactionFragment instanceof BehaviorExecutionSpecification){
 						
 						behavExecSpecOfComAct = (BehaviorExecutionSpecification) interactionFragment;
@@ -811,45 +903,42 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 					}	
 				}				
 
+				MsgReceiveAction.append("( ")
+				.append(message.getName()).append( "#params );\n" );
+
 				if (isStartExecBehavExecution){
-					MsgReceiveAction.append("( { ")
-					.append(message.getName() )
-		            .append( "#in" )
-		            .append(".signature, ");
-					
-					
 					Behavior behavior = behavExecSpecOfComAct.getBehavior();
 					if (behavior instanceof OpaqueBehavior){
 						OpaqueBehavior opaqueBehavior = (OpaqueBehavior) behavior;
 						if (opaqueBehavior.getBodies().size() > 0){
-							String strinBehavior = opaqueBehavior.getBodies().get(0);
-							strinBehavior = strinBehavior.replaceAll("\\s","");
-							strinBehavior = strinBehavior.substring(2);
-							MsgReceiveAction.append(strinBehavior);
-							MsgReceiveAction.append(" } );");
+							String strinBehavior = opaqueBehavior.getBodies().get(0).trim();
+							if( strinBehavior.startsWith("in ") ) {
+								strinBehavior = strinBehavior.substring(3, strinBehavior.length()-1);
+								String[] inVars = strinBehavior.split(" *, *");
+								
+								Signal signal = (Signal) message.getSignature();
+								for (int i = 0; i < inVars.length; i++) {
+									MsgReceiveAction.append(inVars[i])
+									.append(" = ")
+									.append(message.getName()).append( "#params.")
+									.append(signal.getAllAttributes().get(i).getName())
+									.append(";\n");
+								}
+							}
+							else {
+								//TO DO error message
+							}
 						}
 					}
-					
-					UmlFactory.addOpaqueBehaviorEffect(MsgOcc_tr, MsgReceiveAction.toString());
 				}
 	    	
 		        //ancien
 		        NamedElement signature = message.getSignature();
-		        if( ! isStartExecBehavExecution ) {
 		        if( signature instanceof Signal ) {                    
 		            lfContext.addLocalVariable(message.getName() + "#params", (Signal) signature);
 		        }
 		        
-		        MsgReceiveAction.append("( ")
-		            .append( message.getName() )
-		            .append( "#params" );
-
-				MsgReceiveAction.append(" )");	
-			
-		    
-				MsgReceiveAction.append(";");	
 				UmlFactory.addOpaqueBehaviorEffect(MsgOcc_tr, MsgReceiveAction.toString());
-			    }
 	//	    }
 		}
 		else if( element.isSend() ) {
@@ -858,13 +947,13 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 			lfContext.outputMessage.add(message);
 			
 			MsgReceiveAction.append( message.getName() )
-			.append("( ")
+			.append("( { ")
 			.append("\"")
 			.append(message.getSignature().getName())
 			.append("\"");
 			
 			if (! (message.getArguments().isEmpty()) ){
-				MsgReceiveAction.append(", { ");
+				MsgReceiveAction.append(", ");
 
 				boolean isnotFirst = false;
 				

@@ -11,6 +11,7 @@ package org.eclipse.efm.papyrus.view.property.concretesyntax.sheet;
 import java.io.StringWriter;
 
 import org.eclipse.efm.modeling.codegen.xlia.core.MainCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.core.StatemachineCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.efm.modeling.formalml.TimedTransition;
 import org.eclipse.efm.modeling.formalml.helpers.StereotypeUtil;
@@ -225,15 +226,28 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 		TimedTransition timedTransition =
 				StereotypeUtil.getTimedTransition(element);
 		
-		boolean isElseGuard =
-				super.isConstraintSymbol(element.getGuard(), "else");
+		boolean isFinalTrigger = ( element.getTrigger(
+				StatemachineCodeGenerator.TRANSITION_TRIGGER_FINAL) != null );
+		
+		boolean isElseGuard = fSupervisor.isConstraintSymbol(
+				element.getGuard(), StatemachineCodeGenerator.TRANSITION_GUARD_ELSE);
 
 		boolean isElseTransition = isElseGuard && (timedTransition == null);
 		
 		writer.appendTab("transition");
-		if( isElseTransition ) {
+		if( isFinalTrigger ) {
+			writer.append("< final ");
+			if( isElseTransition ) {
+				writer.append("& else >");
+			}
+			else {
+				writer.append(">");
+			}
+		}
+		else if( isElseTransition ) {
 			writer.append("< else >");
 		}
+		
 		
 		if( element.getName() != null ) {
 			writer.append(" ")

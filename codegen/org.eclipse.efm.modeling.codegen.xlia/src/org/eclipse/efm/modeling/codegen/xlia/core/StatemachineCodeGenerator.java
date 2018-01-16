@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - initial API and implementation
+ * 	   Imen Boudhiba (CEA LIST) imen.boudhiba@cea.fr - initial API and implementation
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.core;
 
@@ -40,7 +40,8 @@ import org.eclipse.uml2.uml.Vertex;
 public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 
 	public static final String TRANSITION_GUARD_ELSE = "else";
-
+	
+	public static final String TRANSITION_TRIGGER_FINAL = "final";
 
 	/**
 	 * Constructor
@@ -300,17 +301,24 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			.append(element.getName())
 			.appendEol(" {");
 
-		transformStateActivity(element, writer);
+		if( ! element.isComposite() ) {
+			transformStateActivity(element, writer);
+		}
 
 		transformConnectionPoint(element, writer);
 
 		transformRegion(element.getRegions(), writer);
 
-		if( ! element.getRegions().isEmpty() ) {
-			writer.appendTab2Eol("@transition:");
+		if( element.isComposite() ) {
+			writer.appendTabEol("@transition:");
 		}
 		transformVertexTransition(element, writer);
-
+		
+		if( element.isComposite() ) {
+			writer.appendTabEol("@moe:");
+			transformStateActivity(element, writer);
+		}
+		
 		writer.appendTab("} // end state ")
 			.appendEol2(element.getName());
 	}
@@ -404,16 +412,30 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 		TimedTransition timedTransition =
 				StereotypeUtil.getTimedTransition(element);
 		
-		boolean isElseGuard =
-				fSupervisor.isConstraintSymbol(element.getGuard(), TRANSITION_GUARD_ELSE);
+		//completion transition
+		boolean isFinalTrigger = ( element.getTrigger(
+				TRANSITION_TRIGGER_FINAL) != null );
+		
+		boolean isElseGuard = fSupervisor.isConstraintSymbol(
+				element.getGuard(), TRANSITION_GUARD_ELSE);
 
 		boolean isElseTransition = isElseGuard && (timedTransition == null);
 		
 		writer.appendTab("transition");
-		if( isElseTransition ) {
+		if( isFinalTrigger ) {
+			writer.append("< final ");
+			if( isElseTransition ) {
+				writer.append("& else >");
+			}
+			else {
+				writer.append(">");
+			}
+		}
+		else if( isElseTransition ) {
 			writer.append("< else >");
 		}
-		
+			
+
 		if( element.getName() != null ) {
 			writer.append(' ')
 				.append(element.getName());
@@ -506,6 +528,9 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 	 * @param writer
 	 */
 	public void transformTrigger(Trigger trigger, PrettyPrintWriter writer) {
+		if( TRANSITION_TRIGGER_FINAL.equals(trigger.getName()) ) {
+			return;
+		}
 
 		writer.appendTab2("input ");
 

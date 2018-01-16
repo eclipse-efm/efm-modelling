@@ -6,7 +6,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - initial API and implementation
+ * 	Imen Boudhiba (CEA LIST) imen.boudhiba@cea.fr - initial API and implementation
+ *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - initial API and implementation
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.core;
 
@@ -592,19 +593,24 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 				}
 			}
 		}
-		writer.append(")");
-
+//old		writer.append(")");
+//new   
+		if(! firstParam ) {
+		writer.append(", ");
+		}
+//		
 		firstParam = true;
 		for( Parameter itParameter : parameters ) {
 			if( itParameter.getDirection() == ParameterDirectionKind.RETURN_LITERAL ) {
 				if( firstParam ) {
-					writer.append(" --> (");
+//old					writer.append(" --> (");
 					firstParam = false;
 				}
 				else {
 					writer.append(", ");
-				}
-				writer.append( fDataTypeFactory.typeName(itParameter) )
+				}//new next line
+				writer.append("return ")
+					.append( fDataTypeFactory.typeName(itParameter) )
 					.append(' ')
 					.append(itParameter.getName());
 

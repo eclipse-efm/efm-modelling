@@ -246,6 +246,8 @@ public class StatemachineContext {
 		return( transition );
 	}
 	
+	
+	
 	public Transition createElseTransition(
 			String name, Vertex source, Vertex target) {		
 		Transition transition = region.createTransition(name);
@@ -261,6 +263,37 @@ public class StatemachineContext {
 		return( transition );
 	}
 
+	
+	
+	public Transition createFinalTransition(
+			String name, Vertex source, Vertex target) {		
+		Transition transition = region.createTransition(name);
+		
+		transition.setSource(source);
+		transition.setTarget(target);
+		
+		transition.createTrigger(StatemachineCodeGenerator.TRANSITION_TRIGGER_FINAL);
+		
+		return( transition );
+	}
+	
+	
+	public Transition createFinalElseTransition(
+			String name, Vertex source, Vertex target) {		
+		Transition transition = region.createTransition(name);
+		
+		transition.setSource(source);
+		transition.setTarget(target);
+		
+		transition.createTrigger(StatemachineCodeGenerator.TRANSITION_TRIGGER_FINAL);
+		
+		Constraint constraint = transition.createGuard("ElseGuardConstraint");
+		Expression guardExpression = UMLFactory.eINSTANCE.createExpression();
+		guardExpression.setSymbol(StatemachineCodeGenerator.TRANSITION_GUARD_ELSE);
+		constraint.setSpecification(guardExpression);
+		
+		return( transition );
+	}
 	
 	public void addInputMessage(Message message){
 		if( ! inputMessage.contains(message) ) {

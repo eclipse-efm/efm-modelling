@@ -10,10 +10,17 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Expression;
+import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionConstraint;
+import org.eclipse.uml2.uml.InteractionFragment;
+import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.LiteralBoolean;
 import org.eclipse.uml2.uml.LiteralInteger;
 import org.eclipse.uml2.uml.LiteralReal;
@@ -33,7 +40,7 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.ValueSpecification;
 
 public class UmlFactory {
-	private static final String LANGUAGE_X_LIA = "xLIA";
+	public static final String LANGUAGE_X_LIA = "xLIA";
 	
 
 	///////////////////////////////////////////////////////////////////////////
@@ -176,12 +183,21 @@ public class UmlFactory {
 	}
 	
 	public static void addOpaqueBehaviorEffect(Transition transition, String opaqBehavior) {
-		OpaqueBehavior effectBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
+		Behavior behavior = transition.getEffect();
+		
+		OpaqueBehavior effectBehavior = null;
+		if(behavior instanceof OpaqueBehavior) {
+			effectBehavior = (OpaqueBehavior) behavior;
+		}
+		
+		if( effectBehavior == null ) {
+			effectBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
+			effectBehavior.setName("effect");
+			transition.setEffect(effectBehavior);
+		}
+		
 		effectBehavior.getLanguages().add(LANGUAGE_X_LIA);
 		effectBehavior.getBodies().add(opaqBehavior);
-		effectBehavior.setName("effect");
-
-		transition.setEffect(effectBehavior);
 	}
 
 	public static void setGuard(Transition transition, Constraint guard) {
@@ -220,6 +236,31 @@ public class UmlFactory {
 	}
 	
 	
+	public static void addEffectGuard(Transition transition, Constraint guard) {
+		StringBuffer valueBuffer = new StringBuffer("guard( ");
+
+		
+		if( guard != null ) {
+			ValueSpecification valueSpec = guard.getSpecification();
+			if( valueSpec instanceof OpaqueExpression ) {
+				for (String body : ((OpaqueExpression)valueSpec).getBodies()) {
+					valueBuffer.append(body);
+				}
+				valueBuffer.append(" );");
+			}
+			else if( valueSpec instanceof Expression ) {
+				Expression valueExpr = (Expression) valueSpec;
+				valueBuffer.append(valueExpr); //TODO expression to string
+			}
+			else {
+				valueSpecificationToString(valueSpec, valueBuffer);
+			}
+		}
+		
+		addOpaqueBehaviorEffect(transition, valueBuffer.toString());
+	}
+	
+	
 	public static void valueSpecificationToString(
 			ValueSpecification value, StringBuffer stringVar) {
 		if( value instanceof LiteralBoolean ) {
@@ -252,6 +293,12 @@ public class UmlFactory {
 
 			stringVar.append(")");
 		}
+		
+		else if( value instanceof OpaqueExpression ) {
+			OpaqueExpression expr = (OpaqueExpression) value;
+			stringVar.append(expr.getBodies().get(0).toString());
+		}
+		
 		else if(  value != null ) {
 			final String name = value.getName();
 			if( name != null ) {
@@ -270,20 +317,8 @@ public class UmlFactory {
 			Constraint constraint = transition.createGuard("guardConstraint");
 			ValueSpecification valueSpec = interactionGuard.getSpecification();
 			
-			StringBuffer loopIndexConstraint = new StringBuffer();
-			if( interactionGuard.getMinint() != null ) {
-				loopIndexConstraint.append(indexVar.getName()).append(" >= ");
-				valueSpecificationToString(interactionGuard.getMinint(), loopIndexConstraint);
+			String loopIndexConstraint = toIndexConstraint(interactionGuard, indexVar);
 
-			}
-			if( interactionGuard.getMaxint() != null ) {
-				if( loopIndexConstraint.length() > 0 ) {
-					loopIndexConstraint.append(" && ");
-				}
-				loopIndexConstraint.append(indexVar.getName()).append(" <= ");
-				valueSpecificationToString(interactionGuard.getMaxint(), loopIndexConstraint);
-			}
-			
 			if( valueSpec instanceof OpaqueExpression ) {
 				OpaqueExpression guardSpecification = UMLFactory.eINSTANCE.createOpaqueExpression();
 				guardSpecification.getLanguages().addAll(((OpaqueExpression)valueSpec).getLanguages());
@@ -311,5 +346,26 @@ public class UmlFactory {
 		}
 	}
 	
+	public static String toIndexConstraint(InteractionConstraint interactionGuard, Property indexVar) {
+		if( interactionGuard != null ) {
+			StringBuffer loopIndexConstraint = new StringBuffer();
+			if( interactionGuard.getMinint() != null ) {
+				loopIndexConstraint.append(indexVar.getName()).append(" >= ");
+				valueSpecificationToString(interactionGuard.getMinint(), loopIndexConstraint);
+
+			}
+			if( interactionGuard.getMaxint() != null ) {
+				if( loopIndexConstraint.length() > 0 ) {
+					loopIndexConstraint.append(" && ");
+				}
+				loopIndexConstraint.append(indexVar.getName()).append(" <= ");
+				valueSpecificationToString(interactionGuard.getMaxint(), loopIndexConstraint);
+			}
+			
+			return loopIndexConstraint.toString();
+		}
+		
+		return "true";
+	}
 	
 }
