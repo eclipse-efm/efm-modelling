@@ -145,7 +145,7 @@ public class SWTQualitativeInfo extends Canvas {
 					int xVariation1 = (int) (rayon * 0.951); // sinus(72)
 					int yVariation1 = (int) (rayon * 0.309); // cosinus(72)
 					e.gc.drawLine(xCentre, yCentre, xCentre-xVariation1, yCentre-yVariation1);
-					e.gc.drawString("width", xCentre-xVariation1-50, yCentre-yVariation1-10);
+					e.gc.drawString("width", xCentre-xVariation1-40, yCentre-yVariation1-10);
 
 					e.gc.drawLine(xCentre, yCentre, xCentre+xVariation1, yCentre-yVariation1);
 					e.gc.drawString("context", xCentre+xVariation1+10, yCentre-yVariation1-10);

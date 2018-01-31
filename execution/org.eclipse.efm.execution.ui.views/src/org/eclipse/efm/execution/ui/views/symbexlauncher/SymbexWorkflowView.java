@@ -51,7 +51,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 
-public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
+public class SymbexWorkflowView extends AbstractSymbexWorkflowView
+		implements IWorkflowPreferenceConstants {
 
 	/**
 	 * The ID of the view as specified by the extension.
@@ -64,7 +65,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	
 	protected Composite tabbedCompositeMaster;
 	protected CTabFolder fTabFolder;
-	protected Combo combo;
+	protected Combo fComboLaunchConfiguration;
 
 	protected LaunchConfigurationManager launchConfigurationManager;
 
@@ -100,11 +101,12 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 		FormWidgetToolkit toolkit = getFormWidgetToolkit();
 
-		combo = GenericCompositeCreator.createComposite_combo_text_from_toolkit(
-				toolkit, scrollform.getBody(), "Run Configuration :", 2);
+		fComboLaunchConfiguration =
+				GenericCompositeCreator.createComposite_combo_text_from_toolkit(
+						toolkit, scrollform.getBody(), "Run Configuration :", 2);
 				//new Combo(scrollform.getBody(), SWT.READ_ONLY);
 
-		combo.setItems( launchConfigurationManager.getNames() );
+		fComboLaunchConfiguration.setItems( launchConfigurationManager.getNames() );
 
 		//text_model_file_path = GenericCompositeCreator.createComposite_label_text_from_toolkit(
 //				toolkit, scrollform.getBody(), "Model File :", 2);
@@ -121,10 +123,10 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 		//PlatformUI.getWorkbench().getHelpSystem().setHelp(this, "");
 
-		combo.addSelectionListener(new SelectionAdapter() {
+		fComboLaunchConfiguration.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int index = combo.getSelectionIndex();
+				int index = fComboLaunchConfiguration.getSelectionIndex();
 
 				launchConfigurationManager.select(index);
 
@@ -138,9 +140,9 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		});
 
 		if( launchConfigurationManager.isPopulated() ) {
-			launchConfigurationManager.select(0);
+			launchConfigurationManager.initializeSelection(0);
 
-			combo.select(0);
+			fComboLaunchConfiguration.select(launchConfigurationManager.getSelectionIndex());
 
 			initializeFieldValuesFrom(launchConfigurationManager.getSelection());
 		}
@@ -155,28 +157,28 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	}
 
 	public void refreshLaunchConfigurationsGUI() {
-		int cur_index = combo.getSelectionIndex();
+		int cur_index = fComboLaunchConfiguration.getSelectionIndex();
 		String cur_name = null;
 		if (cur_index != -1) {
-			cur_name = combo.getItem(cur_index);
+			cur_name = fComboLaunchConfiguration.getItem(cur_index);
 		}
 
 //		launchConfigurationManager.refresh();
 
 		String[] contents = launchConfigurationManager.getNames();
 
-		combo.setItems(contents);
+		fComboLaunchConfiguration.setItems(contents);
 
 		if( (cur_name != null) && Arrays.asList(contents).contains(cur_name) )
 		{
 			int new_index = Arrays.asList(contents).indexOf(cur_name);
 			launchConfigurationManager.select(new_index);
-			combo.select(new_index);
+			fComboLaunchConfiguration.select(new_index);
 		} else if( launchConfigurationManager.isPopulated() ) {
 			launchConfigurationManager.select(0);
-			combo.select(0);
+			fComboLaunchConfiguration.select(0);
 		} else {
-			combo.deselectAll();
+			fComboLaunchConfiguration.deselectAll();
 			launchConfigurationManager.select(-1);
 		}
 
@@ -187,11 +189,11 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 	public void launchConfigurationChanged(ILaunchConfiguration configuration, int index) {
 		if( index >= 0 ) {
-			combo.select(index);
+			fComboLaunchConfiguration.select(index);
 
 			initializeFieldValuesFrom(configuration);
 		} else {
-			combo.deselectAll();
+			fComboLaunchConfiguration.deselectAll();
 		}
 	}
 
@@ -206,20 +208,17 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 		createTestGenerationTabItem(widgetToolkit, confPage);
 
-		if( SymbexPreferenceUtil.getBooleanPreference(
-				IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS) )
+		if( SymbexPreferenceUtil.getBooleanPreference(PREF_DEBUG_OPTIONS) )
 		{
 			createDebugTabItem(widgetToolkit, confPage);
 		}
-		if( SymbexPreferenceUtil.getBooleanPreference(
-				IWorkflowPreferenceConstants.PREF_EXPERT_MODE) )
+		if( SymbexPreferenceUtil.getBooleanPreference(PREF_EXPERT_MODE) )
 		{
 			createExpertTabItem(widgetToolkit, confPage);
 		}
 
 		if ( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION
-			&& SymbexPreferenceUtil.getBooleanPreference(
-					IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE) )
+			&& SymbexPreferenceUtil.getBooleanPreference(PREF_SYMBEX_DEVELOPER_MODE) )
 		{
 			createDeveloperTuningTabItem(widgetToolkit, confPage);
 		}
@@ -448,6 +447,12 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 		ILaunchConfigurationWorkingCopy rwConfiguration;
 		try {
 			rwConfiguration = configuration.getWorkingCopy();
+			
+			// Save Selection in Preferences
+			SymbexPreferenceUtil.setPreference(
+					PREF_LAUNCH_CONFIGURATION_SELECTION,
+					launchConfigurationManager.getSelection().getName());
+
 			for(AbstractConfigurationPage acm : fConfigurationPages) {
 				acm.applyUpdatesOnFieldValuesFrom(rwConfiguration);
 			}
@@ -574,7 +579,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 	// ======================================================================================
 
 	
-	private ILaunchConfigurationWorkingCopy fLasLaunchConfigurationWorkingCopy;
+	private ILaunchConfigurationWorkingCopy fLastLaunchConfigurationWorkingCopy;
 
 	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
 		for(AbstractConfigurationPage acm : fConfigurationPages) {
@@ -595,9 +600,9 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView {
 
 			try {
 				ILaunchConfigurationWorkingCopy newcopy = selectedLC.getWorkingCopy();
-				if( (fLasLaunchConfigurationWorkingCopy == null)
-					|| (! fLasLaunchConfigurationWorkingCopy.contentsEqual(newcopy)) ) {
-					fLasLaunchConfigurationWorkingCopy = newcopy;
+				if( (fLastLaunchConfigurationWorkingCopy == null)
+					|| (! fLastLaunchConfigurationWorkingCopy.contentsEqual(newcopy)) ) {
+					fLastLaunchConfigurationWorkingCopy = newcopy;
 					System.err.println("++++---- Biopp");
 
 					for(AbstractConfigurationPage acm : fConfigurationPages) {

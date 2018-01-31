@@ -318,6 +318,8 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		writer2.appendTab2Eol( "info#selection = 'ALL'" );
 		writer2.appendTab2Eol( "data#selection = 'MODIFIED'" );
 
+		writer2.appendTab2Eol( "numerizer = 'SOLVER'" ); // ~ | NONE | NEWFRESH
+
 		writer2.appendTab2( "normalize = " )
 			.appendEol( isEnabledNormalization() );
 

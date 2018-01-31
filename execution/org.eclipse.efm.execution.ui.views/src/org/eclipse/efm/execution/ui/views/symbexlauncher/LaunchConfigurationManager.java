@@ -21,6 +21,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationListener;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 
 public class LaunchConfigurationManager implements ILaunchConfigurationListener {
 
@@ -38,7 +40,7 @@ public class LaunchConfigurationManager implements ILaunchConfigurationListener 
 
 	protected ILaunchConfiguration[] fConfigurations;
 	protected String[] fNames;
-
+	
 	protected ILaunchConfiguration fSelection;
 
 
@@ -74,6 +76,9 @@ public class LaunchConfigurationManager implements ILaunchConfigurationListener 
 			for( int i = 0 ; i < fConfigurations.length ; i++ ) {
 				fNames[i] = fConfigurations[i].getName();
 			}
+			
+			select( SymbexPreferenceUtil.getStringPreference(
+					IWorkflowPreferenceConstants.PREF_LAUNCH_CONFIGURATION_SELECTION) );
 
 		} catch (CoreException e) {
 			e.printStackTrace();
@@ -117,16 +122,46 @@ public class LaunchConfigurationManager implements ILaunchConfigurationListener 
 		return fSelection;
 	}
 
+	public int getSelectionIndex() {
+		for (int index = 0; index < fConfigurations.length; index++) {
+			if( fSelection == fConfigurations[index] ) {
+				return index;
+			}
+		}
+		return -1;
+	}
+
 	public boolean hasSelection() {
 		return( fSelection != null );
 	}
 
+	
+	public void initializeSelection(int defaultIndex) {
+		if( fSelection == null ) {
+			select( defaultIndex );
+		}
+	}
+	
 	public void select(int index) {
 		if( (index >= 0) && (index < fConfigurations.length) ) {
 			fSelection = fConfigurations[index];
 		}
 		else {
 			fSelection = null;
+		}
+	}
+
+	public void select(String configurationName) {
+		if( configurationName != null ) {
+			for (ILaunchConfiguration launchConfiguration : fConfigurations) {
+				if( configurationName.equals( launchConfiguration.getName() ) ) {
+					fSelection = launchConfiguration;
+					break;
+				}
+			}
+		}
+		else {
+			select( 0 );
 		}
 	}
 

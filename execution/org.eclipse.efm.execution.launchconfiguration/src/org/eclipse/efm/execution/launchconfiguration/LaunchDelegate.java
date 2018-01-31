@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -38,6 +40,7 @@ import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.workflow.DirectorCustomImpl;
 import org.eclipse.efm.execution.core.workflow.WorkflowCustomImpl;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.LaunchExecConsoleManager;
 import org.eclipse.efm.execution.launchconfiguration.util.BackgroundResourceRefresher;
@@ -49,7 +52,11 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 //	private final String PROJECT_FAVM = "project.favm";
 
-	private final String WORKFLOW_SEW = "workflow.sew";
+	private final String BASENAME_SEP = "-";
+
+	private final String WORKFLOW_BASENAME = "workflow";
+
+	private final String WORKFLOW_EXTENSION = ".sew";
 
 
 	private IPath fAvmExecLocation;
@@ -76,6 +83,49 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 		fConsoleManager = new LaunchExecConsoleManager();
 
 		fEnabledDebugOrDeveloperMode = false;
+	}
+	
+	
+	public static boolean isValidFilename(String text)
+	{
+		final Pattern pattern = Pattern.compile(
+				"# Match a valid Windows filename (unspecified file system).          \n" +
+				"^                                # Anchor to start of string.        \n" +
+				"(?!                              # Assert filename is not: CON, PRN, \n" +
+				"  (?:                            # AUX, NUL, COM1, COM2, COM3, COM4, \n" +
+				"    CON|PRN|AUX|NUL|             # COM5, COM6, COM7, COM8, COM9,     \n" +
+				"    COM[1-9]|LPT[1-9]            # LPT1, LPT2, LPT3, LPT4, LPT5,     \n" +
+				"  )                              # LPT6, LPT7, LPT8, and LPT9...     \n" +
+				"  (?:\\.[^.]*)?                  # followed by optional extension    \n" +
+				"  $                              # and end of string                 \n" +
+				")                                # End negative lookahead assertion. \n" +
+				"[^<>:\"/\\\\|?*\\x00-\\x1F]*     # Zero or more valid filename chars.\n" +
+				"[^<>:\"/\\\\|?*\\x00-\\x1F\\ .]  # Last char is not a space or dot.  \n" +
+				"$                                # Anchor to end of string.            ", 
+				Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.COMMENTS);
+		
+		final Matcher matcher = pattern.matcher(text);
+
+		return matcher.matches();
+	}
+	
+	protected IPath getWorkflowPath(ILaunchConfiguration configuration) {
+		final String modelBasename =
+				DirectorCustomImpl.getModelBasename( configuration );
+		
+		final String configName = configuration.getName();
+		
+		final String filename = WORKFLOW_BASENAME +
+				(configName.isEmpty() ? "" : (BASENAME_SEP + configName)) +
+				(modelBasename.isEmpty() ? "" : (BASENAME_SEP + modelBasename)) +
+				WORKFLOW_EXTENSION;
+		
+		if( isValidFilename( filename ) ) {
+			return fWorkingDirectory.append( filename );
+		}
+		else {
+			return fWorkingDirectory.append( WORKFLOW_BASENAME + WORKFLOW_EXTENSION );
+		}
 	}
 
 	@Override
@@ -105,9 +155,9 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 						WorkflowCustomImpl.create(
 								configuration, fWorkingDirectory);
 
-				workflow.toWriter( fWorkingDirectory.append(WORKFLOW_SEW) );
+				fSewLocation = getWorkflowPath(configuration);
 
-				fSewLocation = fWorkingDirectory.append(WORKFLOW_SEW);
+				workflow.toWriter( fSewLocation );
 
 //				if( fEnabledDebugOrDeveloperMode ) {
 //					WorkflowFAVM aWorkflowFAVM = new WorkflowFAVM();

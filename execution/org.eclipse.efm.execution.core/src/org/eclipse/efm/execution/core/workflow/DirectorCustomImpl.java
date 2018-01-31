@@ -83,8 +83,8 @@ public class DirectorCustomImpl extends DirectorImpl
 		return( director );
 	}
 
-
-	public boolean configureProject(ILaunchConfiguration configuration) {
+	
+	public static String getModelPath(ILaunchConfiguration configuration) {
 		String modelPath;
 		try {
 			modelPath = configuration.getAttribute(
@@ -95,6 +95,34 @@ public class DirectorCustomImpl extends DirectorImpl
 
 			modelPath = null;
 		}
+		
+		return  modelPath;
+	}
+
+	public static String getModelFilename(ILaunchConfiguration configuration) {
+		String modelPath = getModelPath( configuration );
+		
+		int pos = modelPath.lastIndexOf(IPath.SEPARATOR);
+		if( pos > 0 ) {
+			modelPath = modelPath.substring(pos+1);
+		}
+
+		return  modelPath;
+	}
+
+	public static String getModelBasename(ILaunchConfiguration configuration) {
+		String modelFilename = DirectorCustomImpl.getModelFilename( configuration );
+		
+		int pos = modelFilename.lastIndexOf('.');
+		if( pos > 0 ) {
+			modelFilename = modelFilename.substring(0, pos);
+		}
+
+		return  modelFilename;
+	}
+
+	public boolean configureProject(ILaunchConfiguration configuration) {
+		String modelPath = getModelPath( configuration );
 
 		if( (modelPath != null) && (! modelPath.isEmpty()) ) {
 			Project project = CommonFactory.eINSTANCE.createProject();

@@ -41,6 +41,10 @@ public class SymbexPreferenceUtil {
 		return Activator.getDefault().getPreferenceStore().getString(name);
 	}
 
+	public static void setPreference(String name, String value) {
+		Activator.getDefault().getPreferenceStore().setValue(name, value);
+	}
+
 
 	public static void loadGlobals(IPreferenceStore prefs) throws Exception {
 		fDiversityInstallationLocation = new Path( prefs.getString(

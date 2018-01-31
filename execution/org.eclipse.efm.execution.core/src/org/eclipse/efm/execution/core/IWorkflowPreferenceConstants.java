@@ -56,10 +56,14 @@ public interface IWorkflowPreferenceConstants {
 	/**
 	 * String attribute identifying the location of an external. Default value
 	 * is <code>null</code>. Encoding is tool specific.
-	 */	////////////////////////////////////////////////////////////////////////////
-	// LAUNCH CONFIGURATION PLUGIN PREFIX ID
+	 */
+	
+	////////////////////////////////////////////////////////////////////////////
+	// LAUNCH CONFIGURATION ID
 	////////////////////////////////////////////////////////////////////////////
 
+	public static final String PREF_LAUNCH_CONFIGURATION_SELECTION =
+			PLUGIN_PREFERENCE_ID + ".PREF_LAUNCH_CONFIGURATION_SELECTION";
 
 
 	public static final String PREF_EXPERT_MODE =

@@ -466,8 +466,8 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 //			%1% --> condition
 			+ "\npath#condition = \"\\tPC: %1%\\n\""
 			+ "\npath#timed#condition = \"\\tPtC: %1%\\n\""
-			+ "\nnode#condition = "//\"\\tNC: %1%\\n\""
-			+ "\nnode#timed#condition = "//\"\\tNtC: %1%\\n\""
+			+ "\nnode#condition = \"\\tNC: %1%\\n\""
+			+ "\nnode#timed#condition = \"\\tNtC: %1%\\n\""
 //			%1% --> machine runtime pid
 //			%2% --> machine identifier name
 //			%3% --> port | signal | variable | machine | transition | routine
@@ -702,16 +702,23 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			PLUGIN_LAUNCH_ID + ".ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC"; //$NON-NLS-1$
 
 	public static final String DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC
+			// %1% --> ec#id
+			// %2% --> ec#eval
+			// %3% --> ec#hight
+			// %4% --> ec#width
+			// %5% --> ec#weight
+			// %6% --> statemachine configuration i.e. lifelines state identifier
+			= "node#header = EC#%1%<Ev:%2% , H:%3%>\\n%6%"
 			// %1% --> lifeline runtime pid
 			// %2% --> lifeline identifier
 			// %3% --> state runtime pid
 			// %3% --> state identifier
-			= "lifeline#state = %2%:%4%"
+			+ "\nlifeline#state = %2%:%4%"
 			// %1% --> condition
 			+ "\npath#condition = PC: %1%"
 			+ "\npath#timed#condition = PtC: %1%"
-			+ "\nnode#condition = "//NC: %1%"
-			+ "\nnode#timed#condition = "//NtC: %1%"
+			+ "\nnode#condition = NC: %1%"
+			+ "\nnode#timed#condition = NtC: %1%"
 			// %1% --> machine runtime pid
 			// %2% --> machine identifier name
 			// %3% --> port | signal | variable | machine | transition | routine

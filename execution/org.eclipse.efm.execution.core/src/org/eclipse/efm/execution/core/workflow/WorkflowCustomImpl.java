@@ -232,7 +232,17 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		if( symbexMode != null ) {
 			writer.appendTab2Eol( "symbex 'option' [" );
 			
-			writer.appendTab3Eol( "node_condition_enabled = false");
+			writer.appendTab3Eol( "name_id_separator = \"_\"   // default \"#\"");
+			
+			writer.appendTab3Eol( "newfresh_param_name_pid = false");
+			
+			writer.appendTab3Eol( "pretty_printer_var_name = true   // default false");
+			
+			writer.appendTab3Eol( "time_name_id = '$time'" );
+			writer.appendTab3Eol( "delta_name_id = '$delta'" );
+
+			
+			writer.appendTab3Eol( "node_condition_enabled = true   // default false");
 
 			writer.appendTab3Eol( "separation_of_pc_disjunction = false" );
 			writer.appendTab3Eol( "check_pathcondition_satisfiability = true" );
