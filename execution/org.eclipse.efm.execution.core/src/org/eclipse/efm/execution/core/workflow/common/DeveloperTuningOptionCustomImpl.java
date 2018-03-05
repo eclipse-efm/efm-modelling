@@ -711,6 +711,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 		String strOutputFilename = getOutputFilename();
 		String strSpecificationFilename = getSpecificationFilename();
 		String strExecutableFilename = getExecutableFilename();
+		String strInitializationFilename = getExecutableFilename();
 		String strScenariiFilename = getSymbexGraphFilename();
 
 		if( (strOutputFilename != null)
@@ -733,6 +734,11 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			if( strExecutableFilename != null ) {
 				writer.appendTab2( "executable = '" )
 						.append( strExecutableFilename ).appendEol( "'" );
+			}
+
+			if( strExecutableFilename != null ) {
+				writer.appendTab2( "initialization = '" )
+						.append( strInitializationFilename ).appendEol( "'" );
 			}
 
 			if( strScenariiFilename != null ) {

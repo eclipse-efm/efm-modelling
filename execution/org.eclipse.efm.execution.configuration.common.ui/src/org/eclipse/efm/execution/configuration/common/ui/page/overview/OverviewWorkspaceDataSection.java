@@ -64,7 +64,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 		fWorkspaceRootLocationStringField =
 				new StringFieldEditor(fConfigurationPage,
-						ATTR_WORKSPACE_ROOT_LOCATION, "Location", parent, root);
+						ATTR_WORKSPACE_ROOT_LOCATION, "Location :", parent, root);
 		fWorkspaceRootLocationStringField.setEnabled(false);
 		fWorkspaceRootLocationStringField.setToolTipText(toolTipText2);
 		fWorkspaceRootLocationStringField.setEmptyStringAllowed(false);
@@ -72,7 +72,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 		fWorkspaceOutputLocationStringField =
 				new StringFieldEditor(fConfigurationPage,
-						ATTR_WORKSPACE_OUTPUT_FOLDER_NAME, "Output", parent,
+						ATTR_WORKSPACE_OUTPUT_FOLDER_NAME, "Output :", parent,
 						DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
 		fWorkspaceOutputLocationStringField.setToolTipText(toolTipText2);
 		addField(fWorkspaceOutputLocationStringField);
@@ -81,7 +81,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 		if( getConfigurationPage().isEnabledSymbexDeveloperMode() ) {
 			StringFieldEditor folderNameStringFieldEditor =
 					new StringFieldEditor(fConfigurationPage,
-							ATTR_WORKSPACE_LOG_FOLDER_NAME, "Log",
+							ATTR_WORKSPACE_LOG_FOLDER_NAME, "Log :",
 							parent, DEFAULT_WORKSPACE_LOG_FOLDER_NAME);
 			folderNameStringFieldEditor.setToolTipText(toolTipText3);
 			addField(folderNameStringFieldEditor);
@@ -89,7 +89,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 			folderNameStringFieldEditor =
 					new StringFieldEditor(fConfigurationPage,
-							ATTR_WORKSPACE_DEBUG_FOLDER_NAME, "Debug",
+							ATTR_WORKSPACE_DEBUG_FOLDER_NAME, "Debug :",
 							parent, DEFAULT_WORKSPACE_DEBUG_FOLDER_NAME);
 			folderNameStringFieldEditor.setToolTipText(toolTipText3);
 			addField(folderNameStringFieldEditor);

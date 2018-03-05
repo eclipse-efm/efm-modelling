@@ -109,14 +109,14 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 		fTraceExtensionEvaluationStepsLimitIntegerField =
 				new IntegerFieldEditor(this,
 						ATTR_TRACE_EXTENSION_EVALUATION_STEPS,
-						"&Evaluation Steps:", comp, -1);
+						"&Evaluation Steps :", comp, -1);
 
 		fTraceExtensionEvaluationStepsLimitIntegerField.setToolTipText(
 				"Maximal evaluation steps (-1 <=> no-limit) " +
 				"during the extension of symbolic execution");
 
 		Group group = widgetToolkit.createGroup(
-				groupTraceExtension, "Trace Ending with:",
+				groupTraceExtension, "Trace Ending with ",
 				1, 1, GridData.FILL_HORIZONTAL);
 
 		fTraceExtensionObjectiveStringField = new StringFieldEditor(

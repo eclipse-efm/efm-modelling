@@ -30,10 +30,10 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 	//
 	private IntegerFieldEditor fHoJBeginStep;
 
-	private IntegerFieldEditor fHoJJumpHeight;
-	private IntegerFieldEditor fHoJJumpLimit;
-	private IntegerFieldEditor fHoJHitCount;
-	private IntegerFieldEditor fHoJJumpCount;
+//	private IntegerFieldEditor fHoJJumpHeight;
+//	private IntegerFieldEditor fHoJJumpLimit;
+//	private IntegerFieldEditor fHoJHitCount;
+//	private IntegerFieldEditor fHoJJumpCount;
 
 
 	/**
@@ -69,7 +69,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 
 		fHoJBeginStep = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_BEGIN_STEP,
-				"&Begin Step:", comp1, 0);
+				"&Begin Step", comp1, 0);
 		fHoJBeginStep.setToolTipText("Number of \"cumulated\" steps "
 				+ "before begining the research of the behavior");
 		addField( fHoJBeginStep );
@@ -115,7 +115,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				"&Search Locally scope instead Globally", comp, false) );
 
 		Group groupScheduler = widgetToolkit.createGroup(groupHoJProperty,
-				"&Scheduler", 2, 2, GridData.FILL_HORIZONTAL);
+				"&Trace Sequence", 2, 2, GridData.FILL_HORIZONTAL);
 
 		Composite compScheduler = widgetToolkit.createComposite(
 				groupScheduler, 1, 1, GridData.FILL_HORIZONTAL);
@@ -144,7 +144,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_FOLDING,
 				"&Folding", compOption, true);
 		fieldEditor.setToolTipText(
-				"Enabled checking many trace point in one context");
+				"Enabled verification of multiple trace properties per Symbex State");
 		addField( fieldEditor );
 
 		compOption = widgetToolkit.createComposite(
@@ -174,30 +174,38 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		addField( fieldEditor );
 
 
-		Group groupHoJHeuristic = widgetToolkit.createGroup(parent,
-				"Section HEURISTIC", 1, 1, GridData.FILL_HORIZONTAL);
-
-		Composite compHeuristic = widgetToolkit.createComposite(
-				groupHoJHeuristic, 1, 1, GridData.FILL_HORIZONTAL);
-		fHoJJumpHeight = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
-				"&Jump Height:", compHeuristic, 6);
-		addField( fHoJJumpHeight );
-
-		fHoJJumpLimit = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT,
-				"&Jump Trials Limit:", compHeuristic, -1);
-		addField( fHoJJumpLimit );
-
-		fHoJHitCount = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_COUNT,
-				"&Hit Count:", compHeuristic, 1);
-		addField( fHoJHitCount );
-
-		fHoJJumpCount = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_COUNT,
-				"&Jump Count:", compHeuristic, 1);
-		addField( fHoJJumpCount );
+//		Group groupHoJHeuristic = widgetToolkit.createGroup(parent,
+//				"Section HEURISTIC ", 1, 1, GridData.FILL_HORIZONTAL);
+//
+//		Composite compHeuristic = widgetToolkit.createComposite(
+//				groupHoJHeuristic, 1, 1, GridData.FILL_HORIZONTAL);
+//		fHoJJumpHeight = new IntegerFieldEditor(fConfigurationPage,
+//				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
+//				"&Exploration Height :", compHeuristic, 6);
+//		fHoJJumpHeight.setToolTipText(
+//				"Local exploration height before the next selection by HIT or JUMP");
+//		addField( fHoJJumpHeight );
+//
+//		fHoJJumpLimit = new IntegerFieldEditor(fConfigurationPage,
+//				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT,
+//				"&Jump Trials Limit :", compHeuristic, -1);
+//		fHoJJumpLimit.setToolTipText(
+//				"Local exploration trials number for the Trace Sequence Coverage");
+//		addField( fHoJJumpLimit );
+//
+//		fHoJHitCount = new IntegerFieldEditor(fConfigurationPage,
+//				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_COUNT,
+//				"&Hit Count :", compHeuristic, 1);
+//		fHoJHitCount.setToolTipText(
+//				"Number of paths to choose from HIT (i.e. new properties have been covered)");
+//		addField( fHoJHitCount );
+//
+//		fHoJJumpCount = new IntegerFieldEditor(fConfigurationPage,
+//				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_COUNT,
+//				"&Jump Count :", compHeuristic, 1);
+//		fHoJJumpCount.setToolTipText(
+//				"Number of paths to choose from JUMP (i.e. no new property covered)");
+//		addField( fHoJJumpCount );
 	}
 
 
@@ -268,26 +276,26 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 
 	@Override
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
-		if( ! fHoJBeginStep.isValid() ) {
-			setErrorMessage("Begin Step is not a valid integer");
-			return false;
-		}
-		if( ! fHoJJumpHeight.isValid() ) {
-			setErrorMessage("Jump Height is not a valid integer");
-			return false;
-		}
-		if( ! fHoJJumpLimit.isValid() ) {
-			setErrorMessage("Jump Limit is not a valid integer");
-			return false;
-		}
-		if( ! fHoJHitCount.isValid() ) {
-			setErrorMessage("Hit Count is not a valid integer");
-			return false;
-		}
-		if( ! fHoJJumpCount.isValid() ) {
-			setErrorMessage("Jump Count is not a valid integer");
-			return false;
-		}
+//		if( ! fHoJBeginStep.isValid() ) {
+//			setErrorMessage("Begin Step is not a valid integer");
+//			return false;
+//		}
+//		if( ! fHoJJumpHeight.isValid() ) {
+//			setErrorMessage("Jump Height is not a valid integer");
+//			return false;
+//		}
+//		if( ! fHoJJumpLimit.isValid() ) {
+//			setErrorMessage("Jump Limit is not a valid integer");
+//			return false;
+//		}
+//		if( ! fHoJHitCount.isValid() ) {
+//			setErrorMessage("Hit Count is not a valid integer");
+//			return false;
+//		}
+//		if( ! fHoJJumpCount.isValid() ) {
+//			setErrorMessage("Jump Count is not a valid integer");
+//			return false;
+//		}
 
 		return true;
 	}

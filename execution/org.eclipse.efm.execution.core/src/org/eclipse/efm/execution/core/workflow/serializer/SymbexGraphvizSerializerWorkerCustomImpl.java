@@ -235,24 +235,26 @@ public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSeria
 		writer2.appendTab2Eol( "data#selection = 'MODIFIED'" );
 		writer2.appendTabEol( "] // end property" );
 
-		TraceSpecificationCustomImpl format =
-				(TraceSpecificationCustomImpl) getFormat();
-		if( format != null ) {
-			format.toWriter( writer2 );
-		}
-
-		TraceSpecificationCustomImpl css =
-				(TraceSpecificationCustomImpl) getCSS();
-		if( css != null ) {
-			css.toWriter( writer2 );
-		}
-
+		// Trace element selected
 		TraceSpecificationCustomImpl trace =
 				(TraceSpecificationCustomImpl) getTrace();
 		if( trace != null ) {
 			trace.toWriter(writer2);
 		}
 
+		// Trace element formatter
+		TraceSpecificationCustomImpl format =
+				(TraceSpecificationCustomImpl) getFormat();
+		if( format != null ) {
+			format.toWriter( writer2 );
+		}
+
+		// Graphviz node shape, color, ...
+		TraceSpecificationCustomImpl css =
+				(TraceSpecificationCustomImpl) getCSS();
+		if( css != null ) {
+			css.toWriter( writer2 );
+		}
 
 		String justifier = "";
 		String path;

@@ -139,7 +139,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 								fCompositeParent.getShell(),
 								new WorkbenchLabelProvider(),
 								new WorkbenchContentProvider() );
-				dialog.setTitle("Select a Resource:");
+				dialog.setTitle("Select a Resource");
 				dialog.setMessage("Select a resource to redirect output to:");
 				dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
 				dialog.setComparator(
@@ -185,7 +185,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 										fCompositeParent.getShell(),
 										new WorkbenchLabelProvider(),
 										new WorkbenchContentProvider());
-						dialog.setTitle("Select a Resource:");
+						dialog.setTitle("Select a Resource");
 						dialog.setMessage(
 								"Select a resource to redirect output to:");
 						dialog.setInput(

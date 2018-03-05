@@ -179,7 +179,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		//		GridData.HORIZONTAL_ALIGN_BEGINNING);
 		fTCBeginStep = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_BEGIN_STEP,
-				"&Begin Step:", comp, 0);
+				"&Begin Step :", comp, 0);
 		fTCBeginStep.setToolTipText("Number of \"cumulated\" steps "
 				+ "before begining the verification cover");
 		fTCBeginStep.setEnabled(false);
@@ -225,7 +225,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		Composite comp3 = widgetToolkit.createComposite(
 				groupTCProperty, 2, 1, GridData.FILL_HORIZONTAL);
-		widgetToolkit.createLabel(comp3, "&Scope:", 1);
+		widgetToolkit.createLabel(comp3, "&Scope :", 1);
 		fTCScopeCombo = widgetToolkit.createCombo(comp3,
 				SWT.DROP_DOWN | SWT.READ_ONLY, 1, SCOPE_COMBO_ITEMS);
 		fTCScopeCombo.addSelectionListener(fListener);
@@ -242,14 +242,14 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
-		widgetToolkit.createLabel(comp, "&Start:", 1);
+		widgetToolkit.createLabel(comp, "&Start :", 1);
 		fTCHeuristicStartCombo = widgetToolkit.createCombo(
 				comp, SWT.DROP_DOWN | SWT.READ_ONLY,
 				1, HEURISTIC_START_COMBO_ITEMS);
 		fTCHeuristicStartCombo.addSelectionListener(fListener);
 
 		fTCHeuristicTrials = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_HEURISTIC_TRIALS, "&Trials:", comp, -1);
+				ATTR_TRANSITION_COVERAGE_HEURISTIC_TRIALS, "&Trials :", comp, -1);
 		fTCHeuristicTrials.widthInChars = 10;
 		//fTCHeuristicTrials.setTextLimit(20);
 		addField(fTCHeuristicTrials);
@@ -262,13 +262,13 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTCObjectiveRate = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_OBJECTIVE_RATE, "&Rate:", comp, 100);
+				ATTR_TRANSITION_COVERAGE_OBJECTIVE_RATE, "&Rate :", comp, 100);
 		//fTCObjectiveRate.widthInChars = 3;
 		fTCObjectiveRate.setTextLimit(3);
 		addField(fTCObjectiveRate);
 
 		fTCObjectiveRest = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_OBJECTIVE_REST, "&Rest:", comp, 0);
+				ATTR_TRANSITION_COVERAGE_OBJECTIVE_REST, "&Rest :", comp, 0);
 		//fTCObjectiveRest.widthInChars = 3;
 		fTCObjectiveRest.setTextLimit(3);
 		addField(fTCObjectiveRest);
@@ -281,11 +281,11 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTCCoverageHeight = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_DEPTH, "&Depth:", comp, 7);
+				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_DEPTH, "&Depth :", comp, 7);
 		addField(fTCCoverageHeight);
 
 		fTCCoverageHeightReachedLimit = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_WIDTH, "&Width:", comp, 42);
+				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_WIDTH, "&Width :", comp, 42);
 		addField(fTCCoverageHeightReachedLimit);
 
 
@@ -312,7 +312,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		fTCHitStronglyCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_STRONGLY_COUNT,
-				"&Hit Count:", compGroup, 1);
+				"&Hit Count :", compGroup, 1);
 		addField(fTCHitStronglyCount);
 
 
@@ -333,7 +333,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		fTCHitWeaklyCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_WEAKLY_COUNT,
-				"&Hit Count:", compGroup, 1);
+				"&Hit Count :", compGroup, 1);
 		addField(fTCHitWeaklyCount);
 
 
@@ -354,7 +354,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		fTCHitOtherCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_OTHER_COUNT,
-				"&Hit Count:", compGroup, 1);
+				"&Hit Count :", compGroup, 1);
 		addField(fTCHitOtherCount);
 
 
@@ -369,7 +369,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		widgetToolkit.createLabel(comp, "&Heuristic:", 1);
+		widgetToolkit.createLabel(comp, "&Heuristic :", 1);
 		fTCDirectiveTraceHeuristicCombo = widgetToolkit.createCombo(
 				comp, SWT.DROP_DOWN | SWT.READ_ONLY, 1,
 				DIRECTIVE_TRACE_HEURISTIC_COMBO_ITEMS);
@@ -377,12 +377,12 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		fTCDirectiveTraceCountLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_COUNT_LIMIT,
-				"&Count:", comp, 8);
+				"&Count :", comp, 8);
 		addField(fTCDirectiveTraceCountLimit);
 
 		fTCDirectiveTraceSizeLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_SIZE_LIMIT,
-				"&Size:", comp, 8);
+				"&Size :", comp, 8);
 		addField(fTCDirectiveTraceSizeLimit);
 	}
 

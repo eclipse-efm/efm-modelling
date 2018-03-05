@@ -51,21 +51,21 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 	{
 		IntegerFieldEditor integerField = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_SPECIFICATION_STOP_CRITERIA_STEPS,
-				"&Symbex Step Count:", parent, 1000);
+				"&Symbex Step Count :", parent, 1000);
 		integerField.setToolTipText("Maximal symbex step (possibly many evaluations by step)"
 				+ " (-1 <=> no-limit) during the dynamic process");
 		addField( integerField );
 
 		integerField = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_SPECIFICATION_STOP_CRITERIA_EVALS,
-				"&Symbex Eval Count:", parent, 1000);
+				"&Symbex Eval Count :", parent, 1000);
 		integerField.setToolTipText("Maximal symbex evaluation count"
 				+ " (-1 <=> no-limit) during the dynamic process");
 		addField( integerField );
 
 		integerField = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_SPECIFICATION_STOP_CRITERIA_TIMEOUT,
-				"&Timeout (seconds):", parent, -1);
+				"&Timeout (seconds) :", parent, -1);
 		integerField.setToolTipText("Maximal duration "
 				+ "(-1 <=> no-limit) of the symbex dynamic process");
 		addField( integerField );

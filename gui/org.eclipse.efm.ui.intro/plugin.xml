@@ -15,5 +15,21 @@
             content="extensions/tutorialsExtensionContent.xml">
       </configExtension>
    </extension>
+   <extension
+         point="org.eclipse.ui.intro.quicklinks">
+      <command
+            icon="images/efm48.png"
+            id="org.eclipse.efm.execution.launchconfiguration.command.graphviz"
+            importance="high"
+            label="Eclipse Formal Modeling">
+      </command>
+      <url
+            description="A guided walkthrough to the Eclipse Formal Modeling framework"
+            icon="images/efm48.png"
+            importance="high"
+            label="Eclipse Formal Modeling"
+            location="http://org.eclipse.ui.intro/showHelpTopic?id=/org.eclipse.efm.modeling.doc.helpcontents/resources/docs/toc.xml">
+      </url>
+   </extension>
 
 </plugin>

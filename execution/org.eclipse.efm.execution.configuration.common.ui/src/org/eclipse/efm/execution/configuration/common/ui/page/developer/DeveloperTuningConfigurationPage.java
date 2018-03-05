@@ -232,15 +232,15 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 				parent, 1, 5, GridData.FILL_HORIZONTAL);
 
 		fLogFileNameStringField = new StringFieldEditor(this,
-				ATTR_DEVELOPER_TUNING_LOG_FILENAME, "&Log File:",comp,
+				ATTR_DEVELOPER_TUNING_LOG_FILENAME, "&Log File :",comp,
 				DEFAULT_DEVELOPER_TUNING_LOG_FILENAME);
 
 		fDebugTraceFileNameStringField = new StringFieldEditor(this,
-				ATTR_DEVELOPER_TUNING_DEBUG_FILENAME, "&Debug File:", comp,
+				ATTR_DEVELOPER_TUNING_DEBUG_FILENAME, "&Debug File :", comp,
 				DEFAULT_DEVELOPER_TUNING_DEBUG_FILENAME);
 
 
-		fDebugTraceLevelLabel = widgetToolkit.createLabel(comp, "&Debug Level:", 1);
+		fDebugTraceLevelLabel = widgetToolkit.createLabel(comp, "&Debug Level :", 1);
 
 		fDebugTraceLevelCombo = widgetToolkit.createCombo(comp,
 				SWT.DROP_DOWN | SWT.READ_ONLY, 1, TRACE_LEVEL_COMBO_ITEMS);

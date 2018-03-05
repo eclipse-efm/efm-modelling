@@ -17,11 +17,29 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
+import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 
 public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfigurationProfile {
+
+	private Group groupSelectionHeuristic;
+	
+	private Group groupExplorationHeuristic;
+
+	private IntegerFieldEditor fHoJLocalHeight;
+	private IntegerFieldEditor fHoJTrialLimit;
+	
+	private Group groupHitOrJumpHeuristic;
+
+	private IntegerFieldEditor fHoJHitCount;
+	private IntegerFieldEditor fHoJJumpCount;
+
+
+	private Group groupTraceSequence;
 
 	private StringFieldEditor fBehaviorSpecificationStringField;
 
@@ -50,16 +68,90 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
 		parent.setToolTipText(BEHAVIOR_DESCRIPTION);
 
+		Composite container = widgetToolkit.createComposite(
+				parent, 1, 1, GridData.FILL_HORIZONTAL);
+		
+		// Trace Sequence
+		groupTraceSequence = widgetToolkit.createGroup(
+				container, "&Trace Sequence ", 1, 1, GridData.FILL_HORIZONTAL);
+
+		Composite comp = widgetToolkit.createComposite(
+				groupTraceSequence, 1, 1, GridData.FILL_HORIZONTAL);
+
 		fBehaviorSpecificationStringField = new StringFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST, "",
-				parent, BEHAVIOR_DESCRIPTION, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+				comp, BEHAVIOR_DESCRIPTION, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		fBehaviorSpecificationStringField.setToolTipText(BEHAVIOR_DESCRIPTION);
 		addField(fBehaviorSpecificationStringField);
+
+		
+		// Selection Heuristic
+		groupSelectionHeuristic = widgetToolkit.createGroup(container,
+				"&Exploration && Selection Heuristic ", 2, 1, GridData.FILL_HORIZONTAL);
+		
+//		comp = widgetToolkit.createComposite(
+//				groupSelectionHeuristic, 1, 1, GridData.FILL_HORIZONTAL);
+		
+		// Exploration Heuristic
+		groupExplorationHeuristic = widgetToolkit.createGroup(groupSelectionHeuristic,
+				"&Local Exploration Limit ", 1, 1, GridData.FILL_HORIZONTAL);
+
+		comp = widgetToolkit.createComposite(
+				groupExplorationHeuristic, 1, 1, GridData.FILL_HORIZONTAL);
+
+		// Local exploration height before the next selection by HIT or JUMP
+		fHoJLocalHeight = new IntegerFieldEditor(fConfigurationPage,
+				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
+				"&Height :", comp, 6);
+		fHoJLocalHeight.setToolTipText(
+				"Local exploration height before the next selection by HIT or JUMP");
+		addField( fHoJLocalHeight );
+
+		// Local exploration trials number
+		fHoJTrialLimit = new IntegerFieldEditor(fConfigurationPage,
+				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT,
+				"&Trials :", comp, -1);
+		fHoJTrialLimit.setToolTipText(
+				"Local exploration trials number for the Trace Sequence Coverage");
+		addField( fHoJTrialLimit );
+
+		// HIT or JUMP Heuristic
+		groupHitOrJumpHeuristic = widgetToolkit.createGroup(groupSelectionHeuristic,
+				"&Hit or Jump Selection Count ", 1, 1, GridData.FILL_HORIZONTAL);
+
+		comp = widgetToolkit.createComposite(
+				groupHitOrJumpHeuristic, 1, 1, GridData.FILL_HORIZONTAL);
+		
+		
+		// Number of paths to choose from HIT
+		fHoJHitCount = new IntegerFieldEditor(fConfigurationPage,
+				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_COUNT,
+				"&Hit :", comp, 1);
+		fHoJHitCount.setToolTipText(
+				"Number of paths to choose when HIT (i.e. new properties have been covered)");
+		addField( fHoJHitCount );
+		
+		// Number of paths to choose from JUMP
+		fHoJJumpCount = new IntegerFieldEditor(fConfigurationPage,
+				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_COUNT,
+				"&Jump :", comp, 1);
+		fHoJJumpCount.setToolTipText(
+				"Number of paths to choose when JUMP (i.e. no new property covered)");
+		addField( fHoJJumpCount );
 	}
 
 
 	@Override
 	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
+		configuration.setAttribute(ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT, 6);
+
+		configuration.setAttribute(
+				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT, -1);
+
+		configuration.setAttribute(ATTR_BEHAVIOR_SELECTION_HOJ_HIT_COUNT, 1);
+
+		configuration.setAttribute(ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_COUNT, 1);
+
 		configuration.setAttribute(
 				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST,
 				BEHAVIOR_INITIAL_SAMPLE);
@@ -77,6 +169,25 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 
 	@Override
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
+		// Exploration Heuristic Validation
+		if( ! fHoJLocalHeight.isValid() ) {
+			setErrorMessage("Jump Height is not a valid integer");
+			return false;
+		}
+		if( ! fHoJTrialLimit.isValid() ) {
+			setErrorMessage("Jump Limit is not a valid integer");
+			return false;
+		}
+		if( ! fHoJHitCount.isValid() ) {
+			setErrorMessage("Hit Count is not a valid integer");
+			return false;
+		}
+		if( ! fHoJJumpCount.isValid() ) {
+			setErrorMessage("Jump Count is not a valid integer");
+			return false;
+		}
+
+		// Trace Sequence Validation
 		String[] tabString = fBehaviorSpecificationStringField
 				.getStringValue().split(";\n");
 

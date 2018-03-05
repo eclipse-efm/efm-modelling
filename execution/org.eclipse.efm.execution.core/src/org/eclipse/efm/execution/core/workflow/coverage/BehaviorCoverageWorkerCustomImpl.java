@@ -329,7 +329,14 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 
 		writer.appendTab2Eol( "] // end property" );
 
+		// Trace Sequence to cover
+		TraceSpecificationCustomImpl trace =
+				(TraceSpecificationCustomImpl) getTrace();
+		if( trace != null ) {
+			trace.toWriter(writer2);
+		}
 
+		// Heuristic for trace exploration
 		writer.appendTab2Eol( "heuristic [" );
 
 		if( isOrderedTrace() ) {
@@ -356,13 +363,7 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 
 		writer.appendTab2Eol( "] // end heuristic" );
 
-
-		TraceSpecificationCustomImpl trace =
-				(TraceSpecificationCustomImpl) getTrace();
-		if( trace != null ) {
-			trace.toWriter(writer2);
-		}
-
+		// Console configuration
 		ConsoleLogFormatCustomImpl console =
 				(ConsoleLogFormatCustomImpl) getConsole();
 		if( console != null ) {

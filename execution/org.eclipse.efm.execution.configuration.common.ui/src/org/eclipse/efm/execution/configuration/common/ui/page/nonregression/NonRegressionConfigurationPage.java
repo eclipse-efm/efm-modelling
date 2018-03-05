@@ -232,7 +232,7 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 						new ElementTreeSelectionDialog(parent.getShell(),
 								new WorkbenchLabelProvider(),
 								new WorkbenchContentProvider());
-				dialog.setTitle("Select a &Diversity Specification:");
+				dialog.setTitle("Select a &Diversity Specification");
 				dialog.setMessage("Select a resource to redirect output to:");
 				dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
 				dialog.setComparator(
@@ -254,7 +254,7 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 //				org.eclipse.ui.dialogs.ResourceSelectionDialog dialog =
 //						new ResourceSelectionDialog(getShell(),
 //								ResourcesPlugin.getWorkspace().getRoot(),
-//								"Select a &Diversity Specification:");
+//								"Select a &Diversity Specification");
 //
 //				if(dialog.open() == Window.OK) {
 //					Object[] results = dialog.getResult();

@@ -150,7 +150,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 								parent.getShell(),
 								new WorkbenchLabelProvider(),
 								new WorkbenchContentProvider() );
-				dialog.setTitle("Select a Diversity Specification:");
+				dialog.setTitle("Select a Diversity Specification");
 				dialog.setMessage("Select a resource to redirect output to:");
 				dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
 				dialog.setComparator(

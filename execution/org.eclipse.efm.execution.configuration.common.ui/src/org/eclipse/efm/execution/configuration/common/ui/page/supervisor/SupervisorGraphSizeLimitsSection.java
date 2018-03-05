@@ -49,19 +49,19 @@ public class SupervisorGraphSizeLimitsSection extends AbstractConfigurationSecti
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
 	{	
         IntegerFieldEditor integerField = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_SPECIFICATION_STOP_CRITERIA_NODE, "&Nodes:", parent, -1);
+				ATTR_SPECIFICATION_STOP_CRITERIA_NODE, "&Nodes :", parent, -1);
 		integerField.setToolTipText("Maximal number of nodes "
 				+ "(-1 <=> no-limit) of the symbolic execution tree");
 		addField( integerField );
 
 		integerField = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_SPECIFICATION_STOP_CRITERIA_WIDTH, "W&idth:", parent, -1);
+				ATTR_SPECIFICATION_STOP_CRITERIA_WIDTH, "W&idth :", parent, -1);
 		integerField.setToolTipText(
 				"Maximal width (-1 <=> no-limit) of the symbolic execution tree");
 		addField( integerField );
 
 		integerField = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_SPECIFICATION_STOP_CRITERIA_HEIGHT, "&Height:", parent, 100);
+				ATTR_SPECIFICATION_STOP_CRITERIA_HEIGHT, "&Height :", parent, 100);
 		integerField.setToolTipText(
 				"Maximal height (-1 <=> no-limit) of the symbolic execution tree");
 		addField( integerField );

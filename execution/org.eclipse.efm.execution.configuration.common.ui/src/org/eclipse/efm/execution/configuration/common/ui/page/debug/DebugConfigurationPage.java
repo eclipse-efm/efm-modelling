@@ -179,7 +179,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		Group group = widgetToolkit.createGroup(parent,
 				"Console Log", 2, 1, GridData.FILL_HORIZONTAL);
 
-		widgetToolkit.createLabel(group, "&Verbose Level:", 1);
+		widgetToolkit.createLabel(group, "&Verbose Level :", 1);
 
 		fConsoleLevelCombo = widgetToolkit.createCombo(group,
 				SWT.DROP_DOWN | SWT.READ_ONLY, 1, CONSOLE_LEVEL_COMBO_ITEMS);
@@ -256,7 +256,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				});
 
 		fGroupFirstSymbexOutputTrace = widgetToolkit.createGroup(
-				comp, "&Trace:", 1, 2, GridData.FILL_BOTH);
+				comp, "&Trace ", 1, 2, GridData.FILL_BOTH);
 		fFirstSymbexOutputGraphizTraceStringField = new StringFieldEditor(
 				this, ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
 				"", fGroupFirstSymbexOutputTrace,
@@ -264,7 +264,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 
 		fGroupFirstSymbexOutputFormat = widgetToolkit.createGroup(
-				comp, "&Format:", 1, 2, GridData.FILL_BOTH);
+				comp, "&Format ", 1, 2, GridData.FILL_BOTH);
 		fFirstSymbexOutputGraphizFormatStringField = new StringFieldEditor(
 				this, ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
 				"", fGroupFirstSymbexOutputFormat,
@@ -348,7 +348,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				});
 
 		fGroupSecondSymbexOutputTrace = widgetToolkit.createGroup(
-				comp, "&Trace:", 1, 2, GridData.FILL_BOTH);
+				comp, "&Trace ", 1, 2, GridData.FILL_BOTH);
 		fSecondSymbexOutputGraphizTraceStringField = new StringFieldEditor(
 				this, ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
 				"", fGroupSecondSymbexOutputTrace,
@@ -356,7 +356,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 
 		fGroupSecondSymbexOutputFormat = widgetToolkit.createGroup(
-				comp, "&Format:", 1, 2, GridData.FILL_BOTH);
+				comp, "&Format ", 1, 2, GridData.FILL_BOTH);
 		fSecondSymbexOutputGraphizFormatStringField = new StringFieldEditor(
 				this, ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
 				"", fGroupSecondSymbexOutputFormat,

@@ -114,7 +114,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 		StringFieldEditor resourceNameStringField =
 				new StringFieldEditor(fConfigurationPage,
-				ATTR_BASIC_TRACE_FOLDER_NAME, "&Folder:",
+				ATTR_BASIC_TRACE_FOLDER_NAME, "&Folder :",
 				comp, DEFAULT_BASIC_TRACE_FOLDER_NAME);
 		resourceNameStringField.setToolTipText(
 				"Folder name w.r.t. <workspace-root>/<output>");
@@ -124,7 +124,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				groupBasicConfiguration, 1, 1, GridData.FILL_HORIZONTAL);
 
 		resourceNameStringField = new StringFieldEditor(fConfigurationPage,
-				ATTR_BASIC_TRACE_FILE_NAME, "&File:",
+				ATTR_BASIC_TRACE_FILE_NAME, "&File :",
 				comp, DEFAULT_BASIC_TRACE_FILE_NAME);
 		resourceNameStringField.setToolTipText("File name");
 		addField(resourceNameStringField);
