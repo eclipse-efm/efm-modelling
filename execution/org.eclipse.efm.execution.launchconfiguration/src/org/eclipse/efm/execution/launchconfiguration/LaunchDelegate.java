@@ -68,6 +68,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 	public static boolean fEnableTraceExtension = false;
 
+	
 
 	/**
 	 * LaunchExecConsoleManager
@@ -232,6 +233,24 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	 */
 	public static final int ERR_INTERNAL_ERROR = 150;
 
+	
+	public static boolean isLaunchCoverageFamilyProfile() {
+		return( LaunchDelegate.fEnableTraceExtension
+		|| LaunchDelegate.fModelAnalysisProfile.equals(
+				 ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION)
+		|| LaunchDelegate.fModelAnalysisProfile.equals(
+				 ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) );
+		
+	}
+
+	public static boolean isLaunchExplorationFamilyProfile() {
+		return( LaunchDelegate.fModelAnalysisProfile.equals(
+				 ANALYSIS_PROFILE_MODEL_EXPLORATION)
+		|| LaunchDelegate.fModelAnalysisProfile.equals(
+				 ANALYSIS_PROFILE_MODEL_TEST_OFFLINE)
+		|| LaunchDelegate.fModelAnalysisProfile.equals(
+				ANALYSIS_PROFILE_MODEL_UNDEFINED) );
+	}
 
 	public void launchExec(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {

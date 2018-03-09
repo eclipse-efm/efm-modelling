@@ -153,7 +153,7 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 
 
 		writer.appendTab2Eol( "property [" )
-			.appendTab3Eol( "format = \"myformat\"" )
+			.appendTab3Eol( "format = \"BASIC#XLIA\"" )
 			.appendTab2Eol( "] // end property" );
 						
 		writer.appendTab2Eol( "merged_trace [" );
