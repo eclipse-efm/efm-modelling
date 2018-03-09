@@ -79,9 +79,7 @@ public class TraceSpecificationCustomImpl extends TraceSpecificationImpl {
 		for (String eltString : tabString) {
 			eltString = eltString.trim();
 
-			if ( eltString.length() == 0 ) {
-			}
-			else  {
+			if ( eltString.length() > 0 ) {
 				traceElt = TraceElementCustomImpl.create(
 						eltString, defaultNature);
 				if( traceElt != null ) {

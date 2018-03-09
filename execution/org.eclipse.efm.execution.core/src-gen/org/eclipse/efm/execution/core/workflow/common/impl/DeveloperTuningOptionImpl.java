@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#getOutputFilename <em>Output Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#getSpecificationFilename <em>Specification Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#getExecutableFilename <em>Executable Filename</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#getInitializationFilename <em>Initialization Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#getSymbexGraphFilename <em>Symbex Graph Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#getParsedModelFilename <em>Parsed Model Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl#getCompiledModelFilename <em>Compiled Model Filename</em>}</li>
@@ -229,6 +230,26 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * @ordered
 	 */
 	protected String executableFilename = EXECUTABLE_FILENAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getInitializationFilename() <em>Initialization Filename</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInitializationFilename()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String INITIALIZATION_FILENAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getInitializationFilename() <em>Initialization Filename</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInitializationFilename()
+	 * @generated
+	 * @ordered
+	 */
+	protected String initializationFilename = INITIALIZATION_FILENAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getSymbexGraphFilename() <em>Symbex Graph Filename</em>}' attribute.
@@ -1341,6 +1362,27 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getInitializationFilename() {
+		return initializationFilename;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInitializationFilename(String newInitializationFilename) {
+		String oldInitializationFilename = initializationFilename;
+		initializationFilename = newInitializationFilename;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DEVELOPER_TUNING_OPTION__INITIALIZATION_FILENAME, oldInitializationFilename, initializationFilename));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getSymbexGraphFilename() {
 		return symbexGraphFilename;
 	}
@@ -2345,6 +2387,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 				return getSpecificationFilename();
 			case CommonPackage.DEVELOPER_TUNING_OPTION__EXECUTABLE_FILENAME:
 				return getExecutableFilename();
+			case CommonPackage.DEVELOPER_TUNING_OPTION__INITIALIZATION_FILENAME:
+				return getInitializationFilename();
 			case CommonPackage.DEVELOPER_TUNING_OPTION__SYMBEX_GRAPH_FILENAME:
 				return getSymbexGraphFilename();
 			case CommonPackage.DEVELOPER_TUNING_OPTION__PARSED_MODEL_FILENAME:
@@ -2471,6 +2515,9 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 				return;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__EXECUTABLE_FILENAME:
 				setExecutableFilename((String)newValue);
+				return;
+			case CommonPackage.DEVELOPER_TUNING_OPTION__INITIALIZATION_FILENAME:
+				setInitializationFilename((String)newValue);
 				return;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__SYMBEX_GRAPH_FILENAME:
 				setSymbexGraphFilename((String)newValue);
@@ -2646,6 +2693,9 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 			case CommonPackage.DEVELOPER_TUNING_OPTION__EXECUTABLE_FILENAME:
 				setExecutableFilename(EXECUTABLE_FILENAME_EDEFAULT);
 				return;
+			case CommonPackage.DEVELOPER_TUNING_OPTION__INITIALIZATION_FILENAME:
+				setInitializationFilename(INITIALIZATION_FILENAME_EDEFAULT);
+				return;
 			case CommonPackage.DEVELOPER_TUNING_OPTION__SYMBEX_GRAPH_FILENAME:
 				setSymbexGraphFilename(SYMBEX_GRAPH_FILENAME_EDEFAULT);
 				return;
@@ -2813,6 +2863,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 				return SPECIFICATION_FILENAME_EDEFAULT == null ? specificationFilename != null : !SPECIFICATION_FILENAME_EDEFAULT.equals(specificationFilename);
 			case CommonPackage.DEVELOPER_TUNING_OPTION__EXECUTABLE_FILENAME:
 				return EXECUTABLE_FILENAME_EDEFAULT == null ? executableFilename != null : !EXECUTABLE_FILENAME_EDEFAULT.equals(executableFilename);
+			case CommonPackage.DEVELOPER_TUNING_OPTION__INITIALIZATION_FILENAME:
+				return INITIALIZATION_FILENAME_EDEFAULT == null ? initializationFilename != null : !INITIALIZATION_FILENAME_EDEFAULT.equals(initializationFilename);
 			case CommonPackage.DEVELOPER_TUNING_OPTION__SYMBEX_GRAPH_FILENAME:
 				return SYMBEX_GRAPH_FILENAME_EDEFAULT == null ? symbexGraphFilename != null : !SYMBEX_GRAPH_FILENAME_EDEFAULT.equals(symbexGraphFilename);
 			case CommonPackage.DEVELOPER_TUNING_OPTION__PARSED_MODEL_FILENAME:
@@ -2935,6 +2987,8 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 		result.append(specificationFilename);
 		result.append(", executableFilename: ");
 		result.append(executableFilename);
+		result.append(", initializationFilename: ");
+		result.append(initializationFilename);
 		result.append(", symbexGraphFilename: ");
 		result.append(symbexGraphFilename);
 		result.append(", parsedModelFilename: ");

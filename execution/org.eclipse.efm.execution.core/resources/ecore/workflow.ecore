@@ -212,6 +212,11 @@
       <eLiterals name="LIFELINE_ID" value="61" literal="lifeline#id"/>
       <eLiterals name="LIFELINE_STATE" value="62" literal="lifeline#state"/>
       <eLiterals name="RAW_ATTRIBUTE" value="63" literal="RAW_ATTRIBUTE"/>
+      <eLiterals name="NODE_HEADER" value="64" literal="node#header"/>
+      <eLiterals name="NODE_DATA" value="65" literal="node#data"/>
+      <eLiterals name="NODE_INFO" value="66" literal="node#info"/>
+      <eLiterals name="NODE_TRACE_RUN" value="67" literal="node#trace#run"/>
+      <eLiterals name="NODE_TRACE_IO" value="68" literal="node#trace#io"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TraceElement">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="nature" eType="#//common/TraceElementKind"/>
@@ -278,6 +283,8 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="specificationFilename"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="executableFilename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="initializationFilename"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="symbexGraphFilename"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="parsedModelFilename"

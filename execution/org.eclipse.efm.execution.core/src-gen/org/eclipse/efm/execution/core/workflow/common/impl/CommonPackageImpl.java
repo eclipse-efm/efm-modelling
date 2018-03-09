@@ -879,7 +879,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_SymbexGraphFilename() {
+	public EAttribute getDeveloperTuningOption_InitializationFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -888,7 +888,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_ParsedModelFilename() {
+	public EAttribute getDeveloperTuningOption_SymbexGraphFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -897,7 +897,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_CompiledModelFilename() {
+	public EAttribute getDeveloperTuningOption_ParsedModelFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -906,7 +906,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_SymbexTraceFilename() {
+	public EAttribute getDeveloperTuningOption_CompiledModelFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -915,7 +915,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledParsing() {
+	public EAttribute getDeveloperTuningOption_SymbexTraceFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -924,7 +924,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledConfiguring() {
+	public EAttribute getDeveloperTuningOption_EnabledParsing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -933,7 +933,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledCompiling() {
+	public EAttribute getDeveloperTuningOption_EnabledConfiguring() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -942,7 +942,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledLoading() {
+	public EAttribute getDeveloperTuningOption_EnabledCompiling() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -951,7 +951,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledComputing() {
+	public EAttribute getDeveloperTuningOption_EnabledLoading() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -960,7 +960,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledReporting() {
+	public EAttribute getDeveloperTuningOption_EnabledComputing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -969,7 +969,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledSolving() {
+	public EAttribute getDeveloperTuningOption_EnabledReporting() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -978,7 +978,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledProfiling() {
+	public EAttribute getDeveloperTuningOption_EnabledSolving() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -987,7 +987,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledAllProcessStage() {
+	public EAttribute getDeveloperTuningOption_EnabledProfiling() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(19);
 	}
 
@@ -996,7 +996,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledPreProcessing() {
+	public EAttribute getDeveloperTuningOption_EnabledAllProcessStage() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(20);
 	}
 
@@ -1005,7 +1005,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledPostProcessing() {
+	public EAttribute getDeveloperTuningOption_EnabledPreProcessing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(21);
 	}
 
@@ -1014,7 +1014,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledProcessing() {
+	public EAttribute getDeveloperTuningOption_EnabledPostProcessing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(22);
 	}
 
@@ -1023,7 +1023,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledPreFiltering() {
+	public EAttribute getDeveloperTuningOption_EnabledProcessing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(23);
 	}
 
@@ -1032,7 +1032,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledPostFiltering() {
+	public EAttribute getDeveloperTuningOption_EnabledPreFiltering() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(24);
 	}
 
@@ -1041,7 +1041,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledFiltering() {
+	public EAttribute getDeveloperTuningOption_EnabledPostFiltering() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(25);
 	}
 
@@ -1050,7 +1050,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledQueue() {
+	public EAttribute getDeveloperTuningOption_EnabledFiltering() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(26);
 	}
 
@@ -1059,7 +1059,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledProgram() {
+	public EAttribute getDeveloperTuningOption_EnabledQueue() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(27);
 	}
 
@@ -1068,7 +1068,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledStatement() {
+	public EAttribute getDeveloperTuningOption_EnabledProgram() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(28);
 	}
 
@@ -1077,7 +1077,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledStatementAssignment() {
+	public EAttribute getDeveloperTuningOption_EnabledStatement() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(29);
 	}
 
@@ -1086,7 +1086,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledStatementCommunication() {
+	public EAttribute getDeveloperTuningOption_EnabledStatementAssignment() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(30);
 	}
 
@@ -1095,7 +1095,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledStatementTestDecision() {
+	public EAttribute getDeveloperTuningOption_EnabledStatementCommunication() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(31);
 	}
 
@@ -1104,7 +1104,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledBytecode() {
+	public EAttribute getDeveloperTuningOption_EnabledStatementTestDecision() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(32);
 	}
 
@@ -1113,7 +1113,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledData() {
+	public EAttribute getDeveloperTuningOption_EnabledBytecode() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(33);
 	}
 
@@ -1122,7 +1122,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledTrace() {
+	public EAttribute getDeveloperTuningOption_EnabledData() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(34);
 	}
 
@@ -1131,7 +1131,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledVariable() {
+	public EAttribute getDeveloperTuningOption_EnabledTrace() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(35);
 	}
 
@@ -1140,7 +1140,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledBuffer() {
+	public EAttribute getDeveloperTuningOption_EnabledVariable() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(36);
 	}
 
@@ -1149,7 +1149,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledPort() {
+	public EAttribute getDeveloperTuningOption_EnabledBuffer() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(37);
 	}
 
@@ -1158,7 +1158,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledSignal() {
+	public EAttribute getDeveloperTuningOption_EnabledPort() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(38);
 	}
 
@@ -1167,7 +1167,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledConnexion() {
+	public EAttribute getDeveloperTuningOption_EnabledSignal() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(39);
 	}
 
@@ -1176,7 +1176,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledTime() {
+	public EAttribute getDeveloperTuningOption_EnabledConnexion() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(40);
 	}
 
@@ -1185,7 +1185,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledExecutable() {
+	public EAttribute getDeveloperTuningOption_EnabledTime() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(41);
 	}
 
@@ -1194,7 +1194,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledActivity() {
+	public EAttribute getDeveloperTuningOption_EnabledExecutable() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(42);
 	}
 
@@ -1203,7 +1203,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledRoutine() {
+	public EAttribute getDeveloperTuningOption_EnabledActivity() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(43);
 	}
 
@@ -1212,7 +1212,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledTransition() {
+	public EAttribute getDeveloperTuningOption_EnabledRoutine() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(44);
 	}
 
@@ -1221,7 +1221,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledMachine() {
+	public EAttribute getDeveloperTuningOption_EnabledTransition() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(45);
 	}
 
@@ -1230,7 +1230,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledStatemachine() {
+	public EAttribute getDeveloperTuningOption_EnabledMachine() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(46);
 	}
 
@@ -1239,7 +1239,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledNameId() {
+	public EAttribute getDeveloperTuningOption_EnabledStatemachine() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(47);
 	}
 
@@ -1248,7 +1248,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledQualifiedNameId() {
+	public EAttribute getDeveloperTuningOption_EnabledNameId() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(48);
 	}
 
@@ -1257,7 +1257,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledFullyQualifiedNameId() {
+	public EAttribute getDeveloperTuningOption_EnabledQualifiedNameId() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(49);
 	}
 
@@ -1266,7 +1266,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledRedundance() {
+	public EAttribute getDeveloperTuningOption_EnabledFullyQualifiedNameId() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(50);
 	}
 
@@ -1275,7 +1275,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledReferenceCounting() {
+	public EAttribute getDeveloperTuningOption_EnabledRedundance() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(51);
 	}
 
@@ -1284,7 +1284,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledNothing() {
+	public EAttribute getDeveloperTuningOption_EnabledReferenceCounting() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(52);
 	}
 
@@ -1293,8 +1293,17 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDeveloperTuningOption_EnabledGodMode() {
+	public EAttribute getDeveloperTuningOption_EnabledNothing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(53);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDeveloperTuningOption_EnabledGodMode() {
+		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(54);
 	}
 
 	/**
@@ -1519,6 +1528,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__OUTPUT_FILENAME);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__SPECIFICATION_FILENAME);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__EXECUTABLE_FILENAME);
+		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__INITIALIZATION_FILENAME);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__SYMBEX_GRAPH_FILENAME);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__PARSED_MODEL_FILENAME);
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__COMPILED_MODEL_FILENAME);
@@ -1695,6 +1705,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getDeveloperTuningOption_OutputFilename(), ecorePackage.getEString(), "outputFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_SpecificationFilename(), ecorePackage.getEString(), "specificationFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_ExecutableFilename(), ecorePackage.getEString(), "executableFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_InitializationFilename(), ecorePackage.getEString(), "initializationFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_SymbexGraphFilename(), ecorePackage.getEString(), "symbexGraphFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_ParsedModelFilename(), ecorePackage.getEString(), "parsedModelFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_CompiledModelFilename(), ecorePackage.getEString(), "compiledModelFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1833,6 +1844,11 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_ID);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_STATE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.RAW_ATTRIBUTE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_HEADER);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_DATA);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_INFO);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_TRACE_RUN);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_TRACE_IO);
 
 		initEEnum(heuristicClassKindEEnum, HeuristicClassKind.class, "HeuristicClassKind");
 		addEEnumLiteral(heuristicClassKindEEnum, HeuristicClassKind.BASIC);

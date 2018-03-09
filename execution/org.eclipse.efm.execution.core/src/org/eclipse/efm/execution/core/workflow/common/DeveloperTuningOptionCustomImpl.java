@@ -598,6 +598,8 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			if( enabled ) {
 				devTuning.setExecutableFilename(modelFilename + ".fexe");
 
+				devTuning.setInitializationFilename(modelFilename + ".fet");
+
 				if( fEnabledSymbexDeveloperMode ) {
 					devTuning.setCompiledModelFilename(
 							modelFilename + "_compiled.fexe");
@@ -711,7 +713,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 		String strOutputFilename = getOutputFilename();
 		String strSpecificationFilename = getSpecificationFilename();
 		String strExecutableFilename = getExecutableFilename();
-		String strInitializationFilename = getExecutableFilename();
+		String strInitializationFilename = getInitializationFilename();
 		String strScenariiFilename = getSymbexGraphFilename();
 
 		if( (strOutputFilename != null)

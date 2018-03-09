@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getOutputFilename <em>Output Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getSpecificationFilename <em>Specification Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getExecutableFilename <em>Executable Filename</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getInitializationFilename <em>Initialization Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getSymbexGraphFilename <em>Symbex Graph Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getParsedModelFilename <em>Parsed Model Filename</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getCompiledModelFilename <em>Compiled Model Filename</em>}</li>
@@ -269,6 +270,32 @@ public interface DeveloperTuningOption extends EObject {
 	 * @generated
 	 */
 	void setExecutableFilename(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Initialization Filename</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Initialization Filename</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Initialization Filename</em>' attribute.
+	 * @see #setInitializationFilename(String)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_InitializationFilename()
+	 * @model
+	 * @generated
+	 */
+	String getInitializationFilename();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getInitializationFilename <em>Initialization Filename</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Initialization Filename</em>' attribute.
+	 * @see #getInitializationFilename()
+	 * @generated
+	 */
+	void setInitializationFilename(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Symbex Graph Filename</b></em>' attribute.

@@ -652,7 +652,47 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RAW_ATTRIBUTE(63, "RAW_ATTRIBUTE", "RAW_ATTRIBUTE");
+	RAW_ATTRIBUTE(63, "RAW_ATTRIBUTE", "RAW_ATTRIBUTE"), /**
+	 * The '<em><b>NODE HEADER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NODE_HEADER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NODE_HEADER(64, "NODE_HEADER", "node#header"), /**
+	 * The '<em><b>NODE DATA</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NODE_DATA_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NODE_DATA(65, "NODE_DATA", "node#data"), /**
+	 * The '<em><b>NODE INFO</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NODE_INFO_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NODE_INFO(66, "NODE_INFO", "node#info"), /**
+	 * The '<em><b>NODE TRACE RUN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NODE_TRACE_RUN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NODE_TRACE_RUN(67, "NODE_TRACE_RUN", "node#trace#run"), /**
+	 * The '<em><b>NODE TRACE IO</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NODE_TRACE_IO_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NODE_TRACE_IO(68, "NODE_TRACE_IO", "node#trace#io");
 
 	/**
 	 * The '<em><b>UNDEFINED</b></em>' literal value.
@@ -1615,6 +1655,81 @@ public enum TraceElementKind implements Enumerator {
 	public static final int RAW_ATTRIBUTE_VALUE = 63;
 
 	/**
+	 * The '<em><b>NODE HEADER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NODE HEADER</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NODE_HEADER
+	 * @model literal="node#header"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NODE_HEADER_VALUE = 64;
+
+	/**
+	 * The '<em><b>NODE DATA</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NODE DATA</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NODE_DATA
+	 * @model literal="node#data"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NODE_DATA_VALUE = 65;
+
+	/**
+	 * The '<em><b>NODE INFO</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NODE INFO</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NODE_INFO
+	 * @model literal="node#info"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NODE_INFO_VALUE = 66;
+
+	/**
+	 * The '<em><b>NODE TRACE RUN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NODE TRACE RUN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NODE_TRACE_RUN
+	 * @model literal="node#trace#run"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NODE_TRACE_RUN_VALUE = 67;
+
+	/**
+	 * The '<em><b>NODE TRACE IO</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NODE TRACE IO</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NODE_TRACE_IO
+	 * @model literal="node#trace#io"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NODE_TRACE_IO_VALUE = 68;
+
+	/**
 	 * An array of all the '<em><b>Trace Element Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1686,6 +1801,11 @@ public enum TraceElementKind implements Enumerator {
 			LIFELINE_ID,
 			LIFELINE_STATE,
 			RAW_ATTRIBUTE,
+			NODE_HEADER,
+			NODE_DATA,
+			NODE_INFO,
+			NODE_TRACE_RUN,
+			NODE_TRACE_IO,
 		};
 
 	/**
@@ -1806,6 +1926,11 @@ public enum TraceElementKind implements Enumerator {
 			case LIFELINE_ID_VALUE: return LIFELINE_ID;
 			case LIFELINE_STATE_VALUE: return LIFELINE_STATE;
 			case RAW_ATTRIBUTE_VALUE: return RAW_ATTRIBUTE;
+			case NODE_HEADER_VALUE: return NODE_HEADER;
+			case NODE_DATA_VALUE: return NODE_DATA;
+			case NODE_INFO_VALUE: return NODE_INFO;
+			case NODE_TRACE_RUN_VALUE: return NODE_TRACE_RUN;
+			case NODE_TRACE_IO_VALUE: return NODE_TRACE_IO;
 		}
 		return null;
 	}

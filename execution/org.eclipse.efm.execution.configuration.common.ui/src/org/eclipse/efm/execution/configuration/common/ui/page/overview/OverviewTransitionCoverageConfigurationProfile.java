@@ -58,13 +58,18 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 
 	private String fModelFilePath;
 
+	private OverviewAnalysisProfileSection fOverviewAnalysisProfileSection;
 
 	/**
 	 * Constructor
 	 * @param parentTab
 	 */
-	public OverviewTransitionCoverageConfigurationProfile(AbstractConfigurationPage configurationPage) {
+	public OverviewTransitionCoverageConfigurationProfile(
+			AbstractConfigurationPage configurationPage,
+			OverviewAnalysisProfileSection overviewAnalysisProfileSection) {
 		super(configurationPage);
+
+		this.fOverviewAnalysisProfileSection = overviewAnalysisProfileSection;
 
 		fModelFilePath = null;
 	}
@@ -432,7 +437,10 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_SELECTION, fSelectedTransitionsList);
 		
-		configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY, "WEIGHT_BFS");
+		if( fOverviewAnalysisProfileSection.isTransitionCoverage() )
+		{
+			configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY, "WEIGHT_BFS");
+		}
 	}
 
 	@Override

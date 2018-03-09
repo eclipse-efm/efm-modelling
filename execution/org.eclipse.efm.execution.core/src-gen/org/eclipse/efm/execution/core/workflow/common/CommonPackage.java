@@ -911,13 +911,22 @@ public interface CommonPackage extends EPackage {
 	int DEVELOPER_TUNING_OPTION__EXECUTABLE_FILENAME = 6;
 
 	/**
+	 * The feature id for the '<em><b>Initialization Filename</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEVELOPER_TUNING_OPTION__INITIALIZATION_FILENAME = 7;
+
+	/**
 	 * The feature id for the '<em><b>Symbex Graph Filename</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__SYMBEX_GRAPH_FILENAME = 7;
+	int DEVELOPER_TUNING_OPTION__SYMBEX_GRAPH_FILENAME = 8;
 
 	/**
 	 * The feature id for the '<em><b>Parsed Model Filename</b></em>' attribute.
@@ -926,7 +935,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__PARSED_MODEL_FILENAME = 8;
+	int DEVELOPER_TUNING_OPTION__PARSED_MODEL_FILENAME = 9;
 
 	/**
 	 * The feature id for the '<em><b>Compiled Model Filename</b></em>' attribute.
@@ -935,7 +944,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__COMPILED_MODEL_FILENAME = 9;
+	int DEVELOPER_TUNING_OPTION__COMPILED_MODEL_FILENAME = 10;
 
 	/**
 	 * The feature id for the '<em><b>Symbex Trace Filename</b></em>' attribute.
@@ -944,7 +953,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__SYMBEX_TRACE_FILENAME = 10;
+	int DEVELOPER_TUNING_OPTION__SYMBEX_TRACE_FILENAME = 11;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Parsing</b></em>' attribute.
@@ -953,7 +962,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_PARSING = 11;
+	int DEVELOPER_TUNING_OPTION__ENABLED_PARSING = 12;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Configuring</b></em>' attribute.
@@ -962,7 +971,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING = 12;
+	int DEVELOPER_TUNING_OPTION__ENABLED_CONFIGURING = 13;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Compiling</b></em>' attribute.
@@ -971,7 +980,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_COMPILING = 13;
+	int DEVELOPER_TUNING_OPTION__ENABLED_COMPILING = 14;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Loading</b></em>' attribute.
@@ -980,7 +989,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_LOADING = 14;
+	int DEVELOPER_TUNING_OPTION__ENABLED_LOADING = 15;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Computing</b></em>' attribute.
@@ -989,7 +998,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_COMPUTING = 15;
+	int DEVELOPER_TUNING_OPTION__ENABLED_COMPUTING = 16;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Reporting</b></em>' attribute.
@@ -998,7 +1007,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_REPORTING = 16;
+	int DEVELOPER_TUNING_OPTION__ENABLED_REPORTING = 17;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Solving</b></em>' attribute.
@@ -1007,7 +1016,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_SOLVING = 17;
+	int DEVELOPER_TUNING_OPTION__ENABLED_SOLVING = 18;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Profiling</b></em>' attribute.
@@ -1016,7 +1025,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_PROFILING = 18;
+	int DEVELOPER_TUNING_OPTION__ENABLED_PROFILING = 19;
 
 	/**
 	 * The feature id for the '<em><b>Enabled All Process Stage</b></em>' attribute.
@@ -1025,7 +1034,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_ALL_PROCESS_STAGE = 19;
+	int DEVELOPER_TUNING_OPTION__ENABLED_ALL_PROCESS_STAGE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Pre Processing</b></em>' attribute.
@@ -1034,7 +1043,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_PRE_PROCESSING = 20;
+	int DEVELOPER_TUNING_OPTION__ENABLED_PRE_PROCESSING = 21;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Post Processing</b></em>' attribute.
@@ -1043,7 +1052,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_POST_PROCESSING = 21;
+	int DEVELOPER_TUNING_OPTION__ENABLED_POST_PROCESSING = 22;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Processing</b></em>' attribute.
@@ -1052,7 +1061,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_PROCESSING = 22;
+	int DEVELOPER_TUNING_OPTION__ENABLED_PROCESSING = 23;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Pre Filtering</b></em>' attribute.
@@ -1061,7 +1070,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_PRE_FILTERING = 23;
+	int DEVELOPER_TUNING_OPTION__ENABLED_PRE_FILTERING = 24;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Post Filtering</b></em>' attribute.
@@ -1070,7 +1079,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_POST_FILTERING = 24;
+	int DEVELOPER_TUNING_OPTION__ENABLED_POST_FILTERING = 25;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Filtering</b></em>' attribute.
@@ -1079,7 +1088,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_FILTERING = 25;
+	int DEVELOPER_TUNING_OPTION__ENABLED_FILTERING = 26;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Queue</b></em>' attribute.
@@ -1088,7 +1097,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_QUEUE = 26;
+	int DEVELOPER_TUNING_OPTION__ENABLED_QUEUE = 27;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Program</b></em>' attribute.
@@ -1097,7 +1106,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_PROGRAM = 27;
+	int DEVELOPER_TUNING_OPTION__ENABLED_PROGRAM = 28;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Statement</b></em>' attribute.
@@ -1106,7 +1115,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMENT = 28;
+	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMENT = 29;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Statement Assignment</b></em>' attribute.
@@ -1115,7 +1124,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMENT_ASSIGNMENT = 29;
+	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMENT_ASSIGNMENT = 30;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Statement Communication</b></em>' attribute.
@@ -1124,7 +1133,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMENT_COMMUNICATION = 30;
+	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMENT_COMMUNICATION = 31;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Statement Test Decision</b></em>' attribute.
@@ -1133,7 +1142,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMENT_TEST_DECISION = 31;
+	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMENT_TEST_DECISION = 32;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Bytecode</b></em>' attribute.
@@ -1142,7 +1151,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_BYTECODE = 32;
+	int DEVELOPER_TUNING_OPTION__ENABLED_BYTECODE = 33;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Data</b></em>' attribute.
@@ -1151,7 +1160,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_DATA = 33;
+	int DEVELOPER_TUNING_OPTION__ENABLED_DATA = 34;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Trace</b></em>' attribute.
@@ -1160,7 +1169,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_TRACE = 34;
+	int DEVELOPER_TUNING_OPTION__ENABLED_TRACE = 35;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Variable</b></em>' attribute.
@@ -1169,7 +1178,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_VARIABLE = 35;
+	int DEVELOPER_TUNING_OPTION__ENABLED_VARIABLE = 36;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Buffer</b></em>' attribute.
@@ -1178,7 +1187,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_BUFFER = 36;
+	int DEVELOPER_TUNING_OPTION__ENABLED_BUFFER = 37;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Port</b></em>' attribute.
@@ -1187,7 +1196,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_PORT = 37;
+	int DEVELOPER_TUNING_OPTION__ENABLED_PORT = 38;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Signal</b></em>' attribute.
@@ -1196,7 +1205,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_SIGNAL = 38;
+	int DEVELOPER_TUNING_OPTION__ENABLED_SIGNAL = 39;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Connexion</b></em>' attribute.
@@ -1205,7 +1214,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_CONNEXION = 39;
+	int DEVELOPER_TUNING_OPTION__ENABLED_CONNEXION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Time</b></em>' attribute.
@@ -1214,7 +1223,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_TIME = 40;
+	int DEVELOPER_TUNING_OPTION__ENABLED_TIME = 41;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Executable</b></em>' attribute.
@@ -1223,7 +1232,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_EXECUTABLE = 41;
+	int DEVELOPER_TUNING_OPTION__ENABLED_EXECUTABLE = 42;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Activity</b></em>' attribute.
@@ -1232,7 +1241,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_ACTIVITY = 42;
+	int DEVELOPER_TUNING_OPTION__ENABLED_ACTIVITY = 43;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Routine</b></em>' attribute.
@@ -1241,7 +1250,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_ROUTINE = 43;
+	int DEVELOPER_TUNING_OPTION__ENABLED_ROUTINE = 44;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Transition</b></em>' attribute.
@@ -1250,7 +1259,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_TRANSITION = 44;
+	int DEVELOPER_TUNING_OPTION__ENABLED_TRANSITION = 45;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Machine</b></em>' attribute.
@@ -1259,7 +1268,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_MACHINE = 45;
+	int DEVELOPER_TUNING_OPTION__ENABLED_MACHINE = 46;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Statemachine</b></em>' attribute.
@@ -1268,7 +1277,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMACHINE = 46;
+	int DEVELOPER_TUNING_OPTION__ENABLED_STATEMACHINE = 47;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Name Id</b></em>' attribute.
@@ -1277,7 +1286,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_NAME_ID = 47;
+	int DEVELOPER_TUNING_OPTION__ENABLED_NAME_ID = 48;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Qualified Name Id</b></em>' attribute.
@@ -1286,7 +1295,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_QUALIFIED_NAME_ID = 48;
+	int DEVELOPER_TUNING_OPTION__ENABLED_QUALIFIED_NAME_ID = 49;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Fully Qualified Name Id</b></em>' attribute.
@@ -1295,7 +1304,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_FULLY_QUALIFIED_NAME_ID = 49;
+	int DEVELOPER_TUNING_OPTION__ENABLED_FULLY_QUALIFIED_NAME_ID = 50;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Redundance</b></em>' attribute.
@@ -1304,7 +1313,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_REDUNDANCE = 50;
+	int DEVELOPER_TUNING_OPTION__ENABLED_REDUNDANCE = 51;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Reference Counting</b></em>' attribute.
@@ -1313,7 +1322,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_REFERENCE_COUNTING = 51;
+	int DEVELOPER_TUNING_OPTION__ENABLED_REFERENCE_COUNTING = 52;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Nothing</b></em>' attribute.
@@ -1322,7 +1331,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_NOTHING = 52;
+	int DEVELOPER_TUNING_OPTION__ENABLED_NOTHING = 53;
 
 	/**
 	 * The feature id for the '<em><b>Enabled God Mode</b></em>' attribute.
@@ -1331,7 +1340,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION__ENABLED_GOD_MODE = 53;
+	int DEVELOPER_TUNING_OPTION__ENABLED_GOD_MODE = 54;
 
 	/**
 	 * The number of structural features of the '<em>Developer Tuning Option</em>' class.
@@ -1340,7 +1349,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEVELOPER_TUNING_OPTION_FEATURE_COUNT = 54;
+	int DEVELOPER_TUNING_OPTION_FEATURE_COUNT = 55;
 
 	/**
 	 * The number of operations of the '<em>Developer Tuning Option</em>' class.
@@ -2196,6 +2205,17 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDeveloperTuningOption_ExecutableFilename();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getInitializationFilename <em>Initialization Filename</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Initialization Filename</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getInitializationFilename()
+	 * @see #getDeveloperTuningOption()
+	 * @generated
+	 */
+	EAttribute getDeveloperTuningOption_InitializationFilename();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOption#getSymbexGraphFilename <em>Symbex Graph Filename</em>}'.
@@ -3417,6 +3437,14 @@ public interface CommonPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DEVELOPER_TUNING_OPTION__EXECUTABLE_FILENAME = eINSTANCE.getDeveloperTuningOption_ExecutableFilename();
+
+		/**
+		 * The meta object literal for the '<em><b>Initialization Filename</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DEVELOPER_TUNING_OPTION__INITIALIZATION_FILENAME = eINSTANCE.getDeveloperTuningOption_InitializationFilename();
 
 		/**
 		 * The meta object literal for the '<em><b>Symbex Graph Filename</b></em>' attribute feature.

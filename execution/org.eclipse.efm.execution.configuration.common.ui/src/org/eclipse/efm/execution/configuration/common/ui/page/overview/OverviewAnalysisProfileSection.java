@@ -65,7 +65,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 				new OverviewExplorationConfigurationProfile(configurationPage);
 		
 		fTransitionCoveragePage =
-				new OverviewTransitionCoverageConfigurationProfile(configurationPage);
+				new OverviewTransitionCoverageConfigurationProfile(configurationPage, this);
 
 		fBehaviorSelectionPage =
 				new OverviewBehaviorSelectionConfigurationProfile(configurationPage);
@@ -90,6 +90,13 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	public String getSectionDescription() {
 		return "Select the analysis profile of the model by selecting a tab";
 	}
+
+	
+	public boolean isTransitionCoverage() {
+		return( fModelAnalysisProfile.equals(
+				ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) );
+	}
+
 
 
 	@Override
@@ -405,5 +412,6 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			fTestOfflinePage.handleConfigurationPropertyChange(event); 
 		}
 	}
+
 
 }

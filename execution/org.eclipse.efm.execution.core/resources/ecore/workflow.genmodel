@@ -150,6 +150,11 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_ID"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_STATE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/RAW_ATTRIBUTE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_HEADER"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_DATA"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_INFO"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_TRACE_RUN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_TRACE_IO"/>
       </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/HeuristicClassKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/BASIC"/>
@@ -191,6 +196,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Project/model"/>
       </genClasses>
       <genClasses ecoreClass="workflow.ecore#//common/GraphExplorationLimit">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/step"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/eval"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/node"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationLimit/height"/>
@@ -251,6 +257,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/outputFilename"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/specificationFilename"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/executableFilename"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/initializationFilename"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/symbexGraphFilename"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/parsedModelFilename"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/compiledModelFilename"/>
