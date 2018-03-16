@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.TraceElement#isSelected <em>Selected</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.TraceElement#getNature <em>Nature</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.TraceElement#getValue <em>Value</em>}</li>
  * </ul>
@@ -32,6 +33,33 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface TraceElement extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Selected</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Selected</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Selected</em>' attribute.
+	 * @see #setSelected(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getTraceElement_Selected()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isSelected();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.TraceElement#isSelected <em>Selected</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Selected</em>' attribute.
+	 * @see #isSelected()
+	 * @generated
+	 */
+	void setSelected(boolean value);
+
 	/**
 	 * Returns the value of the '<em><b>Nature</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.eclipse.efm.execution.core.workflow.common.TraceElementKind}.

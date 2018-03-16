@@ -20,7 +20,6 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
@@ -31,8 +30,9 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
-public abstract class AbstractConfigurationPage implements IPropertyChangeListener,
-		IWorkflowConfigurationConstants, IWorkflowPreferenceConstants {
+public abstract class AbstractConfigurationPage extends AbstractSectionPart
+		implements IPropertyChangeListener,
+				IWorkflowConfigurationConstants, IWorkflowPreferenceConstants {
 
 	private ILaunchConfigurationGUIelement masterGUIelement;
 
@@ -53,13 +53,6 @@ public abstract class AbstractConfigurationPage implements IPropertyChangeListen
 	public boolean isEnabledSymbexIncubationMode() {
 		return fEnabledSymbexIncubationMode;
 	}
-
-
-	public abstract void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration);
-
-	public abstract void initializeFieldValuesFrom(ILaunchConfiguration configuration);
-
-	public abstract void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration);
 
 
 	public AbstractConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
@@ -110,11 +103,12 @@ public abstract class AbstractConfigurationPage implements IPropertyChangeListen
 	}
 
 
+	@Override
 	public Composite getControl() {
 		return fControl;
 	}
 
-	
+
 	///////////////////////////////////////////////////////////////////////////
 	// Property Change as Model Analysis Profile changed
 	//
@@ -130,16 +124,11 @@ public abstract class AbstractConfigurationPage implements IPropertyChangeListen
 		}
 	}
 
-	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
-		//!! Default 
-	}
-
-	
 	public AbstractConfigurationPage[] getConfigurationPages() {
 		return masterGUIelement.getConfigurationPages();
 	}
 
-	
+
 	// ======================================================================================
 	//                              Fields Validation
 	// ======================================================================================
@@ -163,7 +152,22 @@ public abstract class AbstractConfigurationPage implements IPropertyChangeListen
 	    }
 	}
 
-	public abstract FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig);
+	public abstract FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig);
+
+	public final FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+		if( isValid(launchConfig) ) {
+			return areFieldsValidImpl(launchConfig);
+		}
+		else {
+			return new FieldValidationReturn(false,
+					"Field Editor or Trace TableViewer are invalid");
+		}
+	}
+
+	@Override
+	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
+		return true;
+	}
 
 
 	// ======================================================================================
@@ -181,6 +185,10 @@ public abstract class AbstractConfigurationPage implements IPropertyChangeListen
 	protected abstract void createContent(
 			Composite parent, IWidgetToolkit widgetToolkit);
 
+
+	public void clearErrorMessage() {
+		masterGUIelement.clearErrorMessage();
+	}
 
 
 	public void propagateMessage(String message) {

@@ -21,18 +21,21 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
+import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
+import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
 import org.eclipse.efm.execution.core.Activator;
+import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.window.Window;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
 import org.eclipse.swt.accessibility.AccessibleEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -58,8 +61,36 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 	private BooleanFieldEditor fEnabledTraceConfigurationBooleanField;
 
-	private Group fGroupObservable;
-	private Group fGroupControllable;
+	private TraceElementTableViewer fObservableTraceTableViewer;
+
+	private TraceElementTableConfigProvider getObservableTraceTableConfig(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+				DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+				"&Observable", "", true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				TraceElementTableConfigProvider.GRAPHVIZ_TRACE_ELEMENT,
+				TraceElementKind.VARIABLE);
+	}
+
+	private TraceElementTableViewer fControllableTraceTableViewer;
+
+	private TraceElementTableConfigProvider getControllableTraceTableConfig(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+				DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+				"&Controllable", "", true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				TraceElementTableConfigProvider.GRAPHVIZ_TRACE_ELEMENT,
+				TraceElementKind.VARIABLE);
+	}
+
 
 	/**
 	 * Constructor
@@ -106,7 +137,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		return "Offline Testing, configuration section";
 	}
 
-	
+
 	@Override
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
 //		SWTFactory.createGroup(
@@ -130,7 +161,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		fTracePathText.addModifyListener(fBasicModifyListener);
 
 		fTraceWorkspaceBrowse =
-				widgetToolkit.createPushButton(comp, "&Workspace...");
+				widgetToolkit.createPushButton(comp, "&Workspace...", null);
 		fTraceWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -175,7 +206,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		fTestPurposePathText.addModifyListener(fBasicModifyListener);
 
 		fTestPurposeWorkspaceBrowse =
-				widgetToolkit.createPushButton(comp, "&Workspace...");
+				widgetToolkit.createPushButton(comp, "&Workspace...", null);
 		fTestPurposeWorkspaceBrowse.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
@@ -226,29 +257,15 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 					}
 				});
 
+		fObservableTraceTableViewer =
+				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
+						getObservableTraceTableConfig(parent.getFont()));
+		addTableViewer(fObservableTraceTableViewer);
 
-		fGroupObservable  = widgetToolkit.createGroup(parent,
-				"&Observable", 1, 1, GridData.FILL_HORIZONTAL);
-		fGroupObservable.setToolTipText(TEST_OFFLINE_OBSERVABLE);
-
-		StringFieldEditor textStringField =
-				new StringFieldEditor(fConfigurationPage,
-				ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
-				"", fGroupObservable,
-				DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
-				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
-		addField(textStringField);
-
-		fGroupControllable = widgetToolkit.createGroup(parent,
-				"&Controllable", 1, 1, GridData.FILL_HORIZONTAL);
-		fGroupControllable.setToolTipText(TEST_OFFLINE_CONTROLLABLE);
-
-		textStringField = new StringFieldEditor(fConfigurationPage,
-				ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
-				"", fGroupControllable,
-				DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
-				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
-		addField(textStringField);
+		fControllableTraceTableViewer =
+				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
+						getControllableTraceTableConfig(parent.getFont()));
+		addTableViewer(fControllableTraceTableViewer);
 	}
 
 
@@ -256,10 +273,11 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		boolean enabled =
 				fEnabledTraceConfigurationBooleanField.getBooleanValue();
 
-		fConfigurationPage.propagateVisibility(fGroupObservable, enabled);
-		fConfigurationPage.propagateVisibility(fGroupControllable, enabled);
+		fConfigurationPage.propagateVisibility(
+				fObservableTraceTableViewer.getControl(), enabled);
+		fConfigurationPage.propagateVisibility(
+				fControllableTraceTableViewer.getControl(), enabled);
 	}
-
 
 
 	@Override
@@ -342,7 +360,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 			return false;
 		}
 
-		
+
 		filePath = fTestPurposePathText.getText();
 
 		if( (filePath == null) || filePath.isEmpty() ) {

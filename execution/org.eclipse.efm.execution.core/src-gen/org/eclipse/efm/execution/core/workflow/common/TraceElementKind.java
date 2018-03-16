@@ -652,7 +652,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RAW_ATTRIBUTE(63, "RAW_ATTRIBUTE", "RAW_ATTRIBUTE"), /**
+	RAW_ATTRIBUTE(63, "RAW_ATTRIBUTE", "__raw__"), /**
 	 * The '<em><b>NODE HEADER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -692,7 +692,87 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_TRACE_IO(68, "NODE_TRACE_IO", "node#trace#io");
+	NODE_TRACE_IO(68, "NODE_TRACE_IO", "node#trace#io"), /**
+	 * The '<em><b>VALUE PARAMETER BEGIN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_PARAMETER_BEGIN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VALUE_PARAMETER_BEGIN(69, "VALUE_PARAMETER_BEGIN", "value#parameter#begin"), /**
+	 * The '<em><b>VALUE PARAMETER SEPARATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_PARAMETER_SEPARATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VALUE_PARAMETER_SEPARATOR(70, "VALUE_PARAMETER_SEPARATOR", "value#parameter#separator"), /**
+	 * The '<em><b>VALUE PARAMETER END</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_PARAMETER_END_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VALUE_PARAMETER_END(71, "VALUE_PARAMETER_END", "value#parameter#end"), /**
+	 * The '<em><b>VALUE ARRAY BEGIN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_ARRAY_BEGIN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VALUE_ARRAY_BEGIN(72, "VALUE_ARRAY_BEGIN", "value#array#begin"), /**
+	 * The '<em><b>VALUE ARRAY SEPARATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_ARRAY_SEPARATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VALUE_ARRAY_SEPARATOR(73, "VALUE_ARRAY_SEPARATOR", "value#array#separator"), /**
+	 * The '<em><b>VALUE ARRAY END</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_ARRAY_END_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VALUE_ARRAY_END(74, "VALUE_ARRAY_END", "value#array#end"), /**
+	 * The '<em><b>VALUE STRUCT BEGIN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_STRUCT_BEGIN_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VALUE_STRUCT_BEGIN(75, "VALUE_STRUCT_BEGIN", "value#struct#begin"), /**
+	 * The '<em><b>VALUE STRUCT SEPARATOR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_STRUCT_SEPARATOR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VALUE_STRUCT_SEPARATOR(76, "VALUE_STRUCT_SEPARATOR", "value#struct#separator"), /**
+	 * The '<em><b>VALUE STRUCT END</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_STRUCT_END_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VALUE_STRUCT_END(77, "VALUE_STRUCT_END", "value#struct#end"), /**
+	 * The '<em><b>TIPS</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TIPS_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	TIPS(99, "TIPS", "tips");
 
 	/**
 	 * The '<em><b>UNDEFINED</b></em>' literal value.
@@ -1648,7 +1728,7 @@ public enum TraceElementKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #RAW_ATTRIBUTE
-	 * @model
+	 * @model literal="__raw__"
 	 * @generated
 	 * @ordered
 	 */
@@ -1730,6 +1810,156 @@ public enum TraceElementKind implements Enumerator {
 	public static final int NODE_TRACE_IO_VALUE = 68;
 
 	/**
+	 * The '<em><b>VALUE PARAMETER BEGIN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>VALUE PARAMETER BEGIN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_PARAMETER_BEGIN
+	 * @model literal="value#parameter#begin"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VALUE_PARAMETER_BEGIN_VALUE = 69;
+
+	/**
+	 * The '<em><b>VALUE PARAMETER SEPARATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>VALUE PARAMETER SEPARATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_PARAMETER_SEPARATOR
+	 * @model literal="value#parameter#separator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VALUE_PARAMETER_SEPARATOR_VALUE = 70;
+
+	/**
+	 * The '<em><b>VALUE PARAMETER END</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>VALUE PARAMETER END</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_PARAMETER_END
+	 * @model literal="value#parameter#end"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VALUE_PARAMETER_END_VALUE = 71;
+
+	/**
+	 * The '<em><b>VALUE ARRAY BEGIN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>VALUE ARRAY BEGIN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_ARRAY_BEGIN
+	 * @model literal="value#array#begin"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VALUE_ARRAY_BEGIN_VALUE = 72;
+
+	/**
+	 * The '<em><b>VALUE ARRAY SEPARATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>VALUE ARRAY SEPARATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_ARRAY_SEPARATOR
+	 * @model literal="value#array#separator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VALUE_ARRAY_SEPARATOR_VALUE = 73;
+
+	/**
+	 * The '<em><b>VALUE ARRAY END</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>VALUE ARRAY END</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_ARRAY_END
+	 * @model literal="value#array#end"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VALUE_ARRAY_END_VALUE = 74;
+
+	/**
+	 * The '<em><b>VALUE STRUCT BEGIN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>VALUE STRUCT BEGIN</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_STRUCT_BEGIN
+	 * @model literal="value#struct#begin"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VALUE_STRUCT_BEGIN_VALUE = 75;
+
+	/**
+	 * The '<em><b>VALUE STRUCT SEPARATOR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>VALUE STRUCT SEPARATOR</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_STRUCT_SEPARATOR
+	 * @model literal="value#struct#separator"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VALUE_STRUCT_SEPARATOR_VALUE = 76;
+
+	/**
+	 * The '<em><b>VALUE STRUCT END</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>VALUE STRUCT END</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VALUE_STRUCT_END
+	 * @model literal="value#struct#end"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VALUE_STRUCT_END_VALUE = 77;
+
+	/**
+	 * The '<em><b>TIPS</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>TIPS</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #TIPS
+	 * @model literal="tips"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int TIPS_VALUE = 99;
+
+	/**
 	 * An array of all the '<em><b>Trace Element Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1806,6 +2036,16 @@ public enum TraceElementKind implements Enumerator {
 			NODE_INFO,
 			NODE_TRACE_RUN,
 			NODE_TRACE_IO,
+			VALUE_PARAMETER_BEGIN,
+			VALUE_PARAMETER_SEPARATOR,
+			VALUE_PARAMETER_END,
+			VALUE_ARRAY_BEGIN,
+			VALUE_ARRAY_SEPARATOR,
+			VALUE_ARRAY_END,
+			VALUE_STRUCT_BEGIN,
+			VALUE_STRUCT_SEPARATOR,
+			VALUE_STRUCT_END,
+			TIPS,
 		};
 
 	/**
@@ -1931,6 +2171,16 @@ public enum TraceElementKind implements Enumerator {
 			case NODE_INFO_VALUE: return NODE_INFO;
 			case NODE_TRACE_RUN_VALUE: return NODE_TRACE_RUN;
 			case NODE_TRACE_IO_VALUE: return NODE_TRACE_IO;
+			case VALUE_PARAMETER_BEGIN_VALUE: return VALUE_PARAMETER_BEGIN;
+			case VALUE_PARAMETER_SEPARATOR_VALUE: return VALUE_PARAMETER_SEPARATOR;
+			case VALUE_PARAMETER_END_VALUE: return VALUE_PARAMETER_END;
+			case VALUE_ARRAY_BEGIN_VALUE: return VALUE_ARRAY_BEGIN;
+			case VALUE_ARRAY_SEPARATOR_VALUE: return VALUE_ARRAY_SEPARATOR;
+			case VALUE_ARRAY_END_VALUE: return VALUE_ARRAY_END;
+			case VALUE_STRUCT_BEGIN_VALUE: return VALUE_STRUCT_BEGIN;
+			case VALUE_STRUCT_SEPARATOR_VALUE: return VALUE_STRUCT_SEPARATOR;
+			case VALUE_STRUCT_END_VALUE: return VALUE_STRUCT_END;
+			case TIPS_VALUE: return TIPS;
 		}
 		return null;
 	}

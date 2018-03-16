@@ -19,9 +19,13 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
-import org.eclipse.swt.SWT;
+import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
+import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
+import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
+import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -39,7 +43,8 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	 * Constructor
 	 * @param parentTab
 	 */
-	public TestGenerationBasicTraceConfigurationProfile(AbstractConfigurationPage configurationPage) {
+	public TestGenerationBasicTraceConfigurationProfile(
+			AbstractConfigurationPage configurationPage) {
 		super(configurationPage);
 	}
 
@@ -68,7 +73,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						ATTR_BASIC_TRACE_ENABLED_GENERATION,
 						"&Generation", comp,
 						DEFAULT_BASIC_TRACE_ENABLED_GENERATION);
-		addField(fBasicTraceEnabledGenerationBooleanField);
+		addFieldEditor(fBasicTraceEnabledGenerationBooleanField);
 
 		fBasicTraceEnabledGenerationBooleanField.addSelectionListener(
 				new SelectionAdapter() {
@@ -86,7 +91,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 						ATTR_BASIC_TRACE_LIFELINES_ENABLED_PRINTING,
 						"&Print Lifelines", comp,
 						DEFAULT_BASIC_TRACE_LIFELINES_ENABLED_PRINTING);
-		addField(fBasicTraceLifelinesEnabledGenerationBooleanField);
+		addFieldEditor(fBasicTraceLifelinesEnabledGenerationBooleanField);
 
 		createBasicConfigurationComponent(parent, widgetToolkit);
 
@@ -96,10 +101,10 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	private void handleEnablingGeneration() {
 		fBasicTraceLifelinesEnabledGenerationBooleanField.setEnabled(
 				fBasicTraceEnabledGenerationBooleanField.getBooleanValue() );
-		
+
 		fConfigurationPage.propagateVisibility(groupBasicConfiguration,
 				fBasicTraceEnabledGenerationBooleanField.getBooleanValue() );
-		
+
 		fConfigurationPage.propagateVisibility(groupBasicObservable,
 				fBasicTraceEnabledGenerationBooleanField.getBooleanValue() );
 	}
@@ -118,7 +123,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				comp, DEFAULT_BASIC_TRACE_FOLDER_NAME);
 		resourceNameStringField.setToolTipText(
 				"Folder name w.r.t. <workspace-root>/<output>");
-		addField(resourceNameStringField);
+		addFieldEditor(resourceNameStringField);
 
 		comp = widgetToolkit.createComposite(
 				groupBasicConfiguration, 1, 1, GridData.FILL_HORIZONTAL);
@@ -127,7 +132,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				ATTR_BASIC_TRACE_FILE_NAME, "&File :",
 				comp, DEFAULT_BASIC_TRACE_FILE_NAME);
 		resourceNameStringField.setToolTipText("File name");
-		addField(resourceNameStringField);
+		addFieldEditor(resourceNameStringField);
 
 		comp = widgetToolkit.createComposite(groupBasicConfiguration,
 				1, 1, GridData.FILL_HORIZONTAL);
@@ -135,7 +140,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 		BooleanFieldEditor flagBooleanFieldEditor = new BooleanFieldEditor(
 				fConfigurationPage, ATTR_BASIC_TRACE_ENABLED_NORMALIZATION,
 				"&Normalization (Redundance Elimination...)", comp, true);
-		addField(flagBooleanFieldEditor);
+		addFieldEditor(flagBooleanFieldEditor);
 
 		comp = widgetToolkit.createComposite(groupBasicConfiguration,
 				1, 1, GridData.FILL_HORIZONTAL);
@@ -143,7 +148,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 		flagBooleanFieldEditor = new BooleanFieldEditor(
 				fConfigurationPage, ATTR_BASIC_TRACE_INITIAL_VALUES_ENABLED_PRINTING,
 				"&Print Initial Values", comp, false);
-		addField(flagBooleanFieldEditor);
+		addFieldEditor(flagBooleanFieldEditor);
 	}
 
 	public void createObservableSelectionComponent(
@@ -157,9 +162,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 		createOtherObservableComponent(groupBasicObservable, widgetToolkit);
 
-		createObservableDetailsComponent(groupBasicObservable, widgetToolkit);
-
-		createObservableFormatComponent(groupBasicObservable, widgetToolkit);
+		createTraceElementTableViewerComponent(groupBasicObservable, widgetToolkit);
 	}
 
 	private void createExternalCommunicationComponent(
@@ -177,7 +180,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_BASIC_TRACE_ALL_EXTERNAL_INPUT_COM_SELECTION,
 						"&Input", comp, true);
-		addField(flagBooleanFieldEditor);
+		addFieldEditor(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
@@ -186,7 +189,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BASIC_TRACE_ALL_EXTERNAL_OUTPUT_COM_SELECTION,
 				"&Output", comp, true);
-		addField(flagBooleanFieldEditor);
+		addFieldEditor(flagBooleanFieldEditor);
 	}
 
 	private void createInternalCommunicationComponent(
@@ -204,7 +207,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_BASIC_TRACE_ALL_INPUT_COM_SELECTION,
 						"&Input", comp, false);
-		addField(flagBooleanFieldEditor);
+		addFieldEditor(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
@@ -212,7 +215,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BASIC_TRACE_ALL_OUTPUT_COM_SELECTION, "&Output", comp, false);
-		addField(flagBooleanFieldEditor);
+		addFieldEditor(flagBooleanFieldEditor);
 	}
 
 	private void createOtherObservableComponent(
@@ -229,7 +232,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_BASIC_TRACE_TIME_SELECTION,
 						"&Time", comp, true);
-		addField(flagBooleanFieldEditor);
+		addFieldEditor(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
@@ -237,7 +240,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BASIC_TRACE_ALL_VARIABLE_SELECTION, "&Variable", comp, false);
-		addField(flagBooleanFieldEditor);
+		addFieldEditor(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
@@ -245,7 +248,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BASIC_TRACE_ALL_TRANSITION_SELECTION, "&Transition", comp, false);
-		addField(flagBooleanFieldEditor);
+		addFieldEditor(flagBooleanFieldEditor);
 
 
 		comp = widgetToolkit.createComposite(
@@ -253,39 +256,57 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 		flagBooleanFieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BASIC_TRACE_ALL_STATE_SELECTION, "&State", comp, false);
-		addField(flagBooleanFieldEditor);
-	}
-
-	private void createObservableDetailsComponent(
-			Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
-				"&Details", 1, 2, GridData.FILL_HORIZONTAL);
-
-		StringFieldEditor observableTraceDetailsStringField =
-				new StringFieldEditor(fConfigurationPage,
-						ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST, "",
-						group, DEFAULT_BASIC_TRACE_DETAILS_ELEMENT_LIST,
-						SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
-		addField(observableTraceDetailsStringField);
+		addFieldEditor(flagBooleanFieldEditor);
 	}
 
 
-	private void createObservableFormatComponent(
-			Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
+	private TraceElementTableViewer fDetailTraceElementTableViewer;
+
+	private TraceElementTableConfigProvider getTraceDetailTableConfig(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST,
+				DEFAULT_BASIC_TRACE_DETAILS_ELEMENT_LIST,
+				"&Detail", BEHAVIOR_DESCRIPTION, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				TraceElementTableConfigProvider.BEHAVIOR_SELECTION_TRACE_ELEMENT,
+				TraceElementKind.TRANSITION);
+	}
+
+
+	private TraceElementTableViewer fFormatTraceElementTableViewer;
+
+	private TraceElementTableConfigProvider getTraceFormatElementTableConfig(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST,
+				DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST,
 				"&Ad'Hoc Element Format for Tests",
-				1, 2, GridData.FILL_HORIZONTAL);
-		group.setToolTipText( HELPER_TRACE_FORMAT_SPECIFICATION );
-
-		StringFieldEditor observableFormatStringField =
-				new StringFieldEditor(fConfigurationPage,
-						ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST, "",
-						group, DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST,
-						SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
-		observableFormatStringField.setToolTipText(
-				HELPER_TRACE_FORMAT_SPECIFICATION );
-		addField(observableFormatStringField);
+				HELPER_TRACE_FORMAT_SPECIFICATION, false, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(32),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				TraceElementTableConfigProvider.FORMAT_ELEMENT,
+				TraceElementKind.VARIABLE);
 	}
+
+	private void createTraceElementTableViewerComponent(
+			Composite parent, IWidgetToolkit widgetToolkit) {
+
+		Composite comp = widgetToolkit.createComposite(
+				parent, 1, 2, GridData.FILL_HORIZONTAL);
+
+		fDetailTraceElementTableViewer =
+				new TraceElementTableViewer(this, comp, 1,
+				widgetToolkit, getTraceDetailTableConfig(parent.getFont()));
+
+		fFormatTraceElementTableViewer =
+				new TraceElementTableViewer(this, comp, 1,
+				widgetToolkit, getTraceFormatElementTableConfig(parent.getFont()));
+	}
+
 
 	@Override
 	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration)
@@ -350,16 +371,21 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	@Override
 	protected void initializeFromImpl(ILaunchConfiguration configuration) {
 		handleEnablingGeneration();
+
+		fDetailTraceElementTableViewer.initializeFrom(configuration);
+		fFormatTraceElementTableViewer.initializeFrom(configuration);
 	}
 
 	@Override
 	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
-		//!! NOTHING
+		fDetailTraceElementTableViewer.performApply(configuration);
+		fFormatTraceElementTableViewer.performApply(configuration);
 	}
 
 	@Override
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
-		return true;
+		return( fDetailTraceElementTableViewer.isValid(launchConfig) ||
+				fFormatTraceElementTableViewer.isValid(launchConfig) );
 	}
 
 }

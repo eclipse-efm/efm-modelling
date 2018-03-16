@@ -23,16 +23,26 @@ import org.eclipse.swt.widgets.Composite;
 public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 
 	private SupervisorGraphSizeLimitsSection  fGraphSizeLimitsSection;
-	
+
 	private SupervisorEvaluationLimitsSection fEvaluationLimitsSection;
 
-	
+
 	public SupervisorConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
-		
+
 		fGraphSizeLimitsSection  = new SupervisorGraphSizeLimitsSection(this);
-		
+
 		fEvaluationLimitsSection = new SupervisorEvaluationLimitsSection(this);
+	}
+
+	@Override
+	public String getSectionTitle() {
+		return "Supervisor";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Supervisor";
 	}
 
 
@@ -44,7 +54,7 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
 	{
 		fGraphSizeLimitsSection.createControl(parent, widgetToolkit);
-		
+
 		fEvaluationLimitsSection.createControl(parent, widgetToolkit);
 	}
 
@@ -55,24 +65,24 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		fGraphSizeLimitsSection.setDefaults(configuration);
-		
+
 		fEvaluationLimitsSection.setDefaults(configuration);
 	}
 
 	@Override
-	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
+	public void initializeFromImpl(ILaunchConfiguration configuration) {
 		fGraphSizeLimitsSection.initializeFrom(configuration);
-		
+
 		fEvaluationLimitsSection.initializeFrom(configuration);
 	}
 
 
 	@Override
-	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		fGraphSizeLimitsSection.performApply(configuration);
-		
+
 		fEvaluationLimitsSection.performApply(configuration);
 	}
 
@@ -81,7 +91,7 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
 		if( ! fGraphSizeLimitsSection.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
@@ -89,7 +99,7 @@ public class SupervisorConfigurationPage extends AbstractConfigurationPage {
 		if( ! fEvaluationLimitsSection.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
-				
+
 		return new FieldValidationReturn(true, null);
 	}
 

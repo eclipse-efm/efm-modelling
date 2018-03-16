@@ -22,7 +22,7 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
-import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
+import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -69,10 +69,22 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 	public OverviewConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
-		
+
 		fAnalysisProfileSection = new OverviewAnalysisProfileSection(this);
-		
+
 		fOverviewWorkspaceDataSection = new OverviewWorkspaceDataSection(this);
+
+		fOverviewWorkspaceDataSection.setExpanded(false);
+	}
+
+	@Override
+	public String getSectionTitle() {
+		return "Overview";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Overview";
 	}
 
 
@@ -84,9 +96,13 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		public void modifyText(ModifyEvent evt) {
 			propagateUpdateJobScheduling();
 
+			final String absolutePath =
+					WorkflowFileUtils.makeAbsoluteLocation(
+							fModelPathText.getText());
+
 	        propertyChange( new PropertyChangeEvent(this,
 	        		ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
-	        		fModelPathText.getText(), fModelPathText.getText()) );
+	        		absolutePath, absolutePath) );
 		}
 	};
 
@@ -129,7 +145,9 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 		Composite comp = widgetToolkit.createComposite(group, 3, 1, GridData.FILL_HORIZONTAL);
 
-		fModelPathText = widgetToolkit.createSingleText(comp, 1);
+		fModelPathText = widgetToolkit.createText(comp,
+				SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL,
+				1, GridData.FILL_HORIZONTAL);
 		fModelPathText.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
@@ -138,7 +156,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 					}
 				} );
 
-		fModelWorkspaceBrowse = widgetToolkit.createPushButton(comp, "&Workspace...");
+		fModelWorkspaceBrowse = widgetToolkit.createPushButton(comp, "&Workspace...", null);
 
 		fModelPathText.addModifyListener(fBasicModifyListener);
 
@@ -163,8 +181,11 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 					if(resource != null) {
 						fProjectName = resource.getProject().getName();
 
-						String specFile = resource.getLocation().toString();
-						fModelPathText.setText(specFile);
+						fModelPathText.setText(
+								WorkflowFileUtils.makeRelativeLocation(
+										resource.getLocation()));
+						fModelPathText.setToolTipText(
+								resource.getLocation().toString());
 
 						fOverviewWorkspaceDataSection.updateWorkspaceRootPath(resource);
 					}
@@ -178,7 +199,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	protected void createWorkspaceComponent(Composite parent, IWidgetToolkit widgetToolkit) {
 		ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
 		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
-		GenericCompositeCreator.fillToolBar(toolBarManager, toputinbar);
+		widgetToolkit.fillToolBar(toolBarManager, toputinbar);
 
 		fOverviewWorkspaceDataSection.createControl(parent, toolBarManager, widgetToolkit);
 	}
@@ -186,8 +207,8 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	protected void createAnalyseProfileComponent(Composite parent, IWidgetToolkit widgetToolkit) {
 		ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
 		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
-		GenericCompositeCreator.fillToolBar(toolBarManager, toputinbar);
-		
+		widgetToolkit.fillToolBar(toolBarManager, toputinbar);
+
 		fAnalysisProfileSection.createControl(parent, toolBarManager, widgetToolkit);
 	}
 
@@ -197,7 +218,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_PROJECT_NAME, "<project-name>");
 
@@ -205,7 +226,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
 				DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
-		
+
 		// WORKSPACE DATA
 		fOverviewWorkspaceDataSection.setDefaults(configuration);
 
@@ -214,20 +235,24 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	}
 
 	@Override
-	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
+	public void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
 			fProjectName = configuration.getAttribute(
 					ATTR_SPECIFICATION_PROJECT_NAME, "");
-			
-			String specMainFileLocation = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
-					DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
+
+			String specMainFileLocation =
+					WorkflowFileUtils.getRelativeLocation(configuration,
+							ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
+							DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
 			fModelPathText.setText( specMainFileLocation );
+
+			fModelPathText.setToolTipText(
+					WorkflowFileUtils.makeAbsoluteLocation(specMainFileLocation));
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
 		}
-		
+
 		// WORKSPACE DATA
 		fOverviewWorkspaceDataSection.initializeFrom(configuration);
 
@@ -237,13 +262,12 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 
 	@Override
-	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_PROJECT_NAME, fProjectName);
 
-		configuration.setAttribute(
-				ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
-				fModelPathText.getText());
+		WorkflowFileUtils.setRelativeLocation(configuration,
+				ATTR_SPECIFICATION_MODEL_FILE_LOCATION, fModelPathText.getText());
 
 		// WORKSPACE DATA
 		fOverviewWorkspaceDataSection.performApply(configuration);
@@ -257,10 +281,11 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
 		String messageToSend = null;
 
-		String filePath = fModelPathText.getText();
+		String filePath = WorkflowFileUtils.makeAbsoluteLocation(
+				fModelPathText.getText() );
 		if( (filePath == null) || filePath.isEmpty() ) {
 			messageToSend = "The resource model file path is empty (or null)";
 		}
@@ -283,15 +308,17 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		return new FieldValidationReturn(isValid, messageToSend);
 	}
 
-	
+
 	///////////////////////////////////////////////////////////////////////////
 	// Property Change
 	//
 	@Override
-	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
-		fOverviewWorkspaceDataSection.handleConfigurationPropertyChange(event); 
-		
-		fAnalysisProfileSection.handleConfigurationPropertyChange(event); 
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		fOverviewWorkspaceDataSection.handleConfigurationPropertyChange(event);
+
+		fAnalysisProfileSection.handleConfigurationPropertyChange(event);
+
+		getMasterGUIelement().handleConfigurationPropertyChange(event);
 	}
 
 }

@@ -14,7 +14,8 @@ package org.eclipse.efm.execution.ui.views.symbexlauncher;
 
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
-import org.eclipse.efm.execution.configuration.common.ui.util.GenericCompositeCreator;
+import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
@@ -30,7 +31,8 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.part.ViewPart;
 
-public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILaunchConfigurationGUIelement {
+public abstract class AbstractSymbexWorkflowView extends ViewPart
+		implements ILaunchConfigurationGUIelement , IWorkflowConfigurationConstants {
 
 	protected Composite parentComposite;
 
@@ -40,11 +42,11 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 
 	private Label message_text_display;
 	private Label message_image_display;
-	
+
 
 	protected void setupFormFrame() {
 		toolkit = new FormWidgetToolkit(parentComposite.getDisplay());
-		
+
 		scrollform = toolkit.createScrolledForm(parentComposite);
 		//scrollform.setText("Run Configuration");
 		GridLayout layout = new GridLayout(1, false);
@@ -83,7 +85,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 		}
 		IToolBarManager toolBarMenuManager = bars.getToolBarManager();
 		toolBarMenuManager.removeAll();
-		GenericCompositeCreator.fillToolBar(toolBarMenuManager, acts);
+		toolkit.fillToolBar(toolBarMenuManager, acts);
 	}
 
 	protected void showMessage(String message) {
@@ -93,6 +95,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
+	@Override
 	public void setFocus() {
 		scrollform.setFocus();
 	}
@@ -120,45 +123,59 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart implements ILa
 	// Message API
 	///////////////////////////////////////////////////////////////////////////
 
-	@Override // to change visibility to public
+	@Override
+	public void clearErrorMessage() {
+		AnalysisProfileKind analysisProfile =
+				AnalysisProfileKind.get(message_text_display.getText());
+		if( analysisProfile == null  ) {
+			message_text_display.setText("");
+			message_image_display.setImage(null);
+		}
+	}
+
+	@Override
 	public void setMessage(String message){
 		if(message != null) {
 			message_text_display.setText(message);
 		} else {
 			message_text_display.setText("");
 		}
-		message_image_display.setImage(null);
+		message_image_display.setImage(
+				ImageResources.getImage(
+						ImageResources.IMAGE__QUICKASSIST_ELCL16_ICON));
+
 		message_display_parentcomposite.layout();
 	}
 
-	@Override // to change visibility to public
+	@Override
 	public void setWarningMessage(String warningMessage){
 		if(warningMessage != null) {
 			message_text_display.setText(warningMessage);
-			
+
 			message_image_display.setImage(
-					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__WARNING_ICON).createImage());
+					ImageResources.getImage(
+							ImageResources.IMAGE__WARNING_ICON));
 		} else {
 			message_text_display.setText("");
 			message_image_display.setImage(null);
 		}
+
 		message_display_parentcomposite.layout();
 	}
 
-	@Override // to change visibility to public
+	@Override
 	public void setErrorMessage(String errorMessage){
 		if(errorMessage != null) {
 			message_text_display.setText(errorMessage);
-			
+
 			message_image_display.setImage(
-					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__ERROR_ICON).createImage());
+					ImageResources.getImage(
+							ImageResources.IMAGE__ERROR_ICON));
 		} else {
 			message_text_display.setText("");
 			message_image_display.setImage(null);
 		}
-		
+
 		message_display_parentcomposite.layout();
 	}
 

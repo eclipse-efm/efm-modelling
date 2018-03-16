@@ -40,8 +40,9 @@ import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
-import org.eclipse.efm.execution.core.workflow.DirectorCustomImpl;
+import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.core.workflow.WorkflowCustomImpl;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.LaunchExecConsoleManager;
 import org.eclipse.efm.execution.launchconfiguration.util.BackgroundResourceRefresher;
 import org.eclipse.efm.execution.launchconfiguration.util.CoreUtil;
@@ -54,6 +55,9 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 	private final String BASENAME_SEP = "-";
 
+
+	private final String WORKFLOW_FOLDER = ".sew";
+
 	private final String WORKFLOW_BASENAME = "workflow";
 
 	private final String WORKFLOW_EXTENSION = ".sew";
@@ -64,11 +68,12 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	private IPath fSewLocation;
 	private IPath fWorkingDirectory;
 
-	public static String fModelAnalysisProfile = ANALYSIS_PROFILE_MODEL_UNDEFINED;
+	public static AnalysisProfileKind fModelAnalysisProfile =
+			AnalysisProfileKind.ANALYSIS_UNDEFINED_PROFILE;
 
 	public static boolean fEnableTraceExtension = false;
 
-	
+
 
 	/**
 	 * LaunchExecConsoleManager
@@ -85,8 +90,8 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 		fEnabledDebugOrDeveloperMode = false;
 	}
-	
-	
+
+
 	public static boolean isValidFilename(String text)
 	{
 		final Pattern pattern = Pattern.compile(
@@ -102,30 +107,42 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 				")                                # End negative lookahead assertion. \n" +
 				"[^<>:\"/\\\\|?*\\x00-\\x1F]*     # Zero or more valid filename chars.\n" +
 				"[^<>:\"/\\\\|?*\\x00-\\x1F\\ .]  # Last char is not a space or dot.  \n" +
-				"$                                # Anchor to end of string.            ", 
+				"$                                # Anchor to end of string.            ",
 				Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.COMMENTS);
-		
+
 		final Matcher matcher = pattern.matcher(text);
 
 		return matcher.matches();
 	}
-	
+
 	protected IPath getWorkflowPath(ILaunchConfiguration configuration) {
 		final String modelBasename =
-				DirectorCustomImpl.getModelBasename( configuration );
-		
+				WorkflowFileUtils.getModelBasename( configuration );
+
 		final String configName = configuration.getName();
-		
+
 		final String filename = WORKFLOW_BASENAME +
 				(configName.isEmpty() ? "" : (BASENAME_SEP + configName)) +
 				(modelBasename.isEmpty() ? "" : (BASENAME_SEP + modelBasename)) +
 				WORKFLOW_EXTENSION;
-		
+
+		IPath workflowsFolderPath = fWorkingDirectory.append( WORKFLOW_FOLDER );
+
+		File workflowsFolderFile = workflowsFolderPath.toFile();
+		if( ! workflowsFolderFile.isDirectory() ) {
+			if( ! workflowsFolderFile.exists() ) {
+				workflowsFolderFile.mkdirs();
+			}
+			else {
+				workflowsFolderPath = fWorkingDirectory;
+			}
+		}
+
 		if( isValidFilename( filename ) ) {
-			return fWorkingDirectory.append( filename );
+			return workflowsFolderPath.append( filename );
 		}
 		else {
-			return fWorkingDirectory.append( WORKFLOW_BASENAME + WORKFLOW_EXTENSION );
+			return workflowsFolderPath.append( WORKFLOW_BASENAME + WORKFLOW_EXTENSION );
 		}
 	}
 
@@ -169,9 +186,10 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 //				}
 
 
-				fModelAnalysisProfile = configuration.getAttribute(
-						ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
-						ANALYSIS_PROFILE_MODEL_UNDEFINED);
+				fModelAnalysisProfile = AnalysisProfileKind.get(
+						configuration.getAttribute(
+							ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
+							AnalysisProfileKind.ANALYSIS_UNDEFINED_PROFILE.getLiteral()));
 
 				fEnableTraceExtension = configuration.getAttribute(
 						ATTR_ENABLED_TRACE_EXTENSION, false);
@@ -204,10 +222,10 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 			}
 		}
 
-		String aLocation = configuration.getAttribute(
-				ATTR_SPECIFICATION_MODEL_FILE_LOCATION, "");
+		String aLocation = WorkflowFileUtils.getAbsoluteLocation(
+				configuration, ATTR_SPECIFICATION_MODEL_FILE_LOCATION, "");
 
-		if( (aLocation == null) || aLocation.isEmpty() ) {
+		if( aLocation.isEmpty() ) {
 			throwCoreException("The model file does not exist.");
 
 			return null;
@@ -233,23 +251,30 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	 */
 	public static final int ERR_INTERNAL_ERROR = 150;
 
-	
-	public static boolean isLaunchCoverageFamilyProfile() {
-		return( LaunchDelegate.fEnableTraceExtension
-		|| LaunchDelegate.fModelAnalysisProfile.equals(
-				 ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION)
-		|| LaunchDelegate.fModelAnalysisProfile.equals(
-				 ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) );
-		
+
+	public static boolean isLaunchCoverageProfileFamily() {
+		if( ! LaunchDelegate.fEnableTraceExtension )
+		switch( LaunchDelegate.fModelAnalysisProfile ) {
+		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
+		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
+			return true;
+
+		default:
+			return false;
+		}
+		return true;
 	}
 
 	public static boolean isLaunchExplorationFamilyProfile() {
-		return( LaunchDelegate.fModelAnalysisProfile.equals(
-				 ANALYSIS_PROFILE_MODEL_EXPLORATION)
-		|| LaunchDelegate.fModelAnalysisProfile.equals(
-				 ANALYSIS_PROFILE_MODEL_TEST_OFFLINE)
-		|| LaunchDelegate.fModelAnalysisProfile.equals(
-				ANALYSIS_PROFILE_MODEL_UNDEFINED) );
+		switch( LaunchDelegate.fModelAnalysisProfile ) {
+		case ANALYSIS_EXPLORATION_PROFILE:
+		case ANALYSIS_TEST_OFFLINE_PROFILE:
+		case ANALYSIS_UNDEFINED_PROFILE:
+			return true;
+
+		default:
+			return false;
+		}
 	}
 
 	public void launchExec(ILaunchConfiguration configuration, String mode,

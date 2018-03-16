@@ -20,23 +20,42 @@ import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfiguratio
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
+import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
+import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
+import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
+import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
 public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
-	
+
 	private Group groupTraceExtension;
 	private Group groupExtensionObjective;
 
 	private BooleanFieldEditor fTraceExtensionEnabledBooleanField;
 	private IntegerFieldEditor fTraceExtensionEvaluationStepsLimitIntegerField;
-	private StringFieldEditor  fTraceExtensionObjectiveStringField;
+
+
+	private TraceElementTableViewer fExtensionObjectiveTraceElementTableViewer;
+
+	private TraceElementTableConfigProvider getTraceExtensionObjectiveTableConfig(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_TRACE_EXTENSION_OBJECTIVE, DEFAULT_TRACE_EXTENSION_OBJECTIVE,
+				"Trace Ending with", BEHAVIOR_DESCRIPTION, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				TraceElementTableConfigProvider.BEHAVIOR_SELECTION_TRACE_ELEMENT,
+				TraceElementKind.TRANSITION);
+	}
+
 
 	// BASIC TRACE GENERATION
 	private TestGenerationBasicTraceConfigurationProfile fBasicTracePage;
@@ -55,6 +74,7 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	//                              Graphical Components Creation Methods
 	// ======================================================================================
 
+	@Override
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
 	{
 		createExtensionFormatPage(parent, widgetToolkit);
@@ -63,6 +83,17 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 
 		fTTCNTracePage.createControl(parent, widgetToolkit);
 	}
+
+	@Override
+	public String getSectionTitle() {
+		return "Test Generation";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Test Generation";
+	}
+
 
 	public void createExtensionFormatPage(Composite parent, IWidgetToolkit widgetToolkit) {
 		Group group = widgetToolkit.createGroup(
@@ -83,19 +114,19 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 		fTraceExtensionEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_TRACE_EXTENSION,
 				"&Enabled Extension", comp, false);
-		
 		fTraceExtensionEnabledBooleanField.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
 						handleEnablingTraceExtension();
-						
+
 						propertyChange( new PropertyChangeEvent(this, ATTR_ENABLED_TRACE_EXTENSION,
 								new Boolean(fTraceExtensionEnabledBooleanField.getBooleanValue()),
 								new Boolean(fTraceExtensionEnabledBooleanField.getBooleanValue()) ));
 
 					}
 				});
+		addFieldEditor(fTraceExtensionEnabledBooleanField);
 
 
 		groupExtensionObjective = widgetToolkit.createGroup(
@@ -110,19 +141,15 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 				new IntegerFieldEditor(this,
 						ATTR_TRACE_EXTENSION_EVALUATION_STEPS,
 						"&Evaluation Steps :", comp, -1);
-
 		fTraceExtensionEvaluationStepsLimitIntegerField.setToolTipText(
 				"Maximal evaluation steps (-1 <=> no-limit) " +
 				"during the extension of symbolic execution");
+		addFieldEditor(fTraceExtensionEvaluationStepsLimitIntegerField);
 
-		Group group = widgetToolkit.createGroup(
-				groupTraceExtension, "Trace Ending with ",
-				1, 1, GridData.FILL_HORIZONTAL);
-
-		fTraceExtensionObjectiveStringField = new StringFieldEditor(
-				this, ATTR_TRACE_EXTENSION_OBJECTIVE,
-				"", group, DEFAULT_TRACE_EXTENSION_OBJECTIVE,
-				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+		fExtensionObjectiveTraceElementTableViewer =
+				new TraceElementTableViewer(null, groupTraceExtension, 1, widgetToolkit,
+						getTraceExtensionObjectiveTableConfig(parent.getFont()));
+		addTableViewer(fExtensionObjectiveTraceElementTableViewer);
 	}
 
 	private void handleEnablingTraceExtension() {
@@ -136,22 +163,16 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
-
-//		fTraceExtensionEnabledBooleanField.setDefaults(configuration);
+	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_ENABLED_TRACE_EXTENSION, false);
 
-//		fTraceExtensionEvaluationStepsLimitIntegerField.setDefaults(
-//				configuration);
 		configuration.setAttribute(
 				ATTR_TRACE_EXTENSION_EVALUATION_STEPS, -1);
 
-//		fTraceExtensionObjectiveStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_TRACE_EXTENSION_OBJECTIVE,
 				DEFAULT_TRACE_EXTENSION_OBJECTIVE);
-
 
 		fBasicTracePage.setDefaults(configuration);
 
@@ -159,11 +180,7 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	}
 
 	@Override
-	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
-		fTraceExtensionEnabledBooleanField.initializeFrom(configuration);
-		fTraceExtensionEvaluationStepsLimitIntegerField.initializeFrom(configuration);
-		fTraceExtensionObjectiveStringField.initializeFrom(configuration);
-
+	public void initializeFromImpl(ILaunchConfiguration configuration) {
 //		String analysisProfile;
 //		try {
 //			analysisProfile = configuration.getAttribute(
@@ -189,13 +206,8 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 
 
 	@Override
-	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration)
+	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration)
 	{
-		fTraceExtensionEnabledBooleanField.performApply(configuration);
-
-		fTraceExtensionEvaluationStepsLimitIntegerField.performApply(configuration);
-		fTraceExtensionObjectiveStringField.performApply(configuration);
-
 		fBasicTracePage.performApply(configuration);
 
 		fTTCNTracePage.performApply(configuration);
@@ -206,62 +218,62 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
 		if( ! fTraceExtensionEvaluationStepsLimitIntegerField.isValid() ) {
 			return new FieldValidationReturn(false, "Evaluation Steps is not a valid integer");
 		}
-		
+
 		if( ! fBasicTracePage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
-		
+
 		if( ! fTTCNTracePage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
-		
+
 		return new FieldValidationReturn(true, null);
 	}
 
-	
+
 	///////////////////////////////////////////////////////////////////////////
 	// Property Change
 	//
 	@Override
-	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
 		switch( event.getProperty() ) {
 		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE:
-			switch ( event.getNewValue().toString() ) {
-			case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
+			switch ( (AnalysisProfileKind) event.getNewValue() ) {
+			case ANALYSIS_TEST_OFFLINE_PROFILE:
 				groupTraceExtension.setEnabled(false);
-				
+
 				propagateVisibility(groupExtensionObjective, false);
-				
+
 				setVisibleAndEnabled(fBasicTracePage.getSection(), false);
 				setVisibleAndEnabled(fTTCNTracePage.getSection() , false);
-				
+
 				break;
-				
-			case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
-			case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
-			case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+
+			case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
+			case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
+			case ANALYSIS_EXPLORATION_PROFILE:
 			default:
 				groupTraceExtension.setEnabled(true);
-				
+
 				propagateVisibility(groupExtensionObjective, true);
-				
+
 				setVisibleAndEnabled(fBasicTracePage.getSection(), true);
 				setVisibleAndEnabled(fTTCNTracePage.getSection() , true);
 
-				
-				handleEnablingTraceExtension();;
+
+				handleEnablingTraceExtension();
 				break;
 			}
-			
+
 			break;
 
 		default:
 			break;
 		}
 	}
-	
+
 }

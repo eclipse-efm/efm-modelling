@@ -126,10 +126,7 @@ public class SWTSpider extends Canvas
 	public void resetSpider() {
 		fResetFlag = true;
 
-		if ( LaunchDelegate.fModelAnalysisProfile.equals(
-				ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION)
-			|| LaunchDelegate.fModelAnalysisProfile.equals(
-					ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR) ) {
+		if ( LaunchDelegate.isLaunchCoverageProfileFamily() ) {
 
 			fSpidertype = SPIDER5BRANCHES;
 		}
@@ -138,6 +135,7 @@ public class SWTSpider extends Canvas
 		}
 
 		Display.getDefault().syncExec(new Runnable() {
+			@Override
 			public void run() {
 				redraw();
 			}
@@ -147,7 +145,7 @@ public class SWTSpider extends Canvas
 	private void initSpider4Segments(PaintEvent e) {
 		e.gc.fillRectangle(0, 0, SPIDER_RECTANGLE_WIDTH, SPIDER_RECTANGLE_HEIGHT);
 
-		spiderTitle = LaunchDelegate.fModelAnalysisProfile.toUpperCase();
+		spiderTitle = LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase();
 		e.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
 
 		// Point central
@@ -241,7 +239,7 @@ public class SWTSpider extends Canvas
 	private void initSpider5Segments(PaintEvent e) {
 		e.gc.fillRectangle(0, 0, SPIDER_RECTANGLE_WIDTH, SPIDER_RECTANGLE_HEIGHT);
 
-		spiderTitle = LaunchDelegate.fModelAnalysisProfile.toUpperCase();
+		spiderTitle = LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase();
 		e.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
 
 		// Point central
@@ -414,6 +412,7 @@ public class SWTSpider extends Canvas
 		fRedrawBySystem = false;
 
 		Display.getDefault().syncExec(new Runnable() {
+			@Override
 			public void run() {
 				redraw();
 			}

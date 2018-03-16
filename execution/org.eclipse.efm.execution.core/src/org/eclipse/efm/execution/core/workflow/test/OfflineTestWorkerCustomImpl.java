@@ -19,6 +19,7 @@ import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
+import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
 import org.eclipse.efm.execution.core.workflow.test.impl.OfflineTestWorkerImpl;
 
@@ -84,38 +85,20 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 			testWorker.setTestPurposeFile(path);
 		}
 
-		
-		String observableTrace;
-		try {
-			observableTrace = configuration.getAttribute(
-					ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
-					DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
-
-			observableTrace = DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION;
-		}
 
 		testWorker.setObservable(
 				TraceSpecificationCustomImpl.create(
-						"observable", observableTrace) );
-
-		String controllableTrace;
-		try {
-			controllableTrace = configuration.getAttribute(
-					ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
-					DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
-
-			controllableTrace = DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION;
-		}
+						"observable", configuration,
+						ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+						DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+						TraceElementKind.UNDEFINED) );
 
 		testWorker.setControllable(
 				TraceSpecificationCustomImpl.create(
-						"controllable", controllableTrace) );
+						"controllable", configuration,
+						ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+						DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+						TraceElementKind.UNDEFINED) );
 
 
 //		ConsoleLogFormatCustomImpl console =
@@ -155,7 +138,7 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 		writer.appendTab2Eol( "property [" )
 			.appendTab3Eol( "format = \"BASIC#XLIA\"" )
 			.appendTab2Eol( "] // end property" );
-						
+
 		writer.appendTab2Eol( "merged_trace [" );
 
 		if( (str = getMergedTraceFile()) != null ) {

@@ -12,6 +12,9 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.core;
 
+import java.util.Arrays;
+import java.util.List;
+
 public interface IWorkflowConfigurationSyntax {
 
 	////////////////////////////////////////////////////////////////////////////
@@ -21,24 +24,26 @@ public interface IWorkflowConfigurationSyntax {
 	public static final String BEHAVIOR_DESCRIPTION
 			= "Select a list of elements to characterize the behavior to be find."
 			+ "\nThe list can be a set of following elements:"
-			+ "\n\t- transition =\"a transition name\""
-			+ "\n\t- state  =\"a state name\""
-			+ "\n\t- input  =\"an input name used in a statement\""
-			+ "\n\t- output =\"an output name used in a statement\""
-			+ "\n\t- com =\"a com (input or output) name used in a statement\""
+			+ "\n\t- transition =\"a-transition-name\""
+			+ "\n\t- state  =\"a-state-name\""
+			+ "\n\t- input  =\"an_input_port_or_signal_used_in_a_statement\""
+			+ "\n\t_ output =\"an_output_port_or_signal_used_in_a_statement\""
+			+ "\n\t_ com =\"a_com_input_or_output_port_or_signal_used_in_a_statement\""
 			+ "\nAll items must be separated by newline or semicolon.";
 
-	public static final String BEHAVIOR_INITIAL_SAMPLE
-			= "// Sequence of elements (separated by newline or semicolon) "
-			+ "\ncharacterizing the desired behavior."
-			+ "\n// The elements of the sequence may be selected from:"
-			+ "\ntransition =\"<transition-name-id>\""
-			+ "\nstate  =\"<state-name-id>\""
-			+ "\ninput  =\"<input-port-or-signal-name-id>\""
-			+ "\ninout  =\"<inout-port-or-signal-name-id>\""
-			+ "\noutput =\"<output-port-or-signal-name-id>\""
-			+ "\ncom =\"<input-or-output-port-or-signal-name-id>\"";
-		//	+ "\nformula=\"<predicat-expression-on-variable>\"";
+	public static final List<String> BEHAVIOR_INITIAL_SAMPLE
+			= Arrays.asList(
+					"// Sequence of elements (separated by newline or semicolon) "
+					+ "\ncharacterizing the desired behavior."
+//					"\n// The elements of the sequence may be selected from:",
+//					"\ntransition =\"<transition_name_id>\"",
+//					"\nstate  =\"<state_name_id>\"",
+//					"\ninput  =\"<input_port_or_signal_name_id>\"",
+//					"\ninout  =\"<inout_port_or_signal_name_id>\"",
+//					"\noutput =\"<output_port_or_signal_name_id>\"",
+//					"\ncom =\"<input_or_output_port_or_signal_name_id>\"",
+//					"\nformula=\"<predicat_expression_on_variable>\""
+			);
 
 
 	////////////////////////////////////////////////////////////////////////////

@@ -14,6 +14,7 @@ package org.eclipse.efm.execution.core.workflow.common.impl;
 
 import org.eclipse.efm.execution.core.workflow.WorkflowPackage;
 
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.efm.execution.core.workflow.common.CheckingScopeKind;
 import org.eclipse.efm.execution.core.workflow.common.CommonFactory;
 import org.eclipse.efm.execution.core.workflow.common.CommonPackage;
@@ -164,6 +165,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * @generated
 	 */
 	private EClass redundancyDetectionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum analysisProfileKindEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -573,7 +581,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTraceElement_Nature() {
+	public EAttribute getTraceElement_Selected() {
 		return (EAttribute)traceElementEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -582,8 +590,17 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTraceElement_Value() {
+	public EAttribute getTraceElement_Nature() {
 		return (EAttribute)traceElementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTraceElement_Value() {
+		return (EAttribute)traceElementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1365,6 +1382,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getAnalysisProfileKind() {
+		return analysisProfileKindEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getGraphExplorationStrategyKind() {
 		return graphExplorationStrategyKindEEnum;
 	}
@@ -1488,6 +1514,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__VERBOSITY);
 
 		traceElementEClass = createEClass(TRACE_ELEMENT);
+		createEAttribute(traceElementEClass, TRACE_ELEMENT__SELECTED);
 		createEAttribute(traceElementEClass, TRACE_ELEMENT__NATURE);
 		createEAttribute(traceElementEClass, TRACE_ELEMENT__VALUE);
 
@@ -1585,6 +1612,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL);
 
 		// Create enums
+		analysisProfileKindEEnum = createEEnum(ANALYSIS_PROFILE_KIND);
 		graphExplorationStrategyKindEEnum = createEEnum(GRAPH_EXPLORATION_STRATEGY_KIND);
 		consoleVerbosityKindEEnum = createEEnum(CONSOLE_VERBOSITY_KIND);
 		traceElementKindEEnum = createEEnum(TRACE_ELEMENT_KIND);
@@ -1665,6 +1693,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getConsoleLogFormat_Verbosity(), this.getConsoleVerbosityKind(), "verbosity", "UNDEFINED", 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(traceElementEClass, TraceElement.class, "TraceElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTraceElement_Selected(), ecorePackage.getEBoolean(), "selected", "true", 0, 1, TraceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTraceElement_Nature(), this.getTraceElementKind(), "nature", null, 0, 1, TraceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTraceElement_Value(), ecorePackage.getEJavaObject(), "value", null, 0, 1, TraceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1762,6 +1791,14 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getRedundancyDetection_LoopDetetctionTrivial(), ecorePackage.getEBoolean(), "loopDetetctionTrivial", "true", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
+		initEEnum(analysisProfileKindEEnum, AnalysisProfileKind.class, "AnalysisProfileKind");
+		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_UNDEFINED_PROFILE);
+		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE);
+		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_TRANSITION_COVERAGE_PROFILE);
+		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_BEHAVIOR_SELECTION_PROFILE);
+		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_TEST_OFFLINE_PROFILE);
+		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_ACSL_GENERATION_PROFILE);
+
 		initEEnum(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.class, "GraphExplorationStrategyKind");
 		addEEnumLiteral(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.BEST_FIRST_SEARCH);
 		addEEnumLiteral(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH);
@@ -1849,6 +1886,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_INFO);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_TRACE_RUN);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_TRACE_IO);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_PARAMETER_BEGIN);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_PARAMETER_SEPARATOR);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_PARAMETER_END);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_ARRAY_BEGIN);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_ARRAY_SEPARATOR);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_ARRAY_END);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_STRUCT_BEGIN);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_STRUCT_SEPARATOR);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_STRUCT_END);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.TIPS);
 
 		initEEnum(heuristicClassKindEEnum, HeuristicClassKind.class, "HeuristicClassKind");
 		addEEnumLiteral(heuristicClassKindEEnum, HeuristicClassKind.BASIC);

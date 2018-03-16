@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.efm.execution.core.workflow.common.CommonFactory;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleVerbosityKind;
@@ -63,7 +64,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 
 
 	public static WorkflowCustomImpl create(
-			ILaunchConfiguration configuration, IPath rootPath) {
+			ILaunchConfiguration configuration, IPath workingPath) {
 
 		WorkflowCustomImpl workflow = new WorkflowCustomImpl();
 
@@ -73,7 +74,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 
 
 		WorkspaceCustomImpl workspace =
-				WorkspaceCustomImpl.create(configuration, rootPath);
+				WorkspaceCustomImpl.create(configuration, workingPath);
 
 		workflow.setWorkspace(workspace);
 
@@ -90,28 +91,31 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		// Main Execution Director
 		DirectorCustomImpl director =
 				DirectorCustomImpl.create(workflow,
-						configuration, enabledExtension);
+						configuration, workingPath, enabledExtension);
 
-		String modelAnalysis;
+		AnalysisProfileKind modelAnalysisProfile =
+				AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		try {
-			modelAnalysis = configuration.getAttribute(
+			final String strModelAnalysisProfile = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
-					ANALYSIS_PROFILE_MODEL_EXPLORATION);
+					AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE.getLiteral());
+
+	        modelAnalysisProfile = AnalysisProfileKind.get(strModelAnalysisProfile);
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
-			modelAnalysis = ANALYSIS_PROFILE_MODEL_EXPLORATION;
+			modelAnalysisProfile = AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		}
-		switch ( modelAnalysis ) {
-			case ANALYSIS_PROFILE_MODEL_EXPLORATION: {
+		switch ( modelAnalysisProfile ) {
+			case ANALYSIS_EXPLORATION_PROFILE: {
 				director.setName( "exploration" );
 				break;
 			}
-			case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION: {
+			case ANALYSIS_TRANSITION_COVERAGE_PROFILE: {
 				director.setName( "transition#coverage" );
 				break;
 			}
-			case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR: {
+			case ANALYSIS_BEHAVIOR_SELECTION_PROFILE: {
 				director.setName( "behavior#selection" );
 				break;
 			}
@@ -231,17 +235,17 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		SymbexOption symbexMode = getSymbexOption();
 		if( symbexMode != null ) {
 			writer.appendTab2Eol( "symbex 'option' [" );
-			
+
 			writer.appendTab3Eol( "name_id_separator = \"_\"   // default \"#\"");
-			
+
 			writer.appendTab3Eol( "newfresh_param_name_pid = false");
-			
+
 			writer.appendTab3Eol( "pretty_printer_var_name = true   // default false");
-			
+
 			writer.appendTab3Eol( "time_name_id = '$time'" );
 			writer.appendTab3Eol( "delta_name_id = '$delta'" );
 
-			
+
 			writer.appendTab3Eol( "node_condition_enabled = true   // default false");
 
 			writer.appendTab3Eol( "separation_of_pc_disjunction = false" );

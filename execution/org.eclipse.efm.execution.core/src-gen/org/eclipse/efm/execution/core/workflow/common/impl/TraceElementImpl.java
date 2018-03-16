@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.TraceElementImpl#isSelected <em>Selected</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.TraceElementImpl#getNature <em>Nature</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.TraceElementImpl#getValue <em>Value</em>}</li>
  * </ul>
@@ -38,6 +39,26 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * @generated
  */
 public class TraceElementImpl extends MinimalEObjectImpl.Container implements TraceElement {
+	/**
+	 * The default value of the '{@link #isSelected() <em>Selected</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSelected()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SELECTED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isSelected() <em>Selected</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSelected()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean selected = SELECTED_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getNature() <em>Nature</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -102,6 +123,27 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isSelected() {
+		return selected;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSelected(boolean newSelected) {
+		boolean oldSelected = selected;
+		selected = newSelected;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.TRACE_ELEMENT__SELECTED, oldSelected, selected));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TraceElementKind getNature() {
 		return nature;
 	}
@@ -147,6 +189,8 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case CommonPackage.TRACE_ELEMENT__SELECTED:
+				return isSelected();
 			case CommonPackage.TRACE_ELEMENT__NATURE:
 				return getNature();
 			case CommonPackage.TRACE_ELEMENT__VALUE:
@@ -163,6 +207,9 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case CommonPackage.TRACE_ELEMENT__SELECTED:
+				setSelected((Boolean)newValue);
+				return;
 			case CommonPackage.TRACE_ELEMENT__NATURE:
 				setNature((TraceElementKind)newValue);
 				return;
@@ -181,6 +228,9 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case CommonPackage.TRACE_ELEMENT__SELECTED:
+				setSelected(SELECTED_EDEFAULT);
+				return;
 			case CommonPackage.TRACE_ELEMENT__NATURE:
 				setNature(NATURE_EDEFAULT);
 				return;
@@ -199,6 +249,8 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case CommonPackage.TRACE_ELEMENT__SELECTED:
+				return selected != SELECTED_EDEFAULT;
 			case CommonPackage.TRACE_ELEMENT__NATURE:
 				return nature != NATURE_EDEFAULT;
 			case CommonPackage.TRACE_ELEMENT__VALUE:
@@ -217,7 +269,9 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (nature: ");
+		result.append(" (selected: ");
+		result.append(selected);
+		result.append(", nature: ");
 		result.append(nature);
 		result.append(", value: ");
 		result.append(value);

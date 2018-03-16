@@ -20,11 +20,12 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationSection;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.swt.widgets.Composite;
 
 public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSection {
 
-	
+
 	public SupervisorEvaluationLimitsSection(AbstractConfigurationPage configurationPage) {
 		super(configurationPage);
 	}
@@ -54,21 +55,21 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 				"&Symbex Step Count :", parent, 1000);
 		integerField.setToolTipText("Maximal symbex step (possibly many evaluations by step)"
 				+ " (-1 <=> no-limit) during the dynamic process");
-		addField( integerField );
+		addFieldEditor( integerField );
 
 		integerField = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_SPECIFICATION_STOP_CRITERIA_EVALS,
 				"&Symbex Eval Count :", parent, 1000);
 		integerField.setToolTipText("Maximal symbex evaluation count"
 				+ " (-1 <=> no-limit) during the dynamic process");
-		addField( integerField );
+		addFieldEditor( integerField );
 
 		integerField = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_SPECIFICATION_STOP_CRITERIA_TIMEOUT,
 				"&Timeout (seconds) :", parent, -1);
 		integerField.setToolTipText("Maximal duration "
 				+ "(-1 <=> no-limit) of the symbex dynamic process");
-		addField( integerField );
+		addFieldEditor( integerField );
 
 		integerField.setEnabled(false);
 	}
@@ -89,19 +90,22 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_STOP_CRITERIA_HEIGHT, -1);
 
-    	String fModelAnalysis;
+		AnalysisProfileKind modelAnalysisProfile =
+				AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		try {
-			fModelAnalysis = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
+			final String strModelAnalysisProfile = configuration.getAttribute(
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
+					AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE.getLiteral());
+
+	        modelAnalysisProfile = AnalysisProfileKind.get(strModelAnalysisProfile);
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
-			
-			fModelAnalysis = "";
+			modelAnalysisProfile = AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		}
 
-		if ( fModelAnalysis.equals(
-				ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) )
+		if ( modelAnalysisProfile ==
+				AnalysisProfileKind.ANALYSIS_TRANSITION_COVERAGE_PROFILE )
 		{
 			configuration.setAttribute(
 					ATTR_SPECIFICATION_STOP_CRITERIA_STEPS, -1);

@@ -12,6 +12,9 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.core;
 
+import java.util.Arrays;
+import java.util.List;
+
 public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationSyntax {
 
 	/**
@@ -25,19 +28,6 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public final String WORKSPACE_SELECTION_DIALOG =
 			Activator.PLUGIN_ID + ".WORKSPACE_SELECTION_DIALOG"; //$NON-NLS-1$
 
-	////////////////////////////////////////////////////////////////////////////
-	// DIRECTOR: ANALYSIS PROFILE a.k.a. MODEL | TESTOFFLINE
-	////////////////////////////////////////////////////////////////////////////
-
-	public static final String ANALYSIS_PROFILE_MODEL_UNDEFINED = "";
-
-	public static final String ANALYSIS_PROFILE_MODEL_EXPLORATION = "Exploration";
-
-	public static final String ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION = "Transition Coverage";
-
-	public static final String ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR = "Behavior Selection";
-
-	public static final String ANALYSIS_PROFILE_MODEL_TEST_OFFLINE = "Test Offline";
 
 	////////////////////////////////////////////////////////////////////////////
 	// LAUNCH CONFIGURATION PLUGIN PREFIX ID
@@ -91,7 +81,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_MODEL_FILE_LOCATION"; //$NON-NLS-1$
 
 	public static final String DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION =
-			"<spec-model-file-location>"; //$NON-NLS-1$
+			"<spec-model-file-location.xlia>"; //$NON-NLS-1$
 
 	public static final String ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE =
 			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE"; //$NON-NLS-1$
@@ -108,7 +98,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			PLUGIN_LAUNCH_ID + ".ATTR_WORKSPACE_ROOT_LOCATION"; //$NON-NLS-1$
 
 	public static final String DEFAULT_WORKSPACE_ROOT_LOCATION =
-			"<workspace-root-location>"; //$NON-NLS-1$
+			"<workspace-root-folder-location>"; //$NON-NLS-1$
 
 	public static final String ATTR_WORKSPACE_OUTPUT_FOLDER_NAME =
 			PLUGIN_LAUNCH_ID + ".ATTR_WORKSPACE_OUTPUT_FOLDER_NAME"; //$NON-NLS-1$
@@ -341,27 +331,22 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public static final String ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION =
 			PLUGIN_LAUNCH_ID + ".ATTR_TEST_OFFLINE_OBSERVABLE_TRACE"; //$NON-NLS-1$
 
-	public static final String DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION
-			= "//[*] , use for ANY element w.r.t. the kind"
-			+ "\n//com_element_id ::= <port_name_id> | <signal_name_id>"
-
-			+ "\n//com = <machine_name_id> -> <com_element_id>"
-
-//			+ "\n//input#env = <machine_name_id> -> <com_element_id>"
-//			+ "\n//output#env = <machine_name_id> -> <com_element_id>"
-
-//			+ "\n//input#rdv = <machine_name_id> -> <com_element_id>"
-//			+ "\n//output#rdv = <machine_name_id> -> <com_element_id>"
-
-			+ "\n//input = <machine_name_id> -> <com_element_id>"
-			+ "\n//output = <machine_name_id> -> <com_element_id>"; //$NON-NLS-1$
+	public static final List<String> DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION
+			= Arrays.asList(
+					"//[*] , use for ANY element w.r.t. the kind",
+					"//com_element_id ::= <port_name_id> | <signal_name_id>",
+					"input#env = [*]",
+					"output#env = [*]"
+			);
 
 
 	public static final String ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION =
 			PLUGIN_LAUNCH_ID + ".ATTR_TEST_OFFLINE_CONTROLLABLE_TRACE"; //$NON-NLS-1$
 
-	public static final String DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION =
-			"input#env = [*]"; //$NON-NLS-1$
+	public static final List<String> DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION
+			= Arrays.asList(
+					"input#env = [*]"
+			);
 
 
 	////////////////////////////////////////////////////////////////////////////
@@ -377,9 +362,11 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public static final String ATTR_TRACE_EXTENSION_OBJECTIVE =
 			PLUGIN_LAUNCH_ID + ".ATTR_TRACE_EXTENSION_OBJECTIVE"; //$NON-NLS-1$
 
-	public static final String DEFAULT_TRACE_EXTENSION_OBJECTIVE =
-			  "output#env = [*]\n"
-			+ SYNTAX_TRACE_SPECIFICATION_LINK; //$NON-NLS-1$
+	public static final List<String> DEFAULT_TRACE_EXTENSION_OBJECTIVE
+			= Arrays.asList(
+					SYNTAX_TRACE_SPECIFICATION_LINK,
+					"output#env = [*]"
+			);
 
 
 	public static final String ATTR_BASIC_TRACE_ENABLED_GENERATION =
@@ -387,13 +374,13 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 
 	public static final boolean DEFAULT_BASIC_TRACE_ENABLED_GENERATION = false;
 
-	
+
 	public static final String ATTR_BASIC_TRACE_LIFELINES_ENABLED_PRINTING =
 			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_LIFELINES_TRACE_ENABLED_PRINTING"; //$NON-NLS-1$
 
 	public static final boolean DEFAULT_BASIC_TRACE_LIFELINES_ENABLED_PRINTING = false;
 
-	
+
 	public static final String DEFAULT_BASIC_TRACE_FOLDER_NAME =
 			"basic"; //$NON-NLS-1$
 
@@ -452,44 +439,52 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public static final String ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST =
 			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST"; //$NON-NLS-1$
 
-	public static final String DEFAULT_BASIC_TRACE_DETAILS_ELEMENT_LIST =
-			SYNTAX_TRACE_SPECIFICATION_LINK; //$NON-NLS-1$
+	public static final List<String> DEFAULT_BASIC_TRACE_DETAILS_ELEMENT_LIST
+			= Arrays.asList(
+					SYNTAX_TRACE_SPECIFICATION_LINK
+			);
 
 
 	public static final String ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST =
 			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST"; //$NON-NLS-1$
 
-	public static final String DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST
-//			%1% --> string message
-//			%2% --> execution context identifier
-			= "comment = \"\\t// %1%\\n\""
-//			%1% --> condition
-			+ "\npath#condition = \"\\tPC: %1%\\n\""
-			+ "\npath#timed#condition = \"\\tPtC: %1%\\n\""
-			+ "\nnode#condition = \"\\tNC: %1%\\n\""
-			+ "\nnode#timed#condition = \"\\tNtC: %1%\\n\""
-//			%1% --> machine runtime pid
-//			%2% --> machine identifier name
-//			%3% --> port | signal | variable | machine | transition | routine
-//			%4% --> value
-//			%5% --> machine target identifier name
-			+ "\ntime       = \"\\tdelta = %4%\\n\""
-//			+ "\nassign     = \"\\t2%:%3%=%4%\\n\""
-			+ "\nassign     = \"\\t%3%=%4%\\n\""
-			+ "\nnewfresh   = \"\\tnewfresh(%2%:%3%) <- %4%\\n\""
+	public static final List<String> DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST
+			= Arrays.asList(
+//					%1% --> string message
+//					%2% --> execution context identifier
+					"comment = \"\\t// %1%\\n\"",
+//					%1% --> condition,
+					"path#condition = \"\\tPC: %1%\\n\"",
+					"path#timed#condition = \"\\tPtC: %1%\\n\"",
+					"node#condition = \"\\tNC: %1%\\n\"",
+					"node#timed#condition = \"\\tNtC: %1%\\n\"",
+//					%1% --> machine runtime pid
+//					%2% --> machine identifier name
+//					%3% --> port | signal | variable | machine | transition | routine
+//					%4% --> value
+//					%5% --> machine target identifier name
+					"time       = \"\\tdelta = %4%\\n\"",
+//					"assign     = \"\\t2%:%3%=%4%\\n\"",
+					"assign     = \"\\t%3%=%4%\\n\"",
+					"newfresh   = \"\\tnewfresh(%2%:%3%) <- %4%\\n\"",
 
-			+ "\ninput#env  = \"\\tINPUT  %2%:%3%%4%\\n\""
-			+ "\ninput#rdv  = \"\\tinput  %2%:%3%%4%\\n\""
-			+ "\ninput      = \"\\tinput  %2%:%3%%4%\\n\""
-//			+ "\ninput      = \"\\t%2%->%3% ? %4%\\n\""
-			+ "\noutput#env = \"\\tOUTPUT %2%:%3%%4%\\n\""
-			+ "\noutput#rdv = \"\\toutput %2%:%3%%4%\\n\""
-			+ "\noutput     = \"\\toutput %2%:%3%%4%\\n\""
+					"input#env  = \"\\tINPUT  %2%:%3%%4%\\n\"",
+					"input#rdv  = \"\\tinput  %2%:%3%%4%\\n\"",
+					"input      = \"\\tinput  %2%:%3%%4%\\n\"",
+//					"input      = \"\\t%2%->%3% ? %4%\\n\"",
+					"output#env = \"\\tOUTPUT %2%:%3%%4%\\n\"",
+					"output#rdv = \"\\toutput %2%:%3%%4%\\n\"",
+					"output     = \"\\toutput %2%:%3%%4%\\n\"",
 
-			+ "\nroutine    = \"\\tinvoke %2%:%3%\\n\""
-			+ "\ntransition = \"\\tfired transition %2%:%3%\\n\""
+					"routine    = \"\\tinvoke %2%:%3%\\n\"",
+					"transition = \"\\tfired transition %2%:%3%\\n\"",
 
-			+ "\nmachine    = \"\\trun %2%:%3%\\n\""; //$NON-NLS-1$
+					"machine    = \"\\trun %2%:%3%\\n\"",
+
+					"value#parameter#begin = \"(\"",
+					"value#parameter#separator = \",\"",
+					"value#parameter#end = \")\""
+			);
 
 
 	// TTCN Tests Generation
@@ -509,10 +504,12 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			"TTCN"; //$NON-NLS-1$
 
 
-	public static final String DEFAULT_TTCN_TRACE_SPECIFICATION
-			= "input#env  = [*]\n"
-			+ "output#env = [*]\n"
-			+ SYNTAX_TRACE_SPECIFICATION_LINK; //$NON-NLS-1$
+	public static final List<String> DEFAULT_TTCN_TRACE_SPECIFICATION
+			= Arrays.asList(
+					SYNTAX_TRACE_SPECIFICATION_LINK,
+					"input#env  = [*]\n",
+					"output#env = [*]\n"
+			);
 
 
 
@@ -692,121 +689,127 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public static final String ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC =
 			PLUGIN_LAUNCH_ID + ".ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC"; //$NON-NLS-1$
 
-	public static final String DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC
-			= "com = [*]\n"
-			+ "variable = [*]\n"
-			+ SYNTAX_TRACE_SPECIFICATION_LINK; //$NON-NLS-1$
+	public static final List<String> DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC
+			= Arrays.asList(
+					SYNTAX_TRACE_SPECIFICATION_LINK,
+					"com = [*]\n",
+					"variable = [*]\n"
+			);
 
 
 	public static final String ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC =
 			PLUGIN_LAUNCH_ID + ".ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC"; //$NON-NLS-1$
 
-	public static final String DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC
-			// %1% --> ec#id
-			// %2% --> ec#eval
-			// %3% --> ec#hight
-			// %4% --> ec#width
-			// %5% --> ec#weight
-			// %6% --> statemachine configuration i.e. lifelines state identifier
-			= "node#header = EC#%1%<Ev:%2% , H:%3%>\\n%6%"
-			// %1% --> lifeline runtime pid
-			// %2% --> lifeline identifier
-			// %3% --> state runtime pid
-			// %3% --> state identifier
-			+ "\nlifeline#state = %2%:%4%"
-			// %1% --> condition
-			+ "\npath#condition = PC: %1%"
-			+ "\npath#timed#condition = PtC: %1%"
-			+ "\nnode#condition = NC: %1%"
-			+ "\nnode#timed#condition = NtC: %1%"
-			// %1% --> machine runtime pid
-			// %2% --> machine identifier name
-			// %3% --> port | signal | variable | machine | transition | routine
-			// %4% --> value
-//			+ "\nassign     = %2%:%3%=%4%"
-			+ "\nassign     = %3%=%4%"
-			+ "\nnewfresh   = newfresh(%2%:%3%) <- %4%"
+	public static final List<String> DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC
+			= Arrays.asList(
+					// %1% --> ec#id
+					// %2% --> ec#eval
+					// %3% --> ec#hight
+					// %4% --> ec#width
+					// %5% --> ec#weight
+					// %6% --> statemachine configuration i.e. lifelines state identifier
+					"node#header = \"EC#%1%<Ev:%2% , H:%3%>\\n%6%\"",
+					// %1% --> lifeline runtime pid
+					// %2% --> lifeline identifier
+					// %3% --> state runtime pid
+					// %3% --> state identifier
+					"lifeline#state = \"%2%:%4%\"",
+					// %1% --> condition
+					"path#condition = \"PC: %1%\"",
+					"path#timed#condition = \"PtC: %1%\"",
+					"node#condition = \"NC: %1%\"",
+					"node#timed#condition = \"NtC: %1%\"",
+					// %1% --> machine runtime pid
+					// %2% --> machine identifier name
+					// %3% --> port | signal | variable | machine | transition | routine
+					// %4% --> value
+//					 "assign     = \"%2%:%3%=%4%\"",
+					"assign     = \"%3%=%4%\"",
+					"newfresh   = \"newfresh(%2%:%3%) <- %4%\"",
 
-			+ "\ninput#env  = INPUT %2%:%3%%4%"
-			+ "\ninput#rdv  = input %2%:%3%%4%"
-			+ "\ninput      = input %2%:%3%%4%"
-//			+ "\ninput      = %1%->%3% ? %4%"
+					"input#env  = \"INPUT %2%:%3%%4%\"",
+					"input#rdv  = \"input %2%:%3%%4%\"",
+					"input      = \"input %2%:%3%%4%\"",
+//					"input      = \"%1%->%3% ? %4%\"",
 
-			+ "\noutput#env = OUTPUT %2%:%3%%4%"
-			+ "\noutput#rdv = output %2%:%3%%4%"
-			+ "\noutput     = output %2%:%3%%4%"
-//			+ "\noutput     = %1%->%3% ? %4%"
+					"output#env = \"OUTPUT %2%:%3%%4%\"",
+					"output#rdv = \"output %2%:%3%%4%\"",
+					"output     = \"output %2%:%3%%4%\"",
+//					"output     = \"%1%->%3% ? %4%\"",
 
-			+ "\nroutine    = invoke %2%:%3%"
-			+ "\ntransition = fired transition %3%"
+					"routine    = \"invoke %2%:%3%\"",
+					"transition = \"fired transition %3%\"",
 
-			+ "\nmachine    = \"run %2%:%3%\""; //$NON-NLS-1$
+					"machine    = \"run %2%:%3%\""
+			);
 
 	public static final String ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC =
 			PLUGIN_LAUNCH_ID + ".ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC"; //$NON-NLS-1$
 
-	public static final String DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC
-			= // Node color / shape
-			    "node#color = 'lightblue'"
-			+ "\nnode#shape = 'ellipse'"
-			+ "\nnode#style = 'filled'"
+	public static final List<String> DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC
+			// Node color / shape
+			= Arrays.asList(
+					"node#color = 'lightblue'",
+					"node#shape = 'ellipse'",
+					"node#style = 'filled'",
 
-			+ "\nnode#passed#color = 'yellow'"
-			+ "\nnode#passed#shape = 'ellipse'"
-			+ "\nnode#passed#style = 'filled'"
+					"node#passed#color = 'yellow'",
+					"node#passed#shape = 'ellipse'",
+					"node#passed#style = 'filled'",
 
-			+ "\nnode#failed#color = 'red'"
-			+ "\nnode#failed#shape = 'doubleoctagon'"
-			+ "\nnode#failed#style = 'filled'"
+					"node#failed#color = 'red'",
+					"node#failed#shape = 'doubleoctagon'",
+					"node#failed#style = 'filled'",
 
-			+ "\nnode#inconclusive#color = 'orange'"
-			+ "\nnode#inconclusive#shape = 'octagon'"
-			+ "\nnode#inconclusive#style = 'filled'"
+					"node#inconclusive#color = 'orange'",
+					"node#inconclusive#shape = 'octagon'",
+					"node#inconclusive#style = 'filled'",
 
-			+ "\nnode#aborted#color = 'red'"
-			+ "\nnode#aborted#shape = 'octagon'"
-			+ "\nnode#aborted#style = 'filled'"
+					"node#aborted#color = 'red'",
+					"node#aborted#shape = 'octagon'",
+					"node#aborted#style = 'filled'",
 
-			+ "\nnode#warning#color = 'orange'"
-			+ "\nnode#warning#shape = 'ellipse'"			
-			+ "\nnode#warning#style = 'filled'"			
+					"node#warning#color = 'orange'",
+					"node#warning#shape = 'ellipse'",
+					"node#warning#style = 'filled'",
 
-			+ "\nnode#error#color = 'red'"
-			+ "\nnode#error#shape = 'ellipse'"
-			+ "\nnode#error#style = 'filled'"
+					"node#error#color = 'red'",
+					"node#error#shape = 'ellipse'",
+					"node#error#style = 'filled'",
 
-			+ "\nnode#alert#color = 'red'"
-			+ "\nnode#alert#shape = 'ellipse'"
-			+ "\nnode#alert#style = 'filled'"
+					"node#alert#color = 'red'",
+					"node#alert#shape = 'ellipse'",
+					"node#alert#style = 'filled'",
 
-			+ "\nnode#exit#color = 'orange'"
-			+ "\nnode#exit#shape = 'tripleoctagon'"
-			+ "\nnode#exit#style = 'filled'"
+					"node#exit#color = 'orange'",
+					"node#exit#shape = 'tripleoctagon'",
+					"node#exit#style = 'filled'",
 
-			+ "\nnode#redundancy#source#color = 'green'"
-			+ "\nnode#redundancy#source#shape = 'cds'"
-			+ "\nnode#redundancy#source#style = 'filled'"
+					"node#redundancy#source#color = 'green'",
+					"node#redundancy#source#shape = 'cds'",
+					"node#redundancy#source#style = 'filled'",
 
-			+ "\nnode#redundancy#target#color = 'greenyellow'"
-			+ "\nnode#redundancy#target#shape = 'septagon'"
-			+ "\nnode#redundancy#target#style = 'filled'"
+					"node#redundancy#target#color = 'greenyellow'",
+					"node#redundancy#target#shape = 'septagon'",
+					"node#redundancy#target#style = 'filled'",
 
-			// Path color / shape
-			+ "\npath#passed#color = 'lawngreen'"
-			+ "\npath#passed#shape = 'tripleoctagon'"
-			+ "\npath#passed#style = 'filled'"
+					// Path color / shape
+					"path#passed#color = 'lawngreen'",
+					"path#passed#shape = 'tripleoctagon'",
+					"path#passed#style = 'filled'",
 
-			+ "\npath#failed#color = 'red'"
-			+ "\npath#failed#shape = 'doubleoctagon'"
-			+ "\npath#failed#style = 'filled'"
+					"path#failed#color = 'red'",
+					"path#failed#shape = 'doubleoctagon'",
+					"path#failed#style = 'filled'",
 
-			+ "\npath#inconclusive#color = 'orange'"
-			+ "\npath#inconclusive#shape = 'octagon'"
-			+ "\npath#inconclusive#style = 'filled'"
+					"path#inconclusive#color = 'orange'",
+					"path#inconclusive#shape = 'octagon'",
+					"path#inconclusive#style = 'filled'",
 
-			+ "\npath#aborted#color = 'red'"
-			+ "\npath#aborted#shape = 'octagon'"
-			+ "\npath#aborted#style = 'filled'";
+					"path#aborted#color = 'red'",
+					"path#aborted#shape = 'octagon'",
+					"path#aborted#style = 'filled'"
+			);
 
 
 	// Second Symbex Workflow Page
@@ -851,9 +854,11 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public static final String ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC =
 			PLUGIN_LAUNCH_ID + ".ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC"; //$NON-NLS-1$
 
-	public static final String DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC
-			= "com = [*]\n"
-			+ SYNTAX_TRACE_SPECIFICATION_LINK; //$NON-NLS-1$
+	public static final List<String> DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC
+			= Arrays.asList(
+					SYNTAX_TRACE_SPECIFICATION_LINK,
+					"com = [*]\n"
+			);
 
 
 	public static final String ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC =

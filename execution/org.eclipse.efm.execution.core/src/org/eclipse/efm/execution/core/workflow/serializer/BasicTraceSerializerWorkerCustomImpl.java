@@ -53,7 +53,6 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
 
-		String traceFormat;
 		boolean enabled;
 
 		try {
@@ -89,32 +88,17 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		}
 		serializerWorker.setEnabledLifelinesPrinting( enabled );
 
-
-		try {
-			traceFormat = configuration.getAttribute(
-					ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST,
-					DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
-
-			traceFormat = DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST;
-		}
-		if( (traceFormat == null) || (traceFormat.trim().isEmpty()) ) {
-			traceFormat = DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST;
-		}
-
 		TraceSpecificationCustomImpl format =
-				TraceSpecificationCustomImpl.create("format", traceFormat);
+				TraceSpecificationCustomImpl.create(
+						"format", configuration,
+						ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST,
+						DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST,
+						TraceElementKind.UNDEFINED);
 
 		serializerWorker.setFormat( format );
 
 
-		TraceSpecificationCustomImpl trace =
-				TraceSpecificationCustomImpl.create(
-						"trace", SYNTAX_TRACE_SPECIFICATION_LINK);
-
-		configureTrace( trace , configuration );
+		TraceSpecificationCustomImpl trace = configureTrace(configuration);
 
 		serializerWorker.setTrace( trace );
 
@@ -146,9 +130,19 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 	}
 
 
-	private static void configureTrace(
-			TraceSpecificationCustomImpl trace,
+	private static TraceSpecificationCustomImpl configureTrace(
 			ILaunchConfiguration configuration) {
+
+//		TraceSpecificationCustomImpl trace =
+//				TraceSpecificationCustomImpl.create(
+//						"trace", SYNTAX_TRACE_SPECIFICATION_LINK);
+
+		TraceSpecificationCustomImpl trace =
+				TraceSpecificationCustomImpl.create(
+						"trace", configuration,
+						ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST,
+						TraceElementKind.UNDEFINED);
+
 		boolean enabled;
 
 		try {
@@ -271,20 +265,7 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 							TraceElementKind.STATE, "[*]"));
 		}
 
-
-		String detailsTrace;
-		try {
-			detailsTrace = configuration.getAttribute(
-					ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST, "");
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
-
-			detailsTrace = null;
-		}
-
-		trace.parseAll( detailsTrace );
-
+		return trace;
 	}
 
 
@@ -331,16 +312,16 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 
 		writer2.appendTabEol( "] // end property" );
 
-		TraceSpecificationCustomImpl format =
-				(TraceSpecificationCustomImpl) getFormat();
-		if( format != null ) {
-			format.toWriter( writer2 );
-		}
-
 		TraceSpecificationCustomImpl trace =
 				(TraceSpecificationCustomImpl) getTrace();
 		if( trace != null ) {
 			trace.toWriter(writer2);
+		}
+
+		TraceSpecificationCustomImpl format =
+				(TraceSpecificationCustomImpl) getFormat();
+		if( format != null ) {
+			format.toWriter( writer2 );
 		}
 
 

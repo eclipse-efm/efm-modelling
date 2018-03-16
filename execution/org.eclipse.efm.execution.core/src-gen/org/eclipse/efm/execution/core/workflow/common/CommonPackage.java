@@ -464,13 +464,22 @@ public interface CommonPackage extends EPackage {
 	int TRACE_ELEMENT = 6;
 
 	/**
+	 * The feature id for the '<em><b>Selected</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRACE_ELEMENT__SELECTED = 0;
+
+	/**
 	 * The feature id for the '<em><b>Nature</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_ELEMENT__NATURE = 0;
+	int TRACE_ELEMENT__NATURE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -479,7 +488,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_ELEMENT__VALUE = 1;
+	int TRACE_ELEMENT__VALUE = 2;
 
 	/**
 	 * The number of structural features of the '<em>Trace Element</em>' class.
@@ -488,7 +497,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE_ELEMENT_FEATURE_COUNT = 2;
+	int TRACE_ELEMENT_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Trace Element</em>' class.
@@ -1434,6 +1443,16 @@ public interface CommonPackage extends EPackage {
 	int REDUNDANCY_DETECTION_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind <em>Analysis Profile Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind
+	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getAnalysisProfileKind()
+	 * @generated
+	 */
+	int ANALYSIS_PROFILE_KIND = 14;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind <em>Graph Exploration Strategy Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1441,7 +1460,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getGraphExplorationStrategyKind()
 	 * @generated
 	 */
-	int GRAPH_EXPLORATION_STRATEGY_KIND = 14;
+	int GRAPH_EXPLORATION_STRATEGY_KIND = 15;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.ConsoleVerbosityKind <em>Console Verbosity Kind</em>}' enum.
@@ -1451,7 +1470,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getConsoleVerbosityKind()
 	 * @generated
 	 */
-	int CONSOLE_VERBOSITY_KIND = 15;
+	int CONSOLE_VERBOSITY_KIND = 16;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.TraceElementKind <em>Trace Element Kind</em>}' enum.
@@ -1461,7 +1480,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getTraceElementKind()
 	 * @generated
 	 */
-	int TRACE_ELEMENT_KIND = 16;
+	int TRACE_ELEMENT_KIND = 17;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.HeuristicClassKind <em>Heuristic Class Kind</em>}' enum.
@@ -1471,7 +1490,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getHeuristicClassKind()
 	 * @generated
 	 */
-	int HEURISTIC_CLASS_KIND = 17;
+	int HEURISTIC_CLASS_KIND = 18;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.CoverageScopeKind <em>Coverage Scope Kind</em>}' enum.
@@ -1481,7 +1500,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getCoverageScopeKind()
 	 * @generated
 	 */
-	int COVERAGE_SCOPE_KIND = 18;
+	int COVERAGE_SCOPE_KIND = 19;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.CheckingScopeKind <em>Checking Scope Kind</em>}' enum.
@@ -1491,7 +1510,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getCheckingScopeKind()
 	 * @generated
 	 */
-	int CHECKING_SCOPE_KIND = 19;
+	int CHECKING_SCOPE_KIND = 20;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.DebuglevelKind <em>Debuglevel Kind</em>}' enum.
@@ -1501,7 +1520,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getDebuglevelKind()
 	 * @generated
 	 */
-	int DEBUGLEVEL_KIND = 20;
+	int DEBUGLEVEL_KIND = 21;
 
 
 	/**
@@ -1837,6 +1856,17 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTraceElement();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.TraceElement#isSelected <em>Selected</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Selected</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.TraceElement#isSelected()
+	 * @see #getTraceElement()
+	 * @generated
+	 */
+	EAttribute getTraceElement_Selected();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.TraceElement#getNature <em>Nature</em>}'.
@@ -2800,6 +2830,16 @@ public interface CommonPackage extends EPackage {
 	EAttribute getRedundancyDetection_LoopDetetctionTrivial();
 
 	/**
+	 * Returns the meta object for enum '{@link org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind <em>Analysis Profile Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Analysis Profile Kind</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind
+	 * @generated
+	 */
+	EEnum getAnalysisProfileKind();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind <em>Graph Exploration Strategy Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3153,6 +3193,14 @@ public interface CommonPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TRACE_ELEMENT = eINSTANCE.getTraceElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Selected</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRACE_ELEMENT__SELECTED = eINSTANCE.getTraceElement_Selected();
 
 		/**
 		 * The meta object literal for the '<em><b>Nature</b></em>' attribute feature.
@@ -3871,6 +3919,16 @@ public interface CommonPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL = eINSTANCE.getRedundancyDetection_LoopDetetctionTrivial();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind <em>Analysis Profile Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind
+		 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getAnalysisProfileKind()
+		 * @generated
+		 */
+		EEnum ANALYSIS_PROFILE_KIND = eINSTANCE.getAnalysisProfileKind();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind <em>Graph Exploration Strategy Kind</em>}' enum.

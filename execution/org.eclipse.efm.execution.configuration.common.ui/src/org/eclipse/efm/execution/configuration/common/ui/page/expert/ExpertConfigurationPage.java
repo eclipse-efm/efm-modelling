@@ -20,6 +20,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
@@ -40,6 +41,7 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 	// TRANSITION COVERAGE
 	ExpertTransitionCoverageConfigurationProfile fTransitionCoveragePage;
 
+
 	public ExpertConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
 		// BEHAVIOR SELECTION : HIT OR JUMP
@@ -47,6 +49,16 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 
 		//  TRANSITION COVERAGE
 		fTransitionCoveragePage = new ExpertTransitionCoverageConfigurationProfile(this);
+	}
+
+	@Override
+	public String getSectionTitle() {
+		return "Expert";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Expert Page";
 	}
 
 
@@ -66,7 +78,7 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 
 		// EXPLORATION PAGE
 		createExplorationPage(fCompositeStack, widgetToolkit);
-		
+
 		fStackLayout.topControl = groupExplorationPage;
 		fCompositeStack.layout();
 
@@ -79,8 +91,12 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 
 	private void setEnableGroupExplorationPage(ILaunchConfiguration configuration) {
 		try {
-			String modelAnalysisProfile = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, "");
+			final String strAnalysisProfile = configuration.getAttribute(
+					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
+					AnalysisProfileKind.ANALYSIS_UNDEFINED_PROFILE.getLiteral());
+
+			final AnalysisProfileKind modelAnalysisProfile =
+					AnalysisProfileKind.get(strAnalysisProfile);
 
 			setVisibleProfilePage( modelAnalysisProfile );
 		}
@@ -88,23 +104,23 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setVisibleProfilePage(AbstractConfigurationProfile aProfilePage) {
 		fStackLayout.topControl = aProfilePage.getSection();
 		fCompositeStack.layout();
 	}
 
-	public void setVisibleProfilePage(String analysisProfile) {
+	public void setVisibleProfilePage(AnalysisProfileKind analysisProfile) {
 		switch ( analysisProfile ) {
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
+		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
 			setVisibleProfilePage( fTransitionCoveragePage );
 			break;
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
+		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
 			setVisibleProfilePage( fBehaviorSelectionPage );
 			break;
-			
-		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
-		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+
+		case ANALYSIS_TEST_OFFLINE_PROFILE:
+		case ANALYSIS_EXPLORATION_PROFILE:
 		default:
 			fStackLayout.topControl = groupExplorationPage;
 			fCompositeStack.layout();
@@ -130,7 +146,7 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		// BEHAVIOR SELECTION : HIT OR JUMP
 		fBehaviorSelectionPage.setDefaults(configuration);
 
@@ -140,7 +156,7 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 
 
 	@Override
-	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
+	public void initializeFromImpl(ILaunchConfiguration configuration) {
 		setEnableGroupExplorationPage(configuration);
 
 		// BEHAVIOR SELECTION : HIT OR JUMP
@@ -152,7 +168,7 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 
 
 	@Override
-	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		// BEHAVIOR SELECTION : HIT OR JUMP
 		fBehaviorSelectionPage.performApply(configuration);
 
@@ -165,39 +181,39 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
 		// BEHAVIOR SELECTION : HIT OR JUMP
 		if( ! fBehaviorSelectionPage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
-		
+
 		// TRANSITION COVERAGE
 		if( ! fTransitionCoveragePage.isValid(launchConfig) ) {
 			return new FieldValidationReturn(false, null);
 		}
-		
+
 		return new FieldValidationReturn(true, null);
 	}
 
-	
+
 	///////////////////////////////////////////////////////////////////////////
 	// Property Change
 	//
 	@Override
-	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
 		switch( event.getProperty() ) {
 		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE: {
-			setVisibleProfilePage( event.getNewValue().toString() );
+			setVisibleProfilePage( (AnalysisProfileKind) event.getNewValue() );
 
 			break;
 		}
 		default:
 			break;
 		}
-		
-		fBehaviorSelectionPage.handleConfigurationPropertyChange(event); 
-		
-		fTransitionCoveragePage.handleConfigurationPropertyChange(event); 
+
+		fBehaviorSelectionPage.handleConfigurationPropertyChange(event);
+
+		fTransitionCoveragePage.handleConfigurationPropertyChange(event);
 	}
-	
+
 }

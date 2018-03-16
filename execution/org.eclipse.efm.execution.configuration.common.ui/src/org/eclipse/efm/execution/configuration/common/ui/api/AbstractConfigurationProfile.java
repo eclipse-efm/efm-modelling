@@ -50,11 +50,11 @@ public abstract class AbstractConfigurationProfile extends AbstractSectionPart
 	abstract protected void createContent(Composite parent, IWidgetToolkit widgetToolkit);
 
 
-	protected void setWarningMessage(String warningMessage) {
+	public void setWarningMessage(String warningMessage) {
 		fConfigurationPage.propagateWarningMessage(warningMessage);
 	}
 
-	protected void setErrorMessage(String errorMessage) {
+	public void setErrorMessage(String errorMessage) {
 		fConfigurationPage.propagateErrorMessage(errorMessage);
 	}
 

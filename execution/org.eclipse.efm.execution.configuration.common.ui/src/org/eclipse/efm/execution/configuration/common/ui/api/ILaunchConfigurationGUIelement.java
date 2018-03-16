@@ -11,6 +11,8 @@
 
 package org.eclipse.efm.execution.configuration.common.ui.api;
 
+import org.eclipse.jface.util.PropertyChangeEvent;
+
 public interface ILaunchConfigurationGUIelement {
 
 	///////////////////////////////////////////////////////////////////////////
@@ -18,7 +20,7 @@ public interface ILaunchConfigurationGUIelement {
 	///////////////////////////////////////////////////////////////////////////
 
 	public IWidgetToolkit getWidgetToolkit();
-	
+
 	public AbstractConfigurationPage[] getConfigurationPages();
 
 
@@ -32,8 +34,16 @@ public interface ILaunchConfigurationGUIelement {
 
 	public void setErrorMessage(String errormessage);
 
+	public void clearErrorMessage();
+
 	public void updateGUI();
 
 	public void scheduleUpdateJob();
+
+	///////////////////////////////////////////////////////////////////////////
+	// Property Change
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event);
+
+
 
 }

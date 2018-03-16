@@ -55,7 +55,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		return "Behavior Selection, heuristic (expert) configuration section";
 	}
 
-	
+
 	@Override
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
 //		SWTFactory.createGroup(parent,
@@ -72,11 +72,11 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				"&Begin Step", comp1, 0);
 		fHoJBeginStep.setToolTipText("Number of \"cumulated\" steps "
 				+ "before begining the research of the behavior");
-		addField( fHoJBeginStep );
-		
+		addFieldEditor( fHoJBeginStep );
+
 		Group groupCommon = widgetToolkit.createGroup(groupHoJProperty,
 				"&Common", 3, 2, GridData.FILL_HORIZONTAL);
-		
+
 		FieldEditor fieldEditor;
 
 		Composite compCommon = widgetToolkit.createComposite(
@@ -85,7 +85,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				ATTR_BEHAVIOR_SELECTION_HOJ_HEURISTIC,
 				"&Heuristic", compCommon, true);
 		fieldEditor.setToolTipText("Activate the use of heuristics");
-		addField( fieldEditor );
+		addFieldEditor( fieldEditor );
 
 		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
@@ -93,7 +93,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				ATTR_BEHAVIOR_SELECTION_HOJ_STOP, "&Stop", compCommon, true);
 		fieldEditor.setToolTipText("Stop the symbolic excution "
 				+ "as soon as the behavior is covered");
-		addField( fieldEditor );
+		addFieldEditor( fieldEditor );
 
 		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
@@ -101,7 +101,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				ATTR_BEHAVIOR_SELECTION_HOJ_SLICE, "&Slice", compCommon, true);
 		fieldEditor.setToolTipText("Pruning the symbolic execution graph "
 				+ "at the end of the analysis");
-		addField( fieldEditor );
+		addFieldEditor( fieldEditor );
 
 
 		Group groupScope = widgetToolkit.createGroup(groupHoJProperty,
@@ -110,42 +110,43 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		Composite comp = widgetToolkit.createComposite(
 				groupScope, 1, 1, GridData.FILL_HORIZONTAL);
 
-		addField( new BooleanFieldEditor(
+		addFieldEditor( new BooleanFieldEditor(
 				fConfigurationPage, ATTR_BEHAVIOR_SELECTION_HOJ_SEARCH_SCOPE_LOCALLY,
 				"&Search Locally scope instead Globally", comp, false) );
 
-		Group groupScheduler = widgetToolkit.createGroup(groupHoJProperty,
-				"&Trace Sequence", 2, 2, GridData.FILL_HORIZONTAL);
 
-		Composite compScheduler = widgetToolkit.createComposite(
-				groupScheduler, 1, 1, GridData.FILL_HORIZONTAL);
-		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
-				ATTR_BEHAVIOR_SELECTION_HOJ_SCHEDULER_ORDERED,
-				"&Ordered", compScheduler, true);
-		fieldEditor.setToolTipText("Search ordered traces");
-		addField( fieldEditor );
-		
-		compScheduler = widgetToolkit.createComposite(
-				groupScheduler, 1, 1, GridData.FILL_HORIZONTAL);
-		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
-				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_CONSECUTIVE,
-				"&Consecutive", compScheduler, false);
-		fieldEditor.setToolTipText(
-				"Search ordered traces with consecutive observables");
-		addField( fieldEditor );
+//		Group groupTraceSequenceOption = widgetToolkit.createGroup(groupHoJProperty,
+//				"&Trace Sequence ", 2, 2, GridData.FILL_HORIZONTAL);
+//
+//		Composite compScheduler = widgetToolkit.createComposite(
+//				groupTraceSequenceOption, 1, 1, GridData.FILL_HORIZONTAL);
+//		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
+//				ATTR_BEHAVIOR_SELECTION_HOJ_SCHEDULER_ORDERED,
+//				"&Ordered", compScheduler, true);
+//		fieldEditor.setToolTipText("Search ordered traces");
+//		addField( fieldEditor );
+//
+//		compScheduler = widgetToolkit.createComposite(
+//				groupTraceSequenceOption, 1, 1, GridData.FILL_HORIZONTAL);
+//		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
+//				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_CONSECUTIVE,
+//				"&Consecutive", compScheduler, false);
+//		fieldEditor.setToolTipText(
+//				"Search ordered traces with consecutive observables");
+//		addField( fieldEditor );
 
 
 		Group groupOption = widgetToolkit.createGroup(groupHoJProperty,
-				"&Options", 4, 2, GridData.FILL_HORIZONTAL);
+				"&Options", 3, 2, GridData.FILL_HORIZONTAL);
 
 		Composite compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
-		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
-				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_FOLDING,
-				"&Folding", compOption, true);
-		fieldEditor.setToolTipText(
-				"Enabled verification of multiple trace properties per Symbex State");
-		addField( fieldEditor );
+//		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
+//				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_FOLDING,
+//				"&Folding", compOption, true);
+//		fieldEditor.setToolTipText(
+//				"Enabled verification of multiple trace properties per Symbex State");
+//		addFieldEditor( fieldEditor );
 
 		compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
@@ -154,7 +155,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				"&Lucky", compOption, false);
 		fieldEditor.setToolTipText(
 				"Search one trace in a lucky way - no backtracking");
-		addField( fieldEditor );
+		addFieldEditor( fieldEditor );
 
 		compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
@@ -162,7 +163,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_MAX,
 				"&Maximun Trace", compOption, false);
 		fieldEditor.setToolTipText("Search a maximun trace");
-		addField( fieldEditor );
+		addFieldEditor( fieldEditor );
 
 		compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
@@ -171,7 +172,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				"&Jump Slice", compOption, false);
 		fieldEditor.setToolTipText(
 				"Pruning intermediate at the end of hit or jump");
-		addField( fieldEditor );
+		addFieldEditor( fieldEditor );
 
 
 //		Group groupHoJHeuristic = widgetToolkit.createGroup(parent,

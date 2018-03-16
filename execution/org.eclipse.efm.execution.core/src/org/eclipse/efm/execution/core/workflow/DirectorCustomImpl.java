@@ -17,6 +17,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
+import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.efm.execution.core.workflow.common.CommonFactory;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOptionCustomImpl;
@@ -50,14 +52,14 @@ public class DirectorCustomImpl extends DirectorImpl
 
 
 	public static DirectorCustomImpl create(Workflow workflow,
-			ILaunchConfiguration configuration, boolean hasSecond) {
+		ILaunchConfiguration configuration, IPath workingPath, boolean hasSecond) {
 
 		DirectorCustomImpl director = new DirectorCustomImpl(workflow);
 
 		director.setManifest( ManifestCustomImpl.create(true, true) );
 
 
-		if( ! director.configureProject(configuration) ) {
+		if( ! director.configureProject(configuration, workingPath) ) {
 			//!! ERROR
 		}
 
@@ -83,56 +85,19 @@ public class DirectorCustomImpl extends DirectorImpl
 		return( director );
 	}
 
-	
-	public static String getModelPath(ILaunchConfiguration configuration) {
-		String modelPath;
-		try {
-			modelPath = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_FILE_LOCATION, "");
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
 
-			modelPath = null;
-		}
-		
-		return  modelPath;
-	}
+	public boolean configureProject(
+			ILaunchConfiguration configuration, IPath workingPath) {
+		String modelPath = WorkflowFileUtils.getAbsoluteLocation(
+				configuration, ATTR_SPECIFICATION_MODEL_FILE_LOCATION, "");
 
-	public static String getModelFilename(ILaunchConfiguration configuration) {
-		String modelPath = getModelPath( configuration );
-		
-		int pos = modelPath.lastIndexOf(IPath.SEPARATOR);
-		if( pos > 0 ) {
-			modelPath = modelPath.substring(pos+1);
-		}
-
-		return  modelPath;
-	}
-
-	public static String getModelBasename(ILaunchConfiguration configuration) {
-		String modelFilename = DirectorCustomImpl.getModelFilename( configuration );
-		
-		int pos = modelFilename.lastIndexOf('.');
-		if( pos > 0 ) {
-			modelFilename = modelFilename.substring(0, pos);
-		}
-
-		return  modelFilename;
-	}
-
-	public boolean configureProject(ILaunchConfiguration configuration) {
-		String modelPath = getModelPath( configuration );
-
-		if( (modelPath != null) && (! modelPath.isEmpty()) ) {
+		if( ! modelPath.isEmpty() ) {
 			Project project = CommonFactory.eINSTANCE.createProject();
 
-			int pos = modelPath.lastIndexOf(IPath.SEPARATOR);
-			if( pos > 0 ) {
-				project.setSource( modelPath.substring(0, pos) );
-				modelPath = modelPath.substring(pos+1);
-			}
-			project.setModel( modelPath );
+			project.setSource(
+					WorkflowFileUtils.makeRelativeParentLocation(workingPath, modelPath));
+
+			project.setModel( WorkflowFileUtils.filename(modelPath) );
 
 			setProject( project );
 
@@ -151,22 +116,26 @@ public class DirectorCustomImpl extends DirectorImpl
 
 		setSupervisor( supervisor );
 
-		String modelAnalysisProfile;
+		AnalysisProfileKind modelAnalysisProfile = null;
 		try {
-			modelAnalysisProfile = configuration.getAttribute(
+			final String strAnalysisProfile = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
-					ANALYSIS_PROFILE_MODEL_EXPLORATION);
+					AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE.getLiteral());
+
+			modelAnalysisProfile = AnalysisProfileKind.get(strAnalysisProfile);
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
+		}
 
-			modelAnalysisProfile = ANALYSIS_PROFILE_MODEL_EXPLORATION;
+		if( modelAnalysisProfile == null ) {
+			modelAnalysisProfile = AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		}
 
 		boolean isRedundancyDetectionPossible = false;
 
 		switch ( modelAnalysisProfile ) {
-			case ANALYSIS_PROFILE_MODEL_EXPLORATION: {
+			case ANALYSIS_EXPLORATION_PROFILE: {
 				//!! NOTHING to do...
 				// --> only need a Supervisor worker for Model Exploration
 
@@ -174,7 +143,7 @@ public class DirectorCustomImpl extends DirectorImpl
 
 				break;
 			}
-			case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION: {
+			case ANALYSIS_TRANSITION_COVERAGE_PROFILE: {
 				TransitionCoverageWorkerCustomImpl worker =
 						TransitionCoverageWorkerCustomImpl.create(
 								this, configuration);
@@ -189,7 +158,7 @@ public class DirectorCustomImpl extends DirectorImpl
 
 				break;
 			}
-			case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR: {
+			case ANALYSIS_BEHAVIOR_SELECTION_PROFILE: {
 				BehaviorCoverageWorkerCustomImpl worker =
 						BehaviorCoverageWorkerCustomImpl.create(
 								this, configuration);
@@ -200,7 +169,7 @@ public class DirectorCustomImpl extends DirectorImpl
 
 				break;
 			}
-			case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE: {
+			case ANALYSIS_TEST_OFFLINE_PROFILE: {
 				OfflineTestWorkerCustomImpl worker =
 						OfflineTestWorkerCustomImpl.create(
 								this, configuration);
@@ -218,10 +187,10 @@ public class DirectorCustomImpl extends DirectorImpl
 		}
 
 		if( isRedundancyDetectionPossible ) {
-			RedundancyDetection redundancy = 
+			RedundancyDetection redundancy =
 					CommonFactory.eINSTANCE.createRedundancyDetection();
 			getSupervisor().setRedundancy(redundancy);
-			
+
 			boolean enabledRedundancyDetection = false;
 			try {
 				enabledRedundancyDetection = configuration.getAttribute(
@@ -236,7 +205,7 @@ public class DirectorCustomImpl extends DirectorImpl
 			if( ! enabledRedundancyDetection ) {
 				redundancy.setComparer( null );;
 			}
-			
+
 			try {
 				enabledRedundancyDetection = configuration.getAttribute(
 						ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL, false);

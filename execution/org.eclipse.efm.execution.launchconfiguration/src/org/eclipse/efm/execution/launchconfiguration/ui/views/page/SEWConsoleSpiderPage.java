@@ -400,7 +400,7 @@ public class SEWConsoleSpiderPage extends Page
 
 			resizeWidth = s.equals(CONSOLE_INIFINITE_SYMBOL);
 		}
-		else if ( ( nbExe == 1 ) || LaunchDelegate.isLaunchCoverageFamilyProfile() ) {
+		else if ( ( nbExe == 1 ) || LaunchDelegate.isLaunchCoverageProfileFamily() ) {
 			s = aString.substring(
 					aString.indexOf(CONSOLE_WIDTH_SYMBOL) +
 							CONSOLE_WIDTH_SYMBOL.length(),
@@ -453,7 +453,7 @@ public class SEWConsoleSpiderPage extends Page
 			nbWidth = ( currentNbWidth > oldNbWidth ) ?
 					currentNbWidth : oldNbWidth;
 		}
-		else if ( ( nbExe == 1 ) || LaunchDelegate.isLaunchCoverageFamilyProfile() ) {
+		else if ( ( nbExe == 1 ) || LaunchDelegate.isLaunchCoverageProfileFamily() ) {
 			beginIndex = currentIndex + CONSOLE_WIDTH_SYMBOL.length();
 			currentIndex = aString.indexOf(CONSOLE_COVERAGE_SYMBOL);
 			endIndex = currentIndex - 1;

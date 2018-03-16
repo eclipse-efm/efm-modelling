@@ -67,7 +67,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						ATTR_TTCN_ENABLED_GENERATION,
 						"&Generation", comp, false);
 		
-		addField(fTTCNEnabledGenerationBooleanField);
+		addFieldEditor(fTTCNEnabledGenerationBooleanField);
 
 		fTTCNEnabledGenerationBooleanField.addSelectionListener(
 				new SelectionAdapter() {
@@ -85,7 +85,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 						ATTR_TTCN_ENABLED_CUSTOMIZATION,
 						"&Customization", comp,
 						DEFAULT_TTCN_ENABLED_CUSTOMIZATION);
-		addField(fTTCNEnabledAdaptationModuleBooleanField);
+		addFieldEditor(fTTCNEnabledAdaptationModuleBooleanField);
 
 		fTTCNEnabledAdaptationModuleBooleanField.addSelectionListener(
 				new SelectionAdapter() {
@@ -132,7 +132,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				DEFAULT_TTCN_FOLDER_NAME);
 		folderNameStringField.setToolTipText(
 				"Folder name w.r.t. <workspace-root>/<output>");
-		addField(folderNameStringField);
+		addFieldEditor(folderNameStringField);
 	}
 
 	private void createTTCNModuleConfigurationComponent(Composite parent, IWidgetToolkit widgetToolkit) {
@@ -154,7 +154,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		addField( new StringFieldEditor(fConfigurationPage,
+		addFieldEditor( new StringFieldEditor(fConfigurationPage,
 						ATTR_TTCN_CONTROL_MODULE_NAME,
 						"&Name :", comp,
 						DEFAULT_TTCN_CONTROL_MODULE_NAME) );
@@ -167,7 +167,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		addField( new StringFieldEditor(fConfigurationPage,
+		addFieldEditor( new StringFieldEditor(fConfigurationPage,
 						ATTR_TTCN_DECLARATIONS_MODULE_NAME,
 						"&Name :", comp,
 						DEFAULT_TTCN_DECLARATIONS_MODULE_NAME) );
@@ -180,7 +180,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		Composite comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
-		addField( new StringFieldEditor(fConfigurationPage,
+		addFieldEditor( new StringFieldEditor(fConfigurationPage,
 						ATTR_TTCN_TEMPLATES_MODULE_NAME,
 						"&Name :", comp,
 						DEFAULT_TTCN_TEMPLATE_MODULE_NAME) );
@@ -195,7 +195,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		Composite comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
-		addField( new StringFieldEditor(fConfigurationPage,
+		addFieldEditor( new StringFieldEditor(fConfigurationPage,
 						ATTR_TTCN_TESTCASES_MODULE_NAME,
 						"&Name :", comp,
 						DEFAULT_TTCN_TESTCASES_MODULE_NAME) );
@@ -222,7 +222,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		wrapperStringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
-		addField( wrapperStringField );
+		addFieldEditor( wrapperStringField );
 
 		wrapperStringField = new StringFieldEditor(
 				fConfigurationPage, ATTR_TTCN_TESTCASES_ENDING_WRAPPER,
@@ -230,7 +230,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		wrapperStringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
-		addField( wrapperStringField );
+		addFieldEditor( wrapperStringField );
 
 		group = widgetToolkit.createGroup(groupAdapters,
 				"Wrappers for testcases Sending / Receiving Operations",
@@ -249,7 +249,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		wrapperStringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS );
-		addField( wrapperStringField );
+		addFieldEditor( wrapperStringField );
 
 		wrapperStringField = new StringFieldEditor(
 				fConfigurationPage, ATTR_TTCN_TESTCASES_RECEIVING_WRAPPER,
@@ -257,7 +257,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		wrapperStringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS );
-		addField( wrapperStringField );
+		addFieldEditor( wrapperStringField );
 	}
 
 
@@ -270,7 +270,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 		Composite comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
-		addField( new StringFieldEditor(fConfigurationPage,
+		addFieldEditor( new StringFieldEditor(fConfigurationPage,
 					ATTR_TTCN_ADAPTATION_MODULE_NAME, "&Name :",
 					comp, DEFAULT_TTCN_ADAPTATION_MODULE_NAME) );
 
@@ -297,7 +297,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		stringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
-		addField( stringField );
+		addFieldEditor( stringField );
 		
 		group = widgetToolkit.createGroup(groupImpl,
 				"Implementation of testcases Sending wrappers",
@@ -316,7 +316,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		stringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS );
-		addField( stringField );
+		addFieldEditor( stringField );
 
 		group = widgetToolkit.createGroup(groupImpl,
 				"Implementation of testcases Receiving wrappers",
@@ -335,7 +335,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		stringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS );
-		addField( stringField );
+		addFieldEditor( stringField );
 
 
 		group = widgetToolkit.createGroup(groupImpl,
@@ -355,7 +355,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		stringField.setToolTipText(
 				HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS );
-		addField( stringField );
+		addFieldEditor( stringField );
 	}
 
 

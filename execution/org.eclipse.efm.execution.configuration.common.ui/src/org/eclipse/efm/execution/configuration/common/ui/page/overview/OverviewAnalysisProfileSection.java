@@ -18,6 +18,7 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationSection;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
@@ -37,33 +38,34 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 	protected CTabItem fTransitionCoverageTabItem;
 	protected CTabItem fBehaviorSelectionTabItem;
-	
+
 	protected CTabItem fTestOfflineTabItem;
 
 	protected CTabItem fModelAnalysisProfileSelectionTabItem;
-	
+
 
 	public OverviewExplorationConfigurationProfile fExplorationPage;
 
 	public OverviewTransitionCoverageConfigurationProfile fTransitionCoveragePage;
 	public OverviewBehaviorSelectionConfigurationProfile fBehaviorSelectionPage;
-	
+
 	public OverviewTestOfflineConfigurationProfile fTestOfflinePage;
 
 	/////////////////////////////////////
 	// ANALYSIS SELECTION
 	/////////////////////////////////////
 
-	private String fModelAnalysisProfile = ANALYSIS_PROFILE_MODEL_EXPLORATION;
+	private AnalysisProfileKind fModelAnalysisProfile =
+			AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 
 
 	public OverviewAnalysisProfileSection(AbstractConfigurationPage configurationPage)
 	{
 		super(configurationPage);
-		
+
 		fExplorationPage =
 				new OverviewExplorationConfigurationProfile(configurationPage);
-		
+
 		fTransitionCoveragePage =
 				new OverviewTransitionCoverageConfigurationProfile(configurationPage, this);
 
@@ -80,7 +82,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 	}
 
-	
+
 	@Override
 	public String getSectionTitle() {
 		return "Analysis Profile";
@@ -91,12 +93,11 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		return "Select the analysis profile of the model by selecting a tab";
 	}
 
-	
-	public boolean isTransitionCoverage() {
-		return( fModelAnalysisProfile.equals(
-				ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION) );
-	}
 
+	public boolean isTransitionCoverage() {
+		return( fModelAnalysisProfile ==
+				AnalysisProfileKind.ANALYSIS_TRANSITION_COVERAGE_PROFILE );
+	}
 
 
 	@Override
@@ -129,7 +130,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleModelAnalysisProfileSelectionChange();
-				
+
 		        fConfigurationPage.propertyChange(
 		        		new PropertyChangeEvent(this,
 		        				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
@@ -144,11 +145,12 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	private void createExplorationTabItem(IWidgetToolkit widgetToolkit)
 	{
 		fExplorationTabItem = new CTabItem(fTabFolder, SWT.NONE );
-		fExplorationTabItem.setText(ANALYSIS_PROFILE_MODEL_EXPLORATION);
+		fExplorationTabItem.setText(
+				AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE.getLiteral());
 
 		ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
-		
+
 		fExplorationPage.createControl(scrolledComposite, widgetToolkit);
 
 		Composite control = fExplorationPage.getControl();
@@ -164,7 +166,8 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	private void createTransitionCoverageTabItem(IWidgetToolkit widgetToolkit)
 	{
 		fTransitionCoverageTabItem = new CTabItem(fTabFolder, SWT.NONE );
-		fTransitionCoverageTabItem.setText(ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION);
+		fTransitionCoverageTabItem.setText(
+				AnalysisProfileKind.ANALYSIS_TRANSITION_COVERAGE_PROFILE.getLiteral());
 
 		ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
@@ -184,7 +187,8 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	private void createBehaviorSelectionTabItem(IWidgetToolkit widgetToolkit)
 	{
 		fBehaviorSelectionTabItem = new CTabItem(fTabFolder, SWT.NONE );
-		fBehaviorSelectionTabItem.setText(ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR);
+		fBehaviorSelectionTabItem.setText(
+				AnalysisProfileKind.ANALYSIS_BEHAVIOR_SELECTION_PROFILE.getLiteral());
 
 
 		ScrolledComposite scrolledComposite =
@@ -205,7 +209,8 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	private void createTestOfflineTabItem(IWidgetToolkit widgetToolkit)
 	{
 		fTestOfflineTabItem = new CTabItem(fTabFolder, SWT.NONE );
-		fTestOfflineTabItem.setText(ANALYSIS_PROFILE_MODEL_TEST_OFFLINE);
+		fTestOfflineTabItem.setText(
+				AnalysisProfileKind.ANALYSIS_TEST_OFFLINE_PROFILE.getLiteral());
 
 
 		ScrolledComposite scrolledComposite =
@@ -224,25 +229,25 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	}
 
 
-	public void setVisibleModelAnalysisProfilePage(String profile) {
+	public void setVisibleModelAnalysisProfilePage(AnalysisProfileKind profile) {
 		switch ( profile ) {
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
+		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
 			fTabFolder.setSelection( fTransitionCoverageTabItem );
 			break;
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
+		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
 			fTabFolder.setSelection( fBehaviorSelectionTabItem );
 			break;
-		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE:
+		case ANALYSIS_TEST_OFFLINE_PROFILE:
 			fTabFolder.setSelection( (fTestOfflineTabItem != null) ?
 					fTestOfflineTabItem : fExplorationTabItem );
 			break;
 
-		case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+		case ANALYSIS_EXPLORATION_PROFILE:
 		default:
 			fTabFolder.setSelection( fExplorationTabItem );
 			break;
 		}
-		
+
 		handleModelAnalysisProfileSelectionChange();
 	}
 
@@ -253,25 +258,26 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		if( fModelAnalysisProfileSelectionTabItem != null ) {
 			fModelAnalysisProfileSelectionTabItem.setImage(null);
 		}
-		
+
 		fModelAnalysisProfileSelectionTabItem =
 				fTabFolder.getItem( fTabFolder.getSelectionIndex() );
-		fModelAnalysisProfile = fModelAnalysisProfileSelectionTabItem.getText();
-		
+		fModelAnalysisProfile = AnalysisProfileKind.get(
+				fModelAnalysisProfileSelectionTabItem.getText());
+
 		fModelAnalysisProfileSelectionTabItem.setImage(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__VALIDATE_ICON).createImage());
+				ImageResources.getImage(ImageResources.IMAGE__VALIDATE_ICON));
 	}
 
 
 	///////////////////////////////////////////////////////////////////////////
 	// Fields Editors API
 	///////////////////////////////////////////////////////////////////////////
-	
+
+	@Override
 	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
-				ANALYSIS_PROFILE_MODEL_EXPLORATION);
+				AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE.getLiteral());
 
 		// MODEL EXPLORATION
 		fExplorationPage.setDefaults(configuration);
@@ -288,16 +294,24 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 	}
 
+	@Override
 	public void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
-			fModelAnalysisProfile = configuration.getAttribute(
+			final String strModelAnalysisProfile = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
-					ANALYSIS_PROFILE_MODEL_EXPLORATION);
+					AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE.getLiteral());
+
+	        fConfigurationPage.propertyChange(
+	        		new PropertyChangeEvent(this,
+	        				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
+	        				fModelAnalysisProfile, fModelAnalysisProfile) );
+
+			fModelAnalysisProfile = AnalysisProfileKind.get(strModelAnalysisProfile);
 		}
 		catch (CoreException e) {
 			e.printStackTrace();
-			
-			fModelAnalysisProfile = ANALYSIS_PROFILE_MODEL_EXPLORATION;
+
+			fModelAnalysisProfile = AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		}
 
 		setVisibleModelAnalysisProfilePage( fModelAnalysisProfile );
@@ -321,11 +335,13 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	}
 
 
+	@Override
 	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
-				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE, fModelAnalysisProfile);
+				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
+				fModelAnalysisProfile.getLiteral());
 		//System.err.println("+++++" + fModelAnalysisProfile);
-		
+
 		// MODEL EXPLORATION
 		fExplorationPage.performApply(configuration);
 
@@ -348,7 +364,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	@Override
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
 		switch( fModelAnalysisProfile ) {
-		case ANALYSIS_PROFILE_MODEL_EXPLORATION: {
+		case ANALYSIS_EXPLORATION_PROFILE: {
 			// MODEL EXPLORATION ANALYSIS
 			if( ! fExplorationPage.isValid(launchConfig) )
 			{
@@ -358,7 +374,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			break;
 		}
 
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR: {
+		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE: {
 			// BEHAVIOR SELECTION ANALYSIS
 			if( ! fBehaviorSelectionPage.isValid(launchConfig) )
 			{
@@ -367,7 +383,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 			break;
 		}
-		case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION: {
+		case ANALYSIS_TRANSITION_COVERAGE_PROFILE: {
 			// TRANSITION COVERAGE ANALYSIS
 			if( ! fTransitionCoveragePage.isValid(launchConfig) )
 			{
@@ -377,7 +393,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			break;
 		}
 
-		case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE: {
+		case ANALYSIS_TEST_OFFLINE_PROFILE: {
 			// TEST OFFLINE // INCUBATION MODE
 			if( fTestOfflinePage != null ) {
 				if( ! fTestOfflinePage.isValid(launchConfig) )
@@ -395,21 +411,21 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 		return true;
 	}
-	
+
 
 	///////////////////////////////////////////////////////////////////////////
 	// Property Change
 	//
 	@Override
 	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
-		fExplorationPage.handleConfigurationPropertyChange(event); 
-		
-		fTransitionCoveragePage.handleConfigurationPropertyChange(event); 
-		
-		fBehaviorSelectionPage.handleConfigurationPropertyChange(event); 
-		
+		fExplorationPage.handleConfigurationPropertyChange(event);
+
+		fTransitionCoveragePage.handleConfigurationPropertyChange(event);
+
+		fBehaviorSelectionPage.handleConfigurationPropertyChange(event);
+
 		if( fTestOfflinePage != null ) {
-			fTestOfflinePage.handleConfigurationPropertyChange(event); 
+			fTestOfflinePage.handleConfigurationPropertyChange(event);
 		}
 	}
 

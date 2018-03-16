@@ -90,6 +90,17 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 		super(masterGUIelement);
 	}
 
+	@Override
+	public String getSectionTitle() {
+		return "NonRegression";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "NonRegression";
+	}
+
+
 	private class TabListener extends SelectionAdapter implements ModifyListener {
 
 		/* (non-Javadoc)
@@ -197,6 +208,7 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
         fNonRegressionBooleanField = new BooleanFieldEditor(this,
         		ATTR_ENABLED_NON_REGRESSION,
         		"&Non Regression Execution", comp, false);
+        addFieldEditor(fNonRegressionBooleanField);
 	}
 
 	private void createModelFileSelectionComponent(
@@ -224,7 +236,7 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 		ld.marginHeight = 1;
 		ld.marginWidth = 0;
 
-		fModelWorkspaceBrowse = widgetToolkit.createPushButton(bcomp, "&Workspace...");
+		fModelWorkspaceBrowse = widgetToolkit.createPushButton(bcomp, "&Workspace...", null);
 		fModelWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -595,12 +607,13 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_PROJECT_NAME, "<project location>");
 
 		configuration.setAttribute(
-				ATTR_SPECIFICATION_MODEL_FILE_LOCATION, "<model file location>");
+				ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
+				DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
 
 		configuration.setAttribute(
 				ATTR_BASIC_TRANSITION_BUTTON, "All");
@@ -610,16 +623,14 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 	}
 
 	@Override
-	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
+	public void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
-			fNonRegressionBooleanField.initializeFrom(configuration);
-
 			fProjectName = configuration.getAttribute(
 					ATTR_SPECIFICATION_PROJECT_NAME, "");
 
 			specMainFileLocation = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
-					"<model file location>");
+					DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
 			fModelPathText.setText(specMainFileLocation);
 			if( ! fModelPathText.getText().equals(currentModelPath) ) {
 				currentModelPath = fModelPathText.getText();
@@ -661,9 +672,7 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 	}
 
 	@Override
-	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
-		fNonRegressionBooleanField.performApply(configuration);
-
+	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_PROJECT_NAME, fProjectName);
 
@@ -686,13 +695,13 @@ public class NonRegressionConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
 		if( fNonRegressionCaseButton.equals("Details") &&
 			 ( selectedTransitions.size() == 0 ) ) {
 			return new FieldValidationReturn(false,
 					"You must select at least one transition");
 		}
-		
+
 		return new FieldValidationReturn(true, null);
 	}
 }

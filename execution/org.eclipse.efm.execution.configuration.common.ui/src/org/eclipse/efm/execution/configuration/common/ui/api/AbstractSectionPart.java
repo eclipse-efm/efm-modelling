@@ -19,25 +19,28 @@ import java.util.List;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
+import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractSectionPart {
-	
+
     /**
      * The field editors, or <code>null</code> if not created yet.
      */
     private List<FieldEditor> fFields = null;
 
+    private List<TraceElementTableViewer> fTables = null;
+
 
 	private Composite fSection;
-	
+
 	private Composite fSectionClient;
 
-	
+
 	public AbstractSectionPart() {
 		this.fFields = null;
-		
+
 		this.fSection = null;
 		this.fSectionClient = null;
 	}
@@ -47,27 +50,27 @@ public abstract class AbstractSectionPart {
 
 	public abstract String getSectionDescription();
 
-	
+
 	// The Section part
 	public Composite getSection() {
 		return fSection;
 	}
-	
+
 	public void setSection(Composite section) {
 		fSection = section;
 	}
-	
-	
+
+
 	// The Client of the Section
 	public Composite getSectionClient() {
 		return fSectionClient;
 	}
-	
+
 	public void setSectionClient(Composite sectionClient) {
 		fSectionClient = sectionClient;
 	}
 
-	
+
 	public Composite getControl() {
 		return fSection;
 	}
@@ -76,12 +79,12 @@ public abstract class AbstractSectionPart {
 	///////////////////////////////////////////////////////////////////////////
 	// Fields Editors API
 	///////////////////////////////////////////////////////////////////////////
-	
+
     /**
      * Adds the given field editor to this page.
      * @param editor the field editor
      */
-    protected void addField(FieldEditor editor) {
+    protected void addFieldEditor(FieldEditor editor) {
         if (fFields == null) {
 			fFields = new ArrayList<>();
 		}
@@ -92,8 +95,31 @@ public abstract class AbstractSectionPart {
 		return fFields;
 	}
 
-	
-	
+
+	///////////////////////////////////////////////////////////////////////////
+	// Fields Editors API
+	///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Adds the given field editor to this page.
+     * @param editor the field editor
+     */
+    protected void addTableViewer(TraceElementTableViewer tableViewer) {
+        if (fTables == null) {
+        	fTables = new ArrayList<>();
+		}
+        fTables.add(tableViewer);
+    }
+
+	public List<TraceElementTableViewer> getTableViewers() {
+		return fTables;
+	}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// ILaunchConfiguration API
+	///////////////////////////////////////////////////////////////////////////
+
 	abstract protected void setDefaultsImpl(
 			ILaunchConfigurationWorkingCopy configuration);
 
@@ -104,11 +130,17 @@ public abstract class AbstractSectionPart {
 				fieldEditor.setDefaults(configuration);
 			}
 		}
-		
+
+		if( fTables != null ) {
+			for (TraceElementTableViewer tableEditor : fTables) {
+				tableEditor.setDefaults(configuration);
+			}
+		}
+
 		setDefaultsImpl(configuration);
 	}
 
-	
+
 	abstract protected void initializeFromImpl(ILaunchConfiguration configuration);
 
 	public final void initializeFrom(ILaunchConfiguration configuration) {
@@ -117,11 +149,17 @@ public abstract class AbstractSectionPart {
 				fieldEditor.initializeFrom(configuration);
 			}
 		}
-		
+
+		if( fTables != null ) {
+			for (TraceElementTableViewer tableEditor : fTables) {
+				tableEditor.initializeFrom(configuration);
+			}
+		}
+
 		initializeFromImpl( configuration );
 	}
 
-	
+
 	abstract protected void performApplyImpl(
 			ILaunchConfigurationWorkingCopy configuration);
 
@@ -132,7 +170,13 @@ public abstract class AbstractSectionPart {
 				fieldEditor.performApply(configuration);
 			}
 		}
-		
+
+		if( fTables != null ) {
+			for (TraceElementTableViewer tableEditor : fTables) {
+				tableEditor.performApply(configuration);
+			}
+		}
+
 		performApplyImpl(configuration);
 	}
 
@@ -148,6 +192,14 @@ public abstract class AbstractSectionPart {
 					}
 				}
 			}
+
+			if( fTables != null ) {
+				for (TraceElementTableViewer tableEditor : fTables) {
+					if( ! tableEditor.isValid(launchConfig) ) {
+						return false;
+					}
+				}
+			}
 			return true;
 		}
 		return false;
@@ -158,7 +210,7 @@ public abstract class AbstractSectionPart {
 	// Property Change
 	//
 	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
-		//!! Default 
+		//!! Default
 	}
 
 }

@@ -23,6 +23,7 @@ import org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue;
 import org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.RedundancyDetection;
+import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
 import org.eclipse.efm.execution.core.workflow.impl.SupervisorWorkerImpl;
 
@@ -142,23 +143,12 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 //		supervisor.setManifest( ManifestCustomImpl.create(true) );
 
 		// EXECUTION EXTENDER
-		String strObjective;
-		try {
-			strObjective = configuration.getAttribute(
-					ATTR_TRACE_EXTENSION_OBJECTIVE,
-					DEFAULT_TRACE_EXTENSION_OBJECTIVE);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
-
-			strObjective = DEFAULT_TRACE_EXTENSION_OBJECTIVE;
-		}
-		if( (strObjective == null) || strObjective.isEmpty() ) {
-			strObjective = DEFAULT_TRACE_EXTENSION_OBJECTIVE;
-		}
-
 		TraceSpecificationCustomImpl extender =
-				TraceSpecificationCustomImpl.create("extender", strObjective);
+				TraceSpecificationCustomImpl.create(
+						"extender", configuration,
+						ATTR_TRACE_EXTENSION_OBJECTIVE,
+						DEFAULT_TRACE_EXTENSION_OBJECTIVE,
+						TraceElementKind.UNDEFINED);
 
 		extender.setDescription(
 				"Extension of Traces to reach observables for tests purpose" );

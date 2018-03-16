@@ -93,6 +93,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case CommonPackage.ANALYSIS_PROFILE_KIND:
+				return createAnalysisProfileKindFromString(eDataType, initialValue);
 			case CommonPackage.GRAPH_EXPLORATION_STRATEGY_KIND:
 				return createGraphExplorationStrategyKindFromString(eDataType, initialValue);
 			case CommonPackage.CONSOLE_VERBOSITY_KIND:
@@ -120,6 +122,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case CommonPackage.ANALYSIS_PROFILE_KIND:
+				return convertAnalysisProfileKindToString(eDataType, instanceValue);
 			case CommonPackage.GRAPH_EXPLORATION_STRATEGY_KIND:
 				return convertGraphExplorationStrategyKindToString(eDataType, instanceValue);
 			case CommonPackage.CONSOLE_VERBOSITY_KIND:
@@ -267,6 +271,26 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	public RedundancyDetection createRedundancyDetection() {
 		RedundancyDetectionImpl redundancyDetection = new RedundancyDetectionImpl();
 		return redundancyDetection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AnalysisProfileKind createAnalysisProfileKindFromString(EDataType eDataType, String initialValue) {
+		AnalysisProfileKind result = AnalysisProfileKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAnalysisProfileKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

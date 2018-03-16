@@ -12,9 +12,6 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.core.workflow.coverage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
@@ -26,8 +23,6 @@ import org.eclipse.efm.execution.core.workflow.common.CoverageHeuristic;
 import org.eclipse.efm.execution.core.workflow.common.CoverageScopeKind;
 import org.eclipse.efm.execution.core.workflow.common.HeuristicClassKind;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
-import org.eclipse.efm.execution.core.workflow.common.TraceElement;
-import org.eclipse.efm.execution.core.workflow.common.TraceElementCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
 import org.eclipse.efm.execution.core.workflow.coverage.impl.TransitionCoverageWorkerImpl;
@@ -130,30 +125,13 @@ public class TransitionCoverageWorkerCustomImpl extends TransitionCoverageWorker
 		{
 			coverageWorker.setScope( CoverageScopeKind.DETAILS );
 
-			List< String > transitions;
-			try {
-				transitions = configuration.getAttribute(
-						ATTR_TRANSITION_COVERAGE_SELECTION, new ArrayList<String>());
-			}
-			catch( CoreException e ) {
-				e.printStackTrace();
-
-				transitions = null;
-			}
-
-			if( (transitions != null) && (! transitions.isEmpty()) ) {
-				TraceSpecificationCustomImpl trace =
-						TraceSpecificationCustomImpl.create("details");
+			TraceSpecificationCustomImpl trace =
+					TraceSpecificationCustomImpl.create(
+							"details", configuration,
+							ATTR_TRANSITION_COVERAGE_SELECTION,
+							TraceElementKind.UNDEFINED);
 
 				coverageWorker.setTrace( trace );
-
-				List< TraceElement > elements = trace.getElement();
-
-				for (String transition : transitions) {
-					elements.add( new TraceElementCustomImpl(
-							TraceElementKind.TRANSITION, transition) );
-				}
-			}
 		}
 
 		ConsoleLogFormatCustomImpl console =

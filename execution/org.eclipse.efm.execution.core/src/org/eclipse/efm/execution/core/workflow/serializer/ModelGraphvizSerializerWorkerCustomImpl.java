@@ -15,8 +15,8 @@ package org.eclipse.efm.execution.core.workflow.serializer;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
+import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.core.workflow.Director;
-import org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOptionCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphVizSerializerWorkerImpl;
@@ -57,8 +57,7 @@ public class ModelGraphvizSerializerWorkerCustomImpl extends SymbexGraphVizSeria
 //
 //		serializerWorker.setFormat( format );
 
-		String modelFilename =
-				DeveloperTuningOptionCustomImpl.getModelFilename(configuration);
+		String modelFilename = WorkflowFileUtils.getModelBasename(configuration);
 
 		serializerWorker.setFileName(modelFilename + "_graph.gv");
 

@@ -127,8 +127,19 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 	private BooleanFieldEditor fNothingEnabledBooleanField;
 	private BooleanFieldEditor fGodModeEnabledBooleanField;
 
+
 	public DeveloperTuningConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
+	}
+
+	@Override
+	public String getSectionTitle() {
+		return "Developer Tuning";
+	}
+
+	@Override
+	public String getSectionDescription() {
+		return "Developer Tuning page";
 	}
 
 
@@ -218,7 +229,6 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 		fDeveloperModeEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_DEVELOPER_TUNING, "&Developer Mode", comp, false);
-		
 		fDeveloperModeEnabledBooleanField.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
@@ -227,6 +237,7 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 								fDeveloperModeEnabledBooleanField.getBooleanValue() );
 					}
 				});
+		addFieldEditor(fDeveloperModeEnabledBooleanField);
 
 		comp = widgetToolkit.createComposite(
 				parent, 1, 5, GridData.FILL_HORIZONTAL);
@@ -234,10 +245,12 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 		fLogFileNameStringField = new StringFieldEditor(this,
 				ATTR_DEVELOPER_TUNING_LOG_FILENAME, "&Log File :",comp,
 				DEFAULT_DEVELOPER_TUNING_LOG_FILENAME);
+		addFieldEditor(fLogFileNameStringField);
 
 		fDebugTraceFileNameStringField = new StringFieldEditor(this,
 				ATTR_DEVELOPER_TUNING_DEBUG_FILENAME, "&Debug File :", comp,
 				DEFAULT_DEVELOPER_TUNING_DEBUG_FILENAME);
+		addFieldEditor(fDebugTraceFileNameStringField);
 
 
 		fDebugTraceLevelLabel = widgetToolkit.createLabel(comp, "&Debug Level :", 1);
@@ -262,27 +275,35 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 		fParsingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_PARSING, "&PARSING", comp, false);
+		addFieldEditor(fParsingEnabledBooleanField);
 
 		fConfigureEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_CONFIGURING, "CONFIGURING", comp, false);
+		addFieldEditor(fConfigureEnabledBooleanField);
 
 		fCompilingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_COMPILING, "COMPILING", comp, false);
+		addFieldEditor(fCompilingEnabledBooleanField);
 
 		fLoadingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_LOADING, "LOADING", comp, false);
+		addFieldEditor(fLoadingEnabledBooleanField);
 
 		fComputingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_COMPUTING, "COMPUTING", comp, false);
+		addFieldEditor(fComputingEnabledBooleanField);
 
 		fReportingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_REPORTING, "REPORTING", comp, false);
+		addFieldEditor(fReportingEnabledBooleanField);
 
 		fSolverEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_SOLVING, "SOLVING [SAT,SMT] ", comp, false);
+		addFieldEditor(fSolverEnabledBooleanField);
 
 		fProfilingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_PROFILING, "PROFILING", comp, false);
+		addFieldEditor(fProfilingEnabledBooleanField);
 
 
 		// Process Stage: Processing, Filtering, ...
@@ -295,31 +316,39 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 		fSymbexProcessEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_ALL_PROCESS_STAGE,
 				"ALL_PROCESS_STAGE", comp, false);
+		addFieldEditor(fSymbexProcessEnabledBooleanField);
 
 		fPreProcessingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_PRE_PROCESSING,
 				"PRE_PROCESSING", comp, false);
+		addFieldEditor(fPreProcessingEnabledBooleanField);
 
 		fPostProcessingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_POST_PROCESSING,
 				"POST_PROCESSING", comp, false);
+		addFieldEditor(fPostProcessingEnabledBooleanField);
 
 		fProcessingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_PROCESSING, "PROCESSING", comp, false);
+		addFieldEditor(fProcessingEnabledBooleanField);
 
 		fPreFilteringEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_PRE_FILTERING,
 				"PRE_FILTERING", comp, false);
+		addFieldEditor(fPreFilteringEnabledBooleanField);
 
 		fPostFilteringEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_POST_FILTERING,
 				"POST_FILTERING", comp, false);
+		addFieldEditor(fPostFilteringEnabledBooleanField);
 
 		fFilteringEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_FILTERING, "FILTERING", comp, false);
+		addFieldEditor(fFilteringEnabledBooleanField);
 
 		fQueueEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_QUEUE, "SYMBEX QUEUE", comp, false);
+		addFieldEditor(fQueueEnabledBooleanField);
 
 
 		// Statement Evaluation
@@ -331,30 +360,38 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 		fProgramEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_PROGRAM, "PROGRAM", comp, false);
+		addFieldEditor(fProgramEnabledBooleanField);
 
 		fStatementEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_STATEMENT, "STATEMENT", comp, false);
+		addFieldEditor(fStatementEnabledBooleanField);
 
 		fStatementAssignEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_STATEMENT_ASSIGNMENT,
 				"ASSIGNMENT", comp, false);
+		addFieldEditor(fStatementAssignEnabledBooleanField);
 
 		fStatementCommunicationEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_TRACE_STATEMENT_COMMUNICATION,
 				"COMMUNICATION", comp, false);
+		addFieldEditor(fStatementCommunicationEnabledBooleanField);
 
 		fStatementDecisionEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_STATEMENT_TEST_DECISION,
 				"TEST DECISION", comp, false);
+		addFieldEditor(fStatementDecisionEnabledBooleanField);
 
 		fStatementBytecodeEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_BYTECODE, "BYTECODE", comp, false);
+		addFieldEditor(fStatementBytecodeEnabledBooleanField);
 
 		fDataEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_DATA, "DATA", comp, false);
+		addFieldEditor(fDataEnabledBooleanField);
 
 		fTraceEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_TRACE, "TRACE [POINT]", comp, false);
+		addFieldEditor(fTraceEnabledBooleanField);
 
 
 		// Element: Property, Signal...
@@ -366,21 +403,27 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 		fVariableEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_VARIABLE, "VARIABLE", comp, false);
+		addFieldEditor(fVariableEnabledBooleanField);
 
 		fBufferEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_BUFFER, "BUFFER", comp, false);
+		addFieldEditor(fBufferEnabledBooleanField);
 
 		fPortEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_PORT, "PORT", comp, false);
+		addFieldEditor(fPortEnabledBooleanField);
 
 		fSignalEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_SIGNAL, "SIGNAL", comp, false);
+		addFieldEditor(fSignalEnabledBooleanField);
 
 		fConnexionEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_CONNEXION, "CONNEXION", comp, false);
+		addFieldEditor(fConnexionEnabledBooleanField);
 
 		fTimeEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_TIME, "TIME", comp, false);
+		addFieldEditor(fTimeEnabledBooleanField);
 
 
 		// Executable Component...
@@ -392,21 +435,27 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 		fExecutableEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_EXECUTABLE, "EXECUTABLE", comp, false);
+		addFieldEditor(fExecutableEnabledBooleanField);
 
 		fActivityEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_ACTIVITY, "ACTIVITY", comp, false);
+		addFieldEditor(fActivityEnabledBooleanField);
 
 		fRoutineEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_ROUTINE, "ROUTINE", comp, false);
+		addFieldEditor(fRoutineEnabledBooleanField);
 
 		fTransitionEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_TRANSITION, "TRANSITION", comp, false);
+		addFieldEditor(fTransitionEnabledBooleanField);
 
 		fMachineEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_MACHINE, "MACHINE", comp, false);
+		addFieldEditor(fMachineEnabledBooleanField);
 
 		fStatemachineEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_STATEMACHINE, "STATEMACHINE", comp, false);
+		addFieldEditor(fStatemachineEnabledBooleanField);
 
 
 		// Others: [Qualified]NameID, RefCount, ...
@@ -419,24 +468,30 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 		fNameIdEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_NAME_ID, "NAME_ID", comp, false);
+		addFieldEditor(fNameIdEnabledBooleanField);
 
 		fQualifiedNameIdEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_QUALIFIED_NAME_ID,
 				"QUALIFIED_NAME_ID", comp, false);
+		addFieldEditor(fQualifiedNameIdEnabledBooleanField);
 
 		fFullyQualifiedNameIdEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_FULLY_QUALIFIED_NAME_ID,
 				"FULLY_QUALIFIED_NAME_ID", comp, false);
+		addFieldEditor(fFullyQualifiedNameIdEnabledBooleanField);
 
 		fRedundanceEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_REDUNDANCE, "REDUNDANCE", comp, false);
+		addFieldEditor(fRedundanceEnabledBooleanField);
 
 		fReferenceCountingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_REFERENCE_COUNTING,
 				"REFERENCE_COUNTING", comp, false);
+		addFieldEditor(fReferenceCountingEnabledBooleanField);
 
 		fNothingEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_NOTHING, "NOTHING", comp, false);
+		addFieldEditor(fNothingEnabledBooleanField);
 
 		// God Mode
 		comp = widgetToolkit.createComposite(
@@ -444,6 +499,7 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 		fGodModeEnabledBooleanField = new BooleanFieldEditor(this,
 				ATTR_ENABLED_TRACE_GOD_MODE, "GOD_MODE", comp, false);
+		addFieldEditor(fGodModeEnabledBooleanField);
 	}
 
 	// ======================================================================================
@@ -452,7 +508,7 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 
 
 	@Override
-	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 //		fDeveloperModeEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(ATTR_ENABLED_DEVELOPER_TUNING, false);
 
@@ -612,11 +668,7 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 	}
 
 	@Override
-	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
-		fDeveloperModeEnabledBooleanField.initializeFrom(configuration);
-		fLogFileNameStringField.initializeFrom(configuration);
-		fDebugTraceFileNameStringField.initializeFrom(configuration);
-
+	public void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
 			fDebugTraceLevel = DebuglevelKind.get(
 					configuration.getAttribute(
@@ -633,71 +685,6 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 			fDebugTraceLevel = DebuglevelKind.ZERO;
 		}
 		initializeTraceLevel();
-
-
-		fParsingEnabledBooleanField.initializeFrom(configuration);
-		fConfigureEnabledBooleanField.initializeFrom(configuration);
-		fCompilingEnabledBooleanField.initializeFrom(configuration);
-
-		fLoadingEnabledBooleanField.initializeFrom(configuration);
-		fComputingEnabledBooleanField.initializeFrom(configuration);
-		fReportingEnabledBooleanField.initializeFrom(configuration);
-
-		fSolverEnabledBooleanField.initializeFrom(configuration);
-		fProfilingEnabledBooleanField.initializeFrom(configuration);
-
-		// Process Stage: Processing, Filtering, ...
-		fSymbexProcessEnabledBooleanField.initializeFrom(configuration);
-
-		fPreProcessingEnabledBooleanField.initializeFrom(configuration);
-		fPostProcessingEnabledBooleanField.initializeFrom(configuration);
-		fProcessingEnabledBooleanField.initializeFrom(configuration);
-
-		fPreFilteringEnabledBooleanField.initializeFrom(configuration);
-		fPostFilteringEnabledBooleanField.initializeFrom(configuration);
-		fFilteringEnabledBooleanField.initializeFrom(configuration);
-
-		fQueueEnabledBooleanField.initializeFrom(configuration);
-
-
-		// Statement Evaluation
-		fProgramEnabledBooleanField.initializeFrom(configuration);
-		fStatementEnabledBooleanField.initializeFrom(configuration);
-		fStatementAssignEnabledBooleanField.initializeFrom(configuration);
-		fStatementCommunicationEnabledBooleanField.initializeFrom(configuration);
-		fStatementDecisionEnabledBooleanField.initializeFrom(configuration);
-		fStatementBytecodeEnabledBooleanField.initializeFrom(configuration);
-
-		fDataEnabledBooleanField.initializeFrom(configuration);
-		fTraceEnabledBooleanField.initializeFrom(configuration);
-
-		// Element: Property, Signal...
-		fVariableEnabledBooleanField.initializeFrom(configuration);
-		fBufferEnabledBooleanField.initializeFrom(configuration);
-		fPortEnabledBooleanField.initializeFrom(configuration);
-		fSignalEnabledBooleanField.initializeFrom(configuration);
-		fConnexionEnabledBooleanField.initializeFrom(configuration);
-		fTimeEnabledBooleanField.initializeFrom(configuration);
-
-		// Executable Component...
-		fExecutableEnabledBooleanField.initializeFrom(configuration);
-		fActivityEnabledBooleanField.initializeFrom(configuration);
-		fRoutineEnabledBooleanField.initializeFrom(configuration);
-		fTransitionEnabledBooleanField.initializeFrom(configuration);
-		fMachineEnabledBooleanField.initializeFrom(configuration);
-		fStatemachineEnabledBooleanField.initializeFrom(configuration);
-
-		// Others: [Qualified]NameID, RefCount, ...
-		fNameIdEnabledBooleanField.initializeFrom(configuration);
-		fQualifiedNameIdEnabledBooleanField.initializeFrom(configuration);
-		fFullyQualifiedNameIdEnabledBooleanField.initializeFrom(configuration);
-
-		fRedundanceEnabledBooleanField.initializeFrom(configuration);
-		fReferenceCountingEnabledBooleanField.initializeFrom(configuration);
-
-		// God Mode
-		fNothingEnabledBooleanField.initializeFrom(configuration);
-		fGodModeEnabledBooleanField.initializeFrom(configuration);
 
 		setEnableDeveloperTuningOptionsPage(
 				fDeveloperModeEnabledBooleanField.getBooleanValue() );
@@ -732,79 +719,10 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 	}
 
 	@Override
-	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
-		fDeveloperModeEnabledBooleanField.performApply(configuration);
-
-		fLogFileNameStringField.performApply(configuration);
-		fDebugTraceFileNameStringField.performApply(configuration);
-
+	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_DEVELOPER_TUNING_DEBUG_LEVEL,
 				fDebugTraceLevel.getLiteral());
-
-		// General Context
-		fParsingEnabledBooleanField.performApply(configuration);
-		fConfigureEnabledBooleanField.performApply(configuration);
-		fCompilingEnabledBooleanField.performApply(configuration);
-
-		fLoadingEnabledBooleanField.performApply(configuration);
-		fComputingEnabledBooleanField.performApply(configuration);
-		fReportingEnabledBooleanField.performApply(configuration);
-
-		fSolverEnabledBooleanField.performApply(configuration);
-		fProfilingEnabledBooleanField.performApply(configuration);
-
-		// Process Stage: Processing, Filtering, ...
-		fSymbexProcessEnabledBooleanField.performApply(configuration);
-
-		fPreProcessingEnabledBooleanField.performApply(configuration);
-		fPostProcessingEnabledBooleanField.performApply(configuration);
-		fProcessingEnabledBooleanField.performApply(configuration);
-
-		fPreFilteringEnabledBooleanField.performApply(configuration);
-		fPostFilteringEnabledBooleanField.performApply(configuration);
-		fFilteringEnabledBooleanField.performApply(configuration);
-
-		fQueueEnabledBooleanField.performApply(configuration);
-
-		// Statement Evaluation
-		fProgramEnabledBooleanField.performApply(configuration);
-		fStatementEnabledBooleanField.performApply(configuration);
-		fStatementAssignEnabledBooleanField.performApply(configuration);
-		fStatementCommunicationEnabledBooleanField.performApply(configuration);
-		fStatementDecisionEnabledBooleanField.performApply(configuration);
-		fStatementBytecodeEnabledBooleanField.performApply(configuration);
-
-		fDataEnabledBooleanField.performApply(configuration);
-		fTraceEnabledBooleanField.performApply(configuration);
-
-		// Element: Property, Signal...
-		fVariableEnabledBooleanField.performApply(configuration);
-		fBufferEnabledBooleanField.performApply(configuration);
-		fPortEnabledBooleanField.performApply(configuration);
-		fSignalEnabledBooleanField.performApply(configuration);
-		fConnexionEnabledBooleanField.performApply(configuration);
-		fTimeEnabledBooleanField.performApply(configuration);
-
-		// Executable Component...
-		fExecutableEnabledBooleanField.performApply(configuration);
-		fActivityEnabledBooleanField.performApply(configuration);
-		fRoutineEnabledBooleanField.performApply(configuration);
-		fTransitionEnabledBooleanField.performApply(configuration);
-		fMachineEnabledBooleanField.performApply(configuration);
-		fStatemachineEnabledBooleanField.performApply(configuration);
-
-		// Others: [Qualified]NameID, RefCount, ...
-		fNameIdEnabledBooleanField.performApply(configuration);
-		fQualifiedNameIdEnabledBooleanField.performApply(configuration);
-		fFullyQualifiedNameIdEnabledBooleanField.performApply(configuration);
-
-		fRedundanceEnabledBooleanField.performApply(configuration);
-		fReferenceCountingEnabledBooleanField.performApply(configuration);
-
-		// God Mode
-		fNothingEnabledBooleanField.performApply(configuration);
-		fGodModeEnabledBooleanField.performApply(configuration);
 	}
 
 	// ======================================================================================
@@ -812,7 +730,7 @@ public class DeveloperTuningConfigurationPage extends AbstractConfigurationPage 
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
 		return new FieldValidationReturn(true, null);
 	}
 

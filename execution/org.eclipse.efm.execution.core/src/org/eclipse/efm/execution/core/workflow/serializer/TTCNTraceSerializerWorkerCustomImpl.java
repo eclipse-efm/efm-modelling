@@ -12,12 +12,15 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.core.workflow.serializer;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
+import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.impl.TTCNTraceSerializerImpl;
 
@@ -59,25 +62,19 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 //		serializerWorker.setFormat( format );
 //
 //
-		String specification = DEFAULT_TTCN_TRACE_SPECIFICATION;
+		List<String> specification = DEFAULT_TTCN_TRACE_SPECIFICATION;
 
-//		try {
-//			specification = configuration.getAttribute(
-//					ATTR_TTCN_TRACE_SPECIFICATION,
-//					DEFAULT_TTCN_TRACE_SPECIFICATION);
-//		}
-//		catch( CoreException e ) {
-//			e.printStackTrace();
-//
-//			specification = DEFAULT_TTCN_TRACE_SPECIFICATION;
-//		}
+		TraceSpecificationCustomImpl trace =
+				TraceSpecificationCustomImpl.create("trace",
+						specification, TraceElementKind.UNDEFINED);
+//		TraceSpecificationCustomImpl trace =
+//				TraceSpecificationCustomImpl.create(
+//						"trace", configuration,
+//						ATTR_TTCN_TRACE_SPECIFICATION,
+//						DEFAULT_TTCN_TRACE_SPECIFICATION,
+//						TraceElementKind.UNDEFINED);
 
-		if( (specification != null) && (! specification.isEmpty()) ) {
-			TraceSpecificationCustomImpl trace =
-					TraceSpecificationCustomImpl.create("trace", specification);
-
-			serializerWorker.setTrace( trace );
-		}
+		serializerWorker.setTrace( trace );
 
 
 		String str;

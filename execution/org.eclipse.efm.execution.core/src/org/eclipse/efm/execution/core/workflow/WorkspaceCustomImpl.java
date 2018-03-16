@@ -30,19 +30,18 @@ public class WorkspaceCustomImpl extends WorkspaceImpl
 
 
 	public static WorkspaceCustomImpl create(
-			ILaunchConfiguration configuration, IPath rootPath) {
+			ILaunchConfiguration configuration, IPath workingPathPath) {
 		WorkspaceCustomImpl workspace = new WorkspaceCustomImpl();
 
 		Location location = CommonFactory.eINSTANCE.createLocation();
 
-		location.setRoot( rootPath.toString() );
+		location.setRoot( workingPathPath.toString() );
 
 		String str;
-
 		try {
 			str = configuration.getAttribute(
-					ATTR_WORKSPACE_OUTPUT_FOLDER_NAME,
-					DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
+				 ATTR_WORKSPACE_OUTPUT_FOLDER_NAME,
+				DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
 		}
 		catch( CoreException e ) {
 			e.printStackTrace();

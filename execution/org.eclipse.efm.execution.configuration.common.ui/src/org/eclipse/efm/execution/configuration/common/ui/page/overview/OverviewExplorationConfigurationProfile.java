@@ -19,6 +19,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 //import org.eclipse.efm.execution.configuration.common.ui.page.supervisor.SupervisorEvaluationLimitsSection;
 //import org.eclipse.efm.execution.configuration.common.ui.page.supervisor.SupervisorGraphSizeLimitsSection;
 import org.eclipse.efm.execution.core.workflow.common.GraphExplorationStrategyKind;
@@ -41,10 +42,10 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 	private GraphExplorationStrategyKind fAnalyzeStrategy =
 		GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
-	
-	
+
+
 //	private SupervisorGraphSizeLimitsSection  fGraphSizeLimitsSection;
-//	
+//
 //	private SupervisorEvaluationLimitsSection fEvaluationLimitsSection;
 
 
@@ -52,16 +53,16 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	private BooleanFieldEditor fApplyInclusionBooleanField;
 	private Composite fLoopDetectionTrivialComposite;
 
-	
+
 	/**
 	 * Constructor
 	 * @param parentTab
 	 */
 	public OverviewExplorationConfigurationProfile(AbstractConfigurationPage configurationPage) {
 		super(configurationPage);
-		
+
 //		fGraphSizeLimitsSection  = new SupervisorGraphSizeLimitsSection(configurationPage);
-//		
+//
 //		fEvaluationLimitsSection = new SupervisorEvaluationLimitsSection(configurationPage);
 	}
 
@@ -77,7 +78,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 				+ "set a limitation in Supervisor Tab";
 	}
 
-	
+
 	private final class TabListener extends SelectionAdapter {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
@@ -135,7 +136,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	}
 
 
-		
+
 	@Override
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
 	{
@@ -144,7 +145,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		createControlInclusionCriterion(parent, widgetToolkit);
 
 //		fGraphSizeLimitsSection.createControl(parent, widgetToolkit);
-//		
+//
 //		fEvaluationLimitsSection.createControl(parent, widgetToolkit);
 	}
 
@@ -161,9 +162,9 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
         		new BooleanFieldEditor(this.fConfigurationPage,
         				ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION,
         				"&Apply Inclusion", comp, false);
-        addField(fApplyInclusionBooleanField);
+        addFieldEditor(fApplyInclusionBooleanField);
 
-        
+
         fLoopDetectionTrivialComposite = widgetToolkit.createComposite(
         		fGroupInclusionCriterion, 2, 1, GridData.FILL_HORIZONTAL);
 
@@ -172,8 +173,8 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
         				ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL,
         				"&Loop Detection Trivial",
         				fLoopDetectionTrivialComposite, false);
-        addField(loopDetectionTrivialBooleanField);
-        
+        addFieldEditor(loopDetectionTrivialBooleanField);
+
         fApplyInclusionBooleanField.addSelectionListener( new SelectionAdapter() {
         	@Override
         	public void widgetSelected(SelectionEvent e) {
@@ -182,7 +183,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		});
 	}
 
-	
+
 	private void handleEnablingRedundancyDetection() {
 		fConfigurationPage.setVisibleAndEnabled(fLoopDetectionTrivialComposite,
         		! fApplyInclusionBooleanField.getBooleanValue());
@@ -221,9 +222,9 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		configuration.setAttribute(ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION, false);
 
 		configuration.setAttribute(ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL, true);
-		
+
 //		fGraphSizeLimitsSection.setDefaults(configuration);
-//		
+//
 //		fEvaluationLimitsSection.setDefaults(configuration);
 	}
 
@@ -233,7 +234,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		// Case Analyze Strategy
 		//
 		GraphExplorationStrategyKind oldAnalyzeStrategy = fAnalyzeStrategy;
-		
+
 		try {
 			fAnalyzeStrategy = GraphExplorationStrategyKind.get(
 					configuration.getAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY,
@@ -249,15 +250,15 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		}
 
 //		fGraphSizeLimitsSection.initializeFrom(configuration);
-//		
+//
 //		fEvaluationLimitsSection.initializeFrom(configuration);
-		
+
 		initializeAnalyzeStrategy();
-		
+
 		handleEnablingRedundancyDetection();
 	}
 
-	
+
 	private void initializeAnalyzeStrategy() {
 		fBFSButton.setSelection(false);
 		fDFSButton.setSelection(false);
@@ -279,7 +280,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 			break;
 		default:
 			fBFSButton.setSelection(true);
-			
+
 			fAnalyzeStrategy =
 					GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH;
 			break;
@@ -294,9 +295,9 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_ANALYZE_STRATEGY,
 				fAnalyzeStrategy.getLiteral());
-		
+
 //		fGraphSizeLimitsSection.performApply(configuration);
-//		
+//
 //		fEvaluationLimitsSection.performApply(configuration);
 	}
 
@@ -305,7 +306,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		return true;
 	}
 
-	
+
 	///////////////////////////////////////////////////////////////////////////
 	// Property Change
 	//
@@ -314,10 +315,10 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 		switch( event.getProperty() ) {
 		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE:
 
-			switch( event.getNewValue().toString() ) {
-			case ANALYSIS_PROFILE_MODEL_COVERAGE_BEHAVIOR:
-			case ANALYSIS_PROFILE_MODEL_COVERAGE_TRANSITION:
-			case ANALYSIS_PROFILE_MODEL_TEST_OFFLINE: {
+			switch( (AnalysisProfileKind) event.getNewValue() ) {
+			case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
+			case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
+			case ANALYSIS_TEST_OFFLINE_PROFILE: {
 				fDFSButton.setSelection(false);
 				fRFSButton.setSelection(false);
 				fALLButton.setSelection(false);
@@ -326,7 +327,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 				break;
 			}
 
-			case ANALYSIS_PROFILE_MODEL_EXPLORATION:
+			case ANALYSIS_EXPLORATION_PROFILE:
 			default:
 				break;
 			}

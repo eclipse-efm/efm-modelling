@@ -108,6 +108,7 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 
 
 	class WidgetListener extends SelectionAdapter implements ModifyListener {
+		@Override
 		public void modifyText(ModifyEvent e) {
 			if ( ! fInitializing ) {
 				setDirty(true);
@@ -119,6 +120,7 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 			scheduleUpdateJob();
 		}
 
+		@Override
 		public void widgetSelected(SelectionEvent e) {
 			setDirty(true);
 
@@ -633,15 +635,15 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 			setErrorMessage("Symbex executable location does not exist");
 			return false;
 		} else if (avmLocationPath.length() == 0) {
-			setErrorMessage("ymbex executable location not specified");
+			setErrorMessage("Symbex executable location not specified");
 			return false;
 		}
 		return true;
 	}
 
 
-	
-	
+
+
 	IWidgetToolkit widgetToolkit = new StandardWidgetToolkit();
 
 
@@ -679,6 +681,7 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 		fArgumentField = new Text(group,
 				SWT.MULTI | SWT.WRAP | SWT.BORDER | SWT.V_SCROLL);
 		fArgumentField.addTraverseListener(new TraverseListener() {
+			@Override
 			public void keyTraversed(TraverseEvent event) {
 				if (event.detail == SWT.TRAVERSE_RETURN &&
 						(event.stateMask & SWT.MODIFIER_MASK) != 0) {
@@ -727,6 +730,7 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 		ControlAccessibleListener(String name) {
 			controlName = name;
 		}
+		@Override
 		public void getName(AccessibleEvent e) {
 			e.result = controlName;
 		}
@@ -1044,6 +1048,7 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 
 
 
+	@Override
 	public void updateLaunchConfigurationDialog() {
 		validateTab();
 

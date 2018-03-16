@@ -20,17 +20,21 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
-import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
+import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
+import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleVerbosityKind;
+import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
+import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -46,61 +50,104 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 			ConsoleVerbosityKind.MAXIMUM.getLiteral()
 	};
 
-//		Arrays.stream(ConsoleVerbosityKind.values()).map(
-//				ConsoleVerbosityKind::getLiteral).toArray(String[]::new);
+//	Arrays.stream(ConsoleVerbosityKind.values()).map(
+//			ConsoleVerbosityKind::getLiteral).toArray(String[]::new);
 
 	private Combo fConsoleLevelCombo = null;
 	private ConsoleVerbosityKind fConsoleLevel = ConsoleVerbosityKind.MINIMUM;
 
 	// First Symbex Workflow Page
 	private BooleanFieldEditor fFirstParsedModelTextualEnabledBooleanField;
-//		private StringFieldEditor  fFirstparsedModelTextualFileNameStringField;
-
 	private BooleanFieldEditor fFirstParsedModelGraphizEnabledBooleanField;
-//		private StringFieldEditor  fFirstParsedModelGraphizFileNameStringField;
-
 	private BooleanFieldEditor fFirstCompiledModelTextualEnabledBooleanField;
-//		private StringFieldEditor  fFirstCompiledModelTextualFileNameStringField;
+
 	private boolean fEnabledSymbexDeveloperMode;
 
 	private BooleanFieldEditor fFirstSymbexOutputTextualEnabledBooleanField;
-//		private StringFieldEditor  fFirstSymbexOutputTextualFileNameStringField;
-
 	private BooleanFieldEditor fFirstSymbexOutputGraphizEnabledBooleanField;
-//		private StringFieldEditor  fFirstSymbexOutputGraphizFileNameStringField;
-	private Group fGroupFirstSymbexOutputTrace;
-	private Group fGroupFirstSymbexOutputFormat;
 
-	private StringFieldEditor  fFirstSymbexOutputGraphizTraceStringField;
-	private StringFieldEditor  fFirstSymbexOutputGraphizFormatStringField;
-	
+
+	private TraceElementTableViewer fFirstSymbexOutputGraphizTraceTableViewer;
+
+	private TraceElementTableConfigProvider getFirstSymbexOutputGraphizTraceTableConfig(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				"&Trace Filter", "", true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				TraceElementTableConfigProvider.GRAPHVIZ_TRACE_ELEMENT,
+				TraceElementKind.VARIABLE);
+	}
+
+
+	private TraceElementTableViewer fFirstSymbexOutputGraphizFormatTableViewer;
+
+	private TraceElementTableConfigProvider getFirstSymbexOutputGraphizFormatTableConfig(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+				"&Format", "", false, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(32),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				TraceElementTableConfigProvider.FORMAT_ELEMENT,
+				TraceElementKind.VARIABLE);
+	}
 
 	// Second Symbex Workflow Page
 	private Group fGroupSecondStageSymbexWorkflow;
-//		private BooleanFieldEditor fSecondParsedModelGraphizEnabledBooleanField;
-////		private StringFieldEditor  fSecondParsedModelGraphizFileNameStringField;
+//	private BooleanFieldEditor fSecondParsedModelGraphizEnabledBooleanField;
+////	private StringFieldEditor  fSecondParsedModelGraphizFileNameStringField;
 //
-//		private BooleanFieldEditor fSecondParsedModelTextualEnabledBooleanField;
-////		private StringFieldEditor  fSecondparsedModelTextualFileNameStringField;
+//	private BooleanFieldEditor fSecondParsedModelTextualEnabledBooleanField;
+////	private StringFieldEditor  fSecondparsedModelTextualFileNameStringField;
 //
-//		private BooleanFieldEditor fSecondCompiledModelTextualEnabledBooleanField;
-////		private StringFieldEditor  fSecondCompiledModelTextualFileNameStringField;
+//	private BooleanFieldEditor fSecondCompiledModelTextualEnabledBooleanField;
+////	private StringFieldEditor  fSecondCompiledModelTextualFileNameStringField;
 
 	private Group fGroupSymbexOutputGeneratedTraces;
-	
+
 	private BooleanFieldEditor fSecondSymbexOutputTextualEnabledBooleanField;
-//		private StringFieldEditor  fSecondSymbexOutputTextualFileNameStringField;
 
 	private BooleanFieldEditor fSecondSymbexOutputGraphizEnabledBooleanField;
-//		private StringFieldEditor  fSecondSymbexOutputGraphizFileNameStringField;
-	private Group fGroupSecondSymbexOutputTrace;
-	private Group fGroupSecondSymbexOutputFormat;
 
-	private StringFieldEditor  fSecondSymbexOutputGraphizTraceStringField;
-	private StringFieldEditor  fSecondSymbexOutputGraphizFormatStringField;
-	
 
-	
+	private TraceElementTableViewer fSecondSymbexOutputGraphizTraceTableViewer;
+
+	private TraceElementTableConfigProvider getSecondSymbexOutputGraphizTraceTableConfig(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				"&Extension Trace Filter", "", true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				TraceElementTableConfigProvider.GRAPHVIZ_TRACE_ELEMENT,
+				TraceElementKind.VARIABLE);
+	}
+
+
+	private TraceElementTableViewer fSecondSymbexOutputGraphizFormatTableViewer;
+
+	private TraceElementTableConfigProvider getSecondSymbexOutputGraphizFormatTableConfig(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+				"&Extension Format", "", false, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(24),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				TraceElementTableConfigProvider.FORMAT_ELEMENT,
+				TraceElementKind.VARIABLE);
+	}
+
+
 	public DebugConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
 
@@ -112,6 +159,20 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 			fEnabledSymbexDeveloperMode = false;
 		}
 	}
+
+
+	@Override
+	public String getSectionTitle() {
+		return "Debug";
+	}
+
+
+	@Override
+	public String getSectionDescription() {
+		return "Generation of Textual or Graphviz file format for debugging purpose";
+	}
+
+
 
 	// ======================================================================================
 	//                              Miscellaneous handling
@@ -209,16 +270,19 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		fFirstParsedModelTextualEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_FIRST_PARSED_MODEL_TEXTUAL_GENERATION,
 				"&Parsed Model as Textual Representation", comp, false);
+		addFieldEditor(fFirstParsedModelTextualEnabledBooleanField);
 
 		fFirstParsedModelGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_FIRST_PARSED_MODEL_GRAPHVIZ_GENERATION,
 				"&Parsed Model as <Graphiz> Representation", comp, false);
+		addFieldEditor(fFirstParsedModelGraphizEnabledBooleanField);
 
 		if( fEnabledSymbexDeveloperMode ) {
 			fFirstCompiledModelTextualEnabledBooleanField =
 				new BooleanFieldEditor(this,
 					ATTR_ENABLED_FIRST_COMPILED_MODEL_TEXTUAL_GENERATION,
 					"&Compiled Model as Textual Representation", comp, false);
+			addFieldEditor(fFirstCompiledModelTextualEnabledBooleanField);
 		}
 	}
 
@@ -233,6 +297,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		fFirstSymbexOutputTextualEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_TEXTUAL_GENERATION,
 				"&Basic Textual Representation", comp, false);
+		addFieldEditor(fFirstSymbexOutputTextualEnabledBooleanField);
 
 
 		group = widgetToolkit.createGroup(comp,
@@ -254,29 +319,23 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 								getBooleanValue() );
 					}
 				});
+		addFieldEditor(fFirstSymbexOutputGraphizEnabledBooleanField);
 
-		fGroupFirstSymbexOutputTrace = widgetToolkit.createGroup(
-				comp, "&Trace ", 1, 2, GridData.FILL_BOTH);
-		fFirstSymbexOutputGraphizTraceStringField = new StringFieldEditor(
-				this, ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				"", fGroupFirstSymbexOutputTrace,
-				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+		fFirstSymbexOutputGraphizTraceTableViewer =
+				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
+				getFirstSymbexOutputGraphizTraceTableConfig(parent.getFont()));
+		addTableViewer(fFirstSymbexOutputGraphizTraceTableViewer);
 
-		fGroupFirstSymbexOutputFormat = widgetToolkit.createGroup(
-				comp, "&Format ", 1, 2, GridData.FILL_BOTH);
-		fFirstSymbexOutputGraphizFormatStringField = new StringFieldEditor(
-				this, ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				"", fGroupFirstSymbexOutputFormat,
-				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+		fFirstSymbexOutputGraphizFormatTableViewer =
+				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
+						getFirstSymbexOutputGraphizFormatTableConfig(parent.getFont()));
+		addTableViewer(fFirstSymbexOutputGraphizFormatTableViewer);
 	}
 
 
 	private void setEnableFirstExecutionPage(boolean checked) {
-		propagateVisibility(fGroupFirstSymbexOutputTrace, checked);
-		
-		propagateVisibility(fGroupFirstSymbexOutputFormat, checked);
+		propagateVisibility(fFirstSymbexOutputGraphizTraceTableViewer.getControl(), checked);
+		propagateVisibility(fFirstSymbexOutputGraphizFormatTableViewer.getControl(), checked);
 	}
 
 
@@ -284,35 +343,38 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		fGroupSecondStageSymbexWorkflow = widgetToolkit.createGroup(parent,
 				"Second Stage Symbex Workflow Page", 1, 1, GridData.FILL_HORIZONTAL);
 
-//			createSecondInputModelGraphicComponent(group);
+//		createSecondInputModelGraphicComponent(group);
 
 		createSecondSymbexOutputComponent(fGroupSecondStageSymbexWorkflow, widgetToolkit);
 	}
 
 
-//		private void createSecondInputModelGraphicComponent(Composite parent) {
-//			Group group = SWTFactory.createGroup(parent,
-//					"Input Model Generated Traces",
-//					1, 1, GridData.FILL_HORIZONTAL);
+//	private void createSecondInputModelGraphicComponent(Composite parent) {
+//		Group group = SWTFactory.createGroup(parent,
+//				"Input Model Generated Traces",
+//				1, 1, GridData.FILL_HORIZONTAL);
 //
-//			Composite comp = SWTFactory.createComposite(
-//					group, 1, 1, GridData.FILL_HORIZONTAL);
+//		Composite comp = SWTFactory.createComposite(
+//				group, 1, 1, GridData.FILL_HORIZONTAL);
 //
-//			fSecondParsedModelTextualEnabledBooleanField = new BooleanFieldEditor(
-//					this, ATTR_ENABLED_SECOND_PARSED_MODEL_TEXTUAL_GENERATION,
-//					"&Parsed Model as Textual Representation", comp, false);
+//		fSecondParsedModelTextualEnabledBooleanField = new BooleanFieldEditor(
+//				this, ATTR_ENABLED_SECOND_PARSED_MODEL_TEXTUAL_GENERATION,
+//				"&Parsed Model as Textual Representation", comp, false);
+//		addFieldEditor(fSecondParsedModelTextualEnabledBooleanField);
 //
-//			fSecondParsedModelGraphizEnabledBooleanField = new BooleanFieldEditor(
-//					this, ATTR_ENABLED_SECOND_PARSED_MODEL_GRAPHVIZ_GENERATION,
-//					"&Parsed Model as <Graphiz> Representation", comp, false);
+//		fSecondParsedModelGraphizEnabledBooleanField = new BooleanFieldEditor(
+//				this, ATTR_ENABLED_SECOND_PARSED_MODEL_GRAPHVIZ_GENERATION,
+//				"&Parsed Model as <Graphiz> Representation", comp, false);
+//		addFieldEditor(fSecondParsedModelGraphizEnabledBooleanField);
 //
-//			if( fEnabledSymbexDeveloperMode ) {
-//				fSecondCompiledModelTextualEnabledBooleanField =
+//		if( fEnabledSymbexDeveloperMode ) {
+//			fSecondCompiledModelTextualEnabledBooleanField =
 //					new BooleanFieldEditor(this,
-//						ATTR_ENABLED_SECOND_COMPILED_MODEL_TEXTUAL_GENERATION,
-//						"&Compiled Model as Textual Representation", comp, false);
-//			}
+//							ATTR_ENABLED_SECOND_COMPILED_MODEL_TEXTUAL_GENERATION,
+//							"&Compiled Model as Textual Representation", comp, false);
+//			addFieldEditor(fSecondCompiledModelTextualEnabledBooleanField);
 //		}
+//	}
 
 	private void createSecondSymbexOutputComponent(Composite parent, IWidgetToolkit widgetToolkit) {
 		fGroupSymbexOutputGeneratedTraces = widgetToolkit.createGroup(parent,
@@ -325,6 +387,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		fSecondSymbexOutputTextualEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_TEXTUAL_GENERATION,
 				"&Basic Textual Representation", comp, false);
+		addFieldEditor(fSecondSymbexOutputTextualEnabledBooleanField);
 
 
 		Group group = widgetToolkit.createGroup(comp,
@@ -346,29 +409,28 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 								getBooleanValue() );
 					}
 				});
+		addFieldEditor(fSecondSymbexOutputGraphizEnabledBooleanField);
 
-		fGroupSecondSymbexOutputTrace = widgetToolkit.createGroup(
-				comp, "&Trace ", 1, 2, GridData.FILL_BOTH);
-		fSecondSymbexOutputGraphizTraceStringField = new StringFieldEditor(
-				this, ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				"", fGroupSecondSymbexOutputTrace,
-				DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+		fSecondSymbexOutputGraphizTraceTableViewer =
+				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
+					getSecondSymbexOutputGraphizTraceTableConfig(parent.getFont()));
+		addTableViewer(fSecondSymbexOutputGraphizTraceTableViewer);
 
-		fGroupSecondSymbexOutputFormat = widgetToolkit.createGroup(
-				comp, "&Format ", 1, 2, GridData.FILL_BOTH);
-		fSecondSymbexOutputGraphizFormatStringField = new StringFieldEditor(
-				this, ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				"", fGroupSecondSymbexOutputFormat,
-				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+		fSecondSymbexOutputGraphizFormatTableViewer =
+				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
+					getSecondSymbexOutputGraphizFormatTableConfig(parent.getFont()));
+		addTableViewer(fSecondSymbexOutputGraphizFormatTableViewer);
 	}
 
 
 	private void setEnableSecondExecutionPage(boolean checked) {
-		propagateVisibility(fGroupSecondSymbexOutputTrace, checked);
-		
-		propagateVisibility(fGroupSecondSymbexOutputFormat, checked);
+		propagateVisibility(
+				fSecondSymbexOutputGraphizTraceTableViewer.getControl(),
+				checked);
+
+		propagateVisibility(
+				fSecondSymbexOutputGraphizFormatTableViewer.getControl(),
+				checked);
 	}
 
 	// ======================================================================================
@@ -376,7 +438,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void setDefaultFieldValues(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, "MINIMUM");
 
@@ -389,7 +451,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				ATTR_FIRST_PARSED_MODEL_TEXTUAL_FILENAME,
 				"model_parsed.xlia");
 
-//			fFirstParsedModelGraphizEnabledBooleanField.setDefaults(configuration);
+//		fFirstParsedModelGraphizEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_FIRST_PARSED_MODEL_GRAPHVIZ_GENERATION, false);
 
@@ -398,7 +460,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				"model_parsed_graph.gv");
 
 		if( fEnabledSymbexDeveloperMode ) {
-//				fFirstCompiledModelTextualEnabledBooleanField.setDefaults(configuration);
+//			fFirstCompiledModelTextualEnabledBooleanField.setDefaults(configuration);
 			configuration.setAttribute(
 					ATTR_ENABLED_FIRST_COMPILED_MODEL_TEXTUAL_GENERATION, false);
 
@@ -407,7 +469,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 					"phase1_compiled_model.fexe");
 		}
 
-//			fFirstSymbexOutputTextualEnabledBooleanField.setDefaults(configuration);
+//		fFirstSymbexOutputTextualEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_TEXTUAL_GENERATION, false);
 
@@ -415,7 +477,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				ATTR_FIRST_SYMBEX_OUTPUT_TEXTUAL_FILENAME,
 				DEFAULT_FIRST_SYMBEX_OUTPUT_TEXTUAL_FILENAME);
 
-//			fFirstSymbexOutputGraphizEnabledBooleanField.setDefaults(configuration);
+//		fFirstSymbexOutputGraphizEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION, false);
 
@@ -423,35 +485,33 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FILENAME,
 				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FILENAME);
 
-//			fFirstSymbexOutputGraphizTraceStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
 				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC);
 
-//			fFirstSymbexOutputGraphizFormatStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
 				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC);
 
 		// Second Symbex Workflow Page
-//			fSecondParsedModelTextualEnabledBooleanField.setDefaults(configuration);
-//			configuration.setAttribute(
-//					ATTR_ENABLED_SECOND_PARSED_MODEL_TEXTUAL_GENERATION, false);
+//		fSecondParsedModelTextualEnabledBooleanField.setDefaults(configuration);
+//		configuration.setAttribute(
+//				ATTR_ENABLED_SECOND_PARSED_MODEL_TEXTUAL_GENERATION, false);
 
 		configuration.setAttribute(
 				ATTR_SECOND_PARSED_MODEL_TEXTUAL_FILENAME,
 				"phase2_parsed_model.xlia");
 
-//			fSecondParsedModelGraphizEnabledBooleanField.setDefaults(configuration);
-//			configuration.setAttribute(
-//					ATTR_ENABLED_SECOND_PARSED_MODEL_GRAPHVIZ_GENERATION, false);
+//		fSecondParsedModelGraphizEnabledBooleanField.setDefaults(configuration);
+//		configuration.setAttribute(
+//				ATTR_ENABLED_SECOND_PARSED_MODEL_GRAPHVIZ_GENERATION, false);
 
 		configuration.setAttribute(
 				ATTR_SECOND_PARSED_MODEL_GRAPHVIZ_FILENAME,
 				"phase2_parsed_model.gv");
 
 		if( fEnabledSymbexDeveloperMode ) {
-//				fSecondCompiledModelTextualEnabledBooleanField.setDefaults(configuration);
+//			fSecondCompiledModelTextualEnabledBooleanField.setDefaults(configuration);
 			configuration.setAttribute(
 					ATTR_ENABLED_SECOND_COMPILED_MODEL_TEXTUAL_GENERATION, false);
 
@@ -460,7 +520,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 					"phase2_compiled_model.fexe");
 		}
 
-//			fSecondSymbexOutputTextualEnabledBooleanField.setDefaults(configuration);
+//		fSecondSymbexOutputTextualEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_TEXTUAL_GENERATION, false);
 
@@ -468,7 +528,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				ATTR_SECOND_SYMBEX_OUTPUT_TEXTUAL_FILENAME,
 				DEFAULT_SECOND_SYMBEX_OUTPUT_TEXTUAL_FILENAME);
 
-//			fSecondSymbexOutputGraphizEnabledBooleanField.setDefaults(configuration);
+//		fSecondSymbexOutputGraphizEnabledBooleanField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION, false);
 
@@ -476,19 +536,19 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FILENAME,
 				DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FILENAME);
 
-//			fSecondSymbexOutputGraphizTraceStringField.setDefaults(configuration);
+//		fSecondSymbexOutputGraphizTraceStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
 				DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC);
 
-//			fSecondSymbexOutputGraphizFormatStringField.setDefaults(configuration);
+//		fSecondSymbexOutputGraphizFormatStringField.setDefaults(configuration);
 		configuration.setAttribute(
 				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
 				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC);
 	}
 
 	@Override
-	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
+	public void initializeFromImpl(ILaunchConfiguration configuration) {
 		try {
 			fConsoleLevel = ConsoleVerbosityKind.get(
 					configuration.getAttribute(ATTR_CONSOLE_LOG_VERBOSE_LEVEL,
@@ -505,38 +565,12 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		}
 		initializeConsoleLevel();
 
-		fFirstParsedModelTextualEnabledBooleanField.initializeFrom(configuration);
-		fFirstParsedModelGraphizEnabledBooleanField.initializeFrom(configuration);
-		if( fEnabledSymbexDeveloperMode ) {
-			fFirstCompiledModelTextualEnabledBooleanField.initializeFrom(configuration);
-		}
-
-		fFirstSymbexOutputTextualEnabledBooleanField.initializeFrom(configuration);
-		fFirstSymbexOutputGraphizEnabledBooleanField.initializeFrom(configuration);
-		fFirstSymbexOutputGraphizTraceStringField.initializeFrom(configuration);
-
-		fFirstSymbexOutputGraphizFormatStringField.initializeFrom(configuration);
-
-
-//			fSecondParsedModelTextualEnabledBooleanField.initializeFrom(configuration);
-//			fSecondParsedModelGraphizEnabledBooleanField.initializeFrom(configuration);
-//			if( fEnabledSymbexDeveloperMode ) {
-//				fSecondCompiledModelTextualEnabledBooleanField.initializeFrom(configuration);
-//			}
-
-		fSecondSymbexOutputTextualEnabledBooleanField.initializeFrom(configuration);
-		fSecondSymbexOutputGraphizEnabledBooleanField.initializeFrom(configuration);
-		fSecondSymbexOutputGraphizTraceStringField.initializeFrom(configuration);
-
-		fSecondSymbexOutputGraphizFormatStringField.initializeFrom(configuration);
-
-
 		setEnableFirstExecutionPage(
 				fFirstSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
 
 		setEnableSecondExecutionPage(
 				fSecondSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
-		
+
 		try {
 			propagateVisibility(fGroupSecondStageSymbexWorkflow,
 					configuration.getAttribute(ATTR_ENABLED_TRACE_EXTENSION, false));
@@ -568,35 +602,9 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 
 	@Override
-	public void applyUpdatesOnFieldValuesFrom(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, fConsoleLevel.getLiteral());
-
-		fFirstParsedModelTextualEnabledBooleanField.performApply(configuration);
-		fFirstParsedModelGraphizEnabledBooleanField.performApply(configuration);
-		if( fEnabledSymbexDeveloperMode ) {
-			fFirstCompiledModelTextualEnabledBooleanField.performApply(configuration);
-		}
-
-		fFirstSymbexOutputTextualEnabledBooleanField.performApply(configuration);
-		fFirstSymbexOutputGraphizEnabledBooleanField.performApply(configuration);
-		fFirstSymbexOutputGraphizTraceStringField.performApply(configuration);
-
-		fFirstSymbexOutputGraphizFormatStringField.performApply(configuration);
-
-
-//		fSecondParsedModelTextualEnabledBooleanField.performApply(configuration);
-//		fSecondParsedModelGraphizEnabledBooleanField.performApply(configuration);
-//		if( fEnabledSymbexDeveloperMode ) {
-//			fSecondCompiledModelTextualEnabledBooleanField.performApply(configuration);
-//		}
-
-		fSecondSymbexOutputTextualEnabledBooleanField.performApply(configuration);
-		fSecondSymbexOutputGraphizEnabledBooleanField.performApply(configuration);
-		fSecondSymbexOutputGraphizTraceStringField.performApply(configuration);
-
-		fSecondSymbexOutputGraphizFormatStringField.performApply(configuration);
-
 
 		setEnableFirstExecutionPage(
 				fFirstSymbexOutputGraphizEnabledBooleanField.getBooleanValue() );
@@ -611,32 +619,31 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValid(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
 		return new FieldValidationReturn(true, null);
 	}
 
-	
+
 	///////////////////////////////////////////////////////////////////////////
 	// Property Change
 	//
 	@Override
-	protected void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
 		switch( event.getProperty() ) {
 		case ATTR_ENABLED_TRACE_EXTENSION:
 //			fGroupSecondStageSymbexWorkflow.setEnabled( (Boolean)( event.getNewValue() ) );
-			
+
 			propagateVisibility(fGroupSecondStageSymbexWorkflow,
 					(Boolean)( event.getNewValue() ) );
-			
+
 //			propagateVisibility(fGroupSymbexOutputGeneratedTraces,
 //					(Boolean)( event.getNewValue() ) );
 			break;
-				
+
 		default:
 			break;
 		}
 	}
-	
 
 }
 

@@ -14,13 +14,16 @@
 package org.eclipse.efm.execution.configuration.common.ui.api;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -43,8 +46,8 @@ public interface IWidgetToolkit {
 	 * @param visible visible the new visibility state
 	 */
 	abstract public void setVisibleAndEnabled(Composite aComposite, boolean visible);
-	
-	public default void propagateVisibility(Composite aComposite, boolean visible) { 
+
+	public default void propagateVisibility(Composite aComposite, boolean visible) {
 		aComposite.setVisible(visible);
 
 		Object gd = aComposite.getLayoutData();
@@ -56,7 +59,7 @@ public interface IWidgetToolkit {
 			//
 		}
 	}
-	
+
 
 	/**
 	 * Creates a section as a part of the form.
@@ -201,6 +204,33 @@ public interface IWidgetToolkit {
 		return composite;
 	}
 
+	/**
+	 * Creates a Composite widget
+	 * @param parent the parent composite to add this composite to
+	 * @param style the style for the composite
+	 * @param font the font to set on the control
+	 * @param columns the number of columns within the composite
+	 * @param hspan the horizontal span the composite should take up on the parent
+	 * @param fill the style for how this composite should fill into its parent
+	 * @param marginwidth the width of the margin to place on the sides of the composite (default is 5, specified by GridLayout)
+	 * @param marginheight the height of the margin to place o the top and bottom of the composite
+	 * @return the new composite
+	 */
+	public default Composite createComposite(Composite parent, int style, Font font,
+			int columns, int hspan, int fill, int marginwidth, int marginheight)
+	{
+		Composite composite = newComposite(parent, style);
+		GridLayout layout = new GridLayout(columns, false);
+		layout.marginWidth = marginwidth;
+		layout.marginHeight = marginheight;
+		composite.setLayout(layout);
+		composite.setFont(font);
+		GridData gd = new GridData(fill);
+		gd.horizontalSpan = hspan;
+		composite.setLayoutData(gd);
+		return composite;
+	}
+
 
 	/**
 	 * Creates a ScrolledComposite
@@ -226,6 +256,20 @@ public interface IWidgetToolkit {
 		scrolledComposite.setShowFocusedControl(true);
 
 		return scrolledComposite;
+	}
+
+
+	/**
+	 * Creates a ViewForm Composite
+	 * @param parent the parent to add the composite to
+	 * @return a new ScrolledComposite with a style
+	 */
+	public default ViewForm createViewForm(Composite parent, int style) {
+        ViewForm viewForm = new ViewForm(parent, SWT.FLAT | SWT.BORDER);
+
+        viewForm.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+        return viewForm;
 	}
 
 
@@ -261,7 +305,7 @@ public interface IWidgetToolkit {
 			Composite parent, String text, int columns, int hspan, int fill) {
 		Group group = newGroup(parent, parent.getStyle());
 		group.setLayout(new GridLayout(columns, false));
-		
+
 		if( text != null ) {
 			group.setText(text);
 		}
@@ -332,11 +376,18 @@ public interface IWidgetToolkit {
 	 * label and/or image.
 	 * @param parent parent control
 	 * @param text button label or <code>null</code>
+	 * @param image image of <code>null</code>
 	 * @return a new push button
 	 */
-	public default Button createPushButton(Composite parent, String text) {
-		Button button = newButton(parent, text, SWT.PUSH);
+	public default Button createPushButton(Composite parent, String text, Image image) {
+		Button button = new Button(parent, SWT.PUSH);
 		button.setFont(parent.getFont());
+		if (image != null) {
+			button.setImage(image);
+		}
+		if (text != null) {
+			button.setText(text);
+		}
 		GridData gd = new GridData();
 		button.setLayoutData(gd);
 		setButtonDimensionHint(button);
@@ -375,6 +426,21 @@ public interface IWidgetToolkit {
 		return combo;
 	}
 
+
+	public default Combo createLabelledCombo(
+			Composite parentComposite, String labeltext, int colnum) {
+		Composite composite = createComposite(
+				parentComposite, 2, 1, GridData.FILL_HORIZONTAL);
+
+		Label lbl = createLabel(composite, labeltext, 1);
+		lbl.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
+
+		Combo combo = newCombo(composite, SWT.READ_ONLY);
+		combo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+
+		return combo;
+	}
+
 	/**
 	 * Creates a new label widget
 	 * @param parent the parent composite to add this label widget to
@@ -405,7 +471,7 @@ public interface IWidgetToolkit {
 	public default Label createLabel(Composite parent, String text, int hspan) {
 		Label label = newLabel(parent, text);
 		label.setFont(parent.getFont());
-		
+
 		if( text != null ) {
 			label.setText(text);
 		}
@@ -432,16 +498,30 @@ public interface IWidgetToolkit {
 	 * @param parent the parent composite to add this text widget to
 	 * @param style the style bits for the text widget
 	 * @param hspan the horizontal span to take up on the parent composite
+	 * @param fill the fill style of the composite {@link GridData}
+	 * @return the new text widget
+	 */
+	public default Text createText(
+			Composite parent, int style, int hspan, int fill) {
+		Text t = newText(parent, null, style);
+
+		t.setFont(parent.getFont());
+		GridData gd = new GridData(fill);
+		gd.horizontalSpan = hspan;
+		t.setLayoutData(gd);
+		return t;
+	}
+
+	/**
+	 * Creates a new text widget
+	 * @param parent the parent composite to add this text widget to
+	 * @param style the style bits for the text widget
+	 * @param hspan the horizontal span to take up on the parent composite
 	 * @return the new text widget
 	 * @since 3.3
 	 */
 	public default Text createText(Composite parent, int style, int hspan) {
-		Text text = newText(parent, null, style);
-		text.setFont(parent.getFont());
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalSpan = hspan;
-		text.setLayoutData(gd);
-		return text;
+		return createText(parent, style, hspan, GridData.FILL_HORIZONTAL);
 	}
 
 
@@ -452,13 +532,20 @@ public interface IWidgetToolkit {
 	 * @return the new text widget
 	 */
 	public default Text createSingleText(Composite parent, int hspan) {
-		Text t = newText(parent, null, SWT.SINGLE | SWT.BORDER);
-
-		t.setFont(parent.getFont());
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		gd.horizontalSpan = hspan;
-		t.setLayoutData(gd);
-		return t;
+		return createText(parent,
+				SWT.SINGLE | SWT.BORDER, hspan, GridData.FILL_HORIZONTAL);
 	}
+
+	/**
+	 * fillToolBar
+	 * @param manager
+	 * @param acts
+	 */
+	public default void fillToolBar(IToolBarManager manager, Action[] acts) {
+		for(Action action: acts) {
+			manager.add(action);
+		}
+	}
+
 
 }

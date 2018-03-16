@@ -13,13 +13,13 @@
 package org.eclipse.efm.execution.core.workflow.common;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
+import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.core.workflow.common.impl.DeveloperTuningOptionImpl;
 
 public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
@@ -521,36 +521,6 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 	}
 
 
-
-	public static String getModelFilename(ILaunchConfiguration configuration) {
-		String modelPath;
-		try {
-			modelPath = configuration.getAttribute(
-					ATTR_SPECIFICATION_MODEL_FILE_LOCATION, "");
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-
-			modelPath = null;
-		}
-
-		if( (modelPath != null) && (! modelPath.isEmpty()) ) {
-			int pos = modelPath.lastIndexOf(IPath.SEPARATOR);
-			if( pos > 0 ) {
-				modelPath = modelPath.substring(pos+1);
-			}
-
-			pos = modelPath.lastIndexOf('.');
-			if( pos > 0 ) {
-				modelPath = modelPath.substring(0, pos);
-			}
-
-			return( modelPath );
-		}
-
-		return( null );
-	}
-
 	public static DeveloperTuningOptionCustomImpl createDirector(
 			ILaunchConfiguration configuration) {
 
@@ -565,7 +535,8 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 
 			boolean enabled;
 
-			String modelFilename = getModelFilename(configuration);
+			String modelBasename =
+					WorkflowFileUtils.getModelBasename(configuration);
 
 			try {
 				enabled = configuration.getAttribute(
@@ -576,14 +547,14 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 				enabled = false;
 			}
 			if( enabled ) {
-				devTuning.setOutputFilename(modelFilename + "_%1%");
-				devTuning.setSpecificationFilename(modelFilename + ".xlia");
+				devTuning.setOutputFilename(modelBasename + "_%1%");
+				devTuning.setSpecificationFilename(modelBasename + ".xlia");
 
 				if( fEnabledSymbexDeveloperMode ) {
-					devTuning.setDebugFilename(modelFilename + "_%1%");
+					devTuning.setDebugFilename(modelBasename + "_%1%");
 
 					devTuning.setParsedModelFilename(
-							modelFilename + "_parsed.xlia");
+							modelBasename + "_parsed.xlia");
 				}
 			}
 
@@ -596,13 +567,13 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 				enabled = false;
 			}
 			if( enabled ) {
-				devTuning.setExecutableFilename(modelFilename + ".fexe");
+				devTuning.setExecutableFilename(modelBasename + ".fexe");
 
-				devTuning.setInitializationFilename(modelFilename + ".fet");
+				devTuning.setInitializationFilename(modelBasename + ".fet");
 
 				if( fEnabledSymbexDeveloperMode ) {
 					devTuning.setCompiledModelFilename(
-							modelFilename + "_compiled.fexe");
+							modelBasename + "_compiled.fexe");
 				}
 			}
 
@@ -615,10 +586,10 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 				enabled = false;
 			}
 			if( enabled ) {
-				devTuning.setSymbexGraphFilename(modelFilename + ".fscn");
+				devTuning.setSymbexGraphFilename(modelBasename + ".fscn");
 
 				if( fEnabledSymbexDeveloperMode ) {
-					devTuning.setSymbexTraceFilename(modelFilename + ".fet");
+					devTuning.setSymbexTraceFilename(modelBasename + ".fet");
 				}
 			}
 
@@ -643,7 +614,8 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 
 			boolean enabled;
 
-			String modelFilename = getModelFilename(configuration);
+			String modelBasename =
+					WorkflowFileUtils.getModelBasename(configuration);
 
 			try {
 				enabled = configuration.getAttribute(
@@ -655,14 +627,14 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			}
 
 			if( enabled ) {
-				devTuning.setOutputFilename(modelFilename + "_%1%");
-				devTuning.setSpecificationFilename(modelFilename + ".xlia");
+				devTuning.setOutputFilename(modelBasename + "_%1%");
+				devTuning.setSpecificationFilename(modelBasename + ".xlia");
 
 				if( fEnabledSymbexDeveloperMode ) {
-					devTuning.setDebugFilename(modelFilename + "_%1%");
+					devTuning.setDebugFilename(modelBasename + "_%1%");
 
 					devTuning.setParsedModelFilename(
-							modelFilename + "_parsed.xlia");
+							modelBasename + "_parsed.xlia");
 				}
 			}
 
@@ -675,11 +647,11 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 				enabled = false;
 			}
 			if( enabled ) {
-				devTuning.setExecutableFilename(modelFilename + ".fexe");
+				devTuning.setExecutableFilename(modelBasename + ".fexe");
 
 				if( fEnabledSymbexDeveloperMode ) {
 					devTuning.setCompiledModelFilename(
-							modelFilename + "_compiled.fexe");
+							modelBasename + "_compiled.fexe");
 				}
 			}
 
@@ -693,11 +665,11 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			}
 			if( enabled ) {
 				devTuning.setSymbexGraphFilename(
-						modelFilename + "_extension.fscn");
+						modelBasename + "_extension.fscn");
 
 				if( fEnabledSymbexDeveloperMode ) {
 					devTuning.setSymbexTraceFilename(
-							modelFilename + "_extension.fet");
+							modelBasename + "_extension.fet");
 				}
 			}
 

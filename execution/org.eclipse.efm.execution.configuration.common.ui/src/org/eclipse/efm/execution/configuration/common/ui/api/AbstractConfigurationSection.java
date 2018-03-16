@@ -16,6 +16,7 @@ package org.eclipse.efm.execution.configuration.common.ui.api;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.Section;
 
 public abstract class AbstractConfigurationSection extends AbstractSectionPart
@@ -56,6 +57,19 @@ public abstract class AbstractConfigurationSection extends AbstractSectionPart
 	}
 
 
+	/**
+	 * Programmatically changes expanded state.
+	 *
+	 * @param expanded
+	 *            the new expanded state
+	 */
+	public void setExpanded(boolean expanded) {
+		final Composite section = getSection();
+		if( section instanceof ExpandableComposite ) {
+			((ExpandableComposite) section).setExpanded(expanded);
+		}
+	}
+	
     /**
      * Sets the label control's tool tip text to the argument
      */

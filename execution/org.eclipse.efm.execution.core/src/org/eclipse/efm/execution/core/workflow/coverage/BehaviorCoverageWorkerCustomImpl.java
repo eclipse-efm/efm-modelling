@@ -20,6 +20,7 @@ import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.CheckingScopeKind;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
+import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
 import org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl;
 
@@ -159,27 +160,18 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 		coverageWorker.setHeuristicConfiguration(configuration);
 
 
-		String specification;
-		try {
-			specification = configuration.getAttribute(
-			ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST, "");
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
+		TraceSpecificationCustomImpl trace =
+				TraceSpecificationCustomImpl.create(
+						"trace", configuration,
+						ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST,
+						TraceElementKind.UNDEFINED);
 
-			specification = null;
-		}
-		if( (specification != null) && (! specification.isEmpty()) ) {
-			TraceSpecificationCustomImpl trace =
-					TraceSpecificationCustomImpl.create("trace", specification);
-
-			coverageWorker.setTrace( trace );
-		}
-
+		coverageWorker.setTrace( trace );
 
 		ConsoleLogFormatCustomImpl console =
 				ConsoleLogFormatCustomImpl.create(
 						" , coverage: %1% / %2%" );
+
 
 		coverageWorker.setConsole( console );
 
@@ -258,23 +250,12 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 		coverageWorker.setHitCount(1);
 		coverageWorker.setJumpCount(-1);
 
-		String strObjective;
-		try {
-			strObjective = configuration.getAttribute(
-					ATTR_TRACE_EXTENSION_OBJECTIVE,
-					DEFAULT_TRACE_EXTENSION_OBJECTIVE);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
-
-			strObjective = DEFAULT_TRACE_EXTENSION_OBJECTIVE;
-		}
-		if( (strObjective == null) || strObjective.isEmpty() ) {
-			strObjective = DEFAULT_TRACE_EXTENSION_OBJECTIVE;
-		}
-
 		TraceSpecificationCustomImpl trace =
-				TraceSpecificationCustomImpl.create("trace", strObjective);
+				TraceSpecificationCustomImpl.create(
+						"trace", configuration,
+						ATTR_TRACE_EXTENSION_OBJECTIVE,
+						DEFAULT_TRACE_EXTENSION_OBJECTIVE,
+						TraceElementKind.UNDEFINED);
 
 		coverageWorker.setTrace( trace );
 

@@ -23,12 +23,13 @@ import org.eclipse.efm.execution.configuration.common.ui.util.StandardWidgetTool
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.efm.execution.launchconfiguration.LaunchConfigurationTabGroup;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
-public abstract class AbstractSewLaunchConfigurationTab 
+public abstract class AbstractSewLaunchConfigurationTab
 		extends AbstractLaunchConfigurationTab
 		implements ILaunchConfigurationGUIelement {
 
@@ -63,13 +64,13 @@ public abstract class AbstractSewLaunchConfigurationTab
 	public OverviewTab getOverviewTab() {
 		return fGroupTab.getOverviewTab();
 	}
-	
+
 	public AbstractConfigurationPage getConfigurationPage() {
 		return fContentCompositeManager;
 	}
-	
 
-	
+
+
 	@Override
 	public AbstractConfigurationPage[] getConfigurationPages() {
 		return fGroupTab.getConfigurationPages();
@@ -89,17 +90,17 @@ public abstract class AbstractSewLaunchConfigurationTab
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
-		fContentCompositeManager.setDefaultFieldValues(configuration);
+		fContentCompositeManager.setDefaults(configuration);
 	}
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		fContentCompositeManager.initializeFieldValuesFrom(configuration);
+		fContentCompositeManager.initializeFrom(configuration);
 	}
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		fContentCompositeManager.applyUpdatesOnFieldValuesFrom(configuration);
+		fContentCompositeManager.performApply(configuration);
 	}
 
 	/**
@@ -152,6 +153,11 @@ public abstract class AbstractSewLaunchConfigurationTab
 	// Message API
 	///////////////////////////////////////////////////////////////////////////
 
+	@Override
+	public void clearErrorMessage(){
+		super.setMessage(null);
+	}
+
 	@Override // to change visibility to public
 	public void setMessage(String message){
 		super.setMessage(message);
@@ -178,5 +184,15 @@ public abstract class AbstractSewLaunchConfigurationTab
 	public void scheduleUpdateJob(){
 		super.scheduleUpdateJob();
 	}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// Property Change
+	//
+	@Override
+	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+		//!! NOTHING as DEFAULT BEHAVIOR
+	}
+
 
 }

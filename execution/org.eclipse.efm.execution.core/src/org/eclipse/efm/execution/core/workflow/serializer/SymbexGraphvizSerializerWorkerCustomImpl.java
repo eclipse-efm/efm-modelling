@@ -52,61 +52,35 @@ public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSeria
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
 
+		TraceSpecificationCustomImpl trace =
+				TraceSpecificationCustomImpl.create(
+						"trace", configuration,
+						ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+						DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+						TraceElementKind.UNDEFINED);
 
-		String strFormat;
-		try {
-			strFormat = configuration.getAttribute(
-					ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-					DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
+		serializerWorker.setTrace( trace );
 
-			strFormat = DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC;
-		}
-		if( (strFormat != null) && (! strFormat.isEmpty()) ) {
-			TraceSpecificationCustomImpl format =
-					TraceSpecificationCustomImpl.create("format", strFormat);
 
-			serializerWorker.setFormat( format );
-		}
+		TraceSpecificationCustomImpl format =
+				TraceSpecificationCustomImpl.create(
+						"format", configuration,
+						ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+						DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+						TraceElementKind.UNDEFINED);
 
-		String strCSS;
-		try {
-			strCSS = configuration.getAttribute(
-					ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC,
-					DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
+		serializerWorker.setFormat( format );
 
-			strCSS = DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC;
-		}
-		if( (strCSS != null) && (! strCSS.isEmpty()) ) {
-			TraceSpecificationCustomImpl css =
-					TraceSpecificationCustomImpl.create("css",
-							strCSS, TraceElementKind.RAW_ATTRIBUTE);
 
-			serializerWorker.setCSS( css );
-		}
+		TraceSpecificationCustomImpl css =
+				TraceSpecificationCustomImpl.create(
+						"css", configuration,
+						ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC,
+						DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC,
+						TraceElementKind.RAW_ATTRIBUTE);
 
-		String strTrace;
-		try {
-			strTrace = configuration.getAttribute(
-					ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-					DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
+		serializerWorker.setCSS( css );
 
-			strTrace = DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC;
-		}
-		if( (strTrace != null) && (! strTrace.isEmpty()) ) {
-			TraceSpecificationCustomImpl trace =
-					TraceSpecificationCustomImpl.create("trace", strTrace);
-
-			serializerWorker.setTrace( trace );
-		}
 
 		String strFilename;
 		try {
@@ -134,60 +108,34 @@ public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSeria
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
 
-		String strFormat;
-		try {
-			strFormat = configuration.getAttribute(
-					ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-					DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
+		TraceSpecificationCustomImpl trace =
+				TraceSpecificationCustomImpl.create(
+						"trace", configuration,
+						ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+						DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+						TraceElementKind.UNDEFINED);
 
-			strFormat = DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC;
-		}
-		if( (strFormat != null) && (! strFormat.isEmpty()) ) {
-			TraceSpecificationCustomImpl format =
-					TraceSpecificationCustomImpl.create("format", strFormat);
+		serializerWorker.setTrace( trace );
 
-			serializerWorker.setFormat( format );
-		}
 
-		String strCSS;
-		try {
-			strCSS = configuration.getAttribute(
-					ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC,
-					DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
+		TraceSpecificationCustomImpl format =
+				TraceSpecificationCustomImpl.create(
+						"format", configuration,
+						ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+						DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+						TraceElementKind.UNDEFINED);
 
-			strCSS = DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC;
-		}
-		if( (strCSS != null) && (! strCSS.isEmpty()) ) {
-			TraceSpecificationCustomImpl css =
-					TraceSpecificationCustomImpl.create("css",
-							strCSS, TraceElementKind.RAW_ATTRIBUTE);
+		serializerWorker.setFormat( format );
 
-			serializerWorker.setCSS( css );
-		}
+		TraceSpecificationCustomImpl css =
+				TraceSpecificationCustomImpl.create(
+						"css", configuration,
+						ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC,
+						DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC,
+						TraceElementKind.RAW_ATTRIBUTE);
 
-		String strTrace;
-		try {
-			strTrace = configuration.getAttribute(
-					ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-					DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC);
-		}
-		catch( CoreException e ) {
-			e.printStackTrace();
+		serializerWorker.setCSS( css );
 
-			strTrace = DEFAULT_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC;
-		}
-		if( (strTrace != null) && (! strTrace.isEmpty()) ) {
-			TraceSpecificationCustomImpl trace =
-					TraceSpecificationCustomImpl.create("trace", strTrace);
-
-			serializerWorker.setTrace( trace );
-		}
 
 		String strFilename;
 		try {

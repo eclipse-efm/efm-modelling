@@ -142,7 +142,7 @@ public abstract class FieldEditor {
      */
     protected void clearErrorMessage() {
         if (fConfigurationPage != null) {
-        	fConfigurationPage.propagateErrorMessage(null);
+        	fConfigurationPage.clearErrorMessage();
 		}
     }
 
@@ -421,7 +421,7 @@ public abstract class FieldEditor {
 
         Assert.isNotNull(labelText);
         this.labelText = labelText;
-        
+
         // @NOT SYSTEMATIC, used with parsimony
 //      setPropertyChangeListener( configurationPage );
     }
@@ -630,7 +630,7 @@ public abstract class FieldEditor {
 
 	public final void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 		setDefaultsImpl(configuration);
-		
+
 		refreshValidState();
 	}
 
@@ -638,7 +638,7 @@ public abstract class FieldEditor {
 
 	public final void initializeFrom(ILaunchConfiguration configuration) {
 		initializeFromImpl(configuration);
-		
+
 		refreshValidState();
 	}
 

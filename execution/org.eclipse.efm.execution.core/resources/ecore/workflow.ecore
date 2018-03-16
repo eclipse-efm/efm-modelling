@@ -86,6 +86,14 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
   <eSubpackages name="common" nsURI="http://www.eclipse.org/efm/Workflow/Common" nsPrefix="Common">
+    <eClassifiers xsi:type="ecore:EEnum" name="AnalysisProfileKind">
+      <eLiterals name="ANALYSIS_UNDEFINED_PROFILE"/>
+      <eLiterals name="ANALYSIS_EXPLORATION_PROFILE" value="1" literal="Exploration"/>
+      <eLiterals name="ANALYSIS_TRANSITION_COVERAGE_PROFILE" value="2" literal="Transition Coverage"/>
+      <eLiterals name="ANALYSIS_BEHAVIOR_SELECTION_PROFILE" value="3" literal="Behavior Selection"/>
+      <eLiterals name="ANALYSIS_TEST_OFFLINE_PROFILE" value="4" literal="Test Offline"/>
+      <eLiterals name="ANALYSIS_ACSL_GENERATION_PROFILE" value="5" literal="Inference"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Workspace">
       <eStructuralFeatures xsi:type="ecore:EReference" name="location" eType="#//common/Location"
           containment="true"/>
@@ -211,14 +219,26 @@
       <eLiterals name="LIFELINE_END" value="60" literal="lifeline#end"/>
       <eLiterals name="LIFELINE_ID" value="61" literal="lifeline#id"/>
       <eLiterals name="LIFELINE_STATE" value="62" literal="lifeline#state"/>
-      <eLiterals name="RAW_ATTRIBUTE" value="63" literal="RAW_ATTRIBUTE"/>
+      <eLiterals name="RAW_ATTRIBUTE" value="63" literal="__raw__"/>
       <eLiterals name="NODE_HEADER" value="64" literal="node#header"/>
       <eLiterals name="NODE_DATA" value="65" literal="node#data"/>
       <eLiterals name="NODE_INFO" value="66" literal="node#info"/>
       <eLiterals name="NODE_TRACE_RUN" value="67" literal="node#trace#run"/>
       <eLiterals name="NODE_TRACE_IO" value="68" literal="node#trace#io"/>
+      <eLiterals name="VALUE_PARAMETER_BEGIN" value="69" literal="value#parameter#begin"/>
+      <eLiterals name="VALUE_PARAMETER_SEPARATOR" value="70" literal="value#parameter#separator"/>
+      <eLiterals name="VALUE_PARAMETER_END" value="71" literal="value#parameter#end"/>
+      <eLiterals name="VALUE_ARRAY_BEGIN" value="72" literal="value#array#begin"/>
+      <eLiterals name="VALUE_ARRAY_SEPARATOR" value="73" literal="value#array#separator"/>
+      <eLiterals name="VALUE_ARRAY_END" value="74" literal="value#array#end"/>
+      <eLiterals name="VALUE_STRUCT_BEGIN" value="75" literal="value#struct#begin"/>
+      <eLiterals name="VALUE_STRUCT_SEPARATOR" value="76" literal="value#struct#separator"/>
+      <eLiterals name="VALUE_STRUCT_END" value="77" literal="value#struct#end"/>
+      <eLiterals name="TIPS" value="99" literal="tips"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TraceElement">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="selected" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="nature" eType="#//common/TraceElementKind"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     </eClassifiers>

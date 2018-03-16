@@ -68,6 +68,14 @@
     </genClasses>
     <nestedGenPackages prefix="Common" basePackage="org.eclipse.efm.execution.core.workflow"
         disposableProviderFactory="true" ecorePackage="workflow.ecore#//common">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/AnalysisProfileKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_UNDEFINED_PROFILE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_EXPLORATION_PROFILE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_TRANSITION_COVERAGE_PROFILE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_BEHAVIOR_SELECTION_PROFILE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_TEST_OFFLINE_PROFILE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_ACSL_GENERATION_PROFILE"/>
+      </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/GraphExplorationStrategyKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/BEST_FIRST_SEARCH"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/BREADTH_FIRST_SEARCH"/>
@@ -155,6 +163,16 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_INFO"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_TRACE_RUN"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_TRACE_IO"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_PARAMETER_BEGIN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_PARAMETER_SEPARATOR"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_PARAMETER_END"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_ARRAY_BEGIN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_ARRAY_SEPARATOR"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_ARRAY_END"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_STRUCT_BEGIN"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_STRUCT_SEPARATOR"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_STRUCT_END"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/TIPS"/>
       </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/HeuristicClassKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/BASIC"/>
@@ -218,6 +236,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/verbosity"/>
       </genClasses>
       <genClasses ecoreClass="workflow.ecore#//common/TraceElement">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/TraceElement/selected"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/TraceElement/nature"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/TraceElement/value"/>
       </genClasses>
