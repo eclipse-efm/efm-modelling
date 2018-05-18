@@ -28,3 +28,4 @@ Import-Package: org.eclipse.emf.common,
  org.eclipse.papyrus.uml.tools.utils,
  org.eclipse.uml2.common,
  org.eclipse.uml2.uml
+Automatic-Module-Name: org.eclipse.efm.modeling.ui.newproject

@@ -22,7 +22,7 @@ import org.junit.runner.RunWith
 import org.eclipse.efm.ecore.sew.SEWorkflow
 
 @RunWith(XtextRunner)
-@InjectWith(SEWInjectorProvider)
+//@InjectWith(SEWInjectorProvider)
 class SEWParsingTest{
 
 	@Inject

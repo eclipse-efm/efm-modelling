@@ -708,13 +708,22 @@ public interface ExpressionPackage extends EPackage {
 	int LITERAL_SELF_EXPRESSION = 16;
 
 	/**
+	 * The feature id for the '<em><b>Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_SELF_EXPRESSION__MODEL = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Literal Self Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LITERAL_SELF_EXPRESSION_FEATURE_COUNT = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 0;
+	int LITERAL_SELF_EXPRESSION_FEATURE_COUNT = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Literal Self Expression</em>' class.
@@ -736,13 +745,22 @@ public interface ExpressionPackage extends EPackage {
 	int LITERAL_PARENT_EXPRESSION = 17;
 
 	/**
+	 * The feature id for the '<em><b>Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_PARENT_EXPRESSION__MODEL = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Literal Parent Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LITERAL_PARENT_EXPRESSION_FEATURE_COUNT = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 0;
+	int LITERAL_PARENT_EXPRESSION_FEATURE_COUNT = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Literal Parent Expression</em>' class.
@@ -764,13 +782,22 @@ public interface ExpressionPackage extends EPackage {
 	int LITERAL_SUPER_EXPRESSION = 18;
 
 	/**
+	 * The feature id for the '<em><b>Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_SUPER_EXPRESSION__MODEL = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Literal Super Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LITERAL_SUPER_EXPRESSION_FEATURE_COUNT = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 0;
+	int LITERAL_SUPER_EXPRESSION_FEATURE_COUNT = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Literal Super Expression</em>' class.
@@ -1868,6 +1895,61 @@ public interface ExpressionPackage extends EPackage {
 	int LOGICAL_ASSOCIATIVE_EXPRESSION_OPERATION_COUNT = ASSOCIATIVE_EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.QuantifiedLogicalExpressionImpl <em>Quantified Logical Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.QuantifiedLogicalExpressionImpl
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getQuantifiedLogicalExpression()
+	 * @generated
+	 */
+	int QUANTIFIED_LOGICAL_EXPRESSION = 43;
+
+	/**
+	 * The feature id for the '<em><b>Quantifier</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUANTIFIED_LOGICAL_EXPRESSION__QUANTIFIER = EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Variable</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUANTIFIED_LOGICAL_EXPRESSION__VARIABLE = EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Predicate</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUANTIFIED_LOGICAL_EXPRESSION__PREDICATE = EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Quantified Logical Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUANTIFIED_LOGICAL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Quantified Logical Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUANTIFIED_LOGICAL_EXPRESSION_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.InvokeExpressionImpl <em>Invoke Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1875,7 +1957,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getInvokeExpression()
 	 * @generated
 	 */
-	int INVOKE_EXPRESSION = 43;
+	int INVOKE_EXPRESSION = 44;
 
 	/**
 	 * The feature id for the '<em><b>Call Procedure</b></em>' attribute.
@@ -1939,7 +2021,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getNamedExpression()
 	 * @generated
 	 */
-	int NAMED_EXPRESSION = 44;
+	int NAMED_EXPRESSION = 45;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
@@ -1994,7 +2076,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getTupleExpression()
 	 * @generated
 	 */
-	int TUPLE_EXPRESSION = 45;
+	int TUPLE_EXPRESSION = 46;
 
 	/**
 	 * The number of structural features of the '<em>Tuple Expression</em>' class.
@@ -2022,7 +2104,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getMixTupleExpression()
 	 * @generated
 	 */
-	int MIX_TUPLE_EXPRESSION = 46;
+	int MIX_TUPLE_EXPRESSION = 47;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference list.
@@ -2059,7 +2141,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getNamedTupleExpression()
 	 * @generated
 	 */
-	int NAMED_TUPLE_EXPRESSION = 47;
+	int NAMED_TUPLE_EXPRESSION = 48;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference list.
@@ -2096,7 +2178,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getPositionalTupleExpression()
 	 * @generated
 	 */
-	int POSITIONAL_TUPLE_EXPRESSION = 48;
+	int POSITIONAL_TUPLE_EXPRESSION = 49;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference list.
@@ -2133,7 +2215,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getValueElementSpecification()
 	 * @generated
 	 */
-	int VALUE_ELEMENT_SPECIFICATION = 49;
+	int VALUE_ELEMENT_SPECIFICATION = 50;
 
 	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -2154,13 +2236,13 @@ public interface ExpressionPackage extends EPackage {
 	int VALUE_ELEMENT_SPECIFICATION__EXPECTED = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * The feature id for the '<em><b>Parent</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_ELEMENT_SPECIFICATION__TARGET = EXPRESSION_FEATURE_COUNT + 2;
+	int VALUE_ELEMENT_SPECIFICATION__PARENT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -2206,7 +2288,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getInstantiationExpression()
 	 * @generated
 	 */
-	int INSTANTIATION_EXPRESSION = 50;
+	int INSTANTIATION_EXPRESSION = 51;
 
 	/**
 	 * The feature id for the '<em><b>Instance</b></em>' containment reference.
@@ -2243,7 +2325,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getExpressionAsBuffer()
 	 * @generated
 	 */
-	int EXPRESSION_AS_BUFFER = 51;
+	int EXPRESSION_AS_BUFFER = 52;
 
 	/**
 	 * The feature id for the '<em><b>Buffer</b></em>' containment reference.
@@ -2252,7 +2334,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_BUFFER__BUFFER = 0;
+	int EXPRESSION_AS_BUFFER__BUFFER = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>As Buffer</em>' class.
@@ -2261,7 +2343,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_BUFFER_FEATURE_COUNT = 1;
+	int EXPRESSION_AS_BUFFER_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>As Buffer</em>' class.
@@ -2270,7 +2352,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_BUFFER_OPERATION_COUNT = 0;
+	int EXPRESSION_AS_BUFFER_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.ExpressionAsChannelImpl <em>As Channel</em>}' class.
@@ -2280,7 +2362,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getExpressionAsChannel()
 	 * @generated
 	 */
-	int EXPRESSION_AS_CHANNEL = 52;
+	int EXPRESSION_AS_CHANNEL = 53;
 
 	/**
 	 * The feature id for the '<em><b>Channel</b></em>' containment reference.
@@ -2289,7 +2371,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_CHANNEL__CHANNEL = 0;
+	int EXPRESSION_AS_CHANNEL__CHANNEL = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>As Channel</em>' class.
@@ -2298,7 +2380,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_CHANNEL_FEATURE_COUNT = 1;
+	int EXPRESSION_AS_CHANNEL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>As Channel</em>' class.
@@ -2307,7 +2389,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_CHANNEL_OPERATION_COUNT = 0;
+	int EXPRESSION_AS_CHANNEL_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.ExpressionAsMachineImpl <em>As Machine</em>}' class.
@@ -2317,7 +2399,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getExpressionAsMachine()
 	 * @generated
 	 */
-	int EXPRESSION_AS_MACHINE = 53;
+	int EXPRESSION_AS_MACHINE = 54;
 
 	/**
 	 * The feature id for the '<em><b>Machine</b></em>' containment reference.
@@ -2326,7 +2408,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_MACHINE__MACHINE = 0;
+	int EXPRESSION_AS_MACHINE__MACHINE = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>As Machine</em>' class.
@@ -2335,7 +2417,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_MACHINE_FEATURE_COUNT = 1;
+	int EXPRESSION_AS_MACHINE_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>As Machine</em>' class.
@@ -2344,7 +2426,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_MACHINE_OPERATION_COUNT = 0;
+	int EXPRESSION_AS_MACHINE_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.ExpressionAsPortImpl <em>As Port</em>}' class.
@@ -2354,7 +2436,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getExpressionAsPort()
 	 * @generated
 	 */
-	int EXPRESSION_AS_PORT = 54;
+	int EXPRESSION_AS_PORT = 55;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' containment reference.
@@ -2363,7 +2445,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_PORT__PORT = 0;
+	int EXPRESSION_AS_PORT__PORT = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>As Port</em>' class.
@@ -2372,7 +2454,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_PORT_FEATURE_COUNT = 1;
+	int EXPRESSION_AS_PORT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>As Port</em>' class.
@@ -2381,7 +2463,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_AS_PORT_OPERATION_COUNT = 0;
+	int EXPRESSION_AS_PORT_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.PRINTER_FIX <em>PRINTER FIX</em>}' enum.
@@ -2391,7 +2473,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getPRINTER_FIX()
 	 * @generated
 	 */
-	int PRINTER_FIX = 55;
+	int PRINTER_FIX = 56;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecificationKind <em>Value Element Specification Kind</em>}' enum.
@@ -2401,7 +2483,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getValueElementSpecificationKind()
 	 * @generated
 	 */
-	int VALUE_ELEMENT_SPECIFICATION_KIND = 56;
+	int VALUE_ELEMENT_SPECIFICATION_KIND = 57;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecificationScheme <em>Value Element Specification Scheme</em>}' enum.
@@ -2411,7 +2493,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getValueElementSpecificationScheme()
 	 * @generated
 	 */
-	int VALUE_ELEMENT_SPECIFICATION_SCHEME = 57;
+	int VALUE_ELEMENT_SPECIFICATION_SCHEME = 58;
 
 
 	/**
@@ -2805,6 +2887,17 @@ public interface ExpressionPackage extends EPackage {
 	EClass getLiteralSelfExpression();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression#getModel <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Model</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression#getModel()
+	 * @see #getLiteralSelfExpression()
+	 * @generated
+	 */
+	EReference getLiteralSelfExpression_Model();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralParentExpression <em>Literal Parent Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2815,6 +2908,17 @@ public interface ExpressionPackage extends EPackage {
 	EClass getLiteralParentExpression();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralParentExpression#getModel <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Model</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralParentExpression#getModel()
+	 * @see #getLiteralParentExpression()
+	 * @generated
+	 */
+	EReference getLiteralParentExpression_Model();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralSuperExpression <em>Literal Super Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2823,6 +2927,17 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getLiteralSuperExpression();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralSuperExpression#getModel <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Model</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralSuperExpression#getModel()
+	 * @see #getLiteralSuperExpression()
+	 * @generated
+	 */
+	EReference getLiteralSuperExpression_Model();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralSystemExpression <em>Literal System Expression</em>}'.
@@ -3307,6 +3422,49 @@ public interface ExpressionPackage extends EPackage {
 	EClass getLogicalAssociativeExpression();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression <em>Quantified Logical Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Quantified Logical Expression</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression
+	 * @generated
+	 */
+	EClass getQuantifiedLogicalExpression();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression#getQuantifier <em>Quantifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Quantifier</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression#getQuantifier()
+	 * @see #getQuantifiedLogicalExpression()
+	 * @generated
+	 */
+	EAttribute getQuantifiedLogicalExpression_Quantifier();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression#getVariable <em>Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Variable</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression#getVariable()
+	 * @see #getQuantifiedLogicalExpression()
+	 * @generated
+	 */
+	EReference getQuantifiedLogicalExpression_Variable();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression#getPredicate <em>Predicate</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Predicate</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression#getPredicate()
+	 * @see #getQuantifiedLogicalExpression()
+	 * @generated
+	 */
+	EReference getQuantifiedLogicalExpression_Predicate();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression <em>Invoke Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3509,15 +3667,15 @@ public interface ExpressionPackage extends EPackage {
 	EAttribute getValueElementSpecification_Expected();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getTarget <em>Target</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getParent <em>Parent</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Target</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getTarget()
+	 * @return the meta object for the containment reference '<em>Parent</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getParent()
 	 * @see #getValueElementSpecification()
 	 * @generated
 	 */
-	EReference getValueElementSpecification_Target();
+	EReference getValueElementSpecification_Parent();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getElement <em>Element</em>}'.
@@ -4030,6 +4188,14 @@ public interface ExpressionPackage extends EPackage {
 		EClass LITERAL_SELF_EXPRESSION = eINSTANCE.getLiteralSelfExpression();
 
 		/**
+		 * The meta object literal for the '<em><b>Model</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LITERAL_SELF_EXPRESSION__MODEL = eINSTANCE.getLiteralSelfExpression_Model();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralParentExpressionImpl <em>Literal Parent Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4040,6 +4206,14 @@ public interface ExpressionPackage extends EPackage {
 		EClass LITERAL_PARENT_EXPRESSION = eINSTANCE.getLiteralParentExpression();
 
 		/**
+		 * The meta object literal for the '<em><b>Model</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LITERAL_PARENT_EXPRESSION__MODEL = eINSTANCE.getLiteralParentExpression_Model();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralSuperExpressionImpl <em>Literal Super Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4048,6 +4222,14 @@ public interface ExpressionPackage extends EPackage {
 		 * @generated
 		 */
 		EClass LITERAL_SUPER_EXPRESSION = eINSTANCE.getLiteralSuperExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Model</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LITERAL_SUPER_EXPRESSION__MODEL = eINSTANCE.getLiteralSuperExpression_Model();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralSystemExpressionImpl <em>Literal System Expression</em>}' class.
@@ -4466,6 +4648,40 @@ public interface ExpressionPackage extends EPackage {
 		EClass LOGICAL_ASSOCIATIVE_EXPRESSION = eINSTANCE.getLogicalAssociativeExpression();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.QuantifiedLogicalExpressionImpl <em>Quantified Logical Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.QuantifiedLogicalExpressionImpl
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getQuantifiedLogicalExpression()
+		 * @generated
+		 */
+		EClass QUANTIFIED_LOGICAL_EXPRESSION = eINSTANCE.getQuantifiedLogicalExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Quantifier</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUANTIFIED_LOGICAL_EXPRESSION__QUANTIFIER = eINSTANCE.getQuantifiedLogicalExpression_Quantifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Variable</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUANTIFIED_LOGICAL_EXPRESSION__VARIABLE = eINSTANCE.getQuantifiedLogicalExpression_Variable();
+
+		/**
+		 * The meta object literal for the '<em><b>Predicate</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference QUANTIFIED_LOGICAL_EXPRESSION__PREDICATE = eINSTANCE.getQuantifiedLogicalExpression_Predicate();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.InvokeExpressionImpl <em>Invoke Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4632,12 +4848,12 @@ public interface ExpressionPackage extends EPackage {
 		EAttribute VALUE_ELEMENT_SPECIFICATION__EXPECTED = eINSTANCE.getValueElementSpecification_Expected();
 
 		/**
-		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Parent</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference VALUE_ELEMENT_SPECIFICATION__TARGET = eINSTANCE.getValueElementSpecification_Target();
+		EReference VALUE_ELEMENT_SPECIFICATION__PARENT = eINSTANCE.getValueElementSpecification_Parent();
 
 		/**
 		 * The meta object literal for the '<em><b>Element</b></em>' reference feature.

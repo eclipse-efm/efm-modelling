@@ -39,7 +39,13 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	protected CTabItem fTransitionCoverageTabItem;
 	protected CTabItem fBehaviorSelectionTabItem;
 
+	// Incubations
 	protected CTabItem fTestOfflineTabItem;
+
+	protected CTabItem fInferenceTabItem;
+
+	// Extraneous
+	protected CTabItem fExtraneousModuleTabItem;
 
 	protected CTabItem fModelAnalysisProfileSelectionTabItem;
 
@@ -49,7 +55,14 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	public OverviewTransitionCoverageConfigurationProfile fTransitionCoveragePage;
 	public OverviewBehaviorSelectionConfigurationProfile fBehaviorSelectionPage;
 
+	// Incubations
 	public OverviewTestOfflineConfigurationProfile fTestOfflinePage;
+
+	public OverviewInferenceConfigurationProfile fInferencePage;
+
+	// Extraneous
+	public OverviewExtraneousModuleConfigurationProfile fExtraneouslModulePage;
+
 
 	/////////////////////////////////////
 	// ANALYSIS SELECTION
@@ -76,10 +89,18 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			fTestOfflinePage =
 					new OverviewTestOfflineConfigurationProfile(configurationPage);
 
+			fInferencePage =
+					new OverviewInferenceConfigurationProfile(configurationPage);
+
+			fExtraneouslModulePage =
+					new OverviewExtraneousModuleConfigurationProfile(configurationPage);
 		} else {
 			fTestOfflinePage = null;
-		}
 
+			fInferencePage = null;
+
+			fExtraneouslModulePage = null;
+		}
 	}
 
 
@@ -111,7 +132,8 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 				+ "\t- Transition Coverage: compute a symbolic tree which covers all transitions of the model\n"
 				+ "\t- Behavior Selection: compute one or more symbolic path(s) which cover(s)\n"
 				+ "\t\t\t   a predefined behavior\n"
-				+ "\t- TESTOFFLINE : Test Verdict Computation: Offline testing...\n");
+				+ "\t- TESTOFFLINE : Test Verdict Computation: Offline testing...\n"
+				+ "\t- INFERENCE : Generate relational properties to be prooved by Frama-C...\n");
 
 		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true, 2, 1);
 		fTabFolder.setLayoutData(gd);
@@ -122,8 +144,13 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
 			createTestOfflineTabItem(widgetToolkit);
+
+			createInferenceTabItem(widgetToolkit);
+
+			createExtraneousModuleTabItem(widgetToolkit);
 		} else {
 			fTestOfflineTabItem = null;
+			fExtraneousModuleTabItem = null;
 		}
 
 		fTabFolder.addSelectionListener(new SelectionAdapter() {
@@ -228,6 +255,49 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 	}
 
+	private void createInferenceTabItem(IWidgetToolkit widgetToolkit)
+	{
+		fInferenceTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fInferenceTabItem.setText(
+				AnalysisProfileKind.ANALYSIS_ACSL_GENERATION_PROFILE.getLiteral());
+
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		fInferencePage.createControl(scrolledComposite, widgetToolkit);
+
+		Composite control = fInferencePage.getControl();
+		if (control != null) {
+			scrolledComposite.setContent(control);
+//			scrolledComposite.setMinSize(
+//					control.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fInferenceTabItem.setControl(scrolledComposite);
+		}
+	}
+
+	private void createExtraneousModuleTabItem(IWidgetToolkit widgetToolkit)
+	{
+		fExtraneousModuleTabItem = new CTabItem(fTabFolder, SWT.NONE );
+		fExtraneousModuleTabItem.setText(
+				AnalysisProfileKind.ANALYSIS_EXTRANEOUS_PROFILE.getLiteral());
+
+		ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		fExtraneouslModulePage.createControl(scrolledComposite, widgetToolkit);
+
+		Composite control = fExtraneouslModulePage.getControl();
+		if (control != null) {
+			scrolledComposite.setContent(control);
+//			scrolledComposite.setMinSize(
+//					control.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fExtraneousModuleTabItem.setControl(scrolledComposite);
+		}
+	}
+
 
 	public void setVisibleModelAnalysisProfilePage(AnalysisProfileKind profile) {
 		switch ( profile ) {
@@ -237,9 +307,20 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
 			fTabFolder.setSelection( fBehaviorSelectionTabItem );
 			break;
+
 		case ANALYSIS_TEST_OFFLINE_PROFILE:
 			fTabFolder.setSelection( (fTestOfflineTabItem != null) ?
 					fTestOfflineTabItem : fExplorationTabItem );
+			break;
+
+		case ANALYSIS_ACSL_GENERATION_PROFILE:
+			fTabFolder.setSelection( (fInferenceTabItem != null) ?
+					fInferenceTabItem : fExplorationTabItem );
+			break;
+
+		case ANALYSIS_EXTRANEOUS_PROFILE:
+			fTabFolder.setSelection( (fExtraneousModuleTabItem != null) ?
+					fExtraneousModuleTabItem : fExplorationTabItem );
 			break;
 
 		case ANALYSIS_EXPLORATION_PROFILE:
@@ -292,6 +373,11 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		if( fTestOfflinePage != null ) {
 			fTestOfflinePage.setDefaults(configuration);
 		}
+
+		// ACSL PROPERTIES INFERENCE
+		if( fInferencePage != null ) {
+			fInferencePage.setDefaults(configuration);
+		}
 	}
 
 	@Override
@@ -332,6 +418,16 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		if( fTestOfflinePage != null ) {
 			fTestOfflinePage.initializeFrom(configuration);
 		}
+
+		// ACSL PROPERTIES INFERENCE
+		if( fInferencePage != null ) {
+			fInferencePage.initializeFrom(configuration);
+		}
+
+		// USER INCUBATION MODULE // INCUBATION MODE
+		if( fExtraneouslModulePage != null ) {
+			fExtraneouslModulePage.initializeFrom(configuration);
+		}
 	}
 
 
@@ -354,6 +450,16 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		// TEST OFFLINE // INCUBATION MODE
 		if( fTestOfflinePage != null ) {
 			fTestOfflinePage.performApply(configuration);
+		}
+
+		// ACSL PROPERTIES INFERENCE
+		if( fInferencePage != null ) {
+			fInferencePage.performApply(configuration);
+		}
+
+		// USER INCUBATION MODULE // INCUBATION MODE
+		if( fExtraneouslModulePage != null ) {
+			fExtraneouslModulePage.performApply(configuration);
 		}
 	}
 
@@ -397,6 +503,28 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			// TEST OFFLINE // INCUBATION MODE
 			if( fTestOfflinePage != null ) {
 				if( ! fTestOfflinePage.isValid(launchConfig) )
+				{
+					return false;
+				}
+			}
+
+			break;
+		}
+
+		case ANALYSIS_ACSL_GENERATION_PROFILE: {
+			// INFERENCE
+			if( ! fInferencePage.isValid(launchConfig) )
+			{
+				return false;
+			}
+
+			break;
+		}
+
+		case ANALYSIS_EXTRANEOUS_PROFILE: {
+			// TEST OFFLINE // INCUBATION MODE
+			if( fExtraneouslModulePage!= null ) {
+				if( ! fExtraneouslModulePage.isValid(launchConfig) )
 				{
 					return false;
 				}

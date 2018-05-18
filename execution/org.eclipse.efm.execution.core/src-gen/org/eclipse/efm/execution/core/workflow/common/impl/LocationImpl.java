@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.LocationImpl#getRoot <em>Root</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.LocationImpl#getLaunch <em>Launch</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.LocationImpl#getOutput <em>Output</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.LocationImpl#getLog <em>Log</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.LocationImpl#getDebug <em>Debug</em>}</li>
@@ -58,6 +59,26 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * @ordered
 	 */
 	protected String root = ROOT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLaunch() <em>Launch</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLaunch()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LAUNCH_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLaunch() <em>Launch</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLaunch()
+	 * @generated
+	 * @ordered
+	 */
+	protected String launch = LAUNCH_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getOutput() <em>Output</em>}' attribute.
@@ -164,6 +185,27 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getLaunch() {
+		return launch;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLaunch(String newLaunch) {
+		String oldLaunch = launch;
+		launch = newLaunch;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.LOCATION__LAUNCH, oldLaunch, launch));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getOutput() {
 		return output;
 	}
@@ -232,6 +274,8 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 		switch (featureID) {
 			case CommonPackage.LOCATION__ROOT:
 				return getRoot();
+			case CommonPackage.LOCATION__LAUNCH:
+				return getLaunch();
 			case CommonPackage.LOCATION__OUTPUT:
 				return getOutput();
 			case CommonPackage.LOCATION__LOG:
@@ -252,6 +296,9 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 		switch (featureID) {
 			case CommonPackage.LOCATION__ROOT:
 				setRoot((String)newValue);
+				return;
+			case CommonPackage.LOCATION__LAUNCH:
+				setLaunch((String)newValue);
 				return;
 			case CommonPackage.LOCATION__OUTPUT:
 				setOutput((String)newValue);
@@ -277,6 +324,9 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 			case CommonPackage.LOCATION__ROOT:
 				setRoot(ROOT_EDEFAULT);
 				return;
+			case CommonPackage.LOCATION__LAUNCH:
+				setLaunch(LAUNCH_EDEFAULT);
+				return;
 			case CommonPackage.LOCATION__OUTPUT:
 				setOutput(OUTPUT_EDEFAULT);
 				return;
@@ -300,6 +350,8 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 		switch (featureID) {
 			case CommonPackage.LOCATION__ROOT:
 				return ROOT_EDEFAULT == null ? root != null : !ROOT_EDEFAULT.equals(root);
+			case CommonPackage.LOCATION__LAUNCH:
+				return LAUNCH_EDEFAULT == null ? launch != null : !LAUNCH_EDEFAULT.equals(launch);
 			case CommonPackage.LOCATION__OUTPUT:
 				return OUTPUT_EDEFAULT == null ? output != null : !OUTPUT_EDEFAULT.equals(output);
 			case CommonPackage.LOCATION__LOG:
@@ -322,6 +374,8 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (root: ");
 		result.append(root);
+		result.append(", launch: ");
+		result.append(launch);
 		result.append(", output: ");
 		result.append(output);
 		result.append(", log: ");

@@ -24,3 +24,4 @@ Export-Package: org.eclipse.efm.sew.xtext.ui.internal,
  org.eclipse.efm.sew.xtext.ui.quickfix,
  org.eclipse.efm.sew.xtext.ui.contentassist
 Bundle-Activator: org.eclipse.efm.sew.xtext.ui.internal.XtextActivator
+Automatic-Module-Name: org.eclipse.efm.sew.xtext.ui

@@ -19,11 +19,14 @@ import org.eclipse.efm.ecore.formalml.common.Type;
 import org.eclipse.efm.ecore.formalml.common.TypedElement;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
+import org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
 import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
-import org.eclipse.efm.ecore.formalml.infrastructure.Connection;
+import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
+import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
+import org.eclipse.efm.ecore.formalml.infrastructure.Function;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
@@ -36,6 +39,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
 import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Procedure;
 import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition;
+import org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Route;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
@@ -112,6 +116,18 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 				return createMachineAdapter();
 			}
 			@Override
+			public Adapter casePropertyPart(PropertyPart object) {
+				return createPropertyPartAdapter();
+			}
+			@Override
+			public Adapter caseCompositePart(CompositePart object) {
+				return createCompositePartAdapter();
+			}
+			@Override
+			public Adapter caseBehaviorPart(BehaviorPart object) {
+				return createBehaviorPartAdapter();
+			}
+			@Override
 			public Adapter caseSystem(org.eclipse.efm.ecore.formalml.infrastructure.System object) {
 				return createSystemAdapter();
 			}
@@ -142,6 +158,10 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseSignal(Signal object) {
 				return createSignalAdapter();
+			}
+			@Override
+			public Adapter caseFunction(Function object) {
+				return createFunctionAdapter();
 			}
 			@Override
 			public Adapter caseProcedure(Procedure object) {
@@ -192,8 +212,8 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 				return createRouteAdapter();
 			}
 			@Override
-			public Adapter caseConnection(Connection object) {
-				return createConnectionAdapter();
+			public Adapter caseConnector(Connector object) {
+				return createConnectorAdapter();
 			}
 			@Override
 			public Adapter caseComPoint(ComPoint object) {
@@ -254,6 +274,48 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMachineAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart <em>Property Part</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart
+	 * @generated
+	 */
+	public Adapter createPropertyPartAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.infrastructure.CompositePart <em>Composite Part</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.CompositePart
+	 * @generated
+	 */
+	public Adapter createCompositePartAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart <em>Behavior Part</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart
+	 * @generated
+	 */
+	public Adapter createBehaviorPartAdapter() {
 		return null;
 	}
 
@@ -366,6 +428,20 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSignalAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.infrastructure.Function <em>Function</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Function
+	 * @generated
+	 */
+	public Adapter createFunctionAdapter() {
 		return null;
 	}
 
@@ -538,16 +614,16 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.infrastructure.Connection <em>Connection</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.infrastructure.Connector <em>Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Connection
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Connector
 	 * @generated
 	 */
-	public Adapter createConnectionAdapter() {
+	public Adapter createConnectorAdapter() {
 		return null;
 	}
 

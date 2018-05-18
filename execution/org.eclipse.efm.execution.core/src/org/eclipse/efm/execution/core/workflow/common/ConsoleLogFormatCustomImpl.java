@@ -22,21 +22,31 @@ public class ConsoleLogFormatCustomImpl extends ConsoleLogFormatImpl {
 	}
 
 
-	public static ConsoleLogFormatCustomImpl create(String format) {
+	public static ConsoleLogFormatCustomImpl create(String format,
+			String spiderInit, String spiderStep, String spiderStop) {
 		ConsoleLogFormatCustomImpl console = new ConsoleLogFormatCustomImpl();
 
 		// The Default formatter...
 		console.setFormat( format );
 
+		console.setSpiderInit(spiderInit);
+		console.setSpiderStep(spiderStep);
+		console.setSpiderStop(spiderStop);
+
 		return( console );
 	}
 
-	public static ConsoleLogFormatCustomImpl create(String format, String report) {
+	public static ConsoleLogFormatCustomImpl create(String format, String report,
+			String spiderInit, String spiderStep, String spiderStop) {
 		ConsoleLogFormatCustomImpl console = new ConsoleLogFormatCustomImpl();
 
 		// The Default formatter...
 		console.setFormat( format );
 		console.setReport( report );
+
+		console.setSpiderInit(spiderInit);
+		console.setSpiderStep(spiderStep);
+		console.setSpiderStop(spiderStop);
 
 		return( console );
 	}
@@ -91,6 +101,16 @@ public class ConsoleLogFormatCustomImpl extends ConsoleLogFormatImpl {
 		if( (verbose != null) && (verbose != ConsoleVerbosityKind.UNDEFINED) ) {
 			writer.appendTab2( "verbose = \'" )
 				.append( verbose.getLiteral() ).appendEol( "\'" );
+		}
+
+		if( (str = getSpiderInit()) != null ) {
+			writer.appendTab2( "spider#init = \"" ).append( str ).appendEol( "\"" );
+		}
+		if( (str = getSpiderStep()) != null ) {
+			writer.appendTab2( "spider#step = \"" ).append( str ).appendEol( "\"" );
+		}
+		if( (str = getSpiderStop()) != null ) {
+			writer.appendTab2( "spider#stop = \"" ).append( str ).appendEol( "\"" );
 		}
 
 		writer.appendTabEol( "] // end console" );

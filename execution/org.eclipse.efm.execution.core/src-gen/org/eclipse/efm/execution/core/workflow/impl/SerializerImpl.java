@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledNormalization <em>Enabled Normalization</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledLifelinesPrinting <em>Enabled Lifelines Printing</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledModifiedDataSelection <em>Enabled Modified Data Selection</em>}</li>
  * </ul>
  *
  * @generated
@@ -175,6 +176,26 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * @ordered
 	 */
 	protected boolean enabledLifelinesPrinting = ENABLED_LIFELINES_PRINTING_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnabledModifiedDataSelection() <em>Enabled Modified Data Selection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabledModifiedDataSelection()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLED_MODIFIED_DATA_SELECTION_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isEnabledModifiedDataSelection() <em>Enabled Modified Data Selection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabledModifiedDataSelection()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enabledModifiedDataSelection = ENABLED_MODIFIED_DATA_SELECTION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -434,6 +455,27 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isEnabledModifiedDataSelection() {
+		return enabledModifiedDataSelection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnabledModifiedDataSelection(boolean newEnabledModifiedDataSelection) {
+		boolean oldEnabledModifiedDataSelection = enabledModifiedDataSelection;
+		enabledModifiedDataSelection = newEnabledModifiedDataSelection;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION, oldEnabledModifiedDataSelection, enabledModifiedDataSelection));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -471,6 +513,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return isEnabledInitialValuesPrinting();
 			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
 				return isEnabledLifelinesPrinting();
+			case WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION:
+				return isEnabledModifiedDataSelection();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -506,6 +550,9 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return;
 			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
 				setEnabledLifelinesPrinting((Boolean)newValue);
+				return;
+			case WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION:
+				setEnabledModifiedDataSelection((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -543,6 +590,9 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
 				setEnabledLifelinesPrinting(ENABLED_LIFELINES_PRINTING_EDEFAULT);
 				return;
+			case WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION:
+				setEnabledModifiedDataSelection(ENABLED_MODIFIED_DATA_SELECTION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -571,6 +621,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return enabledInitialValuesPrinting != ENABLED_INITIAL_VALUES_PRINTING_EDEFAULT;
 			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
 				return enabledLifelinesPrinting != ENABLED_LIFELINES_PRINTING_EDEFAULT;
+			case WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION:
+				return enabledModifiedDataSelection != ENABLED_MODIFIED_DATA_SELECTION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -595,6 +647,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 		result.append(enabledInitialValuesPrinting);
 		result.append(", enabledLifelinesPrinting: ");
 		result.append(enabledLifelinesPrinting);
+		result.append(", enabledModifiedDataSelection: ");
+		result.append(enabledModifiedDataSelection);
 		result.append(')');
 		return result.toString();
 	}

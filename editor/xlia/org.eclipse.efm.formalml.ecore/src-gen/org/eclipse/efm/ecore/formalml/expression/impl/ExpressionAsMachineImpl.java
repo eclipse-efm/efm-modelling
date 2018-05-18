@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +37,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class ExpressionAsMachineImpl extends MinimalEObjectImpl.Container implements ExpressionAsMachine {
+public class ExpressionAsMachineImpl extends ExpressionImpl implements ExpressionAsMachine {
 	/**
 	 * The cached value of the '{@link #getMachine() <em>Machine</em>}' containment reference.
 	 * <!-- begin-user-doc -->

@@ -17,7 +17,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -56,7 +56,7 @@ public class GraphVizHandler extends AbstractHandler {
 		if( gvFile != null ) {
 			if( SymbexPreferenceUtil.hasExternalDotGraphViewerPath() ) {
 				try {
-					String[] cmdLine = {
+					String[] commandLine = {
 							SymbexPreferenceUtil.strExternalDotGraphViewerPath(),
 							gvFile.getLocation().toOSString()
 						};
@@ -65,7 +65,7 @@ public class GraphVizHandler extends AbstractHandler {
 							getRoot().getLocation().toFile();
 
 					Process viewerProcess = Runtime.getRuntime().
-							exec(cmdLine, null, workingDir);
+							exec(commandLine, null, workingDir);
 
 					if( viewerProcess == null ) {
 						System.out.println(event.toString());

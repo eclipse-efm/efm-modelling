@@ -59,6 +59,15 @@ public interface FormalmlFactory extends EFactory {
 	XliaObject createXliaObject();
 
 	/**
+	 * Returns a new object of class '<em>Xlia Section</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Xlia Section</em>'.
+	 * @generated
+	 */
+	XliaSection createXliaSection();
+
+	/**
 	 * Returns a new object of class '<em>Xlia Attribute</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -56,7 +56,15 @@ public enum ValueElementSpecificationKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PARAMETER(2, "parameter", "parameter");
+	PARAMETER(2, "parameter", "parameter"), /**
+	 * The '<em><b>Function</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FUNCTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FUNCTION(3, "function", "function");
 
 	/**
 	 * The '<em><b>Field</b></em>' literal value.
@@ -104,6 +112,21 @@ public enum ValueElementSpecificationKind implements Enumerator {
 	public static final int PARAMETER_VALUE = 2;
 
 	/**
+	 * The '<em><b>Function</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Function</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #FUNCTION
+	 * @model name="function"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FUNCTION_VALUE = 3;
+
+	/**
 	 * An array of all the '<em><b>Value Element Specification Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -114,6 +137,7 @@ public enum ValueElementSpecificationKind implements Enumerator {
 			FIELD,
 			INDEX,
 			PARAMETER,
+			FUNCTION,
 		};
 
 	/**
@@ -173,6 +197,7 @@ public enum ValueElementSpecificationKind implements Enumerator {
 			case FIELD_VALUE: return FIELD;
 			case INDEX_VALUE: return INDEX;
 			case PARAMETER_VALUE: return PARAMETER;
+			case FUNCTION_VALUE: return FUNCTION;
 		}
 		return null;
 	}

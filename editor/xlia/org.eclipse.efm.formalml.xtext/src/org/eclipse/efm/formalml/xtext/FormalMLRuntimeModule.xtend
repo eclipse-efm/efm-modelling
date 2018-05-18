@@ -14,6 +14,10 @@ package org.eclipse.efm.formalml.xtext
 
 import com.google.inject.Binder
 import com.google.inject.name.Names
+import org.eclipse.xtext.naming.IQualifiedNameProvider
+//import org.eclipse.xtext.resource.containers.IAllContainersState
+import org.eclipse.xtext.validation.CompositeEValidator
+import org.eclipse.xtext.parser.IAstFactory
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -21,15 +25,27 @@ import com.google.inject.name.Names
 class FormalMLRuntimeModule extends AbstractFormalMLRuntimeModule {
 
 
-//	@Override
-//	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
-//		return FormalMLQualifiedNameProvider.class;
+	override
+	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
+		return FormalMLQualifiedNameProvider;
+	}
+
+
+//	override
+//	public Class<? extends IAllContainersState.Provider> bindIAllContainersState$Provider() {
+//		return FormalMLResourceSetBasedAllContainersStateProvider;
 //	}
-
-
+	
+	
 	override public void configure(Binder binder) {
 	  super.configure(binder);
 	  binder.bindConstant().annotatedWith(Names.named(
-			  org.eclipse.xtext.validation.CompositeEValidator.USE_EOBJECT_VALIDATOR)).to(false);
+			  CompositeEValidator.USE_EOBJECT_VALIDATOR)).to(false);
 	}
+	
+	
+	override public Class<? extends IAstFactory> bindIAstFactory() {
+		return FormalMLAstFactory;
+	}
+
 }

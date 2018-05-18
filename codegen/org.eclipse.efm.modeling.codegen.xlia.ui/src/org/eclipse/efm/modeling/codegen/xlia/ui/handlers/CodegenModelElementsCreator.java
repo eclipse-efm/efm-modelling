@@ -18,6 +18,8 @@ import org.eclipse.papyrus.designer.languages.common.base.HierarchyLocationStrat
 import org.eclipse.papyrus.designer.languages.common.base.ModelElementsCreator;
 import org.eclipse.papyrus.infra.tools.file.ProjectBasedFileAccess;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.PackageableElement;
 
 public class CodegenModelElementsCreator extends ModelElementsCreator {
@@ -51,7 +53,7 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 
 			final IPath fileLocation = (new Path(FML_GEN_FOLDER))
 					.append(this.locStrategy.getFileName(classifier))
-					.addFileExtension("fml");
+					.addFileExtension("xlia");
 
 			this.fileSystemAccess.generateFile(fileLocation.toString(),
 					this.fCodeGenerator.performTransform(classifier));
@@ -69,5 +71,19 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
+	protected void createElementFile(
+			NamedElement namedElement, IProgressMonitor monitor)
+	{
+		final IPath fileLocation = (new Path(FML_GEN_FOLDER))
+				.append(this.locStrategy.getFileName(namedElement))
+				.addFileExtension("xlia");
+
+		this.fileSystemAccess.generateFile(fileLocation.toString(),
+				this.fCodeGenerator.performTransform(namedElement));
+	}
+
+
 
 }

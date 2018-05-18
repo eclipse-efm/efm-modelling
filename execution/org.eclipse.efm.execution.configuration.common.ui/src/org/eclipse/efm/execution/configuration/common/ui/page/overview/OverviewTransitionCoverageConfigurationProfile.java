@@ -20,46 +20,47 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationProfile;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
-import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
+import org.eclipse.efm.execution.core.util.FormalMLXtextUtil;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
+import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
+import org.eclipse.efm.execution.core.workflow.common.CoverageScopeKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceElement;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
-import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 
-public class OverviewTransitionCoverageConfigurationProfile extends AbstractConfigurationProfile {
+public class OverviewTransitionCoverageConfigurationProfile
+		extends AbstractConfigurationProfile {
 
-	public BooleanFieldEditor fEnabledDetailedSelectionBooleanField;
+	public static final String[] SCOPE_COMBO_ITEMS = new String[] {
+			CoverageScopeKind.MODEL.getLiteral() ,
+			CoverageScopeKind.INSTANCE.getLiteral() ,
+			CoverageScopeKind.DETAILS.getLiteral()
+	};
+
+	private CoverageScopeKind fCoverageScope = CoverageScopeKind.MODEL;
+
+	private Combo fCoverageScopeCombo = null;
+
 
 	private TraceElementTableViewer fTransitionTraceElementTableViewer;
 
-	private TraceElementTableConfigProvider getTableConfig(Font font) {
-		final PixelConverter pixelConverter = new PixelConverter(font);
+	private final static TraceElement[] NO_TRANSITION = new TraceElement[0];
 
-		return new TraceElementTableConfigProvider(
-				ATTR_TRANSITION_COVERAGE_SELECTION, BEHAVIOR_INITIAL_SAMPLE,
-				"&Transition selection", BEHAVIOR_DESCRIPTION, true,
-				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
-				"Element", pixelConverter.convertWidthInCharsToPixels(48),
-				TraceElementTableConfigProvider.TRANSITION_TRACE_ELEMENT,
-				TraceElementKind.TRANSITION);
-	}
-
-
-
-	private List< String > fAllTransitionsList;
+	private TraceElement[] fAllTransitionCoverageElements;
 
 	private String fModelFilePath;
 
@@ -75,6 +76,8 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 		super(configurationPage);
 
 		this.fOverviewAnalysisProfileSection = overviewAnalysisProfileSection;
+
+		fAllTransitionCoverageElements = NO_TRANSITION;
 
 		fModelFilePath = null;
 	}
@@ -94,79 +97,115 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	@Override
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
 	{
-		fEnabledDetailedSelectionBooleanField =
-				new BooleanFieldEditor(fConfigurationPage,
-						ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION,
-						"&Enable Transitions Selection", parent, false);
-		addFieldEditor(fEnabledDetailedSelectionBooleanField);
-
-		fEnabledDetailedSelectionBooleanField.
-				setPropertyChangeListener(fConfigurationPage);
-
-		fEnabledDetailedSelectionBooleanField.addSelectionListener(
-			new SelectionAdapter() {
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					handleEnablingDetailedSelection();
-				}
-			});
+		fCoverageScopeCombo = widgetToolkit.createLabelledCombo(parent,
+				"&Scope : ", SWT.DROP_DOWN | SWT.READ_ONLY, 1, SCOPE_COMBO_ITEMS);
+		fCoverageScopeCombo.addSelectionListener( new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				handleCoverageScopeSelectionChange();
+			}
+		});
 
 // ==================================================================================
 
-		fTransitionTraceElementTableViewer = new TraceElementTableViewer(this,
-				parent, 1, widgetToolkit, getTableConfig(parent.getFont()));
+		fTransitionTraceElementTableViewer =
+			new TraceElementTableViewer(this, parent, 1, widgetToolkit,
+				TraceElementTableConfigProvider.getTransitionCoverage(
+						parent.getFont()));
+		// DONT UNCOMMENT THAT CODE
+//		addTableViewer(fTransitionTraceElementTableViewer);
 	}
 
 
-	private void handleEnablingDetailedSelection() {
+	private void handleCoverageScopeSelectionChange() {
+		fCoverageScope = CoverageScopeKind.get( fCoverageScopeCombo.getText() );
+
+		boolean enableTransitionSelectionViewer = false;
+		String toolTipText;
+
+		switch ( fCoverageScope ) {
+		case DETAILS:
+			enableTransitionSelectionViewer = true;
+			initTransitionTable();
+
+			toolTipText = "Try to cover the selected transitions";
+			break;
+
+		case MODEL:
+			toolTipText = "Try to cover once each model transition";
+			break;
+
+		case INSTANCE:
+			toolTipText = "Try to cover once each model transition for each of its instances";
+			break;
+
+		default:
+			toolTipText = "Try to cover transitions";
+			break;
+		}
+
 		fConfigurationPage.propagateVisibility(
 				fTransitionTraceElementTableViewer.getControl(),
-				fEnabledDetailedSelectionBooleanField.getBooleanValue());
+				enableTransitionSelectionViewer);
+
+		fCoverageScopeCombo.setToolTipText(toolTipText);
+
+		fConfigurationPage.propagateGUIupdate();
 	}
 
 
 	private void initTransitionTable() {
 		loadTransitionListToBeSelected();
 
-		fTransitionTraceElementTableViewer.removeAll();
+ 		fTransitionTraceElementTableViewer.removeAll();
 
-		TraceElement[] transitionsTrace =
-				new TraceElement[fAllTransitionsList.size()];
-		int offset = -1;
-		for( String transition : fAllTransitionsList ) {
-			transitionsTrace[ ++offset ] = new TraceElementCustomImpl(
-					true, TraceElementKind.TRANSITION, transition);
-		}
-
-		fTransitionTraceElementTableViewer.setInput(transitionsTrace);
+		fTransitionTraceElementTableViewer.setInput(fAllTransitionCoverageElements);
 	}
 
 	public void handleModelFilePathChanged(String modelFilePath) {
 		fModelFilePath = modelFilePath;
 
 		// Force Re-initialization
-		fAllTransitionsList = null;
+		fAllTransitionCoverageElements = NO_TRANSITION;
 
-		updateTransitionTables();
+		if( fOverviewAnalysisProfileSection.isTransitionCoverage()
+			&& (fCoverageScope == CoverageScopeKind.DETAILS) )
+		{
+			updateTransitionTables();
+		}
 	}
 
 	public void updateTransitionTables() {
 		fTransitionTraceElementTableViewer.removeAll();
 
-		if( (fAllTransitionsList == null)
-			|| fAllTransitionsList.isEmpty() )
+		if( fAllTransitionCoverageElements.length == 0 )
 		{
 			initTransitionTable();
 		}
 	}
 
-	private void loadTransitionListToBeSelected() {
+	private void setAllTransition(List<TraceElement> allTransitionCoverageElements) {
+		if( (allTransitionCoverageElements != null)
+			&& (! allTransitionCoverageElements.isEmpty()) ) {
 
-		if( fAllTransitionsList == null ) {
-			fAllTransitionsList = new ArrayList<String>();
+			fAllTransitionCoverageElements = allTransitionCoverageElements.toArray(
+					new TraceElement[allTransitionCoverageElements.size()]);
 		}
 		else {
-			fAllTransitionsList.clear();
+			fAllTransitionCoverageElements = NO_TRANSITION;
+		}
+	}
+
+	private void loadTransitionListToBeSelected() {
+		FormalMLXtextUtil xtextUtil = new FormalMLXtextUtil(fModelFilePath);
+
+		if( xtextUtil.parser() ) {
+			setAllTransition( xtextUtil.getAllTransitionCoverageElements());
+
+			return;
+		}
+		else {
+			fAllTransitionCoverageElements = NO_TRANSITION;
 		}
 
 		File modelFile =
@@ -175,6 +214,8 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 
 		try {
 			if( (modelFile != null) && modelFile.isFile() ) {
+				List<TraceElement> allTransitions = new ArrayList<TraceElement>();
+
 				InputStream ips;
 					ips = new FileInputStream( modelFile );
 				InputStreamReader ipsr = new InputStreamReader(ips);
@@ -198,10 +239,10 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 							// transition_name_empty
 						}
 						else {
-							fAllTransitionsList.add(transitionName);
-							maxSizetransitionName =
-									Math.max(maxSizetransitionName,
-											transitionName.length() );
+							allTransitions.add(new TraceElementCustomImpl(
+									true, TraceElementKind.TRANSITION, transitionName));
+							maxSizetransitionName = Math.max(
+									maxSizetransitionName, transitionName.length() );
 						}
 					}
 					// Other Case:
@@ -221,15 +262,16 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 							// transition_name_empty
 						}
 						else {
-							fAllTransitionsList.add(transitionName);
-							maxSizetransitionName =
-									Math.max(maxSizetransitionName,
-											transitionName.length() );
+							allTransitions.add(new TraceElementCustomImpl(
+									true, TraceElementKind.TRANSITION, transitionName));
+							maxSizetransitionName = Math.max(
+									maxSizetransitionName, transitionName.length() );
 						}
 					}
 				}
 				br.close();
-				fAllTransitionsList.sort(null);
+
+				setAllTransition( allTransitions );
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -241,7 +283,8 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration)
 	{
 		configuration.setAttribute(
-				ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false);
+				ATTR_TRANSITION_COVERAGE_SCOPE,
+				CoverageScopeKind.MODEL.getLiteral());
 
 		configuration.setAttribute(ATTR_TRANSITION_COVERAGE_SELECTION, "");
 	}
@@ -253,9 +296,39 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 				configuration, ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
 				DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
 
-		handleEnablingDetailedSelection();
+		try {
+			fCoverageScope = CoverageScopeKind.get(
+					configuration.getAttribute(
+							ATTR_TRANSITION_COVERAGE_SCOPE,
+							CoverageScopeKind.MODEL.getLiteral()));
+		}
+		catch (CoreException e) {
+			e.printStackTrace();
+		}
+		if( fCoverageScope == null ) {
+			fCoverageScope = CoverageScopeKind.MODEL;
+		}
 
-		fTransitionTraceElementTableViewer.initializeFrom(configuration);
+		switch( fCoverageScope ) {
+		case MODEL:
+			fCoverageScopeCombo.select(0);
+			break;
+		case INSTANCE:
+			fCoverageScopeCombo.select(1);
+			break;
+		case DETAILS:
+			fCoverageScopeCombo.select(2);
+			break;
+		default:
+			fCoverageScope = CoverageScopeKind.MODEL;
+			fCoverageScopeCombo.select(0);
+			break;
+		}
+
+		handleCoverageScopeSelectionChange();
+
+		// DONT UNCOMMENT THAT CODE
+//		fTransitionTraceElementTableViewer.initializeFrom(configuration);
 	}
 
 
@@ -264,15 +337,19 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	{
 		fTransitionTraceElementTableViewer.performApply(configuration);
 
+		configuration.setAttribute(
+				ATTR_TRANSITION_COVERAGE_SCOPE, fCoverageScope.getLiteral());
+
 		if( fOverviewAnalysisProfileSection.isTransitionCoverage() )
 		{
-			configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY, "WEIGHT_BFS");
+			configuration.setAttribute(
+					ATTR_SPECIFICATION_ANALYZE_STRATEGY, "WEIGHT_BFS");
 		}
 	}
 
 	@Override
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
-		if( fEnabledDetailedSelectionBooleanField.getBooleanValue() )
+		if( fCoverageScope == CoverageScopeKind.DETAILS )
 		{
 			return fTransitionTraceElementTableViewer.isValid(launchConfig);
 		}
@@ -287,11 +364,22 @@ public class OverviewTransitionCoverageConfigurationProfile extends AbstractConf
 	@Override
 	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
 		switch( event.getProperty() ) {
-		case ATTR_SPECIFICATION_MODEL_FILE_LOCATION: {
+		case ATTR_SPECIFICATION_MODEL_FILE_LOCATION:
 			handleModelFilePathChanged( event.getNewValue().toString() );
-
 			break;
-		}
+
+		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE:
+			switch ( (AnalysisProfileKind) event.getNewValue() ) {
+			case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
+				if( fCoverageScope == CoverageScopeKind.DETAILS ) {
+					initTransitionTable();
+				}
+				break;
+			default:
+				break;
+			}
+			break;
+
 		default:
 			break;
 		}

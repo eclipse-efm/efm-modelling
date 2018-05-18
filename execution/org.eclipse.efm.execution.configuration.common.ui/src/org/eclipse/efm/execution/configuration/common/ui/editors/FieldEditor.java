@@ -621,6 +621,17 @@ public abstract class FieldEditor {
         getLabelControl(parent).setEnabled(enabled);
     }
 
+    /**
+     * Set whether or not the controls in the field editor
+     * are visible.
+     * @param visible The visible state.
+     * @param parent The parent of the controls in the group.
+     *  Used to create the controls if required.
+     */
+	public void setVisible(boolean visible, Composite parent) {
+        getLabelControl(parent).setVisible(visible);
+    }
+
 
 	/**
 	 * Diversity Field Editor Configuration API

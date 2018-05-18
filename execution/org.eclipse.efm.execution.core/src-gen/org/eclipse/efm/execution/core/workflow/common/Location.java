@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.Location#getRoot <em>Root</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.Location#getLaunch <em>Launch</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.Location#getOutput <em>Output</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.Location#getLog <em>Log</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.Location#getDebug <em>Debug</em>}</li>
@@ -59,6 +60,32 @@ public interface Location extends EObject {
 	 * @generated
 	 */
 	void setRoot(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Launch</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Launch</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Launch</em>' attribute.
+	 * @see #setLaunch(String)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getLocation_Launch()
+	 * @model
+	 * @generated
+	 */
+	String getLaunch();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.Location#getLaunch <em>Launch</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Launch</em>' attribute.
+	 * @see #getLaunch()
+	 * @generated
+	 */
+	void setLaunch(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Output</b></em>' attribute.

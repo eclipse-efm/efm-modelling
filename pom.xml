@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.eclipse.papyrus.components</groupId>
 		<artifactId>org.eclipse.papyrus.components.parent</artifactId>
-		<version>0.0.21</version>
+		<version>0.0.23</version>
 	</parent>
 
 	<groupId>org.eclipse.efm</groupId>
@@ -26,11 +27,11 @@
 		<component.rcp.name>org.eclipse.efm.modeling.rcp</component.rcp.name>
 		<component.apibaseline.url>http://download.eclipse.org/efm/components/org.eclipse.efm-modeling/</component.apibaseline.url>
 		<component.servicetype>org.eclipse.efm.modeling.service.types</component.servicetype>
-		<eclipse.targetrelease>neon-papyrus</eclipse.targetrelease>
+		<eclipse.targetrelease>last-release-papyrus</eclipse.targetrelease>
 		<target.version>${project.version}</target.version>
 		<!-- Default header linked to EPL license -->
 		<component.header>header.epl.txt</component.header>
-		<eclipse.release>neon-papyrus</eclipse.release>
+		<eclipse.release>last-release-papyrus</eclipse.release>
 
 	</properties>
 
@@ -71,16 +72,38 @@
 		</repository>
 	</repositories>
 
-	<modules>
-		<module>core</module>
-		<module>codegen</module>
-		<module>diagram</module>
-		<module>editor</module>
-		<module>execution</module>
-		<module>doc</module>
-		<module>gui</module>
-		<module>releng</module>
-		<module>targetplatform</module>
-		<module>tutorial</module>
-	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-source-feature-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>source-feature</id>
+						<phase>package</phase>
+						<goals>
+							<goal>source-feature</goal>
+						</goals>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+		<modules>
+			<module>core</module>
+			<module>codegen</module>
+			<module>diagram</module>
+			<module>editor</module>
+			<module>execution</module>
+			<module>doc</module>
+			<module>features</module>
+			<module>gui</module>
+			<module>releng</module>
+			<module>targetplatform</module>
+			<module>tutorial</module>
+		</modules>
 </project>

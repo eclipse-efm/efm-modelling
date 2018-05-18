@@ -1,0 +1,29 @@
+target "Eclipse Formal Modeling Textual last-release" with source requirements
+
+location "http://download.eclipse.org/releases/oxygen/" eclipse-oxygen {
+ org.eclipse.emf.feature.group lazy
+// org.eclipse.emf.mwe.ui lazy
+ org.eclipse.emf.mwe.ui.feature.feature.group lazy
+ org.eclipse.emf.mwe2.launch lazy
+ org.eclipse.emf.mwe2.runtime.sdk.feature.group lazy
+ org.eclipse.equinox.p2.discovery.feature.feature.group lazy
+ org.eclipse.equinox.executable.feature.group lazy
+ org.eclipse.jdt.feature.group lazy
+ org.eclipse.ocl.uml.feature.group lazy
+ org.eclipse.platform.feature.group lazy
+ org.eclipse.rcp.feature.group lazy
+ org.eclipse.xpand.feature.group lazy
+ org.eclipse.xtend.dependencies.feature.group
+ org.eclipse.xtend.feature.group lazy
+ org.eclipse.xtend.lib lazy
+ org.eclipse.xtend.typesystem.emf.feature.group
+ org.eclipse.xtend.ui.feature.group lazy
+ org.eclipse.xtext.junit4 lazy
+ org.eclipse.xtext.runtime.feature.group lazy
+ org.eclipse.xtext.sdk.feature.group lazy
+ org.eclipse.xtext.testing lazy
+ org.eclipse.xtext.ui.feature.group lazy
+ org.eclipse.xtext.xbase.feature.group lazy
+// org.eclipse.xtext.xbase.junit lazy
+// org.eclipse.xtext.xbase.testing lazy
+}

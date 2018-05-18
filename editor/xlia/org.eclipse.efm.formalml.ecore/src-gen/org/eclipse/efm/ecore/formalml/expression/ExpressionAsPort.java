@@ -12,7 +12,6 @@
  */
 package org.eclipse.efm.ecore.formalml.expression;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ExpressionAsPort extends EObject {
+public interface ExpressionAsPort extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Port</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

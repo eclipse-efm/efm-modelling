@@ -231,6 +231,21 @@ public interface IWorkflowConfigurationSyntax {
 
 
 	////////////////////////////////////////////////////////////////////////////
+	// HELPER for INCUBATION MODULE as OPAQUE WORKER
+	////////////////////////////////////////////////////////////////////////////
+
+	public static final String HELPER_OPAQUE_MODULE_TEXTUAL_CONFIGURATION
+			= "// a sample of opaque worker workflow with its textual configuration\n"
+			+ "incubation#worker  new_incubation_worker {\n"
+			+ "\tproperty [\n"
+			+ "\t\tattribute#bool = true\n"
+			+ "\t\tattribute#integert = 42\n"
+			+ "\t\tattribute#string = \"string value\"\n"
+			+ "\t] // end property\n"
+			+ "} // end new_incubation_worker\n";  //$NON-NLS-1$
+
+
+	////////////////////////////////////////////////////////////////////////////
 	// :  a.k.a.
 	///////////////////////////////////////////////////////////////////////////
 

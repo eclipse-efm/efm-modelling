@@ -32,7 +32,7 @@ import org.eclipse.debug.ui.StringVariableSelectionDialog;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.util.StandardWidgetToolkit;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.window.Window;
@@ -640,8 +640,6 @@ public class SymbexRuntimeTab extends AbstractLaunchConfigurationTab
 		}
 		return true;
 	}
-
-
 
 
 	IWidgetToolkit widgetToolkit = new StandardWidgetToolkit();

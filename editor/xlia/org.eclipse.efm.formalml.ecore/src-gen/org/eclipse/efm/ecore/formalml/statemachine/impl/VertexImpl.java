@@ -17,6 +17,7 @@ import java.util.Collection;
 import org.eclipse.efm.ecore.formalml.common.impl.NamedElementImpl;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
+
 import org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage;
 import org.eclipse.efm.ecore.formalml.statemachine.Transition;
 import org.eclipse.efm.ecore.formalml.statemachine.Vertex;

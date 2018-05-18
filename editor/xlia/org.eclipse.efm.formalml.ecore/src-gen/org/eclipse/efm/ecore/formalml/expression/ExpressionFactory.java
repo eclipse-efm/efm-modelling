@@ -401,6 +401,15 @@ public interface ExpressionFactory extends EFactory {
 	LogicalAssociativeExpression createLogicalAssociativeExpression();
 
 	/**
+	 * Returns a new object of class '<em>Quantified Logical Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Quantified Logical Expression</em>'.
+	 * @generated
+	 */
+	QuantifiedLogicalExpression createQuantifiedLogicalExpression();
+
+	/**
 	 * Returns a new object of class '<em>Invoke Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

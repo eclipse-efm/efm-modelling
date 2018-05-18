@@ -116,6 +116,12 @@ public class ImageResources {
 
 	public static final String IMAGE__VALIDATE_ICON = ICONS_PLUGIN_PATH + "validate.gif";
 
+	public static final String IMAGE__TERMINATE_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "terminate_co.png";
+
+	public static final String IMAGE__TERMINATE_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "terminate_co.png";
+
+
+
 
 	// Helper/Util methods only below
 

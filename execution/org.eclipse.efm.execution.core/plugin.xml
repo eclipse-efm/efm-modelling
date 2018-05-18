@@ -29,6 +29,14 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated workflow -->
       <package
+            uri="http://www.eclipse.org/efm/Workflow/Extraneous"
+            class="org.eclipse.efm.execution.core.workflow.extraneous.ExtraneousPackage"
+            genModel="resources/ecore/workflow.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated workflow -->
+      <package
             uri="http://www.eclipse.org/efm/Workflow/Test"
             class="org.eclipse.efm.execution.core.workflow.test.TestPackage"
             genModel="resources/ecore/workflow.genmodel"/>
@@ -40,6 +48,12 @@
             uri="http://www.eclipse.org/efm/Workflow/Serializer"
             class="org.eclipse.efm.execution.core.workflow.serializer.SerializerPackage"
             genModel="resources/ecore/workflow.genmodel"/>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.eclipse.efm.execution.core.preferences.PreferenceInitializer">
+      </initializer>
    </extension>
 
 </plugin>

@@ -171,22 +171,13 @@ public interface FormalmlPackage extends EPackage {
 	int XLIA_OBJECT__NAME = XLIA_NAMED_ELEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int XLIA_OBJECT__VALUE = XLIA_NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int XLIA_OBJECT__ELEMENTS = XLIA_NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int XLIA_OBJECT__ELEMENTS = XLIA_NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Xlia Object</em>' class.
@@ -195,7 +186,7 @@ public interface FormalmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int XLIA_OBJECT_FEATURE_COUNT = XLIA_NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int XLIA_OBJECT_FEATURE_COUNT = XLIA_NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Xlia Object</em>' class.
@@ -207,6 +198,52 @@ public interface FormalmlPackage extends EPackage {
 	int XLIA_OBJECT_OPERATION_COUNT = XLIA_NAMED_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.impl.XliaSectionImpl <em>Xlia Section</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.impl.XliaSectionImpl
+	 * @see org.eclipse.efm.ecore.formalml.impl.FormalmlPackageImpl#getXliaSection()
+	 * @generated
+	 */
+	int XLIA_SECTION = 3;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XLIA_SECTION__NAME = XLIA_NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XLIA_SECTION__ELEMENTS = XLIA_NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Xlia Section</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XLIA_SECTION_FEATURE_COUNT = XLIA_NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Xlia Section</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XLIA_SECTION_OPERATION_COUNT = XLIA_NAMED_ELEMENT_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.impl.XliaAttributeImpl <em>Xlia Attribute</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -214,7 +251,7 @@ public interface FormalmlPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.impl.FormalmlPackageImpl#getXliaAttribute()
 	 * @generated
 	 */
-	int XLIA_ATTRIBUTE = 3;
+	int XLIA_ATTRIBUTE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -260,7 +297,7 @@ public interface FormalmlPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.impl.FormalmlPackageImpl#getXliaModelKind()
 	 * @generated
 	 */
-	int XLIA_MODEL_KIND = 4;
+	int XLIA_MODEL_KIND = 5;
 
 
 	/**
@@ -327,17 +364,6 @@ public interface FormalmlPackage extends EPackage {
 	EClass getXliaObject();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.XliaObject#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.XliaObject#getValue()
-	 * @see #getXliaObject()
-	 * @generated
-	 */
-	EReference getXliaObject_Value();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.XliaObject#getElements <em>Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -347,6 +373,27 @@ public interface FormalmlPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getXliaObject_Elements();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.XliaSection <em>Xlia Section</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Xlia Section</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.XliaSection
+	 * @generated
+	 */
+	EClass getXliaSection();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.XliaSection#getElements <em>Elements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Elements</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.XliaSection#getElements()
+	 * @see #getXliaSection()
+	 * @generated
+	 */
+	EReference getXliaSection_Elements();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.XliaAttribute <em>Xlia Attribute</em>}'.
@@ -457,12 +504,22 @@ public interface FormalmlPackage extends EPackage {
 		EClass XLIA_OBJECT = eINSTANCE.getXliaObject();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference XLIA_OBJECT__VALUE = eINSTANCE.getXliaObject_Value();
+		EReference XLIA_OBJECT__ELEMENTS = eINSTANCE.getXliaObject_Elements();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.impl.XliaSectionImpl <em>Xlia Section</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.impl.XliaSectionImpl
+		 * @see org.eclipse.efm.ecore.formalml.impl.FormalmlPackageImpl#getXliaSection()
+		 * @generated
+		 */
+		EClass XLIA_SECTION = eINSTANCE.getXliaSection();
 
 		/**
 		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
@@ -470,7 +527,7 @@ public interface FormalmlPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference XLIA_OBJECT__ELEMENTS = eINSTANCE.getXliaObject_Elements();
+		EReference XLIA_SECTION__ELEMENTS = eINSTANCE.getXliaSection_Elements();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.impl.XliaAttributeImpl <em>Xlia Attribute</em>}' class.

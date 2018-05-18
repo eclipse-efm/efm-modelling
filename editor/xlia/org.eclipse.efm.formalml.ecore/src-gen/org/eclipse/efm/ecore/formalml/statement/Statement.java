@@ -12,7 +12,7 @@
  */
 package org.eclipse.efm.ecore.formalml.statement;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.efm.ecore.formalml.common.AbstractElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,5 +24,5 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface Statement extends EObject {
+public interface Statement extends AbstractElement {
 } // Statement

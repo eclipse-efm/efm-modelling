@@ -70,7 +70,7 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
 	{
 		// Stack Composite w.r.t. analysis profile
-		fCompositeStack =  widgetToolkit.createComposite(parent, SWT.BORDER);
+		fCompositeStack =  widgetToolkit.createComposite(parent, SWT.NONE);
 		fCompositeStack.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		fStackLayout = new StackLayout();
@@ -120,6 +120,8 @@ public class ExpertConfigurationPage extends AbstractConfigurationPage {
 			break;
 
 		case ANALYSIS_TEST_OFFLINE_PROFILE:
+		case ANALYSIS_ACSL_GENERATION_PROFILE:
+		case ANALYSIS_EXTRANEOUS_PROFILE:
 		case ANALYSIS_EXPLORATION_PROFILE:
 		default:
 			fStackLayout.topControl = groupExplorationPage;

@@ -13,11 +13,9 @@
 package org.eclipse.efm.ecore.formalml.statemachine.impl;
 
 import java.util.Collection;
-
-import org.eclipse.efm.ecore.formalml.common.NamedElement;
-
 import org.eclipse.efm.ecore.formalml.common.impl.NamedElementImpl;
 
+import org.eclipse.efm.ecore.formalml.expression.Expression;
 import org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage;
 import org.eclipse.efm.ecore.formalml.statemachine.Transition;
 import org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe;
@@ -93,14 +91,14 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	protected TransitionMoe moe;
 
 	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedElement target;
+	protected Expression target;
 
 	/**
 	 * The cached value of the '{@link #getBehavior() <em>Behavior</em>}' containment reference.
@@ -240,15 +238,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedElement getTarget() {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject)target;
-			target = (NamedElement)eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, StatemachinePackage.TRANSITION__TARGET, oldTarget, target));
-			}
-		}
+	public Expression getTarget() {
 		return target;
 	}
 
@@ -257,20 +247,33 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedElement basicGetTarget() {
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTarget(NamedElement newTarget) {
-		NamedElement oldTarget = target;
+	public NotificationChain basicSetTarget(Expression newTarget, NotificationChain msgs) {
+		Expression oldTarget = target;
 		target = newTarget;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__TARGET, oldTarget, target));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__TARGET, oldTarget, newTarget);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTarget(Expression newTarget) {
+		if (newTarget != target) {
+			NotificationChain msgs = null;
+			if (target != null)
+				msgs = ((InternalEObject)target).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__TARGET, null, msgs);
+			if (newTarget != null)
+				msgs = ((InternalEObject)newTarget).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__TARGET, null, msgs);
+			msgs = basicSetTarget(newTarget, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__TARGET, newTarget, newTarget));
 	}
 
 	/**
@@ -467,6 +470,8 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 		switch (featureID) {
 			case StatemachinePackage.TRANSITION__MOE:
 				return basicSetMoe(null, msgs);
+			case StatemachinePackage.TRANSITION__TARGET:
+				return basicSetTarget(null, msgs);
 			case StatemachinePackage.TRANSITION__BEHAVIOR:
 				return basicSetBehavior(null, msgs);
 			case StatemachinePackage.TRANSITION__TRIGGER:
@@ -494,8 +499,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 			case StatemachinePackage.TRANSITION__MOE:
 				return getMoe();
 			case StatemachinePackage.TRANSITION__TARGET:
-				if (resolve) return getTarget();
-				return basicGetTarget();
+				return getTarget();
 			case StatemachinePackage.TRANSITION__BEHAVIOR:
 				return getBehavior();
 			case StatemachinePackage.TRANSITION__TRIGGER:
@@ -526,7 +530,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				setMoe((TransitionMoe)newValue);
 				return;
 			case StatemachinePackage.TRANSITION__TARGET:
-				setTarget((NamedElement)newValue);
+				setTarget((Expression)newValue);
 				return;
 			case StatemachinePackage.TRANSITION__BEHAVIOR:
 				setBehavior((BlockStatement)newValue);
@@ -563,7 +567,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				setMoe((TransitionMoe)null);
 				return;
 			case StatemachinePackage.TRANSITION__TARGET:
-				setTarget((NamedElement)null);
+				setTarget((Expression)null);
 				return;
 			case StatemachinePackage.TRANSITION__BEHAVIOR:
 				setBehavior((BlockStatement)null);

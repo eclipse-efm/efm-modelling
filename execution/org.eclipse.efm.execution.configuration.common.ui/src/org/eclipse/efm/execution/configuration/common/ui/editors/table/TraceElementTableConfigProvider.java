@@ -12,9 +12,13 @@ package org.eclipse.efm.execution.configuration.common.ui.editors.table;
 
 import java.util.List;
 
+import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
+import org.eclipse.jface.layout.PixelConverter;
+import org.eclipse.swt.graphics.Font;
 
-public class TraceElementTableConfigProvider {
+public class TraceElementTableConfigProvider
+		implements IWorkflowConfigurationConstants {
 
 	public final String STORE_KEY;
 
@@ -36,6 +40,12 @@ public class TraceElementTableConfigProvider {
 	public final int NATURE_WIDTH;
 	public final int VALUE_WIDTH;
 
+	public final static int HEIGHT_HINT_ROW_10 = 200;
+	public final static int HEIGHT_HINT_ROW_7  = 150;
+	public final static int HEIGHT_HINT_ROW_5  = 100;
+
+	public final int MAX_HEIGHT_HINT;
+
 	public final TraceElementKind[] VALID_TRACE_NATURES;
 
 	public final TraceElementKind DEFAULT_TRACE_NATURE;
@@ -46,8 +56,8 @@ public class TraceElementTableConfigProvider {
 			String storeKey, List<String> defaultAttributeValue,
 			String title, String toolTipText, boolean checkedBoxForColumnZero,
 			boolean isNatureUniqueSet, String natureTitle, int natureWidth,
-			String valueTitle, int valueWidth, TraceElementKind[] validTraces,
-			TraceElementKind deafaultTrace) {
+			String valueTitle, int valueWidth, int heightHint,
+			TraceElementKind[] validTraces, TraceElementKind deafaultTrace) {
 
 		STORE_KEY = storeKey;
 		DEFAULT_ATTRIBUTE_VALUE = defaultAttributeValue;
@@ -65,6 +75,8 @@ public class TraceElementTableConfigProvider {
 		NATURE_WIDTH = natureWidth;
 		VALUE_WIDTH  = valueWidth;
 
+		MAX_HEIGHT_HINT = heightHint;
+
 		VALID_TRACE_NATURES = validTraces;
 
 		VALID_NATURES = new String[ validTraces.length ];
@@ -78,29 +90,34 @@ public class TraceElementTableConfigProvider {
 	public TraceElementTableConfigProvider(String storeKey,
 			List<String> defaultAttributeValue, String title, String toolTipText,
 			boolean checkedBoxForColumnZero, String natureTitle, int natureWidth,
-			String valueTitle, int valueWidth, TraceElementKind[] validTraces,
-			TraceElementKind deafaultTrace)
+			String valueTitle, int valueWidth, int heightHint,
+			TraceElementKind[] validTraces, TraceElementKind deafaultTrace)
 	{
 		this(storeKey, defaultAttributeValue, title, toolTipText,
-				checkedBoxForColumnZero, false, natureTitle, natureWidth,
-				valueTitle, valueWidth, validTraces, TraceElementKind.TRANSITION);
+				checkedBoxForColumnZero, false, natureTitle,
+				natureWidth, valueTitle, valueWidth, heightHint,
+				validTraces, TraceElementKind.TRANSITION);
 	}
 
 
 	public TraceElementTableConfigProvider(String storeKey,
-			List<String> defaultAttributeValue, String title, String toolTipText,
-			boolean checkedBoxForColumnZero, String natureTitle, int natureWidth,
-			String valueTitle, int valueWidth, TraceElementKind[] validTraces)
+			List<String> defaultAttributeValue, String title,
+			String toolTipText, boolean checkedBoxForColumnZero,
+			String natureTitle, int natureWidth, String valueTitle,
+			int valueWidth, int heightHint, TraceElementKind[] validTraces)
 	{
 		this(storeKey, defaultAttributeValue, title, toolTipText,
-				checkedBoxForColumnZero, false, natureTitle, natureWidth,
-				valueTitle, valueWidth, validTraces, TraceElementKind.TRANSITION);
+				checkedBoxForColumnZero, false, natureTitle,
+				natureWidth, valueTitle, valueWidth, heightHint,
+				validTraces, TraceElementKind.TRANSITION);
 	}
 
 
 	public static final TraceElementKind[] TRANSITION_TRACE_ELEMENT =
 			new TraceElementKind[] {
-					TraceElementKind.TRANSITION
+					TraceElementKind.TRANSITION,
+					TraceElementKind.STATE,
+					TraceElementKind.STATEMACHINE
 			};
 
 
@@ -117,10 +134,10 @@ public class TraceElementTableConfigProvider {
 
 //					TraceElementKind.ASSIGN,
 //
-//!						TraceElementKind.DELTA,
-//!						TraceElementKind.TIME,
+//!					TraceElementKind.DELTA,
+//!					TraceElementKind.TIME,
 //
-//!						TraceElementKind.VARIABLE,
+//!					TraceElementKind.VARIABLE,
 					TraceElementKind.NEWFRESH,
 
 					TraceElementKind.COM,
@@ -141,13 +158,13 @@ public class TraceElementTableConfigProvider {
 //					TraceElementKind.CHANNEL,
 //					TraceElementKind.BUFFER,
 //
-//!						TraceElementKind.RUNNABLE,
+//!					TraceElementKind.RUNNABLE,
 //					TraceElementKind.ROUTINE,
 //					TraceElementKind.SYSTEM,
 //
-//!						TraceElementKind.CONDITION,
-//!						TraceElementKind.DECISION,
-//!						TraceElementKind.FORMULA,
+					TraceElementKind.CONDITION,
+					TraceElementKind.DECISION,
+					TraceElementKind.FORMULA,
 //
 //					TraceElementKind.PATH_CONDITION,
 //					TraceElementKind.PATH_CONDITION_LEAF,
@@ -163,12 +180,12 @@ public class TraceElementTableConfigProvider {
 //
 //					TraceElementKind.NODE_DATA,
 //					TraceElementKind.NODE_INFO,
-//!						TraceElementKind.NODE_TRACE_RUN,
+//!					TraceElementKind.NODE_TRACE_RUN,
 //					TraceElementKind.NODE_TRACE_IO,
 			};
 
 
-	public static final TraceElementKind[] GRAPHVIZ_TRACE_ELEMENT =
+	public static final TraceElementKind[] SERIALIZER_TRACE_ELEMENT =
 			new TraceElementKind[] {
 					TraceElementKind.TRANSITION,
 
@@ -317,5 +334,179 @@ public class TraceElementTableConfigProvider {
 					TraceElementKind.VALUE_STRUCT_SEPARATOR,
 					TraceElementKind.VALUE_STRUCT_END
 				};
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// Transition Coverage Trace Specification
+	///////////////////////////////////////////////////////////////////////////
+
+	public static TraceElementTableConfigProvider getTransitionCoverage(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_TRANSITION_COVERAGE_SELECTION, BEHAVIOR_INITIAL_SAMPLE,
+				"&Transition selection", BEHAVIOR_DESCRIPTION, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(7),//HEIGHT_HINT_ROW_7,
+				TRANSITION_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+	}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// Behavior Selection Trace Specification
+	///////////////////////////////////////////////////////////////////////////
+
+	public static TraceElementTableConfigProvider getBehaviorSelection(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST, BEHAVIOR_INITIAL_SAMPLE,
+				"&Trace Sequence", BEHAVIOR_DESCRIPTION, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(7),//HEIGHT_HINT_ROW_7,
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+	}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// Test Offline Observable / Controllable
+	///////////////////////////////////////////////////////////////////////////
+
+	public static TraceElementTableConfigProvider getObservableTrace(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+				DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+				"&Observable", "", true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.VARIABLE);
+	}
+
+	public static TraceElementTableConfigProvider getControllableTrace(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+				DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+				"&Controllable", "", true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.VARIABLE);
+	}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// Ad'HocTest Generation Extension Trace / Format
+	///////////////////////////////////////////////////////////////////////////
+
+	public static TraceElementTableConfigProvider getTraceExtensionObjective(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_TRACE_EXTENSION_OBJECTIVE, DEFAULT_TRACE_EXTENSION_OBJECTIVE,
+				"Trace Ending with", BEHAVIOR_DESCRIPTION, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+	}
+
+	public static TraceElementTableConfigProvider getTestGenerationTraceDetail(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST,
+				DEFAULT_BASIC_TRACE_DETAILS_ELEMENT_LIST,
+				"&Detail", BEHAVIOR_DESCRIPTION, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
+				SERIALIZER_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+	}
+
+	public static TraceElementTableConfigProvider getTestGenenrationTraceFormat(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST,
+				DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST,
+				"&Ad'Hoc Element Format for Tests",
+				HELPER_TRACE_FORMAT_SPECIFICATION, false, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(32),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(10),//HEIGHT_HINT_ROW_10,
+				FORMAT_ELEMENT, TraceElementKind.VARIABLE);
+	}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// First Symbex Output Graphiz Trace / Format
+	///////////////////////////////////////////////////////////////////////////
+
+	public static TraceElementTableConfigProvider getFirstSymbexOutputGraphizTrace(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				"&Trace Filter", "", true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(7),//HEIGHT_HINT_ROW_7,
+				SERIALIZER_TRACE_ELEMENT, TraceElementKind.VARIABLE);
+	}
+
+	public static TraceElementTableConfigProvider getFirstSymbexOutputGraphizFormat(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+				"&Format", "", false, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(32),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(10),//HEIGHT_HINT_ROW_10,
+				FORMAT_ELEMENT, TraceElementKind.VARIABLE);
+	}
+
+
+	///////////////////////////////////////////////////////////////////////////
+	// Second Symbex Output Graphiz Trace / Format
+	///////////////////////////////////////////////////////////////////////////
+
+	public static TraceElementTableConfigProvider getSecondSymbexOutputGraphizTrace(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
+				"&Extension Trace Filter", "", true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
+				SERIALIZER_TRACE_ELEMENT, TraceElementKind.VARIABLE);
+	}
+
+
+	public static TraceElementTableConfigProvider getSecondSymbexOutputGraphizFormat(Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
+				"&Extension Format", "", false, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(24),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(10),//HEIGHT_HINT_ROW_10,
+				FORMAT_ELEMENT, TraceElementKind.VARIABLE);
+	}
+
+
 
 }

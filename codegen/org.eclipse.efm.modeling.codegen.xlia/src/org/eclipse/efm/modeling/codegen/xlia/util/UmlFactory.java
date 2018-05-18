@@ -15,8 +15,12 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Behavior;
+import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
 import org.eclipse.uml2.uml.Constraint;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.Expression;
+import org.eclipse.uml2.uml.FunctionBehavior;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionConstraint;
 import org.eclipse.uml2.uml.InteractionFragment;
@@ -26,12 +30,15 @@ import org.eclipse.uml2.uml.LiteralInteger;
 import org.eclipse.uml2.uml.LiteralReal;
 import org.eclipse.uml2.uml.LiteralString;
 import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
+import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
+import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.OpaqueBehavior;
 import org.eclipse.uml2.uml.OpaqueExpression;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.PseudostateKind;
 import org.eclipse.uml2.uml.Region;
+import org.eclipse.uml2.uml.State;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.Type;
@@ -174,12 +181,22 @@ public class UmlFactory {
 	}
 	
 	public static void addOpaqueBehaviorEffect(Transition transition, OpaqueBehavior opaqBehavior) {
-		OpaqueBehavior effectBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
+		Behavior behavior = transition.getEffect();
+		
+		OpaqueBehavior effectBehavior = null;
+		if(behavior instanceof OpaqueBehavior) {
+			effectBehavior = (OpaqueBehavior) behavior;
+		}
+		
+		if( effectBehavior == null ) {
+			effectBehavior = UMLFactory.eINSTANCE.createOpaqueBehavior();
+			effectBehavior.setName("effect");
+			transition.setEffect(effectBehavior);
+
+		}
+		
 		effectBehavior.getLanguages().addAll(opaqBehavior.getLanguages());
 		effectBehavior.getBodies().addAll(opaqBehavior.getBodies());
-		effectBehavior.setName("effect");
-
-		transition.setEffect(effectBehavior);
 	}
 	
 	public static void addOpaqueBehaviorEffect(Transition transition, String opaqBehavior) {
@@ -236,28 +253,112 @@ public class UmlFactory {
 	}
 	
 	
-	public static void addEffectGuard(Transition transition, Constraint guard) {
-		StringBuffer valueBuffer = new StringBuffer("guard( ");
-
+	public static void addEffectGuard(StatemachineContext lfContext, 
+			Element element, Transition transition, Constraint guard) {
+		
+		StringBuffer valueBuffer = new StringBuffer();
+		StringBuffer valueBuffer1 = new StringBuffer();;
+		//Transition BH_tr = null;
 		
 		if( guard != null ) {
 			ValueSpecification valueSpec = guard.getSpecification();
 			if( valueSpec instanceof OpaqueExpression ) {
-				for (String body : ((OpaqueExpression)valueSpec).getBodies()) {
-					valueBuffer.append(body);
+				OpaqueExpression opaqExpr = (OpaqueExpression)valueSpec;
+				String[] bodies = opaqExpr.getBodies().toArray(new String[opaqExpr.getBodies().size()]);
+				String[] languages = opaqExpr.getLanguages().toArray(new String[opaqExpr.getLanguages().size()]);
+				for (int i = 0; i < languages.length; i++) {
+					if(languages[i].contains("Assertion")){
+						valueBuffer.append("globalAssertion <=< ");
+						valueBuffer.append(bodies[i]).append(";");
+						addOpaqueBehaviorEffect(transition, valueBuffer.toString());
+					}
+					else if(languages[i].contains("xLIAstringPre")){
+						valueBuffer.append("currentCall.PRE = ");
+						valueBuffer.append(bodies[i]).append(";");
+						addOpaqueBehaviorEffect(transition, valueBuffer.toString());
+					}
+					else if(languages[i].contains("xLIAstringPost")){
+						valueBuffer.append("currentCall.POST = ");
+						valueBuffer.append(bodies[i]).append(";");
+						addOpaqueBehaviorEffect(transition, valueBuffer.toString());
+					}
+					else if(languages[i].contains("OCL")){
+						valueBuffer.append("globalAssertion <=< ");
+						valueBuffer.append(bodies[i]).append(";");
+						
+						 EList<Element> constrainedElements = guard.getConstrainedElements();
+						 if( ! constrainedElements.isEmpty() ) {
+							 Element constrainedElement = constrainedElements.get(0);
+							 if( constrainedElement instanceof ExecutionOccurrenceSpecification ) {
+								ExecutionOccurrenceSpecification eos = (ExecutionOccurrenceSpecification) constrainedElement;
+								 
+								if( eos.getExecution() instanceof BehaviorExecutionSpecification ) {
+									BehaviorExecutionSpecification bes = (BehaviorExecutionSpecification) eos.getExecution();
+									
+									if(bes.getFinish() == eos){
+										if( bes.getBehavior() instanceof FunctionBehavior ) {
+											FunctionBehavior fb = (FunctionBehavior) bes.getBehavior();
+											valueBuffer.append(" // fun.behavior: ").append(fb.getBodies());
+										}
+										
+									}
+								}
+							 }
+							 addOpaqueBehaviorEffect(transition, valueBuffer.toString());
+						 }
+						
+					}
+					else  if(element instanceof BehaviorExecutionSpecification )
+					{
+						if( lfContext.intermediateTransition == null )
+						{
+							State targetState = lfContext.createTargetState("targetBhExec#1" + transition.getName());
+
+							lfContext.currentState.setName("BhExec#" + transition.getName()+"_1");
+							lfContext.intermediateTransition = lfContext.createTransition(
+									transition.getName()+"_1", lfContext.currentState, targetState);
+							//StringBuffer valueBuffer1 = new StringBuffer();
+							valueBuffer1.append("guard( ");
+							valueBuffer1.append(bodies[i]).append(" );");
+							addOpaqueBehaviorEffect(lfContext.intermediateTransition, valueBuffer1.toString());
+							//lfContext.currentState = targetState;
+						}
+						else
+						{
+							valueBuffer1.append("guard( ");
+							valueBuffer1.append(bodies[i]).append(" );");
+							addOpaqueBehaviorEffect(lfContext.intermediateTransition, valueBuffer1.toString());
+							
+							//lfContext.currentState = (State) lfContext.bh_tr.getTarget();
+						}
+							
+					}
+					else if(element instanceof ExecutionOccurrenceSpecification )
+					{
+						valueBuffer.append("guard( ");
+						valueBuffer.append(bodies[i]).append(" );");
+						addOpaqueBehaviorEffect(transition, valueBuffer.toString());
+					}
+					
+					else if(element instanceof MessageOccurrenceSpecification )
+					{
+						valueBuffer.append("guard( ");
+						valueBuffer.append(bodies[i]).append(" );");
+						//addOpaqueBehaviorEffect(transition, valueBuffer.toString());
+						setGuard(transition, guard);
+					}
 				}
-				valueBuffer.append(" );");
 			}
 			else if( valueSpec instanceof Expression ) {
 				Expression valueExpr = (Expression) valueSpec;
 				valueBuffer.append(valueExpr); //TODO expression to string
+				addOpaqueBehaviorEffect(transition, valueBuffer.toString());
 			}
 			else {
 				valueSpecificationToString(valueSpec, valueBuffer);
+				addOpaqueBehaviorEffect(transition, valueBuffer.toString());
 			}
 		}
-		
-		addOpaqueBehaviorEffect(transition, valueBuffer.toString());
 	}
 	
 	

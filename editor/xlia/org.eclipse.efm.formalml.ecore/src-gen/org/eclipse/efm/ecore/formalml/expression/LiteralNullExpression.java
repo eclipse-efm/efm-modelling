@@ -12,7 +12,7 @@
  */
 package org.eclipse.efm.ecore.formalml.expression;
 
-import org.eclipse.efm.ecore.formalml.common.Type;
+import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceType;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,12 +40,12 @@ public interface LiteralNullExpression extends LiteralExpression {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' containment reference.
-	 * @see #setType(Type)
+	 * @see #setType(PrimitiveInstanceType)
 	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getLiteralNullExpression_Type()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Type getType();
+	PrimitiveInstanceType getType();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.LiteralNullExpression#getType <em>Type</em>}' containment reference.
@@ -55,6 +55,6 @@ public interface LiteralNullExpression extends LiteralExpression {
 	 * @see #getType()
 	 * @generated
 	 */
-	void setType(Type value);
+	void setType(PrimitiveInstanceType value);
 
 } // LiteralNullExpression

@@ -16,5 +16,4 @@ Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.efm.modeling.diagram.common.factory,
  org.eclipse.efm.modeling.formalml.helpers,
  org.eclipse.papyrus.uml.diagram.clazz.part,
- org.eclipse.papyrus.uml.diagram.statemachine.part,
- org.eclipse.papyrus.uml.textedit.transition.xtext.ui.contributions
+ org.eclipse.papyrus.uml.diagram.statemachine.part

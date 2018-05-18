@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -13,16 +13,12 @@
 package org.eclipse.efm.sew.xtext.ide.contentassist.antlr;
 
 import com.google.inject.Inject;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import org.antlr.runtime.RecognitionException;
 import org.eclipse.efm.sew.xtext.ide.contentassist.antlr.internal.InternalSEWParser;
 import org.eclipse.efm.sew.xtext.services.SEWGrammarAccess;
 import org.eclipse.xtext.AbstractElement;
 import org.eclipse.xtext.ide.editor.contentassist.antlr.AbstractContentAssistParser;
-import org.eclipse.xtext.ide.editor.contentassist.antlr.FollowElement;
-import org.eclipse.xtext.ide.editor.contentassist.antlr.internal.AbstractInternalContentAssistParser;
 
 public class SEWParser extends AbstractContentAssistParser {
 
@@ -47,6 +43,7 @@ public class SEWParser extends AbstractContentAssistParser {
 					put(grammarAccess.getWorkflowAccess().getAlternatives_2(), "rule__Workflow__Alternatives_2");
 					put(grammarAccess.getWorkflowAccess().getTypeAlternatives_2_0_0_0(), "rule__Workflow__TypeAlternatives_2_0_0_0");
 					put(grammarAccess.getWorkflowAccess().getElementAlternatives_2_0_4_0(), "rule__Workflow__ElementAlternatives_2_0_4_0");
+					put(grammarAccess.getWorkflowAccess().getElementAlternatives_2_1_0(), "rule__Workflow__ElementAlternatives_2_1_0");
 					put(grammarAccess.getPrologAccess().getAlternatives_0(), "rule__Prolog__Alternatives_0");
 					put(grammarAccess.getPrologAccess().getAlternatives_2(), "rule__Prolog__Alternatives_2");
 					put(grammarAccess.getPrologAccess().getAlternatives_4(), "rule__Prolog__Alternatives_4");
@@ -162,6 +159,7 @@ public class SEWParser extends AbstractContentAssistParser {
 					put(grammarAccess.getWorkflowAccess().getDescriptionAssignment_2_0_2(), "rule__Workflow__DescriptionAssignment_2_0_2");
 					put(grammarAccess.getWorkflowAccess().getElementAssignment_2_0_4(), "rule__Workflow__ElementAssignment_2_0_4");
 					put(grammarAccess.getWorkflowAccess().getElementAssignment_2_1(), "rule__Workflow__ElementAssignment_2_1");
+					put(grammarAccess.getWorkflowAccess().getElementAssignment_2_2(), "rule__Workflow__ElementAssignment_2_2");
 					put(grammarAccess.getObjectAccess().getTypeAssignment_0_1(), "rule__Object__TypeAssignment_0_1");
 					put(grammarAccess.getObjectAccess().getNameAssignment_0_2(), "rule__Object__NameAssignment_0_2");
 					put(grammarAccess.getObjectAccess().getDescriptionAssignment_0_3(), "rule__Object__DescriptionAssignment_0_3");
@@ -252,18 +250,7 @@ public class SEWParser extends AbstractContentAssistParser {
 		}
 		return nameMappings.get(element);
 	}
-
-	@Override
-	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
-		try {
-			InternalSEWParser typedParser = (InternalSEWParser) parser;
-			typedParser.entryRuleWorkflow();
-			return typedParser.getFollowElements();
-		} catch(RecognitionException ex) {
-			throw new RuntimeException(ex);
-		}
-	}
-
+			
 	@Override
 	protected String[] getInitialHiddenTokens() {
 		return new String[] { "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT" };

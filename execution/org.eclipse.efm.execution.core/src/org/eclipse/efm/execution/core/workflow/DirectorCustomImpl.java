@@ -24,10 +24,15 @@ import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl
 import org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOptionCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.Project;
+import org.eclipse.efm.execution.core.workflow.common.RedundancyComparerOperation;
 import org.eclipse.efm.execution.core.workflow.common.RedundancyDetection;
+import org.eclipse.efm.execution.core.workflow.common.RedundancyPathScope;
+import org.eclipse.efm.execution.core.workflow.common.SolverKind;
 import org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.coverage.TransitionCoverageWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.impl.DirectorImpl;
+import org.eclipse.efm.execution.core.workflow.incubation.ExtraneousWorkerCustomImpl;
+import org.eclipse.efm.execution.core.workflow.inference.InferenceContractWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.BasicTraceSerializerWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.ModelGraphvizSerializerWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphvizSerializerWorkerCustomImpl;
@@ -52,14 +57,14 @@ public class DirectorCustomImpl extends DirectorImpl
 
 
 	public static DirectorCustomImpl create(Workflow workflow,
-		ILaunchConfiguration configuration, IPath workingPath, boolean hasSecond) {
+		ILaunchConfiguration configuration, IPath projectRootPath, boolean hasSecond) {
 
 		DirectorCustomImpl director = new DirectorCustomImpl(workflow);
 
 		director.setManifest( ManifestCustomImpl.create(true, true) );
 
 
-		if( ! director.configureProject(configuration, workingPath) ) {
+		if( ! director.configureProject(configuration, projectRootPath) ) {
 			//!! ERROR
 		}
 
@@ -87,15 +92,15 @@ public class DirectorCustomImpl extends DirectorImpl
 
 
 	public boolean configureProject(
-			ILaunchConfiguration configuration, IPath workingPath) {
+			ILaunchConfiguration configuration, IPath projectRootPath) {
 		String modelPath = WorkflowFileUtils.getAbsoluteLocation(
 				configuration, ATTR_SPECIFICATION_MODEL_FILE_LOCATION, "");
 
 		if( ! modelPath.isEmpty() ) {
 			Project project = CommonFactory.eINSTANCE.createProject();
 
-			project.setSource(
-					WorkflowFileUtils.makeRelativeParentLocation(workingPath, modelPath));
+			project.setSource(WorkflowFileUtils.makeRelativeParentLocation(
+							projectRootPath, modelPath));
 
 			project.setModel( WorkflowFileUtils.filename(modelPath) );
 
@@ -107,15 +112,37 @@ public class DirectorCustomImpl extends DirectorImpl
 		return( false );
 	}
 
+
+	public static boolean isCoverageAnalysisProfile(AnalysisProfileKind analysisProfile) {
+		switch( analysisProfile ) {
+		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
+		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
+		case ANALYSIS_ACSL_GENERATION_PROFILE:
+			return true;
+
+		default:
+			return false;
+		}
+	}
+
+	public static boolean isExplorationAnalysisProfile(AnalysisProfileKind analysisProfile) {
+		switch( analysisProfile ) {
+		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
+		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
+		case ANALYSIS_ACSL_GENERATION_PROFILE:
+			return false;
+
+		case ANALYSIS_EXPLORATION_PROFILE:
+		case ANALYSIS_TEST_OFFLINE_PROFILE:
+		case ANALYSIS_EXTRANEOUS_PROFILE:
+		case ANALYSIS_UNDEFINED_PROFILE:
+		default:
+			return true;
+		}
+	}
+
+
 	public boolean configureMainWorker(ILaunchConfiguration configuration) {
-
-		SupervisorWorkerCustomImpl supervisor =
-				SupervisorWorkerCustomImpl.create(configuration);
-
-		setDescription( "of graph exploration" );
-
-		setSupervisor( supervisor );
-
 		AnalysisProfileKind modelAnalysisProfile = null;
 		try {
 			final String strAnalysisProfile = configuration.getAttribute(
@@ -128,11 +155,21 @@ public class DirectorCustomImpl extends DirectorImpl
 			e.printStackTrace();
 		}
 
+
 		if( modelAnalysisProfile == null ) {
 			modelAnalysisProfile = AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		}
 
+		SupervisorWorkerCustomImpl supervisor = SupervisorWorkerCustomImpl.create(
+				configuration, isCoverageAnalysisProfile(modelAnalysisProfile));
+
+		setDescription( "of graph exploration" );
+
+		setSupervisor( supervisor );
+
 		boolean isRedundancyDetectionPossible = false;
+
+		boolean couldUsedAsAdditionalModule = true;
 
 		switch ( modelAnalysisProfile ) {
 			case ANALYSIS_EXPLORATION_PROFILE: {
@@ -150,7 +187,7 @@ public class DirectorCustomImpl extends DirectorImpl
 
 				getWorker().add( worker );
 
-				supervisor.getQueue().setHeuristic(true);
+				supervisor.getQueue().setHeuristicEnabled(true);
 
 				supervisor.getQueue().setWeight(8);
 
@@ -165,7 +202,7 @@ public class DirectorCustomImpl extends DirectorImpl
 
 				getWorker().add( worker );
 
-				supervisor.getQueue().setHeuristic(true);
+				supervisor.getQueue().setHeuristicEnabled(true);
 
 				break;
 			}
@@ -176,13 +213,56 @@ public class DirectorCustomImpl extends DirectorImpl
 
 				getWorker().add( worker );
 
-				supervisor.getQueue().setHeuristic(true);
+				supervisor.getQueue().setHeuristicEnabled(true);
+
+				break;
+			}
+
+			case ANALYSIS_ACSL_GENERATION_PROFILE: {
+				InferenceContractWorkerCustomImpl worker =
+						InferenceContractWorkerCustomImpl.create(
+								this, configuration);
+
+				getWorker().add( worker );
+
+				break;
+			}
+
+			case ANALYSIS_EXTRANEOUS_PROFILE: {
+				ExtraneousWorkerCustomImpl worker =
+						ExtraneousWorkerCustomImpl.create(this, configuration);
+
+				getWorker().add( worker );
+
+				supervisor.getQueue().setHeuristicEnabled(false);
+
+				couldUsedAsAdditionalModule = false;
 
 				break;
 			}
 
 			default: {
 				break;
+			}
+		}
+
+		if( couldUsedAsAdditionalModule ) {
+			try {
+				couldUsedAsAdditionalModule = configuration.getAttribute(
+						ATTR_OPAQUE_MODULE_ENABLED_AS_ADDITIONAL_WORKER,
+						DEFAULT_OPAQUE_MODULE_ENABLED_AS_ADDITIONAL_WORKER);
+			}
+			catch( CoreException e ) {
+				e.printStackTrace();
+
+				couldUsedAsAdditionalModule = false;
+			}
+
+			if( couldUsedAsAdditionalModule ) {
+				ExtraneousWorkerCustomImpl worker =
+						ExtraneousWorkerCustomImpl.create(this, configuration);
+
+				getWorker().add( worker );
 			}
 		}
 
@@ -194,29 +274,59 @@ public class DirectorCustomImpl extends DirectorImpl
 			boolean enabledRedundancyDetection = false;
 			try {
 				enabledRedundancyDetection = configuration.getAttribute(
-						ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION, false);
+						ATTR_ENABLED_REDUNDANCY_DETECTION, false);
 			}
 			catch( CoreException e ) {
 				e.printStackTrace();
 
 				enabledRedundancyDetection = false;
 			}
-
-			if( ! enabledRedundancyDetection ) {
-				redundancy.setComparer( null );;
-			}
-
+			redundancy.setEnabledDetetction( enabledRedundancyDetection );
+			//
+			// OR EXCLUSIVE
+			//
 			try {
 				enabledRedundancyDetection = configuration.getAttribute(
-						ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL, false);
+						ATTR_ENABLED_REDUNDANCY_TRIVIAL_LOOP_DETECTION, false);
 			}
 			catch( CoreException e ) {
 				e.printStackTrace();
 
 				enabledRedundancyDetection = false;
 			}
+			redundancy.setEnabledTrivialLoopDetetction(enabledRedundancyDetection);
 
-			redundancy.setLoopDetetctionTrivial(enabledRedundancyDetection);
+			// REDUNDANCY CONFIGURATION : Path Scope & Comparer Operation
+			RedundancyPathScope scope = RedundancyPathScope.CURRENT;
+			try {
+				scope = RedundancyPathScope.get(
+						configuration.getAttribute(ATTR_REDUNDANCY_PATH_SCOPE,
+								RedundancyPathScope.CURRENT.getLiteral()));
+			}
+			catch( CoreException e1 ) {
+				e1.printStackTrace();
+			}
+			if( scope == null ) {
+				scope = RedundancyPathScope.CURRENT;
+			}
+			redundancy.setPathScope( scope );
+
+			RedundancyComparerOperation comparer = RedundancyComparerOperation.INCLUSION;
+			try {
+				comparer = RedundancyComparerOperation.get(
+						configuration.getAttribute(ATTR_REDUNDANCY_COMPARER_OPERATION,
+								RedundancyComparerOperation.INCLUSION.getLiteral()));
+			}
+			catch( CoreException e1 ) {
+				e1.printStackTrace();
+			}
+			if( comparer == null ) {
+				comparer = RedundancyComparerOperation.INCLUSION;
+			}
+			redundancy.setComparerOperation( comparer );
+
+			redundancy.setSolverChoice( SolverKind.OMEGA );
+
 		}
 
 		return( true );
@@ -319,7 +429,7 @@ public class DirectorCustomImpl extends DirectorImpl
 
 		getWorker().add( worker );
 
-		supervisor.getQueue().setHeuristic(true);
+		supervisor.getQueue().setHeuristicEnabled(true);
 
 		return( true );
 	}
@@ -462,6 +572,13 @@ public class DirectorCustomImpl extends DirectorImpl
 
 			else if( worker instanceof OfflineTestWorkerCustomImpl ) {
 				((OfflineTestWorkerCustomImpl) worker).toWriter( writer3 );
+			}
+
+			else if( worker instanceof InferenceContractWorkerCustomImpl ) {
+				((InferenceContractWorkerCustomImpl) worker).toWriter( writer3 );
+			}
+			else if( worker instanceof ExtraneousWorkerCustomImpl ) {
+				((ExtraneousWorkerCustomImpl) worker).toWriter( writer3 );
 			}
 
 			// Other Worker

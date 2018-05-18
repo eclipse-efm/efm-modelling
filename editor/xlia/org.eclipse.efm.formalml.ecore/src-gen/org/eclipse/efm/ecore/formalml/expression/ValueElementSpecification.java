@@ -25,7 +25,7 @@ import org.eclipse.efm.ecore.formalml.common.NamedElement;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getKind <em>Kind</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getExpected <em>Expected</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getElement <em>Element</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getArg <em>Arg</em>}</li>
  * </ul>
@@ -96,30 +96,30 @@ public interface ValueElementSpecification extends Expression {
 	void setExpected(ValueElementSpecificationScheme value);
 
 	/**
-	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Parent</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Target</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Parent</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target</em>' containment reference.
-	 * @see #setTarget(Expression)
-	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getValueElementSpecification_Target()
+	 * @return the value of the '<em>Parent</em>' containment reference.
+	 * @see #setParent(Expression)
+	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getValueElementSpecification_Parent()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Expression getTarget();
+	Expression getParent();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getTarget <em>Target</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification#getParent <em>Parent</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' containment reference.
-	 * @see #getTarget()
+	 * @param value the new value of the '<em>Parent</em>' containment reference.
+	 * @see #getParent()
 	 * @generated
 	 */
-	void setTarget(Expression value);
+	void setParent(Expression value);
 
 	/**
 	 * Returns the value of the '<em><b>Element</b></em>' reference.

@@ -34,3 +34,4 @@ Export-Package: org.eclipse.efm.ecore.formalml,
  org.eclipse.efm.ecore.formalml.statement.util,
  org.eclipse.efm.ecore.formalml.util
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.eclipse.efm.formalml.ecore

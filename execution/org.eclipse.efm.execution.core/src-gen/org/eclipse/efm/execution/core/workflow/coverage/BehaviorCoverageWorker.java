@@ -30,8 +30,9 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecification;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isOrderedTrace <em>Ordered Trace</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitConsecutive <em>Hit Consecutive</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitFolding <em>Hit Folding</em>}</li>
- *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitMax <em>Hit Max</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitLucky <em>Hit Lucky</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitMax <em>Hit Max</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitFinal <em>Hit Final</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#getJumpHeight <em>Jump Height</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#getJumpTrialsLimit <em>Jump Trials Limit</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#getHitCount <em>Hit Count</em>}</li>
@@ -153,6 +154,32 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	void setHitFolding(boolean value);
 
 	/**
+	 * Returns the value of the '<em><b>Hit Lucky</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Hit Lucky</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Hit Lucky</em>' attribute.
+	 * @see #setHitLucky(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_HitLucky()
+	 * @model
+	 * @generated
+	 */
+	boolean isHitLucky();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitLucky <em>Hit Lucky</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Hit Lucky</em>' attribute.
+	 * @see #isHitLucky()
+	 * @generated
+	 */
+	void setHitLucky(boolean value);
+
+	/**
 	 * Returns the value of the '<em><b>Hit Max</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -179,30 +206,31 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	void setHitMax(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Hit Lucky</b></em>' attribute.
+	 * Returns the value of the '<em><b>Hit Final</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Hit Lucky</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Hit Final</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Hit Lucky</em>' attribute.
-	 * @see #setHitLucky(boolean)
-	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_HitLucky()
-	 * @model
+	 * @return the value of the '<em>Hit Final</em>' attribute.
+	 * @see #setHitFinal(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_HitFinal()
+	 * @model default="true"
 	 * @generated
 	 */
-	boolean isHitLucky();
+	boolean isHitFinal();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitLucky <em>Hit Lucky</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitFinal <em>Hit Final</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Hit Lucky</em>' attribute.
-	 * @see #isHitLucky()
+	 * @param value the new value of the '<em>Hit Final</em>' attribute.
+	 * @see #isHitFinal()
 	 * @generated
 	 */
-	void setHitLucky(boolean value);
+	void setHitFinal(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Jump Height</b></em>' attribute.

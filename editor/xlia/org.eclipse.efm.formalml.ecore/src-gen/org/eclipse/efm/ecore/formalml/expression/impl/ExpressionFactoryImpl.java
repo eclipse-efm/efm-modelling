@@ -108,6 +108,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 			case ExpressionPackage.ARITHMETIC_ASSOCIATIVE_EXPRESSION: return createArithmeticAssociativeExpression();
 			case ExpressionPackage.BITWISE_ASSOCIATIVE_EXPRESSION: return createBitwiseAssociativeExpression();
 			case ExpressionPackage.LOGICAL_ASSOCIATIVE_EXPRESSION: return createLogicalAssociativeExpression();
+			case ExpressionPackage.QUANTIFIED_LOGICAL_EXPRESSION: return createQuantifiedLogicalExpression();
 			case ExpressionPackage.INVOKE_EXPRESSION: return createInvokeExpression();
 			case ExpressionPackage.NAMED_EXPRESSION: return createNamedExpression();
 			case ExpressionPackage.MIX_TUPLE_EXPRESSION: return createMixTupleExpression();
@@ -570,6 +571,16 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	public LogicalAssociativeExpression createLogicalAssociativeExpression() {
 		LogicalAssociativeExpressionImpl logicalAssociativeExpression = new LogicalAssociativeExpressionImpl();
 		return logicalAssociativeExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public QuantifiedLogicalExpression createQuantifiedLogicalExpression() {
+		QuantifiedLogicalExpressionImpl quantifiedLogicalExpression = new QuantifiedLogicalExpressionImpl();
+		return quantifiedLogicalExpression;
 	}
 
 	/**

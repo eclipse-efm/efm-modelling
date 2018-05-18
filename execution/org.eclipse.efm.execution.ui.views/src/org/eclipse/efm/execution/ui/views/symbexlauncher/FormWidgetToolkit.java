@@ -19,7 +19,6 @@ import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -31,7 +30,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.forms.FormColors;
-import org.eclipse.ui.forms.IFormColors;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -49,16 +47,17 @@ public class FormWidgetToolkit extends FormToolkit implements IWidgetToolkit {
 	 * @param control the receiver
 	 * @param visible visible the new visibility state
 	 */
+	@Override
 	public void setVisibleAndEnabled(Composite aComposite, boolean visible) {
 		if( aComposite instanceof ExpandableComposite ) {
 			((ExpandableComposite)aComposite).setExpanded(visible);
 		} else {
 			propagateVisibility(aComposite, visible);
 		}
-		
+
 		aComposite.setEnabled(visible);
 	}
-	
+
 
 	/**
 	 * Creates a section as a part of the form.
@@ -69,19 +68,20 @@ public class FormWidgetToolkit extends FormToolkit implements IWidgetToolkit {
 	 * @param description the description text
 	 * @return the section widget
 	 */
+	@Override
 	public void createSectionPart(AbstractSectionPart sectionPart,
 			Composite parent, int style, IToolBarManager toolBarManager)
 	{
 		Section section = super.createSection(parent, style);
-		
+
 		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
 		section.setLayoutData(gd);
-		
+
 		String text = sectionPart.getSectionTitle();
 		if( text != null ) {
 			section.setText(text);
 		}
-		
+
 		text = sectionPart.getSectionDescription();
 		if( text != null ) {
 			section.setDescription(text);
@@ -91,47 +91,41 @@ public class FormWidgetToolkit extends FormToolkit implements IWidgetToolkit {
 			ToolBar toolbar = ((ToolBarManager) toolBarManager).createControl(section);
 			section.setTextClient(toolbar);
 		}
-		
+
 		Composite sectionClient = createComposite(section);
 		sectionClient.setLayout(new GridLayout());
 
 		section.setClient(sectionClient);
-		
+
 		sectionPart.setSection(section);
 		sectionPart.setSectionClient(sectionClient);
 	}
 
 
 	/**
-	 * Creates a CTabFolder
+	 * Returns the colors used by this toolkit.
+	 *
+	 * @return the color object
+	 */
+	@Override
+	public FormColors getColors() {
+		return super.getColors();
+	}
+
+	/**
+	 * Creates a new CTabFolder
 	 * @param parent the parent to add the composite to
 	 * @param style the style for the composite
 	 * @return a new CTabFolder with a style
 	 */
-	public CTabFolder createTabFolder(Composite parent, int style) {
+	@Override
+	public CTabFolder newTabFolder(Composite parent, int style) {
 		CTabFolder tabFolder = new CTabFolder( parent, style );
 		super.adapt(tabFolder, true, true);
 
-		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true, 2, 1);
-//		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-//		gd.heightHint = 2;
-		tabFolder.setLayoutData(gd);
-
-		FormColors formColors = super.getColors();
-
-//		String tabItemSelKey = "__tisk__";
-//		RGB selRGB = formColors.getSystemColor(SWT.COLOR_GREEN);
-
-		tabFolder.setSelectionBackground(
-				new Color[] {
-						formColors.getColor(IFormColors.TB_BG),
-						formColors.getBackground()
-//						formColors.createColor(tabItemSelKey, selRGB)
-					},
-				new int[] {100}, true);
-
 		return tabFolder;
 	}
+
 
 	/**
 	 * Creates a composite
@@ -160,6 +154,7 @@ public class FormWidgetToolkit extends FormToolkit implements IWidgetToolkit {
 	 * @param style the style for the composite
 	 * @return a new ScrolledComposite with a style
 	 */
+	@Override
 	public ScrolledComposite newScrolledComposite(Composite parent, int style) {
 		return new ScrolledComposite(parent, style);
 	}
@@ -200,6 +195,7 @@ public class FormWidgetToolkit extends FormToolkit implements IWidgetToolkit {
 	 * @param style the style for the Button
 	 * @return a new button
 	 */
+	@Override
 	public Combo newCombo(Composite parent, int style) {
 		Combo combo = new Combo(parent, style);
 

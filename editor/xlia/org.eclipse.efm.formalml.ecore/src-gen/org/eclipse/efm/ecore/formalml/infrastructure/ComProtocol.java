@@ -12,9 +12,11 @@
  */
 package org.eclipse.efm.ecore.formalml.infrastructure;
 
+import org.eclipse.efm.ecore.formalml.common.AbstractElement;
+
 import org.eclipse.efm.ecore.formalml.datatype.CollectionType;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,14 +30,14 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getProtocol <em>Protocol</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getCast <em>Cast</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getInner_buffer <em>Inner buffer</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getRef_buffer <em>Ref buffer</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getBuffer <em>Buffer</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComProtocol()
  * @model
  * @generated
  */
-public interface ComProtocol extends EObject {
+public interface ComProtocol extends AbstractElement {
 	/**
 	 * Returns the value of the '<em><b>Protocol</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocolKind}.
@@ -121,29 +123,29 @@ public interface ComProtocol extends EObject {
 	void setInner_buffer(CollectionType value);
 
 	/**
-	 * Returns the value of the '<em><b>Ref buffer</b></em>' reference.
+	 * Returns the value of the '<em><b>Buffer</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Ref buffer</em>' reference isn't clear,
+	 * If the meaning of the '<em>Buffer</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Ref buffer</em>' reference.
-	 * @see #setRef_buffer(Buffer)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComProtocol_Ref_buffer()
-	 * @model
+	 * @return the value of the '<em>Buffer</em>' containment reference.
+	 * @see #setBuffer(ValueElementSpecification)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComProtocol_Buffer()
+	 * @model containment="true"
 	 * @generated
 	 */
-	Buffer getRef_buffer();
+	ValueElementSpecification getBuffer();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getRef_buffer <em>Ref buffer</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getBuffer <em>Buffer</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Ref buffer</em>' reference.
-	 * @see #getRef_buffer()
+	 * @param value the new value of the '<em>Buffer</em>' containment reference.
+	 * @see #getBuffer()
 	 * @generated
 	 */
-	void setRef_buffer(Buffer value);
+	void setBuffer(ValueElementSpecification value);
 
 } // ComProtocol

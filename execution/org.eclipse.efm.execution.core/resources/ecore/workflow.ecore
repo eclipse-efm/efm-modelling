@@ -84,6 +84,8 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledLifelinesPrinting"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledModifiedDataSelection"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
   </eClassifiers>
   <eSubpackages name="common" nsURI="http://www.eclipse.org/efm/Workflow/Common" nsPrefix="Common">
     <eClassifiers xsi:type="ecore:EEnum" name="AnalysisProfileKind">
@@ -93,6 +95,7 @@
       <eLiterals name="ANALYSIS_BEHAVIOR_SELECTION_PROFILE" value="3" literal="Behavior Selection"/>
       <eLiterals name="ANALYSIS_TEST_OFFLINE_PROFILE" value="4" literal="Test Offline"/>
       <eLiterals name="ANALYSIS_ACSL_GENERATION_PROFILE" value="5" literal="Inference"/>
+      <eLiterals name="ANALYSIS_EXTRANEOUS_PROFILE" value="10" literal="Extra"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Workspace">
       <eStructuralFeatures xsi:type="ecore:EReference" name="location" eType="#//common/Location"
@@ -102,6 +105,7 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Location">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="root" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="launch" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="output" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           defaultValueLiteral="output"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="log" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -136,7 +140,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="GraphExplorationQueue">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="strategy" eType="#//common/GraphExplorationStrategyKind"
           defaultValueLiteral="BREADTH_FIRST_SEARCH"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="heuristic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="heuristicEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="ConsoleVerbosityKind">
@@ -154,6 +158,9 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="report" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="verbosity" eType="#//common/ConsoleVerbosityKind"
           defaultValueLiteral="UNDEFINED"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="spiderInit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="spiderStep" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="spiderStop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="TraceElementKind">
       <eLiterals name="UNDEFINED" literal="undefined"/>
@@ -193,47 +200,50 @@
       <eLiterals name="RUNNABLE" value="34" literal="runnable"/>
       <eLiterals name="ROUTINE" value="35" literal="routine"/>
       <eLiterals name="TRANSITION" value="36" literal="transition"/>
-      <eLiterals name="MACHINE" value="37" literal="machine"/>
-      <eLiterals name="STATE" value="38" literal="state"/>
-      <eLiterals name="STATEMACHINE" value="39" literal="statemachine"/>
-      <eLiterals name="SYSTEM" value="40" literal="system"/>
-      <eLiterals name="FILE_HEADER" value="41" literal="header"/>
-      <eLiterals name="FILE_BEGIN" value="42" literal="begin"/>
-      <eLiterals name="FILE_END" value="43" literal="end"/>
-      <eLiterals name="TESTCASE_HEADER" value="44" literal="testcase#header"/>
-      <eLiterals name="TESTCASE_BEGIN" value="45" literal="testcase#begin"/>
-      <eLiterals name="TESTCASE_END" value="46" literal="testcase#end"/>
-      <eLiterals name="INIT_HEADER" value="47" literal="init#header"/>
-      <eLiterals name="INIT_BEGIN" value="48" literal="init#begin"/>
-      <eLiterals name="INIT_END" value="49" literal="init#end"/>
-      <eLiterals name="STEP_HEADER" value="50" literal="step#header"/>
-      <eLiterals name="STEP_BEGIN" value="51" literal="step#begin"/>
-      <eLiterals name="STEP_END" value="52" literal="step#end"/>
-      <eLiterals name="COMMENT" value="53" literal="comment"/>
-      <eLiterals name="SEPARATOR" value="54" literal="separator"/>
-      <eLiterals name="NEWLINE" value="55" literal="newline"/>
-      <eLiterals name="NEXT" value="56" literal="next"/>
-      <eLiterals name="LIFELINE" value="57" literal="lifeline"/>
-      <eLiterals name="LIFELINE_HEADER" value="58" literal="lifeline#header"/>
-      <eLiterals name="LIFELINE_BEGIN" value="59" literal="lifeline#begin"/>
-      <eLiterals name="LIFELINE_END" value="60" literal="lifeline#end"/>
-      <eLiterals name="LIFELINE_ID" value="61" literal="lifeline#id"/>
-      <eLiterals name="LIFELINE_STATE" value="62" literal="lifeline#state"/>
-      <eLiterals name="RAW_ATTRIBUTE" value="63" literal="__raw__"/>
-      <eLiterals name="NODE_HEADER" value="64" literal="node#header"/>
-      <eLiterals name="NODE_DATA" value="65" literal="node#data"/>
-      <eLiterals name="NODE_INFO" value="66" literal="node#info"/>
-      <eLiterals name="NODE_TRACE_RUN" value="67" literal="node#trace#run"/>
-      <eLiterals name="NODE_TRACE_IO" value="68" literal="node#trace#io"/>
-      <eLiterals name="VALUE_PARAMETER_BEGIN" value="69" literal="value#parameter#begin"/>
-      <eLiterals name="VALUE_PARAMETER_SEPARATOR" value="70" literal="value#parameter#separator"/>
-      <eLiterals name="VALUE_PARAMETER_END" value="71" literal="value#parameter#end"/>
-      <eLiterals name="VALUE_ARRAY_BEGIN" value="72" literal="value#array#begin"/>
-      <eLiterals name="VALUE_ARRAY_SEPARATOR" value="73" literal="value#array#separator"/>
-      <eLiterals name="VALUE_ARRAY_END" value="74" literal="value#array#end"/>
-      <eLiterals name="VALUE_STRUCT_BEGIN" value="75" literal="value#struct#begin"/>
-      <eLiterals name="VALUE_STRUCT_SEPARATOR" value="76" literal="value#struct#separator"/>
-      <eLiterals name="VALUE_STRUCT_END" value="77" literal="value#struct#end"/>
+      <eLiterals name="STATE" value="37" literal="state"/>
+      <eLiterals name="STATEMACHINE" value="38" literal="statemachine"/>
+      <eLiterals name="MODEL_MACHINE" value="39" literal="model"/>
+      <eLiterals name="PROTOTYPE_MACHINE" value="40" literal="prototype"/>
+      <eLiterals name="INSTANCE_MACHINE" value="41" literal="instance"/>
+      <eLiterals name="MACHINE" value="42" literal="machine"/>
+      <eLiterals name="SYSTEM" value="43" literal="system"/>
+      <eLiterals name="FILE_HEADER" value="44" literal="header"/>
+      <eLiterals name="FILE_BEGIN" value="45" literal="begin"/>
+      <eLiterals name="FILE_END" value="46" literal="end"/>
+      <eLiterals name="TESTCASE_HEADER" value="47" literal="testcase#header"/>
+      <eLiterals name="TESTCASE_BEGIN" value="48" literal="testcase#begin"/>
+      <eLiterals name="TESTCASE_END" value="49" literal="testcase#end"/>
+      <eLiterals name="INIT_HEADER" value="50" literal="init#header"/>
+      <eLiterals name="INIT_BEGIN" value="51" literal="init#begin"/>
+      <eLiterals name="INIT_END" value="52" literal="init#end"/>
+      <eLiterals name="STEP_HEADER" value="53" literal="step#header"/>
+      <eLiterals name="STEP_BEGIN" value="54" literal="step#begin"/>
+      <eLiterals name="STEP_END" value="55" literal="step#end"/>
+      <eLiterals name="COMMENT" value="56" literal="comment"/>
+      <eLiterals name="SEPARATOR" value="57" literal="separator"/>
+      <eLiterals name="NEWLINE" value="58" literal="newline"/>
+      <eLiterals name="NEXT" value="59" literal="next"/>
+      <eLiterals name="LIFELINE" value="60" literal="lifeline"/>
+      <eLiterals name="LIFELINE_HEADER" value="61" literal="lifeline#header"/>
+      <eLiterals name="LIFELINE_BEGIN" value="62" literal="lifeline#begin"/>
+      <eLiterals name="LIFELINE_END" value="63" literal="lifeline#end"/>
+      <eLiterals name="LIFELINE_ID" value="64" literal="lifeline#id"/>
+      <eLiterals name="LIFELINE_STATE" value="65" literal="lifeline#state"/>
+      <eLiterals name="RAW_ATTRIBUTE" value="66" literal="__raw__"/>
+      <eLiterals name="NODE_HEADER" value="67" literal="node#header"/>
+      <eLiterals name="NODE_DATA" value="68" literal="node#data"/>
+      <eLiterals name="NODE_INFO" value="69" literal="node#info"/>
+      <eLiterals name="NODE_TRACE_RUN" value="70" literal="node#trace#run"/>
+      <eLiterals name="NODE_TRACE_IO" value="71" literal="node#trace#io"/>
+      <eLiterals name="VALUE_PARAMETER_BEGIN" value="72" literal="value#parameter#begin"/>
+      <eLiterals name="VALUE_PARAMETER_SEPARATOR" value="73" literal="value#parameter#separator"/>
+      <eLiterals name="VALUE_PARAMETER_END" value="74" literal="value#parameter#end"/>
+      <eLiterals name="VALUE_ARRAY_BEGIN" value="75" literal="value#array#begin"/>
+      <eLiterals name="VALUE_ARRAY_SEPARATOR" value="76" literal="value#array#separator"/>
+      <eLiterals name="VALUE_ARRAY_END" value="77" literal="value#array#end"/>
+      <eLiterals name="VALUE_STRUCT_BEGIN" value="78" literal="value#struct#begin"/>
+      <eLiterals name="VALUE_STRUCT_SEPARATOR" value="79" literal="value#struct#separator"/>
+      <eLiterals name="VALUE_STRUCT_END" value="80" literal="value#struct#end"/>
       <eLiterals name="TIPS" value="99" literal="tips"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TraceElement">
@@ -249,6 +259,12 @@
     <eClassifiers xsi:type="ecore:EClass" name="Manifest">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="autoconf" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="autostart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="SolverKind">
+      <eLiterals name="CVC4" literal="CVC4"/>
+      <eLiterals name="Z3" value="1" literal="Z3"/>
+      <eLiterals name="YICES2" value="2" literal="YICES2"/>
+      <eLiterals name="OMEGA" value="3"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SymbexOption"/>
     <eClassifiers xsi:type="ecore:EClass" name="ShellMode" abstract="true">
@@ -378,16 +394,31 @@
       <eLiterals name="ULTRA" value="4"/>
       <eLiterals name="GOD_MODE" value="5" literal="GOD_MODE"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="RedundancyPathScope">
+      <eLiterals name="ALL" literal="ALL"/>
+      <eLiterals name="CURRENT" value="1" literal="CURRENT"/>
+      <eLiterals name="PARENT" value="2" literal="PARENT"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="RedundancyComparerOperation">
+      <eLiterals name="INCLUSION" literal="INCLUSION"/>
+      <eLiterals name="EQUALITY" value="1" literal="EQUALITY"/>
+      <eLiterals name="SYNTAXIC_EQUALITY" value="2" literal="SYNTAXIC_EQUALITY"/>
+      <eLiterals name="ALPHA_EQUIVALENCE" value="3" literal="ALPHA_EQUIVALENCE"/>
+      <eLiterals name="TRIVIALLY_EQUALITY" value="4"/>
+      <eLiterals name="CONTROL_STATE" value="5" literal="CONTROL_STATE"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RedundancyDetection">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="comparer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          defaultValueLiteral="INCLUSION"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="solver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          defaultValueLiteral="OMEGA"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pathScope" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledDetetction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pathScope" eType="#//common/RedundancyPathScope"
           defaultValueLiteral="CURRENT"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="comparerOperation" eType="#//common/RedundancyComparerOperation"
+          defaultValueLiteral="INCLUSION"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="solverChoice" eType="#//common/SolverKind"
+          defaultValueLiteral="OMEGA"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataScope" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           defaultValueLiteral="ALL"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="loopDetetctionTrivial"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledTrivialLoopDetetction"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="true"/>
     </eClassifiers>
@@ -406,8 +437,10 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="orderedTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitConsecutive" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitFolding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitMax" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitLucky" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitMax" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitFinal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="jumpHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="jumpTrialsLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="hitCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -415,6 +448,15 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="jumpSlice" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" eType="#//common/TraceSpecification"
           containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="extraneous" nsURI="http://www.eclipse.org/efm/Workflow/Extraneous"
+      nsPrefix="Extraneous">
+    <eClassifiers xsi:type="ecore:EClass" name="ExtraneousWorker" abstract="true"
+        eSuperTypes="#//Worker">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="extraSEW" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="AnalysisProfileRequired"
+          upperBound="-1" eType="#//common/AnalysisProfileKind" defaultValueLiteral="Exploration"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="test" nsURI="http://www.eclipse.org/efm/Workflow/Test" nsPrefix="Test">

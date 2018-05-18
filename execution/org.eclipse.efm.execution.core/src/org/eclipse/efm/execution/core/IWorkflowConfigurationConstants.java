@@ -74,8 +74,19 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	// PROJECT: MODEL SPECIFICATION a.k.a. MAIN INPUT FILE LOCATION
 	////////////////////////////////////////////////////////////////////////////
 
+	public static final String ATTR_SPECIFICATION_PROJECT_LOCATION =
+			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_PROJECT_LOCATION"; //$NON-NLS-1$
+
+	public static final String DEFAULT_SPECIFICATION_PROJECT_LOCATION =
+			"<project-location>"; //$NON-NLS-1$
+
+
 	public static final String ATTR_SPECIFICATION_PROJECT_NAME =
 			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_PROJECT_NAME"; //$NON-NLS-1$
+
+	public static final String DEFAULT_SPECIFICATION_PROJECT_NAME =
+			"<project-name>"; //$NON-NLS-1$
+
 
 	public static final String ATTR_SPECIFICATION_MODEL_FILE_LOCATION =
 			PLUGIN_LAUNCH_ID + ".ATTR_SPECIFICATION_MODEL_FILE_LOCATION"; //$NON-NLS-1$
@@ -161,19 +172,26 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	// SUPERVISOR: REDUNDANCY DETECTOR a.k.a. INCLUSION CRITERION
 	////////////////////////////////////////////////////////////////////////////
 
-	public static final String ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION =
-			PLUGIN_LAUNCH_ID + ".ATTR_ENABLED_REDUNDANCY_INCLUSION_CRITERION"; //$NON-NLS-1$
+	public static final String ATTR_ENABLED_REDUNDANCY_DETECTION =
+			PLUGIN_LAUNCH_ID + ".ATTR_ENABLED_REDUNDANCY_DETECTION"; //$NON-NLS-1$
 
-	public static final String ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL =
-			PLUGIN_LAUNCH_ID + ".ATTR_ENABLED_REDUNDANCY_LOOP_DETECTION_TRIVIAL"; //$NON-NLS-1$
+	public static final String ATTR_ENABLED_REDUNDANCY_TRIVIAL_LOOP_DETECTION =
+			PLUGIN_LAUNCH_ID + ".ATTR_ENABLED_REDUNDANCY_TRIVIAL_LOOP_DETECTION"; //$NON-NLS-1$
+
+
+	public static final String ATTR_REDUNDANCY_COMPARER_OPERATION =
+			PLUGIN_LAUNCH_ID + ".ATTR_REDUNDANCY_COMPARER_OPERATION"; //$NON-NLS-1$
+
+	public static final String ATTR_REDUNDANCY_PATH_SCOPE =
+			PLUGIN_LAUNCH_ID + ".ATTR_REDUNDANCY_PATH_SCOPE"; //$NON-NLS-1$
 
 
 	////////////////////////////////////////////////////////////////////////////
 	// TRANSITION COVERAGE WORKER:  a.k.a. ALL | DETAILS
 	////////////////////////////////////////////////////////////////////////////
 
-	public static final String ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION =
-			PLUGIN_LAUNCH_ID + ".ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION"; //$NON-NLS-1$
+	public static final String ATTR_TRANSITION_COVERAGE_SCOPE =
+			PLUGIN_LAUNCH_ID + ".ATTR_TRANSITION_COVERAGE_SCOPE"; //$NON-NLS-1$
 
 	public static final String ATTR_TRANSITION_COVERAGE_SELECTION =
 			PLUGIN_LAUNCH_ID + ".ATTR_TRANSITION_COVERAGE_SELECTION"; //$NON-NLS-1$
@@ -196,10 +214,6 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 
 	public static final String ATTR_TRANSITION_COVERAGE_HEURISTIC =
 			PLUGIN_LAUNCH_ID + ".ATTR_TRANSITION_COVERAGE_HEURISTIC"; //$NON-NLS-1$
-
-	public static final String ATTR_TRANSITION_COVERAGE_SCOPE =
-			PLUGIN_LAUNCH_ID + ".ATTR_TRANSITION_COVERAGE_SCOPE"; //$NON-NLS-1$
-
 
 	////////////////////////////////////////////////////////////////////////////
 	// TRANSITION COVERAGE WORKER:  a.k.a. TRANSITION COVERAGE HEURISTIC
@@ -297,6 +311,8 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	public static final String ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT =
 			PLUGIN_LAUNCH_ID + ".ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT"; //$NON-NLS-1$
 
+	public static final int DEFAULT_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT = 6;
+
 	public static final String ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT =
 			PLUGIN_LAUNCH_ID + ".ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT"; //$NON-NLS-1$
 
@@ -347,6 +363,37 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			= Arrays.asList(
 					"input#env = [*]"
 			);
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// INFERENCE WORKER: CONFIGURATION a.k.a. OUTPUT FILE LOCATION
+	////////////////////////////////////////////////////////////////////////////
+
+	public static final String ATTR_INFERENCE_OUTPUT_FILE_NAME =
+			PLUGIN_LAUNCH_ID + ".ATTR_INFERENCE_OUTPUT_FILE_NAME"; //$NON-NLS-1$
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// EXTRANEOUS OPAQUE MODULE as EXTRA WORKER: CONFIGURATION a.k.a. RAW USER TEXT
+	////////////////////////////////////////////////////////////////////////////
+
+	public static final String ATTR_OPAQUE_MODULE_TEXTUAL_CONFIGURATION =
+			PLUGIN_LAUNCH_ID + ".ATTR_OPAQUE_MODULE_TEXTUAL_CONFIGURATION"; //$NON-NLS-1$
+
+	public static final String DEFAULT_OPAQUE_MODULE_TEXTUAL_CONFIGURATION
+			= "// a sample of incubation worker workflow textual configuration\n"
+			+ "//incubation#worker  new_incubation_worker {\n"
+			+ "//\tproperty [\n"
+			+ "//\t\tattribute#bool = true\n"
+			+ "//\t\tattribute#integert = 42\n"
+			+ "//\t\tattribute#string = \"string value\"\n"
+			+ "//\t] // end property\n"
+			+ "//} // end new_incubation_worker\n";  //$NON-NLS-1$
+
+	public static final String ATTR_OPAQUE_MODULE_ENABLED_AS_ADDITIONAL_WORKER =
+			PLUGIN_LAUNCH_ID + ".ATTR_OPAQUE_MODULE_ENABLED_AS_ADDITIONAL_WORKER"; //$NON-NLS-1$
+
+	public static final boolean DEFAULT_OPAQUE_MODULE_ENABLED_AS_ADDITIONAL_WORKER = false;
 
 
 	////////////////////////////////////////////////////////////////////////////
@@ -452,6 +499,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			= Arrays.asList(
 //					%1% --> string message
 //					%2% --> execution context identifier
+					"step#header = \"step %1% --> %2%\\n\"",
 					"comment = \"\\t// %1%\\n\"",
 //					%1% --> condition,
 					"path#condition = \"\\tPC: %1%\\n\"",
@@ -686,12 +734,16 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			"symbex_output.gv"; //$NON-NLS-1$
 
 
+	public static final String ATTR_SYMBEX_OUTPUT_GRAPHVIZ_ENABLED_MODIFIED_DATA_SELECTION =
+			PLUGIN_LAUNCH_ID + ".ATTR_SYMBEX_OUTPUT_GRAPHVIZ_ENABLED_MODIFIED_DATA_SELECTION"; //$NON-NLS-1$
+
 	public static final String ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC =
 			PLUGIN_LAUNCH_ID + ".ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC"; //$NON-NLS-1$
 
 	public static final List<String> DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC
 			= Arrays.asList(
 					SYNTAX_TRACE_SPECIFICATION_LINK,
+					"transition = [*]\n",
 					"com = [*]\n",
 					"variable = [*]\n"
 			);

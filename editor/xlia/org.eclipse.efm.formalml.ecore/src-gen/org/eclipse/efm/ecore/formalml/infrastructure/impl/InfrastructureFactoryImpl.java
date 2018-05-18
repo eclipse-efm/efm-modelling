@@ -13,6 +13,7 @@
 package org.eclipse.efm.ecore.formalml.infrastructure.impl;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
+import org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
 import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
 import org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection;
@@ -20,8 +21,10 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ComCastKind;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocolKind;
-import org.eclipse.efm.ecore.formalml.infrastructure.Connection;
+import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
+import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
 import org.eclipse.efm.ecore.formalml.infrastructure.DesignKind;
+import org.eclipse.efm.ecore.formalml.infrastructure.Function;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructureFactory;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
@@ -36,6 +39,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
 import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Procedure;
 import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition;
+import org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Route;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
@@ -96,6 +100,9 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case InfrastructurePackage.MACHINE: return createMachine();
+			case InfrastructurePackage.PROPERTY_PART: return createPropertyPart();
+			case InfrastructurePackage.COMPOSITE_PART: return createCompositePart();
+			case InfrastructurePackage.BEHAVIOR_PART: return createBehaviorPart();
 			case InfrastructurePackage.SYSTEM: return createSystem();
 			case InfrastructurePackage.MODIFIER: return createModifier();
 			case InfrastructurePackage.PROPERTY_DEFINITION: return createPropertyDefinition();
@@ -104,6 +111,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 			case InfrastructurePackage.PORT: return createPort();
 			case InfrastructurePackage.CHANNEL: return createChannel();
 			case InfrastructurePackage.SIGNAL: return createSignal();
+			case InfrastructurePackage.FUNCTION: return createFunction();
 			case InfrastructurePackage.PROCEDURE: return createProcedure();
 			case InfrastructurePackage.ROUTINE: return createRoutine();
 			case InfrastructurePackage.INSTANCE_MACHINE: return createInstanceMachine();
@@ -116,7 +124,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 			case InfrastructurePackage.MODEL_OF_INTERACTION: return createModelOfInteraction();
 			case InfrastructurePackage.COM_PROTOCOL: return createComProtocol();
 			case InfrastructurePackage.ROUTE: return createRoute();
-			case InfrastructurePackage.CONNECTION: return createConnection();
+			case InfrastructurePackage.CONNECTOR: return createConnector();
 			case InfrastructurePackage.COM_POINT: return createComPoint();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -177,6 +185,36 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	public Machine createMachine() {
 		MachineImpl machine = new MachineImpl();
 		return machine;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PropertyPart createPropertyPart() {
+		PropertyPartImpl propertyPart = new PropertyPartImpl();
+		return propertyPart;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompositePart createCompositePart() {
+		CompositePartImpl compositePart = new CompositePartImpl();
+		return compositePart;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BehaviorPart createBehaviorPart() {
+		BehaviorPartImpl behaviorPart = new BehaviorPartImpl();
+		return behaviorPart;
 	}
 
 	/**
@@ -257,6 +295,16 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	public Signal createSignal() {
 		SignalImpl signal = new SignalImpl();
 		return signal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Function createFunction() {
+		FunctionImpl function = new FunctionImpl();
+		return function;
 	}
 
 	/**
@@ -384,9 +432,9 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Connection createConnection() {
-		ConnectionImpl connection = new ConnectionImpl();
-		return connection;
+	public Connector createConnector() {
+		ConnectorImpl connector = new ConnectorImpl();
+		return connector;
 	}
 
 	/**

@@ -27,9 +27,11 @@ public class SWTSpider extends Canvas
 
 	private boolean fResetFlag = false;
 
-	private final String SPIDER4BRANCHES = "Spider4Branches";
-	private final String SPIDER5BRANCHES = "Spider5Branches";
-	private String fSpidertype = SPIDER4BRANCHES;
+	public static enum SPIDER_GEOMETRY {
+		/*TRIGON ,*/  TETRAGON , PENTAGON /*, HEXAGON*/
+	}
+
+	private SPIDER_GEOMETRY fSpidertype = SPIDER_GEOMETRY.TETRAGON;
 
 	private String spiderTitle;
 	private int xDecalage;
@@ -71,8 +73,15 @@ public class SWTSpider extends Canvas
 		fRedrawBySystem = true;
 		spiderTitle = "";
 
+		createContent(parent);
+	}
+
+	private void createContent(ScrolledComposite parent) {
+//		parent.setLayout(new BorderLayout() );
+
 		this.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		addPaintListener(this);
+
 	}
 
 	@Override
@@ -86,10 +95,10 @@ public class SWTSpider extends Canvas
 //			Device device = Display.getCurrent();
 
 			switch( fSpidertype ) {
-			case SPIDER4BRANCHES:
+			case TETRAGON:
 				initSpider4Segments(e);
 				break;
-			case SPIDER5BRANCHES:
+			case PENTAGON:
 				initSpider5Segments(e);
 				break;
 			default:
@@ -98,13 +107,13 @@ public class SWTSpider extends Canvas
 		}
 
 		switch( fSpidertype ) {
-		case SPIDER4BRANCHES:
+		case TETRAGON:
 			draw4CurrentSegments(e, currentStep, maxStep,
 	 								currentDepth, maxDepth,
 	 								currentContext, maxContext,
 	 								currentWidth, maxWidth);
 			break;
-		case SPIDER5BRANCHES:
+		case PENTAGON:
 			draw5CurrentSegments(e, currentCoverage, maxCoverage,
 					 				currentStep, maxStep,
 					 				currentWidth, maxWidth,
@@ -123,16 +132,10 @@ public class SWTSpider extends Canvas
 		}
 	}
 
-	public void resetSpider() {
+	public void resetSpider(SPIDER_GEOMETRY geometry) {
 		fResetFlag = true;
 
-		if ( LaunchDelegate.isLaunchCoverageProfileFamily() ) {
-
-			fSpidertype = SPIDER5BRANCHES;
-		}
-		else{
-			fSpidertype = SPIDER4BRANCHES;
-		}
+		fSpidertype = geometry;
 
 		Display.getDefault().syncExec(new Runnable() {
 			@Override
@@ -381,12 +384,10 @@ public class SWTSpider extends Canvas
 		pe.gc.drawString("- width = " + currentWidth2, xDecalage + 250, yDecalage);
 	}
 
-	public void updateSpider(int exeNumber,
-							 int cStep, int mStep,
-							 int cContext, int mContext,
-							 int cDepth, int mDepth,
-							 int cWidth, int mWidth,
-							 int cCoverage, int mCoverage) {
+
+	public void updateSpider(int exeNumber, int cStep, int mStep,
+			int cContext, int mContext, int cDepth, int mDepth,
+			int cWidth, int mWidth, int cCoverage, int mCoverage) {
 
 		executionNumber = exeNumber;
 
@@ -420,4 +421,6 @@ public class SWTSpider extends Canvas
 
 		fRedrawBySystem = true;
 	}
+
+
 }

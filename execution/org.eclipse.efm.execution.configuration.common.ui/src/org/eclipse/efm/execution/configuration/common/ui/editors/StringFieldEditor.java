@@ -112,7 +112,7 @@ public class StringFieldEditor extends FieldEditor {
      * The text field, or <code>null</code> if none.
      */
     Text textField;
-    
+
     int textFieldStyle;
 
     /**
@@ -151,7 +151,7 @@ public class StringFieldEditor extends FieldEditor {
 		this.fValue = defaultValue;
 
 		this.isValid = isValid;
-		
+
 		this.textFieldStyle = SWT.SINGLE;
 	}
 
@@ -178,15 +178,15 @@ public class StringFieldEditor extends FieldEditor {
 
         widthInChars = width;
         setValidateStrategy(strategy);
-        isValid = false;		
+        isValid = false;
 		this.textFieldStyle = textFieldStyle;
 
-        errorMessage = JFaceResources
-                .getString("StringFieldEditor.errorMessage");//$NON-NLS-1$
+		setErrorMessage(JFaceResources
+                .getString("StringFieldEditor.errorMessage"));//$NON-NLS-1$
         createControl(parent);
     }
 
-	
+
 	public StringFieldEditor(AbstractConfigurationPage configurationPage,
 			String storeKey, String labelText, Composite parent, String defaultValue) {
         this(configurationPage, storeKey, labelText, UNLIMITED,
@@ -209,11 +209,11 @@ public class StringFieldEditor extends FieldEditor {
      *  or <code>UNLIMITED</code> for no limit
      * @param parent the parent of the field editor's control
      */
-    public StringFieldEditor(AbstractConfigurationPage configurationPage,
-    		String storeKey, String labelText, int width, Composite parent) {
-        this(configurationPage, storeKey, labelText, width,
-        		VALIDATE_ON_KEY_STROKE, parent, "", SWT.SINGLE);
-    }
+//    public StringFieldEditor(AbstractConfigurationPage configurationPage,
+//    		String storeKey, String labelText, int width, Composite parent) {
+//        this(configurationPage, storeKey, labelText, width,
+//        		VALIDATE_ON_KEY_STROKE, parent, "", SWT.SINGLE);
+//    }
 
     /**
      * Creates a string field editor of unlimited width.
@@ -223,10 +223,10 @@ public class StringFieldEditor extends FieldEditor {
      * @param labelText the label text of the field editor
      * @param parent the parent of the field editor's control
      */
-    public StringFieldEditor(AbstractConfigurationPage configurationPage,
-    		String storeKey, String labelText, Composite parent) {
-        this(configurationPage, storeKey, labelText, UNLIMITED, parent);
-    }
+//    public StringFieldEditor(AbstractConfigurationPage configurationPage,
+//    		String storeKey, String labelText, Composite parent) {
+//        this(configurationPage, storeKey, labelText, UNLIMITED, parent);
+//    }
 
     @Override
 	protected void adjustForNumColumns(int numColumns) {
@@ -496,7 +496,8 @@ public class StringFieldEditor extends FieldEditor {
      * @param message the error message
      */
     public void setErrorMessage(String message) {
-    	errorMessage = message;
+    	final String text = getLabelText();
+    	errorMessage = ( (text != null) ? text :  "" ) + message;
     }
 
     @Override
@@ -602,9 +603,26 @@ public class StringFieldEditor extends FieldEditor {
 
     public void setEnabled(boolean enabled) {
     	if (textField != null) {
-    		super.setEnabled(enabled, textField.getParent());
+    		super.setVisible(enabled, textField.getParent());
 
     		textField.setEnabled(enabled);
+    	}
+    }
+
+	/*
+	 * @see FieldEditor.setVisible
+	 */
+	@Override
+	public void setVisible(boolean visible, Composite parent) {
+    	super.setVisible(visible, parent);
+    	getTextControl(parent).setVisible(visible);
+    }
+
+	public void setVisible(boolean visible) {
+    	if (textField != null) {
+    		super.setVisible(visible, textField.getParent());
+
+    		textField.setVisible(visible);
     	}
     }
 
@@ -630,7 +648,8 @@ public class StringFieldEditor extends FieldEditor {
      *
      * @param msg the error message
      */
-    protected void showErrorMessage(String msg) {
+    @Override
+	protected void showErrorMessage(String msg) {
     	if (textField != null) {
     		textField.setBackground(
     				Display.getCurrent().getSystemColor(SWT.COLOR_RED));

@@ -22,11 +22,29 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.FormColors;
 
 public class StandardWidgetToolkit implements IWidgetToolkit {
+
+	private FormColors colors;
+
+	public StandardWidgetToolkit() {
+		colors = new FormColors(Display.getCurrent());
+	}
+
+	/**
+	 * Returns the colors used by this toolkit.
+	 *
+	 * @return the color object
+	 */
+	@Override
+	public FormColors getColors() {
+		return colors;
+	}
 
 
 	/**
@@ -35,13 +53,14 @@ public class StandardWidgetToolkit implements IWidgetToolkit {
 	 * @param control the receiver
 	 * @param visible visible the new visibility state
 	 */
+	@Override
 	public void setVisibleAndEnabled(Composite aComposite, boolean visible) {
 		propagateVisibility(aComposite, visible);
-		
+
 		aComposite.setEnabled(visible);
 	}
-	
-	
+
+
 	/**
 	 * Creates a section as a part of the form.
 	 * @param parent the section parent
@@ -51,6 +70,7 @@ public class StandardWidgetToolkit implements IWidgetToolkit {
 	 * @param description the description text
 	 * @return the section widget
 	 */
+	@Override
 	public void createSectionPart(AbstractSectionPart sectionPart,
 			Composite parent, int style, IToolBarManager toolBarManager)
 	{
@@ -59,7 +79,7 @@ public class StandardWidgetToolkit implements IWidgetToolkit {
 				1, 1, GridData.FILL_HORIZONTAL);
 
 		Composite sectionClient = createComposite(section, 1, 1, GridData.FILL_HORIZONTAL);
-		
+
 		String text = sectionPart.getSectionDescription();
 		if( text != null ) {
 			createLabel(sectionClient, text, 2);
@@ -69,17 +89,16 @@ public class StandardWidgetToolkit implements IWidgetToolkit {
 		sectionPart.setSectionClient(sectionClient);
 	}
 
+
 	/**
-	 * Creates a CTabFolder
+	 * Creates a new CTabFolder
 	 * @param parent the parent to add the composite to
 	 * @param style the style for the composite
 	 * @return a new CTabFolder with a style
 	 */
-	public CTabFolder createTabFolder(Composite parent, int style) {
+	@Override
+	public CTabFolder newTabFolder(Composite parent, int style) {
 		CTabFolder tabFolder = new CTabFolder( parent, style );
-		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true, 2, 1);
-//		gd.heightHint = 2;
-		tabFolder.setLayoutData(gd);
 
 		return tabFolder;
 	}
@@ -120,6 +139,7 @@ public class StandardWidgetToolkit implements IWidgetToolkit {
 	 * @param style the style for the composite
 	 * @return a new ScrolledComposite with a style
 	 */
+	@Override
 	public ScrolledComposite newScrolledComposite(Composite parent, int style) {
 		return new ScrolledComposite(parent, style);
 	}
@@ -158,6 +178,7 @@ public class StandardWidgetToolkit implements IWidgetToolkit {
 	 * @param style the style for the Button
 	 * @return a new button
 	 */
+	@Override
 	public Combo newCombo(Composite parent, int style) {
 		return new Combo(parent, style);
 	}

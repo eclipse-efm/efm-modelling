@@ -12,16 +12,50 @@
  */
 package org.eclipse.efm.ecore.formalml.expression;
 
+import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
+
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Literal Self Expression</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression#getModel <em>Model</em>}</li>
+ * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getLiteralSelfExpression()
  * @model
  * @generated
  */
 public interface LiteralSelfExpression extends LiteralReferenceExpression {
+
+	/**
+	 * Returns the value of the '<em><b>Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Model</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Model</em>' reference.
+	 * @see #setModel(Machine)
+	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getLiteralSelfExpression_Model()
+	 * @model
+	 * @generated
+	 */
+	Machine getModel();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression#getModel <em>Model</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Model</em>' reference.
+	 * @see #getModel()
+	 * @generated
+	 */
+	void setModel(Machine value);
 } // LiteralSelfExpression

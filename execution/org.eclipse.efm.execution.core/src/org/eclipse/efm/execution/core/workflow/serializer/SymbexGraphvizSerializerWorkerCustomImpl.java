@@ -52,6 +52,20 @@ public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSeria
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
 
+		boolean enabled;
+		try {
+			enabled = configuration.getAttribute(
+					ATTR_SYMBEX_OUTPUT_GRAPHVIZ_ENABLED_MODIFIED_DATA_SELECTION, true);
+		}
+		catch( CoreException e2 ) {
+			e2.printStackTrace();
+
+			enabled = false;
+		}
+		serializerWorker.setEnabledModifiedDataSelection( enabled );
+
+
+
 		TraceSpecificationCustomImpl trace =
 				TraceSpecificationCustomImpl.create(
 						"trace", configuration,
@@ -180,7 +194,8 @@ public class SymbexGraphvizSerializerWorkerCustomImpl extends ModelGraphvizSeria
 
 		writer2.appendTabEol( "property [" );
 		writer2.appendTab2Eol( "info#selection = 'ALL'" );
-		writer2.appendTab2Eol( "data#selection = 'MODIFIED'" );
+		writer2.appendTab2( "data#selection = " )
+			.appendEol( isEnabledModifiedDataSelection() ? "'MODIFIED'" : "'ALL'" );
 		writer2.appendTabEol( "] // end property" );
 
 		// Trace element selected

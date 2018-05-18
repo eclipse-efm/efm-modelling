@@ -23,3 +23,4 @@ Export-Package: org.eclipse.efm.sew.xtext.services,
  org.eclipse.efm.sew.xtext.generator,
  org.eclipse.efm.sew.xtext.serializer
 Import-Package: org.apache.log4j
+Automatic-Module-Name: org.eclipse.efm.sew.xtext

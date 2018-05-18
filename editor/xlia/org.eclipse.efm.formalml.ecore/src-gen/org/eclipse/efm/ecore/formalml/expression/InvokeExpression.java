@@ -46,7 +46,7 @@ public interface InvokeExpression extends Expression {
 	 * @return the value of the '<em>Call Procedure</em>' attribute.
 	 * @see #setCallProcedure(boolean)
 	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getInvokeExpression_CallProcedure()
-	 * @model default="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isCallProcedure();

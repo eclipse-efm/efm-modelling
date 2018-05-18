@@ -46,10 +46,13 @@ public class TraceSpecificationCustomImpl extends TraceSpecificationImpl {
 	public static TraceSpecificationCustomImpl create(String name,
 			ILaunchConfiguration configuration, String storeKey,
 			List<String> defaultValue, TraceElementKind defaultNature) {
-		List<String> traceElementList = new ArrayList<String>();
 		try {
+			List<String> traceElementList = new ArrayList<String>();
+
 			traceElementList.addAll(
 					configuration.getAttribute(storeKey, defaultValue) );
+
+			return create(name, traceElementList, defaultNature);
 		}
 		catch( DebugException de) {
 			// For Compatibility
@@ -57,16 +60,7 @@ public class TraceSpecificationCustomImpl extends TraceSpecificationImpl {
 				String specification =
 						configuration.getAttribute(storeKey, "");
 
-				if( specification != null ) {
-					specification = specification.trim();
-
-					if( ! specification.isEmpty() ) {
-						String[] tabString = specification.split(
-								TraceSpecificationCustomImpl.TRACE_SEPARATOR);
-
-						traceElementList.addAll( Arrays.asList(tabString) );
-					}
-				}
+				return create(name, specification, defaultNature);
 			}
 			catch( CoreException ce ) {
 				ce.printStackTrace();
@@ -74,6 +68,25 @@ public class TraceSpecificationCustomImpl extends TraceSpecificationImpl {
 		}
 		catch( CoreException ce ) {
 			ce.printStackTrace();
+		}
+
+		return create(name);
+	}
+
+
+	public static TraceSpecificationCustomImpl create(String name,
+			String specification, TraceElementKind defaultNature) {
+		List<String> traceElementList = new ArrayList<String>();
+
+		if( specification != null ) {
+			specification = specification.trim();
+
+			if( ! specification.isEmpty() ) {
+				String[] tabString = specification.split(
+						TraceSpecificationCustomImpl.TRACE_SEPARATOR);
+
+				traceElementList.addAll( Arrays.asList(tabString) );
+			}
 		}
 
 		return create(name, traceElementList, defaultNature);
@@ -94,11 +107,9 @@ public class TraceSpecificationCustomImpl extends TraceSpecificationImpl {
 		TraceSpecificationCustomImpl traceSpecification =
 				new TraceSpecificationCustomImpl(name);
 
-		if( (traceElementList != null) && (! traceElementList.isEmpty()) ) {
-
+		if( (traceElementList != null) && (! traceElementList.isEmpty()) )
+		{
 			traceSpecification.parseAll(traceElementList, defaultNature);
-
-			return traceSpecification;
 		}
 
 		return traceSpecification;

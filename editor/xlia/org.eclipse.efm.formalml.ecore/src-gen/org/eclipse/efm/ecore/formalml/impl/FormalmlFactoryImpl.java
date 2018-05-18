@@ -70,6 +70,7 @@ public class FormalmlFactoryImpl extends EFactoryImpl implements FormalmlFactory
 			case FormalmlPackage.XLIA_MODEL: return createXliaModel();
 			case FormalmlPackage.XLIA_NAMED_ELEMENT: return createXliaNamedElement();
 			case FormalmlPackage.XLIA_OBJECT: return createXliaObject();
+			case FormalmlPackage.XLIA_SECTION: return createXliaSection();
 			case FormalmlPackage.XLIA_ATTRIBUTE: return createXliaAttribute();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -134,6 +135,16 @@ public class FormalmlFactoryImpl extends EFactoryImpl implements FormalmlFactory
 	public XliaObject createXliaObject() {
 		XliaObjectImpl xliaObject = new XliaObjectImpl();
 		return xliaObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public XliaSection createXliaSection() {
+		XliaSectionImpl xliaSection = new XliaSectionImpl();
+		return xliaSection;
 	}
 
 	/**

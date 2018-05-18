@@ -46,10 +46,11 @@ public class LaunchExecConsoleManager {
 			fWindow = wws[0];
 
 			wb.getDisplay().syncExec(new Runnable() {
+				@Override
 				public void run() {
 					try {
 						IViewPart viewPart = fWindow.getActivePage().
-								showView(SEWConsoleViewer.ID_SEW_CONSOLE_VIEW);
+								showView(SymbolicExecutionView.SYMBEX_CONSOLE_VIEW_ID);
 //								showView(IConsoleConstants.ID_CONSOLE_VIEW);
 
 						if( viewPart instanceof SymbolicExecutionView ) {
@@ -69,11 +70,11 @@ public class LaunchExecConsoleManager {
 
 	public void sewLaunchExecProcess(ILaunchConfiguration configuration,
 			String mode, ILaunch launch, IProgressMonitor monitor,
-			String[] cmdLine, File workingDir, String[] envp) {
+			String[] commandLine, File workingDirectory, String[] envp) {
 
 		if( loadConsoleViewer() ) {
 			fSymbexView.sewLaunchExecProcess(configuration, mode,
-					launch, monitor, cmdLine, workingDir, envp);
+					launch, monitor, commandLine, workingDirectory, envp);
 		}
 		else {
 			System.out.println("loadConsoleViewer: KOOO !");

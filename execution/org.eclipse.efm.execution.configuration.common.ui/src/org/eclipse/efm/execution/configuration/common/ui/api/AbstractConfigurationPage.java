@@ -22,8 +22,8 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
-import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -44,6 +44,10 @@ public abstract class AbstractConfigurationPage extends AbstractSectionPart
 	protected boolean fEnabledSymbexDeveloperMode;
 
 	protected boolean fEnabledSymbexIncubationMode;
+
+	private Map<String, Action> fRegisteredActions;
+
+	private Action[] fDefaultSectionActions;
 
 
 	public boolean isEnabledSymbexDeveloperMode() {
@@ -74,23 +78,39 @@ public abstract class AbstractConfigurationPage extends AbstractSectionPart
 			fEnabledSymbexIncubationMode = false;
 		}
 
-		this.registered_actions = new HashMap<String, Action>();
+		this.fRegisteredActions = new HashMap<String, Action>();
+
+		this.fDefaultSectionActions = new Action[0];
+	}
+
+
+	public Map<String, Action> getRunnableActions() {
+		return fRegisteredActions;
 	}
 
 	public void setRegisteredActions(Map<String, Action> acts) {
-		this.registered_actions = acts;
+		this.fRegisteredActions = acts;
 	}
 
 	protected Action[] getActionsByStringKey(String[] kids) {
 		Set<Action> foundActions = new HashSet<Action>();
 		Action current;
 		for(String kid: kids) {
-			current = registered_actions.get(kid);
+			current = fRegisteredActions.get(kid);
 			if(current != null) {
 				foundActions.add(current);
 			}
 		}
 		return foundActions.toArray(new Action[foundActions.size()]);
+	}
+
+
+	public Action[] getDefaultSectionActions() {
+		return fDefaultSectionActions;
+	}
+
+	public void setDefaultSectionActions(Action[] defaultSectionActions) {
+		this.fDefaultSectionActions = defaultSectionActions;
 	}
 
 
@@ -221,12 +241,6 @@ public abstract class AbstractConfigurationPage extends AbstractSectionPart
 
 	public void propagateUpdateJobScheduling() {
 		masterGUIelement.scheduleUpdateJob();
-	}
-
-	private Map<String, Action> registered_actions;
-
-	public Map<String, Action> getRunnableActions() {
-		return registered_actions;
 	}
 
 }

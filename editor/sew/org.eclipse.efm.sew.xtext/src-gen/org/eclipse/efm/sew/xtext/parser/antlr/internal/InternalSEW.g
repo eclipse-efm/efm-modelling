@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -229,10 +229,48 @@ ruleWorkflow returns [EObject current=null]
 			    |
 			(
 				(
+					(
+						{
+							newCompositeNode(grammarAccess.getWorkflowAccess().getElementObjectParserRuleCall_2_1_0_0());
+						}
+						lv_element_8_1=ruleObject
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getWorkflowRule());
+							}
+							add(
+								$current,
+								"element",
+								lv_element_8_1,
+								"org.eclipse.efm.sew.xtext.SEW.Object");
+							afterParserOrEnumRuleCall();
+						}
+						    |
+						{
+							newCompositeNode(grammarAccess.getWorkflowAccess().getElementPropertyParserRuleCall_2_1_0_1());
+						}
+						lv_element_8_2=ruleProperty
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getWorkflowRule());
+							}
+							add(
+								$current,
+								"element",
+								lv_element_8_2,
+								"org.eclipse.efm.sew.xtext.SEW.Property");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)*
+			    |
+			(
+				(
 					{
-						newCompositeNode(grammarAccess.getWorkflowAccess().getElementDeprecatedObjectParserRuleCall_2_1_0());
+						newCompositeNode(grammarAccess.getWorkflowAccess().getElementDeprecatedObjectParserRuleCall_2_2_0());
 					}
-					lv_element_8_0=ruleDeprecatedObject
+					lv_element_9_0=ruleDeprecatedObject
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getWorkflowRule());
@@ -240,7 +278,7 @@ ruleWorkflow returns [EObject current=null]
 						add(
 							$current,
 							"element",
-							lv_element_8_0,
+							lv_element_9_0,
 							"org.eclipse.efm.sew.xtext.SEW.DeprecatedObject");
 						afterParserOrEnumRuleCall();
 					}

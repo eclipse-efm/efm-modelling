@@ -42,7 +42,7 @@ public interface LiteralIntegerExpression extends LiteralExpression {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(long)
 	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getLiteralIntegerExpression_Value()
-	 * @model default="0"
+	 * @model default="0" required="true"
 	 * @generated
 	 */
 	long getValue();

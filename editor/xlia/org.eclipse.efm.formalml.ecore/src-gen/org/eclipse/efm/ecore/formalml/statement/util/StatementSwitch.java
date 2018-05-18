@@ -12,6 +12,8 @@
  */
 package org.eclipse.efm.ecore.formalml.statement.util;
 
+import org.eclipse.efm.ecore.formalml.common.AbstractElement;
+
 import org.eclipse.efm.ecore.formalml.statement.*;
 
 import org.eclipse.emf.ecore.EObject;
@@ -79,6 +81,7 @@ public class StatementSwitch<T> extends Switch<T> {
 			case StatementPackage.STATEMENT: {
 				Statement statement = (Statement)theEObject;
 				T result = caseStatement(statement);
+				if (result == null) result = caseAbstractElement(statement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -86,6 +89,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				BlockStatement blockStatement = (BlockStatement)theEObject;
 				T result = caseBlockStatement(blockStatement);
 				if (result == null) result = caseStatement(blockStatement);
+				if (result == null) result = caseAbstractElement(blockStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -93,20 +97,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				ExpressionStatement expressionStatement = (ExpressionStatement)theEObject;
 				T result = caseExpressionStatement(expressionStatement);
 				if (result == null) result = caseStatement(expressionStatement);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case StatementPackage.ASSIGNMENT_STATEMENT: {
-				AssignmentStatement assignmentStatement = (AssignmentStatement)theEObject;
-				T result = caseAssignmentStatement(assignmentStatement);
-				if (result == null) result = caseStatement(assignmentStatement);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case StatementPackage.NEWFRESH_STATEMENT: {
-				NewfreshStatement newfreshStatement = (NewfreshStatement)theEObject;
-				T result = caseNewfreshStatement(newfreshStatement);
-				if (result == null) result = caseStatement(newfreshStatement);
+				if (result == null) result = caseAbstractElement(expressionStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -114,6 +105,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				AbstractGuardStatement abstractGuardStatement = (AbstractGuardStatement)theEObject;
 				T result = caseAbstractGuardStatement(abstractGuardStatement);
 				if (result == null) result = caseStatement(abstractGuardStatement);
+				if (result == null) result = caseAbstractElement(abstractGuardStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -122,6 +114,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseGuardStatement(guardStatement);
 				if (result == null) result = caseAbstractGuardStatement(guardStatement);
 				if (result == null) result = caseStatement(guardStatement);
+				if (result == null) result = caseAbstractElement(guardStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -130,6 +123,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseTimedGuardStatement(timedGuardStatement);
 				if (result == null) result = caseAbstractGuardStatement(timedGuardStatement);
 				if (result == null) result = caseStatement(timedGuardStatement);
+				if (result == null) result = caseAbstractElement(timedGuardStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -138,6 +132,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseEventGuardStatement(eventGuardStatement);
 				if (result == null) result = caseAbstractGuardStatement(eventGuardStatement);
 				if (result == null) result = caseStatement(eventGuardStatement);
+				if (result == null) result = caseAbstractElement(eventGuardStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -146,6 +141,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseCheckSatGuardStatement(checkSatGuardStatement);
 				if (result == null) result = caseAbstractGuardStatement(checkSatGuardStatement);
 				if (result == null) result = caseStatement(checkSatGuardStatement);
+				if (result == null) result = caseAbstractElement(checkSatGuardStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -153,6 +149,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				AbstractComStatement abstractComStatement = (AbstractComStatement)theEObject;
 				T result = caseAbstractComStatement(abstractComStatement);
 				if (result == null) result = caseStatement(abstractComStatement);
+				if (result == null) result = caseAbstractElement(abstractComStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -161,6 +158,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseInputComStatement(inputComStatement);
 				if (result == null) result = caseAbstractComStatement(inputComStatement);
 				if (result == null) result = caseStatement(inputComStatement);
+				if (result == null) result = caseAbstractElement(inputComStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -169,6 +167,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseOutputComStatement(outputComStatement);
 				if (result == null) result = caseAbstractComStatement(outputComStatement);
 				if (result == null) result = caseStatement(outputComStatement);
+				if (result == null) result = caseAbstractElement(outputComStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -176,6 +175,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				ConditionalBlockStatement conditionalBlockStatement = (ConditionalBlockStatement)theEObject;
 				T result = caseConditionalBlockStatement(conditionalBlockStatement);
 				if (result == null) result = caseStatement(conditionalBlockStatement);
+				if (result == null) result = caseAbstractElement(conditionalBlockStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -184,6 +184,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseIfStatement(ifStatement);
 				if (result == null) result = caseConditionalBlockStatement(ifStatement);
 				if (result == null) result = caseStatement(ifStatement);
+				if (result == null) result = caseAbstractElement(ifStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -192,6 +193,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseWhileDoStatement(whileDoStatement);
 				if (result == null) result = caseConditionalBlockStatement(whileDoStatement);
 				if (result == null) result = caseStatement(whileDoStatement);
+				if (result == null) result = caseAbstractElement(whileDoStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -200,6 +202,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseDoWhileStatement(doWhileStatement);
 				if (result == null) result = caseConditionalBlockStatement(doWhileStatement);
 				if (result == null) result = caseStatement(doWhileStatement);
+				if (result == null) result = caseAbstractElement(doWhileStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -208,6 +211,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseForStatement(forStatement);
 				if (result == null) result = caseConditionalBlockStatement(forStatement);
 				if (result == null) result = caseStatement(forStatement);
+				if (result == null) result = caseAbstractElement(forStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -216,6 +220,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseForEachStatement(forEachStatement);
 				if (result == null) result = caseConditionalBlockStatement(forEachStatement);
 				if (result == null) result = caseStatement(forEachStatement);
+				if (result == null) result = caseAbstractElement(forEachStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -223,6 +228,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				InterruptStatement interruptStatement = (InterruptStatement)theEObject;
 				T result = caseInterruptStatement(interruptStatement);
 				if (result == null) result = caseStatement(interruptStatement);
+				if (result == null) result = caseAbstractElement(interruptStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -230,6 +236,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				ActivityStatement activityStatement = (ActivityStatement)theEObject;
 				T result = caseActivityStatement(activityStatement);
 				if (result == null) result = caseStatement(activityStatement);
+				if (result == null) result = caseAbstractElement(activityStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -237,6 +244,7 @@ public class StatementSwitch<T> extends Switch<T> {
 				InvokeStatement invokeStatement = (InvokeStatement)theEObject;
 				T result = caseInvokeStatement(invokeStatement);
 				if (result == null) result = caseStatement(invokeStatement);
+				if (result == null) result = caseAbstractElement(invokeStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -286,36 +294,6 @@ public class StatementSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseExpressionStatement(ExpressionStatement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Assignment Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Assignment Statement</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAssignmentStatement(AssignmentStatement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Newfresh Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Newfresh Statement</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseNewfreshStatement(NewfreshStatement object) {
 		return null;
 	}
 
@@ -571,6 +549,21 @@ public class StatementSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseInvokeStatement(InvokeStatement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractElement(AbstractElement object) {
 		return null;
 	}
 

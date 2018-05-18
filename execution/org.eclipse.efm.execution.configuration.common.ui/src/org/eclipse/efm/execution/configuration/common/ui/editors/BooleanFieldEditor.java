@@ -224,7 +224,8 @@ public class BooleanFieldEditor extends FieldEditor {
     /**
      * Sets the label control's tool tip text to the argument
      */
-    public void setToolTipText(String string) {
+    @Override
+	public void setToolTipText(String string) {
     	if( checkBox != null ) {
     		checkBox.setToolTipText(string);
     	}
@@ -271,6 +272,27 @@ public class BooleanFieldEditor extends FieldEditor {
             	super.setEnabled(enabled, checkBox.getParent());
             }
         	checkBox.setEnabled(enabled);
+        }
+    }
+
+	/*
+	 * @see FieldEditor.setVisible
+	 */
+	@Override
+	public void setVisible(boolean visible, Composite parent) {
+		// Only call super if there is a label already
+		if (style == SEPARATE_LABEL) {
+			super.setVisible(visible, parent);
+		}
+		getChangeControl(parent).setVisible(visible);
+	}
+
+	public void setVisible(boolean visible) {
+        if( checkBox != null ) {
+            if( style == SEPARATE_LABEL ) {
+            	super.setVisible(visible, checkBox.getParent());
+            }
+        	checkBox.setVisible(visible);
         }
     }
 

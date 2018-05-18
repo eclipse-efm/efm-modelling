@@ -47,7 +47,6 @@ import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty
 import org.eclipse.efm.ecore.formalml.infrastructure.System
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable
-import org.eclipse.efm.ecore.formalml.statemachine.State
 import org.eclipse.efm.ecore.formalml.statemachine.Statemachine
 import org.eclipse.efm.ecore.formalml.statement.AbstractGuardStatement
 import org.eclipse.efm.ecore.formalml.statement.ConditionalBlockStatement
@@ -59,14 +58,16 @@ import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceType
 import org.eclipse.efm.ecore.formalml.datatype.CollectionType
 import org.eclipse.efm.ecore.formalml.expression.ArithmeticUnaryExpression
 import org.eclipse.efm.ecore.formalml.expression.ArithmeticAssociativeExpression
+import org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression
+import org.eclipse.efm.ecore.formalml.statemachine.Vertex
 
 class FormalMLTypeProvider {
 
-	val exprPack = ExpressionPackage::eINSTANCE
+	static val exprPack = ExpressionPackage::eINSTANCE
 
-	val infraPack = InfrastructurePackage::eINSTANCE
+	static val infraPack = InfrastructurePackage::eINSTANCE
 
-	val stmntPack = StatementPackage::eINSTANCE
+	static val stmntPack = StatementPackage::eINSTANCE
 
 
 	public static val booleanType =
@@ -106,47 +107,43 @@ class FormalMLTypeProvider {
 		=> [name = 'MachineType' ; expected = PrimitiveInstanceKind.MACHINE]
 
 	public static val anyNullType =
-		DatatypeFactory::eINSTANCE.createPrimitiveStringType
-		=> [name = 'AnyNullType']
+		DatatypeFactory::eINSTANCE.createPrimitiveInstanceType
+		=> [name = '$null' ; expected = PrimitiveInstanceKind.ANY]
 
 
 
 	def Type typeClass(Type type) {
 		switch( type ) {
-			PrimitiveBooleanType   : booleanType
-			PrimitiveIntegerType   : integerType
-			PrimitiveRationalType  : rationalType
-			PrimitiveFloatType     : floatType
-			PrimitiveRealType      : realType
-			PrimitiveCharacterType : characterType
-			PrimitiveStringType    : stringType
+			PrimitiveBooleanType   : return booleanType
+			PrimitiveIntegerType   : return integerType
+			PrimitiveRationalType  : return rationalType
+			PrimitiveFloatType     : return floatType
+			PrimitiveRealType      : return realType
+			PrimitiveCharacterType : return characterType
+			PrimitiveStringType    : return stringType
 
-			PrimitiveTimeType      : {
-				type.support?.typeClass ?: timeType
-			}
+			PrimitiveTimeType : return( type.support?.typeClass ?: timeType )
 
-			IntervalType      : {
-				type.support?.typeClass ?: type
-			}
+			IntervalType      : return( type.support?.typeClass ?: type )
 
 			DataTypeReference : {
 				if( type.multiplicity === null ) {
 					if( type.support !== null ) {
-						type.support.typeClass
+						return( type.support.typeClass )
 					}
 					else if( type.typeref !== null ) {
-						type.typeref.typeClass
+						return( type.typeref.typeClass )
 					}
 					else {
-						type
+						return type
 					}
 				}
 				else {
-					type
+					return type
 				}
 			}
 
-			default: type
+			default: return type
 		}
 	}
 
@@ -160,100 +157,96 @@ class FormalMLTypeProvider {
 	}
 
 
-
 	def Type typeFor(Expression e) {
 		switch( e ) {
-			LiteralBooleanExpression     : booleanType
-			LogicalUnaryExpression       : booleanType
-			EqualityBinaryExpression     : booleanType
-			RelationalBinaryExpression   : booleanType
-			LogicalAssociativeExpression : booleanType
+			LiteralBooleanExpression     : return booleanType
+			LogicalUnaryExpression       : return booleanType
+			EqualityBinaryExpression     : return booleanType
+			RelationalBinaryExpression   : return booleanType
+			LogicalAssociativeExpression : return booleanType
+			QuantifiedLogicalExpression  : return booleanType
 
-			LiteralIntegerExpression : integerType
-			LiteralRationalExpression: rationalType
+			LiteralIntegerExpression : return integerType
+			LiteralRationalExpression: return rationalType
 
-			LiteralFloatExpression: floatType
-			LiteralRealExpression : realType
+			LiteralFloatExpression: return floatType
+			LiteralRealExpression : return realType
 
-			LiteralCharacterExpression : characterType
+			LiteralCharacterExpression : return characterType
 
-			LiteralStringExpression : stringType
-
+			LiteralStringExpression : return stringType
 
 			LiteralReferenceElement: {
 				val element = e.value
 				switch( element ) {
 					PropertyDefinition : {
 						switch( e.kind ) {
-							case INDEX:  element.type.typeOfCollectionElement
+							case INDEX:
+								return( element.type.typeOfCollectionElement )
 							
-							case PARAMETER: element.type
+							case PARAMETER: return element.type
 							
-							case FIELD: element.type
+							case FIELD: return element.type
 							
-							default: element.type
+							default: return element.type
 						}
 					}
 					
-					EnumerationType : element
+					EnumerationType : return element
 
-					InstanceMachine : element.model
+					InstanceMachine : return element.model
 
-					System : element
-					Statemachine : element
-					State : EcoreUtil2.getContainerOfType(
-						element, typeof(Statemachine) )
+					Vertex : return( EcoreUtil2.getContainerOfType(
+						element, typeof(Statemachine) ))
 
-					Behavior : element.eContainer as Type
-					Machine : element
+					System      : return element
+					Statemachine: return element
+					
+					Behavior: return element.eContainer as Type
+					
+					Machine : return element
 
-					default: null
+					default : return null
 				}
 			}
-
 
 			ValueElementSpecification : {
 				val element = e.element
 
 				switch( element ) {
-					PropertyDefinition : element.type
+					PropertyDefinition : return element.type
 
-					InstanceMachine : element.model
+					InstanceMachine : return element.model
 
-					System : element
+					Vertex : return( EcoreUtil2.getContainerOfType(
+						element, typeof(Statemachine) ))
 
-					Statemachine : element
+					System      : return element
+					Statemachine: return element
 
-					State : EcoreUtil2.getContainerOfType(
-						element, typeof(Statemachine) )
+					Behavior: return( element.eContainer as Type )
 
-					Behavior : element.eContainer as Type
+					Machine : return element
 
-					Machine : element
-
-					default: null
+					default : return null
 				}
 
 			}
 
-			LeftHandSideExpression : {
-				e.lvalue.typeFor
-			}
-
+			LeftHandSideExpression : return( e.lvalue.typeFor )
 
 			LiteralThisExpression: {
 				val machine = EcoreUtil2.getContainerOfType(e, typeof(Machine))
 
 				switch( machine ) {
-					System : machine
+					System      : return machine
+					Statemachine: return machine
 
-					Statemachine : machine
+					Behavior: return( machine.eContainer as Type )
 
-					Behavior : machine.eContainer as Type
+					Machine : return machine
 
-					Machine : machine
-
-					default: machine
+					default : return machine
 				}
 			}
 
@@ -261,15 +254,14 @@ class FormalMLTypeProvider {
 				val machine = EcoreUtil2.getContainerOfType(e, typeof(Machine))
 
 				switch( machine ) {
-					System : machine
+					System      : return machine
+					Statemachine: return machine
 
-					Statemachine : machine
+					Behavior: return( machine.eContainer as Type )
 
-					Behavior : machine.eContainer as Type
+					Machine : return machine
 
-					Machine : machine
-
-					default: machine
+					default : return machine
 				}
 			}
 
@@ -277,15 +269,14 @@ class FormalMLTypeProvider {
 				val machine = EcoreUtil2.getContainerOfType(e, typeof(Machine))
 
 				switch( machine ) {
-					System : if( e != machine ) { machine } else { null }
+					System : return if( e != machine ) { machine } else { null }
 
-					Statemachine : machine.eContainer as Type
+//					Statemachine: return machine.eContainer as Type
+//					Behavior    : return machine.eContainer as Type
 
-					Behavior : machine.eContainer as Type
+					Machine: return machine.eContainer as Type
 
-					Machine : machine.eContainer as Type
-
-					default: machine
+					default: return machine
 				}
 			}
 
@@ -293,33 +284,30 @@ class FormalMLTypeProvider {
 				val machine = EcoreUtil2.getContainerOfType(e, typeof(Machine))
 
 				switch( machine ) {
-					System : if( e != machine ) { machine } else { null }
+					System : return if( e != machine ) { machine } else { null }
 
-					Statemachine : machine.eContainer as Type
+//					Statemachine: return( machine.eContainer as Type )
+//					Behavior    : return( machine.eContainer as Type )
 
-					Behavior : machine.eContainer as Type
+					Machine: return( machine.eContainer as Type )
 
-					Machine : machine.eContainer as Type
-
-					default: machine
+					default: return machine
 				}
 			}
 
-			LiteralSystemExpression: {
-				EcoreUtil2.getContainerOfType(e, typeof(System))
-			}
+			LiteralSystemExpression:
+				return( EcoreUtil2.getContainerOfType(e, typeof(System)) )
 
-			LiteralEnvExpression: {
-				EcoreUtil2.getContainerOfType(e, typeof(System))
-			}
+			LiteralEnvExpression:
+				return( EcoreUtil2.getContainerOfType(e, typeof(System)) )
 
-			LiteralNullExpression : anyNullType
+			LiteralNullExpression : return( e.type ?: anyNullType )
 			
-			ArithmeticUnaryExpression: e.operand.typeFor
+			ArithmeticUnaryExpression: return( e.operand.typeFor )
 			
-			ArithmeticAssociativeExpression: e.typeFor
+			ArithmeticAssociativeExpression: return( e.typeFor )
 
-			default: null
+			default: return null
 		}
 	}
 
@@ -349,6 +337,28 @@ class FormalMLTypeProvider {
 		
 		prevType
 	}
+	
+	def Type typeFor(LeftHandSideExpression exp, String operator) {
+		switch( operator ) {
+			case "<=<": {
+				exp.lvalue.typeFor?.typeOfCollectionElement
+			}
+			case "^=<": {
+				exp.lvalue.typeFor?.typeOfCollectionElement
+			}
+			case "^=>": {
+				exp.lvalue.typeFor?.typeOfCollectionElement
+			}
+			case ">=>": {
+				exp.lvalue.typeFor?.typeOfCollectionElement
+			}
+			
+			default: {
+				exp.lvalue.typeFor
+			}
+		}
+	}
+
 
 	def containerOfTypes(EObject context,
 		Class< ? extends EObject > type, Class< ? extends EObject > typeElse) {
@@ -428,27 +438,27 @@ class FormalMLTypeProvider {
 
 	def boolean isPrimitive(Type type) {
 		switch( type ) {
-			Machine : false
+			Machine : return false
 
-			EnumerationType   : type.literal.empty
+			EnumerationType   : return( type.literal.empty )
 
-			DataSupportedType : type.support.isPrimitive
+			DataSupportedType : return( type.support.isPrimitive )
 
-			DataStructuredType: type.property.empty
+			DataStructuredType: return( type.property.empty )
 
 			DataTypeReference :  {
 				if( type.typeref !== null ) {
-					type.typeref.isPrimitive
+					return( type.typeref.isPrimitive )
 				}
 				else if( type.support !== null ) {
-					type.support.isPrimitive
+					return( type.support.isPrimitive )
 				}
 				else {
-					true
+					return true
 				}
 			}
 
-			default: true
+			default: return true
 		}
 	}
 
@@ -460,23 +470,23 @@ class FormalMLTypeProvider {
 		switch( eC ) {
 			AssignmentExpression
 			case eCF == exprPack.assignmentExpression_RigthHandSide :
-				eC.leftHandSide.typeFor
+				return( eC.leftHandSide.typeFor(eC.operator) )
 
 			Variable
 			case eCF == infraPack.propertyDefinition_DefaultValue :
-				eC.type
+				return( eC.type )
 
 			SlotProperty
 			case eCF == infraPack.slotProperty_Value :
-				eC.xliaProperty.type
+				return( eC.xliaProperty.type )
 
 			AbstractGuardStatement
 			case eCF == stmntPack.abstractGuardStatement_Condition :
-				booleanType
+				return booleanType
 
 			ConditionalBlockStatement
 			case eCF == stmntPack.conditionalBlockStatement_Condition :
-				booleanType
+				return booleanType
 
 			// TODO implementation
 //			InvokeStatement case eCF == stmntPack.invokeStatement_Args : {
@@ -486,18 +496,18 @@ class FormalMLTypeProvider {
 //					val argIdx = (eC.args as MixTupleExpression).value.indexOf(e)
 //					switch( eC.invokable ) {
 //						case Routine: {
-//							null
+//							return null
 //						}
 //						case Procedure: {
-//							null
+//							return null
 //						}
 //						default: {
-//							null
+//							return null
 //						}
 //					}
 //				}
 //				catch (Throwable t) {
-//					null // otherwise there is no specific expected type
+//					return null // otherwise there is no specific expected type
 //				}
 //			}
 //			InvokeStatement case eCF == stmntPack.invokeStatement_Rets: {
@@ -507,18 +517,18 @@ class FormalMLTypeProvider {
 //					val argIdx = eC.rets.indexOf(e)
 //					switch( eC.invokable ) {
 //						case Routine: {
-//							null
+//							return null
 //						}
 //						case Procedure: {
-//							null
+//							return null
 //						}
 //						default: {
-//							null
+//							return null
 //						}
 //					}
 //				}
 //				catch (Throwable t) {
-//					null // otherwise there is no specific expected type
+//					return null // otherwise there is no specific expected type
 //				}
 //			}
 		}
@@ -529,7 +539,27 @@ class FormalMLTypeProvider {
 		if( actualType == expectedType ) {
 			true
 		}
-		else if( actualType.class == expectedType.class ) {
+		else if( actualType.class == expectedType.class )
+		{
+			if( actualType instanceof PrimitiveInstanceType ) {
+				val expectedPIT = expectedType as PrimitiveInstanceType
+				
+				if( actualType.expected == expectedPIT.expected ) {
+					(actualType.model == expectedPIT.model)
+					|| (actualType.model === null)
+					|| (expectedPIT.model === null)
+				}
+				else {
+					(expectedPIT.expected == PrimitiveInstanceKind.ANY)
+					|| (actualType.expected == PrimitiveInstanceKind.ANY)
+				}
+			}
+			else {
+				true
+			}
+		}
+		else if( expectedType == stringType )
+		{
 			true
 		}
 		else switch( expectedType ) {

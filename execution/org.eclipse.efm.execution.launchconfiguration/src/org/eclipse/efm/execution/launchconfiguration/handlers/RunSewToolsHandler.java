@@ -17,8 +17,8 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
-import org.eclipse.efm.execution.launchconfiguration.job.RunSewFactory;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.launchconfiguration.job.SymbexJobFactory;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -44,7 +44,7 @@ public class RunSewToolsHandler extends AbstractHandler {
 
 		fLastSelectionFile = sewFile;
 
-		if( ! RunSewFactory.run(window, sewFile) ) {
+		if( ! SymbexJobFactory.run(window, sewFile) ) {
 			//!!! ERROR
 		}
 
@@ -64,7 +64,7 @@ public class RunSewToolsHandler extends AbstractHandler {
 
 		if( SymbexPreferenceUtil.hasExternalDotGraphViewerPath() ) {
 			try {
-				String[] cmdLine = {
+				String[] commandLine = {
 						SymbexPreferenceUtil.strExternalDotGraphViewerPath(),
 						gvFile.getLocation().toOSString()
 					};
@@ -73,7 +73,7 @@ public class RunSewToolsHandler extends AbstractHandler {
 						getRoot().getLocation().toFile();
 
 				Process viewerProcess = Runtime.getRuntime().
-						exec(cmdLine, null, workingDir);
+						exec(commandLine, null, workingDir);
 
 				if( viewerProcess == null ) {
 					System.out.println(event.toString());

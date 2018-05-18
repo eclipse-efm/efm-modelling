@@ -13,6 +13,7 @@
 package org.eclipse.efm.ecore.formalml.statemachine.impl;
 
 import java.util.Collection;
+
 import org.eclipse.efm.ecore.formalml.statemachine.Region;
 import org.eclipse.efm.ecore.formalml.statemachine.State;
 import org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage;

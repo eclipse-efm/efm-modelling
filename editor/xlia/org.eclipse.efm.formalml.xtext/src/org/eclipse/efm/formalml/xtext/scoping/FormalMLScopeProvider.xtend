@@ -13,6 +13,7 @@
 package org.eclipse.efm.formalml.xtext.scoping
 
 import com.google.inject.Inject
+import org.eclipse.efm.ecore.formalml.common.AbstractElement
 import org.eclipse.efm.ecore.formalml.common.NamedElement
 import org.eclipse.efm.ecore.formalml.common.TypedElement
 import org.eclipse.efm.ecore.formalml.common.VisibilityKind
@@ -20,10 +21,13 @@ import org.eclipse.efm.ecore.formalml.datatype.DataStructuredType
 import org.eclipse.efm.ecore.formalml.datatype.DataSupportedType
 import org.eclipse.efm.ecore.formalml.datatype.DataType
 import org.eclipse.efm.ecore.formalml.datatype.DataTypeReference
+import org.eclipse.efm.ecore.formalml.datatype.DatatypePackage
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationLiteral
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceKind
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceType
+import org.eclipse.efm.ecore.formalml.expression.CastExpression
+import org.eclipse.efm.ecore.formalml.expression.ExpressionPackage
 import org.eclipse.efm.ecore.formalml.expression.InvokeExpression
 import org.eclipse.efm.ecore.formalml.expression.LeftHandSideExpression
 import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement
@@ -33,30 +37,50 @@ import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification
 import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecificationKind
 import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecificationScheme
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior
-import org.eclipse.efm.ecore.formalml.infrastructure.Channel
 import org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection
 import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint
+import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine
 import org.eclipse.efm.ecore.formalml.infrastructure.Port
 import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition
+import org.eclipse.efm.ecore.formalml.infrastructure.Route
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty
+import org.eclipse.efm.ecore.formalml.infrastructure.System
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable
 import org.eclipse.efm.ecore.formalml.statemachine.Region
 import org.eclipse.efm.ecore.formalml.statemachine.Statemachine
+import org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage
 import org.eclipse.efm.ecore.formalml.statemachine.Transition
 import org.eclipse.efm.ecore.formalml.statement.AbstractComStatement
 import org.eclipse.efm.ecore.formalml.statement.ActivityStatement
 import org.eclipse.efm.ecore.formalml.statement.InputComStatement
+import org.eclipse.efm.ecore.formalml.statement.InvokeStatement
 import org.eclipse.efm.ecore.formalml.statement.OutputComStatement
+import org.eclipse.efm.ecore.formalml.statement.StatementPackage
+import org.eclipse.efm.formalml.xtext.typing.FormalMLTypeProvider
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.efm.formalml.xtext.typing.FormalMLTypeProvider
+import org.eclipse.xtext.xbase.lib.Functions.Function1
+import org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralNullExpression
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.naming.IQualifiedNameProvider
+import org.eclipse.efm.ecore.formalml.statemachine.State
+import org.eclipse.efm.ecore.formalml.statemachine.Vertex
+import org.eclipse.efm.ecore.formalml.expression.AssignmentExpression
+import org.eclipse.efm.ecore.formalml.statement.Statement
+import org.eclipse.efm.ecore.formalml.expression.LiteralThisExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralParentExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralSystemExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralEnvExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralSuperExpression
 
 /**
  * This class contains custom scoping description.
@@ -67,290 +91,325 @@ import org.eclipse.efm.formalml.xtext.typing.FormalMLTypeProvider
 class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 	@Inject extension FormalMLTypeProvider
-
+	
+	
 	////////////////////////////////////////////////////////////////////////////
-	// Tools / Utils
+	// GET SCOPE
 	////////////////////////////////////////////////////////////////////////////
-
-	def Iterable< ? extends NamedElement> selectPublic(
-		Iterable< ? extends NamedElement> elements) {
-
-		elements.filter[ visibility == VisibilityKind.PUBLIC ]
-	}
-
-	def Iterable< ? extends NamedElement> selectNonPublic(
-		Iterable< ? extends NamedElement> elements) {
-
-		elements.filter[ visibility != VisibilityKind.PUBLIC ]
-	}
-
-
-	def Iterable< ? extends PropertyDefinition > selectNonFinalNorConst(
-		Iterable< ? extends PropertyDefinition > elements) {
-		val nonFinalNorConstPredicate = [ PropertyDefinition P |
-			(P.modifier.final == false) &&
-			((! (P instanceof Variable)) || ((P as Variable).const == false)) ]
-
-		elements.filter( nonFinalNorConstPredicate )
-	}
-
-
-	def isAncestorOf(EObject container, EObject element) {
-		var ancestor = element.eContainer
-
-		while( (ancestor !== null) && (ancestor != container) ) {
-			ancestor = ancestor.eContainer
-		}
-
-		( ancestor !== null )
-	}
-
-
-//	def Iterable< ? extends TypedElement > selectTypedElement(
-//		Iterable< ? extends TypedElement > elements,
-//		PrimitiveInstanceKind expected1, PrimitiveInstanceKind expected2) {
-//
-//		val typePredicate = [ TypedElement element |
-//			(element.type instanceof PrimitiveInstanceType) && (
-//				((element.type as PrimitiveInstanceType).expected == expected1) ||
-//				((element.type as PrimitiveInstanceType).expected == expected2) ) ]
-//
-//		elements.filter( typePredicate )
+		
+//	////////////////////////////////////////////////////////////////////////////
+//	// get Trace
+//	//
+//	
+//	@Inject
+//	private IQualifiedNameProvider nameProvider;
+//	
+//	def String str(IScope scope) {
+//		var parentString = if( scope instanceof SimpleScope ) 
+//			try {
+//				scope.parent.str
+//			} catch (Throwable t) {
+//				t.getClass().getSimpleName() + " : " + t.getMessage();
+//			}
+//			else scope.toString
+//			
+//		var strScope =  "Context " + scope.class.simpleName + "[ "
+//		
+//		for( it : scope.getAllElements() ) {
+//			strScope += nameProvider.getFullyQualifiedName(it.EObjectOrProxy) + " ; "
+//		}
+//		
+//		strScope + "] -> " + parentString
 //	}
-
-
-	def Iterable< ? extends TypedElement > selectTypedElement(
-		Iterable< ? extends TypedElement > elements, PrimitiveInstanceKind expected) {
-
-		val typePredicate = [ TypedElement element |
-			(element.type instanceof PrimitiveInstanceType) &&
-				((element.type as PrimitiveInstanceType).expected == expected) ]
-
-		elements.filter( typePredicate )
-	}
-
-
-	////////////////////////////////////////////////////////////////////////////
-	// ComStatement --> Port
-	////////////////////////////////////////////////////////////////////////////
-
-//	def scope_NamedElement(InputComStatement context, EReference r) {
-//		context.scopeForHierarchicRigthElement(ValueElementSpecificationScheme.COM_POINT)
+//	
+//	def scopingTrace(EObject context, EReference reference)
+//	{
+//		var requiredScoping = "scope_" + reference.EContainingClass.name
+//			 + "_" + reference.name + "(" + context.eContainer?.eClass.name
+//			 + "." + context.eClass.name + " context, EReference reference)"
+//			 
+//		var container = context.eContainer
+//		
+//		var contextHierarchy = ""
+//		for( ; ! (container instanceof NamedElement) ; container = container.eContainer ) {
+//			contextHierarchy = "-->" + container.eClass.name + contextHierarchy
+//		}
+//		
+//		container.eClass.name + " "
+//				+ nameProvider.getFullyQualifiedName(container as NamedElement)
+//				+ " " + contextHierarchy
+//				+ "\n\tScope" + "-->" + requiredScoping
 //	}
+//	
+//	
+//	int scopeID = 0
+//	
+//	////////////////////////////////////////////////////////////////////////////
+//	// get Scope
+//	//
+//	override getScope(EObject context, EReference reference)
+//	{
+//		// For scope debugging
+//		val traceID = "[" + (scopeID++) + "] "
+//		val requiredScoping = scopingTrace(context, reference)			 
+//		print(traceID)
+//		println( requiredScoping )
+//		
+//		val scope = getScopeImpl(context, reference, requiredScoping)
+//	
+//		if( scope === IScope::NULLSCOPE )
+//		{
+////			println( requiredScoping )
+//			print( traceID )
+//			println( "Found: -> NULLSCOPE" )
+//		}
+//		else
+//		{
+////			println( requiredScoping )
+//			print( traceID )
+//			print( "Found -> " )
+//			println( scope )
+////			println( scope.str )
+//		}
+//		
+//		scope
+//	}
+	
+	override getScope(EObject context, EReference reference)
+//	def getScopeImpl(EObject context,
+//			EReference reference, String requiredScoping)
+	{
+		switch( reference )
+		{
+			case ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__VALUE:
+			{
+				return scope_LiteralReferenceElement_value(
+					context as LiteralReferenceElement, reference)
+			}
+			
+			case ExpressionPackage.Literals.VALUE_ELEMENT_SPECIFICATION__ELEMENT:
+			{
+				return scope_ValueElementSpecification_element(
+					context as ValueElementSpecification, reference)
+			}
+			
+			case StatementPackage.Literals.ABSTRACT_COM_STATEMENT__PORT:
+			{
+				return scope_AbstractComStatement_port(
+					context as AbstractComStatement, reference)
+			}
+			
+			case StatementPackage.Literals.INVOKE_STATEMENT__INVOKABLE:
+			{
+				return scope_InvokeStatement_invokable(
+					context as InvokeStatement, reference)
+			}
+			
+			case StatemachinePackage.Literals.TRANSITION__TARGET:
+			{
+				return scope_Transition_target(context as Transition, reference)
+			}
+			
+			case DatatypePackage.Literals.DATA_TYPE_REFERENCE__TYPEREF:
+			{
+				return scope_DataTypeReference_typeref(
+					context as DataTypeReference, reference)
+			}
+			
+			case InfrastructurePackage.Literals.INSTANCE_MACHINE__MODEL:
+			{
+				return scope_InstanceMachine_model(
+					context as InstanceMachine, reference)
+			}
+			
+			case InfrastructurePackage.Literals.ROUTE__SIGNALS:
+			{
+				return scope_Route_signals(context as Route, reference)
+			}
+			
+			case InfrastructurePackage.Literals.SLOT_PROPERTY__XLIA_PROPERTY:
+			{
+				return scope_SlotProperty_xliaProperty(
+					context as SlotProperty, reference
+				)
+			}
+			
+			case DatatypePackage.Literals.PRIMITIVE_INSTANCE_TYPE__MODEL:
+			{
+				return scope_PrimitiveInstanceType_model(
+					context as PrimitiveInstanceType, reference)
+			}
+			
+			case ExpressionPackage.Literals.CAST_EXPRESSION__DATATYPE:
+			{
+				return scope_CastExpression_datatype(
+					context as CastExpression, reference)
+			}
+			
+//			case InfrastructurePackage.Literals.COM_PROTOCOL__BUFFER:
+//			{
+////			createScopeForComProtocolBuffer(
+//					context as ComProtocol, reference)
 //
-//	def scope_NamedElement(OutputComStatement context, EReference r) {
-//		context.scopeForHierarchicRigthElement(ValueElementSpecificationScheme.COM_POINT)
-//	}
-//
-//	def scope_NamedElement(ExpressionAsComPoint context, EReference r) {
-//		context.scopeForHierarchicLeftElement(ValueElementSpecificationScheme.COM_POINT)
-//	}
-
-
-	def scope_Port(InputComStatement context, EReference r) {
-		context.scopeForComPoint(ChannelDirection.INPUT)
-	}
-
-	def scope_InputComStatement_port(InputComStatement context, EReference r) {
-		context.scopeForComPoint(ChannelDirection.INPUT)
-	}
-
-
-	def scope_Port(OutputComStatement context, EReference r) {
-		context.scopeForComPoint(ChannelDirection.OUTPUT)
-	}
-
-	def scope_OutputComStatement_port(OutputComStatement context, EReference r) {
-		context.scopeForComPoint(ChannelDirection.OUTPUT)
-	}
-
-
-
-	def scopeForComPoint(AbstractComStatement context, ChannelDirection direction) {
-		var thisMachine = EcoreUtil2.getContainerOfType(context, typeof(Machine))
-
-		while( (thisMachine !== null) && thisMachine.port.empty ) {
-			thisMachine = EcoreUtil2.getContainerOfType(
-				thisMachine.eContainer, typeof(Machine) )
-		}
-
-		var parentScope = IScope::NULLSCOPE
-		if( thisMachine !== null ) {
-			parentScope =
-				Scopes::scopeFor(thisMachine.property.selectTypedElement(
-						PrimitiveInstanceKind.COM_POINT),
-					Scopes::scopeFor(thisMachine.signal.selectSignal(direction),
-						Scopes::scopeFor(thisMachine.port.selectPort(direction),
-							parentScope)))
-		}
-
-		parentScope
-	}
-
-	def Iterable< Port > selectPort(
-		Iterable< Port > elements, ChannelDirection dir) {
-
-		if( dir == ChannelDirection.INOUT ) {
-			elements
-		}
-		else {
-			elements.filter[ (direction == dir) ||
-				(direction == ChannelDirection.INOUT) ]
+//				return super.getScope(context, reference)
+//			}
+			
+			default: {
+//				print( "TO DO case: " )
+//				println( requiredScoping )
+		
+				val scope = super.getScope(context, reference)
+				
+//				print( "\tdefault::IScope: ")
+//				println( scope )
+				
+				return scope
+			}
 		}
 	}
-
-	def Iterable< Signal > selectSignal(
-		Iterable< Signal > elements, ChannelDirection dir) {
-
-		if( dir == ChannelDirection.INOUT ) {
-			elements
-		}
-		else {
-			elements.filter[ (direction == dir) ||
-				(direction == ChannelDirection.INOUT) ]
-		}
+	
+	
+	def scopeForElements(
+		Iterable< ? extends NamedElement > elements, IScope parentScope)
+	{
+		if( elements.empty ) parentScope
+		else Scopes::scopeFor(elements, parentScope)
 	}
-
-
-	def Iterable< PropertyDefinition > selectTypedComPoint(
-		Iterable< PropertyDefinition > elements) {
-
-		val typedComPointPredicate = [ PropertyDefinition property |
-			(property instanceof Variable) &&
-			(property.type instanceof PrimitiveInstanceType) && (
-					((property.type as PrimitiveInstanceType).expected ==
-						PrimitiveInstanceKind.PORT) ||
-					((property.type as PrimitiveInstanceType).expected ==
-						PrimitiveInstanceKind.SIGNAL) ||
-					((property.type as PrimitiveInstanceType).expected ==
-						PrimitiveInstanceKind.COM_POINT) ) ]
-
-		elements.filter( typedComPointPredicate )
-	}
-
-
+	
+	
 	////////////////////////////////////////////////////////////////////////////
-	// ComStatement --> Channel
+	// 
 	////////////////////////////////////////////////////////////////////////////
-
-	def scope_AbstractComStatement_channel(AbstractComStatement context, EReference r) {
-		context.scopeForChannel(context.port, ChannelDirection.INPUT)
-	}
-
-	def scope_InputComStatement_channel(InputComStatement context, EReference r) {
-		context.scopeForChannel(context.port, ChannelDirection.INPUT)
-	}
-
-	def scope_OutputComStatement_channel(OutputComStatement context, EReference r) {
-		context.scopeForChannel(context.port, ChannelDirection.OUTPUT)
-	}
-
-
-	def scopeForChannel(AbstractComStatement context,
-		NamedElement comElement, ChannelDirection direction) {
-		var thisMachine = EcoreUtil2.getContainerOfType(context, typeof(Machine))
-
-		while( (thisMachine !== null) && thisMachine.port.empty ) {
-			thisMachine = EcoreUtil2.getContainerOfType(
-				thisMachine.eContainer, typeof(Machine) )
-		}
-
-		var parentScope = IScope::NULLSCOPE
-		if( thisMachine !== null ) {
-			parentScope = Scopes::scopeFor(
-				thisMachine.channel.selectChannel(comElement, direction),
-				parentScope)
-		}
-
-		parentScope
-	}
-
-	def Iterable< Channel > selectChannel(
-		Iterable< Channel > elements, NamedElement comElement, ChannelDirection dir) {
-
-		elements.filter[ ((direction == dir) ||
-			(direction == ChannelDirection.INOUT)) && port.contains(comElement) ]
-	}
-
-
-
-	////////////////////////////////////////////////////////////////////////////
-	// Transition --> Vertex
-	////////////////////////////////////////////////////////////////////////////
-
-	def scope_Transition_target(Transition context, EReference r) {
+	
+	def scope_Transition_target(Transition context, EReference reference)
+	{
 		val parentScope = IScope::NULLSCOPE
 
 		val region = EcoreUtil2.getContainerOfType(context, typeof(Region))
 
 		var thisMachine = EcoreUtil2.getContainerOfType(region, typeof(Machine))
 
-		Scopes::scopeFor(thisMachine.property.selectTypedElement(
+		scopeForElements(thisMachine.variable.selectTypedElement(
 				PrimitiveInstanceKind.VERTEX),
-			Scopes::scopeFor(region.vertex, parentScope))
+			scopeForElements(region.vertex, parentScope))
 	}
-
-
+		
 	////////////////////////////////////////////////////////////////////////////
-	// InstanceMachine --> SlotProperty
+	// scope_AbstractComStatement_port
 	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_AbstractComStatement_port(
+		AbstractComStatement context, EReference reference)
+	{
+		switch( context ) {
+			OutputComStatement: {
+				return context.scopeForComElement(
+					PrimitiveInstanceKind.COM_POINT, ChannelDirection.OUTPUT)
+			}
+			InputComStatement: {
+				return context.scopeForComElement(
+					PrimitiveInstanceKind.COM_POINT, ChannelDirection.INPUT)
+			}
+			default: {
+				val parentScope = IScope::NULLSCOPE
 
-	def scope_SlotParameter_xliaProperty(SlotProperty context, EReference r) {
-		val model = ( context.eContainer as InstanceMachine ).model
+				return parentScope
+			}
+		}
+	}
+	
+	
+	def Iterable< Port > selectPort(
+		Iterable< Port > elements, ChannelDirection dir)
+	{
 
-		Scopes::scopeFor(model.property.selectNonFinalNorConst,
-			Scopes::scopeFor(model.buffer, IScope::NULLSCOPE))
+		if( dir === ChannelDirection.INOUT ) {
+			elements
+		}
+		else {
+			elements.filter[ (direction === dir) ||
+				(direction === ChannelDirection.INOUT) ]
+		}
 	}
 
-	def scope_SlotProperty_xliaProperty(SlotProperty context, EReference r) {
-		val model = ( context.eContainer as InstanceMachine ).model
-
-		Scopes::scopeFor(model.property.selectNonFinalNorConst,
-			Scopes::scopeFor(model.buffer, IScope::NULLSCOPE))
+	def Iterable< Signal > selectSignal(
+		Iterable< Signal > elements, ChannelDirection dir)
+	{
+		if( dir === ChannelDirection.INOUT ) {
+			elements
+		}
+		else {
+			elements.filter[ (direction === dir) ||
+				(direction === ChannelDirection.INOUT) ]
+		}
 	}
+	
+	def scopeForComElement(AbstractElement context,
+		PrimitiveInstanceKind expected, ChannelDirection direction)
+	{
+		for( var EObject it = context ; it !== null; it = it.eContainer())
+		{
+			switch( it ) {
+				Routine: return it.scopeForHierarchicLeftElement(
+					ValueElementSpecificationScheme.COM_POINT)
 
-	def scope_PropertyDefinition(InstanceMachine context, EReference r) {
-		val parentScope = IScope::NULLSCOPE
+				Machine: {
+					var thisMachine =
+						EcoreUtil2.getContainerOfType(context, typeof(Machine))
+			
+					while( (thisMachine !== null)
+						 && thisMachine.port.empty && thisMachine.signal.empty)
+					{
+						thisMachine = EcoreUtil2.getContainerOfType(
+							thisMachine.eContainer, typeof(Machine) )
+					}
+			
+					var parentScope = IScope::NULLSCOPE
+					if( thisMachine !== null ) {
+						parentScope =
+							scopeForElements(
+								thisMachine.variable.selectTypedElement(expected),
+								scopeForElements(
+									thisMachine.signal.selectSignal(direction),
+									scopeForElements(
+										thisMachine.port.selectPort(direction),
+										parentScope)))
+					}
+			
+					return parentScope
+				}
+			}
+		}
 
-		val model = context.model
-
-		Scopes::scopeFor(model.property.selectNonFinalNorConst,
-			Scopes::scopeFor(model.buffer, parentScope))
+		IScope::NULLSCOPE
 	}
-
-
+	
+	
 	////////////////////////////////////////////////////////////////////////////
-	// InstanceMachine --> Model
+	// scope_LiteralReferenceElement_value
 	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_LiteralReferenceElement_value(
+		LiteralReferenceElement context, EReference reference)
+	{
+		var parentScope = IScope::NULLSCOPE
 
-	def scope_InstanceMachine_model(InstanceMachine context, EReference r) {
-		context.scopeForHierarchicLeftElement(ValueElementSpecificationScheme.MODEL)
-	}
-
-	def scope_DynamicInstanceSpecification_model(InstanceMachine context, EReference r) {
-		context.scopeForHierarchicLeftElement(ValueElementSpecificationScheme.MODEL)
-	}
-
-	def scope_Machine(InstanceMachine context, EReference r) {
-		context.scopeForHierarchicLeftElement(ValueElementSpecificationScheme.MODEL)
-	}
-
-
-	////////////////////////////////////////////////////////////////////////////
-	// LiteralReferenceElement --> NamedElement
-	////////////////////////////////////////////////////////////////////////////
-
-	def scope_NamedElement(LiteralReferenceElement context, EReference r) {
 		var container = context.eContainer
 
-		for( ; container !== null ; container = container.eContainer ) {
-			switch( container ) {
-				ValueElementSpecification :
-						return container.scopeForThis(context)
+		for( ; container !== null ; container = container.eContainer )
+		{
+			switch( container )
+			{
+//				ValueElementSpecification : 
+//						return container.scopeForThis(context)
 
 				LeftHandSideExpression : return container.scopeForThis(context)
 
+				AssignmentExpression : return container.scopeForThis(context)
+
 				TupleExpression : return container.scopeForThis(context)
+				
+				QuantifiedLogicalExpression : return container.scopeForThis(context)
 
 				InvokeExpression : return container.scopeForThis(context)
 
@@ -358,6 +417,8 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				OutputComStatement: return container.scopeForThis(context)
 
 				ActivityStatement : return container.scopeForThis(context)
+
+				Statement : return container.scopeForThis(context)
 
 				Transition : return container.scopeForThis(context)
 
@@ -373,156 +434,661 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				DataTypeReference : return container.scopeForThis(context)
 			}
 		}
+		
+		parentScope
+	}
+		
+	
+	////////////////////////////////////////////////////////////////////////////
+	// scope_ValueElementSpecification_element
+	////////////////////////////////////////////////////////////////////////////
+	
+	def NamedElement parentOf(ValueElementSpecification context) {
+		val parent = context.parent
+		
+		if( parent === null ) {
+			for( var container = context.eContainer ; container !== null ; )
+			{
+				switch( container ) {
+					Vertex : return container
+					
+					System      : return container
+					Statemachine: return container
+	
+					Behavior: return( container.eContainer as NamedElement )
+	
+					Machine : return container
+	
+					default : {
+						container = container.eContainer
+					}
+				}
+			}
+			return null
+		}
+		
+		switch( parent ) {
+			LiteralReferenceElement: {
+				val element = parent.value
+				switch( element ) {
+					PropertyDefinition : {
+						switch( parent.kind ) {
+							case INDEX:
+								return( element.type.typeOfCollectionElement )
+							
+							case PARAMETER: return element.type
+							
+							case FIELD: return element.type
+							
+							default: return element.type
+						}
+					}
+					
+					EnumerationType : return element
 
-		IScope.NULLSCOPE
+					InstanceMachine : return element.model
+
+					Vertex : return element
+
+					System      : return element
+					Statemachine: return element
+					
+					Behavior: return( element.eContainer as NamedElement )
+
+					Machine : return element
+
+					default : return null
+				}
+			}
+
+			ValueElementSpecification : {
+				val element = parent.element
+
+				switch( element ) {
+					PropertyDefinition : return element.type
+
+					InstanceMachine : return element.model
+
+					Vertex : return element
+
+					System      : return element
+					Statemachine: return element
+					
+					Behavior : return( element.eContainer as NamedElement )
+
+					Machine: return element
+
+					default: return null
+				}
+
+			}
+
+			LiteralThisExpression: {
+				val thisElement =
+					EcoreUtil2.getContainerOfType(parent, typeof(NamedElement))
+
+				switch( thisElement ) {
+					Vertex : return thisElement
+					
+					System      : return thisElement
+					Statemachine: return thisElement
+					
+					Behavior: return thisElement.eContainer as NamedElement
+
+					Machine : return thisElement
+
+					default : return thisElement
+				}
+			}
+
+			LiteralSelfExpression: {
+				val selfElement =
+					EcoreUtil2.getContainerOfType(parent, typeof(NamedElement))
+
+				switch( selfElement ) {
+					Vertex : return selfElement
+					
+					System      : return selfElement
+					Statemachine: return selfElement
+
+					Behavior: return( selfElement.eContainer as NamedElement )
+
+					Machine : return selfElement
+
+					default : return selfElement
+				}
+			}
+
+			LiteralParentExpression: {
+				val thisElement =
+					EcoreUtil2.getContainerOfType(parent, typeof(NamedElement))
+
+				switch( thisElement ) {
+					Vertex : //     $this . Region   . Vertex or Statemachine         
+						return thisElement.eContainer.eContainer as NamedElement
+					
+					System : return if( parent != thisElement )
+							{ thisElement } else { null }
+
+					Statemachine : return thisElement.eContainer as NamedElement
+
+					Behavior : return EcoreUtil2.getContainerOfType(
+							thisElement.eContainer, typeof(Machine) )
+
+					Machine : return thisElement.eContainer as NamedElement
+
+					default: return thisElement
+				}
+			}
+
+			LiteralSuperExpression: {
+				val thisElement =
+					EcoreUtil2.getContainerOfType(parent, typeof(NamedElement))
+
+				switch( thisElement ) {
+					Vertex : //     $this . Region   . Vertex or Statemachine         
+						return thisElement.eContainer.eContainer as NamedElement
+
+					System : return if( parent != thisElement )
+							{ thisElement } else { null }
+
+					Statemachine : return thisElement.eContainer as NamedElement
+
+					Behavior : return EcoreUtil2.getContainerOfType(
+							thisElement.eContainer, typeof(Machine) )
+
+					Machine : return thisElement.eContainer as NamedElement
+
+					default: return thisElement
+				}
+			}
+
+			LiteralSystemExpression:
+				return( EcoreUtil2.getContainerOfType(parent, typeof(System)) )
+
+			LiteralEnvExpression:
+				return( EcoreUtil2.getContainerOfType(parent, typeof(System)) )
+
+			LiteralNullExpression : return null
+			
+			default: return null
+		}
 	}
 
-
-	////////////////////////////////////////////////////////////////////////////
-	// ValueElementSpecification --> NamedElement
-	////////////////////////////////////////////////////////////////////////////
-
-	def scope_NamedElement(ValueElementSpecification context, EReference r) {
+	
+	def scope_ValueElementSpecification_element(
+		ValueElementSpecification context, EReference reference)
+	{
 		var parentScope = IScope::NULLSCOPE
 
-		val type = context.target.typeFor
+		var parentElement = context.parentOf
+//			?: EcoreUtil2.getContainerOfType(context, typeof(Machine))
 
-		if( (type === null) || type.isPrimitive ) {
+		if( parentElement === null )
+		{
 			return parentScope
 		}
 
-		if( context.expected == ValueElementSpecificationScheme.ANY ) {
-			val container = context.eContainer
+		var container = context.eContainer
+		
+		if( context.expected === ValueElementSpecificationScheme.ANY )
+		{
+			switch( container )
+			{
+				Transition:
+					if( container.target === context ) {
+						context.expected =
+							ValueElementSpecificationScheme.VERTEX
+					}
+				InputComStatement , OutputComStatement:
+					if( container.target === context ) {
+						context.expected =
+							ValueElementSpecificationScheme.MACHINE
+					}
+					
+				AssignmentExpression:
+					if( container.rigthHandSide === context ) {
+						context.expected =
+							ValueElementSpecificationScheme.ANY
+					}
 
-			switch( container ) {
 				ComPoint:
-					context.expected = ValueElementSpecificationScheme.COM_POINT
+					if( container.point === context ) {
+						context.expected =
+							ValueElementSpecificationScheme.COM_POINT
+					}
 
-				InputComStatement :
-					context.expected = ValueElementSpecificationScheme.COM_POINT
-
-				OutputComStatement:
-					context.expected = ValueElementSpecificationScheme.COM_POINT
-			}
-		}
-
-		if( type instanceof Machine ) {
-			if( context.expected == ValueElementSpecificationScheme.COM_POINT ) {
-				val container = context.eContainer
-
-				switch( container ) {
-					ComPoint: scopeForSelfMachineComPoint(type,
-						(context.eContainer as ComPoint).direction)
-
-					InputComStatement : Scopes::scopeFor(
-						type.selectLeftElements(context), parentScope)
-
-					OutputComStatement: Scopes::scopeFor(
-						type.selectRigthElements(context), parentScope)
+				ValueElementSpecification: {
+					container = container.eContainer
+					for( var retry = true ; retry ; )
+					{
+						switch( container )
+						{
+							Transition: {
+								context.expected =
+									ValueElementSpecificationScheme.COMPOSITE
+								retry = false
+							}
+							InputComStatement , OutputComStatement: {
+								context.expected =
+									ValueElementSpecificationScheme.COM_POINT
+								retry = false
+							}
+							
+							ComPoint: {
+								context.expected =
+									ValueElementSpecificationScheme.COM_POINT
+								retry = false
+							}
+							
+							ValueElementSpecification: {
+								container = container.eContainer
+							}
+							default: retry = false
+						}
+					}
 				}
 			}
-			else if( (context.target instanceof LiteralReferenceExpression) &&
-					(! (context.target instanceof LiteralReferenceElement)) ) {
-				Scopes::scopeFor(
-					type.selectLeftElements(context), parentScope)
-			}
-			else if( type.isAncestorOf(context) ) {
-				for( block : type.blockHierarchy.reverseView ) {
-					parentScope = Scopes::scopeFor(
-						block.selectLeftElements(context), parentScope)
+		}
+		
+		if( parentElement instanceof State ) 
+		{
+			switch( context.expected )
+			{
+				case VERTEX:
+					return parentElement.scopeForVertexElement
+	
+				case COMPOSITE:
+					return parentElement.scopeForCompositeElement
+	
+				default: {
+					parentElement = EcoreUtil2.getContainerOfType(
+						parentElement, typeof(Machine))
 				}
-
-				Scopes::scopeFor(
-					type.selectLeftElements(context), parentScope)
-			}
-			else {
-				for( block : type.blockHierarchy.reverseView ) {
-					parentScope = Scopes::scopeFor(
-						block.selectPublicLeftElements(context), parentScope)
-				}
-
-				Scopes::scopeFor(
-					type.selectPublicLeftElements(context), parentScope)
 			}
 		}
-		else if( type instanceof DataType ) {
-			Scopes::scopeFor(type.selectElements(context), parentScope)
+		
+		if( parentElement instanceof Statemachine ) {
+			switch( context.expected )
+			{
+				case VERTEX:
+					return parentElement.scopeForVertexElement
+	
+				case COMPOSITE:
+					return parentElement.scopeForCompositeElement
+	
+				default: {
+				}
+			}
 		}
+		
+		if( parentElement instanceof Machine ) {
+			val typeMachine = parentElement as Machine
+
+			switch( context.expected )
+			{
+				case VERTEX , case COMPOSITE:
+					return typeMachine.scopeForCompositeElement
+	
+				case BUFFER:
+					return typeMachine.scopeForRigthElement(context.expected)
+
+				case COM_POINT: {
+					switch( container )
+					{
+						ComPoint:
+							return typeMachine.scopeForSelfMachineComPoint(
+								(context.eContainer as ComPoint).direction)
+	
+						InputComStatement :
+							return scopeForElements(
+								typeMachine.selectLeftElements(context),
+								parentScope)
+	
+						OutputComStatement:
+							return scopeForElements(
+								typeMachine.selectRigthElements(context),
+								parentScope)
+					}
+				}
+				default: {
+					if( (context.parent instanceof LiteralReferenceExpression)
+					&& (! (context.parent instanceof LiteralReferenceElement)) )
+					{
+						return scopeForElements(
+							typeMachine.selectLeftElements(context),
+							parentScope)
+					}
+					else if( typeMachine.isAncestorOf(context) )
+					{
+						for( machine : typeMachine.reverseMachineHierarchy )
+						{
+							parentScope = scopeForElements(
+								machine.selectLeftElements(context),
+								parentScope)
+						}
+		
+						return scopeForElements(
+							typeMachine.selectLeftElements(context),
+							parentScope)
+					}
+					else {
+						for( machine : typeMachine.reverseMachineHierarchy )
+						{
+							parentScope = scopeForElements(
+								machine.selectPublicLeftElements(context),
+								parentScope)
+						}
+		
+						return scopeForElements(
+							typeMachine.selectPublicLeftElements(context),
+							parentScope)
+					}
+				}
+			}
+		}
+		
+		else if( parentElement instanceof DataType ) {
+			return scopeForElements(
+				parentElement.selectElements(context), parentScope
+			)
+		}
+			
 		else {
-			parentScope
+			return parentScope
 		}
 	}
 
+	////////////////////////////////////////////////////////////////////////////
+	// scope_CastExpression_datatype
+	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_CastExpression_datatype(
+		CastExpression context, EReference reference)
+	{
+		return super.getScope(context, reference)
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	// scope_InvokeStatement_invokable
+	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_InvokeStatement_invokable(
+		InvokeStatement context, EReference reference)
+	{
+		var parentScope = IScope::NULLSCOPE
+		
+		var thisMachine = EcoreUtil2.getContainerOfType(context, typeof(Machine))
+		
+		if( context.isExecRoutine )
+		{
+			while( (thisMachine !== null) && thisMachine.routine.empty )
+			{
+				thisMachine = EcoreUtil2.getContainerOfType(
+					thisMachine.eContainer, typeof(Machine) )
+			}
+	
+			if( thisMachine !== null )
+			{
+				val machineHasRoutine = [ Machine m | ! m.routine.empty ]
+				
+				for( machine :
+					thisMachine.reverseMachineHierarchy(machineHasRoutine) )
+				{
+					if( ! machine.routine.empty )
+					{
+						parentScope = scopeForElements(
+							machine.routine.selectNonPrivate, parentScope)
+					}
+				}
+						
+				parentScope = scopeForElements(thisMachine.routine, parentScope)
+			}
+		}
+		else if( context.callProcedure )
+		{
+			while( (thisMachine !== null) && thisMachine.procedure.empty )
+			{
+				thisMachine = EcoreUtil2.getContainerOfType(
+					thisMachine.eContainer, typeof(Machine) )
+			}
+	
+			if( thisMachine !== null )
+			{
+				val machineHasProcedure = [ Machine m | (! m.procedure.empty) ]
+				
+				for( machine :
+					thisMachine.reverseMachineHierarchy(machineHasProcedure) )
+				{
+					if( ! machine.procedure.empty )
+					{
+						parentScope = scopeForElements(
+							machine.procedure.selectNonPrivate, parentScope)
+					}
+				}
+						
+				parentScope =scopeForElements(thisMachine.procedure, parentScope)
+			}
+		}
+		
+		parentScope
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	// scope_DataTypeReference_typeref
+	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_DataTypeReference_typeref(
+		DataTypeReference context, EReference reference)
+	{
+//		var parentScope = IScope::NULLSCOPE
+//
+//		val container = context.eContainer
+//
+//		switch( container )
+//		{
+//			LiteralReferenceElement: {
+//				context.scopeForThis(container)
+//			}
+//			
+//			Variable: {
+//				
+//			}
+//			
+//			Parameter: {
+//				
+//			}
+//			
+//			CollectionType: {
+//				
+//			}
+//			
+//			LiteralCollectionExpression: {
+//				
+//			}
+//			
+//			default: {
+//			}
+//		}
+//				
+//		parentScope
+		
+		val thisMachine = EcoreUtil2.getContainerOfType(context, typeof(Machine))
+
+		thisMachine.scopeForHierarchicRigthElement(
+			ValueElementSpecificationScheme.TYPEDEF)
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	// scope_InstanceMachine_model
+	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_InstanceMachine_model(InstanceMachine context, EReference reference)
+	{
+		context.scopeForHierarchicLeftElement(ValueElementSpecificationScheme.MODEL)
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	// scope_Route_signals
+	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_Route_signals(Route context, EReference reference)
+	{
+		context.scopeForComElement(
+			PrimitiveInstanceKind.SIGNAL, ChannelDirection.INPUT)
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	// scope_SlotProperty_xliaProperty
+	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_SlotProperty_xliaProperty(
+		SlotProperty context, EReference reference)
+	{
+		val instance = EcoreUtil2.getContainerOfType(
+			context, typeof(InstanceMachine) )
+		
+		val model = instance.model
+
+		var parentScope = scopeForElements(
+				model.variable.selectNonFinalNorConst,
+					scopeForElements(model.buffer, IScope::NULLSCOPE))
+			
+		if( model instanceof Behavior )
+		{
+			parentScope = scopeForElements(model.parameter, parentScope)
+		}
+		
+		parentScope
+	}
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// scope_PrimitiveInstanceType_model
+	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_PrimitiveInstanceType_model(
+		PrimitiveInstanceType context, EReference reference)
+	{
+		context.scopeForAnyModelElement(context)
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	// Tools / Utils
 	////////////////////////////////////////////////////////////////////////////
 
-	def blockHierarchy(Machine block) {
-		val hierarchy = <Machine>newArrayList()
+	// Select PropertyElement by VISIBILITY
+	def Iterable< ? extends NamedElement> selectPublic(
+		Iterable< ? extends NamedElement> elements) {
 
-		var current = EcoreUtil2.getContainerOfType(
-				block.eContainer, typeof(Machine))
+		elements.filter[ visibility === VisibilityKind.PUBLIC ]
+	}
 
-		while( current !== null ) {
-			hierarchy.add( current )
+	def Iterable< ? extends NamedElement> selectNonPublic(
+		Iterable< ? extends NamedElement> elements) {
 
-			current = EcoreUtil2.getContainerOfType(
-				current.eContainer, typeof(Machine))
-		}
+		elements.filter[ visibility != VisibilityKind.PUBLIC ]
+	}
 
-		hierarchy
+	def Iterable< ? extends NamedElement> selectNonPrivate(
+		Iterable< ? extends NamedElement> elements) {
+
+		elements.filter[ visibility != VisibilityKind.PRIVATE ]
+	}
+
+	// Select PropertyElement by MODIFIER
+	def Iterable< ? extends PropertyDefinition > selectNonFinalNorConst(
+		Iterable< ? extends PropertyDefinition > elements) {
+		val nonFinalNorConstPredicate = [ PropertyDefinition P |
+			(P.modifier.final === false) &&
+			((! (P instanceof Variable)) || ((P as Variable).const === false)) ]
+
+		elements.filter( nonFinalNorConstPredicate )
 	}
 
 
-	def selectLeftElements(Machine machine, ValueElementSpecification ves) {
-		if( ves.kind == ValueElementSpecificationKind.PARAMETER ) {
-			machine.routine + machine.procedure
-		}
-		else {
-			selectLeftElements(machine, ves.expected)
-		}
-	}
+	// Select Composite State in vertexes
+	def Iterable< State > selectCompositeState(
+		Iterable< ? extends Vertex > elements) {
+			
+//		elements.filter[ vertex |
+//			(vertex instanceof State) && (vertex as State).composite
+//		]
 
-	def selectPublicLeftElements(Machine machine, ValueElementSpecification ves) {
-		if( ves.kind == ValueElementSpecificationKind.PARAMETER ) {
-			machine.routine + machine.procedure
-		}
-		else {
-			selectPublicLeftElements(machine, ves.expected)
-		}
-	}
-
-
-	def selectRigthElements(Machine machine, ValueElementSpecification ves) {
-		if( ves.kind == ValueElementSpecificationKind.PARAMETER ) {
-			machine.routine + machine.procedure
-		}
-		else {
-			selectLeftElements(machine, ves.expected)
-		}
-	}
-
-	def Iterable< ? extends NamedElement> selectElements(
-		DataType type, ValueElementSpecification ves) {
-		if( ves.kind != ValueElementSpecificationKind.PARAMETER ) {
-			switch( type ) {
-				EnumerationType: type.literal
-
-				DataStructuredType: type.property
-
-				DataSupportedType : type.support.selectElements(ves)
-
-				DataTypeReference : {
-					if( type.typeref !== null ) {
-						type.typeref.selectElements(ves)
-					}
-					else if( type.support !== null ) {
-						type.support.selectElements(ves)
-					}
-				}
+		val compositeStates = < State >newArrayList()
+		
+		for( it : elements ) {
+			if( (it instanceof State) && (it as State).composite ) {
+				compositeStates += (it as State)
 			}
 		}
+		
+		compositeStates
+	}
+
+
+
+	def isAncestorOf(EObject container, EObject element)
+	{
+		var ancestor = element.eContainer
+
+		while( (ancestor !== null) && (ancestor != container) )
+		{
+			ancestor = ancestor.eContainer
+		}
+
+		( ancestor !== null )
+	}
+
+
+	// select Element by Type
+	def Iterable< ? extends TypedElement > selectTypedElement(
+		Iterable< ? extends TypedElement > elements,
+		PrimitiveInstanceKind expected)
+	{
+
+		val typePredicate = [ TypedElement element |
+			(element.type instanceof PrimitiveInstanceType)
+			 && ((element.type as PrimitiveInstanceType).expected === expected) ]
+
+		elements.filter( typePredicate )
+	}
+
+	// Machine Hierarcy -- Reverse View List
+	def reverseMachineHierarchy(Machine machine)
+	{
+		val hierarchy = < Machine >newArrayList()
+
+		var container = EcoreUtil2.getContainerOfType(
+				machine.eContainer, typeof(Machine))
+
+		while( container !== null ) {
+			hierarchy.add( container )
+
+			container = EcoreUtil2.getContainerOfType(
+				container.eContainer, typeof(Machine))
+		}
+
+		hierarchy.reverseView
+	}
+
+	def reverseMachineHierarchy(
+		Machine machine, Function1<Machine, Boolean> predicate)
+	{
+		val hierarchy = < Machine >newArrayList()
+
+		var container = EcoreUtil2.getContainerOfType(
+				machine.eContainer, typeof(Machine))
+
+		while( (container !== null) && predicate.apply(container) )
+		{
+			hierarchy.add( container )
+
+			container = EcoreUtil2.getContainerOfType(
+				container.eContainer, typeof(Machine))
+		}
+
+		hierarchy.reverseView
 	}
 
 
@@ -530,19 +1096,104 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	// select MACHINE Elements
 	////////////////////////////////////////////////////////////////////////////
 
-	def selectLeftElements(Machine block, ValueElementSpecificationScheme expected) {
-		switch( expected ) {
-			case ANY : block.property +
+	def selectLeftElements(Machine machine, ValueElementSpecification ves)
+	{
+		if( ves.kind === ValueElementSpecificationKind.PARAMETER )
+		{
+			machine.routine + machine.procedure + machine.function
+		}
+		else
+		{
+			selectLeftElements(machine, ves.expected)
+		}
+	}
+
+	def selectPublicLeftElements(Machine machine, ValueElementSpecification ves)
+	{
+		if( ves.kind === ValueElementSpecificationKind.PARAMETER )
+		{
+			machine.routine + machine.procedure + machine.function
+		}
+		else
+		{
+			selectPublicLeftElements(machine, ves.expected)
+		}
+	}
+
+
+	def selectRigthElements(Machine machine, ValueElementSpecification ves)
+	{
+		if( ves.kind === ValueElementSpecificationKind.PARAMETER )
+		{
+			machine.routine + machine.procedure + machine.function
+		}
+		else
+		{
+			selectRigthElements(machine, ves.expected)
+		}
+	}
+
+	def Iterable< ? extends NamedElement> selectElements(
+		DataType type, ValueElementSpecification ves)
+	{
+		if( ves.kind != ValueElementSpecificationKind.PARAMETER )
+		{
+			switch( type )
+			{
+				EnumerationType: type.literal
+
+				DataStructuredType: type.property
+
+				DataSupportedType : type.support.selectElements(ves)
+
+				DataTypeReference :
+				{
+					if( type.typeref !== null )
+					{
+						type.typeref.selectElements(ves)
+					}
+					else if( type.support !== null )
+					{
+						type.support.selectElements(ves)
+					}
+				}
+			}
+		}
+	}
+	
+
+	////////////////////////////////////////////////////////////////////////////
+	// select MACHINE Left Elements
+	////////////////////////////////////////////////////////////////////////////
+
+	def scopeForSelectedLeftElements(Machine block,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		scopeForElements(block.selectLeftElements(expected), parentScope)
+	}
+	
+
+	def selectLeftElements(
+		Machine block, ValueElementSpecificationScheme expected)
+	{
+		switch( expected )
+		{
+			case ANY : block.variable +
 				block.channel + block.buffer + block.port + block.signal +
 				block.machine + block.instance + block.behavior +
-				block.routine + block.procedure + block.typedef
+				block.routine + block.procedure + block.typedef +
+				block.enumLiterals + block.function
 
-			case VARIABLE : block.property
+			case VARIABLE : block.variable
 
+			case TYPEDEF  : block.typedef
+			
 			case PORT     : block.port
 			case SIGNAL   : block.signal
 			case MESSAGE  : block.port + block.signal
-			case COM_POINT: block.port + block.signal
+			
+			case COM_POINT: block.port + block.signal +
+							block.machine + block.instance
 
 			case INSTANCE : block.instance
 			case MACHINE  : block.machine + block.instance + block.behavior
@@ -552,86 +1203,121 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 			case CHANNEL  : block.channel
 
-			case VERTEX   : {
+			case FUNCTION : block.function
+
+			case VERTEX , case COMPOSITE: {
 			}
 
 			case PROCEDURE: block.procedure
 			case ROUTINE  : block.routine
 		}
 	}
+	
 
 	def selectPublicLeftElements(
-		Machine block, ValueElementSpecificationScheme expected) {
+		Machine block, ValueElementSpecificationScheme expected)
+	{
 		selectLeftElements(block, expected).selectPublic
 	}
 
-	def selectNonPublicLeftElements(
-		Machine block, ValueElementSpecificationScheme expected) {
-		selectLeftElements(block, expected).selectNonPublic
+//!@?UNUSED
+//	def selectNonPublicLeftElements(
+//		Machine block, ValueElementSpecificationScheme expected)
+//	{
+//		selectLeftElements(block, expected).selectNonPublic
+//	}
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// select MACHINE Rigth Elements
+	////////////////////////////////////////////////////////////////////////////
+
+	def scopeForSelectedRigthElements(Machine block,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		scopeForElements(block.selectRigthElements(expected), parentScope)
 	}
-
-
+	
+	
 	def selectRigthElements(
-		Machine block, ValueElementSpecificationScheme expected) {
-		switch( expected ) {
-			case ANY : block.property + block.enumLiterals +
+		Machine block, ValueElementSpecificationScheme expected)
+	{
+		switch( expected )
+		{
+			case ANY : block.variable +
 				block.channel + block.buffer + block.port + block.signal +
 				block.machine + block.instance + block.behavior +
-				block.routine + block.procedure + block.typedef
+				block.routine + block.procedure +
+				block.typedef + block.enumLiterals +
+				block.function
 
-			case VARIABLE : block.property
+			case VARIABLE : block.variable
+
+			case TYPEDEF  : block.typedef
 
 			case PORT     : block.port +
-							block.property.selectProperty(expected)
+							block.variable.selectProperty(expected)
 
 			case SIGNAL   : block.signal +
-							block.property.selectProperty(expected)
+							block.variable.selectProperty(expected)
 
 			case MESSAGE  : block.port + block.signal +
-							block.property.selectProperty(expected)
+							block.variable.selectProperty(expected)
 
 			case COM_POINT: block.port + block.signal +
-							block.property.selectProperty(expected)
+							block.machine + block.instance +
+							block.variable.selectProperty(expected)
 
 			case INSTANCE : block.instance +
-							block.property.selectProperty(expected)
+							block.variable.selectProperty(expected)
 
 			case MACHINE  : block.machine + block.instance + block.behavior +
-							block.property.selectProperty(expected)
+							block.variable.selectProperty(expected)
 
 			case MODEL    : block.machine + block.behavior
 
 			case BUFFER   : block.buffer +
-							block.property.selectProperty(expected)
+							block.variable.selectProperty(expected)
 
 			case CHANNEL  : block.channel +
-							block.property.selectProperty(expected)
+							block.variable.selectProperty(expected)
 
-			case VERTEX   : block.property.selectProperty(expected)
+			case FUNCTION : block.function
+
+			case VERTEX   : block.variable.selectProperty(expected)
+			
+			case COMPOSITE: block.machine +
+							block.instance + block.behavior +
+							block.variable.selectProperty(expected)
 
 			case PROCEDURE: block.procedure
 			case ROUTINE  : block.routine
 		}
 	}
+	
 
 	def selectPublicRigthElements(
-		Machine block, ValueElementSpecificationScheme expected) {
+		Machine block, ValueElementSpecificationScheme expected)
+	{
 		selectRigthElements(block, expected).selectPublic
 	}
 
 	def selectNonPublicRigthElements(
-		Machine block, ValueElementSpecificationScheme expected) {
+		Machine block, ValueElementSpecificationScheme expected)
+	{
 		selectRigthElements(block, expected).selectNonPublic
 	}
 
 
+	def enumLiterals(Machine machine)
+	{
+		val literals = < EnumerationLiteral >newArrayList()
 
-	def enumLiterals(Machine machine) {
-		val literals = <EnumerationLiteral>newArrayList()
-
-		for( it : machine.typedef ) {
+		for( it : machine.typedef )
+		{
 			val type = it.typeSpecifier
-			switch( type ) {
+			switch( type )
+			{
 				EnumerationType: literals += type.literal
 			}
 		}
@@ -640,157 +1326,267 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	}
 
 
-	def selectStructuredElements(
-		Machine block, ValueElementSpecificationScheme expected) {
-		val roots = <NamedElement>newArrayList()
+	////////////////////////////////////////////////////////////////////////////
+	// select MACHINE Structured Elements
+	////////////////////////////////////////////////////////////////////////////
 
-		switch( expected ) {
+	def scopeForSelectedStructuredElements(Machine block,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		val selectedElements = < NamedElement >newArrayList()
+
+		switch( expected )
+		{
 			case ANY : {
-				for( it : block.property ) {
-					if( it.type.isStructured ) {
-						roots += it
+				for( it : block.variable )
+				{
+					if( it.type.isStructured )
+					{
+						selectedElements += it
 					}
 				}
-				for( it : block.typedef ) {
-					if( it instanceof EnumerationType ) {
-						roots += it
+				for( it : block.typedef )
+				{
+					if( it instanceof EnumerationType )
+					{
+						selectedElements += it
 					}
 				}
-				roots += block.machine + block.instance + block.behavior
+				selectedElements += block.machine + block.instance + block.behavior
 			}
 
 			case VARIABLE : {
-				for( it : block.property ) {
-					if( it.type.isStructured ) {
-						roots += it
+				for( it : block.variable )
+				{
+					if( it.type.isStructured )
+					{
+						selectedElements += it
 					}
 				}
 			}
 
-			case INSTANCE : roots += block.instance +
-							block.property.selectProperty(expected)
+			case INSTANCE : selectedElements += block.instance +
+							block.variable.selectProperty(expected)
 
-			case MACHINE  : roots += block.machine + block.instance +
-							block.behavior +
-							block.property.selectProperty(expected)
+			case MACHINE  : selectedElements += block.machine +
+							block.instance + block.behavior +
+							block.variable.selectProperty(expected)
 
-			case MODEL    : roots += block.machine + block.behavior
+			case MODEL    : selectedElements += block.machine + block.behavior
 
 			default: {
 			}
 		}
 
-		roots
+		scopeForElements(selectedElements, parentScope)
 	}
 
 
 	////////////////////////////////////////////////////////////////////////////
-	// select BEHAVIOR Elements
+	// select BEHAVIOR Left Elements
 	////////////////////////////////////////////////////////////////////////////
 
-	def selectLeftElements(Behavior block, ValueElementSpecificationScheme expected) {
-//		val elements = (block as Machine).selectLeftElements(expected)
-//
-//		switch( expected ) {
-//			case ANY : elements + block.parameter
-//
-//			case VARIABLE : elements + block.parameter
-//
-//			default: elements
-//		}
+	def scopeForSelectedLeftElements(Behavior block, 
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		var selectedElements = (block as Machine).selectLeftElements(expected)
 
-		switch( expected ) {
-			case ANY : block.property + block.parameter +
-				block.channel + block.buffer + block.port + block.signal +
-				block.machine + block.instance + block.behavior +
-				block.routine + block.procedure + block.typedef
+		switch( expected )
+		{
+			case ANY , case VARIABLE :
+				selectedElements = selectedElements + block.parameter
 
-			case VARIABLE : block.property + block.parameter
-
-			case PORT     : block.port
-			case SIGNAL   : block.signal
-			case MESSAGE  : block.port + block.signal
-			case COM_POINT: block.port + block.signal
-
-			case INSTANCE : block.instance
-			case MACHINE  : block.machine + block.instance + block.behavior
-			case MODEL    : block.machine + block.behavior
-
-			case BUFFER   : block.buffer
-
-			case CHANNEL  : block.channel
-
-			case VERTEX   : {
-
+			default: {
 			}
-
-			case PROCEDURE: block.procedure
-			case ROUTINE  : block.routine
 		}
+		
+		scopeForElements(selectedElements, parentScope)
 	}
 
-	def selectRigthElements(Behavior block, ValueElementSpecificationScheme expected) {
-		switch( expected ) {
-			case ANY : block.property + block.parameter + block.enumLiterals +
-				block.channel + block.buffer + block.port + block.signal +
-				block.machine + block.instance + block.behavior +
-				block.routine + block.procedure + block.typedef
 
-			case VARIABLE : block.property + block.parameter
-
-			case PORT     : block.port +
-							block.property.selectProperty(expected) +
-							block.parameter.selectProperty(expected)
-
-			case SIGNAL   : block.signal +
-							block.property.selectProperty(expected) +
-							block.parameter.selectProperty(expected)
-
-			case MESSAGE  : block.port + block.signal +
-							block.property.selectProperty(expected) +
-							block.parameter.selectProperty(expected)
-
-			case COM_POINT: block.port + block.signal +
-							block.property.selectProperty(expected) +
-							block.parameter.selectProperty(expected)
-
-			case INSTANCE : block.instance +
-							block.property.selectProperty(expected) +
-							block.parameter.selectProperty(expected)
-
-			case MACHINE  : block.machine  + block.instance + block.behavior +
-							block.property.selectProperty(expected) +
-							block.parameter.selectProperty(expected)
-
-			case MODEL    : block.machine + block.behavior
-
-			case BUFFER   : block.buffer +
-							block.property.selectProperty(expected) +
-							block.parameter.selectProperty(expected)
-
-			case CHANNEL  : block.channel +
-							block.property.selectProperty(expected) +
-							block.parameter.selectProperty(expected)
-
-			case VERTEX   : block.property.selectProperty(expected) +
-							block.parameter.selectProperty(expected)
-
-			case PROCEDURE: block.procedure
-			case ROUTINE  : block.routine
+	def scopeForSelectedLeftElements(Statemachine block, 
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		val behaviorScope = (block as Behavior).scopeForSelectedLeftElements(
+			expected, parentScope)
+			
+		switch( expected )
+		{
+			case VERTEX : {
+				var Iterable< Vertex > selectedElements = < Vertex >newArrayList()
+				
+				for( it : block.region ) {
+					selectedElements = it.vertex + selectedElements
+				}
+				
+				scopeForElements(selectedElements, behaviorScope)
+			}
+			
+			case COMPOSITE : {
+				var Iterable< Vertex > selectedElements
+						= < Vertex >newArrayList()
+				
+				for( it : block.region ) {
+					selectedElements = it.vertex + selectedElements
+				}
+				
+				scopeForElements(
+					selectedElements.selectCompositeState, behaviorScope
+				)
+			}
+			
+			default: behaviorScope
 		}
 	}
 
 
-	def selectProperty(Iterable< ? extends PropertyDefinition> properties,
-		ValueElementSpecificationScheme expected) {
+	////////////////////////////////////////////////////////////////////////////
+	// select BEHAVIOR Rigth Elements
+	////////////////////////////////////////////////////////////////////////////
 
+	def scopeForSelectedRigthElements(Behavior block,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		var selectedElements = (block as Machine).selectRigthElements(expected)
+
+		switch( expected )
+		{
+			case ANY :
+				selectedElements = selectedElements + block.parameter
+
+			case VARIABLE :
+				selectedElements = selectedElements + block.parameter
+				
+			default: {
+			}
+		}
+		
+		scopeForElements(selectedElements, parentScope)
+	}
+
+
+	def scopeForSelectedRigthElements(Statemachine block,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		val behaviorScope = (block as Behavior).scopeForSelectedRigthElements(
+			expected, parentScope)
+
+		switch( expected )
+		{
+			case VERTEX : {
+				var Iterable< Vertex > selectedElements = < Vertex >newArrayList()
+				
+				for( it : block.region ) {
+					selectedElements = it.vertex + selectedElements
+				}
+				
+				scopeForElements(selectedElements, behaviorScope)
+			}
+			
+			case COMPOSITE : {
+				var Iterable< Vertex > selectedElements
+						= < Vertex >newArrayList()
+				
+				for( it : block.region ) {
+					selectedElements = it.vertex + selectedElements
+				}
+				
+				scopeForElements(
+					selectedElements.selectCompositeState, behaviorScope
+				)
+			}
+			
+			default: behaviorScope
+		}
+	}
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// select SYSTEM Elements
+	////////////////////////////////////////////////////////////////////////////
+
+	def scopeForSelectedLeftElements(System block,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		switch( expected )
+		{
+			case ANY :
+				(block as Machine).scopeForSelectedLeftElements(expected,
+					Scopes::scopeFor(newArrayList( block ), parentScope))
+			
+			case MACHINE :
+				(block as Machine).scopeForSelectedLeftElements(expected,
+					Scopes::scopeFor(newArrayList( block ), parentScope))
+	
+			case COMPOSITE :
+				(block as Machine).scopeForSelectedLeftElements(expected,
+					Scopes::scopeFor(newArrayList( block ), parentScope))
+	
+			default:
+				(block as Machine).scopeForSelectedLeftElements(
+					expected, parentScope)
+		}
+	}
+
+	def scopeForSelectedRigthElements(System block,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		switch( expected )
+		{
+			case ANY :
+				(block as Machine).scopeForSelectedRigthElements(expected,
+					Scopes::scopeFor(newArrayList( block ), parentScope))
+
+			case MACHINE  :
+				(block as Machine).scopeForSelectedRigthElements(expected,
+					Scopes::scopeFor(newArrayList( block ), parentScope))
+
+			case COMPOSITE :
+				(block as Machine).scopeForSelectedRigthElements(expected,
+					Scopes::scopeFor(newArrayList( block ), parentScope))
+
+			default:
+				(block as Machine).scopeForSelectedRigthElements(
+					expected, parentScope)
+		}
+	}
+
+
+	def scopeForSelectedStructuredElements(System block,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		switch( expected )
+		{
+			case ANY :
+				(block as Machine).scopeForSelectedStructuredElements(expected,
+					Scopes::scopeFor(newArrayList( block ), parentScope))
+
+			case MACHINE :
+				(block as Machine).scopeForSelectedStructuredElements(expected,
+					Scopes::scopeFor(newArrayList( block ), parentScope))
+
+			default:
+				(block as Machine).scopeForSelectedStructuredElements(
+					expected, parentScope)
+		}
+	}
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// select OTHER Elements
+	////////////////////////////////////////////////////////////////////////////
+
+	def selectProperty(
+		Iterable< ? extends PropertyDefinition> properties,
+		ValueElementSpecificationScheme expected)
+	{
 		switch( expected ) {
 			case ANY : properties
 
 			case VARIABLE: properties
 
 			default: {
-				val selection = <PropertyDefinition>newArrayList()
+				val selection = < PropertyDefinition >newArrayList()
 
 				for( it : properties ) {
 					val type = it.type.typeSpecifier
@@ -799,53 +1595,68 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 							switch( expected ) {
 								case PORT: {
 									if( type.expected ==
-										PrimitiveInstanceKind.PORT)
+										PrimitiveInstanceKind.PORT )
 									{ selection += it }
 								}
 								case SIGNAL: {
 									if( type.expected ==
-										PrimitiveInstanceKind.SIGNAL)
+										PrimitiveInstanceKind.SIGNAL )
 									{ selection += it }
 								}
 								case MESSAGE: {
 									if( type.expected ==
-										PrimitiveInstanceKind.MESSAGE)
+										PrimitiveInstanceKind.MESSAGE )
 									{ selection += it }
 								}
 								case COM_POINT: {
 									if( (type.expected ==
-											PrimitiveInstanceKind.PORT) ||
-										(type.expected ==
-											PrimitiveInstanceKind.SIGNAL) ||
-										(type.expected ==
+											PrimitiveInstanceKind.PORT)
+									|| (type.expected ==
+											PrimitiveInstanceKind.SIGNAL)
+									|| (type.expected ==
+											PrimitiveInstanceKind.MACHINE)
+									|| (type.expected ==
 											PrimitiveInstanceKind.COM_POINT) )
 									{ selection += it }
 								}
 								case INSTANCE: {
 									if( type.expected ==
-										PrimitiveInstanceKind.MACHINE)
+										PrimitiveInstanceKind.MACHINE )
 									{ selection += it }
 								}
 								case MACHINE: {
 									if( type.expected ==
-										PrimitiveInstanceKind.MACHINE)
+										PrimitiveInstanceKind.MACHINE )
 									{ selection += it }
 								}
 
 								case BUFFER: {
 									if( type.expected ==
-										PrimitiveInstanceKind.BUFFER)
+										PrimitiveInstanceKind.BUFFER )
 									{ selection += it }
 								}
 								case CHANNEL: {
 									if( type.expected ==
-										PrimitiveInstanceKind.CHANNEL)
+										PrimitiveInstanceKind.CHANNEL )
+									{ selection += it }
+								}
+
+								case FUNCTION: {
+									if( type.expected ==
+										PrimitiveInstanceKind.FUNCTION )
 									{ selection += it }
 								}
 
 								case VERTEX: {
 									if( type.expected ==
-										PrimitiveInstanceKind.VERTEX)
+										PrimitiveInstanceKind.VERTEX )
+									{ selection += it }
+								}
+								case COMPOSITE: {
+									if( (type.expected ==
+										PrimitiveInstanceKind.COMPOSITE)
+									|| (type.expected ==
+											PrimitiveInstanceKind.MACHINE) )
 									{ selection += it }
 								}
 
@@ -861,196 +1672,171 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		}
 	}
 
-
-
-	def selectStructuredElements(
-		Behavior block, ValueElementSpecificationScheme expected) {
-		val roots = <NamedElement>newArrayList()
-
-		switch( expected ) {
-			case ANY : {
-				for( it : block.property ) {
-					if( it.type.isStructured ) {
-						roots += it
-					}
-				}
-				for( it : block.parameter ) {
-					if( it.type.isStructured ) {
-						roots += it
-					}
-				}
-				for( it : block.typedef ) {
-					if( it instanceof EnumerationType ) {
-						roots += it
-					}
-				}
-
-				roots += block.machine + block.instance + block.behavior
-			}
-
-			case VARIABLE : {
-				for( it : block.property ) {
-					if( it.type.isStructured ) {
-						roots += it
-					}
-				}
-				for( it : block.parameter ) {
-					if( it.type.isStructured ) {
-						roots += it
-					}
-				}
-			}
-
-			case INSTANCE : roots += block.instance + block.property
-
-			case MACHINE  : roots += block.machine + block.instance +
-							block.behavior
-
-			case MODEL    : roots += block.machine + block.behavior
-
-			default: {
-			}
-		}
-
-		roots
-	}
-
-
 	////////////////////////////////////////////////////////////////////////////
 	// select ROUTINE Elements
 	////////////////////////////////////////////////////////////////////////////
 
-	def selectLeftElements(
-		Routine routine, ValueElementSpecificationScheme expected) {
-		switch( expected ) {
-			case ANY     : {
+	def scopeForSelectedLeftElements(Routine routine,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		switch( expected )
+		{
+			case ANY     :
+			{
 				var lvalue = routine.parameter
-				if( routine.domain !== null ) {
+				if( routine.domain !== null )
+				{
 					lvalue += routine.domain.parameter
 				}
-				if( routine.codomain !== null ) {
+				if( routine.codomain !== null )
+				{
 					lvalue += routine.codomain.parameter
 				}
 
-				lvalue
+				scopeForElements(lvalue, parentScope)
 			}
 
 			case VARIABLE: {
 				var lvalue = routine.parameter
-				if( routine.domain !== null ) {
+				if( routine.domain !== null )
+				{
 					lvalue += routine.domain.parameter
 				}
-				if( routine.codomain !== null ) {
+				if( routine.codomain !== null )
+				{
 					lvalue += routine.codomain.parameter
 				}
 
-				lvalue
+				scopeForElements(lvalue, parentScope)
 			}
 
-			default: null
+			case MACHINE: {
+				val thisMachine =
+						EcoreUtil2.getContainerOfType(routine, typeof(Machine))
+				
+				val lvalue = thisMachine.machine + thisMachine.instance
+
+				scopeForElements(lvalue, parentScope)
+			}
+
+			default: {
+				var lvalue = routine.parameter.selectProperty(expected)
+				if( routine.domain !== null )
+				{
+					lvalue = lvalue +
+						routine.domain.parameter.selectProperty(expected)
+				}
+				if( routine.codomain !== null )
+				{
+					lvalue = lvalue +
+						routine.codomain.parameter.selectProperty(expected)
+				}
+
+				scopeForElements(lvalue, parentScope)
+			}
 		}
 	}
 
-	def selectRigthElements(
-		Routine routine, ValueElementSpecificationScheme expected) {
+	def scopeForSelectedRigthElements(Routine routine,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
 		var properties = routine.parameter.selectProperty(expected)
 
-		if( routine.domain !== null ) {
+		if( routine.domain !== null )
+		{
 			properties = properties +
 				routine.domain.parameter.selectProperty(expected)
 		}
-		if( routine.codomain !== null ) {
+		if( routine.codomain !== null )
+		{
 			properties = properties +
 				routine.codomain.parameter.selectProperty(expected)
 		}
 
-		properties
+		scopeForElements(properties, parentScope)
 	}
 
-	def selectStructuredElements(
-		Routine routine, ValueElementSpecificationScheme expected) {
-		val roots = <PropertyDefinition>newArrayList()
 
-		for( it : routine.parameter ) {
-			if( it.type.isStructured ) {
-				roots += it
+	def scopeForSelectedStructuredElements(Routine routine,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		val selectedElements = < PropertyDefinition >newArrayList()
+
+		for( it : routine.parameter )
+		{
+			if( it.type.isStructured )
+			{
+				selectedElements += it
 			}
 		}
 
-		if( routine.domain !== null ) {
-			for( it : routine.domain.parameter ) {
+		if( routine.domain !== null )
+		{
+			for( it : routine.domain.parameter )
+			{
 				if( it.type.isStructured ) {
-					roots += it
+					selectedElements += it
 				}
 			}
 		}
-		if( routine.codomain !== null ) {
-			for( it : routine.codomain.parameter ) {
-				if( it.type.isStructured ) {
-					roots += it
+		if( routine.codomain !== null )
+		{
+			for( it : routine.codomain.parameter )
+			{
+				if( it.type.isStructured )
+				{
+					selectedElements += it
 				}
 			}
 		}
 
-		roots
+		scopeForElements(selectedElements, parentScope)
 	}
-
 
 	////////////////////////////////////////////////////////////////////////////
 	// ComPoint --> NamedElement
 	////////////////////////////////////////////////////////////////////////////
 
-	def scope_NamedElement(ComPoint context, EReference r) {
-		if( ! context.points.empty ) {
-			val type = context.points.get(0).typeFor
-
-			if( type instanceof Machine ) {
-				return scopeForSelfMachineComPoint(type, context.direction)
-			}
-		}
-
-		val thisMachine = EcoreUtil2.getContainerOfType(context, typeof(Machine))
-
-			scopeForSelfMachineInstance(thisMachine,
-			scopeForSelfMachineComPoint(thisMachine, context.direction))
-	}
-
-
-	def scopeForSelfMachineInstance(Machine thisMachine, IScope outer) {
+	def scopeForSelfMachineInstance(Machine thisMachine, IScope outer)
+	{
 		val selfMachine =
 			if( (thisMachine.name === null) &&
-				(thisMachine.eContainer instanceof Machine) ) {
+				(thisMachine.eContainer instanceof Machine) )
+			{
 				thisMachine.eContainer as Machine
 			}
-			else {
+			else
+			{
 				thisMachine
 			}
 
-		Scopes::scopeFor(selfMachine.instance,
-			Scopes::scopeFor(selfMachine.machine,
-				Scopes::scopeFor(selfMachine.behavior,
-					outer)))
+		scopeForElements(selfMachine.instance,
+			scopeForElements(selfMachine.machine,
+				scopeForElements(selfMachine.behavior, outer)))
 	}
 
 
 	def scopeForSelfMachineComPoint(
-		Machine thisMachine, ChannelDirection direction) {
-		var parentScope = Scopes::scopeFor(
+		Machine thisMachine, ChannelDirection direction)
+	{
+		var parentScope = scopeForElements(
 			thisMachine.port.selectPort(direction),
-			Scopes::scopeFor(
+			scopeForElements(
 				thisMachine.signal.selectSignal(direction),
 				IScope::NULLSCOPE))
 
 		if( (thisMachine.name === null) &&
-			(thisMachine.eContainer instanceof Machine) ) {
+			(thisMachine.eContainer instanceof Machine) )
+		{
 			val selfMachine = thisMachine.eContainer as Machine
 
-			if( selfMachine.main == thisMachine ) {
-				parentScope = Scopes::scopeFor(
+			if( selfMachine.main === thisMachine )
+			{
+				parentScope = scopeForElements(
 					selfMachine.port.selectPort(direction),
-					Scopes::scopeFor(
+					scopeForElements(
 						selfMachine.signal.selectSignal(direction),
-						parentScope))
+						parentScope) )
 			}
 		}
 
@@ -1062,23 +1848,29 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	////////////////////////////////////////////////////////////////////////////
 
 	def scopeForThis(
-		LeftHandSideExpression container, LiteralReferenceElement context) {
-		for( var EObject it = container ; it !== null; it = it.eContainer()) {
-			switch( it ) {
-				Routine: return it.scopeForHierarchicLeftElement(
-					ValueElementSpecificationScheme.VARIABLE)
+		LeftHandSideExpression container, LiteralReferenceElement context)
+	{
+		container.scopeForHierarchicLeftElement(
+			ValueElementSpecificationScheme.VARIABLE)
+	}
 
-				Machine: return it.scopeForHierarchicLeftElement(
-					ValueElementSpecificationScheme.VARIABLE)
-			}
-		}
+	def scopeForThis(
+		AssignmentExpression container, LiteralReferenceElement context)
+	{
+		container.scopeForHierarchicLeftElement(
+			ValueElementSpecificationScheme.ANY)
+	}
 
-		IScope::NULLSCOPE
+	def scopeForThis(Statement container, LiteralReferenceElement context)
+	{
+		container.scopeForHierarchicLeftElement(
+			ValueElementSpecificationScheme.ANY)
 	}
 
 
 	def scopeForThis(
-		InputComStatement container, LiteralReferenceElement context) {
+		InputComStatement container, LiteralReferenceElement context)
+	{
 		switch( context ) {
 			case container.port:
 				container.scopeForHierarchicRigthElement(
@@ -1100,7 +1892,8 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 
 	def scopeForThis(
-		OutputComStatement container, LiteralReferenceElement context) {
+		OutputComStatement container, LiteralReferenceElement context)
+	{
 		switch( context ) {
 			case container.port:
 				container.scopeForHierarchicRigthElement(
@@ -1122,84 +1915,124 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 
 	def scopeForThis(
-		ActivityStatement container, LiteralReferenceElement context) {
-		if( context == container.machine ) {
+		ActivityStatement container, LiteralReferenceElement context)
+	{
+		if( context === container.machine )
+		{
 			container.scopeForHierarchicLeftElement(
 				ValueElementSpecificationScheme.MACHINE)
 		}
-		else {
+		else
+		{
 			container.scopeForHierarchicLeftElement(
 				ValueElementSpecificationScheme.ANY)
 		}
 	}
 
 
-	def scopeForThis(Transition container, LiteralReferenceElement context) {
-		val thisRegion = EcoreUtil2.getContainerOfType(container, typeof(Region))
+	def scopeForThis(Transition container, LiteralReferenceElement context)
+	{
+		val thisRegion =
+			EcoreUtil2.getContainerOfType(container, typeof(Region))
 
-		if( context == container.target ) {
-			thisRegion.scopeForRigthElement(
-				ValueElementSpecificationScheme.VERTEX)
+		if( context === container.target ) {
+			thisRegion.scopeForVertexElement
 		}
 		else {
-			val thisMachine =
-				EcoreUtil2.getContainerOfType(thisRegion, typeof(Machine))
-
-			thisMachine.scopeForHierarchicRigthElement(
-				ValueElementSpecificationScheme.ANY)
+			thisRegion.scopeForCompositeElement
 		}
 	}
 
-	def scopeForThis(ComPoint container, LiteralReferenceElement context) {
-		val thisMachine = EcoreUtil2.getContainerOfType(container, typeof(Machine))
+//	def scopeForThis(Transition container, ValueElementSpecification context)
+//	{
+//		val thisRegion =
+//			EcoreUtil2.getContainerOfType(container, typeof(Region))
+//
+//		if( context === container.target ) {
+//			thisRegion.scopeForVertexElement
+//		}
+//		else {
+//			thisRegion.scopeForCompositeElement(
+//				ValueElementSpecificationScheme.COMPOSITE)
+//		}
+//	}
+
+	def scopeForThis(ComPoint container, LiteralReferenceElement context)
+	{
+		val thisMachine =
+			EcoreUtil2.getContainerOfType(container, typeof(Machine))
 
 		thisMachine.scopeForHierarchicLeftElement(
 			ValueElementSpecificationScheme.COM_POINT)
 	}
 
 
-	def scopeForThis(DataTypeReference thisType, LiteralReferenceElement context) {
-		val thisMachine = EcoreUtil2.getContainerOfType(thisType, typeof(Machine))
+	def scopeForThis(
+		DataTypeReference thisType, LiteralReferenceElement context)
+	{
+		val thisMachine =
+			EcoreUtil2.getContainerOfType(thisType, typeof(Machine))
 
-		if( thisType.multiplicity == context ) {
+		if( thisType.multiplicity === context ) {
 			thisMachine.scopeForHierarchicRigthElement(
-				ValueElementSpecificationScheme.ANY)
+				ValueElementSpecificationScheme.TYPEDEF)
 		}
 		else {
 			thisMachine.scopeForHierarchicRigthElement(
-				ValueElementSpecificationScheme.ANY)
+				ValueElementSpecificationScheme.TYPEDEF)
 		}
+	}
+
+
+//	def scopeForThis(
+//		ValueElementSpecification thisElement, LiteralReferenceElement context)
+//	{
+//		for( var EObject it = thisElement ; it !== null; it = it.eContainer()) {
+//			switch( it ) {
+//				Transition: return it.scopeForThis(context)
+//
+//				Routine: return it.scopeForHierarchicStructuredElement(
+//					ValueElementSpecificationScheme.ANY)
+//
+//				Machine: return it.scopeForHierarchicStructuredElement(
+//					ValueElementSpecificationScheme.ANY)
+//			}
+//		}
+//
+//		IScope::NULLSCOPE
+//	}
+
+
+	def scopeForThis(
+		TupleExpression thisTuple, LiteralReferenceElement context)
+	{
+		thisTuple.scopeForHierarchicRigthElement(
+			ValueElementSpecificationScheme.ANY)
+	}
+
+	def scopeForThis(
+		QuantifiedLogicalExpression thisQExpression,
+		LiteralReferenceElement context)
+	{
+		scopeForElements(thisQExpression.variable,
+			thisQExpression.scopeForHierarchicRigthElement(
+				ValueElementSpecificationScheme.VARIABLE) )
 	}
 
 
 	def scopeForThis(
-		ValueElementSpecification thisElement, LiteralReferenceElement context) {
-		for( var EObject it = context ; it !== null; it = it.eContainer()) {
-			switch( it ) {
-				Routine: return it.scopeForHierarchicStructuredElement(
-					ValueElementSpecificationScheme.ANY)
-
-				Machine: return it.scopeForHierarchicStructuredElement(
-					ValueElementSpecificationScheme.ANY)
-			}
-		}
-
-		IScope::NULLSCOPE
-	}
-
-	def scopeForThis(TupleExpression thisTuple, LiteralReferenceElement context) {
-		thisTuple.scopeForHierarchicRigthElement(ValueElementSpecificationScheme.ANY)
-	}
-
-
-	def scopeForThis(InvokeExpression thisInvoke, LiteralReferenceElement context) {
-		if( (context.eContainer == thisInvoke) &&
-			(context.kind == ValueElementSpecificationKind.PARAMETER) ) {
-				if( thisInvoke.callProcedure ) {
+		InvokeExpression thisInvoke, LiteralReferenceElement context)
+	{
+		if( (context.eContainer === thisInvoke) &&
+			(context.kind === ValueElementSpecificationKind.PARAMETER) )
+		{
+				if( thisInvoke.callProcedure )
+				{
 					thisInvoke.scopeForHierarchicRigthElement(
 						ValueElementSpecificationScheme.PROCEDURE)
 				}
-				else {
+				else
+				{
 					thisInvoke.scopeForHierarchicRigthElement(
 						ValueElementSpecificationScheme.ROUTINE)
 				}
@@ -1219,22 +2052,32 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	// scopeForAnyElement
 	////////////////////////////////////////////////////////////////////////////
 
-	def scopeForAnyElement(Routine thisRoutine, LiteralReferenceElement context) {
+	def scopeForAnyElement(Routine thisRoutine, LiteralReferenceElement context)
+	{
 		thisRoutine.scopeForHierarchicRigthElement(
 			ValueElementSpecificationScheme.ANY)
 	}
 
-	def scopeForAnyElement(Machine thisBlock, LiteralReferenceElement context) {
+	def scopeForAnyElement(Machine thisBlock, LiteralReferenceElement context)
+	{
 		thisBlock.scopeForHierarchicRigthElement(
 			ValueElementSpecificationScheme.ANY)
 	}
 
 
 	def scopeForAnyModelElement(
-		PrimitiveInstanceType thisType, LiteralReferenceElement context) {
-		val thisMachine = EcoreUtil2.getContainerOfType(thisType, typeof(Machine))
-
-		switch( thisType.expected ) {
+		PrimitiveInstanceType thisType, AbstractElement context)
+	{
+		val thisMachine =
+				EcoreUtil2.getContainerOfType(thisType, typeof(Machine))
+				
+		if( context.eContainer instanceof LiteralNullExpression )
+		{
+			thisMachine.scopeForHierarchicLeftElement(
+				ValueElementSpecificationScheme.MODEL)
+		}
+		else switch( thisType.expected )
+		{
 			case PORT: {
 				thisMachine.scopeForHierarchicLeftElement(
 					ValueElementSpecificationScheme.PORT)
@@ -1266,191 +2109,397 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 					ValueElementSpecificationScheme.CHANNEL)
 			}
 
+			case FUNCTION   : {
+				thisMachine.scopeForHierarchicLeftElement(
+					ValueElementSpecificationScheme.FUNCTION)
+			}
+			
 			case VERTEX   : {
 				thisMachine.scopeForHierarchicLeftElement(
 					ValueElementSpecificationScheme.VERTEX)
 			}
+			
+			default: {
+				thisMachine.scopeForHierarchicLeftElement(
+					ValueElementSpecificationScheme.ANY)
+			}
 		}
 	}
 
 
 	////////////////////////////////////////////////////////////////////////////
-	// scopeForAnyElement
+	// scopeFor Vertex Element
 	////////////////////////////////////////////////////////////////////////////
 
-	def scopeForLeftElement(
-		Region thisRegion, ValueElementSpecificationScheme expected) {
-		if( expected == ValueElementSpecificationScheme.VERTEX ) {
-			Scopes::scopeFor(thisRegion.vertex, IScope::NULLSCOPE)
+	def scopeForVertexElement(Statemachine statemachine)
+	{			
+		var IScope parentScope = IScope::NULLSCOPE
+		
+		var Iterable< Vertex > vertexes = < Vertex >newArrayList()
+		for( it : statemachine.region ) {
+			vertexes = it.vertex + vertexes
 		}
-
-		IScope::NULLSCOPE
+					
+		scopeForElements(vertexes, parentScope)
 	}
 
-	def scopeForRigthElement(
-		Region thisRegion, ValueElementSpecificationScheme expected) {
-		if( expected == ValueElementSpecificationScheme.VERTEX ) {
-			val thisStatemachine =
-				EcoreUtil2.getContainerOfType(thisRegion, typeof(Statemachine))
-
-			Scopes::scopeFor(thisRegion.vertex,
-				Scopes::scopeFor(thisStatemachine.selectRigthElements(expected),
-					IScope::NULLSCOPE))
+	def scopeForVertexElement(State state)
+	{			
+		var IScope parentScope = IScope::NULLSCOPE
+		
+		var Iterable< Vertex > vertexes = < Vertex >newArrayList()
+		for( it : state.region ) {
+			vertexes = it.vertex + vertexes
 		}
-
-		IScope::NULLSCOPE
+					
+		scopeForElements(vertexes, parentScope)
 	}
 
 
-	////////////////////////////////////////////////////////////////////////////
-	// scopeForLeftElement / scopeForRigthElement
-	////////////////////////////////////////////////////////////////////////////
+	def scopeForVertexElement(Region thisRegion)
+	{			
+		val regions = < Iterable<Region> >newArrayList()
 
-	def scopeForLeftElement(
-		Machine thisMachine, ValueElementSpecificationScheme expected) {
-		var parentScope = IScope::NULLSCOPE
-
-		if( (thisMachine.name === null) &&
-			(thisMachine.eContainer instanceof Machine) ) {
-			val selfMachine = thisMachine.eContainer as Machine
-
-			if( selfMachine.main == thisMachine ) {
-				parentScope = Scopes::scopeFor(
-					selfMachine.selectLeftElements(expected), parentScope)
+		for( var container = thisRegion.eContainer ; container !== null ; )
+		{
+			switch( container )
+			{
+				State: {
+					regions.add( container.region )
+					container = container.eContainer
+				}
+				Statemachine: {
+					regions.add( container.region )
+					container = null
+				}
+				default: {
+					container = container.eContainer
+				}
 			}
 		}
 
-		Scopes::scopeFor(thisMachine.selectLeftElements(expected), parentScope)
+		var IScope parentScope = IScope::NULLSCOPE
+		
+		for( region : regions.reverseView )
+		{
+			var Iterable< Vertex > vertexes = < Vertex >newArrayList()
+			for( it : region ) {
+				if( it !== thisRegion ) {
+					vertexes = it.vertex + vertexes
+				}
+			}
+			
+			parentScope = scopeForElements(vertexes, parentScope)
+		}
+		
+		scopeForElements(thisRegion.vertex, parentScope)
 	}
 
+	////////////////////////////////////////////////////////////////////////////
+	// scopeFor Composite[State | Machine] Element
+	////////////////////////////////////////////////////////////////////////////
+
+	def scopeForCompositeElement(Machine machine)
+	{			
+		var IScope parentScope = IScope::NULLSCOPE
+		
+		val composite = machine.machine + machine.instance + machine.behavior
+				+ machine.variable.selectProperty(
+						ValueElementSpecificationScheme.COMPOSITE)
+		
+		scopeForElements(composite, parentScope)
+	}
+
+	def scopeForCompositeElement(Statemachine statemachine)
+	{			
+		var IScope parentScope = IScope::NULLSCOPE
+		
+		val composite = statemachine.machine
+				+ statemachine.instance + statemachine.behavior
+				+ statemachine.variable.selectProperty(
+						ValueElementSpecificationScheme.COMPOSITE)
+		
+		var Iterable< Vertex > vertexes = < Vertex >newArrayList()
+		for( it : statemachine.region ) {
+			vertexes = it.vertex + vertexes
+		}
+					
+		scopeForElements(vertexes.selectCompositeState,
+			scopeForElements(composite, parentScope) )
+	}
+
+	def scopeForCompositeElement(State state)
+	{			
+		var IScope parentScope = IScope::NULLSCOPE
+		
+		var Iterable< Vertex > vertexes = < Vertex >newArrayList()
+		for( it : state.region ) {
+			vertexes = it.vertex + vertexes
+		}
+					
+		scopeForElements(vertexes.selectCompositeState, parentScope)
+	}
+
+
+	def scopeForCompositeElement(Region thisRegion)
+	{
+		var parentScope = IScope::NULLSCOPE
+
+		var hierarchicalContainer = < NamedElement >newArrayList()
+		var container = thisRegion.eContainer
+		for( ; container !== null ; container = container.eContainer )
+		{
+			switch( container ) {
+				State: {
+				}
+				Region: {
+					val compositeStates = container.vertex.selectCompositeState
+					
+					parentScope = scopeForElements(compositeStates, parentScope)
+				}
+				Statemachine: {
+					hierarchicalContainer.add( container )
+				}
+				Machine: {
+					hierarchicalContainer.add( container )
+				}
+				default: {
+				}
+			}
+		}
+		
+		val compositeStates = thisRegion.vertex.selectCompositeState
+		
+		parentScope = scopeForElements(hierarchicalContainer,
+			scopeForElements(compositeStates, parentScope)
+		)
+	}
+
+
+	def scopeForCompositeElement(Iterable< State > compositeStates)
+	{
+		
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	// Machine: scopeForLeftElement / scopeForRigthElement
+	////////////////////////////////////////////////////////////////////////////
+//!@?UNUSED
+//	def scopeForLeftElement(
+//		Machine thisMachine, ValueElementSpecificationScheme expected)
+//	{
+//		var parentScope = IScope::NULLSCOPE
+//
+//		if( (thisMachine.name === null) &&
+//			(thisMachine.eContainer instanceof Machine) )
+//		{
+//			val selfMachine = thisMachine.eContainer as Machine
+//
+//			if( selfMachine.main === thisMachine )
+//			{
+//				parentScope = scopeForElements(
+//					selfMachine.selectLeftElements(expected), parentScope)
+//			}
+//		}
+//
+//		scopeForElements(thisMachine.selectLeftElements(expected), parentScope)
+//	}
+
 	def scopeForRigthElement(
-		Machine thisMachine, ValueElementSpecificationScheme expected) {
+		Machine thisMachine, ValueElementSpecificationScheme expected)
+	{
 		var parentScope = IScope::NULLSCOPE
 
 		if( (thisMachine.name === null) &&
-			(thisMachine.eContainer instanceof Machine) ) {
+			(thisMachine.eContainer instanceof Machine) )
+		{
 			val selfMachine = thisMachine.eContainer as Machine
 
-			if( selfMachine.main == thisMachine ) {
-				parentScope = Scopes::scopeFor(
-					selfMachine.selectRigthElements(expected), parentScope)
+			if( selfMachine.main === thisMachine )
+			{
+				parentScope = selfMachine.scopeForSelectedRigthElements(
+					expected, parentScope)
 			}
 		}
 
-		Scopes::scopeFor(thisMachine.selectRigthElements(expected), parentScope)
+		thisMachine.scopeForSelectedRigthElements(expected, parentScope)
 	}
 
 
 	def scopeForHierarchicLeftElement(
-		Machine thisMachine, ValueElementSpecificationScheme expected) {
+		Machine thisMachine, ValueElementSpecificationScheme expected)
+	{
 		var parentScope = IScope::NULLSCOPE
 
-		for( block : thisMachine.blockHierarchy.reverseView ) {
-			switch( block  ) {
-				Behavior: parentScope = Scopes::scopeFor(
-					block.selectLeftElements(expected), parentScope)
+		for( block : thisMachine.reverseMachineHierarchy )
+		{
+			switch( block )
+			{
+				Statemachine: parentScope = 
+					block.scopeForSelectedLeftElements(expected, parentScope)
 
-				default: parentScope = Scopes::scopeFor(
-					block.selectLeftElements(expected), parentScope)
+				Behavior: parentScope =
+					block.scopeForSelectedLeftElements(expected, parentScope)
+
+				System: parentScope =
+					block.scopeForSelectedLeftElements(expected, parentScope)
+
+				default: parentScope =
+					block.scopeForSelectedLeftElements(expected, parentScope)
 			}
 		}
 
-		switch( thisMachine  ) {
-			Behavior: Scopes::scopeFor(
-				thisMachine.selectLeftElements(expected), parentScope)
+		switch( thisMachine )
+		{
+			Statemachine:
+				thisMachine.scopeForSelectedLeftElements(expected, parentScope)
 
-			default: Scopes::scopeFor(
-				thisMachine.selectLeftElements(expected), parentScope)
+			Behavior:
+				thisMachine.scopeForSelectedLeftElements(expected, parentScope)
+
+			System:
+				thisMachine.scopeForSelectedLeftElements(expected, parentScope)
+
+			default:
+				thisMachine.scopeForSelectedLeftElements(expected, parentScope)
 		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
-	// scopeForHierarchicLeftElement / scopeForHierarchicRigthElement
+	// Machine: scopeForHierarchicLeftElement / scopeForHierarchicRigthElement
 	////////////////////////////////////////////////////////////////////////////
 
 	def scopeForHierarchicRigthElement(
-		Machine thisMachine, ValueElementSpecificationScheme expected) {
+		Machine thisMachine, ValueElementSpecificationScheme expected)
+	{
 		var parentScope = IScope::NULLSCOPE
 
-		for( block : thisMachine.blockHierarchy.reverseView ) {
-			switch( block  ) {
-				Behavior: parentScope = Scopes::scopeFor(
-					block.selectRigthElements(expected), parentScope)
+		for( block : thisMachine.reverseMachineHierarchy )
+		{
+			switch( block )
+			{
+				Statemachine: parentScope = 
+					block.scopeForSelectedRigthElements(expected, parentScope)
 
-				default: parentScope = Scopes::scopeFor(
-					block.selectRigthElements(expected), parentScope)
+				Behavior: parentScope =
+					block.scopeForSelectedRigthElements(expected, parentScope)
+
+				System: parentScope =
+					block.scopeForSelectedRigthElements(expected, parentScope)
+
+				default: parentScope =
+					block.scopeForSelectedRigthElements(expected, parentScope)
 			}
 		}
 
-		switch( thisMachine  ) {
-			Behavior: Scopes::scopeFor(
-				thisMachine.selectRigthElements(expected), parentScope)
+		switch( thisMachine )
+		{
+			Statemachine:
+				thisMachine.scopeForSelectedRigthElements(expected, parentScope)
 
-			default: Scopes::scopeFor(
-				thisMachine.selectRigthElements(expected), parentScope)
+			Behavior:
+				thisMachine.scopeForSelectedRigthElements(expected, parentScope)
+
+			System: parentScope =
+				thisMachine.scopeForSelectedRigthElements(expected, parentScope)
+
+			default:
+				thisMachine.scopeForSelectedRigthElements(expected, parentScope)
 		}
 	}
 
 
 	def scopeForHierarchicStructuredElement(
-		Machine thisMachine, ValueElementSpecificationScheme expected) {
+		Machine thisMachine, ValueElementSpecificationScheme expected)
+	{
 		var parentScope = IScope::NULLSCOPE
 
-		for( block : thisMachine.blockHierarchy.reverseView ) {
-			switch( block  ) {
-				Behavior: parentScope = Scopes::scopeFor(
-					block.selectStructuredElements(expected), parentScope)
+		for( machine : thisMachine.reverseMachineHierarchy )
+		{
+			switch( machine )
+			{
+				Behavior: parentScope =
+					machine.scopeForSelectedStructuredElements(
+						expected, parentScope)
 
-				default: parentScope = Scopes::scopeFor(
-					block.selectStructuredElements(expected), parentScope)
+				System: parentScope =
+					machine.scopeForSelectedStructuredElements(
+						expected, parentScope)
+
+				default: parentScope =
+					machine.scopeForSelectedStructuredElements(
+						expected, parentScope)
 			}
 		}
 
-		switch( thisMachine  ) {
-			Behavior: Scopes::scopeFor(
-				thisMachine.selectStructuredElements(expected), parentScope)
+		switch( thisMachine )
+		{
+			Behavior:
+				thisMachine.scopeForSelectedStructuredElements(
+					expected, parentScope)
 
-			default: Scopes::scopeFor(
-				thisMachine.selectStructuredElements(expected), parentScope)
+			System:
+				thisMachine.scopeForSelectedStructuredElements(
+					expected, parentScope)
+
+			default:
+				thisMachine.scopeForSelectedStructuredElements(
+					expected, parentScope)
 		}
 	}
+	
 
+	////////////////////////////////////////////////////////////////////////////
+	// Routine: scopeForHierarchicLeftElement / scopeForHierarchicRigthElement
+	////////////////////////////////////////////////////////////////////////////
 
 	def scopeForHierarchicStructuredElement(
-		Routine thisRoutine, ValueElementSpecificationScheme expected) {
+		Routine thisRoutine, ValueElementSpecificationScheme expected)
+	{
 		val thisMachine =
 			EcoreUtil2.getContainerOfType(thisRoutine, typeof(Machine))
 
-		Scopes::scopeFor(thisRoutine.selectStructuredElements(expected),
+		thisRoutine.scopeForSelectedStructuredElements(expected,
 			scopeForHierarchicStructuredElement(thisMachine, expected))
 	}
 
 
-
 	def scopeForHierarchicLeftElement(
-		Routine thisRoutine, ValueElementSpecificationScheme expected) {
+		Routine thisRoutine, ValueElementSpecificationScheme expected)
+	{
 		val thisMachine =
 			EcoreUtil2.getContainerOfType(thisRoutine, typeof(Machine))
 
-		Scopes::scopeFor(thisRoutine.selectLeftElements(expected),
+		thisRoutine.scopeForSelectedLeftElements(expected,
 			scopeForHierarchicLeftElement(thisMachine, expected))
 	}
 
 	def scopeForHierarchicRigthElement(
-		Routine thisRoutine, ValueElementSpecificationScheme expected) {
+		Routine thisRoutine, ValueElementSpecificationScheme expected)
+	{
 		val thisMachine =
 			EcoreUtil2.getContainerOfType(thisRoutine, typeof(Machine))
 
-		Scopes::scopeFor(thisRoutine.selectRigthElements(expected),
+		thisRoutine.scopeForSelectedRigthElements(expected,
 			scopeForHierarchicRigthElement(thisMachine, expected))
 	}
 
 
+	////////////////////////////////////////////////////////////////////////////
+	// EObject: scopeForHierarchicLeftElement / scopeForHierarchicRigthElement
+	////////////////////////////////////////////////////////////////////////////
 
 	def scopeForHierarchicLeftElement(
-		EObject context, ValueElementSpecificationScheme expected) {
-		for( var it = context ; it !== null; it = it.eContainer() ) {
-			switch( it ) {
+		EObject context, ValueElementSpecificationScheme expected)
+	{
+		for( var it = context ; it !== null; it = it.eContainer() )
+		{
+			switch( it )
+			{
+//				State: return it.scopeForHierarchicLeftElement(expected)
+//
+//				Vertex: return it.scopeForHierarchicLeftElement(expected)
+
 				Routine: return it.scopeForHierarchicLeftElement(expected)
 
 				Machine: return it.scopeForHierarchicLeftElement(expected)
@@ -1461,9 +2510,16 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	}
 
 	def scopeForHierarchicRigthElement(
-		EObject context, ValueElementSpecificationScheme expected) {
-		for( var it = context ; it !== null; it = it.eContainer() ) {
-			switch( it ) {
+		EObject context, ValueElementSpecificationScheme expected)
+	{
+		for( var it = context ; it !== null; it = it.eContainer() )
+		{
+			switch( it )
+			{
+//				State: return it.scopeForHierarchicRigthElement(expected)
+//
+//				Vertex: return it.scopeForHierarchicRigthElement(expected)
+
 				Routine: return it.scopeForHierarchicRigthElement(expected)
 
 				Machine: return it.scopeForHierarchicRigthElement(expected)
@@ -1472,6 +2528,5 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 		IScope::NULLSCOPE
 	}
-
 
 }

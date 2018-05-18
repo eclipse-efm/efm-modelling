@@ -15,6 +15,7 @@ package org.eclipse.efm.ecore.formalml.statemachine;
 import org.eclipse.efm.ecore.formalml.common.NamedElement;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
+
 import org.eclipse.emf.common.util.EList;
 
 /**

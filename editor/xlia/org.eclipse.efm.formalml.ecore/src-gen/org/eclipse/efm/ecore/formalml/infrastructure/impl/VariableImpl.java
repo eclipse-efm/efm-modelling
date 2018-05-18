@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.VariableImpl#isConst <em>Const</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.VariableImpl#isReference <em>Reference</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.VariableImpl#isMacro <em>Macro</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.VariableImpl#getOnWriteAction <em>On Write Action</em>}</li>
  * </ul>
@@ -59,6 +60,26 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	 * @ordered
 	 */
 	protected boolean const_ = CONST_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isReference() <em>Reference</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isReference()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean REFERENCE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isReference() <em>Reference</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isReference()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean reference = REFERENCE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isMacro() <em>Macro</em>}' attribute.
@@ -128,6 +149,27 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 		const_ = newConst;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.VARIABLE__CONST, oldConst, const_));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isReference() {
+		return reference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setReference(boolean newReference) {
+		boolean oldReference = reference;
+		reference = newReference;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.VARIABLE__REFERENCE, oldReference, reference));
 	}
 
 	/**
@@ -218,6 +260,8 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 		switch (featureID) {
 			case InfrastructurePackage.VARIABLE__CONST:
 				return isConst();
+			case InfrastructurePackage.VARIABLE__REFERENCE:
+				return isReference();
 			case InfrastructurePackage.VARIABLE__MACRO:
 				return isMacro();
 			case InfrastructurePackage.VARIABLE__ON_WRITE_ACTION:
@@ -236,6 +280,9 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 		switch (featureID) {
 			case InfrastructurePackage.VARIABLE__CONST:
 				setConst((Boolean)newValue);
+				return;
+			case InfrastructurePackage.VARIABLE__REFERENCE:
+				setReference((Boolean)newValue);
 				return;
 			case InfrastructurePackage.VARIABLE__MACRO:
 				setMacro((Boolean)newValue);
@@ -258,6 +305,9 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 			case InfrastructurePackage.VARIABLE__CONST:
 				setConst(CONST_EDEFAULT);
 				return;
+			case InfrastructurePackage.VARIABLE__REFERENCE:
+				setReference(REFERENCE_EDEFAULT);
+				return;
 			case InfrastructurePackage.VARIABLE__MACRO:
 				setMacro(MACRO_EDEFAULT);
 				return;
@@ -278,6 +328,8 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 		switch (featureID) {
 			case InfrastructurePackage.VARIABLE__CONST:
 				return const_ != CONST_EDEFAULT;
+			case InfrastructurePackage.VARIABLE__REFERENCE:
+				return reference != REFERENCE_EDEFAULT;
 			case InfrastructurePackage.VARIABLE__MACRO:
 				return macro != MACRO_EDEFAULT;
 			case InfrastructurePackage.VARIABLE__ON_WRITE_ACTION:
@@ -298,6 +350,8 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (const: ");
 		result.append(const_);
+		result.append(", reference: ");
+		result.append(reference);
 		result.append(", macro: ");
 		result.append(macro);
 		result.append(')');

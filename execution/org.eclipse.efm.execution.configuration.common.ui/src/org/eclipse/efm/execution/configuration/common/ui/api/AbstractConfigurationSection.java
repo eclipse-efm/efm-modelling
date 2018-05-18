@@ -14,7 +14,9 @@ package org.eclipse.efm.execution.configuration.common.ui.api;
 
 
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
-import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.Section;
@@ -39,20 +41,18 @@ public abstract class AbstractConfigurationSection extends AbstractSectionPart
 
 	public void createControl(Composite parent, IWidgetToolkit widgetToolkit)
 	{
-		widgetToolkit.createSectionPart(this, parent,
-				Section.TITLE_BAR | Section.DESCRIPTION |
-				Section.EXPANDED  | Section.TWISTIE, null);
-		
-		createContent(getSectionClient(), widgetToolkit);
-	}
+		ToolBarManager toolBarManager = null;
+		Action[] toputinbar = fConfigurationPage.getDefaultSectionActions();
 
-	public void createControl(Composite parent,
-			IToolBarManager toolBarManager, IWidgetToolkit widgetToolkit)
-	{
+		if( (toputinbar != null) && (toputinbar.length > 0) )
+		{
+			toolBarManager = new ToolBarManager(SWT.FLAT);
+			widgetToolkit.fillToolBar(toolBarManager, toputinbar);
+		}
 		widgetToolkit.createSectionPart(this, parent,
 				Section.TITLE_BAR | Section.DESCRIPTION |
 				Section.EXPANDED  | Section.TWISTIE, toolBarManager);
-		
+
 		createContent(getSectionClient(), widgetToolkit);
 	}
 
@@ -69,7 +69,7 @@ public abstract class AbstractConfigurationSection extends AbstractSectionPart
 			((ExpandableComposite) section).setExpanded(expanded);
 		}
 	}
-	
+
     /**
      * Sets the label control's tool tip text to the argument
      */

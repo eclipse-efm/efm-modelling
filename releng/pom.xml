@@ -11,12 +11,17 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	<packaging>pom</packaging>
 	<name>org.eclipse.efm-modeling Releng</name>
 	<description>This plug-in contains the different modules relatives to the releng of org.eclipse.efm-modeling from update site, to feature , product and rcp.</description>
-	<modules>
-		<module>org.eclipse.efm.modeling.feature</module>
-		<module>org.eclipse.efm.modeling.textual.feature</module>
-	</modules>
 
 	<profiles>
+		<profile>
+			<id>last-release-papyrus</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>org.eclipse.efm.modeling.p2</module>
+			</modules>
+		</profile>
 		<profile>
 			<id>product</id>
 			<activation>

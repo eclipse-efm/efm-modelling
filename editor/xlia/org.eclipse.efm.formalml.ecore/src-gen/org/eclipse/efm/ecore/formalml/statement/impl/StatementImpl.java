@@ -12,12 +12,12 @@
  */
 package org.eclipse.efm.ecore.formalml.statement.impl;
 
+import org.eclipse.efm.ecore.formalml.common.impl.AbstractElementImpl;
+
 import org.eclipse.efm.ecore.formalml.statement.Statement;
 import org.eclipse.efm.ecore.formalml.statement.StatementPackage;
 
 import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public abstract class StatementImpl extends MinimalEObjectImpl.Container implements Statement {
+public abstract class StatementImpl extends AbstractElementImpl implements Statement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -252,6 +252,10 @@ public class ExpressionAdapterFactory extends AdapterFactoryImpl {
 				return createLogicalAssociativeExpressionAdapter();
 			}
 			@Override
+			public Adapter caseQuantifiedLogicalExpression(QuantifiedLogicalExpression object) {
+				return createQuantifiedLogicalExpressionAdapter();
+			}
+			@Override
 			public Adapter caseInvokeExpression(InvokeExpression object) {
 				return createInvokeExpressionAdapter();
 			}
@@ -922,6 +926,20 @@ public class ExpressionAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLogicalAssociativeExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression <em>Quantified Logical Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression
+	 * @generated
+	 */
+	public Adapter createQuantifiedLogicalExpressionAdapter() {
 		return null;
 	}
 

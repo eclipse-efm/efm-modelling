@@ -69,8 +69,6 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 		switch (eClass.getClassifierID()) {
 			case StatementPackage.BLOCK_STATEMENT: return createBlockStatement();
 			case StatementPackage.EXPRESSION_STATEMENT: return createExpressionStatement();
-			case StatementPackage.ASSIGNMENT_STATEMENT: return createAssignmentStatement();
-			case StatementPackage.NEWFRESH_STATEMENT: return createNewfreshStatement();
 			case StatementPackage.GUARD_STATEMENT: return createGuardStatement();
 			case StatementPackage.TIMED_GUARD_STATEMENT: return createTimedGuardStatement();
 			case StatementPackage.EVENT_GUARD_STATEMENT: return createEventGuardStatement();
@@ -147,26 +145,6 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	public ExpressionStatement createExpressionStatement() {
 		ExpressionStatementImpl expressionStatement = new ExpressionStatementImpl();
 		return expressionStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AssignmentStatement createAssignmentStatement() {
-		AssignmentStatementImpl assignmentStatement = new AssignmentStatementImpl();
-		return assignmentStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NewfreshStatement createNewfreshStatement() {
-		NewfreshStatementImpl newfreshStatement = new NewfreshStatementImpl();
-		return newfreshStatement;
 	}
 
 	/**

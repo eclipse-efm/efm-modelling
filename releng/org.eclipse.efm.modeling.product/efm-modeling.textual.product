@@ -31,14 +31,13 @@ Apache Software Foundation http://www.apache.org/
       startupProgressRect="8,316,470,15"
       startupMessageRect="100,10,445,16"
       startupForegroundColor="9C9E9F" />
-   <launcher name="efm-basic">
+   <launcher name="efm-textual">
       <linux icon="../org.eclipse.efm.modeling.rcp/icons/icon.xpm"/>
       <win useIco="true">
          <ico path="/org.eclipse.efm.modeling.rcp/icons/efm.ico"/>
          <bmp/>
       </win>
    </launcher>
-
 
    <vm>
       <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</windows>
@@ -251,26 +250,44 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
    </plugins>
 
    <features>
+      <feature id="org.eclipse.efm.modeling.rcp.feature" version="0.0.1.qualifier"/>
       <feature id="org.eclipse.efm.modeling.textual.feature" version="0.0.1.qualifier"/>
-      <feature id="org.eclipse.emf.ecore"/>
-      <feature id="org.eclipse.equinox.p2.user.ui"/>
       <feature id="org.eclipse.ecf.filetransfer.httpclient4.feature"/>
       <feature id="org.eclipse.help"/>
       <feature id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature"/>
-      <feature id="org.eclipse.equinox.p2.extras.feature"/>
-      <feature id="org.eclipse.rcp"/>
+      <feature id="org.eclipse.emf.common.ui"/>
+      <feature id="org.eclipse.xtext.xbase.lib"/>
+      <feature id="org.eclipse.emf.codegen"/>
+      <feature id="org.eclipse.jdt"/>
       <feature id="org.eclipse.emf.common"/>
       <feature id="org.eclipse.equinox.p2.core.feature"/>
+      <feature id="org.eclipse.emf.mwe2.runtime.sdk"/>
+      <feature id="org.eclipse.ecf.core.ssl.feature"/>
+      <feature id="org.eclipse.ecf.filetransfer.ssl.feature"/>
+      <feature id="org.eclipse.xtend"/>
+      <feature id="org.eclipse.xpand"/>
+      <feature id="org.eclipse.xtext.runtime"/>
+      <feature id="org.eclipse.emf.edit"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="org.eclipse.equinox.p2.user.ui"/>
+      <feature id="org.eclipse.xtext.xbase"/>
+      <feature id="org.eclipse.equinox.p2.extras.feature"/>
+      <feature id="org.eclipse.emf.codegen.ecore"/>
+      <feature id="org.eclipse.emf.converter"/>
+      <feature id="org.eclipse.xtend.typesystem.emf"/>
+      <feature id="org.eclipse.emf.edit.ui"/>
+      <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.ecf.core.feature"/>
+      <feature id="org.eclipse.emf.ecore.editor"/>
       <feature id="org.eclipse.equinox.p2.rcp.feature"/>
       <feature id="org.eclipse.ecf.filetransfer.feature"/>
       <feature id="org.eclipse.xtext.ui"/>
-      <feature id="org.eclipse.ecf.core.ssl.feature"/>
+      <feature id="org.eclipse.xtend.dependencies"/>
       <feature id="org.eclipse.platform"/>
-      <feature id="org.eclipse.ecf.filetransfer.ssl.feature"/>
-      <feature id="org.eclipse.xtext.runtime"/>
+      <feature id="org.eclipse.efm.modeling.textual.dependencies.feature"/>
+      <feature id="org.eclipse.xtend.ui"/>
+      <feature id="org.eclipse.emf.ecore.edit"/>
       <feature id="org.eclipse.e4.rcp"/>
-      <feature id="org.eclipse.efm.modeling.rcp.feature" version="0.0.1.qualifier"/>
    </features>
 
    <configurations>
@@ -283,17 +300,12 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
       <property name="org.eclipse.update.reconcile" value="false" />
       <property name="osgi.bundles.defaultStartLevel" value="4" />
-      <property name="osgi.instance.area.default" value="@user.home/workspace-efm" />
+      <property name="osgi.instance.area.default" value="../workspace-efm" />
       <property name="osgi.requiredJavaVersion" value="1.8" />
    </configurations>
 
    <repositories>
-      <repository location="http://download.eclipse.org/modeling/mdt/papyrus/components/org.eclipse.efm-modeling/" enabled="true" />
-      <repository location="http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/neon" enabled="true" />
-      <repository location="http://download.eclipse.org/modeling/mdt/papyrus/components/org.eclipse.efm-modeling/" enabled="true" />
-      <repository location="http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/neon" enabled="true" />
-      <repository location="http://download.eclipse.org/modeling/mdt/papyrus/components/org.eclipse.efm-modeling/" enabled="true" />
-      <repository location="http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/neon" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/oxygen" enabled="true" />
    </repositories>
 
    <preferencesInfo>

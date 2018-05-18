@@ -312,6 +312,16 @@
          point="org.eclipse.ui.views">
       <view
             category="org.eclipse.efm.ui.category.views"
+            class="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbexConsoleView"
+            icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/diversity_icon.png"
+            id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbexConsoleView"
+            name="New Symbex Console">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.efm.ui.category.views"
             class="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbolicExecutionView"
             icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/diversity_icon.png"
             id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbolicExecutionView"

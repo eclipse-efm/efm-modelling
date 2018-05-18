@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +37,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class ExpressionAsBufferImpl extends MinimalEObjectImpl.Container implements ExpressionAsBuffer {
+public class ExpressionAsBufferImpl extends ExpressionImpl implements ExpressionAsBuffer {
 	/**
 	 * The cached value of the '{@link #getBuffer() <em>Buffer</em>}' containment reference.
 	 * <!-- begin-user-doc -->

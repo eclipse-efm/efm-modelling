@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -55,7 +55,11 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cElementPropertyParserRuleCall_2_0_4_0_1 = (RuleCall)cElementAlternatives_2_0_4_0.eContents().get(1);
 		private final Keyword cRightCurlyBracketKeyword_2_0_5 = (Keyword)cGroup_2_0.eContents().get(5);
 		private final Assignment cElementAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final RuleCall cElementDeprecatedObjectParserRuleCall_2_1_0 = (RuleCall)cElementAssignment_2_1.eContents().get(0);
+		private final Alternatives cElementAlternatives_2_1_0 = (Alternatives)cElementAssignment_2_1.eContents().get(0);
+		private final RuleCall cElementObjectParserRuleCall_2_1_0_0 = (RuleCall)cElementAlternatives_2_1_0.eContents().get(0);
+		private final RuleCall cElementPropertyParserRuleCall_2_1_0_1 = (RuleCall)cElementAlternatives_2_1_0.eContents().get(1);
+		private final Assignment cElementAssignment_2_2 = (Assignment)cAlternatives_2.eContents().get(2);
+		private final RuleCall cElementDeprecatedObjectParserRuleCall_2_2_0 = (RuleCall)cElementAssignment_2_2.eContents().get(0);
 		
 		//////////////////////////////////////////////////////////////////////////////////
 		//// Symbolic Execution Workflow Specification
@@ -65,12 +69,15 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//	'{'
 		//	element+=(Object | Property)*
 		//	'}'
+		//	// for Xtext Embeded Editor
+		//	| element+=(Object | Property)*
 		//	// Deprecated Object as FAVM Workflow
-		//	| element+=DeprecatedObject)
+		//	| element+=DeprecatedObject);
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{sew::SEWorkflow} Prolog? (type=('workflow' | 'symbex-workflow') name=UFI? description=EString? '{' element+=(Object |
-		//Property)* '}' // Deprecated Object as FAVM Workflow
+		//Property)* '}' // for Xtext Embeded Editor
+		//| element+=(Object | Property)* // Deprecated Object as FAVM Workflow
 		//| element+=DeprecatedObject)
 		public Group getGroup() { return cGroup; }
 		
@@ -80,8 +87,9 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//Prolog?
 		public RuleCall getPrologParserRuleCall_1() { return cPrologParserRuleCall_1; }
 		
-		//(type=('workflow' | 'symbex-workflow') name=UFI? description=EString? '{' element+=(Object | Property)* '}' // Deprecated Object as FAVM Workflow
-		//| element+=DeprecatedObject)
+		//type=('workflow' | 'symbex-workflow') name=UFI? description=EString? '{' element+=(Object | Property)* '}' // for Xtext Embeded Editor
+		//| element+=(Object | Property)* // Deprecated Object as FAVM Workflow
+		//| element+=DeprecatedObject
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 		
 		//type=('workflow' | 'symbex-workflow') name=UFI? description=EString? '{' element+=(Object | Property)* '}'
@@ -129,11 +137,23 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_2_0_5() { return cRightCurlyBracketKeyword_2_0_5; }
 		
-		//element+=DeprecatedObject
+		//element+=(Object | Property)*
 		public Assignment getElementAssignment_2_1() { return cElementAssignment_2_1; }
 		
+		//(Object | Property)
+		public Alternatives getElementAlternatives_2_1_0() { return cElementAlternatives_2_1_0; }
+		
+		//Object
+		public RuleCall getElementObjectParserRuleCall_2_1_0_0() { return cElementObjectParserRuleCall_2_1_0_0; }
+		
+		//Property
+		public RuleCall getElementPropertyParserRuleCall_2_1_0_1() { return cElementPropertyParserRuleCall_2_1_0_1; }
+		
+		//element+=DeprecatedObject
+		public Assignment getElementAssignment_2_2() { return cElementAssignment_2_2; }
+		
 		//DeprecatedObject
-		public RuleCall getElementDeprecatedObjectParserRuleCall_2_1_0() { return cElementDeprecatedObjectParserRuleCall_2_1_0; }
+		public RuleCall getElementDeprecatedObjectParserRuleCall_2_2_0() { return cElementDeprecatedObjectParserRuleCall_2_2_0; }
 	}
 	public class PrologElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.sew.xtext.SEW.Prolog");
@@ -162,7 +182,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//('@sew' | '@favm') '<' ('workflow' | 'sew') (',' EDouble)? (',' UFI | EString)? '>:'
 		public Group getGroup() { return cGroup; }
 		
-		//('@sew' | '@favm')
+		//'@sew' | '@favm'
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 		
 		//'@sew'
@@ -174,7 +194,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//'<'
 		public Keyword getLessThanSignKeyword_1() { return cLessThanSignKeyword_1; }
 		
-		//('workflow' | 'sew')
+		//'workflow' | 'sew'
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 		
 		//'workflow'
@@ -281,7 +301,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//(('::' | '.') XID)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//('::' | '.')
+		//'::' | '.'
 		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
 		
 		//'::'
@@ -340,7 +360,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//	| {sew::WObject} name=UFI (':=' | '+:=') (type=UFI description=EString?)?
 		//	'{'
 		//	element+=(Object | Property)*
-		//	'}'
+		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{sew::WObject} type=UFI name=UFI? description=EString? '{' element+=(Object | Property)* '}' | {sew::WObject} name=UFI
@@ -401,7 +421,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//UFI
 		public RuleCall getNameUFIParserRuleCall_1_1_0() { return cNameUFIParserRuleCall_1_1_0; }
 		
-		//(':=' | '+:=')
+		//':=' | '+:='
 		public Alternatives getAlternatives_1_2() { return cAlternatives_1_2; }
 		
 		//':='
@@ -454,7 +474,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//////////////////////////////////////////////////////////////////////////////////
 		//Property sew::WProperty:
 		//	Section
-		//	| Attribute
+		//	| Attribute;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//Section | Attribute
@@ -490,7 +510,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Section sew::WSection:
 		//	name=XID description=EString? ('[' element+=(Object | Attribute)* ']'
-		//	| ':' element+=(Object | Attribute)*)
+		//	| ':' element+=(Object | Attribute)*);
 		@Override public ParserRule getRule() { return rule; }
 		
 		//name=XID description=EString? ('[' element+=(Object | Attribute)* ']' | ':' element+=(Object | Attribute)*)
@@ -508,7 +528,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//EString
 		public RuleCall getDescriptionEStringParserRuleCall_1_0() { return cDescriptionEStringParserRuleCall_1_0; }
 		
-		//('[' element+=(Object | Attribute)* ']' | ':' element+=(Object | Attribute)*)
+		//'[' element+=(Object | Attribute)* ']' | ':' element+=(Object | Attribute)*
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 		
 		//'[' element+=(Object | Attribute)* ']'
@@ -562,7 +582,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Attribute sew::WAttribute:
-		//	{sew::WAttribute} name=XID '=' value=ValueSpecification ';'?
+		//	{sew::WAttribute} name=XID '=' value=ValueSpecification ';'?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{sew::WAttribute} name=XID '=' value=ValueSpecification ';'?
@@ -597,7 +617,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//// Value Specification
 		//////////////////////////////////////////////////////////////////////////////////
 		//ValueSpecification sew::WValueSpecification:
-		//	Expression
+		//	Expression;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//Expression
@@ -615,7 +635,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//Expression sew::WValueSpecification:
 		//	conditionalExpression
 		//	// Deprecated
-		//	| DeprecatedExpression
+		//	| DeprecatedExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//conditionalExpression // Deprecated
@@ -644,7 +664,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//conditionalExpression sew::WValueSpecification:
 		//	conditionalOrExpression ({expression::Expression.operand+=current} operator='?' operand+=Expression ':'
-		//	operand+=Expression)?
+		//	operand+=Expression)?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//conditionalOrExpression ({expression::Expression.operand+=current} operator='?' operand+=Expression ':'
@@ -702,7 +722,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//conditionalOrExpression sew::WValueSpecification:
 		//	conditionalAndExpression ({expression::Expression.operand+=current} operator=('||' | 'or')
-		//	operand+=conditionalAndExpression (('||' | 'or') operand+=conditionalAndExpression)*)?
+		//	operand+=conditionalAndExpression (('||' | 'or') operand+=conditionalAndExpression)*)?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//conditionalAndExpression ({expression::Expression.operand+=current} operator=('||' | 'or')
@@ -740,7 +760,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//(('||' | 'or') operand+=conditionalAndExpression)*
 		public Group getGroup_1_3() { return cGroup_1_3; }
 		
-		//('||' | 'or')
+		//'||' | 'or'
 		public Alternatives getAlternatives_1_3_0() { return cAlternatives_1_3_0; }
 		
 		//'||'
@@ -776,7 +796,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//conditionalAndExpression sew::WValueSpecification:
 		//	equalityExpression ({expression::Expression.operand+=current} operator=('&&' | 'and') operand+=equalityExpression
-		//	(('&&' | 'and') operand+=equalityExpression)*)?
+		//	(('&&' | 'and') operand+=equalityExpression)*)?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//equalityExpression ({expression::Expression.operand+=current} operator=('&&' | 'and') operand+=equalityExpression (('&&'
@@ -814,7 +834,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//(('&&' | 'and') operand+=equalityExpression)*
 		public Group getGroup_1_3() { return cGroup_1_3; }
 		
-		//('&&' | 'and')
+		//'&&' | 'and'
 		public Alternatives getAlternatives_1_3_0() { return cAlternatives_1_3_0; }
 		
 		//'&&'
@@ -847,7 +867,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//equalityExpression sew::WValueSpecification:
 		//	relationalExpression ({expression::Expression.operand+=current} operator=('==' | '!=' | '===' | '=!=' | '=/=')
-		//	operand+=relationalExpression)?
+		//	operand+=relationalExpression)?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//relationalExpression ({expression::Expression.operand+=current} operator=('==' | '!=' | '===' | '=!=' | '=/=')
@@ -908,7 +928,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//relationalExpression sew::WValueSpecification:
 		//	additiveExpression ({expression::Expression.operand+=current} operator=('<' | '<=' | '>' | '>=')
-		//	operand+=additiveExpression)?
+		//	operand+=additiveExpression)?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//additiveExpression ({expression::Expression.operand+=current} operator=('<' | '<=' | '>' | '>=')
@@ -965,7 +985,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//additiveExpression sew::WValueSpecification:
 		//	multiplicativeExpression ({expression::Expression.operand+=current} operator='+' operand+=multiplicativeExpression
-		//	('+' operand+=multiplicativeExpression)*)?
+		//	('+' operand+=multiplicativeExpression)*)?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//multiplicativeExpression ({expression::Expression.operand+=current} operator='+' operand+=multiplicativeExpression ('+'
@@ -1057,7 +1077,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//	operand+=primaryExpression)* | {expression::Expression.operand+=current} operator='**' operand+=primaryExpression
 		//	('**' operand+=primaryExpression)* | {expression::Expression.operand+=current} operator='/'
 		//	operand+=primaryExpression ('/' operand+=primaryExpression)* | {expression::Expression.operand+=current} operator='%'
-		//	operand+=primaryExpression ('%' operand+=primaryExpression)*)?
+		//	operand+=primaryExpression ('%' operand+=primaryExpression)*)?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//primaryExpression ({expression::Expression.operand+=current} operator='*' operand+=primaryExpression ('*'
@@ -1229,7 +1249,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//	'+' primaryExpression
 		//	| {expression::Expression} (operator='-' operand+=primaryExpression) | {expression::Expression} (operator=('!' |
 		//	'not') operand+=primaryExpression) | '(' Expression ')'
-		//	| LiteralExpression
+		//	| LiteralExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'+' primaryExpression | {expression::Expression} (operator='-' operand+=primaryExpression) | {expression::Expression}
@@ -1251,7 +1271,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//{expression::Expression}
 		public Action getExpressionAction_1_0() { return cExpressionAction_1_0; }
 		
-		//(operator='-' operand+=primaryExpression)
+		//operator='-' operand+=primaryExpression
 		public Group getGroup_1_1() { return cGroup_1_1; }
 		
 		//operator='-'
@@ -1272,7 +1292,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//{expression::Expression}
 		public Action getExpressionAction_2_0() { return cExpressionAction_2_0; }
 		
-		//(operator=('!' | 'not') operand+=primaryExpression)
+		//operator=('!' | 'not') operand+=primaryExpression
 		public Group getGroup_2_1() { return cGroup_2_1; }
 		
 		//operator=('!' | 'not')
@@ -1335,7 +1355,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//	| LiteralArrayValue
 		//	| LiteralObjectReference
 		//	| LiteralVariableReference
-		//	| LiteralInstanceReference
+		//	| LiteralInstanceReference;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//LiteralBooleanValue | LiteralCharacterValue | LiteralIntegerValue | LiteralRationalValue | LiteralFloatValue //| LiteralRealValue
@@ -1396,7 +1416,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//LiteralArrayValue expression::LiteralArrayValue:
 		//	{expression::LiteralArrayValue}
 		//	'[' (values+=ValueSpecification (',' values+=ValueSpecification)*)?
-		//	']'
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralArrayValue} '[' (values+=ValueSpecification (',' values+=ValueSpecification)*)? ']'
@@ -1447,7 +1467,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//// Literal Object Reference Specification
 		//////////////////////////////////////////////////////////////////////////////////
 		//LiteralObjectReference expression::LiteralObjectReference:
-		//	'&'? (object=[sew::WObject|UFI] | symbol=UFI)
+		//	'&'? (object=[sew::WObject|UFI] | symbol=UFI);
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'&'? (object=[sew::WObject|UFI] | symbol=UFI)
@@ -1456,7 +1476,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//'&'?
 		public Keyword getAmpersandKeyword_0() { return cAmpersandKeyword_0; }
 		
-		//(object=[sew::WObject|UFI] | symbol=UFI)
+		//object=[sew::WObject|UFI] | symbol=UFI
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 		
 		//object=[sew::WObject|UFI]
@@ -1483,7 +1503,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//// Literal Specification
 		//////////////////////////////////////////////////////////////////////////////////
 		//LiteralBooleanValue expression::LiteralBooleanValue:
-		//	value=EBoolean
+		//	value=EBoolean;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//value=EBoolean
@@ -1498,7 +1518,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueECharParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//LiteralCharacterValue expression::LiteralCharacterValue:
-		//	value=EChar
+		//	value=EChar;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//value=EChar
@@ -1513,7 +1533,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueELongParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//LiteralIntegerValue expression::LiteralIntegerValue:
-		//	value=ELong
+		//	value=ELong;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//value=ELong
@@ -1532,7 +1552,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDenominatorELongParserRuleCall_2_0 = (RuleCall)cDenominatorAssignment_2.eContents().get(0);
 		
 		//LiteralRationalValue expression::LiteralRationalValue:
-		//	numerator=ELong '/' denominator=ELong
+		//	numerator=ELong '/' denominator=ELong;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//numerator=ELong '/' denominator=ELong
@@ -1559,7 +1579,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueEDoubleParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//LiteralFloatValue expression::LiteralFloatValue:
-		//	value=EDouble
+		//	value=EDouble;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//value=EDouble
@@ -1574,7 +1594,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueEBigDecimalParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//LiteralRealValue expression::LiteralRealValue:
-		//	value=EBigDecimal
+		//	value=EBigDecimal;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//value=EBigDecimal
@@ -1589,7 +1609,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueEStringParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//LiteralStringValue expression::LiteralStringValue:
-		//	value=EString
+		//	value=EString;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//value=EString
@@ -1611,7 +1631,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//LiteralNullValue expression::LiteralNullValue:
 		//	{expression::LiteralNullValue}
-		//	'null' ('<' type=XID '>')?
+		//	'null' ('<' type=XID '>')?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralNullValue} 'null' ('<' type=XID '>')?
@@ -1646,7 +1666,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//LiteralVariableReference expression::LiteralReferenceValue:
 		//	LiteralTimeVariable
-		//	| LiteralTimeDeltaVariable
+		//	| LiteralTimeDeltaVariable;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//LiteralTimeVariable | LiteralTimeDeltaVariable
@@ -1666,7 +1686,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSymbolTimeKeyword_1_0 = (Keyword)cSymbolAssignment_1.eContents().get(0);
 		
 		//LiteralTimeVariable expression::LiteralTimeVariable:
-		//	{expression::LiteralTimeVariable} symbol='$time'
+		//	{expression::LiteralTimeVariable} symbol='$time';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralTimeVariable} symbol='$time'
@@ -1689,7 +1709,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSymbolDeltaKeyword_1_0 = (Keyword)cSymbolAssignment_1.eContents().get(0);
 		
 		//LiteralTimeDeltaVariable expression::LiteralTimeDeltaVariable:
-		//	{expression::LiteralTimeDeltaVariable} symbol='$delta'
+		//	{expression::LiteralTimeDeltaVariable} symbol='$delta';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralTimeDeltaVariable} symbol='$delta'
@@ -1720,7 +1740,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//	| LiteralParentInstance
 		//	| LiteralSuperInstance
 		//	| LiteralSystemInstance
-		//	| LiteralEnvInstance
+		//	| LiteralEnvInstance;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//LiteralThisInstance | LiteralSelfInstance | LiteralParentInstance | LiteralSuperInstance | LiteralSystemInstance |
@@ -1753,7 +1773,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSymbolThisKeyword_1_0 = (Keyword)cSymbolAssignment_1.eContents().get(0);
 		
 		//LiteralThisInstance expression::LiteralThisInstance:
-		//	{expression::LiteralThisInstance} symbol='$this'
+		//	{expression::LiteralThisInstance} symbol='$this';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralThisInstance} symbol='$this'
@@ -1776,7 +1796,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSymbolSelfKeyword_1_0 = (Keyword)cSymbolAssignment_1.eContents().get(0);
 		
 		//LiteralSelfInstance expression::LiteralSelfInstance:
-		//	{expression::LiteralSelfInstance} symbol='$self'
+		//	{expression::LiteralSelfInstance} symbol='$self';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralSelfInstance} symbol='$self'
@@ -1799,7 +1819,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSymbolParentKeyword_1_0 = (Keyword)cSymbolAssignment_1.eContents().get(0);
 		
 		//LiteralParentInstance expression::LiteralParentInstance:
-		//	{expression::LiteralParentInstance} symbol='$parent'
+		//	{expression::LiteralParentInstance} symbol='$parent';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralParentInstance} symbol='$parent'
@@ -1822,7 +1842,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSymbolSuperKeyword_1_0 = (Keyword)cSymbolAssignment_1.eContents().get(0);
 		
 		//LiteralSuperInstance expression::LiteralSuperInstance:
-		//	{expression::LiteralSuperInstance} symbol='$super'
+		//	{expression::LiteralSuperInstance} symbol='$super';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralSuperInstance} symbol='$super'
@@ -1845,7 +1865,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSymbolSystemKeyword_1_0 = (Keyword)cSymbolAssignment_1.eContents().get(0);
 		
 		//LiteralSystemInstance expression::LiteralSystemInstance:
-		//	{expression::LiteralSystemInstance} symbol='$system'
+		//	{expression::LiteralSystemInstance} symbol='$system';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralSystemInstance} symbol='$system'
@@ -1870,7 +1890,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSymbolEnvKeyword_1_0_1 = (Keyword)cSymbolAlternatives_1_0.eContents().get(1);
 		
 		//LiteralEnvInstance expression::LiteralEnvInstance:
-		//	{expression::LiteralEnvInstance} symbol=('$env' | 'env')
+		//	{expression::LiteralEnvInstance} symbol=('$env' | 'env');
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::LiteralEnvInstance} symbol=('$env' | 'env')
@@ -1902,7 +1922,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//////////////////////////////////////////////////////////////////////////////////
 		//EBoolean ecore::EBoolean:
 		//	'true'
-		//	| 'false'
+		//	| 'false';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'true' | 'false'
@@ -1919,7 +1939,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCHARACTERTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//EChar ecore::EChar:
-		//	CHARACTER
+		//	CHARACTER;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//CHARACTER
@@ -1932,7 +1952,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cINTTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		
 		//ELong ecore::ELong:
-		//	'-'? INT
+		//	'-'? INT;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'-'? INT
@@ -1953,7 +1973,8 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cINTTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		
 		//EDouble ecore::EDouble:
-		//	'-'? INT? '.' INT
+		//	'-'? INT? '.' INT //(('E'|'e') '-'? INT)?
+		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'-'? INT? '.' INT
@@ -1979,7 +2000,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cINTTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//EBigDecimal ecore::EBigDecimal:
-		//	INT? '.' INT
+		//	INT? '.' INT;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//INT? '.' INT
@@ -2089,7 +2110,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//	'prototype'
 		//	name=UFI description=EString? 'as' '&'? type=UFI 'is'
 		//	element+=DeprecatedProperty*
-		//	'endprototype'
+		//	'endprototype';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{sew::WObject} 'form' name=UFI description=EString? 'as' '&'? type=UFI 'is' element+=DeprecatedProperty* 'endform' |
@@ -2196,7 +2217,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//DeprecatedProperty sew::WProperty:
 		//	DeprecatedSection
-		//	| DeprecatedAttribute
+		//	| DeprecatedAttribute;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//DeprecatedSection | DeprecatedAttribute
@@ -2252,7 +2273,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//	element+=(DeprecatedAttribute | DeprecatedObject | Object)*
 		//	'endsection' XID?
 		//	| name=XID description=EString? ('[' element+=(DeprecatedAttribute | DeprecatedObject | Object)* ']'
-		//	| ':' element+=(DeprecatedAttribute | DeprecatedObject | Object)*)
+		//	| ':' element+=(DeprecatedAttribute | DeprecatedObject | Object)*);
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{sew::WSection} 'section' name=XID //		( element+=( Object | Attribute  ) )*
@@ -2315,8 +2336,8 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//EString
 		public RuleCall getDescriptionEStringParserRuleCall_1_1_0() { return cDescriptionEStringParserRuleCall_1_1_0; }
 		
-		//('[' element+=(DeprecatedAttribute | DeprecatedObject | Object)* ']' | ':' element+=(DeprecatedAttribute |
-		//DeprecatedObject | Object)*)
+		//'[' element+=(DeprecatedAttribute | DeprecatedObject | Object)* ']' | ':' element+=(DeprecatedAttribute |
+		//DeprecatedObject | Object)*
 		public Alternatives getAlternatives_1_2() { return cAlternatives_1_2; }
 		
 		//'[' element+=(DeprecatedAttribute | DeprecatedObject | Object)* ']'
@@ -2376,7 +2397,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//DeprecatedAttribute sew::WAttribute:
-		//	{sew::WAttribute} name=DeprecatedAttributeID '=' value=ValueSpecification ';'?
+		//	{sew::WAttribute} name=DeprecatedAttributeID '=' value=ValueSpecification ';'?;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{sew::WAttribute} name=DeprecatedAttributeID '=' value=ValueSpecification ';'?
@@ -2440,7 +2461,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//	{expression::Expression}
 		//	'${'
 		//	operator=('|;|' | '|i|') operand+=ValueSpecification*
-		//	'}'
+		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{expression::Expression} '${' operator=('|;|' | '|i|') operand+=ValueSpecification* '}'
@@ -2634,8 +2655,10 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//	'{'
 	//	element+=(Object | Property)*
 	//	'}'
+	//	// for Xtext Embeded Editor
+	//	| element+=(Object | Property)*
 	//	// Deprecated Object as FAVM Workflow
-	//	| element+=DeprecatedObject)
+	//	| element+=DeprecatedObject);
 	public WorkflowElements getWorkflowAccess() {
 		return pWorkflow;
 	}
@@ -2712,7 +2735,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//	| {sew::WObject} name=UFI (':=' | '+:=') (type=UFI description=EString?)?
 	//	'{'
 	//	element+=(Object | Property)*
-	//	'}'
+	//	'}';
 	public ObjectElements getObjectAccess() {
 		return pObject;
 	}
@@ -2726,7 +2749,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//////////////////////////////////////////////////////////////////////////////////
 	//Property sew::WProperty:
 	//	Section
-	//	| Attribute
+	//	| Attribute;
 	public PropertyElements getPropertyAccess() {
 		return pProperty;
 	}
@@ -2737,7 +2760,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//Section sew::WSection:
 	//	name=XID description=EString? ('[' element+=(Object | Attribute)* ']'
-	//	| ':' element+=(Object | Attribute)*)
+	//	| ':' element+=(Object | Attribute)*);
 	public SectionElements getSectionAccess() {
 		return pSection;
 	}
@@ -2747,7 +2770,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Attribute sew::WAttribute:
-	//	{sew::WAttribute} name=XID '=' value=ValueSpecification ';'?
+	//	{sew::WAttribute} name=XID '=' value=ValueSpecification ';'?;
 	public AttributeElements getAttributeAccess() {
 		return pAttribute;
 	}
@@ -2760,7 +2783,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//// Value Specification
 	//////////////////////////////////////////////////////////////////////////////////
 	//ValueSpecification sew::WValueSpecification:
-	//	Expression
+	//	Expression;
 	public ValueSpecificationElements getValueSpecificationAccess() {
 		return pValueSpecification;
 	}
@@ -2775,7 +2798,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//Expression sew::WValueSpecification:
 	//	conditionalExpression
 	//	// Deprecated
-	//	| DeprecatedExpression
+	//	| DeprecatedExpression;
 	public ExpressionElements getExpressionAccess() {
 		return pExpression;
 	}
@@ -2786,7 +2809,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//conditionalExpression sew::WValueSpecification:
 	//	conditionalOrExpression ({expression::Expression.operand+=current} operator='?' operand+=Expression ':'
-	//	operand+=Expression)?
+	//	operand+=Expression)?;
 	public ConditionalExpressionElements getConditionalExpressionAccess() {
 		return pConditionalExpression;
 	}
@@ -2797,7 +2820,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//conditionalOrExpression sew::WValueSpecification:
 	//	conditionalAndExpression ({expression::Expression.operand+=current} operator=('||' | 'or')
-	//	operand+=conditionalAndExpression (('||' | 'or') operand+=conditionalAndExpression)*)?
+	//	operand+=conditionalAndExpression (('||' | 'or') operand+=conditionalAndExpression)*)?;
 	public ConditionalOrExpressionElements getConditionalOrExpressionAccess() {
 		return pConditionalOrExpression;
 	}
@@ -2808,7 +2831,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//conditionalAndExpression sew::WValueSpecification:
 	//	equalityExpression ({expression::Expression.operand+=current} operator=('&&' | 'and') operand+=equalityExpression
-	//	(('&&' | 'and') operand+=equalityExpression)*)?
+	//	(('&&' | 'and') operand+=equalityExpression)*)?;
 	public ConditionalAndExpressionElements getConditionalAndExpressionAccess() {
 		return pConditionalAndExpression;
 	}
@@ -2819,7 +2842,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//equalityExpression sew::WValueSpecification:
 	//	relationalExpression ({expression::Expression.operand+=current} operator=('==' | '!=' | '===' | '=!=' | '=/=')
-	//	operand+=relationalExpression)?
+	//	operand+=relationalExpression)?;
 	public EqualityExpressionElements getEqualityExpressionAccess() {
 		return pEqualityExpression;
 	}
@@ -2830,7 +2853,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//relationalExpression sew::WValueSpecification:
 	//	additiveExpression ({expression::Expression.operand+=current} operator=('<' | '<=' | '>' | '>=')
-	//	operand+=additiveExpression)?
+	//	operand+=additiveExpression)?;
 	public RelationalExpressionElements getRelationalExpressionAccess() {
 		return pRelationalExpression;
 	}
@@ -2841,7 +2864,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//additiveExpression sew::WValueSpecification:
 	//	multiplicativeExpression ({expression::Expression.operand+=current} operator='+' operand+=multiplicativeExpression
-	//	('+' operand+=multiplicativeExpression)*)?
+	//	('+' operand+=multiplicativeExpression)*)?;
 	public AdditiveExpressionElements getAdditiveExpressionAccess() {
 		return pAdditiveExpression;
 	}
@@ -2855,7 +2878,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//	operand+=primaryExpression)* | {expression::Expression.operand+=current} operator='**' operand+=primaryExpression
 	//	('**' operand+=primaryExpression)* | {expression::Expression.operand+=current} operator='/'
 	//	operand+=primaryExpression ('/' operand+=primaryExpression)* | {expression::Expression.operand+=current} operator='%'
-	//	operand+=primaryExpression ('%' operand+=primaryExpression)*)?
+	//	operand+=primaryExpression ('%' operand+=primaryExpression)*)?;
 	public MultiplicativeExpressionElements getMultiplicativeExpressionAccess() {
 		return pMultiplicativeExpression;
 	}
@@ -2868,7 +2891,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//	'+' primaryExpression
 	//	| {expression::Expression} (operator='-' operand+=primaryExpression) | {expression::Expression} (operator=('!' |
 	//	'not') operand+=primaryExpression) | '(' Expression ')'
-	//	| LiteralExpression
+	//	| LiteralExpression;
 	public PrimaryExpressionElements getPrimaryExpressionAccess() {
 		return pPrimaryExpression;
 	}
@@ -2889,7 +2912,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//	| LiteralArrayValue
 	//	| LiteralObjectReference
 	//	| LiteralVariableReference
-	//	| LiteralInstanceReference
+	//	| LiteralInstanceReference;
 	public LiteralExpressionElements getLiteralExpressionAccess() {
 		return pLiteralExpression;
 	}
@@ -2904,7 +2927,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//LiteralArrayValue expression::LiteralArrayValue:
 	//	{expression::LiteralArrayValue}
 	//	'[' (values+=ValueSpecification (',' values+=ValueSpecification)*)?
-	//	']'
+	//	']';
 	public LiteralArrayValueElements getLiteralArrayValueAccess() {
 		return pLiteralArrayValue;
 	}
@@ -2917,7 +2940,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//// Literal Object Reference Specification
 	//////////////////////////////////////////////////////////////////////////////////
 	//LiteralObjectReference expression::LiteralObjectReference:
-	//	'&'? (object=[sew::WObject|UFI] | symbol=UFI)
+	//	'&'? (object=[sew::WObject|UFI] | symbol=UFI);
 	public LiteralObjectReferenceElements getLiteralObjectReferenceAccess() {
 		return pLiteralObjectReference;
 	}
@@ -2930,7 +2953,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//// Literal Specification
 	//////////////////////////////////////////////////////////////////////////////////
 	//LiteralBooleanValue expression::LiteralBooleanValue:
-	//	value=EBoolean
+	//	value=EBoolean;
 	public LiteralBooleanValueElements getLiteralBooleanValueAccess() {
 		return pLiteralBooleanValue;
 	}
@@ -2940,7 +2963,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralCharacterValue expression::LiteralCharacterValue:
-	//	value=EChar
+	//	value=EChar;
 	public LiteralCharacterValueElements getLiteralCharacterValueAccess() {
 		return pLiteralCharacterValue;
 	}
@@ -2950,7 +2973,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralIntegerValue expression::LiteralIntegerValue:
-	//	value=ELong
+	//	value=ELong;
 	public LiteralIntegerValueElements getLiteralIntegerValueAccess() {
 		return pLiteralIntegerValue;
 	}
@@ -2960,7 +2983,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralRationalValue expression::LiteralRationalValue:
-	//	numerator=ELong '/' denominator=ELong
+	//	numerator=ELong '/' denominator=ELong;
 	public LiteralRationalValueElements getLiteralRationalValueAccess() {
 		return pLiteralRationalValue;
 	}
@@ -2970,7 +2993,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralFloatValue expression::LiteralFloatValue:
-	//	value=EDouble
+	//	value=EDouble;
 	public LiteralFloatValueElements getLiteralFloatValueAccess() {
 		return pLiteralFloatValue;
 	}
@@ -2980,7 +3003,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralRealValue expression::LiteralRealValue:
-	//	value=EBigDecimal
+	//	value=EBigDecimal;
 	public LiteralRealValueElements getLiteralRealValueAccess() {
 		return pLiteralRealValue;
 	}
@@ -2990,7 +3013,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralStringValue expression::LiteralStringValue:
-	//	value=EString
+	//	value=EString;
 	public LiteralStringValueElements getLiteralStringValueAccess() {
 		return pLiteralStringValue;
 	}
@@ -3001,7 +3024,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//LiteralNullValue expression::LiteralNullValue:
 	//	{expression::LiteralNullValue}
-	//	'null' ('<' type=XID '>')?
+	//	'null' ('<' type=XID '>')?;
 	public LiteralNullValueElements getLiteralNullValueAccess() {
 		return pLiteralNullValue;
 	}
@@ -3012,7 +3035,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//LiteralVariableReference expression::LiteralReferenceValue:
 	//	LiteralTimeVariable
-	//	| LiteralTimeDeltaVariable
+	//	| LiteralTimeDeltaVariable;
 	public LiteralVariableReferenceElements getLiteralVariableReferenceAccess() {
 		return pLiteralVariableReference;
 	}
@@ -3022,7 +3045,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralTimeVariable expression::LiteralTimeVariable:
-	//	{expression::LiteralTimeVariable} symbol='$time'
+	//	{expression::LiteralTimeVariable} symbol='$time';
 	public LiteralTimeVariableElements getLiteralTimeVariableAccess() {
 		return pLiteralTimeVariable;
 	}
@@ -3032,7 +3055,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralTimeDeltaVariable expression::LiteralTimeDeltaVariable:
-	//	{expression::LiteralTimeDeltaVariable} symbol='$delta'
+	//	{expression::LiteralTimeDeltaVariable} symbol='$delta';
 	public LiteralTimeDeltaVariableElements getLiteralTimeDeltaVariableAccess() {
 		return pLiteralTimeDeltaVariable;
 	}
@@ -3047,7 +3070,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//	| LiteralParentInstance
 	//	| LiteralSuperInstance
 	//	| LiteralSystemInstance
-	//	| LiteralEnvInstance
+	//	| LiteralEnvInstance;
 	public LiteralInstanceReferenceElements getLiteralInstanceReferenceAccess() {
 		return pLiteralInstanceReference;
 	}
@@ -3057,7 +3080,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralThisInstance expression::LiteralThisInstance:
-	//	{expression::LiteralThisInstance} symbol='$this'
+	//	{expression::LiteralThisInstance} symbol='$this';
 	public LiteralThisInstanceElements getLiteralThisInstanceAccess() {
 		return pLiteralThisInstance;
 	}
@@ -3067,7 +3090,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralSelfInstance expression::LiteralSelfInstance:
-	//	{expression::LiteralSelfInstance} symbol='$self'
+	//	{expression::LiteralSelfInstance} symbol='$self';
 	public LiteralSelfInstanceElements getLiteralSelfInstanceAccess() {
 		return pLiteralSelfInstance;
 	}
@@ -3077,7 +3100,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralParentInstance expression::LiteralParentInstance:
-	//	{expression::LiteralParentInstance} symbol='$parent'
+	//	{expression::LiteralParentInstance} symbol='$parent';
 	public LiteralParentInstanceElements getLiteralParentInstanceAccess() {
 		return pLiteralParentInstance;
 	}
@@ -3087,7 +3110,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralSuperInstance expression::LiteralSuperInstance:
-	//	{expression::LiteralSuperInstance} symbol='$super'
+	//	{expression::LiteralSuperInstance} symbol='$super';
 	public LiteralSuperInstanceElements getLiteralSuperInstanceAccess() {
 		return pLiteralSuperInstance;
 	}
@@ -3097,7 +3120,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralSystemInstance expression::LiteralSystemInstance:
-	//	{expression::LiteralSystemInstance} symbol='$system'
+	//	{expression::LiteralSystemInstance} symbol='$system';
 	public LiteralSystemInstanceElements getLiteralSystemInstanceAccess() {
 		return pLiteralSystemInstance;
 	}
@@ -3107,7 +3130,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//LiteralEnvInstance expression::LiteralEnvInstance:
-	//	{expression::LiteralEnvInstance} symbol=('$env' | 'env')
+	//	{expression::LiteralEnvInstance} symbol=('$env' | 'env');
 	public LiteralEnvInstanceElements getLiteralEnvInstanceAccess() {
 		return pLiteralEnvInstance;
 	}
@@ -3121,7 +3144,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//////////////////////////////////////////////////////////////////////////////////
 	//EBoolean ecore::EBoolean:
 	//	'true'
-	//	| 'false'
+	//	| 'false';
 	public EBooleanElements getEBooleanAccess() {
 		return pEBoolean;
 	}
@@ -3137,7 +3160,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EChar ecore::EChar:
-	//	CHARACTER
+	//	CHARACTER;
 	public ECharElements getECharAccess() {
 		return pEChar;
 	}
@@ -3147,7 +3170,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ELong ecore::ELong:
-	//	'-'? INT
+	//	'-'? INT;
 	public ELongElements getELongAccess() {
 		return pELong;
 	}
@@ -3157,7 +3180,8 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EDouble ecore::EDouble:
-	//	'-'? INT? '.' INT
+	//	'-'? INT? '.' INT //(('E'|'e') '-'? INT)?
+	//;
 	public EDoubleElements getEDoubleAccess() {
 		return pEDouble;
 	}
@@ -3167,7 +3191,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EBigDecimal ecore::EBigDecimal:
-	//	INT? '.' INT
+	//	INT? '.' INT;
 	public EBigDecimalElements getEBigDecimalAccess() {
 		return pEBigDecimal;
 	}
@@ -3211,7 +3235,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//	'prototype'
 	//	name=UFI description=EString? 'as' '&'? type=UFI 'is'
 	//	element+=DeprecatedProperty*
-	//	'endprototype'
+	//	'endprototype';
 	public DeprecatedObjectElements getDeprecatedObjectAccess() {
 		return pDeprecatedObject;
 	}
@@ -3222,7 +3246,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//DeprecatedProperty sew::WProperty:
 	//	DeprecatedSection
-	//	| DeprecatedAttribute
+	//	| DeprecatedAttribute;
 	public DeprecatedPropertyElements getDeprecatedPropertyAccess() {
 		return pDeprecatedProperty;
 	}
@@ -3238,7 +3262,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//	element+=(DeprecatedAttribute | DeprecatedObject | Object)*
 	//	'endsection' XID?
 	//	| name=XID description=EString? ('[' element+=(DeprecatedAttribute | DeprecatedObject | Object)* ']'
-	//	| ':' element+=(DeprecatedAttribute | DeprecatedObject | Object)*)
+	//	| ':' element+=(DeprecatedAttribute | DeprecatedObject | Object)*);
 	public DeprecatedSectionElements getDeprecatedSectionAccess() {
 		return pDeprecatedSection;
 	}
@@ -3248,7 +3272,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//DeprecatedAttribute sew::WAttribute:
-	//	{sew::WAttribute} name=DeprecatedAttributeID '=' value=ValueSpecification ';'?
+	//	{sew::WAttribute} name=DeprecatedAttributeID '=' value=ValueSpecification ';'?;
 	public DeprecatedAttributeElements getDeprecatedAttributeAccess() {
 		return pDeprecatedAttribute;
 	}
@@ -3272,7 +3296,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	//	{expression::Expression}
 	//	'${'
 	//	operator=('|;|' | '|i|') operand+=ValueSpecification*
-	//	'}'
+	//	'}';
 	public DeprecatedExpressionElements getDeprecatedExpressionAccess() {
 		return pDeprecatedExpression;
 	}
@@ -3300,7 +3324,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal ML_COMMENT:
-	//	'/ *'->'* /';
+	//	'/*'->'*/';
 	public TerminalRule getML_COMMENTRule() {
 		return gaTerminals.getML_COMMENTRule();
 	}

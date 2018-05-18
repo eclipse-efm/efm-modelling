@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -16,10 +16,10 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.eclipse.efm.sew.xtext.SEWRuntimeModule;
 import org.eclipse.efm.sew.xtext.SEWStandaloneSetup;
-import org.eclipse.xtext.junit4.GlobalRegistries;
-import org.eclipse.xtext.junit4.GlobalRegistries.GlobalStateMemento;
-import org.eclipse.xtext.junit4.IInjectorProvider;
-import org.eclipse.xtext.junit4.IRegistryConfigurator;
+import org.eclipse.xtext.testing.GlobalRegistries;
+import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
+import org.eclipse.xtext.testing.IInjectorProvider;
+import org.eclipse.xtext.testing.IRegistryConfigurator;
 
 public class SEWInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
 

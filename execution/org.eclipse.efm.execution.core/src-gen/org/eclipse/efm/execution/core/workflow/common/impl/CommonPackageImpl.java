@@ -31,8 +31,11 @@ import org.eclipse.efm.execution.core.workflow.common.HeuristicClassKind;
 import org.eclipse.efm.execution.core.workflow.common.Location;
 import org.eclipse.efm.execution.core.workflow.common.Manifest;
 import org.eclipse.efm.execution.core.workflow.common.Project;
+import org.eclipse.efm.execution.core.workflow.common.RedundancyComparerOperation;
 import org.eclipse.efm.execution.core.workflow.common.RedundancyDetection;
+import org.eclipse.efm.execution.core.workflow.common.RedundancyPathScope;
 import org.eclipse.efm.execution.core.workflow.common.ShellMode;
+import org.eclipse.efm.execution.core.workflow.common.SolverKind;
 import org.eclipse.efm.execution.core.workflow.common.SymbexOption;
 import org.eclipse.efm.execution.core.workflow.common.TraceElement;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
@@ -42,6 +45,10 @@ import org.eclipse.efm.execution.core.workflow.common.Workspace;
 import org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage;
 
 import org.eclipse.efm.execution.core.workflow.coverage.impl.CoveragePackageImpl;
+
+import org.eclipse.efm.execution.core.workflow.extraneous.ExtraneousPackage;
+
+import org.eclipse.efm.execution.core.workflow.extraneous.impl.ExtraneousPackageImpl;
 
 import org.eclipse.efm.execution.core.workflow.impl.WorkflowPackageImpl;
 
@@ -199,6 +206,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum solverKindEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum heuristicClassKindEEnum = null;
 
 	/**
@@ -221,6 +235,20 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * @generated
 	 */
 	private EEnum debuglevelKindEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum redundancyPathScopeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum redundancyComparerOperationEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -271,6 +299,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		// Obtain or create and register interdependencies
 		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) instanceof WorkflowPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) : WorkflowPackage.eINSTANCE);
 		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) instanceof CoveragePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) : CoveragePackage.eINSTANCE);
+		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) instanceof ExtraneousPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) : ExtraneousPackage.eINSTANCE);
 		TestPackageImpl theTestPackage = (TestPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) instanceof TestPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) : TestPackage.eINSTANCE);
 		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) instanceof SerializerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) : SerializerPackage.eINSTANCE);
 
@@ -278,6 +307,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		theCommonPackage.createPackageContents();
 		theWorkflowPackage.createPackageContents();
 		theCoveragePackage.createPackageContents();
+		theExtraneousPackage.createPackageContents();
 		theTestPackage.createPackageContents();
 		theSerializerPackage.createPackageContents();
 
@@ -285,6 +315,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		theCommonPackage.initializePackageContents();
 		theWorkflowPackage.initializePackageContents();
 		theCoveragePackage.initializePackageContents();
+		theExtraneousPackage.initializePackageContents();
 		theTestPackage.initializePackageContents();
 		theSerializerPackage.initializePackageContents();
 
@@ -347,7 +378,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLocation_Output() {
+	public EAttribute getLocation_Launch() {
 		return (EAttribute)locationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -356,7 +387,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLocation_Log() {
+	public EAttribute getLocation_Output() {
 		return (EAttribute)locationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -365,8 +396,17 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLocation_Debug() {
+	public EAttribute getLocation_Log() {
 		return (EAttribute)locationEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLocation_Debug() {
+		return (EAttribute)locationEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -491,7 +531,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGraphExplorationQueue_Heuristic() {
+	public EAttribute getGraphExplorationQueue_HeuristicEnabled() {
 		return (EAttribute)graphExplorationQueueEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -565,6 +605,33 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 */
 	public EAttribute getConsoleLogFormat_Verbosity() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConsoleLogFormat_SpiderInit() {
+		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConsoleLogFormat_SpiderStep() {
+		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConsoleLogFormat_SpiderStop() {
+		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1337,7 +1404,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRedundancyDetection_Comparer() {
+	public EAttribute getRedundancyDetection_EnabledDetetction() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1346,7 +1413,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRedundancyDetection_Solver() {
+	public EAttribute getRedundancyDetection_PathScope() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1355,7 +1422,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRedundancyDetection_PathScope() {
+	public EAttribute getRedundancyDetection_ComparerOperation() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1364,7 +1431,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRedundancyDetection_DataScope() {
+	public EAttribute getRedundancyDetection_SolverChoice() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1373,8 +1440,17 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRedundancyDetection_LoopDetetctionTrivial() {
+	public EAttribute getRedundancyDetection_DataScope() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRedundancyDetection_EnabledTrivialLoopDetetction() {
+		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1418,6 +1494,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getSolverKind() {
+		return solverKindEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getHeuristicClassKind() {
 		return heuristicClassKindEEnum;
 	}
@@ -1454,6 +1539,24 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getRedundancyPathScope() {
+		return redundancyPathScopeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getRedundancyComparerOperation() {
+		return redundancyComparerOperationEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public CommonFactory getCommonFactory() {
 		return (CommonFactory)getEFactoryInstance();
 	}
@@ -1483,6 +1586,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 
 		locationEClass = createEClass(LOCATION);
 		createEAttribute(locationEClass, LOCATION__ROOT);
+		createEAttribute(locationEClass, LOCATION__LAUNCH);
 		createEAttribute(locationEClass, LOCATION__OUTPUT);
 		createEAttribute(locationEClass, LOCATION__LOG);
 		createEAttribute(locationEClass, LOCATION__DEBUG);
@@ -1502,7 +1606,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 
 		graphExplorationQueueEClass = createEClass(GRAPH_EXPLORATION_QUEUE);
 		createEAttribute(graphExplorationQueueEClass, GRAPH_EXPLORATION_QUEUE__STRATEGY);
-		createEAttribute(graphExplorationQueueEClass, GRAPH_EXPLORATION_QUEUE__HEURISTIC);
+		createEAttribute(graphExplorationQueueEClass, GRAPH_EXPLORATION_QUEUE__HEURISTIC_ENABLED);
 		createEAttribute(graphExplorationQueueEClass, GRAPH_EXPLORATION_QUEUE__WEIGHT);
 
 		consoleLogFormatEClass = createEClass(CONSOLE_LOG_FORMAT);
@@ -1512,6 +1616,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__RESULT);
 		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__REPORT);
 		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__VERBOSITY);
+		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__SPIDER_INIT);
+		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__SPIDER_STEP);
+		createEAttribute(consoleLogFormatEClass, CONSOLE_LOG_FORMAT__SPIDER_STOP);
 
 		traceElementEClass = createEClass(TRACE_ELEMENT);
 		createEAttribute(traceElementEClass, TRACE_ELEMENT__SELECTED);
@@ -1605,21 +1712,25 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(developerTuningOptionEClass, DEVELOPER_TUNING_OPTION__ENABLED_GOD_MODE);
 
 		redundancyDetectionEClass = createEClass(REDUNDANCY_DETECTION);
-		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__COMPARER);
-		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__SOLVER);
+		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__ENABLED_DETETCTION);
 		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__PATH_SCOPE);
+		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__COMPARER_OPERATION);
+		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__SOLVER_CHOICE);
 		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__DATA_SCOPE);
-		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL);
+		createEAttribute(redundancyDetectionEClass, REDUNDANCY_DETECTION__ENABLED_TRIVIAL_LOOP_DETETCTION);
 
 		// Create enums
 		analysisProfileKindEEnum = createEEnum(ANALYSIS_PROFILE_KIND);
 		graphExplorationStrategyKindEEnum = createEEnum(GRAPH_EXPLORATION_STRATEGY_KIND);
 		consoleVerbosityKindEEnum = createEEnum(CONSOLE_VERBOSITY_KIND);
 		traceElementKindEEnum = createEEnum(TRACE_ELEMENT_KIND);
+		solverKindEEnum = createEEnum(SOLVER_KIND);
 		heuristicClassKindEEnum = createEEnum(HEURISTIC_CLASS_KIND);
 		coverageScopeKindEEnum = createEEnum(COVERAGE_SCOPE_KIND);
 		checkingScopeKindEEnum = createEEnum(CHECKING_SCOPE_KIND);
 		debuglevelKindEEnum = createEEnum(DEBUGLEVEL_KIND);
+		redundancyPathScopeEEnum = createEEnum(REDUNDANCY_PATH_SCOPE);
+		redundancyComparerOperationEEnum = createEEnum(REDUNDANCY_COMPARER_OPERATION);
 	}
 
 	/**
@@ -1662,6 +1773,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 
 		initEClass(locationEClass, Location.class, "Location", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLocation_Root(), ecorePackage.getEString(), "root", null, 0, 1, Location.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLocation_Launch(), ecorePackage.getEString(), "launch", null, 0, 1, Location.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLocation_Output(), ecorePackage.getEString(), "output", "output", 0, 1, Location.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLocation_Log(), ecorePackage.getEString(), "log", "log", 0, 1, Location.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLocation_Debug(), ecorePackage.getEString(), "debug", "debug", 0, 1, Location.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1681,7 +1793,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 
 		initEClass(graphExplorationQueueEClass, GraphExplorationQueue.class, "GraphExplorationQueue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGraphExplorationQueue_Strategy(), this.getGraphExplorationStrategyKind(), "strategy", "BREADTH_FIRST_SEARCH", 0, 1, GraphExplorationQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGraphExplorationQueue_Heuristic(), ecorePackage.getEBoolean(), "heuristic", null, 0, 1, GraphExplorationQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationQueue_HeuristicEnabled(), ecorePackage.getEBoolean(), "heuristicEnabled", null, 0, 1, GraphExplorationQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGraphExplorationQueue_Weight(), ecorePackage.getEInt(), "weight", null, 0, 1, GraphExplorationQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(consoleLogFormatEClass, ConsoleLogFormat.class, "ConsoleLogFormat", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1691,6 +1803,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getConsoleLogFormat_Result(), ecorePackage.getEString(), "result", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConsoleLogFormat_Report(), ecorePackage.getEString(), "report", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConsoleLogFormat_Verbosity(), this.getConsoleVerbosityKind(), "verbosity", "UNDEFINED", 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConsoleLogFormat_SpiderInit(), ecorePackage.getEString(), "spiderInit", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConsoleLogFormat_SpiderStep(), ecorePackage.getEString(), "spiderStep", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConsoleLogFormat_SpiderStop(), ecorePackage.getEString(), "spiderStop", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(traceElementEClass, TraceElement.class, "TraceElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTraceElement_Selected(), ecorePackage.getEBoolean(), "selected", "true", 0, 1, TraceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1784,11 +1899,12 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getDeveloperTuningOption_EnabledGodMode(), ecorePackage.getEBoolean(), "enabledGodMode", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(redundancyDetectionEClass, RedundancyDetection.class, "RedundancyDetection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRedundancyDetection_Comparer(), ecorePackage.getEString(), "comparer", "INCLUSION", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRedundancyDetection_Solver(), ecorePackage.getEString(), "solver", "OMEGA", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRedundancyDetection_PathScope(), ecorePackage.getEString(), "pathScope", "CURRENT", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_EnabledDetetction(), ecorePackage.getEBoolean(), "enabledDetetction", "true", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_PathScope(), this.getRedundancyPathScope(), "pathScope", "CURRENT", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_ComparerOperation(), this.getRedundancyComparerOperation(), "comparerOperation", "INCLUSION", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_SolverChoice(), this.getSolverKind(), "solverChoice", "OMEGA", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRedundancyDetection_DataScope(), ecorePackage.getEString(), "dataScope", "ALL", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRedundancyDetection_LoopDetetctionTrivial(), ecorePackage.getEBoolean(), "loopDetetctionTrivial", "true", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_EnabledTrivialLoopDetetction(), ecorePackage.getEBoolean(), "enabledTrivialLoopDetetction", "true", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(analysisProfileKindEEnum, AnalysisProfileKind.class, "AnalysisProfileKind");
@@ -1798,6 +1914,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_BEHAVIOR_SELECTION_PROFILE);
 		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_TEST_OFFLINE_PROFILE);
 		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_ACSL_GENERATION_PROFILE);
+		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_EXTRANEOUS_PROFILE);
 
 		initEEnum(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.class, "GraphExplorationStrategyKind");
 		addEEnumLiteral(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.BEST_FIRST_SEARCH);
@@ -1854,9 +1971,12 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.RUNNABLE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.ROUTINE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.TRANSITION);
-		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.MACHINE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.STATE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.STATEMACHINE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.MODEL_MACHINE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.PROTOTYPE_MACHINE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.INSTANCE_MACHINE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.MACHINE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.SYSTEM);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.FILE_HEADER);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.FILE_BEGIN);
@@ -1897,6 +2017,12 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_STRUCT_END);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.TIPS);
 
+		initEEnum(solverKindEEnum, SolverKind.class, "SolverKind");
+		addEEnumLiteral(solverKindEEnum, SolverKind.CVC4);
+		addEEnumLiteral(solverKindEEnum, SolverKind.Z3);
+		addEEnumLiteral(solverKindEEnum, SolverKind.YICES2);
+		addEEnumLiteral(solverKindEEnum, SolverKind.OMEGA);
+
 		initEEnum(heuristicClassKindEEnum, HeuristicClassKind.class, "HeuristicClassKind");
 		addEEnumLiteral(heuristicClassKindEEnum, HeuristicClassKind.BASIC);
 		addEEnumLiteral(heuristicClassKindEEnum, HeuristicClassKind.NAIVE);
@@ -1921,6 +2047,19 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(debuglevelKindEEnum, DebuglevelKind.HIGH);
 		addEEnumLiteral(debuglevelKindEEnum, DebuglevelKind.ULTRA);
 		addEEnumLiteral(debuglevelKindEEnum, DebuglevelKind.GOD_MODE);
+
+		initEEnum(redundancyPathScopeEEnum, RedundancyPathScope.class, "RedundancyPathScope");
+		addEEnumLiteral(redundancyPathScopeEEnum, RedundancyPathScope.ALL);
+		addEEnumLiteral(redundancyPathScopeEEnum, RedundancyPathScope.CURRENT);
+		addEEnumLiteral(redundancyPathScopeEEnum, RedundancyPathScope.PARENT);
+
+		initEEnum(redundancyComparerOperationEEnum, RedundancyComparerOperation.class, "RedundancyComparerOperation");
+		addEEnumLiteral(redundancyComparerOperationEEnum, RedundancyComparerOperation.INCLUSION);
+		addEEnumLiteral(redundancyComparerOperationEEnum, RedundancyComparerOperation.EQUALITY);
+		addEEnumLiteral(redundancyComparerOperationEEnum, RedundancyComparerOperation.SYNTAXIC_EQUALITY);
+		addEEnumLiteral(redundancyComparerOperationEEnum, RedundancyComparerOperation.ALPHA_EQUIVALENCE);
+		addEEnumLiteral(redundancyComparerOperationEEnum, RedundancyComparerOperation.TRIVIALLY_EQUALITY);
+		addEEnumLiteral(redundancyComparerOperationEEnum, RedundancyComparerOperation.CONTROL_STATE);
 	}
 
 } //CommonPackageImpl

@@ -12,9 +12,12 @@
  */
 package org.eclipse.efm.ecore.formalml.infrastructure.impl;
 
+import org.eclipse.efm.ecore.formalml.common.impl.AbstractElementImpl;
+
 import org.eclipse.efm.ecore.formalml.datatype.CollectionType;
 
-import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
+import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification;
+
 import org.eclipse.efm.ecore.formalml.infrastructure.ComCastKind;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocolKind;
@@ -27,7 +30,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,12 +42,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ComProtocolImpl#getProtocol <em>Protocol</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ComProtocolImpl#getCast <em>Cast</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ComProtocolImpl#getInner_buffer <em>Inner buffer</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ComProtocolImpl#getRef_buffer <em>Ref buffer</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ComProtocolImpl#getBuffer <em>Buffer</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ComProtocolImpl extends MinimalEObjectImpl.Container implements ComProtocol {
+public class ComProtocolImpl extends AbstractElementImpl implements ComProtocol {
 	/**
 	 * The default value of the '{@link #getProtocol() <em>Protocol</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -97,14 +99,14 @@ public class ComProtocolImpl extends MinimalEObjectImpl.Container implements Com
 	protected CollectionType inner_buffer;
 
 	/**
-	 * The cached value of the '{@link #getRef_buffer() <em>Ref buffer</em>}' reference.
+	 * The cached value of the '{@link #getBuffer() <em>Buffer</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRef_buffer()
+	 * @see #getBuffer()
 	 * @generated
 	 * @ordered
 	 */
-	protected Buffer ref_buffer;
+	protected ValueElementSpecification buffer;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -215,16 +217,23 @@ public class ComProtocolImpl extends MinimalEObjectImpl.Container implements Com
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Buffer getRef_buffer() {
-		if (ref_buffer != null && ref_buffer.eIsProxy()) {
-			InternalEObject oldRef_buffer = (InternalEObject)ref_buffer;
-			ref_buffer = (Buffer)eResolveProxy(oldRef_buffer);
-			if (ref_buffer != oldRef_buffer) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InfrastructurePackage.COM_PROTOCOL__REF_BUFFER, oldRef_buffer, ref_buffer));
-			}
+	public ValueElementSpecification getBuffer() {
+		return buffer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetBuffer(ValueElementSpecification newBuffer, NotificationChain msgs) {
+		ValueElementSpecification oldBuffer = buffer;
+		buffer = newBuffer;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.COM_PROTOCOL__BUFFER, oldBuffer, newBuffer);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return ref_buffer;
+		return msgs;
 	}
 
 	/**
@@ -232,20 +241,18 @@ public class ComProtocolImpl extends MinimalEObjectImpl.Container implements Com
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Buffer basicGetRef_buffer() {
-		return ref_buffer;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRef_buffer(Buffer newRef_buffer) {
-		Buffer oldRef_buffer = ref_buffer;
-		ref_buffer = newRef_buffer;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.COM_PROTOCOL__REF_BUFFER, oldRef_buffer, ref_buffer));
+	public void setBuffer(ValueElementSpecification newBuffer) {
+		if (newBuffer != buffer) {
+			NotificationChain msgs = null;
+			if (buffer != null)
+				msgs = ((InternalEObject)buffer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.COM_PROTOCOL__BUFFER, null, msgs);
+			if (newBuffer != null)
+				msgs = ((InternalEObject)newBuffer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.COM_PROTOCOL__BUFFER, null, msgs);
+			msgs = basicSetBuffer(newBuffer, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.COM_PROTOCOL__BUFFER, newBuffer, newBuffer));
 	}
 
 	/**
@@ -258,6 +265,8 @@ public class ComProtocolImpl extends MinimalEObjectImpl.Container implements Com
 		switch (featureID) {
 			case InfrastructurePackage.COM_PROTOCOL__INNER_BUFFER:
 				return basicSetInner_buffer(null, msgs);
+			case InfrastructurePackage.COM_PROTOCOL__BUFFER:
+				return basicSetBuffer(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -276,9 +285,8 @@ public class ComProtocolImpl extends MinimalEObjectImpl.Container implements Com
 				return getCast();
 			case InfrastructurePackage.COM_PROTOCOL__INNER_BUFFER:
 				return getInner_buffer();
-			case InfrastructurePackage.COM_PROTOCOL__REF_BUFFER:
-				if (resolve) return getRef_buffer();
-				return basicGetRef_buffer();
+			case InfrastructurePackage.COM_PROTOCOL__BUFFER:
+				return getBuffer();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -300,8 +308,8 @@ public class ComProtocolImpl extends MinimalEObjectImpl.Container implements Com
 			case InfrastructurePackage.COM_PROTOCOL__INNER_BUFFER:
 				setInner_buffer((CollectionType)newValue);
 				return;
-			case InfrastructurePackage.COM_PROTOCOL__REF_BUFFER:
-				setRef_buffer((Buffer)newValue);
+			case InfrastructurePackage.COM_PROTOCOL__BUFFER:
+				setBuffer((ValueElementSpecification)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -324,8 +332,8 @@ public class ComProtocolImpl extends MinimalEObjectImpl.Container implements Com
 			case InfrastructurePackage.COM_PROTOCOL__INNER_BUFFER:
 				setInner_buffer((CollectionType)null);
 				return;
-			case InfrastructurePackage.COM_PROTOCOL__REF_BUFFER:
-				setRef_buffer((Buffer)null);
+			case InfrastructurePackage.COM_PROTOCOL__BUFFER:
+				setBuffer((ValueElementSpecification)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -345,8 +353,8 @@ public class ComProtocolImpl extends MinimalEObjectImpl.Container implements Com
 				return cast != CAST_EDEFAULT;
 			case InfrastructurePackage.COM_PROTOCOL__INNER_BUFFER:
 				return inner_buffer != null;
-			case InfrastructurePackage.COM_PROTOCOL__REF_BUFFER:
-				return ref_buffer != null;
+			case InfrastructurePackage.COM_PROTOCOL__BUFFER:
+				return buffer != null;
 		}
 		return super.eIsSet(featureID);
 	}

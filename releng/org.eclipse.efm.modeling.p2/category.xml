@@ -3,15 +3,9 @@
    <feature url="features/org.eclipse.efm.modeling.feature_0.0.1.qualifier.jar" id="org.eclipse.efm.modeling.feature" version="0.0.1.qualifier">
       <category name="org.eclipse.efm.category"/>
    </feature>
-   <feature url="features/org.eclipse.efm.modeling.feature.source_0.0.1.qualifier.jar" id="org.eclipse.efm.modeling.feature.source" version="0.0.1.qualifier">
-      <category name="org.eclipse.efm.category"/>
-   </feature>
-   <category-def name="org.eclipse.efm.category" label="EFM org.eclipse.efm-modeling Category">
+   <category-def name="org.eclipse.efm.category" label="EFM Modeling Category">
       <description>
-         EFM org.eclipse.efm-modeling Category
+         EFM Modeling  Category
       </description>
    </category-def>
-   <repository-reference location="http://download.eclipse.org/modeling/mdt/papyrus/updates/nightly/neon/main/" enabled="true" />
-   <repository-reference location="http://download.eclipse.org/modeling/mdt/papyrus/components/designer/" enabled="true" />
-   <repository-reference location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.10.0/" enabled="true" />
 </site>

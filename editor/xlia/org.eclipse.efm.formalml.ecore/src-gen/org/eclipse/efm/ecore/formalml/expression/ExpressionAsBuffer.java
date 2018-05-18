@@ -12,7 +12,6 @@
  */
 package org.eclipse.efm.ecore.formalml.expression;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ExpressionAsBuffer extends EObject {
+public interface ExpressionAsBuffer extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Buffer</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

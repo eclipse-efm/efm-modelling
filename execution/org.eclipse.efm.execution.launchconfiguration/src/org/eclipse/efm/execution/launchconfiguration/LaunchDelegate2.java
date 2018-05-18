@@ -1341,13 +1341,13 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //
 //		int cmdLineLength = 2 + ((arguments != null) ? arguments.length : 0);
 //
-//		String[] cmdLine = new String[cmdLineLength];
+//		String[] commandLine = new String[cmdLineLength];
 //
-//		cmdLine[0] = fAvmExecLocation.toOSString();
-//		cmdLine[1] = fFavmLocation.toOSString();
+//		commandLine[0] = fAvmExecLocation.toOSString();
+//		commandLine[1] = fFavmLocation.toOSString();
 //
 //		if (arguments != null) {
-//			System.arraycopy(arguments, 0, cmdLine, 1, arguments.length);
+//			System.arraycopy(arguments, 0, commandLine, 1, arguments.length);
 //		}
 //
 //		if (monitor.isCanceled()) {
@@ -1372,17 +1372,10 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //		String consoleLevel = configuration.getAttribute(
 //				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, "MINIMUM");
 //
-//		boolean spiderView = prefs.getBoolean(
-//				ToolConstants.PREF_SPIDER_VIEW);
-//
-//		boolean consoleView = prefs.getBoolean(
-//				ToolConstants.PREF_CONSOLE_VIEW);
-//
-//
 //// Modif pour non-régression
 ////
 ////		defaultLaunchExecProcess(configuration, mode, launch,
-////				monitor,cmdLine, workingDir, envp);
+////				monitor,commandLine, workingDir, envp);
 ////
 ////		System.out.println("Debut deuxieme execution");
 ////		try {
@@ -1392,29 +1385,25 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 ////		}
 ////
 ////		defaultLaunchExecProcess(configuration, mode, launch,
-////				monitor,cmdLine, workingDir, envp);
+////				monitor,commandLine, workingDir, envp);
 //
-//
-//
-//
-//		if ( spiderView &&
-//			((! debugOptionMode) || consoleLevel.equals("MINIMUM")) ) {
+//		if( (! debugOptionMode) || consoleLevel.equals("MINIMUM") ) {
 //			fConsoleManager.sewLaunchExecProcess(configuration, mode, launch,
-//					monitor,cmdLine, workingDir, envp);
+//					monitor,commandLine, workingDir, envp);
 //		}
-//		else if ( consoleView ){
+//		else {
 //			// Console par défault
 //			defaultLaunchExecProcess(configuration, mode, launch,
-//					monitor,cmdLine, workingDir, envp);
+//					monitor,commandLine, workingDir, envp);
 //		}
 //	}
 //
 //	protected void defaultLaunchExecProcess(ILaunchConfiguration configuration,
 //			String mode, ILaunch launch, IProgressMonitor monitor,
-//			String[] cmdLine, File workingDir, String[] envp)
+//			String[] commandLine, File workingDir, String[] envp)
 //					throws CoreException {
 //
-//		Process javaProcess = DebugPlugin.exec(cmdLine, workingDir, envp);
+//		Process javaProcess = DebugPlugin.exec(commandLine, workingDir, envp);
 //		IProcess eclipseProcess = null;
 //
 //		// add process type to process attributes
@@ -1457,7 +1446,7 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //		}
 //
 //		eclipseProcess.setAttribute(
-//				IProcess.ATTR_CMDLINE, generateCommandLine(cmdLine));
+//				IProcess.ATTR_CMDLINE, generateCommandLine(commandLine));
 //
 //		if( configuration.getAttribute(
 //				IDebugUIConstants.ATTR_LAUNCH_IN_BACKGROUND, true) ) {

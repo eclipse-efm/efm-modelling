@@ -21,8 +21,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationListener;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 
 public class LaunchConfigurationManager implements ILaunchConfigurationListener {
 

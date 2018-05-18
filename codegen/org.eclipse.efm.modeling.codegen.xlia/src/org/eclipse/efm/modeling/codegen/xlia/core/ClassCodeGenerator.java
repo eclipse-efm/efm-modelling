@@ -22,7 +22,9 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.uml.Behavior;
+import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Connector;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
@@ -181,6 +183,22 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			List<Property> blockInstances,
 			List<Behavior> blockBehaviors,
 			ArrayList<Class> machinesAsConfiguration) {
+		
+		for( Classifier classifier : pack.getNestedClassifiers() ) {
+			if( classifier instanceof DataType ) {
+				properties.add( classifier );
+			}
+			else if( classifier instanceof Signal ) {
+				properties.add( classifier );
+			}
+			else if( classifier instanceof StructuredClassifier ) {
+//				StructuredClassifier.add( classifier ); TODO
+			}
+			else if( classifier instanceof BehavioredClassifier ) {
+//				BehavioredClassifier.add( classifier ); TODO
+			}
+		}
+		
 		for( Property itAttribute : pack.getOwnedAttributes() ) {
 			if( isPart(itAttribute) ) {
 				blockInstances.add( itAttribute );
@@ -253,6 +271,41 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 	}
 
 
+	public void collectGlobalElement(Element element,
+			List<DataType> datatypes, List<Signal> signals) {
+		for( EObject container = element.eContainer() ; container != null ;
+				container = container.eContainer() ) {
+			if( container instanceof Package ) {
+				collectGlobalElement((Package) container, datatypes, signals);
+			}
+		}
+	}
+
+	public void collectGlobalElement(Package packageElement, 
+			List<DataType> datatypes, List<Signal> signals) {
+		for( PackageableElement itPE : packageElement.getPackagedElements() ) {
+			if( itPE instanceof DataType ) {
+				datatypes.add( (DataType)itPE );
+			}
+			else if( itPE instanceof Signal ) {
+				signals.add( (Signal)itPE );
+			}
+
+//			else if( itPE instanceof Class ) {
+//				Class itClass = (Class) itPE;
+//TODO
+//			}
+
+			else if( itPE instanceof Package )  {
+				collectGlobalElement((Package)itPE, datatypes, signals);
+			}
+			else {
+			}
+		}
+	}
+
+
+	
 	/**
 	 * performTransform a Model element to a writer
 	 * @param element
@@ -930,9 +983,9 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		//
 		writer.appendTabEol("@property:");
 
-		writer.appendTab2("public buffer fifo<*> buffer_")
-				.append(element.getName())
-				.appendEol2(";");
+//		writer.appendTab2("public buffer fifo<*> buffer_")
+//				.append(element.getName())
+//				.appendEol2(";");
 
 		
 		behaviors.add(lifelineBehavior);
@@ -989,6 +1042,13 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			}
 			writer.appendTab2Eol2("}");
 
+			// Section irun
+			
+//			writer.appendTab2Eol("@irun{");
+//			writer.appendTab3Eol("currentCall = EMPTY_CALL;");
+//			writer.appendTab2Eol2("}");
+//			
+			
 			// Section schedule
 			//
 			writer.appendTab2("@schedule{");

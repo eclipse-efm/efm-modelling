@@ -12,7 +12,8 @@
  */
 package org.eclipse.efm.ecore.formalml.expression.impl;
 
-import org.eclipse.efm.ecore.formalml.common.Type;
+import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceType;
+
 import org.eclipse.efm.ecore.formalml.expression.ExpressionPackage;
 import org.eclipse.efm.ecore.formalml.expression.LiteralNullExpression;
 
@@ -46,7 +47,8 @@ public class LiteralNullExpressionImpl extends LiteralExpressionImpl implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected Type type;
+	protected PrimitiveInstanceType type;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -71,7 +73,7 @@ public class LiteralNullExpressionImpl extends LiteralExpressionImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Type getType() {
+	public PrimitiveInstanceType getType() {
 		return type;
 	}
 
@@ -80,8 +82,8 @@ public class LiteralNullExpressionImpl extends LiteralExpressionImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetType(Type newType, NotificationChain msgs) {
-		Type oldType = type;
+	public NotificationChain basicSetType(PrimitiveInstanceType newType, NotificationChain msgs) {
+		PrimitiveInstanceType oldType = type;
 		type = newType;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.LITERAL_NULL_EXPRESSION__TYPE, oldType, newType);
@@ -95,7 +97,7 @@ public class LiteralNullExpressionImpl extends LiteralExpressionImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(Type newType) {
+	public void setType(PrimitiveInstanceType newType) {
 		if (newType != type) {
 			NotificationChain msgs = null;
 			if (type != null)
@@ -146,7 +148,7 @@ public class LiteralNullExpressionImpl extends LiteralExpressionImpl implements 
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ExpressionPackage.LITERAL_NULL_EXPRESSION__TYPE:
-				setType((Type)newValue);
+				setType((PrimitiveInstanceType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,7 +163,7 @@ public class LiteralNullExpressionImpl extends LiteralExpressionImpl implements 
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ExpressionPackage.LITERAL_NULL_EXPRESSION__TYPE:
-				setType((Type)null);
+				setType((PrimitiveInstanceType)null);
 				return;
 		}
 		super.eUnset(featureID);

@@ -25,12 +25,6 @@ import org.eclipse.ui.console.TextConsoleViewer;
 
 public class SEWConsoleViewer extends TextConsoleViewer {
 
-	/**
-	 * Console view identifier (value <code>"org.eclipse.ui.console.ConsoleView"</code>).
-	 */
-	public static final String ID_SEW_CONSOLE_VIEW =
-			"org.eclipse.efm.execution.launchconfiguration.ui.views.SymbolicExecutionView"; //$NON-NLS-1$
-
     /**
      * will always scroll with output if value is true.
      */

@@ -12,11 +12,12 @@
  */
 package org.eclipse.efm.ecore.formalml.infrastructure;
 
+import org.eclipse.efm.ecore.formalml.common.AbstractElement;
+
 import org.eclipse.efm.ecore.formalml.expression.Expression;
+import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification;
 
 import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,7 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ComPoint extends EObject {
+public interface ComPoint extends AbstractElement {
 	/**
 	 * Returns the value of the '<em><b>Direction</b></em>' attribute.
 	 * The default value is <code>"inout"</code>.
@@ -103,12 +104,12 @@ public interface ComPoint extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Point</em>' containment reference.
-	 * @see #setPoint(Expression)
+	 * @see #setPoint(ValueElementSpecification)
 	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComPoint_Point()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Expression getPoint();
+	ValueElementSpecification getPoint();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPoint <em>Point</em>}' containment reference.
@@ -118,7 +119,7 @@ public interface ComPoint extends EObject {
 	 * @see #getPoint()
 	 * @generated
 	 */
-	void setPoint(Expression value);
+	void setPoint(ValueElementSpecification value);
 
 	/**
 	 * Returns the value of the '<em><b>Points</b></em>' containment reference list.

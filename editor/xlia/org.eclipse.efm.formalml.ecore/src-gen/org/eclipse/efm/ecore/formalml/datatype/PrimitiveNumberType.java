@@ -72,7 +72,7 @@ public interface PrimitiveNumberType extends PrimitiveType {
 	 * @return the value of the '<em>Size</em>' attribute.
 	 * @see #setSize(int)
 	 * @see org.eclipse.efm.ecore.formalml.datatype.DatatypePackage#getPrimitiveNumberType_Size()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getSize();

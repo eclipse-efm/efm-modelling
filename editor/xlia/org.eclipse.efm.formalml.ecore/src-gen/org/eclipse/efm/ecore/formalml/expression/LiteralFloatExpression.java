@@ -41,7 +41,7 @@ public interface LiteralFloatExpression extends LiteralExpression {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(double)
 	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getLiteralFloatExpression_Value()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	double getValue();

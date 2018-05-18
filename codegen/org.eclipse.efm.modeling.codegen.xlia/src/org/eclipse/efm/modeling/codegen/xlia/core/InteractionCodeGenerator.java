@@ -11,22 +11,33 @@
 package org.eclipse.efm.modeling.codegen.xlia.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+
+//import org.eclipse.efm.modeling.codegen.xlia.core.DataTypeCodeGenerator;
+
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.efm.modeling.codegen.xlia.util.StatemachineContext;
 import org.eclipse.efm.modeling.codegen.xlia.util.UmlFactory;
+import org.eclipse.efm.modeling.codegen.xlia.util.StatemachineContext.CONTEXT;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
+import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.CombinedFragment;
+import org.eclipse.uml2.uml.ConnectableElement;
 import org.eclipse.uml2.uml.Constraint;
+import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.Expression;
+import org.eclipse.uml2.uml.FunctionBehavior;
 import org.eclipse.uml2.uml.Gate;
 import org.eclipse.uml2.uml.Interaction;
 import org.eclipse.uml2.uml.InteractionConstraint;
@@ -39,11 +50,15 @@ import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.OpaqueBehavior;
 import org.eclipse.uml2.uml.OpaqueExpression;
+import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.Parameter;
+import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.State;
 import org.eclipse.uml2.uml.TimeObservation;
 import org.eclipse.uml2.uml.Transition;
+import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.internal.impl.BehaviorExecutionSpecificationImpl;
@@ -69,20 +84,20 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 	 */
 	public void performTransformImpl(Element element, PrettyPrintWriter writer) {
 		if( element instanceof Interaction ) {
-			transformInteraction((Interaction)element, null, writer);
+			transformInteraction((Interaction)element, writer);
 		}
 
 		else if( element instanceof Lifeline ) {
-			transformLifeline((Lifeline)element, null, writer);
+			transformLifeline((Lifeline)element, writer);
 		}
 		
 		else if( element instanceof InteractionOperand ) {
 			transformFragment(
-					(InteractionOperand)element, null, writer);
+					(InteractionOperand)element, writer);
 		}
 		
 		else if( element instanceof CombinedFragment ) {
-			transformFragment((CombinedFragment)element, null, writer);
+			transformFragment((CombinedFragment)element, writer);
 		}
 		
 		else if( element instanceof Message ) {
@@ -90,11 +105,11 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 		}
 		else if( element instanceof MessageOccurrenceSpecification ) {
 			transformFragment(
-					(MessageOccurrenceSpecification)element, null, writer);
+					(MessageOccurrenceSpecification)element, writer);
 		}
 		
 		else if( element instanceof BehaviorExecutionSpecification ) {
-			transformFragment((BehaviorExecutionSpecification)element, null, writer);
+			transformFragment((BehaviorExecutionSpecification)element, writer);
 		}
 
 		else {
@@ -151,138 +166,263 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 	 * @param element
 	 * @param writer
 	 */
-	public void transformInteraction(Interaction element,
+	public void transformInteraction(Interaction element, Collection<Lifeline> lifelines,
 			StatemachineContext lfContext, PrettyPrintWriter writer) {
-		if( lfContext == null ) {
-			writer.appendTabEol2(ClassCodeGenerator.XLIA_SYSTEM_1_0);
 
-			writer.appendTab("system< and > ")
-				.append(element.getName())
-				.appendEol(" {");
+		writer.appendTabEol2(ClassCodeGenerator.XLIA_SYSTEM_1_0);
+
+		writer.appendTab("system< and > ")
+			.append(element.getName())
+			.appendEol(" {");
+		
+		ArrayList<DataType> datatypes = new ArrayList<DataType>();
+		ArrayList<Signal> signals = new ArrayList<Signal>();
+		fSupervisor.fClassFactory.collectGlobalElement(element, datatypes, signals);
+		
+		PrettyPrintWriter writer2 = writer.itab2();
+		
+		Map<NamedElement, Boolean> declaredSignatures = new HashMap<NamedElement, Boolean>();
+		writer.appendEol("@property: ");
+		writer.appendTabEol("// GLOBAL DATA TYPES");
+		for (DataType datatype : datatypes) {
+			fSupervisor.fDataTypeFactory.performTransformImpl(datatype, writer2);
+		}
+		
+//		for( Lifeline lifeline : lifelines ) {
+//			ConnectableElement representedClass = lifeline.getRepresents();
+//			if( representedClass instanceof Property ) {
+//				Class clazz = (Class) (((Property)representedClass).getType());
+//
+//				for( Classifier classifier : clazz.getNestedClassifiers() ) {
+//					if( classifier instanceof DataType ) {
+//						if( ! classifier.getRedefinedClassifiers().isEmpty() ) {
+//							writer.appendTab("type ").append(classifier.getName()).append(' ');
+//
+//							for (Classifier redefClassifier : classifier.getRedefinedClassifiers()) {
+//								if( redefClassifier instanceof Type ) {
+//									writer.append(typeName((Type)redefClassifier));
+//									break;
+//								}
+//							}		
+//							writer.appendEol(";");
+//						}
+//					}
+//				}
+//			}
+//		}
+		
+		
+		writer.appendTabEol("// message");
+		for( Message message : element.getMessages() ) {
+			//declare signal structure
+			NamedElement signature = message.getSignature();
+			if( (signature instanceof Signal) && (declaredSignatures.get(signature) == null) ) {					
+				declaredSignatures.put(signature, Boolean.TRUE);
+
+				if( ! ((Signal) signature).getAllAttributes().isEmpty() ) {
+					declareSignalMessageType((Signal) signature, writer);
+				}
+			}
+			// declare message
+			//writer.appendTab2("message ") // TODO modif until Diversity support
+			writer.appendTab2("signal ")
+				.append(message.getName());
 			
-			Map<NamedElement, Boolean> declaredSignatures = new HashMap<NamedElement, Boolean>();
-			writer.appendEol("@property: ");
-			writer.appendTabEol("// message");
-			for( Message message : element.getMessages() ) {
-				//declare signal structure
-				NamedElement signature = message.getSignature();
-				if( (signature instanceof Signal) && (declaredSignatures.get(signature) == null) ) {					
-					declaredSignatures.put(signature, Boolean.TRUE);
-
-					if( ! ((Signal) signature).getAllAttributes().isEmpty() ) {
-						declareSignalMessageType((Signal) signature, writer);
+			if( (signature instanceof Signal)
+				&& (! ((Signal) signature).getAllAttributes().isEmpty()) ) {
+				writer.append("( " )
+					.append(signature.getName())
+					.append(" )");
+			}
+			
+			writer.appendEol(";");			
+		}
+		writer.appendTabEol("// end message");
+		
+		//function signatures vector
+		writer.appendTabEol("// function signatures vector");
+//		writer.appendTab2Eol("type FontionSignature struct {");
+//		writer.appendTab3Eol("var string name;"); 
+//		writer.appendTab3Eol("var string signature;");
+//		writer.appendTab2Eol("}");
+		
+		writer.appendTab2Eol("public var vector<FonctionSignature> AllSignatures = {");
+		for( Lifeline lifeline : lifelines ) {
+			ConnectableElement representedClass = lifeline.getRepresents();
+			if( representedClass instanceof Property ) {
+				Class clazz = (Class) (((Property)representedClass).getType());
+				
+				for (int j = 0; j < clazz.getOperations().size(); j++ ) {
+					Operation operation = clazz.getOperations().get(j);
+					writer.appendTab3("{ \"").append(operation.getName()).append("\" , \"")
+					.append(fSupervisor.fDataTypeFactory.typeName( operation.getReturnResult().getType()))
+					.append(" ").append(operation.getName()).append("(");
+					
+					for(int i = 0; i < operation.getOwnedParameters().size()-1; i++){
+						Parameter param = operation.getOwnedParameters().get(i);
+						writer.append( fSupervisor.fDataTypeFactory.typeName(param.getType()) //param.getType().getName() //  
+								).append(" ").append(param.getName());
+						if(i < operation.getOwnedParameters().size()-2 ){
+						writer.append(", ");
+						}
+					}
+					
+					writer.append(")\" }");
+					if(j < clazz.getOperations().size()-1 ){
+						writer.appendEol(", ");
 					}
 				}
-				// declare message
-				//writer.appendTab2("message ") // TODO modif until Diversity support
-				writer.appendTab2("signal ")
-					.append(message.getName());
 				
-				if( (signature instanceof Signal)
-					&& (! ((Signal) signature).getAllAttributes().isEmpty()) ) {
-					writer.append("( " )
-						.append(signature.getName())
-						.append(" )");
-				}
 				
-				writer.appendEol(";");
-				
-				// declare input message occurrence variables (signature instance)
-//				writer.appendTab2(signature.getName())
-//				.append(" ")
-//				.append(message.getName())
-//				.append("#in");
-//				writer.appendEol(";");
-				
+//				clazz.getOperations();
+//				for (Operation operation : clazz.getOperations()) {
+//					writer.appendTab3("{ \"").append(operation.getName()).append("\" , \"")
+//					.append(operation.getReturnResult().getType().getName())
+//					.append(" ").append(operation.getName()).append("(");
+//					//int i=0;
+//					
+//					for(int i = 0; i < operation.getOwnedParameters().size()-1; i++){
+//						Parameter param = operation.getOwnedParameters().get(i);
+//						writer.append(param.getType().getName()).append(" ").append(param.getName());
+//						if(i < operation.getOwnedParameters().size()-2 ){
+//						writer.append(", ");
+//						}
+//					}
+//					writer.appendEol(")\" }");
+//				}
 			}
-			writer.appendTabEol("// end message");
-			
-			//function calls vectors
-			writer.appendTab2Eol("// function calls vectors");
-			writer.appendTab2Eol("public var vector globalProgramCallset;");
-			writer.appendTab2Eol("public var vector globalProgramTrace;");
-			writer.appendTab2Eol("public var vector globalTypeParamCalls;");
-			writer.appendTabEol("// end function calls vectors");
-			
-			
-			// Extra element needed to respect model semantic
-		//	for( Lifeline lifeline : element.getLifelines() ) {
-		//		writer.appendTab2("var fifo<integer , 30> " )
-//					.append( "sched_").append(lifeline.getName())
-//					.appendEol(";");
-//			
-//			}
-//			
-//			//
-//			for( Lifeline lifeline : element.getLifelines() ) {
-//				writer.appendTab2("var fifo<integer , *> " )
-//					.append( "fifo_").append(lifeline.getName())
-//					.appendEol(";");
-//			}
-			
-			
-			writer.appendEol("@composite: ");
-			PrettyPrintWriter writer2 = writer.itab2();
-			
-			lfContext = new StatemachineContext(element);
-
-			for( Lifeline lifeline : element.getLifelines() ) {
-				
-				transformLifeline(lifeline, new StatemachineContext(lfContext, lifeline), writer2);
-			}
-			
-			//route fifo messages
-			
-			writer.appendEol("@com: ");
-			writer.appendTabEol("// route: message fifo");
-			for( Message message : element.getMessages() ) {
-				//declare message fifo
-				
-				writer.appendTab2("route<fifo> ")
-					.append(message.getName());
-
-				writer.appendEol(";");
-				
-			}
-			writer.appendTabEol("// end route");
-			
-			
-			writer.appendTab("} // end Interaction ")
-				.appendEol2(element.getName());
 		}
-		else {
-			lfContext.initializeConstraintMap(element);
 
-			// A writer indenting with TAB + iTAB -> TAB2
-			PrettyPrintWriter writer2 = writer.itab2();
+		writer.appendTab2Eol("};");
+		
+		//function calls vectors
+		writer.appendTabEol("// function calls vectors");
+//		writer.appendTab2Eol("type CallStack struct {");
+//		writer.appendTab3Eol("var string ID;"); 
+//		writer.appendTab3Eol("var string PRE;"); 
+//		writer.appendTab3Eol("var vector CALL;"); 
+//		writer.appendTab3Eol("var string POST;");
+//		writer.appendTab3Eol("var string INV;");
+//		writer.appendTab2Eol("}");
+		
+		writer.appendTab2Eol("var integer callIndex = -1;");
+		writer.appendTab2Eol("public var vector<CallData> AllCallsStack;");
+		writer.appendTab2Eol("public var CallData currentCall;");
+		
+		writer.appendTab2Eol("public var vector EMPTY_VECTOR;");
+		writer.appendTab2Eol("public const CallData EMPTY_CALL = { \"\" , \"\" , EMPTY_VECTOR , \"\" , \"\" };");
+//		writer.appendTab2Eol("public var vector globalProgramCallset;");
+//		writer.appendTab2Eol("public var vector globalProgramTrace;");
+//		writer.appendTab2Eol("public var vector globalTypeParamCalls;");
+//		writer.appendTab2Eol("public var vector globalAssertion;");
+		writer.appendTabEol("// end function calls vectors");
 			
-			writer2.appendTab("////////////////////////////////////////////////////////////////////////////// Lifeline ")
-				.append(lfContext.coveredLifeline.getName())
-				.appendEol(" //////////////////////////////////////////////////////////////////////////////");
+		
+		writer.appendEol("@composite: ");
+		
+		for( Lifeline alifeline : lifelines ) {
 			
-			ArrayList<InteractionFragment> coveredFragmentList =
-					coveredFragments(lfContext.coveredLifeline, element.getFragments());
-
-			lfContext.isLastFragmentTransformation = false;
-			int coveredFragmentListCount = coveredFragmentList.size()-1;
-			for( InteractionFragment iFragment : coveredFragmentList ) {
-				if(coveredFragmentList.indexOf(iFragment) == coveredFragmentListCount){
-					//Transition tr_final = lfContext.createTransition(
-					//"tr_final", lfContext.currentState, lfContext.finalState);
-					lfContext.isLastFragmentTransformation = true;
-
-//					lfContext.currentState = lfContext.finalState;
-				}
-
-				transformFragment(iFragment, lfContext, writer2);
-			}
-			
-			//TODO DELETE Transition tr_final
-//			Transition tr_final = lfContext.createTransition(
-//					"tr_final", lfContext.currentState, lfContext.finalState);
+			transformWriteLifeline(alifeline, lfContext, writer2);
 		}
 		
+		// Section moe
+		//
+		writer.appendEolTab_Eol("@moe:");
+		// Section irun
 		
+		writer.appendTab2Eol("@irun{");
+		writer.appendTab3Eol("currentCall = EMPTY_CALL;");
+		writer.appendTab2Eol2("}");
+		
+		
+		//route fifo | env messages
+		
+		String routeProtocol = (lifelines.size() < 2) ? "env" : "fifo";
+		
+		writer.appendEol("@com: ");
+		writer.appendTabEol("// route: message fifo");
+		for( Message message : element.getMessages() ) {
+			//declare message fifo
+			if(message.getSendEvent() instanceof Gate){
+				writer.appendTab2("route<")
+				.append("env");
+			}
+			else
+			{
+			writer.appendTab2("route<")
+				.append(routeProtocol);
+			}
+			writer.append("> [ ")
+				.append(message.getName());
+
+			writer.appendEol("];");
+			
+		}
+		writer.appendTabEol("// end route");
+		
+		
+		writer.appendTab("} // end Interaction ")
+			.appendEol2(element.getName());
+		
+//!@?DERADCODE: TO DELETE
+//	if( lfContext == null ) {
+//	}
+//	else {
+//		lfContext.initializeConstraintMap(element);
+//
+//		// A writer indenting with TAB + iTAB -> TAB2
+//		PrettyPrintWriter writer2 = writer.itab2();
+//		
+//		writer2.appendTab("////////////////////////////////////////////////////////////////////////////// Lifeline ")
+//			.append(lfContext.coveredLifeline.getName())
+//			.appendEol(" //////////////////////////////////////////////////////////////////////////////");
+//		
+//		ArrayList<InteractionFragment> coveredFragmentList =
+//				coveredFragments(lfContext.coveredLifeline, element.getFragments());
+//
+//		lfContext.isLastFragmentTransformation = false;
+//		int coveredFragmentListCount = coveredFragmentList.size()-1;
+//		for( InteractionFragment iFragment : coveredFragmentList ) {
+//			if(coveredFragmentList.indexOf(iFragment) == coveredFragmentListCount){
+//				//Transition tr_final = lfContext.createTransition(
+//				//"tr_final", lfContext.currentState, lfContext.finalState);
+//				lfContext.isLastFragmentTransformation = true;
+//
+////					lfContext.currentState = lfContext.finalState;
+//			}
+//
+//			transformFragment(iFragment, lfContext, writer2);
+//		}
+//		
+//		//TODO DELETE Transition tr_final
+////			Transition tr_final = lfContext.createTransition(
+////					"tr_final", lfContext.currentState, lfContext.finalState);
+//	}
+		
+		
+	}
+
+	
+//	public String typeName(Type element) {
+//		String typeString = element.getName();
+//
+//		if( element instanceof PrimitiveType ) {
+//			typeString = typeString.toLowerCase();
+//		}
+//		else if( element instanceof Class ){
+//			typeString = "machine" + "/*< " + typeString + " >*/";
+//		}
+//		
+//		return typeString;
+//	}
+//	
+	
+	
+	public void transformInteraction(Interaction element,  PrettyPrintWriter writer)
+	{
+		final StatemachineContext lfContext = new StatemachineContext(element, CONTEXT.INTERACTION);
+		
+		transformInteraction(element, element.getLifelines(), lfContext, writer);
 	}
 
 
@@ -292,34 +432,19 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 	 * @param writer
 	 */
 	
-	private void transformFragment(InteractionFragment element,
-			StatemachineContext lfContext, PrettyPrintWriter writer) {
-		
-		if( lfContext == null ) {
-			for (Lifeline lifeline : element.getCovereds()) {
-				lfContext = new StatemachineContext(lifeline);
-				
-				transformFragment(element, lfContext);
-				
-				lfContext.toWriter(fSupervisor.fStatemachineFactory, writer);
-			}
-		}
-		else {
+	private void transformFragment(InteractionFragment element, PrettyPrintWriter writer)
+	{
+		for (Lifeline lifeline : element.getCovereds()) {
+			StatemachineContext lfContext = new StatemachineContext(lifeline);
+
 			transformFragment(element, lfContext);
-			
+
 			lfContext.toWriter(fSupervisor.fStatemachineFactory, writer);
 		}
 	}
-
 	
 	private void transformFragment(InteractionFragment iFragment,
 			StatemachineContext lfContext) {
-		if( lfContext == null ) {
-			
-		} else {
-			
-		}
-
 		if( iFragment instanceof CombinedFragment ) {
 			transformCombinedFragment(
 					(CombinedFragment)iFragment, lfContext);
@@ -357,7 +482,8 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 		List<Constraint> constraints = lfContext.getElementConstraints(element);
 		if( constraints != null ) {
 			for (Constraint constraint : constraints) {
-				UmlFactory.setGuard(transition, constraint);
+				UmlFactory.addEffectGuard(lfContext, 
+						element ,transition, constraint);
 			};
 		}
 	}
@@ -469,10 +595,17 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 	public void transformCombinedFragmentLoop(CombinedFragment element,
 			StatemachineContext lfContext) {
 	
-		
 		lfContext.currentState.setName("LoopFragment#" + element.getName());
 		Constraint loopGuard = element.getOperands().get(0).getGuard();
 		State loopState = lfContext.createTargetState("loop_" + element.getName());
+		
+		if( element.getCovereds().size() < 2 || lfContext.transfoCtx == CONTEXT.LIFELINE ) {
+
+			Transition entryLoop = lfContext.createTransition(
+					"tr_loop_entry", lfContext.currentState, loopState);
+			UmlFactory.setGuard(entryLoop, loopGuard);
+		} 
+		else {
 		
 		Transition entryLoop = lfContext.createTransition(
 				"tr_loop_first", lfContext.currentState, loopState);
@@ -481,7 +614,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 		entryLoop= lfContext.createTransition(
 				"tr_loop_not_first", lfContext.currentState, loopState);
 		UmlFactory.setGuard(entryLoop, loopGuard);
-		
+		}
 		
 		lfContext.currentState = loopState;
 		
@@ -489,7 +622,8 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator {
 		Transition trLoop = lfContext.createFinalTransition(
 				"tr_loop", loopState, loopState);
 		Property loopIndex = UmlFactory.createVariable(lfContext.statemachine,
-				"loopIndex_" + element.getName(), UmlFactory.integerType());
+				//"loopIndex_" 
+				"count_"+ element.getName(), UmlFactory.integerType());
 		
 		// Add effect behavior
 		//increment loopIndex
@@ -540,6 +674,13 @@ public void transformCombinedFragmentAlt(CombinedFragment element,
 		
 		Constraint regionGuard = iFragment.getGuard();
 		
+		if( element.getCovereds().size() < 2 || lfContext.transfoCtx == CONTEXT.LIFELINE ) {
+
+			Transition entryAltFirst = lfContext.createTransition(
+					"tr_alt_entry#" + iFragment.getName(), sourceAltStates, regionAltState);
+			UmlFactory.setGuard(entryAltFirst, regionGuard);
+		} 
+		else {
 		Transition entryAltFirst = lfContext.createTransition(
 				"tr_alt_first#" + iFragment.getName(), sourceAltStates, regionAltState);
 		UmlFactory.setGuard(entryAltFirst, regionGuard);
@@ -547,7 +688,8 @@ public void transformCombinedFragmentAlt(CombinedFragment element,
 		Transition entryAltNotFirst = lfContext.createTransition(
 				"tr_alt_not_first#" + iFragment.getName(), sourceAltStates, regionAltState);
 		UmlFactory.setGuard(entryAltNotFirst, regionGuard);
-
+		}
+		
 		lfContext.currentState = regionAltState;
 		StatemachineContext altContext = new StatemachineContext(lfContext, element);
 		
@@ -736,35 +878,29 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	 * @param element
 	 * @param writer
 	 */
-	public void transformLifeline(Lifeline element,
-			StatemachineContext lfContext, PrettyPrintWriter writer) {
-		
-		if( lfContext == null ) {
-			lfContext = new StatemachineContext(element);
-		}
-		
-		transformLifeline(element, lfContext);
-		
-		lfContext.toWriter(fSupervisor, writer);
+	public void transformLifeline(Lifeline element, PrettyPrintWriter writer)
+	{
+		final StatemachineContext lfContext =
+				new StatemachineContext(element.getInteraction(), CONTEXT.LIFELINE);
+
+		transformInteraction(element.getInteraction(),
+				Arrays.asList( element ), lfContext, writer);
 	}
 
-	public void transformLifeline(Lifeline element,
-			StatemachineContext lfContext) {
-		
-		if( lfContext == null ) {
-			lfContext = new StatemachineContext(element);
-		}
-		
+	public void transformWriteLifeline(Lifeline element,
+			StatemachineContext lfContext, PrettyPrintWriter writer) {
+				
 		Interaction interaction = element.getInteraction();
 		
 		if( interaction != null ) {
+			lfContext = new StatemachineContext(lfContext, element);
+			
 			ArrayList<InteractionFragment> coveredFragmentList =
 					coveredFragments(element, interaction.getFragments());
 
 			lfContext.isLastFragmentTransformation = false;
 			int coveredFragmentListCount = coveredFragmentList.size()-1;
 			for (InteractionFragment itFragment : coveredFragmentList) {
-				// TODO lfContext.isLastFragmentTransformation ???
 				if(coveredFragmentList.indexOf(itFragment) == coveredFragmentListCount){
 					//Transition tr_final = lfContext.createTransition(
 					//"tr_final", lfContext.currentState, lfContext.finalState);
@@ -775,10 +911,13 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 
 				transformFragment(itFragment, lfContext);
 			}
+			
+			lfContext.toWriter(fSupervisor, writer);
 		}
 	}
 
 
+	
 	
 
 	/**
@@ -792,42 +931,76 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		if(element.getStart() instanceof ExecutionOccurrenceSpecification){
 			BehaviorExecutionSpecification act = (BehaviorExecutionSpecification) element;
 			
-			//StringBuffer valueBuffer = new StringBuffer(act.getBehavior().toString());
+			State targetState = needIntermediateState(element, lfContext)
+					? lfContext.createIntermediateState("targetBhExec#" + element.getName())
+					: lfContext.createTargetState("targetBhExec#" + element.getName());
 			
-			State targetState = lfContext.createTargetState("targetBhExec#" + element.getName());
 			lfContext.currentState.setName("BhExec#" + element.getName());
 			Transition BH_tr= lfContext.createTransition(
 					act.getName(), lfContext.currentState, targetState);
 			
-			//String effect = act.getBehavior().toString().concat(";");
-
 			transformElementConstraints(element.getStart(), BH_tr, lfContext);
 
 			UmlFactory.addOpaqueBehaviorEffect(BH_tr, act.getBehavior());
 			
+			lfContext.currentState = targetState;
 			//add constraint of finishOccurrence to the transition
 			if(element.getFinish() instanceof ExecutionOccurrenceSpecification ){
 
 				List<Constraint> constraints = lfContext.getElementConstraints(element.getFinish());
 				if( constraints != null ){
-//					State targetState2 = lfContext.createTargetState("targetBhExec2#" + element.getName());
-//					lfContext.currentState.setName("BhExec#2" + element.getName());
-//					Transition BH_tr2= lfContext.createTransition(
-//							act.getName()+"2", lfContext.currentState, targetState2);
-//					lfContext.currentState = targetState2;
-//
-//					transformElementConstraints(element.getFinish(), BH_tr2, lfContext);
+					lfContext.intermediateTransition = null;
 					
 					for (Constraint constraint : constraints) {
-						UmlFactory.addEffectGuard(BH_tr, constraint);
+						UmlFactory.addEffectGuard(lfContext, element, BH_tr, constraint);
+					}
+					
+					if(lfContext.intermediateTransition != null){
+						lfContext.currentState = (State) lfContext.intermediateTransition.getTarget();
+						lfContext.intermediateTransition = null;
+					}
+					
+					if(element.getBehavior() instanceof FunctionBehavior){
+						UmlFactory.addOpaqueBehaviorEffect(BH_tr, "AllCallsStack <=< currentCall;");
+					}
+				}
+				else {
+					if(element.getBehavior() instanceof FunctionBehavior){
+						UmlFactory.addOpaqueBehaviorEffect(BH_tr, "AllCallsStack <=< currentCall;");
 					}
 				}
 			}
-			lfContext.currentState = targetState;
+			//lfContext.currentState = targetState;
+			
 		}
 	}
 	
-	
+	private boolean needIntermediateState(
+			BehaviorExecutionSpecification element,
+			StatemachineContext lfContext) {
+		if( lfContext.isLastFragmentTransformation
+			&& (element.getFinish() instanceof ExecutionOccurrenceSpecification) ){
+
+			List<Constraint> constraints = lfContext.getElementConstraints(element.getFinish());
+			if( constraints != null ){
+				for (Constraint constraint : constraints) 
+				{
+					ValueSpecification valueSpec = constraint.getSpecification();
+					if( valueSpec instanceof OpaqueExpression ) {
+						OpaqueExpression opaqExpr = (OpaqueExpression)valueSpec;
+						for (String language : opaqExpr.getLanguages()) {
+							if(language.contains("xLIA")){
+								{
+									return true;
+								}
+							}
+						}					
+					}
+				}
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 * performTransform a MessageOccurrenceSpecification element to a writer
@@ -904,8 +1077,8 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 				}				
 
 				MsgReceiveAction.append("( ")
-				.append(message.getName()).append( "#params );\n" );
-
+				.append(message.getName()).append( "#params );\n" );//append("#").append(message.getSignature().getName()).append(");\n");
+				
 				if (isStartExecBehavExecution){
 					Behavior behavior = behavExecSpecOfComAct.getBehavior();
 					if (behavior instanceof OpaqueBehavior){
@@ -920,7 +1093,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 								for (int i = 0; i < inVars.length; i++) {
 									MsgReceiveAction.append(inVars[i])
 									.append(" = ")
-									.append(message.getName()).append( "#params.")
+									.append(message.getName()).append( "#params.")//append("#").append(message.getSignature().getName()).append(".")
 									.append(signal.getAllAttributes().get(i).getName())
 									.append(";\n");
 								}
@@ -935,14 +1108,19 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		        //ancien
 		        NamedElement signature = message.getSignature();
 		        if( signature instanceof Signal ) {                    
-		            lfContext.addLocalVariable(message.getName() + "#params", (Signal) signature);
+		            lfContext.addLocalVariable(message.getName() + "#params"//"#" + message.getSignature().getName()
+		            , (Signal) signature);
 		        }
 		        
 				UmlFactory.addOpaqueBehaviorEffect(MsgOcc_tr, MsgReceiveAction.toString());
 	//	    }
 		}
 		else if( element.isSend() ) {
-
+			
+			//translate constraints
+			transformElementConstraints(element, MsgOcc_tr, lfContext);
+			
+			//translate output action
 			StringBuffer MsgReceiveAction = new StringBuffer("output ");
 			lfContext.outputMessage.add(message);
 			
@@ -974,16 +1152,23 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 			
 			if (message.getReceiveEvent() instanceof MessageOccurrenceSpecification){
 				
-				MessageOccurrenceSpecification target = (MessageOccurrenceSpecification) message.getReceiveEvent();
-				
-				MsgReceiveAction.append(target.getCovered().getName());
+				if( lfContext.transfoCtx == CONTEXT.INTERACTION )
+				{
+					MessageOccurrenceSpecification target = (MessageOccurrenceSpecification) message.getReceiveEvent();
+					
+					MsgReceiveAction.append(target.getCovered().getRepresents().getType().getName())
+						.append('#').append(target.getCovered().getName());
+				}
+				else {
+					MsgReceiveAction.append("$env");
+				}
 			}
 			
 			if (message.getReceiveEvent() instanceof Gate){
 							
 				//Gate target = (Gate) message.getReceiveEvent();
 				
-				MsgReceiveAction.append("env");
+				MsgReceiveAction.append("$env");
 			}
 			MsgReceiveAction.append(";");
 

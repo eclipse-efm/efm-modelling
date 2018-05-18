@@ -95,6 +95,13 @@ public class FormalmlSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case FormalmlPackage.XLIA_SECTION: {
+				XliaSection xliaSection = (XliaSection)theEObject;
+				T result = caseXliaSection(xliaSection);
+				if (result == null) result = caseXliaNamedElement(xliaSection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case FormalmlPackage.XLIA_ATTRIBUTE: {
 				XliaAttribute xliaAttribute = (XliaAttribute)theEObject;
 				T result = caseXliaAttribute(xliaAttribute);
@@ -148,6 +155,21 @@ public class FormalmlSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseXliaObject(XliaObject object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Xlia Section</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Xlia Section</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseXliaSection(XliaSection object) {
 		return null;
 	}
 

@@ -19,3 +19,4 @@ Bundle-Activator: org.eclipse.efm.papyrus.view.property.concretesyntax.Activator
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: Eclipse Modeling Project
+Automatic-Module-Name: org.eclipse.efm.modeling.ui.views.property.tab.xlia

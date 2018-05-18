@@ -65,6 +65,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledNormalization"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledInitialValuesPrinting"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledLifelinesPrinting"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledModifiedDataSelection"/>
     </genClasses>
     <nestedGenPackages prefix="Common" basePackage="org.eclipse.efm.execution.core.workflow"
         disposableProviderFactory="true" ecorePackage="workflow.ecore#//common">
@@ -75,6 +76,7 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_BEHAVIOR_SELECTION_PROFILE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_TEST_OFFLINE_PROFILE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_ACSL_GENERATION_PROFILE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_EXTRANEOUS_PROFILE"/>
       </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/GraphExplorationStrategyKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/BEST_FIRST_SEARCH"/>
@@ -131,9 +133,12 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/RUNNABLE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/ROUTINE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/TRANSITION"/>
-        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/MACHINE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/STATE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/STATEMACHINE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/MODEL_MACHINE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/PROTOTYPE_MACHINE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/INSTANCE_MACHINE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/MACHINE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/SYSTEM"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/FILE_HEADER"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/FILE_BEGIN"/>
@@ -174,6 +179,12 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/VALUE_STRUCT_END"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/TIPS"/>
       </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/SolverKind">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/SolverKind/CVC4"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/SolverKind/Z3"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/SolverKind/YICES2"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/SolverKind/OMEGA"/>
+      </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/HeuristicClassKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/BASIC"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/HeuristicClassKind/NAIVE"/>
@@ -199,12 +210,26 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/DebuglevelKind/ULTRA"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/DebuglevelKind/GOD_MODE"/>
       </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/RedundancyPathScope">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/RedundancyPathScope/ALL"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/RedundancyPathScope/CURRENT"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/RedundancyPathScope/PARENT"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/RedundancyComparerOperation">
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/RedundancyComparerOperation/INCLUSION"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/RedundancyComparerOperation/EQUALITY"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/RedundancyComparerOperation/SYNTAXIC_EQUALITY"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/RedundancyComparerOperation/ALPHA_EQUIVALENCE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/RedundancyComparerOperation/TRIVIALLY_EQUALITY"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/RedundancyComparerOperation/CONTROL_STATE"/>
+      </genEnums>
       <genClasses ecoreClass="workflow.ecore#//common/Workspace">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//common/Workspace/location"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//common/Workspace/project"/>
       </genClasses>
       <genClasses ecoreClass="workflow.ecore#//common/Location">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Location/root"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Location/launch"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Location/output"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Location/log"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Location/debug"/>
@@ -224,7 +249,7 @@
       </genClasses>
       <genClasses ecoreClass="workflow.ecore#//common/GraphExplorationQueue">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationQueue/strategy"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationQueue/heuristic"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationQueue/heuristicEnabled"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/GraphExplorationQueue/weight"/>
       </genClasses>
       <genClasses ecoreClass="workflow.ecore#//common/ConsoleLogFormat">
@@ -234,6 +259,9 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/result"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/report"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/verbosity"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/spiderInit"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/spiderStep"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ConsoleLogFormat/spiderStop"/>
       </genClasses>
       <genClasses ecoreClass="workflow.ecore#//common/TraceElement">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/TraceElement/selected"/>
@@ -326,11 +354,12 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/DeveloperTuningOption/enabledGodMode"/>
       </genClasses>
       <genClasses ecoreClass="workflow.ecore#//common/RedundancyDetection">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/comparer"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/solver"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/enabledDetetction"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/pathScope"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/comparerOperation"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/solverChoice"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/dataScope"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/loopDetetctionTrivial"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/RedundancyDetection/enabledTrivialLoopDetetction"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Coverage" basePackage="org.eclipse.efm.execution.core.workflow"
@@ -346,14 +375,22 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/orderedTrace"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitConsecutive"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitFolding"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitMax"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitLucky"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitMax"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitFinal"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/jumpHeight"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/jumpTrialsLimit"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/hitCount"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/jumpCount"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//coverage/BehaviorCoverageWorker/jumpSlice"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//coverage/BehaviorCoverageWorker/behavior"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Extraneous" basePackage="org.eclipse.efm.execution.core.workflow"
+        disposableProviderFactory="true" ecorePackage="workflow.ecore#//extraneous">
+      <genClasses image="false" ecoreClass="workflow.ecore#//extraneous/ExtraneousWorker">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//extraneous/ExtraneousWorker/extraSEW"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//extraneous/ExtraneousWorker/AnalysisProfileRequired"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Test" basePackage="org.eclipse.efm.execution.core.workflow"

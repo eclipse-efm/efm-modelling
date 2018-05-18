@@ -12,3 +12,4 @@ Require-Bundle: org.eclipse.papyrus.uml.tools,
 Export-Package: org.eclipse.efm.modeling.ui.newproject.templates
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: org.eclipse.efm.modeling.ui.newproject.templates

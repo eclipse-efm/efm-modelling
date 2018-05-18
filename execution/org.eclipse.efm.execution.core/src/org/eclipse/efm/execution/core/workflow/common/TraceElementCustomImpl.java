@@ -12,12 +12,19 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.core.workflow.common;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.common.impl.TraceElementImpl;
 
 public class TraceElementCustomImpl extends TraceElementImpl {
 
+	private static final String ATTRIBUTE_VALUE_GRAMMAR = "(\\S+)[=\\s]+(\\S.+)";
+
 	private static final String UNSELECTION_MARKER = "//!#";
+
+	public static final String ELEMENT_SEPARATOR = "\\R|;";
 
 
 	public TraceElementCustomImpl(boolean selected, TraceElementKind nature, Object value) {
@@ -37,17 +44,10 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 	}
 
 
-	public static TraceElementCustomImpl create(String element) {
-		return( create(element, TraceElementKind.UNDEFINED) );
-	}
-
 	public static TraceElementCustomImpl create(
 			String element, TraceElementKind defaultNature) {
 		boolean selected = true;
 		TraceElementKind nature = TraceElementKind.UNDEFINED;
-
-		String kind;
-		int pos;
 
 		while ( element.startsWith(UNSELECTION_MARKER) ) {
 			selected = false;
@@ -61,26 +61,31 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 
 			value = value.substring(2).trim();
 		}
-		else if( (pos = element.indexOf('=')) > 0 ) {
-			kind = element.substring(0, pos).trim();
-			nature = TraceElementKind.get(kind);
+		else {
+			Pattern pattern = Pattern.compile(ATTRIBUTE_VALUE_GRAMMAR);
+			Matcher matcher = pattern.matcher(element);
 
-			if( nature != null ) {
-				value = element.substring(pos+1).trim();
-				if( (! value.isEmpty())
-					&& (value.charAt(0) == '\'')
-					&& (value.charAt(value.length() - 1) == '\'') )
-				{
-					value = value.substring(1, value.length() - 1);
+			if( matcher.find() ) {
+				String kind = matcher.group(1).trim();
+				nature = TraceElementKind.get(kind);
+
+				if( nature != null ) {
+					value = matcher.group(2).trim();
+					if( (! value.isEmpty())
+						&& (value.charAt(0) == '\'')
+						&& (value.charAt(value.length() - 1) == '\'') )
+					{
+						value = value.substring(1, value.length() - 1);
+					}
+				}
+				else {
+					nature = defaultNature;
 				}
 			}
 			else {
 				nature = defaultNature;
+				value = element.trim();
 			}
-		}
-		else {
-			nature = defaultNature;
-			value = element.trim();
 		}
 
 		return( new TraceElementCustomImpl(selected, nature, value) );
@@ -112,6 +117,28 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 				strBuffer.append( value.toString() ).append('\n');
 				break;
 			}
+			case CONDITION:
+			case DECISION:
+			case FORMULA: {
+				strBuffer.append( getNature().getLiteral() ).append( " = " );
+
+				if( value instanceof String ) {
+					final String str = value.toString();
+					if( str.startsWith("(") ) {
+						strBuffer.append( value.toString() );
+					}
+					else {
+						strBuffer.append('(').append( value.toString() ).append(')');
+					}
+				}
+				else {
+					strBuffer.append( value.toString() );
+				}
+
+				strBuffer.append('\n');
+				break;
+			}
+
 			default: {
 				strBuffer.append( getNature().getLiteral() ).append( " = " );
 
@@ -165,6 +192,27 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 				writer.appendEol( value.toString() );
 				break;
 			}
+
+			case CONDITION:
+			case DECISION:
+			case FORMULA: {
+				writer.append( getNature().getLiteral() ).append( " = " );
+
+				if( value instanceof String ) {
+					final String str = value.toString();
+					if( str.startsWith("(") ) {
+						writer.appendEol( value.toString() );
+					}
+					else {
+						writer.append('(').append( value.toString() ).appendEol(')');
+					}
+				}
+				else {
+					writer.appendEol( value.toString() );
+				}
+				break;
+			}
+
 			default: {
 				writer.append( getNature().getLiteral() ).append( " = " );
 

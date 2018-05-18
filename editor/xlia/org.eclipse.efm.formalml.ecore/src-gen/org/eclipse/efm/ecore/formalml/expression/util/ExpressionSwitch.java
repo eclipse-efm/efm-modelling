@@ -458,6 +458,14 @@ public class ExpressionSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ExpressionPackage.QUANTIFIED_LOGICAL_EXPRESSION: {
+				QuantifiedLogicalExpression quantifiedLogicalExpression = (QuantifiedLogicalExpression)theEObject;
+				T result = caseQuantifiedLogicalExpression(quantifiedLogicalExpression);
+				if (result == null) result = caseExpression(quantifiedLogicalExpression);
+				if (result == null) result = caseAbstractElement(quantifiedLogicalExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ExpressionPackage.INVOKE_EXPRESSION: {
 				InvokeExpression invokeExpression = (InvokeExpression)theEObject;
 				T result = caseInvokeExpression(invokeExpression);
@@ -528,24 +536,32 @@ public class ExpressionSwitch<T> extends Switch<T> {
 			case ExpressionPackage.EXPRESSION_AS_BUFFER: {
 				ExpressionAsBuffer expressionAsBuffer = (ExpressionAsBuffer)theEObject;
 				T result = caseExpressionAsBuffer(expressionAsBuffer);
+				if (result == null) result = caseExpression(expressionAsBuffer);
+				if (result == null) result = caseAbstractElement(expressionAsBuffer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ExpressionPackage.EXPRESSION_AS_CHANNEL: {
 				ExpressionAsChannel expressionAsChannel = (ExpressionAsChannel)theEObject;
 				T result = caseExpressionAsChannel(expressionAsChannel);
+				if (result == null) result = caseExpression(expressionAsChannel);
+				if (result == null) result = caseAbstractElement(expressionAsChannel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ExpressionPackage.EXPRESSION_AS_MACHINE: {
 				ExpressionAsMachine expressionAsMachine = (ExpressionAsMachine)theEObject;
 				T result = caseExpressionAsMachine(expressionAsMachine);
+				if (result == null) result = caseExpression(expressionAsMachine);
+				if (result == null) result = caseAbstractElement(expressionAsMachine);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ExpressionPackage.EXPRESSION_AS_PORT: {
 				ExpressionAsPort expressionAsPort = (ExpressionAsPort)theEObject;
 				T result = caseExpressionAsPort(expressionAsPort);
+				if (result == null) result = caseExpression(expressionAsPort);
+				if (result == null) result = caseAbstractElement(expressionAsPort);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1195,6 +1211,21 @@ public class ExpressionSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLogicalAssociativeExpression(LogicalAssociativeExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Quantified Logical Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Quantified Logical Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseQuantifiedLogicalExpression(QuantifiedLogicalExpression object) {
 		return null;
 	}
 

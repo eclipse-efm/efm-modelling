@@ -204,6 +204,15 @@ public interface SerializerPackage extends EPackage {
 	int MODEL_GRAPHVIZ_SERIALIZER_WORKER__ENABLED_LIFELINES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING;
 
 	/**
+	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHVIZ_SERIALIZER_WORKER__ENABLED_MODIFIED_DATA_SELECTION = WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION;
+
+	/**
 	 * The number of structural features of the '<em>Model Graphviz Serializer Worker</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -356,6 +365,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER__ENABLED_LIFELINES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER__ENABLED_MODIFIED_DATA_SELECTION = WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION;
 
 	/**
 	 * The number of structural features of the '<em>Symbex Graph Viz Serializer Worker</em>' class.
@@ -512,6 +530,15 @@ public interface SerializerPackage extends EPackage {
 	int BASIC_TRACE_SERIALIZER__ENABLED_LIFELINES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING;
 
 	/**
+	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_TRACE_SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION = WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION;
+
+	/**
 	 * The number of structural features of the '<em>Basic Trace Serializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -664,6 +691,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int TTCN_TRACE_SERIALIZER__ENABLED_LIFELINES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TTCN_TRACE_SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION = WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Customization</b></em>' attribute.

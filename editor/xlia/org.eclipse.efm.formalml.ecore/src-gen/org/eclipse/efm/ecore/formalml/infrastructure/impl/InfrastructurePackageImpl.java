@@ -29,6 +29,7 @@ import org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl;
 import org.eclipse.efm.ecore.formalml.impl.FormalmlPackageImpl;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
+import org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
 import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
 import org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection;
@@ -36,8 +37,10 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ComCastKind;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocolKind;
-import org.eclipse.efm.ecore.formalml.infrastructure.Connection;
+import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
+import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
 import org.eclipse.efm.ecore.formalml.infrastructure.DesignKind;
+import org.eclipse.efm.ecore.formalml.infrastructure.Function;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructureFactory;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
@@ -52,6 +55,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
 import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Procedure;
 import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition;
+import org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Route;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
@@ -87,6 +91,27 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * @generated
 	 */
 	private EClass machineEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass propertyPartEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass compositePartEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass behaviorPartEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -143,6 +168,13 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * @generated
 	 */
 	private EClass signalEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass functionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -233,7 +265,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass connectionEClass = null;
+	private EClass connectorEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -390,7 +422,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMachine_Design() {
+	public EAttribute getMachine_Dense_timed() {
 		return (EAttribute)machineEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -399,8 +431,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Machine() {
-		return (EReference)machineEClass.getEStructuralFeatures().get(3);
+	public EAttribute getMachine_Discrete_timed() {
+		return (EAttribute)machineEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -408,8 +440,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Typedef() {
-		return (EReference)machineEClass.getEStructuralFeatures().get(4);
+	public EAttribute getMachine_Unsafe() {
+		return (EAttribute)machineEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -417,8 +449,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Property() {
-		return (EReference)machineEClass.getEStructuralFeatures().get(5);
+	public EAttribute getMachine_Design() {
+		return (EAttribute)machineEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -426,7 +458,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Channel() {
+	public EReference getMachine_PropertyPart() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -435,7 +467,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Port() {
+	public EReference getMachine_CompositePart() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -444,7 +476,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Signal() {
+	public EReference getMachine_BehaviorPart() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -453,7 +485,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Buffer() {
+	public EReference getMachine_Machine() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -462,7 +494,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Routine() {
+	public EReference getMachine_Typedef() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -471,7 +503,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Procedure() {
+	public EReference getMachine_Variable() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -480,7 +512,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Instance() {
+	public EReference getMachine_Channel() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -489,7 +521,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Behavior() {
+	public EReference getMachine_Port() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -498,8 +530,233 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Main() {
+	public EReference getMachine_Signal() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMachine_Buffer() {
+		return (EReference)machineEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMachine_Function() {
+		return (EReference)machineEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMachine_Routine() {
+		return (EReference)machineEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMachine_Procedure() {
+		return (EReference)machineEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMachine_Instance() {
+		return (EReference)machineEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMachine_Behavior() {
+		return (EReference)machineEClass.getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMachine_Main() {
+		return (EReference)machineEClass.getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPropertyPart() {
+		return propertyPartEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyPart_Parameter() {
+		return (EReference)propertyPartEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyPart_Typedef() {
+		return (EReference)propertyPartEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyPart_Variable() {
+		return (EReference)propertyPartEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyPart_Channel() {
+		return (EReference)propertyPartEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyPart_Port() {
+		return (EReference)propertyPartEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyPart_Signal() {
+		return (EReference)propertyPartEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyPart_Buffer() {
+		return (EReference)propertyPartEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropertyPart_Function() {
+		return (EReference)propertyPartEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCompositePart() {
+		return compositePartEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCompositePart_Routine() {
+		return (EReference)compositePartEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCompositePart_Machine() {
+		return (EReference)compositePartEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCompositePart_Procedure() {
+		return (EReference)compositePartEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCompositePart_Instance() {
+		return (EReference)compositePartEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCompositePart_Behavior() {
+		return (EReference)compositePartEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBehaviorPart() {
+		return behaviorPartEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBehaviorPart_Behavior() {
+		return (EReference)behaviorPartEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBehaviorPart_Main() {
+		return (EReference)behaviorPartEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -615,7 +872,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getVariable_Macro() {
+	public EAttribute getVariable_Reference() {
 		return (EAttribute)variableEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -624,8 +881,17 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getVariable_Macro() {
+		return (EAttribute)variableEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getVariable_OnWriteAction() {
-		return (EReference)variableEClass.getEStructuralFeatures().get(2);
+		return (EReference)variableEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -743,6 +1009,33 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 */
 	public EReference getSignal_Parameter() {
 		return (EReference)signalEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFunction() {
+		return functionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFunction_Argument() {
+		return (EReference)functionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFunction_Result() {
+		return (EReference)functionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1119,7 +1412,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getComProtocol_Ref_buffer() {
+	public EReference getComProtocol_Buffer() {
 		return (EReference)comProtocolEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1155,8 +1448,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getConnection() {
-		return connectionEClass;
+	public EClass getConnector() {
+		return connectorEClass;
 	}
 
 	/**
@@ -1164,8 +1457,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnection_Protocol() {
-		return (EReference)connectionEClass.getEStructuralFeatures().get(0);
+	public EReference getConnector_Protocol() {
+		return (EReference)connectorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1173,8 +1466,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnection_Cast() {
-		return (EAttribute)connectionEClass.getEStructuralFeatures().get(1);
+	public EAttribute getConnector_Cast() {
+		return (EAttribute)connectorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1182,8 +1475,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnection_ComPoints() {
-		return (EReference)connectionEClass.getEStructuralFeatures().get(2);
+	public EReference getConnector_ComPoints() {
+		return (EReference)connectorEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1307,19 +1600,47 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		machineEClass = createEClass(MACHINE);
 		createEAttribute(machineEClass, MACHINE__INPUT_ENABLED);
 		createEAttribute(machineEClass, MACHINE__TIMED);
+		createEAttribute(machineEClass, MACHINE__DENSE_TIMED);
+		createEAttribute(machineEClass, MACHINE__DISCRETE_TIMED);
+		createEAttribute(machineEClass, MACHINE__UNSAFE);
 		createEAttribute(machineEClass, MACHINE__DESIGN);
+		createEReference(machineEClass, MACHINE__PROPERTY_PART);
+		createEReference(machineEClass, MACHINE__COMPOSITE_PART);
+		createEReference(machineEClass, MACHINE__BEHAVIOR_PART);
 		createEReference(machineEClass, MACHINE__MACHINE);
 		createEReference(machineEClass, MACHINE__TYPEDEF);
-		createEReference(machineEClass, MACHINE__PROPERTY);
+		createEReference(machineEClass, MACHINE__VARIABLE);
 		createEReference(machineEClass, MACHINE__CHANNEL);
 		createEReference(machineEClass, MACHINE__PORT);
 		createEReference(machineEClass, MACHINE__SIGNAL);
 		createEReference(machineEClass, MACHINE__BUFFER);
+		createEReference(machineEClass, MACHINE__FUNCTION);
 		createEReference(machineEClass, MACHINE__ROUTINE);
 		createEReference(machineEClass, MACHINE__PROCEDURE);
 		createEReference(machineEClass, MACHINE__INSTANCE);
 		createEReference(machineEClass, MACHINE__BEHAVIOR);
 		createEReference(machineEClass, MACHINE__MAIN);
+
+		propertyPartEClass = createEClass(PROPERTY_PART);
+		createEReference(propertyPartEClass, PROPERTY_PART__PARAMETER);
+		createEReference(propertyPartEClass, PROPERTY_PART__TYPEDEF);
+		createEReference(propertyPartEClass, PROPERTY_PART__VARIABLE);
+		createEReference(propertyPartEClass, PROPERTY_PART__CHANNEL);
+		createEReference(propertyPartEClass, PROPERTY_PART__PORT);
+		createEReference(propertyPartEClass, PROPERTY_PART__SIGNAL);
+		createEReference(propertyPartEClass, PROPERTY_PART__BUFFER);
+		createEReference(propertyPartEClass, PROPERTY_PART__FUNCTION);
+
+		compositePartEClass = createEClass(COMPOSITE_PART);
+		createEReference(compositePartEClass, COMPOSITE_PART__ROUTINE);
+		createEReference(compositePartEClass, COMPOSITE_PART__PROCEDURE);
+		createEReference(compositePartEClass, COMPOSITE_PART__MACHINE);
+		createEReference(compositePartEClass, COMPOSITE_PART__INSTANCE);
+		createEReference(compositePartEClass, COMPOSITE_PART__BEHAVIOR);
+
+		behaviorPartEClass = createEClass(BEHAVIOR_PART);
+		createEReference(behaviorPartEClass, BEHAVIOR_PART__BEHAVIOR);
+		createEReference(behaviorPartEClass, BEHAVIOR_PART__MAIN);
 
 		systemEClass = createEClass(SYSTEM);
 
@@ -1336,6 +1657,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		variableEClass = createEClass(VARIABLE);
 		createEAttribute(variableEClass, VARIABLE__CONST);
+		createEAttribute(variableEClass, VARIABLE__REFERENCE);
 		createEAttribute(variableEClass, VARIABLE__MACRO);
 		createEReference(variableEClass, VARIABLE__ON_WRITE_ACTION);
 
@@ -1355,6 +1677,10 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		signalEClass = createEClass(SIGNAL);
 		createEAttribute(signalEClass, SIGNAL__DIRECTION);
 		createEReference(signalEClass, SIGNAL__PARAMETER);
+
+		functionEClass = createEClass(FUNCTION);
+		createEReference(functionEClass, FUNCTION__ARGUMENT);
+		createEReference(functionEClass, FUNCTION__RESULT);
 
 		procedureEClass = createEClass(PROCEDURE);
 
@@ -1407,16 +1733,16 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		createEAttribute(comProtocolEClass, COM_PROTOCOL__PROTOCOL);
 		createEAttribute(comProtocolEClass, COM_PROTOCOL__CAST);
 		createEReference(comProtocolEClass, COM_PROTOCOL__INNER_BUFFER);
-		createEReference(comProtocolEClass, COM_PROTOCOL__REF_BUFFER);
+		createEReference(comProtocolEClass, COM_PROTOCOL__BUFFER);
 
 		routeEClass = createEClass(ROUTE);
 		createEReference(routeEClass, ROUTE__SIGNALS);
 		createEReference(routeEClass, ROUTE__PROTOCOL);
 
-		connectionEClass = createEClass(CONNECTION);
-		createEReference(connectionEClass, CONNECTION__PROTOCOL);
-		createEAttribute(connectionEClass, CONNECTION__CAST);
-		createEReference(connectionEClass, CONNECTION__COM_POINTS);
+		connectorEClass = createEClass(CONNECTOR);
+		createEReference(connectorEClass, CONNECTOR__PROTOCOL);
+		createEAttribute(connectorEClass, CONNECTOR__CAST);
+		createEReference(connectorEClass, CONNECTOR__COM_POINTS);
 
 		comPointEClass = createEClass(COM_POINT);
 		createEAttribute(comPointEClass, COM_POINT__DIRECTION);
@@ -1476,31 +1802,62 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		portEClass.getESuperTypes().add(this.getPropertyDefinition());
 		channelEClass.getESuperTypes().add(this.getPropertyDefinition());
 		signalEClass.getESuperTypes().add(theCommonPackage.getClassifierDefinition());
+		functionEClass.getESuperTypes().add(this.getPropertyDefinition());
 		procedureEClass.getESuperTypes().add(theStatemachinePackage.getStatemachine());
 		routineEClass.getESuperTypes().add(theCommonPackage.getNamedElement());
 		instanceMachineEClass.getESuperTypes().add(theCommonPackage.getTypedElement());
 		parameterEClass.getESuperTypes().add(this.getPropertyDefinition());
 		behaviorEClass.getESuperTypes().add(this.getMachine());
+		comProtocolEClass.getESuperTypes().add(theCommonPackage.getAbstractElement());
 		routeEClass.getESuperTypes().add(theCommonPackage.getNamedElement());
-		connectionEClass.getESuperTypes().add(theCommonPackage.getNamedElement());
+		connectorEClass.getESuperTypes().add(theCommonPackage.getNamedElement());
+		comPointEClass.getESuperTypes().add(theCommonPackage.getAbstractElement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(machineEClass, Machine.class, "Machine", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMachine_Input_enabled(), ecorePackage.getEBoolean(), "input_enabled", "false", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMachine_Timed(), ecorePackage.getEBoolean(), "timed", "false", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMachine_Dense_timed(), ecorePackage.getEBoolean(), "dense_timed", "false", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMachine_Discrete_timed(), ecorePackage.getEBoolean(), "discrete_timed", "false", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMachine_Unsafe(), ecorePackage.getEBoolean(), "unsafe", "false", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMachine_Design(), this.getDesignKind(), "design", "prototype", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMachine_PropertyPart(), this.getPropertyPart(), null, "propertyPart", null, 0, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMachine_CompositePart(), this.getCompositePart(), null, "compositePart", null, 0, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMachine_BehaviorPart(), this.getBehaviorPart(), null, "behaviorPart", null, 0, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Machine(), this.getMachine(), null, "machine", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Typedef(), theDatatypePackage.getDataType(), null, "typedef", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMachine_Property(), this.getPropertyDefinition(), null, "property", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMachine_Variable(), this.getVariable(), null, "variable", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Channel(), this.getChannel(), null, "channel", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Port(), this.getPort(), null, "port", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Signal(), this.getSignal(), null, "signal", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Buffer(), this.getBuffer(), null, "buffer", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMachine_Function(), this.getFunction(), null, "function", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Routine(), this.getRoutine(), null, "routine", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Procedure(), this.getProcedure(), null, "procedure", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Instance(), this.getInstanceMachine(), null, "instance", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Behavior(), this.getBehavior(), null, "behavior", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Main(), this.getBehavior(), null, "main", null, 0, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(propertyPartEClass, PropertyPart.class, "PropertyPart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPropertyPart_Parameter(), this.getParameter(), null, "parameter", null, 0, -1, PropertyPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropertyPart_Typedef(), theDatatypePackage.getDataType(), null, "typedef", null, 0, -1, PropertyPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropertyPart_Variable(), this.getVariable(), null, "variable", null, 0, -1, PropertyPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropertyPart_Channel(), this.getChannel(), null, "channel", null, 0, -1, PropertyPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropertyPart_Port(), this.getPort(), null, "port", null, 0, -1, PropertyPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropertyPart_Signal(), this.getSignal(), null, "signal", null, 0, -1, PropertyPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropertyPart_Buffer(), this.getBuffer(), null, "buffer", null, 0, -1, PropertyPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropertyPart_Function(), this.getFunction(), null, "function", null, 0, -1, PropertyPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(compositePartEClass, CompositePart.class, "CompositePart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCompositePart_Routine(), this.getRoutine(), null, "routine", null, 0, -1, CompositePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositePart_Procedure(), this.getProcedure(), null, "procedure", null, 0, -1, CompositePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositePart_Machine(), this.getMachine(), null, "machine", null, 0, -1, CompositePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositePart_Instance(), this.getInstanceMachine(), null, "instance", null, 0, -1, CompositePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositePart_Behavior(), this.getBehavior(), null, "behavior", null, 0, -1, CompositePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(behaviorPartEClass, BehaviorPart.class, "BehaviorPart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBehaviorPart_Behavior(), this.getBehavior(), null, "behavior", null, 0, -1, BehaviorPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorPart_Main(), this.getBehavior(), null, "main", null, 0, 1, BehaviorPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(systemEClass, org.eclipse.efm.ecore.formalml.infrastructure.System.class, "System", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1517,6 +1874,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariable_Const(), ecorePackage.getEBoolean(), "const", null, 1, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVariable_Reference(), ecorePackage.getEBoolean(), "reference", null, 1, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVariable_Macro(), ecorePackage.getEBoolean(), "macro", null, 1, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariable_OnWriteAction(), this.getRoutine(), null, "onWriteAction", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1536,6 +1894,10 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		initEClass(signalEClass, Signal.class, "Signal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSignal_Direction(), this.getChannelDirection(), "direction", "inout", 0, 1, Signal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSignal_Parameter(), this.getParameter(), null, "parameter", null, 0, -1, Signal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFunction_Argument(), this.getParameter(), null, "argument", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFunction_Result(), this.getParameter(), null, "result", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(procedureEClass, Procedure.class, "Procedure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1582,27 +1944,27 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		initEClass(modelOfInteractionEClass, ModelOfInteraction.class, "ModelOfInteraction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModelOfInteraction_Routes(), this.getRoute(), null, "routes", null, 0, -1, ModelOfInteraction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getModelOfInteraction_Connections(), this.getConnection(), null, "connections", null, 0, -1, ModelOfInteraction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelOfInteraction_Connections(), this.getConnector(), null, "connections", null, 0, -1, ModelOfInteraction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(comProtocolEClass, ComProtocol.class, "ComProtocol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComProtocol_Protocol(), this.getComProtocolKind(), "protocol", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComProtocol_Cast(), this.getComCastKind(), "cast", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComProtocol_Inner_buffer(), theDatatypePackage.getCollectionType(), null, "inner_buffer", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComProtocol_Ref_buffer(), this.getBuffer(), null, "ref_buffer", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComProtocol_Buffer(), theExpressionPackage.getValueElementSpecification(), null, "buffer", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(routeEClass, Route.class, "Route", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRoute_Signals(), this.getSignal(), null, "signals", null, 0, -1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRoute_Protocol(), this.getComProtocol(), null, "protocol", null, 0, 1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConnection_Protocol(), this.getComProtocol(), null, "protocol", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnection_Cast(), this.getComCastKind(), "cast", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnection_ComPoints(), this.getComPoint(), null, "comPoints", null, 1, -1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(connectorEClass, Connector.class, "Connector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConnector_Protocol(), this.getComProtocol(), null, "protocol", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConnector_Cast(), this.getComCastKind(), "cast", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnector_ComPoints(), this.getComPoint(), null, "comPoints", null, 1, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(comPointEClass, ComPoint.class, "ComPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComPoint_Direction(), this.getChannelDirection(), "direction", "inout", 0, 1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComPoint_Protocol(), this.getComProtocol(), null, "protocol", null, 0, 1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComPoint_Point(), theExpressionPackage.getExpression(), null, "point", null, 0, 1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComPoint_Point(), theExpressionPackage.getValueElementSpecification(), null, "point", null, 0, 1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComPoint_Points(), theExpressionPackage.getExpression(), null, "points", null, 0, -1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals

@@ -41,7 +41,7 @@ public interface LiteralBooleanExpression extends LiteralExpression {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(boolean)
 	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getLiteralBooleanExpression_Value()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isValue();

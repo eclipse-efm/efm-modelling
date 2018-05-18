@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -1040,8 +1040,9 @@ public class SEWSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         ((type='workflow' | type='symbex-workflow') name=UFI? description=EString? element+=Object? (element+=Property? element+=Object?)*) | 
+	 *         (element+=Object | element+=Property)+ | 
 	 *         element+=DeprecatedObject
-	 *     )
+	 *     )?
 	 */
 	protected void sequence_Workflow(ISerializationContext context, SEWorkflow semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

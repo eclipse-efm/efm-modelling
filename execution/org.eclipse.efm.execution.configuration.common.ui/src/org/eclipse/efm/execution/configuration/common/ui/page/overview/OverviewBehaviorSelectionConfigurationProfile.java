@@ -21,9 +21,6 @@ import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEdi
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
-import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
-import org.eclipse.jface.layout.PixelConverter;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -68,19 +65,6 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 	}
 
 
-	private TraceElementTableConfigProvider getTableConfig(Font font) {
-		final PixelConverter pixelConverter = new PixelConverter(font);
-
-		return new TraceElementTableConfigProvider(
-				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST, BEHAVIOR_INITIAL_SAMPLE,
-				"&Trace Sequence", BEHAVIOR_DESCRIPTION, true,
-				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
-				"Element", pixelConverter.convertWidthInCharsToPixels(48),
-				TraceElementTableConfigProvider.BEHAVIOR_SELECTION_TRACE_ELEMENT,
-				TraceElementKind.TRANSITION);
-	}
-
-
 	@Override
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
 		parent.setToolTipText(BEHAVIOR_DESCRIPTION);
@@ -89,8 +73,11 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 				parent, 2, 1, GridData.FILL_HORIZONTAL);
 
 		// Trace Sequence
-		fTraceElementTableViewer = new TraceElementTableViewer(this,
-				container, 1, widgetToolkit, getTableConfig(parent.getFont()));
+		fTraceElementTableViewer =
+			new TraceElementTableViewer(this, container, 1, widgetToolkit,
+					TraceElementTableConfigProvider.getBehaviorSelection(
+							parent.getFont()));
+		addTableViewer( fTraceElementTableViewer );
 
 		// Options & Selection Heuristic
 		groupOptionSelectionHeuristic = widgetToolkit.createGroup(container,
@@ -134,8 +121,8 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 
 		// Local exploration height before the next selection by HIT or JUMP
 		fHoJLocalHeight = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
-				"&Height :", comp, 6);
+				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT, "&Height : ",
+				comp, DEFAULT_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT);
 		fHoJLocalHeight.setToolTipText(
 				"Local exploration height before the next selection by HIT or JUMP");
 		addFieldEditor( fHoJLocalHeight );
@@ -143,7 +130,7 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 		// Local exploration trials number
 		fHoJTrialLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT,
-				"&Trials :", comp, -1);
+				"&Trials : ", comp, -1);
 		fHoJTrialLimit.setToolTipText(
 				"Local exploration trials number for the Trace Sequence Coverage");
 		addFieldEditor( fHoJTrialLimit );
@@ -159,7 +146,7 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 		// Number of paths to choose from HIT
 		fHoJHitCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_COUNT,
-				"&Hit :", comp, 1);
+				"&Hit : ", comp, 1);
 		fHoJHitCount.setToolTipText(
 				"Number of paths to choose when HIT (i.e. new properties have been covered)");
 		addFieldEditor( fHoJHitCount );
@@ -167,7 +154,7 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 		// Number of paths to choose from JUMP
 		fHoJJumpCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_COUNT,
-				"&Jump :", comp, 1);
+				"&Jump : ", comp, 1);
 		fHoJJumpCount.setToolTipText(
 				"Number of paths to choose when JUMP (i.e. no new property covered)");
 		addFieldEditor( fHoJJumpCount );
@@ -176,7 +163,9 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 
 	@Override
 	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute(ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT, 6);
+		configuration.setAttribute(
+				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
+				DEFAULT_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT);
 
 		configuration.setAttribute(
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT, -1);
@@ -192,20 +181,16 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 
 	@Override
 	protected void initializeFromImpl(ILaunchConfiguration configuration) {
-		fTraceElementTableViewer.initializeFrom( configuration );
+		//!! NOTHING
 	}
 
 	@Override
 	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
-		fTraceElementTableViewer.performApply( configuration );
+		//!! NOTHING
 	}
 
 	@Override
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
-		if( !fTraceElementTableViewer.isValid( launchConfig ) ) {
-			return false;
-		}
-
 		// Exploration Heuristic Validation
 		if( ! fHoJLocalHeight.isValid() ) {
 			setErrorMessage("Jump Height is not a valid integer");

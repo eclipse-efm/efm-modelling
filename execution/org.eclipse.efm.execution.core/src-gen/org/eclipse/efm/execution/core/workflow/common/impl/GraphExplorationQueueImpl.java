@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.GraphExplorationQueueImpl#getStrategy <em>Strategy</em>}</li>
- *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.GraphExplorationQueueImpl#isHeuristic <em>Heuristic</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.GraphExplorationQueueImpl#isHeuristicEnabled <em>Heuristic Enabled</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.GraphExplorationQueueImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  *
@@ -60,24 +60,24 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	protected GraphExplorationStrategyKind strategy = STRATEGY_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isHeuristic() <em>Heuristic</em>}' attribute.
+	 * The default value of the '{@link #isHeuristicEnabled() <em>Heuristic Enabled</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isHeuristic()
+	 * @see #isHeuristicEnabled()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean HEURISTIC_EDEFAULT = false;
+	protected static final boolean HEURISTIC_ENABLED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isHeuristic() <em>Heuristic</em>}' attribute.
+	 * The cached value of the '{@link #isHeuristicEnabled() <em>Heuristic Enabled</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isHeuristic()
+	 * @see #isHeuristicEnabled()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean heuristic = HEURISTIC_EDEFAULT;
+	protected boolean heuristicEnabled = HEURISTIC_ENABLED_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -144,8 +144,8 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isHeuristic() {
-		return heuristic;
+	public boolean isHeuristicEnabled() {
+		return heuristicEnabled;
 	}
 
 	/**
@@ -153,11 +153,11 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setHeuristic(boolean newHeuristic) {
-		boolean oldHeuristic = heuristic;
-		heuristic = newHeuristic;
+	public void setHeuristicEnabled(boolean newHeuristicEnabled) {
+		boolean oldHeuristicEnabled = heuristicEnabled;
+		heuristicEnabled = newHeuristicEnabled;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC, oldHeuristic, heuristic));
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC_ENABLED, oldHeuristicEnabled, heuristicEnabled));
 	}
 
 	/**
@@ -191,8 +191,8 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 		switch (featureID) {
 			case CommonPackage.GRAPH_EXPLORATION_QUEUE__STRATEGY:
 				return getStrategy();
-			case CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC:
-				return isHeuristic();
+			case CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC_ENABLED:
+				return isHeuristicEnabled();
 			case CommonPackage.GRAPH_EXPLORATION_QUEUE__WEIGHT:
 				return getWeight();
 		}
@@ -210,8 +210,8 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 			case CommonPackage.GRAPH_EXPLORATION_QUEUE__STRATEGY:
 				setStrategy((GraphExplorationStrategyKind)newValue);
 				return;
-			case CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC:
-				setHeuristic((Boolean)newValue);
+			case CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC_ENABLED:
+				setHeuristicEnabled((Boolean)newValue);
 				return;
 			case CommonPackage.GRAPH_EXPLORATION_QUEUE__WEIGHT:
 				setWeight((Integer)newValue);
@@ -231,8 +231,8 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 			case CommonPackage.GRAPH_EXPLORATION_QUEUE__STRATEGY:
 				setStrategy(STRATEGY_EDEFAULT);
 				return;
-			case CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC:
-				setHeuristic(HEURISTIC_EDEFAULT);
+			case CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC_ENABLED:
+				setHeuristicEnabled(HEURISTIC_ENABLED_EDEFAULT);
 				return;
 			case CommonPackage.GRAPH_EXPLORATION_QUEUE__WEIGHT:
 				setWeight(WEIGHT_EDEFAULT);
@@ -251,8 +251,8 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 		switch (featureID) {
 			case CommonPackage.GRAPH_EXPLORATION_QUEUE__STRATEGY:
 				return strategy != STRATEGY_EDEFAULT;
-			case CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC:
-				return heuristic != HEURISTIC_EDEFAULT;
+			case CommonPackage.GRAPH_EXPLORATION_QUEUE__HEURISTIC_ENABLED:
+				return heuristicEnabled != HEURISTIC_ENABLED_EDEFAULT;
 			case CommonPackage.GRAPH_EXPLORATION_QUEUE__WEIGHT:
 				return weight != WEIGHT_EDEFAULT;
 		}
@@ -271,8 +271,8 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (strategy: ");
 		result.append(strategy);
-		result.append(", heuristic: ");
-		result.append(heuristic);
+		result.append(", heuristicEnabled: ");
+		result.append(heuristicEnabled);
 		result.append(", weight: ");
 		result.append(weight);
 		result.append(')');

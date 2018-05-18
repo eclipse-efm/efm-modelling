@@ -8,8 +8,10 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.efm.formalml.xtext,
  org.eclipse.efm.formalml.ecore,
  org.eclipse.xtext.ide,
- org.eclipse.xtext.xbase.ide
+ org.eclipse.xtext.xbase.ide,
+ org.antlr.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.efm.formalml.xtext.ide.contentassist.antlr,
  org.eclipse.efm.formalml.xtext.ide.contentassist.antlr.internal
+Automatic-Module-Name: org.eclipse.efm.formalml.xtext.ide
 

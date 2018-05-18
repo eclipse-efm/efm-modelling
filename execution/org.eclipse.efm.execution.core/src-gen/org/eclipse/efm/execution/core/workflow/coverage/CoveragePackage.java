@@ -1228,22 +1228,31 @@ public interface CoveragePackage extends EPackage {
 	int BEHAVIOR_COVERAGE_WORKER__HIT_FOLDING = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Hit Max</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR_COVERAGE_WORKER__HIT_MAX = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Hit Lucky</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 5;
+	int BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Hit Max</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_COVERAGE_WORKER__HIT_MAX = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Hit Final</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_COVERAGE_WORKER__HIT_FINAL = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Jump Height</b></em>' attribute.
@@ -1252,7 +1261,7 @@ public interface CoveragePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR_COVERAGE_WORKER__JUMP_HEIGHT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 6;
+	int BEHAVIOR_COVERAGE_WORKER__JUMP_HEIGHT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Jump Trials Limit</b></em>' attribute.
@@ -1261,7 +1270,7 @@ public interface CoveragePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR_COVERAGE_WORKER__JUMP_TRIALS_LIMIT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 7;
+	int BEHAVIOR_COVERAGE_WORKER__JUMP_TRIALS_LIMIT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Hit Count</b></em>' attribute.
@@ -1270,7 +1279,7 @@ public interface CoveragePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR_COVERAGE_WORKER__HIT_COUNT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 8;
+	int BEHAVIOR_COVERAGE_WORKER__HIT_COUNT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Jump Count</b></em>' attribute.
@@ -1279,7 +1288,7 @@ public interface CoveragePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR_COVERAGE_WORKER__JUMP_COUNT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 9;
+	int BEHAVIOR_COVERAGE_WORKER__JUMP_COUNT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Jump Slice</b></em>' attribute.
@@ -1288,7 +1297,7 @@ public interface CoveragePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR_COVERAGE_WORKER__JUMP_SLICE = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 10;
+	int BEHAVIOR_COVERAGE_WORKER__JUMP_SLICE = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Behavior</b></em>' containment reference.
@@ -1297,7 +1306,7 @@ public interface CoveragePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR_COVERAGE_WORKER__BEHAVIOR = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 11;
+	int BEHAVIOR_COVERAGE_WORKER__BEHAVIOR = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 12;
 
 	/**
 	 * The number of structural features of the '<em>Behavior Coverage Worker</em>' class.
@@ -1306,7 +1315,7 @@ public interface CoveragePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR_COVERAGE_WORKER_FEATURE_COUNT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 12;
+	int BEHAVIOR_COVERAGE_WORKER_FEATURE_COUNT = WorkflowPackage.COVERAGE_WORKER_FEATURE_COUNT + 13;
 
 	/**
 	 * The number of operations of the '<em>Behavior Coverage Worker</em>' class.
@@ -1433,6 +1442,17 @@ public interface CoveragePackage extends EPackage {
 	EAttribute getBehaviorCoverageWorker_HitFolding();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitLucky <em>Hit Lucky</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Hit Lucky</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitLucky()
+	 * @see #getBehaviorCoverageWorker()
+	 * @generated
+	 */
+	EAttribute getBehaviorCoverageWorker_HitLucky();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitMax <em>Hit Max</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1444,15 +1464,15 @@ public interface CoveragePackage extends EPackage {
 	EAttribute getBehaviorCoverageWorker_HitMax();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitLucky <em>Hit Lucky</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitFinal <em>Hit Final</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Hit Lucky</em>'.
-	 * @see org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitLucky()
+	 * @return the meta object for the attribute '<em>Hit Final</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#isHitFinal()
 	 * @see #getBehaviorCoverageWorker()
 	 * @generated
 	 */
-	EAttribute getBehaviorCoverageWorker_HitLucky();
+	EAttribute getBehaviorCoverageWorker_HitFinal();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.coverage.BehaviorCoverageWorker#getJumpHeight <em>Jump Height</em>}'.
@@ -1646,6 +1666,14 @@ public interface CoveragePackage extends EPackage {
 		EAttribute BEHAVIOR_COVERAGE_WORKER__HIT_FOLDING = eINSTANCE.getBehaviorCoverageWorker_HitFolding();
 
 		/**
+		 * The meta object literal for the '<em><b>Hit Lucky</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY = eINSTANCE.getBehaviorCoverageWorker_HitLucky();
+
+		/**
 		 * The meta object literal for the '<em><b>Hit Max</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1654,12 +1682,12 @@ public interface CoveragePackage extends EPackage {
 		EAttribute BEHAVIOR_COVERAGE_WORKER__HIT_MAX = eINSTANCE.getBehaviorCoverageWorker_HitMax();
 
 		/**
-		 * The meta object literal for the '<em><b>Hit Lucky</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Hit Final</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY = eINSTANCE.getBehaviorCoverageWorker_HitLucky();
+		EAttribute BEHAVIOR_COVERAGE_WORKER__HIT_FINAL = eINSTANCE.getBehaviorCoverageWorker_HitFinal();
 
 		/**
 		 * The meta object literal for the '<em><b>Jump Height</b></em>' attribute feature.

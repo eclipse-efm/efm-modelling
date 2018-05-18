@@ -12,6 +12,8 @@
  */
 package org.eclipse.efm.ecore.formalml.statement;
 
+import org.eclipse.efm.ecore.formalml.common.CommonPackage;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -84,7 +86,7 @@ public interface StatementPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATEMENT_FEATURE_COUNT = 0;
+	int STATEMENT_FEATURE_COUNT = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Statement</em>' class.
@@ -93,7 +95,7 @@ public interface StatementPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATEMENT_OPERATION_COUNT = 0;
+	int STATEMENT_OPERATION_COUNT = CommonPackage.ABSTRACT_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.BlockStatementImpl <em>Block Statement</em>}' class.
@@ -179,107 +181,6 @@ public interface StatementPackage extends EPackage {
 	int EXPRESSION_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.AssignmentStatementImpl <em>Assignment Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.ecore.formalml.statement.impl.AssignmentStatementImpl
-	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getAssignmentStatement()
-	 * @generated
-	 */
-	int ASSIGNMENT_STATEMENT = 3;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT_STATEMENT__EXPRESSION = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Operator</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT_STATEMENT__OPERATOR = STATEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Left Hand Side</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT_STATEMENT__LEFT_HAND_SIDE = STATEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Rigth Hand Side</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT_STATEMENT__RIGTH_HAND_SIDE = STATEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of structural features of the '<em>Assignment Statement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The number of operations of the '<em>Assignment Statement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.NewfreshStatementImpl <em>Newfresh Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.ecore.formalml.statement.impl.NewfreshStatementImpl
-	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getNewfreshStatement()
-	 * @generated
-	 */
-	int NEWFRESH_STATEMENT = 4;
-
-	/**
-	 * The feature id for the '<em><b>Left Value</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEWFRESH_STATEMENT__LEFT_VALUE = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Newfresh Statement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEWFRESH_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of operations of the '<em>Newfresh Statement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEWFRESH_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.AbstractGuardStatementImpl <em>Abstract Guard Statement</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -287,7 +188,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getAbstractGuardStatement()
 	 * @generated
 	 */
-	int ABSTRACT_GUARD_STATEMENT = 5;
+	int ABSTRACT_GUARD_STATEMENT = 3;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -324,7 +225,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getGuardStatement()
 	 * @generated
 	 */
-	int GUARD_STATEMENT = 6;
+	int GUARD_STATEMENT = 4;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -361,7 +262,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getTimedGuardStatement()
 	 * @generated
 	 */
-	int TIMED_GUARD_STATEMENT = 7;
+	int TIMED_GUARD_STATEMENT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -398,7 +299,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getEventGuardStatement()
 	 * @generated
 	 */
-	int EVENT_GUARD_STATEMENT = 8;
+	int EVENT_GUARD_STATEMENT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -435,7 +336,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getCheckSatGuardStatement()
 	 * @generated
 	 */
-	int CHECK_SAT_GUARD_STATEMENT = 9;
+	int CHECK_SAT_GUARD_STATEMENT = 7;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -481,7 +382,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getAbstractComStatement()
 	 * @generated
 	 */
-	int ABSTRACT_COM_STATEMENT = 10;
+	int ABSTRACT_COM_STATEMENT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' reference.
@@ -536,7 +437,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getInputComStatement()
 	 * @generated
 	 */
-	int INPUT_COM_STATEMENT = 11;
+	int INPUT_COM_STATEMENT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' reference.
@@ -600,7 +501,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getOutputComStatement()
 	 * @generated
 	 */
-	int OUTPUT_COM_STATEMENT = 12;
+	int OUTPUT_COM_STATEMENT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' reference.
@@ -664,7 +565,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getConditionalBlockStatement()
 	 * @generated
 	 */
-	int CONDITIONAL_BLOCK_STATEMENT = 13;
+	int CONDITIONAL_BLOCK_STATEMENT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -710,7 +611,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getIfStatement()
 	 * @generated
 	 */
-	int IF_STATEMENT = 14;
+	int IF_STATEMENT = 12;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -774,7 +675,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getWhileDoStatement()
 	 * @generated
 	 */
-	int WHILE_DO_STATEMENT = 15;
+	int WHILE_DO_STATEMENT = 13;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -820,7 +721,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getDoWhileStatement()
 	 * @generated
 	 */
-	int DO_WHILE_STATEMENT = 16;
+	int DO_WHILE_STATEMENT = 14;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -866,7 +767,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getForStatement()
 	 * @generated
 	 */
-	int FOR_STATEMENT = 17;
+	int FOR_STATEMENT = 15;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -930,7 +831,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getForEachStatement()
 	 * @generated
 	 */
-	int FOR_EACH_STATEMENT = 18;
+	int FOR_EACH_STATEMENT = 16;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -994,7 +895,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getInterruptStatement()
 	 * @generated
 	 */
-	int INTERRUPT_STATEMENT = 19;
+	int INTERRUPT_STATEMENT = 17;
 
 	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -1040,7 +941,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getActivityStatement()
 	 * @generated
 	 */
-	int ACTIVITY_STATEMENT = 20;
+	int ACTIVITY_STATEMENT = 18;
 
 	/**
 	 * The feature id for the '<em><b>Op</b></em>' attribute.
@@ -1095,7 +996,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getInvokeStatement()
 	 * @generated
 	 */
-	int INVOKE_STATEMENT = 21;
+	int INVOKE_STATEMENT = 19;
 
 	/**
 	 * The feature id for the '<em><b>Call Procedure</b></em>' attribute.
@@ -1177,7 +1078,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getInterruptStatementKind()
 	 * @generated
 	 */
-	int INTERRUPT_STATEMENT_KIND = 22;
+	int INTERRUPT_STATEMENT_KIND = 20;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.ActivityStatementKind <em>Activity Statement Kind</em>}' enum.
@@ -1187,7 +1088,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getActivityStatementKind()
 	 * @generated
 	 */
-	int ACTIVITY_STATEMENT_KIND = 23;
+	int ACTIVITY_STATEMENT_KIND = 21;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.AssignmentStatementkind <em>Assignment Statementkind</em>}' enum.
@@ -1197,7 +1098,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getAssignmentStatementkind()
 	 * @generated
 	 */
-	int ASSIGNMENT_STATEMENTKIND = 24;
+	int ASSIGNMENT_STATEMENTKIND = 22;
 
 
 	/**
@@ -1262,81 +1163,6 @@ public interface StatementPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExpressionStatement_Expression();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.statement.AssignmentStatement <em>Assignment Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Assignment Statement</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statement.AssignmentStatement
-	 * @generated
-	 */
-	EClass getAssignmentStatement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statement.AssignmentStatement#getExpression <em>Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Expression</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statement.AssignmentStatement#getExpression()
-	 * @see #getAssignmentStatement()
-	 * @generated
-	 */
-	EReference getAssignmentStatement_Expression();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.statement.AssignmentStatement#getOperator <em>Operator</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Operator</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statement.AssignmentStatement#getOperator()
-	 * @see #getAssignmentStatement()
-	 * @generated
-	 */
-	EAttribute getAssignmentStatement_Operator();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statement.AssignmentStatement#getLeftHandSide <em>Left Hand Side</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Left Hand Side</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statement.AssignmentStatement#getLeftHandSide()
-	 * @see #getAssignmentStatement()
-	 * @generated
-	 */
-	EReference getAssignmentStatement_LeftHandSide();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statement.AssignmentStatement#getRigthHandSide <em>Rigth Hand Side</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rigth Hand Side</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statement.AssignmentStatement#getRigthHandSide()
-	 * @see #getAssignmentStatement()
-	 * @generated
-	 */
-	EReference getAssignmentStatement_RigthHandSide();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.statement.NewfreshStatement <em>Newfresh Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Newfresh Statement</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statement.NewfreshStatement
-	 * @generated
-	 */
-	EClass getNewfreshStatement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statement.NewfreshStatement#getLeftValue <em>Left Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Left Value</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statement.NewfreshStatement#getLeftValue()
-	 * @see #getNewfreshStatement()
-	 * @generated
-	 */
-	EReference getNewfreshStatement_LeftValue();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.statement.AbstractGuardStatement <em>Abstract Guard Statement</em>}'.
@@ -1900,66 +1726,6 @@ public interface StatementPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXPRESSION_STATEMENT__EXPRESSION = eINSTANCE.getExpressionStatement_Expression();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.AssignmentStatementImpl <em>Assignment Statement</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.ecore.formalml.statement.impl.AssignmentStatementImpl
-		 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getAssignmentStatement()
-		 * @generated
-		 */
-		EClass ASSIGNMENT_STATEMENT = eINSTANCE.getAssignmentStatement();
-
-		/**
-		 * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ASSIGNMENT_STATEMENT__EXPRESSION = eINSTANCE.getAssignmentStatement_Expression();
-
-		/**
-		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ASSIGNMENT_STATEMENT__OPERATOR = eINSTANCE.getAssignmentStatement_Operator();
-
-		/**
-		 * The meta object literal for the '<em><b>Left Hand Side</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ASSIGNMENT_STATEMENT__LEFT_HAND_SIDE = eINSTANCE.getAssignmentStatement_LeftHandSide();
-
-		/**
-		 * The meta object literal for the '<em><b>Rigth Hand Side</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ASSIGNMENT_STATEMENT__RIGTH_HAND_SIDE = eINSTANCE.getAssignmentStatement_RigthHandSide();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.NewfreshStatementImpl <em>Newfresh Statement</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.ecore.formalml.statement.impl.NewfreshStatementImpl
-		 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getNewfreshStatement()
-		 * @generated
-		 */
-		EClass NEWFRESH_STATEMENT = eINSTANCE.getNewfreshStatement();
-
-		/**
-		 * The meta object literal for the '<em><b>Left Value</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference NEWFRESH_STATEMENT__LEFT_VALUE = eINSTANCE.getNewfreshStatement_LeftValue();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.AbstractGuardStatementImpl <em>Abstract Guard Statement</em>}' class.

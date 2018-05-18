@@ -18,7 +18,8 @@ import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.QualifiedName
 import java.util.LinkedList
 
-public class FormalMLQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
+public class FormalMLQualifiedNameProvider
+		extends DefaultDeclarativeQualifiedNameProvider {
 
 	override public QualifiedName getFullyQualifiedName(EObject obj) {
 		if (obj instanceof NamedElement) {
@@ -55,12 +56,15 @@ public class FormalMLQualifiedNameProvider extends DefaultDeclarativeQualifiedNa
 
 	def QualifiedName qualifiedName(NamedElement form) {
 		var container = form.eContainer();
-		while ((container !== null) && (! (container instanceof NamedElement))) {
+		while( (container !== null)
+			&& (! (container instanceof NamedElement)) )
+		{
 			container = container.eContainer()
 		}
 		
 		if (container !== null) {
-			QualifiedName.create((container as NamedElement).getName(), form.getName())
+			QualifiedName.create(
+				(container as NamedElement).getName(), form.getName())
 		} 
 		else {
 			QualifiedName.create(form.getName())

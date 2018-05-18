@@ -101,6 +101,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 				return createConsoleVerbosityKindFromString(eDataType, initialValue);
 			case CommonPackage.TRACE_ELEMENT_KIND:
 				return createTraceElementKindFromString(eDataType, initialValue);
+			case CommonPackage.SOLVER_KIND:
+				return createSolverKindFromString(eDataType, initialValue);
 			case CommonPackage.HEURISTIC_CLASS_KIND:
 				return createHeuristicClassKindFromString(eDataType, initialValue);
 			case CommonPackage.COVERAGE_SCOPE_KIND:
@@ -109,6 +111,10 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 				return createCheckingScopeKindFromString(eDataType, initialValue);
 			case CommonPackage.DEBUGLEVEL_KIND:
 				return createDebuglevelKindFromString(eDataType, initialValue);
+			case CommonPackage.REDUNDANCY_PATH_SCOPE:
+				return createRedundancyPathScopeFromString(eDataType, initialValue);
+			case CommonPackage.REDUNDANCY_COMPARER_OPERATION:
+				return createRedundancyComparerOperationFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -130,6 +136,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 				return convertConsoleVerbosityKindToString(eDataType, instanceValue);
 			case CommonPackage.TRACE_ELEMENT_KIND:
 				return convertTraceElementKindToString(eDataType, instanceValue);
+			case CommonPackage.SOLVER_KIND:
+				return convertSolverKindToString(eDataType, instanceValue);
 			case CommonPackage.HEURISTIC_CLASS_KIND:
 				return convertHeuristicClassKindToString(eDataType, instanceValue);
 			case CommonPackage.COVERAGE_SCOPE_KIND:
@@ -138,6 +146,10 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 				return convertCheckingScopeKindToString(eDataType, instanceValue);
 			case CommonPackage.DEBUGLEVEL_KIND:
 				return convertDebuglevelKindToString(eDataType, instanceValue);
+			case CommonPackage.REDUNDANCY_PATH_SCOPE:
+				return convertRedundancyPathScopeToString(eDataType, instanceValue);
+			case CommonPackage.REDUNDANCY_COMPARER_OPERATION:
+				return convertRedundancyComparerOperationToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -358,6 +370,26 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SolverKind createSolverKindFromString(EDataType eDataType, String initialValue) {
+		SolverKind result = SolverKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertSolverKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public HeuristicClassKind createHeuristicClassKindFromString(EDataType eDataType, String initialValue) {
 		HeuristicClassKind result = HeuristicClassKind.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -430,6 +462,46 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * @generated
 	 */
 	public String convertDebuglevelKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RedundancyPathScope createRedundancyPathScopeFromString(EDataType eDataType, String initialValue) {
+		RedundancyPathScope result = RedundancyPathScope.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRedundancyPathScopeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RedundancyComparerOperation createRedundancyComparerOperationFromString(EDataType eDataType, String initialValue) {
+		RedundancyComparerOperation result = RedundancyComparerOperation.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRedundancyComparerOperationToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

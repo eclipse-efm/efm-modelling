@@ -9,3 +9,4 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.common.ui,
  org.eclipse.efm.ui
+Automatic-Module-Name: org.eclipse.efm.modeling.ui.newproject.examples

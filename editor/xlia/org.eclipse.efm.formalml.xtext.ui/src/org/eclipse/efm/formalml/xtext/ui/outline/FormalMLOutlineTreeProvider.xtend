@@ -84,11 +84,11 @@ class FormalMLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 				"Buffers", false);
 		}
 
-		if( ! machine.property.empty ) {
+		if( ! machine.variable.empty ) {
 			createEStructuralFeatureNode(parentNode, machine,
-				InfrastructurePackage.Literals.MACHINE__PROPERTY,
-				imageHelper.getImage("fml/Property.gif"),
-				"Properties", false);
+				InfrastructurePackage.Literals.MACHINE__VARIABLE,
+				imageHelper.getImage("fml/Variable.gif"),
+				"Variables", false);
 		}
 
 

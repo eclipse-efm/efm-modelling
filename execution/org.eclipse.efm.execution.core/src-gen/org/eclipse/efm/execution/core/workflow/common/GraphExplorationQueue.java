@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#getStrategy <em>Strategy</em>}</li>
- *   <li>{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#isHeuristic <em>Heuristic</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#isHeuristicEnabled <em>Heuristic Enabled</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#getWeight <em>Weight</em>}</li>
  * </ul>
  *
@@ -64,30 +64,30 @@ public interface GraphExplorationQueue extends EObject {
 	void setStrategy(GraphExplorationStrategyKind value);
 
 	/**
-	 * Returns the value of the '<em><b>Heuristic</b></em>' attribute.
+	 * Returns the value of the '<em><b>Heuristic Enabled</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Heuristic</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Heuristic Enabled</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Heuristic</em>' attribute.
-	 * @see #setHeuristic(boolean)
-	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationQueue_Heuristic()
+	 * @return the value of the '<em>Heuristic Enabled</em>' attribute.
+	 * @see #setHeuristicEnabled(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationQueue_HeuristicEnabled()
 	 * @model
 	 * @generated
 	 */
-	boolean isHeuristic();
+	boolean isHeuristicEnabled();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#isHeuristic <em>Heuristic</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#isHeuristicEnabled <em>Heuristic Enabled</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Heuristic</em>' attribute.
-	 * @see #isHeuristic()
+	 * @param value the new value of the '<em>Heuristic Enabled</em>' attribute.
+	 * @see #isHeuristicEnabled()
 	 * @generated
 	 */
-	void setHeuristic(boolean value);
+	void setHeuristicEnabled(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Weight</b></em>' attribute.

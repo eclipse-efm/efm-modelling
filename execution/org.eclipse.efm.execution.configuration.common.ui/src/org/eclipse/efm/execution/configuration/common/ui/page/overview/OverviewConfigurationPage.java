@@ -14,17 +14,15 @@ package org.eclipse.efm.execution.configuration.common.ui.page.overview;
 
 import java.io.File;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.api.ILaunchConfigurationGUIelement;
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -50,9 +48,13 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	// MODEL SELECTION
 	/////////////////////////////////////
 
-	private String fProjectName;
+	private IProject fProject;
+
     private Text fModelPathText;
     private Button fModelWorkspaceBrowse;
+
+	private String fOldModelPathLocation;
+
 
 	/////////////////////////////////////
 	// WORKSPACE // DEVELOPER MODE
@@ -74,7 +76,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 		fOverviewWorkspaceDataSection = new OverviewWorkspaceDataSection(this);
 
-		fOverviewWorkspaceDataSection.setExpanded(false);
+		fOldModelPathLocation = null;
 	}
 
 	@Override
@@ -96,13 +98,17 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		public void modifyText(ModifyEvent evt) {
 			propagateUpdateJobScheduling();
 
-			final String absolutePath =
+			final String absoluteLocation =
 					WorkflowFileUtils.makeAbsoluteLocation(
 							fModelPathText.getText());
 
-	        propertyChange( new PropertyChangeEvent(this,
-	        		ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
-	        		absolutePath, absolutePath) );
+			if( ! absoluteLocation.equals(fOldModelPathLocation) ) {
+		        propertyChange( new PropertyChangeEvent(this,
+		        		ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
+		        		fOldModelPathLocation, absoluteLocation) );
+
+		        fOldModelPathLocation = absoluteLocation;
+			}
 		}
 	};
 
@@ -114,8 +120,11 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
 	{
 		createModelFileSelectionComponent(parent, widgetToolkit);
-		createWorkspaceComponent(parent, widgetToolkit);
-		createAnalyseProfileComponent(parent, widgetToolkit);
+
+		fOverviewWorkspaceDataSection.createControl(parent, widgetToolkit);
+		fOverviewWorkspaceDataSection.setExpanded(false);
+
+		fAnalysisProfileSection.createControl(parent, widgetToolkit);
 	}
 
 
@@ -126,20 +135,6 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	private void createModelFileSelectionComponent(
 			Composite parent, IWidgetToolkit widgetToolkit)
 	{
-//		FormToolkit toolkit = getMasterFormToolkit();
-//		fModelWorkspaceBrowse = GenericCompositeCreator.createComposite_label_pushbutton_from_toolkit(
-//				toolkit, parent, "Model File Selection", "&Workspace...", 2);
-//
-//		fModelPathText = toolkit.createText(parent, "", SWT.NONE);
-//		fModelPathText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-//		fModelPathText.getAccessible().addAccessibleListener(new AccessibleAdapter() {
-//			@Override
-//			public void getName(AccessibleEvent e) {
-//				e.result = "Model File";
-//			}
-//		});
-
-
 		Group group  = widgetToolkit.createGroup(parent,
 				"&Model File Selection", 1, 1, GridData.FILL_HORIZONTAL);
 
@@ -179,7 +174,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 				if(dialog.open() == Window.OK) {
 					IResource resource = (IResource) dialog.getFirstResult();
 					if(resource != null) {
-						fProjectName = resource.getProject().getName();
+						fProject = resource.getProject();
 
 						fModelPathText.setText(
 								WorkflowFileUtils.makeRelativeLocation(
@@ -192,24 +187,6 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 				}
 			}
 		});
-
-	}
-
-
-	protected void createWorkspaceComponent(Composite parent, IWidgetToolkit widgetToolkit) {
-		ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
-		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
-		widgetToolkit.fillToolBar(toolBarManager, toputinbar);
-
-		fOverviewWorkspaceDataSection.createControl(parent, toolBarManager, widgetToolkit);
-	}
-
-	protected void createAnalyseProfileComponent(Composite parent, IWidgetToolkit widgetToolkit) {
-		ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
-		Action[] toputinbar = getActionsByStringKey(new String[]{"action_apply_changes"});
-		widgetToolkit.fillToolBar(toolBarManager, toputinbar);
-
-		fAnalysisProfileSection.createControl(parent, toolBarManager, widgetToolkit);
 	}
 
 
@@ -220,7 +197,12 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	@Override
 	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
-				ATTR_SPECIFICATION_PROJECT_NAME, "<project-name>");
+				ATTR_SPECIFICATION_PROJECT_LOCATION,
+				DEFAULT_SPECIFICATION_PROJECT_LOCATION);
+
+		configuration.setAttribute(
+				ATTR_SPECIFICATION_PROJECT_NAME,
+				DEFAULT_SPECIFICATION_PROJECT_NAME);
 
 		// MODEL SELECTION
 		configuration.setAttribute(
@@ -236,22 +218,14 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 	@Override
 	public void initializeFromImpl(ILaunchConfiguration configuration) {
-		try {
-			fProjectName = configuration.getAttribute(
-					ATTR_SPECIFICATION_PROJECT_NAME, "");
+		String specMainFileLocation =
+				WorkflowFileUtils.getRelativeLocation(configuration,
+						ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
+						DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
+		fModelPathText.setText( specMainFileLocation );
 
-			String specMainFileLocation =
-					WorkflowFileUtils.getRelativeLocation(configuration,
-							ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
-							DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
-			fModelPathText.setText( specMainFileLocation );
-
-			fModelPathText.setToolTipText(
-					WorkflowFileUtils.makeAbsoluteLocation(specMainFileLocation));
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-		}
+		fModelPathText.setToolTipText(
+				WorkflowFileUtils.makeAbsoluteLocation(specMainFileLocation));
 
 		// WORKSPACE DATA
 		fOverviewWorkspaceDataSection.initializeFrom(configuration);
@@ -263,8 +237,14 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 	@Override
 	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute(
-				ATTR_SPECIFICATION_PROJECT_NAME, fProjectName);
+		if( fProject != null ) {
+			WorkflowFileUtils.setRelativeLocation(configuration,
+					ATTR_SPECIFICATION_PROJECT_LOCATION,
+					fProject.getLocation().toString());
+
+			configuration.setAttribute(
+					ATTR_SPECIFICATION_PROJECT_NAME, fProject.getName());
+		}
 
 		WorkflowFileUtils.setRelativeLocation(configuration,
 				ATTR_SPECIFICATION_MODEL_FILE_LOCATION, fModelPathText.getText());

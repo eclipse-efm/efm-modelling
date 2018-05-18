@@ -40,7 +40,6 @@ import org.eclipse.efm.ecore.formalml.statement.AbstractComStatement;
 import org.eclipse.efm.ecore.formalml.statement.AbstractGuardStatement;
 import org.eclipse.efm.ecore.formalml.statement.ActivityStatement;
 import org.eclipse.efm.ecore.formalml.statement.ActivityStatementKind;
-import org.eclipse.efm.ecore.formalml.statement.AssignmentStatement;
 import org.eclipse.efm.ecore.formalml.statement.AssignmentStatementkind;
 import org.eclipse.efm.ecore.formalml.statement.BlockStatement;
 import org.eclipse.efm.ecore.formalml.statement.CheckSatGuardStatement;
@@ -56,7 +55,6 @@ import org.eclipse.efm.ecore.formalml.statement.InputComStatement;
 import org.eclipse.efm.ecore.formalml.statement.InterruptStatement;
 import org.eclipse.efm.ecore.formalml.statement.InterruptStatementKind;
 import org.eclipse.efm.ecore.formalml.statement.InvokeStatement;
-import org.eclipse.efm.ecore.formalml.statement.NewfreshStatement;
 import org.eclipse.efm.ecore.formalml.statement.OutputComStatement;
 import org.eclipse.efm.ecore.formalml.statement.Statement;
 import org.eclipse.efm.ecore.formalml.statement.StatementFactory;
@@ -99,20 +97,6 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * @generated
 	 */
 	private EClass expressionStatementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass assignmentStatementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass newfreshStatementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -387,69 +371,6 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 */
 	public EReference getExpressionStatement_Expression() {
 		return (EReference)expressionStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAssignmentStatement() {
-		return assignmentStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAssignmentStatement_Expression() {
-		return (EReference)assignmentStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAssignmentStatement_Operator() {
-		return (EAttribute)assignmentStatementEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAssignmentStatement_LeftHandSide() {
-		return (EReference)assignmentStatementEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAssignmentStatement_RigthHandSide() {
-		return (EReference)assignmentStatementEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getNewfreshStatement() {
-		return newfreshStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNewfreshStatement_LeftValue() {
-		return (EReference)newfreshStatementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -903,15 +824,6 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		expressionStatementEClass = createEClass(EXPRESSION_STATEMENT);
 		createEReference(expressionStatementEClass, EXPRESSION_STATEMENT__EXPRESSION);
 
-		assignmentStatementEClass = createEClass(ASSIGNMENT_STATEMENT);
-		createEReference(assignmentStatementEClass, ASSIGNMENT_STATEMENT__EXPRESSION);
-		createEAttribute(assignmentStatementEClass, ASSIGNMENT_STATEMENT__OPERATOR);
-		createEReference(assignmentStatementEClass, ASSIGNMENT_STATEMENT__LEFT_HAND_SIDE);
-		createEReference(assignmentStatementEClass, ASSIGNMENT_STATEMENT__RIGTH_HAND_SIDE);
-
-		newfreshStatementEClass = createEClass(NEWFRESH_STATEMENT);
-		createEReference(newfreshStatementEClass, NEWFRESH_STATEMENT__LEFT_VALUE);
-
 		abstractGuardStatementEClass = createEClass(ABSTRACT_GUARD_STATEMENT);
 		createEReference(abstractGuardStatementEClass, ABSTRACT_GUARD_STATEMENT__CONDITION);
 
@@ -1002,8 +914,8 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		ExpressionPackage theExpressionPackage = (ExpressionPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
 		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		ExpressionPackage theExpressionPackage = (ExpressionPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
 		InfrastructurePackage theInfrastructurePackage = (InfrastructurePackage)EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI);
 
 		// Create type parameters
@@ -1011,10 +923,9 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		statementEClass.getESuperTypes().add(theCommonPackage.getAbstractElement());
 		blockStatementEClass.getESuperTypes().add(this.getStatement());
 		expressionStatementEClass.getESuperTypes().add(this.getStatement());
-		assignmentStatementEClass.getESuperTypes().add(this.getStatement());
-		newfreshStatementEClass.getESuperTypes().add(this.getStatement());
 		abstractGuardStatementEClass.getESuperTypes().add(this.getStatement());
 		guardStatementEClass.getESuperTypes().add(this.getAbstractGuardStatement());
 		timedGuardStatementEClass.getESuperTypes().add(this.getAbstractGuardStatement());
@@ -1043,15 +954,6 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		initEClass(expressionStatementEClass, ExpressionStatement.class, "ExpressionStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpressionStatement_Expression(), theExpressionPackage.getExpression(), null, "expression", null, 0, 1, ExpressionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(assignmentStatementEClass, AssignmentStatement.class, "AssignmentStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAssignmentStatement_Expression(), theExpressionPackage.getAssignmentExpression(), null, "expression", null, 0, 1, AssignmentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAssignmentStatement_Operator(), ecorePackage.getEString(), "operator", null, 1, 1, AssignmentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAssignmentStatement_LeftHandSide(), theExpressionPackage.getLeftHandSideExpression(), null, "leftHandSide", null, 1, 1, AssignmentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAssignmentStatement_RigthHandSide(), theExpressionPackage.getExpression(), null, "rigthHandSide", null, 1, 1, AssignmentStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(newfreshStatementEClass, NewfreshStatement.class, "NewfreshStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getNewfreshStatement_LeftValue(), theExpressionPackage.getExpression(), null, "leftValue", null, 1, 1, NewfreshStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(abstractGuardStatementEClass, AbstractGuardStatement.class, "AbstractGuardStatement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAbstractGuardStatement_Condition(), theExpressionPackage.getExpression(), null, "condition", null, 1, 1, AbstractGuardStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1067,7 +969,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		initEClass(abstractComStatementEClass, AbstractComStatement.class, "AbstractComStatement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAbstractComStatement_Port(), theCommonPackage.getNamedElement(), null, "port", null, 0, 1, AbstractComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractComStatement_Route(), theInfrastructurePackage.getChannel(), null, "route", null, 0, 1, AbstractComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAbstractComStatement_Target(), theExpressionPackage.getExpressionAsMachine(), null, "target", null, 0, 1, AbstractComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractComStatement_Target(), theExpressionPackage.getExpression(), null, "target", null, 0, 1, AbstractComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inputComStatementEClass, InputComStatement.class, "InputComStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInputComStatement_LeftValue(), theExpressionPackage.getExpression(), null, "leftValue", null, 0, -1, InputComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1105,8 +1007,8 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		initEReference(getActivityStatement_Tuple(), theExpressionPackage.getTupleExpression(), null, "tuple", null, 0, 1, ActivityStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(invokeStatementEClass, InvokeStatement.class, "InvokeStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getInvokeStatement_CallProcedure(), ecorePackage.getEBoolean(), "callProcedure", "false", 0, 1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getInvokeStatement_ExecRoutine(), ecorePackage.getEBoolean(), "execRoutine", "false", 0, 1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInvokeStatement_CallProcedure(), ecorePackage.getEBoolean(), "callProcedure", "false", 1, 1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInvokeStatement_ExecRoutine(), ecorePackage.getEBoolean(), "execRoutine", "false", 1, 1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInvokeStatement_Invokable(), theCommonPackage.getNamedElement(), null, "invokable", null, 0, 1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInvokeStatement_Args(), theExpressionPackage.getTupleExpression(), null, "args", null, 0, 1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInvokeStatement_Rets(), theInfrastructurePackage.getVariable(), null, "rets", null, 0, -1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -29,6 +29,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getResult <em>Result</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getReport <em>Report</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getVerbosity <em>Verbosity</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderInit <em>Spider Init</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderStep <em>Spider Step</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderStop <em>Spider Stop</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getConsoleLogFormat()
@@ -195,5 +198,83 @@ public interface ConsoleLogFormat extends EObject {
 	 * @generated
 	 */
 	void setVerbosity(ConsoleVerbosityKind value);
+
+	/**
+	 * Returns the value of the '<em><b>Spider Init</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Spider Init</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Spider Init</em>' attribute.
+	 * @see #setSpiderInit(String)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getConsoleLogFormat_SpiderInit()
+	 * @model
+	 * @generated
+	 */
+	String getSpiderInit();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderInit <em>Spider Init</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Spider Init</em>' attribute.
+	 * @see #getSpiderInit()
+	 * @generated
+	 */
+	void setSpiderInit(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Spider Step</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Spider Step</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Spider Step</em>' attribute.
+	 * @see #setSpiderStep(String)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getConsoleLogFormat_SpiderStep()
+	 * @model
+	 * @generated
+	 */
+	String getSpiderStep();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderStep <em>Spider Step</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Spider Step</em>' attribute.
+	 * @see #getSpiderStep()
+	 * @generated
+	 */
+	void setSpiderStep(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Spider Stop</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Spider Stop</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Spider Stop</em>' attribute.
+	 * @see #setSpiderStop(String)
+	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getConsoleLogFormat_SpiderStop()
+	 * @model
+	 * @generated
+	 */
+	String getSpiderStop();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderStop <em>Spider Stop</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Spider Stop</em>' attribute.
+	 * @see #getSpiderStop()
+	 * @generated
+	 */
+	void setSpiderStop(String value);
 
 } // ConsoleLogFormat

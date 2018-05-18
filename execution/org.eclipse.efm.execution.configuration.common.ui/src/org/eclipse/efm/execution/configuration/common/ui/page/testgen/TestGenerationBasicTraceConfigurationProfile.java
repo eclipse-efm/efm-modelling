@@ -21,11 +21,8 @@ import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEdi
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
-import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
-import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -66,7 +63,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				"Enabled Options", 2, 1, GridData.FILL_HORIZONTAL);
 
 		Composite comp = widgetToolkit.createComposite(
-				group, 1, 1, GridData.FILL_HORIZONTAL);
+				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fBasicTraceEnabledGenerationBooleanField =
 				new BooleanFieldEditor(fConfigurationPage,
@@ -119,7 +116,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 		StringFieldEditor resourceNameStringField =
 				new StringFieldEditor(fConfigurationPage,
-				ATTR_BASIC_TRACE_FOLDER_NAME, "&Folder :",
+				ATTR_BASIC_TRACE_FOLDER_NAME, "&Folder : ",
 				comp, DEFAULT_BASIC_TRACE_FOLDER_NAME);
 		resourceNameStringField.setToolTipText(
 				"Folder name w.r.t. <workspace-root>/<output>");
@@ -129,7 +126,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				groupBasicConfiguration, 1, 1, GridData.FILL_HORIZONTAL);
 
 		resourceNameStringField = new StringFieldEditor(fConfigurationPage,
-				ATTR_BASIC_TRACE_FILE_NAME, "&File :",
+				ATTR_BASIC_TRACE_FILE_NAME, "&File : ",
 				comp, DEFAULT_BASIC_TRACE_FILE_NAME);
 		resourceNameStringField.setToolTipText("File name");
 		addFieldEditor(resourceNameStringField);
@@ -262,35 +259,8 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 	private TraceElementTableViewer fDetailTraceElementTableViewer;
 
-	private TraceElementTableConfigProvider getTraceDetailTableConfig(Font font) {
-		final PixelConverter pixelConverter = new PixelConverter(font);
-
-		return new TraceElementTableConfigProvider(
-				ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST,
-				DEFAULT_BASIC_TRACE_DETAILS_ELEMENT_LIST,
-				"&Detail", BEHAVIOR_DESCRIPTION, true,
-				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
-				"Element", pixelConverter.convertWidthInCharsToPixels(48),
-				TraceElementTableConfigProvider.BEHAVIOR_SELECTION_TRACE_ELEMENT,
-				TraceElementKind.TRANSITION);
-	}
-
-
 	private TraceElementTableViewer fFormatTraceElementTableViewer;
 
-	private TraceElementTableConfigProvider getTraceFormatElementTableConfig(Font font) {
-		final PixelConverter pixelConverter = new PixelConverter(font);
-
-		return new TraceElementTableConfigProvider(
-				ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST,
-				DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST,
-				"&Ad'Hoc Element Format for Tests",
-				HELPER_TRACE_FORMAT_SPECIFICATION, false, true,
-				"Nature" , pixelConverter.convertWidthInCharsToPixels(32),
-				"Element", pixelConverter.convertWidthInCharsToPixels(48),
-				TraceElementTableConfigProvider.FORMAT_ELEMENT,
-				TraceElementKind.VARIABLE);
-	}
 
 	private void createTraceElementTableViewerComponent(
 			Composite parent, IWidgetToolkit widgetToolkit) {
@@ -299,12 +269,16 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 				parent, 1, 2, GridData.FILL_HORIZONTAL);
 
 		fDetailTraceElementTableViewer =
-				new TraceElementTableViewer(this, comp, 1,
-				widgetToolkit, getTraceDetailTableConfig(parent.getFont()));
+			new TraceElementTableViewer(this, comp, 1, widgetToolkit,
+				TraceElementTableConfigProvider.getTestGenerationTraceDetail(
+						parent.getFont()));
+		addTableViewer( fDetailTraceElementTableViewer );
 
 		fFormatTraceElementTableViewer =
-				new TraceElementTableViewer(this, comp, 1,
-				widgetToolkit, getTraceFormatElementTableConfig(parent.getFont()));
+			new TraceElementTableViewer(this, comp, 1, widgetToolkit,
+				TraceElementTableConfigProvider.getTestGenenrationTraceFormat(
+								parent.getFont()));
+		addTableViewer( fFormatTraceElementTableViewer );
 	}
 
 
@@ -371,21 +345,17 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	@Override
 	protected void initializeFromImpl(ILaunchConfiguration configuration) {
 		handleEnablingGeneration();
-
-		fDetailTraceElementTableViewer.initializeFrom(configuration);
-		fFormatTraceElementTableViewer.initializeFrom(configuration);
 	}
 
 	@Override
 	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
-		fDetailTraceElementTableViewer.performApply(configuration);
-		fFormatTraceElementTableViewer.performApply(configuration);
+		//!! NOTHING
 	}
 
 	@Override
 	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
-		return( fDetailTraceElementTableViewer.isValid(launchConfig) ||
-				fFormatTraceElementTableViewer.isValid(launchConfig) );
+		//!! NOTHING
+		return true;
 	}
 
 }

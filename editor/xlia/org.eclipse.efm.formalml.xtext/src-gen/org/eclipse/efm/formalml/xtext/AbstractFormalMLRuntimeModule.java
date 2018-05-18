@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -139,7 +139,7 @@ public abstract class AbstractFormalMLRuntimeModule extends DefaultRuntimeModule
 	}
 	
 	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-	public Provider<InternalFormalMLLexer> provideInternalFormalMLLexer() {
+	public Provider<? extends InternalFormalMLLexer> provideInternalFormalMLLexer() {
 		return LexerProvider.create(InternalFormalMLLexer.class);
 	}
 	

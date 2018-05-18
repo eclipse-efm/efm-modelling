@@ -20,7 +20,6 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEditor;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -33,14 +32,15 @@ import org.eclipse.swt.widgets.Group;
 
 public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfigurationProfile {
 
-	public static final String SCOPE_COMBO_ITEM_MODEL = "MODEL";
-	public static final String SCOPE_COMBO_ITEM_INSTANCE = "INSTANCE";
-	public static final String SCOPE_COMBO_ITEM_DETAILS = "DETAILS";
-	public static final String[] SCOPE_COMBO_ITEMS = new String[] {
-			SCOPE_COMBO_ITEM_MODEL ,
-			SCOPE_COMBO_ITEM_INSTANCE ,
-			SCOPE_COMBO_ITEM_DETAILS
-	};
+//	public static final String SCOPE_COMBO_ITEM_MODEL = "MODEL";
+//	public static final String SCOPE_COMBO_ITEM_INSTANCE = "INSTANCE";
+//	public static final String SCOPE_COMBO_ITEM_DETAILS = "DETAILS";
+//	public static final String[] SCOPE_COMBO_ITEMS = new String[] {
+//			SCOPE_COMBO_ITEM_MODEL ,
+//			SCOPE_COMBO_ITEM_INSTANCE ,
+//			SCOPE_COMBO_ITEM_DETAILS
+//	};
+
 	private static final String HEURISTIC_START_COMBO_ITEM_BASIC = "BASIC";
 	private static final String HEURISTIC_START_COMBO_ITEM_NAIVE = "NAIVE";
 	private static final String HEURISTIC_START_COMBO_ITEM_SMART = "SMART";
@@ -71,8 +71,9 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 	private BooleanFieldEditor fTCMinimize;
 	private BooleanFieldEditor fTCSlice;
 	private BooleanFieldEditor fTCHeuristic;
-	private Combo fTCScopeCombo = null;
-	private String fTCScope = SCOPE_COMBO_ITEM_MODEL;
+
+//	private Combo fTCScopeCombo = null;
+//	private String fTCScope = SCOPE_COMBO_ITEM_MODEL;
 
 	// TRANSITION COVERAGE - section HEURISTIC
 	//
@@ -121,10 +122,11 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		 */
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			if (e.getSource() == fTCScopeCombo) {
-				handleScopeSelectionChange();
-			}
-			else if (e.getSource() == fTCHeuristicStartCombo) {
+//			if (e.getSource() == fTCScopeCombo) {
+//				handleScopeSelectionChange();
+//			}
+//			else
+				if (e.getSource() == fTCHeuristicStartCombo) {
 				handleHeuristicStartSelectionChange();
 			}
 			else if (e.getSource() == fTCDirectiveTraceHeuristicCombo) {
@@ -136,10 +138,10 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 	private TabListener fListener= new TabListener();
 
 
-	private void handleScopeSelectionChange() {
-		fTCScope = fTCScopeCombo.getText();
-		fConfigurationPage.propagateGUIupdate();
-	}
+//	private void handleScopeSelectionChange() {
+//		fTCScope = fTCScopeCombo.getText();
+//		fConfigurationPage.propagateGUIupdate();
+//	}
 
 	private void handleHeuristicStartSelectionChange() {
 		fTCHeuristicStart = fTCHeuristicStartCombo.getText();
@@ -162,7 +164,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		return "Transition Coverage, heuristic (expert) configuration section";
 	}
 
-	
+
 	@Override
 	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
 //		widgetToolkit.createGroup(parent,
@@ -179,7 +181,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		//		GridData.HORIZONTAL_ALIGN_BEGINNING);
 		fTCBeginStep = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_BEGIN_STEP,
-				"&Begin Step :", comp, 0);
+				"&Begin Step : ", comp, 0);
 		fTCBeginStep.setToolTipText("Number of \"cumulated\" steps "
 				+ "before begining the verification cover");
 		fTCBeginStep.setEnabled(false);
@@ -196,7 +198,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				"&Heuristic", compCommon, true);
 		fTCHeuristic.setToolTipText("Activate the use of heuristics");
 		addFieldEditor(fTCHeuristic);
-				
+
 		compCommon = widgetToolkit.createComposite(
 				groupCommon, 1, 1, GridData.FILL_HORIZONTAL);
 		fTCStop = new BooleanFieldEditor(fConfigurationPage,
@@ -221,14 +223,14 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		fTCMinimize.setToolTipText(
 				"Stop the symbolic execution at the earliest");
 		addFieldEditor(fTCMinimize);
-		
 
-		Composite comp3 = widgetToolkit.createComposite(
-				groupTCProperty, 2, 1, GridData.FILL_HORIZONTAL);
-		widgetToolkit.createLabel(comp3, "&Scope :", 1);
-		fTCScopeCombo = widgetToolkit.createCombo(comp3,
-				SWT.DROP_DOWN | SWT.READ_ONLY, 1, SCOPE_COMBO_ITEMS);
-		fTCScopeCombo.addSelectionListener(fListener);
+
+//		Composite comp3 = widgetToolkit.createComposite(
+//				groupTCProperty, 2, 1, GridData.FILL_HORIZONTAL);
+//		widgetToolkit.createLabel(comp3, "&Scope : ", 1);
+//		fTCScopeCombo = widgetToolkit.createCombo(comp3,
+//				SWT.DROP_DOWN | SWT.READ_ONLY, 1, SCOPE_COMBO_ITEMS);
+//		fTCScopeCombo.addSelectionListener(fListener);
 
 		// TRANSITION COVERAGE - section HEURISTIC
 		//
@@ -242,14 +244,14 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
-		widgetToolkit.createLabel(comp, "&Start :", 1);
+		widgetToolkit.createLabel(comp, "&Start : ", 1);
 		fTCHeuristicStartCombo = widgetToolkit.createCombo(
 				comp, SWT.DROP_DOWN | SWT.READ_ONLY,
 				1, HEURISTIC_START_COMBO_ITEMS);
 		fTCHeuristicStartCombo.addSelectionListener(fListener);
 
 		fTCHeuristicTrials = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_HEURISTIC_TRIALS, "&Trials :", comp, -1);
+				ATTR_TRANSITION_COVERAGE_HEURISTIC_TRIALS, "&Trials : ", comp, -1);
 		fTCHeuristicTrials.widthInChars = 10;
 		//fTCHeuristicTrials.setTextLimit(20);
 		addFieldEditor(fTCHeuristicTrials);
@@ -262,13 +264,13 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTCObjectiveRate = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_OBJECTIVE_RATE, "&Rate :", comp, 100);
+				ATTR_TRANSITION_COVERAGE_OBJECTIVE_RATE, "&Rate : ", comp, 100);
 		//fTCObjectiveRate.widthInChars = 3;
 		fTCObjectiveRate.setTextLimit(3);
 		addFieldEditor(fTCObjectiveRate);
 
 		fTCObjectiveRest = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_OBJECTIVE_REST, "&Rest :", comp, 0);
+				ATTR_TRANSITION_COVERAGE_OBJECTIVE_REST, "&Rest : ", comp, 0);
 		//fTCObjectiveRest.widthInChars = 3;
 		fTCObjectiveRest.setTextLimit(3);
 		addFieldEditor(fTCObjectiveRest);
@@ -281,11 +283,11 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 				group, 2, 1, GridData.FILL_HORIZONTAL);
 
 		fTCCoverageHeight = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_DEPTH, "&Depth :", comp, 7);
+				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_DEPTH, "&Depth : ", comp, 7);
 		addFieldEditor(fTCCoverageHeight);
 
 		fTCCoverageHeightReachedLimit = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_WIDTH, "&Width :", comp, 42);
+				ATTR_TRANSITION_COVERAGE_LOOKAHEAD_WIDTH, "&Width : ", comp, 42);
 		addFieldEditor(fTCCoverageHeightReachedLimit);
 
 
@@ -312,7 +314,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		fTCHitStronglyCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_STRONGLY_COUNT,
-				"&Hit Count :", compGroup, 1);
+				"&Hit Count : ", compGroup, 1);
 		addFieldEditor(fTCHitStronglyCount);
 
 
@@ -333,7 +335,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		fTCHitWeaklyCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_WEAKLY_COUNT,
-				"&Hit Count :", compGroup, 1);
+				"&Hit Count : ", compGroup, 1);
 		addFieldEditor(fTCHitWeaklyCount);
 
 
@@ -354,7 +356,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		fTCHitOtherCount = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_HIT_OTHER_COUNT,
-				"&Hit Count :", compGroup, 1);
+				"&Hit Count : ", compGroup, 1);
 		addFieldEditor(fTCHitOtherCount);
 
 
@@ -369,7 +371,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
-		widgetToolkit.createLabel(comp, "&Heuristic :", 1);
+		widgetToolkit.createLabel(comp, "&Heuristic : ", 1);
 		fTCDirectiveTraceHeuristicCombo = widgetToolkit.createCombo(
 				comp, SWT.DROP_DOWN | SWT.READ_ONLY, 1,
 				DIRECTIVE_TRACE_HEURISTIC_COMBO_ITEMS);
@@ -377,12 +379,12 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 		fTCDirectiveTraceCountLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_COUNT_LIMIT,
-				"&Count :", comp, 8);
+				"&Count : ", comp, 8);
 		addFieldEditor(fTCDirectiveTraceCountLimit);
 
 		fTCDirectiveTraceSizeLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_SIZE_LIMIT,
-				"&Size :", comp, 8);
+				"&Size : ", comp, 8);
 		addFieldEditor(fTCDirectiveTraceSizeLimit);
 	}
 
@@ -404,8 +406,8 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 //		fTCHeuristic.setDefaults(configuration);
 		configuration.setAttribute(ATTR_TRANSITION_COVERAGE_HEURISTIC, true);
 
-		configuration.setAttribute(
-				ATTR_TRANSITION_COVERAGE_SCOPE, SCOPE_COMBO_ITEM_MODEL);
+//		configuration.setAttribute(
+//				ATTR_TRANSITION_COVERAGE_SCOPE, SCOPE_COMBO_ITEM_MODEL);
 
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_HEURISTIC_START, "BASIC");
@@ -464,46 +466,46 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_HIT_OTHER_COUNT, 1);
 	}
-	
+
 	@Override
 	protected void initializeFromImpl(ILaunchConfiguration configuration) {
-		try {
-			fTCScope = configuration.getAttribute(
-					ATTR_TRANSITION_COVERAGE_SCOPE, SCOPE_COMBO_ITEM_MODEL);
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			fTCScope = configuration.getAttribute(
+//					ATTR_TRANSITION_COVERAGE_SCOPE, SCOPE_COMBO_ITEM_MODEL);
+//		}
+//		catch (CoreException e) {
+//			e.printStackTrace();
+//		}
+//
+//		try {
+//			if( configuration.getAttribute(
+//					ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false) )
+//			{
+//				fTCScope = SCOPE_COMBO_ITEM_DETAILS;
+//			}
+//			else if( fTCScope.equals( SCOPE_COMBO_ITEM_DETAILS ) ) {
+//				fTCScope = SCOPE_COMBO_ITEM_MODEL;
+//			}
+//		}
+//		catch (CoreException e) {
+//			e.printStackTrace();
+//		}
+//
+//		switch ( fTCScope ) {
+//		case SCOPE_COMBO_ITEM_MODEL:
+//			fTCScopeCombo.select(0);
+//			break;
+//		case SCOPE_COMBO_ITEM_INSTANCE:
+//			fTCScopeCombo.select(1);
+//			break;
+//		case SCOPE_COMBO_ITEM_DETAILS:
+//			fTCScopeCombo.select(2);
+//			break;
+//		default:
+//			fTCScopeCombo.select(0);
+//			break;
+//		}
 
-		try {
-			if( configuration.getAttribute(
-					ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false) )
-			{
-				fTCScope = SCOPE_COMBO_ITEM_DETAILS;
-			}
-			else if( fTCScope.equals( SCOPE_COMBO_ITEM_DETAILS ) ) {
-				fTCScope = SCOPE_COMBO_ITEM_MODEL;
-			}
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-		}
-
-		switch ( fTCScope ) {
-		case SCOPE_COMBO_ITEM_MODEL:
-			fTCScopeCombo.select(0);
-			break;
-		case SCOPE_COMBO_ITEM_INSTANCE:
-			fTCScopeCombo.select(1);
-			break;
-		case SCOPE_COMBO_ITEM_DETAILS:
-			fTCScopeCombo.select(2);
-			break;
-		default:
-			fTCScopeCombo.select(0);
-			break;
-		}
-		
 
 		try {
 			fTCHeuristicStart = configuration.getAttribute(
@@ -532,7 +534,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 			break;
 		}
 
-		
+
 		try {
 			fTCDirectiveTraceHeuristic = configuration.getAttribute(
 					ATTR_TRANSITION_COVERAGE_DIRECTIVE_TRACE_HEURISTIC,
@@ -540,7 +542,7 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
-		
+
 		switch ( fTCDirectiveTraceHeuristic ) {
 		case DIRECTIVE_TRACE_HEURISTIC_COMBO_ITEM_BASIC:
 			fTCDirectiveTraceHeuristicCombo.select(0);
@@ -562,21 +564,20 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 
 	@Override
 	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
-		try {
-			if( configuration.getAttribute(
-					ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false) )
-			{
-				fTCScope = SCOPE_COMBO_ITEM_DETAILS;
-			}
-			else if( fTCScope.equals( SCOPE_COMBO_ITEM_DETAILS ) ) {
-				fTCScope = SCOPE_COMBO_ITEM_MODEL;
-			}
-		}
-		catch (CoreException e) {
-			e.printStackTrace();
-		}
-		configuration.setAttribute(
-				ATTR_TRANSITION_COVERAGE_SCOPE, fTCScope);
+//		try {
+//			if( configuration.getAttribute(
+//					ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false) )
+//			{
+//				fTCScope = SCOPE_COMBO_ITEM_DETAILS;
+//			}
+//			else if( fTCScope.equals( SCOPE_COMBO_ITEM_DETAILS ) ) {
+//				fTCScope = SCOPE_COMBO_ITEM_MODEL;
+//			}
+//		}
+//		catch (CoreException e) {
+//			e.printStackTrace();
+//		}
+//		configuration.setAttribute(ATTR_TRANSITION_COVERAGE_SCOPE, fTCScope);
 
 		configuration.setAttribute(
 				ATTR_TRANSITION_COVERAGE_HEURISTIC_START, fTCHeuristicStart);
@@ -636,27 +637,27 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 		return true;
 	}
 
-	
+
 	///////////////////////////////////////////////////////////////////////////
 	// Property Change
 	//
-	@Override
-	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
-		switch( event.getProperty() ) {
-		case ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION: {
-			if( event.getNewValue() instanceof Boolean ) {
-				if( (Boolean)(event.getNewValue()) ) {
-					fTCScopeCombo.select(2); // SCOPE_COMBO_ITEM_DETAILS:
-				}
-				else {
-					fTCScopeCombo.select(0); // SCOPE_COMBO_ITEM_MODEL:
-				}
-			}
-			break;
-		}
-		default:
-			break;
-		}
-	}
+//	@Override
+//	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+//		switch( event.getProperty() ) {
+//		case ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION: {
+//			if( event.getNewValue() instanceof Boolean ) {
+//				if( (Boolean)(event.getNewValue()) ) {
+//					fTCScopeCombo.select(2); // SCOPE_COMBO_ITEM_DETAILS:
+//				}
+//				else {
+//					fTCScopeCombo.select(0); // SCOPE_COMBO_ITEM_MODEL:
+//				}
+//			}
+//			break;
+//		}
+//		default:
+//			break;
+//		}
+//	}
 
 }

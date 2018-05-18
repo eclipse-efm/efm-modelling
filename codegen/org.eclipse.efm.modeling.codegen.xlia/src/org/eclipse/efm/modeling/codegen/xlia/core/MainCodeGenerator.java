@@ -249,10 +249,6 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 		}
 
 		// This Factory
-		else if( element instanceof Package ) {
-			transformPackageDefinition((Package)element, writer);
-		}
-
 		else if( element instanceof Port ) {
 			transformPort((Port)element, writer);
 		}
@@ -281,6 +277,10 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 
 		else if( element instanceof Model ) {
 			fClassFactory.transformFormalModel((Model)element, writer);
+		}
+
+		else if( element instanceof Package ) {
+			transformPackageDefinition((Package)element, writer);
 		}
 
 		else if( element instanceof NamedElement ) {
@@ -530,7 +530,9 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 
 		// A writer indenting with TAB + iTAB -> TAB2
 		PrettyPrintWriter writer2 = writer.itab2();
-
+		
+		// 
+		
 		for( Behavior method : element.getMethods() ) {
 			if( method instanceof OpaqueBehavior ) {
 				writer.appendTab2("//xlia::behavior ")

@@ -10,8 +10,11 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.core;
 
+import javax.lang.model.element.TypeElement;
+
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Enumeration;
@@ -19,6 +22,7 @@ import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.MultiplicityElement;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.TypedElement;
 import org.eclipse.uml2.uml.ValueSpecification;
 
@@ -45,7 +49,7 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 		else if( element instanceof EnumerationLiteral ) {
 			transformEnumerationLiteral((EnumerationLiteral)element, writer);
 		}
-
+		//done 
 		else if( element instanceof DataType ) {
 			transformDataType((DataType)element, writer);
 		}
@@ -135,16 +139,45 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 		else if( element.getOwnedAttributes().size() >= 1 ) {
 			transformStructuredType(element, writer);
 		}
-		else {
-			writer.appendTab("dataType");
-			if( element.getName() != null ) {
-				writer.append(' ')
-					.append(element.getName());
-			}
-			writer.appendEol(" { /* TODO */ }");
+		else if( ! element.getRedefinedClassifiers().isEmpty() ) {
+			writer.appendTab("type ").append(element.getName()).append(' ');
+
+			for (Classifier redefClassifier : element.getRedefinedClassifiers()) {
+				if( redefClassifier instanceof Type ) {
+					writer.append(typeName((Type)redefClassifier));
+					break;
+				}
+			}		
+			writer.appendEol(";");
 		}
+//		else {
+//			writer.appendTab("dataType");
+//			if( element.getName() != null ) {
+//				writer.append(' ')
+//					.append(element.getName());
+//			}
+//			writer.appendEol(" { /* TODO */ }");
+//		}
 	}
 
+
+	/**
+	 * performTransform type name of a TypedElement element to a string
+	 * @param element
+	 * @return
+	 */
+	public String typeName(Type element) {
+		String typeString = element.getName();
+
+		if( element instanceof PrimitiveType ) {
+			typeString = typeString.toLowerCase();
+		}
+		else if( element instanceof Class ){
+			typeString = "machine" + "/*< " + typeString + " >*/";
+		}
+		
+		return typeString;
+	}
 
 	/**
 	 * performTransform type name of a TypedElement element to a string
@@ -158,14 +191,7 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 			typeString = "null<type>";
 		}
 		else {
-			typeString = element.getType().getName();
-
-			if( element.getType() instanceof PrimitiveType ) {
-				typeString = typeString.toLowerCase();
-			}
-			else if( element.getType() instanceof Class ){
-				typeString = "machine" + "/*< " + typeString + " >*/";
-			}
+			typeString = typeName(element.getType());
 
 			if( element instanceof MultiplicityElement ) {
 				MultiplicityElement multElem = (MultiplicityElement)element;

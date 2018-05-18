@@ -135,13 +135,22 @@ public interface CommonPackage extends EPackage {
 	int LOCATION__ROOT = 0;
 
 	/**
+	 * The feature id for the '<em><b>Launch</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOCATION__LAUNCH = 1;
+
+	/**
 	 * The feature id for the '<em><b>Output</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__OUTPUT = 1;
+	int LOCATION__OUTPUT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Log</b></em>' attribute.
@@ -150,7 +159,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__LOG = 2;
+	int LOCATION__LOG = 3;
 
 	/**
 	 * The feature id for the '<em><b>Debug</b></em>' attribute.
@@ -159,7 +168,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION__DEBUG = 3;
+	int LOCATION__DEBUG = 4;
 
 	/**
 	 * The number of structural features of the '<em>Location</em>' class.
@@ -168,7 +177,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION_FEATURE_COUNT = 4;
+	int LOCATION_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Location</em>' class.
@@ -336,13 +345,13 @@ public interface CommonPackage extends EPackage {
 	int GRAPH_EXPLORATION_QUEUE__STRATEGY = 0;
 
 	/**
-	 * The feature id for the '<em><b>Heuristic</b></em>' attribute.
+	 * The feature id for the '<em><b>Heuristic Enabled</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_EXPLORATION_QUEUE__HEURISTIC = 1;
+	int GRAPH_EXPLORATION_QUEUE__HEURISTIC_ENABLED = 1;
 
 	/**
 	 * The feature id for the '<em><b>Weight</b></em>' attribute.
@@ -436,13 +445,40 @@ public interface CommonPackage extends EPackage {
 	int CONSOLE_LOG_FORMAT__VERBOSITY = 5;
 
 	/**
+	 * The feature id for the '<em><b>Spider Init</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSOLE_LOG_FORMAT__SPIDER_INIT = 6;
+
+	/**
+	 * The feature id for the '<em><b>Spider Step</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSOLE_LOG_FORMAT__SPIDER_STEP = 7;
+
+	/**
+	 * The feature id for the '<em><b>Spider Stop</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSOLE_LOG_FORMAT__SPIDER_STOP = 8;
+
+	/**
 	 * The number of structural features of the '<em>Console Log Format</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSOLE_LOG_FORMAT_FEATURE_COUNT = 6;
+	int CONSOLE_LOG_FORMAT_FEATURE_COUNT = 9;
 
 	/**
 	 * The number of operations of the '<em>Console Log Format</em>' class.
@@ -1380,22 +1416,13 @@ public interface CommonPackage extends EPackage {
 	int REDUNDANCY_DETECTION = 13;
 
 	/**
-	 * The feature id for the '<em><b>Comparer</b></em>' attribute.
+	 * The feature id for the '<em><b>Enabled Detetction</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUNDANCY_DETECTION__COMPARER = 0;
-
-	/**
-	 * The feature id for the '<em><b>Solver</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUNDANCY_DETECTION__SOLVER = 1;
+	int REDUNDANCY_DETECTION__ENABLED_DETETCTION = 0;
 
 	/**
 	 * The feature id for the '<em><b>Path Scope</b></em>' attribute.
@@ -1404,7 +1431,25 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUNDANCY_DETECTION__PATH_SCOPE = 2;
+	int REDUNDANCY_DETECTION__PATH_SCOPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Comparer Operation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUNDANCY_DETECTION__COMPARER_OPERATION = 2;
+
+	/**
+	 * The feature id for the '<em><b>Solver Choice</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUNDANCY_DETECTION__SOLVER_CHOICE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Data Scope</b></em>' attribute.
@@ -1413,16 +1458,16 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUNDANCY_DETECTION__DATA_SCOPE = 3;
+	int REDUNDANCY_DETECTION__DATA_SCOPE = 4;
 
 	/**
-	 * The feature id for the '<em><b>Loop Detetction Trivial</b></em>' attribute.
+	 * The feature id for the '<em><b>Enabled Trivial Loop Detetction</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL = 4;
+	int REDUNDANCY_DETECTION__ENABLED_TRIVIAL_LOOP_DETETCTION = 5;
 
 	/**
 	 * The number of structural features of the '<em>Redundancy Detection</em>' class.
@@ -1431,7 +1476,7 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REDUNDANCY_DETECTION_FEATURE_COUNT = 5;
+	int REDUNDANCY_DETECTION_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Redundancy Detection</em>' class.
@@ -1483,6 +1528,16 @@ public interface CommonPackage extends EPackage {
 	int TRACE_ELEMENT_KIND = 17;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.SolverKind <em>Solver Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.execution.core.workflow.common.SolverKind
+	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getSolverKind()
+	 * @generated
+	 */
+	int SOLVER_KIND = 18;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.HeuristicClassKind <em>Heuristic Class Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1490,7 +1545,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getHeuristicClassKind()
 	 * @generated
 	 */
-	int HEURISTIC_CLASS_KIND = 18;
+	int HEURISTIC_CLASS_KIND = 19;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.CoverageScopeKind <em>Coverage Scope Kind</em>}' enum.
@@ -1500,7 +1555,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getCoverageScopeKind()
 	 * @generated
 	 */
-	int COVERAGE_SCOPE_KIND = 19;
+	int COVERAGE_SCOPE_KIND = 20;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.CheckingScopeKind <em>Checking Scope Kind</em>}' enum.
@@ -1510,7 +1565,7 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getCheckingScopeKind()
 	 * @generated
 	 */
-	int CHECKING_SCOPE_KIND = 20;
+	int CHECKING_SCOPE_KIND = 21;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.DebuglevelKind <em>Debuglevel Kind</em>}' enum.
@@ -1520,7 +1575,27 @@ public interface CommonPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getDebuglevelKind()
 	 * @generated
 	 */
-	int DEBUGLEVEL_KIND = 21;
+	int DEBUGLEVEL_KIND = 22;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyPathScope <em>Redundancy Path Scope</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyPathScope
+	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getRedundancyPathScope()
+	 * @generated
+	 */
+	int REDUNDANCY_PATH_SCOPE = 23;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyComparerOperation <em>Redundancy Comparer Operation</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyComparerOperation
+	 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getRedundancyComparerOperation()
+	 * @generated
+	 */
+	int REDUNDANCY_COMPARER_OPERATION = 24;
 
 
 	/**
@@ -1575,6 +1650,17 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLocation_Root();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.Location#getLaunch <em>Launch</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Launch</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.Location#getLaunch()
+	 * @see #getLocation()
+	 * @generated
+	 */
+	EAttribute getLocation_Launch();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.Location#getOutput <em>Output</em>}'.
@@ -1750,15 +1836,15 @@ public interface CommonPackage extends EPackage {
 	EAttribute getGraphExplorationQueue_Strategy();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#isHeuristic <em>Heuristic</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#isHeuristicEnabled <em>Heuristic Enabled</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Heuristic</em>'.
-	 * @see org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#isHeuristic()
+	 * @return the meta object for the attribute '<em>Heuristic Enabled</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#isHeuristicEnabled()
 	 * @see #getGraphExplorationQueue()
 	 * @generated
 	 */
-	EAttribute getGraphExplorationQueue_Heuristic();
+	EAttribute getGraphExplorationQueue_HeuristicEnabled();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.GraphExplorationQueue#getWeight <em>Weight</em>}'.
@@ -1846,6 +1932,39 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getConsoleLogFormat_Verbosity();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderInit <em>Spider Init</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Spider Init</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderInit()
+	 * @see #getConsoleLogFormat()
+	 * @generated
+	 */
+	EAttribute getConsoleLogFormat_SpiderInit();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderStep <em>Spider Step</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Spider Step</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderStep()
+	 * @see #getConsoleLogFormat()
+	 * @generated
+	 */
+	EAttribute getConsoleLogFormat_SpiderStep();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderStop <em>Spider Stop</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Spider Stop</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormat#getSpiderStop()
+	 * @see #getConsoleLogFormat()
+	 * @generated
+	 */
+	EAttribute getConsoleLogFormat_SpiderStop();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.execution.core.workflow.common.TraceElement <em>Trace Element</em>}'.
@@ -2775,26 +2894,15 @@ public interface CommonPackage extends EPackage {
 	EClass getRedundancyDetection();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getComparer <em>Comparer</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isEnabledDetetction <em>Enabled Detetction</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Comparer</em>'.
-	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getComparer()
+	 * @return the meta object for the attribute '<em>Enabled Detetction</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isEnabledDetetction()
 	 * @see #getRedundancyDetection()
 	 * @generated
 	 */
-	EAttribute getRedundancyDetection_Comparer();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getSolver <em>Solver</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Solver</em>'.
-	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getSolver()
-	 * @see #getRedundancyDetection()
-	 * @generated
-	 */
-	EAttribute getRedundancyDetection_Solver();
+	EAttribute getRedundancyDetection_EnabledDetetction();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getPathScope <em>Path Scope</em>}'.
@@ -2808,6 +2916,28 @@ public interface CommonPackage extends EPackage {
 	EAttribute getRedundancyDetection_PathScope();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getComparerOperation <em>Comparer Operation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Comparer Operation</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getComparerOperation()
+	 * @see #getRedundancyDetection()
+	 * @generated
+	 */
+	EAttribute getRedundancyDetection_ComparerOperation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getSolverChoice <em>Solver Choice</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Solver Choice</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getSolverChoice()
+	 * @see #getRedundancyDetection()
+	 * @generated
+	 */
+	EAttribute getRedundancyDetection_SolverChoice();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#getDataScope <em>Data Scope</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2819,15 +2949,15 @@ public interface CommonPackage extends EPackage {
 	EAttribute getRedundancyDetection_DataScope();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isLoopDetetctionTrivial <em>Loop Detetction Trivial</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isEnabledTrivialLoopDetetction <em>Enabled Trivial Loop Detetction</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Loop Detetction Trivial</em>'.
-	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isLoopDetetctionTrivial()
+	 * @return the meta object for the attribute '<em>Enabled Trivial Loop Detetction</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyDetection#isEnabledTrivialLoopDetetction()
 	 * @see #getRedundancyDetection()
 	 * @generated
 	 */
-	EAttribute getRedundancyDetection_LoopDetetctionTrivial();
+	EAttribute getRedundancyDetection_EnabledTrivialLoopDetetction();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind <em>Analysis Profile Kind</em>}'.
@@ -2870,6 +3000,16 @@ public interface CommonPackage extends EPackage {
 	EEnum getTraceElementKind();
 
 	/**
+	 * Returns the meta object for enum '{@link org.eclipse.efm.execution.core.workflow.common.SolverKind <em>Solver Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Solver Kind</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.SolverKind
+	 * @generated
+	 */
+	EEnum getSolverKind();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.execution.core.workflow.common.HeuristicClassKind <em>Heuristic Class Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2908,6 +3048,26 @@ public interface CommonPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getDebuglevelKind();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyPathScope <em>Redundancy Path Scope</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Redundancy Path Scope</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyPathScope
+	 * @generated
+	 */
+	EEnum getRedundancyPathScope();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyComparerOperation <em>Redundancy Comparer Operation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Redundancy Comparer Operation</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyComparerOperation
+	 * @generated
+	 */
+	EEnum getRedundancyComparerOperation();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2975,6 +3135,14 @@ public interface CommonPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LOCATION__ROOT = eINSTANCE.getLocation_Root();
+
+		/**
+		 * The meta object literal for the '<em><b>Launch</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LOCATION__LAUNCH = eINSTANCE.getLocation_Launch();
 
 		/**
 		 * The meta object literal for the '<em><b>Output</b></em>' attribute feature.
@@ -3111,12 +3279,12 @@ public interface CommonPackage extends EPackage {
 		EAttribute GRAPH_EXPLORATION_QUEUE__STRATEGY = eINSTANCE.getGraphExplorationQueue_Strategy();
 
 		/**
-		 * The meta object literal for the '<em><b>Heuristic</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Heuristic Enabled</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute GRAPH_EXPLORATION_QUEUE__HEURISTIC = eINSTANCE.getGraphExplorationQueue_Heuristic();
+		EAttribute GRAPH_EXPLORATION_QUEUE__HEURISTIC_ENABLED = eINSTANCE.getGraphExplorationQueue_HeuristicEnabled();
 
 		/**
 		 * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.
@@ -3183,6 +3351,30 @@ public interface CommonPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CONSOLE_LOG_FORMAT__VERBOSITY = eINSTANCE.getConsoleLogFormat_Verbosity();
+
+		/**
+		 * The meta object literal for the '<em><b>Spider Init</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONSOLE_LOG_FORMAT__SPIDER_INIT = eINSTANCE.getConsoleLogFormat_SpiderInit();
+
+		/**
+		 * The meta object literal for the '<em><b>Spider Step</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONSOLE_LOG_FORMAT__SPIDER_STEP = eINSTANCE.getConsoleLogFormat_SpiderStep();
+
+		/**
+		 * The meta object literal for the '<em><b>Spider Stop</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONSOLE_LOG_FORMAT__SPIDER_STOP = eINSTANCE.getConsoleLogFormat_SpiderStop();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.impl.TraceElementImpl <em>Trace Element</em>}' class.
@@ -3881,20 +4073,12 @@ public interface CommonPackage extends EPackage {
 		EClass REDUNDANCY_DETECTION = eINSTANCE.getRedundancyDetection();
 
 		/**
-		 * The meta object literal for the '<em><b>Comparer</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Enabled Detetction</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute REDUNDANCY_DETECTION__COMPARER = eINSTANCE.getRedundancyDetection_Comparer();
-
-		/**
-		 * The meta object literal for the '<em><b>Solver</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute REDUNDANCY_DETECTION__SOLVER = eINSTANCE.getRedundancyDetection_Solver();
+		EAttribute REDUNDANCY_DETECTION__ENABLED_DETETCTION = eINSTANCE.getRedundancyDetection_EnabledDetetction();
 
 		/**
 		 * The meta object literal for the '<em><b>Path Scope</b></em>' attribute feature.
@@ -3905,6 +4089,22 @@ public interface CommonPackage extends EPackage {
 		EAttribute REDUNDANCY_DETECTION__PATH_SCOPE = eINSTANCE.getRedundancyDetection_PathScope();
 
 		/**
+		 * The meta object literal for the '<em><b>Comparer Operation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REDUNDANCY_DETECTION__COMPARER_OPERATION = eINSTANCE.getRedundancyDetection_ComparerOperation();
+
+		/**
+		 * The meta object literal for the '<em><b>Solver Choice</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REDUNDANCY_DETECTION__SOLVER_CHOICE = eINSTANCE.getRedundancyDetection_SolverChoice();
+
+		/**
 		 * The meta object literal for the '<em><b>Data Scope</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3913,12 +4113,12 @@ public interface CommonPackage extends EPackage {
 		EAttribute REDUNDANCY_DETECTION__DATA_SCOPE = eINSTANCE.getRedundancyDetection_DataScope();
 
 		/**
-		 * The meta object literal for the '<em><b>Loop Detetction Trivial</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Enabled Trivial Loop Detetction</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute REDUNDANCY_DETECTION__LOOP_DETETCTION_TRIVIAL = eINSTANCE.getRedundancyDetection_LoopDetetctionTrivial();
+		EAttribute REDUNDANCY_DETECTION__ENABLED_TRIVIAL_LOOP_DETETCTION = eINSTANCE.getRedundancyDetection_EnabledTrivialLoopDetetction();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind <em>Analysis Profile Kind</em>}' enum.
@@ -3961,6 +4161,16 @@ public interface CommonPackage extends EPackage {
 		EEnum TRACE_ELEMENT_KIND = eINSTANCE.getTraceElementKind();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.SolverKind <em>Solver Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.execution.core.workflow.common.SolverKind
+		 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getSolverKind()
+		 * @generated
+		 */
+		EEnum SOLVER_KIND = eINSTANCE.getSolverKind();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.HeuristicClassKind <em>Heuristic Class Kind</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3999,6 +4209,26 @@ public interface CommonPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum DEBUGLEVEL_KIND = eINSTANCE.getDebuglevelKind();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyPathScope <em>Redundancy Path Scope</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyPathScope
+		 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getRedundancyPathScope()
+		 * @generated
+		 */
+		EEnum REDUNDANCY_PATH_SCOPE = eINSTANCE.getRedundancyPathScope();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.RedundancyComparerOperation <em>Redundancy Comparer Operation</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.execution.core.workflow.common.RedundancyComparerOperation
+		 * @see org.eclipse.efm.execution.core.workflow.common.impl.CommonPackageImpl#getRedundancyComparerOperation()
+		 * @generated
+		 */
+		EEnum REDUNDANCY_COMPARER_OPERATION = eINSTANCE.getRedundancyComparerOperation();
 
 	}
 

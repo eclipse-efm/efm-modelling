@@ -55,7 +55,7 @@ public interface InvokeStatement extends Statement {
 	 * @return the value of the '<em>Call Procedure</em>' attribute.
 	 * @see #setCallProcedure(boolean)
 	 * @see org.eclipse.efm.ecore.formalml.statement.StatementPackage#getInvokeStatement_CallProcedure()
-	 * @model default="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isCallProcedure();
@@ -82,7 +82,7 @@ public interface InvokeStatement extends Statement {
 	 * @return the value of the '<em>Exec Routine</em>' attribute.
 	 * @see #setExecRoutine(boolean)
 	 * @see org.eclipse.efm.ecore.formalml.statement.StatementPackage#getInvokeStatement_ExecRoutine()
-	 * @model default="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isExecRoutine();

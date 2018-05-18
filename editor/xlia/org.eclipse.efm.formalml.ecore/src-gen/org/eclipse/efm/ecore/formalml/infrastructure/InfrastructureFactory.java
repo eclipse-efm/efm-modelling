@@ -41,6 +41,33 @@ public interface InfrastructureFactory extends EFactory {
 	Machine createMachine();
 
 	/**
+	 * Returns a new object of class '<em>Property Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Property Part</em>'.
+	 * @generated
+	 */
+	PropertyPart createPropertyPart();
+
+	/**
+	 * Returns a new object of class '<em>Composite Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Composite Part</em>'.
+	 * @generated
+	 */
+	CompositePart createCompositePart();
+
+	/**
+	 * Returns a new object of class '<em>Behavior Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Behavior Part</em>'.
+	 * @generated
+	 */
+	BehaviorPart createBehaviorPart();
+
+	/**
 	 * Returns a new object of class '<em>System</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -111,6 +138,15 @@ public interface InfrastructureFactory extends EFactory {
 	 * @generated
 	 */
 	Signal createSignal();
+
+	/**
+	 * Returns a new object of class '<em>Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Function</em>'.
+	 * @generated
+	 */
+	Function createFunction();
 
 	/**
 	 * Returns a new object of class '<em>Procedure</em>'.
@@ -221,13 +257,13 @@ public interface InfrastructureFactory extends EFactory {
 	Route createRoute();
 
 	/**
-	 * Returns a new object of class '<em>Connection</em>'.
+	 * Returns a new object of class '<em>Connector</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Connection</em>'.
+	 * @return a new object of class '<em>Connector</em>'.
 	 * @generated
 	 */
-	Connection createConnection();
+	Connector createConnector();
 
 	/**
 	 * Returns a new object of class '<em>Com Point</em>'.

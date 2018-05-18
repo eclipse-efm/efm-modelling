@@ -30,12 +30,14 @@ public class WorkspaceCustomImpl extends WorkspaceImpl
 
 
 	public static WorkspaceCustomImpl create(
-			ILaunchConfiguration configuration, IPath workingPathPath) {
+			ILaunchConfiguration configuration,
+			IPath projectRootPath, IPath relativeLaunchPath) {
 		WorkspaceCustomImpl workspace = new WorkspaceCustomImpl();
 
 		Location location = CommonFactory.eINSTANCE.createLocation();
 
-		location.setRoot( workingPathPath.toString() );
+		location.setRoot( projectRootPath.toString() );
+		location.setLaunch( relativeLaunchPath.toString() );
 
 		String str;
 		try {
@@ -99,7 +101,10 @@ public class WorkspaceCustomImpl extends WorkspaceImpl
 		Location location = getLocation();
 
 		writer.appendTab2( "root   = \"" )
-			.append( location.getRoot()   ).appendEol( "\"" );
+		.append( location.getRoot() ).appendEol( "\"" );
+
+		writer.appendTab2( "launch = \"" )
+		.append( location.getLaunch() ).appendEol( "\"" );
 
 		writer.appendTab2( "output = \"" )
 			.append( location.getOutput() ).appendEol( "\"" );

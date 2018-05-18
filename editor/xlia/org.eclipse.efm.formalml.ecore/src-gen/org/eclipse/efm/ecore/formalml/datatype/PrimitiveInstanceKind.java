@@ -29,6 +29,16 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum PrimitiveInstanceKind implements Enumerator {
 	/**
+	 * The '<em><b>Any</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ANY_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ANY(0, "any", "any"),
+
+	/**
 	 * The '<em><b>Buffer</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -36,7 +46,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BUFFER(0, "buffer", "buffer"),
+	BUFFER(1, "buffer", "buffer"),
 
 	/**
 	 * The '<em><b>Message</b></em>' literal object.
@@ -46,7 +56,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MESSAGE(1, "message", "message"),
+	MESSAGE(2, "message", "message"),
 
 	/**
 	 * The '<em><b>Port</b></em>' literal object.
@@ -56,7 +66,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PORT(2, "port", "port"),
+	PORT(3, "port", "port"),
 
 	/**
 	 * The '<em><b>Signal</b></em>' literal object.
@@ -66,9 +76,17 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SIGNAL(3, "signal", "signal"),
+	SIGNAL(4, "signal", "signal"),
 
 	/**
+	 * The '<em><b>Function</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FUNCTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FUNCTION(5, "function", "function"), /**
 	 * The '<em><b>Com point</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -76,7 +94,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COM_POINT(4, "com_point", "com_point"),
+	COM_POINT(6, "com_point", "com_point"),
 
 	/**
 	 * The '<em><b>Channel</b></em>' literal object.
@@ -86,17 +104,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	CHANNEL(5, "channel", "channel"),
-
-	/**
-	 * The '<em><b>Machine</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MACHINE_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	MACHINE(6, "machine", "machine"),
+	CHANNEL(7, "channel", "channel"),
 
 	/**
 	 * The '<em><b>Vertex</b></em>' literal object.
@@ -106,7 +114,40 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VERTEX(7, "vertex", "vertex");
+	VERTEX(8, "vertex", "vertex"),
+
+	/**
+	 * The '<em><b>Composite</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #COMPOSITE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	COMPOSITE(9, "composite", "composite"), /**
+	 * The '<em><b>Machine</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MACHINE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	MACHINE(10, "machine", "machine");
+
+	/**
+	 * The '<em><b>Any</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Any</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ANY
+	 * @model name="any"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ANY_VALUE = 0;
 
 	/**
 	 * The '<em><b>Buffer</b></em>' literal value.
@@ -121,7 +162,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int BUFFER_VALUE = 0;
+	public static final int BUFFER_VALUE = 1;
 
 	/**
 	 * The '<em><b>Message</b></em>' literal value.
@@ -136,7 +177,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE_VALUE = 1;
+	public static final int MESSAGE_VALUE = 2;
 
 	/**
 	 * The '<em><b>Port</b></em>' literal value.
@@ -151,7 +192,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int PORT_VALUE = 2;
+	public static final int PORT_VALUE = 3;
 
 	/**
 	 * The '<em><b>Signal</b></em>' literal value.
@@ -166,7 +207,22 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SIGNAL_VALUE = 3;
+	public static final int SIGNAL_VALUE = 4;
+
+	/**
+	 * The '<em><b>Function</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Function</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #FUNCTION
+	 * @model name="function"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FUNCTION_VALUE = 5;
 
 	/**
 	 * The '<em><b>Com point</b></em>' literal value.
@@ -181,7 +237,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int COM_POINT_VALUE = 4;
+	public static final int COM_POINT_VALUE = 6;
 
 	/**
 	 * The '<em><b>Channel</b></em>' literal value.
@@ -196,22 +252,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CHANNEL_VALUE = 5;
-
-	/**
-	 * The '<em><b>Machine</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Machine</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #MACHINE
-	 * @model name="machine"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int MACHINE_VALUE = 6;
+	public static final int CHANNEL_VALUE = 7;
 
 	/**
 	 * The '<em><b>Vertex</b></em>' literal value.
@@ -226,7 +267,37 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VERTEX_VALUE = 7;
+	public static final int VERTEX_VALUE = 8;
+
+	/**
+	 * The '<em><b>Composite</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Composite</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #COMPOSITE
+	 * @model name="composite"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int COMPOSITE_VALUE = 9;
+
+	/**
+	 * The '<em><b>Machine</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Machine</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #MACHINE
+	 * @model name="machine"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int MACHINE_VALUE = 10;
 
 	/**
 	 * An array of all the '<em><b>Primitive Instance Kind</b></em>' enumerators.
@@ -236,14 +307,17 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 */
 	private static final PrimitiveInstanceKind[] VALUES_ARRAY =
 		new PrimitiveInstanceKind[] {
+			ANY,
 			BUFFER,
 			MESSAGE,
 			PORT,
 			SIGNAL,
+			FUNCTION,
 			COM_POINT,
 			CHANNEL,
-			MACHINE,
 			VERTEX,
+			COMPOSITE,
+			MACHINE,
 		};
 
 	/**
@@ -300,14 +374,17 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 */
 	public static PrimitiveInstanceKind get(int value) {
 		switch (value) {
+			case ANY_VALUE: return ANY;
 			case BUFFER_VALUE: return BUFFER;
 			case MESSAGE_VALUE: return MESSAGE;
 			case PORT_VALUE: return PORT;
 			case SIGNAL_VALUE: return SIGNAL;
+			case FUNCTION_VALUE: return FUNCTION;
 			case COM_POINT_VALUE: return COM_POINT;
 			case CHANNEL_VALUE: return CHANNEL;
-			case MACHINE_VALUE: return MACHINE;
 			case VERTEX_VALUE: return VERTEX;
+			case COMPOSITE_VALUE: return COMPOSITE;
+			case MACHINE_VALUE: return MACHINE;
 		}
 		return null;
 	}

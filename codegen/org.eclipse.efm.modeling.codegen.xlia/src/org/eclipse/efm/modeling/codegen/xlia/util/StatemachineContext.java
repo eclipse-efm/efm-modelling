@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.eclipse.efm.modeling.codegen.xlia.core.MainCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.core.StatemachineCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.util.StatemachineContext.CONTEXT;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.uml.Behavior;
@@ -46,7 +47,13 @@ import org.eclipse.uml2.uml.Vertex;
 
 public class StatemachineContext {
 	
+	public enum CONTEXT { INTERACTION ,  LIFELINE };
+	
+	
 	public StatemachineContext parentContext;
+	
+	public CONTEXT transfoCtx;
+
 	
 	public Lifeline coveredLifeline;
 	
@@ -69,6 +76,7 @@ public class StatemachineContext {
 	
 	public boolean isLastFragmentTransformation;
 	
+	public Transition intermediateTransition;
 	
 //	public StatemachineContext() {
 //		coveredLifeline = null;
@@ -89,8 +97,10 @@ public class StatemachineContext {
 	 * Create a StatemachineContext for the Interaction element which initializes the constraints map
 	 * @param interaction
 	 */
-	public StatemachineContext(Interaction interaction) {
+	public StatemachineContext(Interaction interaction, CONTEXT context) {
 		parentContext = null;
+		
+		transfoCtx = context;
 		
 		coveredLifeline = null;
 		
@@ -109,10 +119,14 @@ public class StatemachineContext {
 		region = null;
 		
 		isLastFragmentTransformation = false;
+		
+		intermediateTransition = null;
 	}	
 	
 	public StatemachineContext(StatemachineContext parentCtx, Lifeline lifeline) {
 		parentContext = parentCtx;
+		
+		transfoCtx = parentCtx.transfoCtx;
 		
 		coveredLifeline = lifeline;
 		
@@ -143,7 +157,7 @@ public class StatemachineContext {
 	
 	
 	public StatemachineContext(Lifeline lifeline) {
-		this(new StatemachineContext(lifeline.getInteraction()), lifeline);
+		this(new StatemachineContext(lifeline.getInteraction(), CONTEXT.INTERACTION), lifeline);
 	}
 
 	
@@ -224,7 +238,11 @@ public class StatemachineContext {
 		}
 	}
 
-	
+	public State createIntermediateState(String name) {
+		State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
+		return( state );
+	}
+
 	public State createNewState(String name) {
 		State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
 		

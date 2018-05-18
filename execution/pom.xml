@@ -7,7 +7,7 @@
 		<artifactId>org.eclipse.efm.modeling.parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>org.eclipse.efm.execution</artifactId>
+	<artifactId>org.eclipse.efm.modeling.execution</artifactId>
 	<packaging>pom</packaging>
 	<name>org.eclipse.efm-modeling Execution</name>
 	<description>This module contains the different plugins relative to the workflow configuration of Execution by Symbex </description>

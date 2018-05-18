@@ -1,13 +1,90 @@
 target "Eclipse Formal Modeling with Papyrus Neon" with source requirements
 
 location "http://download.eclipse.org/releases/neon/" eclipse-neon {
- org.eclipse.platform.feature.group lazy
- org.eclipse.rcp.feature.group lazy
- org.eclipse.jdt.feature.group lazy
+ org.eclipse.emf.feature.group lazy
+ org.eclipse.emf.source.feature.group lazy
+ org.eclipse.emf.mwe.core.feature.feature.group lazy
+ org.eclipse.emf.mwe.ui.feature.feature.group lazy
+ org.eclipse.emf.mwe.utils lazy
+ org.eclipse.emf.mwe2.launch lazy
+ org.eclipse.emf.mwe2.runtime.sdk.feature.group lazy
+ org.eclipse.emf.transaction.feature.group lazy
+ org.eclipse.emf.validation.feature.group lazy
+ org.eclipse.emf.validation.ocl.feature.group lazy
+ org.eclipse.emf.workspace.feature.group lazy
  org.eclipse.equinox.p2.discovery.feature.feature.group lazy
  org.eclipse.equinox.executable.feature.group lazy
+ org.eclipse.gef.feature.group lazy
+// org.eclipse.gef.dot.feature.group lazy
+// org.eclipse.gef.dot.user.feature.group lazy
+// org.eclipse.gef.dot.ui.feature.group lazy
+ org.eclipse.gmf.feature.group lazy
+ org.eclipse.jdt.feature.group lazy
+ org.eclipse.jdt.source.feature.group lazy
+ org.eclipse.m2m.qvt.oml.sdk.feature.group lazy
+ org.eclipse.m2m.qvt.oml.emf.util lazy
+ org.eclipse.m2m.qvt.oml.project lazy
+ org.eclipse.m2m.qvt.oml.runtime.feature.group lazy
+ org.eclipse.ocl.feature.group lazy
+ org.eclipse.pde.feature.group lazy
+ org.eclipse.papyrus.sdk.feature.feature.group lazy
+ org.eclipse.platform.feature.group lazy
+ org.eclipse.rcp.feature.group lazy
+// org.eclipse.uml2.codegen.ecore lazy
+ org.eclipse.uml2.codegen.ecore.ui.feature.group lazy
+// org.eclipse.uml2.common lazy
+ org.eclipse.uml2.common.feature.group lazy
+// org.eclipse.uml2.types lazy
+ org.eclipse.uml2.feature.group lazy
+// org.eclipse.uml2.uml lazy
+// org.eclipse.uml2.uml.profile.standard lazy
+// org.eclipse.uml2.uml.resources lazy
+ org.eclipse.uml2.uml.feature.group lazy
+ org.eclipse.xpand.feature.group lazy
+ org.eclipse.xpand.source.feature.group lazy
+ org.eclipse.xtend.feature.group lazy
+ org.eclipse.xtend.lib lazy
+ org.eclipse.xtend.typesystem.emf.feature.group lazy
+ org.eclipse.xtend.typesystem.emf.source.feature.group lazy
+ org.eclipse.xtend.ui.feature.group lazy
+ org.eclipse.xtend.ui.source.feature.group lazy
+ org.eclipse.xtext.junit4 lazy
+ org.eclipse.xtext.runtime.feature.group lazy
+ org.eclipse.xtext.sdk.feature.group lazy
+// org.eclipse.xtext.testing lazy
+ org.eclipse.xtext.ui.feature.group lazy
+ org.eclipse.xtext.xbase lazy
+ org.eclipse.xtext.xbase.source lazy
+// org.eclipse.xtext.xbase.junit lazy
+// org.eclipse.xtext.xbase.testing lazy
+ org.eclipse.xwt.feature.feature.group lazy
+ org.eclipse.wst.sse.core lazy
+ org.eclipse.wst.xml.core lazy
 }
 
-location "http://download.eclipse.org/modeling/mdt/papyrus/updates/nightly/neon/main/" eclipse-papyrus-nighlty-neon {
- org.eclipse.papyrus.sdk.feature.feature.group lazy
+location "http://download.eclipse.org/modeling/mdt/papyrus/components/designer" Papyrus-Designer {
+ org.eclipse.papyrus.designer.languages.common.feature.feature.group lazy
+}
+
+//location "http://download.eclipse.org/mmt/qvto/updates/releases" Eclipse-QVT {
+// org.eclipse.m2m.qvt.oml.sdk.feature.group lazy
+//}
+
+//location "http://download.eclipse.org/modeling/mdt/ocl/updates/releases" Eclipse-OCL {
+// org.eclipse.ocl.all.feature.group lazy
+//}
+
+location "http://download.eclipse.org/nebula/releases/latest" Eclipse-Nebula {
+ org.eclipse.nebula.widgets.cdatetime.feature.feature.group lazy
+}
+
+//location "http://download.eclipse.org/webtools/updates" Eclipse-WST {
+// org.eclipse.wst.common_sdk.feature.feature.group lazy
+//}
+
+location "http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/" orbit-neon {
+	com.google.guava lazy
+	org.apache.commons.cli lazy
+	com.google.guava.source lazy
+	org.apache.commons.cli.source lazy
 }

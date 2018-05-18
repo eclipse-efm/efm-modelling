@@ -38,11 +38,13 @@ import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
 import org.eclipse.efm.execution.core.Activator;
-import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
+import org.eclipse.efm.execution.core.workflow.DirectorCustomImpl;
 import org.eclipse.efm.execution.core.workflow.WorkflowCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
+import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.LaunchExecConsoleManager;
 import org.eclipse.efm.execution.launchconfiguration.util.BackgroundResourceRefresher;
 import org.eclipse.efm.execution.launchconfiguration.util.CoreUtil;
@@ -68,6 +70,9 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	private IPath fSewLocation;
 	private IPath fWorkingDirectory;
 
+	private IPath fLaunchingDirectory;
+
+
 	public static AnalysisProfileKind fModelAnalysisProfile =
 			AnalysisProfileKind.ANALYSIS_UNDEFINED_PROFILE;
 
@@ -85,6 +90,8 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	public LaunchDelegate() {
 		fSewLocation = null;
 		fWorkingDirectory = null;
+
+		fLaunchingDirectory = WorkflowFileUtils.WORKSPACE_PATH;
 
 		fConsoleManager = new LaunchExecConsoleManager();
 
@@ -169,9 +176,11 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 			if( project != null ) {
 				fWorkingDirectory = project.getLocation();
 
-				WorkflowCustomImpl workflow =
-						WorkflowCustomImpl.create(
-								configuration, fWorkingDirectory);
+				final IPath relativeLaunchPath =
+					WorkflowFileUtils.makeRootRelativeToWorkspacePath(fWorkingDirectory);
+
+				WorkflowCustomImpl workflow = WorkflowCustomImpl.create(
+						configuration, fWorkingDirectory, relativeLaunchPath);
 
 				fSewLocation = getWorkflowPath(configuration);
 
@@ -184,7 +193,6 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 //
 ////					fSewLocation = fWorkingDirectory.append(PROJECT_FAVM);
 //				}
-
 
 				fModelAnalysisProfile = AnalysisProfileKind.get(
 						configuration.getAttribute(
@@ -253,28 +261,14 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 
 	public static boolean isLaunchCoverageProfileFamily() {
-		if( ! LaunchDelegate.fEnableTraceExtension )
-		switch( LaunchDelegate.fModelAnalysisProfile ) {
-		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
-		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
-			return true;
-
-		default:
-			return false;
+		if( ! LaunchDelegate.fEnableTraceExtension ) {
+			return DirectorCustomImpl.isCoverageAnalysisProfile(fModelAnalysisProfile);
 		}
 		return true;
 	}
 
-	public static boolean isLaunchExplorationFamilyProfile() {
-		switch( LaunchDelegate.fModelAnalysisProfile ) {
-		case ANALYSIS_EXPLORATION_PROFILE:
-		case ANALYSIS_TEST_OFFLINE_PROFILE:
-		case ANALYSIS_UNDEFINED_PROFILE:
-			return true;
-
-		default:
-			return false;
-		}
+	public static boolean isLaunchExplorationProfileFamily() {
+		return DirectorCustomImpl.isExplorationAnalysisProfile(fModelAnalysisProfile);
 	}
 
 	public void launchExec(ILaunchConfiguration configuration, String mode,
@@ -298,15 +292,17 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 			return;
 		}
 
-		int cmdLineLength = 2 + ((arguments != null) ? arguments.length : 0);
+		int cmdLineLength = 4 + ((arguments != null) ? arguments.length : 0);
 
-		String[] cmdLine = new String[cmdLineLength];
+		String[] commandLine = new String[cmdLineLength];
 
-		cmdLine[0] = fAvmExecLocation.toOSString();
-		cmdLine[1] = fSewLocation.toOSString();
+		commandLine[0] = fAvmExecLocation.toOSString();
+		commandLine[1] = fSewLocation.toOSString();
+		commandLine[2] = SymbexJob.SYMBEX_LAUNCH_OPTION_ENABLE_SERVER_MODE;
+		commandLine[3] = SymbexJob.SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS;
 
 		if (arguments != null) {
-			System.arraycopy(arguments, 0, cmdLine, 1, arguments.length);
+			System.arraycopy(arguments, 0, commandLine, 4, arguments.length);
 		}
 
 		if (monitor.isCanceled()) {
@@ -320,26 +316,13 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 			return;
 		}
 
-		File workingDir = (fWorkingDirectory != null) ?
-				fWorkingDirectory.toFile() : null;
-
-		boolean debugOptionMode = SymbexPreferenceUtil.getBooleanPreference(
-				IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS);
-
-		String consoleLevel = configuration.getAttribute(
-				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, "MINIMUM");
-
-		boolean spiderView = SymbexPreferenceUtil.getBooleanPreference(
-				IWorkflowPreferenceConstants.PREF_SPIDER_VIEW);
-
-		boolean consoleView = SymbexPreferenceUtil.getBooleanPreference(
-				IWorkflowPreferenceConstants.PREF_CONSOLE_VIEW);
-
+//		boolean debugOptionMode = SymbexPreferenceUtil.getBooleanPreference(
+//				IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS);
 
 // Modif pour non-régression
 //
 //		defaultLaunchExecProcess(configuration, mode, launch,
-//				monitor,cmdLine, workingDir, envp);
+//				monitor,commandLine, workingDir, envp);
 //
 //		System.out.println("Debut deuxieme execution");
 //		try {
@@ -349,29 +332,29 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 //		}
 //
 //		defaultLaunchExecProcess(configuration, mode, launch,
-//				monitor,cmdLine, workingDir, envp);
+//				monitor,commandLine, workingDir, envp);
 
 
+		fConsoleManager.sewLaunchExecProcess(configuration, mode,
+				launch, monitor, commandLine, fLaunchingDirectory.toFile(), envp);
 
+//		SymbexJobFactory.run(configuration, mode,
+//				launch, monitor, commandLine, fLaunchingDirectory, envp);
 
-		if ( spiderView &&
-			((! debugOptionMode) || consoleLevel.equals("MINIMUM")) ) {
-			fConsoleManager.sewLaunchExecProcess(configuration, mode, launch,
-					monitor,cmdLine, workingDir, envp);
-		}
-		else if ( consoleView ){
-			// Console par défault
-			defaultLaunchExecProcess(configuration, mode, launch,
-					monitor,cmdLine, workingDir, envp);
-		}
+		// Console par défault
+//		defaultLaunchExecProcess(configuration, mode, launch,
+//				monitor,commandLine, fLaunchingDirectory, envp);
 	}
 
 	protected void defaultLaunchExecProcess(ILaunchConfiguration configuration,
 			String mode, ILaunch launch, IProgressMonitor monitor,
-			String[] cmdLine, File workingDir, String[] envp)
+			String[] commandLine, IPath workingDirecory, String[] envp)
 					throws CoreException {
 
-		Process javaProcess = DebugPlugin.exec(cmdLine, workingDir, envp);
+		File workingDir = (workingDirecory != null) ?
+				workingDirecory.toFile() : null;
+
+		Process javaProcess = DebugPlugin.exec(commandLine, workingDir, envp);
 		IProcess eclipseProcess = null;
 
 		// add process type to process attributes
@@ -414,7 +397,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 		}
 
 		eclipseProcess.setAttribute(
-				IProcess.ATTR_CMDLINE, generateCommandLine(cmdLine));
+				IProcess.ATTR_CMDLINE, generateCommandLine(commandLine));
 
 		if( configuration.getAttribute(
 				IDebugUIConstants.ATTR_LAUNCH_IN_BACKGROUND, true) ) {

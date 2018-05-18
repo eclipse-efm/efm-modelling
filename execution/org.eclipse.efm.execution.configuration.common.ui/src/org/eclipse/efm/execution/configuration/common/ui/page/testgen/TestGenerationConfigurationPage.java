@@ -23,12 +23,9 @@ import org.eclipse.efm.execution.configuration.common.ui.editors.IntegerFieldEdi
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
 import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
-import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
-import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
@@ -41,20 +38,7 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	private BooleanFieldEditor fTraceExtensionEnabledBooleanField;
 	private IntegerFieldEditor fTraceExtensionEvaluationStepsLimitIntegerField;
 
-
 	private TraceElementTableViewer fExtensionObjectiveTraceElementTableViewer;
-
-	private TraceElementTableConfigProvider getTraceExtensionObjectiveTableConfig(Font font) {
-		final PixelConverter pixelConverter = new PixelConverter(font);
-
-		return new TraceElementTableConfigProvider(
-				ATTR_TRACE_EXTENSION_OBJECTIVE, DEFAULT_TRACE_EXTENSION_OBJECTIVE,
-				"Trace Ending with", BEHAVIOR_DESCRIPTION, true,
-				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
-				"Element", pixelConverter.convertWidthInCharsToPixels(48),
-				TraceElementTableConfigProvider.BEHAVIOR_SELECTION_TRACE_ELEMENT,
-				TraceElementKind.TRANSITION);
-	}
 
 
 	// BASIC TRACE GENERATION
@@ -140,21 +124,26 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 		fTraceExtensionEvaluationStepsLimitIntegerField =
 				new IntegerFieldEditor(this,
 						ATTR_TRACE_EXTENSION_EVALUATION_STEPS,
-						"&Evaluation Steps :", comp, -1);
+						"&Evaluation Steps : ", comp, -1);
 		fTraceExtensionEvaluationStepsLimitIntegerField.setToolTipText(
 				"Maximal evaluation steps (-1 <=> no-limit) " +
 				"during the extension of symbolic execution");
 		addFieldEditor(fTraceExtensionEvaluationStepsLimitIntegerField);
 
 		fExtensionObjectiveTraceElementTableViewer =
-				new TraceElementTableViewer(null, groupTraceExtension, 1, widgetToolkit,
-						getTraceExtensionObjectiveTableConfig(parent.getFont()));
+			new TraceElementTableViewer(null, groupTraceExtension, 1, widgetToolkit,
+				TraceElementTableConfigProvider.getTraceExtensionObjective(
+						parent.getFont()));
 		addTableViewer(fExtensionObjectiveTraceElementTableViewer);
 	}
 
 	private void handleEnablingTraceExtension() {
-		propagateVisibility(groupExtensionObjective,
-				fTraceExtensionEnabledBooleanField.getBooleanValue() );
+		final boolean visible = fTraceExtensionEnabledBooleanField.getBooleanValue();
+
+		propagateVisibility(groupExtensionObjective, visible);
+
+		propagateVisibility(
+				fExtensionObjectiveTraceElementTableViewer.getControl(), visible);
 	}
 
 
@@ -255,6 +244,8 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 
 			case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
 			case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
+			case ANALYSIS_ACSL_GENERATION_PROFILE:
+			case ANALYSIS_EXTRANEOUS_PROFILE:
 			case ANALYSIS_EXPLORATION_PROFILE:
 			default:
 				groupTraceExtension.setEnabled(true);

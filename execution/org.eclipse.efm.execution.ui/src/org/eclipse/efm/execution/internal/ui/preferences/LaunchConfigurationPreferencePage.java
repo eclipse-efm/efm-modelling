@@ -11,8 +11,8 @@
 package org.eclipse.efm.execution.internal.ui.preferences;
 
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
-import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.ui.IWorkbench;
@@ -33,59 +33,43 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  */
 
 
-public class LaunchConfigurationPreferencePage
-	extends FieldEditorPreferencePage
-	implements IWorkbenchPreferencePage {
+public class LaunchConfigurationPreferencePage extends FieldEditorPreferencePage
+		implements IWorkbenchPreferencePage, IWorkflowPreferenceConstants {
 
 	public LaunchConfigurationPreferencePage() {
 		super(GRID);
-		setPreferenceStore(SymbexPreferenceUtil.getDefaultPreferenceStore());
+
 		setDescription("Preferences for Launch Configuration");
-		initializeDefaults();
-	}
-/**
- * Sets the default values of the preferences.
- */
-	private void initializeDefaults() {
 	}
 
-/**
- * Creates the field editors. Field editors are abstractions of
- * the common GUI blocks needed to manipulate various types
- * of preferences. Each field editor knows how to save and
- * restore itself.
- */
+	@Override
+	public void init(IWorkbench workbench) {
+		setPreferenceStore( SymbexPreferenceUtil.getDefaultPreferenceStore() );
+	}
 
+	/**
+	 * Creates the field editors. Field editors are abstractions of
+	 * the common GUI blocks needed to manipulate various types
+	 * of preferences. Each field editor knows how to save and
+	 * restore itself.
+	 */
+	@Override
 	public void createFieldEditors() {
-		addField(new BooleanFieldEditor(
-				IWorkflowPreferenceConstants.PREF_EXPERT_MODE,
+		addField(new BooleanFieldEditor(PREF_EXPERT_MODE,
 				"&Expert Mode",getFieldEditorParent()));
 
 		if( AbstractLaunchDelegate.ENABLED_SYMBEX_INCUBATION_MODE_OPTION ) {
-			addField(new BooleanFieldEditor(
-					IWorkflowPreferenceConstants.PREF_INCUBATION_MODE,
+			addField(new BooleanFieldEditor(PREF_INCUBATION_MODE,
 					"&Incubation Mode",getFieldEditorParent()));
 		}
 
-		addField(new BooleanFieldEditor(
-				IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS,
+		addField(new BooleanFieldEditor(PREF_DEBUG_OPTIONS,
 				"&Debug Option",getFieldEditorParent()));
 
 		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
-			addField(new BooleanFieldEditor(
-					IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE,
+			addField(new BooleanFieldEditor(PREF_SYMBEX_DEVELOPER_MODE,
 					"&Symbex Developer Mode",getFieldEditorParent()));
 		}
-
-		addField(new BooleanFieldEditor(
-				IWorkflowPreferenceConstants.PREF_CONSOLE_VIEW,
-				"&Display Console",getFieldEditorParent()));
-
-		addField(new BooleanFieldEditor(
-				IWorkflowPreferenceConstants.PREF_SPIDER_VIEW,
-				"&Display Spider",getFieldEditorParent()));
 	}
 
-	public void init(IWorkbench workbench) {
-	}
 }

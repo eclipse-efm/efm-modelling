@@ -14,8 +14,8 @@ import java.util.Locale;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.ui.IWorkbench;
@@ -27,14 +27,12 @@ public class ExternalToolsPreferencePage extends FieldEditorPreferencePage
 	public ExternalToolsPreferencePage() {
 		super(GRID);
 
-		setPreferenceStore( SymbexPreferenceUtil.getDefaultPreferenceStore() );
-
 		setDescription( "External tool for Dot Format (from GraphViz.org) Graph Viewer" );
 	}
 
 	@Override
 	public void init(IWorkbench workbench) {
-		// TODO Auto-generated method stub
+		setPreferenceStore( SymbexPreferenceUtil.getDefaultPreferenceStore() );
 	}
 
 	@Override
@@ -66,7 +64,7 @@ public class ExternalToolsPreferencePage extends FieldEditorPreferencePage
 		if( super.performOk() ) {
 			SymbexPreferenceUtil.setExternalDotGraphViewerPath(
 					new Path( SymbexPreferenceUtil.getStringPreference(
-							IWorkflowPreferenceConstants.PREF_DIVERSITY_GRAPH_VIEWER_LOCATION) ) );
+							PREF_DIVERSITY_GRAPH_VIEWER_LOCATION) ) );
 
 			return true;
 		}

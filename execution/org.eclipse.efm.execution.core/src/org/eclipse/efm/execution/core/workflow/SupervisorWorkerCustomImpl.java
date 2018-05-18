@@ -15,6 +15,7 @@ package org.eclipse.efm.execution.core.workflow;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.common.CommonFactory;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl;
@@ -28,7 +29,7 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomIm
 import org.eclipse.efm.execution.core.workflow.impl.SupervisorWorkerImpl;
 
 public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
-		implements IWorkflowConfigurationConstants {
+		implements IWorkflowConfigurationConstants, IWorkflowSpiderConfigurationUtils {
 
 	protected SupervisorWorkerCustomImpl() {
 		super();
@@ -36,7 +37,7 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 
 
 	public static SupervisorWorkerCustomImpl create(
-			ILaunchConfiguration configuration) {
+			ILaunchConfiguration configuration, boolean isCoverageAnalysis) {
 		SupervisorWorkerCustomImpl supervisor = new SupervisorWorkerCustomImpl();
 
 		// MANIFEST
@@ -125,8 +126,14 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 		// CONSOLE LOG
 		ConsoleLogFormatCustomImpl console =
 				ConsoleLogFormatCustomImpl.create(
-						"\\nstep:%1% , context:%2% , height:%3% , width:%4%",
-						"\\nstop:%1% , context:%2% , height:%3% , width:%4%");
+						isCoverageAnalysis ? DEFAULT_COVERAGE_TRACE_EVAL_FORMAT :
+							DEFAULT_EXPLORATION_TRACE_EVAL_FORMAT,
+						isCoverageAnalysis ? DEFAULT_COVERAGE_TRACE_REPORT_FORMAT :
+							DEFAULT_EXPLORATION_TRACE_REPORT_FORMAT,
+
+						DEFAULT_SPIDER_INIT_POSITION_FORMAT,
+						DEFAULT_SPIDER_STEP_POSITION_FORMAT,
+						DEFAULT_SPIDER_STOP_POSITION_FORMAT);
 
 		supervisor.setConsole( console );
 
@@ -206,8 +213,11 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 		// CONSOLE LOG
 		ConsoleLogFormatCustomImpl console =
 				ConsoleLogFormatCustomImpl.create(
-						"\\nstep:%1% , context:%2% , height:%3% , width:%4%",
-						"\\nstop:%1% , context:%2% , height:%3% , width:%4%");
+						DEFAULT_COVERAGE_TRACE_EVAL_FORMAT,
+						DEFAULT_COVERAGE_TRACE_REPORT_FORMAT,
+						DEFAULT_SPIDER_INIT_POSITION_FORMAT,
+						DEFAULT_SPIDER_STEP_POSITION_FORMAT,
+						DEFAULT_SPIDER_STOP_POSITION_FORMAT);
 
 		supervisor.setConsole( console );
 
@@ -283,7 +293,7 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 				"queue 'defining the exploration/search strategy' [" );
 
 		final int weight = queue.getWeight();
-		final boolean useHeuristic = queue.isHeuristic();
+		final boolean useHeuristic = queue.isHeuristicEnabled();
 
 		writer.appendTab3( "strategy = '" );
 		if( useHeuristic || (weight > 0) ) {
@@ -306,18 +316,18 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 
 		RedundancyDetection redundancy = getRedundancy();
 		if( redundancy != null ) {
-			if( (str = redundancy.getComparer()) != null ) {
-				writer.appendTab3( "comparer = '" ).append( str ).appendEol( "'" );
+			if( redundancy.isEnabledDetetction() ) {
+				writer.appendTab3( "comparer = '" )
+					.append( redundancy.getComparerOperation().getLiteral() )
+					.appendEol( "'" );
 
-				if( (str = redundancy.getSolver()) == null ) {
-					str = "OMEGA";
-				}
-				writer.appendTab3( "solver = '" ).append( str ).appendEol( "'" );
+				writer.appendTab3( "solver = '" )
+					.append( redundancy.getSolverChoice().getLiteral() )
+					.appendEol( "'" );
 
-				if( (str = redundancy.getPathScope()) == null ) {
-					str = "CURRENT";
-				}
-				writer.appendTab3( "path_scope = '" ).append( str ).appendEol("'");
+				writer.appendTab3( "path_scope = '" )
+					.append( redundancy.getPathScope().getLiteral() )
+					.appendEol("'");
 
 				if( (str = redundancy.getDataScope()) == null ) {
 					str = "ALL";
@@ -326,7 +336,7 @@ public class SupervisorWorkerCustomImpl extends SupervisorWorkerImpl
 			}
 			else {
 				writer.appendTab3( "loop#detection#trivial = " )
-						.appendEol( redundancy.isLoopDetetctionTrivial() );
+						.appendEol( redundancy.isEnabledTrivialLoopDetetction() );
 			}
 		}
 		else {

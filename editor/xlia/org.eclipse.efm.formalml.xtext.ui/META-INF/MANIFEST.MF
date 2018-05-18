@@ -24,3 +24,4 @@ Export-Package: org.eclipse.efm.formalml.xtext.ui.quickfix,
  org.eclipse.efm.formalml.xtext.ui.contentassist,
  org.eclipse.efm.formalml.xtext.ui.internal
 Bundle-Activator: org.eclipse.efm.formalml.xtext.ui.internal.XtextActivator
+Automatic-Module-Name: org.eclipse.efm.formalml.xtext.ui

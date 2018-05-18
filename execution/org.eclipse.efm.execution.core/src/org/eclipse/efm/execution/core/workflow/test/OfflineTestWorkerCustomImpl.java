@@ -86,19 +86,39 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 		}
 
 
-		testWorker.setObservable(
-				TraceSpecificationCustomImpl.create(
-						"observable", configuration,
-						ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
-						DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
-						TraceElementKind.UNDEFINED) );
 
-		testWorker.setControllable(
-				TraceSpecificationCustomImpl.create(
-						"controllable", configuration,
-						ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
-						DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+		boolean enabledObservableControllable;
+		try {
+			enabledObservableControllable = configuration.getAttribute(
+					ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION,
+					false);
+		}
+		catch( CoreException e ) {
+			e.printStackTrace();
+
+			enabledObservableControllable = false;
+		}
+
+		if( enabledObservableControllable ) {
+			testWorker.setObservable(
+					TraceSpecificationCustomImpl.create(
+							"observable", configuration,
+							ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+							DEFAULT_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
+							TraceElementKind.UNDEFINED) );
+
+			testWorker.setControllable(
+					TraceSpecificationCustomImpl.create(
+							"controllable", configuration,
+							ATTR_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
+							DEFAULT_TEST_OFFLINE_CONTROLLABLE_SPECIFICATION,
 						TraceElementKind.UNDEFINED) );
+		}
+		else {
+			testWorker.setObservable( null );
+
+			testWorker.setControllable( null );
+		}
 
 
 //		ConsoleLogFormatCustomImpl console =

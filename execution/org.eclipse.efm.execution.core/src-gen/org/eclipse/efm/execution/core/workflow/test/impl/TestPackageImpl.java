@@ -22,6 +22,10 @@ import org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage;
 
 import org.eclipse.efm.execution.core.workflow.coverage.impl.CoveragePackageImpl;
 
+import org.eclipse.efm.execution.core.workflow.extraneous.ExtraneousPackage;
+
+import org.eclipse.efm.execution.core.workflow.extraneous.impl.ExtraneousPackageImpl;
+
 import org.eclipse.efm.execution.core.workflow.impl.WorkflowPackageImpl;
 
 import org.eclipse.efm.execution.core.workflow.serializer.SerializerPackage;
@@ -103,6 +107,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) instanceof WorkflowPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) : WorkflowPackage.eINSTANCE);
 		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
 		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) instanceof CoveragePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) : CoveragePackage.eINSTANCE);
+		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) instanceof ExtraneousPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) : ExtraneousPackage.eINSTANCE);
 		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) instanceof SerializerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) : SerializerPackage.eINSTANCE);
 
 		// Create package meta-data objects
@@ -110,6 +115,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 		theWorkflowPackage.createPackageContents();
 		theCommonPackage.createPackageContents();
 		theCoveragePackage.createPackageContents();
+		theExtraneousPackage.createPackageContents();
 		theSerializerPackage.createPackageContents();
 
 		// Initialize created meta-data
@@ -117,6 +123,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 		theWorkflowPackage.initializePackageContents();
 		theCommonPackage.initializePackageContents();
 		theCoveragePackage.initializePackageContents();
+		theExtraneousPackage.initializePackageContents();
 		theSerializerPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed

@@ -69,7 +69,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 
 		fHoJBeginStep = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_BEGIN_STEP,
-				"&Begin Step", comp1, 0);
+				"&Begin Step : ", comp1, 0);
 		fHoJBeginStep.setToolTipText("Number of \"cumulated\" steps "
 				+ "before begining the research of the behavior");
 		addFieldEditor( fHoJBeginStep );
@@ -139,8 +139,8 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 		Group groupOption = widgetToolkit.createGroup(groupHoJProperty,
 				"&Options", 3, 2, GridData.FILL_HORIZONTAL);
 
-		Composite compOption = widgetToolkit.createComposite(
-				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
+//		Composite compOption = widgetToolkit.createComposite(
+//				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
 //		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 //				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_FOLDING,
 //				"&Folding", compOption, true);
@@ -148,7 +148,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 //				"Enabled verification of multiple trace properties per Symbex State");
 //		addFieldEditor( fieldEditor );
 
-		compOption = widgetToolkit.createComposite(
+		Composite compOption = widgetToolkit.createComposite(
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
 		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_LUCKY,
@@ -169,7 +169,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				groupOption, 1, 1, GridData.FILL_HORIZONTAL);
 		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_SLICE,
-				"&Jump Slice", compOption, false);
+				"&Jump Slice", compOption, true);
 		fieldEditor.setToolTipText(
 				"Pruning intermediate at the end of hit or jump");
 		addFieldEditor( fieldEditor );
@@ -182,28 +182,28 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 //				groupHoJHeuristic, 1, 1, GridData.FILL_HORIZONTAL);
 //		fHoJJumpHeight = new IntegerFieldEditor(fConfigurationPage,
 //				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
-//				"&Exploration Height :", compHeuristic, 6);
+//				"&Exploration Height : ", compHeuristic, 6);
 //		fHoJJumpHeight.setToolTipText(
 //				"Local exploration height before the next selection by HIT or JUMP");
 //		addField( fHoJJumpHeight );
 //
 //		fHoJJumpLimit = new IntegerFieldEditor(fConfigurationPage,
 //				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT,
-//				"&Jump Trials Limit :", compHeuristic, -1);
+//				"&Jump Trials Limit : ", compHeuristic, -1);
 //		fHoJJumpLimit.setToolTipText(
 //				"Local exploration trials number for the Trace Sequence Coverage");
 //		addField( fHoJJumpLimit );
 //
 //		fHoJHitCount = new IntegerFieldEditor(fConfigurationPage,
 //				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_COUNT,
-//				"&Hit Count :", compHeuristic, 1);
+//				"&Hit Count : ", compHeuristic, 1);
 //		fHoJHitCount.setToolTipText(
 //				"Number of paths to choose from HIT (i.e. new properties have been covered)");
 //		addField( fHoJHitCount );
 //
 //		fHoJJumpCount = new IntegerFieldEditor(fConfigurationPage,
 //				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_COUNT,
-//				"&Jump Count :", compHeuristic, 1);
+//				"&Jump Count : ", compHeuristic, 1);
 //		fHoJJumpCount.setToolTipText(
 //				"Number of paths to choose from JUMP (i.e. no new property covered)");
 //		addField( fHoJJumpCount );
@@ -252,7 +252,9 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_SLICE, false);
 
 //		fHoJJumpHeight.setDefaults(configuration);
-		configuration.setAttribute(ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT, 6);
+//		configuration.setAttribute(
+//				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
+//				DEFAULT_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT);
 
 //		fHoJJumpLimit.setDefaults(configuration);
 		configuration.setAttribute(

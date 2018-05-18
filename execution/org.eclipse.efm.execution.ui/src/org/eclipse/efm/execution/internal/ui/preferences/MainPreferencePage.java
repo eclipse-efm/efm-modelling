@@ -11,8 +11,8 @@
 package org.eclipse.efm.execution.internal.ui.preferences;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
@@ -29,9 +29,12 @@ public class MainPreferencePage extends FieldEditorPreferencePage
 	public MainPreferencePage() {
 		super(GRID);
 
-		setPreferenceStore( SymbexPreferenceUtil.getDefaultPreferenceStore() );
-
 		setDescription( "The SEW Abstract Virtual Machine" );
+	}
+
+	@Override
+	public void init(IWorkbench workbench) {
+		setPreferenceStore( SymbexPreferenceUtil.getDefaultPreferenceStore() );
 	}
 
 
@@ -55,7 +58,7 @@ public class MainPreferencePage extends FieldEditorPreferencePage
 				PREF_DIVERSITY_AVM_EXECUTABLE_LOCATION,
 //				"The Diversity AVM executable location:",
 				"Executable:",
-				true, FileFieldEditor.VALIDATE_ON_FOCUS_LOST,
+				false, FileFieldEditor.VALIDATE_ON_FOCUS_LOST,
 				getFieldEditorParent());
 
 		fSEPLocationFileField.setFileExtensions(
@@ -98,9 +101,6 @@ public class MainPreferencePage extends FieldEditorPreferencePage
 		else {
 			return false;
 		}
-	}
-
-	public void init(IWorkbench workbench) {
 	}
 
 }

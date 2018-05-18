@@ -21,6 +21,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.PackageableElement;
 
@@ -92,6 +93,14 @@ public class CodegenHandler extends CmdHandler {
 		System.out.print(namedElement.getClass().getName());
 		System.out.print(" : ");
 		System.out.println(namedElement.getQualifiedName());
+	
+		if( namedElement instanceof Lifeline ) {
+			if( modelElementsCreator instanceof CodegenModelElementsCreator )
+			{
+				((CodegenModelElementsCreator)modelElementsCreator).createElementFile(namedElement, null);
+			}
+		}
+	
 	}
 
 	private void generate(CodegenModelElementsCreator modelElementsCreator,

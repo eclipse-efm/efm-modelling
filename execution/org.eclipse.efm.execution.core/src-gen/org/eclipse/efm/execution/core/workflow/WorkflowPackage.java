@@ -940,13 +940,22 @@ public interface WorkflowPackage extends EPackage {
 	int SERIALIZER__ENABLED_LIFELINES_PRINTING = WORKER_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION = WORKER_FEATURE_COUNT + 8;
+
+	/**
 	 * The number of structural features of the '<em>Serializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 8;
+	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of operations of the '<em>Serializer</em>' class.
@@ -1490,6 +1499,17 @@ public interface WorkflowPackage extends EPackage {
 	EAttribute getSerializer_EnabledLifelinesPrinting();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledModifiedDataSelection <em>Enabled Modified Data Selection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled Modified Data Selection</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.Serializer#isEnabledModifiedDataSelection()
+	 * @see #getSerializer()
+	 * @generated
+	 */
+	EAttribute getSerializer_EnabledModifiedDataSelection();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1919,6 +1939,14 @@ public interface WorkflowPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SERIALIZER__ENABLED_LIFELINES_PRINTING = eINSTANCE.getSerializer_EnabledLifelinesPrinting();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled Modified Data Selection</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION = eINSTANCE.getSerializer_EnabledModifiedDataSelection();
 
 	}
 

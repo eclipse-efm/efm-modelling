@@ -74,7 +74,7 @@ public interface CollectionType extends DataSupportedType {
 	 * @return the value of the '<em>Size</em>' attribute.
 	 * @see #setSize(int)
 	 * @see org.eclipse.efm.ecore.formalml.datatype.DatatypePackage#getCollectionType_Size()
-	 * @model default="-1"
+	 * @model default="-1" required="true"
 	 * @generated
 	 */
 	int getSize();
@@ -100,7 +100,7 @@ public interface CollectionType extends DataSupportedType {
 	 * @return the value of the '<em>Unbounded</em>' attribute.
 	 * @see #setUnbounded(boolean)
 	 * @see org.eclipse.efm.ecore.formalml.datatype.DatatypePackage#getCollectionType_Unbounded()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isUnbounded();

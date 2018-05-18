@@ -40,6 +40,9 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Signal
 import org.eclipse.efm.ecore.formalml.infrastructure.System
 import org.eclipse.xtext.validation.Check
 import org.eclipse.efm.formalml.xtext.typing.FormalMLTypeProvider
+import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage
+import org.eclipse.efm.ecore.formalml.infrastructure.Variable
+import org.eclipse.efm.ecore.formalml.expression.AssignmentExpression
 
 /**
  * This class contains custom validation rules. 
@@ -49,6 +52,8 @@ import org.eclipse.efm.formalml.xtext.typing.FormalMLTypeProvider
 class FormalMLValidator extends AbstractFormalMLValidator {
 
 	@Inject extension FormalMLTypeProvider
+
+	static val infraPack = InfrastructurePackage::eINSTANCE
 
 
 //	@Inject extension IQualifiedNameProvider
@@ -73,7 +78,6 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 
 
 	public static val NAME_NULL = "org.example.system.name";
-
 
 
 	def checkNoDuplicateDeclarationInBlock(NamedElement decl,
@@ -107,7 +111,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	def checkNoDuplicateDeclarationInMachine(PropertyDefinition decl) {
 		if( decl.eContainer instanceof Machine ) {
 			checkNoDuplicateDeclarationInBlock(decl,
-				(decl.eContainer as Machine).property, "property")
+				(decl.eContainer as Machine).variable, "variable")
 		}
 	}
 
@@ -233,8 +237,8 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 			return; // nothing to check
 		}
 		else if( ! rigthType.isConformant(leftType) ) {
-			error("Incompatible types. Expected '" + leftType.name
-					+ "' but was '" + rigthType.name + "'",
+			error("<BinaryExpression> Incompatible types. Expected '"
+					+ leftType.name + "' but was '" + rigthType.name + "'",
 					null, INCOMPATIBLE_TYPES);
 		}
 	}
@@ -249,7 +253,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 		val operandType = exp.operand.typeClassFor
 		if( operandType !== null ) {
 			if( ! operandType.isConformant(FormalMLTypeProvider.booleanType) ) {
-				error("Incompatible types. Expected '"
+				error("<LogicalUnaryExpression> Incompatible types. Expected '"
 						+ FormalMLTypeProvider.booleanType.name
 						+ "' but was '" + operandType.name + "'",
 						null, INCOMPATIBLE_TYPES);
@@ -263,7 +267,8 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 			val operandType = operand.typeClassFor
 			if( operandType !== null ) {
 				if( ! operandType.isConformant(FormalMLTypeProvider.booleanType) ) {
-					error("Incompatible types. Expected '"
+					error("<LogicalAssociativeExpression> "
+							+ "Incompatible types. Expected '"
 							+ FormalMLTypeProvider.booleanType.name
 							+ "' but was '" + operandType.name + "'",
 							null, INCOMPATIBLE_TYPES);
@@ -282,7 +287,8 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 		val operandType = exp.operand.typeClassFor
 		if( operandType !== null ) {
 			if( ! operandType.isConformant(FormalMLTypeProvider.realType) ) {
-				error("Incompatible types. Expected '"
+				error("<ArithmeticUnaryExpression> "
+						+ "Incompatible types. Expected '"
 						+ FormalMLTypeProvider.realType.name
 						+ "' but was '" + operandType.name + "'",
 						null, INCOMPATIBLE_TYPES);
@@ -330,7 +336,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 		val operandType = exp.operand.typeClassFor
 		if( operandType !== null ) {
 			if( ! operandType.isConformant(FormalMLTypeProvider.integerType) ) {
-				error("Incompatible types. Expected '"
+				error("<BitwiseUnaryExpression> Incompatible types. Expected '"
 						+ FormalMLTypeProvider.integerType.name
 						+ "' but was '" + operandType.name + "'",
 						null, INCOMPATIBLE_TYPES);
@@ -344,7 +350,8 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 			val operandType = operand.typeClassFor
 			if( operandType !== null ) {
 				if( ! operandType.isConformant(FormalMLTypeProvider.integerType) ) {
-					error("Incompatible types. Expected '"
+					error("<BitwiseAssociativeExpression> "
+							+ "Incompatible types. Expected '"
 							+ FormalMLTypeProvider.integerType.name
 							+ "' but was '" + operandType.name + "'",
 							null, INCOMPATIBLE_TYPES);
@@ -362,13 +369,30 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	def void checkCompatibleTypes(Expression exp) {
 		val actualType = exp.typeClassFor
 		val expectedType = exp.expectedTypeClass
+		
 		if( (expectedType === null) || (actualType === null) ) {
 			return; // nothing to check
 		}
 		else if( ! actualType.isConformant(expectedType) ) {
-			error("Incompatible types. Expected '" + expectedType.name
-					+ "' but was '" + actualType.name + "'",
-					null, INCOMPATIBLE_TYPES);
+			var isnotConformant = true
+			
+			val eC = exp.eContainer
+			if( (eC instanceof AssignmentExpression)
+				|| (eC instanceof Variable) )
+			{
+				val expectedElementType = expectedType.typeOfCollectionElement
+					
+				isnotConformant = ( (expectedElementType === null)
+					|| (expectedElementType == expectedType) 
+					|| (! actualType.isConformant(expectedElementType) ) )
+			}
+			
+			if( isnotConformant ) {
+				error("<Expression> Incompatible types. Expected '" 
+						+ expectedType.name
+						+ "' but was '" + actualType.name + "'",
+						null, INCOMPATIBLE_TYPES);
+			}
 		}
 	}
 

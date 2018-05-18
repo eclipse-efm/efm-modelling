@@ -31,6 +31,7 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecification;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNormalization <em>Enabled Normalization</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledLifelinesPrinting <em>Enabled Lifelines Printing</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledModifiedDataSelection <em>Enabled Modified Data Selection</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer()
@@ -247,5 +248,32 @@ public interface Serializer extends Worker {
 	 * @generated
 	 */
 	void setEnabledLifelinesPrinting(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Enabled Modified Data Selection</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enabled Modified Data Selection</em>' attribute.
+	 * @see #setEnabledModifiedDataSelection(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_EnabledModifiedDataSelection()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isEnabledModifiedDataSelection();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledModifiedDataSelection <em>Enabled Modified Data Selection</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Enabled Modified Data Selection</em>' attribute.
+	 * @see #isEnabledModifiedDataSelection()
+	 * @generated
+	 */
+	void setEnabledModifiedDataSelection(boolean value);
 
 } // Serializer

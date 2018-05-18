@@ -1,4 +1,4 @@
-target "Eclipse Formal Modeling Neon" source requirements
+target "Eclipse Formal Modeling Neon" with source requirements
 
 location "http://download.eclipse.org/releases/neon/" eclipse-neon {
  org.eclipse.platform.feature.group lazy

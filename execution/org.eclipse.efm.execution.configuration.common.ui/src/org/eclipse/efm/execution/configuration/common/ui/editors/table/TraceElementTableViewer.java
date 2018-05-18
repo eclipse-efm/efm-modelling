@@ -32,6 +32,7 @@ import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ViewForm;
 import org.eclipse.swt.graphics.Font;
@@ -70,7 +71,12 @@ public class TraceElementTableViewer {
 	private int NATURE_COLUMN_INDEX;
 	private int VALUE_COLUMN_INDEX;
 
+	public static final String ADD_NEW_ELEMENT = "Add new element";
+
+
 //	TableColumnLayout fTableColumnLayout;
+
+	protected Action fAddingAction;
 
 	protected Action fAddAction;
 	protected Action fCopyAction;
@@ -183,13 +189,24 @@ public class TraceElementTableViewer {
 	 * Creates all of the actions for the toolbar
 	 */
 	protected void createToolbarActions(ToolBarManager tmanager) {
+		tmanager.add(getAddingAction());
+
+		tmanager.add(new Separator());
+
 		tmanager.add(getAddAction());
 		tmanager.add(getCopyAction());
 		tmanager.add(getEditAction());
+
 		tmanager.add(new Separator());
+
 		tmanager.add(getRemoveAction());
-		tmanager.add(getClearAction());
+
 		tmanager.add(new Separator());
+
+		tmanager.add(getClearAction());
+
+		tmanager.add(new Separator());
+
 		tmanager.add(getMovedUpAction());
 		tmanager.add(getMovedDownAction());
 		tmanager.update(true);
@@ -215,13 +232,6 @@ public class TraceElementTableViewer {
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
-		int desiredHeight = table.getItemHeight() * 5 + table.getHeaderHeight();
-//		if (tableContainer.getLayout() == null) { // <---
-			table.setSize(200,desiredHeight);
-//		} else {
-//			table.setLayoutData(new GridData(200, desiredHeight)); // assumes GridLayout
-//		}
-
 
 		// make the selection available to other views
 //		getSite().setSelectionProvider(fTableViewer);
@@ -229,6 +239,8 @@ public class TraceElementTableViewer {
 
 		// define layout for the TableViewer
 		GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1);
+		gridData.heightHint = fTableConfig.MAX_HEIGHT_HINT;
+
 		fTableViewer.getControl().setLayoutData(gridData);
 
 		fTableViewer.getControl().setToolTipText(fTableConfig.TOOLTIP_TEXT);
@@ -431,9 +443,25 @@ public class TraceElementTableViewer {
 	}
 
 
+	public int lastTablePosition() {
+		final Table table = fTableViewer.getTable();
+
+		int itemCount = table.getItemCount();
+		if( itemCount > 0 ) {
+			itemCount = itemCount - 1;
+			TraceElement lastTraceElement =
+					(TraceElement) table.getItem(itemCount).getData();
+			if( lastTraceElement.getNature() == TraceElementKind.UNDEFINED ) {
+				itemCount = itemCount - 1;
+			}
+		}
+
+		return itemCount;
+	}
+
 	public void addNewElementItemForDoubleClick() {
 		fTableViewer.add(new TraceElementCustomImpl(
-				TraceElementKind.UNDEFINED, "Add new element"));
+				TraceElementKind.UNDEFINED, ADD_NEW_ELEMENT));
 	}
 
 	private void addNewfreshElementItem(TraceElement newTraceElement) {
@@ -558,8 +586,40 @@ public class TraceElementTableViewer {
 	/**
 	 * Responds to a list event action in the TraceElement table
 	 */
+	protected Action getAddingAction() {
+		if( fAddingAction == null ) {
+			fAddingAction = new Action() {
+				@Override
+				public void run() {
+					handleAddingAction();
+				}
+			};
+
+			fAddingAction.setText("Adding");
+			fAddingAction.setToolTipText("Adding many elements");
+			fAddingAction.setImageDescriptor(
+					ImageResources.getImageDescriptor(
+							ImageResources.IMAGE__ADD_ELCL16_ICON));
+			fAddingAction.setDisabledImageDescriptor(
+					ImageResources.getImageDescriptor(
+							ImageResources.IMAGE__ADD_ELCL16_ICON));
+		}
+
+		return fAddingAction;
+	}
+
+	protected void handleAddingAction() {
+		TraceElementAddingDialog addingDialog =
+				new TraceElementAddingDialog(this, null, null);
+
+		if( addingDialog.open() == Window.OK ) {
+			//!! NOTHING
+		}
+	}
+
+
 	protected Action getAddAction() {
-		if( fAddAction == null ) {
+	if( fAddAction == null ) {
 			fAddAction = new Action() {
 				@Override
 				public void run() {
@@ -581,15 +641,17 @@ public class TraceElementTableViewer {
 	}
 
 	protected void handleAddAction() {
-		int selectionIndex = fTableViewer.getTable().getSelectionIndex();
+		final Table table = fTableViewer.getTable();
+
+		int selectionIndex = table.getSelectionIndex();
 
 		if( selectionIndex >= 0 ) {
 			TraceElement selTraceElement =
-				(TraceElement) fTableViewer.getTable().getItem(selectionIndex).getData();
+				(TraceElement) table.getItem(selectionIndex).getData();
 
 			if( selTraceElement.getNature() != TraceElementKind.UNDEFINED ) {
 				selTraceElement = null;
-				for( TableItem item : fTableViewer.getTable().getItems() ) {
+				for( TableItem item : table.getItems() ) {
 					if( ((TraceElement) item.getData()).getNature() == TraceElementKind.UNDEFINED ) {
 						selTraceElement = (TraceElement) item.getData();
 					}
@@ -600,7 +662,7 @@ public class TraceElementTableViewer {
 			}
 			else {
 				fTableViewer.add(new TraceElementCustomImpl(
-						TraceElementKind.UNDEFINED, "Add new element"));
+						TraceElementKind.UNDEFINED, ADD_NEW_ELEMENT));
 			}
 		}
 	}
@@ -630,18 +692,20 @@ public class TraceElementTableViewer {
 
 
 	protected void handleCopyAction() {
-		int selectionIndex = fTableViewer.getTable().getSelectionIndex();
+		final Table table = fTableViewer.getTable();
+
+		int selectionIndex = table.getSelectionIndex();
 //		System.out.println( "Add:>selectionIndex: " + selectionIndex );
 
 		if( selectionIndex >= 0 ) {
 			TraceElement selTraceElement =
-				(TraceElement) fTableViewer.getTable().getItem(selectionIndex).getData();
+				(TraceElement) table.getItem(selectionIndex).getData();
 
 			if( selTraceElement.getNature() == TraceElementKind.UNDEFINED ) {
 				addNewfreshElementItem(selTraceElement);
 			}
 			else {
-				for( TableItem selection : fTableViewer.getTable().getSelection() ) {
+				for( TableItem selection : table.getSelection() ) {
 					selTraceElement = (TraceElement) selection.getData();
 
 					fTableViewer.insert(
@@ -679,11 +743,13 @@ public class TraceElementTableViewer {
 	}
 
 	protected void handleEditAction() {
-		int selectionIndex = fTableViewer.getTable().getSelectionIndex();
+		final Table table = fTableViewer.getTable();
+
+		int selectionIndex = table.getSelectionIndex();
 
 		if( selectionIndex >= 0 ) {
 			TraceElement selTraceElement =
-				(TraceElement) fTableViewer.getTable().getItem(selectionIndex).getData();
+				(TraceElement) table.getItem(selectionIndex).getData();
 
 			if( selTraceElement.getNature() != TraceElementKind.UNDEFINED ) {
 				fTableViewer.editElement(selTraceElement, VALUE_COLUMN_INDEX);
@@ -715,10 +781,12 @@ public class TraceElementTableViewer {
 	}
 
 	protected void handleRemoveAction() {
-		int selectionIndex = fTableViewer.getTable().getSelectionIndex();
+		final Table table = fTableViewer.getTable();
+
+		int selectionIndex = table.getSelectionIndex();
 
 		if( selectionIndex >= 0 ) {
-			for( TableItem selection : fTableViewer.getTable().getSelection() ) {
+			for( TableItem selection : table.getSelection() ) {
 				fTableViewer.remove( selection.getData() );
 			}
 		}
@@ -778,17 +846,19 @@ public class TraceElementTableViewer {
 	}
 
 	protected void handleMovedUpAction() {
-		int selectionIndex = fTableViewer.getTable().getSelectionIndex();
+		final Table table = fTableViewer.getTable();
+
+		int selectionIndex = table.getSelectionIndex();
 //		System.out.println( "MovedUp:>selectionIndex: " + selectionIndex );
 
 		if( selectionIndex > 0 ) {
 			TraceElement selTraceElement =
-				(TraceElement) fTableViewer.getTable().getItem(selectionIndex).getData();
+				(TraceElement) table.getItem(selectionIndex).getData();
 
 			fTableViewer.remove(selTraceElement);
 			fTableViewer.insert(selTraceElement, (selectionIndex - 1));
 
-			fTableViewer.getTable().setSelection(selectionIndex - 1);
+			table.setSelection(selectionIndex - 1);
 		}
 	}
 
@@ -816,19 +886,21 @@ public class TraceElementTableViewer {
 	}
 
 	protected void handleMovedDownAction() {
-		int selectionIndex = fTableViewer.getTable().getSelectionIndex();
+		final Table table = fTableViewer.getTable();
+
+		int selectionIndex = table.getSelectionIndex();
 
 		if( selectionIndex >= 0 ) {
 			TraceElement selTraceElement =
-				(TraceElement) fTableViewer.getTable().getItem(selectionIndex).getData();
+				(TraceElement) table.getItem(selectionIndex).getData();
 
 			if( (selTraceElement.getNature() != TraceElementKind.UNDEFINED)
-				&& (selectionIndex < (fTableViewer.getTable().getItemCount() - 2)) ) {
+				&& (selectionIndex < (table.getItemCount() - 2)) ) {
 
 				fTableViewer.remove(selTraceElement);
 				fTableViewer.insert(selTraceElement, (selectionIndex + 1));
 
-				fTableViewer.getTable().setSelection(selectionIndex + 1);
+				table.setSelection(selectionIndex + 1);
 			}
 		}
 	}

@@ -22,6 +22,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.ViewForm;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -32,6 +33,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchPreferenceConstants;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.forms.FormColors;
+import org.eclipse.ui.forms.IFormColors;
 
 public interface IWidgetToolkit {
 
@@ -74,12 +79,72 @@ public interface IWidgetToolkit {
 			Composite parent, int style, IToolBarManager toolBarManager);
 
 	/**
+	 * Creates a new CTabFolder
+	 * @param parent the parent to add the composite to
+	 * @param style the style for the composite
+	 * @return a new CTabFolder with a style
+	 */
+	public abstract CTabFolder newTabFolder(Composite parent, int style);
+
+	/**
+	 * Returns the colors used by this toolkit.
+	 *
+	 * @return the color object
+	 */
+	public abstract FormColors getColors();
+
+	/**
 	 * Creates a CTabFolder
 	 * @param parent the parent to add the composite to
 	 * @param style the style for the composite
 	 * @return a new CTabFolder with a style
 	 */
-	public abstract CTabFolder createTabFolder(Composite parent, int style);
+	public default CTabFolder createTabFolder(Composite parent, int style) {
+		CTabFolder tabFolder = newTabFolder( parent, style );
+
+		tabFolder.setSimple(PlatformUI.getPreferenceStore().getBoolean(
+				IWorkbenchPreferenceConstants.SHOW_TRADITIONAL_STYLE_TABS));
+		tabFolder.setBorderVisible(true);
+
+		GridData gd = new GridData(GridData.FILL_BOTH);
+		gd.horizontalSpan = 2;
+		tabFolder.setLayoutData(gd);
+
+		tabFolder.setFont(parent.getFont());
+
+		FormColors formColors = getColors();
+
+//		String tabItemSelKey = "__tisk__";
+//		RGB selRGB = formColors.getSystemColor(SWT.COLOR_GREEN);
+
+		tabFolder.setSelectionBackground(
+				new Color[] {
+						formColors.getColor(IFormColors.TB_BG),
+						formColors.getBackground()
+//						formColors.createColor(tabItemSelKey, selRGB)
+					},
+				new int[] {100}, true);
+
+		return tabFolder;
+	}
+
+
+	/**
+	 * Creates a new CTabItem
+	 * @param parent the parent to add the composite to
+	 * @param style the style for the composite
+	 * @return a new CTabFolder with a style
+	 */
+//	public default CTabItem createTabItem(CTabFolder tabFolder, int style, String name) {
+//		CTabItem tabItem = new CTabItem(tabFolder, style);
+//
+//		tabItem.setText(name);
+//
+//		ScrolledComposite scrolledComposite =
+//				createScrolledComposite(tabItem.getParent());
+//
+//		return tabItem;
+//	}
 
 
 	/**
@@ -249,6 +314,9 @@ public interface IWidgetToolkit {
 		ScrolledComposite scrolledComposite =
 				newScrolledComposite(parent, SWT.V_SCROLL | SWT.H_SCROLL );
 
+		scrolledComposite.setLayout(new GridLayout());
+		scrolledComposite.setLayoutData(new GridData());
+
 		scrolledComposite.setFont(parent.getFont());
 
 		scrolledComposite.setExpandHorizontal(true);
@@ -262,7 +330,7 @@ public interface IWidgetToolkit {
 	/**
 	 * Creates a ViewForm Composite
 	 * @param parent the parent to add the composite to
-	 * @return a new ScrolledComposite with a style
+	 * @return a new ViewForm with a style
 	 */
 	public default ViewForm createViewForm(Composite parent, int style) {
         ViewForm viewForm = new ViewForm(parent, SWT.FLAT | SWT.BORDER);
@@ -421,24 +489,21 @@ public interface IWidgetToolkit {
 			combo.setItems(items);
 		}
 		// Some platforms open up combos in bad sizes without this, see bug 245569
-		combo.setVisibleItemCount(30);
+		combo.setVisibleItemCount(16);
 		combo.select(0);
 		return combo;
 	}
 
 
-	public default Combo createLabelledCombo(
-			Composite parentComposite, String labeltext, int colnum) {
+	public default Combo createLabelledCombo(Composite parentComposite,
+			String labeltext, int style, int hspan, String[] items) {
 		Composite composite = createComposite(
-				parentComposite, 2, 1, GridData.FILL_HORIZONTAL);
+				parentComposite, 2, hspan, GridData.FILL_HORIZONTAL);
 
 		Label lbl = createLabel(composite, labeltext, 1);
 		lbl.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
 
-		Combo combo = newCombo(composite, SWT.READ_ONLY);
-		combo.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-
-		return combo;
+		return createCombo(composite, style, 1, items);
 	}
 
 	/**

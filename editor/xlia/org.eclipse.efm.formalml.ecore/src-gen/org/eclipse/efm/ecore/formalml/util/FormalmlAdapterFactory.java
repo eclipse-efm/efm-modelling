@@ -90,6 +90,10 @@ public class FormalmlAdapterFactory extends AdapterFactoryImpl {
 				return createXliaObjectAdapter();
 			}
 			@Override
+			public Adapter caseXliaSection(XliaSection object) {
+				return createXliaSectionAdapter();
+			}
+			@Override
 			public Adapter caseXliaAttribute(XliaAttribute object) {
 				return createXliaAttributeAdapter();
 			}
@@ -152,6 +156,20 @@ public class FormalmlAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createXliaObjectAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.XliaSection <em>Xlia Section</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.XliaSection
+	 * @generated
+	 */
+	public Adapter createXliaSectionAdapter() {
 		return null;
 	}
 

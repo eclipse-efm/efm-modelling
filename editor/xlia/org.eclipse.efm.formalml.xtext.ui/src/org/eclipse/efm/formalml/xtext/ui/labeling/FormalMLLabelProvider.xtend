@@ -73,7 +73,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Buffer
 import org.eclipse.efm.ecore.formalml.infrastructure.ComCastKind
 import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol
-import org.eclipse.efm.ecore.formalml.infrastructure.Connection
+import org.eclipse.efm.ecore.formalml.infrastructure.Connector
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine
 import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution
@@ -85,7 +85,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Route
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty
-import org.eclipse.efm.ecore.formalml.infrastructure.System 
+import org.eclipse.efm.ecore.formalml.infrastructure.System
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable
 import org.eclipse.efm.ecore.formalml.statemachine.FinalState
 import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate
@@ -116,6 +116,10 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.jface.viewers.StyledString
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
+import org.eclipse.efm.ecore.formalml.expression.ExpressionAsMachine
+import org.eclipse.efm.ecore.formalml.expression.Expression
+import org.eclipse.efm.ecore.formalml.expression.LiteralTimeExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralTimeDeltaExpression
 
 /**
  * Provides labels for EObjects.
@@ -155,28 +159,58 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 		path
 	}
-
-
+	
 	@Inject
 	private IQualifiedNameProvider nameProvider;
 
-	def text(NamedElement decl) {
-		val fqn = nameProvider.getFullyQualifiedName(decl);
+	
+	def fqnNameID(NamedElement element, String nullNameID) {
+		val fqn = nameProvider.getFullyQualifiedName(element);
 
-		fqn?.toString ?: "no qfn: " + ( decl.name ?: "<unamed>" )
+		fqn?.toString ?: "no qfn: " + ( element.name ?: nullNameID )
+	}
+
+	def fqnNameID(NamedElement element) {
+		val fqn = nameProvider.getFullyQualifiedName(element);
+
+		fqn?.toString ?: "no qfn: " + element.name
+	}
+
+
+	def nameID(NamedElement element, String nullNameID) {
+		element.name ?: nullNameID
+	}
+
+	def nameID(NamedElement element) {
+		element.name
+	}
+
+
+	def text(NamedElement element) {
+		val fqn = nameProvider.getFullyQualifiedName(element);
+
+		fqn?.toString ?: "no qfn: " +
+			( element.name ?: ("<unamed-" + element.eClass().getName + ">") )
 	}
 
 
 	def text(PropertyDefinition decl) {
-		val fqn = nameProvider.getFullyQualifiedName(decl);
-
-		fqn?.toString ?: "no qfn: " + ( decl.name ?: "<property>" )
+		decl.nameID( "<property>" )
 	}
 
 
 
 	def text(Parameter decl) {
-		decl.name ?: "<parameter>"
+		val fqn = nameID(decl);
+		if( fqn !== null ) {
+			fqn
+		}
+		else if( decl.type !== null ) {
+	  		text( decl.type )
+		}
+		else {
+	  		"<unamed-parameter>"
+		}
 	}
 
 	def image(Parameter decl) {
@@ -194,13 +228,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(Port decl) {
-		val fqn = nameProvider.getFullyQualifiedName(decl);
-		if( fqn !== null ) {
-			fqn.toString();
-		}
-		else {
-	  		"no qfn: " + ( decl.name ?: "<port>" )
-		}
+		decl.nameID( "<port>" )
 	}
 
 	def image(Port port) {
@@ -216,13 +244,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(Signal decl) {
-		val fqn = nameProvider.getFullyQualifiedName(decl);
-		if( fqn !== null ) {
-			fqn.toString();
-		}
-		else {
-	  		"no qfn: " + ( decl.name ?: "<signal>" )
-		}
+		decl.nameID( "<signal>" )
 	}
 
 	def image(Signal decl) {
@@ -231,13 +253,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(Buffer decl) {
-		val fqn = nameProvider.getFullyQualifiedName(decl);
-		if( fqn !== null ) {
-			fqn.toString();
-		}
-		else {
-	  		"no qfn: " + ( decl.name ?: "<buffer>" )
-		}
+		decl.nameID( "<buffer>" )
 	}
 
 	def image(Buffer decl) {
@@ -246,15 +262,15 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(Variable decl) {
-		val fqn = nameProvider.getFullyQualifiedName(decl);
+		val fqn = nameID(decl);
 		if( fqn !== null ) {
-			fqn.toString();
+			fqn
 		}
-		else if( (decl.name === null) && (decl.type !== null) ) {
+		else if( decl.type !== null ) {
 	  		text( decl.type )
 		}
 		else {
-	  		"no qfn: " + ( decl.name ?: "<variable>" )
+	  		"<unamed-variable>"
 		}
 	}
 
@@ -290,24 +306,12 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(Type type) {
-		val fqn = nameProvider.getFullyQualifiedName(type);
-		if( fqn !== null ) {
-			fqn.toString();
-		}
-		else {
-	  		"no qfn: " + ( type.name ?: "<type>" )
-		}
+		type.nameID( "<type>" )
 	}
 
 
 	def text(DataType type) {
-		val fqn = nameProvider.getFullyQualifiedName(type);
-		if( fqn !== null ) {
-			fqn.toString();
-		}
-		else {
-	  		"no qfn: " + ( type.name ?: "<datatype>" )
-		}
+		type.nameID( "<datatype>" )
 	}
 
 
@@ -382,12 +386,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(EnumerationType type) {
-		if( type.name !== null ) {
-			"enum " + type.name
-		}
-		else {
-			"<enum>"
-		}
+		type.nameID( "<enum>" )
 	}
 
 	def image(EnumerationType type) {
@@ -396,7 +395,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(EnumerationLiteral literal) {
-		literal.name
+		literal.nameID( "<literal>" )
 	}
 
 	def image(EnumerationLiteral literal) {
@@ -405,6 +404,8 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(CollectionType type) {
+//		type.nameID( "<type>" )
+	
 		type.container.toString + " " + ( type.name ?: "" ) +
 			if( type.unbounded || (type.size < 0) ) {
 				" [*]"
@@ -420,12 +421,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(StructureType type) {
-		if( type.name !== null ) {
-			"struct " + type.name
-		}
-		else {
-			"<struct>"
-		}
+		"struct " + type.nameID( "<unamed>" )
 	}
 
 	def image(StructureType type) {
@@ -434,12 +430,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(UnionType type) {
-		if( type.name !== null ) {
-			"union " + type.name
-		}
-		else {
-			"<union>"
-		}
+		type.nameID( "<union>" )
 	}
 
 	def image(UnionType type) {
@@ -448,12 +439,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(ChoiceType type) {
-		if( type.name !== null ) {
-			"choice " + type.name
-		}
-		else {
-			"<choice>"
-		}
+		type.nameID( "<choice>" )
 	}
 
 	def image(ChoiceType type) {
@@ -607,7 +593,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(InstanceMachine instance) {
-		val str = new StyledString(instance.name)
+		val str = new StyledString( instance.nameID( "<instance>" ) )
 
 		if( instance.unrestrictedName !== null ) {
 			str.append( new StyledString(
@@ -744,11 +730,12 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 		if( transition.unrestrictedName !== null ) {
 			str.append(	new StyledString(
 				" " + transition.unrestrictedName,
-				StyledString::DECORATIONS_STYLER ) ).append(
-					" --> " + transition.target?.name )
+				StyledString::DECORATIONS_STYLER ) ).append(" --> ")
+					.append(text(transition.target) ?: "$this")
 		}
-		else {
-			str.append( " --> " + transition.target?.name )
+		else if( transition.target !== null ) {
+			
+			str.append(" --> ").append(text(transition.target) ?: "$this")
 		}
 	}
 
@@ -845,11 +832,11 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 
-	def text(Connection connection) {
-		connection.name ?: "Connection"
+	def text(Connector connector) {
+		connector.nameID( "<connector>" )
 	}
 
-	def image(Connection connection) {
+	def image(Connector connector) {
 		"fml/Connector_assembly.gif"
 	}
 
@@ -901,8 +888,8 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 				if( com.inner_buffer !== null ) {
 					"buffer: " + text( com.inner_buffer )
 				}
-				else if( com.ref_buffer !== null ) {
-					"buffer: " + text( com.ref_buffer )
+				else if( com.buffer !== null ) {
+					"buffer: " + text( com.buffer )
 				}
 				else {
 					"buffer"
@@ -1174,9 +1161,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(LiteralReferenceElement expression) {
 		if( expression.value !== null ) {
-			val fqn = nameProvider.getFullyQualifiedName(expression.value);
-
-			fqn?.toString ?: "no qfn: " + ( expression.value.name ?: "<reference>" )
+			expression.value.nameID( "<reference>" )
 		}
 		else {
 			"<reference>"
@@ -1247,7 +1232,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(LiteralNullExpression expression) {
-		"null"
+		"$null"
 	}
 
 	def image(LiteralNullExpression expression) {
@@ -1274,9 +1259,9 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(TupleExpression expression) {
-		if( (expression.eContainer instanceof ValueElementSpecification) &&
-			((expression.eContainer as ValueElementSpecification).kind ==
-				ValueElementSpecificationKind.INDEX) ) {
+		if( (expression.eContainer instanceof ValueElementSpecification)
+			&& ((expression.eContainer as ValueElementSpecification).kind
+				== ValueElementSpecificationKind.INDEX) ) {
 			"[i,n,d,e,x]"
 		}
 		else {
@@ -1321,7 +1306,8 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def text(RelationalTernaryExpression expression) {
-		expression.leftRelation.operator + " operator " + expression.rigthOperator
+		expression.leftRelation.operator
+				+ " operator " + expression.rigthOperator
 	}
 
 	def image(RelationalTernaryExpression expression) {
@@ -1355,7 +1341,25 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 		var str =
 			if( ves.element !== null ) {
 				if( ves.element instanceof NamedElement ) {
-					(ves.element as NamedElement).name
+					var qid = (ves.element as NamedElement).name
+					for( var parent = ves.parent ; parent !== null ; ) {
+						if( parent instanceof ValueElementSpecification ) {
+							if( parent.element instanceof NamedElement ) {
+								qid = (parent.element as NamedElement).name
+										+ "." + qid
+								
+								parent = parent.parent
+							}
+						}
+						else {
+							if( parent instanceof LiteralReferenceElement ) {
+								qid = parent.value.name + "." + qid
+							}
+							parent = null
+						}
+					}
+					
+					qid
 				}
 				else {
 					text( ves.element )
@@ -1381,7 +1385,8 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def image(ValueElementSpecification ves) {
-		switch( ves.kind ) {
+		switch( ves.kind )
+		{
 			case FIELD:     "fml/Property.gif"
 
 			case INDEX:     "fml/Variable.gif"
@@ -1393,12 +1398,68 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 
+	def text(ExpressionAsMachine expression) {
+		switch( expression.machine )
+		{
+			ValueElementSpecification:
+				text(expression.machine as ValueElementSpecification)
+			
+			LiteralReferenceElement:
+				text(expression.machine as LiteralReferenceElement)
+			
+			default: "<machine>"
+		}
+	}
+
+	def image(ExpressionAsMachine expression) {
+//		if( state.region.isEmpty ) {
+//			"fml/State.gif"
+//		}
+//		else if( state.region.size > 1 ) {
+//			"fml/StateMachine.gif"
+//		}
+//		else {
+//			"fml/StateMachine.gif"
+//		}
+		"fml/Machine.gif"
+	}
+
 	def text(ExpressionAsPort expression) {
 		"<port>"
 	}
 
 	def image(ExpressionAsPort expression) {
 		"fml/Port.gif"
+	}
+
+
+	def text(Expression expression) {
+		switch( expression )
+		{
+			ValueElementSpecification:
+				return( text(expression as ValueElementSpecification) )
+			
+			LiteralReferenceElement:
+				return( text(expression as LiteralReferenceElement) )
+
+			LiteralThisExpression  : return "$this"
+			LiteralSelfExpression  :  return "$Self"
+			
+			LiteralParentExpression:  return "$Parent"
+			LiteralSuperExpression :  return "$Super"
+			
+			LiteralSystemExpression:  return "$System"
+			LiteralEnvExpression   :  return "$Env"
+			
+			LiteralTimeExpression     :  return "$Time"
+			LiteralTimeDeltaExpression:  return "$TimeDelta"
+			
+			default:  return "<expression>"
+		}
+	}
+
+	def image(Expression expression) {
+		"fml/Expression.gif"
 	}
 
 

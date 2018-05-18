@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -135,7 +135,7 @@ public abstract class AbstractSEWRuntimeModule extends DefaultRuntimeModule {
 	}
 	
 	// contributed by org.eclipse.xtext.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment2
-	public Provider<InternalSEWLexer> provideInternalSEWLexer() {
+	public Provider<? extends InternalSEWLexer> provideInternalSEWLexer() {
 		return LexerProvider.create(InternalSEWLexer.class);
 	}
 	

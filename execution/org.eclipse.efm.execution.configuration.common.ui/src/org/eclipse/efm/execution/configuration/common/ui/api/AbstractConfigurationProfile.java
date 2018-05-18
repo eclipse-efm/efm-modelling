@@ -13,6 +13,9 @@
 package org.eclipse.efm.execution.configuration.common.ui.api;
 
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -40,9 +43,13 @@ public abstract class AbstractConfigurationProfile extends AbstractSectionPart
 	{
 		fCompositeParent = parent;
 
+		ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
+		Action[] toputinbar = fConfigurationPage.getDefaultSectionActions();
+		widgetToolkit.fillToolBar(toolBarManager, toputinbar);
+
 		widgetToolkit.createSectionPart(this, parent,
 				Section.TITLE_BAR | Section.DESCRIPTION |
-				Section.EXPANDED  | Section.TWISTIE, null);
+				Section.EXPANDED  | Section.TWISTIE, toolBarManager);
 
 		createContent(getSectionClient(), widgetToolkit);
 	}

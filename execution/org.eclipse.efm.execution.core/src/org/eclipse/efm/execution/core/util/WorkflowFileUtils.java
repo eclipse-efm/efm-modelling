@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.core.util;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -30,11 +32,36 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	public static final Path WORKSPACE_PREFIX_PATH = new Path( "${workspace_loc}" );
 
 
-	public static final IPath WORKSPACE_PATH =
-			ResourcesPlugin.getWorkspace().getRoot().getLocation();
+	public static final IWorkspaceRoot WORKSPACE_ROOT =
+			ResourcesPlugin.getWorkspace().getRoot();
+
+	public static final IPath WORKSPACE_PATH = WORKSPACE_ROOT.getLocation();
 
 	public static final String WORKSPACE_LOCATION = WORKSPACE_PATH.toString();
 
+
+	public static final String PLATFORM_URI = WORKSPACE_LOCATION;
+
+	public static final String URI_PREFIX   = "platform:/resource/";
+
+
+
+
+	/**
+	 * make root path relative to WORKSPACE_PATH or absolute
+	 * @param path
+	 * @return
+	 */
+	public static IPath makeRootRelativeToWorkspacePath(final IPath path) {
+		if( WORKSPACE_PATH.isPrefixOf(path) ) {
+			final IPath relativePath =
+					path.makeRelativeTo(WORKSPACE_PATH);
+
+			return relativePath;
+		}
+
+		return path;
+	}
 
 	/**
 	 * make relative path
@@ -42,10 +69,14 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	 * @return
 	 */
 	public static IPath makeRelativePath(final IPath path) {
-		final IPath relativePath = //WORKSPACE_PREFIX_PATH.append(
-				path.makeRelativeTo(WORKSPACE_PATH);
+		if( WORKSPACE_PATH.isPrefixOf(path) ) {
+			final IPath relativePath = //WORKSPACE_PREFIX_PATH.append(
+					path.makeRelativeTo(WORKSPACE_PATH);
 
-		return relativePath;
+			return relativePath;
+		}
+
+		return path;
 	}
 
 	/**
@@ -71,11 +102,15 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	 */
 	public static String makeRelativeLocation(final IPath path)
 	{
-		final IPath relativePath = path.makeRelativeTo(WORKSPACE_PATH);
+		if( WORKSPACE_PATH.isPrefixOf(path) ) {
+			final IPath relativePath = path.makeRelativeTo(WORKSPACE_PATH);
 
-		final String relativeLocation = WORKSPACE_PREFIX + relativePath.toString();
+			final String relativeLocation = WORKSPACE_PREFIX + relativePath.toString();
 
-		return relativeLocation;
+			return relativeLocation;
+		}
+
+		return path.toString();
 	}
 
 	/**
@@ -87,7 +122,8 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	{
 		final IPath locationPath = new Path(location);
 		if( (locationPath.segmentCount() == 0)
-			|| WORKSPACE_SEGMENT.equals(locationPath.segment(0)))
+			|| WORKSPACE_SEGMENT.equals(locationPath.segment(0))
+			|| (! WORKSPACE_PATH.isPrefixOf(locationPath)) )
 		{
 			return location;
 		}
@@ -137,6 +173,10 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	public static String makeAbsoluteLocation(String location)
 	{
 		final IPath absolutePath = makeAbsolutePath(new Path(location));
+
+//		String path = VariablesPlugin.getDefault().getStringVariableManager()
+//				.performStringSubstitution(location, false);
+
 
 		return absolutePath.toString();
 	}
@@ -251,6 +291,24 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 				ATTR_SPECIFICATION_MODEL_FILE_LOCATION, EMPTY_STRING);
 
 		return( modelPath.isEmpty() ? EMPTY_STRING : basename(modelPath) );
+	}
+
+	/**
+	 * make an URI location
+	 * @param filePath
+	 * @return
+	 */
+	public static String makeURI(final String fileLocation) {
+		final IPath path = new Path(fileLocation);
+
+		final IPath relativeLocation = path.makeRelativeTo(WORKSPACE_PATH);
+
+		return URI_PREFIX + relativeLocation.toString();
+	}
+
+
+	public static IResource find(IPath path) {
+		return WORKSPACE_ROOT.findMember(path);
 	}
 
 }

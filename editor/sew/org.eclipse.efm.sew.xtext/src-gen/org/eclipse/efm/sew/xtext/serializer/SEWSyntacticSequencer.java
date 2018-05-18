@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -217,8 +217,6 @@ public class SEWSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '&'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) ('(' | '+')* (ambiguity) object=[WObject|UFI]
-	 *     (rule start) ('(' | '+')* (ambiguity) symbol=UFI
 	 *     (rule start) ('+' | '(')* (ambiguity) object=[WObject|UFI]
 	 *     (rule start) ('+' | '(')* (ambiguity) symbol=UFI
 	 *     (rule start) (ambiguity) object=[WObject|UFI]
@@ -259,7 +257,10 @@ public class SEWSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     Prolog?
 	 *
 	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) (rule start)
 	 *     (rule start) (ambiguity) element+=DeprecatedObject
+	 *     (rule start) (ambiguity) element+=Object
+	 *     (rule start) (ambiguity) element+=Property
 	 *     (rule start) (ambiguity) type='symbex-workflow'
 	 *     (rule start) (ambiguity) type='workflow'
 	 */
@@ -269,7 +270,7 @@ public class SEWSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'and' | '&&'
+	 *     '&&' | 'and'
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     operand+=equalityExpression (ambiguity) operand+=equalityExpression
@@ -291,7 +292,7 @@ public class SEWSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ('(' | '+')*
+	 *     ('+' | '(')*
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '&'? object=[WObject|UFI]

@@ -63,7 +63,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 		fWorkspaceRootLocationStringField =
 				new StringFieldEditor(fConfigurationPage,
-						ATTR_WORKSPACE_ROOT_LOCATION, "Location :", parent, root);
+						ATTR_WORKSPACE_ROOT_LOCATION, "Location : ", parent, root);
 		fWorkspaceRootLocationStringField.setEnabled(false);
 		fWorkspaceRootLocationStringField.setToolTipText(toolTipText2);
 		fWorkspaceRootLocationStringField.setEmptyStringAllowed(false);
@@ -71,7 +71,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 		fWorkspaceOutputLocationStringField =
 				new StringFieldEditor(fConfigurationPage,
-						ATTR_WORKSPACE_OUTPUT_FOLDER_NAME, "Output :", parent,
+						ATTR_WORKSPACE_OUTPUT_FOLDER_NAME, "Output : ", parent,
 						DEFAULT_WORKSPACE_OUTPUT_FOLDER_NAME);
 		fWorkspaceOutputLocationStringField.setToolTipText(toolTipText2);
 		addFieldEditor(fWorkspaceOutputLocationStringField);
@@ -80,7 +80,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 		if( getConfigurationPage().isEnabledSymbexDeveloperMode() ) {
 			StringFieldEditor folderNameStringFieldEditor =
 					new StringFieldEditor(fConfigurationPage,
-							ATTR_WORKSPACE_LOG_FOLDER_NAME, "Log :",
+							ATTR_WORKSPACE_LOG_FOLDER_NAME, "Log : ",
 							parent, DEFAULT_WORKSPACE_LOG_FOLDER_NAME);
 			folderNameStringFieldEditor.setToolTipText(toolTipText3);
 			addFieldEditor(folderNameStringFieldEditor);
@@ -88,7 +88,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 			folderNameStringFieldEditor =
 					new StringFieldEditor(fConfigurationPage,
-							ATTR_WORKSPACE_DEBUG_FOLDER_NAME, "Debug :",
+							ATTR_WORKSPACE_DEBUG_FOLDER_NAME, "Debug : ",
 							parent, DEFAULT_WORKSPACE_DEBUG_FOLDER_NAME);
 			folderNameStringFieldEditor.setToolTipText(toolTipText3);
 			addFieldEditor(folderNameStringFieldEditor);
@@ -130,9 +130,9 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 		updateWorkspaceOutputPath( resource );
 	}
 
-	public void updateWorkspaceRootPath(String modelPath) {
+	public void updateWorkspaceRootPath(String projectLocation) {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IPath path = new Path(modelPath);
+		IPath path = new Path(projectLocation);
 		IResource resource = root.findMember(path);
 		if( (resource != null) && resource.exists() ) {
 			path = resource.getProject().getLocation();
@@ -156,8 +156,6 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 			fWorkspaceRootLocationStringField.setToolTipText(path.toString());
 		}
 		else {
-			path = root.getLocation().append("<project-folder-name>");
-
 			fWorkspaceRootLocationStringField.setStringValue(
 					WorkflowFileUtils.makeRelativeLocation(path));
 			fWorkspaceRootLocationStringField.setToolTipText(path.toString());
@@ -188,12 +186,19 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 	@Override
 	public void initializeFromImpl(ILaunchConfiguration configuration) {
-		String specMainFileLocation =
+		String projectLocation =
 				WorkflowFileUtils.getAbsoluteLocation(configuration,
-						ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
-						DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
+						ATTR_SPECIFICATION_PROJECT_LOCATION,
+						DEFAULT_SPECIFICATION_PROJECT_LOCATION);
 
-		updateWorkspaceRootPath( specMainFileLocation );
+		updateWorkspaceRootPath( projectLocation );
+
+//		String specMainFileLocation =
+//				WorkflowFileUtils.getAbsoluteLocation(configuration,
+//						ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
+//						DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
+//
+//		updateWorkspaceRootPath( specMainFileLocation );
 	}
 
 

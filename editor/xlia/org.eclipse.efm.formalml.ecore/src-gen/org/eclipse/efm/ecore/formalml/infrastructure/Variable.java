@@ -23,6 +23,7 @@ package org.eclipse.efm.ecore.formalml.infrastructure;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Variable#isConst <em>Const</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Variable#isReference <em>Reference</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Variable#isMacro <em>Macro</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Variable#getOnWriteAction <em>On Write Action</em>}</li>
  * </ul>
@@ -57,6 +58,32 @@ public interface Variable extends PropertyDefinition {
 	 * @generated
 	 */
 	void setConst(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Reference</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Reference</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Reference</em>' attribute.
+	 * @see #setReference(boolean)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getVariable_Reference()
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean isReference();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Variable#isReference <em>Reference</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Reference</em>' attribute.
+	 * @see #isReference()
+	 * @generated
+	 */
+	void setReference(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Macro</b></em>' attribute.

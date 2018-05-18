@@ -15,6 +15,7 @@ package org.eclipse.efm.execution.core.workflow.coverage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.CommonFactory;
@@ -28,7 +29,7 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomIm
 import org.eclipse.efm.execution.core.workflow.coverage.impl.TransitionCoverageWorkerImpl;
 
 public class TransitionCoverageWorkerCustomImpl extends TransitionCoverageWorkerImpl
-		implements IWorkflowConfigurationConstants {
+		implements IWorkflowConfigurationConstants , IWorkflowSpiderConfigurationUtils {
 
 	protected TransitionCoverageWorkerCustomImpl(Director director, String name) {
 		super();
@@ -94,49 +95,45 @@ public class TransitionCoverageWorkerCustomImpl extends TransitionCoverageWorker
 		}
 		coverageWorker.setHeuristicEnabled(isEnabled);
 
-		String str;
+		CoverageScopeKind coverageScope = CoverageScopeKind.MODEL;
 		try {
-			str = configuration.getAttribute(ATTR_TRANSITION_COVERAGE_SCOPE,
-					CoverageScopeKind.MODEL.getLiteral());
+			coverageScope = CoverageScopeKind.get(
+					configuration.getAttribute(ATTR_TRANSITION_COVERAGE_SCOPE,
+					CoverageScopeKind.MODEL.getLiteral()));
 		}
 		catch( CoreException e1 ) {
 			e1.printStackTrace();
-			str = CoverageScopeKind.MODEL.getLiteral();
 		}
-		CoverageScopeKind scope = CoverageScopeKind.get(str);
-		coverageWorker.setScope(
-				(scope != null) ? scope: CoverageScopeKind.MODEL );
-
+		if( coverageScope == null ) {
+			coverageScope = CoverageScopeKind.MODEL;
+		}
+		coverageWorker.setScope( coverageScope );
 
 		coverageWorker.setHeuristicConfig(  createHeuristic(configuration) );
 
-		boolean enabledTransitionSelection;
-		try {
-			enabledTransitionSelection = configuration.getAttribute(
-					ATTR_ENABLED_TRANSITION_COVERAGE_DETAILS_SELECTION, false);
-		}
-		catch( CoreException e1 ) {
-			e1.printStackTrace();
-
-			enabledTransitionSelection = false;
-		}
-
-		if ( enabledTransitionSelection )
-		{
-			coverageWorker.setScope( CoverageScopeKind.DETAILS );
-
+		switch ( coverageScope ) {
+		case DETAILS:
 			TraceSpecificationCustomImpl trace =
-					TraceSpecificationCustomImpl.create(
-							"details", configuration,
-							ATTR_TRANSITION_COVERAGE_SELECTION,
-							TraceElementKind.UNDEFINED);
+			TraceSpecificationCustomImpl.create(
+					"details", configuration,
+					ATTR_TRANSITION_COVERAGE_SELECTION,
+					TraceElementKind.UNDEFINED);
 
-				coverageWorker.setTrace( trace );
+			coverageWorker.setTrace( trace );
+			break;
+
+		case MODEL:
+		case INSTANCE:
+		default:
+			break;
 		}
 
 		ConsoleLogFormatCustomImpl console =
 				ConsoleLogFormatCustomImpl.create(
-						" , coverage: %1% / %2%" );
+						DEFAULT_COVERAGE_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_INIT_POSITION_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_STEP_POSITION_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_STOP_POSITION_FORMAT);
 
 		coverageWorker.setConsole( console );
 
@@ -358,6 +355,11 @@ public class TransitionCoverageWorkerCustomImpl extends TransitionCoverageWorker
 
 		writer.appendTab2Eol( "] // end property" );
 
+		TraceSpecificationCustomImpl trace =
+				(TraceSpecificationCustomImpl) getTrace();
+		if( trace != null ) {
+			trace.toWriter(writer2);
+		}
 
 		CoverageHeuristic cHeuristic = getHeuristicConfig();
 		if( isHeuristicEnabled() && (cHeuristic != null) ) {
@@ -405,12 +407,6 @@ public class TransitionCoverageWorkerCustomImpl extends TransitionCoverageWorker
 				.appendEol( cHeuristic.getHitOtherCount() );
 
 			writer.appendTab2Eol( "] // end heuristic" );
-		}
-
-		TraceSpecificationCustomImpl trace =
-				(TraceSpecificationCustomImpl) getTrace();
-		if( trace != null ) {
-			trace.toWriter(writer2);
 		}
 
 		ConsoleLogFormatCustomImpl console =

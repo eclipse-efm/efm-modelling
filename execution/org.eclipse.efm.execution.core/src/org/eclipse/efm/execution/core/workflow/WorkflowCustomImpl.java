@@ -64,7 +64,8 @@ public class WorkflowCustomImpl extends WorkflowImpl
 
 
 	public static WorkflowCustomImpl create(
-			ILaunchConfiguration configuration, IPath workingPath) {
+			ILaunchConfiguration configuration,
+			IPath projectRootPath, IPath relativeLaunchPath) {
 
 		WorkflowCustomImpl workflow = new WorkflowCustomImpl();
 
@@ -73,8 +74,8 @@ public class WorkflowCustomImpl extends WorkflowImpl
 //		workflow.setManifest( ManifestCustomImpl.create(true) );
 
 
-		WorkspaceCustomImpl workspace =
-				WorkspaceCustomImpl.create(configuration, workingPath);
+		WorkspaceCustomImpl workspace = WorkspaceCustomImpl.create(
+				configuration, projectRootPath, relativeLaunchPath);
 
 		workflow.setWorkspace(workspace);
 
@@ -91,7 +92,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		// Main Execution Director
 		DirectorCustomImpl director =
 				DirectorCustomImpl.create(workflow,
-						configuration, workingPath, enabledExtension);
+						configuration, projectRootPath, enabledExtension);
 
 		AnalysisProfileKind modelAnalysisProfile =
 				AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
@@ -117,6 +118,14 @@ public class WorkflowCustomImpl extends WorkflowImpl
 			}
 			case ANALYSIS_BEHAVIOR_SELECTION_PROFILE: {
 				director.setName( "behavior#selection" );
+				break;
+			}
+			case ANALYSIS_ACSL_GENERATION_PROFILE: {
+				director.setName( "contracts#inference" );
+				break;
+			}
+			case ANALYSIS_EXTRANEOUS_PROFILE: {
+				director.setName( "extraneous#module" );
 				break;
 			}
 			default: {
@@ -145,23 +154,23 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		workflow.setSymbexOption( symbexOption );
 
 
-		String str;
+		ConsoleVerbosityKind verbosity = null;
 		try {
-			str = configuration.getAttribute(
-					ATTR_CONSOLE_LOG_VERBOSE_LEVEL, "MINIMUM");
+			verbosity = ConsoleVerbosityKind.get(
+					configuration.getAttribute(
+							ATTR_CONSOLE_LOG_VERBOSE_LEVEL,
+							ConsoleVerbosityKind.MINIMUM.getLiteral()));
 		}
 		catch( CoreException e ) {
 			e.printStackTrace();
-
-			str = "MINIMUM";
 		}
-		ConsoleVerbosityKind verbose = ConsoleVerbosityKind.get( str );
-		if( verbose == null ) {
-			verbose = ConsoleVerbosityKind.MINIMUM;
+		if( verbosity == null ) {
+			verbosity = ConsoleVerbosityKind.MINIMUM;
 		}
 
 		ConsoleLogFormatCustomImpl console =
-				ConsoleLogFormatCustomImpl.create(verbose);
+				ConsoleLogFormatCustomImpl.create(verbosity);
+
 		workflow.setConsole( console );
 
 
@@ -246,7 +255,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 			writer.appendTab3Eol( "delta_name_id = '$delta'" );
 
 
-			writer.appendTab3Eol( "node_condition_enabled = true   // default false");
+			writer.appendTab3Eol( "node_condition_enabled = false   // default false");
 
 			writer.appendTab3Eol( "separation_of_pc_disjunction = false" );
 			writer.appendTab3Eol( "check_pathcondition_satisfiability = true" );

@@ -14,7 +14,7 @@ package org.eclipse.efm.ecore.formalml.infrastructure.impl;
 
 import java.util.Collection;
 
-import org.eclipse.efm.ecore.formalml.infrastructure.Connection;
+import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
 import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfInteraction;
 import org.eclipse.efm.ecore.formalml.infrastructure.Route;
@@ -64,7 +64,7 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Connection> connections;
+	protected EList<Connector> connections;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -102,9 +102,9 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Connection> getConnections() {
+	public EList<Connector> getConnections() {
 		if (connections == null) {
-			connections = new EObjectContainmentEList<Connection>(Connection.class, this, InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTIONS);
+			connections = new EObjectContainmentEList<Connector>(Connector.class, this, InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTIONS);
 		}
 		return connections;
 	}
@@ -156,7 +156,7 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 				return;
 			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTIONS:
 				getConnections().clear();
-				getConnections().addAll((Collection<? extends Connection>)newValue);
+				getConnections().addAll((Collection<? extends Connector>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

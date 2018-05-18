@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +37,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class ExpressionAsChannelImpl extends MinimalEObjectImpl.Container implements ExpressionAsChannel {
+public class ExpressionAsChannelImpl extends ExpressionImpl implements ExpressionAsChannel {
 	/**
 	 * The cached value of the '{@link #getChannel() <em>Channel</em>}' containment reference.
 	 * <!-- begin-user-doc -->

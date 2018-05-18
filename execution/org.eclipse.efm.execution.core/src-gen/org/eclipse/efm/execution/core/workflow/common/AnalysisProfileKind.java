@@ -86,7 +86,17 @@ public enum AnalysisProfileKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ANALYSIS_ACSL_GENERATION_PROFILE(5, "ANALYSIS_ACSL_GENERATION_PROFILE", "Inference");
+	ANALYSIS_ACSL_GENERATION_PROFILE(5, "ANALYSIS_ACSL_GENERATION_PROFILE", "Inference"),
+
+	/**
+	 * The '<em><b>ANALYSIS EXTRANEOUS PROFILE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ANALYSIS_EXTRANEOUS_PROFILE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	ANALYSIS_EXTRANEOUS_PROFILE(10, "ANALYSIS_EXTRANEOUS_PROFILE", "Extra");
 
 	/**
 	 * The '<em><b>ANALYSIS UNDEFINED PROFILE</b></em>' literal value.
@@ -179,6 +189,21 @@ public enum AnalysisProfileKind implements Enumerator {
 	public static final int ANALYSIS_ACSL_GENERATION_PROFILE_VALUE = 5;
 
 	/**
+	 * The '<em><b>ANALYSIS EXTRANEOUS PROFILE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ANALYSIS EXTRANEOUS PROFILE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ANALYSIS_EXTRANEOUS_PROFILE
+	 * @model literal="Extra"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ANALYSIS_EXTRANEOUS_PROFILE_VALUE = 10;
+
+	/**
 	 * An array of all the '<em><b>Analysis Profile Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -192,6 +217,7 @@ public enum AnalysisProfileKind implements Enumerator {
 			ANALYSIS_BEHAVIOR_SELECTION_PROFILE,
 			ANALYSIS_TEST_OFFLINE_PROFILE,
 			ANALYSIS_ACSL_GENERATION_PROFILE,
+			ANALYSIS_EXTRANEOUS_PROFILE,
 		};
 
 	/**
@@ -254,6 +280,7 @@ public enum AnalysisProfileKind implements Enumerator {
 			case ANALYSIS_BEHAVIOR_SELECTION_PROFILE_VALUE: return ANALYSIS_BEHAVIOR_SELECTION_PROFILE;
 			case ANALYSIS_TEST_OFFLINE_PROFILE_VALUE: return ANALYSIS_TEST_OFFLINE_PROFILE;
 			case ANALYSIS_ACSL_GENERATION_PROFILE_VALUE: return ANALYSIS_ACSL_GENERATION_PROFILE;
+			case ANALYSIS_EXTRANEOUS_PROFILE_VALUE: return ANALYSIS_EXTRANEOUS_PROFILE;
 		}
 		return null;
 	}

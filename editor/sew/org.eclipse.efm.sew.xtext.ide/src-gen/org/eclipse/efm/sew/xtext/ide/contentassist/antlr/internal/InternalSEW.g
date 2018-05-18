@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -1372,8 +1372,14 @@ rule__Workflow__Alternatives_2
 	|
 	(
 		{ before(grammarAccess.getWorkflowAccess().getElementAssignment_2_1()); }
-		(rule__Workflow__ElementAssignment_2_1)
+		(rule__Workflow__ElementAssignment_2_1)*
 		{ after(grammarAccess.getWorkflowAccess().getElementAssignment_2_1()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getWorkflowAccess().getElementAssignment_2_2()); }
+		(rule__Workflow__ElementAssignment_2_2)
+		{ after(grammarAccess.getWorkflowAccess().getElementAssignment_2_2()); }
 	)
 ;
 finally {
@@ -1416,6 +1422,27 @@ rule__Workflow__ElementAlternatives_2_0_4_0
 		{ before(grammarAccess.getWorkflowAccess().getElementPropertyParserRuleCall_2_0_4_0_1()); }
 		ruleProperty
 		{ after(grammarAccess.getWorkflowAccess().getElementPropertyParserRuleCall_2_0_4_0_1()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Workflow__ElementAlternatives_2_1_0
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getWorkflowAccess().getElementObjectParserRuleCall_2_1_0_0()); }
+		ruleObject
+		{ after(grammarAccess.getWorkflowAccess().getElementObjectParserRuleCall_2_1_0_0()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getWorkflowAccess().getElementPropertyParserRuleCall_2_1_0_1()); }
+		ruleProperty
+		{ after(grammarAccess.getWorkflowAccess().getElementPropertyParserRuleCall_2_1_0_1()); }
 	)
 ;
 finally {
@@ -8454,9 +8481,24 @@ rule__Workflow__ElementAssignment_2_1
 	}
 :
 	(
-		{ before(grammarAccess.getWorkflowAccess().getElementDeprecatedObjectParserRuleCall_2_1_0()); }
+		{ before(grammarAccess.getWorkflowAccess().getElementAlternatives_2_1_0()); }
+		(rule__Workflow__ElementAlternatives_2_1_0)
+		{ after(grammarAccess.getWorkflowAccess().getElementAlternatives_2_1_0()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Workflow__ElementAssignment_2_2
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getWorkflowAccess().getElementDeprecatedObjectParserRuleCall_2_2_0()); }
 		ruleDeprecatedObject
-		{ after(grammarAccess.getWorkflowAccess().getElementDeprecatedObjectParserRuleCall_2_1_0()); }
+		{ after(grammarAccess.getWorkflowAccess().getElementDeprecatedObjectParserRuleCall_2_2_0()); }
 	)
 ;
 finally {

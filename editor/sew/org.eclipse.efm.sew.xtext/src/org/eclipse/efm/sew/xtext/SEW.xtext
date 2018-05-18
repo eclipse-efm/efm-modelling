@@ -37,6 +37,9 @@ Workflow returns sew::SEWorkflow
 			( element+=( Object | Property ) )*
 		'}'
 
+	// for Xtext Embeded Editor
+	| ( element+=( Object | Property ) )*
+
 	// Deprecated Object as FAVM Workflow
 	| element+=DeprecatedObject
 	)

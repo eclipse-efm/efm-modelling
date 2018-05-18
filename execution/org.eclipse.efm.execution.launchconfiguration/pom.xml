@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.eclipse.efm</groupId>
-		<artifactId>org.eclipse.efm.execution</artifactId>
+		<artifactId>org.eclipse.efm.modeling.execution</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>org.eclipse.efm.execution.launchconfiguration</artifactId>

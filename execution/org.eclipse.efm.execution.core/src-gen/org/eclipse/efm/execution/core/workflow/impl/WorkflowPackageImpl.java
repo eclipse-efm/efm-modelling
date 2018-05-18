@@ -31,6 +31,10 @@ import org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage;
 
 import org.eclipse.efm.execution.core.workflow.coverage.impl.CoveragePackageImpl;
 
+import org.eclipse.efm.execution.core.workflow.extraneous.ExtraneousPackage;
+
+import org.eclipse.efm.execution.core.workflow.extraneous.impl.ExtraneousPackageImpl;
+
 import org.eclipse.efm.execution.core.workflow.serializer.SerializerPackage;
 
 import org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl;
@@ -158,6 +162,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		// Obtain or create and register interdependencies
 		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
 		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) instanceof CoveragePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) : CoveragePackage.eINSTANCE);
+		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) instanceof ExtraneousPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) : ExtraneousPackage.eINSTANCE);
 		TestPackageImpl theTestPackage = (TestPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) instanceof TestPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) : TestPackage.eINSTANCE);
 		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) instanceof SerializerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) : SerializerPackage.eINSTANCE);
 
@@ -165,6 +170,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		theWorkflowPackage.createPackageContents();
 		theCommonPackage.createPackageContents();
 		theCoveragePackage.createPackageContents();
+		theExtraneousPackage.createPackageContents();
 		theTestPackage.createPackageContents();
 		theSerializerPackage.createPackageContents();
 
@@ -172,6 +178,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		theWorkflowPackage.initializePackageContents();
 		theCommonPackage.initializePackageContents();
 		theCoveragePackage.initializePackageContents();
+		theExtraneousPackage.initializePackageContents();
 		theTestPackage.initializePackageContents();
 		theSerializerPackage.initializePackageContents();
 
@@ -630,6 +637,15 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSerializer_EnabledModifiedDataSelection() {
+		return (EAttribute)serializerEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WorkflowFactory getWorkflowFactory() {
 		return (WorkflowFactory)getEFactoryInstance();
 	}
@@ -709,6 +725,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		createEAttribute(serializerEClass, SERIALIZER__ENABLED_NORMALIZATION);
 		createEAttribute(serializerEClass, SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING);
 		createEAttribute(serializerEClass, SERIALIZER__ENABLED_LIFELINES_PRINTING);
+		createEAttribute(serializerEClass, SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION);
 	}
 
 	/**
@@ -737,12 +754,14 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		// Obtain other dependent packages
 		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 		CoveragePackage theCoveragePackage = (CoveragePackage)EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI);
+		ExtraneousPackage theExtraneousPackage = (ExtraneousPackage)EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI);
 		TestPackage theTestPackage = (TestPackage)EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI);
 		SerializerPackage theSerializerPackage = (SerializerPackage)EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI);
 
 		// Add subpackages
 		getESubpackages().add(theCommonPackage);
 		getESubpackages().add(theCoveragePackage);
+		getESubpackages().add(theExtraneousPackage);
 		getESubpackages().add(theTestPackage);
 		getESubpackages().add(theSerializerPackage);
 
@@ -816,6 +835,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		initEAttribute(getSerializer_EnabledNormalization(), ecorePackage.getEBoolean(), "enabledNormalization", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_EnabledInitialValuesPrinting(), ecorePackage.getEBoolean(), "enabledInitialValuesPrinting", "false", 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_EnabledLifelinesPrinting(), ecorePackage.getEBoolean(), "enabledLifelinesPrinting", "false", 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSerializer_EnabledModifiedDataSelection(), ecorePackage.getEBoolean(), "enabledModifiedDataSelection", "true", 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

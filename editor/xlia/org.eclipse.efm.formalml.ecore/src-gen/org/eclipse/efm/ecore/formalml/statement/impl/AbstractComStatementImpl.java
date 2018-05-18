@@ -14,8 +14,7 @@ package org.eclipse.efm.ecore.formalml.statement.impl;
 
 import org.eclipse.efm.ecore.formalml.common.NamedElement;
 
-import org.eclipse.efm.ecore.formalml.expression.ExpressionAsMachine;
-
+import org.eclipse.efm.ecore.formalml.expression.Expression;
 import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
 
 import org.eclipse.efm.ecore.formalml.statement.AbstractComStatement;
@@ -73,7 +72,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected ExpressionAsMachine target;
+	protected Expression target;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -158,7 +157,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExpressionAsMachine getTarget() {
+	public Expression getTarget() {
 		return target;
 	}
 
@@ -167,8 +166,8 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTarget(ExpressionAsMachine newTarget, NotificationChain msgs) {
-		ExpressionAsMachine oldTarget = target;
+	public NotificationChain basicSetTarget(Expression newTarget, NotificationChain msgs) {
+		Expression oldTarget = target;
 		target = newTarget;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StatementPackage.ABSTRACT_COM_STATEMENT__TARGET, oldTarget, newTarget);
@@ -182,7 +181,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTarget(ExpressionAsMachine newTarget) {
+	public void setTarget(Expression newTarget) {
 		if (newTarget != target) {
 			NotificationChain msgs = null;
 			if (target != null)
@@ -244,7 +243,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 				setRoute((Channel)newValue);
 				return;
 			case StatementPackage.ABSTRACT_COM_STATEMENT__TARGET:
-				setTarget((ExpressionAsMachine)newValue);
+				setTarget((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -265,7 +264,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 				setRoute((Channel)null);
 				return;
 			case StatementPackage.ABSTRACT_COM_STATEMENT__TARGET:
-				setTarget((ExpressionAsMachine)null);
+				setTarget((Expression)null);
 				return;
 		}
 		super.eUnset(featureID);

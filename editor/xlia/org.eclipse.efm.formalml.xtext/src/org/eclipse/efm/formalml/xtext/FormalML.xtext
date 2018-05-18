@@ -12,6 +12,8 @@
 *****************************************************************************/
 grammar org.eclipse.efm.formalml.xtext.FormalML with org.eclipse.xtext.common.Terminals
 
+import "http://www.eclipse.org/efm/FormalML"
+
 //import "http://www.eclipse.org/efm/FormalML/Common" as fmlCommon
 //import "http://www.eclipse.org/efm/FormalML/DataType" as fmlType
 //import "http://www.eclipse.org/efm/FormalML/Infrastructure" as fmlInfra
@@ -33,8 +35,6 @@ import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formal
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
-import "http://www.eclipse.org/efm/FormalML"
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // Main Rules
@@ -46,7 +46,8 @@ Xlia returns XliaModel
 	;
 
 XliaPrologObject returns XliaObject
-	: name=( '@FormalML' | '@xlia' | '@xfsp' ) '<'
+	: name=( '@FormalML' | '@xfml' | '@fml' | '@xlia' | '@xfsp' | '@diversity' )
+		'<'
 		( elements+=XliaPrologAttribute )
 //		( ',' elements+=XliaPrologAttribute )+
 		'>:'
@@ -71,13 +72,14 @@ XliaPrologAttribute returns XliaAttribute
 
 
 XliaOptionObject returns XliaObject
-	: name='@option' '{'
+	: name='@option'  '{'
 		( elements+=XliaNamedElement )*
 	  '}'
 	;
 
 XliaNamedElement returns XliaNamedElement
 	: XliaObject
+	| XliaSection
 	| XliaAttribute
 	;
 
@@ -85,6 +87,12 @@ XliaObject returns XliaObject
 	: name=XLIA_ID '{'
 		( elements+=XliaNamedElement )*
 	  '}'
+	;
+
+XliaSection returns XliaSection
+	: name=XLIA_ID '['
+		( elements+=XliaAttribute )*
+	  ']'
 	;
 
 XliaAttribute returns XliaAttribute
@@ -100,6 +108,8 @@ EBoolean returns ecore::EBoolean
 	: 'true' | 'false'
 	;
 
+// Comment @Override for Eclipse/Neon compatibility
+@Override 
 terminal INT returns ecore::EInt: ('0'..'9')+;
 
 EInt returns ecore::EInt
@@ -137,33 +147,53 @@ EString returns ecore::EString
 //	;
 
 
-ReservedWord
-	: 'package' | 'system' | 'machine'
-	| 'statemachine' | 'state' | 'pseudostate' | 'vertex'
-	| 'procedure' | 'macro' | 'routine' | 'transition'
-	| 'public' | 'private' | 'protected'
-	| 'static' | 'final' | 'reference' | 'volatile' | 'transient'
-	| 'model' | 'prototype' | 'instance'
-	| 'timed' | 'input_enabled'
-	| 'port' | 'signal' | 'buffer' | 'channel'
-	| 'var' | 'val' | 'const'
-	| 'input' | 'in' | 'inout' | 'output' | 'out' | 'return'
-	| 'simple' | 'start' | 'final' | 'initial' | 'terminal' | 'junction'
-	| 'choice' | 'fork' | 'join' | 'dhistory' | 'shistory'
-	| 'route' | 'connect' | 'env' | 'rdv' | 'multi_rdv' | 'buffer'
-	| 'unicast' | 'anycast' | 'multicast' | 'broadcast'
-	| 'boolean' | 'bool' | 'char' | 'string' | 'message'
-	| 'integer' | 'int' | 'uinteger' | 'uint'
-	| 'rational' | 'rat' | 'urational' | 'urat'
-	| 'time' | 'clock'
-	| 'float' | 'double' | 'real' | 'ufloat' | 'udouble' | 'ureal'
-	| 'interval' | 'enum'  | 'struct' | 'union'
-	| 'vector' | 'rvector' | 'list' | 'set' | 'bag' | 'fifo' | 'lifo'
-	| 'guard' | 'tguard' | 'event' | 'checksat' | 'via' | 'newfresh'
-	| 'break' | 'continue' | 'exit' | 'init' | 'destroy' | 'stop' | 'abort'
-	| 'restart' | 'suspend' | 'resume' | 'wait' | 'disable' | 'enable'
-	| 'schedule' | 'irun' | 'run' | 'rtc' | 'call' | 'new' | 'ctor'
-	| 'this' | 'self' | 'parent' | 'super' | 'null'
+ReservedKeyWord
+	: 'package'   | 'system'      | 'machine'
+	| 'vertex'    | 'pseudostate'
+	| 'state'     | 'statemachine'
+	| 'macro'     | 'routine'
+	| 'procedure' | 'transition'
+	| 'public'    | 'private'     | 'protected'
+	| 'static'    | 'final'
+	| 'volatile'  | 'transient'
+	| 'model'     | 'prototype'   | 'instance'
+	| 'timed'     | 'dense_timed' | 'discrete_timed'
+	| 'unsafe'    | 'input_enabled'
+	| 'port'      | 'signal'      | 'message'
+	| 'buffer'    | 'channel'     | 'via'
+	| 'var'       | 'val'         | 'const'
+	| 'input'     | 'in'          | 'inout'
+	| 'output'    | 'out'         | 'return'
+	| 'simple'    | 'start'       | 'final'
+	| 'initial'   | 'terminal'    | 'junction'
+	| 'choice'    | 'fork'        | 'join'
+	| 'dhistory'  | 'shistory'
+	| 'route'     | 'connector'   | 'connect'
+	| 'env'         | 'rdv'       | 'multi_rdv'
+	| 'buffer'      | 'unicast'   | 'anycast'
+	| 'multicast' | 'broadcast'
+	| 'boolean'   | 'bool'
+	| 'char'      | 'string'
+	| 'integer'   | 'int'
+	| 'uinteger'  | 'uint'
+	| 'rational'  | 'rat'
+	| 'urational' | 'urat'
+	| 'time'      | 'clock'
+	| 'float'     | 'double'      | 'real'
+	| 'ufloat'    | 'udouble'     | 'ureal'
+	| 'interval'  | 'enum'        | 'struct' | 'union'
+	| 'vector'    | 'rvector'     | 'list'
+	| 'set'       | 'bag'         | 'fifo'   | 'lifo'
+	| 'guard'     | 'tguard'
+	| 'event'     | 'checksat'
+	| 'break'     | 'continue'    | 'exit'   | 'init'
+	| 'destroy'   | 'stop'        | 'abort'  | 'restart'
+	| 'suspend'   | 'resume'      | 'wait'
+	| 'disable'   | 'enable'
+	| 'schedule'  | 'irun'        | 'run'    | 'rtc'
+	| 'call'      | 'new'         | 'ctor'   | 'newfresh'
+	| 'this'      | 'self'        | 'parent' | 'super'
+	| 'null'
 	;
 
 terminal XLIA_ID
@@ -239,7 +269,11 @@ enum DesignInstanceKind returns fmlInfra::DesignKind
 
 System returns fmlInfra::System
 	: ( ( visibility=VisibilityKind )?
-		& ( timed?='timed' | input_enabled ?= 'input_enabled' )?
+		& ( timed?='timed' )?
+		& ( dense_timed?='dense_timed' )?
+		& ( discrete_timed?='discrete_timed' )?
+		& ( input_enabled ?= 'input_enabled' )?
+		& ( unsafe ?= 'unsafe' )?
 		)
 		'system' ('<' ( 'moc:' )? ( 'and' | 'or' ) '>')?
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
@@ -264,20 +298,21 @@ System returns fmlInfra::System
 //				)
 //			| 'var'
 //				( property+=VariableImpl
-//				| '{' ( property+=VariableImpl )+ '}'
+//				| '{' ( variable+=VariableImpl )+ '}'
 //				)
 //			| ( 'val' | 'const' )
-//				( property+=VariableImpl
-//				| '{' ( property+=VariableImpl )+ '}'
+//				( variable+=VariableImpl
+//				| '{' ( variable+=VariableImpl )+ '}'
 //				)
-//			| property+=Variable
+//			| variable+=Variable
 //			)*
 			( port+=Port
 			| signal+=Signal
 			| buffer+=Buffer
 			| channel+=Channel
 			| typedef+=TypeDefinition
-			| property+=Variable
+			| function+=Function
+			| variable+=Variable
 			)*
 		)
 		( '@property:'
@@ -286,7 +321,8 @@ System returns fmlInfra::System
 			| buffer+=Buffer
 			| channel+=Channel
 			| typedef+=TypeDefinition
-			| property+=Variable
+			| function+=Function
+			| variable+=Variable
 			)*
 		| '@public:'
 			( port+=PortPublic
@@ -294,7 +330,8 @@ System returns fmlInfra::System
 			| buffer+=BufferPublic
 			| channel+=ChannelPublic
 			| typedef+=TypeDefinition
-			| property+=VariablePublic
+			| function+=FunctionPublic
+			| variable+=VariablePublic
 			)*
 		| '@protected:'
 			( port+=PortProtected
@@ -302,7 +339,8 @@ System returns fmlInfra::System
 			| buffer+=BufferProtected
 			| channel+=ChannelProtected
 			| typedef+=TypeDefinition
-			| property+=VariableProtected
+			| function+=FunctionProtected
+			| variable+=VariableProtected
 			)*
 		| '@private:'
 			( port+=PortPrivate
@@ -310,7 +348,8 @@ System returns fmlInfra::System
 			| buffer+=BufferPrivate
 			| channel+=ChannelPrivate
 			| typedef+=TypeDefinition
-			| property+=VariablePrivate
+			| function+=FunctionPrivate
+			| variable+=VariablePrivate
 			)*
 		)*
 
@@ -334,6 +373,13 @@ System returns fmlInfra::System
 		)*
 
 		main=MoeBehavior
+
+//		// optional unnamed section for property full declaration / definition
+//		propertyPart=PropertyPart
+//
+//		compositePart=CompositePart
+//
+//		behaviorPart=BehaviorPart
 		'}'
 	;
 
@@ -351,8 +397,7 @@ InstanceMachine returns fmlInfra::InstanceMachine
 		/*(paramsSection = DeclareParams)?*/
 //		( ( '(' arg=MixTupleExpressionList ')' )? ';'
 		( ( '(' ( slot+=SlotParameter ( ',' slot+=SlotParameter )* )?')' )? ';'
-		| '{'
-		 ( slot+=SlotProperty ';' )*  '}'
+		| '{'  ( slot+=SlotProperty ';' )*  '}'
 		)
 	;
 
@@ -360,20 +405,21 @@ InstanceMachine returns fmlInfra::InstanceMachine
 SlotParameter returns fmlInfra::SlotProperty
 	: ( xliaProperty=[fmlInfra::PropertyDefinition|ESIdentifier]
 //	  | umlProperty=[uml::Property|ESIdentifier]
-	  ) ':' value=Expression
+	  )  ( ':' | '='  | ':=' | '::=' )  value=Expression
 	;
 
 SlotProperty returns fmlInfra::SlotProperty
 	: ( xliaProperty=[fmlInfra::PropertyDefinition|ESIdentifier]
 //	  | umlProperty=[uml::Property|ESIdentifier]
-	  ) '=' value=Expression
+	  ) ( '='  | ':' | ':=' | '::=' )  value=Expression
 	;
 
 
 
 MachineBlock returns fmlInfra::Machine
 	: ( ( visibility=VisibilityKind )?
-		& ( timed?='timed' | input_enabled ?= 'input_enabled' )?
+		& ( timed?='timed' )?
+		& ( input_enabled ?= 'input_enabled' )?
 		& ( design=DesignKind )?
 		)
 		'machine'  ('<' ( 'moc:' )?  ( 'and' | 'or' ) '>')?
@@ -385,7 +431,8 @@ MachineBlock returns fmlInfra::Machine
 			| buffer+=Buffer
 			| channel+=Channel
 			| typedef+=TypeDefinition
-			| property+=Variable
+			| function+=Function
+			| variable+=Variable
 			)*
 		)
 		( '@property:'
@@ -394,7 +441,8 @@ MachineBlock returns fmlInfra::Machine
 			| buffer+=Buffer
 			| channel+=Channel
 			| typedef+=TypeDefinition
-			| property+=Variable
+			| function+=Function
+			| variable+=Variable
 			)*
 		| '@public:'
 			( port+=PortPublic
@@ -402,7 +450,8 @@ MachineBlock returns fmlInfra::Machine
 			| buffer+=BufferPublic
 			| channel+=ChannelPublic
 			| typedef+=TypeDefinition
-			| property+=VariablePublic
+			| function+=FunctionPublic
+			| variable+=VariablePublic
 			)*
 		| '@protected:'
 			( port+=PortProtected
@@ -410,7 +459,8 @@ MachineBlock returns fmlInfra::Machine
 			| buffer+=BufferProtected
 			| channel+=ChannelProtected
 			| typedef+=TypeDefinition
-			| property+=VariableProtected
+			| function+=FunctionProtected
+			| variable+=VariableProtected
 			)*
 		| '@private:'
 			( port+=PortPrivate
@@ -418,7 +468,8 @@ MachineBlock returns fmlInfra::Machine
 			| buffer+=BufferPrivate
 			| channel+=ChannelPrivate
 			| typedef+=TypeDefinition
-			| property+=VariablePrivate
+			| function+=FunctionPrivate
+			| variable+=VariablePrivate
 			)*
 		)*
 
@@ -442,10 +493,124 @@ MachineBlock returns fmlInfra::Machine
 		)*
 
 		main=MoeBehavior
+
+//		// optional unnamed section for property full declaration / definition
+//		propertyPart=PropertyPart
+//
+//		compositePart=CompositePart
+//
+//		behaviorPart=BehaviorPart
 		'}'
 	;
 
 
+PropertyPart returns fmlInfra::PropertyPart
+	: {fmlInfra::PropertyPart}
+		( '@parameter:'
+			( 'input'
+				( parameter+=ParameterInput
+				| '{' ( parameter+=ParameterInput )+ '}'
+				)
+			| 'inout'
+				( parameter+=ParameterInout
+				| '{' ( parameter+=ParameterInout )+ '}'
+				)
+
+			| 'output'
+				( parameter+=ParameterOutput
+				| '{' ( parameter+=ParameterOutput )+ '}'
+				)
+
+			| 'return'
+				( parameter+=ParameterReturn
+				| '{' ( parameter+=ParameterReturn )+ '}'
+				)
+			)*
+		| // optional unnamed section for property full declaration / definition
+			( port+=Port
+			| signal+=Signal
+			| buffer+=Buffer
+			| channel+=Channel
+			| typedef+=TypeDefinition
+			| function+=Function
+			| variable+=Variable
+			)*
+		)
+		( '@input:'
+			( parameter+=ParameterInput  )*
+		| '@inout:'
+			( parameter+=ParameterInout  )*
+		| '@output:'
+			( parameter+=ParameterOutput )*
+		| '@return:'
+			( parameter+=ParameterReturn )*
+		)*
+
+		( '@property:'
+			( port+=Port
+			| signal+=Signal
+			| buffer+=Buffer
+			| channel+=Channel
+			| typedef+=TypeDefinition
+			| function+=Function
+			| variable+=Variable
+			)*
+		| '@public:'
+			( port+=PortPublic
+			| signal+=SignalPublic
+			| buffer+=BufferPublic
+			| channel+=ChannelPublic
+			| typedef+=TypeDefinition
+			| function+=FunctionPublic
+			| variable+=VariablePublic
+			)*
+		| '@protected:'
+			( port+=PortProtected
+			| signal+=SignalProtected
+			| buffer+=BufferProtected
+			| channel+=ChannelProtected
+			| typedef+=TypeDefinition
+			| function+=FunctionProtected
+			| variable+=VariableProtected
+			)*
+		| '@private:'
+			( port+=PortPrivate
+			| signal+=SignalPrivate
+			| buffer+=BufferPrivate
+			| channel+=ChannelPrivate
+			| typedef+=TypeDefinition
+			| function+=FunctionPrivate
+			| variable+=VariablePrivate
+			)*
+		)*
+	;
+
+CompositePart returns fmlInfra::CompositePart
+	: {fmlInfra::CompositePart}
+		( ( ( '@routine:' | '@macro:' ) ( routine+=Routine )+
+		  | '@procedure:' ( procedure+=Procedure )+
+		  )*
+		| ( routine+=Routine | procedure+=Procedure )+
+		)
+
+		( ( '@composite:' | '@machine:' )
+			( machine +=AnyMachineBlock
+			| instance+=InstanceMachine
+			)+
+		| '@model:'     ( machine +=AnyMachineBlock )*
+		| '@prototype:' ( machine +=AnyMachineBlock )*
+		| '@instance:'  ( instance+=InstanceMachine )*
+		)*
+	;
+
+BehaviorPart returns fmlInfra::BehaviorPart
+	: {fmlInfra::BehaviorPart}
+		( '@behavior:'     ( behavior+=Behavior )+
+		| '@statemachine:' ( behavior+=Statemachine )+
+		)*
+
+		main=MoeBehavior
+	;
 ////////////////////////////////////////////////////////////////////////////////
 // Procedure View Rules
 ////////////////////////////////////////////////////////////////////////////////
@@ -491,25 +656,18 @@ Procedure returns fmlInfra::Procedure
 			| buffer+=Buffer
 			| channel+=Channel
 			| typedef+=TypeDefinition
-			| property+=Variable
+			| function+=Function
+			| variable+=Variable
 			)*
 		)
 		( '@input:'
-			( parameter+=ParameterInput
-			| '{' ( parameter+=ParameterInput )+ '}'
-			)*
+			( parameter+=ParameterInput  )*
 		| '@inout:'
-			( parameter+=ParameterInout
-			| '{' ( parameter+=ParameterInout )+ '}'
-			)*
+			( parameter+=ParameterInout  )*
 		| '@output:'
-			( parameter+=ParameterOutput
-			| '{' ( parameter+=ParameterOutput )+ '}'
-			)*
+			( parameter+=ParameterOutput )*
 		| '@return:'
-			( parameter+=ParameterReturn
-			| '{' ( parameter+=ParameterReturn )+ '}'
-			)*
+			( parameter+=ParameterReturn )*
 		)*
 
 		( '@property:'
@@ -518,7 +676,8 @@ Procedure returns fmlInfra::Procedure
 			| buffer+=Buffer
 			| channel+=Channel
 			| typedef+=TypeDefinition
-			| property+=Variable
+			| function+=Function
+			| variable+=Variable
 			)*
 		| '@public:'
 			( port+=PortPublic
@@ -526,7 +685,8 @@ Procedure returns fmlInfra::Procedure
 			| buffer+=BufferPublic
 			| channel+=ChannelPublic
 			| typedef+=TypeDefinition
-			| property+=VariablePublic
+			| function+=FunctionPublic
+			| variable+=VariablePublic
 			)*
 		| '@protected:'
 			( port+=PortProtected
@@ -534,7 +694,8 @@ Procedure returns fmlInfra::Procedure
 			| buffer+=BufferProtected
 			| channel+=ChannelProtected
 			| typedef+=TypeDefinition
-			| property+=VariableProtected
+			| function+=FunctionProtected
+			| variable+=VariableProtected
 			)*
 		| '@private:'
 			( port+=PortPrivate
@@ -542,15 +703,22 @@ Procedure returns fmlInfra::Procedure
 			| buffer+=BufferPrivate
 			| channel+=ChannelPrivate
 			| typedef+=TypeDefinition
-			| property+=VariablePrivate
+			| function+=FunctionPrivate
+			| variable+=VariablePrivate
 			)*
 		)*
-
+		
 		( ( ( '@routine:' | '@macro:' ) ( routine+=Routine )+
 		  | '@procedure:' ( procedure+=Procedure )+
 		  )*
 		| ( routine+=Routine | procedure+=Procedure )+
 		)
+
+
+//		// optional unnamed section for property full declaration / definition
+//		propertyPart=PropertyPart
+//
+//		compositePart=CompositePart
 
 		( ( region+=StatemachineRegion )+
 		| region+=StatemachineRegionLite
@@ -591,7 +759,8 @@ MoeBehavior returns fmlInfra::Behavior
 			| buffer+=BufferPrivate
 			| channel+=ChannelPrivate
 			| typedef+=TypeDefinition
-			| property+=VariablePrivate
+			| function+=FunctionPrivate
+			| variable+=VariablePrivate
 			)*
 		)?
 		( ( execution=ModelOfExecution )?
@@ -608,7 +777,8 @@ MoeBehavior returns fmlInfra::Behavior
 Statemachine returns fmlStmchn::Statemachine
 	: { fmlStmchn::Statemachine }
 		( ( visibility=VisibilityKind )?
-		& ( timed?='timed' | input_enabled ?= 'input_enabled' )?
+		& ( timed?='timed' )?
+		& ( input_enabled ?= 'input_enabled' )?
 		& ( design=DesignKind )?
 		)
 		'statemachine' ( '<' ( 'moc:' )? ( 'or' | 'and' ) '>' )?
@@ -640,25 +810,18 @@ Statemachine returns fmlStmchn::Statemachine
 			| buffer+=Buffer
 			| channel+=Channel
 			| typedef+=TypeDefinition
-			| property+=Variable
+			| function+=Function
+			| variable+=Variable
 			)*
 		)
 		( '@input:'
-			( parameter+=ParameterInput
-			| '{' ( parameter+=ParameterInput )+ '}'
-			)*
+			( parameter+=ParameterInput  )*
 		| '@inout:'
-			( parameter+=ParameterInout
-			| '{' ( parameter+=ParameterInout )+ '}'
-			)*
+			( parameter+=ParameterInout  )*
 		| '@output:'
-			( parameter+=ParameterOutput
-			| '{' ( parameter+=ParameterOutput )+ '}'
-			)*
+			( parameter+=ParameterOutput )*
 		| '@return:'
-			( parameter+=ParameterReturn
-			| '{' ( parameter+=ParameterReturn )+ '}'
-			)*
+			( parameter+=ParameterReturn )*
 		)*
 
 		( '@property:'
@@ -667,7 +830,8 @@ Statemachine returns fmlStmchn::Statemachine
 			| buffer+=Buffer
 			| channel+=Channel
 			| typedef+=TypeDefinition
-			| property+=Variable
+			| function+=Function
+			| variable+=Variable
 			)*
 		| '@public:'
 			( port+=PortPublic
@@ -675,7 +839,8 @@ Statemachine returns fmlStmchn::Statemachine
 			| buffer+=BufferPublic
 			| channel+=ChannelPublic
 			| typedef+=TypeDefinition
-			| property+=VariablePublic
+			| function+=FunctionPublic
+			| variable+=VariablePublic
 			)*
 		| '@protected:'
 			( port+=PortProtected
@@ -683,7 +848,8 @@ Statemachine returns fmlStmchn::Statemachine
 			| buffer+=BufferProtected
 			| channel+=ChannelProtected
 			| typedef+=TypeDefinition
-			| property+=VariableProtected
+			| function+=FunctionProtected
+			| variable+=VariableProtected
 			)*
 		| '@private:'
 			( port+=PortPrivate
@@ -691,33 +857,48 @@ Statemachine returns fmlStmchn::Statemachine
 			| buffer+=BufferPrivate
 			| channel+=ChannelPrivate
 			| typedef+=TypeDefinition
-			| property+=VariablePrivate
+			| function+=FunctionPrivate
+			| variable+=VariablePrivate
 			)*
 		)*
 
 		( ( ( '@routine:' | '@macro:' ) ( routine+=Routine )+
 		  | '@procedure:' ( procedure+=Procedure )+
 		  )*
-		| ( routine+=Routine | procedure+=Procedure )+
+		| ( routine+=Routine  | procedure+=Procedure )+
 		)
 
-		( ( region+=StatemachineRegion )+
+		( ( '@composite:' | '@statemachine:' )  ( machine +=Statemachine )+
+
+		| ( region+=StatemachineRegion )+
+		
 		| region+=StatemachineRegionLite
 		)
+
+//		// optional unnamed section for property full declaration / definition
+//		propertyPart=PropertyPart
+//
+//		compositePart=CompositePart
+//
+//		( ( region+=StatemachineRegion )+
+//		
+//		| region+=StatemachineRegionLite
+//		)
 
 		( ( execution=ModelOfExecution )?
 //		& ( computation=ModelOfComputation )?
 		& ( interaction=ModelOfInteraction )?
 		)
+
 		'}'
 	;
 
 
 StatemachineRegion returns fmlStmchn::Region
 	: {fmlStmchn::Region}
-		( ( '@region:'  |  '@statemachine:' )
-		| ( '@region<'  |  '@statemachine<' )
-			name=ESIdentifier ( unrestrictedName=UnrestrictedName )? '>:'
+		( '@region:' 
+		| '@region<'
+			name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?  '>:'
 		)
 
 		( vertex+=State
@@ -1021,21 +1202,21 @@ ComRouteProtocol returns fmlInfra::ComProtocol
 	| protocol=BufferProtocolKind
 		( ':'
 			( inner_buffer=BufferContainerType
-			| ref_buffer=[fmlInfra::Buffer|ESUfid]
+			| buffer=ComBuffer
 			)
 		| '<'
 			( inner_buffer=BufferContainerType
-			| ref_buffer=[fmlInfra::Buffer|ESUfid]
+			| buffer=ComBuffer
 			) '>'
 		)?
 
 	| inner_buffer=BufferContainerType
-	| ref_buffer=[fmlInfra::Buffer|ESUfid]
+	| buffer=ComBuffer
 	;
 
 
-Connection returns fmlInfra::Connection
-	: 'connect' '<' protocol=ComProtocol '>'
+Connection returns fmlInfra::Connector
+	: ( 'connector' | 'connect' ) '<' protocol=ComProtocol '>'
 		( name=ESIdentifier ( unrestrictedName=UnrestrictedName )? )?
 		'{' (comPoints+=ComPoint)+ '}'
 	;
@@ -1048,16 +1229,16 @@ ComProtocol returns fmlInfra::ComProtocol
 	| protocol=BufferProtocolKind
 		( ':'
 			( inner_buffer=BufferContainerType
-			| ref_buffer=[fmlInfra::Buffer|ESUfid]
+			| buffer=ComBuffer
 			)
 		| '<'
 			( inner_buffer=BufferContainerType
-			| ref_buffer=[fmlInfra::Buffer|ESUfid]
+			| buffer=ComBuffer
 			) '>'
 		)?
 
 	| inner_buffer=BufferContainerType
-	| ref_buffer=[fmlInfra::Buffer|ESUfid]
+	| buffer=ComBuffer
 
 	| cast=ComCastKing
 	;
@@ -1106,32 +1287,40 @@ ComPointProtocol returns fmlInfra::ComProtocol
 	: protocol=BufferProtocolKind
 		( ':'
 			( inner_buffer=BufferContainerType
-			| ref_buffer=[fmlInfra::Buffer|ESUfid]
+			| buffer=ComBuffer
 			)
 		| '<'
 			( inner_buffer=BufferContainerType
-			| ref_buffer=[fmlInfra::Buffer|ESUfid]
+			| buffer=ComBuffer
 			) '>'
 		)?
 
 	| inner_buffer=BufferContainerType
-	| ref_buffer=[fmlInfra::Buffer|ESUfid]
+	| buffer=ComBuffer
 	;
 
 
-ComElement returns fmlExpr::Expression
-	: LiteralPureReferenceElement
+ComBuffer returns fmlExpr::ValueElementSpecification
+	: ( parent=LiteralPureReferenceMachine
 		// ( '.' | '->' ) element
-		( { fmlExpr::ValueElementSpecification.target=current }
-			kind=( ValueDotFieldExpressionKind | ValueArrowFieldExpressionKind )
-			element=[fmlCommon::NamedElement|ESIdentifier]
-		)?
+		kind=( ValueDotFieldExpressionKind | ValueArrowFieldExpressionKind ) 
+	  )?
+	  element=[fmlInfra::Buffer|ESIdentifier]
+	;
 
-	| { fmlExpr::ValueElementSpecification }
-		target=LiteralReferenceMachineContext
+
+ComElement returns fmlExpr::ValueElementSpecification
+	: ( parent=LiteralPureReferenceMachine
 		// ( '.' | '->' ) element
 		kind=( ValueDotFieldExpressionKind | ValueArrowFieldExpressionKind )
-			element=[fmlCommon::NamedElement|ESIdentifier]
+	  )?
+	  element=[fmlInfra::Port|ESIdentifier]
+	;
+
+LiteralPureReferenceMachine returns fmlExpr::LiteralReferenceExpression
+	: {fmlExpr::LiteralReferenceElement}
+		value=[fmlInfra::Machine|ESIdentifier]
+	| LiteralReferenceMachineContext
 	;
 
 
@@ -1451,10 +1640,10 @@ IntervalTypeDefinitionImpl returns fmlType::IntervalType
 CollectionType returns fmlType::CollectionType
 	: {fmlType::CollectionType}
 		container = CollectionKind
-		'<'
+		( '<'
 			support=DataType
 			( ',' ( size = EInt | unbounded?='*' ) )?
-		'>'
+		'>' )?
 	;
 
 CollectionTypeDefinition returns fmlType::CollectionType
@@ -1647,29 +1836,97 @@ enum TypeSpecifyerKind returns TypeSpecifyerKind
 */
 
 ////////////////////////////////////////////////////////////////////////////////
-// Variable Rules
+// Modifier Rules
 ////////////////////////////////////////////////////////////////////////////////
 
 Modifier returns fmlInfra::Modifier
 	: {fmlInfra::Modifier}
-	( ( static?='static' )?
-	& ( final ?='final'  )?
+		( ( static?='static' )?
+		& ( final ?='final'  )?
+	
+		& ( volatile ?='volatile'  )?
+		& ( transient?='transient' )?
+		)
+	;
 
-	& ( reference?='reference' )?
-	& ( volatile ?='volatile'  )?
-	& ( transient?='transient' )?
-	)
+////////////////////////////////////////////////////////////////////////////////
+// Function Rules
+////////////////////////////////////////////////////////////////////////////////
+
+Function returns fmlInfra::Function
+	: {fmlInfra::Function}
+		( visibility=VisibilityKind 
+	  	& modifier=Modifier
+		)?
+		'fun'
+		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
+		( '('
+			argument+=FormalParameter
+			( ',' argument+=FormalParameter )*
+		  ')'
+		)?
+		'->'
+		(     result+=FormalParameter  ( ',' result+=FormalParameter )*
+		| '(' result+=FormalParameter  ( ',' result+=FormalParameter )* ')'
+		)
+		';'
+	;
+
+
+FunctionImpl returns fmlInfra::Function
+	: {fmlInfra::Function}
+		( modifier=Modifier )?
+		'fun'
+		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
+		( '('
+			argument+=FormalParameter
+			( ','  argument+=FormalParameter )*
+		')' )?
+		'->'
+		(     result+=FormalParameter  ( ',' result+=FormalParameter )*
+		| '(' result+=FormalParameter  ( ',' result+=FormalParameter )* ')'
+		)
+		';'
+	;
+
+FunctionPublic returns fmlInfra::Function
+	: FunctionImpl
+	;
+
+FunctionProtected returns fmlInfra::Function
+	: FunctionImpl
+	;
+
+FunctionPrivate returns fmlInfra::Function
+	: FunctionImpl
+	;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Variable Rules
+////////////////////////////////////////////////////////////////////////////////
+
+ModifierVar returns fmlInfra::Modifier
+	: {fmlInfra::Modifier}
+		( ( static?='static' )?
+		& ( final ?=('final' | 'const') )?
+	
+		& ( volatile ?='volatile'  )?
+		& ( transient?='transient' )?
+		)
 	;
 
 
 Variable returns fmlInfra::Variable
-	: ( ( visibility=VisibilityKind )? & ( modifier=Modifier )? )
+	: ( ( visibility=VisibilityKind )? 
+		& ( modifier=Modifier )?
+		)
 		( 'var' | const?='val'
 		| ( const?='const' | const?='final' ) ( macro?='macro' )? ( 'var' )?
 		| macro?='macro' ( 'var' | const?='val' )?
 		)
-	 	type=DataType
-	 	name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+	 	type=DataType  ( reference?='&' )?
+	 	name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
 		( '=' defaultValue=Expression )?
 		( ( '{' onWriteAction=OnWriteRoutine  '}' )
 		| ';'
@@ -1677,18 +1934,23 @@ Variable returns fmlInfra::Variable
 	;
 
 VariableImpl returns fmlInfra::Variable
-	: ( ( const?='const' | const?='final' )? & ( macro?='macro' )? )
-		type=DataType
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+	: ( modifier=Modifier )?
+		( 'var' | const?='val'
+		| const?='const' ( macro?='macro' )? ( 'var' )?
+		| macro?='macro' ( 'var' | const?='val' )?
+		)
+	 	type=DataType  ( reference?='&' )?
+	 	name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
 		( '=' defaultValue=Expression )?
 		( ( '{' onWriteAction=OnWriteRoutine  '}' )
 		| ';'
 		)
 	;
 
+
 OnWriteRoutine returns fmlInfra::Routine
 	: { fmlInfra::Routine }
-		'@on_write'  
+		'@on_write'
 		( '(' parameter+=VariableRoutineParameter ')' )?
 		bodyBlock=BlockStatement
 	;
@@ -1700,65 +1962,16 @@ VariableRoutineParameter returns fmlInfra::Parameter
 	;
 
 
-
-enum PublicVariableVisibilityKind returns fmlCommon::VisibilityKind
-	: public ='var'
-//	| public ='val'
-//	| public ='const'
-	;
-
 VariablePublic returns fmlInfra::Variable
-	: ( modifier=Modifier )?
-		( ( const?='const' | const?='final' )?
-		& ( macro?='macro' )?
-		)?
-		visibility=PublicVariableVisibilityKind
-	 	type=DataType
-	 	name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '=' defaultValue=Expression )?
-		( ( '{' onWriteAction=OnWriteRoutine  '}' )
-		| ';'
-		)
-	;
-
-enum ProtectedVariableVisibilityKind returns fmlCommon::VisibilityKind
-	: protected ='var'
-//	| protected ='val'
-//	| protected ='const'
+	: VariableImpl
 	;
 
 VariableProtected returns fmlInfra::Variable
-	: ( modifier=Modifier )?
-		( ( const?='const' | const?='final' )?
-		& ( macro?='macro' )?
-		)?
-		visibility=ProtectedVariableVisibilityKind
-	 	type=DataType
-	 	name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '=' defaultValue=Expression )?
-		( ( '{' onWriteAction=OnWriteRoutine  '}' )
-		| ';'
-		)
-	;
-
-enum PrivateVariableVisibilityKind returns fmlCommon::VisibilityKind
-	: private ='var'
-//	| private ='val'
-//	| private ='const'
+	: VariableImpl
 	;
 
 VariablePrivate returns fmlInfra::Variable
-	: ( modifier=Modifier )?
-		( ( const?='const' | const?='final' )?
-		& ( macro?='macro' )?
-		)?
-		visibility=PrivateVariableVisibilityKind
-	 	type=DataType
-	 	name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '=' defaultValue=Expression )?
-		( ( '{' onWriteAction=OnWriteRoutine  '}' )
-		| ';'
-		)
+	: VariableImpl
 	;
 
 
@@ -1806,13 +2019,6 @@ FormalParameter returns fmlInfra::Parameter
 // Block ParameterSet Rules
 ////////////////////////////////////////////////////////////////////////////////
 
-enum BlockParameterDirectionKind returns fmlInfra::ParameterDirectionKind
-	: in     = 'input'
-	| inout  = 'inout'
-	| out    = 'output'
-	| return = 'return'
-	;
-
 BlockParameterSet returns fmlInfra::ParameterSet
 	: {fmlInfra::ParameterSet}
 		( 'input'
@@ -1836,55 +2042,37 @@ BlockParameterSet returns fmlInfra::ParameterSet
 		)*
 	;
 
-enum ParameterInputDirectionKind returns fmlInfra::ParameterDirectionKind
-	: in = 'var'
+
+Parameter returns fmlInfra::Parameter
+	: {fmlInfra::Parameter}
+		direction=ParameterDirectionKind
+		'var'  type=DataType
+		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+		( '=' defaultValue=Expression )?  ';'
+	;
+	
+
+ParameterImpl returns fmlInfra::Parameter
+	: {fmlInfra::Parameter}
+		'var'  type=DataType
+		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+		( '=' defaultValue=Expression )?  ';'
 	;
 
 ParameterInput returns fmlInfra::Parameter
-	: direction=ParameterInputDirectionKind  type=DataType
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '=' defaultValue=Expression )?  ';'
-	;
-
-
-enum ParameterInoutDirectionKind returns fmlInfra::ParameterDirectionKind
-	: inout = 'var'
+	: ParameterImpl
 	;
 
 ParameterInout returns fmlInfra::Parameter
-	: direction=ParameterInoutDirectionKind  type=DataType
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '=' defaultValue=Expression )?  ';'
-	;
-
-
-enum ParameterOutputDirectionKind returns fmlInfra::ParameterDirectionKind
-	: out = 'var'
+	: ParameterImpl
 	;
 
 ParameterOutput returns fmlInfra::Parameter
-	: direction=ParameterOutputDirectionKind  type=DataType
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '=' defaultValue=Expression )?  ';'
-	;
-
-
-enum ParameterReturnDirectionKind returns fmlInfra::ParameterDirectionKind
-	: return = 'var'
+	: ParameterImpl
 	;
 
 ParameterReturn returns fmlInfra::Parameter
-	: direction=ParameterReturnDirectionKind  type=DataType
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '=' defaultValue=Expression )?  ';'
-	;
-
-
-ParameterDeclaration returns fmlInfra::Parameter
-	: {fmlInfra::Parameter}
-		direction=BlockParameterDirectionKind  type=DataType
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '=' defaultValue=Expression )?  ';'
+	: ParameterImpl
 	;
 
 
@@ -1895,7 +2083,9 @@ ParameterDeclaration returns fmlInfra::Parameter
 BufferContainerType returns fmlType::CollectionType
 	: {fmlType::CollectionType}
 		container = BufferContainerKind
-		( '<' ( size = EInt | unbounded?='*' )? '>' )?
+		( '<' ( size = EInt | unbounded?='*' )? '>' 
+		| '[' ( size = EInt | unbounded?='*' )? ']' 
+		)?
 	;
 
 enum BufferContainerKind returns fmlType::CollectionKind
@@ -1907,45 +2097,32 @@ enum BufferContainerKind returns fmlType::CollectionKind
 
 
 Buffer returns fmlInfra::Buffer
-	: ( ( visibility=VisibilityKind )? & ( modifier=Modifier )? )
+	: {fmlInfra::Buffer}
+		( visibility=VisibilityKind 
+	  	& modifier=Modifier
+		)?
 		'buffer' type=BufferContainerType
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )? ';'
 	;
 
+
 BufferImpl returns fmlInfra::Buffer
-	: type=BufferContainerType
+	: {fmlInfra::Buffer}
+		( modifier=Modifier )?
+		'buffer' type=BufferContainerType
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )? ';'
-	;
-
-
-enum PublicBufferVisibilityKind returns fmlCommon::VisibilityKind
-	: public ='buffer'
 	;
 
 BufferPublic returns fmlInfra::Buffer
-	: ( modifier=Modifier )?
-		visibility=PublicBufferVisibilityKind type=BufferContainerType
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )? ';'
-	;
-
-enum ProtectedBufferVisibilityKind returns fmlCommon::VisibilityKind
-	: protected ='buffer'
+	: BufferImpl
 	;
 
 BufferProtected returns fmlInfra::Buffer
-	: ( modifier=Modifier )?
-		visibility=ProtectedBufferVisibilityKind type=BufferContainerType
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )? ';'
-	;
-
-enum PrivateBufferVisibilityKind returns fmlCommon::VisibilityKind
-	: private ='buffer'
+	: BufferImpl
 	;
 
 BufferPrivate returns fmlInfra::Buffer
-	: ( modifier=Modifier )?
-		visibility=PrivateBufferVisibilityKind type=BufferContainerType
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )? ';'
+	: BufferImpl
 	;
 
 
@@ -1954,68 +2131,47 @@ BufferPrivate returns fmlInfra::Buffer
 ////////////////////////////////////////////////////////////////////////////////
 
 Port returns fmlInfra::Port
-	: ( visibility=VisibilityKind )?
-		'port' ( direction=ChannelDirection )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+	: {fmlInfra::Port}
+		( visibility=VisibilityKind 
+	  	& modifier=Modifier
+		)?
+		( direction=ChannelDirection  'port'
+		| 'port'  ( direction=ChannelDirection )?
+		)
+		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
 		( '('
 			parameter+=FormalParameter
 			( ',' parameter+=FormalParameter )*
-		')' )?
+		  ')'
+		)?
 		';'
 	;
 
 
 PortImpl returns fmlInfra::Port
-	: ( direction=ChannelDirection )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+	: {fmlInfra::Port}
+		( modifier=Modifier )?
+		( direction=ChannelDirection  'port'
+		| 'port'  ( direction=ChannelDirection )?
+		)
+		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
 		( '('
 			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
+			( ','  parameter+=FormalParameter )*
 		')' )?
 		';'
-	;
-
-
-enum PublicPortVisibilityKind returns fmlCommon::VisibilityKind
-	: public ='port'
 	;
 
 PortPublic returns fmlInfra::Port
-	: visibility=PublicPortVisibilityKind ( direction=ChannelDirection )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
-		')' )?
-		';'
-	;
-
-enum ProtectedPortVisibilityKind returns fmlCommon::VisibilityKind
-	: protected ='port'
+	: PortImpl
 	;
 
 PortProtected returns fmlInfra::Port
-	: visibility=ProtectedPortVisibilityKind ( direction=ChannelDirection )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
-		')' )?
-		';'
-	;
-
-enum PrivatePortVisibilityKind returns fmlCommon::VisibilityKind
-	: private ='port'
+	: PortImpl
 	;
 
 PortPrivate returns fmlInfra::Port
-	: visibility=PrivatePortVisibilityKind ( direction=ChannelDirection )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
-		')' )?
-		';'
+	: PortImpl
 	;
 
 
@@ -2024,8 +2180,11 @@ PortPrivate returns fmlInfra::Port
 ////////////////////////////////////////////////////////////////////////////////
 
 Signal returns fmlInfra::Signal
-	: ( visibility=VisibilityKind )?
-		'signal' ( direction=ChannelDirection )?
+	: {fmlInfra::Signal}
+		( visibility=VisibilityKind )?
+		( direction=ChannelDirection  'signal'
+		| 'signal'  ( direction=ChannelDirection )?
+		)
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		( '('
 			parameter+=FormalParameter
@@ -2033,58 +2192,31 @@ Signal returns fmlInfra::Signal
 		')' )?
 		';'
 	;
+
 
 SignalImpl returns fmlInfra::Signal
-	:( direction=ChannelDirection )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+	: {fmlInfra::Signal}
+		( direction=ChannelDirection  'signal'
+		| 'signal'  ( direction=ChannelDirection )?
+		)
+		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
 		( '('
 			parameter+=FormalParameter
 			( ',' parameter+=FormalParameter )*
 		')' )?
 		';'
-	;
-
-
-enum PublicSignalVisibilityKind returns fmlCommon::VisibilityKind
-	: public ='signal'
 	;
 
 SignalPublic returns fmlInfra::Signal
-	: visibility=PublicSignalVisibilityKind ( direction=ChannelDirection )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
-		')' )?
-		';'
-	;
-
-enum ProtectedSignalVisibilityKind returns fmlCommon::VisibilityKind
-	: protected ='signal'
+	: SignalImpl
 	;
 
 SignalProtected returns fmlInfra::Signal
-	: visibility=ProtectedSignalVisibilityKind ( direction=ChannelDirection )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
-		')' )?
-		';'
-	;
-
-enum PrivateSignalVisibilityKind returns fmlCommon::VisibilityKind
-	: private ='signal'
+	: SignalImpl
 	;
 
 SignalPrivate returns fmlInfra::Signal
-	: visibility=PrivateSignalVisibilityKind ( direction=ChannelDirection )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
-		')' )?
-		';'
+	: SignalImpl
 	;
 
 
@@ -2099,7 +2231,10 @@ enum ChannelDirection returns fmlInfra::ChannelDirection
 	;
 
 Channel returns fmlInfra::Channel
-	: ( visibility=VisibilityKind )?
+	: {fmlInfra::Channel}
+		( visibility=VisibilityKind 
+	  	& modifier=Modifier
+		)?
 		'channel' name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		'{'
 			( signal+=SignalReference ';' )+
@@ -2110,40 +2245,26 @@ SignalReference returns fmlInfra::Signal
 	: ( direction=ChannelDirection )? name=ESIdentifier
 	;
 
-enum PublicChannelVisibilityKind returns fmlCommon::VisibilityKind
-	: public ='channel'
+
+Channelimpl returns fmlInfra::Channel
+	: {fmlInfra::Channel}
+		( modifier=Modifier )?
+		'channel' name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+		'{'
+			( signal+=SignalReference ';' )+
+		'}'
 	;
 
 ChannelPublic returns fmlInfra::Channel
-	: visibility=PublicChannelVisibilityKind
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		'{'
-			( signal+=SignalReference ';' )+
-		'}'
-	;
-
-enum ProtectedChannelVisibilityKind returns fmlCommon::VisibilityKind
-	: protected ='channel'
+	: Channelimpl
 	;
 
 ChannelProtected returns fmlInfra::Channel
-	: visibility=ProtectedChannelVisibilityKind
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		'{'
-			( signal+=SignalReference ';' )+
-		'}'
-	;
-
-enum PrivateChannelVisibilityKind returns fmlCommon::VisibilityKind
-	: private ='channel'
+	: Channelimpl
 	;
 
 ChannelPrivate returns fmlInfra::Channel
-	: visibility=PrivateChannelVisibilityKind
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		'{'
-			( signal+=SignalReference ';' )+
-		'}'
+	: Channelimpl
 	;
 
 
@@ -2169,9 +2290,9 @@ Transition returns fmlStmchn::Transition
 			  )
 			| behavior=TransitionBehavior
 			)?
-			'}'  ( '-->' target=[fmlCommon::NamedElement|ESUfid] ';' )?
+			'}'  ( '-->' target=ValuePureNamedMachineExpression ';' )?
 		  )
-		| ( '-->' target=[fmlCommon::NamedElement|ESUfid]
+		| ( '-->' target=ValuePureNamedMachineExpression
 			( ( '{'
 				( ( ( '@trigger:' ( trigger+= TransitionTrigger )* )?
 					( guard  = TransitionGuard      | '@guard:' )?
@@ -2312,7 +2433,12 @@ BlockStatement returns fmlStmnt::BlockStatement
 
 BlockStatementScheduler
 	: '|;|' | '|§|' | '|;;|' | '|.|' | '|/;|'
-	| '|i|' | '|,|' | '|a|'
+	| '|i|' | '|interleaving|'
+	| '|~|' | '|partial-order|'
+	| '|,|' | '|parallel|'
+	| '|a|' | '|async|'
+	
+	| '|partial-order|'
 
 	| '|and|' | '|or|'
 	| '|and#then|' | '|or#else|'
@@ -2370,7 +2496,7 @@ InputComStatement returns fmlStmnt::InputComStatement
 	: 'input' port=[fmlCommon::NamedElement|ESUfid] //ExpressionAsPort
 		( '(' leftValue+=Expression ( ',' leftValue+= Expression )* ')' )?
 
-		( ( '<--' target=ExpressionAsMachine )?
+		( ( '<--' target=ValuePureNamedMachineExpression )?
 		& ( ( '<==' | 'via' ) route=[fmlInfra::Channel|ESUfid]/*ExpressionAsChannel*/ )?
 		) ';'
 	;
@@ -2379,13 +2505,9 @@ OutputComStatement returns fmlStmnt::OutputComStatement
 	: 'output' port=[fmlCommon::NamedElement|ESUfid] //port=ExpressionAsPort
 		( '(' rigthValue+=Expression ( ',' rigthValue+=Expression )* ')' )?
 
-		( ( '-->' target=ExpressionAsMachine )?
+		( ( '-->' target=ValuePureNamedMachineExpression )?
 		& ( ( '==>' | 'via' ) route=[fmlInfra::Channel|ESUfid]/*ExpressionAsChannel*/ )?
 		) ';'
-	;
-
-ExpressionAsMachine returns fmlExpr::ExpressionAsMachine
-	: machine=ValuePureNamedMachineExpression
 	;
 
 
@@ -2469,8 +2591,9 @@ enum InterruptStatementKind returns fmlStmnt::InterruptStatementKind
 ActivityStatement returns fmlStmnt::ActivityStatement
 	: {fmlStmnt::ActivityStatement}
 		op=OPERATOR_ACTIVITY
-		machine=ValuePureNamedMachineExpression
-		( tuple=TupleParameterExpression )?
+		( machine=ValuePureNamedMachineExpression
+			( tuple=TupleParameterExpression )?
+		)?
 	';'
 	;
 
@@ -2697,6 +2820,7 @@ UnaryExpression returns fmlExpr::Expression
 
 	| ArithmeticUnaryExpression
 	| LogicalUnaryExpression
+	| QuantifiedLogicalExpression
 	| BitwiseUnaryExpression
 
 	| NewfreshExpression
@@ -2755,6 +2879,17 @@ ArithmeticUnaryOperator
 	: '+' | '-'
 	;
 
+// Logical Quantified Expression
+QuantifiedLogicalExpression returns fmlExpr::QuantifiedLogicalExpression
+	: quantifier=( 'forall' | 'exists' )
+	  '<'  variable+=BoundVariable  ( ',' variable+=BoundVariable )*  '>'
+	  '('  predicate=Expression  ')'
+	;
+
+BoundVariable returns fmlInfra::Variable
+	: name=ESIdentifier  ':'  type=DataType
+	;
+
 // Logical Unary Expression
 LogicalUnaryExpression returns fmlExpr::LogicalUnaryExpression
 	: operator=('!' | 'not') operand=UnaryExpression
@@ -2771,7 +2906,7 @@ PrimaryExpression returns fmlExpr::Expression
 	: BaseExpression
 
 		// '.' element
-		( { fmlExpr::ValueElementSpecification.target=current }
+		( { fmlExpr::ValueElementSpecification.parent=current }
 			'.' //kind=ValueDotFieldExpressionKind
 			element=[fmlCommon::NamedElement|ESIdentifier]
 
@@ -2786,7 +2921,7 @@ PrimaryExpression returns fmlExpr::Expression
 		)*
 
 		// '->' element
-		( { fmlExpr::ValueElementSpecification.target=current }
+		( { fmlExpr::ValueElementSpecification.parent=current }
 			'->' //kind=ValueArrowFieldExpressionKind
 			element=[fmlCommon::NamedElement|ESIdentifier]
 
@@ -2800,7 +2935,7 @@ PrimaryExpression returns fmlExpr::Expression
 			)?
 
 			// '.' element
-			( { fmlExpr::ValueElementSpecification.target=current }
+			( { fmlExpr::ValueElementSpecification.parent=current }
 				 '.' //kind=ValueDotFieldExpressionKind
 				element=[fmlCommon::NamedElement|ESIdentifier]
 
@@ -2985,11 +3120,26 @@ LiteralStringExpression returns fmlExpr::LiteralStringExpression
 
 LiteralNullExpression returns fmlExpr::LiteralNullExpression
 	: {fmlExpr::LiteralNullExpression}
-		( 'null' |  '$null' )
-	| {fmlExpr::LiteralNullExpression}
-		( 'null<' |  '$null<' ) type=DataType  '>'
+		'$null' //type=AnyNullPrimitiveInstanceType
+		( '<'  type=NullPrimitiveInstanceType  '>' )?
 	;
 
+AnyNullPrimitiveInstanceType returns fmlType::PrimitiveInstanceType
+	: { fmlType::PrimitiveInstanceType }
+		expected=AnyPrimitiveInstanceKind
+	;
+
+enum AnyPrimitiveInstanceKind returns fmlType::PrimitiveInstanceKind
+	: any='$null'
+	;
+
+NullPrimitiveInstanceType returns fmlType::PrimitiveInstanceType
+	: { fmlType::PrimitiveInstanceType }
+		expected=PrimitiveInstanceKind
+		
+	| { fmlType::PrimitiveInstanceType }
+		model=[fmlCommon::NamedElement|ESIdentifier]
+	;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Literal Collection Expression Rules
@@ -3088,9 +3238,8 @@ LiteralSystemExpression returns fmlExpr::LiteralSystemExpression
 	: {fmlExpr::LiteralSystemExpression} ( '$system' )
 	;
 
-
 LiteralEnvExpression returns fmlExpr::LiteralEnvExpression
-	: {fmlExpr::LiteralEnvExpression} ( '$env' | 'env' )
+	: {fmlExpr::LiteralEnvExpression} ( '$env' )
 	;
 
 
@@ -3108,7 +3257,7 @@ ValueSelectionExpression returns fmlExpr::Expression
 	: LiteralReferenceExpression
 
 		// '.' element
-		( { fmlExpr::ValueElementSpecification.target=current }
+		( { fmlExpr::ValueElementSpecification.parent=current }
 			'.' //kind=ValueDotFieldExpressionKind
 			element=[fmlCommon::NamedElement|ESIdentifier]
 
@@ -3123,7 +3272,7 @@ ValueSelectionExpression returns fmlExpr::Expression
 		)*
 
 		// '->' element
-		( { fmlExpr::ValueElementSpecification.target=current }
+		( { fmlExpr::ValueElementSpecification.parent=current }
 			'->' //kind=ValueArrowFieldExpressionKind
 			element=[fmlCommon::NamedElement|ESIdentifier]
 
@@ -3137,7 +3286,7 @@ ValueSelectionExpression returns fmlExpr::Expression
 			)?
 
 			// '.' element
-			( { fmlExpr::ValueElementSpecification.target=current }
+			( { fmlExpr::ValueElementSpecification.parent=current }
 				 '.' //kind=ValueDotFieldExpressionKind
 				element=[fmlCommon::NamedElement|ESIdentifier]
 
@@ -3159,18 +3308,18 @@ ValueSelectionExpression returns fmlExpr::Expression
 //	: LiteralPureReferenceExpression
 //
 //		// '.' element
-//		( { fmlExpr::ValueElementSpecification.target=current }
+//		( { fmlExpr::ValueElementSpecification.parent=current }
 //			kind=ValueDotFieldExpressionKind
 //			element=[fmlCommon::NamedElement|ESIdentifier]
 //		)*
 //
 //		// '->' element
-//		( { fmlExpr::ValueElementSpecification.target=current }
+//		( { fmlExpr::ValueElementSpecification.parent=current }
 //			kind=ValueArrowFieldExpressionKind
 //			element=[fmlCommon::NamedElement|ESIdentifier]
 //
 //			// '.' element
-//			( { fmlExpr::ValueElementSpecification.target=current }
+//			( { fmlExpr::ValueElementSpecification.parent=current }
 //				kind=ValueDotFieldExpressionKind
 //				element=[fmlCommon::NamedElement|ESIdentifier]
 //			)*
@@ -3182,18 +3331,18 @@ ValuePureNamedMachineExpression returns fmlExpr::Expression
 	: LiteralPureReferenceExpression
 
 		// '.' element
-		( { fmlExpr::ValueElementSpecification.target=current }
+		( { fmlExpr::ValueElementSpecification.parent=current }
 			kind=ValueDotFieldExpressionKind
 			element=[fmlCommon::NamedElement|ESIdentifier]
 		)*
 
 		// '->' element
-		( { fmlExpr::ValueElementSpecification.target=current }
+		( { fmlExpr::ValueElementSpecification.parent=current }
 			kind=ValueArrowFieldExpressionKind
 			element=[fmlCommon::NamedElement|ESIdentifier]
 
 			// '.' element
-			( { fmlExpr::ValueElementSpecification.target=current }
+			( { fmlExpr::ValueElementSpecification.parent=current }
 				kind=ValueDotFieldExpressionKind
 				element=[fmlCommon::NamedElement|ESIdentifier]
 			)*
@@ -3205,41 +3354,41 @@ ValuePureNamedMachineExpression returns fmlExpr::Expression
 //	: element=[fmlCommon::NamedElement|ESIdentifier]
 //
 //		// '.' element
-//		( { fmlExpr::ValueElementSpecification.target=current }
+//		( { fmlExpr::ValueElementSpecification.parent=current }
 //			kind=ValueDotFieldExpressionKind
 //			element=[fmlCommon::NamedElement|ESIdentifier]
 //
 //		// '[' index ',' ... ',' index ']'
-//		| { fmlExpr::ValueElementSpecification.target=current }
+//		| { fmlExpr::ValueElementSpecification.parent=current }
 //			kind=ValueIndexExpressionKind
 //			arg=PositionalTupleExpressionList
 //			']'
 //
 //		// '(' parameter ',' ... ',' parameter ')'
-//		| { fmlExpr::ValueElementSpecification.target=current }
+//		| { fmlExpr::ValueElementSpecification.parent=current }
 //			kind=ValueParameterExpressionKind
 //			arg=MixTupleExpressionList
 //			')'
 //		)*
 //
 //		// '->' element
-//		( { fmlExpr::ValueElementSpecification.target=current }
+//		( { fmlExpr::ValueElementSpecification.parent=current }
 //			kind=ValueArrowFieldExpressionKind
 //			element=[fmlCommon::NamedElement|ESIdentifier]
 //
 //			// '.' element
-//			( { fmlExpr::ValueElementSpecification.target=current }
+//			( { fmlExpr::ValueElementSpecification.parent=current }
 //				kind=ValueDotFieldExpressionKind
 //				element=[fmlCommon::NamedElement|ESIdentifier]
 //
 //			// '[' index ',' ... ',' index ']'
-//			| { fmlExpr::ValueElementSpecification.target=current }
+//			| { fmlExpr::ValueElementSpecification.parent=current }
 //				kind=ValueIndexExpressionKind
 //				arg=PositionalTupleExpressionList
 //				']'
 //
 //			// '(' parameter ',' ... ',' parameter ')'
-//			| { fmlExpr::ValueElementSpecification.target=current }
+//			| { fmlExpr::ValueElementSpecification.parent=current }
 //				kind=ValueParameterExpressionKind
 //				arg=MixTupleExpressionList
 //				')'

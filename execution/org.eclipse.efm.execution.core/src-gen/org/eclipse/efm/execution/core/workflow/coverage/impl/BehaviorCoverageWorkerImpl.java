@@ -40,8 +40,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#isOrderedTrace <em>Ordered Trace</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#isHitConsecutive <em>Hit Consecutive</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#isHitFolding <em>Hit Folding</em>}</li>
- *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#isHitMax <em>Hit Max</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#isHitLucky <em>Hit Lucky</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#isHitMax <em>Hit Max</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#isHitFinal <em>Hit Final</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#getJumpHeight <em>Jump Height</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#getJumpTrialsLimit <em>Jump Trials Limit</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl#getHitCount <em>Hit Count</em>}</li>
@@ -134,6 +135,26 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	protected boolean hitFolding = HIT_FOLDING_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isHitLucky() <em>Hit Lucky</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isHitLucky()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean HIT_LUCKY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isHitLucky() <em>Hit Lucky</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isHitLucky()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean hitLucky = HIT_LUCKY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #isHitMax() <em>Hit Max</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -154,24 +175,24 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	protected boolean hitMax = HIT_MAX_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isHitLucky() <em>Hit Lucky</em>}' attribute.
+	 * The default value of the '{@link #isHitFinal() <em>Hit Final</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isHitLucky()
+	 * @see #isHitFinal()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean HIT_LUCKY_EDEFAULT = false;
+	protected static final boolean HIT_FINAL_EDEFAULT = true;
 
 	/**
-	 * The cached value of the '{@link #isHitLucky() <em>Hit Lucky</em>}' attribute.
+	 * The cached value of the '{@link #isHitFinal() <em>Hit Final</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isHitLucky()
+	 * @see #isHitFinal()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean hitLucky = HIT_LUCKY_EDEFAULT;
+	protected boolean hitFinal = HIT_FINAL_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getJumpHeight() <em>Jump Height</em>}' attribute.
@@ -391,6 +412,27 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isHitLucky() {
+		return hitLucky;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHitLucky(boolean newHitLucky) {
+		boolean oldHitLucky = hitLucky;
+		hitLucky = newHitLucky;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY, oldHitLucky, hitLucky));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isHitMax() {
 		return hitMax;
 	}
@@ -412,8 +454,8 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isHitLucky() {
-		return hitLucky;
+	public boolean isHitFinal() {
+		return hitFinal;
 	}
 
 	/**
@@ -421,11 +463,11 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setHitLucky(boolean newHitLucky) {
-		boolean oldHitLucky = hitLucky;
-		hitLucky = newHitLucky;
+	public void setHitFinal(boolean newHitFinal) {
+		boolean oldHitFinal = hitFinal;
+		hitFinal = newHitFinal;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY, oldHitLucky, hitLucky));
+			eNotify(new ENotificationImpl(this, Notification.SET, CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_FINAL, oldHitFinal, hitFinal));
 	}
 
 	/**
@@ -606,10 +648,12 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 				return isHitConsecutive();
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_FOLDING:
 				return isHitFolding();
-			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_MAX:
-				return isHitMax();
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY:
 				return isHitLucky();
+			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_MAX:
+				return isHitMax();
+			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_FINAL:
+				return isHitFinal();
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__JUMP_HEIGHT:
 				return getJumpHeight();
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__JUMP_TRIALS_LIMIT:
@@ -646,11 +690,14 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_FOLDING:
 				setHitFolding((Boolean)newValue);
 				return;
+			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY:
+				setHitLucky((Boolean)newValue);
+				return;
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_MAX:
 				setHitMax((Boolean)newValue);
 				return;
-			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY:
-				setHitLucky((Boolean)newValue);
+			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_FINAL:
+				setHitFinal((Boolean)newValue);
 				return;
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__JUMP_HEIGHT:
 				setJumpHeight((Integer)newValue);
@@ -694,11 +741,14 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_FOLDING:
 				setHitFolding(HIT_FOLDING_EDEFAULT);
 				return;
+			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY:
+				setHitLucky(HIT_LUCKY_EDEFAULT);
+				return;
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_MAX:
 				setHitMax(HIT_MAX_EDEFAULT);
 				return;
-			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY:
-				setHitLucky(HIT_LUCKY_EDEFAULT);
+			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_FINAL:
+				setHitFinal(HIT_FINAL_EDEFAULT);
 				return;
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__JUMP_HEIGHT:
 				setJumpHeight(JUMP_HEIGHT_EDEFAULT);
@@ -738,10 +788,12 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 				return hitConsecutive != HIT_CONSECUTIVE_EDEFAULT;
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_FOLDING:
 				return hitFolding != HIT_FOLDING_EDEFAULT;
-			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_MAX:
-				return hitMax != HIT_MAX_EDEFAULT;
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_LUCKY:
 				return hitLucky != HIT_LUCKY_EDEFAULT;
+			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_MAX:
+				return hitMax != HIT_MAX_EDEFAULT;
+			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__HIT_FINAL:
+				return hitFinal != HIT_FINAL_EDEFAULT;
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__JUMP_HEIGHT:
 				return jumpHeight != JUMP_HEIGHT_EDEFAULT;
 			case CoveragePackage.BEHAVIOR_COVERAGE_WORKER__JUMP_TRIALS_LIMIT:
@@ -776,10 +828,12 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 		result.append(hitConsecutive);
 		result.append(", hitFolding: ");
 		result.append(hitFolding);
-		result.append(", hitMax: ");
-		result.append(hitMax);
 		result.append(", hitLucky: ");
 		result.append(hitLucky);
+		result.append(", hitMax: ");
+		result.append(hitMax);
+		result.append(", hitFinal: ");
+		result.append(hitFinal);
 		result.append(", jumpHeight: ");
 		result.append(jumpHeight);
 		result.append(", jumpTrialsLimit: ");

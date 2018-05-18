@@ -23,18 +23,15 @@ import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEdi
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
-import org.eclipse.efm.execution.core.IWorkflowPreferenceConstants;
-import org.eclipse.efm.execution.core.SymbexPreferenceUtil;
+import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleVerbosityKind;
-import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
-import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -64,39 +61,14 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	private boolean fEnabledSymbexDeveloperMode;
 
 	private BooleanFieldEditor fFirstSymbexOutputTextualEnabledBooleanField;
+
 	private BooleanFieldEditor fFirstSymbexOutputGraphizEnabledBooleanField;
 
+	private BooleanFieldEditor fFirstSymbexOutputGraphizEnabledModifiedDataSelectionBooleanField;
 
 	private TraceElementTableViewer fFirstSymbexOutputGraphizTraceTableViewer;
 
-	private TraceElementTableConfigProvider getFirstSymbexOutputGraphizTraceTableConfig(Font font) {
-		final PixelConverter pixelConverter = new PixelConverter(font);
-
-		return new TraceElementTableConfigProvider(
-				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				"&Trace Filter", "", true,
-				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
-				"Element", pixelConverter.convertWidthInCharsToPixels(48),
-				TraceElementTableConfigProvider.GRAPHVIZ_TRACE_ELEMENT,
-				TraceElementKind.VARIABLE);
-	}
-
-
 	private TraceElementTableViewer fFirstSymbexOutputGraphizFormatTableViewer;
-
-	private TraceElementTableConfigProvider getFirstSymbexOutputGraphizFormatTableConfig(Font font) {
-		final PixelConverter pixelConverter = new PixelConverter(font);
-
-		return new TraceElementTableConfigProvider(
-				ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				"&Format", "", false, true,
-				"Nature" , pixelConverter.convertWidthInCharsToPixels(32),
-				"Element", pixelConverter.convertWidthInCharsToPixels(48),
-				TraceElementTableConfigProvider.FORMAT_ELEMENT,
-				TraceElementKind.VARIABLE);
-	}
 
 	// Second Symbex Workflow Page
 	private Group fGroupSecondStageSymbexWorkflow;
@@ -118,35 +90,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 	private TraceElementTableViewer fSecondSymbexOutputGraphizTraceTableViewer;
 
-	private TraceElementTableConfigProvider getSecondSymbexOutputGraphizTraceTableConfig(Font font) {
-		final PixelConverter pixelConverter = new PixelConverter(font);
-
-		return new TraceElementTableConfigProvider(
-				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				DEFAULT_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_TRACE_SPEC,
-				"&Extension Trace Filter", "", true,
-				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
-				"Element", pixelConverter.convertWidthInCharsToPixels(48),
-				TraceElementTableConfigProvider.GRAPHVIZ_TRACE_ELEMENT,
-				TraceElementKind.VARIABLE);
-	}
-
-
 	private TraceElementTableViewer fSecondSymbexOutputGraphizFormatTableViewer;
-
-	private TraceElementTableConfigProvider getSecondSymbexOutputGraphizFormatTableConfig(Font font) {
-		final PixelConverter pixelConverter = new PixelConverter(font);
-
-		return new TraceElementTableConfigProvider(
-				ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-				"&Extension Format", "", false, true,
-				"Nature" , pixelConverter.convertWidthInCharsToPixels(24),
-				"Element", pixelConverter.convertWidthInCharsToPixels(48),
-				TraceElementTableConfigProvider.FORMAT_ELEMENT,
-				TraceElementKind.VARIABLE);
-	}
-
 
 	public DebugConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
@@ -240,7 +184,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		Group group = widgetToolkit.createGroup(parent,
 				"Console Log", 2, 1, GridData.FILL_HORIZONTAL);
 
-		widgetToolkit.createLabel(group, "&Verbose Level :", 1);
+		widgetToolkit.createLabel(group, "&Verbose Level : ", 1);
 
 		fConsoleLevelCombo = widgetToolkit.createCombo(group,
 				SWT.DROP_DOWN | SWT.READ_ONLY, 1, CONSOLE_LEVEL_COMBO_ITEMS);
@@ -302,7 +246,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 		group = widgetToolkit.createGroup(comp,
 				"Symbex Output Generated Graphic Traces",
-				1, 1, GridData.FILL_HORIZONTAL);
+				2, 1, GridData.FILL_HORIZONTAL);
 
 		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
@@ -321,19 +265,36 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 				});
 		addFieldEditor(fFirstSymbexOutputGraphizEnabledBooleanField);
 
+		comp = widgetToolkit.createComposite(
+				group, 2, 1, GridData.FILL_HORIZONTAL);
+
+		fFirstSymbexOutputGraphizEnabledModifiedDataSelectionBooleanField =
+			new BooleanFieldEditor(this,
+				ATTR_SYMBEX_OUTPUT_GRAPHVIZ_ENABLED_MODIFIED_DATA_SELECTION,
+				"&Modified Data Selection", comp, true);
+		addFieldEditor(fFirstSymbexOutputGraphizEnabledModifiedDataSelectionBooleanField);
+
+
+//		comp = widgetToolkit.createComposite(
+//				comp, 2, 1, GridData.FILL_HORIZONTAL);
+
 		fFirstSymbexOutputGraphizTraceTableViewer =
-				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
-				getFirstSymbexOutputGraphizTraceTableConfig(parent.getFont()));
+			new TraceElementTableViewer(null, group, 2, widgetToolkit,
+				TraceElementTableConfigProvider.getFirstSymbexOutputGraphizTrace(
+						parent.getFont()));
 		addTableViewer(fFirstSymbexOutputGraphizTraceTableViewer);
 
 		fFirstSymbexOutputGraphizFormatTableViewer =
-				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
-						getFirstSymbexOutputGraphizFormatTableConfig(parent.getFont()));
+			new TraceElementTableViewer(null, group, 2, widgetToolkit,
+				TraceElementTableConfigProvider.getFirstSymbexOutputGraphizFormat(
+						parent.getFont()));
 		addTableViewer(fFirstSymbexOutputGraphizFormatTableViewer);
 	}
 
 
 	private void setEnableFirstExecutionPage(boolean checked) {
+		fFirstSymbexOutputGraphizEnabledModifiedDataSelectionBooleanField.setVisible(checked);
+
 		propagateVisibility(fFirstSymbexOutputGraphizTraceTableViewer.getControl(), checked);
 		propagateVisibility(fFirstSymbexOutputGraphizFormatTableViewer.getControl(), checked);
 	}
@@ -412,13 +373,15 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		addFieldEditor(fSecondSymbexOutputGraphizEnabledBooleanField);
 
 		fSecondSymbexOutputGraphizTraceTableViewer =
-				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
-					getSecondSymbexOutputGraphizTraceTableConfig(parent.getFont()));
+			new TraceElementTableViewer(null, comp, 1, widgetToolkit,
+				TraceElementTableConfigProvider.getSecondSymbexOutputGraphizTrace(
+						parent.getFont()));
 		addTableViewer(fSecondSymbexOutputGraphizTraceTableViewer);
 
 		fSecondSymbexOutputGraphizFormatTableViewer =
-				new TraceElementTableViewer(null, comp, 1, widgetToolkit,
-					getSecondSymbexOutputGraphizFormatTableConfig(parent.getFont()));
+			new TraceElementTableViewer(null, comp, 1, widgetToolkit,
+				TraceElementTableConfigProvider.getSecondSymbexOutputGraphizFormat(
+						parent.getFont()));
 		addTableViewer(fSecondSymbexOutputGraphizFormatTableViewer);
 	}
 

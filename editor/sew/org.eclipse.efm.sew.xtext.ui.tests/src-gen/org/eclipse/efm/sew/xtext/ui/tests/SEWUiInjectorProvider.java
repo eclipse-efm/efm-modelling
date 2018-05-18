@@ -1,5 +1,5 @@
 /*****************************************************************************
-* Copyright (c) 2016 CEA LIST.
+* Copyright (c) 2018 CEA LIST.
 *
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
@@ -14,7 +14,7 @@ package org.eclipse.efm.sew.xtext.ui.tests;
 
 import com.google.inject.Injector;
 import org.eclipse.efm.sew.xtext.ui.internal.XtextActivator;
-import org.eclipse.xtext.junit4.IInjectorProvider;
+import org.eclipse.xtext.testing.IInjectorProvider;
 
 public class SEWUiInjectorProvider implements IInjectorProvider {
 

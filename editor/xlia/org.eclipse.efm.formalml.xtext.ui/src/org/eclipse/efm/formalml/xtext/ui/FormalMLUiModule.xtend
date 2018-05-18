@@ -12,11 +12,30 @@
 *****************************************************************************/
 package org.eclipse.efm.formalml.xtext.ui
 
+import org.eclipse.efm.formalml.xtext.ui.hover.FormalMLDispatchingEObjectTextHover;
+import org.eclipse.efm.formalml.xtext.ui.hover.FormalMLEObjectDocumentationProvider;
+import org.eclipse.efm.formalml.xtext.ui.hover.FormalMLEObjectHoverProvider;
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
+import org.eclipse.xtext.ui.editor.hover.IEObjectHover
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
  */
 @FinalFieldsConstructor
 class FormalMLUiModule extends AbstractFormalMLUiModule {
+	
+	override public Class<? extends IEObjectHover> bindIEObjectHover() {
+		return FormalMLDispatchingEObjectTextHover;
+	}
+	 
+	def public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return FormalMLEObjectHoverProvider;
+	}
+	 
+	def public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProviderr() {
+		return FormalMLEObjectDocumentationProvider;
+	}
+	
 }

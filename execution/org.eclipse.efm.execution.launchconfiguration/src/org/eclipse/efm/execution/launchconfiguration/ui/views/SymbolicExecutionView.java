@@ -18,7 +18,7 @@ import java.io.File;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.efm.execution.core.Activator;
+import org.eclipse.efm.execution.launchconfiguration.Activator;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SEWConsoleSpiderPage;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -50,15 +50,16 @@ public class SymbolicExecutionView extends PageBookView {
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
-	public static final String ID =
-			Activator.PLUGIN_ID + ".views.SymbolicExecutionView";
+	public static final String SYMBEX_CONSOLE_VIEW_ID =
+//			"org.eclipse.efm.execution.launchconfiguration.ui.views.SymbolicExecutionView"
+			Activator.PLUGIN_ID + ".ui.views.SymbolicExecutionView";
 
 
 	private PageRec fSpiderConsolePageRec;
 //!Warn	private PageRec fConsolePageRec;
 
 	private SEWConsoleSpiderPage fSpiderConsolePage;
-//!Warn	private SEWConsoleSpiderPage fConsolePage;
+//!Warn	private SymbexSpiderConsolePage fConsolePage;
 
 	boolean fSwitch = false;
 
@@ -86,7 +87,7 @@ public class SymbolicExecutionView extends PageBookView {
 //		return messagePage;
 
 
-//		fConsolePage = new SEWConsoleSpiderPage();
+//		fConsolePage = new SymbexSpiderConsolePage();
 //		initPage(fConsolePage);
 //		fConsolePage.createControl(book);
 //		fConsolePageRec = new PageRec(null, fConsolePage);
@@ -137,10 +138,10 @@ public class SymbolicExecutionView extends PageBookView {
 
 	public void sewLaunchExecProcess(ILaunchConfiguration configuration,
 			String mode, ILaunch launch, IProgressMonitor monitor,
-			String[] cmdLine, File workingDir, String[] envp) {
+			String[] commandLine, File workingDirectory, String[] envp) {
 
 		fSpiderConsolePage.sewLaunchExecProcess(configuration, mode,
-				launch, monitor, cmdLine, workingDir, envp);
+				launch, monitor, commandLine, workingDirectory, envp);
 
 //		fSwitch = (! fSwitch);
 //
@@ -152,7 +153,7 @@ public class SymbolicExecutionView extends PageBookView {
 //			});
 //
 //			fSpiderConsolePage.sewLaunchExecProcess(configuration, mode,
-//					launch, monitor, cmdLine, workingDir, envp);
+//					launch, monitor, commandLine, workingDirectory, envp);
 //		}
 //		else {
 //			Display.getDefault().syncExec(new Runnable() {
@@ -162,7 +163,7 @@ public class SymbolicExecutionView extends PageBookView {
 //			});
 //
 //			fConsolePage.sewLaunchExecProcess(configuration, mode,
-//					launch, monitor, cmdLine, workingDir, envp);
+//					launch, monitor, commandLine, workingDirectory, envp);
 //		}
 	}
 }

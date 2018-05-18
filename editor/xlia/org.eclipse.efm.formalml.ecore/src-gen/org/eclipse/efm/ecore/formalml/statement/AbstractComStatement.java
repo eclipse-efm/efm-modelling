@@ -14,8 +14,7 @@ package org.eclipse.efm.ecore.formalml.statement;
 
 import org.eclipse.efm.ecore.formalml.common.NamedElement;
 
-import org.eclipse.efm.ecore.formalml.expression.ExpressionAsMachine;
-
+import org.eclipse.efm.ecore.formalml.expression.Expression;
 import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
 
 /**
@@ -98,12 +97,12 @@ public interface AbstractComStatement extends Statement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Target</em>' containment reference.
-	 * @see #setTarget(ExpressionAsMachine)
+	 * @see #setTarget(Expression)
 	 * @see org.eclipse.efm.ecore.formalml.statement.StatementPackage#getAbstractComStatement_Target()
 	 * @model containment="true"
 	 * @generated
 	 */
-	ExpressionAsMachine getTarget();
+	Expression getTarget();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statement.AbstractComStatement#getTarget <em>Target</em>}' containment reference.
@@ -113,6 +112,6 @@ public interface AbstractComStatement extends Statement {
 	 * @see #getTarget()
 	 * @generated
 	 */
-	void setTarget(ExpressionAsMachine value);
+	void setTarget(Expression value);
 
 } // AbstractComStatement

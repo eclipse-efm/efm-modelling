@@ -41,7 +41,7 @@ public interface PrimitiveStringType extends PrimitiveType {
 	 * @return the value of the '<em>Size</em>' attribute.
 	 * @see #setSize(int)
 	 * @see org.eclipse.efm.ecore.formalml.datatype.DatatypePackage#getPrimitiveStringType_Size()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getSize();

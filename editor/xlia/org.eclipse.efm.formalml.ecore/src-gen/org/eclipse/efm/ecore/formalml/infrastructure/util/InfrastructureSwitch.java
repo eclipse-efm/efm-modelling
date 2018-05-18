@@ -19,11 +19,14 @@ import org.eclipse.efm.ecore.formalml.common.Type;
 import org.eclipse.efm.ecore.formalml.common.TypedElement;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
+import org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
 import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
-import org.eclipse.efm.ecore.formalml.infrastructure.Connection;
+import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
+import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
+import org.eclipse.efm.ecore.formalml.infrastructure.Function;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
@@ -36,6 +39,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
 import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Procedure;
 import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition;
+import org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Route;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
@@ -116,6 +120,24 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case InfrastructurePackage.PROPERTY_PART: {
+				PropertyPart propertyPart = (PropertyPart)theEObject;
+				T result = casePropertyPart(propertyPart);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InfrastructurePackage.COMPOSITE_PART: {
+				CompositePart compositePart = (CompositePart)theEObject;
+				T result = caseCompositePart(compositePart);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InfrastructurePackage.BEHAVIOR_PART: {
+				BehaviorPart behaviorPart = (BehaviorPart)theEObject;
+				T result = caseBehaviorPart(behaviorPart);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case InfrastructurePackage.SYSTEM: {
 				org.eclipse.efm.ecore.formalml.infrastructure.System system = (org.eclipse.efm.ecore.formalml.infrastructure.System)theEObject;
 				T result = caseSystem(system);
@@ -190,6 +212,16 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 				if (result == null) result = caseType(signal);
 				if (result == null) result = caseNamedElement(signal);
 				if (result == null) result = caseAbstractElement(signal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case InfrastructurePackage.FUNCTION: {
+				Function function = (Function)theEObject;
+				T result = caseFunction(function);
+				if (result == null) result = casePropertyDefinition(function);
+				if (result == null) result = caseTypedElement(function);
+				if (result == null) result = caseNamedElement(function);
+				if (result == null) result = caseAbstractElement(function);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -277,6 +309,7 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 			case InfrastructurePackage.COM_PROTOCOL: {
 				ComProtocol comProtocol = (ComProtocol)theEObject;
 				T result = caseComProtocol(comProtocol);
+				if (result == null) result = caseAbstractElement(comProtocol);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -288,17 +321,18 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case InfrastructurePackage.CONNECTION: {
-				Connection connection = (Connection)theEObject;
-				T result = caseConnection(connection);
-				if (result == null) result = caseNamedElement(connection);
-				if (result == null) result = caseAbstractElement(connection);
+			case InfrastructurePackage.CONNECTOR: {
+				Connector connector = (Connector)theEObject;
+				T result = caseConnector(connector);
+				if (result == null) result = caseNamedElement(connector);
+				if (result == null) result = caseAbstractElement(connector);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case InfrastructurePackage.COM_POINT: {
 				ComPoint comPoint = (ComPoint)theEObject;
 				T result = caseComPoint(comPoint);
+				if (result == null) result = caseAbstractElement(comPoint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -318,6 +352,51 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseMachine(Machine object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Property Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Property Part</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePropertyPart(PropertyPart object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Composite Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Composite Part</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCompositePart(CompositePart object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behavior Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behavior Part</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehaviorPart(BehaviorPart object) {
 		return null;
 	}
 
@@ -438,6 +517,21 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSignal(Signal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Function</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Function</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFunction(Function object) {
 		return null;
 	}
 
@@ -622,17 +716,17 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Connection</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Connector</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Connection</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Connector</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseConnection(Connection object) {
+	public T caseConnector(Connector object) {
 		return null;
 	}
 

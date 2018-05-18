@@ -50,24 +50,6 @@ public interface StatementFactory extends EFactory {
 	ExpressionStatement createExpressionStatement();
 
 	/**
-	 * Returns a new object of class '<em>Assignment Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Assignment Statement</em>'.
-	 * @generated
-	 */
-	AssignmentStatement createAssignmentStatement();
-
-	/**
-	 * Returns a new object of class '<em>Newfresh Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Newfresh Statement</em>'.
-	 * @generated
-	 */
-	NewfreshStatement createNewfreshStatement();
-
-	/**
 	 * Returns a new object of class '<em>Guard Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

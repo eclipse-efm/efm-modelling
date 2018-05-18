@@ -76,7 +76,7 @@ public interface TransitionMoe extends EObject {
 	 * @return the value of the '<em>Is Else</em>' attribute.
 	 * @see #setIsElse(boolean)
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransitionMoe_IsElse()
-	 * @model default="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isIsElse();
@@ -103,7 +103,7 @@ public interface TransitionMoe extends EObject {
 	 * @return the value of the '<em>Prior</em>' attribute.
 	 * @see #setPrior(int)
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransitionMoe_Prior()
-	 * @model default="0"
+	 * @model default="0" required="true"
 	 * @generated
 	 */
 	int getPrior();
@@ -130,7 +130,7 @@ public interface TransitionMoe extends EObject {
 	 * @return the value of the '<em>Proba</em>' attribute.
 	 * @see #setProba(float)
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransitionMoe_Proba()
-	 * @model default="1.0"
+	 * @model default="1.0" required="true"
 	 * @generated
 	 */
 	float getProba();

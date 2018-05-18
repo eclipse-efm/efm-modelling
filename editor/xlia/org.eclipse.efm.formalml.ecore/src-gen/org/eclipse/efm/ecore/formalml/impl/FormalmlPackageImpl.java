@@ -20,6 +20,7 @@ import org.eclipse.efm.ecore.formalml.XliaModelKind;
 import org.eclipse.efm.ecore.formalml.XliaNamedElement;
 import org.eclipse.efm.ecore.formalml.XliaObject;
 
+import org.eclipse.efm.ecore.formalml.XliaSection;
 import org.eclipse.efm.ecore.formalml.common.CommonPackage;
 
 import org.eclipse.efm.ecore.formalml.common.impl.CommonPackageImpl;
@@ -79,6 +80,13 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * @generated
 	 */
 	private EClass xliaObjectEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass xliaSectionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -234,7 +242,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getXliaObject_Value() {
+	public EReference getXliaObject_Elements() {
 		return (EReference)xliaObjectEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -243,8 +251,17 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getXliaObject_Elements() {
-		return (EReference)xliaObjectEClass.getEStructuralFeatures().get(1);
+	public EClass getXliaSection() {
+		return xliaSectionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getXliaSection_Elements() {
+		return (EReference)xliaSectionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -310,8 +327,10 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 		createEAttribute(xliaNamedElementEClass, XLIA_NAMED_ELEMENT__NAME);
 
 		xliaObjectEClass = createEClass(XLIA_OBJECT);
-		createEReference(xliaObjectEClass, XLIA_OBJECT__VALUE);
 		createEReference(xliaObjectEClass, XLIA_OBJECT__ELEMENTS);
+
+		xliaSectionEClass = createEClass(XLIA_SECTION);
+		createEReference(xliaSectionEClass, XLIA_SECTION__ELEMENTS);
 
 		xliaAttributeEClass = createEClass(XLIA_ATTRIBUTE);
 		createEReference(xliaAttributeEClass, XLIA_ATTRIBUTE__VALUE);
@@ -365,6 +384,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 
 		// Add supertypes to classes
 		xliaObjectEClass.getESuperTypes().add(this.getXliaNamedElement());
+		xliaSectionEClass.getESuperTypes().add(this.getXliaNamedElement());
 		xliaAttributeEClass.getESuperTypes().add(this.getXliaNamedElement());
 
 		// Initialize classes, features, and operations; add parameters
@@ -376,8 +396,10 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 		initEAttribute(getXliaNamedElement_Name(), ecorePackage.getEString(), "name", "1.0", 0, 1, XliaNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(xliaObjectEClass, XliaObject.class, "XliaObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getXliaObject_Value(), theExpressionPackage.getExpression(), null, "value", null, 1, 1, XliaObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getXliaObject_Elements(), this.getXliaNamedElement(), null, "elements", null, 0, -1, XliaObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(xliaSectionEClass, XliaSection.class, "XliaSection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getXliaSection_Elements(), this.getXliaAttribute(), null, "elements", null, 0, -1, XliaSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(xliaAttributeEClass, XliaAttribute.class, "XliaAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getXliaAttribute_Value(), theExpressionPackage.getExpression(), null, "value", null, 0, 1, XliaAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

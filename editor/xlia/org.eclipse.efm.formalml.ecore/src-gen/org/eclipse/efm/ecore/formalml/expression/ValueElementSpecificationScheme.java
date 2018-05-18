@@ -49,6 +49,16 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	VARIABLE(1, "variable", "variable"),
 
 	/**
+	 * The '<em><b>Typedef</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TYPEDEF_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	TYPEDEF(2, "typedef", "typedef"),
+
+	/**
 	 * The '<em><b>Message</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -56,7 +66,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MESSAGE(2, "message", "message"),
+	MESSAGE(3, "message", "message"),
 
 	/**
 	 * The '<em><b>Signal</b></em>' literal object.
@@ -66,7 +76,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SIGNAL(3, "signal", "signal"),
+	SIGNAL(4, "signal", "signal"),
 
 	/**
 	 * The '<em><b>Buffer</b></em>' literal object.
@@ -76,7 +86,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BUFFER(4, "buffer", "buffer"),
+	BUFFER(5, "buffer", "buffer"),
 
 	/**
 	 * The '<em><b>Channel</b></em>' literal object.
@@ -86,7 +96,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	CHANNEL(5, "channel", "channel"),
+	CHANNEL(6, "channel", "channel"),
 
 	/**
 	 * The '<em><b>Port</b></em>' literal object.
@@ -96,9 +106,17 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PORT(6, "port", "port"),
+	PORT(7, "port", "port"),
 
 	/**
+	 * The '<em><b>Function</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FUNCTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	FUNCTION(8, "function", "function"), /**
 	 * The '<em><b>Com point</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -106,7 +124,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COM_POINT(7, "com_point", "com_point"),
+	COM_POINT(9, "com_point", "com_point"),
 
 	/**
 	 * The '<em><b>Instance</b></em>' literal object.
@@ -116,7 +134,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INSTANCE(8, "instance", "instance"),
+	INSTANCE(10, "instance", "instance"),
 
 	/**
 	 * The '<em><b>Machine</b></em>' literal object.
@@ -126,7 +144,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MACHINE(9, "machine", "machine"),
+	MACHINE(11, "machine", "machine"),
 
 	/**
 	 * The '<em><b>Model</b></em>' literal object.
@@ -136,7 +154,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MODEL(10, "model", "model"),
+	MODEL(12, "model", "model"),
 
 	/**
 	 * The '<em><b>Procedure</b></em>' literal object.
@@ -146,7 +164,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PROCEDURE(11, "procedure", "procedure"),
+	PROCEDURE(13, "procedure", "procedure"),
 
 	/**
 	 * The '<em><b>Routine</b></em>' literal object.
@@ -156,7 +174,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ROUTINE(12, "routine", "routine"),
+	ROUTINE(14, "routine", "routine"),
 
 	/**
 	 * The '<em><b>Vertex</b></em>' literal object.
@@ -166,7 +184,15 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VERTEX(13, "vertex", "vertex");
+	VERTEX(15, "vertex", "vertex"), /**
+	 * The '<em><b>Composite</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #COMPOSITE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	COMPOSITE(16, "composite", "composite");
 
 	/**
 	 * The '<em><b>Any</b></em>' literal value.
@@ -199,6 +225,21 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	public static final int VARIABLE_VALUE = 1;
 
 	/**
+	 * The '<em><b>Typedef</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Typedef</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #TYPEDEF
+	 * @model name="typedef"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int TYPEDEF_VALUE = 2;
+
+	/**
 	 * The '<em><b>Message</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -211,7 +252,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MESSAGE_VALUE = 2;
+	public static final int MESSAGE_VALUE = 3;
 
 	/**
 	 * The '<em><b>Signal</b></em>' literal value.
@@ -226,7 +267,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SIGNAL_VALUE = 3;
+	public static final int SIGNAL_VALUE = 4;
 
 	/**
 	 * The '<em><b>Buffer</b></em>' literal value.
@@ -241,7 +282,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int BUFFER_VALUE = 4;
+	public static final int BUFFER_VALUE = 5;
 
 	/**
 	 * The '<em><b>Channel</b></em>' literal value.
@@ -256,7 +297,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CHANNEL_VALUE = 5;
+	public static final int CHANNEL_VALUE = 6;
 
 	/**
 	 * The '<em><b>Port</b></em>' literal value.
@@ -271,7 +312,22 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int PORT_VALUE = 6;
+	public static final int PORT_VALUE = 7;
+
+	/**
+	 * The '<em><b>Function</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Function</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #FUNCTION
+	 * @model name="function"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FUNCTION_VALUE = 8;
 
 	/**
 	 * The '<em><b>Com point</b></em>' literal value.
@@ -286,7 +342,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int COM_POINT_VALUE = 7;
+	public static final int COM_POINT_VALUE = 9;
 
 	/**
 	 * The '<em><b>Instance</b></em>' literal value.
@@ -301,7 +357,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INSTANCE_VALUE = 8;
+	public static final int INSTANCE_VALUE = 10;
 
 	/**
 	 * The '<em><b>Machine</b></em>' literal value.
@@ -316,7 +372,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MACHINE_VALUE = 9;
+	public static final int MACHINE_VALUE = 11;
 
 	/**
 	 * The '<em><b>Model</b></em>' literal value.
@@ -331,7 +387,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MODEL_VALUE = 10;
+	public static final int MODEL_VALUE = 12;
 
 	/**
 	 * The '<em><b>Procedure</b></em>' literal value.
@@ -346,7 +402,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int PROCEDURE_VALUE = 11;
+	public static final int PROCEDURE_VALUE = 13;
 
 	/**
 	 * The '<em><b>Routine</b></em>' literal value.
@@ -361,7 +417,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ROUTINE_VALUE = 12;
+	public static final int ROUTINE_VALUE = 14;
 
 	/**
 	 * The '<em><b>Vertex</b></em>' literal value.
@@ -376,7 +432,22 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VERTEX_VALUE = 13;
+	public static final int VERTEX_VALUE = 15;
+
+	/**
+	 * The '<em><b>Composite</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Composite</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #COMPOSITE
+	 * @model name="composite"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int COMPOSITE_VALUE = 16;
 
 	/**
 	 * An array of all the '<em><b>Value Element Specification Scheme</b></em>' enumerators.
@@ -388,11 +459,13 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 		new ValueElementSpecificationScheme[] {
 			ANY,
 			VARIABLE,
+			TYPEDEF,
 			MESSAGE,
 			SIGNAL,
 			BUFFER,
 			CHANNEL,
 			PORT,
+			FUNCTION,
 			COM_POINT,
 			INSTANCE,
 			MACHINE,
@@ -400,6 +473,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 			PROCEDURE,
 			ROUTINE,
 			VERTEX,
+			COMPOSITE,
 		};
 
 	/**
@@ -458,11 +532,13 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 		switch (value) {
 			case ANY_VALUE: return ANY;
 			case VARIABLE_VALUE: return VARIABLE;
+			case TYPEDEF_VALUE: return TYPEDEF;
 			case MESSAGE_VALUE: return MESSAGE;
 			case SIGNAL_VALUE: return SIGNAL;
 			case BUFFER_VALUE: return BUFFER;
 			case CHANNEL_VALUE: return CHANNEL;
 			case PORT_VALUE: return PORT;
+			case FUNCTION_VALUE: return FUNCTION;
 			case COM_POINT_VALUE: return COM_POINT;
 			case INSTANCE_VALUE: return INSTANCE;
 			case MACHINE_VALUE: return MACHINE;
@@ -470,6 +546,7 @@ public enum ValueElementSpecificationScheme implements Enumerator {
 			case PROCEDURE_VALUE: return PROCEDURE;
 			case ROUTINE_VALUE: return ROUTINE;
 			case VERTEX_VALUE: return VERTEX;
+			case COMPOSITE_VALUE: return COMPOSITE;
 		}
 		return null;
 	}

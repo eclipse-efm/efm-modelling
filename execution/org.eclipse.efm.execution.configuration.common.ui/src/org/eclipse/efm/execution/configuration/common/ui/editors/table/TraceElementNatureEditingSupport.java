@@ -114,8 +114,8 @@ public class TraceElementNatureEditingSupport extends EditingSupport {
 	protected Object getValue(Object element) {
 		TraceElementKind nature = ((TraceElement) element).getNature();
 
-		for (int offset = 0; offset < fValidNatures.length; offset++) {
-			if( fValidNatures[offset].equals(nature) ) {
+		for (int offset = 0; offset < fValidTraceNatures.length; offset++) {
+			if( fValidTraceNatures[offset] == nature ) {
 				return offset;
 			}
 		}
@@ -126,7 +126,7 @@ public class TraceElementNatureEditingSupport extends EditingSupport {
 	@Override
 	protected void setValue(Object element, Object userInputValue) {
 		int offset = (Integer) userInputValue;
-		if( (offset < 0) || (offset >= fValidNatures.length) ) {
+		if( (offset < 0) || (offset >= fValidTraceNatures.length) ) {
 			offset = 0;
 		}
 
@@ -136,8 +136,11 @@ public class TraceElementNatureEditingSupport extends EditingSupport {
 		case TIPS:
 			break;
 		case UNDEFINED:
-			traceElement.setValue(
-					fValidNatures[ offset ] + "_new" );
+			if( ! TraceElementTableViewer.ADD_NEW_ELEMENT.equals(
+					traceElement.getValue()) )
+			{
+				traceElement.setValue( fValidNatures[ offset ] + "_new" );
+			}
 
 			fTraceElementTableViewer.addNewElementItemForDoubleClick();
 

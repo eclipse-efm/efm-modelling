@@ -14,6 +14,8 @@ package org.eclipse.efm.ecore.formalml.infrastructure.impl;
 
 import org.eclipse.efm.ecore.formalml.datatype.CollectionType;
 
+import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification;
+
 import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComCastKind;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
@@ -39,7 +41,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.BufferImpl#getProtocol <em>Protocol</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.BufferImpl#getCast <em>Cast</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.BufferImpl#getInner_buffer <em>Inner buffer</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.BufferImpl#getRef_buffer <em>Ref buffer</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.BufferImpl#getBuffer <em>Buffer</em>}</li>
  * </ul>
  *
  * @generated
@@ -96,14 +98,14 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	protected CollectionType inner_buffer;
 
 	/**
-	 * The cached value of the '{@link #getRef_buffer() <em>Ref buffer</em>}' reference.
+	 * The cached value of the '{@link #getBuffer() <em>Buffer</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRef_buffer()
+	 * @see #getBuffer()
 	 * @generated
 	 * @ordered
 	 */
-	protected Buffer ref_buffer;
+	protected ValueElementSpecification buffer;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -214,16 +216,23 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Buffer getRef_buffer() {
-		if (ref_buffer != null && ref_buffer.eIsProxy()) {
-			InternalEObject oldRef_buffer = (InternalEObject)ref_buffer;
-			ref_buffer = (Buffer)eResolveProxy(oldRef_buffer);
-			if (ref_buffer != oldRef_buffer) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, InfrastructurePackage.BUFFER__REF_BUFFER, oldRef_buffer, ref_buffer));
-			}
+	public ValueElementSpecification getBuffer() {
+		return buffer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetBuffer(ValueElementSpecification newBuffer, NotificationChain msgs) {
+		ValueElementSpecification oldBuffer = buffer;
+		buffer = newBuffer;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.BUFFER__BUFFER, oldBuffer, newBuffer);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return ref_buffer;
+		return msgs;
 	}
 
 	/**
@@ -231,20 +240,18 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Buffer basicGetRef_buffer() {
-		return ref_buffer;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRef_buffer(Buffer newRef_buffer) {
-		Buffer oldRef_buffer = ref_buffer;
-		ref_buffer = newRef_buffer;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.BUFFER__REF_BUFFER, oldRef_buffer, ref_buffer));
+	public void setBuffer(ValueElementSpecification newBuffer) {
+		if (newBuffer != buffer) {
+			NotificationChain msgs = null;
+			if (buffer != null)
+				msgs = ((InternalEObject)buffer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.BUFFER__BUFFER, null, msgs);
+			if (newBuffer != null)
+				msgs = ((InternalEObject)newBuffer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.BUFFER__BUFFER, null, msgs);
+			msgs = basicSetBuffer(newBuffer, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.BUFFER__BUFFER, newBuffer, newBuffer));
 	}
 
 	/**
@@ -257,6 +264,8 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 		switch (featureID) {
 			case InfrastructurePackage.BUFFER__INNER_BUFFER:
 				return basicSetInner_buffer(null, msgs);
+			case InfrastructurePackage.BUFFER__BUFFER:
+				return basicSetBuffer(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -275,9 +284,8 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 				return getCast();
 			case InfrastructurePackage.BUFFER__INNER_BUFFER:
 				return getInner_buffer();
-			case InfrastructurePackage.BUFFER__REF_BUFFER:
-				if (resolve) return getRef_buffer();
-				return basicGetRef_buffer();
+			case InfrastructurePackage.BUFFER__BUFFER:
+				return getBuffer();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -299,8 +307,8 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 			case InfrastructurePackage.BUFFER__INNER_BUFFER:
 				setInner_buffer((CollectionType)newValue);
 				return;
-			case InfrastructurePackage.BUFFER__REF_BUFFER:
-				setRef_buffer((Buffer)newValue);
+			case InfrastructurePackage.BUFFER__BUFFER:
+				setBuffer((ValueElementSpecification)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -323,8 +331,8 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 			case InfrastructurePackage.BUFFER__INNER_BUFFER:
 				setInner_buffer((CollectionType)null);
 				return;
-			case InfrastructurePackage.BUFFER__REF_BUFFER:
-				setRef_buffer((Buffer)null);
+			case InfrastructurePackage.BUFFER__BUFFER:
+				setBuffer((ValueElementSpecification)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -344,8 +352,8 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 				return cast != CAST_EDEFAULT;
 			case InfrastructurePackage.BUFFER__INNER_BUFFER:
 				return inner_buffer != null;
-			case InfrastructurePackage.BUFFER__REF_BUFFER:
-				return ref_buffer != null;
+			case InfrastructurePackage.BUFFER__BUFFER:
+				return buffer != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -362,7 +370,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 				case InfrastructurePackage.BUFFER__PROTOCOL: return InfrastructurePackage.COM_PROTOCOL__PROTOCOL;
 				case InfrastructurePackage.BUFFER__CAST: return InfrastructurePackage.COM_PROTOCOL__CAST;
 				case InfrastructurePackage.BUFFER__INNER_BUFFER: return InfrastructurePackage.COM_PROTOCOL__INNER_BUFFER;
-				case InfrastructurePackage.BUFFER__REF_BUFFER: return InfrastructurePackage.COM_PROTOCOL__REF_BUFFER;
+				case InfrastructurePackage.BUFFER__BUFFER: return InfrastructurePackage.COM_PROTOCOL__BUFFER;
 				default: return -1;
 			}
 		}
@@ -381,7 +389,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 				case InfrastructurePackage.COM_PROTOCOL__PROTOCOL: return InfrastructurePackage.BUFFER__PROTOCOL;
 				case InfrastructurePackage.COM_PROTOCOL__CAST: return InfrastructurePackage.BUFFER__CAST;
 				case InfrastructurePackage.COM_PROTOCOL__INNER_BUFFER: return InfrastructurePackage.BUFFER__INNER_BUFFER;
-				case InfrastructurePackage.COM_PROTOCOL__REF_BUFFER: return InfrastructurePackage.BUFFER__REF_BUFFER;
+				case InfrastructurePackage.COM_PROTOCOL__BUFFER: return InfrastructurePackage.BUFFER__BUFFER;
 				default: return -1;
 			}
 		}

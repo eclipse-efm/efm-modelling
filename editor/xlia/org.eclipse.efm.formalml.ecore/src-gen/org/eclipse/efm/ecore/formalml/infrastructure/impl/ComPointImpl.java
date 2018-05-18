@@ -14,7 +14,10 @@ package org.eclipse.efm.ecore.formalml.infrastructure.impl;
 
 import java.util.Collection;
 
+import org.eclipse.efm.ecore.formalml.common.impl.AbstractElementImpl;
+
 import org.eclipse.efm.ecore.formalml.expression.Expression;
+import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
@@ -30,7 +33,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -51,7 +53,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class ComPointImpl extends MinimalEObjectImpl.Container implements ComPoint {
+public class ComPointImpl extends AbstractElementImpl implements ComPoint {
 	/**
 	 * The default value of the '{@link #getDirection() <em>Direction</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -90,7 +92,7 @@ public class ComPointImpl extends MinimalEObjectImpl.Container implements ComPoi
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression point;
+	protected ValueElementSpecification point;
 
 	/**
 	 * The cached value of the '{@link #getPoints() <em>Points</em>}' containment reference list.
@@ -190,7 +192,7 @@ public class ComPointImpl extends MinimalEObjectImpl.Container implements ComPoi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getPoint() {
+	public ValueElementSpecification getPoint() {
 		return point;
 	}
 
@@ -199,8 +201,8 @@ public class ComPointImpl extends MinimalEObjectImpl.Container implements ComPoi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetPoint(Expression newPoint, NotificationChain msgs) {
-		Expression oldPoint = point;
+	public NotificationChain basicSetPoint(ValueElementSpecification newPoint, NotificationChain msgs) {
+		ValueElementSpecification oldPoint = point;
 		point = newPoint;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.COM_POINT__POINT, oldPoint, newPoint);
@@ -214,7 +216,7 @@ public class ComPointImpl extends MinimalEObjectImpl.Container implements ComPoi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPoint(Expression newPoint) {
+	public void setPoint(ValueElementSpecification newPoint) {
 		if (newPoint != point) {
 			NotificationChain msgs = null;
 			if (point != null)
@@ -294,7 +296,7 @@ public class ComPointImpl extends MinimalEObjectImpl.Container implements ComPoi
 				setProtocol((ComProtocol)newValue);
 				return;
 			case InfrastructurePackage.COM_POINT__POINT:
-				setPoint((Expression)newValue);
+				setPoint((ValueElementSpecification)newValue);
 				return;
 			case InfrastructurePackage.COM_POINT__POINTS:
 				getPoints().clear();
@@ -319,7 +321,7 @@ public class ComPointImpl extends MinimalEObjectImpl.Container implements ComPoi
 				setProtocol((ComProtocol)null);
 				return;
 			case InfrastructurePackage.COM_POINT__POINT:
-				setPoint((Expression)null);
+				setPoint((ValueElementSpecification)null);
 				return;
 			case InfrastructurePackage.COM_POINT__POINTS:
 				getPoints().clear();

@@ -136,6 +136,33 @@ public interface StatemachinePackage extends EPackage {
 	int STATEMACHINE__TIMED = InfrastructurePackage.BEHAVIOR__TIMED;
 
 	/**
+	 * The feature id for the '<em><b>Dense timed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMACHINE__DENSE_TIMED = InfrastructurePackage.BEHAVIOR__DENSE_TIMED;
+
+	/**
+	 * The feature id for the '<em><b>Discrete timed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMACHINE__DISCRETE_TIMED = InfrastructurePackage.BEHAVIOR__DISCRETE_TIMED;
+
+	/**
+	 * The feature id for the '<em><b>Unsafe</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMACHINE__UNSAFE = InfrastructurePackage.BEHAVIOR__UNSAFE;
+
+	/**
 	 * The feature id for the '<em><b>Design</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -143,6 +170,33 @@ public interface StatemachinePackage extends EPackage {
 	 * @ordered
 	 */
 	int STATEMACHINE__DESIGN = InfrastructurePackage.BEHAVIOR__DESIGN;
+
+	/**
+	 * The feature id for the '<em><b>Property Part</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMACHINE__PROPERTY_PART = InfrastructurePackage.BEHAVIOR__PROPERTY_PART;
+
+	/**
+	 * The feature id for the '<em><b>Composite Part</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMACHINE__COMPOSITE_PART = InfrastructurePackage.BEHAVIOR__COMPOSITE_PART;
+
+	/**
+	 * The feature id for the '<em><b>Behavior Part</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMACHINE__BEHAVIOR_PART = InfrastructurePackage.BEHAVIOR__BEHAVIOR_PART;
 
 	/**
 	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
@@ -163,13 +217,13 @@ public interface StatemachinePackage extends EPackage {
 	int STATEMACHINE__TYPEDEF = InfrastructurePackage.BEHAVIOR__TYPEDEF;
 
 	/**
-	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Variable</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATEMACHINE__PROPERTY = InfrastructurePackage.BEHAVIOR__PROPERTY;
+	int STATEMACHINE__VARIABLE = InfrastructurePackage.BEHAVIOR__VARIABLE;
 
 	/**
 	 * The feature id for the '<em><b>Channel</b></em>' containment reference list.
@@ -206,6 +260,15 @@ public interface StatemachinePackage extends EPackage {
 	 * @ordered
 	 */
 	int STATEMACHINE__BUFFER = InfrastructurePackage.BEHAVIOR__BUFFER;
+
+	/**
+	 * The feature id for the '<em><b>Function</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMACHINE__FUNCTION = InfrastructurePackage.BEHAVIOR__FUNCTION;
 
 	/**
 	 * The feature id for the '<em><b>Routine</b></em>' containment reference list.
@@ -980,7 +1043,7 @@ public interface StatemachinePackage extends EPackage {
 	int TRANSITION__MOE = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1338,10 +1401,10 @@ public interface StatemachinePackage extends EPackage {
 	EReference getTransition_Moe();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget <em>Target</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @return the meta object for the containment reference '<em>Target</em>'.
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget()
 	 * @see #getTransition()
 	 * @generated
@@ -1669,7 +1732,7 @@ public interface StatemachinePackage extends EPackage {
 		EReference TRANSITION__MOE = eINSTANCE.getTransition_Moe();
 
 		/**
-		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

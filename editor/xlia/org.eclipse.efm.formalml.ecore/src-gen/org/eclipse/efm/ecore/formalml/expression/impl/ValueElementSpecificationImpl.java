@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ValueElementSpecificationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ValueElementSpecificationImpl#getExpected <em>Expected</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ValueElementSpecificationImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ValueElementSpecificationImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ValueElementSpecificationImpl#getElement <em>Element</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ValueElementSpecificationImpl#getArg <em>Arg</em>}</li>
  * </ul>
@@ -87,14 +87,14 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	protected ValueElementSpecificationScheme expected = EXPECTED_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
+	 * The cached value of the '{@link #getParent() <em>Parent</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTarget()
+	 * @see #getParent()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression target;
+	protected Expression parent;
 
 	/**
 	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
@@ -182,8 +182,8 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getTarget() {
-		return target;
+	public Expression getParent() {
+		return parent;
 	}
 
 	/**
@@ -191,11 +191,11 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTarget(Expression newTarget, NotificationChain msgs) {
-		Expression oldTarget = target;
-		target = newTarget;
+	public NotificationChain basicSetParent(Expression newParent, NotificationChain msgs) {
+		Expression oldParent = parent;
+		parent = newParent;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__TARGET, oldTarget, newTarget);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__PARENT, oldParent, newParent);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -206,18 +206,18 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTarget(Expression newTarget) {
-		if (newTarget != target) {
+	public void setParent(Expression newParent) {
+		if (newParent != parent) {
 			NotificationChain msgs = null;
-			if (target != null)
-				msgs = ((InternalEObject)target).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__TARGET, null, msgs);
-			if (newTarget != null)
-				msgs = ((InternalEObject)newTarget).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__TARGET, null, msgs);
-			msgs = basicSetTarget(newTarget, msgs);
+			if (parent != null)
+				msgs = ((InternalEObject)parent).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__PARENT, null, msgs);
+			if (newParent != null)
+				msgs = ((InternalEObject)newParent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__PARENT, null, msgs);
+			msgs = basicSetParent(newParent, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__TARGET, newTarget, newTarget));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__PARENT, newParent, newParent));
 	}
 
 	/**
@@ -309,8 +309,8 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__TARGET:
-				return basicSetTarget(null, msgs);
+			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__PARENT:
+				return basicSetParent(null, msgs);
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__ARG:
 				return basicSetArg(null, msgs);
 		}
@@ -329,8 +329,8 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 				return getKind();
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__EXPECTED:
 				return getExpected();
-			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__TARGET:
-				return getTarget();
+			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__PARENT:
+				return getParent();
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__ELEMENT:
 				if (resolve) return getElement();
 				return basicGetElement();
@@ -354,8 +354,8 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__EXPECTED:
 				setExpected((ValueElementSpecificationScheme)newValue);
 				return;
-			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__TARGET:
-				setTarget((Expression)newValue);
+			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__PARENT:
+				setParent((Expression)newValue);
 				return;
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__ELEMENT:
 				setElement((NamedElement)newValue);
@@ -381,8 +381,8 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__EXPECTED:
 				setExpected(EXPECTED_EDEFAULT);
 				return;
-			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__TARGET:
-				setTarget((Expression)null);
+			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__PARENT:
+				setParent((Expression)null);
 				return;
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__ELEMENT:
 				setElement((NamedElement)null);
@@ -406,8 +406,8 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 				return kind != KIND_EDEFAULT;
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__EXPECTED:
 				return expected != EXPECTED_EDEFAULT;
-			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__TARGET:
-				return target != null;
+			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__PARENT:
+				return parent != null;
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__ELEMENT:
 				return element != null;
 			case ExpressionPackage.VALUE_ELEMENT_SPECIFICATION__ARG:

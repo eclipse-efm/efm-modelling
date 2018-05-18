@@ -52,7 +52,7 @@ public interface ModelOfInteraction extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Connection}.
+	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Connector}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Connections</em>' containment reference list isn't clear,
@@ -64,6 +64,6 @@ public interface ModelOfInteraction extends EObject {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Connection> getConnections();
+	EList<Connector> getConnections();
 
 } // ModelOfInteraction

@@ -14,6 +14,7 @@ package org.eclipse.efm.ecore.formalml.statemachine;
 
 import org.eclipse.efm.ecore.formalml.common.NamedElement;
 
+import org.eclipse.efm.ecore.formalml.expression.Expression;
 import org.eclipse.efm.ecore.formalml.statement.AbstractGuardStatement;
 import org.eclipse.efm.ecore.formalml.statement.BlockStatement;
 import org.eclipse.efm.ecore.formalml.statement.InputComStatement;
@@ -57,7 +58,7 @@ public interface Transition extends NamedElement {
 	 * @return the value of the '<em>Transient</em>' attribute.
 	 * @see #setTransient(boolean)
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransition_Transient()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isTransient();
@@ -99,30 +100,30 @@ public interface Transition extends NamedElement {
 	void setMoe(TransitionMoe value);
 
 	/**
-	 * Returns the value of the '<em><b>Target</b></em>' reference.
+	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Target</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target</em>' reference.
-	 * @see #setTarget(NamedElement)
+	 * @return the value of the '<em>Target</em>' containment reference.
+	 * @see #setTarget(Expression)
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransition_Target()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
-	NamedElement getTarget();
+	Expression getTarget();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget <em>Target</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget <em>Target</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' reference.
+	 * @param value the new value of the '<em>Target</em>' containment reference.
 	 * @see #getTarget()
 	 * @generated
 	 */
-	void setTarget(NamedElement value);
+	void setTarget(Expression value);
 
 	/**
 	 * Returns the value of the '<em><b>Behavior</b></em>' containment reference.

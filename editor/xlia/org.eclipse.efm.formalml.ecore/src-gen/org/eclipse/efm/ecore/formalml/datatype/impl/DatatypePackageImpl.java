@@ -955,7 +955,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 		// Initialize classes, features, and operations; add parameters
 		initEClass(dataTypeEClass, DataType.class, "DataType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataType_Kind(), this.getPrimitiveTypeKind(), "kind", null, 0, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataType_Typedef(), ecorePackage.getEBoolean(), "typedef", null, 0, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataType_Typedef(), ecorePackage.getEBoolean(), "typedef", null, 1, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataType_Multiplicity(), theExpressionPackage.getExpression(), null, "multiplicity", null, 0, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataType_DefaultValue(), theExpressionPackage.getExpression(), null, "defaultValue", null, 0, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -989,8 +989,8 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 
 		initEClass(collectionTypeEClass, CollectionType.class, "CollectionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCollectionType_Container(), this.getCollectionKind(), "container", "list", 0, 1, CollectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCollectionType_Size(), ecorePackage.getEInt(), "size", "-1", 0, 1, CollectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCollectionType_Unbounded(), ecorePackage.getEBoolean(), "unbounded", null, 0, 1, CollectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCollectionType_Size(), ecorePackage.getEInt(), "size", "-1", 1, 1, CollectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCollectionType_Unbounded(), ecorePackage.getEBoolean(), "unbounded", null, 1, 1, CollectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(primitiveTypeEClass, PrimitiveType.class, "PrimitiveType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -998,7 +998,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 
 		initEClass(primitiveNumberTypeEClass, PrimitiveNumberType.class, "PrimitiveNumberType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPrimitiveNumberType_Sign(), this.getPrimitiveNumberSign(), "sign", "any", 0, 1, PrimitiveNumberType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPrimitiveNumberType_Size(), ecorePackage.getEInt(), "size", null, 0, 1, PrimitiveNumberType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPrimitiveNumberType_Size(), ecorePackage.getEInt(), "size", null, 1, 1, PrimitiveNumberType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(primitiveIntegerTypeEClass, PrimitiveIntegerType.class, "PrimitiveIntegerType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1015,7 +1015,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 		initEClass(primitiveCharacterTypeEClass, PrimitiveCharacterType.class, "PrimitiveCharacterType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(primitiveStringTypeEClass, PrimitiveStringType.class, "PrimitiveStringType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPrimitiveStringType_Size(), ecorePackage.getEInt(), "size", null, 0, 1, PrimitiveStringType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPrimitiveStringType_Size(), ecorePackage.getEInt(), "size", null, 1, 1, PrimitiveStringType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(primitiveInstanceTypeEClass, PrimitiveInstanceType.class, "PrimitiveInstanceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPrimitiveInstanceType_Expected(), this.getPrimitiveInstanceKind(), "expected", "machine", 0, 1, PrimitiveInstanceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1063,14 +1063,17 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 		addEEnumLiteral(primitiveNumberSignEEnum, PrimitiveNumberSign.POSITIVE_STRICT);
 
 		initEEnum(primitiveInstanceKindEEnum, PrimitiveInstanceKind.class, "PrimitiveInstanceKind");
+		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.ANY);
 		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.BUFFER);
 		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.MESSAGE);
 		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.PORT);
 		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.SIGNAL);
+		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.FUNCTION);
 		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.COM_POINT);
 		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.CHANNEL);
-		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.MACHINE);
 		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.VERTEX);
+		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.COMPOSITE);
+		addEEnumLiteral(primitiveInstanceKindEEnum, PrimitiveInstanceKind.MACHINE);
 	}
 
 } //DatatypePackageImpl

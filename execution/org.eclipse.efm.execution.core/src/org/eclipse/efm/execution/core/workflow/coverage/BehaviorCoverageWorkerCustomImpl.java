@@ -15,6 +15,7 @@ package org.eclipse.efm.execution.core.workflow.coverage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.CheckingScopeKind;
@@ -25,7 +26,7 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomIm
 import org.eclipse.efm.execution.core.workflow.coverage.impl.BehaviorCoverageWorkerImpl;
 
 public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
-		implements IWorkflowConfigurationConstants {
+		implements IWorkflowConfigurationConstants, IWorkflowSpiderConfigurationUtils {
 
 	protected BehaviorCoverageWorkerCustomImpl(Director director, String name) {
 		super();
@@ -170,7 +171,10 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 
 		ConsoleLogFormatCustomImpl console =
 				ConsoleLogFormatCustomImpl.create(
-						" , coverage: %1% / %2%" );
+						DEFAULT_COVERAGE_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_INIT_POSITION_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_STEP_POSITION_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_STOP_POSITION_FORMAT);
 
 
 		coverageWorker.setConsole( console );
@@ -185,7 +189,8 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 
 		try {
 			intValue = configuration.getAttribute(
-					ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT, 6);
+					ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
+					DEFAULT_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT);
 		}
 		catch( CoreException e ) {
 			e.printStackTrace();
@@ -262,7 +267,10 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 
 		ConsoleLogFormatCustomImpl console =
 				ConsoleLogFormatCustomImpl.create(
-						" , coverage: %1% / %2%" );
+						DEFAULT_COVERAGE_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_INIT_POSITION_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_STEP_POSITION_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_STOP_POSITION_FORMAT);
 
 		coverageWorker.setConsole( console );
 
@@ -330,6 +338,8 @@ public class BehaviorCoverageWorkerCustomImpl extends BehaviorCoverageWorkerImpl
 		writer.appendTab3( "hit#lucky   = " ).appendEol( isHitLucky() );
 
 		writer.appendTab3( "hit#max     = " ).appendEol( isHitMax() );
+
+		writer.appendTab3( "hit#final   = " ).appendEol( isHitFinal() );
 
 		writer.appendTab3( "jump#slice  = " ).appendEol( isJumpSlice() );
 

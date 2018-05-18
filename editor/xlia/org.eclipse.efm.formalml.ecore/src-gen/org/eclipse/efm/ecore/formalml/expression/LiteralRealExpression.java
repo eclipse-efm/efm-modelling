@@ -41,7 +41,7 @@ public interface LiteralRealExpression extends LiteralExpression {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(double)
 	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getLiteralRealExpression_Value()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	double getValue();

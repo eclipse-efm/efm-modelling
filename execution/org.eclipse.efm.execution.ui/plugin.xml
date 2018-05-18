@@ -74,6 +74,19 @@
                standalone="false"
                visible="true">
          </view>
+         
+         <!--view
+               closeable="true"
+               id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbexConsoleView"
+               minimized="false"
+               moveable="true"
+               relationship="stack"
+               relative="org.eclipse.ui.views.PropertySheet"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view-->
+         
          <view
                closeable="true"
                id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbolicExecutionView"
@@ -94,6 +107,9 @@
          <viewShortcut
                id="org.eclipse.efm.execution.ui.views.SymbexWorkflowView">
          </viewShortcut>
+         <!--viewShortcut
+               id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbexConsoleView">
+         </viewShortcut-->
          <viewShortcut
                id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbolicExecutionView">
          </viewShortcut>
@@ -126,11 +142,4 @@
             name="Launch Configuration">
       </page>
    </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="org.eclipse.efm.execution.internal.ui.preferences.ToolPreferenceInitializer">
-      </initializer>
-   </extension>
-
 </plugin>

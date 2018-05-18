@@ -14,7 +14,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.efm.execution.launchconfiguration.job.RunSewFactory;
+import org.eclipse.efm.execution.launchconfiguration.job.SymbexJobFactory;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorInput;
@@ -51,7 +51,7 @@ public class RunSewHandler extends AbstractHandler {
 
 		if( sewFile != null ) {
 
-			if( ! RunSewFactory.run(window, sewFile) ) {
+			if( ! SymbexJobFactory.run(window, sewFile) ) {
 				//!!! ERROR
 			}
 		}

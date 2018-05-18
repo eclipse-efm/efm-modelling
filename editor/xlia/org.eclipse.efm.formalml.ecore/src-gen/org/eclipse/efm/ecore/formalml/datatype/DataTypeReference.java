@@ -12,6 +12,7 @@
  */
 package org.eclipse.efm.ecore.formalml.datatype;
 
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Data Type Reference</b></em>'.

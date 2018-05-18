@@ -76,7 +76,7 @@ public interface DataType extends ClassifierDefinition {
 	 * @return the value of the '<em>Typedef</em>' attribute.
 	 * @see #setTypedef(boolean)
 	 * @see org.eclipse.efm.ecore.formalml.datatype.DatatypePackage#getDataType_Typedef()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isTypedef();

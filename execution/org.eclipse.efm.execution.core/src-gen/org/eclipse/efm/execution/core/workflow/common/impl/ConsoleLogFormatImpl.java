@@ -37,6 +37,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.ConsoleLogFormatImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.ConsoleLogFormatImpl#getReport <em>Report</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.ConsoleLogFormatImpl#getVerbosity <em>Verbosity</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.ConsoleLogFormatImpl#getSpiderInit <em>Spider Init</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.ConsoleLogFormatImpl#getSpiderStep <em>Spider Step</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.common.impl.ConsoleLogFormatImpl#getSpiderStop <em>Spider Stop</em>}</li>
  * </ul>
  *
  * @generated
@@ -161,6 +164,66 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected ConsoleVerbosityKind verbosity = VERBOSITY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSpiderInit() <em>Spider Init</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSpiderInit()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SPIDER_INIT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSpiderInit() <em>Spider Init</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSpiderInit()
+	 * @generated
+	 * @ordered
+	 */
+	protected String spiderInit = SPIDER_INIT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSpiderStep() <em>Spider Step</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSpiderStep()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SPIDER_STEP_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSpiderStep() <em>Spider Step</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSpiderStep()
+	 * @generated
+	 * @ordered
+	 */
+	protected String spiderStep = SPIDER_STEP_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSpiderStop() <em>Spider Stop</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSpiderStop()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SPIDER_STOP_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSpiderStop() <em>Spider Stop</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSpiderStop()
+	 * @generated
+	 * @ordered
+	 */
+	protected String spiderStop = SPIDER_STOP_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -312,6 +375,69 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getSpiderInit() {
+		return spiderInit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSpiderInit(String newSpiderInit) {
+		String oldSpiderInit = spiderInit;
+		spiderInit = newSpiderInit;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_INIT, oldSpiderInit, spiderInit));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getSpiderStep() {
+		return spiderStep;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSpiderStep(String newSpiderStep) {
+		String oldSpiderStep = spiderStep;
+		spiderStep = newSpiderStep;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STEP, oldSpiderStep, spiderStep));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getSpiderStop() {
+		return spiderStop;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSpiderStop(String newSpiderStop) {
+		String oldSpiderStop = spiderStop;
+		spiderStop = newSpiderStop;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STOP, oldSpiderStop, spiderStop));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -327,6 +453,12 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 				return getReport();
 			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSITY:
 				return getVerbosity();
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_INIT:
+				return getSpiderInit();
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STEP:
+				return getSpiderStep();
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STOP:
+				return getSpiderStop();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -356,6 +488,15 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 				return;
 			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSITY:
 				setVerbosity((ConsoleVerbosityKind)newValue);
+				return;
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_INIT:
+				setSpiderInit((String)newValue);
+				return;
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STEP:
+				setSpiderStep((String)newValue);
+				return;
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STOP:
+				setSpiderStop((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -387,6 +528,15 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSITY:
 				setVerbosity(VERBOSITY_EDEFAULT);
 				return;
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_INIT:
+				setSpiderInit(SPIDER_INIT_EDEFAULT);
+				return;
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STEP:
+				setSpiderStep(SPIDER_STEP_EDEFAULT);
+				return;
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STOP:
+				setSpiderStop(SPIDER_STOP_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -411,6 +561,12 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 				return REPORT_EDEFAULT == null ? report != null : !REPORT_EDEFAULT.equals(report);
 			case CommonPackage.CONSOLE_LOG_FORMAT__VERBOSITY:
 				return verbosity != VERBOSITY_EDEFAULT;
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_INIT:
+				return SPIDER_INIT_EDEFAULT == null ? spiderInit != null : !SPIDER_INIT_EDEFAULT.equals(spiderInit);
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STEP:
+				return SPIDER_STEP_EDEFAULT == null ? spiderStep != null : !SPIDER_STEP_EDEFAULT.equals(spiderStep);
+			case CommonPackage.CONSOLE_LOG_FORMAT__SPIDER_STOP:
+				return SPIDER_STOP_EDEFAULT == null ? spiderStop != null : !SPIDER_STOP_EDEFAULT.equals(spiderStop);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -437,6 +593,12 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 		result.append(report);
 		result.append(", verbosity: ");
 		result.append(verbosity);
+		result.append(", spiderInit: ");
+		result.append(spiderInit);
+		result.append(", spiderStep: ");
+		result.append(spiderStep);
+		result.append(", spiderStop: ");
+		result.append(spiderStop);
 		result.append(')');
 		return result.toString();
 	}

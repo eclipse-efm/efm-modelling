@@ -12,6 +12,8 @@
  */
 package org.eclipse.efm.ecore.formalml.statement.util;
 
+import org.eclipse.efm.ecore.formalml.common.AbstractElement;
+
 import org.eclipse.efm.ecore.formalml.statement.*;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -90,14 +92,6 @@ public class StatementAdapterFactory extends AdapterFactoryImpl {
 				return createExpressionStatementAdapter();
 			}
 			@Override
-			public Adapter caseAssignmentStatement(AssignmentStatement object) {
-				return createAssignmentStatementAdapter();
-			}
-			@Override
-			public Adapter caseNewfreshStatement(NewfreshStatement object) {
-				return createNewfreshStatementAdapter();
-			}
-			@Override
 			public Adapter caseAbstractGuardStatement(AbstractGuardStatement object) {
 				return createAbstractGuardStatementAdapter();
 			}
@@ -166,6 +160,10 @@ public class StatementAdapterFactory extends AdapterFactoryImpl {
 				return createInvokeStatementAdapter();
 			}
 			@Override
+			public Adapter caseAbstractElement(AbstractElement object) {
+				return createAbstractElementAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -224,34 +222,6 @@ public class StatementAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createExpressionStatementAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.statement.AssignmentStatement <em>Assignment Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.efm.ecore.formalml.statement.AssignmentStatement
-	 * @generated
-	 */
-	public Adapter createAssignmentStatementAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.statement.NewfreshStatement <em>Newfresh Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.efm.ecore.formalml.statement.NewfreshStatement
-	 * @generated
-	 */
-	public Adapter createNewfreshStatementAdapter() {
 		return null;
 	}
 
@@ -490,6 +460,20 @@ public class StatementAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createInvokeStatementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.common.AbstractElement <em>Abstract Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.common.AbstractElement
+	 * @generated
+	 */
+	public Adapter createAbstractElementAdapter() {
 		return null;
 	}
 
