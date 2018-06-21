@@ -183,7 +183,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			List<Property> blockInstances,
 			List<Behavior> blockBehaviors,
 			ArrayList<Class> machinesAsConfiguration) {
-		
+
 		for( Classifier classifier : pack.getNestedClassifiers() ) {
 			if( classifier instanceof DataType ) {
 				properties.add( classifier );
@@ -198,7 +198,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 //				BehavioredClassifier.add( classifier ); TODO
 			}
 		}
-		
+
 		for( Property itAttribute : pack.getOwnedAttributes() ) {
 			if( isPart(itAttribute) ) {
 				blockInstances.add( itAttribute );
@@ -263,7 +263,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 				for( Property itProperty : itClass.getOwnedAttributes() ) {
 					if( StereotypeUtil.getPart(itProperty) != null ) {
 
-						blockInstances.add( (Property)itProperty );
+						blockInstances.add( itProperty );
 					}
 				}
 			}
@@ -281,7 +281,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		}
 	}
 
-	public void collectGlobalElement(Package packageElement, 
+	public void collectGlobalElement(Package packageElement,
 			List<DataType> datatypes, List<Signal> signals) {
 		for( PackageableElement itPE : packageElement.getPackagedElements() ) {
 			if( itPE instanceof DataType ) {
@@ -305,7 +305,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 	}
 
 
-	
+
 	/**
 	 * performTransform a Model element to a writer
 	 * @param element
@@ -499,7 +499,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			transformClassSystemDefinition(element, writer);
 		}
 		else if( StereotypeUtil.getBlock(element) != null ) {
-			transformClassBlock((Class)element, writer);
+			transformClassBlock(element, writer);
 		}
 		else {
 			transformClassUnspecifyDefinition(element, writer);
@@ -697,7 +697,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 
 		if( behaviorCount > 0 ) {
 			if( formalBlock.getBase_Class().getClassifierBehavior() == null ) {
-				LOGGER.error( ( new StringBuffer(this.getClass().getSimpleName()) )
+				LOGGER.error( ( new StringBuilder(this.getClass().getSimpleName()) )
 					.append( ":> unexpected Block Class " )
 					.append( formalBlock.getBase_Class().getQualifiedName() )
 					.append( " with ownedBehavior, without classifierBehavior" )
@@ -853,8 +853,16 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		collectElement(element, properties,
 				machinesAsBlock, blockInstances, behaviors, null);
 
-		writer.appendTab("machine ")
-			.append(element.getName())
+		if( element instanceof Behavior ) {
+			writer.appendTab("/* ")
+				.append(element.getClass().getSimpleName())
+				.append(" */ machine ");
+		}
+		else {
+			writer.appendTab("machine ");
+		}
+
+		writer.append(element.getName())
 			.appendEol2(" {");
 
 		// Section property
@@ -987,7 +995,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 //				.append(element.getName())
 //				.appendEol2(";");
 
-		
+
 		behaviors.add(lifelineBehavior);
 
 		transformClassContentDefinition(element, writer,
@@ -1043,12 +1051,12 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 			writer.appendTab2Eol2("}");
 
 			// Section irun
-			
+
 //			writer.appendTab2Eol("@irun{");
 //			writer.appendTab3Eol("currentCall = EMPTY_CALL;");
 //			writer.appendTab2Eol2("}");
-//			
-			
+//
+
 			// Section schedule
 			//
 			writer.appendTab2("@schedule{");

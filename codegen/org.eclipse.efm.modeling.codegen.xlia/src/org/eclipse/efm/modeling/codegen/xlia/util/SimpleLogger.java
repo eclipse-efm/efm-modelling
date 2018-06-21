@@ -83,7 +83,7 @@ public class SimpleLogger {
 	}
 
 
-	public boolean equals(IStatus aStatus, IStatus bStatus) {		
+	public boolean equals(IStatus aStatus, IStatus bStatus) {
 		return( (aStatus.getSeverity() == bStatus.getSeverity())
 				&& (aStatus.getMessage() != null)
 				&& (bStatus.getMessage() != null)
@@ -96,7 +96,7 @@ public class SimpleLogger {
 				return( true );
 			}
 		}
-		
+
 		return( false );
 	}
 
@@ -104,7 +104,7 @@ public class SimpleLogger {
 		if( exists(aStatus) ) {
 			return;
 		}
-		
+
 		switch( aStatus.getSeverity() ) {
 			case IStatus.ERROR:
 				fErrorCount += 1;
@@ -135,7 +135,7 @@ public class SimpleLogger {
 
 
 
-	protected void format(StringBuffer buffer, IStatus aStatus) {
+	protected void format(StringBuilder buffer, IStatus aStatus) {
 		buffer.append("[fml2xlia] "); //$NON-NLS-1$
 
 		switch( aStatus.getSeverity() ) {
@@ -171,7 +171,7 @@ public class SimpleLogger {
 	}
 
 	protected String format(IStatus aStatus) {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		format(buffer, aStatus);
 
@@ -180,7 +180,7 @@ public class SimpleLogger {
 
 
 	public String getReport() {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		buffer.append("[fml2xlia] "); //$NON-NLS-1$
 		buffer.append( String.format("%-7s", "REPORT") ); //$NON-NLS-1$

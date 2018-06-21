@@ -11,7 +11,7 @@ package org.eclipse.efm.papyrus.view.property.concretesyntax.sheet;
 import java.io.StringWriter;
 
 import org.eclipse.efm.modeling.codegen.xlia.core.MainCodeGenerator;
-import org.eclipse.efm.modeling.codegen.xlia.core.StatemachineCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.statemachine.StatemachineCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.efm.modeling.formalml.TimedTransition;
 import org.eclipse.efm.modeling.formalml.helpers.StereotypeUtil;

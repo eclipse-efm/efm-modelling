@@ -8,10 +8,12 @@
  * Contributors:
  * 	   Imen Boudhiba (CEA LIST) imen.boudhiba@cea.fr - initial API and implementation
  *******************************************************************************/
-package org.eclipse.efm.modeling.codegen.xlia.core;
+package org.eclipse.efm.modeling.codegen.xlia.statemachine;
 
 import java.util.ArrayList;
 
+import org.eclipse.efm.modeling.codegen.xlia.core.AbstractCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.core.MainCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 //import org.eclipse.efm.modeling.formalml.ReceiveEvent;
 import org.eclipse.efm.modeling.formalml.TimedTransition;
@@ -40,7 +42,7 @@ import org.eclipse.uml2.uml.Vertex;
 public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 
 	public static final String TRANSITION_GUARD_ELSE = "else";
-	
+
 	public static final String TRANSITION_TRIGGER_FINAL = "final";
 
 	/**
@@ -65,18 +67,25 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			transformRegion((Region)element, writer);
 		}
 
-		else if( element instanceof Pseudostate ) {
-			transformPseudostate((Pseudostate)element, writer);
+		else if( element instanceof Vertex )
+		{
+			if( element instanceof FinalState ) {
+				transformFinalState((FinalState)element, writer);
+			}
+
+			else if( element instanceof State ) {
+				transformState((State)element, writer);
+			}
+
+			else if( element instanceof Pseudostate ) {
+				transformPseudostate((Pseudostate)element, writer);
+			}
+
+			else {
+				transformVertexTransition((Vertex)element, writer);
+			}
 		}
-		else if( element instanceof FinalState ) {
-			transformFinalState((FinalState)element, writer);
-		}
-		else if( element instanceof State ) {
-			transformState((State)element, writer);
-		}
-		else if( element instanceof Vertex ) {
-			transformVertexTransition((Vertex)element, writer);
-		}
+
 		else if( element instanceof Transition ) {
 			transformTransition((Transition)element, writer);
 		}
@@ -106,14 +115,14 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			// Section property
 			//
 			writer.appendTabEol("@property:");
-			
+
 			// A writer indenting with TAB + iTAB -> TAB2
 			PrettyPrintWriter writer2 = writer.itab2();
 			for( Element property : properties ) {
 				fSupervisor.performTransform(property, writer2);
 			}
 		}
-		
+
 		transformRegion(listOfRegion, writer);
 
 		writer.appendTab("} // end statemachine ")
@@ -137,28 +146,28 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			// Section property
 			//
 			writer.appendTabEol("@property:");
-			
+
 			// A writer indenting with TAB + iTAB -> TAB2
 			PrettyPrintWriter writer2 = writer.itab2();
 
 			writer2.appendTabEol("// message");
-			
+
 			// TODO declarer les variables necessaires pour l'input
 			for (Message message : inputMessage) {
-				if( message.getSignature() instanceof Signal ) {	
+				if( message.getSignature() instanceof Signal ) {
 					writer2.appendTab(((Signal) message.getSignature()).getName())
 						.append(" ")
 						.appendEol(message.getName() + "#in;");
 				}
 			}
-						
+
 			writer2.appendTabEol("// end message");
 
 			for( Element property : properties ) {
 				fSupervisor.performTransform(property, writer2);
 			}
 		}
-		
+
 		transformRegion(listOfRegion, writer);
 
 		writer.appendTab("} // end statemachine ")
@@ -242,7 +251,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			else if( itVertex instanceof State ) {
 				transformState((State)itVertex, writer);
 			}
-			else if( itVertex instanceof Vertex ) {
+			else {
 				transformVertex(itVertex, writer);
 			}
 		}
@@ -313,17 +322,17 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			writer.appendTabEol("@transition:");
 		}
 		transformVertexTransition(element, writer);
-		
+
 		if( element.isComposite() ) {
 			writer.appendTabEol("@moe:");
 			transformStateActivity(element, writer);
 		}
-		
+
 		writer.appendTab("} // end state ")
 			.appendEol2(element.getName());
 	}
-	
-	
+
+
 	public void transformConnectionPoint(State element, PrettyPrintWriter writer) {
 		// A writer indenting with TAB + iTAB -> TAB2
 		PrettyPrintWriter writer2 = writer.itab2();
@@ -341,7 +350,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 	 */
 	public void transformStateActivity(
 			State element, PrettyPrintWriter writer) {
-		
+
 		// A writer indenting with TAB + iTAB -> TAB2
 		PrettyPrintWriter writer2 = writer.itab2();
 
@@ -358,7 +367,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 			writer.appendTab("@")
 				.append(name)
 				.appendEol("{");
-	
+
 			fSupervisor.transformBehaviorBody(activity, writer.itab2());
 
 			writer.appendTab("} // end ")
@@ -411,16 +420,16 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 	public void transformTransition(Transition element, PrettyPrintWriter writer) {
 		TimedTransition timedTransition =
 				StereotypeUtil.getTimedTransition(element);
-		
+
 		//completion transition
 		boolean isFinalTrigger = ( element.getTrigger(
 				TRANSITION_TRIGGER_FINAL) != null );
-		
+
 		boolean isElseGuard = fSupervisor.isConstraintSymbol(
 				element.getGuard(), TRANSITION_GUARD_ELSE);
 
 		boolean isElseTransition = isElseGuard && (timedTransition == null);
-		
+
 		writer.appendTab("transition");
 		if( isFinalTrigger ) {
 			writer.append("< final ");
@@ -434,7 +443,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 		else if( isElseTransition ) {
 			writer.append("< else >");
 		}
-			
+
 
 		if( element.getName() != null ) {
 			writer.append(' ')
@@ -512,7 +521,7 @@ public class StatemachineCodeGenerator extends AbstractCodeGenerator {
 		if( fSupervisor.showTransitionSection ) {
 			writer.appendTabEol("@effect:");
 		}
-		
+
 		fSupervisor.transformBehaviorBody(
 				element.getEffect(), writer.itab2());
 

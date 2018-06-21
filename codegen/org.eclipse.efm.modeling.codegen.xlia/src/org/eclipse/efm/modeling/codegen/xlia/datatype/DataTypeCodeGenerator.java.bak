@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.core;
 
-import javax.lang.model.element.TypeElement;
-
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
@@ -42,17 +40,19 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 	 * @param writer
 	 */
 	public void performTransformImpl(Element element, PrettyPrintWriter writer) {
-		if( element instanceof Enumeration ) {
-			transformEnumeration((Enumeration)element, writer);
+		if( element instanceof DataType )
+		{
+			if( element instanceof Enumeration ) {
+				transformEnumeration((Enumeration)element, writer);
+			}
+			else {
+				transformDataType((DataType)element, writer);
+			}
 		}
-
 		else if( element instanceof EnumerationLiteral ) {
 			transformEnumerationLiteral((EnumerationLiteral)element, writer);
 		}
-		//done 
-		else if( element instanceof DataType ) {
-			transformDataType((DataType)element, writer);
-		}
+
 
 		else {
 			performTransformError(this, element);
@@ -72,7 +72,7 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 			.append(element.getName())
 			.appendEol(" enum {");
 		boolean firstElt = true;
-		for( EnumerationLiteral literal : ((Enumeration)element).getOwnedLiterals() ) {
+		for( EnumerationLiteral literal : element.getOwnedLiterals() ) {
 			if(  firstElt ) {
 				writer.appendTab2(literal.getName());
 				firstElt = false;
@@ -144,10 +144,10 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 
 			for (Classifier redefClassifier : element.getRedefinedClassifiers()) {
 				if( redefClassifier instanceof Type ) {
-					writer.append(typeName((Type)redefClassifier));
+					writer.append(typeName(redefClassifier));
 					break;
 				}
-			}		
+			}
 			writer.appendEol(";");
 		}
 //		else {
@@ -169,13 +169,16 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 	public String typeName(Type element) {
 		String typeString = element.getName();
 
-		if( element instanceof PrimitiveType ) {
+		if( typeString.startsWith("fifo") ) {
+			//!!! NOTHING
+		}
+		else if( element instanceof PrimitiveType ) {
 			typeString = typeString.toLowerCase();
 		}
 		else if( element instanceof Class ){
 			typeString = "machine" + "/*< " + typeString + " >*/";
 		}
-		
+
 		return typeString;
 	}
 

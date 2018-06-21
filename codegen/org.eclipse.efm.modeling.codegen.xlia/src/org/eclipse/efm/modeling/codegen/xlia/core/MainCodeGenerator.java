@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.efm.modeling.codegen.xlia.activity.ActivityCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.datatype.DataTypeCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.interaction.InteractionCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.statemachine.StatemachineCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.efm.modeling.formalml.Configuration;
 import org.eclipse.efm.modeling.formalml.DirectedPort;
@@ -23,12 +27,11 @@ import org.eclipse.efm.modeling.formalml.helpers.StereotypeUtil;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.uml2.uml.ActionExecutionSpecification;
 import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.ActivityEdge;
+import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.Behavior;
-import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
 import org.eclipse.uml2.uml.Class;
-import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.ConnectableElement;
 import org.eclipse.uml2.uml.Connector;
 import org.eclipse.uml2.uml.ConnectorEnd;
@@ -37,12 +40,11 @@ import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.EnumerationLiteral;
-import org.eclipse.uml2.uml.ExecutionOccurrenceSpecification;
 import org.eclipse.uml2.uml.Expression;
 import org.eclipse.uml2.uml.FinalState;
 import org.eclipse.uml2.uml.Gate;
 import org.eclipse.uml2.uml.Interaction;
-import org.eclipse.uml2.uml.InteractionOperand;
+import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.LiteralBoolean;
 import org.eclipse.uml2.uml.LiteralInteger;
@@ -50,7 +52,6 @@ import org.eclipse.uml2.uml.LiteralReal;
 import org.eclipse.uml2.uml.LiteralString;
 import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
 import org.eclipse.uml2.uml.Message;
-import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.OpaqueBehavior;
@@ -67,6 +68,7 @@ import org.eclipse.uml2.uml.Region;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.State;
 import org.eclipse.uml2.uml.StateMachine;
+import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.Vertex;
@@ -102,6 +104,11 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 	public StatemachineCodeGenerator fStatemachineFactory;
 
 	/**
+	 * Co-Codegenfactory for Statemachine Element
+	 */
+	public ActivityCodeGenerator fActivityFactory;
+
+	/**
 	 * Co-Codegenfactory for Interaction Element
 	 */
 	public InteractionCodeGenerator fInteractionFactory;
@@ -113,12 +120,16 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 	public MainCodeGenerator() {
 		super();
 
+		this.fSupervisor = this;
+
 		this.fClassFactory = new ClassCodeGenerator(this);
 
 		this.fDataTypeFactory = new DataTypeCodeGenerator(this);
 
 		this.fStatemachineFactory = new StatemachineCodeGenerator(this);
-		
+
+		this.fActivityFactory = new ActivityCodeGenerator(this);
+
 		this.fInteractionFactory = new InteractionCodeGenerator(this);
 
 	}
@@ -216,19 +227,28 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 			transformOpaqueBehavior((OpaqueBehavior)element, writer);
 		}
 
-		
+		// ActivitymachineFactory
+		else if( (element instanceof Activity )
+				|| (element instanceof ActivityNode )
+				|| (element instanceof ActivityEdge ) )
+		{
+			fActivityFactory.performTransformImpl(element, writer);
+		}
+
+
 		// Interaction Factory
-		else if( (element instanceof Interaction )
+		else if( (element instanceof InteractionFragment)
+//				|| (element instanceof Interaction )
 				|| (element instanceof Lifeline )
 				|| (element instanceof Message )
-				|| (element instanceof MessageOccurrenceSpecification )
-				|| (element instanceof Gate )
+//				|| (element instanceof MessageOccurrenceSpecification )
 				|| (element instanceof Constraint)
-				|| (element instanceof InteractionOperand)
-				|| (element instanceof CombinedFragment)
-				|| (element instanceof ActionExecutionSpecification)
-				|| (element instanceof ExecutionOccurrenceSpecification)
-				|| (element instanceof BehaviorExecutionSpecification ) )
+				|| (element instanceof Gate )
+//				|| (element instanceof InteractionOperand)
+//				|| (element instanceof CombinedFragment)
+//				|| (element instanceof ActionExecutionSpecification)
+//				|| (element instanceof BehaviorExecutionSpecification )
+				)
 		{
 			fInteractionFactory.performTransformImpl(element, writer);
 		}
@@ -283,18 +303,82 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 			transformPackageDefinition((Package)element, writer);
 		}
 
-		else if( element instanceof NamedElement ) {
-			writer.appendTab("named_element");
-			if( ((NamedElement)element).getName() != null ) {
-				writer.append(' ')
-					.append(((NamedElement)element).getName());
+//		else if( element instanceof NamedElement ) {
+//			writer.appendTab("named_element");
+//			if( ((NamedElement)element).getName() != null ) {
+//				writer.append(' ')
+//					.append(((NamedElement)element).getName());
+//			}
+//			writer.appendEol(" { /* TODO */ }");
+//		}
+		else {
+			performTransformToDo(element, writer);
+		}
+	}
+
+
+	public void performTransformToDo(Element element, PrettyPrintWriter writer) {
+//		writer.appendTab("element ")
+		writer.appendTab(element.getClass().getName())
+			.append(' ').append( element instanceof NamedElement ?
+					((NamedElement) element).getName() : element.toString());
+
+		boolean isnotBlock = true;
+
+		EList<Element> ownedElemens = element.getOwnedElements();
+		if( (ownedElemens != null) && (!ownedElemens.isEmpty()) ) {
+			if( isnotBlock ) {
+				writer.appendEol(" {"); isnotBlock = false;
 			}
+
+			writer.appendTabEol("// @owned:");
+
+			// A writer indenting with TAB + iTAB -> TAB2
+			PrettyPrintWriter writer2 = writer.itab2();
+
+			for (Element elt : ownedElemens )
+			{
+				if (elt instanceof NamedElement)
+				{
+					performTransformToDo(elt, writer2);
+				}
+			}
+		}
+
+		final EList<Stereotype> stereotypes = element.getAppliedStereotypes();
+		if( (stereotypes != null) && (!stereotypes.isEmpty()) )
+		{
+			if( isnotBlock ) {
+				writer.appendEol(" {"); isnotBlock = false;
+			}
+
+			for( Stereotype stereotype : stereotypes )
+			{
+				writer.appendTab("// applied stereotype : ")
+					.appendEol(stereotype.getQualifiedName());
+
+				EList<Property> attributes = stereotype.getAllAttributes();
+				if( (attributes != null) && (!attributes.isEmpty()) ) {
+					writer.appendTabEol("// @attribute:");
+
+					// A writer indenting with TAB + iTAB -> TAB2
+					PrettyPrintWriter writer2 = writer.itab2();
+
+					for (Property attribute : attributes )
+					{
+						transformProperty(attribute, writer2);
+					}
+				}
+
+//				Element stereoElement = UMLUtil.getStereotypeApplication(element, stereotype.getClass());
+			}
+		}
+
+		if( isnotBlock ) {
 			writer.appendEol(" { /* TODO */ }");
 		}
 		else {
-			writer.appendTab("element ")
-				.append(element.toString())
-				.appendEol(" { /* TODO */ }");
+			writer.appendTabEol("}");
 		}
 	}
 
@@ -530,9 +614,9 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 
 		// A writer indenting with TAB + iTAB -> TAB2
 		PrettyPrintWriter writer2 = writer.itab2();
-		
-		// 
-		
+
+		//
+
 		for( Behavior method : element.getMethods() ) {
 			if( method instanceof OpaqueBehavior ) {
 				writer.appendTab2("//xlia::behavior ")
@@ -596,11 +680,11 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 			}
 		}
 //old		writer.append(")");
-//new   
+//new
 		if(! firstParam ) {
 		writer.append(", ");
 		}
-//		
+//
 		firstParam = true;
 		for( Parameter itParameter : parameters ) {
 			if( itParameter.getDirection() == ParameterDirectionKind.RETURN_LITERAL ) {
@@ -862,9 +946,10 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 
 
 	/**
-	 * performTransform a Value Specification element to a writer
+	 * Test a Value Specification element
 	 * @param value
-	 * @param writer
+	 * @param aSymbol
+	 * @return true if value === symbol
 	 */
 	public boolean isExpressionSymbol(ValueSpecification value, String aSymbol) {
 		if( value instanceof Expression ) {
@@ -872,7 +957,7 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 		}
 		else if( value instanceof OpaqueExpression ) {
 			OpaqueExpression opaqExpr = ((OpaqueExpression) value);
-			
+
 			if( ! opaqExpr.getBodies().isEmpty() ) {
 				return( aSymbol.equals( opaqExpr.getBodies().get(0) ) );
 			}
@@ -888,7 +973,89 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 
 		return( false );
 	}
+	
+	public static final String CONSTRAINT_ELSE = "else";
 
+	/**
+	 * Test a Value Specification element
+	 * @param value
+	 * @param aSymbol
+	 * @return true if value === "else"
+	 */
+	public boolean isConstraintElse(Constraint constraint) {
+		return( isConstraintSymbol(constraint, CONSTRAINT_ELSE) );
+	}	
+
+	public boolean isConstraintTrue(ValueSpecification value) {
+		if( value instanceof LiteralBoolean ) {
+			return(value.booleanValue());
+		}
+
+		return( isExpressionSymbol(value, "true") );
+	}
+	
+	/**
+	 * Test a Value Specification element
+	 * @param value
+	 * @param aSymbol
+	 * @return true if value === true
+	 */
+	public boolean isConstraintTrue(Constraint constraint) {
+		if( constraint != null ) {
+			return( isConstraintTrue(constraint.getSpecification()) );
+		}
+
+		return( false );
+	}
+	
+	/**
+	 * Test a Value Specification element
+	 * @param value
+	 * @param aSymbol
+	 * @return true if (value === "else") or (value === true) 
+	 */
+	public boolean isConstraintElseOrTrue(Constraint constraint) {
+		return( isConstraintElse(constraint) || isConstraintTrue(constraint) );
+	}
+	
+
+	/**
+	 * Test a Value Specification element
+	 * @param value
+	 * @param aSymbol
+	 * @return true if value === symbol
+	 */
+	public boolean isExpressionSymbol(ValueSpecification value, int aSymbol) {
+		if( value instanceof LiteralInteger ) {
+			return( value.integerValue() == aSymbol );
+		}
+		else if( value instanceof LiteralUnlimitedNatural ) {
+			return( value.unlimitedValue() == aSymbol );
+		}
+
+		return( false );
+	}
+
+	/**
+	 * Test a Value Specification element
+	 * @param value
+	 * @param aSymbol
+	 * @return true if value === LiteralUnlimitedNatural.UNLIMITED
+	 */
+	public boolean isExpressionUnlimited(ValueSpecification value) {
+		if( value instanceof LiteralUnlimitedNatural ) {
+			return( value.unlimitedValue() == LiteralUnlimitedNatural.UNLIMITED );
+		}
+
+		return( false );
+	}
+
+
+	/**
+	 * performTransform a Value Specification element to a writer
+	 * @param value
+	 * @param writer
+	 */
 	public void transformValueSpecification(
 			ValueSpecification value, PrettyPrintWriter writer) {
 		if( value instanceof LiteralBoolean ) {

@@ -12,13 +12,13 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.efm.modeling.codegen.scxml.SCXMLCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.core.MainCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.util.SimpleLogger;
 import org.eclipse.papyrus.designer.languages.common.base.HierarchyLocationStrategy;
 import org.eclipse.papyrus.designer.languages.common.base.ModelElementsCreator;
 import org.eclipse.papyrus.infra.tools.file.ProjectBasedFileAccess;
 import org.eclipse.uml2.uml.Element;
-import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.PackageableElement;
 
@@ -28,20 +28,31 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 
 	public static final String FML_LANGUAGE = "formalML"; //$NON-NLS-1$
 
-	protected MainCodeGenerator fCodeGenerator;
+
+	public static final String FML_XLIA_FILE_EXTENSION  = "xlia"; //$NON-NLS-1$
+
+	public static final String FML_SCXML_FILE_EXTENSION = "scxml"; //$NON-NLS-1$
+
+
+	protected MainCodeGenerator  fXLIACodeGenerator;
+
+	protected SCXMLCodeGenerator fSCXMLCodeGenerator;
+
 
 	public CodegenModelElementsCreator(IProject project) {
 		super(new ProjectBasedFileAccess(project),
 				new HierarchyLocationStrategy(), FML_LANGUAGE);
 
-		this.fCodeGenerator = new MainCodeGenerator();
+		this.fXLIACodeGenerator  = new MainCodeGenerator();
+
+		this.fSCXMLCodeGenerator = new SCXMLCodeGenerator();
 	}
 
 	/**
 	 * Transformation reporting
 	 */
 	public SimpleLogger getReportLogger() {
-		return this.fCodeGenerator.getReportLogger();
+		return this.fXLIACodeGenerator.getReportLogger();
 	}
 
 	@Override
@@ -51,16 +62,11 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 		if( (classifier instanceof org.eclipse.uml2.uml.Class) ||
 			(classifier instanceof org.eclipse.uml2.uml.Model) ) {
 
-			final IPath fileLocation = (new Path(FML_GEN_FOLDER))
-					.append(this.locStrategy.getFileName(classifier))
-					.addFileExtension("xlia");
-
-			this.fileSystemAccess.generateFile(fileLocation.toString(),
-					this.fCodeGenerator.performTransform(classifier));
+			createElementFile(classifier, monitor);
 
 //			PackageableElementCodeGenerator.generateCode(classifier).toString());
 //
-//			if( MainCodeGenerator.performTransform(classifier, fileLocation) ) {
+//			if( SCXMLCodeGenerator.performTransform(classifier, fileLocation) ) {
 //
 //			}
 		}
@@ -71,17 +77,26 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
+
+
 	protected void createElementFile(
 			NamedElement namedElement, IProgressMonitor monitor)
 	{
-		final IPath fileLocation = (new Path(FML_GEN_FOLDER))
+		// xLIA Code Generation
+		final IPath xliaFileLocation = (new Path(FML_GEN_FOLDER))
 				.append(this.locStrategy.getFileName(namedElement))
-				.addFileExtension("xlia");
+				.addFileExtension(FML_XLIA_FILE_EXTENSION);
 
-		this.fileSystemAccess.generateFile(fileLocation.toString(),
-				this.fCodeGenerator.performTransform(namedElement));
+		this.fileSystemAccess.generateFile(xliaFileLocation.toString(),
+				this.fXLIACodeGenerator.performTransform(namedElement));
+
+		// SCXML Code Generation
+		final IPath scxmlFileLocation = (new Path(FML_GEN_FOLDER))
+				.append(this.locStrategy.getFileName(namedElement))
+				.addFileExtension(FML_SCXML_FILE_EXTENSION);
+
+		this.fileSystemAccess.generateFile(scxmlFileLocation.toString(),
+				this.fSCXMLCodeGenerator.performTransform(namedElement));
 	}
 
 
