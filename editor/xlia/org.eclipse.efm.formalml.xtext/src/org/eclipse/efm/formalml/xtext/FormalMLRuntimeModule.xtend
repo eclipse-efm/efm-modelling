@@ -25,26 +25,24 @@ import org.eclipse.xtext.parser.IAstFactory
 class FormalMLRuntimeModule extends AbstractFormalMLRuntimeModule {
 
 
-	override
-	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
+	override Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return FormalMLQualifiedNameProvider;
 	}
 
 
-//	override
-//	public Class<? extends IAllContainersState.Provider> bindIAllContainersState$Provider() {
+//	override Class<? extends IAllContainersState.Provider> bindIAllContainersState$Provider() {
 //		return FormalMLResourceSetBasedAllContainersStateProvider;
 //	}
 	
 	
-	override public void configure(Binder binder) {
+	override void configure(Binder binder) {
 	  super.configure(binder);
 	  binder.bindConstant().annotatedWith(Names.named(
 			  CompositeEValidator.USE_EOBJECT_VALIDATOR)).to(false);
 	}
 	
 	
-	override public Class<? extends IAstFactory> bindIAstFactory() {
+	override Class<? extends IAstFactory> bindIAstFactory() {
 		return FormalMLAstFactory;
 	}
 

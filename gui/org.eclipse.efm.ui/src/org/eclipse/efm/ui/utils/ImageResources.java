@@ -116,6 +116,15 @@ public class ImageResources {
 
 	public static final String IMAGE__VALIDATE_ICON = ICONS_PLUGIN_PATH + "validate.gif";
 
+
+	public static final String IMAGE__REMOVE_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "rem_co.png";
+
+	public static final String IMAGE__REMOVE_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "rem_co.png";
+
+	public static final String IMAGE__REMOVE_ALL_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "rem_all_co.png";
+
+	public static final String IMAGE__REMOVE_ALL_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "rem_all_co.png";
+
 	public static final String IMAGE__TERMINATE_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "terminate_co.png";
 
 	public static final String IMAGE__TERMINATE_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "terminate_co.png";
@@ -125,7 +134,7 @@ public class ImageResources {
 
 	// Helper/Util methods only below
 
-	public static final ImageDescriptor getImageDescriptor(String imagePath) {
+	public static final ImageDescriptor getImageDescriptor(final String imagePath) {
 //		ImageDescriptor image_descriptor = null;
 //		try {
 //			image_descriptor = ImageDescriptor.createFromURL(new URL(imagePath));
@@ -139,7 +148,7 @@ public class ImageResources {
 
 	}
 
-	public static final Image getImage(String imagePath) {
+	public static final Image getImage(final String imagePath) {
 		return getImageDescriptor(imagePath).createImage();
 	}
 

@@ -141,7 +141,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link WorkflowPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -155,16 +155,22 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		if (isInited) return (WorkflowPackage)EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI);
 
 		// Obtain or create and register package
-		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof WorkflowPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new WorkflowPackageImpl());
+		Object registeredWorkflowPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		WorkflowPackageImpl theWorkflowPackage = registeredWorkflowPackage instanceof WorkflowPackageImpl ? (WorkflowPackageImpl)registeredWorkflowPackage : new WorkflowPackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) instanceof CoveragePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) : CoveragePackage.eINSTANCE);
-		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) instanceof ExtraneousPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) : ExtraneousPackage.eINSTANCE);
-		TestPackageImpl theTestPackage = (TestPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) instanceof TestPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) : TestPackage.eINSTANCE);
-		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) instanceof SerializerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) : SerializerPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI);
+		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(registeredPackage instanceof CoveragePackageImpl ? registeredPackage : CoveragePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI);
+		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(registeredPackage instanceof ExtraneousPackageImpl ? registeredPackage : ExtraneousPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI);
+		TestPackageImpl theTestPackage = (TestPackageImpl)(registeredPackage instanceof TestPackageImpl ? registeredPackage : TestPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI);
+		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(registeredPackage instanceof SerializerPackageImpl ? registeredPackage : SerializerPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theWorkflowPackage.createPackageContents();
@@ -185,7 +191,6 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		// Mark meta-data to indicate it can't be changed
 		theWorkflowPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(WorkflowPackage.eNS_URI, theWorkflowPackage);
 		return theWorkflowPackage;
@@ -196,6 +201,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNamedObject() {
 		return namedObjectEClass;
 	}
@@ -205,6 +211,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNamedObject_Name() {
 		return (EAttribute)namedObjectEClass.getEStructuralFeatures().get(0);
 	}
@@ -214,6 +221,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNamedObject_Description() {
 		return (EAttribute)namedObjectEClass.getEStructuralFeatures().get(1);
 	}
@@ -223,6 +231,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNamedObject_Comment() {
 		return (EAttribute)namedObjectEClass.getEStructuralFeatures().get(2);
 	}
@@ -232,6 +241,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWorkflow() {
 		return workflowEClass;
 	}
@@ -241,6 +251,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorkflow_Manifest() {
 		return (EReference)workflowEClass.getEStructuralFeatures().get(0);
 	}
@@ -250,6 +261,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorkflow_Workspace() {
 		return (EReference)workflowEClass.getEStructuralFeatures().get(1);
 	}
@@ -259,6 +271,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorkflow_Director() {
 		return (EReference)workflowEClass.getEStructuralFeatures().get(2);
 	}
@@ -268,6 +281,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorkflow_SymbexOption() {
 		return (EReference)workflowEClass.getEStructuralFeatures().get(3);
 	}
@@ -277,6 +291,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorkflow_Console() {
 		return (EReference)workflowEClass.getEStructuralFeatures().get(4);
 	}
@@ -286,6 +301,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorkflow_ShellMode() {
 		return (EReference)workflowEClass.getEStructuralFeatures().get(5);
 	}
@@ -295,6 +311,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorkflow_DeveloperTuning() {
 		return (EReference)workflowEClass.getEStructuralFeatures().get(6);
 	}
@@ -304,6 +321,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDirector() {
 		return directorEClass;
 	}
@@ -313,6 +331,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDirector_Manifest() {
 		return (EReference)directorEClass.getEStructuralFeatures().get(0);
 	}
@@ -322,6 +341,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDirector_Workflow() {
 		return (EReference)directorEClass.getEStructuralFeatures().get(1);
 	}
@@ -331,6 +351,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDirector_Project() {
 		return (EReference)directorEClass.getEStructuralFeatures().get(2);
 	}
@@ -340,6 +361,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDirector_Supervisor() {
 		return (EReference)directorEClass.getEStructuralFeatures().get(3);
 	}
@@ -349,6 +371,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDirector_Worker() {
 		return (EReference)directorEClass.getEStructuralFeatures().get(4);
 	}
@@ -358,6 +381,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDirector_Console() {
 		return (EReference)directorEClass.getEStructuralFeatures().get(5);
 	}
@@ -367,6 +391,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDirector_DeveloperTuning() {
 		return (EReference)directorEClass.getEStructuralFeatures().get(6);
 	}
@@ -376,6 +401,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWorker() {
 		return workerEClass;
 	}
@@ -385,6 +411,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorker_Manifest() {
 		return (EReference)workerEClass.getEStructuralFeatures().get(0);
 	}
@@ -394,6 +421,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorker_Director() {
 		return (EReference)workerEClass.getEStructuralFeatures().get(1);
 	}
@@ -403,6 +431,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorker_Console() {
 		return (EReference)workerEClass.getEStructuralFeatures().get(2);
 	}
@@ -412,6 +441,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSupervisorWorker() {
 		return supervisorWorkerEClass;
 	}
@@ -421,6 +451,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSupervisorWorker_Limit() {
 		return (EReference)supervisorWorkerEClass.getEStructuralFeatures().get(0);
 	}
@@ -430,6 +461,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSupervisorWorker_Queue() {
 		return (EReference)supervisorWorkerEClass.getEStructuralFeatures().get(1);
 	}
@@ -439,6 +471,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSupervisorWorker_Extender() {
 		return (EReference)supervisorWorkerEClass.getEStructuralFeatures().get(2);
 	}
@@ -448,6 +481,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSupervisorWorker_Redundancy() {
 		return (EReference)supervisorWorkerEClass.getEStructuralFeatures().get(3);
 	}
@@ -457,6 +491,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCoverageWorker() {
 		return coverageWorkerEClass;
 	}
@@ -466,6 +501,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCoverageWorker_Trace() {
 		return (EReference)coverageWorkerEClass.getEStructuralFeatures().get(0);
 	}
@@ -475,6 +511,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageWorker_NormalizationEnabled() {
 		return (EAttribute)coverageWorkerEClass.getEStructuralFeatures().get(1);
 	}
@@ -484,6 +521,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageWorker_MinimizationEnabled() {
 		return (EAttribute)coverageWorkerEClass.getEStructuralFeatures().get(2);
 	}
@@ -493,6 +531,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageWorker_StopWhenComplete() {
 		return (EAttribute)coverageWorkerEClass.getEStructuralFeatures().get(3);
 	}
@@ -502,6 +541,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageWorker_BreakEnabled() {
 		return (EAttribute)coverageWorkerEClass.getEStructuralFeatures().get(4);
 	}
@@ -511,6 +551,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageWorker_SliceWhenComplete() {
 		return (EAttribute)coverageWorkerEClass.getEStructuralFeatures().get(5);
 	}
@@ -520,6 +561,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageWorker_HeuristicEnabled() {
 		return (EAttribute)coverageWorkerEClass.getEStructuralFeatures().get(6);
 	}
@@ -529,6 +571,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageWorker_Scope() {
 		return (EAttribute)coverageWorkerEClass.getEStructuralFeatures().get(7);
 	}
@@ -538,6 +581,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCoverageWorker_HeuristicConfig() {
 		return (EReference)coverageWorkerEClass.getEStructuralFeatures().get(8);
 	}
@@ -547,6 +591,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTestWorker() {
 		return testWorkerEClass;
 	}
@@ -556,6 +601,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSerializer() {
 		return serializerEClass;
 	}
@@ -565,6 +611,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSerializer_Format() {
 		return (EReference)serializerEClass.getEStructuralFeatures().get(0);
 	}
@@ -574,6 +621,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSerializer_CSS() {
 		return (EReference)serializerEClass.getEStructuralFeatures().get(1);
 	}
@@ -583,6 +631,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSerializer_Trace() {
 		return (EReference)serializerEClass.getEStructuralFeatures().get(2);
 	}
@@ -592,6 +641,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSerializer_FolderName() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(3);
 	}
@@ -601,6 +651,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSerializer_FileName() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(4);
 	}
@@ -610,6 +661,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSerializer_EnabledNormalization() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(5);
 	}
@@ -619,6 +671,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSerializer_EnabledInitialValuesPrinting() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(6);
 	}
@@ -628,6 +681,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSerializer_EnabledLifelinesPrinting() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(7);
 	}
@@ -637,6 +691,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSerializer_EnabledModifiedDataSelection() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(8);
 	}
@@ -646,6 +701,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WorkflowFactory getWorkflowFactory() {
 		return (WorkflowFactory)getEFactoryInstance();
 	}
@@ -815,12 +871,12 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 
 		initEClass(coverageWorkerEClass, CoverageWorker.class, "CoverageWorker", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCoverageWorker_Trace(), theCommonPackage.getTraceSpecification(), null, "trace", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageWorker_NormalizationEnabled(), ecorePackage.getEBoolean(), "normalizationEnabled", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageWorker_MinimizationEnabled(), ecorePackage.getEBoolean(), "minimizationEnabled", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageWorker_StopWhenComplete(), ecorePackage.getEBoolean(), "stopWhenComplete", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageWorker_BreakEnabled(), ecorePackage.getEBoolean(), "breakEnabled", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageWorker_SliceWhenComplete(), ecorePackage.getEBoolean(), "sliceWhenComplete", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageWorker_HeuristicEnabled(), ecorePackage.getEBoolean(), "heuristicEnabled", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageWorker_NormalizationEnabled(), ecorePackage.getEBoolean(), "normalizationEnabled", null, 1, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageWorker_MinimizationEnabled(), ecorePackage.getEBoolean(), "minimizationEnabled", null, 1, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageWorker_StopWhenComplete(), ecorePackage.getEBoolean(), "stopWhenComplete", null, 1, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageWorker_BreakEnabled(), ecorePackage.getEBoolean(), "breakEnabled", null, 1, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageWorker_SliceWhenComplete(), ecorePackage.getEBoolean(), "sliceWhenComplete", null, 1, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageWorker_HeuristicEnabled(), ecorePackage.getEBoolean(), "heuristicEnabled", null, 1, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCoverageWorker_Scope(), theCommonPackage.getCoverageScopeKind(), "scope", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCoverageWorker_HeuristicConfig(), theCommonPackage.getCoverageHeuristic(), null, "heuristicConfig", null, 0, 1, CoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -832,10 +888,10 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		initEReference(getSerializer_Trace(), theCommonPackage.getTraceSpecification(), null, "trace", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_FolderName(), ecorePackage.getEString(), "folderName", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_FileName(), ecorePackage.getEString(), "fileName", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSerializer_EnabledNormalization(), ecorePackage.getEBoolean(), "enabledNormalization", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSerializer_EnabledInitialValuesPrinting(), ecorePackage.getEBoolean(), "enabledInitialValuesPrinting", "false", 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSerializer_EnabledLifelinesPrinting(), ecorePackage.getEBoolean(), "enabledLifelinesPrinting", "false", 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSerializer_EnabledModifiedDataSelection(), ecorePackage.getEBoolean(), "enabledModifiedDataSelection", "true", 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSerializer_EnabledNormalization(), ecorePackage.getEBoolean(), "enabledNormalization", null, 1, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSerializer_EnabledInitialValuesPrinting(), ecorePackage.getEBoolean(), "enabledInitialValuesPrinting", "false", 1, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSerializer_EnabledLifelinesPrinting(), ecorePackage.getEBoolean(), "enabledLifelinesPrinting", "false", 1, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSerializer_EnabledModifiedDataSelection(), ecorePackage.getEBoolean(), "enabledModifiedDataSelection", "true", 1, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -852,12 +908,12 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * @generated
 	 */
 	protected void createImportAnnotations() {
-		String source = "http://www.eclipse.org/OCL/Import";	
+		String source = "http://www.eclipse.org/OCL/Import";
 		addAnnotation
-		  (this, 
-		   source, 
+		  (this,
+		   source,
 		   new String[] {
-			 "ecore", "http://www.eclipse.org/emf/2002/Ecore"
+			   "ecore", "http://www.eclipse.org/emf/2002/Ecore"
 		   });
 	}
 

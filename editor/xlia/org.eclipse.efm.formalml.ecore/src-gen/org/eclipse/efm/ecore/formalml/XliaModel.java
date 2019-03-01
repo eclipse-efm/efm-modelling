@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,6 +11,8 @@
  *  - Initial API and Implementation
  */
 package org.eclipse.efm.ecore.formalml;
+
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -67,12 +69,12 @@ public interface XliaModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>System</em>' containment reference.
-	 * @see #setSystem(org.eclipse.efm.ecore.formalml.infrastructure.System)
+	 * @see #setSystem(XliaSystem)
 	 * @see org.eclipse.efm.ecore.formalml.FormalmlPackage#getXliaModel_System()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	org.eclipse.efm.ecore.formalml.infrastructure.System getSystem();
+	XliaSystem getSystem();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.XliaModel#getSystem <em>System</em>}' containment reference.
@@ -82,6 +84,6 @@ public interface XliaModel extends EObject {
 	 * @see #getSystem()
 	 * @generated
 	 */
-	void setSystem(org.eclipse.efm.ecore.formalml.infrastructure.System value);
+	void setSystem(XliaSystem value);
 
 } // XliaModel

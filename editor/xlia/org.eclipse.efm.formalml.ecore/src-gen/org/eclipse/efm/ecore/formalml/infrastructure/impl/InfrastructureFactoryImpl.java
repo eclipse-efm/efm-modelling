@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,39 +12,7 @@
  */
 package org.eclipse.efm.ecore.formalml.infrastructure.impl;
 
-import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
-import org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart;
-import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
-import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
-import org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection;
-import org.eclipse.efm.ecore.formalml.infrastructure.ComCastKind;
-import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
-import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
-import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocolKind;
-import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
-import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
-import org.eclipse.efm.ecore.formalml.infrastructure.DesignKind;
-import org.eclipse.efm.ecore.formalml.infrastructure.Function;
-import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructureFactory;
-import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
-import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
-import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfComputation;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfInteraction;
-import org.eclipse.efm.ecore.formalml.infrastructure.Modifier;
-import org.eclipse.efm.ecore.formalml.infrastructure.Parameter;
-import org.eclipse.efm.ecore.formalml.infrastructure.ParameterDirectionKind;
-import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
-import org.eclipse.efm.ecore.formalml.infrastructure.Port;
-import org.eclipse.efm.ecore.formalml.infrastructure.Procedure;
-import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition;
-import org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart;
-import org.eclipse.efm.ecore.formalml.infrastructure.Route;
-import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
-import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
-import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty;
-import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
+import org.eclipse.efm.ecore.formalml.infrastructure.*;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -103,7 +71,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 			case InfrastructurePackage.PROPERTY_PART: return createPropertyPart();
 			case InfrastructurePackage.COMPOSITE_PART: return createCompositePart();
 			case InfrastructurePackage.BEHAVIOR_PART: return createBehaviorPart();
-			case InfrastructurePackage.SYSTEM: return createSystem();
+			case InfrastructurePackage.XLIA_SYSTEM: return createXliaSystem();
 			case InfrastructurePackage.MODIFIER: return createModifier();
 			case InfrastructurePackage.PROPERTY_DEFINITION: return createPropertyDefinition();
 			case InfrastructurePackage.VARIABLE: return createVariable();
@@ -125,6 +93,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 			case InfrastructurePackage.COM_PROTOCOL: return createComProtocol();
 			case InfrastructurePackage.ROUTE: return createRoute();
 			case InfrastructurePackage.CONNECTOR: return createConnector();
+			case InfrastructurePackage.CONNECTOR_END: return createConnectorEnd();
 			case InfrastructurePackage.COM_POINT: return createComPoint();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -182,6 +151,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Machine createMachine() {
 		MachineImpl machine = new MachineImpl();
 		return machine;
@@ -192,6 +162,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyPart createPropertyPart() {
 		PropertyPartImpl propertyPart = new PropertyPartImpl();
 		return propertyPart;
@@ -202,6 +173,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompositePart createCompositePart() {
 		CompositePartImpl compositePart = new CompositePartImpl();
 		return compositePart;
@@ -212,6 +184,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BehaviorPart createBehaviorPart() {
 		BehaviorPartImpl behaviorPart = new BehaviorPartImpl();
 		return behaviorPart;
@@ -222,9 +195,10 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public org.eclipse.efm.ecore.formalml.infrastructure.System createSystem() {
-		SystemImpl system = new SystemImpl();
-		return system;
+	@Override
+	public XliaSystem createXliaSystem() {
+		XliaSystemImpl xliaSystem = new XliaSystemImpl();
+		return xliaSystem;
 	}
 
 	/**
@@ -232,6 +206,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Modifier createModifier() {
 		ModifierImpl modifier = new ModifierImpl();
 		return modifier;
@@ -242,6 +217,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyDefinition createPropertyDefinition() {
 		PropertyDefinitionImpl propertyDefinition = new PropertyDefinitionImpl();
 		return propertyDefinition;
@@ -252,6 +228,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Variable createVariable() {
 		VariableImpl variable = new VariableImpl();
 		return variable;
@@ -262,6 +239,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Buffer createBuffer() {
 		BufferImpl buffer = new BufferImpl();
 		return buffer;
@@ -272,6 +250,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Port createPort() {
 		PortImpl port = new PortImpl();
 		return port;
@@ -282,6 +261,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Channel createChannel() {
 		ChannelImpl channel = new ChannelImpl();
 		return channel;
@@ -292,6 +272,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Signal createSignal() {
 		SignalImpl signal = new SignalImpl();
 		return signal;
@@ -302,6 +283,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Function createFunction() {
 		FunctionImpl function = new FunctionImpl();
 		return function;
@@ -312,6 +294,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Procedure createProcedure() {
 		ProcedureImpl procedure = new ProcedureImpl();
 		return procedure;
@@ -322,6 +305,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Routine createRoutine() {
 		RoutineImpl routine = new RoutineImpl();
 		return routine;
@@ -332,6 +316,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InstanceMachine createInstanceMachine() {
 		InstanceMachineImpl instanceMachine = new InstanceMachineImpl();
 		return instanceMachine;
@@ -342,6 +327,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SlotProperty createSlotProperty() {
 		SlotPropertyImpl slotProperty = new SlotPropertyImpl();
 		return slotProperty;
@@ -352,6 +338,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Parameter createParameter() {
 		ParameterImpl parameter = new ParameterImpl();
 		return parameter;
@@ -362,6 +349,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ParameterSet createParameterSet() {
 		ParameterSetImpl parameterSet = new ParameterSetImpl();
 		return parameterSet;
@@ -372,6 +360,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Behavior createBehavior() {
 		BehaviorImpl behavior = new BehaviorImpl();
 		return behavior;
@@ -382,6 +371,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelOfComputation createModelOfComputation() {
 		ModelOfComputationImpl modelOfComputation = new ModelOfComputationImpl();
 		return modelOfComputation;
@@ -392,6 +382,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelOfExecution createModelOfExecution() {
 		ModelOfExecutionImpl modelOfExecution = new ModelOfExecutionImpl();
 		return modelOfExecution;
@@ -402,6 +393,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelOfInteraction createModelOfInteraction() {
 		ModelOfInteractionImpl modelOfInteraction = new ModelOfInteractionImpl();
 		return modelOfInteraction;
@@ -412,6 +404,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComProtocol createComProtocol() {
 		ComProtocolImpl comProtocol = new ComProtocolImpl();
 		return comProtocol;
@@ -422,6 +415,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Route createRoute() {
 		RouteImpl route = new RouteImpl();
 		return route;
@@ -432,6 +426,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Connector createConnector() {
 		ConnectorImpl connector = new ConnectorImpl();
 		return connector;
@@ -442,6 +437,18 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public ConnectorEnd createConnectorEnd() {
+		ConnectorEndImpl connectorEnd = new ConnectorEndImpl();
+		return connectorEnd;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ComPoint createComPoint() {
 		ComPointImpl comPoint = new ComPointImpl();
 		return comPoint;
@@ -552,6 +559,7 @@ public class InfrastructureFactoryImpl extends EFactoryImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InfrastructurePackage getInfrastructurePackage() {
 		return (InfrastructurePackage)getEPackage();
 	}

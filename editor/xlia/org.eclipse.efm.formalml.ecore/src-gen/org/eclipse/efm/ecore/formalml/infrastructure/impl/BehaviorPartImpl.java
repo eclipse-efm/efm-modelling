@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -91,6 +91,7 @@ public class BehaviorPartImpl extends MinimalEObjectImpl.Container implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Behavior> getBehavior() {
 		if (behavior == null) {
 			behavior = new EObjectContainmentEList<Behavior>(Behavior.class, this, InfrastructurePackage.BEHAVIOR_PART__BEHAVIOR);
@@ -103,6 +104,7 @@ public class BehaviorPartImpl extends MinimalEObjectImpl.Container implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Behavior getMain() {
 		return main;
 	}
@@ -127,6 +129,7 @@ public class BehaviorPartImpl extends MinimalEObjectImpl.Container implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMain(Behavior newMain) {
 		if (newMain != main) {
 			NotificationChain msgs = null;

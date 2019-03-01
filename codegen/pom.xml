@@ -15,5 +15,6 @@
 	<modules>
 		<module>org.eclipse.efm.modeling.codegen.xlia</module>
 		<module>org.eclipse.efm.modeling.codegen.xlia.ui</module>
+		<module>org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph</module>
 	</modules>
 </project>

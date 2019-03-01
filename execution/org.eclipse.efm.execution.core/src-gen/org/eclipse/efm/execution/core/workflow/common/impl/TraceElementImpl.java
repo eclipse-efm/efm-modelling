@@ -123,6 +123,7 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSelected() {
 		return selected;
 	}
@@ -132,6 +133,7 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSelected(boolean newSelected) {
 		boolean oldSelected = selected;
 		selected = newSelected;
@@ -144,6 +146,7 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceElementKind getNature() {
 		return nature;
 	}
@@ -153,6 +156,7 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNature(TraceElementKind newNature) {
 		TraceElementKind oldNature = nature;
 		nature = newNature == null ? NATURE_EDEFAULT : newNature;
@@ -165,6 +169,7 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getValue() {
 		return value;
 	}
@@ -174,6 +179,7 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(Object newValue) {
 		Object oldValue = value;
 		value = newValue;
@@ -268,7 +274,7 @@ public class TraceElementImpl extends MinimalEObjectImpl.Container implements Tr
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (selected: ");
 		result.append(selected);
 		result.append(", nature: ");

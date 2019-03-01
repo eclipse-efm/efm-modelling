@@ -86,7 +86,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Ordered Trace</em>' attribute.
 	 * @see #setOrderedTrace(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_OrderedTrace()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isOrderedTrace();
@@ -112,7 +112,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Hit Consecutive</em>' attribute.
 	 * @see #setHitConsecutive(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_HitConsecutive()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isHitConsecutive();
@@ -138,7 +138,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Hit Folding</em>' attribute.
 	 * @see #setHitFolding(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_HitFolding()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isHitFolding();
@@ -164,7 +164,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Hit Lucky</em>' attribute.
 	 * @see #setHitLucky(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_HitLucky()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isHitLucky();
@@ -190,7 +190,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Hit Max</em>' attribute.
 	 * @see #setHitMax(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_HitMax()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isHitMax();
@@ -217,7 +217,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Hit Final</em>' attribute.
 	 * @see #setHitFinal(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_HitFinal()
-	 * @model default="true"
+	 * @model default="true" required="true"
 	 * @generated
 	 */
 	boolean isHitFinal();
@@ -243,7 +243,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Jump Height</em>' attribute.
 	 * @see #setJumpHeight(int)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_JumpHeight()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getJumpHeight();
@@ -269,7 +269,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Jump Trials Limit</em>' attribute.
 	 * @see #setJumpTrialsLimit(int)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_JumpTrialsLimit()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getJumpTrialsLimit();
@@ -295,7 +295,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Hit Count</em>' attribute.
 	 * @see #setHitCount(int)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_HitCount()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getHitCount();
@@ -321,7 +321,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Jump Count</em>' attribute.
 	 * @see #setJumpCount(int)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_JumpCount()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getJumpCount();
@@ -347,7 +347,7 @@ public interface BehaviorCoverageWorker extends CoverageWorker {
 	 * @return the value of the '<em>Jump Slice</em>' attribute.
 	 * @see #setJumpSlice(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.coverage.CoveragePackage#getBehaviorCoverageWorker_JumpSlice()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isJumpSlice();

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -84,6 +84,7 @@ public class ForStatementImpl extends ConditionalBlockStatementImpl implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getInit() {
 		return init;
 	}
@@ -108,6 +109,7 @@ public class ForStatementImpl extends ConditionalBlockStatementImpl implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInit(Expression newInit) {
 		if (newInit != init) {
 			NotificationChain msgs = null;
@@ -127,6 +129,7 @@ public class ForStatementImpl extends ConditionalBlockStatementImpl implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getIterate() {
 		return iterate;
 	}
@@ -151,6 +154,7 @@ public class ForStatementImpl extends ConditionalBlockStatementImpl implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIterate(Expression newIterate) {
 		if (newIterate != iterate) {
 			NotificationChain msgs = null;

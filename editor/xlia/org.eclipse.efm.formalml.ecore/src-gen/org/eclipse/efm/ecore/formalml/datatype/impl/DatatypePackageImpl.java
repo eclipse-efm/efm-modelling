@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -290,7 +290,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link DatatypePackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -304,17 +304,24 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 		if (isInited) return (DatatypePackage)EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI);
 
 		// Obtain or create and register package
-		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new DatatypePackageImpl());
+		Object registeredDatatypePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		DatatypePackageImpl theDatatypePackage = registeredDatatypePackage instanceof DatatypePackageImpl ? (DatatypePackageImpl)registeredDatatypePackage : new DatatypePackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) instanceof FormalmlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) : FormalmlPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) instanceof InfrastructurePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) : InfrastructurePackage.eINSTANCE);
-		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) instanceof ExpressionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) : ExpressionPackage.eINSTANCE);
-		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) instanceof StatementPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) : StatementPackage.eINSTANCE);
-		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) instanceof StatemachinePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) : StatemachinePackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI);
+		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(registeredPackage instanceof FormalmlPackageImpl ? registeredPackage : FormalmlPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI);
+		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(registeredPackage instanceof InfrastructurePackageImpl ? registeredPackage : InfrastructurePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
+		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(registeredPackage instanceof ExpressionPackageImpl ? registeredPackage : ExpressionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI);
+		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(registeredPackage instanceof StatementPackageImpl ? registeredPackage : StatementPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI);
+		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(registeredPackage instanceof StatemachinePackageImpl ? registeredPackage : StatemachinePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theDatatypePackage.createPackageContents();
@@ -337,7 +344,6 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 		// Mark meta-data to indicate it can't be changed
 		theDatatypePackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(DatatypePackage.eNS_URI, theDatatypePackage);
 		return theDatatypePackage;
@@ -348,6 +354,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDataType() {
 		return dataTypeEClass;
 	}
@@ -357,6 +364,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataType_Kind() {
 		return (EAttribute)dataTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -366,6 +374,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataType_Typedef() {
 		return (EAttribute)dataTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -375,6 +384,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDataType_Multiplicity() {
 		return (EReference)dataTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -384,6 +394,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDataType_DefaultValue() {
 		return (EReference)dataTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -393,6 +404,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDataTypeReference() {
 		return dataTypeReferenceEClass;
 	}
@@ -402,6 +414,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDataTypeReference_Typeref() {
 		return (EReference)dataTypeReferenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -411,6 +424,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDataTypeReference_Support() {
 		return (EReference)dataTypeReferenceEClass.getEStructuralFeatures().get(1);
 	}
@@ -420,6 +434,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEnumerationLiteral() {
 		return enumerationLiteralEClass;
 	}
@@ -429,6 +444,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEnumerationLiteral_Value() {
 		return (EReference)enumerationLiteralEClass.getEStructuralFeatures().get(0);
 	}
@@ -438,6 +454,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEnumerationType() {
 		return enumerationTypeEClass;
 	}
@@ -447,6 +464,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEnumerationType_Literal() {
 		return (EReference)enumerationTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -456,6 +474,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDataStructuredType() {
 		return dataStructuredTypeEClass;
 	}
@@ -465,6 +484,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDataStructuredType_Property() {
 		return (EReference)dataStructuredTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -474,6 +494,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStructureType() {
 		return structureTypeEClass;
 	}
@@ -483,6 +504,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getUnionType() {
 		return unionTypeEClass;
 	}
@@ -492,6 +514,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getChoiceType() {
 		return choiceTypeEClass;
 	}
@@ -501,6 +524,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDataSupportedType() {
 		return dataSupportedTypeEClass;
 	}
@@ -510,6 +534,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDataSupportedType_Support() {
 		return (EReference)dataSupportedTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -519,6 +544,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getIntervalType() {
 		return intervalTypeEClass;
 	}
@@ -528,6 +554,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIntervalType_Lopen() {
 		return (EAttribute)intervalTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -537,6 +564,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIntervalType_Ropen() {
 		return (EAttribute)intervalTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -546,6 +574,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getIntervalType_Infimum() {
 		return (EReference)intervalTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -555,6 +584,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getIntervalType_Supremum() {
 		return (EReference)intervalTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -564,6 +594,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCollectionType() {
 		return collectionTypeEClass;
 	}
@@ -573,6 +604,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCollectionType_Container() {
 		return (EAttribute)collectionTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -582,6 +614,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCollectionType_Size() {
 		return (EAttribute)collectionTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -591,6 +624,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCollectionType_Unbounded() {
 		return (EAttribute)collectionTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -600,6 +634,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveType() {
 		return primitiveTypeEClass;
 	}
@@ -609,6 +644,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveBooleanType() {
 		return primitiveBooleanTypeEClass;
 	}
@@ -618,6 +654,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveNumberType() {
 		return primitiveNumberTypeEClass;
 	}
@@ -627,6 +664,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPrimitiveNumberType_Sign() {
 		return (EAttribute)primitiveNumberTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -636,6 +674,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPrimitiveNumberType_Size() {
 		return (EAttribute)primitiveNumberTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -645,6 +684,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveIntegerType() {
 		return primitiveIntegerTypeEClass;
 	}
@@ -654,6 +694,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveRationalType() {
 		return primitiveRationalTypeEClass;
 	}
@@ -663,6 +704,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveFloatType() {
 		return primitiveFloatTypeEClass;
 	}
@@ -672,6 +714,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveRealType() {
 		return primitiveRealTypeEClass;
 	}
@@ -681,6 +724,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveTimeType() {
 		return primitiveTimeTypeEClass;
 	}
@@ -690,6 +734,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPrimitiveTimeType_Clock() {
 		return (EAttribute)primitiveTimeTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -699,6 +744,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPrimitiveTimeType_Support() {
 		return (EReference)primitiveTimeTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -708,6 +754,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveCharacterType() {
 		return primitiveCharacterTypeEClass;
 	}
@@ -717,6 +764,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveStringType() {
 		return primitiveStringTypeEClass;
 	}
@@ -726,6 +774,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPrimitiveStringType_Size() {
 		return (EAttribute)primitiveStringTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -735,6 +784,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPrimitiveInstanceType() {
 		return primitiveInstanceTypeEClass;
 	}
@@ -744,6 +794,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPrimitiveInstanceType_Expected() {
 		return (EAttribute)primitiveInstanceTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -753,6 +804,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPrimitiveInstanceType_Model() {
 		return (EReference)primitiveInstanceTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -762,6 +814,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getPrimitiveTypeKind() {
 		return primitiveTypeKindEEnum;
 	}
@@ -771,6 +824,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getCollectionKind() {
 		return collectionKindEEnum;
 	}
@@ -780,6 +834,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getPrimitiveNumberSign() {
 		return primitiveNumberSignEEnum;
 	}
@@ -789,6 +844,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getPrimitiveInstanceKind() {
 		return primitiveInstanceKindEEnum;
 	}
@@ -798,6 +854,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DatatypeFactory getDatatypeFactory() {
 		return (DatatypeFactory)getEFactoryInstance();
 	}

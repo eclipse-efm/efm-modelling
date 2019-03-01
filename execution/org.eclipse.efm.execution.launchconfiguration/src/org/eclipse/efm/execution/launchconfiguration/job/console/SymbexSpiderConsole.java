@@ -23,7 +23,10 @@ import org.eclipse.debug.ui.console.IConsoleColorProvider;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.Activator;
 import org.eclipse.efm.ui.utils.ImageResources;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.part.IPageBookViewPage;
@@ -35,6 +38,7 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 	public static final String ID_PROCESS_CONSOLE_TYPE =
 			Activator.PLUGIN_ID + ".SymbexProcessConsoleType"; //$NON-NLS-1$
 
+	private IPath fResourcePath;
 
 	private IProcess fProcess = null;
 
@@ -46,32 +50,58 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 
 	private SymbexSpiderConsolePage fSymbexSpiderConsolePage;
 
+	private static int fConsoleOffset = 0;
 
-	public SymbexSpiderConsole(String name) {
-		super(name, IDESC_CONSOLE);
+	private static String title(final String prompt, final IPath resourcePath) {
+		final StringBuilder bufTitle = new StringBuilder( prompt );
+
+		bufTitle.append("#").append( fConsoleOffset++ )
+			.append(":> ").append(resourcePath);
+
+		return bufTitle.toString();
+	}
+
+
+	public SymbexSpiderConsole(final String prompt, final IPath resourcePath) {
+		super(title(prompt, resourcePath), IDESC_CONSOLE);
+
+		this.fResourcePath = resourcePath;
 
 		this.fProcess = null;
 
 		setType(ID_PROCESS_CONSOLE_TYPE);
 	}
 
-	public SymbexSpiderConsole(IProcess process,
-			IConsoleColorProvider colorProvider, String encoding) {
+	public SymbexSpiderConsole(final IProcess process,
+			final IConsoleColorProvider colorProvider, final String encoding) {
 		super(process.getLaunch().getLaunchConfiguration().getName(), IDESC_CONSOLE);
 //		super(process, colorProvider, null);
+
+		this.fResourcePath = null;
 
 		this.fProcess = process;
 
 		setType(ID_PROCESS_CONSOLE_TYPE);
 	}
 
+	// GETTERS
+
+	public IPath getfResourcePath() {
+		return fResourcePath;
+	}
 
 	public IProcess getProcess() {
 		return fProcess;
 	}
 
+	public SymbexSpiderConsolePage getDefaultPage() {
+		return fSymbexSpiderConsolePage;
+	}
+
+
+
 	@Override
-	public IPageBookViewPage createPage(IConsoleView view) {
+	public IPageBookViewPage createPage(final IConsoleView view) {
 		if(  fSymbexSpiderConsolePage == null ) {
 			fSymbexSpiderConsolePage = new SymbexSpiderConsolePage(this, view);
 		}
@@ -79,12 +109,13 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 	}
 
 
-	public IStatus startSymbex(String[] commandLine,
-			IPath symbexWorkflowPath, IProgressMonitor monitor) {
-		if( fSymbexSpiderConsolePage == null ) {
+	public IStatus startSymbex(final String[] commandLine,
+			final IPath symbexWorkflowPath, final IProgressMonitor monitor) {
+		int waitingTime = 25;
+		while( (fSymbexSpiderConsolePage == null) && (waitingTime < 1024) ) {
 			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
+				Thread.sleep( waitingTime *= 2 );
+			} catch (final InterruptedException e) {
 				//!! NOTHING
 			}
 		}
@@ -92,7 +123,7 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 		if( fSymbexSpiderConsolePage != null ) {
 			monitor.beginTask("Diversity", IProgressMonitor.UNKNOWN);
 
-			File workingDirectory = WorkflowFileUtils.WORKSPACE_PATH.toFile();
+			final File workingDirectory = WorkflowFileUtils.WORKSPACE_PATH.toFile();
 
 			fSymbexSpiderConsolePage.sewLaunchExecProcess("user", monitor,
 					commandLine, workingDirectory, DEFAULT_ENVIRONMENT_VARS);
@@ -100,12 +131,16 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 			return Status.OK_STATUS;
 		}
 
-		System.out.print("No SymbexSpiderConsolePage for evaluation of ");
-		System.out.println(symbexWorkflowPath.toString());
+		MessageDialog.openInformation(getDefaultShell(), "SYMBEX ANALYSIS",
+				"No SymbexSpiderConsolePage for evaluation of "
+				+ symbexWorkflowPath.toString() + " !"
+				+ "\nRetry again, please...");
 
 		return Status.CANCEL_STATUS;
 	}
 
-
+	public static Shell getDefaultShell() {
+		return PlatformUI.getWorkbench().getDisplay().getActiveShell();
+	}
 
 }

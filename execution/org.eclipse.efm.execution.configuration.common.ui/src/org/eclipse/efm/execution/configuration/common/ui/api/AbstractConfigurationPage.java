@@ -13,11 +13,6 @@
 
 package org.eclipse.efm.execution.configuration.common.ui.api;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.AbstractLaunchDelegate;
@@ -27,7 +22,6 @@ import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
 public abstract class AbstractConfigurationPage extends AbstractSectionPart
@@ -39,13 +33,11 @@ public abstract class AbstractConfigurationPage extends AbstractSectionPart
 	/**
 	 * The control for this page, or <code>null</code>
 	 */
-	protected Composite fControl;
+//	protected Composite fControl;
 
 	protected boolean fEnabledSymbexDeveloperMode;
 
 	protected boolean fEnabledSymbexIncubationMode;
-
-	private Map<String, Action> fRegisteredActions;
 
 	private Action[] fDefaultSectionActions;
 
@@ -60,6 +52,8 @@ public abstract class AbstractConfigurationPage extends AbstractSectionPart
 
 
 	public AbstractConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
+		super( true );
+
         Assert.isNotNull(masterGUIelement);
 		this.masterGUIelement = masterGUIelement;
 
@@ -78,34 +72,25 @@ public abstract class AbstractConfigurationPage extends AbstractSectionPart
 			fEnabledSymbexIncubationMode = false;
 		}
 
-		this.fRegisteredActions = new HashMap<String, Action>();
-
 		this.fDefaultSectionActions = new Action[0];
 	}
 
 
-	public Map<String, Action> getRunnableActions() {
-		return fRegisteredActions;
-	}
-
-	public void setRegisteredActions(Map<String, Action> acts) {
-		this.fRegisteredActions = acts;
-	}
-
-	protected Action[] getActionsByStringKey(String[] kids) {
-		Set<Action> foundActions = new HashSet<Action>();
-		Action current;
-		for(String kid: kids) {
-			current = fRegisteredActions.get(kid);
-			if(current != null) {
-				foundActions.add(current);
-			}
-		}
-		return foundActions.toArray(new Action[foundActions.size()]);
-	}
+//	protected Action[] getActionsByStringKey(String[] kids) {
+//		Set<Action> foundActions = new HashSet<Action>();
+//		Action current;
+//		for(String kid: kids) {
+//			current = fRegisteredActions.get(kid);
+//			if(current != null) {
+//				foundActions.add(current);
+//			}
+//		}
+//		return foundActions.toArray(new Action[foundActions.size()]);
+//	}
 
 
-	public Action[] getDefaultSectionActions() {
+	@Override
+	protected Action[] getDefaultSectionActions() {
 		return fDefaultSectionActions;
 	}
 
@@ -123,10 +108,10 @@ public abstract class AbstractConfigurationPage extends AbstractSectionPart
 	}
 
 
-	@Override
-	public Composite getControl() {
-		return fControl;
-	}
+//	@Override
+//	public Composite getControl() {
+//		return fControl;
+//	}
 
 
 	///////////////////////////////////////////////////////////////////////////
@@ -194,14 +179,15 @@ public abstract class AbstractConfigurationPage extends AbstractSectionPart
 	//                              Graphical Components Creation Methods
 	// ======================================================================================
 
-	public void createControl(Composite parent, IWidgetToolkit widgetToolkit)
-	{
-		fControl = widgetToolkit.createComposite(
-				parent, 1, 1, GridData.FILL_BOTH);
+//	public void createControl(Composite parent, IWidgetToolkit widgetToolkit)
+//	{
+//		fControl = widgetToolkit.createComposite(
+//				parent, 1, 1, GridData.FILL_BOTH);
+//
+//		createContent(fControl, widgetToolkit);
+//	}
 
-		createContent(fControl, widgetToolkit);
-	}
-
+	@Override
 	protected abstract void createContent(
 			Composite parent, IWidgetToolkit widgetToolkit);
 

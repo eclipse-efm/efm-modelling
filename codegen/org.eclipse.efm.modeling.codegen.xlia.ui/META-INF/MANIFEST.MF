@@ -23,3 +23,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.efm.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.efm.formalml.xtext.generator

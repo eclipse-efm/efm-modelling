@@ -476,7 +476,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FILE_HEADER(44, "FILE_HEADER", "header"),
+	FILE_HEADER(44, "FILE_HEADER", "file#header"),
 
 	/**
 	 * The '<em><b>FILE BEGIN</b></em>' literal object.
@@ -486,7 +486,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FILE_BEGIN(45, "FILE_BEGIN", "begin"),
+	FILE_BEGIN(45, "FILE_BEGIN", "file#begin"),
 
 	/**
 	 * The '<em><b>FILE END</b></em>' literal object.
@@ -496,7 +496,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FILE_END(46, "FILE_END", "end"),
+	FILE_END(46, "FILE_END", "file#end"),
 
 	/**
 	 * The '<em><b>TESTCASE HEADER</b></em>' literal object.
@@ -699,6 +699,22 @@ public enum TraceElementKind implements Enumerator {
 	RAW_ATTRIBUTE(66, "RAW_ATTRIBUTE", "__raw__"),
 
 	/**
+	 * The '<em><b>NODE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NODE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NODE(70, "NODE", "node"), /**
+	 * The '<em><b>NODE LABEL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NODE_LABEL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NODE_LABEL(71, "NODE_LABEL", "node#label"), /**
 	 * The '<em><b>NODE HEADER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -706,7 +722,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_HEADER(67, "NODE_HEADER", "node#header"),
+	NODE_HEADER(72, "NODE_HEADER", "node#header"),
 
 	/**
 	 * The '<em><b>NODE DATA</b></em>' literal object.
@@ -716,7 +732,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_DATA(68, "NODE_DATA", "node#data"),
+	NODE_DATA(73, "NODE_DATA", "node#data"),
 
 	/**
 	 * The '<em><b>NODE INFO</b></em>' literal object.
@@ -726,7 +742,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_INFO(69, "NODE_INFO", "node#info"),
+	NODE_INFO(74, "NODE_INFO", "node#info"),
 
 	/**
 	 * The '<em><b>NODE TRACE RUN</b></em>' literal object.
@@ -736,7 +752,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_TRACE_RUN(70, "NODE_TRACE_RUN", "node#trace#run"),
+	NODE_TRACE_RUN(75, "NODE_TRACE_RUN", "node#trace#run"),
 
 	/**
 	 * The '<em><b>NODE TRACE IO</b></em>' literal object.
@@ -746,7 +762,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_TRACE_IO(71, "NODE_TRACE_IO", "node#trace#io"),
+	NODE_TRACE_IO(76, "NODE_TRACE_IO", "node#trace#io"),
 
 	/**
 	 * The '<em><b>VALUE PARAMETER BEGIN</b></em>' literal object.
@@ -756,7 +772,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_PARAMETER_BEGIN(72, "VALUE_PARAMETER_BEGIN", "value#parameter#begin"),
+	VALUE_PARAMETER_BEGIN(80, "VALUE_PARAMETER_BEGIN", "value#parameter#begin"),
 
 	/**
 	 * The '<em><b>VALUE PARAMETER SEPARATOR</b></em>' literal object.
@@ -766,7 +782,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_PARAMETER_SEPARATOR(73, "VALUE_PARAMETER_SEPARATOR", "value#parameter#separator"),
+	VALUE_PARAMETER_SEPARATOR(81, "VALUE_PARAMETER_SEPARATOR", "value#parameter#separator"),
 
 	/**
 	 * The '<em><b>VALUE PARAMETER END</b></em>' literal object.
@@ -776,7 +792,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_PARAMETER_END(74, "VALUE_PARAMETER_END", "value#parameter#end"),
+	VALUE_PARAMETER_END(82, "VALUE_PARAMETER_END", "value#parameter#end"),
 
 	/**
 	 * The '<em><b>VALUE ARRAY BEGIN</b></em>' literal object.
@@ -786,7 +802,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_ARRAY_BEGIN(75, "VALUE_ARRAY_BEGIN", "value#array#begin"),
+	VALUE_ARRAY_BEGIN(83, "VALUE_ARRAY_BEGIN", "value#array#begin"),
 
 	/**
 	 * The '<em><b>VALUE ARRAY SEPARATOR</b></em>' literal object.
@@ -796,7 +812,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_ARRAY_SEPARATOR(76, "VALUE_ARRAY_SEPARATOR", "value#array#separator"),
+	VALUE_ARRAY_SEPARATOR(84, "VALUE_ARRAY_SEPARATOR", "value#array#separator"),
 
 	/**
 	 * The '<em><b>VALUE ARRAY END</b></em>' literal object.
@@ -806,7 +822,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_ARRAY_END(77, "VALUE_ARRAY_END", "value#array#end"),
+	VALUE_ARRAY_END(85, "VALUE_ARRAY_END", "value#array#end"),
 
 	/**
 	 * The '<em><b>VALUE STRUCT BEGIN</b></em>' literal object.
@@ -816,7 +832,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_STRUCT_BEGIN(78, "VALUE_STRUCT_BEGIN", "value#struct#begin"),
+	VALUE_STRUCT_BEGIN(86, "VALUE_STRUCT_BEGIN", "value#struct#begin"),
 
 	/**
 	 * The '<em><b>VALUE STRUCT SEPARATOR</b></em>' literal object.
@@ -826,7 +842,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_STRUCT_SEPARATOR(79, "VALUE_STRUCT_SEPARATOR", "value#struct#separator"),
+	VALUE_STRUCT_SEPARATOR(87, "VALUE_STRUCT_SEPARATOR", "value#struct#separator"),
 
 	/**
 	 * The '<em><b>VALUE STRUCT END</b></em>' literal object.
@@ -836,9 +852,25 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_STRUCT_END(80, "VALUE_STRUCT_END", "value#struct#end"),
+	VALUE_STRUCT_END(88, "VALUE_STRUCT_END", "value#struct#end"),
 
 	/**
+	 * The '<em><b>META TRACE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #META_TRACE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	META_TRACE(90, "META_TRACE", "trace"), /**
+	 * The '<em><b>META DEBUG</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #META_DEBUG_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	META_DEBUG(91, "META_DEBUG", "debug"), /**
 	 * The '<em><b>TIPS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1517,7 +1549,7 @@ public enum TraceElementKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #FILE_HEADER
-	 * @model literal="header"
+	 * @model literal="file#header"
 	 * @generated
 	 * @ordered
 	 */
@@ -1532,7 +1564,7 @@ public enum TraceElementKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #FILE_BEGIN
-	 * @model literal="begin"
+	 * @model literal="file#begin"
 	 * @generated
 	 * @ordered
 	 */
@@ -1547,7 +1579,7 @@ public enum TraceElementKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #FILE_END
-	 * @model literal="end"
+	 * @model literal="file#end"
 	 * @generated
 	 * @ordered
 	 */
@@ -1854,6 +1886,36 @@ public enum TraceElementKind implements Enumerator {
 	public static final int RAW_ATTRIBUTE_VALUE = 66;
 
 	/**
+	 * The '<em><b>NODE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NODE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NODE
+	 * @model literal="node"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NODE_VALUE = 70;
+
+	/**
+	 * The '<em><b>NODE LABEL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NODE LABEL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NODE_LABEL
+	 * @model literal="node#label"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NODE_LABEL_VALUE = 71;
+
+	/**
 	 * The '<em><b>NODE HEADER</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -1866,7 +1928,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_HEADER_VALUE = 67;
+	public static final int NODE_HEADER_VALUE = 72;
 
 	/**
 	 * The '<em><b>NODE DATA</b></em>' literal value.
@@ -1881,7 +1943,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_DATA_VALUE = 68;
+	public static final int NODE_DATA_VALUE = 73;
 
 	/**
 	 * The '<em><b>NODE INFO</b></em>' literal value.
@@ -1896,7 +1958,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_INFO_VALUE = 69;
+	public static final int NODE_INFO_VALUE = 74;
 
 	/**
 	 * The '<em><b>NODE TRACE RUN</b></em>' literal value.
@@ -1911,7 +1973,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_TRACE_RUN_VALUE = 70;
+	public static final int NODE_TRACE_RUN_VALUE = 75;
 
 	/**
 	 * The '<em><b>NODE TRACE IO</b></em>' literal value.
@@ -1926,7 +1988,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_TRACE_IO_VALUE = 71;
+	public static final int NODE_TRACE_IO_VALUE = 76;
 
 	/**
 	 * The '<em><b>VALUE PARAMETER BEGIN</b></em>' literal value.
@@ -1941,7 +2003,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_PARAMETER_BEGIN_VALUE = 72;
+	public static final int VALUE_PARAMETER_BEGIN_VALUE = 80;
 
 	/**
 	 * The '<em><b>VALUE PARAMETER SEPARATOR</b></em>' literal value.
@@ -1956,7 +2018,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_PARAMETER_SEPARATOR_VALUE = 73;
+	public static final int VALUE_PARAMETER_SEPARATOR_VALUE = 81;
 
 	/**
 	 * The '<em><b>VALUE PARAMETER END</b></em>' literal value.
@@ -1971,7 +2033,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_PARAMETER_END_VALUE = 74;
+	public static final int VALUE_PARAMETER_END_VALUE = 82;
 
 	/**
 	 * The '<em><b>VALUE ARRAY BEGIN</b></em>' literal value.
@@ -1986,7 +2048,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_ARRAY_BEGIN_VALUE = 75;
+	public static final int VALUE_ARRAY_BEGIN_VALUE = 83;
 
 	/**
 	 * The '<em><b>VALUE ARRAY SEPARATOR</b></em>' literal value.
@@ -2001,7 +2063,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_ARRAY_SEPARATOR_VALUE = 76;
+	public static final int VALUE_ARRAY_SEPARATOR_VALUE = 84;
 
 	/**
 	 * The '<em><b>VALUE ARRAY END</b></em>' literal value.
@@ -2016,7 +2078,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_ARRAY_END_VALUE = 77;
+	public static final int VALUE_ARRAY_END_VALUE = 85;
 
 	/**
 	 * The '<em><b>VALUE STRUCT BEGIN</b></em>' literal value.
@@ -2031,7 +2093,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_STRUCT_BEGIN_VALUE = 78;
+	public static final int VALUE_STRUCT_BEGIN_VALUE = 86;
 
 	/**
 	 * The '<em><b>VALUE STRUCT SEPARATOR</b></em>' literal value.
@@ -2046,7 +2108,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_STRUCT_SEPARATOR_VALUE = 79;
+	public static final int VALUE_STRUCT_SEPARATOR_VALUE = 87;
 
 	/**
 	 * The '<em><b>VALUE STRUCT END</b></em>' literal value.
@@ -2061,7 +2123,37 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_STRUCT_END_VALUE = 80;
+	public static final int VALUE_STRUCT_END_VALUE = 88;
+
+	/**
+	 * The '<em><b>META TRACE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>META TRACE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #META_TRACE
+	 * @model literal="trace"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int META_TRACE_VALUE = 90;
+
+	/**
+	 * The '<em><b>META DEBUG</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>META DEBUG</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #META_DEBUG
+	 * @model literal="debug"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int META_DEBUG_VALUE = 91;
 
 	/**
 	 * The '<em><b>TIPS</b></em>' literal value.
@@ -2153,6 +2245,8 @@ public enum TraceElementKind implements Enumerator {
 			LIFELINE_ID,
 			LIFELINE_STATE,
 			RAW_ATTRIBUTE,
+			NODE,
+			NODE_LABEL,
 			NODE_HEADER,
 			NODE_DATA,
 			NODE_INFO,
@@ -2167,6 +2261,8 @@ public enum TraceElementKind implements Enumerator {
 			VALUE_STRUCT_BEGIN,
 			VALUE_STRUCT_SEPARATOR,
 			VALUE_STRUCT_END,
+			META_TRACE,
+			META_DEBUG,
 			TIPS,
 		};
 
@@ -2291,6 +2387,8 @@ public enum TraceElementKind implements Enumerator {
 			case LIFELINE_ID_VALUE: return LIFELINE_ID;
 			case LIFELINE_STATE_VALUE: return LIFELINE_STATE;
 			case RAW_ATTRIBUTE_VALUE: return RAW_ATTRIBUTE;
+			case NODE_VALUE: return NODE;
+			case NODE_LABEL_VALUE: return NODE_LABEL;
 			case NODE_HEADER_VALUE: return NODE_HEADER;
 			case NODE_DATA_VALUE: return NODE_DATA;
 			case NODE_INFO_VALUE: return NODE_INFO;
@@ -2305,6 +2403,8 @@ public enum TraceElementKind implements Enumerator {
 			case VALUE_STRUCT_BEGIN_VALUE: return VALUE_STRUCT_BEGIN;
 			case VALUE_STRUCT_SEPARATOR_VALUE: return VALUE_STRUCT_SEPARATOR;
 			case VALUE_STRUCT_END_VALUE: return VALUE_STRUCT_END;
+			case META_TRACE_VALUE: return META_TRACE;
+			case META_DEBUG_VALUE: return META_DEBUG;
 			case TIPS_VALUE: return TIPS;
 		}
 		return null;
@@ -2348,6 +2448,7 @@ public enum TraceElementKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 	  return value;
 	}
@@ -2357,6 +2458,7 @@ public enum TraceElementKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 	  return name;
 	}
@@ -2366,6 +2468,7 @@ public enum TraceElementKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 	  return literal;
 	}

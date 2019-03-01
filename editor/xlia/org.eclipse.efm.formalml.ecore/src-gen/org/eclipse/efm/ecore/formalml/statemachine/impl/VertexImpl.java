@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,18 +16,21 @@ import java.util.Collection;
 
 import org.eclipse.efm.ecore.formalml.common.impl.NamedElementImpl;
 
-import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
+import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution;
 
 import org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage;
 import org.eclipse.efm.ecore.formalml.statemachine.Transition;
 import org.eclipse.efm.ecore.formalml.statemachine.Vertex;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -58,14 +61,14 @@ public class VertexImpl extends NamedElementImpl implements Vertex {
 	protected EList<Transition> transition;
 
 	/**
-	 * The cached value of the '{@link #getMoe() <em>Moe</em>}' containment reference list.
+	 * The cached value of the '{@link #getMoe() <em>Moe</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getMoe()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Routine> moe;
+	protected ModelOfExecution moe;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,6 +94,7 @@ public class VertexImpl extends NamedElementImpl implements Vertex {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Transition> getTransition() {
 		if (transition == null) {
 			transition = new EObjectContainmentEList<Transition>(Transition.class, this, StatemachinePackage.VERTEX__TRANSITION);
@@ -103,11 +107,44 @@ public class VertexImpl extends NamedElementImpl implements Vertex {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Routine> getMoe() {
-		if (moe == null) {
-			moe = new EObjectContainmentEList<Routine>(Routine.class, this, StatemachinePackage.VERTEX__MOE);
-		}
+	@Override
+	public ModelOfExecution getMoe() {
 		return moe;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMoe(ModelOfExecution newMoe, NotificationChain msgs) {
+		ModelOfExecution oldMoe = moe;
+		moe = newMoe;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StatemachinePackage.VERTEX__MOE, oldMoe, newMoe);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setMoe(ModelOfExecution newMoe) {
+		if (newMoe != moe) {
+			NotificationChain msgs = null;
+			if (moe != null)
+				msgs = ((InternalEObject)moe).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.VERTEX__MOE, null, msgs);
+			if (newMoe != null)
+				msgs = ((InternalEObject)newMoe).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.VERTEX__MOE, null, msgs);
+			msgs = basicSetMoe(newMoe, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.VERTEX__MOE, newMoe, newMoe));
 	}
 
 	/**
@@ -121,7 +158,7 @@ public class VertexImpl extends NamedElementImpl implements Vertex {
 			case StatemachinePackage.VERTEX__TRANSITION:
 				return ((InternalEList<?>)getTransition()).basicRemove(otherEnd, msgs);
 			case StatemachinePackage.VERTEX__MOE:
-				return ((InternalEList<?>)getMoe()).basicRemove(otherEnd, msgs);
+				return basicSetMoe(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -156,8 +193,7 @@ public class VertexImpl extends NamedElementImpl implements Vertex {
 				getTransition().addAll((Collection<? extends Transition>)newValue);
 				return;
 			case StatemachinePackage.VERTEX__MOE:
-				getMoe().clear();
-				getMoe().addAll((Collection<? extends Routine>)newValue);
+				setMoe((ModelOfExecution)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -175,7 +211,7 @@ public class VertexImpl extends NamedElementImpl implements Vertex {
 				getTransition().clear();
 				return;
 			case StatemachinePackage.VERTEX__MOE:
-				getMoe().clear();
+				setMoe((ModelOfExecution)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -192,7 +228,7 @@ public class VertexImpl extends NamedElementImpl implements Vertex {
 			case StatemachinePackage.VERTEX__TRANSITION:
 				return transition != null && !transition.isEmpty();
 			case StatemachinePackage.VERTEX__MOE:
-				return moe != null && !moe.isEmpty();
+				return moe != null;
 		}
 		return super.eIsSet(featureID);
 	}

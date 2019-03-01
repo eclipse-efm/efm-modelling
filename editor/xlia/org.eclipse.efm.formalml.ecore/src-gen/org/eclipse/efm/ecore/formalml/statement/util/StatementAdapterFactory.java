@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -158,6 +158,14 @@ public class StatementAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseInvokeStatement(InvokeStatement object) {
 				return createInvokeStatementAdapter();
+			}
+			@Override
+			public Adapter caseObserverStatement(ObserverStatement object) {
+				return createObserverStatementAdapter();
+			}
+			@Override
+			public Adapter caseMetaStatement(MetaStatement object) {
+				return createMetaStatementAdapter();
 			}
 			@Override
 			public Adapter caseAbstractElement(AbstractElement object) {
@@ -460,6 +468,34 @@ public class StatementAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createInvokeStatementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.statement.ObserverStatement <em>Observer Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.statement.ObserverStatement
+	 * @generated
+	 */
+	public Adapter createObserverStatementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.statement.MetaStatement <em>Meta Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.statement.MetaStatement
+	 * @generated
+	 */
+	public Adapter createMetaStatementAdapter() {
 		return null;
 	}
 

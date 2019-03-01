@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -45,6 +45,8 @@ import org.eclipse.efm.ecore.formalml.expression.IncrementOrDecrementPrefixExpre
 import org.eclipse.efm.ecore.formalml.expression.InstantiationExpression;
 import org.eclipse.efm.ecore.formalml.expression.InvokeExpression;
 import org.eclipse.efm.ecore.formalml.expression.LeftHandSideExpression;
+import org.eclipse.efm.ecore.formalml.expression.LiteralAnyOrNoneValueExpression;
+import org.eclipse.efm.ecore.formalml.expression.LiteralAnyValueExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralBooleanExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralCharacterExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralCollectionExpression;
@@ -52,12 +54,15 @@ import org.eclipse.efm.ecore.formalml.expression.LiteralEnvExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralFloatExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralIntegerExpression;
+import org.eclipse.efm.ecore.formalml.expression.LiteralNoneValueExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralNullExpression;
+import org.eclipse.efm.ecore.formalml.expression.LiteralOptionalValueExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralParentExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralRationalExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralRealExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement;
 import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceExpression;
+import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification;
 import org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralStringExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralSuperExpression;
@@ -202,6 +207,34 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * @generated
 	 */
 	private EClass literalNullExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass literalAnyValueExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass literalOptionalValueExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass literalNoneValueExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass literalAnyOrNoneValueExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -509,6 +542,13 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass literalReferenceSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum printeR_FIXEEnum = null;
 
 	/**
@@ -553,7 +593,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link ExpressionPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -567,17 +607,24 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		if (isInited) return (ExpressionPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ExpressionPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ExpressionPackageImpl());
+		Object registeredExpressionPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		ExpressionPackageImpl theExpressionPackage = registeredExpressionPackage instanceof ExpressionPackageImpl ? (ExpressionPackageImpl)registeredExpressionPackage : new ExpressionPackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) instanceof FormalmlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) : FormalmlPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) instanceof InfrastructurePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) : InfrastructurePackage.eINSTANCE);
-		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
-		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) instanceof StatementPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) : StatementPackage.eINSTANCE);
-		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) instanceof StatemachinePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) : StatemachinePackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI);
+		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(registeredPackage instanceof FormalmlPackageImpl ? registeredPackage : FormalmlPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI);
+		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(registeredPackage instanceof InfrastructurePackageImpl ? registeredPackage : InfrastructurePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI);
+		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(registeredPackage instanceof DatatypePackageImpl ? registeredPackage : DatatypePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI);
+		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(registeredPackage instanceof StatementPackageImpl ? registeredPackage : StatementPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI);
+		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(registeredPackage instanceof StatemachinePackageImpl ? registeredPackage : StatemachinePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theExpressionPackage.createPackageContents();
@@ -600,7 +647,6 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		// Mark meta-data to indicate it can't be changed
 		theExpressionPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ExpressionPackage.eNS_URI, theExpressionPackage);
 		return theExpressionPackage;
@@ -611,6 +657,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getValueExpressionPrettyPrinter() {
 		return valueExpressionPrettyPrinterEClass;
 	}
@@ -620,6 +667,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getValueExpressionPrettyPrinter_Symbol() {
 		return (EAttribute)valueExpressionPrettyPrinterEClass.getEStructuralFeatures().get(0);
 	}
@@ -629,6 +677,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getValueExpressionPrettyPrinter_Fix() {
 		return (EAttribute)valueExpressionPrettyPrinterEClass.getEStructuralFeatures().get(1);
 	}
@@ -638,6 +687,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getValueExpressionPrettyPrinter_Specific() {
 		return (EAttribute)valueExpressionPrettyPrinterEClass.getEStructuralFeatures().get(2);
 	}
@@ -647,6 +697,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getValuePrintableExpression() {
 		return valuePrintableExpressionEClass;
 	}
@@ -656,6 +707,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getValuePrintableExpression_Symbol() {
 		return (EAttribute)valuePrintableExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -665,6 +717,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getValuePrintableExpression_Printer() {
 		return (EReference)valuePrintableExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -674,6 +727,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getValuePrintableExpression_Operand() {
 		return (EReference)valuePrintableExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -683,6 +737,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExpression() {
 		return expressionEClass;
 	}
@@ -692,6 +747,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralExpression() {
 		return literalExpressionEClass;
 	}
@@ -701,6 +757,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralBooleanExpression() {
 		return literalBooleanExpressionEClass;
 	}
@@ -710,6 +767,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiteralBooleanExpression_Value() {
 		return (EAttribute)literalBooleanExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -719,6 +777,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralIntegerExpression() {
 		return literalIntegerExpressionEClass;
 	}
@@ -728,6 +787,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiteralIntegerExpression_Value() {
 		return (EAttribute)literalIntegerExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -737,6 +797,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralRationalExpression() {
 		return literalRationalExpressionEClass;
 	}
@@ -746,6 +807,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiteralRationalExpression_Numerator() {
 		return (EAttribute)literalRationalExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -755,6 +817,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiteralRationalExpression_Denominator() {
 		return (EAttribute)literalRationalExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -764,6 +827,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralFloatExpression() {
 		return literalFloatExpressionEClass;
 	}
@@ -773,6 +837,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiteralFloatExpression_Value() {
 		return (EAttribute)literalFloatExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -782,6 +847,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralRealExpression() {
 		return literalRealExpressionEClass;
 	}
@@ -791,6 +857,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiteralRealExpression_Value() {
 		return (EAttribute)literalRealExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -800,6 +867,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralCharacterExpression() {
 		return literalCharacterExpressionEClass;
 	}
@@ -809,6 +877,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiteralCharacterExpression_Value() {
 		return (EAttribute)literalCharacterExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -818,6 +887,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralStringExpression() {
 		return literalStringExpressionEClass;
 	}
@@ -827,6 +897,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiteralStringExpression_Value() {
 		return (EAttribute)literalStringExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -836,6 +907,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralCollectionExpression() {
 		return literalCollectionExpressionEClass;
 	}
@@ -845,6 +917,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiteralCollectionExpression_Datatype() {
 		return (EReference)literalCollectionExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -854,6 +927,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiteralCollectionExpression_Value() {
 		return (EReference)literalCollectionExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -863,6 +937,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralNullExpression() {
 		return literalNullExpressionEClass;
 	}
@@ -872,6 +947,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiteralNullExpression_Type() {
 		return (EReference)literalNullExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -881,6 +957,87 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EClass getLiteralAnyValueExpression() {
+		return literalAnyValueExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLiteralAnyValueExpression_Type() {
+		return (EReference)literalAnyValueExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getLiteralOptionalValueExpression() {
+		return literalOptionalValueExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLiteralOptionalValueExpression_Type() {
+		return (EReference)literalOptionalValueExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getLiteralNoneValueExpression() {
+		return literalNoneValueExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLiteralNoneValueExpression_Type() {
+		return (EReference)literalNoneValueExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getLiteralAnyOrNoneValueExpression() {
+		return literalAnyOrNoneValueExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLiteralAnyOrNoneValueExpression_Type() {
+		return (EReference)literalAnyOrNoneValueExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getLiteralReferenceExpression() {
 		return literalReferenceExpressionEClass;
 	}
@@ -890,6 +1047,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralReferenceElement() {
 		return literalReferenceElementEClass;
 	}
@@ -899,6 +1057,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLiteralReferenceElement_Kind() {
 		return (EAttribute)literalReferenceElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -908,7 +1067,8 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getLiteralReferenceElement_Value() {
+	@Override
+	public EReference getLiteralReferenceElement_Element() {
 		return (EReference)literalReferenceElementEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -917,6 +1077,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiteralReferenceElement_Arg() {
 		return (EReference)literalReferenceElementEClass.getEStructuralFeatures().get(2);
 	}
@@ -926,6 +1087,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralThisExpression() {
 		return literalThisExpressionEClass;
 	}
@@ -935,6 +1097,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralSelfExpression() {
 		return literalSelfExpressionEClass;
 	}
@@ -944,6 +1107,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiteralSelfExpression_Model() {
 		return (EReference)literalSelfExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -953,6 +1117,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralParentExpression() {
 		return literalParentExpressionEClass;
 	}
@@ -962,6 +1127,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiteralParentExpression_Model() {
 		return (EReference)literalParentExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -971,6 +1137,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralSuperExpression() {
 		return literalSuperExpressionEClass;
 	}
@@ -980,6 +1147,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLiteralSuperExpression_Model() {
 		return (EReference)literalSuperExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -989,6 +1157,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralSystemExpression() {
 		return literalSystemExpressionEClass;
 	}
@@ -998,6 +1167,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralEnvExpression() {
 		return literalEnvExpressionEClass;
 	}
@@ -1007,6 +1177,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralTimeExpression() {
 		return literalTimeExpressionEClass;
 	}
@@ -1016,6 +1187,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLiteralTimeDeltaExpression() {
 		return literalTimeDeltaExpressionEClass;
 	}
@@ -1025,6 +1197,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLeftHandSideExpression() {
 		return leftHandSideExpressionEClass;
 	}
@@ -1034,6 +1207,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLeftHandSideExpression_Lvalue() {
 		return (EReference)leftHandSideExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1043,6 +1217,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getIncrementOrDecrementExpression() {
 		return incrementOrDecrementExpressionEClass;
 	}
@@ -1052,6 +1227,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIncrementOrDecrementExpression_Operator() {
 		return (EAttribute)incrementOrDecrementExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1061,6 +1237,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getIncrementOrDecrementExpression_LeftHandSide() {
 		return (EReference)incrementOrDecrementExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1070,6 +1247,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getIncrementOrDecrementPrefixExpression() {
 		return incrementOrDecrementPrefixExpressionEClass;
 	}
@@ -1079,6 +1257,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getIncrementOrDecrementPostfixExpression() {
 		return incrementOrDecrementPostfixExpressionEClass;
 	}
@@ -1088,6 +1267,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAssignmentExpression() {
 		return assignmentExpressionEClass;
 	}
@@ -1097,6 +1277,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAssignmentExpression_Operator() {
 		return (EAttribute)assignmentExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1106,6 +1287,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssignmentExpression_LeftHandSide() {
 		return (EReference)assignmentExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1115,7 +1297,8 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAssignmentExpression_RigthHandSide() {
+	@Override
+	public EReference getAssignmentExpression_RightHandSide() {
 		return (EReference)assignmentExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1124,6 +1307,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNewfreshExpression() {
 		return newfreshExpressionEClass;
 	}
@@ -1133,6 +1317,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNewfreshExpression_LeftHandSide() {
 		return (EReference)newfreshExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1142,6 +1327,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getUnaryExpression() {
 		return unaryExpressionEClass;
 	}
@@ -1151,6 +1337,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getUnaryExpression_Operator() {
 		return (EAttribute)unaryExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1160,6 +1347,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getUnaryExpression_Operand() {
 		return (EReference)unaryExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1169,6 +1357,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBitwiseUnaryExpression() {
 		return bitwiseUnaryExpressionEClass;
 	}
@@ -1178,6 +1367,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLogicalUnaryExpression() {
 		return logicalUnaryExpressionEClass;
 	}
@@ -1187,6 +1377,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCastExpression() {
 		return castExpressionEClass;
 	}
@@ -1196,6 +1387,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCastExpression_Datatype() {
 		return (EReference)castExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1205,6 +1397,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getArithmeticUnaryExpression() {
 		return arithmeticUnaryExpressionEClass;
 	}
@@ -1214,6 +1407,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBinaryExpression() {
 		return binaryExpressionEClass;
 	}
@@ -1223,6 +1417,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBinaryExpression_Operator() {
 		return (EAttribute)binaryExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1232,6 +1427,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBinaryExpression_LeftOperand() {
 		return (EReference)binaryExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1241,7 +1437,8 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBinaryExpression_RigthOperand() {
+	@Override
+	public EReference getBinaryExpression_RightOperand() {
 		return (EReference)binaryExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1250,6 +1447,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEqualityBinaryExpression() {
 		return equalityBinaryExpressionEClass;
 	}
@@ -1259,6 +1457,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRelationalBinaryExpression() {
 		return relationalBinaryExpressionEClass;
 	}
@@ -1268,6 +1467,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRelationalTernaryExpression() {
 		return relationalTernaryExpressionEClass;
 	}
@@ -1277,6 +1477,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRelationalTernaryExpression_LeftRelation() {
 		return (EReference)relationalTernaryExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1286,7 +1487,8 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRelationalTernaryExpression_RigthOperator() {
+	@Override
+	public EAttribute getRelationalTernaryExpression_RightOperator() {
 		return (EAttribute)relationalTernaryExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1295,7 +1497,8 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRelationalTernaryExpression_RigthOperand() {
+	@Override
+	public EReference getRelationalTernaryExpression_RightOperand() {
 		return (EReference)relationalTernaryExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1304,6 +1507,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConditionalTestExpression() {
 		return conditionalTestExpressionEClass;
 	}
@@ -1313,17 +1517,9 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConditionalTestExpression_Operator() {
-		return (EAttribute)conditionalTestExpressionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EReference getConditionalTestExpression_Condition() {
-		return (EReference)conditionalTestExpressionEClass.getEStructuralFeatures().get(1);
+		return (EReference)conditionalTestExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1331,6 +1527,17 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EAttribute getConditionalTestExpression_Operator() {
+		return (EAttribute)conditionalTestExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getConditionalTestExpression_ThenOperand() {
 		return (EReference)conditionalTestExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1340,8 +1547,9 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConditionalTestExpression_ElseOperand() {
-		return (EReference)conditionalTestExpressionEClass.getEStructuralFeatures().get(3);
+	@Override
+	public EAttribute getConditionalTestExpression_ElseSeparator() {
+		return (EAttribute)conditionalTestExpressionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1349,6 +1557,17 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EReference getConditionalTestExpression_ElseOperand() {
+		return (EReference)conditionalTestExpressionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getAssociativeExpression() {
 		return associativeExpressionEClass;
 	}
@@ -1358,6 +1577,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAssociativeExpression_Operator() {
 		return (EAttribute)associativeExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1367,6 +1587,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssociativeExpression_Operand() {
 		return (EReference)associativeExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1376,6 +1597,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getArithmeticAssociativeExpression() {
 		return arithmeticAssociativeExpressionEClass;
 	}
@@ -1385,6 +1607,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBitwiseAssociativeExpression() {
 		return bitwiseAssociativeExpressionEClass;
 	}
@@ -1394,6 +1617,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLogicalAssociativeExpression() {
 		return logicalAssociativeExpressionEClass;
 	}
@@ -1403,6 +1627,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getQuantifiedLogicalExpression() {
 		return quantifiedLogicalExpressionEClass;
 	}
@@ -1412,6 +1637,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQuantifiedLogicalExpression_Quantifier() {
 		return (EAttribute)quantifiedLogicalExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1421,6 +1647,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getQuantifiedLogicalExpression_Variable() {
 		return (EReference)quantifiedLogicalExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1430,6 +1657,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getQuantifiedLogicalExpression_Predicate() {
 		return (EReference)quantifiedLogicalExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1439,6 +1667,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInvokeExpression() {
 		return invokeExpressionEClass;
 	}
@@ -1448,6 +1677,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInvokeExpression_CallProcedure() {
 		return (EAttribute)invokeExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1457,7 +1687,8 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInvokeExpression_Invoke() {
+	@Override
+	public EReference getInvokeExpression_Invokable() {
 		return (EReference)invokeExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1466,6 +1697,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInvokeExpression_Args() {
 		return (EReference)invokeExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1475,6 +1707,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInvokeExpression_Rets() {
 		return (EReference)invokeExpressionEClass.getEStructuralFeatures().get(3);
 	}
@@ -1484,6 +1717,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNamedExpression() {
 		return namedExpressionEClass;
 	}
@@ -1493,6 +1727,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNamedExpression_Target() {
 		return (EReference)namedExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1502,6 +1737,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNamedExpression_Name() {
 		return (EAttribute)namedExpressionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1511,6 +1747,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNamedExpression_Expression() {
 		return (EReference)namedExpressionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1520,6 +1757,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTupleExpression() {
 		return tupleExpressionEClass;
 	}
@@ -1529,6 +1767,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMixTupleExpression() {
 		return mixTupleExpressionEClass;
 	}
@@ -1538,6 +1777,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMixTupleExpression_Value() {
 		return (EReference)mixTupleExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1547,6 +1787,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNamedTupleExpression() {
 		return namedTupleExpressionEClass;
 	}
@@ -1556,6 +1797,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNamedTupleExpression_Value() {
 		return (EReference)namedTupleExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1565,6 +1807,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPositionalTupleExpression() {
 		return positionalTupleExpressionEClass;
 	}
@@ -1574,6 +1817,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPositionalTupleExpression_Value() {
 		return (EReference)positionalTupleExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1583,6 +1827,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getValueElementSpecification() {
 		return valueElementSpecificationEClass;
 	}
@@ -1592,6 +1837,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getValueElementSpecification_Kind() {
 		return (EAttribute)valueElementSpecificationEClass.getEStructuralFeatures().get(0);
 	}
@@ -1601,6 +1847,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getValueElementSpecification_Expected() {
 		return (EAttribute)valueElementSpecificationEClass.getEStructuralFeatures().get(1);
 	}
@@ -1610,6 +1857,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getValueElementSpecification_Parent() {
 		return (EReference)valueElementSpecificationEClass.getEStructuralFeatures().get(2);
 	}
@@ -1619,6 +1867,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getValueElementSpecification_Element() {
 		return (EReference)valueElementSpecificationEClass.getEStructuralFeatures().get(3);
 	}
@@ -1628,6 +1877,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getValueElementSpecification_Arg() {
 		return (EReference)valueElementSpecificationEClass.getEStructuralFeatures().get(4);
 	}
@@ -1637,6 +1887,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInstantiationExpression() {
 		return instantiationExpressionEClass;
 	}
@@ -1646,6 +1897,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInstantiationExpression_Instance() {
 		return (EReference)instantiationExpressionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1655,6 +1907,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExpressionAsBuffer() {
 		return expressionAsBufferEClass;
 	}
@@ -1664,6 +1917,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExpressionAsBuffer_Buffer() {
 		return (EReference)expressionAsBufferEClass.getEStructuralFeatures().get(0);
 	}
@@ -1673,6 +1927,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExpressionAsChannel() {
 		return expressionAsChannelEClass;
 	}
@@ -1682,6 +1937,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExpressionAsChannel_Channel() {
 		return (EReference)expressionAsChannelEClass.getEStructuralFeatures().get(0);
 	}
@@ -1691,6 +1947,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExpressionAsMachine() {
 		return expressionAsMachineEClass;
 	}
@@ -1700,6 +1957,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExpressionAsMachine_Machine() {
 		return (EReference)expressionAsMachineEClass.getEStructuralFeatures().get(0);
 	}
@@ -1709,6 +1967,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExpressionAsPort() {
 		return expressionAsPortEClass;
 	}
@@ -1718,6 +1977,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExpressionAsPort_Port() {
 		return (EReference)expressionAsPortEClass.getEStructuralFeatures().get(0);
 	}
@@ -1727,6 +1987,47 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EClass getLiteralReferenceSpecification() {
+		return literalReferenceSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getLiteralReferenceSpecification_Expected() {
+		return (EAttribute)literalReferenceSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLiteralReferenceSpecification_Parent() {
+		return (EReference)literalReferenceSpecificationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getLiteralReferenceSpecification_Element() {
+		return (EReference)literalReferenceSpecificationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getPRINTER_FIX() {
 		return printeR_FIXEEnum;
 	}
@@ -1736,6 +2037,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getValueElementSpecificationKind() {
 		return valueElementSpecificationKindEEnum;
 	}
@@ -1745,6 +2047,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getValueElementSpecificationScheme() {
 		return valueElementSpecificationSchemeEEnum;
 	}
@@ -1754,6 +2057,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExpressionFactory getExpressionFactory() {
 		return (ExpressionFactory)getEFactoryInstance();
 	}
@@ -1820,11 +2124,23 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		literalNullExpressionEClass = createEClass(LITERAL_NULL_EXPRESSION);
 		createEReference(literalNullExpressionEClass, LITERAL_NULL_EXPRESSION__TYPE);
 
+		literalAnyValueExpressionEClass = createEClass(LITERAL_ANY_VALUE_EXPRESSION);
+		createEReference(literalAnyValueExpressionEClass, LITERAL_ANY_VALUE_EXPRESSION__TYPE);
+
+		literalOptionalValueExpressionEClass = createEClass(LITERAL_OPTIONAL_VALUE_EXPRESSION);
+		createEReference(literalOptionalValueExpressionEClass, LITERAL_OPTIONAL_VALUE_EXPRESSION__TYPE);
+
+		literalNoneValueExpressionEClass = createEClass(LITERAL_NONE_VALUE_EXPRESSION);
+		createEReference(literalNoneValueExpressionEClass, LITERAL_NONE_VALUE_EXPRESSION__TYPE);
+
+		literalAnyOrNoneValueExpressionEClass = createEClass(LITERAL_ANY_OR_NONE_VALUE_EXPRESSION);
+		createEReference(literalAnyOrNoneValueExpressionEClass, LITERAL_ANY_OR_NONE_VALUE_EXPRESSION__TYPE);
+
 		literalReferenceExpressionEClass = createEClass(LITERAL_REFERENCE_EXPRESSION);
 
 		literalReferenceElementEClass = createEClass(LITERAL_REFERENCE_ELEMENT);
 		createEAttribute(literalReferenceElementEClass, LITERAL_REFERENCE_ELEMENT__KIND);
-		createEReference(literalReferenceElementEClass, LITERAL_REFERENCE_ELEMENT__VALUE);
+		createEReference(literalReferenceElementEClass, LITERAL_REFERENCE_ELEMENT__ELEMENT);
 		createEReference(literalReferenceElementEClass, LITERAL_REFERENCE_ELEMENT__ARG);
 
 		literalThisExpressionEClass = createEClass(LITERAL_THIS_EXPRESSION);
@@ -1860,7 +2176,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		assignmentExpressionEClass = createEClass(ASSIGNMENT_EXPRESSION);
 		createEAttribute(assignmentExpressionEClass, ASSIGNMENT_EXPRESSION__OPERATOR);
 		createEReference(assignmentExpressionEClass, ASSIGNMENT_EXPRESSION__LEFT_HAND_SIDE);
-		createEReference(assignmentExpressionEClass, ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE);
+		createEReference(assignmentExpressionEClass, ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE);
 
 		newfreshExpressionEClass = createEClass(NEWFRESH_EXPRESSION);
 		createEReference(newfreshExpressionEClass, NEWFRESH_EXPRESSION__LEFT_HAND_SIDE);
@@ -1881,7 +2197,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		binaryExpressionEClass = createEClass(BINARY_EXPRESSION);
 		createEAttribute(binaryExpressionEClass, BINARY_EXPRESSION__OPERATOR);
 		createEReference(binaryExpressionEClass, BINARY_EXPRESSION__LEFT_OPERAND);
-		createEReference(binaryExpressionEClass, BINARY_EXPRESSION__RIGTH_OPERAND);
+		createEReference(binaryExpressionEClass, BINARY_EXPRESSION__RIGHT_OPERAND);
 
 		equalityBinaryExpressionEClass = createEClass(EQUALITY_BINARY_EXPRESSION);
 
@@ -1889,13 +2205,14 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 
 		relationalTernaryExpressionEClass = createEClass(RELATIONAL_TERNARY_EXPRESSION);
 		createEReference(relationalTernaryExpressionEClass, RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION);
-		createEAttribute(relationalTernaryExpressionEClass, RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR);
-		createEReference(relationalTernaryExpressionEClass, RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND);
+		createEAttribute(relationalTernaryExpressionEClass, RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR);
+		createEReference(relationalTernaryExpressionEClass, RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND);
 
 		conditionalTestExpressionEClass = createEClass(CONDITIONAL_TEST_EXPRESSION);
-		createEAttribute(conditionalTestExpressionEClass, CONDITIONAL_TEST_EXPRESSION__OPERATOR);
 		createEReference(conditionalTestExpressionEClass, CONDITIONAL_TEST_EXPRESSION__CONDITION);
+		createEAttribute(conditionalTestExpressionEClass, CONDITIONAL_TEST_EXPRESSION__OPERATOR);
 		createEReference(conditionalTestExpressionEClass, CONDITIONAL_TEST_EXPRESSION__THEN_OPERAND);
+		createEAttribute(conditionalTestExpressionEClass, CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR);
 		createEReference(conditionalTestExpressionEClass, CONDITIONAL_TEST_EXPRESSION__ELSE_OPERAND);
 
 		associativeExpressionEClass = createEClass(ASSOCIATIVE_EXPRESSION);
@@ -1915,7 +2232,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 
 		invokeExpressionEClass = createEClass(INVOKE_EXPRESSION);
 		createEAttribute(invokeExpressionEClass, INVOKE_EXPRESSION__CALL_PROCEDURE);
-		createEReference(invokeExpressionEClass, INVOKE_EXPRESSION__INVOKE);
+		createEReference(invokeExpressionEClass, INVOKE_EXPRESSION__INVOKABLE);
 		createEReference(invokeExpressionEClass, INVOKE_EXPRESSION__ARGS);
 		createEReference(invokeExpressionEClass, INVOKE_EXPRESSION__RETS);
 
@@ -1956,6 +2273,11 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 
 		expressionAsPortEClass = createEClass(EXPRESSION_AS_PORT);
 		createEReference(expressionAsPortEClass, EXPRESSION_AS_PORT__PORT);
+
+		literalReferenceSpecificationEClass = createEClass(LITERAL_REFERENCE_SPECIFICATION);
+		createEAttribute(literalReferenceSpecificationEClass, LITERAL_REFERENCE_SPECIFICATION__EXPECTED);
+		createEReference(literalReferenceSpecificationEClass, LITERAL_REFERENCE_SPECIFICATION__PARENT);
+		createEReference(literalReferenceSpecificationEClass, LITERAL_REFERENCE_SPECIFICATION__ELEMENT);
 
 		// Create enums
 		printeR_FIXEEnum = createEEnum(PRINTER_FIX);
@@ -2008,6 +2330,10 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		literalStringExpressionEClass.getESuperTypes().add(this.getLiteralExpression());
 		literalCollectionExpressionEClass.getESuperTypes().add(this.getLiteralExpression());
 		literalNullExpressionEClass.getESuperTypes().add(this.getLiteralExpression());
+		literalAnyValueExpressionEClass.getESuperTypes().add(this.getLiteralExpression());
+		literalOptionalValueExpressionEClass.getESuperTypes().add(this.getLiteralExpression());
+		literalNoneValueExpressionEClass.getESuperTypes().add(this.getLiteralExpression());
+		literalAnyOrNoneValueExpressionEClass.getESuperTypes().add(this.getLiteralExpression());
 		literalReferenceExpressionEClass.getESuperTypes().add(this.getLiteralExpression());
 		literalReferenceElementEClass.getESuperTypes().add(this.getLiteralReferenceExpression());
 		literalThisExpressionEClass.getESuperTypes().add(this.getLiteralReferenceExpression());
@@ -2051,6 +2377,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		expressionAsChannelEClass.getESuperTypes().add(this.getExpression());
 		expressionAsMachineEClass.getESuperTypes().add(this.getExpression());
 		expressionAsPortEClass.getESuperTypes().add(this.getExpression());
+		literalReferenceSpecificationEClass.getESuperTypes().add(this.getExpression());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(valueExpressionPrettyPrinterEClass, ValueExpressionPrettyPrinter.class, "ValueExpressionPrettyPrinter", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2065,7 +2392,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 
 		initEClass(expressionEClass, Expression.class, "Expression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(literalExpressionEClass, LiteralExpression.class, "LiteralExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(literalExpressionEClass, LiteralExpression.class, "LiteralExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(literalBooleanExpressionEClass, LiteralBooleanExpression.class, "LiteralBooleanExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLiteralBooleanExpression_Value(), ecorePackage.getEBoolean(), "value", null, 1, 1, LiteralBooleanExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2096,11 +2423,23 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		initEClass(literalNullExpressionEClass, LiteralNullExpression.class, "LiteralNullExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLiteralNullExpression_Type(), theDatatypePackage.getPrimitiveInstanceType(), null, "type", null, 0, 1, LiteralNullExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(literalReferenceExpressionEClass, LiteralReferenceExpression.class, "LiteralReferenceExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(literalAnyValueExpressionEClass, LiteralAnyValueExpression.class, "LiteralAnyValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLiteralAnyValueExpression_Type(), theCommonPackage.getType(), null, "type", null, 0, 1, LiteralAnyValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(literalOptionalValueExpressionEClass, LiteralOptionalValueExpression.class, "LiteralOptionalValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLiteralOptionalValueExpression_Type(), theCommonPackage.getType(), null, "type", null, 0, 1, LiteralOptionalValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(literalNoneValueExpressionEClass, LiteralNoneValueExpression.class, "LiteralNoneValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLiteralNoneValueExpression_Type(), theCommonPackage.getType(), null, "type", null, 0, 1, LiteralNoneValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(literalAnyOrNoneValueExpressionEClass, LiteralAnyOrNoneValueExpression.class, "LiteralAnyOrNoneValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLiteralAnyOrNoneValueExpression_Type(), theCommonPackage.getType(), null, "type", null, 0, 1, LiteralAnyOrNoneValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(literalReferenceExpressionEClass, LiteralReferenceExpression.class, "LiteralReferenceExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(literalReferenceElementEClass, LiteralReferenceElement.class, "LiteralReferenceElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLiteralReferenceElement_Kind(), this.getValueElementSpecificationKind(), "kind", "field", 1, 1, LiteralReferenceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getLiteralReferenceElement_Value(), theCommonPackage.getNamedElement(), null, "value", null, 0, 1, LiteralReferenceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLiteralReferenceElement_Element(), theCommonPackage.getNamedElement(), null, "element", null, 0, 1, LiteralReferenceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLiteralReferenceElement_Arg(), this.getExpression(), null, "arg", null, 0, 1, LiteralReferenceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(literalThisExpressionEClass, LiteralThisExpression.class, "LiteralThisExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2125,7 +2464,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		initEClass(leftHandSideExpressionEClass, LeftHandSideExpression.class, "LeftHandSideExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLeftHandSideExpression_Lvalue(), this.getExpression(), null, "lvalue", null, 0, 1, LeftHandSideExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(incrementOrDecrementExpressionEClass, IncrementOrDecrementExpression.class, "IncrementOrDecrementExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(incrementOrDecrementExpressionEClass, IncrementOrDecrementExpression.class, "IncrementOrDecrementExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIncrementOrDecrementExpression_Operator(), ecorePackage.getEString(), "operator", null, 1, 1, IncrementOrDecrementExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIncrementOrDecrementExpression_LeftHandSide(), this.getLeftHandSideExpression(), null, "leftHandSide", null, 1, 1, IncrementOrDecrementExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2136,7 +2475,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		initEClass(assignmentExpressionEClass, AssignmentExpression.class, "AssignmentExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAssignmentExpression_Operator(), ecorePackage.getEString(), "operator", null, 1, 1, AssignmentExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAssignmentExpression_LeftHandSide(), this.getLeftHandSideExpression(), null, "leftHandSide", null, 1, 1, AssignmentExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAssignmentExpression_RigthHandSide(), this.getExpression(), null, "rigthHandSide", null, 1, 1, AssignmentExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAssignmentExpression_RightHandSide(), this.getExpression(), null, "rightHandSide", null, 1, 1, AssignmentExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(newfreshExpressionEClass, NewfreshExpression.class, "NewfreshExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNewfreshExpression_LeftHandSide(), this.getLeftHandSideExpression(), null, "leftHandSide", null, 1, 1, NewfreshExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2157,7 +2496,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		initEClass(binaryExpressionEClass, BinaryExpression.class, "BinaryExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBinaryExpression_Operator(), ecorePackage.getEString(), "operator", null, 1, 1, BinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBinaryExpression_LeftOperand(), this.getExpression(), null, "leftOperand", null, 1, 1, BinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBinaryExpression_RigthOperand(), this.getExpression(), null, "rigthOperand", null, 1, 1, BinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBinaryExpression_RightOperand(), this.getExpression(), null, "rightOperand", null, 1, 1, BinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(equalityBinaryExpressionEClass, EqualityBinaryExpression.class, "EqualityBinaryExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2165,13 +2504,14 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 
 		initEClass(relationalTernaryExpressionEClass, RelationalTernaryExpression.class, "RelationalTernaryExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRelationalTernaryExpression_LeftRelation(), this.getRelationalBinaryExpression(), null, "leftRelation", null, 1, 1, RelationalTernaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRelationalTernaryExpression_RigthOperator(), ecorePackage.getEString(), "rigthOperator", null, 1, 1, RelationalTernaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRelationalTernaryExpression_RigthOperand(), this.getExpression(), null, "rigthOperand", null, 1, 1, RelationalTernaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRelationalTernaryExpression_RightOperator(), ecorePackage.getEString(), "rightOperator", null, 1, 1, RelationalTernaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRelationalTernaryExpression_RightOperand(), this.getExpression(), null, "rightOperand", null, 1, 1, RelationalTernaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(conditionalTestExpressionEClass, ConditionalTestExpression.class, "ConditionalTestExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getConditionalTestExpression_Operator(), ecorePackage.getEString(), "operator", null, 1, 1, ConditionalTestExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConditionalTestExpression_Condition(), this.getExpression(), null, "condition", null, 1, 1, ConditionalTestExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConditionalTestExpression_Operator(), ecorePackage.getEString(), "operator", null, 1, 1, ConditionalTestExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConditionalTestExpression_ThenOperand(), this.getExpression(), null, "thenOperand", null, 1, 1, ConditionalTestExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConditionalTestExpression_ElseSeparator(), ecorePackage.getEString(), "elseSeparator", null, 1, 1, ConditionalTestExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConditionalTestExpression_ElseOperand(), this.getExpression(), null, "elseOperand", null, 1, 1, ConditionalTestExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(associativeExpressionEClass, AssociativeExpression.class, "AssociativeExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2191,7 +2531,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 
 		initEClass(invokeExpressionEClass, InvokeExpression.class, "InvokeExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getInvokeExpression_CallProcedure(), ecorePackage.getEBoolean(), "callProcedure", "false", 1, 1, InvokeExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getInvokeExpression_Invoke(), this.getExpression(), null, "invoke", null, 0, 1, InvokeExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInvokeExpression_Invokable(), this.getExpression(), null, "invokable", null, 0, 1, InvokeExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInvokeExpression_Args(), this.getExpression(), null, "args", null, 0, -1, InvokeExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInvokeExpression_Rets(), this.getExpression(), null, "rets", null, 0, -1, InvokeExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2233,6 +2573,11 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		initEClass(expressionAsPortEClass, ExpressionAsPort.class, "ExpressionAsPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpressionAsPort_Port(), this.getExpression(), null, "port", null, 1, 1, ExpressionAsPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(literalReferenceSpecificationEClass, LiteralReferenceSpecification.class, "LiteralReferenceSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLiteralReferenceSpecification_Expected(), this.getValueElementSpecificationScheme(), "expected", "any", 1, 1, LiteralReferenceSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLiteralReferenceSpecification_Parent(), this.getLiteralReferenceExpression(), null, "parent", null, 0, -1, LiteralReferenceSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLiteralReferenceSpecification_Element(), this.getLiteralReferenceExpression(), null, "element", null, 0, 1, LiteralReferenceSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(printeR_FIXEEnum, org.eclipse.efm.ecore.formalml.expression.PRINTER_FIX.class, "PRINTER_FIX");
 		addEEnumLiteral(printeR_FIXEEnum, org.eclipse.efm.ecore.formalml.expression.PRINTER_FIX.INFIX);
@@ -2250,6 +2595,7 @@ public class ExpressionPackageImpl extends EPackageImpl implements ExpressionPac
 		initEEnum(valueElementSpecificationSchemeEEnum, ValueElementSpecificationScheme.class, "ValueElementSpecificationScheme");
 		addEEnumLiteral(valueElementSpecificationSchemeEEnum, ValueElementSpecificationScheme.ANY);
 		addEEnumLiteral(valueElementSpecificationSchemeEEnum, ValueElementSpecificationScheme.VARIABLE);
+		addEEnumLiteral(valueElementSpecificationSchemeEEnum, ValueElementSpecificationScheme.CONSTANT);
 		addEEnumLiteral(valueElementSpecificationSchemeEEnum, ValueElementSpecificationScheme.TYPEDEF);
 		addEEnumLiteral(valueElementSpecificationSchemeEEnum, ValueElementSpecificationScheme.MESSAGE);
 		addEEnumLiteral(valueElementSpecificationSchemeEEnum, ValueElementSpecificationScheme.SIGNAL);

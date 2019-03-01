@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceElementImpl#getKind <em>Kind</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceElementImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceElementImpl#getElement <em>Element</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceElementImpl#getArg <em>Arg</em>}</li>
  * </ul>
  *
@@ -64,14 +64,14 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 	protected ValueElementSpecificationKind kind = KIND_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' reference.
+	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValue()
+	 * @see #getElement()
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedElement value;
+	protected NamedElement element;
 
 	/**
 	 * The cached value of the '{@link #getArg() <em>Arg</em>}' containment reference.
@@ -107,6 +107,7 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ValueElementSpecificationKind getKind() {
 		return kind;
 	}
@@ -116,6 +117,7 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(ValueElementSpecificationKind newKind) {
 		ValueElementSpecificationKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -128,16 +130,17 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedElement getValue() {
-		if (value != null && value.eIsProxy()) {
-			InternalEObject oldValue = (InternalEObject)value;
-			value = (NamedElement)eResolveProxy(oldValue);
-			if (value != oldValue) {
+	@Override
+	public NamedElement getElement() {
+		if (element != null && element.eIsProxy()) {
+			InternalEObject oldElement = (InternalEObject)element;
+			element = (NamedElement)eResolveProxy(oldElement);
+			if (element != oldElement) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ExpressionPackage.LITERAL_REFERENCE_ELEMENT__VALUE, oldValue, value));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ELEMENT, oldElement, element));
 			}
 		}
-		return value;
+		return element;
 	}
 
 	/**
@@ -145,8 +148,8 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedElement basicGetValue() {
-		return value;
+	public NamedElement basicGetElement() {
+		return element;
 	}
 
 	/**
@@ -154,11 +157,12 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValue(NamedElement newValue) {
-		NamedElement oldValue = value;
-		value = newValue;
+	@Override
+	public void setElement(NamedElement newElement) {
+		NamedElement oldElement = element;
+		element = newElement;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.LITERAL_REFERENCE_ELEMENT__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ELEMENT, oldElement, element));
 	}
 
 	/**
@@ -166,6 +170,7 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getArg() {
 		return arg;
 	}
@@ -190,6 +195,7 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setArg(Expression newArg) {
 		if (newArg != arg) {
 			NotificationChain msgs = null;
@@ -228,9 +234,9 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 		switch (featureID) {
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__KIND:
 				return getKind();
-			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__VALUE:
-				if (resolve) return getValue();
-				return basicGetValue();
+			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ELEMENT:
+				if (resolve) return getElement();
+				return basicGetElement();
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ARG:
 				return getArg();
 		}
@@ -248,8 +254,8 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__KIND:
 				setKind((ValueElementSpecificationKind)newValue);
 				return;
-			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__VALUE:
-				setValue((NamedElement)newValue);
+			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ELEMENT:
+				setElement((NamedElement)newValue);
 				return;
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ARG:
 				setArg((Expression)newValue);
@@ -269,8 +275,8 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__KIND:
 				setKind(KIND_EDEFAULT);
 				return;
-			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__VALUE:
-				setValue((NamedElement)null);
+			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ELEMENT:
+				setElement((NamedElement)null);
 				return;
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ARG:
 				setArg((Expression)null);
@@ -289,8 +295,8 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 		switch (featureID) {
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__KIND:
 				return kind != KIND_EDEFAULT;
-			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__VALUE:
-				return value != null;
+			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ELEMENT:
+				return element != null;
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT__ARG:
 				return arg != null;
 		}
@@ -306,7 +312,7 @@ public class LiteralReferenceElementImpl extends LiteralReferenceExpressionImpl 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (kind: ");
 		result.append(kind);
 		result.append(')');

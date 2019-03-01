@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -106,6 +106,7 @@ public class NamedExpressionImpl extends ExpressionImpl implements NamedExpressi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedElement getTarget() {
 		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
@@ -132,6 +133,7 @@ public class NamedExpressionImpl extends ExpressionImpl implements NamedExpressi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(NamedElement newTarget) {
 		NamedElement oldTarget = target;
 		target = newTarget;
@@ -144,6 +146,7 @@ public class NamedExpressionImpl extends ExpressionImpl implements NamedExpressi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -153,6 +156,7 @@ public class NamedExpressionImpl extends ExpressionImpl implements NamedExpressi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -165,6 +169,7 @@ public class NamedExpressionImpl extends ExpressionImpl implements NamedExpressi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getExpression() {
 		return expression;
 	}
@@ -189,6 +194,7 @@ public class NamedExpressionImpl extends ExpressionImpl implements NamedExpressi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExpression(Expression newExpression) {
 		if (newExpression != expression) {
 			NotificationChain msgs = null;
@@ -305,7 +311,7 @@ public class NamedExpressionImpl extends ExpressionImpl implements NamedExpressi
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(')');

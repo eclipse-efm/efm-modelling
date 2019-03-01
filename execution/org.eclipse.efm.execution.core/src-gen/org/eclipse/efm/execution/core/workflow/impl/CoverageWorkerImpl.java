@@ -233,6 +233,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSpecification getTrace() {
 		return trace;
 	}
@@ -257,6 +258,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTrace(TraceSpecification newTrace) {
 		if (newTrace != trace) {
 			NotificationChain msgs = null;
@@ -276,6 +278,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isNormalizationEnabled() {
 		return normalizationEnabled;
 	}
@@ -285,6 +288,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNormalizationEnabled(boolean newNormalizationEnabled) {
 		boolean oldNormalizationEnabled = normalizationEnabled;
 		normalizationEnabled = newNormalizationEnabled;
@@ -297,6 +301,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isMinimizationEnabled() {
 		return minimizationEnabled;
 	}
@@ -306,6 +311,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMinimizationEnabled(boolean newMinimizationEnabled) {
 		boolean oldMinimizationEnabled = minimizationEnabled;
 		minimizationEnabled = newMinimizationEnabled;
@@ -318,6 +324,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isStopWhenComplete() {
 		return stopWhenComplete;
 	}
@@ -327,6 +334,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStopWhenComplete(boolean newStopWhenComplete) {
 		boolean oldStopWhenComplete = stopWhenComplete;
 		stopWhenComplete = newStopWhenComplete;
@@ -339,6 +347,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isBreakEnabled() {
 		return breakEnabled;
 	}
@@ -348,6 +357,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBreakEnabled(boolean newBreakEnabled) {
 		boolean oldBreakEnabled = breakEnabled;
 		breakEnabled = newBreakEnabled;
@@ -360,6 +370,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSliceWhenComplete() {
 		return sliceWhenComplete;
 	}
@@ -369,6 +380,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSliceWhenComplete(boolean newSliceWhenComplete) {
 		boolean oldSliceWhenComplete = sliceWhenComplete;
 		sliceWhenComplete = newSliceWhenComplete;
@@ -381,6 +393,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHeuristicEnabled() {
 		return heuristicEnabled;
 	}
@@ -390,6 +403,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHeuristicEnabled(boolean newHeuristicEnabled) {
 		boolean oldHeuristicEnabled = heuristicEnabled;
 		heuristicEnabled = newHeuristicEnabled;
@@ -402,6 +416,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CoverageScopeKind getScope() {
 		return scope;
 	}
@@ -411,6 +426,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setScope(CoverageScopeKind newScope) {
 		CoverageScopeKind oldScope = scope;
 		scope = newScope == null ? SCOPE_EDEFAULT : newScope;
@@ -423,6 +439,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CoverageHeuristic getHeuristicConfig() {
 		return heuristicConfig;
 	}
@@ -447,6 +464,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHeuristicConfig(CoverageHeuristic newHeuristicConfig) {
 		if (newHeuristicConfig != heuristicConfig) {
 			NotificationChain msgs = null;
@@ -624,7 +642,7 @@ public abstract class CoverageWorkerImpl extends WorkerImpl implements CoverageW
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (normalizationEnabled: ");
 		result.append(normalizationEnabled);
 		result.append(", minimizationEnabled: ");

@@ -369,6 +369,13 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	// INFERENCE WORKER: CONFIGURATION a.k.a. OUTPUT FILE LOCATION
 	////////////////////////////////////////////////////////////////////////////
 
+	public static final String ATTR_INFERENCE_ANALYSIS_ELEMENT_NAME_LIST =
+			PLUGIN_LAUNCH_ID + ".ATTR_INFERENCE_ANALYSIS_ELEMENT_NAME_LIST"; //$NON-NLS-1$
+
+	public static final String ATTR_INFERENCE_SELECTION_HOJ_JUMP_HEIGHT =
+			PLUGIN_LAUNCH_ID + ".ATTR_INFERENCE_SELECTION_HOJ_JUMP_HEIGHT"; //$NON-NLS-1$
+
+
 	public static final String ATTR_INFERENCE_OUTPUT_FILE_NAME =
 			PLUGIN_LAUNCH_ID + ".ATTR_INFERENCE_OUTPUT_FILE_NAME"; //$NON-NLS-1$
 
@@ -499,38 +506,38 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			= Arrays.asList(
 //					%1% --> string message
 //					%2% --> execution context identifier
-					"step#header = \"step %1% --> %2%\\n\"",
-					"comment = \"\\t// %1%\\n\"",
+					"step#header = step %1% --> %2%\\n",
+					"comment = \\t// %1%\\n",
 //					%1% --> condition,
-					"path#condition = \"\\tPC: %1%\\n\"",
-					"path#timed#condition = \"\\tPtC: %1%\\n\"",
-					"node#condition = \"\\tNC: %1%\\n\"",
-					"node#timed#condition = \"\\tNtC: %1%\\n\"",
+					"path#condition = \\tPC: %1%\\n",
+					"path#timed#condition = \\tPtC: %1%\\n",
+					"node#condition = \\tNC: %1%\\n",
+					"node#timed#condition = \\tNtC: %1%\\n",
 //					%1% --> machine runtime pid
 //					%2% --> machine identifier name
 //					%3% --> port | signal | variable | machine | transition | routine
 //					%4% --> value
 //					%5% --> machine target identifier name
-					"time       = \"\\tdelta = %4%\\n\"",
-//					"assign     = \"\\t2%:%3%=%4%\\n\"",
-					"assign     = \"\\t%3%=%4%\\n\"",
-					"newfresh   = \"\\tnewfresh(%2%:%3%) <- %4%\\n\"",
+					"time       = \\tdelta = %4%\\n",
+//					"assign     = \\t2%:%3%=%4%\\n",
+					"assign     = \\t%3%=%4%\\n",
+					"newfresh   = \\tnewfresh(%2%:%3%) <- %4%\\n",
 
-					"input#env  = \"\\tINPUT  %2%:%3%%4%\\n\"",
-					"input#rdv  = \"\\tinput  %2%:%3%%4%\\n\"",
-					"input      = \"\\tinput  %2%:%3%%4%\\n\"",
-//					"input      = \"\\t%2%->%3% ? %4%\\n\"",
-					"output#env = \"\\tOUTPUT %2%:%3%%4%\\n\"",
-					"output#rdv = \"\\toutput %2%:%3%%4%\\n\"",
-					"output     = \"\\toutput %2%:%3%%4%\\n\"",
+					"input#env  = \\tINPUT  %2%:%3%%4%\\n",
+					"input#rdv  = \\tinput  %2%:%3%%4%\\n",
+					"input      = \\tinput  %2%:%3%%4%\\n",
+//					"input      = \\t%2%->%3% ? %4%\\n",
+					"output#env = \\tOUTPUT %2%:%3%%4%\\n",
+					"output#rdv = \\toutput %2%:%3%%4%\\n",
+					"output     = \\toutput %2%:%3%%4%\\n",
 
-					"routine    = \"\\tinvoke %2%:%3%\\n\"",
-					"transition = \"\\tfired transition %2%:%3%\\n\"",
+					"routine    = \\tinvoke %2%:%3%\\n",
+					"transition = \\tfired %2%:%3%\\n",
 
-					"machine    = \"\\trun %2%:%3%\\n\"",
+					"machine    = \\trun %2%:%3%\\n",
 
 					"value#parameter#begin = \"(\"",
-					"value#parameter#separator = \",\"",
+					"value#parameter#separator = \" , \"",
 					"value#parameter#end = \")\""
 			);
 
@@ -754,45 +761,72 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 
 	public static final List<String> DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC
 			= Arrays.asList(
+					// %1% --> node#id
+					// %2% --> node#label
+					// %3% --> node#css
+					// %4% --> node#data
+					// %5% --> node#info
+					// %6% --> node#trace#run
+					// %7% --> node#trace#io
+					"node = \\nEC%1% [%2%%3%\\n]",
+//					"node#context = \\nEC%1% [%2%%3%\\n]%4%",
+					// %1% --> node#id
+					// %2% --> node#header
+					// %3% --> node#data
+					// %4% --> node#info
+					// %5% --> node#trace#run
+					// %6% --> node#trace#io
+					"node#label = \\n\\tlabel=\"%2%%3%%4%\"",
+//					"node#label = \\n\\tlabel=%2%%4%",
 					// %1% --> ec#id
 					// %2% --> ec#eval
 					// %3% --> ec#hight
 					// %4% --> ec#width
 					// %5% --> ec#weight
 					// %6% --> statemachine configuration i.e. lifelines state identifier
-					"node#header = \"EC#%1%<Ev:%2% , H:%3%>\\n%6%\"",
+					"node#header = EC#%1%<Ev:%2% , H:%3%>\\n%6%",
+					 // %1% --> ec#id
+					 // %2% --> ec#assign
+					 // %3% --> ec#path#condition
+					 // %4% --> ec#path#timed#condition
+					 // %5% --> ec#node#condition
+					 // %6% --> ec#node#timed#condition
+					 // %7% --> ec#node#buffer
+					"node#data = \\n\\n%3%%4%%5%%6%%2%%7%",
+//					"node#data = \\nEC%1% -> ED%1%\\nED%1% "
+//					+ "[\\n\\tlabel=\"%3%%4%%5%%6%%2%%7%\"\\n\\tshape=box\\n]",
 					// %1% --> lifeline runtime pid
 					// %2% --> lifeline identifier
 					// %3% --> state runtime pid
 					// %3% --> state identifier
-					"lifeline#state = \"%2%:%4%\"",
+					"lifeline#state = %2%:%4%",
 					// %1% --> condition
-					"path#condition = \"PC: %1%\"",
-					"path#timed#condition = \"PtC: %1%\"",
-					"node#condition = \"NC: %1%\"",
-					"node#timed#condition = \"NtC: %1%\"",
+					"path#condition = PC: %1%",
+					"path#timed#condition = PtC: %1%",
+					"node#condition = NC: %1%",
+					"node#timed#condition = NtC: %1%",
 					// %1% --> machine runtime pid
 					// %2% --> machine identifier name
 					// %3% --> port | signal | variable | machine | transition | routine
 					// %4% --> value
-//					 "assign     = \"%2%:%3%=%4%\"",
-					"assign     = \"%3%=%4%\"",
-					"newfresh   = \"newfresh(%2%:%3%) <- %4%\"",
+//					 "assign     = %2%:%3%=%4%",
+					"assign     = %3%=%4%",
+					"newfresh   = newfresh(%2%:%3%) <- %4%",
 
-					"input#env  = \"INPUT %2%:%3%%4%\"",
-					"input#rdv  = \"input %2%:%3%%4%\"",
-					"input      = \"input %2%:%3%%4%\"",
-//					"input      = \"%1%->%3% ? %4%\"",
+					"input#env  = INPUT %2%:%3%%4%",
+					"input#rdv  = input %2%:%3%%4%",
+					"input      = input %2%:%3%%4%",
+//					"input      = %1%->%3% ? %4%",
 
-					"output#env = \"OUTPUT %2%:%3%%4%\"",
-					"output#rdv = \"output %2%:%3%%4%\"",
-					"output     = \"output %2%:%3%%4%\"",
-//					"output     = \"%1%->%3% ? %4%\"",
+					"output#env = OUTPUT %2%:%3%%4%",
+					"output#rdv = output %2%:%3%%4%",
+					"output     = output %2%:%3%%4%",
+//					"output     = %1%->%3% ? %4%",
 
-					"routine    = \"invoke %2%:%3%\"",
-					"transition = \"fired transition %3%\"",
+					"routine    = invoke %2%:%3%",
+					"transition = fired %2%.%3%",
 
-					"machine    = \"run %2%:%3%\""
+					"machine    = run %2%:%3%"
 			);
 
 	public static final String ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_CSS_SPEC =

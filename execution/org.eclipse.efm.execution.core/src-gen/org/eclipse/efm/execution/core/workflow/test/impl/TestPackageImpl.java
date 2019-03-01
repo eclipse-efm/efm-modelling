@@ -85,7 +85,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link TestPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -99,16 +99,22 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 		if (isInited) return (TestPackage)EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI);
 
 		// Obtain or create and register package
-		TestPackageImpl theTestPackage = (TestPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof TestPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new TestPackageImpl());
+		Object registeredTestPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		TestPackageImpl theTestPackage = registeredTestPackage instanceof TestPackageImpl ? (TestPackageImpl)registeredTestPackage : new TestPackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) instanceof WorkflowPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) : WorkflowPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) instanceof CoveragePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) : CoveragePackage.eINSTANCE);
-		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) instanceof ExtraneousPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) : ExtraneousPackage.eINSTANCE);
-		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) instanceof SerializerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) : SerializerPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI);
+		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(registeredPackage instanceof WorkflowPackageImpl ? registeredPackage : WorkflowPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI);
+		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(registeredPackage instanceof CoveragePackageImpl ? registeredPackage : CoveragePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI);
+		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(registeredPackage instanceof ExtraneousPackageImpl ? registeredPackage : ExtraneousPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI);
+		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(registeredPackage instanceof SerializerPackageImpl ? registeredPackage : SerializerPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theTestPackage.createPackageContents();
@@ -129,7 +135,6 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 		// Mark meta-data to indicate it can't be changed
 		theTestPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(TestPackage.eNS_URI, theTestPackage);
 		return theTestPackage;
@@ -140,6 +145,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOfflineTestWorker() {
 		return offlineTestWorkerEClass;
 	}
@@ -149,6 +155,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOfflineTestWorker_MergedTraceFile() {
 		return (EAttribute)offlineTestWorkerEClass.getEStructuralFeatures().get(0);
 	}
@@ -158,6 +165,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOfflineTestWorker_TestPurposeFile() {
 		return (EAttribute)offlineTestWorkerEClass.getEStructuralFeatures().get(1);
 	}
@@ -167,6 +175,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOfflineTestWorker_Observable() {
 		return (EReference)offlineTestWorkerEClass.getEStructuralFeatures().get(2);
 	}
@@ -176,6 +185,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOfflineTestWorker_Controllable() {
 		return (EReference)offlineTestWorkerEClass.getEStructuralFeatures().get(3);
 	}
@@ -185,6 +195,7 @@ public class TestPackageImpl extends EPackageImpl implements TestPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TestFactory getTestFactory() {
 		return (TestFactory)getEFactoryInstance();
 	}

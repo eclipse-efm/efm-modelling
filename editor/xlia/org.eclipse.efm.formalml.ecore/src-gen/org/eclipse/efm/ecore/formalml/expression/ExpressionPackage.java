@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -587,6 +587,154 @@ public interface ExpressionPackage extends EPackage {
 	int LITERAL_NULL_EXPRESSION_OPERATION_COUNT = LITERAL_EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralAnyValueExpressionImpl <em>Literal Any Value Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralAnyValueExpressionImpl
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralAnyValueExpression()
+	 * @generated
+	 */
+	int LITERAL_ANY_VALUE_EXPRESSION = 13;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_ANY_VALUE_EXPRESSION__TYPE = LITERAL_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Literal Any Value Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_ANY_VALUE_EXPRESSION_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Literal Any Value Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_ANY_VALUE_EXPRESSION_OPERATION_COUNT = LITERAL_EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralOptionalValueExpressionImpl <em>Literal Optional Value Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralOptionalValueExpressionImpl
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralOptionalValueExpression()
+	 * @generated
+	 */
+	int LITERAL_OPTIONAL_VALUE_EXPRESSION = 14;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_OPTIONAL_VALUE_EXPRESSION__TYPE = LITERAL_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Literal Optional Value Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_OPTIONAL_VALUE_EXPRESSION_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Literal Optional Value Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_OPTIONAL_VALUE_EXPRESSION_OPERATION_COUNT = LITERAL_EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralNoneValueExpressionImpl <em>Literal None Value Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralNoneValueExpressionImpl
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralNoneValueExpression()
+	 * @generated
+	 */
+	int LITERAL_NONE_VALUE_EXPRESSION = 15;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_NONE_VALUE_EXPRESSION__TYPE = LITERAL_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Literal None Value Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_NONE_VALUE_EXPRESSION_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Literal None Value Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_NONE_VALUE_EXPRESSION_OPERATION_COUNT = LITERAL_EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralAnyOrNoneValueExpressionImpl <em>Literal Any Or None Value Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralAnyOrNoneValueExpressionImpl
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralAnyOrNoneValueExpression()
+	 * @generated
+	 */
+	int LITERAL_ANY_OR_NONE_VALUE_EXPRESSION = 16;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_ANY_OR_NONE_VALUE_EXPRESSION__TYPE = LITERAL_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Literal Any Or None Value Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_ANY_OR_NONE_VALUE_EXPRESSION_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Literal Any Or None Value Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_ANY_OR_NONE_VALUE_EXPRESSION_OPERATION_COUNT = LITERAL_EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceExpressionImpl <em>Literal Reference Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -594,7 +742,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralReferenceExpression()
 	 * @generated
 	 */
-	int LITERAL_REFERENCE_EXPRESSION = 13;
+	int LITERAL_REFERENCE_EXPRESSION = 17;
 
 	/**
 	 * The number of structural features of the '<em>Literal Reference Expression</em>' class.
@@ -622,7 +770,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralReferenceElement()
 	 * @generated
 	 */
-	int LITERAL_REFERENCE_ELEMENT = 14;
+	int LITERAL_REFERENCE_ELEMENT = 18;
 
 	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -634,13 +782,13 @@ public interface ExpressionPackage extends EPackage {
 	int LITERAL_REFERENCE_ELEMENT__KIND = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' reference.
+	 * The feature id for the '<em><b>Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LITERAL_REFERENCE_ELEMENT__VALUE = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 1;
+	int LITERAL_REFERENCE_ELEMENT__ELEMENT = LITERAL_REFERENCE_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Arg</b></em>' containment reference.
@@ -677,7 +825,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralThisExpression()
 	 * @generated
 	 */
-	int LITERAL_THIS_EXPRESSION = 15;
+	int LITERAL_THIS_EXPRESSION = 19;
 
 	/**
 	 * The number of structural features of the '<em>Literal This Expression</em>' class.
@@ -705,7 +853,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralSelfExpression()
 	 * @generated
 	 */
-	int LITERAL_SELF_EXPRESSION = 16;
+	int LITERAL_SELF_EXPRESSION = 20;
 
 	/**
 	 * The feature id for the '<em><b>Model</b></em>' reference.
@@ -742,7 +890,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralParentExpression()
 	 * @generated
 	 */
-	int LITERAL_PARENT_EXPRESSION = 17;
+	int LITERAL_PARENT_EXPRESSION = 21;
 
 	/**
 	 * The feature id for the '<em><b>Model</b></em>' reference.
@@ -779,7 +927,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralSuperExpression()
 	 * @generated
 	 */
-	int LITERAL_SUPER_EXPRESSION = 18;
+	int LITERAL_SUPER_EXPRESSION = 22;
 
 	/**
 	 * The feature id for the '<em><b>Model</b></em>' reference.
@@ -816,7 +964,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralSystemExpression()
 	 * @generated
 	 */
-	int LITERAL_SYSTEM_EXPRESSION = 19;
+	int LITERAL_SYSTEM_EXPRESSION = 23;
 
 	/**
 	 * The number of structural features of the '<em>Literal System Expression</em>' class.
@@ -844,7 +992,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralEnvExpression()
 	 * @generated
 	 */
-	int LITERAL_ENV_EXPRESSION = 20;
+	int LITERAL_ENV_EXPRESSION = 24;
 
 	/**
 	 * The number of structural features of the '<em>Literal Env Expression</em>' class.
@@ -872,7 +1020,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralTimeExpression()
 	 * @generated
 	 */
-	int LITERAL_TIME_EXPRESSION = 21;
+	int LITERAL_TIME_EXPRESSION = 25;
 
 	/**
 	 * The number of structural features of the '<em>Literal Time Expression</em>' class.
@@ -900,7 +1048,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralTimeDeltaExpression()
 	 * @generated
 	 */
-	int LITERAL_TIME_DELTA_EXPRESSION = 22;
+	int LITERAL_TIME_DELTA_EXPRESSION = 26;
 
 	/**
 	 * The number of structural features of the '<em>Literal Time Delta Expression</em>' class.
@@ -928,7 +1076,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLeftHandSideExpression()
 	 * @generated
 	 */
-	int LEFT_HAND_SIDE_EXPRESSION = 23;
+	int LEFT_HAND_SIDE_EXPRESSION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Lvalue</b></em>' containment reference.
@@ -965,7 +1113,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getIncrementOrDecrementExpression()
 	 * @generated
 	 */
-	int INCREMENT_OR_DECREMENT_EXPRESSION = 24;
+	int INCREMENT_OR_DECREMENT_EXPRESSION = 28;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1011,7 +1159,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getIncrementOrDecrementPrefixExpression()
 	 * @generated
 	 */
-	int INCREMENT_OR_DECREMENT_PREFIX_EXPRESSION = 25;
+	int INCREMENT_OR_DECREMENT_PREFIX_EXPRESSION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1057,7 +1205,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getIncrementOrDecrementPostfixExpression()
 	 * @generated
 	 */
-	int INCREMENT_OR_DECREMENT_POSTFIX_EXPRESSION = 26;
+	int INCREMENT_OR_DECREMENT_POSTFIX_EXPRESSION = 30;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1103,7 +1251,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getAssignmentExpression()
 	 * @generated
 	 */
-	int ASSIGNMENT_EXPRESSION = 27;
+	int ASSIGNMENT_EXPRESSION = 31;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1124,13 +1272,13 @@ public interface ExpressionPackage extends EPackage {
 	int ASSIGNMENT_EXPRESSION__LEFT_HAND_SIDE = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Rigth Hand Side</b></em>' containment reference.
+	 * The feature id for the '<em><b>Right Hand Side</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE = EXPRESSION_FEATURE_COUNT + 2;
+	int ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Assignment Expression</em>' class.
@@ -1158,7 +1306,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getNewfreshExpression()
 	 * @generated
 	 */
-	int NEWFRESH_EXPRESSION = 28;
+	int NEWFRESH_EXPRESSION = 32;
 
 	/**
 	 * The feature id for the '<em><b>Left Hand Side</b></em>' containment reference.
@@ -1195,7 +1343,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getUnaryExpression()
 	 * @generated
 	 */
-	int UNARY_EXPRESSION = 29;
+	int UNARY_EXPRESSION = 33;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1241,7 +1389,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getBitwiseUnaryExpression()
 	 * @generated
 	 */
-	int BITWISE_UNARY_EXPRESSION = 30;
+	int BITWISE_UNARY_EXPRESSION = 34;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1287,7 +1435,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLogicalUnaryExpression()
 	 * @generated
 	 */
-	int LOGICAL_UNARY_EXPRESSION = 31;
+	int LOGICAL_UNARY_EXPRESSION = 35;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1333,7 +1481,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getCastExpression()
 	 * @generated
 	 */
-	int CAST_EXPRESSION = 32;
+	int CAST_EXPRESSION = 36;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1388,7 +1536,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getArithmeticUnaryExpression()
 	 * @generated
 	 */
-	int ARITHMETIC_UNARY_EXPRESSION = 33;
+	int ARITHMETIC_UNARY_EXPRESSION = 37;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1434,7 +1582,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getBinaryExpression()
 	 * @generated
 	 */
-	int BINARY_EXPRESSION = 34;
+	int BINARY_EXPRESSION = 38;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1455,13 +1603,13 @@ public interface ExpressionPackage extends EPackage {
 	int BINARY_EXPRESSION__LEFT_OPERAND = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Rigth Operand</b></em>' containment reference.
+	 * The feature id for the '<em><b>Right Operand</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINARY_EXPRESSION__RIGTH_OPERAND = EXPRESSION_FEATURE_COUNT + 2;
+	int BINARY_EXPRESSION__RIGHT_OPERAND = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Binary Expression</em>' class.
@@ -1489,7 +1637,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getEqualityBinaryExpression()
 	 * @generated
 	 */
-	int EQUALITY_BINARY_EXPRESSION = 35;
+	int EQUALITY_BINARY_EXPRESSION = 39;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1510,13 +1658,13 @@ public interface ExpressionPackage extends EPackage {
 	int EQUALITY_BINARY_EXPRESSION__LEFT_OPERAND = BINARY_EXPRESSION__LEFT_OPERAND;
 
 	/**
-	 * The feature id for the '<em><b>Rigth Operand</b></em>' containment reference.
+	 * The feature id for the '<em><b>Right Operand</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EQUALITY_BINARY_EXPRESSION__RIGTH_OPERAND = BINARY_EXPRESSION__RIGTH_OPERAND;
+	int EQUALITY_BINARY_EXPRESSION__RIGHT_OPERAND = BINARY_EXPRESSION__RIGHT_OPERAND;
 
 	/**
 	 * The number of structural features of the '<em>Equality Binary Expression</em>' class.
@@ -1544,7 +1692,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getRelationalBinaryExpression()
 	 * @generated
 	 */
-	int RELATIONAL_BINARY_EXPRESSION = 36;
+	int RELATIONAL_BINARY_EXPRESSION = 40;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1565,13 +1713,13 @@ public interface ExpressionPackage extends EPackage {
 	int RELATIONAL_BINARY_EXPRESSION__LEFT_OPERAND = BINARY_EXPRESSION__LEFT_OPERAND;
 
 	/**
-	 * The feature id for the '<em><b>Rigth Operand</b></em>' containment reference.
+	 * The feature id for the '<em><b>Right Operand</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RELATIONAL_BINARY_EXPRESSION__RIGTH_OPERAND = BINARY_EXPRESSION__RIGTH_OPERAND;
+	int RELATIONAL_BINARY_EXPRESSION__RIGHT_OPERAND = BINARY_EXPRESSION__RIGHT_OPERAND;
 
 	/**
 	 * The number of structural features of the '<em>Relational Binary Expression</em>' class.
@@ -1599,7 +1747,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getRelationalTernaryExpression()
 	 * @generated
 	 */
-	int RELATIONAL_TERNARY_EXPRESSION = 37;
+	int RELATIONAL_TERNARY_EXPRESSION = 41;
 
 	/**
 	 * The feature id for the '<em><b>Left Relation</b></em>' containment reference.
@@ -1611,22 +1759,22 @@ public interface ExpressionPackage extends EPackage {
 	int RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Rigth Operator</b></em>' attribute.
+	 * The feature id for the '<em><b>Right Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR = EXPRESSION_FEATURE_COUNT + 1;
+	int RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Rigth Operand</b></em>' containment reference.
+	 * The feature id for the '<em><b>Right Operand</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND = EXPRESSION_FEATURE_COUNT + 2;
+	int RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Relational Ternary Expression</em>' class.
@@ -1654,16 +1802,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getConditionalTestExpression()
 	 * @generated
 	 */
-	int CONDITIONAL_TEST_EXPRESSION = 38;
-
-	/**
-	 * The feature id for the '<em><b>Operator</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONDITIONAL_TEST_EXPRESSION__OPERATOR = EXPRESSION_FEATURE_COUNT + 0;
+	int CONDITIONAL_TEST_EXPRESSION = 42;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1672,7 +1811,16 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITIONAL_TEST_EXPRESSION__CONDITION = EXPRESSION_FEATURE_COUNT + 1;
+	int CONDITIONAL_TEST_EXPRESSION__CONDITION = EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITIONAL_TEST_EXPRESSION__OPERATOR = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Then Operand</b></em>' containment reference.
@@ -1684,13 +1832,22 @@ public interface ExpressionPackage extends EPackage {
 	int CONDITIONAL_TEST_EXPRESSION__THEN_OPERAND = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Else Separator</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR = EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
 	 * The feature id for the '<em><b>Else Operand</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITIONAL_TEST_EXPRESSION__ELSE_OPERAND = EXPRESSION_FEATURE_COUNT + 3;
+	int CONDITIONAL_TEST_EXPRESSION__ELSE_OPERAND = EXPRESSION_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Conditional Test Expression</em>' class.
@@ -1699,7 +1856,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITIONAL_TEST_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 4;
+	int CONDITIONAL_TEST_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Conditional Test Expression</em>' class.
@@ -1718,7 +1875,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getAssociativeExpression()
 	 * @generated
 	 */
-	int ASSOCIATIVE_EXPRESSION = 39;
+	int ASSOCIATIVE_EXPRESSION = 43;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1764,7 +1921,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getArithmeticAssociativeExpression()
 	 * @generated
 	 */
-	int ARITHMETIC_ASSOCIATIVE_EXPRESSION = 40;
+	int ARITHMETIC_ASSOCIATIVE_EXPRESSION = 44;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1810,7 +1967,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getBitwiseAssociativeExpression()
 	 * @generated
 	 */
-	int BITWISE_ASSOCIATIVE_EXPRESSION = 41;
+	int BITWISE_ASSOCIATIVE_EXPRESSION = 45;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1856,7 +2013,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLogicalAssociativeExpression()
 	 * @generated
 	 */
-	int LOGICAL_ASSOCIATIVE_EXPRESSION = 42;
+	int LOGICAL_ASSOCIATIVE_EXPRESSION = 46;
 
 	/**
 	 * The feature id for the '<em><b>Operator</b></em>' attribute.
@@ -1902,7 +2059,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getQuantifiedLogicalExpression()
 	 * @generated
 	 */
-	int QUANTIFIED_LOGICAL_EXPRESSION = 43;
+	int QUANTIFIED_LOGICAL_EXPRESSION = 47;
 
 	/**
 	 * The feature id for the '<em><b>Quantifier</b></em>' attribute.
@@ -1957,7 +2114,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getInvokeExpression()
 	 * @generated
 	 */
-	int INVOKE_EXPRESSION = 44;
+	int INVOKE_EXPRESSION = 48;
 
 	/**
 	 * The feature id for the '<em><b>Call Procedure</b></em>' attribute.
@@ -1969,13 +2126,13 @@ public interface ExpressionPackage extends EPackage {
 	int INVOKE_EXPRESSION__CALL_PROCEDURE = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Invoke</b></em>' containment reference.
+	 * The feature id for the '<em><b>Invokable</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INVOKE_EXPRESSION__INVOKE = EXPRESSION_FEATURE_COUNT + 1;
+	int INVOKE_EXPRESSION__INVOKABLE = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Args</b></em>' containment reference list.
@@ -2021,7 +2178,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getNamedExpression()
 	 * @generated
 	 */
-	int NAMED_EXPRESSION = 45;
+	int NAMED_EXPRESSION = 49;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
@@ -2076,7 +2233,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getTupleExpression()
 	 * @generated
 	 */
-	int TUPLE_EXPRESSION = 46;
+	int TUPLE_EXPRESSION = 50;
 
 	/**
 	 * The number of structural features of the '<em>Tuple Expression</em>' class.
@@ -2104,7 +2261,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getMixTupleExpression()
 	 * @generated
 	 */
-	int MIX_TUPLE_EXPRESSION = 47;
+	int MIX_TUPLE_EXPRESSION = 51;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference list.
@@ -2141,7 +2298,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getNamedTupleExpression()
 	 * @generated
 	 */
-	int NAMED_TUPLE_EXPRESSION = 48;
+	int NAMED_TUPLE_EXPRESSION = 52;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference list.
@@ -2178,7 +2335,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getPositionalTupleExpression()
 	 * @generated
 	 */
-	int POSITIONAL_TUPLE_EXPRESSION = 49;
+	int POSITIONAL_TUPLE_EXPRESSION = 53;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference list.
@@ -2215,7 +2372,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getValueElementSpecification()
 	 * @generated
 	 */
-	int VALUE_ELEMENT_SPECIFICATION = 50;
+	int VALUE_ELEMENT_SPECIFICATION = 54;
 
 	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -2288,7 +2445,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getInstantiationExpression()
 	 * @generated
 	 */
-	int INSTANTIATION_EXPRESSION = 51;
+	int INSTANTIATION_EXPRESSION = 55;
 
 	/**
 	 * The feature id for the '<em><b>Instance</b></em>' containment reference.
@@ -2325,7 +2482,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getExpressionAsBuffer()
 	 * @generated
 	 */
-	int EXPRESSION_AS_BUFFER = 52;
+	int EXPRESSION_AS_BUFFER = 56;
 
 	/**
 	 * The feature id for the '<em><b>Buffer</b></em>' containment reference.
@@ -2362,7 +2519,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getExpressionAsChannel()
 	 * @generated
 	 */
-	int EXPRESSION_AS_CHANNEL = 53;
+	int EXPRESSION_AS_CHANNEL = 57;
 
 	/**
 	 * The feature id for the '<em><b>Channel</b></em>' containment reference.
@@ -2399,7 +2556,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getExpressionAsMachine()
 	 * @generated
 	 */
-	int EXPRESSION_AS_MACHINE = 54;
+	int EXPRESSION_AS_MACHINE = 58;
 
 	/**
 	 * The feature id for the '<em><b>Machine</b></em>' containment reference.
@@ -2436,7 +2593,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getExpressionAsPort()
 	 * @generated
 	 */
-	int EXPRESSION_AS_PORT = 55;
+	int EXPRESSION_AS_PORT = 59;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' containment reference.
@@ -2466,6 +2623,61 @@ public interface ExpressionPackage extends EPackage {
 	int EXPRESSION_AS_PORT_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceSpecificationImpl <em>Literal Reference Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceSpecificationImpl
+	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralReferenceSpecification()
+	 * @generated
+	 */
+	int LITERAL_REFERENCE_SPECIFICATION = 60;
+
+	/**
+	 * The feature id for the '<em><b>Expected</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_REFERENCE_SPECIFICATION__EXPECTED = EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_REFERENCE_SPECIFICATION__PARENT = EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Element</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_REFERENCE_SPECIFICATION__ELEMENT = EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Literal Reference Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_REFERENCE_SPECIFICATION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Literal Reference Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LITERAL_REFERENCE_SPECIFICATION_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.PRINTER_FIX <em>PRINTER FIX</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2473,7 +2685,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getPRINTER_FIX()
 	 * @generated
 	 */
-	int PRINTER_FIX = 56;
+	int PRINTER_FIX = 61;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecificationKind <em>Value Element Specification Kind</em>}' enum.
@@ -2483,7 +2695,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getValueElementSpecificationKind()
 	 * @generated
 	 */
-	int VALUE_ELEMENT_SPECIFICATION_KIND = 57;
+	int VALUE_ELEMENT_SPECIFICATION_KIND = 62;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.expression.ValueElementSpecificationScheme <em>Value Element Specification Scheme</em>}' enum.
@@ -2493,7 +2705,7 @@ public interface ExpressionPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getValueElementSpecificationScheme()
 	 * @generated
 	 */
-	int VALUE_ELEMENT_SPECIFICATION_SCHEME = 58;
+	int VALUE_ELEMENT_SPECIFICATION_SCHEME = 63;
 
 
 	/**
@@ -2814,6 +3026,90 @@ public interface ExpressionPackage extends EPackage {
 	EReference getLiteralNullExpression_Type();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralAnyValueExpression <em>Literal Any Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Literal Any Value Expression</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralAnyValueExpression
+	 * @generated
+	 */
+	EClass getLiteralAnyValueExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralAnyValueExpression#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralAnyValueExpression#getType()
+	 * @see #getLiteralAnyValueExpression()
+	 * @generated
+	 */
+	EReference getLiteralAnyValueExpression_Type();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralOptionalValueExpression <em>Literal Optional Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Literal Optional Value Expression</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralOptionalValueExpression
+	 * @generated
+	 */
+	EClass getLiteralOptionalValueExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralOptionalValueExpression#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralOptionalValueExpression#getType()
+	 * @see #getLiteralOptionalValueExpression()
+	 * @generated
+	 */
+	EReference getLiteralOptionalValueExpression_Type();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralNoneValueExpression <em>Literal None Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Literal None Value Expression</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralNoneValueExpression
+	 * @generated
+	 */
+	EClass getLiteralNoneValueExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralNoneValueExpression#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralNoneValueExpression#getType()
+	 * @see #getLiteralNoneValueExpression()
+	 * @generated
+	 */
+	EReference getLiteralNoneValueExpression_Type();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralAnyOrNoneValueExpression <em>Literal Any Or None Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Literal Any Or None Value Expression</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralAnyOrNoneValueExpression
+	 * @generated
+	 */
+	EClass getLiteralAnyOrNoneValueExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralAnyOrNoneValueExpression#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Type</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralAnyOrNoneValueExpression#getType()
+	 * @see #getLiteralAnyOrNoneValueExpression()
+	 * @generated
+	 */
+	EReference getLiteralAnyOrNoneValueExpression_Type();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceExpression <em>Literal Reference Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2845,15 +3141,15 @@ public interface ExpressionPackage extends EPackage {
 	EAttribute getLiteralReferenceElement_Kind();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getValue <em>Value</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getElement <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Value</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getValue()
+	 * @return the meta object for the reference '<em>Element</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getElement()
 	 * @see #getLiteralReferenceElement()
 	 * @generated
 	 */
-	EReference getLiteralReferenceElement_Value();
+	EReference getLiteralReferenceElement_Element();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getArg <em>Arg</em>}'.
@@ -3085,15 +3381,15 @@ public interface ExpressionPackage extends EPackage {
 	EReference getAssignmentExpression_LeftHandSide();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getRigthHandSide <em>Rigth Hand Side</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getRightHandSide <em>Right Hand Side</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rigth Hand Side</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getRigthHandSide()
+	 * @return the meta object for the containment reference '<em>Right Hand Side</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getRightHandSide()
 	 * @see #getAssignmentExpression()
 	 * @generated
 	 */
-	EReference getAssignmentExpression_RigthHandSide();
+	EReference getAssignmentExpression_RightHandSide();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.NewfreshExpression <em>Newfresh Expression</em>}'.
@@ -3232,15 +3528,15 @@ public interface ExpressionPackage extends EPackage {
 	EReference getBinaryExpression_LeftOperand();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getRigthOperand <em>Rigth Operand</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getRightOperand <em>Right Operand</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rigth Operand</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getRigthOperand()
+	 * @return the meta object for the containment reference '<em>Right Operand</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getRightOperand()
 	 * @see #getBinaryExpression()
 	 * @generated
 	 */
-	EReference getBinaryExpression_RigthOperand();
+	EReference getBinaryExpression_RightOperand();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.EqualityBinaryExpression <em>Equality Binary Expression</em>}'.
@@ -3284,26 +3580,26 @@ public interface ExpressionPackage extends EPackage {
 	EReference getRelationalTernaryExpression_LeftRelation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRigthOperator <em>Rigth Operator</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRightOperator <em>Right Operator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Rigth Operator</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRigthOperator()
+	 * @return the meta object for the attribute '<em>Right Operator</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRightOperator()
 	 * @see #getRelationalTernaryExpression()
 	 * @generated
 	 */
-	EAttribute getRelationalTernaryExpression_RigthOperator();
+	EAttribute getRelationalTernaryExpression_RightOperator();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRigthOperand <em>Rigth Operand</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRightOperand <em>Right Operand</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rigth Operand</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRigthOperand()
+	 * @return the meta object for the containment reference '<em>Right Operand</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRightOperand()
 	 * @see #getRelationalTernaryExpression()
 	 * @generated
 	 */
-	EReference getRelationalTernaryExpression_RigthOperand();
+	EReference getRelationalTernaryExpression_RightOperand();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression <em>Conditional Test Expression</em>}'.
@@ -3314,17 +3610,6 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getConditionalTestExpression();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression#getOperator <em>Operator</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Operator</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression#getOperator()
-	 * @see #getConditionalTestExpression()
-	 * @generated
-	 */
-	EAttribute getConditionalTestExpression_Operator();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression#getCondition <em>Condition</em>}'.
@@ -3338,6 +3623,17 @@ public interface ExpressionPackage extends EPackage {
 	EReference getConditionalTestExpression_Condition();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression#getOperator <em>Operator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Operator</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression#getOperator()
+	 * @see #getConditionalTestExpression()
+	 * @generated
+	 */
+	EAttribute getConditionalTestExpression_Operator();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression#getThenOperand <em>Then Operand</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3347,6 +3643,17 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getConditionalTestExpression_ThenOperand();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression#getElseSeparator <em>Else Separator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Else Separator</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression#getElseSeparator()
+	 * @see #getConditionalTestExpression()
+	 * @generated
+	 */
+	EAttribute getConditionalTestExpression_ElseSeparator();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.ConditionalTestExpression#getElseOperand <em>Else Operand</em>}'.
@@ -3486,15 +3793,15 @@ public interface ExpressionPackage extends EPackage {
 	EAttribute getInvokeExpression_CallProcedure();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getInvoke <em>Invoke</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getInvokable <em>Invokable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Invoke</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getInvoke()
+	 * @return the meta object for the containment reference '<em>Invokable</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getInvokable()
 	 * @see #getInvokeExpression()
 	 * @generated
 	 */
-	EReference getInvokeExpression_Invoke();
+	EReference getInvokeExpression_Invokable();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getArgs <em>Args</em>}'.
@@ -3803,6 +4110,49 @@ public interface ExpressionPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExpressionAsPort_Port();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification <em>Literal Reference Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Literal Reference Specification</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification
+	 * @generated
+	 */
+	EClass getLiteralReferenceSpecification();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification#getExpected <em>Expected</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Expected</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification#getExpected()
+	 * @see #getLiteralReferenceSpecification()
+	 * @generated
+	 */
+	EAttribute getLiteralReferenceSpecification_Expected();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification#getParent <em>Parent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Parent</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification#getParent()
+	 * @see #getLiteralReferenceSpecification()
+	 * @generated
+	 */
+	EReference getLiteralReferenceSpecification_Parent();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification#getElement <em>Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Element</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification#getElement()
+	 * @see #getLiteralReferenceSpecification()
+	 * @generated
+	 */
+	EReference getLiteralReferenceSpecification_Element();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.ecore.formalml.expression.PRINTER_FIX <em>PRINTER FIX</em>}'.
@@ -4124,6 +4474,78 @@ public interface ExpressionPackage extends EPackage {
 		EReference LITERAL_NULL_EXPRESSION__TYPE = eINSTANCE.getLiteralNullExpression_Type();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralAnyValueExpressionImpl <em>Literal Any Value Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralAnyValueExpressionImpl
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralAnyValueExpression()
+		 * @generated
+		 */
+		EClass LITERAL_ANY_VALUE_EXPRESSION = eINSTANCE.getLiteralAnyValueExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LITERAL_ANY_VALUE_EXPRESSION__TYPE = eINSTANCE.getLiteralAnyValueExpression_Type();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralOptionalValueExpressionImpl <em>Literal Optional Value Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralOptionalValueExpressionImpl
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralOptionalValueExpression()
+		 * @generated
+		 */
+		EClass LITERAL_OPTIONAL_VALUE_EXPRESSION = eINSTANCE.getLiteralOptionalValueExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LITERAL_OPTIONAL_VALUE_EXPRESSION__TYPE = eINSTANCE.getLiteralOptionalValueExpression_Type();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralNoneValueExpressionImpl <em>Literal None Value Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralNoneValueExpressionImpl
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralNoneValueExpression()
+		 * @generated
+		 */
+		EClass LITERAL_NONE_VALUE_EXPRESSION = eINSTANCE.getLiteralNoneValueExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LITERAL_NONE_VALUE_EXPRESSION__TYPE = eINSTANCE.getLiteralNoneValueExpression_Type();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralAnyOrNoneValueExpressionImpl <em>Literal Any Or None Value Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralAnyOrNoneValueExpressionImpl
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralAnyOrNoneValueExpression()
+		 * @generated
+		 */
+		EClass LITERAL_ANY_OR_NONE_VALUE_EXPRESSION = eINSTANCE.getLiteralAnyOrNoneValueExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LITERAL_ANY_OR_NONE_VALUE_EXPRESSION__TYPE = eINSTANCE.getLiteralAnyOrNoneValueExpression_Type();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceExpressionImpl <em>Literal Reference Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4152,12 +4574,12 @@ public interface ExpressionPackage extends EPackage {
 		EAttribute LITERAL_REFERENCE_ELEMENT__KIND = eINSTANCE.getLiteralReferenceElement_Kind();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Element</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference LITERAL_REFERENCE_ELEMENT__VALUE = eINSTANCE.getLiteralReferenceElement_Value();
+		EReference LITERAL_REFERENCE_ELEMENT__ELEMENT = eINSTANCE.getLiteralReferenceElement_Element();
 
 		/**
 		 * The meta object literal for the '<em><b>Arg</b></em>' containment reference feature.
@@ -4362,12 +4784,12 @@ public interface ExpressionPackage extends EPackage {
 		EReference ASSIGNMENT_EXPRESSION__LEFT_HAND_SIDE = eINSTANCE.getAssignmentExpression_LeftHandSide();
 
 		/**
-		 * The meta object literal for the '<em><b>Rigth Hand Side</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Right Hand Side</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE = eINSTANCE.getAssignmentExpression_RigthHandSide();
+		EReference ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE = eINSTANCE.getAssignmentExpression_RightHandSide();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.NewfreshExpressionImpl <em>Newfresh Expression</em>}' class.
@@ -4488,12 +4910,12 @@ public interface ExpressionPackage extends EPackage {
 		EReference BINARY_EXPRESSION__LEFT_OPERAND = eINSTANCE.getBinaryExpression_LeftOperand();
 
 		/**
-		 * The meta object literal for the '<em><b>Rigth Operand</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Right Operand</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference BINARY_EXPRESSION__RIGTH_OPERAND = eINSTANCE.getBinaryExpression_RigthOperand();
+		EReference BINARY_EXPRESSION__RIGHT_OPERAND = eINSTANCE.getBinaryExpression_RightOperand();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.EqualityBinaryExpressionImpl <em>Equality Binary Expression</em>}' class.
@@ -4534,20 +4956,20 @@ public interface ExpressionPackage extends EPackage {
 		EReference RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION = eINSTANCE.getRelationalTernaryExpression_LeftRelation();
 
 		/**
-		 * The meta object literal for the '<em><b>Rigth Operator</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Right Operator</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR = eINSTANCE.getRelationalTernaryExpression_RigthOperator();
+		EAttribute RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR = eINSTANCE.getRelationalTernaryExpression_RightOperator();
 
 		/**
-		 * The meta object literal for the '<em><b>Rigth Operand</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Right Operand</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND = eINSTANCE.getRelationalTernaryExpression_RigthOperand();
+		EReference RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND = eINSTANCE.getRelationalTernaryExpression_RightOperand();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.ConditionalTestExpressionImpl <em>Conditional Test Expression</em>}' class.
@@ -4560,14 +4982,6 @@ public interface ExpressionPackage extends EPackage {
 		EClass CONDITIONAL_TEST_EXPRESSION = eINSTANCE.getConditionalTestExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONDITIONAL_TEST_EXPRESSION__OPERATOR = eINSTANCE.getConditionalTestExpression_Operator();
-
-		/**
 		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4576,12 +4990,28 @@ public interface ExpressionPackage extends EPackage {
 		EReference CONDITIONAL_TEST_EXPRESSION__CONDITION = eINSTANCE.getConditionalTestExpression_Condition();
 
 		/**
+		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONDITIONAL_TEST_EXPRESSION__OPERATOR = eINSTANCE.getConditionalTestExpression_Operator();
+
+		/**
 		 * The meta object literal for the '<em><b>Then Operand</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference CONDITIONAL_TEST_EXPRESSION__THEN_OPERAND = eINSTANCE.getConditionalTestExpression_ThenOperand();
+
+		/**
+		 * The meta object literal for the '<em><b>Else Separator</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR = eINSTANCE.getConditionalTestExpression_ElseSeparator();
 
 		/**
 		 * The meta object literal for the '<em><b>Else Operand</b></em>' containment reference feature.
@@ -4700,12 +5130,12 @@ public interface ExpressionPackage extends EPackage {
 		EAttribute INVOKE_EXPRESSION__CALL_PROCEDURE = eINSTANCE.getInvokeExpression_CallProcedure();
 
 		/**
-		 * The meta object literal for the '<em><b>Invoke</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Invokable</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference INVOKE_EXPRESSION__INVOKE = eINSTANCE.getInvokeExpression_Invoke();
+		EReference INVOKE_EXPRESSION__INVOKABLE = eINSTANCE.getInvokeExpression_Invokable();
 
 		/**
 		 * The meta object literal for the '<em><b>Args</b></em>' containment reference list feature.
@@ -4960,6 +5390,40 @@ public interface ExpressionPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXPRESSION_AS_PORT__PORT = eINSTANCE.getExpressionAsPort_Port();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceSpecificationImpl <em>Literal Reference Specification</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.LiteralReferenceSpecificationImpl
+		 * @see org.eclipse.efm.ecore.formalml.expression.impl.ExpressionPackageImpl#getLiteralReferenceSpecification()
+		 * @generated
+		 */
+		EClass LITERAL_REFERENCE_SPECIFICATION = eINSTANCE.getLiteralReferenceSpecification();
+
+		/**
+		 * The meta object literal for the '<em><b>Expected</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LITERAL_REFERENCE_SPECIFICATION__EXPECTED = eINSTANCE.getLiteralReferenceSpecification_Expected();
+
+		/**
+		 * The meta object literal for the '<em><b>Parent</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LITERAL_REFERENCE_SPECIFICATION__PARENT = eINSTANCE.getLiteralReferenceSpecification_Parent();
+
+		/**
+		 * The meta object literal for the '<em><b>Element</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LITERAL_REFERENCE_SPECIFICATION__ELEMENT = eINSTANCE.getLiteralReferenceSpecification_Element();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.expression.PRINTER_FIX <em>PRINTER FIX</em>}' enum.

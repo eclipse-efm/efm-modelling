@@ -25,7 +25,7 @@ public class ModelGraphvizSerializerWorkerCustomImpl extends SymbexGraphVizSeria
 		implements IWorkflowConfigurationConstants {
 
 	protected ModelGraphvizSerializerWorkerCustomImpl(
-			Director director, String name) {
+			final Director director, final String name) {
 		super();
 
 		setDirector(director);
@@ -33,7 +33,7 @@ public class ModelGraphvizSerializerWorkerCustomImpl extends SymbexGraphVizSeria
 	}
 
 	protected ModelGraphvizSerializerWorkerCustomImpl(
-			Director director, String name, String description) {
+			final Director director, final String name, final String description) {
 		super();
 
 		setDirector(director);
@@ -43,11 +43,11 @@ public class ModelGraphvizSerializerWorkerCustomImpl extends SymbexGraphVizSeria
 
 
 	public static ModelGraphvizSerializerWorkerCustomImpl create(
-			Director director, ILaunchConfiguration configuration) {
+			final Director director, final ILaunchConfiguration configuration) {
 
-		ModelGraphvizSerializerWorkerCustomImpl serializerWorker =
+		final ModelGraphvizSerializerWorkerCustomImpl serializerWorker =
 				new ModelGraphvizSerializerWorkerCustomImpl(
-						director, "model2graphiz");
+						director, "model2graphviz");
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
 
@@ -57,7 +57,7 @@ public class ModelGraphvizSerializerWorkerCustomImpl extends SymbexGraphVizSeria
 //
 //		serializerWorker.setFormat( format );
 
-		String modelFilename = WorkflowFileUtils.getModelBasename(configuration);
+		final String modelFilename = WorkflowFileUtils.getModelBasename(configuration);
 
 		serializerWorker.setFileName(modelFilename + "_graph.gv");
 
@@ -65,7 +65,7 @@ public class ModelGraphvizSerializerWorkerCustomImpl extends SymbexGraphVizSeria
 	}
 
 
-	public void toWriter(PrettyPrintWriter writer) {
+	public void toWriter(final PrettyPrintWriter writer) {
 		writer.commentLine( getComment() );
 
 		writer.appendTab( "serializer#model#graphviz" );
@@ -81,14 +81,14 @@ public class ModelGraphvizSerializerWorkerCustomImpl extends SymbexGraphVizSeria
 
 		writer.appendEol( " {" );
 
-		PrettyPrintWriter writer2 = writer.itab2();
+		final PrettyPrintWriter writer2 = writer.itab2();
 
-		ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
+		final ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
 		if( manifest != null ) {
 			manifest.toWriter(writer2);
 		}
 
-		TraceSpecificationCustomImpl format =
+		final TraceSpecificationCustomImpl format =
 				(TraceSpecificationCustomImpl) getFormat();
 		if( format != null ) {
 			format.toWriter( writer2 );

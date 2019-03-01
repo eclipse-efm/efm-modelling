@@ -65,6 +65,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 			RedundancyPathScope.ALL.getLiteral() ,
 			RedundancyPathScope.PARENT.getLiteral()
 	};
+
 	private Combo fRedundancyPathScopeCombo = null;
 
 	private RedundancyPathScope fRedundancyPathScope =
@@ -87,8 +88,10 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	 * Constructor
 	 * @param parentTab
 	 */
-	public OverviewExplorationConfigurationProfile(AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+	public OverviewExplorationConfigurationProfile(
+			final AbstractConfigurationPage configurationPage)
+	{
+		super(configurationPage, false);
 
 //		fGraphSizeLimitsSection  = new SupervisorGraphSizeLimitsSection(configurationPage);
 //
@@ -110,8 +113,8 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 	private final class TabListener extends SelectionAdapter {
 		@Override
-		public void widgetSelected(SelectionEvent e) {
-			Object source = e.getSource();
+		public void widgetSelected(final SelectionEvent e) {
+			final Object source = e.getSource();
 
 			// Use case Analysis
 			if (source == fBFSButton) {
@@ -167,7 +170,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
 		createAnalyzeStrategy(parent, widgetToolkit);
 
@@ -179,12 +182,12 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	}
 
 	private void createControlInclusionCriterion(
-			Composite parent, IWidgetToolkit widgetToolkit)
+			final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
         fGroupInclusionCriterion = widgetToolkit.createGroup(parent,
         		"Redundancy Detection", 1, 2, GridData.FILL_HORIZONTAL);
 
-        Composite comp = widgetToolkit.createComposite(
+        final Composite comp = widgetToolkit.createComposite(
         		fGroupInclusionCriterion, 2, 1, GridData.FILL_HORIZONTAL);
 
         fEnabledRedundancyDetectionBooleanField =
@@ -194,7 +197,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
         fEnabledRedundancyDetectionBooleanField.addSelectionListener(
         		new SelectionAdapter() {
         			@Override
-        			public void widgetSelected(SelectionEvent e) {
+        			public void widgetSelected(final SelectionEvent e) {
         				handleEnablingRedundancyDetection();
         			}
         		});
@@ -208,7 +211,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 				SWT.DROP_DOWN | SWT.READ_ONLY, 1, REDUNDANCY_PATH_SCOPE_COMBO_ITEMS);
 		fRedundancyPathScopeCombo.addSelectionListener( new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(final SelectionEvent e) {
 				handleRedundancyPathScopeSelectionChange();
 			}
 		});
@@ -220,7 +223,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 				REDUNDANCY_COMPARER_OPERATION_COMBO_ITEMS);
 		fRedundancyComparerOperationCombo.addSelectionListener( new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(final SelectionEvent e) {
 				handleRedundancyComparerOperationSelectionChange();
 			}
 		});
@@ -229,7 +232,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
         fLoopDetectionTrivialComposite = widgetToolkit.createComposite(
         		fGroupInclusionCriterion, 2, 1, GridData.FILL_HORIZONTAL);
 
-        BooleanFieldEditor loopDetectionTrivialBooleanField =
+        final BooleanFieldEditor loopDetectionTrivialBooleanField =
         		new BooleanFieldEditor(this.fConfigurationPage,
         				ATTR_ENABLED_REDUNDANCY_TRIVIAL_LOOP_DETECTION,
         				"Enabled Trivial &Loop Detection",
@@ -314,7 +317,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	}
 
 
-	protected void createAnalyzeStrategy(Composite parent, IWidgetToolkit widgetToolkit) {
+	protected void createAnalyzeStrategy(final Composite parent, final IWidgetToolkit widgetToolkit) {
 		groupAnalyzeStrategy = widgetToolkit.createGroup(
 				parent, "&Analyze Strategy", 4, 1, GridData.FILL_HORIZONTAL);
 
@@ -337,7 +340,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration)
+	protected void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration)
 	{
 		configuration.setAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY,
 				GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH.getLiteral());
@@ -358,17 +361,17 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	}
 
 	@Override
-	protected void initializeFromImpl(ILaunchConfiguration configuration)
+	protected void initializeFromImpl(final ILaunchConfiguration configuration)
 	{
 		// Case Analyze Strategy
 		//
-		GraphExplorationStrategyKind oldAnalyzeStrategy = fAnalyzeStrategy;
+		final GraphExplorationStrategyKind oldAnalyzeStrategy = fAnalyzeStrategy;
 
 		try {
 			fAnalyzeStrategy = GraphExplorationStrategyKind.get(
 					configuration.getAttribute(ATTR_SPECIFICATION_ANALYZE_STRATEGY,
 							GraphExplorationStrategyKind.BREADTH_FIRST_SEARCH.getLiteral()) );
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			e.printStackTrace();
 		}
 		finally {
@@ -391,7 +394,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 							ATTR_REDUNDANCY_PATH_SCOPE,
 							RedundancyPathScope.CURRENT.getLiteral()));
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 		}
 		if( fRedundancyPathScope == null ) {
@@ -421,7 +424,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 							ATTR_REDUNDANCY_COMPARER_OPERATION,
 							RedundancyComparerOperation.INCLUSION.getLiteral()));
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 		}
 		if( fRedundancyComparerOperation == null ) {
@@ -482,7 +485,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration)
+	protected void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration)
 	{
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_ANALYZE_STRATEGY,
@@ -500,7 +503,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	}
 
 	@Override
-	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(final ILaunchConfiguration launchConfig) {
 		return true;
 	}
 
@@ -509,7 +512,7 @@ public class OverviewExplorationConfigurationProfile extends AbstractConfigurati
 	// Property Change
 	//
 	@Override
-	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(final PropertyChangeEvent event) {
 		switch( event.getProperty() ) {
 		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE:
 

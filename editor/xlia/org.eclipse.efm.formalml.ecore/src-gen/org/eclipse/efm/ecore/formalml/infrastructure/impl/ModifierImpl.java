@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModifierImpl#isReference <em>Reference</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModifierImpl#isVolatile <em>Volatile</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModifierImpl#isTransient <em>Transient</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModifierImpl#isOptional <em>Optional</em>}</li>
  * </ul>
  *
  * @generated
@@ -141,6 +142,26 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	protected boolean transient_ = TRANSIENT_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isOptional() <em>Optional</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOptional()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OPTIONAL_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isOptional() <em>Optional</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOptional()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean optional = OPTIONAL_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -164,6 +185,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isStatic() {
 		return static_;
 	}
@@ -173,6 +195,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStatic(boolean newStatic) {
 		boolean oldStatic = static_;
 		static_ = newStatic;
@@ -185,6 +208,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFinal() {
 		return final_;
 	}
@@ -194,6 +218,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFinal(boolean newFinal) {
 		boolean oldFinal = final_;
 		final_ = newFinal;
@@ -206,6 +231,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isReference() {
 		return reference;
 	}
@@ -215,6 +241,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReference(boolean newReference) {
 		boolean oldReference = reference;
 		reference = newReference;
@@ -227,6 +254,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isVolatile() {
 		return volatile_;
 	}
@@ -236,6 +264,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVolatile(boolean newVolatile) {
 		boolean oldVolatile = volatile_;
 		volatile_ = newVolatile;
@@ -248,6 +277,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isTransient() {
 		return transient_;
 	}
@@ -257,11 +287,35 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransient(boolean newTransient) {
 		boolean oldTransient = transient_;
 		transient_ = newTransient;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MODIFIER__TRANSIENT, oldTransient, transient_));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isOptional() {
+		return optional;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOptional(boolean newOptional) {
+		boolean oldOptional = optional;
+		optional = newOptional;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MODIFIER__OPTIONAL, oldOptional, optional));
 	}
 
 	/**
@@ -282,6 +336,8 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 				return isVolatile();
 			case InfrastructurePackage.MODIFIER__TRANSIENT:
 				return isTransient();
+			case InfrastructurePackage.MODIFIER__OPTIONAL:
+				return isOptional();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -308,6 +364,9 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 				return;
 			case InfrastructurePackage.MODIFIER__TRANSIENT:
 				setTransient((Boolean)newValue);
+				return;
+			case InfrastructurePackage.MODIFIER__OPTIONAL:
+				setOptional((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -336,6 +395,9 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 			case InfrastructurePackage.MODIFIER__TRANSIENT:
 				setTransient(TRANSIENT_EDEFAULT);
 				return;
+			case InfrastructurePackage.MODIFIER__OPTIONAL:
+				setOptional(OPTIONAL_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -358,6 +420,8 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 				return volatile_ != VOLATILE_EDEFAULT;
 			case InfrastructurePackage.MODIFIER__TRANSIENT:
 				return transient_ != TRANSIENT_EDEFAULT;
+			case InfrastructurePackage.MODIFIER__OPTIONAL:
+				return optional != OPTIONAL_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -371,7 +435,7 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (static: ");
 		result.append(static_);
 		result.append(", final: ");
@@ -382,6 +446,8 @@ public class ModifierImpl extends MinimalEObjectImpl.Container implements Modifi
 		result.append(volatile_);
 		result.append(", transient: ");
 		result.append(transient_);
+		result.append(", optional: ");
+		result.append(optional);
 		result.append(')');
 		return result.toString();
 	}

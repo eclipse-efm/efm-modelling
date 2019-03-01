@@ -37,6 +37,8 @@ import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
+import org.eclipse.efm.execution.launchconfiguration.job.action.CloseAllConsoleAction;
+import org.eclipse.efm.execution.launchconfiguration.job.action.CloseConsoleAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateAction;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider.SPIDER_GEOMETRY;
@@ -61,7 +63,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		IWorkflowPreferenceConstants , IWorkflowSpiderConfigurationUtils {
 
 	private Composite fMainPageControl;
-	private MessageConsole fMessageConsoleConsole;
+	private SymbexSpiderConsole fMessageConsole;
 
 	private SashForm fSashForm;
 
@@ -69,20 +71,29 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 	private TerminateAction fTerminateAction;
 
+	private CloseConsoleAction fCloseConsoleAction;
+	private CloseAllConsoleAction fCloseAllConsoleAction;
 
-	public SymbexSpiderConsolePage(MessageConsole console, IConsoleView view) {
+
+	public SymbexSpiderConsolePage(
+			final SymbexSpiderConsole console, final IConsoleView view)
+	{
 		super(console, view);
 
-		fMessageConsoleConsole = console;
+		fMessageConsole = console;
+	}
+
+	public MessageConsole getfMessageConsole() {
+		return fMessageConsole;
 	}
 
     @Override
-	public void createControl(Composite parent) {
+	public void createControl(final Composite parent) {
 		// Create the SashForm that contains the selection area on the left,
 		// and the edit area on the right
     	fMainPageControl = fSashForm = new SashForm(parent, SWT.SMOOTH);
 		fSashForm.setOrientation(SWT.HORIZONTAL);
-		GridData gd = new GridData(GridData.FILL_BOTH);
+		final GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		fSashForm.setLayoutData(gd);
 		fSashForm.setFont(parent.getFont());
@@ -98,8 +109,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		fSashForm.setWeights(new int[] {40, 60});
     }
 
-	private SWTSpider createSpider(Composite parent, int x, int y, int r) {
-		ScrolledComposite compSpider = new ScrolledComposite (parent,
+	private SWTSpider createSpider(final Composite parent, final int x, final int y, final int r) {
+		final ScrolledComposite compSpider = new ScrolledComposite (parent,
 				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.RESIZE);
 
 		fSpider = new SWTSpider(compSpider, SWT.NULL, x, y, r);
@@ -108,7 +119,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		compSpider.setExpandVertical(true);
 		compSpider.setMinSize(480, 420);
 
-		GridData dataLeft = new GridData();
+		final GridData dataLeft = new GridData();
 		dataLeft.heightHint = 200;
 //		dataR.horizontalSpan = 1;
 		dataLeft.grabExcessHorizontalSpace = true;
@@ -146,27 +157,47 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		super.createActions();
 
 		fTerminateAction = new TerminateAction(this);
+
+		fCloseConsoleAction = new CloseConsoleAction(this);
+
+		fCloseAllConsoleAction = new CloseAllConsoleAction();
 	}
 
 	@Override
-	protected void contextMenuAboutToShow(IMenuManager menuManager) {
+	protected void contextMenuAboutToShow(final IMenuManager menuManager) {
 		super.contextMenuAboutToShow(menuManager);
 
 		menuManager.add(fTerminateAction);
+		menuManager.add(fCloseConsoleAction);
+		menuManager.add(fCloseAllConsoleAction);
 	}
 
 	@Override
-	protected void configureToolBar(IToolBarManager mgr) {
+	protected void configureToolBar(final IToolBarManager mgr) {
         super.configureToolBar(mgr);
         mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fTerminateAction);
+        mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fCloseConsoleAction);
+        mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fCloseAllConsoleAction);
     }
 
-    @Override
-	public void dispose() {
+
+	public void disposeAction() {
         if (fTerminateAction != null) {
         	fTerminateAction.dispose();
         	fTerminateAction = null;
         }
+
+        if (fCloseConsoleAction != null) {
+        	fCloseConsoleAction.dispose();
+        	fCloseConsoleAction = null;
+        }
+    }
+
+
+
+    @Override
+	public void dispose() {
+    	disposeAction();
 
         super.dispose();
     }
@@ -190,14 +221,14 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 	private final static String UNKNOWN_LAUNCH_OPTION = "Unknown AVM launch option";
 
-	private boolean enableLegacyDiversity = false;
+//	private boolean enableLegacyDiversity = false;
 
 
-	private void doRefresh(String[] commandLine, File workingDirectory) {
+	private void doRefresh(final String[] commandLine, final File workingDirectory) {
 		IResource symbexWorkflowResource = null;
 		if( (commandLine != null) && (commandLine.length > 1) )
 		{
-			IPath symbexWorkflowPath = new Path(commandLine[1]);
+			final IPath symbexWorkflowPath = new Path(commandLine[1]);
 
 			symbexWorkflowResource = WorkflowFileUtils.find(symbexWorkflowPath);
 		}
@@ -212,17 +243,18 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 						IResource.DEPTH_INFINITE, new NullProgressMonitor());
 			}
 		}
-		catch(CoreException e) {
+		catch(final CoreException e) {
 			e.printStackTrace();
 		}
 	}
 
 
-	public void sewLaunchExecProcess(String mode, IProgressMonitor monitor,
-			String[] commandLine, File workingDirectory, String[] envp) {
-
+	public void sewLaunchExecProcess(final String mode,
+			final IProgressMonitor monitor, final String[] commandLine,
+			final File workingDirectory, final String[] envp)
+	{
 		if( startSymbexProcess(commandLine, workingDirectory, envp) ) {
-			fMessageConsoleConsole.clearConsole();
+			fMessageConsole.clearConsole();
 
 			if ( fSpider != null ) {
 				fSpider.resetSpider(SPIDER_GEOMETRY.TETRAGON);
@@ -244,7 +276,12 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 			doRefresh(commandLine, workingDirectory);
 
-			fTerminateAction.setEnabled(false);
+	        if (fTerminateAction != null) {
+	        	fTerminateAction.setEnabled(false);
+	        }
+	        if (fCloseConsoleAction != null) {
+	        	fCloseConsoleAction.setEnabled(true);
+	        }
 		}
 	}
 
@@ -259,10 +296,10 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 
 	private boolean startSymbexProcess(
-			String[] commandLine, File workingDirectory, String[] envp) {
-		OutputStream outputStream =
-				fMessageConsoleConsole.newOutputStream();
-		OutputStreamWriter outputStreamWriter =
+			final String[] commandLine, final File workingDirectory, final String[] envp) {
+		final OutputStream outputStream =
+				fMessageConsole.newOutputStream();
+		final OutputStreamWriter outputStreamWriter =
 				new OutputStreamWriter(outputStream);
 
 		fConsoleBufferedWriter = new BufferedWriter(outputStreamWriter);
@@ -277,8 +314,11 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	        if (fTerminateAction != null) {
 	        	fTerminateAction.setEnabled(true);
 	        }
+	        if (fCloseConsoleAction != null) {
+	        	fCloseConsoleAction.setEnabled(false);
+	        }
 
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			e1.printStackTrace();
 		}
 
@@ -286,6 +326,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 //			fSymbexProcess = DebugPlugin.exec(commandLine, workingDirectory, envp);
 //
 //			fTerminateAction.setEnabled(true);
+//			fCloseConsoleAction.setEnabled(false);
 //		} catch (CoreException e1) {
 //			e1.printStackTrace();
 //			fSymbexProcess = null;
@@ -293,8 +334,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		if( fSymbexProcess != null ) {
 
-			InputStream inputStream = fSymbexProcess.getInputStream();
-			InputStreamReader inputStreamReader =
+			final InputStream inputStream = fSymbexProcess.getInputStream();
+			final InputStreamReader inputStreamReader =
 					new InputStreamReader(inputStream);
 
 			fProcessBufferedReader = new BufferedReader(inputStreamReader);
@@ -320,23 +361,34 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 						"\n* EXECUTION ABORTED ! *" +
 						"\n***********************");
 				fConsoleBufferedWriter.flush();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				e.printStackTrace();
 			}
 
 	        if (fTerminateAction != null) {
 	        	fTerminateAction.setEnabled(false);
 	        }
+	        if (fCloseConsoleAction != null) {
+	        	fCloseConsoleAction.setEnabled(true);
+	        }
 		}
 	}
 
 
-	public void sewLaunchExecProcess(ILaunchConfiguration configuration,
-			String mode, ILaunch launch, IProgressMonitor monitor,
-			String[] commandLine, File workingDirectory, String[] envp) {
+	public void closePage() {
+		terminateProcess();
 
+		SymbexJob.removeConsole(fMessageConsole);
+	}
+
+
+	public void sewLaunchExecProcess(final ILaunchConfiguration configuration,
+			final String mode, final ILaunch launch,
+			final IProgressMonitor monitor, final String[] commandLine,
+			final File workingDirectory, final String[] envp)
+	{
 		if( startSymbexProcess(commandLine, workingDirectory, envp) ) {
-			fMessageConsoleConsole.clearConsole();
+			fMessageConsole.clearConsole();
 
 			if ( fSpider != null ) {
 				fSpider.resetSpider(SPIDER_GEOMETRY.TETRAGON);
@@ -361,7 +413,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	}
 
 
-	private boolean readSymbexInitLog(IProgressMonitor monitor) {
+	private boolean readSymbexInitLog(final IProgressMonitor monitor) {
 		try {
 			while( true ) {
 				if( fProcessBufferedReader.ready() ) {
@@ -382,10 +434,10 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 							// Unknown AVM launch option:
 							// << --enable-print-spider-positions >> !!!
 
-							if( traceLine.lastIndexOf(
-									SymbexJob.SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS) > 0 ) {
-
-								enableLegacyDiversity = true;
+							if( traceLine.lastIndexOf(SymbexJob.
+								SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS) > 0 )
+							{
+//								enableLegacyDiversity = true;
 
 								continue;
 							}
@@ -437,7 +489,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 						fSymbexProcess.exitValue();
 						break;
 					}
-					catch( IllegalThreadStateException e ) {
+					catch( final IllegalThreadStateException e ) {
 						//!! NOTHING
 					}
 				}
@@ -449,14 +501,14 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
-		catch(IOException e){
+		catch(final IOException e){
 			e.printStackTrace();
 		}
 
 		return true;
 	}
 
-	private boolean readSymbexStepLog(IProgressMonitor monitor) {
+	private boolean readSymbexStepLog(final IProgressMonitor monitor) {
 		try {
 			while( true ) {
 				if( fProcessBufferedReader.ready() ) {
@@ -474,9 +526,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 						}
 						else if( traceLine.startsWith(SPIDER_TRACE_STEP_PREFIX) )
 						{
-							System.out.print( traceLine );
-							System.out.println(
-									Arrays.toString(spiderPositions(traceLine)) );
+//							System.out.print( traceLine );
+//							System.out.println(
+//									Arrays.toString(spiderPositions(traceLine)) );
 
 							updateSpider( spiderPositions(traceLine) );
 
@@ -499,9 +551,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 						else if( traceLine.startsWith(SYMBEX_TRACE_STEP_PREFIX) )
 						{
 							if( disabledSpiderTrace ) {
-								System.out.print(traceLine + " --> ");
-								System.out.println(
-										Arrays.toString(spiderPositions(traceLine)) );
+//								System.out.print(traceLine + " --> ");
+//								System.out.println(
+//										Arrays.toString(spiderPositions(traceLine)) );
 
 								updateSpider( spiderPositions(traceLine) );
 							}
@@ -536,7 +588,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 						fSymbexProcess.exitValue();
 						break;
 					}
-					catch( IllegalThreadStateException e ) {
+					catch( final IllegalThreadStateException e ) {
 						//!! NOTHING
 					}
 				}
@@ -548,14 +600,14 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
-		catch(IOException e){
+		catch(final IOException e){
 			e.printStackTrace();
 		}
 
 		return true;
 	}
 
-	private boolean readSymbexReportLog(IProgressMonitor monitor) {
+	private boolean readSymbexReportLog(final IProgressMonitor monitor) {
 		try {
 			while( true ) {
 				if( fProcessBufferedReader.ready() ) {
@@ -582,7 +634,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 						fSymbexProcess.exitValue();
 						break;
 					}
-					catch( IllegalThreadStateException e ) {
+					catch( final IllegalThreadStateException e ) {
 						//!! NOTHING
 					}
 				}
@@ -594,7 +646,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
-		catch(IOException e){
+		catch(final IOException e){
 			e.printStackTrace();
 		}
 		finally {
@@ -646,12 +698,12 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	private int maxCoverage = 0;
 
 
-	private void initSpider(int[] bounds) {
+	private void initSpider(final int[] bounds) {
 		initVar();
 		initMaxAndResize( bounds );
 	}
 
-	private void updateSpider(int[] bounds) {
+	private void updateSpider(final int[] bounds) {
 		majDisplayedData( bounds );
 
 		majStepAndMax();
@@ -685,7 +737,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		maxCoverage = 0;
 	}
 
-	private void initMaxAndResize(int[] bounds) {
+	private void initMaxAndResize(final int[] bounds) {
 		resizeStep = (bounds[0] == INT_INIFINITE);
 		maxStep = resizeStep ? DEFAULT_PERIOD_VALUE : bounds[0];
 
@@ -707,7 +759,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	}
 
 
-	private void majDisplayedData(int[] positions) {
+	private void majDisplayedData(final int[] positions) {
 		nbStep = positions[0];
 
 		nbContext = positions[1];
@@ -729,7 +781,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 
 	private void majStepAndMax() {
-		if ( resizeStep ) {
+		if ( resizeStep || (resizeStep = (nbStep >= maxStep)) ) {
 			while ( nbStep >= maxStep ) {
 				if ( maxStep/stepStep <= 9 ) {
 					maxStep = maxStep + stepStep;
@@ -740,7 +792,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
-		if ( resizeContext ) {
+		if ( resizeContext || (resizeContext = (nbContext >= maxContext)) ) {
 			while ( nbContext >= maxContext ) {
 				if ( maxContext/stepContext <= 9 ) {
 					maxContext = maxContext + stepContext;
@@ -751,7 +803,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
-		if ( resizeHeight ) {
+		if ( resizeHeight || (resizeHeight = (nbHeight >= maxHeight)) ) {
 			while ( nbHeight >= maxHeight ) {
 				if ( maxHeight/stepHeight <= 9 ) {
 					maxHeight = maxHeight + stepHeight;
@@ -762,7 +814,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
-		if ( resizeWidth ) {
+		if ( resizeWidth || (resizeWidth = (nbWidth >= maxWidth)) ) {
 			while ( nbWidth >= maxWidth ) {
 				if ( maxWidth/stepWidth <= 9 ) {
 					maxWidth = maxWidth + stepWidth;

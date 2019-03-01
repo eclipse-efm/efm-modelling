@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -112,6 +112,7 @@ public class ValuePrintableExpressionImpl extends ExpressionImpl implements Valu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSymbol() {
 		return symbol;
 	}
@@ -121,6 +122,7 @@ public class ValuePrintableExpressionImpl extends ExpressionImpl implements Valu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSymbol(String newSymbol) {
 		String oldSymbol = symbol;
 		symbol = newSymbol;
@@ -133,6 +135,7 @@ public class ValuePrintableExpressionImpl extends ExpressionImpl implements Valu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ValueExpressionPrettyPrinter getPrinter() {
 		return printer;
 	}
@@ -157,6 +160,7 @@ public class ValuePrintableExpressionImpl extends ExpressionImpl implements Valu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPrinter(ValueExpressionPrettyPrinter newPrinter) {
 		if (newPrinter != printer) {
 			NotificationChain msgs = null;
@@ -176,6 +180,7 @@ public class ValuePrintableExpressionImpl extends ExpressionImpl implements Valu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getOperand() {
 		if (operand == null) {
 			operand = new EObjectContainmentEList<Expression>(Expression.class, this, ExpressionPackage.VALUE_PRINTABLE_EXPRESSION__OPERAND);
@@ -288,7 +293,7 @@ public class ValuePrintableExpressionImpl extends ExpressionImpl implements Valu
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (symbol: ");
 		result.append(symbol);
 		result.append(')');

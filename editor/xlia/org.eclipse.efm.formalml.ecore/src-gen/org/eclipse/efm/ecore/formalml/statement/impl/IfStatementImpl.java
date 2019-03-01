@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -91,6 +91,7 @@ public class IfStatementImpl extends ConditionalBlockStatementImpl implements If
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ConditionalBlockStatement> getElseifStatement() {
 		if (elseifStatement == null) {
 			elseifStatement = new EObjectContainmentEList<ConditionalBlockStatement>(ConditionalBlockStatement.class, this, StatementPackage.IF_STATEMENT__ELSEIF_STATEMENT);
@@ -103,6 +104,7 @@ public class IfStatementImpl extends ConditionalBlockStatementImpl implements If
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BlockStatement getElseBlock() {
 		return elseBlock;
 	}
@@ -127,6 +129,7 @@ public class IfStatementImpl extends ConditionalBlockStatementImpl implements If
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setElseBlock(BlockStatement newElseBlock) {
 		if (newElseBlock != elseBlock) {
 			NotificationChain msgs = null;

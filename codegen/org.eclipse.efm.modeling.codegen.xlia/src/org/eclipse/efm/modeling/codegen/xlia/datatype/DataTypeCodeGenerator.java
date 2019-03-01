@@ -69,6 +69,20 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 	 */
 	public void transformEnumeration(
 			Enumeration element, PrettyPrintWriter writer) {
+		
+		if( ! element.getRedefinedClassifiers().isEmpty() ) {
+			Classifier first = element.getRedefinedClassifiers().get(0);
+			if( first.getName().equals(element.getName()) ) {
+				writer.appendEol("==================== RedefinedClassifiers ==========================");
+				transformEnumeration((Enumeration) first, writer);
+				return;
+			}
+		}
+		else {
+			fSupervisor.xliaModel.addDataType(element);
+		}
+		
+		// ORIGINAL UNMODIFIED CODE
 		writer.appendTab(element.getVisibility().toString())
 			.append(" type ")
 			.append(element.getName())
@@ -167,19 +181,18 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 	 * @return
 	 */
 	public String typeName(Type element) {
-		String typeString = element.getName();
+		String typeName = element.getName();
 
-		if( typeString.startsWith("fifo") ) {
-			//!!! NOTHING
-		}
-		else if( element instanceof PrimitiveType ) {
-			typeString = typeString.toLowerCase();
+		if( element instanceof PrimitiveType ) {
+			if( ! DataTypeFactory.isAliasType(element) ) {
+				typeName = typeName.toLowerCase();
+			}
 		}
 		else if( element instanceof Class ){
-			typeString = "machine" + "/*< " + typeString + " >*/";
+			typeName = "machine" + "/*< " + typeName + " >*/";
 		}
 
-		return typeString;
+		return typeName;
 	}
 
 	/**

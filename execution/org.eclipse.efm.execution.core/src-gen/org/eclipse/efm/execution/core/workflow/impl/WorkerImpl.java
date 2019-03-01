@@ -97,6 +97,7 @@ public class WorkerImpl extends NamedObjectImpl implements Worker {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Manifest getManifest() {
 		return manifest;
 	}
@@ -121,6 +122,7 @@ public class WorkerImpl extends NamedObjectImpl implements Worker {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setManifest(Manifest newManifest) {
 		if (newManifest != manifest) {
 			NotificationChain msgs = null;
@@ -140,6 +142,7 @@ public class WorkerImpl extends NamedObjectImpl implements Worker {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Director getDirector() {
 		if (director != null && director.eIsProxy()) {
 			InternalEObject oldDirector = (InternalEObject)director;
@@ -166,6 +169,7 @@ public class WorkerImpl extends NamedObjectImpl implements Worker {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDirector(Director newDirector) {
 		Director oldDirector = director;
 		director = newDirector;
@@ -178,6 +182,7 @@ public class WorkerImpl extends NamedObjectImpl implements Worker {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConsoleLogFormat getConsole() {
 		return console;
 	}
@@ -202,6 +207,7 @@ public class WorkerImpl extends NamedObjectImpl implements Worker {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConsole(ConsoleLogFormat newConsole) {
 		if (newConsole != console) {
 			NotificationChain msgs = null;

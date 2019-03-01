@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -138,6 +138,7 @@ public class QualifiedNameImpl extends AbstractElementImpl implements QualifiedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Boolean getIsAmbiguous() {
 		return isAmbiguous;
 	}
@@ -147,6 +148,7 @@ public class QualifiedNameImpl extends AbstractElementImpl implements QualifiedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIsAmbiguous(Boolean newIsAmbiguous) {
 		Boolean oldIsAmbiguous = isAmbiguous;
 		isAmbiguous = newIsAmbiguous;
@@ -159,6 +161,7 @@ public class QualifiedNameImpl extends AbstractElementImpl implements QualifiedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPathName() {
 		return pathName;
 	}
@@ -168,6 +171,7 @@ public class QualifiedNameImpl extends AbstractElementImpl implements QualifiedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPathName(String newPathName) {
 		String oldPathName = pathName;
 		pathName = newPathName;
@@ -180,6 +184,7 @@ public class QualifiedNameImpl extends AbstractElementImpl implements QualifiedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getNameBinding() {
 		if (nameBinding == null) {
 			nameBinding = new EDataTypeUniqueEList<String>(String.class, this, CommonPackage.QUALIFIED_NAME__NAME_BINDING);
@@ -192,6 +197,7 @@ public class QualifiedNameImpl extends AbstractElementImpl implements QualifiedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getUnqualifiedName() {
 		return unqualifiedName;
 	}
@@ -201,6 +207,7 @@ public class QualifiedNameImpl extends AbstractElementImpl implements QualifiedN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnqualifiedName(String newUnqualifiedName) {
 		String oldUnqualifiedName = unqualifiedName;
 		unqualifiedName = newUnqualifiedName;
@@ -307,7 +314,7 @@ public class QualifiedNameImpl extends AbstractElementImpl implements QualifiedN
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (isAmbiguous: ");
 		result.append(isAmbiguous);
 		result.append(", pathName: ");

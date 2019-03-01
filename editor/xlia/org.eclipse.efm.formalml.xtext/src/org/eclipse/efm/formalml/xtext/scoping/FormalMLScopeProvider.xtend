@@ -26,12 +26,21 @@ import org.eclipse.efm.ecore.formalml.datatype.EnumerationLiteral
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceKind
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceType
+import org.eclipse.efm.ecore.formalml.expression.AssignmentExpression
 import org.eclipse.efm.ecore.formalml.expression.CastExpression
 import org.eclipse.efm.ecore.formalml.expression.ExpressionPackage
 import org.eclipse.efm.ecore.formalml.expression.InvokeExpression
 import org.eclipse.efm.ecore.formalml.expression.LeftHandSideExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralEnvExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralNullExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralParentExpression
 import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement
 import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralSuperExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralSystemExpression
+import org.eclipse.efm.ecore.formalml.expression.LiteralThisExpression
+import org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression
 import org.eclipse.efm.ecore.formalml.expression.TupleExpression
 import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification
 import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecificationKind
@@ -39,26 +48,31 @@ import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecificationScheme
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior
 import org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection
 import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint
+import org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine
+import org.eclipse.efm.ecore.formalml.infrastructure.Parameter
 import org.eclipse.efm.ecore.formalml.infrastructure.Port
 import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition
 import org.eclipse.efm.ecore.formalml.infrastructure.Route
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty
-import org.eclipse.efm.ecore.formalml.infrastructure.System
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
 import org.eclipse.efm.ecore.formalml.statemachine.Region
+import org.eclipse.efm.ecore.formalml.statemachine.State
 import org.eclipse.efm.ecore.formalml.statemachine.Statemachine
 import org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage
 import org.eclipse.efm.ecore.formalml.statemachine.Transition
+import org.eclipse.efm.ecore.formalml.statemachine.Vertex
 import org.eclipse.efm.ecore.formalml.statement.AbstractComStatement
 import org.eclipse.efm.ecore.formalml.statement.ActivityStatement
 import org.eclipse.efm.ecore.formalml.statement.InputComStatement
 import org.eclipse.efm.ecore.formalml.statement.InvokeStatement
 import org.eclipse.efm.ecore.formalml.statement.OutputComStatement
+import org.eclipse.efm.ecore.formalml.statement.Statement
 import org.eclipse.efm.ecore.formalml.statement.StatementPackage
 import org.eclipse.efm.formalml.xtext.typing.FormalMLTypeProvider
 import org.eclipse.emf.ecore.EObject
@@ -67,20 +81,8 @@ import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.xbase.lib.Functions.Function1
-import org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression
-import org.eclipse.efm.ecore.formalml.expression.LiteralNullExpression
-import org.eclipse.xtext.scoping.impl.SimpleScope
-import org.eclipse.xtext.naming.IQualifiedNameProvider
-import org.eclipse.efm.ecore.formalml.statemachine.State
-import org.eclipse.efm.ecore.formalml.statemachine.Vertex
-import org.eclipse.efm.ecore.formalml.expression.AssignmentExpression
-import org.eclipse.efm.ecore.formalml.statement.Statement
-import org.eclipse.efm.ecore.formalml.expression.LiteralThisExpression
-import org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression
-import org.eclipse.efm.ecore.formalml.expression.LiteralParentExpression
-import org.eclipse.efm.ecore.formalml.expression.LiteralSystemExpression
-import org.eclipse.efm.ecore.formalml.expression.LiteralEnvExpression
-import org.eclipse.efm.ecore.formalml.expression.LiteralSuperExpression
+import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol
+import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification
 
 /**
  * This class contains custom scoping description.
@@ -97,12 +99,12 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	// GET SCOPE
 	////////////////////////////////////////////////////////////////////////////
 		
-//	////////////////////////////////////////////////////////////////////////////
-//	// get Trace
-//	//
-//	
+	////////////////////////////////////////////////////////////////////////////
+	// get Trace
+	//
+	
 //	@Inject
-//	private IQualifiedNameProvider nameProvider;
+//	IQualifiedNameProvider nameProvider;
 //	
 //	def String str(IScope scope) {
 //		var parentString = if( scope instanceof SimpleScope ) 
@@ -121,7 +123,8 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 //		
 //		strScope + "] -> " + parentString
 //	}
-//	
+
+	
 //	def scopingTrace(EObject context, EReference reference)
 //	{
 //		var requiredScoping = "scope_" + reference.EContainingClass.name
@@ -136,7 +139,8 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 //		}
 //		
 //		container.eClass.name + " "
-//				+ nameProvider.getFullyQualifiedName(container as NamedElement)
+////				+ nameProvider.getFullyQualifiedName(container as NamedElement)
+//				+ (container as NamedElement).name
 //				+ " " + contextHierarchy
 //				+ "\n\tScope" + "-->" + requiredScoping
 //	}
@@ -174,16 +178,18 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 //		
 //		scope
 //	}
-	
-	override getScope(EObject context, EReference reference)
+//	
 //	def getScopeImpl(EObject context,
 //			EReference reference, String requiredScoping)
+	override getScope(EObject context, EReference reference)
 	{
+//		println( scopingTrace(context, reference) )
+		
 		switch( reference )
 		{
-			case ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__VALUE:
+			case ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT:
 			{
-				return scope_LiteralReferenceElement_value(
+				return scope_LiteralReferenceElement_element(
 					context as LiteralReferenceElement, reference)
 			}
 			
@@ -210,6 +216,11 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				return scope_Transition_target(context as Transition, reference)
 			}
 			
+			case StatemachinePackage.Literals.TRANSITION__TARGET_EXPRESSION:
+			{
+				return scope_Transition_target(context as Transition, reference)
+			}
+			
 			case DatatypePackage.Literals.DATA_TYPE_REFERENCE__TYPEREF:
 			{
 				return scope_DataTypeReference_typeref(
@@ -222,11 +233,23 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 					context as InstanceMachine, reference)
 			}
 			
+			
 			case InfrastructurePackage.Literals.ROUTE__SIGNALS:
 			{
 				return scope_Route_signals(context as Route, reference)
 			}
 			
+			case InfrastructurePackage.Literals.COM_POINT__MACHINE:
+			{
+				return scope_ComPoint_machine(context as ComPoint, reference)
+			}
+			
+			case InfrastructurePackage.Literals.COM_POINT__PORT:
+			{
+				return scope_ComPoint_port(context as ComPoint, reference)
+			}
+			
+
 			case InfrastructurePackage.Literals.SLOT_PROPERTY__XLIA_PROPERTY:
 			{
 				return scope_SlotProperty_xliaProperty(
@@ -246,24 +269,18 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 					context as CastExpression, reference)
 			}
 			
-//			case InfrastructurePackage.Literals.COM_PROTOCOL__BUFFER:
-//			{
-////			createScopeForComProtocolBuffer(
-//					context as ComProtocol, reference)
-//
-//				return super.getScope(context, reference)
-//			}
-			
 			default: {
 //				print( "TO DO case: " )
 //				println( requiredScoping )
-		
-				val scope = super.getScope(context, reference)
-				
+//		
+//				val scope = super.getScope(context, reference)
+//				
 //				print( "\tdefault::IScope: ")
 //				println( scope )
-				
-				return scope
+//				
+//				return scope
+
+				return super.getScope(context, reference)
 			}
 		}
 	}
@@ -278,7 +295,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	
 	
 	////////////////////////////////////////////////////////////////////////////
-	// 
+	// scope_Transition_target
 	////////////////////////////////////////////////////////////////////////////
 	
 	def scope_Transition_target(Transition context, EReference reference)
@@ -289,9 +306,9 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 		var thisMachine = EcoreUtil2.getContainerOfType(region, typeof(Machine))
 
-		scopeForElements(thisMachine.variable.selectTypedElement(
-				PrimitiveInstanceKind.VERTEX),
-			scopeForElements(region.vertex, parentScope))
+		scopeForElements(region.vertex,
+			scopeForElements(thisMachine.variable.selectTypedElement(
+				PrimitiveInstanceKind.VERTEX), parentScope))
 	}
 		
 	////////////////////////////////////////////////////////////////////////////
@@ -353,6 +370,9 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				Routine: return it.scopeForHierarchicLeftElement(
 					ValueElementSpecificationScheme.COM_POINT)
 
+//				InstanceMachine:
+//					return scopeForComElement(it.model, expected, direction)
+
 				Machine: {
 					var thisMachine =
 						EcoreUtil2.getContainerOfType(context, typeof(Machine))
@@ -386,10 +406,10 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	
 	
 	////////////////////////////////////////////////////////////////////////////
-	// scope_LiteralReferenceElement_value
+	// scope_LiteralReferenceElement_element
 	////////////////////////////////////////////////////////////////////////////
 	
-	def scope_LiteralReferenceElement_value(
+	def scope_LiteralReferenceElement_element(
 		LiteralReferenceElement context, EReference reference)
 	{
 		var parentScope = IScope::NULLSCOPE
@@ -424,6 +444,8 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 				ComPoint: return container.scopeForThis(context)
 
+				ComProtocol: return container.scopeForThis(context)
+
 				Routine : return container.scopeForAnyElement(context)
 
 				Machine : return container.scopeForAnyElement(context)
@@ -452,7 +474,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				switch( container ) {
 					Vertex : return container
 					
-					System      : return container
+					XliaSystem  : return container
 					Statemachine: return container
 	
 					Behavior: return( container.eContainer as NamedElement )
@@ -469,7 +491,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		
 		switch( parent ) {
 			LiteralReferenceElement: {
-				val element = parent.value
+				val element = parent.element
 				switch( element ) {
 					PropertyDefinition : {
 						switch( parent.kind ) {
@@ -490,7 +512,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 					Vertex : return element
 
-					System      : return element
+					XliaSystem  : return element
 					Statemachine: return element
 					
 					Behavior: return( element.eContainer as NamedElement )
@@ -511,7 +533,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 					Vertex : return element
 
-					System      : return element
+					XliaSystem  : return element
 					Statemachine: return element
 					
 					Behavior : return( element.eContainer as NamedElement )
@@ -530,7 +552,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				switch( thisElement ) {
 					Vertex : return thisElement
 					
-					System      : return thisElement
+					XliaSystem  : return thisElement
 					Statemachine: return thisElement
 					
 					Behavior: return thisElement.eContainer as NamedElement
@@ -548,7 +570,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				switch( selfElement ) {
 					Vertex : return selfElement
 					
-					System      : return selfElement
+					XliaSystem  : return selfElement
 					Statemachine: return selfElement
 
 					Behavior: return( selfElement.eContainer as NamedElement )
@@ -567,7 +589,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 					Vertex : //     $this . Region   . Vertex or Statemachine         
 						return thisElement.eContainer.eContainer as NamedElement
 					
-					System : return if( parent != thisElement )
+					XliaSystem : return if( parent != thisElement )
 							{ thisElement } else { null }
 
 					Statemachine : return thisElement.eContainer as NamedElement
@@ -589,7 +611,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 					Vertex : //     $this . Region   . Vertex or Statemachine         
 						return thisElement.eContainer.eContainer as NamedElement
 
-					System : return if( parent != thisElement )
+					XliaSystem : return if( parent != thisElement )
 							{ thisElement } else { null }
 
 					Statemachine : return thisElement.eContainer as NamedElement
@@ -604,10 +626,10 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			}
 
 			LiteralSystemExpression:
-				return( EcoreUtil2.getContainerOfType(parent, typeof(System)) )
+				return( EcoreUtil2.getContainerOfType(parent, typeof(XliaSystem)) )
 
 			LiteralEnvExpression:
-				return( EcoreUtil2.getContainerOfType(parent, typeof(System)) )
+				return( EcoreUtil2.getContainerOfType(parent, typeof(XliaSystem)) )
 
 			LiteralNullExpression : return null
 			
@@ -624,178 +646,211 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		var parentElement = context.parentOf
 //			?: EcoreUtil2.getContainerOfType(context, typeof(Machine))
 
-		if( parentElement === null )
-		{
-			return parentScope
-		}
+//		if( parentElement === null )
+//		{
+//			return parentScope
+//		}
 
 		var container = context.eContainer
 		
-		if( context.expected === ValueElementSpecificationScheme.ANY )
+		switch( context.expected )
 		{
-			switch( container )
-			{
-				Transition:
-					if( container.target === context ) {
-						context.expected =
-							ValueElementSpecificationScheme.VERTEX
-					}
-				InputComStatement , OutputComStatement:
-					if( container.target === context ) {
-						context.expected =
-							ValueElementSpecificationScheme.MACHINE
-					}
-					
-				AssignmentExpression:
-					if( container.rigthHandSide === context ) {
-						context.expected =
-							ValueElementSpecificationScheme.ANY
-					}
-
-				ComPoint:
-					if( container.point === context ) {
-						context.expected =
-							ValueElementSpecificationScheme.COM_POINT
-					}
-
-				ValueElementSpecification: {
-					container = container.eContainer
-					for( var retry = true ; retry ; )
-					{
-						switch( container )
+			case ANY: {
+				switch( container )
+				{
+					Transition:
+						if( (container.target === context) 
+							|| (container.targetExpression === context) )
 						{
-							Transition: {
-								context.expected =
-									ValueElementSpecificationScheme.COMPOSITE
-								retry = false
+							context.expected =
+								ValueElementSpecificationScheme.VERTEX
+						}
+					InputComStatement , OutputComStatement:
+						if( container.port === context ) {
+							context.expected =
+								ValueElementSpecificationScheme.COM_POINT
+						}
+						else if( container.target === context ) {
+							context.expected =
+								ValueElementSpecificationScheme.MACHINE
+						}
+						else if( container.route === context ) {
+							context.expected =
+								ValueElementSpecificationScheme.CHANNEL
+						}
+						
+					AssignmentExpression:
+						if( container.leftHandSide === context ) {
+							context.expected =
+								ValueElementSpecificationScheme.VARIABLE
+						}
+						else if( container.rightHandSide === context ) {
+							context.expected =
+								ValueElementSpecificationScheme.ANY
+						}
+	
+					ComPoint:
+						if( container.machine === context ) {
+							context.expected =
+								ValueElementSpecificationScheme.MACHINE
+						}
+						else if( container.port === context ) {
+							context.expected =
+								ValueElementSpecificationScheme.COM_POINT
+						}
+	
+					ValueElementSpecification: {
+						container = container.eContainer
+						for( var retry = true ; retry ; )
+						{
+							switch( container )
+							{
+								Transition: {
+									context.expected =
+										ValueElementSpecificationScheme.COMPOSITE
+									retry = false
+								}
+								InputComStatement , OutputComStatement: {
+									context.expected =
+										ValueElementSpecificationScheme.COM_POINT
+									retry = false
+								}
+								
+								ComPoint: {
+									context.expected =
+										ValueElementSpecificationScheme.COM_POINT
+									retry = false
+								}
+								
+								ValueElementSpecification: {
+									container = container.eContainer
+								}
+								default: retry = false
 							}
-							InputComStatement , OutputComStatement: {
-								context.expected =
-									ValueElementSpecificationScheme.COM_POINT
-								retry = false
-							}
-							
-							ComPoint: {
-								context.expected =
-									ValueElementSpecificationScheme.COM_POINT
-								retry = false
-							}
-							
-							ValueElementSpecification: {
-								container = container.eContainer
-							}
-							default: retry = false
 						}
 					}
 				}
 			}
-		}
-		
-		if( parentElement instanceof State ) 
-		{
-			switch( context.expected )
-			{
-				case VERTEX:
-					return parentElement.scopeForVertexElement
-	
-				case COMPOSITE:
-					return parentElement.scopeForCompositeElement
-	
-				default: {
-					parentElement = EcoreUtil2.getContainerOfType(
-						parentElement, typeof(Machine))
-				}
+			default: {
+				//!! NOTHING
 			}
-		}
-		
-		if( parentElement instanceof Statemachine ) {
-			switch( context.expected )
-			{
-				case VERTEX:
-					return parentElement.scopeForVertexElement
-	
-				case COMPOSITE:
-					return parentElement.scopeForCompositeElement
-	
-				default: {
-				}
-			}
-		}
-		
-		if( parentElement instanceof Machine ) {
-			val typeMachine = parentElement as Machine
-
-			switch( context.expected )
-			{
-				case VERTEX , case COMPOSITE:
-					return typeMachine.scopeForCompositeElement
-	
-				case BUFFER:
-					return typeMachine.scopeForRigthElement(context.expected)
-
-				case COM_POINT: {
-					switch( container )
-					{
-						ComPoint:
-							return typeMachine.scopeForSelfMachineComPoint(
-								(context.eContainer as ComPoint).direction)
-	
-						InputComStatement :
-							return scopeForElements(
-								typeMachine.selectLeftElements(context),
-								parentScope)
-	
-						OutputComStatement:
-							return scopeForElements(
-								typeMachine.selectRigthElements(context),
-								parentScope)
-					}
-				}
-				default: {
-					if( (context.parent instanceof LiteralReferenceExpression)
-					&& (! (context.parent instanceof LiteralReferenceElement)) )
-					{
-						return scopeForElements(
-							typeMachine.selectLeftElements(context),
-							parentScope)
-					}
-					else if( typeMachine.isAncestorOf(context) )
-					{
-						for( machine : typeMachine.reverseMachineHierarchy )
-						{
-							parentScope = scopeForElements(
-								machine.selectLeftElements(context),
-								parentScope)
-						}
-		
-						return scopeForElements(
-							typeMachine.selectLeftElements(context),
-							parentScope)
-					}
-					else {
-						for( machine : typeMachine.reverseMachineHierarchy )
-						{
-							parentScope = scopeForElements(
-								machine.selectPublicLeftElements(context),
-								parentScope)
-						}
-		
-						return scopeForElements(
-							typeMachine.selectPublicLeftElements(context),
-							parentScope)
-					}
-				}
-			}
-		}
-		
-		else if( parentElement instanceof DataType ) {
-			return scopeForElements(
-				parentElement.selectElements(context), parentScope
-			)
-		}
 			
-		else {
-			return parentScope
+		}
+		
+		switch( parentElement ) 
+		{
+			State: {
+				switch( context.expected )
+				{
+					case VERTEX:
+						return parentElement.scopeForVertexElement
+		
+					case COMPOSITE:
+						return parentElement.scopeForCompositeElement
+		
+					default: {
+						parentElement = EcoreUtil2.getContainerOfType(
+							parentElement, typeof(Machine))
+					}
+				}
+			}
+		
+			Statemachine: {
+				switch( context.expected )
+				{
+					case VERTEX:
+						return parentElement.scopeForVertexElement
+		
+					case COMPOSITE:
+						return parentElement.scopeForCompositeElement
+		
+					default: {
+					}
+				}
+			}
+			
+			DataType: {
+				return scopeForElements(
+					parentElement.selectElements(context), parentScope)
+			}
+		}
+		
+		val typeMachine = 
+			if( parentElement instanceof Machine ) {
+				parentElement
+			}
+			else {
+				EcoreUtil2.getContainerOfType(parentElement, typeof(Machine))
+			}
+
+		switch( context.expected )
+		{
+			case VARIABLE, case MACHINE, case CHANNEL:
+				return typeMachine.scopeForRigthElement(context.expected)
+
+			case VERTEX , case COMPOSITE:
+				return typeMachine.scopeForCompositeElement
+
+			case BUFFER:
+				return typeMachine.scopeForRigthElement(context.expected)
+
+			case COM_POINT: {
+				switch( container )
+				{
+					ConnectorEnd:
+						return typeMachine.scopeForSelfMachineComPoint(
+							container.direction)
+
+					ComPoint:
+						return typeMachine.scopeForSelfMachineComPoint(
+							(container.eContainer as ConnectorEnd).direction)
+
+					InputComStatement :
+						return typeMachine.scopeForHierarchicLeftElement(
+							context.expected)
+
+					OutputComStatement:
+						return typeMachine.scopeForHierarchicRigthElement(
+							context.expected)
+							
+					default: return parentScope
+				}
+			}
+			
+			default: {
+				if( (context.parent instanceof LiteralReferenceExpression)
+				&& (! (context.parent instanceof LiteralReferenceElement)) )
+				{
+					return scopeForElements(
+						typeMachine.selectLeftElements(context),
+						parentScope)
+				}
+				else if( typeMachine.isAncestorOf(context) )
+				{
+					for( machine : typeMachine.reverseMachineHierarchy )
+					{
+						parentScope = scopeForElements(
+							machine.selectLeftElements(context),
+							parentScope)
+					}
+	
+					return scopeForElements(
+						typeMachine.selectLeftElements(context),
+						parentScope)
+				}
+				else {
+					for( machine : typeMachine.reverseMachineHierarchy )
+					{
+						parentScope = scopeForElements(
+							machine.selectPublicLeftElements(context),
+							parentScope)
+					}
+	
+					return scopeForElements(
+						typeMachine.selectPublicLeftElements(context),
+						parentScope)
+				}
+			}
 		}
 	}
 
@@ -925,7 +980,8 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	
 	def scope_InstanceMachine_model(InstanceMachine context, EReference reference)
 	{
-		context.scopeForHierarchicLeftElement(ValueElementSpecificationScheme.MODEL)
+		context.scopeForHierarchicLeftElement(
+			ValueElementSpecificationScheme.MODEL)
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -936,6 +992,33 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	{
 		context.scopeForComElement(
 			PrimitiveInstanceKind.SIGNAL, ChannelDirection.INPUT)
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	// scope_ComPoint_machine / scope_ComPoint_port
+	////////////////////////////////////////////////////////////////////////////
+	
+	def scope_ComPoint_machine(ComPoint context, EReference reference)
+	{
+		context.scopeForHierarchicLeftElement(
+			ValueElementSpecificationScheme.MACHINE)
+	}
+	
+	def scope_ComPoint_port(ComPoint context, EReference reference)
+	{
+		if( context.machine instanceof InstanceMachine ) {
+			(context.machine as InstanceMachine).model.scopeForComElement(
+				 PrimitiveInstanceKind.PORT,
+				 (context.eContainer as ConnectorEnd).direction )
+		}
+		else if( context.machine !== null ) {
+			context.machine.scopeForComElement( PrimitiveInstanceKind.PORT,
+				 (context.eContainer as ConnectorEnd).direction )
+		 }
+		 else {
+			context.scopeForComElement( PrimitiveInstanceKind.PORT,
+				 (context.eContainer as ConnectorEnd).direction )
+		 }
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -979,26 +1062,36 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 	// Select PropertyElement by VISIBILITY
 	def Iterable< ? extends NamedElement> selectPublic(
-		Iterable< ? extends NamedElement> elements) {
-
+		Iterable< ? extends NamedElement> elements)
+	{
 		elements.filter[ visibility === VisibilityKind.PUBLIC ]
 	}
 
 	def Iterable< ? extends NamedElement> selectNonPublic(
-		Iterable< ? extends NamedElement> elements) {
-
+		Iterable< ? extends NamedElement> elements)
+	{
 		elements.filter[ visibility != VisibilityKind.PUBLIC ]
 	}
 
 	def Iterable< ? extends NamedElement> selectNonPrivate(
-		Iterable< ? extends NamedElement> elements) {
-
+		Iterable< ? extends NamedElement> elements)
+	{
 		elements.filter[ visibility != VisibilityKind.PRIVATE ]
 	}
 
 	// Select PropertyElement by MODIFIER
+	def Iterable< ? extends Variable > selectFinalOrConst(
+		Iterable< ? extends Variable > elements) 
+	{
+		val finalOrConstPredicate = [ Variable P |
+			(P.modifier.final || (P as Variable).const) ]
+
+		elements.filter( finalOrConstPredicate )
+	}
+
 	def Iterable< ? extends PropertyDefinition > selectNonFinalNorConst(
-		Iterable< ? extends PropertyDefinition > elements) {
+		Iterable< ? extends PropertyDefinition > elements)
+	{
 		val nonFinalNorConstPredicate = [ PropertyDefinition P |
 			(P.modifier.final === false) &&
 			((! (P instanceof Variable)) || ((P as Variable).const === false)) ]
@@ -1009,7 +1102,8 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 	// Select Composite State in vertexes
 	def Iterable< State > selectCompositeState(
-		Iterable< ? extends Vertex > elements) {
+		Iterable< ? extends Vertex > elements)
+	{
 			
 //		elements.filter[ vertex |
 //			(vertex instanceof State) && (vertex as State).composite
@@ -1186,6 +1280,9 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 			case VARIABLE : block.variable
 
+			case CONSTANT: {
+			}
+
 			case TYPEDEF  : block.typedef
 			
 			case PORT     : block.port
@@ -1193,7 +1290,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			case MESSAGE  : block.port + block.signal
 			
 			case COM_POINT: block.port + block.signal +
-							block.machine + block.instance
+							block.machine + block.instance + block.behavior
 
 			case INSTANCE : block.instance
 			case MACHINE  : block.machine + block.instance + block.behavior
@@ -1253,6 +1350,8 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 			case VARIABLE : block.variable
 
+			case CONSTANT: block.variable.selectFinalOrConst
+
 			case TYPEDEF  : block.typedef
 
 			case PORT     : block.port +
@@ -1265,7 +1364,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 							block.variable.selectProperty(expected)
 
 			case COM_POINT: block.port + block.signal +
-							block.machine + block.instance +
+							block.machine + block.instance + block.behavior +
 							block.variable.selectProperty(expected)
 
 			case INSTANCE : block.instance +
@@ -1423,8 +1522,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			}
 			
 			case COMPOSITE : {
-				var Iterable< Vertex > selectedElements
-						= < Vertex >newArrayList()
+				var Iterable< Vertex > selectedElements = < Vertex >newArrayList()
 				
 				for( it : block.region ) {
 					selectedElements = it.vertex + selectedElements
@@ -1484,8 +1582,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			}
 			
 			case COMPOSITE : {
-				var Iterable< Vertex > selectedElements
-						= < Vertex >newArrayList()
+				var Iterable< Vertex > selectedElements = < Vertex >newArrayList()
 				
 				for( it : block.region ) {
 					selectedElements = it.vertex + selectedElements
@@ -1505,20 +1602,15 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	// select SYSTEM Elements
 	////////////////////////////////////////////////////////////////////////////
 
-	def scopeForSelectedLeftElements(System block,
+	def scopeForSelectedLeftElements(XliaSystem block,
 		ValueElementSpecificationScheme expected, IScope parentScope)
 	{
 		switch( expected )
 		{
-			case ANY :
-				(block as Machine).scopeForSelectedLeftElements(expected,
-					Scopes::scopeFor(newArrayList( block ), parentScope))
-			
-			case MACHINE :
-				(block as Machine).scopeForSelectedLeftElements(expected,
-					Scopes::scopeFor(newArrayList( block ), parentScope))
-	
-			case COMPOSITE :
+			case ANY,			
+			case MACHINE,	
+			case COMPOSITE,	
+			case COM_POINT :
 				(block as Machine).scopeForSelectedLeftElements(expected,
 					Scopes::scopeFor(newArrayList( block ), parentScope))
 	
@@ -1528,20 +1620,15 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		}
 	}
 
-	def scopeForSelectedRigthElements(System block,
+	def scopeForSelectedRigthElements(XliaSystem block,
 		ValueElementSpecificationScheme expected, IScope parentScope)
 	{
 		switch( expected )
 		{
-			case ANY :
-				(block as Machine).scopeForSelectedRigthElements(expected,
-					Scopes::scopeFor(newArrayList( block ), parentScope))
-
-			case MACHINE  :
-				(block as Machine).scopeForSelectedRigthElements(expected,
-					Scopes::scopeFor(newArrayList( block ), parentScope))
-
-			case COMPOSITE :
+			case ANY,
+			case MACHINE,
+			case COMPOSITE,
+			case COM_POINT :
 				(block as Machine).scopeForSelectedRigthElements(expected,
 					Scopes::scopeFor(newArrayList( block ), parentScope))
 
@@ -1552,16 +1639,15 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	}
 
 
-	def scopeForSelectedStructuredElements(System block,
+	def scopeForSelectedStructuredElements(XliaSystem block,
 		ValueElementSpecificationScheme expected, IScope parentScope)
 	{
 		switch( expected )
 		{
-			case ANY :
-				(block as Machine).scopeForSelectedStructuredElements(expected,
-					Scopes::scopeFor(newArrayList( block ), parentScope))
-
-			case MACHINE :
+			case ANY,			
+			case MACHINE,	
+			case COMPOSITE,	
+			case COM_POINT :
 				(block as Machine).scopeForSelectedStructuredElements(expected,
 					Scopes::scopeFor(newArrayList( block ), parentScope))
 
@@ -1577,13 +1663,15 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	////////////////////////////////////////////////////////////////////////////
 
 	def selectProperty(
-		Iterable< ? extends PropertyDefinition> properties,
+		Iterable< ? extends PropertyDefinition > properties,
 		ValueElementSpecificationScheme expected)
 	{
 		switch( expected ) {
 			case ANY : properties
 
 			case VARIABLE: properties
+
+			case CONSTANT: properties
 
 			default: {
 				val selection = < PropertyDefinition >newArrayList()
@@ -1683,28 +1771,28 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		{
 			case ANY     :
 			{
-				var lvalue = routine.parameter
-				if( routine.domain !== null )
+				var lvalue = < Parameter >newArrayList()
+				if( routine.parameterSet !== null )
 				{
-					lvalue += routine.domain.parameter
+					lvalue += routine.parameterSet.parameter
 				}
-				if( routine.codomain !== null )
+				if( routine.resultSet !== null )
 				{
-					lvalue += routine.codomain.parameter
+					lvalue += routine.resultSet.parameter
 				}
 
 				scopeForElements(lvalue, parentScope)
 			}
 
 			case VARIABLE: {
-				var lvalue = routine.parameter
-				if( routine.domain !== null )
+				var lvalue = < Parameter >newArrayList()
+				if( routine.parameterSet !== null )
 				{
-					lvalue += routine.domain.parameter
+					lvalue += routine.parameterSet.parameter
 				}
-				if( routine.codomain !== null )
+				if( routine.resultSet !== null )
 				{
-					lvalue += routine.codomain.parameter
+					lvalue += routine.resultSet.parameter
 				}
 
 				scopeForElements(lvalue, parentScope)
@@ -1720,16 +1808,16 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			}
 
 			default: {
-				var lvalue = routine.parameter.selectProperty(expected)
-				if( routine.domain !== null )
+				var Iterable< PropertyDefinition > lvalue = < PropertyDefinition >newArrayList()
+				if( routine.parameterSet !== null )
 				{
 					lvalue = lvalue +
-						routine.domain.parameter.selectProperty(expected)
+						routine.parameterSet.parameter.selectProperty(expected)
 				}
-				if( routine.codomain !== null )
+				if( routine.resultSet !== null )
 				{
 					lvalue = lvalue +
-						routine.codomain.parameter.selectProperty(expected)
+						routine.resultSet.parameter.selectProperty(expected)
 				}
 
 				scopeForElements(lvalue, parentScope)
@@ -1740,17 +1828,17 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	def scopeForSelectedRigthElements(Routine routine,
 		ValueElementSpecificationScheme expected, IScope parentScope)
 	{
-		var properties = routine.parameter.selectProperty(expected)
+		var Iterable< PropertyDefinition > properties = < PropertyDefinition >newArrayList()
 
-		if( routine.domain !== null )
+		if( routine.parameterSet !== null )
 		{
 			properties = properties +
-				routine.domain.parameter.selectProperty(expected)
+				routine.parameterSet.parameter.selectProperty(expected)
 		}
-		if( routine.codomain !== null )
+		if( routine.resultSet !== null )
 		{
 			properties = properties +
-				routine.codomain.parameter.selectProperty(expected)
+				routine.resultSet.parameter.selectProperty(expected)
 		}
 
 		scopeForElements(properties, parentScope)
@@ -1762,26 +1850,18 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	{
 		val selectedElements = < PropertyDefinition >newArrayList()
 
-		for( it : routine.parameter )
+		if( routine.parameterSet !== null )
 		{
-			if( it.type.isStructured )
-			{
-				selectedElements += it
-			}
-		}
-
-		if( routine.domain !== null )
-		{
-			for( it : routine.domain.parameter )
+			for( it : routine.parameterSet.parameter )
 			{
 				if( it.type.isStructured ) {
 					selectedElements += it
 				}
 			}
 		}
-		if( routine.codomain !== null )
+		if( routine.resultSet !== null )
 		{
-			for( it : routine.codomain.parameter )
+			for( it : routine.resultSet.parameter )
 			{
 				if( it.type.isStructured )
 				{
@@ -1851,7 +1931,9 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		LeftHandSideExpression container, LiteralReferenceElement context)
 	{
 		container.scopeForHierarchicLeftElement(
-			ValueElementSpecificationScheme.VARIABLE)
+			ValueElementSpecificationScheme.VARIABLE,
+			container.scopeForHierarchicLeftElement(
+			 	ValueElementSpecificationScheme.MACHINE, IScope::NULLSCOPE))
 	}
 
 	def scopeForThis(
@@ -1886,7 +1968,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 			default:
 				container.scopeForHierarchicLeftElement(
-					ValueElementSpecificationScheme.VARIABLE)
+					ValueElementSpecificationScheme.ANY)
 		}
 	}
 
@@ -1957,6 +2039,54 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 //		}
 //	}
 
+	def Machine lastParentOf(LiteralReferenceSpecification context) {
+		if( ! context.parent.empty ) {
+			val parent = context.parent.last
+//			for( parent : context.parent.reverse )
+			switch( parent ) {
+				LiteralReferenceElement: {
+					if( parent.element instanceof Machine ) {
+						return( parent.element as Machine )
+					}
+					else if( parent.element instanceof InstanceMachine ) {
+						return( (parent.element as InstanceMachine).model )
+					}
+				}
+				
+			}
+		}
+		
+		return EcoreUtil2.getContainerOfType(context, typeof(Machine));
+	}
+
+
+	def scopeForThis(ComProtocol container, LiteralReferenceElement context)
+	{
+		val thisMachine =
+			EcoreUtil2.getContainerOfType(container, typeof(Machine))
+
+		val ctxContainer = context.eContainer
+		
+		if( ctxContainer instanceof LiteralReferenceSpecification ) {
+			if( ctxContainer.element === context ) {
+				if( ! ctxContainer.parent.empty ) {					
+					return ctxContainer.lastParentOf.scopeForHierarchicLeftElement(
+						ValueElementSpecificationScheme.BUFFER)
+				}
+				
+				return thisMachine.scopeForHierarchicLeftElement(
+					ValueElementSpecificationScheme.BUFFER)
+			}
+//			if( ! ctxContainer.parent.empty ) {					
+//				return ctxContainer.lastParentOf.scopeForHierarchicLeftElement(
+//					ValueElementSpecificationScheme.MACHINE)
+//			}
+		}
+		
+		return thisMachine.scopeForHierarchicLeftElement(
+			ValueElementSpecificationScheme.MACHINE)
+	}
+
 	def scopeForThis(ComPoint container, LiteralReferenceElement context)
 	{
 		val thisMachine =
@@ -1975,7 +2105,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 		if( thisType.multiplicity === context ) {
 			thisMachine.scopeForHierarchicRigthElement(
-				ValueElementSpecificationScheme.TYPEDEF)
+				ValueElementSpecificationScheme.CONSTANT)
 		}
 		else {
 			thisMachine.scopeForHierarchicRigthElement(
@@ -2016,7 +2146,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	{
 		scopeForElements(thisQExpression.variable,
 			thisQExpression.scopeForHierarchicRigthElement(
-				ValueElementSpecificationScheme.VARIABLE) )
+				ValueElementSpecificationScheme.ANY) )
 	}
 
 
@@ -2326,11 +2456,11 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	}
 
 
-	def scopeForHierarchicLeftElement(
-		Machine thisMachine, ValueElementSpecificationScheme expected)
+	def scopeForHierarchicLeftElement(Machine thisMachine,
+		ValueElementSpecificationScheme expected, IScope xParentScope)
 	{
-		var parentScope = IScope::NULLSCOPE
-
+		var parentScope = xParentScope
+		
 		for( block : thisMachine.reverseMachineHierarchy )
 		{
 			switch( block )
@@ -2341,7 +2471,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				Behavior: parentScope =
 					block.scopeForSelectedLeftElements(expected, parentScope)
 
-				System: parentScope =
+				XliaSystem: parentScope =
 					block.scopeForSelectedLeftElements(expected, parentScope)
 
 				default: parentScope =
@@ -2357,7 +2487,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			Behavior:
 				thisMachine.scopeForSelectedLeftElements(expected, parentScope)
 
-			System:
+			XliaSystem:
 				thisMachine.scopeForSelectedLeftElements(expected, parentScope)
 
 			default:
@@ -2384,7 +2514,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				Behavior: parentScope =
 					block.scopeForSelectedRigthElements(expected, parentScope)
 
-				System: parentScope =
+				XliaSystem: parentScope =
 					block.scopeForSelectedRigthElements(expected, parentScope)
 
 				default: parentScope =
@@ -2400,7 +2530,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			Behavior:
 				thisMachine.scopeForSelectedRigthElements(expected, parentScope)
 
-			System: parentScope =
+			XliaSystem: parentScope =
 				thisMachine.scopeForSelectedRigthElements(expected, parentScope)
 
 			default:
@@ -2422,7 +2552,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 					machine.scopeForSelectedStructuredElements(
 						expected, parentScope)
 
-				System: parentScope =
+				XliaSystem: parentScope =
 					machine.scopeForSelectedStructuredElements(
 						expected, parentScope)
 
@@ -2438,7 +2568,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 				thisMachine.scopeForSelectedStructuredElements(
 					expected, parentScope)
 
-			System:
+			XliaSystem:
 				thisMachine.scopeForSelectedStructuredElements(
 					expected, parentScope)
 
@@ -2464,14 +2594,14 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	}
 
 
-	def scopeForHierarchicLeftElement(
-		Routine thisRoutine, ValueElementSpecificationScheme expected)
+	def scopeForHierarchicLeftElement(Routine thisRoutine,
+		ValueElementSpecificationScheme expected, IScope parentScope)
 	{
 		val thisMachine =
 			EcoreUtil2.getContainerOfType(thisRoutine, typeof(Machine))
 
 		thisRoutine.scopeForSelectedLeftElements(expected,
-			scopeForHierarchicLeftElement(thisMachine, expected))
+			scopeForHierarchicLeftElement(thisMachine, expected, parentScope))
 	}
 
 	def scopeForHierarchicRigthElement(
@@ -2489,6 +2619,24 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	// EObject: scopeForHierarchicLeftElement / scopeForHierarchicRigthElement
 	////////////////////////////////////////////////////////////////////////////
 
+	def scopeForHierarchicLeftElement(EObject context,
+		ValueElementSpecificationScheme expected, IScope parentScope)
+	{
+		for( var it = context ; it !== null; it = it.eContainer() )
+		{
+			switch( it )
+			{
+				Routine: return it.scopeForHierarchicLeftElement(
+					expected, parentScope)
+
+				Machine: return it.scopeForHierarchicLeftElement(
+					expected, parentScope)
+			}
+		}
+
+		parentScope
+	}
+
 	def scopeForHierarchicLeftElement(
 		EObject context, ValueElementSpecificationScheme expected)
 	{
@@ -2496,13 +2644,17 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		{
 			switch( it )
 			{
-//				State: return it.scopeForHierarchicLeftElement(expected)
+//				State: return it.scopeForHierarchicLeftElement(
+//					expected, IScope::NULLSCOPE)
 //
-//				Vertex: return it.scopeForHierarchicLeftElement(expected)
+//				Vertex: return it.scopeForHierarchicLeftElement(
+//					expected, IScope::NULLSCOPE)
 
-				Routine: return it.scopeForHierarchicLeftElement(expected)
+				Routine: return it.scopeForHierarchicLeftElement(
+					expected, IScope::NULLSCOPE)
 
-				Machine: return it.scopeForHierarchicLeftElement(expected)
+				Machine: return it.scopeForHierarchicLeftElement(
+					expected, IScope::NULLSCOPE)
 			}
 		}
 

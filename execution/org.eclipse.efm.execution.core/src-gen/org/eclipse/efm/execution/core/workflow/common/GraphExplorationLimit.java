@@ -48,7 +48,7 @@ public interface GraphExplorationLimit extends EObject {
 	 * @return the value of the '<em>Step</em>' attribute.
 	 * @see #setStep(long)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationLimit_Step()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	long getStep();
@@ -74,7 +74,7 @@ public interface GraphExplorationLimit extends EObject {
 	 * @return the value of the '<em>Eval</em>' attribute.
 	 * @see #setEval(long)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationLimit_Eval()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	long getEval();
@@ -100,7 +100,7 @@ public interface GraphExplorationLimit extends EObject {
 	 * @return the value of the '<em>Node</em>' attribute.
 	 * @see #setNode(long)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationLimit_Node()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	long getNode();
@@ -126,7 +126,7 @@ public interface GraphExplorationLimit extends EObject {
 	 * @return the value of the '<em>Height</em>' attribute.
 	 * @see #setHeight(long)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationLimit_Height()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	long getHeight();
@@ -152,7 +152,7 @@ public interface GraphExplorationLimit extends EObject {
 	 * @return the value of the '<em>Width</em>' attribute.
 	 * @see #setWidth(long)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationLimit_Width()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	long getWidth();
@@ -178,7 +178,7 @@ public interface GraphExplorationLimit extends EObject {
 	 * @return the value of the '<em>Report</em>' attribute.
 	 * @see #setReport(long)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationLimit_Report()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	long getReport();
@@ -204,7 +204,7 @@ public interface GraphExplorationLimit extends EObject {
 	 * @return the value of the '<em>Save</em>' attribute.
 	 * @see #setSave(long)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationLimit_Save()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	long getSave();

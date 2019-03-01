@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,7 +36,7 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INITIAL(0, "initial", "initial"),
+	INITIAL(0, "Initial", "initial"),
 
 	/**
 	 * The '<em><b>Deep History</b></em>' literal object.
@@ -46,7 +46,7 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DEEP_HISTORY(1, "deepHistory", "deepHistory"),
+	DEEP_HISTORY(1, "DeepHistory", "dhistory"),
 
 	/**
 	 * The '<em><b>Shallow History</b></em>' literal object.
@@ -56,7 +56,7 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SHALLOW_HISTORY(2, "shallowHistory", "shallowHistory"),
+	SHALLOW_HISTORY(2, "ShallowHistory", "shistory"),
 
 	/**
 	 * The '<em><b>Join</b></em>' literal object.
@@ -66,7 +66,7 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JOIN(3, "join", "join"),
+	JOIN(3, "Join", "join"),
 
 	/**
 	 * The '<em><b>Fork</b></em>' literal object.
@@ -76,7 +76,7 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FORK(4, "fork", "fork"),
+	FORK(4, "Fork", "fork"),
 
 	/**
 	 * The '<em><b>Junction</b></em>' literal object.
@@ -86,7 +86,7 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JUNCTION(5, "junction", "junction"),
+	JUNCTION(5, "Junction", "junction"),
 
 	/**
 	 * The '<em><b>Choice</b></em>' literal object.
@@ -96,7 +96,7 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	CHOICE(6, "choice", "choice"),
+	CHOICE(6, "Choice", "choice"),
 
 	/**
 	 * The '<em><b>Entry Point</b></em>' literal object.
@@ -106,7 +106,7 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ENTRY_POINT(7, "entryPoint", "entryPoint"),
+	ENTRY_POINT(7, "EntryPoint", "entryPoint"),
 
 	/**
 	 * The '<em><b>Exit Point</b></em>' literal object.
@@ -116,17 +116,17 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EXIT_POINT(8, "exitPoint", "exitPoint"),
+	EXIT_POINT(8, "ExitPoint", "exitPoint"),
 
 	/**
-	 * The '<em><b>Terminate</b></em>' literal object.
+	 * The '<em><b>Terminal</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #TERMINATE_VALUE
+	 * @see #TERMINAL_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	TERMINATE(9, "terminate", "terminate"),
+	TERMINAL(9, "Terminal", "terminal"),
 
 	/**
 	 * The '<em><b>Return</b></em>' literal object.
@@ -136,7 +136,7 @@ public enum PseudostateKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RETURN(10, "return", "return");
+	RETURN(10, "Return", "return");
 
 	/**
 	 * The '<em><b>Initial</b></em>' literal value.
@@ -147,7 +147,7 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INITIAL
-	 * @model name="initial"
+	 * @model name="Initial" literal="initial"
 	 * @generated
 	 * @ordered
 	 */
@@ -162,7 +162,7 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #DEEP_HISTORY
-	 * @model name="deepHistory"
+	 * @model name="DeepHistory" literal="dhistory"
 	 * @generated
 	 * @ordered
 	 */
@@ -177,7 +177,7 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SHALLOW_HISTORY
-	 * @model name="shallowHistory"
+	 * @model name="ShallowHistory" literal="shistory"
 	 * @generated
 	 * @ordered
 	 */
@@ -192,7 +192,7 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #JOIN
-	 * @model name="join"
+	 * @model name="Join" literal="join"
 	 * @generated
 	 * @ordered
 	 */
@@ -207,7 +207,7 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #FORK
-	 * @model name="fork"
+	 * @model name="Fork" literal="fork"
 	 * @generated
 	 * @ordered
 	 */
@@ -222,7 +222,7 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #JUNCTION
-	 * @model name="junction"
+	 * @model name="Junction" literal="junction"
 	 * @generated
 	 * @ordered
 	 */
@@ -237,7 +237,7 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #CHOICE
-	 * @model name="choice"
+	 * @model name="Choice" literal="choice"
 	 * @generated
 	 * @ordered
 	 */
@@ -252,7 +252,7 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #ENTRY_POINT
-	 * @model name="entryPoint"
+	 * @model name="EntryPoint" literal="entryPoint"
 	 * @generated
 	 * @ordered
 	 */
@@ -267,26 +267,26 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #EXIT_POINT
-	 * @model name="exitPoint"
+	 * @model name="ExitPoint" literal="exitPoint"
 	 * @generated
 	 * @ordered
 	 */
 	public static final int EXIT_POINT_VALUE = 8;
 
 	/**
-	 * The '<em><b>Terminate</b></em>' literal value.
+	 * The '<em><b>Terminal</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Terminate</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Terminal</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #TERMINATE
-	 * @model name="terminate"
+	 * @see #TERMINAL
+	 * @model name="Terminal" literal="terminal"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TERMINATE_VALUE = 9;
+	public static final int TERMINAL_VALUE = 9;
 
 	/**
 	 * The '<em><b>Return</b></em>' literal value.
@@ -297,7 +297,7 @@ public enum PseudostateKind implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #RETURN
-	 * @model name="return"
+	 * @model name="Return" literal="return"
 	 * @generated
 	 * @ordered
 	 */
@@ -320,7 +320,7 @@ public enum PseudostateKind implements Enumerator {
 			CHOICE,
 			ENTRY_POINT,
 			EXIT_POINT,
-			TERMINATE,
+			TERMINAL,
 			RETURN,
 		};
 
@@ -387,7 +387,7 @@ public enum PseudostateKind implements Enumerator {
 			case CHOICE_VALUE: return CHOICE;
 			case ENTRY_POINT_VALUE: return ENTRY_POINT;
 			case EXIT_POINT_VALUE: return EXIT_POINT;
-			case TERMINATE_VALUE: return TERMINATE;
+			case TERMINAL_VALUE: return TERMINAL;
 			case RETURN_VALUE: return RETURN;
 		}
 		return null;
@@ -431,6 +431,7 @@ public enum PseudostateKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 	  return value;
 	}
@@ -440,6 +441,7 @@ public enum PseudostateKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 	  return name;
 	}
@@ -449,6 +451,7 @@ public enum PseudostateKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 	  return literal;
 	}

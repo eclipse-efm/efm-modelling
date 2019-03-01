@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -39,6 +39,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocolKind;
 import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
+import org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd;
 import org.eclipse.efm.ecore.formalml.infrastructure.DesignKind;
 import org.eclipse.efm.ecore.formalml.infrastructure.Function;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructureFactory;
@@ -61,6 +62,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty;
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem;
 
 import org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage;
 
@@ -118,7 +120,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass systemEClass = null;
+	private EClass xliaSystemEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -272,6 +274,13 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass connectorEndEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass comPointEClass = null;
 
 	/**
@@ -337,7 +346,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link InfrastructurePackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -351,17 +360,24 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		if (isInited) return (InfrastructurePackage)EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI);
 
 		// Obtain or create and register package
-		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof InfrastructurePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new InfrastructurePackageImpl());
+		Object registeredInfrastructurePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		InfrastructurePackageImpl theInfrastructurePackage = registeredInfrastructurePackage instanceof InfrastructurePackageImpl ? (InfrastructurePackageImpl)registeredInfrastructurePackage : new InfrastructurePackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) instanceof FormalmlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) : FormalmlPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
-		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) instanceof ExpressionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) : ExpressionPackage.eINSTANCE);
-		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) instanceof StatementPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) : StatementPackage.eINSTANCE);
-		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) instanceof StatemachinePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) : StatemachinePackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI);
+		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(registeredPackage instanceof FormalmlPackageImpl ? registeredPackage : FormalmlPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI);
+		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(registeredPackage instanceof DatatypePackageImpl ? registeredPackage : DatatypePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
+		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(registeredPackage instanceof ExpressionPackageImpl ? registeredPackage : ExpressionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI);
+		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(registeredPackage instanceof StatementPackageImpl ? registeredPackage : StatementPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI);
+		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(registeredPackage instanceof StatemachinePackageImpl ? registeredPackage : StatemachinePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theInfrastructurePackage.createPackageContents();
@@ -384,7 +400,6 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		// Mark meta-data to indicate it can't be changed
 		theInfrastructurePackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(InfrastructurePackage.eNS_URI, theInfrastructurePackage);
 		return theInfrastructurePackage;
@@ -395,6 +410,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMachine() {
 		return machineEClass;
 	}
@@ -404,6 +420,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMachine_Input_enabled() {
 		return (EAttribute)machineEClass.getEStructuralFeatures().get(0);
 	}
@@ -413,6 +430,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMachine_Timed() {
 		return (EAttribute)machineEClass.getEStructuralFeatures().get(1);
 	}
@@ -422,6 +440,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMachine_Dense_timed() {
 		return (EAttribute)machineEClass.getEStructuralFeatures().get(2);
 	}
@@ -431,6 +450,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMachine_Discrete_timed() {
 		return (EAttribute)machineEClass.getEStructuralFeatures().get(3);
 	}
@@ -440,6 +460,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMachine_Unsafe() {
 		return (EAttribute)machineEClass.getEStructuralFeatures().get(4);
 	}
@@ -449,6 +470,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMachine_Design() {
 		return (EAttribute)machineEClass.getEStructuralFeatures().get(5);
 	}
@@ -458,8 +480,9 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_PropertyPart() {
-		return (EReference)machineEClass.getEStructuralFeatures().get(6);
+	@Override
+	public EAttribute getMachine_Lifeline() {
+		return (EAttribute)machineEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -467,7 +490,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_CompositePart() {
+	@Override
+	public EReference getMachine_Typedef() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -476,7 +500,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_BehaviorPart() {
+	@Override
+	public EReference getMachine_Variable() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -485,7 +510,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Machine() {
+	@Override
+	public EReference getMachine_Channel() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -494,7 +520,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Typedef() {
+	@Override
+	public EReference getMachine_Port() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -503,7 +530,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Variable() {
+	@Override
+	public EReference getMachine_Signal() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -512,7 +540,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Channel() {
+	@Override
+	public EReference getMachine_Buffer() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -521,7 +550,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Port() {
+	@Override
+	public EReference getMachine_Function() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -530,7 +560,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Signal() {
+	@Override
+	public EReference getMachine_Routine() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -539,7 +570,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Buffer() {
+	@Override
+	public EReference getMachine_Procedure() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -548,7 +580,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Function() {
+	@Override
+	public EReference getMachine_Machine() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -557,7 +590,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Routine() {
+	@Override
+	public EReference getMachine_Instance() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -566,7 +600,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Procedure() {
+	@Override
+	public EReference getMachine_Behavior() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -575,7 +610,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Instance() {
+	@Override
+	public EReference getMachine_Main() {
 		return (EReference)machineEClass.getEStructuralFeatures().get(19);
 	}
 
@@ -584,24 +620,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMachine_Behavior() {
-		return (EReference)machineEClass.getEStructuralFeatures().get(20);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getMachine_Main() {
-		return (EReference)machineEClass.getEStructuralFeatures().get(21);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EClass getPropertyPart() {
 		return propertyPartEClass;
 	}
@@ -611,6 +630,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyPart_Parameter() {
 		return (EReference)propertyPartEClass.getEStructuralFeatures().get(0);
 	}
@@ -620,6 +640,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyPart_Typedef() {
 		return (EReference)propertyPartEClass.getEStructuralFeatures().get(1);
 	}
@@ -629,6 +650,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyPart_Variable() {
 		return (EReference)propertyPartEClass.getEStructuralFeatures().get(2);
 	}
@@ -638,6 +660,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyPart_Channel() {
 		return (EReference)propertyPartEClass.getEStructuralFeatures().get(3);
 	}
@@ -647,6 +670,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyPart_Port() {
 		return (EReference)propertyPartEClass.getEStructuralFeatures().get(4);
 	}
@@ -656,6 +680,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyPart_Signal() {
 		return (EReference)propertyPartEClass.getEStructuralFeatures().get(5);
 	}
@@ -665,6 +690,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyPart_Buffer() {
 		return (EReference)propertyPartEClass.getEStructuralFeatures().get(6);
 	}
@@ -674,6 +700,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyPart_Function() {
 		return (EReference)propertyPartEClass.getEStructuralFeatures().get(7);
 	}
@@ -683,6 +710,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompositePart() {
 		return compositePartEClass;
 	}
@@ -692,6 +720,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompositePart_Routine() {
 		return (EReference)compositePartEClass.getEStructuralFeatures().get(0);
 	}
@@ -701,15 +730,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCompositePart_Machine() {
-		return (EReference)compositePartEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EReference getCompositePart_Procedure() {
 		return (EReference)compositePartEClass.getEStructuralFeatures().get(1);
 	}
@@ -719,6 +740,17 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EReference getCompositePart_Machine() {
+		return (EReference)compositePartEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getCompositePart_Instance() {
 		return (EReference)compositePartEClass.getEStructuralFeatures().get(3);
 	}
@@ -728,6 +760,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCompositePart_Behavior() {
 		return (EReference)compositePartEClass.getEStructuralFeatures().get(4);
 	}
@@ -737,6 +770,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBehaviorPart() {
 		return behaviorPartEClass;
 	}
@@ -746,6 +780,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehaviorPart_Behavior() {
 		return (EReference)behaviorPartEClass.getEStructuralFeatures().get(0);
 	}
@@ -755,6 +790,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehaviorPart_Main() {
 		return (EReference)behaviorPartEClass.getEStructuralFeatures().get(1);
 	}
@@ -764,8 +800,9 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSystem() {
-		return systemEClass;
+	@Override
+	public EClass getXliaSystem() {
+		return xliaSystemEClass;
 	}
 
 	/**
@@ -773,6 +810,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getModifier() {
 		return modifierEClass;
 	}
@@ -782,6 +820,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModifier_Static() {
 		return (EAttribute)modifierEClass.getEStructuralFeatures().get(0);
 	}
@@ -791,6 +830,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModifier_Final() {
 		return (EAttribute)modifierEClass.getEStructuralFeatures().get(1);
 	}
@@ -800,6 +840,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModifier_Reference() {
 		return (EAttribute)modifierEClass.getEStructuralFeatures().get(2);
 	}
@@ -809,6 +850,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModifier_Volatile() {
 		return (EAttribute)modifierEClass.getEStructuralFeatures().get(3);
 	}
@@ -818,6 +860,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModifier_Transient() {
 		return (EAttribute)modifierEClass.getEStructuralFeatures().get(4);
 	}
@@ -827,6 +870,17 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EAttribute getModifier_Optional() {
+		return (EAttribute)modifierEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getPropertyDefinition() {
 		return propertyDefinitionEClass;
 	}
@@ -836,6 +890,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyDefinition_Modifier() {
 		return (EReference)propertyDefinitionEClass.getEStructuralFeatures().get(0);
 	}
@@ -845,6 +900,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPropertyDefinition_DefaultValue() {
 		return (EReference)propertyDefinitionEClass.getEStructuralFeatures().get(1);
 	}
@@ -854,6 +910,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVariable() {
 		return variableEClass;
 	}
@@ -863,6 +920,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariable_Const() {
 		return (EAttribute)variableEClass.getEStructuralFeatures().get(0);
 	}
@@ -872,6 +930,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariable_Reference() {
 		return (EAttribute)variableEClass.getEStructuralFeatures().get(1);
 	}
@@ -881,6 +940,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariable_Macro() {
 		return (EAttribute)variableEClass.getEStructuralFeatures().get(2);
 	}
@@ -890,6 +950,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVariable_OnWriteAction() {
 		return (EReference)variableEClass.getEStructuralFeatures().get(3);
 	}
@@ -899,6 +960,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBuffer() {
 		return bufferEClass;
 	}
@@ -908,6 +970,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPort() {
 		return portEClass;
 	}
@@ -917,6 +980,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPort_Direction() {
 		return (EAttribute)portEClass.getEStructuralFeatures().get(0);
 	}
@@ -926,6 +990,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPort_Signal() {
 		return (EReference)portEClass.getEStructuralFeatures().get(1);
 	}
@@ -935,7 +1000,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPort_Parameter() {
+	@Override
+	public EReference getPort_ParameterSet() {
 		return (EReference)portEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -944,6 +1010,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getChannel() {
 		return channelEClass;
 	}
@@ -953,6 +1020,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getChannel_Direction() {
 		return (EAttribute)channelEClass.getEStructuralFeatures().get(0);
 	}
@@ -962,6 +1030,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getChannel_Machine() {
 		return (EReference)channelEClass.getEStructuralFeatures().get(1);
 	}
@@ -971,6 +1040,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getChannel_Port() {
 		return (EReference)channelEClass.getEStructuralFeatures().get(2);
 	}
@@ -980,6 +1050,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getChannel_Signal() {
 		return (EReference)channelEClass.getEStructuralFeatures().get(3);
 	}
@@ -989,6 +1060,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSignal() {
 		return signalEClass;
 	}
@@ -998,6 +1070,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSignal_Direction() {
 		return (EAttribute)signalEClass.getEStructuralFeatures().get(0);
 	}
@@ -1007,7 +1080,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSignal_Parameter() {
+	@Override
+	public EReference getSignal_ParameterSet() {
 		return (EReference)signalEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1016,6 +1090,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFunction() {
 		return functionEClass;
 	}
@@ -1025,7 +1100,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFunction_Argument() {
+	@Override
+	public EReference getFunction_ParameterSet() {
 		return (EReference)functionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1034,7 +1110,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFunction_Result() {
+	@Override
+	public EReference getFunction_ResultSet() {
 		return (EReference)functionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1043,6 +1120,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getProcedure() {
 		return procedureEClass;
 	}
@@ -1052,6 +1130,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRoutine() {
 		return routineEClass;
 	}
@@ -1061,8 +1140,9 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRoutine_Parameter() {
-		return (EReference)routineEClass.getEStructuralFeatures().get(0);
+	@Override
+	public EAttribute getRoutine_Macro() {
+		return (EAttribute)routineEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1070,7 +1150,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRoutine_BodyBlock() {
+	@Override
+	public EReference getRoutine_ParameterSet() {
 		return (EReference)routineEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1079,7 +1160,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRoutine_Domain() {
+	@Override
+	public EReference getRoutine_ResultSet() {
 		return (EReference)routineEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1088,7 +1170,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRoutine_Codomain() {
+	@Override
+	public EReference getRoutine_BodyBlock() {
 		return (EReference)routineEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1097,6 +1180,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInstanceMachine() {
 		return instanceMachineEClass;
 	}
@@ -1106,6 +1190,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInstanceMachine_Modifier() {
 		return (EReference)instanceMachineEClass.getEStructuralFeatures().get(0);
 	}
@@ -1115,6 +1200,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInstanceMachine_Model() {
 		return (EReference)instanceMachineEClass.getEStructuralFeatures().get(1);
 	}
@@ -1124,7 +1210,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInstanceMachine_Arg() {
+	@Override
+	public EReference getInstanceMachine_Slot() {
 		return (EReference)instanceMachineEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1133,15 +1220,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInstanceMachine_Slot() {
-		return (EReference)instanceMachineEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EClass getSlotProperty() {
 		return slotPropertyEClass;
 	}
@@ -1151,6 +1230,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSlotProperty_XliaProperty() {
 		return (EReference)slotPropertyEClass.getEStructuralFeatures().get(0);
 	}
@@ -1160,6 +1240,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSlotProperty_Value() {
 		return (EReference)slotPropertyEClass.getEStructuralFeatures().get(1);
 	}
@@ -1169,6 +1250,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getParameter() {
 		return parameterEClass;
 	}
@@ -1178,6 +1260,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParameter_Direction() {
 		return (EAttribute)parameterEClass.getEStructuralFeatures().get(0);
 	}
@@ -1187,6 +1270,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getParameterSet() {
 		return parameterSetEClass;
 	}
@@ -1196,6 +1280,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getParameterSet_Parameter() {
 		return (EReference)parameterSetEClass.getEStructuralFeatures().get(0);
 	}
@@ -1205,6 +1290,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBehavior() {
 		return behaviorEClass;
 	}
@@ -1214,6 +1300,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehavior_Parameter() {
 		return (EReference)behaviorEClass.getEStructuralFeatures().get(0);
 	}
@@ -1223,6 +1310,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehavior_Computation() {
 		return (EReference)behaviorEClass.getEStructuralFeatures().get(1);
 	}
@@ -1232,6 +1320,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehavior_Execution() {
 		return (EReference)behaviorEClass.getEStructuralFeatures().get(2);
 	}
@@ -1241,6 +1330,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehavior_Interaction() {
 		return (EReference)behaviorEClass.getEStructuralFeatures().get(3);
 	}
@@ -1250,6 +1340,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getModelOfComputation() {
 		return modelOfComputationEClass;
 	}
@@ -1259,6 +1350,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getModelOfExecution() {
 		return modelOfExecutionEClass;
 	}
@@ -1268,7 +1360,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfExecution_InitRoutine() {
+	@Override
+	public EReference getModelOfExecution_CreateRoutine() {
 		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1277,7 +1370,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfExecution_FinalRoutine() {
+	@Override
+	public EReference getModelOfExecution_InitRoutine() {
 		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1286,7 +1380,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfExecution_EnableRoutine() {
+	@Override
+	public EReference getModelOfExecution_FinalRoutine() {
 		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1295,7 +1390,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfExecution_DisableRoutine() {
+	@Override
+	public EReference getModelOfExecution_EnableRoutine() {
 		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1304,7 +1400,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfExecution_ConcurrencyRoutine() {
+	@Override
+	public EReference getModelOfExecution_DisableRoutine() {
 		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1313,7 +1410,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfExecution_ScheduleRoutine() {
+	@Override
+	public EReference getModelOfExecution_ConcurrencyRoutine() {
 		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -1322,7 +1420,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfExecution_IrunRoutine() {
+	@Override
+	public EReference getModelOfExecution_ScheduleRoutine() {
 		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1331,7 +1430,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfExecution_RunRoutine() {
+	@Override
+	public EReference getModelOfExecution_IrunRoutine() {
 		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1340,7 +1440,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfExecution_Routine() {
+	@Override
+	public EReference getModelOfExecution_RunRoutine() {
 		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -1349,6 +1450,17 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EReference getModelOfExecution_Routine() {
+		return (EReference)modelOfExecutionEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getModelOfInteraction() {
 		return modelOfInteractionEClass;
 	}
@@ -1358,6 +1470,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModelOfInteraction_Routes() {
 		return (EReference)modelOfInteractionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1367,7 +1480,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelOfInteraction_Connections() {
+	@Override
+	public EReference getModelOfInteraction_Connectors() {
 		return (EReference)modelOfInteractionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1376,6 +1490,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getComProtocol() {
 		return comProtocolEClass;
 	}
@@ -1385,6 +1500,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComProtocol_Protocol() {
 		return (EAttribute)comProtocolEClass.getEStructuralFeatures().get(0);
 	}
@@ -1394,6 +1510,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComProtocol_Cast() {
 		return (EAttribute)comProtocolEClass.getEStructuralFeatures().get(1);
 	}
@@ -1403,6 +1520,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComProtocol_Inner_buffer() {
 		return (EReference)comProtocolEClass.getEStructuralFeatures().get(2);
 	}
@@ -1412,6 +1530,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getComProtocol_Buffer() {
 		return (EReference)comProtocolEClass.getEStructuralFeatures().get(3);
 	}
@@ -1421,6 +1540,17 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EReference getComProtocol_BufferRef() {
+		return (EReference)comProtocolEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getRoute() {
 		return routeEClass;
 	}
@@ -1430,6 +1560,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRoute_Signals() {
 		return (EReference)routeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1439,6 +1570,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRoute_Protocol() {
 		return (EReference)routeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1448,6 +1580,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConnector() {
 		return connectorEClass;
 	}
@@ -1457,6 +1590,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConnector_Protocol() {
 		return (EReference)connectorEClass.getEStructuralFeatures().get(0);
 	}
@@ -1466,8 +1600,9 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnector_Cast() {
-		return (EAttribute)connectorEClass.getEStructuralFeatures().get(1);
+	@Override
+	public EReference getConnector_ConnectorEnd() {
+		return (EReference)connectorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1475,8 +1610,9 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnector_ComPoints() {
-		return (EReference)connectorEClass.getEStructuralFeatures().get(2);
+	@Override
+	public EClass getConnectorEnd() {
+		return connectorEndEClass;
 	}
 
 	/**
@@ -1484,6 +1620,37 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EAttribute getConnectorEnd_Direction() {
+		return (EAttribute)connectorEndEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConnectorEnd_Protocol() {
+		return (EReference)connectorEndEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConnectorEnd_Points() {
+		return (EReference)connectorEndEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getComPoint() {
 		return comPointEClass;
 	}
@@ -1493,8 +1660,9 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getComPoint_Direction() {
-		return (EAttribute)comPointEClass.getEStructuralFeatures().get(0);
+	@Override
+	public EReference getComPoint_Machine() {
+		return (EReference)comPointEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1502,7 +1670,8 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getComPoint_Protocol() {
+	@Override
+	public EReference getComPoint_Port() {
 		return (EReference)comPointEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1511,24 +1680,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getComPoint_Point() {
-		return (EReference)comPointEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getComPoint_Points() {
-		return (EReference)comPointEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EEnum getDesignKind() {
 		return designKindEEnum;
 	}
@@ -1538,6 +1690,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getChannelDirection() {
 		return channelDirectionEEnum;
 	}
@@ -1547,6 +1700,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getParameterDirectionKind() {
 		return parameterDirectionKindEEnum;
 	}
@@ -1556,6 +1710,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getComProtocolKind() {
 		return comProtocolKindEEnum;
 	}
@@ -1565,6 +1720,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getComCastKind() {
 		return comCastKindEEnum;
 	}
@@ -1574,6 +1730,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InfrastructureFactory getInfrastructureFactory() {
 		return (InfrastructureFactory)getEFactoryInstance();
 	}
@@ -1604,10 +1761,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		createEAttribute(machineEClass, MACHINE__DISCRETE_TIMED);
 		createEAttribute(machineEClass, MACHINE__UNSAFE);
 		createEAttribute(machineEClass, MACHINE__DESIGN);
-		createEReference(machineEClass, MACHINE__PROPERTY_PART);
-		createEReference(machineEClass, MACHINE__COMPOSITE_PART);
-		createEReference(machineEClass, MACHINE__BEHAVIOR_PART);
-		createEReference(machineEClass, MACHINE__MACHINE);
+		createEAttribute(machineEClass, MACHINE__LIFELINE);
 		createEReference(machineEClass, MACHINE__TYPEDEF);
 		createEReference(machineEClass, MACHINE__VARIABLE);
 		createEReference(machineEClass, MACHINE__CHANNEL);
@@ -1617,6 +1771,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		createEReference(machineEClass, MACHINE__FUNCTION);
 		createEReference(machineEClass, MACHINE__ROUTINE);
 		createEReference(machineEClass, MACHINE__PROCEDURE);
+		createEReference(machineEClass, MACHINE__MACHINE);
 		createEReference(machineEClass, MACHINE__INSTANCE);
 		createEReference(machineEClass, MACHINE__BEHAVIOR);
 		createEReference(machineEClass, MACHINE__MAIN);
@@ -1642,7 +1797,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		createEReference(behaviorPartEClass, BEHAVIOR_PART__BEHAVIOR);
 		createEReference(behaviorPartEClass, BEHAVIOR_PART__MAIN);
 
-		systemEClass = createEClass(SYSTEM);
+		xliaSystemEClass = createEClass(XLIA_SYSTEM);
 
 		modifierEClass = createEClass(MODIFIER);
 		createEAttribute(modifierEClass, MODIFIER__STATIC);
@@ -1650,6 +1805,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		createEAttribute(modifierEClass, MODIFIER__REFERENCE);
 		createEAttribute(modifierEClass, MODIFIER__VOLATILE);
 		createEAttribute(modifierEClass, MODIFIER__TRANSIENT);
+		createEAttribute(modifierEClass, MODIFIER__OPTIONAL);
 
 		propertyDefinitionEClass = createEClass(PROPERTY_DEFINITION);
 		createEReference(propertyDefinitionEClass, PROPERTY_DEFINITION__MODIFIER);
@@ -1666,7 +1822,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		portEClass = createEClass(PORT);
 		createEAttribute(portEClass, PORT__DIRECTION);
 		createEReference(portEClass, PORT__SIGNAL);
-		createEReference(portEClass, PORT__PARAMETER);
+		createEReference(portEClass, PORT__PARAMETER_SET);
 
 		channelEClass = createEClass(CHANNEL);
 		createEAttribute(channelEClass, CHANNEL__DIRECTION);
@@ -1676,24 +1832,23 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		signalEClass = createEClass(SIGNAL);
 		createEAttribute(signalEClass, SIGNAL__DIRECTION);
-		createEReference(signalEClass, SIGNAL__PARAMETER);
+		createEReference(signalEClass, SIGNAL__PARAMETER_SET);
 
 		functionEClass = createEClass(FUNCTION);
-		createEReference(functionEClass, FUNCTION__ARGUMENT);
-		createEReference(functionEClass, FUNCTION__RESULT);
+		createEReference(functionEClass, FUNCTION__PARAMETER_SET);
+		createEReference(functionEClass, FUNCTION__RESULT_SET);
 
 		procedureEClass = createEClass(PROCEDURE);
 
 		routineEClass = createEClass(ROUTINE);
-		createEReference(routineEClass, ROUTINE__PARAMETER);
+		createEAttribute(routineEClass, ROUTINE__MACRO);
+		createEReference(routineEClass, ROUTINE__PARAMETER_SET);
+		createEReference(routineEClass, ROUTINE__RESULT_SET);
 		createEReference(routineEClass, ROUTINE__BODY_BLOCK);
-		createEReference(routineEClass, ROUTINE__DOMAIN);
-		createEReference(routineEClass, ROUTINE__CODOMAIN);
 
 		instanceMachineEClass = createEClass(INSTANCE_MACHINE);
 		createEReference(instanceMachineEClass, INSTANCE_MACHINE__MODIFIER);
 		createEReference(instanceMachineEClass, INSTANCE_MACHINE__MODEL);
-		createEReference(instanceMachineEClass, INSTANCE_MACHINE__ARG);
 		createEReference(instanceMachineEClass, INSTANCE_MACHINE__SLOT);
 
 		slotPropertyEClass = createEClass(SLOT_PROPERTY);
@@ -1715,6 +1870,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		modelOfComputationEClass = createEClass(MODEL_OF_COMPUTATION);
 
 		modelOfExecutionEClass = createEClass(MODEL_OF_EXECUTION);
+		createEReference(modelOfExecutionEClass, MODEL_OF_EXECUTION__CREATE_ROUTINE);
 		createEReference(modelOfExecutionEClass, MODEL_OF_EXECUTION__INIT_ROUTINE);
 		createEReference(modelOfExecutionEClass, MODEL_OF_EXECUTION__FINAL_ROUTINE);
 		createEReference(modelOfExecutionEClass, MODEL_OF_EXECUTION__ENABLE_ROUTINE);
@@ -1727,13 +1883,14 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		modelOfInteractionEClass = createEClass(MODEL_OF_INTERACTION);
 		createEReference(modelOfInteractionEClass, MODEL_OF_INTERACTION__ROUTES);
-		createEReference(modelOfInteractionEClass, MODEL_OF_INTERACTION__CONNECTIONS);
+		createEReference(modelOfInteractionEClass, MODEL_OF_INTERACTION__CONNECTORS);
 
 		comProtocolEClass = createEClass(COM_PROTOCOL);
 		createEAttribute(comProtocolEClass, COM_PROTOCOL__PROTOCOL);
 		createEAttribute(comProtocolEClass, COM_PROTOCOL__CAST);
 		createEReference(comProtocolEClass, COM_PROTOCOL__INNER_BUFFER);
 		createEReference(comProtocolEClass, COM_PROTOCOL__BUFFER);
+		createEReference(comProtocolEClass, COM_PROTOCOL__BUFFER_REF);
 
 		routeEClass = createEClass(ROUTE);
 		createEReference(routeEClass, ROUTE__SIGNALS);
@@ -1741,14 +1898,16 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		connectorEClass = createEClass(CONNECTOR);
 		createEReference(connectorEClass, CONNECTOR__PROTOCOL);
-		createEAttribute(connectorEClass, CONNECTOR__CAST);
-		createEReference(connectorEClass, CONNECTOR__COM_POINTS);
+		createEReference(connectorEClass, CONNECTOR__CONNECTOR_END);
+
+		connectorEndEClass = createEClass(CONNECTOR_END);
+		createEAttribute(connectorEndEClass, CONNECTOR_END__DIRECTION);
+		createEReference(connectorEndEClass, CONNECTOR_END__PROTOCOL);
+		createEReference(connectorEndEClass, CONNECTOR_END__POINTS);
 
 		comPointEClass = createEClass(COM_POINT);
-		createEAttribute(comPointEClass, COM_POINT__DIRECTION);
-		createEReference(comPointEClass, COM_POINT__PROTOCOL);
-		createEReference(comPointEClass, COM_POINT__POINT);
-		createEReference(comPointEClass, COM_POINT__POINTS);
+		createEReference(comPointEClass, COM_POINT__MACHINE);
+		createEReference(comPointEClass, COM_POINT__PORT);
 
 		// Create enums
 		designKindEEnum = createEEnum(DESIGN_KIND);
@@ -1794,7 +1953,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		// Add supertypes to classes
 		machineEClass.getESuperTypes().add(theCommonPackage.getClassifierDefinition());
-		systemEClass.getESuperTypes().add(this.getMachine());
+		xliaSystemEClass.getESuperTypes().add(this.getMachine());
 		propertyDefinitionEClass.getESuperTypes().add(theCommonPackage.getTypedElement());
 		variableEClass.getESuperTypes().add(this.getPropertyDefinition());
 		bufferEClass.getESuperTypes().add(this.getPropertyDefinition());
@@ -1811,6 +1970,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		comProtocolEClass.getESuperTypes().add(theCommonPackage.getAbstractElement());
 		routeEClass.getESuperTypes().add(theCommonPackage.getNamedElement());
 		connectorEClass.getESuperTypes().add(theCommonPackage.getNamedElement());
+		connectorEndEClass.getESuperTypes().add(theCommonPackage.getAbstractElement());
 		comPointEClass.getESuperTypes().add(theCommonPackage.getAbstractElement());
 
 		// Initialize classes, features, and operations; add parameters
@@ -1821,10 +1981,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		initEAttribute(getMachine_Discrete_timed(), ecorePackage.getEBoolean(), "discrete_timed", "false", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMachine_Unsafe(), ecorePackage.getEBoolean(), "unsafe", "false", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMachine_Design(), this.getDesignKind(), "design", "prototype", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMachine_PropertyPart(), this.getPropertyPart(), null, "propertyPart", null, 0, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMachine_CompositePart(), this.getCompositePart(), null, "compositePart", null, 0, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMachine_BehaviorPart(), this.getBehaviorPart(), null, "behaviorPart", null, 0, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMachine_Machine(), this.getMachine(), null, "machine", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMachine_Lifeline(), ecorePackage.getEBoolean(), "lifeline", "false", 1, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Typedef(), theDatatypePackage.getDataType(), null, "typedef", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Variable(), this.getVariable(), null, "variable", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Channel(), this.getChannel(), null, "channel", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1834,6 +1991,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		initEReference(getMachine_Function(), this.getFunction(), null, "function", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Routine(), this.getRoutine(), null, "routine", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Procedure(), this.getProcedure(), null, "procedure", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMachine_Machine(), this.getMachine(), null, "machine", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Instance(), this.getInstanceMachine(), null, "instance", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Behavior(), this.getBehavior(), null, "behavior", null, 0, -1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMachine_Main(), this.getBehavior(), null, "main", null, 0, 1, Machine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1859,7 +2017,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		initEReference(getBehaviorPart_Behavior(), this.getBehavior(), null, "behavior", null, 0, -1, BehaviorPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorPart_Main(), this.getBehavior(), null, "main", null, 0, 1, BehaviorPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(systemEClass, org.eclipse.efm.ecore.formalml.infrastructure.System.class, "System", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(xliaSystemEClass, XliaSystem.class, "XliaSystem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(modifierEClass, Modifier.class, "Modifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getModifier_Static(), ecorePackage.getEBoolean(), "static", "false", 1, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1867,6 +2025,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		initEAttribute(getModifier_Reference(), ecorePackage.getEBoolean(), "reference", "false", 1, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModifier_Volatile(), ecorePackage.getEBoolean(), "volatile", "false", 1, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModifier_Transient(), ecorePackage.getEBoolean(), "transient", "false", 1, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModifier_Optional(), ecorePackage.getEBoolean(), "optional", "false", 1, 1, Modifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propertyDefinitionEClass, PropertyDefinition.class, "PropertyDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPropertyDefinition_Modifier(), this.getModifier(), null, "modifier", null, 0, 1, PropertyDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1883,7 +2042,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		initEClass(portEClass, Port.class, "Port", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPort_Direction(), this.getChannelDirection(), "direction", "inout", 0, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPort_Signal(), this.getSignal(), null, "signal", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPort_Parameter(), this.getParameter(), null, "parameter", null, 0, -1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPort_ParameterSet(), this.getParameterSet(), null, "parameterSet", null, 0, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(channelEClass, Channel.class, "Channel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getChannel_Direction(), this.getChannelDirection(), "direction", "inout", 0, 1, Channel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1893,24 +2052,23 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		initEClass(signalEClass, Signal.class, "Signal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSignal_Direction(), this.getChannelDirection(), "direction", "inout", 0, 1, Signal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSignal_Parameter(), this.getParameter(), null, "parameter", null, 0, -1, Signal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSignal_ParameterSet(), this.getParameterSet(), null, "parameterSet", null, 0, 1, Signal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFunction_Argument(), this.getParameter(), null, "argument", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFunction_Result(), this.getParameter(), null, "result", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFunction_ParameterSet(), this.getParameterSet(), null, "parameterSet", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFunction_ResultSet(), this.getParameterSet(), null, "resultSet", null, 0, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(procedureEClass, Procedure.class, "Procedure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(routineEClass, Routine.class, "Routine", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRoutine_Parameter(), this.getParameter(), null, "parameter", null, 0, -1, Routine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRoutine_Macro(), ecorePackage.getEBoolean(), "macro", null, 1, 1, Routine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRoutine_ParameterSet(), this.getParameterSet(), null, "parameterSet", null, 0, 1, Routine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRoutine_ResultSet(), this.getParameterSet(), null, "resultSet", null, 0, 1, Routine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRoutine_BodyBlock(), theStatementPackage.getBlockStatement(), null, "bodyBlock", null, 1, 1, Routine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRoutine_Domain(), this.getParameterSet(), null, "domain", null, 0, 1, Routine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getRoutine_Codomain(), this.getParameterSet(), null, "codomain", null, 0, 1, Routine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(instanceMachineEClass, InstanceMachine.class, "InstanceMachine", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInstanceMachine_Modifier(), this.getModifier(), null, "modifier", null, 0, 1, InstanceMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInstanceMachine_Model(), this.getMachine(), null, "model", null, 0, 1, InstanceMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getInstanceMachine_Arg(), theExpressionPackage.getMixTupleExpression(), null, "arg", null, 0, 1, InstanceMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInstanceMachine_Slot(), this.getSlotProperty(), null, "slot", null, 0, -1, InstanceMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(slotPropertyEClass, SlotProperty.class, "SlotProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1932,6 +2090,7 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 		initEClass(modelOfComputationEClass, ModelOfComputation.class, "ModelOfComputation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(modelOfExecutionEClass, ModelOfExecution.class, "ModelOfExecution", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getModelOfExecution_CreateRoutine(), this.getRoutine(), null, "createRoutine", null, 0, 1, ModelOfExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelOfExecution_InitRoutine(), this.getRoutine(), null, "initRoutine", null, 0, 1, ModelOfExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelOfExecution_FinalRoutine(), this.getRoutine(), null, "finalRoutine", null, 0, 1, ModelOfExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelOfExecution_EnableRoutine(), this.getRoutine(), null, "enableRoutine", null, 0, 1, ModelOfExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1944,13 +2103,14 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		initEClass(modelOfInteractionEClass, ModelOfInteraction.class, "ModelOfInteraction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModelOfInteraction_Routes(), this.getRoute(), null, "routes", null, 0, -1, ModelOfInteraction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getModelOfInteraction_Connections(), this.getConnector(), null, "connections", null, 0, -1, ModelOfInteraction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelOfInteraction_Connectors(), this.getConnector(), null, "connectors", null, 0, -1, ModelOfInteraction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(comProtocolEClass, ComProtocol.class, "ComProtocol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComProtocol_Protocol(), this.getComProtocolKind(), "protocol", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComProtocol_Cast(), this.getComCastKind(), "cast", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComProtocol_Inner_buffer(), theDatatypePackage.getCollectionType(), null, "inner_buffer", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComProtocol_Buffer(), theExpressionPackage.getValueElementSpecification(), null, "buffer", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComProtocol_BufferRef(), theExpressionPackage.getLiteralReferenceSpecification(), null, "bufferRef", null, 0, 1, ComProtocol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(routeEClass, Route.class, "Route", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRoute_Signals(), this.getSignal(), null, "signals", null, 0, -1, Route.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1958,14 +2118,16 @@ public class InfrastructurePackageImpl extends EPackageImpl implements Infrastru
 
 		initEClass(connectorEClass, Connector.class, "Connector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConnector_Protocol(), this.getComProtocol(), null, "protocol", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnector_Cast(), this.getComCastKind(), "cast", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnector_ComPoints(), this.getComPoint(), null, "comPoints", null, 1, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnector_ConnectorEnd(), this.getConnectorEnd(), null, "connectorEnd", null, 1, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(connectorEndEClass, ConnectorEnd.class, "ConnectorEnd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getConnectorEnd_Direction(), this.getChannelDirection(), "direction", "inout", 0, 1, ConnectorEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnectorEnd_Protocol(), this.getComProtocol(), null, "protocol", null, 0, 1, ConnectorEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnectorEnd_Points(), this.getComPoint(), null, "points", null, 1, -1, ConnectorEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(comPointEClass, ComPoint.class, "ComPoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getComPoint_Direction(), this.getChannelDirection(), "direction", "inout", 0, 1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComPoint_Protocol(), this.getComProtocol(), null, "protocol", null, 0, 1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComPoint_Point(), theExpressionPackage.getValueElementSpecification(), null, "point", null, 0, 1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComPoint_Points(), theExpressionPackage.getExpression(), null, "points", null, 0, -1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComPoint_Machine(), theCommonPackage.getNamedElement(), null, "machine", null, 0, 1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComPoint_Port(), this.getPort(), null, "port", null, 0, 1, ComPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(designKindEEnum, DesignKind.class, "DesignKind");

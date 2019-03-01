@@ -48,7 +48,7 @@ public interface RedundancyDetection extends EObject {
 	 * @return the value of the '<em>Enabled Detetction</em>' attribute.
 	 * @see #setEnabledDetetction(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getRedundancyDetection_EnabledDetetction()
-	 * @model default="true"
+	 * @model default="true" required="true"
 	 * @generated
 	 */
 	boolean isEnabledDetetction();
@@ -192,7 +192,7 @@ public interface RedundancyDetection extends EObject {
 	 * @return the value of the '<em>Enabled Trivial Loop Detetction</em>' attribute.
 	 * @see #setEnabledTrivialLoopDetetction(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getRedundancyDetection_EnabledTrivialLoopDetetction()
-	 * @model default="true"
+	 * @model default="true" required="true"
 	 * @generated
 	 */
 	boolean isEnabledTrivialLoopDetetction();

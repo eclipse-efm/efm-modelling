@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -385,7 +385,7 @@ public interface StatementPackage extends EPackage {
 	int ABSTRACT_COM_STATEMENT = 8;
 
 	/**
-	 * The feature id for the '<em><b>Port</b></em>' reference.
+	 * The feature id for the '<em><b>Port</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -440,7 +440,7 @@ public interface StatementPackage extends EPackage {
 	int INPUT_COM_STATEMENT = 9;
 
 	/**
-	 * The feature id for the '<em><b>Port</b></em>' reference.
+	 * The feature id for the '<em><b>Port</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -504,7 +504,7 @@ public interface StatementPackage extends EPackage {
 	int OUTPUT_COM_STATEMENT = 10;
 
 	/**
-	 * The feature id for the '<em><b>Port</b></em>' reference.
+	 * The feature id for the '<em><b>Port</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -531,13 +531,13 @@ public interface StatementPackage extends EPackage {
 	int OUTPUT_COM_STATEMENT__TARGET = ABSTRACT_COM_STATEMENT__TARGET;
 
 	/**
-	 * The feature id for the '<em><b>Rigth Value</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Right Value</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_COM_STATEMENT__RIGTH_VALUE = ABSTRACT_COM_STATEMENT_FEATURE_COUNT + 0;
+	int OUTPUT_COM_STATEMENT__RIGHT_VALUE = ABSTRACT_COM_STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Output Com Statement</em>' class.
@@ -1071,6 +1071,107 @@ public interface StatementPackage extends EPackage {
 	int INVOKE_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.ObserverStatementImpl <em>Observer Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.statement.impl.ObserverStatementImpl
+	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getObserverStatement()
+	 * @generated
+	 */
+	int OBSERVER_STATEMENT = 20;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBSERVER_STATEMENT__CONTEXT = STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Statement</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBSERVER_STATEMENT__STATEMENT = STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Post Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBSERVER_STATEMENT__POST_CONDITION = STATEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Observer Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBSERVER_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Observer Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBSERVER_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.MetaStatementImpl <em>Meta Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.statement.impl.MetaStatementImpl
+	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getMetaStatement()
+	 * @generated
+	 */
+	int META_STATEMENT = 21;
+
+	/**
+	 * The feature id for the '<em><b>Op</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int META_STATEMENT__OP = STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Operand</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int META_STATEMENT__OPERAND = STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Meta Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int META_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Meta Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int META_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.InterruptStatementKind <em>Interrupt Statement Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1078,7 +1179,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getInterruptStatementKind()
 	 * @generated
 	 */
-	int INTERRUPT_STATEMENT_KIND = 20;
+	int INTERRUPT_STATEMENT_KIND = 22;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.ActivityStatementKind <em>Activity Statement Kind</em>}' enum.
@@ -1088,7 +1189,7 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getActivityStatementKind()
 	 * @generated
 	 */
-	int ACTIVITY_STATEMENT_KIND = 21;
+	int ACTIVITY_STATEMENT_KIND = 23;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.AssignmentStatementkind <em>Assignment Statementkind</em>}' enum.
@@ -1098,7 +1199,17 @@ public interface StatementPackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getAssignmentStatementkind()
 	 * @generated
 	 */
-	int ASSIGNMENT_STATEMENTKIND = 22;
+	int ASSIGNMENT_STATEMENTKIND = 24;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.statement.MetaStatementKind <em>Meta Statement Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.statement.MetaStatementKind
+	 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getMetaStatementKind()
+	 * @generated
+	 */
+	int META_STATEMENT_KIND = 25;
 
 
 	/**
@@ -1247,10 +1358,10 @@ public interface StatementPackage extends EPackage {
 	EClass getAbstractComStatement();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.statement.AbstractComStatement#getPort <em>Port</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statement.AbstractComStatement#getPort <em>Port</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Port</em>'.
+	 * @return the meta object for the containment reference '<em>Port</em>'.
 	 * @see org.eclipse.efm.ecore.formalml.statement.AbstractComStatement#getPort()
 	 * @see #getAbstractComStatement()
 	 * @generated
@@ -1311,15 +1422,15 @@ public interface StatementPackage extends EPackage {
 	EClass getOutputComStatement();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.statement.OutputComStatement#getRigthValue <em>Rigth Value</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.statement.OutputComStatement#getRightValue <em>Right Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Rigth Value</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statement.OutputComStatement#getRigthValue()
+	 * @return the meta object for the containment reference list '<em>Right Value</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statement.OutputComStatement#getRightValue()
 	 * @see #getOutputComStatement()
 	 * @generated
 	 */
-	EReference getOutputComStatement_RigthValue();
+	EReference getOutputComStatement_RightValue();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.statement.ConditionalBlockStatement <em>Conditional Block Statement</em>}'.
@@ -1621,6 +1732,81 @@ public interface StatementPackage extends EPackage {
 	EReference getInvokeStatement_Expression();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.statement.ObserverStatement <em>Observer Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Observer Statement</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statement.ObserverStatement
+	 * @generated
+	 */
+	EClass getObserverStatement();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statement.ObserverStatement#getContext <em>Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Context</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statement.ObserverStatement#getContext()
+	 * @see #getObserverStatement()
+	 * @generated
+	 */
+	EReference getObserverStatement_Context();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statement.ObserverStatement#getStatement <em>Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Statement</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statement.ObserverStatement#getStatement()
+	 * @see #getObserverStatement()
+	 * @generated
+	 */
+	EReference getObserverStatement_Statement();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statement.ObserverStatement#getPostCondition <em>Post Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Post Condition</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statement.ObserverStatement#getPostCondition()
+	 * @see #getObserverStatement()
+	 * @generated
+	 */
+	EReference getObserverStatement_PostCondition();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.statement.MetaStatement <em>Meta Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Meta Statement</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statement.MetaStatement
+	 * @generated
+	 */
+	EClass getMetaStatement();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.statement.MetaStatement#getOp <em>Op</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Op</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statement.MetaStatement#getOp()
+	 * @see #getMetaStatement()
+	 * @generated
+	 */
+	EAttribute getMetaStatement_Op();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.statement.MetaStatement#getOperand <em>Operand</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Operand</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statement.MetaStatement#getOperand()
+	 * @see #getMetaStatement()
+	 * @generated
+	 */
+	EReference getMetaStatement_Operand();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.ecore.formalml.statement.InterruptStatementKind <em>Interrupt Statement Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1649,6 +1835,16 @@ public interface StatementPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getAssignmentStatementkind();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.efm.ecore.formalml.statement.MetaStatementKind <em>Meta Statement Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Meta Statement Kind</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statement.MetaStatementKind
+	 * @generated
+	 */
+	EEnum getMetaStatementKind();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1804,7 +2000,7 @@ public interface StatementPackage extends EPackage {
 		EClass ABSTRACT_COM_STATEMENT = eINSTANCE.getAbstractComStatement();
 
 		/**
-		 * The meta object literal for the '<em><b>Port</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Port</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1856,12 +2052,12 @@ public interface StatementPackage extends EPackage {
 		EClass OUTPUT_COM_STATEMENT = eINSTANCE.getOutputComStatement();
 
 		/**
-		 * The meta object literal for the '<em><b>Rigth Value</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Right Value</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference OUTPUT_COM_STATEMENT__RIGTH_VALUE = eINSTANCE.getOutputComStatement_RigthValue();
+		EReference OUTPUT_COM_STATEMENT__RIGHT_VALUE = eINSTANCE.getOutputComStatement_RightValue();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.ConditionalBlockStatementImpl <em>Conditional Block Statement</em>}' class.
@@ -2106,6 +2302,66 @@ public interface StatementPackage extends EPackage {
 		EReference INVOKE_STATEMENT__EXPRESSION = eINSTANCE.getInvokeStatement_Expression();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.ObserverStatementImpl <em>Observer Statement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.statement.impl.ObserverStatementImpl
+		 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getObserverStatement()
+		 * @generated
+		 */
+		EClass OBSERVER_STATEMENT = eINSTANCE.getObserverStatement();
+
+		/**
+		 * The meta object literal for the '<em><b>Context</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OBSERVER_STATEMENT__CONTEXT = eINSTANCE.getObserverStatement_Context();
+
+		/**
+		 * The meta object literal for the '<em><b>Statement</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OBSERVER_STATEMENT__STATEMENT = eINSTANCE.getObserverStatement_Statement();
+
+		/**
+		 * The meta object literal for the '<em><b>Post Condition</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OBSERVER_STATEMENT__POST_CONDITION = eINSTANCE.getObserverStatement_PostCondition();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statement.impl.MetaStatementImpl <em>Meta Statement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.statement.impl.MetaStatementImpl
+		 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getMetaStatement()
+		 * @generated
+		 */
+		EClass META_STATEMENT = eINSTANCE.getMetaStatement();
+
+		/**
+		 * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute META_STATEMENT__OP = eINSTANCE.getMetaStatement_Op();
+
+		/**
+		 * The meta object literal for the '<em><b>Operand</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference META_STATEMENT__OPERAND = eINSTANCE.getMetaStatement_Operand();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statement.InterruptStatementKind <em>Interrupt Statement Kind</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2134,6 +2390,16 @@ public interface StatementPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum ASSIGNMENT_STATEMENTKIND = eINSTANCE.getAssignmentStatementkind();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statement.MetaStatementKind <em>Meta Statement Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.statement.MetaStatementKind
+		 * @see org.eclipse.efm.ecore.formalml.statement.impl.StatementPackageImpl#getMetaStatementKind()
+		 * @generated
+		 */
+		EEnum META_STATEMENT_KIND = eINSTANCE.getMetaStatementKind();
 
 	}
 

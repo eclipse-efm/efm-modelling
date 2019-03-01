@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -68,13 +68,13 @@ public interface InfrastructureFactory extends EFactory {
 	BehaviorPart createBehaviorPart();
 
 	/**
-	 * Returns a new object of class '<em>System</em>'.
+	 * Returns a new object of class '<em>Xlia System</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>System</em>'.
+	 * @return a new object of class '<em>Xlia System</em>'.
 	 * @generated
 	 */
-	System createSystem();
+	XliaSystem createXliaSystem();
 
 	/**
 	 * Returns a new object of class '<em>Modifier</em>'.
@@ -264,6 +264,15 @@ public interface InfrastructureFactory extends EFactory {
 	 * @generated
 	 */
 	Connector createConnector();
+
+	/**
+	 * Returns a new object of class '<em>Connector End</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Connector End</em>'.
+	 * @generated
+	 */
+	ConnectorEnd createConnectorEnd();
 
 	/**
 	 * Returns a new object of class '<em>Com Point</em>'.

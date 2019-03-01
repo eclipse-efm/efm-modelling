@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.BinaryExpressionImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.BinaryExpressionImpl#getLeftOperand <em>Left Operand</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.BinaryExpressionImpl#getRigthOperand <em>Rigth Operand</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.BinaryExpressionImpl#getRightOperand <em>Right Operand</em>}</li>
  * </ul>
  *
  * @generated
@@ -71,14 +71,14 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 	protected Expression leftOperand;
 
 	/**
-	 * The cached value of the '{@link #getRigthOperand() <em>Rigth Operand</em>}' containment reference.
+	 * The cached value of the '{@link #getRightOperand() <em>Right Operand</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRigthOperand()
+	 * @see #getRightOperand()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression rigthOperand;
+	protected Expression rightOperand;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -104,6 +104,7 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getOperator() {
 		return operator;
 	}
@@ -113,6 +114,7 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperator(String newOperator) {
 		String oldOperator = operator;
 		operator = newOperator;
@@ -125,6 +127,7 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getLeftOperand() {
 		return leftOperand;
 	}
@@ -149,6 +152,7 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLeftOperand(Expression newLeftOperand) {
 		if (newLeftOperand != leftOperand) {
 			NotificationChain msgs = null;
@@ -168,8 +172,9 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getRigthOperand() {
-		return rigthOperand;
+	@Override
+	public Expression getRightOperand() {
+		return rightOperand;
 	}
 
 	/**
@@ -177,11 +182,11 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRigthOperand(Expression newRigthOperand, NotificationChain msgs) {
-		Expression oldRigthOperand = rigthOperand;
-		rigthOperand = newRigthOperand;
+	public NotificationChain basicSetRightOperand(Expression newRightOperand, NotificationChain msgs) {
+		Expression oldRightOperand = rightOperand;
+		rightOperand = newRightOperand;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.BINARY_EXPRESSION__RIGTH_OPERAND, oldRigthOperand, newRigthOperand);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.BINARY_EXPRESSION__RIGHT_OPERAND, oldRightOperand, newRightOperand);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -192,18 +197,19 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRigthOperand(Expression newRigthOperand) {
-		if (newRigthOperand != rigthOperand) {
+	@Override
+	public void setRightOperand(Expression newRightOperand) {
+		if (newRightOperand != rightOperand) {
 			NotificationChain msgs = null;
-			if (rigthOperand != null)
-				msgs = ((InternalEObject)rigthOperand).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.BINARY_EXPRESSION__RIGTH_OPERAND, null, msgs);
-			if (newRigthOperand != null)
-				msgs = ((InternalEObject)newRigthOperand).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.BINARY_EXPRESSION__RIGTH_OPERAND, null, msgs);
-			msgs = basicSetRigthOperand(newRigthOperand, msgs);
+			if (rightOperand != null)
+				msgs = ((InternalEObject)rightOperand).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.BINARY_EXPRESSION__RIGHT_OPERAND, null, msgs);
+			if (newRightOperand != null)
+				msgs = ((InternalEObject)newRightOperand).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.BINARY_EXPRESSION__RIGHT_OPERAND, null, msgs);
+			msgs = basicSetRightOperand(newRightOperand, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.BINARY_EXPRESSION__RIGTH_OPERAND, newRigthOperand, newRigthOperand));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.BINARY_EXPRESSION__RIGHT_OPERAND, newRightOperand, newRightOperand));
 	}
 
 	/**
@@ -216,8 +222,8 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 		switch (featureID) {
 			case ExpressionPackage.BINARY_EXPRESSION__LEFT_OPERAND:
 				return basicSetLeftOperand(null, msgs);
-			case ExpressionPackage.BINARY_EXPRESSION__RIGTH_OPERAND:
-				return basicSetRigthOperand(null, msgs);
+			case ExpressionPackage.BINARY_EXPRESSION__RIGHT_OPERAND:
+				return basicSetRightOperand(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -234,8 +240,8 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 				return getOperator();
 			case ExpressionPackage.BINARY_EXPRESSION__LEFT_OPERAND:
 				return getLeftOperand();
-			case ExpressionPackage.BINARY_EXPRESSION__RIGTH_OPERAND:
-				return getRigthOperand();
+			case ExpressionPackage.BINARY_EXPRESSION__RIGHT_OPERAND:
+				return getRightOperand();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -254,8 +260,8 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 			case ExpressionPackage.BINARY_EXPRESSION__LEFT_OPERAND:
 				setLeftOperand((Expression)newValue);
 				return;
-			case ExpressionPackage.BINARY_EXPRESSION__RIGTH_OPERAND:
-				setRigthOperand((Expression)newValue);
+			case ExpressionPackage.BINARY_EXPRESSION__RIGHT_OPERAND:
+				setRightOperand((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -275,8 +281,8 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 			case ExpressionPackage.BINARY_EXPRESSION__LEFT_OPERAND:
 				setLeftOperand((Expression)null);
 				return;
-			case ExpressionPackage.BINARY_EXPRESSION__RIGTH_OPERAND:
-				setRigthOperand((Expression)null);
+			case ExpressionPackage.BINARY_EXPRESSION__RIGHT_OPERAND:
+				setRightOperand((Expression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -294,8 +300,8 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 				return OPERATOR_EDEFAULT == null ? operator != null : !OPERATOR_EDEFAULT.equals(operator);
 			case ExpressionPackage.BINARY_EXPRESSION__LEFT_OPERAND:
 				return leftOperand != null;
-			case ExpressionPackage.BINARY_EXPRESSION__RIGTH_OPERAND:
-				return rigthOperand != null;
+			case ExpressionPackage.BINARY_EXPRESSION__RIGHT_OPERAND:
+				return rightOperand != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -309,7 +315,7 @@ public class BinaryExpressionImpl extends ExpressionImpl implements BinaryExpres
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (operator: ");
 		result.append(operator);
 		result.append(')');

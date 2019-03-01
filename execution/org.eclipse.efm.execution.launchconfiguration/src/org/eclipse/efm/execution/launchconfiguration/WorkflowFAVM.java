@@ -90,7 +90,7 @@
 //			BufferedReader bufferedTemplate = new BufferedReader(
 //					new InputStreamReader (inputTemplate) );
 //
-//			StringBuffer buffer = new StringBuffer();
+//			StringBuilder buffer = new StringBuilder();
 //
 //			String line = bufferedTemplate.readLine();
 //			while( line != null ) {
@@ -164,7 +164,7 @@
 //					String[] tabString =
 //							fElementNameListStringField.trim().split("\\R|;");
 //
-//					StringBuffer elementStringList = new StringBuffer();
+//					StringBuilder elementStringList = new StringBuilder();
 //					String kind;
 //					String object;
 //					int pos;
@@ -519,7 +519,7 @@
 //									ATTR_TRANSITION_COVERAGE_SELECTION,
 //									new ArrayList<String>());
 //
-//					StringBuffer TransitionStringList = new StringBuffer();
+//					StringBuilder TransitionStringList = new StringBuilder();
 //
 //					for (String eltString : selectedTransitions) {
 //						TransitionStringList
@@ -1174,7 +1174,7 @@
 //
 //	private static String parseFormatTrace(String traceText, String tab) {
 //		String[] traceList = traceText.trim().split(";|\\R");
-//		StringBuffer buffer = new StringBuffer();
+//		StringBuilder buffer = new StringBuilder();
 //		int pos;
 //		String kind;
 //		String value;

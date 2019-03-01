@@ -80,7 +80,7 @@ public class SEWSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * Prolog
 	 * : ( '@sew' | '@favm' ) '<'
 	 * 	( 'workflow' | 'sew' )
-	 * 	( ',' EDouble )? ( ',' UFI | EString )? '>:'
+	 * 	( ',' ( 'version:' )?  EDouble | UFI | EString )? '>:'
 	 * ;
 	 */
 	protected String getPrologToken(EObject semanticObject, RuleCall ruleCall, INode node) {
@@ -188,7 +188,7 @@ public class SEWSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ':' | ('[' ']')
+	 *     ('[' ']') | ':'
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     description=EString (ambiguity) (rule end)
@@ -242,7 +242,7 @@ public class SEWSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ':' | ('[' ']')
+	 *     ('[' ']') | ':'
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     description=EString (ambiguity) (rule end)
@@ -281,7 +281,7 @@ public class SEWSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'or' | '||'
+	 *     '||' | 'or'
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     operand+=conditionalAndExpression (ambiguity) operand+=conditionalAndExpression

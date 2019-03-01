@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -111,6 +111,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QualifiedName createQualifiedName() {
 		QualifiedNameImpl qualifiedName = new QualifiedNameImpl();
 		return qualifiedName;
@@ -121,6 +122,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Type createType() {
 		TypeImpl type = new TypeImpl();
 		return type;
@@ -131,6 +133,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypedElement createTypedElement() {
 		TypedElementImpl typedElement = new TypedElementImpl();
 		return typedElement;
@@ -141,6 +144,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ClassifierDefinition createClassifierDefinition() {
 		ClassifierDefinitionImpl classifierDefinition = new ClassifierDefinitionImpl();
 		return classifierDefinition;
@@ -171,6 +175,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CommonPackage getCommonPackage() {
 		return (CommonPackage)getEPackage();
 	}

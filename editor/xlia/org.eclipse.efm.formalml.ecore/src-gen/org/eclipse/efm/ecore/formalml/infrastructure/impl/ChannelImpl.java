@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -125,6 +125,7 @@ public class ChannelImpl extends PropertyDefinitionImpl implements Channel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ChannelDirection getDirection() {
 		return direction;
 	}
@@ -134,6 +135,7 @@ public class ChannelImpl extends PropertyDefinitionImpl implements Channel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDirection(ChannelDirection newDirection) {
 		ChannelDirection oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
@@ -146,6 +148,7 @@ public class ChannelImpl extends PropertyDefinitionImpl implements Channel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Machine getMachine() {
 		if (machine != null && machine.eIsProxy()) {
 			InternalEObject oldMachine = (InternalEObject)machine;
@@ -172,6 +175,7 @@ public class ChannelImpl extends PropertyDefinitionImpl implements Channel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMachine(Machine newMachine) {
 		Machine oldMachine = machine;
 		machine = newMachine;
@@ -184,6 +188,7 @@ public class ChannelImpl extends PropertyDefinitionImpl implements Channel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Port> getPort() {
 		if (port == null) {
 			port = new EObjectContainmentEList<Port>(Port.class, this, InfrastructurePackage.CHANNEL__PORT);
@@ -196,6 +201,7 @@ public class ChannelImpl extends PropertyDefinitionImpl implements Channel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Signal> getSignal() {
 		if (signal == null) {
 			signal = new EObjectContainmentEList<Signal>(Signal.class, this, InfrastructurePackage.CHANNEL__SIGNAL);
@@ -320,7 +326,7 @@ public class ChannelImpl extends PropertyDefinitionImpl implements Channel {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (direction: ");
 		result.append(direction);
 		result.append(')');

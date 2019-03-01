@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,8 +16,6 @@ import org.eclipse.efm.ecore.formalml.common.NamedElement;
 
 import org.eclipse.efm.ecore.formalml.statement.BlockStatement;
 
-import org.eclipse.emf.common.util.EList;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Routine</b></em>'.
@@ -27,10 +25,10 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getParameter <em>Parameter</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#isMacro <em>Macro</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getParameterSet <em>Parameter Set</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getResultSet <em>Result Set</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getBodyBlock <em>Body Block</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getDomain <em>Domain</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getCodomain <em>Codomain</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getRoutine()
@@ -39,20 +37,82 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Routine extends NamedElement {
 	/**
-	 * Returns the value of the '<em><b>Parameter</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Parameter}.
+	 * Returns the value of the '<em><b>Macro</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Parameter</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Macro</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parameter</em>' containment reference list.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getRoutine_Parameter()
+	 * @return the value of the '<em>Macro</em>' attribute.
+	 * @see #setMacro(boolean)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getRoutine_Macro()
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean isMacro();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#isMacro <em>Macro</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Macro</em>' attribute.
+	 * @see #isMacro()
+	 * @generated
+	 */
+	void setMacro(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Parameter Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parameter Set</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parameter Set</em>' containment reference.
+	 * @see #setParameterSet(ParameterSet)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getRoutine_ParameterSet()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Parameter> getParameter();
+	ParameterSet getParameterSet();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getParameterSet <em>Parameter Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parameter Set</em>' containment reference.
+	 * @see #getParameterSet()
+	 * @generated
+	 */
+	void setParameterSet(ParameterSet value);
+
+	/**
+	 * Returns the value of the '<em><b>Result Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Result Set</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Result Set</em>' containment reference.
+	 * @see #setResultSet(ParameterSet)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getRoutine_ResultSet()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ParameterSet getResultSet();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getResultSet <em>Result Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Result Set</em>' containment reference.
+	 * @see #getResultSet()
+	 * @generated
+	 */
+	void setResultSet(ParameterSet value);
 
 	/**
 	 * Returns the value of the '<em><b>Body Block</b></em>' containment reference.
@@ -79,57 +139,5 @@ public interface Routine extends NamedElement {
 	 * @generated
 	 */
 	void setBodyBlock(BlockStatement value);
-
-	/**
-	 * Returns the value of the '<em><b>Domain</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Domain</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Domain</em>' containment reference.
-	 * @see #setDomain(ParameterSet)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getRoutine_Domain()
-	 * @model containment="true"
-	 * @generated
-	 */
-	ParameterSet getDomain();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getDomain <em>Domain</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Domain</em>' containment reference.
-	 * @see #getDomain()
-	 * @generated
-	 */
-	void setDomain(ParameterSet value);
-
-	/**
-	 * Returns the value of the '<em><b>Codomain</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Codomain</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Codomain</em>' containment reference.
-	 * @see #setCodomain(ParameterSet)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getRoutine_Codomain()
-	 * @model containment="true"
-	 * @generated
-	 */
-	ParameterSet getCodomain();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getCodomain <em>Codomain</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Codomain</em>' containment reference.
-	 * @see #getCodomain()
-	 * @generated
-	 */
-	void setCodomain(ParameterSet value);
 
 } // Routine

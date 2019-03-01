@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -140,6 +140,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ValueElementSpecificationKind getKind() {
 		return kind;
 	}
@@ -149,6 +150,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(ValueElementSpecificationKind newKind) {
 		ValueElementSpecificationKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -161,6 +163,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ValueElementSpecificationScheme getExpected() {
 		return expected;
 	}
@@ -170,6 +173,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExpected(ValueElementSpecificationScheme newExpected) {
 		ValueElementSpecificationScheme oldExpected = expected;
 		expected = newExpected == null ? EXPECTED_EDEFAULT : newExpected;
@@ -182,6 +186,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getParent() {
 		return parent;
 	}
@@ -206,6 +211,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParent(Expression newParent) {
 		if (newParent != parent) {
 			NotificationChain msgs = null;
@@ -225,6 +231,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedElement getElement() {
 		if (element != null && element.eIsProxy()) {
 			InternalEObject oldElement = (InternalEObject)element;
@@ -251,6 +258,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setElement(NamedElement newElement) {
 		NamedElement oldElement = element;
 		element = newElement;
@@ -263,6 +271,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getArg() {
 		return arg;
 	}
@@ -287,6 +296,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setArg(Expression newArg) {
 		if (newArg != arg) {
 			NotificationChain msgs = null;
@@ -425,7 +435,7 @@ public class ValueElementSpecificationImpl extends ExpressionImpl implements Val
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (kind: ");
 		result.append(kind);
 		result.append(", expected: ");

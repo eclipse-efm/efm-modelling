@@ -25,7 +25,7 @@ public class SupervisorGraphSizeLimitsSection extends AbstractConfigurationSecti
 
 
 	public SupervisorGraphSizeLimitsSection(AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+		super(configurationPage, false);
 	}
 
 

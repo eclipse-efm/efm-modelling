@@ -1,6 +1,11 @@
-target "Eclipse Formal Modeling Papyrus last-release" with source requirements
+target "Eclipse Formal Modeling Papyrus last-release"
 
-location "http://download.eclipse.org/releases/oxygen/" eclipse-oxygen {
+with source requirements
+
+//location "http://download.eclipse.org/releases/latest/" eclipse-latest {
+location "http://download.eclipse.org/releases/2018-12" eclipse-2018-12 {
+ org.eclipse.cdt.core lazy
+ 
  org.eclipse.emf.feature.group lazy
  org.eclipse.emf.source.feature.group lazy
  org.eclipse.emf.mwe.core.feature.feature.group lazy
@@ -12,22 +17,39 @@ location "http://download.eclipse.org/releases/oxygen/" eclipse-oxygen {
  org.eclipse.emf.validation.feature.group lazy
  org.eclipse.emf.validation.ocl.feature.group lazy
  org.eclipse.emf.workspace.feature.group lazy
+ 
  org.eclipse.equinox.p2.discovery.feature.feature.group lazy
+ org.eclipse.equinox.p2.ui lazy
  org.eclipse.equinox.executable.feature.group lazy
+ 
+ org.eclipse.gef.dot.feature.group lazy
+ org.eclipse.gef.dot.user.feature.group lazy
+ org.eclipse.gef.dot.ui.feature.group lazy
  org.eclipse.gef.feature.group lazy
-// org.eclipse.gef.dot.feature.group lazy
-// org.eclipse.gef.dot.user.feature.group lazy
-// org.eclipse.gef.dot.ui.feature.group lazy
+ org.eclipse.gef.fx.sdk.feature.group lazy
+ org.eclipse.gef.fx.swt.feature.group lazy
+
  org.eclipse.gmf.feature.group lazy
  org.eclipse.jdt.feature.group lazy
  org.eclipse.jdt.source.feature.group lazy
+ 
+ org.eclipse.json lazy
+ 
  org.eclipse.m2m.qvt.oml.sdk.feature.group lazy
  org.eclipse.m2m.qvt.oml.emf.util lazy
  org.eclipse.m2m.qvt.oml.project lazy
  org.eclipse.m2m.qvt.oml.runtime.feature.group lazy
  org.eclipse.ocl.feature.group lazy
+ org.eclipse.ocl.uml.feature.group lazy
+ org.eclipse.osgi lazy
  org.eclipse.pde.feature.group lazy
+ 
+// org.eclipse.papyrus.extensionpoints.editors lazy
+// org.eclipse.papyrus.infra.viewpoints.feature.feature.group lazy
+ org.eclipse.papyrus.infra.viewpoints.policy lazy
  org.eclipse.papyrus.sdk.feature.feature.group lazy
+// org.eclipse.papyrus.views.properties.model.xwt lazy
+ 
  org.eclipse.platform.feature.group lazy
  org.eclipse.rcp.feature.group lazy
 // org.eclipse.uml2.codegen.ecore lazy
@@ -58,47 +80,92 @@ location "http://download.eclipse.org/releases/oxygen/" eclipse-oxygen {
 // org.eclipse.xtext.xbase.junit lazy
 // org.eclipse.xtext.xbase.testing lazy
  org.eclipse.xwt.feature.feature.group lazy
+ 
+// org.eclipse.wst.json.core lazy
+// org.eclipse.wst.json.ui lazy
+ org.eclipse.wst.json_core.feature.feature.group lazy
+ org.eclipse.wst.json_ui.feature.feature.group lazy
+ 
+// org.eclipse.wst.common_core.feature.feature.group lazy
+ org.eclipse.wst.common.core lazy
  org.eclipse.wst.sse.core lazy
  org.eclipse.wst.xml.core lazy
- 
- 
-//	org.eclipse.platform.feature.group lazy
-//	org.eclipse.rcp.feature.group lazy
-//	org.eclipse.jdt.feature.group lazy
-//	org.eclipse.equinox.p2.discovery.feature.feature.group lazy
-//	org.eclipse.equinox.executable.feature.group lazy
-	org.eclipse.ocl.uml.feature.group lazy
-//	org.eclipse.papyrus.sdk.feature.feature.group lazy
-	org.eclipse.papyrus.views.properties.model.xwt lazy
+}
+
+
+location "http://download.eclipse.org/modeling/mdt/papyrus/components/marte" Papyrus-Marte {
+ org.eclipse.papyrus.marte.core.feature.feature.group lazy
+// org.eclipse.papyrus.marte.static.profile lazy
+}
+
+//location "http://download.eclipse.org/modeling/mdt/papyrus/components/moka" Papyrus-Moka {
+location "https://hudson.eclipse.org/papyrus/view/Moka/job/papyrus-moka-master/lastSuccessfulBuild/artifact/releng/org.eclipse.papyrus.moka.p2/target/repository" Papyrus-Moka-Master {
+ org.eclipse.papyrus.moka.feature.feature.group lazy
+// org.eclipse.papyrus.moka.simex lazy
 }
 
 location "http://download.eclipse.org/modeling/mdt/papyrus/components/designer" Papyrus-Designer {
  org.eclipse.papyrus.designer.languages.common.feature.feature.group lazy
+ org.eclipse.papyrus.designer.deployment.tools lazy
+ org.eclipse.papyrus.designer.transformation.base lazy
 }
 
-//location "http://download.eclipse.org/mmt/qvto/updates/releases" Eclipse-QVT {
-// org.eclipse.m2m.qvt.oml.sdk.feature.group lazy
+////location "http://download.eclipse.org/tools/ajdt/43/update" AspectJ-AJDT {
+//location "http://download.eclipse.org/tools/ajdt/42/update" AspectJ-AJDT {
+// org.eclipse.ajdt.feature.group lazy
+//// org.eclipse.ajdt.sdk.feature.group lazy
 //}
 
-//location "http://download.eclipse.org/modeling/mdt/ocl/updates/releases" Eclipse-OCL {
-// org.eclipse.ocl.all.feature.group lazy
-//}
+location "http://hallvard.github.io/plantuml" PlantUML {
+ net.sourceforge.plantuml.feature.feature.group  lazy
+ net.sourceforge.plantuml.lib.feature.feature.group lazy
+}
+
+
+////location "http://download.eclipse.org/mmt/qvto/updates/releases" Eclipse-QVT {
+//// org.eclipse.m2m.qvt.oml.sdk.feature.group lazy
+////}
+//
+////location "http://download.eclipse.org/modeling/mdt/ocl/updates/releases" Eclipse-OCL {
+//// org.eclipse.ocl.all.feature.group lazy
+////}
 
 location "http://download.eclipse.org/nebula/releases/latest" Eclipse-Nebula {
  org.eclipse.nebula.widgets.cdatetime.feature.feature.group lazy
 }
 
-//location "http://download.eclipse.org/webtools/updates" Eclipse-WST {
-// org.eclipse.wst.common_sdk.feature.feature.group lazy
+////location "http://download.eclipse.org/webtools/updates" Eclipse-WST {
+//// org.eclipse.wst.common_sdk.feature.feature.group lazy
+////}
+//
+////location "http://download.eclipse.org/tools/orbit/downloads/drops/R20170919201930/repository/" orbit-oxygen {
+////location "http://download.eclipse.org/tools/orbit/downloads/drops/R20180206163158/repository/" orbit-oxygen {
+//location "http://download.eclipse.org/tools/orbit/downloads/drops/R20180330011457/repository/" orbit-oxygen {
+////location "http://download.eclipse.org/tools/orbit/downloads/drops/R20180905201904/" orbit-photon {
+// com.google.guava lazy
+// com.google.guava.source lazy
+// org.antlr.runtime lazy
+// org.apache.commons.cli lazy
+// org.apache.commons.cli.source lazy
+// org.objectweb.asm lazy
 //}
 
-//location "http://download.eclipse.org/tools/orbit/downloads/drops/R20170919201930/repository/" orbit-oxygen {
-//location "http://download.eclipse.org/tools/orbit/downloads/drops/R20180206163158/repository/" orbit-oxygen {
-location "http://download.eclipse.org/tools/orbit/downloads/drops/R20180330011457/repository/" orbit-oxygen {
-	com.google.guava lazy
-	com.google.guava.source lazy
-	org.antlr.runtime lazy
-	org.apache.commons.cli lazy
-	org.apache.commons.cli.source lazy
-	org.objectweb.asm lazy
+location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/S20190129210011/repository" {
+	com.google.guava 21.0.0
+	com.google.guava.source 21.0.0
+ 	com.google.gson [2.7.0,2.8.0)
+	com.google.gson.source [2.7.0,2.8.0)
+ 	org.apache.commons.lang3 3.1.0
+	org.apache.commons.lang3.source 3.1.0
+ 	org.objectweb.asm [5.0.1, 6.0.0)
+	org.objectweb.asm.source [5.0.1, 6.0.0)
+	// The batik plugins are transitively fetched through GMF_Runtime sdk's org.eclipse.gmf.runtime.thirdparty
+	// see the pom.xml under main/site
 }
+
+
+
+//location "http://download.eclipse.org/tools/orbit/downloads/drops/R20181128170323/repository/" orbit-last {
+// com.google.guava lazy
+//}
+

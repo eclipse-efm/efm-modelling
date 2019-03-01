@@ -41,7 +41,7 @@ public class ExpertBehaviorSelectionConfigurationProfile extends AbstractConfigu
 	 * @param parentTab
 	 */
 	public ExpertBehaviorSelectionConfigurationProfile(AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+		super(configurationPage, false);
 	}
 
 

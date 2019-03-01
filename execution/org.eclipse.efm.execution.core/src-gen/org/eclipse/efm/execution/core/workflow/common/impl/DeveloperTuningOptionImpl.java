@@ -1215,6 +1215,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLogTraceFilename() {
 		return logTraceFilename;
 	}
@@ -1224,6 +1225,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLogTraceFilename(String newLogTraceFilename) {
 		String oldLogTraceFilename = logTraceFilename;
 		logTraceFilename = newLogTraceFilename;
@@ -1236,6 +1238,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDebugTraceFilename() {
 		return debugTraceFilename;
 	}
@@ -1245,6 +1248,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDebugTraceFilename(String newDebugTraceFilename) {
 		String oldDebugTraceFilename = debugTraceFilename;
 		debugTraceFilename = newDebugTraceFilename;
@@ -1257,6 +1261,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DebuglevelKind getDebugLevel() {
 		return debugLevel;
 	}
@@ -1266,6 +1271,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDebugLevel(DebuglevelKind newDebugLevel) {
 		DebuglevelKind oldDebugLevel = debugLevel;
 		debugLevel = newDebugLevel == null ? DEBUG_LEVEL_EDEFAULT : newDebugLevel;
@@ -1278,6 +1284,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDebugFilename() {
 		return debugFilename;
 	}
@@ -1287,6 +1294,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDebugFilename(String newDebugFilename) {
 		String oldDebugFilename = debugFilename;
 		debugFilename = newDebugFilename;
@@ -1299,6 +1307,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getOutputFilename() {
 		return outputFilename;
 	}
@@ -1308,6 +1317,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOutputFilename(String newOutputFilename) {
 		String oldOutputFilename = outputFilename;
 		outputFilename = newOutputFilename;
@@ -1320,6 +1330,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSpecificationFilename() {
 		return specificationFilename;
 	}
@@ -1329,6 +1340,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSpecificationFilename(String newSpecificationFilename) {
 		String oldSpecificationFilename = specificationFilename;
 		specificationFilename = newSpecificationFilename;
@@ -1341,6 +1353,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getExecutableFilename() {
 		return executableFilename;
 	}
@@ -1350,6 +1363,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExecutableFilename(String newExecutableFilename) {
 		String oldExecutableFilename = executableFilename;
 		executableFilename = newExecutableFilename;
@@ -1362,6 +1376,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getInitializationFilename() {
 		return initializationFilename;
 	}
@@ -1371,6 +1386,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitializationFilename(String newInitializationFilename) {
 		String oldInitializationFilename = initializationFilename;
 		initializationFilename = newInitializationFilename;
@@ -1383,6 +1399,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSymbexGraphFilename() {
 		return symbexGraphFilename;
 	}
@@ -1392,6 +1409,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSymbexGraphFilename(String newSymbexGraphFilename) {
 		String oldSymbexGraphFilename = symbexGraphFilename;
 		symbexGraphFilename = newSymbexGraphFilename;
@@ -1404,6 +1422,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getParsedModelFilename() {
 		return parsedModelFilename;
 	}
@@ -1413,6 +1432,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParsedModelFilename(String newParsedModelFilename) {
 		String oldParsedModelFilename = parsedModelFilename;
 		parsedModelFilename = newParsedModelFilename;
@@ -1425,6 +1445,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCompiledModelFilename() {
 		return compiledModelFilename;
 	}
@@ -1434,6 +1455,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCompiledModelFilename(String newCompiledModelFilename) {
 		String oldCompiledModelFilename = compiledModelFilename;
 		compiledModelFilename = newCompiledModelFilename;
@@ -1446,6 +1468,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSymbexTraceFilename() {
 		return symbexTraceFilename;
 	}
@@ -1455,6 +1478,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSymbexTraceFilename(String newSymbexTraceFilename) {
 		String oldSymbexTraceFilename = symbexTraceFilename;
 		symbexTraceFilename = newSymbexTraceFilename;
@@ -1467,6 +1491,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledParsing() {
 		return enabledParsing;
 	}
@@ -1476,6 +1501,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledParsing(boolean newEnabledParsing) {
 		boolean oldEnabledParsing = enabledParsing;
 		enabledParsing = newEnabledParsing;
@@ -1488,6 +1514,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledConfiguring() {
 		return enabledConfiguring;
 	}
@@ -1497,6 +1524,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledConfiguring(boolean newEnabledConfiguring) {
 		boolean oldEnabledConfiguring = enabledConfiguring;
 		enabledConfiguring = newEnabledConfiguring;
@@ -1509,6 +1537,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledCompiling() {
 		return enabledCompiling;
 	}
@@ -1518,6 +1547,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledCompiling(boolean newEnabledCompiling) {
 		boolean oldEnabledCompiling = enabledCompiling;
 		enabledCompiling = newEnabledCompiling;
@@ -1530,6 +1560,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledLoading() {
 		return enabledLoading;
 	}
@@ -1539,6 +1570,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledLoading(boolean newEnabledLoading) {
 		boolean oldEnabledLoading = enabledLoading;
 		enabledLoading = newEnabledLoading;
@@ -1551,6 +1583,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledComputing() {
 		return enabledComputing;
 	}
@@ -1560,6 +1593,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledComputing(boolean newEnabledComputing) {
 		boolean oldEnabledComputing = enabledComputing;
 		enabledComputing = newEnabledComputing;
@@ -1572,6 +1606,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledReporting() {
 		return enabledReporting;
 	}
@@ -1581,6 +1616,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledReporting(boolean newEnabledReporting) {
 		boolean oldEnabledReporting = enabledReporting;
 		enabledReporting = newEnabledReporting;
@@ -1593,6 +1629,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledSolving() {
 		return enabledSolving;
 	}
@@ -1602,6 +1639,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledSolving(boolean newEnabledSolving) {
 		boolean oldEnabledSolving = enabledSolving;
 		enabledSolving = newEnabledSolving;
@@ -1614,6 +1652,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledProfiling() {
 		return enabledProfiling;
 	}
@@ -1623,6 +1662,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledProfiling(boolean newEnabledProfiling) {
 		boolean oldEnabledProfiling = enabledProfiling;
 		enabledProfiling = newEnabledProfiling;
@@ -1635,6 +1675,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledAllProcessStage() {
 		return enabledAllProcessStage;
 	}
@@ -1644,6 +1685,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledAllProcessStage(boolean newEnabledAllProcessStage) {
 		boolean oldEnabledAllProcessStage = enabledAllProcessStage;
 		enabledAllProcessStage = newEnabledAllProcessStage;
@@ -1656,6 +1698,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledPreProcessing() {
 		return enabledPreProcessing;
 	}
@@ -1665,6 +1708,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledPreProcessing(boolean newEnabledPreProcessing) {
 		boolean oldEnabledPreProcessing = enabledPreProcessing;
 		enabledPreProcessing = newEnabledPreProcessing;
@@ -1677,6 +1721,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledPostProcessing() {
 		return enabledPostProcessing;
 	}
@@ -1686,6 +1731,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledPostProcessing(boolean newEnabledPostProcessing) {
 		boolean oldEnabledPostProcessing = enabledPostProcessing;
 		enabledPostProcessing = newEnabledPostProcessing;
@@ -1698,6 +1744,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledProcessing() {
 		return enabledProcessing;
 	}
@@ -1707,6 +1754,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledProcessing(boolean newEnabledProcessing) {
 		boolean oldEnabledProcessing = enabledProcessing;
 		enabledProcessing = newEnabledProcessing;
@@ -1719,6 +1767,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledPreFiltering() {
 		return enabledPreFiltering;
 	}
@@ -1728,6 +1777,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledPreFiltering(boolean newEnabledPreFiltering) {
 		boolean oldEnabledPreFiltering = enabledPreFiltering;
 		enabledPreFiltering = newEnabledPreFiltering;
@@ -1740,6 +1790,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledPostFiltering() {
 		return enabledPostFiltering;
 	}
@@ -1749,6 +1800,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledPostFiltering(boolean newEnabledPostFiltering) {
 		boolean oldEnabledPostFiltering = enabledPostFiltering;
 		enabledPostFiltering = newEnabledPostFiltering;
@@ -1761,6 +1813,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledFiltering() {
 		return enabledFiltering;
 	}
@@ -1770,6 +1823,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledFiltering(boolean newEnabledFiltering) {
 		boolean oldEnabledFiltering = enabledFiltering;
 		enabledFiltering = newEnabledFiltering;
@@ -1782,6 +1836,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledQueue() {
 		return enabledQueue;
 	}
@@ -1791,6 +1846,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledQueue(boolean newEnabledQueue) {
 		boolean oldEnabledQueue = enabledQueue;
 		enabledQueue = newEnabledQueue;
@@ -1803,6 +1859,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledProgram() {
 		return enabledProgram;
 	}
@@ -1812,6 +1869,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledProgram(boolean newEnabledProgram) {
 		boolean oldEnabledProgram = enabledProgram;
 		enabledProgram = newEnabledProgram;
@@ -1824,6 +1882,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledStatement() {
 		return enabledStatement;
 	}
@@ -1833,6 +1892,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledStatement(boolean newEnabledStatement) {
 		boolean oldEnabledStatement = enabledStatement;
 		enabledStatement = newEnabledStatement;
@@ -1845,6 +1905,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledStatementAssignment() {
 		return enabledStatementAssignment;
 	}
@@ -1854,6 +1915,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledStatementAssignment(boolean newEnabledStatementAssignment) {
 		boolean oldEnabledStatementAssignment = enabledStatementAssignment;
 		enabledStatementAssignment = newEnabledStatementAssignment;
@@ -1866,6 +1928,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledStatementCommunication() {
 		return enabledStatementCommunication;
 	}
@@ -1875,6 +1938,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledStatementCommunication(boolean newEnabledStatementCommunication) {
 		boolean oldEnabledStatementCommunication = enabledStatementCommunication;
 		enabledStatementCommunication = newEnabledStatementCommunication;
@@ -1887,6 +1951,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledStatementTestDecision() {
 		return enabledStatementTestDecision;
 	}
@@ -1896,6 +1961,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledStatementTestDecision(boolean newEnabledStatementTestDecision) {
 		boolean oldEnabledStatementTestDecision = enabledStatementTestDecision;
 		enabledStatementTestDecision = newEnabledStatementTestDecision;
@@ -1908,6 +1974,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledBytecode() {
 		return enabledBytecode;
 	}
@@ -1917,6 +1984,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledBytecode(boolean newEnabledBytecode) {
 		boolean oldEnabledBytecode = enabledBytecode;
 		enabledBytecode = newEnabledBytecode;
@@ -1929,6 +1997,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledData() {
 		return enabledData;
 	}
@@ -1938,6 +2007,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledData(boolean newEnabledData) {
 		boolean oldEnabledData = enabledData;
 		enabledData = newEnabledData;
@@ -1950,6 +2020,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledTrace() {
 		return enabledTrace;
 	}
@@ -1959,6 +2030,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledTrace(boolean newEnabledTrace) {
 		boolean oldEnabledTrace = enabledTrace;
 		enabledTrace = newEnabledTrace;
@@ -1971,6 +2043,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledVariable() {
 		return enabledVariable;
 	}
@@ -1980,6 +2053,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledVariable(boolean newEnabledVariable) {
 		boolean oldEnabledVariable = enabledVariable;
 		enabledVariable = newEnabledVariable;
@@ -1992,6 +2066,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledBuffer() {
 		return enabledBuffer;
 	}
@@ -2001,6 +2076,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledBuffer(boolean newEnabledBuffer) {
 		boolean oldEnabledBuffer = enabledBuffer;
 		enabledBuffer = newEnabledBuffer;
@@ -2013,6 +2089,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledPort() {
 		return enabledPort;
 	}
@@ -2022,6 +2099,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledPort(boolean newEnabledPort) {
 		boolean oldEnabledPort = enabledPort;
 		enabledPort = newEnabledPort;
@@ -2034,6 +2112,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledSignal() {
 		return enabledSignal;
 	}
@@ -2043,6 +2122,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledSignal(boolean newEnabledSignal) {
 		boolean oldEnabledSignal = enabledSignal;
 		enabledSignal = newEnabledSignal;
@@ -2055,6 +2135,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledConnexion() {
 		return enabledConnexion;
 	}
@@ -2064,6 +2145,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledConnexion(boolean newEnabledConnexion) {
 		boolean oldEnabledConnexion = enabledConnexion;
 		enabledConnexion = newEnabledConnexion;
@@ -2076,6 +2158,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledTime() {
 		return enabledTime;
 	}
@@ -2085,6 +2168,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledTime(boolean newEnabledTime) {
 		boolean oldEnabledTime = enabledTime;
 		enabledTime = newEnabledTime;
@@ -2097,6 +2181,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledExecutable() {
 		return enabledExecutable;
 	}
@@ -2106,6 +2191,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledExecutable(boolean newEnabledExecutable) {
 		boolean oldEnabledExecutable = enabledExecutable;
 		enabledExecutable = newEnabledExecutable;
@@ -2118,6 +2204,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledActivity() {
 		return enabledActivity;
 	}
@@ -2127,6 +2214,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledActivity(boolean newEnabledActivity) {
 		boolean oldEnabledActivity = enabledActivity;
 		enabledActivity = newEnabledActivity;
@@ -2139,6 +2227,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledRoutine() {
 		return enabledRoutine;
 	}
@@ -2148,6 +2237,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledRoutine(boolean newEnabledRoutine) {
 		boolean oldEnabledRoutine = enabledRoutine;
 		enabledRoutine = newEnabledRoutine;
@@ -2160,6 +2250,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledTransition() {
 		return enabledTransition;
 	}
@@ -2169,6 +2260,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledTransition(boolean newEnabledTransition) {
 		boolean oldEnabledTransition = enabledTransition;
 		enabledTransition = newEnabledTransition;
@@ -2181,6 +2273,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledMachine() {
 		return enabledMachine;
 	}
@@ -2190,6 +2283,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledMachine(boolean newEnabledMachine) {
 		boolean oldEnabledMachine = enabledMachine;
 		enabledMachine = newEnabledMachine;
@@ -2202,6 +2296,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledStatemachine() {
 		return enabledStatemachine;
 	}
@@ -2211,6 +2306,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledStatemachine(boolean newEnabledStatemachine) {
 		boolean oldEnabledStatemachine = enabledStatemachine;
 		enabledStatemachine = newEnabledStatemachine;
@@ -2223,6 +2319,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledNameId() {
 		return enabledNameId;
 	}
@@ -2232,6 +2329,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledNameId(boolean newEnabledNameId) {
 		boolean oldEnabledNameId = enabledNameId;
 		enabledNameId = newEnabledNameId;
@@ -2244,6 +2342,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledQualifiedNameId() {
 		return enabledQualifiedNameId;
 	}
@@ -2253,6 +2352,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledQualifiedNameId(boolean newEnabledQualifiedNameId) {
 		boolean oldEnabledQualifiedNameId = enabledQualifiedNameId;
 		enabledQualifiedNameId = newEnabledQualifiedNameId;
@@ -2265,6 +2365,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledFullyQualifiedNameId() {
 		return enabledFullyQualifiedNameId;
 	}
@@ -2274,6 +2375,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledFullyQualifiedNameId(boolean newEnabledFullyQualifiedNameId) {
 		boolean oldEnabledFullyQualifiedNameId = enabledFullyQualifiedNameId;
 		enabledFullyQualifiedNameId = newEnabledFullyQualifiedNameId;
@@ -2286,6 +2388,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledRedundance() {
 		return enabledRedundance;
 	}
@@ -2295,6 +2398,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledRedundance(boolean newEnabledRedundance) {
 		boolean oldEnabledRedundance = enabledRedundance;
 		enabledRedundance = newEnabledRedundance;
@@ -2307,6 +2411,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledReferenceCounting() {
 		return enabledReferenceCounting;
 	}
@@ -2316,6 +2421,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledReferenceCounting(boolean newEnabledReferenceCounting) {
 		boolean oldEnabledReferenceCounting = enabledReferenceCounting;
 		enabledReferenceCounting = newEnabledReferenceCounting;
@@ -2328,6 +2434,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledNothing() {
 		return enabledNothing;
 	}
@@ -2337,6 +2444,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledNothing(boolean newEnabledNothing) {
 		boolean oldEnabledNothing = enabledNothing;
 		enabledNothing = newEnabledNothing;
@@ -2349,6 +2457,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledGodMode() {
 		return enabledGodMode;
 	}
@@ -2358,6 +2467,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledGodMode(boolean newEnabledGodMode) {
 		boolean oldEnabledGodMode = enabledGodMode;
 		enabledGodMode = newEnabledGodMode;
@@ -2972,7 +3082,7 @@ public class DeveloperTuningOptionImpl extends MinimalEObjectImpl.Container impl
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (logTraceFilename: ");
 		result.append(logTraceFilename);
 		result.append(", debugTraceFilename: ");

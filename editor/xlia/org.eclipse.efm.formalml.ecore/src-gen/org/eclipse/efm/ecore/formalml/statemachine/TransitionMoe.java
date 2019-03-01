@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,8 +25,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getMoc <em>Moc</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#isIsElse <em>Is Else</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getPrior <em>Prior</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getProba <em>Proba</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getPriority <em>Priority</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getProbability <em>Probability</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransitionMoe()
@@ -92,57 +92,57 @@ public interface TransitionMoe extends EObject {
 	void setIsElse(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Prior</b></em>' attribute.
+	 * Returns the value of the '<em><b>Priority</b></em>' attribute.
 	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Prior</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Priority</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Prior</em>' attribute.
-	 * @see #setPrior(int)
-	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransitionMoe_Prior()
+	 * @return the value of the '<em>Priority</em>' attribute.
+	 * @see #setPriority(int)
+	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransitionMoe_Priority()
 	 * @model default="0" required="true"
 	 * @generated
 	 */
-	int getPrior();
+	int getPriority();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getPrior <em>Prior</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getPriority <em>Priority</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Prior</em>' attribute.
-	 * @see #getPrior()
+	 * @param value the new value of the '<em>Priority</em>' attribute.
+	 * @see #getPriority()
 	 * @generated
 	 */
-	void setPrior(int value);
+	void setPriority(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Proba</b></em>' attribute.
+	 * Returns the value of the '<em><b>Probability</b></em>' attribute.
 	 * The default value is <code>"1.0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Proba</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Probability</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Proba</em>' attribute.
-	 * @see #setProba(float)
-	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransitionMoe_Proba()
+	 * @return the value of the '<em>Probability</em>' attribute.
+	 * @see #setProbability(float)
+	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransitionMoe_Probability()
 	 * @model default="1.0" required="true"
 	 * @generated
 	 */
-	float getProba();
+	float getProbability();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getProba <em>Proba</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getProbability <em>Probability</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Proba</em>' attribute.
-	 * @see #getProba()
+	 * @param value the new value of the '<em>Probability</em>' attribute.
+	 * @see #getProbability()
 	 * @generated
 	 */
-	void setProba(float value);
+	void setProbability(float value);
 
 } // TransitionMoe

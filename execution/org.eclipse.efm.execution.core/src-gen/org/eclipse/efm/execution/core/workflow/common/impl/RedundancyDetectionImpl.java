@@ -188,6 +188,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledDetetction() {
 		return enabledDetetction;
 	}
@@ -197,6 +198,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledDetetction(boolean newEnabledDetetction) {
 		boolean oldEnabledDetetction = enabledDetetction;
 		enabledDetetction = newEnabledDetetction;
@@ -209,6 +211,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RedundancyPathScope getPathScope() {
 		return pathScope;
 	}
@@ -218,6 +221,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPathScope(RedundancyPathScope newPathScope) {
 		RedundancyPathScope oldPathScope = pathScope;
 		pathScope = newPathScope == null ? PATH_SCOPE_EDEFAULT : newPathScope;
@@ -230,6 +234,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RedundancyComparerOperation getComparerOperation() {
 		return comparerOperation;
 	}
@@ -239,6 +244,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComparerOperation(RedundancyComparerOperation newComparerOperation) {
 		RedundancyComparerOperation oldComparerOperation = comparerOperation;
 		comparerOperation = newComparerOperation == null ? COMPARER_OPERATION_EDEFAULT : newComparerOperation;
@@ -251,6 +257,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SolverKind getSolverChoice() {
 		return solverChoice;
 	}
@@ -260,6 +267,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSolverChoice(SolverKind newSolverChoice) {
 		SolverKind oldSolverChoice = solverChoice;
 		solverChoice = newSolverChoice == null ? SOLVER_CHOICE_EDEFAULT : newSolverChoice;
@@ -272,6 +280,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDataScope() {
 		return dataScope;
 	}
@@ -281,6 +290,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDataScope(String newDataScope) {
 		String oldDataScope = dataScope;
 		dataScope = newDataScope;
@@ -293,6 +303,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledTrivialLoopDetetction() {
 		return enabledTrivialLoopDetetction;
 	}
@@ -302,6 +313,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledTrivialLoopDetetction(boolean newEnabledTrivialLoopDetetction) {
 		boolean oldEnabledTrivialLoopDetetction = enabledTrivialLoopDetetction;
 		enabledTrivialLoopDetetction = newEnabledTrivialLoopDetetction;
@@ -426,7 +438,7 @@ public class RedundancyDetectionImpl extends MinimalEObjectImpl.Container implem
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (enabledDetetction: ");
 		result.append(enabledDetetction);
 		result.append(", pathScope: ");

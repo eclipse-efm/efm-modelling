@@ -16,9 +16,11 @@ import com.google.inject.Inject
 import org.eclipse.efm.ecore.formalml.common.CommonPackage
 import org.eclipse.efm.ecore.formalml.common.NamedElement
 import org.eclipse.efm.ecore.formalml.common.Type
+import org.eclipse.efm.ecore.formalml.datatype.CollectionType
 import org.eclipse.efm.ecore.formalml.datatype.DataType
 import org.eclipse.efm.ecore.formalml.expression.ArithmeticAssociativeExpression
 import org.eclipse.efm.ecore.formalml.expression.ArithmeticUnaryExpression
+import org.eclipse.efm.ecore.formalml.expression.AssignmentExpression
 import org.eclipse.efm.ecore.formalml.expression.BinaryExpression
 import org.eclipse.efm.ecore.formalml.expression.BitwiseAssociativeExpression
 import org.eclipse.efm.ecore.formalml.expression.BitwiseUnaryExpression
@@ -37,12 +39,10 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Procedure
 import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal
-import org.eclipse.efm.ecore.formalml.infrastructure.System
-import org.eclipse.xtext.validation.Check
-import org.eclipse.efm.formalml.xtext.typing.FormalMLTypeProvider
-import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable
-import org.eclipse.efm.ecore.formalml.expression.AssignmentExpression
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
+import org.eclipse.efm.formalml.xtext.typing.FormalMLTypeProvider
+import org.eclipse.xtext.validation.Check
 
 /**
  * This class contains custom validation rules. 
@@ -52,9 +52,6 @@ import org.eclipse.efm.ecore.formalml.expression.AssignmentExpression
 class FormalMLValidator extends AbstractFormalMLValidator {
 
 	@Inject extension FormalMLTypeProvider
-
-	static val infraPack = InfrastructurePackage::eINSTANCE
-
 
 //	@Inject extension IQualifiedNameProvider
 
@@ -84,11 +81,13 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 		Iterable<? extends NamedElement> collection, String clazz) {
 //		val declName = decl.fullyQualifiedName
 
-		if( collection.exists[ it != decl && it.name == decl.name ] )
+		if( (decl.name !== null)
+			&& collection.exists[ it != decl && (it.name == decl.name) ] )
+		{
 			error("Duplicate " + clazz + " '" + decl.name + "'",
 				CommonPackage::eINSTANCE.namedElement_Name,
-				DUPLICATE_DECLARATION
-		)
+				 DUPLICATE_DECLARATION)
+		}
 	}
 
 	@Check
@@ -187,9 +186,6 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 			Behavior: checkNoDuplicateDeclarationInBlock(decl,
 				container.parameter, "parameter")
 
-			Routine: checkNoDuplicateDeclarationInBlock(decl,
-				container.parameter, "parameter")
-
 			ParameterSet: checkNoDuplicateDeclarationInBlock(decl,
 				container.parameter, "parameter")
 		}
@@ -199,7 +195,7 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 
 
 	@Check
-	def checkClassHierarchy(System system) {
+	def checkClassHierarchy(XliaSystem system) {
 		if ( system.name === null) {
 			error("system.name === null",
 				CommonPackage::eINSTANCE.namedElement_Name,
@@ -232,14 +228,27 @@ class FormalMLValidator extends AbstractFormalMLValidator {
 	@Check
 	def void checkCompatibleTypes(BinaryExpression exp) {
 		val leftType = exp.leftOperand.typeClassFor
-		val rigthType = exp.rigthOperand.typeClassFor
-		if( (leftType === null) || (rigthType === null) ) {
+		val rightType = exp.rightOperand.typeClassFor
+		if( (leftType === null) || (rightType === null) ) {
 			return; // nothing to check
 		}
-		else if( ! rigthType.isConformant(leftType) ) {
-			error("<BinaryExpression> Incompatible types. Expected '"
-					+ leftType.name + "' but was '" + rigthType.name + "'",
-					null, INCOMPATIBLE_TYPES);
+		else if( ! rightType.isConformant(leftType) ) {
+			if( (exp.operator == "in") && (rightType instanceof CollectionType) )
+			{
+				val rightTypeSupport = (rightType as CollectionType).support
+				
+				if( ! rightTypeSupport.isConformant(leftType) )
+				{
+					error("<BinaryExpression> Incompatible types. Expected '"
+							+ leftType.name + "' but was '" + rightTypeSupport.name + "'",
+							null, INCOMPATIBLE_TYPES);
+				}
+			}
+			else {
+				error("<BinaryExpression> Incompatible types. Expected '"
+						+ leftType.name + "' but was '" + rightType.name + "'",
+						null, INCOMPATIBLE_TYPES);
+			}
 		}
 	}
 

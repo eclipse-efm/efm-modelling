@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#isCallProcedure <em>Call Procedure</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getInvoke <em>Invoke</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getInvokable <em>Invokable</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getArgs <em>Args</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getRets <em>Rets</em>}</li>
  * </ul>
@@ -62,30 +62,30 @@ public interface InvokeExpression extends Expression {
 	void setCallProcedure(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Invoke</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Invokable</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Invoke</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Invokable</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Invoke</em>' containment reference.
-	 * @see #setInvoke(Expression)
-	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getInvokeExpression_Invoke()
+	 * @return the value of the '<em>Invokable</em>' containment reference.
+	 * @see #setInvokable(Expression)
+	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getInvokeExpression_Invokable()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Expression getInvoke();
+	Expression getInvokable();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getInvoke <em>Invoke</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.InvokeExpression#getInvokable <em>Invokable</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Invoke</em>' containment reference.
-	 * @see #getInvoke()
+	 * @param value the new value of the '<em>Invokable</em>' containment reference.
+	 * @see #getInvokable()
 	 * @generated
 	 */
-	void setInvoke(Expression value);
+	void setInvokable(Expression value);
 
 	/**
 	 * Returns the value of the '<em><b>Args</b></em>' containment reference list.

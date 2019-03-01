@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -126,6 +126,7 @@ public class IntervalTypeImpl extends DataSupportedTypeImpl implements IntervalT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isLopen() {
 		return lopen;
 	}
@@ -135,6 +136,7 @@ public class IntervalTypeImpl extends DataSupportedTypeImpl implements IntervalT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLopen(boolean newLopen) {
 		boolean oldLopen = lopen;
 		lopen = newLopen;
@@ -147,6 +149,7 @@ public class IntervalTypeImpl extends DataSupportedTypeImpl implements IntervalT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isRopen() {
 		return ropen;
 	}
@@ -156,6 +159,7 @@ public class IntervalTypeImpl extends DataSupportedTypeImpl implements IntervalT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRopen(boolean newRopen) {
 		boolean oldRopen = ropen;
 		ropen = newRopen;
@@ -168,6 +172,7 @@ public class IntervalTypeImpl extends DataSupportedTypeImpl implements IntervalT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getInfimum() {
 		return infimum;
 	}
@@ -192,6 +197,7 @@ public class IntervalTypeImpl extends DataSupportedTypeImpl implements IntervalT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInfimum(Expression newInfimum) {
 		if (newInfimum != infimum) {
 			NotificationChain msgs = null;
@@ -211,6 +217,7 @@ public class IntervalTypeImpl extends DataSupportedTypeImpl implements IntervalT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getSupremum() {
 		return supremum;
 	}
@@ -235,6 +242,7 @@ public class IntervalTypeImpl extends DataSupportedTypeImpl implements IntervalT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSupremum(Expression newSupremum) {
 		if (newSupremum != supremum) {
 			NotificationChain msgs = null;
@@ -362,7 +370,7 @@ public class IntervalTypeImpl extends DataSupportedTypeImpl implements IntervalT
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (lopen: ");
 		result.append(lopen);
 		result.append(", ropen: ");

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -73,6 +73,7 @@ public class LiteralNullExpressionImpl extends LiteralExpressionImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveInstanceType getType() {
 		return type;
 	}
@@ -97,6 +98,7 @@ public class LiteralNullExpressionImpl extends LiteralExpressionImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(PrimitiveInstanceType newType) {
 		if (newType != type) {
 			NotificationChain msgs = null;

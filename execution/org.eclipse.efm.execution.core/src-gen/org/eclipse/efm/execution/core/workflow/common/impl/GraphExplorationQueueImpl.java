@@ -123,6 +123,7 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GraphExplorationStrategyKind getStrategy() {
 		return strategy;
 	}
@@ -132,6 +133,7 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStrategy(GraphExplorationStrategyKind newStrategy) {
 		GraphExplorationStrategyKind oldStrategy = strategy;
 		strategy = newStrategy == null ? STRATEGY_EDEFAULT : newStrategy;
@@ -144,6 +146,7 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHeuristicEnabled() {
 		return heuristicEnabled;
 	}
@@ -153,6 +156,7 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHeuristicEnabled(boolean newHeuristicEnabled) {
 		boolean oldHeuristicEnabled = heuristicEnabled;
 		heuristicEnabled = newHeuristicEnabled;
@@ -165,6 +169,7 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getWeight() {
 		return weight;
 	}
@@ -174,6 +179,7 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWeight(int newWeight) {
 		int oldWeight = weight;
 		weight = newWeight;
@@ -268,7 +274,7 @@ public class GraphExplorationQueueImpl extends MinimalEObjectImpl.Container impl
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (strategy: ");
 		result.append(strategy);
 		result.append(", heuristicEnabled: ");

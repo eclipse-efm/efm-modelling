@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,8 +14,6 @@ package org.eclipse.efm.ecore.formalml.infrastructure;
 
 import org.eclipse.efm.ecore.formalml.common.TypedElement;
 
-import org.eclipse.efm.ecore.formalml.expression.MixTupleExpression;
-
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -29,7 +27,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine#getModifier <em>Modifier</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine#getModel <em>Model</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine#getArg <em>Arg</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine#getSlot <em>Slot</em>}</li>
  * </ul>
  *
@@ -89,32 +86,6 @@ public interface InstanceMachine extends TypedElement {
 	 * @generated
 	 */
 	void setModel(Machine value);
-
-	/**
-	 * Returns the value of the '<em><b>Arg</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Arg</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Arg</em>' containment reference.
-	 * @see #setArg(MixTupleExpression)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getInstanceMachine_Arg()
-	 * @model containment="true"
-	 * @generated
-	 */
-	MixTupleExpression getArg();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine#getArg <em>Arg</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Arg</em>' containment reference.
-	 * @see #getArg()
-	 * @generated
-	 */
-	void setArg(MixTupleExpression value);
 
 	/**
 	 * Returns the value of the '<em><b>Slot</b></em>' containment reference list.

@@ -49,7 +49,7 @@ public class OverviewExtraneousModuleConfigurationProfile
 	 */
 	public OverviewExtraneousModuleConfigurationProfile(
 			AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+		super(configurationPage, false);
 	}
 
 

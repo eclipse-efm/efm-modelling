@@ -45,6 +45,7 @@ import org.eclipse.efm.execution.core.workflow.DirectorCustomImpl;
 import org.eclipse.efm.execution.core.workflow.WorkflowCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
+import org.eclipse.efm.execution.launchconfiguration.job.SymbexJobFactory;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.LaunchExecConsoleManager;
 import org.eclipse.efm.execution.launchconfiguration.util.BackgroundResourceRefresher;
 import org.eclipse.efm.execution.launchconfiguration.util.CoreUtil;
@@ -99,7 +100,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	}
 
 
-	public static boolean isValidFilename(String text)
+	public static boolean isValidFilename(final String text)
 	{
 		final Pattern pattern = Pattern.compile(
 				"# Match a valid Windows filename (unspecified file system).          \n" +
@@ -122,7 +123,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 		return matcher.matches();
 	}
 
-	protected IPath getWorkflowPath(ILaunchConfiguration configuration) {
+	protected IPath getWorkflowPath(final ILaunchConfiguration configuration) {
 		final String modelBasename =
 				WorkflowFileUtils.getModelBasename( configuration );
 
@@ -135,7 +136,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 		IPath workflowsFolderPath = fWorkingDirectory.append( WORKFLOW_FOLDER );
 
-		File workflowsFolderFile = workflowsFolderPath.toFile();
+		final File workflowsFolderFile = workflowsFolderPath.toFile();
 		if( ! workflowsFolderFile.isDirectory() ) {
 			if( ! workflowsFolderFile.exists() ) {
 				workflowsFolderFile.mkdirs();
@@ -154,8 +155,8 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	}
 
 	@Override
-	public void launch(ILaunchConfiguration configuration,
-			String mode, ILaunch launch, IProgressMonitor monitor)
+	public void launch(final ILaunchConfiguration configuration,
+			final String mode, final ILaunch launch, final IProgressMonitor monitor)
 			throws CoreException {
 
 		fEnabledDebugOrDeveloperMode = ILaunchManager.DEBUG_MODE.equals(mode)
@@ -171,7 +172,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 		// resolve << avm.exe >> location
 		fAvmExecLocation = CoreUtil.getLocation(configuration);
 		if( fAvmExecLocation != null ) {
-			IProject project = getCurrentProject(configuration);
+			final IProject project = getCurrentProject(configuration);
 
 			if( project != null ) {
 				fWorkingDirectory = project.getLocation();
@@ -179,7 +180,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 				final IPath relativeLaunchPath =
 					WorkflowFileUtils.makeRootRelativeToWorkspacePath(fWorkingDirectory);
 
-				WorkflowCustomImpl workflow = WorkflowCustomImpl.create(
+				final WorkflowCustomImpl workflow = WorkflowCustomImpl.create(
 						configuration, fWorkingDirectory, relativeLaunchPath);
 
 				fSewLocation = getWorkflowPath(configuration);
@@ -208,8 +209,8 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	}
 
 
-	private void throwCoreException(String message) throws CoreException {
-		IStatus status = new Status(IStatus.ERROR,
+	private void throwCoreException(final String message) throws CoreException {
+		final IStatus status = new Status(IStatus.ERROR,
 				Activator.PLUGIN_ID, IStatus.OK, message, null);
 
 		throw new CoreException(status);
@@ -217,20 +218,20 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 
 	public IProject getCurrentProject(
-			ILaunchConfiguration configuration) throws CoreException {
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+			final ILaunchConfiguration configuration) throws CoreException {
+		final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 
-		String projectName = configuration.getAttribute(
+		final String projectName = configuration.getAttribute(
 				ATTR_SPECIFICATION_PROJECT_NAME, "");
 
 		if( (projectName != null) && (! projectName.isEmpty()) ) {
-			IProject project = root.getProject(projectName);
+			final IProject project = root.getProject(projectName);
 			if( project != null ) {
 				return project;
 			}
 		}
 
-		String aLocation = WorkflowFileUtils.getAbsoluteLocation(
+		final String aLocation = WorkflowFileUtils.getAbsoluteLocation(
 				configuration, ATTR_SPECIFICATION_MODEL_FILE_LOCATION, "");
 
 		if( aLocation.isEmpty() ) {
@@ -242,7 +243,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 //		aLocation = VariablesPlugin.getDefault().getStringVariableManager().
 //				performStringSubstitution(aLocation);
 
-		IResource resource = root.findMember(aLocation);
+		final IResource resource = root.findMember(aLocation);
 
 		if( (resource == null) || (! resource.exists()) ) {
 			throwCoreException("The ressource model file \"" +
@@ -271,8 +272,8 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 		return DirectorCustomImpl.isExplorationAnalysisProfile(fModelAnalysisProfile);
 	}
 
-	public void launchExec(ILaunchConfiguration configuration, String mode,
-			ILaunch launch, IProgressMonitor monitor) throws CoreException {
+	public void launchExec(final ILaunchConfiguration configuration, final String mode,
+			final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
 
 		if (monitor.isCanceled()) {
 			return;
@@ -286,15 +287,15 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 		}
 
 		// resolve arguments
-		String[] arguments = CoreUtil.getArguments(configuration);
+		final String[] arguments = CoreUtil.getArguments(configuration);
 
 		if (monitor.isCanceled()) {
 			return;
 		}
 
-		int cmdLineLength = 4 + ((arguments != null) ? arguments.length : 0);
+		final int cmdLineLength = 4 + ((arguments != null) ? arguments.length : 0);
 
-		String[] commandLine = new String[cmdLineLength];
+		final String[] commandLine = new String[cmdLineLength];
 
 		commandLine[0] = fAvmExecLocation.toOSString();
 		commandLine[1] = fSewLocation.toOSString();
@@ -309,7 +310,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 			return;
 		}
 
-		String[] envp = DebugPlugin.getDefault().getLaunchManager()
+		final String[] envp = DebugPlugin.getDefault().getLaunchManager()
 				.getEnvironment(configuration);
 
 		if (monitor.isCanceled()) {
@@ -335,32 +336,32 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 //				monitor,commandLine, workingDir, envp);
 
 
-		fConsoleManager.sewLaunchExecProcess(configuration, mode,
-				launch, monitor, commandLine, fLaunchingDirectory.toFile(), envp);
+//		fConsoleManager.sewLaunchExecProcess(configuration, mode,
+//				launch, monitor, commandLine, fLaunchingDirectory.toFile(), envp);
 
-//		SymbexJobFactory.run(configuration, mode,
-//				launch, monitor, commandLine, fLaunchingDirectory, envp);
+		SymbexJobFactory.run(configuration, mode,
+				launch, monitor, commandLine, fLaunchingDirectory, envp);
 
 		// Console par défault
 //		defaultLaunchExecProcess(configuration, mode, launch,
 //				monitor,commandLine, fLaunchingDirectory, envp);
 	}
 
-	protected void defaultLaunchExecProcess(ILaunchConfiguration configuration,
-			String mode, ILaunch launch, IProgressMonitor monitor,
-			String[] commandLine, IPath workingDirecory, String[] envp)
+	protected void defaultLaunchExecProcess(final ILaunchConfiguration configuration,
+			final String mode, final ILaunch launch, final IProgressMonitor monitor,
+			final String[] commandLine, final IPath workingDirecory, final String[] envp)
 					throws CoreException {
 
-		File workingDir = (workingDirecory != null) ?
+		final File workingDir = (workingDirecory != null) ?
 				workingDirecory.toFile() : null;
 
-		Process javaProcess = DebugPlugin.exec(commandLine, workingDir, envp);
+		final Process javaProcess = DebugPlugin.exec(commandLine, workingDir, envp);
 		IProcess eclipseProcess = null;
 
 		// add process type to process attributes
-		Map<String, String> processAttributes = new HashMap<String, String>();
+		final Map<String, String> processAttributes = new HashMap<String, String>();
 		String programName = fAvmExecLocation.lastSegment();
-		String extension = fAvmExecLocation.getFileExtension();
+		final String extension = fAvmExecLocation.getFileExtension();
 		if (extension != null) {
 			programName = programName.substring(0, programName.length()
 					- (extension.length() + 1));
@@ -375,9 +376,9 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 			// Suppression d'un éventuel fichier stop.avm
 			// d'une exécution précédente
-			IPath fStopavmLocation = getCurrentProject(configuration).
+			final IPath fStopavmLocation = getCurrentProject(configuration).
 					getLocation().append("Output/log/stop.avm");
-			File fStopavmFile = fStopavmLocation.toFile();
+			final File fStopavmFile = fStopavmLocation.toFile();
 			fStopavmFile.delete();
 
 			eclipseProcess = DebugPlugin.newProcess(launch, javaProcess,
@@ -402,10 +403,10 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 		if( configuration.getAttribute(
 				IDebugUIConstants.ATTR_LAUNCH_IN_BACKGROUND, true) ) {
 			// refresh resources after process finishes
-			String scope = configuration.getAttribute(
+			final String scope = configuration.getAttribute(
 					RefreshUtil.ATTR_REFRESH_SCOPE, (String)null);
 			if( scope != null ) {
-				BackgroundResourceRefresher refresher =
+				final BackgroundResourceRefresher refresher =
 						new BackgroundResourceRefresher(
 								configuration, eclipseProcess);
 				refresher.startBackgroundRefresh();
@@ -419,7 +420,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 						break;
 					}
 					Thread.sleep(50);
-				} catch (InterruptedException e) {
+				} catch (final InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
@@ -429,25 +430,25 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 		// Prise en compte du paramètre TIMEOUT
 		//
-		int timeout = configuration.getAttribute(
+		final int timeout = configuration.getAttribute(
 				ATTR_SPECIFICATION_STOP_CRITERIA_TIMEOUT, -1);
 		if ( timeout != -1 ) {
 			launchSupervisor(configuration, javaProcess, timeout);
 		}
 	}
 
-	protected void launchSupervisor(ILaunchConfiguration configuration,
-			Process javaProcess, int timeout) {
+	protected void launchSupervisor(final ILaunchConfiguration configuration,
+			final Process javaProcess, final int timeout) {
 		try {
 			javaProcess.waitFor(timeout, TimeUnit.SECONDS);
 		}
-		catch (InterruptedException e) {
+		catch (final InterruptedException e) {
 			e.printStackTrace();
 		}
 
 		if ( javaProcess.isAlive() ) {
 			try {
-				IPath fStopavmLocation =
+				final IPath fStopavmLocation =
 						getCurrentProject(configuration).
 						getLocation().append("Output/log/stop.avm");
 				BufferedWriter stopavm;
@@ -456,9 +457,9 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 				stopavm.write("");
 				stopavm.close();
 			}
-			catch (IOException e) {
+			catch (final IOException e) {
 			}
-			catch (CoreException e) {
+			catch (final CoreException e) {
 				e.printStackTrace();
 			}
 
@@ -466,17 +467,17 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 		}
 	}
 
-	private String generateCommandLine(String[] commandLine) {
+	private String generateCommandLine(final String[] commandLine) {
 		if (commandLine.length < 1)
 			return "";
-		StringBuffer buf = new StringBuffer();
+		final StringBuilder buf = new StringBuilder();
 		for (int i = 0; i < commandLine.length; i++) {
 			buf.append(' ');
-			char[] characters = commandLine[i].toCharArray();
-			StringBuffer command = new StringBuffer();
+			final char[] characters = commandLine[i].toCharArray();
+			final StringBuilder command = new StringBuilder();
 			boolean containsSpace = false;
 			for (int j = 0; j < characters.length; j++) {
-				char character = characters[j];
+				final char character = characters[j];
 				if (character == '\"') {
 					command.append('\\');
 				} else if (character == ' ') {

@@ -41,8 +41,9 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	 * @param parentTab
 	 */
 	public TestGenerationBasicTraceConfigurationProfile(
-			AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+			AbstractConfigurationPage configurationPage)
+	{
+		super(configurationPage, false);
 	}
 
 

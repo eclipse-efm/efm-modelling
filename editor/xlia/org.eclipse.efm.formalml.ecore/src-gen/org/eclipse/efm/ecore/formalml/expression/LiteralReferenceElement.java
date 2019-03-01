@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,7 +24,7 @@ import org.eclipse.efm.ecore.formalml.common.NamedElement;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getKind <em>Kind</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getElement <em>Element</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getArg <em>Arg</em>}</li>
  * </ul>
  *
@@ -64,30 +64,30 @@ public interface LiteralReferenceElement extends LiteralReferenceExpression {
 	void setKind(ValueElementSpecificationKind value);
 
 	/**
-	 * Returns the value of the '<em><b>Value</b></em>' reference.
+	 * Returns the value of the '<em><b>Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value</em>' reference isn't clear,
+	 * If the meaning of the '<em>Element</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value</em>' reference.
-	 * @see #setValue(NamedElement)
-	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getLiteralReferenceElement_Value()
+	 * @return the value of the '<em>Element</em>' reference.
+	 * @see #setElement(NamedElement)
+	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getLiteralReferenceElement_Element()
 	 * @model
 	 * @generated
 	 */
-	NamedElement getValue();
+	NamedElement getElement();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getValue <em>Value</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement#getElement <em>Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' reference.
-	 * @see #getValue()
+	 * @param value the new value of the '<em>Element</em>' reference.
+	 * @see #getElement()
 	 * @generated
 	 */
-	void setValue(NamedElement value);
+	void setElement(NamedElement value);
 
 	/**
 	 * Returns the value of the '<em><b>Arg</b></em>' containment reference.

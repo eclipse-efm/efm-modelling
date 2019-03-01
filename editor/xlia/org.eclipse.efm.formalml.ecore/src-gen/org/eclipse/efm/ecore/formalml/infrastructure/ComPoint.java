@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,11 +13,7 @@
 package org.eclipse.efm.ecore.formalml.infrastructure;
 
 import org.eclipse.efm.ecore.formalml.common.AbstractElement;
-
-import org.eclipse.efm.ecore.formalml.expression.Expression;
-import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.efm.ecore.formalml.common.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,10 +24,8 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getDirection <em>Direction</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getProtocol <em>Protocol</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPoint <em>Point</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPoints <em>Points</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getMachine <em>Machine</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPort <em>Port</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComPoint()
@@ -40,101 +34,55 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ComPoint extends AbstractElement {
 	/**
-	 * Returns the value of the '<em><b>Direction</b></em>' attribute.
-	 * The default value is <code>"inout"</code>.
-	 * The literals are from the enumeration {@link org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection}.
+	 * Returns the value of the '<em><b>Machine</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Direction</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Machine</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Direction</em>' attribute.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection
-	 * @see #setDirection(ChannelDirection)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComPoint_Direction()
-	 * @model default="inout"
+	 * @return the value of the '<em>Machine</em>' reference.
+	 * @see #setMachine(NamedElement)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComPoint_Machine()
+	 * @model
 	 * @generated
 	 */
-	ChannelDirection getDirection();
+	NamedElement getMachine();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getDirection <em>Direction</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getMachine <em>Machine</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Direction</em>' attribute.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection
-	 * @see #getDirection()
+	 * @param value the new value of the '<em>Machine</em>' reference.
+	 * @see #getMachine()
 	 * @generated
 	 */
-	void setDirection(ChannelDirection value);
+	void setMachine(NamedElement value);
 
 	/**
-	 * Returns the value of the '<em><b>Protocol</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Port</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Protocol</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Port</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Protocol</em>' containment reference.
-	 * @see #setProtocol(ComProtocol)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComPoint_Protocol()
-	 * @model containment="true"
+	 * @return the value of the '<em>Port</em>' reference.
+	 * @see #setPort(Port)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComPoint_Port()
+	 * @model
 	 * @generated
 	 */
-	ComProtocol getProtocol();
+	Port getPort();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getProtocol <em>Protocol</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPort <em>Port</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Protocol</em>' containment reference.
-	 * @see #getProtocol()
+	 * @param value the new value of the '<em>Port</em>' reference.
+	 * @see #getPort()
 	 * @generated
 	 */
-	void setProtocol(ComProtocol value);
-
-	/**
-	 * Returns the value of the '<em><b>Point</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Point</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Point</em>' containment reference.
-	 * @see #setPoint(ValueElementSpecification)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComPoint_Point()
-	 * @model containment="true"
-	 * @generated
-	 */
-	ValueElementSpecification getPoint();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPoint <em>Point</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Point</em>' containment reference.
-	 * @see #getPoint()
-	 * @generated
-	 */
-	void setPoint(ValueElementSpecification value);
-
-	/**
-	 * Returns the value of the '<em><b>Points</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.expression.Expression}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Points</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Points</em>' containment reference list.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComPoint_Points()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Expression> getPoints();
+	void setPort(Port value);
 
 } // ComPoint

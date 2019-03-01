@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2016 CEA LIST.
- * 
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  */
 package org.eclipse.efm.modeling.formalml.helpers;
 
@@ -35,7 +35,7 @@ public class PrintingUtil {
 
 
 	public static String printTrigger(Trigger trig) {
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 
 		res.append("input ");
 		if( ! trig.getPorts().isEmpty() ) {
@@ -57,7 +57,7 @@ public class PrintingUtil {
 
 
 	public static String PrintEvent(Port port, Event event) {
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 
 		res.append(printNamedElement(port))
 			.append(' ')
@@ -67,7 +67,7 @@ public class PrintingUtil {
 	}
 
 	public static String PrintEvent(Event event) {
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 
 		if(event != null) {
 			if( event instanceof SignalEvent ) {
@@ -100,7 +100,7 @@ public class PrintingUtil {
 
 
 	public static String printEffect(Behavior effect) {
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 
 		if(effect instanceof OpaqueBehavior) {
 			if( ! ((OpaqueBehavior)effect).getBodies().isEmpty() ) {
@@ -124,7 +124,7 @@ public class PrintingUtil {
 
 
 	public static String printTGuard(Constraint tguard) {
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 
 		if(tguard != null) {
 			ValueSpecification specification = tguard.getSpecification();
@@ -145,7 +145,7 @@ public class PrintingUtil {
 
 
 	public static String printGuard(Constraint guard) {
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 
 		if(guard != null) {
 			ValueSpecification specification = guard.getSpecification();
@@ -166,7 +166,7 @@ public class PrintingUtil {
 
 
 	public static String printTransition(org.eclipse.uml2.uml.Transition t) {
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 
 		for(Trigger trig : t.getTriggers())
 			res.append(res).append(printTrigger(trig));

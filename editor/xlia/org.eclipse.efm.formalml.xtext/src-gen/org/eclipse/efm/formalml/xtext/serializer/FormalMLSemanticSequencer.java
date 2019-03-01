@@ -53,16 +53,21 @@ import org.eclipse.efm.ecore.formalml.expression.IncrementOrDecrementPrefixExpre
 import org.eclipse.efm.ecore.formalml.expression.InstantiationExpression;
 import org.eclipse.efm.ecore.formalml.expression.InvokeExpression;
 import org.eclipse.efm.ecore.formalml.expression.LeftHandSideExpression;
+import org.eclipse.efm.ecore.formalml.expression.LiteralAnyOrNoneValueExpression;
+import org.eclipse.efm.ecore.formalml.expression.LiteralAnyValueExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralBooleanExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralCharacterExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralCollectionExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralEnvExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralFloatExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralIntegerExpression;
+import org.eclipse.efm.ecore.formalml.expression.LiteralNoneValueExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralNullExpression;
+import org.eclipse.efm.ecore.formalml.expression.LiteralOptionalValueExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralParentExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralRationalExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement;
+import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification;
 import org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralStringExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralSuperExpression;
@@ -88,6 +93,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
 import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
+import org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd;
 import org.eclipse.efm.ecore.formalml.infrastructure.Function;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
@@ -105,6 +111,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty;
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem;
 import org.eclipse.efm.ecore.formalml.statemachine.FinalState;
 import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate;
 import org.eclipse.efm.ecore.formalml.statemachine.Region;
@@ -128,6 +135,8 @@ import org.eclipse.efm.ecore.formalml.statement.IfStatement;
 import org.eclipse.efm.ecore.formalml.statement.InputComStatement;
 import org.eclipse.efm.ecore.formalml.statement.InterruptStatement;
 import org.eclipse.efm.ecore.formalml.statement.InvokeStatement;
+import org.eclipse.efm.ecore.formalml.statement.MetaStatement;
+import org.eclipse.efm.ecore.formalml.statement.ObserverStatement;
 import org.eclipse.efm.ecore.formalml.statement.OutputComStatement;
 import org.eclipse.efm.ecore.formalml.statement.StatementPackage;
 import org.eclipse.efm.ecore.formalml.statement.TimedGuardStatement;
@@ -183,8 +192,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 		else if (epackage == DatatypePackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
 			case DatatypePackage.CHOICE_TYPE:
-				if (rule == grammarAccess.getTypeDefinitionImplRule()
-						|| rule == grammarAccess.getChoiceTypeDefinitionImplRule()) {
+				if (rule == grammarAccess.getChoiceTypeDefinitionImplRule()) {
 					sequence_ChoiceTypeDefinitionImpl(context, (ChoiceType) semanticObject); 
 					return; 
 				}
@@ -205,8 +213,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 					sequence_BufferContainerType(context, (CollectionType) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getTypeDefinitionImplRule()
-						|| rule == grammarAccess.getCollectionTypeDefinitionImplRule()) {
+				else if (rule == grammarAccess.getCollectionTypeDefinitionImplRule()) {
 					sequence_CollectionTypeDefinitionImpl(context, (CollectionType) semanticObject); 
 					return; 
 				}
@@ -219,20 +226,21 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 						|| action == grammarAccess.getDataTypeReferenceAccess().getDataTypeReferenceSupportAction_0_1_0()
 						|| rule == grammarAccess.getDataTypeRule()
 						|| rule == grammarAccess.getSimpleDataTypeRule()
-						|| rule == grammarAccess.getCollectionTypeRule()) {
+						|| rule == grammarAccess.getCollectionTypeRule()
+						|| rule == grammarAccess.getAnyDataTypeReferenceRule()
+						|| action == grammarAccess.getAnyDataTypeReferenceAccess().getDataTypeReferenceSupportAction_0_1_0()) {
 					sequence_CollectionType(context, (CollectionType) semanticObject); 
 					return; 
 				}
 				else break;
 			case DatatypePackage.DATA_TYPE_REFERENCE:
-				if (rule == grammarAccess.getDataTypeReferenceRule()
-						|| rule == grammarAccess.getDataTypeRule()) {
-					sequence_DataTypeReference(context, (DataTypeReference) semanticObject); 
+				if (rule == grammarAccess.getAnyDataTypeReferenceRule()) {
+					sequence_AnyDataTypeReference(context, (DataTypeReference) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getTypeDefinitionImplRule()
-						|| rule == grammarAccess.getOtherDataTypeDefinitionImplRule()) {
-					sequence_OtherDataTypeDefinitionImpl(context, (DataTypeReference) semanticObject); 
+				else if (rule == grammarAccess.getDataTypeReferenceRule()
+						|| rule == grammarAccess.getDataTypeRule()) {
+					sequence_DataTypeReference(context, (DataTypeReference) semanticObject); 
 					return; 
 				}
 				else if (rule == grammarAccess.getTypeDefinitionRule()
@@ -245,8 +253,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				sequence_EnumerationLiteral(context, (EnumerationLiteral) semanticObject); 
 				return; 
 			case DatatypePackage.ENUMERATION_TYPE:
-				if (rule == grammarAccess.getTypeDefinitionImplRule()
-						|| rule == grammarAccess.getEnumerationTypeDefinitionImplRule()) {
+				if (rule == grammarAccess.getEnumerationTypeDefinitionImplRule()) {
 					sequence_EnumerationTypeDefinitionImpl(context, (EnumerationType) semanticObject); 
 					return; 
 				}
@@ -263,8 +270,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				}
 				else break;
 			case DatatypePackage.INTERVAL_TYPE:
-				if (rule == grammarAccess.getTypeDefinitionImplRule()
-						|| rule == grammarAccess.getIntervalTypeDefinitionImplRule()) {
+				if (rule == grammarAccess.getIntervalTypeDefinitionImplRule()) {
 					sequence_IntervalTypeDefinitionImpl(context, (IntervalType) semanticObject); 
 					return; 
 				}
@@ -277,7 +283,9 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 						|| action == grammarAccess.getDataTypeReferenceAccess().getDataTypeReferenceSupportAction_0_1_0()
 						|| rule == grammarAccess.getDataTypeRule()
 						|| rule == grammarAccess.getSimpleDataTypeRule()
-						|| rule == grammarAccess.getIntervalTypeRule()) {
+						|| rule == grammarAccess.getIntervalTypeRule()
+						|| rule == grammarAccess.getAnyDataTypeReferenceRule()
+						|| action == grammarAccess.getAnyDataTypeReferenceAccess().getDataTypeReferenceSupportAction_0_1_0()) {
 					sequence_IntervalType(context, (IntervalType) semanticObject); 
 					return; 
 				}
@@ -306,7 +314,9 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 						|| rule == grammarAccess.getSimpleDataTypeRule()
 						|| rule == grammarAccess.getPrimitiveTypeRule()
 						|| rule == grammarAccess.getOtherPrimitiveTypeRule()
-						|| rule == grammarAccess.getPrimitiveInstanceTypeRule()) {
+						|| rule == grammarAccess.getPrimitiveInstanceTypeRule()
+						|| rule == grammarAccess.getAnyDataTypeReferenceRule()
+						|| action == grammarAccess.getAnyDataTypeReferenceAccess().getDataTypeReferenceSupportAction_0_1_0()) {
 					sequence_PrimitiveInstanceType(context, (PrimitiveInstanceType) semanticObject); 
 					return; 
 				}
@@ -327,8 +337,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				sequence_PrimitiveTimeType(context, (PrimitiveTimeType) semanticObject); 
 				return; 
 			case DatatypePackage.STRUCTURE_TYPE:
-				if (rule == grammarAccess.getTypeDefinitionImplRule()
-						|| rule == grammarAccess.getStructureTypeDefinitionImplRule()) {
+				if (rule == grammarAccess.getStructureTypeDefinitionImplRule()) {
 					sequence_StructureTypeDefinitionImpl(context, (StructureType) semanticObject); 
 					return; 
 				}
@@ -345,8 +354,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				}
 				else break;
 			case DatatypePackage.UNION_TYPE:
-				if (rule == grammarAccess.getTypeDefinitionImplRule()
-						|| rule == grammarAccess.getUnionTypeDefinitionImplRule()) {
+				if (rule == grammarAccess.getUnionTypeDefinitionImplRule()) {
 					sequence_UnionTypeDefinitionImpl(context, (UnionType) semanticObject); 
 					return; 
 				}
@@ -441,6 +449,12 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case ExpressionPackage.LEFT_HAND_SIDE_EXPRESSION:
 				sequence_LeftHandSideExpression(context, (LeftHandSideExpression) semanticObject); 
 				return; 
+			case ExpressionPackage.LITERAL_ANY_OR_NONE_VALUE_EXPRESSION:
+				sequence_LiteralAnyOrNoneValueExpression(context, (LiteralAnyOrNoneValueExpression) semanticObject); 
+				return; 
+			case ExpressionPackage.LITERAL_ANY_VALUE_EXPRESSION:
+				sequence_LiteralAnyValueExpression(context, (LiteralAnyValueExpression) semanticObject); 
+				return; 
 			case ExpressionPackage.LITERAL_BOOLEAN_EXPRESSION:
 				sequence_LiteralBooleanExpression(context, (LiteralBooleanExpression) semanticObject); 
 				return; 
@@ -459,8 +473,14 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case ExpressionPackage.LITERAL_INTEGER_EXPRESSION:
 				sequence_LiteralIntegerExpression(context, (LiteralIntegerExpression) semanticObject); 
 				return; 
+			case ExpressionPackage.LITERAL_NONE_VALUE_EXPRESSION:
+				sequence_LiteralNoneValueExpression(context, (LiteralNoneValueExpression) semanticObject); 
+				return; 
 			case ExpressionPackage.LITERAL_NULL_EXPRESSION:
 				sequence_LiteralNullExpression(context, (LiteralNullExpression) semanticObject); 
+				return; 
+			case ExpressionPackage.LITERAL_OPTIONAL_VALUE_EXPRESSION:
+				sequence_LiteralOptionalValueExpression(context, (LiteralOptionalValueExpression) semanticObject); 
 				return; 
 			case ExpressionPackage.LITERAL_PARENT_EXPRESSION:
 				sequence_LiteralParentExpression(context, (LiteralParentExpression) semanticObject); 
@@ -469,11 +489,14 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				sequence_LiteralRationalExpression(context, (LiteralRationalExpression) semanticObject); 
 				return; 
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT:
-				if (rule == grammarAccess.getLiteralPureReferenceElementRule()
+				if (rule == grammarAccess.getBufferReferenceElementRule()) {
+					sequence_BufferReferenceElement(context, (LiteralReferenceElement) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getLiteralPureReferenceElementRule()
 						|| rule == grammarAccess.getLiteralPureReferenceExpressionRule()
 						|| rule == grammarAccess.getValuePureNamedMachineExpressionRule()
-						|| action == grammarAccess.getValuePureNamedMachineExpressionAccess().getValueElementSpecificationParentAction_1_0()
-						|| action == grammarAccess.getValuePureNamedMachineExpressionAccess().getValueElementSpecificationParentAction_2_0()) {
+						|| action == grammarAccess.getValuePureNamedMachineExpressionAccess().getValueElementSpecificationParentAction_1_0()) {
 					sequence_LiteralPureReferenceElement(context, (LiteralReferenceElement) semanticObject); 
 					return; 
 				}
@@ -520,6 +543,20 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 						|| action == grammarAccess.getValueSelectionExpressionAccess().getValueElementSpecificationParentAction_1_0()
 						|| action == grammarAccess.getValueSelectionExpressionAccess().getValueElementSpecificationParentAction_2_0()) {
 					sequence_LiteralReferenceElement(context, (LiteralReferenceElement) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getLitteralComElementRule()) {
+					sequence_LitteralComElement(context, (LiteralReferenceElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case ExpressionPackage.LITERAL_REFERENCE_SPECIFICATION:
+				if (rule == grammarAccess.getComBufferRefRule()) {
+					sequence_ComBufferRef(context, (LiteralReferenceSpecification) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getLiteralReferenceSpecificationRule()) {
+					sequence_LiteralReferenceSpecification(context, (LiteralReferenceSpecification) semanticObject); 
 					return; 
 				}
 				else break;
@@ -612,8 +649,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 					sequence_ComBuffer(context, (ValueElementSpecification) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getComElementRule()) {
-					sequence_ComElement(context, (ValueElementSpecification) semanticObject); 
+				else if (rule == grammarAccess.getObsComElementRule()) {
+					sequence_ObsComElement(context, (ValueElementSpecification) semanticObject); 
 					return; 
 				}
 				else if (rule == grammarAccess.getExpressionRule()
@@ -653,17 +690,9 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 					sequence_PrimaryExpression_ValueElementSpecification_2_4_0(context, (ValueElementSpecification) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getValuePureNamedMachineExpressionRule()) {
+				else if (rule == grammarAccess.getValuePureNamedMachineExpressionRule()
+						|| action == grammarAccess.getValuePureNamedMachineExpressionAccess().getValueElementSpecificationParentAction_1_0()) {
 					sequence_ValuePureNamedMachineExpression(context, (ValueElementSpecification) semanticObject); 
-					return; 
-				}
-				else if (action == grammarAccess.getValuePureNamedMachineExpressionAccess().getValueElementSpecificationParentAction_1_0()
-						|| action == grammarAccess.getValuePureNamedMachineExpressionAccess().getValueElementSpecificationParentAction_2_0()) {
-					sequence_ValuePureNamedMachineExpression_ValueElementSpecification_1_0_ValueElementSpecification_2_0(context, (ValueElementSpecification) semanticObject); 
-					return; 
-				}
-				else if (action == grammarAccess.getValuePureNamedMachineExpressionAccess().getValueElementSpecificationParentAction_2_3_0()) {
-					sequence_ValuePureNamedMachineExpression_ValueElementSpecification_2_3_0(context, (ValueElementSpecification) semanticObject); 
 					return; 
 				}
 				else if (rule == grammarAccess.getValueSelectionExpressionRule()) {
@@ -771,7 +800,10 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				sequence_CompositePart(context, (CompositePart) semanticObject); 
 				return; 
 			case InfrastructurePackage.CONNECTOR:
-				sequence_Connection(context, (Connector) semanticObject); 
+				sequence_Connector(context, (Connector) semanticObject); 
+				return; 
+			case InfrastructurePackage.CONNECTOR_END:
+				sequence_ConnectorEnd(context, (ConnectorEnd) semanticObject); 
 				return; 
 			case InfrastructurePackage.FUNCTION:
 				if (rule == grammarAccess.getFunctionImplRule()
@@ -809,6 +841,26 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				}
 				else if (rule == grammarAccess.getProcedureExecutionRule()) {
 					sequence_ProcedureExecution(context, (ModelOfExecution) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getMoeCompositeStateRoutinesRule()) {
+					sequence_moeCompositeStateRoutines(context, (ModelOfExecution) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getMoeFinalStateRoutinesRule()) {
+					sequence_moeFinalStateRoutines(context, (ModelOfExecution) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getMoePseudotateRoutinesRule()) {
+					sequence_moePseudotateRoutines(context, (ModelOfExecution) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getMoeSimpleStateRoutinesRule()) {
+					sequence_moeSimpleStateRoutines(context, (ModelOfExecution) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getMoeStartStateRoutinesRule()) {
+					sequence_moeStartStateRoutines(context, (ModelOfExecution) semanticObject); 
 					return; 
 				}
 				else break;
@@ -864,6 +916,10 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 					sequence_FunctionalParameterSet(context, (ParameterSet) semanticObject); 
 					return; 
 				}
+				else if (rule == grammarAccess.getVariableRoutineParameterSetRule()) {
+					sequence_VariableRoutineParameterSet(context, (ParameterSet) semanticObject); 
+					return; 
+				}
 				else break;
 			case InfrastructurePackage.PORT:
 				if (rule == grammarAccess.getPortImplRule()
@@ -896,24 +952,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 					sequence_Routine(context, (Routine) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getMoeCompositeStateRoutinesRule()) {
-					sequence_moeCompositeStateRoutines(context, (Routine) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getMoeFinalStateRoutinesRule()) {
-					sequence_moeFinalStateRoutines(context, (Routine) semanticObject); 
-					return; 
-				}
 				else if (rule == grammarAccess.getMoeRoutineRule()) {
 					sequence_moeRoutine(context, (Routine) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getMoeSimpleStateRoutinesRule()) {
-					sequence_moeSimpleStateRoutines(context, (Routine) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getMoeStartStateRoutinesRule()) {
-					sequence_moeStartStateRoutines(context, (Routine) semanticObject); 
 					return; 
 				}
 				else break;
@@ -944,9 +984,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 					return; 
 				}
 				else break;
-			case InfrastructurePackage.SYSTEM:
-				sequence_System(context, (org.eclipse.efm.ecore.formalml.infrastructure.System) semanticObject); 
-				return; 
 			case InfrastructurePackage.VARIABLE:
 				if (rule == grammarAccess.getBoundVariableRule()) {
 					sequence_BoundVariable(context, (Variable) semanticObject); 
@@ -964,6 +1001,9 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 					return; 
 				}
 				else break;
+			case InfrastructurePackage.XLIA_SYSTEM:
+				sequence_XliaSystem(context, (XliaSystem) semanticObject); 
+				return; 
 			}
 		else if (epackage == StatemachinePackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
@@ -989,7 +1029,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				}
 				else break;
 			case StatemachinePackage.REGION:
-				if (rule == grammarAccess.getStatemachineRegionLiteRule()) {
+				if (rule == grammarAccess.getStatemachineNamedRegionRule()) {
+					sequence_StatemachineNamedRegion(context, (Region) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getStatemachineRegionLiteRule()) {
 					sequence_StatemachineRegionLite(context, (Region) semanticObject); 
 					return; 
 				}
@@ -1082,17 +1126,45 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				sequence_IfStatement(context, (IfStatement) semanticObject); 
 				return; 
 			case StatementPackage.INPUT_COM_STATEMENT:
-				sequence_InputComStatement(context, (InputComStatement) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getTransitionTriggerRule()
+						|| rule == grammarAccess.getStatementRule()
+						|| rule == grammarAccess.getInputComStatementRule()) {
+					sequence_InputComStatement(context, (InputComStatement) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getObservableStatementRule()
+						|| rule == grammarAccess.getObsInputComStatementRule()) {
+					sequence_ObsInputComStatement(context, (InputComStatement) semanticObject); 
+					return; 
+				}
+				else break;
 			case StatementPackage.INTERRUPT_STATEMENT:
 				sequence_InterruptStatement(context, (InterruptStatement) semanticObject); 
 				return; 
 			case StatementPackage.INVOKE_STATEMENT:
 				sequence_InvokeStatement(context, (InvokeStatement) semanticObject); 
 				return; 
-			case StatementPackage.OUTPUT_COM_STATEMENT:
-				sequence_OutputComStatement(context, (OutputComStatement) semanticObject); 
+			case StatementPackage.META_STATEMENT:
+				sequence_MetaStatement(context, (MetaStatement) semanticObject); 
 				return; 
+			case StatementPackage.OBSERVER_STATEMENT:
+				sequence_ObserverStatement(context, (ObserverStatement) semanticObject); 
+				return; 
+			case StatementPackage.OUTPUT_COM_STATEMENT:
+				if (rule == grammarAccess.getObservableStatementRule()
+						|| rule == grammarAccess.getObsOutputComStatementRule()) {
+					sequence_ObsOutputComStatement(context, (OutputComStatement) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getTransitionEffectRule()
+						|| action == grammarAccess.getTransitionEffectAccess().getBlockStatementStatementAction_1_0()
+						|| rule == grammarAccess.getTransitionEffectStatementRule()
+						|| rule == grammarAccess.getStatementRule()
+						|| rule == grammarAccess.getOutputComStatementRule()) {
+					sequence_OutputComStatement(context, (OutputComStatement) semanticObject); 
+					return; 
+				}
+				else break;
 			case StatementPackage.TIMED_GUARD_STATEMENT:
 				if (rule == grammarAccess.getStatementRule()
 						|| rule == grammarAccess.getTimedGuardStatementRule()) {
@@ -1182,6 +1254,21 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     )
 	 */
 	protected void sequence_AdditiveExpression_MultiplicativeExpression(ISerializationContext context, ArithmeticAssociativeExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AnyDataTypeReference returns DataTypeReference
+	 *
+	 * Constraint:
+	 *     (
+	 *         (support=AnyDataTypeReference_DataTypeReference_0_1_0 multiplicity=DataTypeMultiplicity) | 
+	 *         (typeref=[DataType|ESUfid] multiplicity=DataTypeMultiplicity?)
+	 *     )
+	 */
+	protected void sequence_AnyDataTypeReference(ISerializationContext context, DataTypeReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1291,7 +1378,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     BaseExpression returns AssignmentExpression
 	 *
 	 * Constraint:
-	 *     (leftHandSide=LeftHandSideExpression operator=AssignmentOperator rigthHandSide=Expression)
+	 *     (leftHandSide=LeftHandSideExpression operator=AssignmentOperator rightHandSide=Expression)
 	 */
 	protected void sequence_AssignmentExpression(ISerializationContext context, AssignmentExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -1299,13 +1386,13 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.ASSIGNMENT_EXPRESSION__LEFT_HAND_SIDE));
 			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.ASSIGNMENT_EXPRESSION__OPERATOR) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.ASSIGNMENT_EXPRESSION__OPERATOR));
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE));
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getAssignmentExpressionAccess().getLeftHandSideLeftHandSideExpressionParserRuleCall_0_0(), semanticObject.getLeftHandSide());
 		feeder.accept(grammarAccess.getAssignmentExpressionAccess().getOperatorAssignmentOperatorParserRuleCall_1_0(), semanticObject.getOperator());
-		feeder.accept(grammarAccess.getAssignmentExpressionAccess().getRigthHandSideExpressionParserRuleCall_2_0(), semanticObject.getRigthHandSide());
+		feeder.accept(grammarAccess.getAssignmentExpressionAccess().getRightHandSideExpressionParserRuleCall_2_0(), semanticObject.getRightHandSide());
 		feeder.finish();
 	}
 	
@@ -1502,6 +1589,24 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     BufferReferenceElement returns LiteralReferenceElement
+	 *
+	 * Constraint:
+	 *     element=[Buffer|ESIdentifier]
+	 */
+	protected void sequence_BufferReferenceElement(ISerializationContext context, LiteralReferenceElement semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getBufferReferenceElementAccess().getElementBufferESIdentifierParserRuleCall_1_0_1(), semanticObject.eGet(ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Buffer returns Buffer
 	 *
 	 * Constraint:
@@ -1615,7 +1720,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     TypeDefinitionImpl returns ChoiceType
 	 *     ChoiceTypeDefinitionImpl returns ChoiceType
 	 *
 	 * Constraint:
@@ -1655,7 +1759,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     TypeDefinitionImpl returns CollectionType
 	 *     CollectionTypeDefinitionImpl returns CollectionType
 	 *
 	 * Constraint:
@@ -1693,6 +1796,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     DataType returns CollectionType
 	 *     SimpleDataType returns CollectionType
 	 *     CollectionType returns CollectionType
+	 *     AnyDataTypeReference returns CollectionType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns CollectionType
 	 *
 	 * Constraint:
 	 *     (container=CollectionKind (support=DataType (size=EInt | unbounded?='*')?)?)
@@ -1716,6 +1821,18 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     ComBufferRef returns LiteralReferenceSpecification
+	 *
+	 * Constraint:
+	 *     (parent+=LiteralReferenceExpression* element=BufferReferenceElement)
+	 */
+	protected void sequence_ComBufferRef(ISerializationContext context, LiteralReferenceSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     ComBuffer returns ValueElementSpecification
 	 *
 	 * Constraint:
@@ -1728,25 +1845,13 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     ComElement returns ValueElementSpecification
-	 *
-	 * Constraint:
-	 *     ((parent=LiteralPureReferenceMachine (kind=ValueDotFieldExpressionKind | kind=ValueArrowFieldExpressionKind))? element=[Port|ESIdentifier])
-	 */
-	protected void sequence_ComElement(ISerializationContext context, ValueElementSpecification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     ComPointProtocol returns ComProtocol
 	 *
 	 * Constraint:
 	 *     (
 	 *         (protocol=BufferProtocolKind (inner_buffer=BufferContainerType | buffer=ComBuffer | inner_buffer=BufferContainerType | buffer=ComBuffer)?) | 
 	 *         inner_buffer=BufferContainerType | 
-	 *         buffer=ComBuffer
+	 *         bufferRef=ComBufferRef
 	 *     )
 	 */
 	protected void sequence_ComPointProtocol(ISerializationContext context, ComProtocol semanticObject) {
@@ -1759,7 +1864,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ComPoint returns ComPoint
 	 *
 	 * Constraint:
-	 *     (direction=ChannelDirection protocol=ComPointProtocol? (point=ComElement | points+=ComElement))
+	 *     (machine=[NamedElement|ESIdentifier]? port=[Port|ESIdentifier])
 	 */
 	protected void sequence_ComPoint(ISerializationContext context, ComPoint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1830,11 +1935,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             name=ESIdentifier 
 	 *             unrestrictedName=UnrestrictedName? 
 	 *             (
-	 *                 (region+=StatemachineRegion | moe+=moeCompositeStateRoutines | transition+=Transition)+ | 
-	 *                 (region+=StatemachineRegionLite (transition+=Transition | moe+=moeCompositeStateRoutines)*)
+	 *                 (region+=StatemachineRegion | region+=StatemachineNamedRegion | moe=moeCompositeStateRoutines | transition+=Transition)+ | 
+	 *                 (region+=StatemachineRegionLite | moe=moeCompositeStateRoutines | transition+=Transition)+
 	 *             )?
 	 *         ) | 
-	 *         (simple?='state' name=ESIdentifier unrestrictedName=UnrestrictedName? (transition+=Transition | moe+=moeSimpleStateRoutines)*)
+	 *         (simple?='state' name=ESIdentifier unrestrictedName=UnrestrictedName? (transition+=Transition | moe=moeSimpleStateRoutines)*)
 	 *     )
 	 */
 	protected void sequence_CompositeState_SimpleState(ISerializationContext context, State semanticObject) {
@@ -1853,8 +1958,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
 	 *         (
-	 *             (region+=StatemachineRegion | moe+=moeCompositeStateRoutines | transition+=Transition)+ | 
-	 *             (region+=StatemachineRegionLite (transition+=Transition | moe+=moeCompositeStateRoutines)*)
+	 *             (region+=StatemachineRegion | region+=StatemachineNamedRegion | moe=moeCompositeStateRoutines | transition+=Transition)+ | 
+	 *             (region+=StatemachineRegionLite | moe=moeCompositeStateRoutines | transition+=Transition)+
 	 *         )?
 	 *     )
 	 */
@@ -1897,7 +2002,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     BaseExpression returns ConditionalTestExpression
 	 *
 	 * Constraint:
-	 *     (condition=ConditionalTestExpression_ConditionalTestExpression_1_0 operator='?' thenOperand=Expression elseOperand=Expression)
+	 *     (condition=ConditionalTestExpression_ConditionalTestExpression_1_0 operator='?' thenOperand=Expression elseSeparator=':' elseOperand=Expression)
 	 */
 	protected void sequence_ConditionalTestExpression(ISerializationContext context, ConditionalTestExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -1907,6 +2012,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.CONDITIONAL_TEST_EXPRESSION__OPERATOR));
 			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.CONDITIONAL_TEST_EXPRESSION__THEN_OPERAND) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.CONDITIONAL_TEST_EXPRESSION__THEN_OPERAND));
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR));
 			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.CONDITIONAL_TEST_EXPRESSION__ELSE_OPERAND) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.CONDITIONAL_TEST_EXPRESSION__ELSE_OPERAND));
 		}
@@ -1914,6 +2021,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 		feeder.accept(grammarAccess.getConditionalTestExpressionAccess().getConditionalTestExpressionConditionAction_1_0(), semanticObject.getCondition());
 		feeder.accept(grammarAccess.getConditionalTestExpressionAccess().getOperatorQuestionMarkKeyword_1_1_0(), semanticObject.getOperator());
 		feeder.accept(grammarAccess.getConditionalTestExpressionAccess().getThenOperandExpressionParserRuleCall_1_2_0(), semanticObject.getThenOperand());
+		feeder.accept(grammarAccess.getConditionalTestExpressionAccess().getElseSeparatorColonKeyword_1_3_0(), semanticObject.getElseSeparator());
 		feeder.accept(grammarAccess.getConditionalTestExpressionAccess().getElseOperandExpressionParserRuleCall_1_4_0(), semanticObject.getElseOperand());
 		feeder.finish();
 	}
@@ -1921,12 +2029,24 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     Connection returns Connector
+	 *     ConnectorEnd returns ConnectorEnd
 	 *
 	 * Constraint:
-	 *     (protocol=ComProtocol (name=ESIdentifier unrestrictedName=UnrestrictedName?)? comPoints+=ComPoint+)
+	 *     (direction=ChannelDirection protocol=ComPointProtocol? (points+=ComPoint | (points+=ComPoint points+=ComPoint*) | points+=ComPoint+))
 	 */
-	protected void sequence_Connection(ISerializationContext context, Connector semanticObject) {
+	protected void sequence_ConnectorEnd(ISerializationContext context, ConnectorEnd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Connector returns Connector
+	 *
+	 * Constraint:
+	 *     (protocol=ComProtocol name=ESIdentifier? unrestrictedName=UnrestrictedName? connectorEnd+=ConnectorEnd+)
+	 */
+	protected void sequence_Connector(ISerializationContext context, Connector semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1989,7 +2109,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     DynamicInstanceSpecification returns InstanceMachine
 	 *
 	 * Constraint:
-	 *     (model=[Machine|ESIdentifier] ((slot+=SlotParameter slot+=SlotParameter*) | slot+=SlotProperty+)?)
+	 *     (model=[Machine|ESIdentifier] (slot+=SlotParameter slot+=SlotParameter*)? slot+=SlotProperty*)
 	 */
 	protected void sequence_DynamicInstanceSpecification(ISerializationContext context, InstanceMachine semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2023,13 +2143,13 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *
 	 * Constraint:
 	 *     (
-	 *         (kind=PseudostateKind name=ESIdentifier unrestrictedName=UnrestrictedName? transition+=Transition*) | 
+	 *         (kind=PseudostateKind name=ESIdentifier unrestrictedName=UnrestrictedName? (transition+=Transition | moe=moePseudotateRoutines)*) | 
 	 *         (
 	 *             ((kind=PseudostateInitialKind (name=ESIdentifier | name='#initial' | name='#init')) | name='#initial' | name='#init') 
 	 *             unrestrictedName=UnrestrictedName? 
 	 *             transition+=Transition*
 	 *         ) | 
-	 *         (kind=EndingPseudostateKind name=ESIdentifier unrestrictedName=UnrestrictedName? moe+=moeFinalStateRoutines*)
+	 *         (kind=EndingPseudostateKind name=ESIdentifier unrestrictedName=UnrestrictedName? moe=moeFinalStateRoutines?)
 	 *     )
 	 */
 	protected void sequence_EndingPseudostate_OtherPseudostate_PseudostateInitial(ISerializationContext context, Pseudostate semanticObject) {
@@ -2042,7 +2162,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     EndingPseudostate returns Pseudostate
 	 *
 	 * Constraint:
-	 *     (kind=EndingPseudostateKind name=ESIdentifier unrestrictedName=UnrestrictedName? moe+=moeFinalStateRoutines*)
+	 *     (kind=EndingPseudostateKind name=ESIdentifier unrestrictedName=UnrestrictedName? moe=moeFinalStateRoutines?)
 	 */
 	protected void sequence_EndingPseudostate(ISerializationContext context, Pseudostate semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2063,7 +2183,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     TypeDefinitionImpl returns EnumerationType
 	 *     EnumerationTypeDefinitionImpl returns EnumerationType
 	 *
 	 * Constraint:
@@ -2142,7 +2261,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     BaseExpression returns EqualityBinaryExpression
 	 *
 	 * Constraint:
-	 *     (leftOperand=EqualityExpression_EqualityBinaryExpression_1_0 operator=EqualityOperator rigthOperand=RelationalExpression)
+	 *     (leftOperand=EqualityExpression_EqualityBinaryExpression_1_0 operator=EqualityOperator rightOperand=RelationalExpression)
 	 */
 	protected void sequence_EqualityExpression(ISerializationContext context, EqualityBinaryExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -2150,13 +2269,13 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__LEFT_OPERAND));
 			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__OPERATOR) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__OPERATOR));
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__RIGTH_OPERAND) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__RIGTH_OPERAND));
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__RIGHT_OPERAND) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__RIGHT_OPERAND));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEqualityExpressionAccess().getEqualityBinaryExpressionLeftOperandAction_1_0(), semanticObject.getLeftOperand());
 		feeder.accept(grammarAccess.getEqualityExpressionAccess().getOperatorEqualityOperatorParserRuleCall_1_1_0(), semanticObject.getOperator());
-		feeder.accept(grammarAccess.getEqualityExpressionAccess().getRigthOperandRelationalExpressionParserRuleCall_1_2_0(), semanticObject.getRigthOperand());
+		feeder.accept(grammarAccess.getEqualityExpressionAccess().getRightOperandRelationalExpressionParserRuleCall_1_2_0(), semanticObject.getRightOperand());
 		feeder.finish();
 	}
 	
@@ -2208,7 +2327,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     FinalState returns FinalState
 	 *
 	 * Constraint:
-	 *     (((simple?='state' name=ESIdentifier) | simple?='#final') unrestrictedName=UnrestrictedName? moe+=moeFinalStateRoutines*)
+	 *     (((simple?='state' name=ESIdentifier) | simple?='#final') unrestrictedName=UnrestrictedName? moe=moeFinalStateRoutines?)
 	 */
 	protected void sequence_FinalState(ISerializationContext context, FinalState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2289,8 +2408,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         modifier=Modifier? 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         (argument+=FormalParameter argument+=FormalParameter*)? 
-	 *         ((result+=FormalParameter result+=FormalParameter*) | (result+=FormalParameter result+=FormalParameter*))
+	 *         parameterSet=FormalParameterSet? 
+	 *         (resultSet=FormalParameterSet | resultSet=FormalParameterSet)
 	 *     )
 	 */
 	protected void sequence_FunctionImpl(ISerializationContext context, Function semanticObject) {
@@ -2307,8 +2426,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         (visibility=VisibilityKind | modifier=Modifier)* 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         (argument+=FormalParameter argument+=FormalParameter*)? 
-	 *         ((result+=FormalParameter result+=FormalParameter*) | (result+=FormalParameter result+=FormalParameter*))
+	 *         parameterSet=FormalParameterSet? 
+	 *         (resultSet=FormalParameterSet | resultSet=FormalParameterSet)
 	 *     )
 	 */
 	protected void sequence_Function(ISerializationContext context, Function semanticObject) {
@@ -2500,7 +2619,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     InputComStatement returns InputComStatement
 	 *
 	 * Constraint:
-	 *     (port=[NamedElement|ESUfid] (leftValue+=Expression leftValue+=Expression*)? (target=ValuePureNamedMachineExpression | route=[Channel|ESUfid])*)
+	 *     (port=LitteralComElement (leftValue+=Expression leftValue+=Expression*)? (target=LiteralPureReferenceExpression | route=[Channel|ESUfid])*)
 	 */
 	protected void sequence_InputComStatement(ISerializationContext context, InputComStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2512,7 +2631,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     InstanceMachine returns InstanceMachine
 	 *
 	 * Constraint:
-	 *     (model=[Machine|ESUfid] name=ESIdentifier unrestrictedName=UnrestrictedName? ((slot+=SlotParameter slot+=SlotParameter*) | slot+=SlotProperty+)?)
+	 *     (model=[Machine|ESUfid] name=ESIdentifier unrestrictedName=UnrestrictedName? (slot+=SlotParameter slot+=SlotParameter*)? slot+=SlotProperty*)
 	 */
 	protected void sequence_InstanceMachine(ISerializationContext context, InstanceMachine semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2585,7 +2704,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     TypeDefinitionImpl returns IntervalType
 	 *     IntervalTypeDefinitionImpl returns IntervalType
 	 *
 	 * Constraint:
@@ -2633,9 +2751,18 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     DataType returns IntervalType
 	 *     SimpleDataType returns IntervalType
 	 *     IntervalType returns IntervalType
+	 *     AnyDataTypeReference returns IntervalType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns IntervalType
 	 *
 	 * Constraint:
-	 *     (support=PrimitiveNumberType lopen?=']'? infimum=Expression supremum=Expression ropen?='['?)
+	 *     (
+	 *         name='interval' 
+	 *         support=PrimitiveNumberType 
+	 *         lopen?=']'? 
+	 *         infimum=Expression 
+	 *         supremum=Expression 
+	 *         ropen?='['?
+	 *     )
 	 */
 	protected void sequence_IntervalType(ISerializationContext context, IntervalType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2677,7 +2804,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     InvokeExpressionDeprecated returns InvokeExpression
 	 *
 	 * Constraint:
-	 *     (args+=Expression invoke=LiteralReferenceElement args+=Expression*)
+	 *     (args+=Expression invokable=LiteralReferenceElement args+=Expression*)
 	 */
 	protected void sequence_InvokeExpressionDeprecated(ISerializationContext context, InvokeExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2689,15 +2816,15 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     InvokeExpression returns InvokeExpression
 	 *
 	 * Constraint:
-	 *     invoke=ValueSelectionExpression
+	 *     invokable=ValueSelectionExpression
 	 */
 	protected void sequence_InvokeExpression(ISerializationContext context, InvokeExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.INVOKE_EXPRESSION__INVOKE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.INVOKE_EXPRESSION__INVOKE));
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.INVOKE_EXPRESSION__INVOKABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.INVOKE_EXPRESSION__INVOKABLE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getInvokeExpressionAccess().getInvokeValueSelectionExpressionParserRuleCall_1_0(), semanticObject.getInvoke());
+		feeder.accept(grammarAccess.getInvokeExpressionAccess().getInvokableValueSelectionExpressionParserRuleCall_1_0(), semanticObject.getInvokable());
 		feeder.finish();
 	}
 	
@@ -2746,6 +2873,94 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     (lvalue=ValueSelectionExpression | lvalue=ValueSelectionExpression)
 	 */
 	protected void sequence_LeftHandSideExpression(ISerializationContext context, LeftHandSideExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Expression returns LiteralAnyOrNoneValueExpression
+	 *     ConditionalTestExpression returns LiteralAnyOrNoneValueExpression
+	 *     ConditionalTestExpression.ConditionalTestExpression_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     LogicalOrExpression returns LiteralAnyOrNoneValueExpression
+	 *     LogicalOrExpression.LogicalAssociativeExpression_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     LogicalAndExpression returns LiteralAnyOrNoneValueExpression
+	 *     LogicalAndExpression.LogicalAssociativeExpression_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     BitwiseOrExpression returns LiteralAnyOrNoneValueExpression
+	 *     BitwiseOrExpression.BitwiseAssociativeExpression_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     BitwiseXorExpression returns LiteralAnyOrNoneValueExpression
+	 *     BitwiseXorExpression.BitwiseAssociativeExpression_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     BitwiseAndExpression returns LiteralAnyOrNoneValueExpression
+	 *     BitwiseAndExpression.BitwiseAssociativeExpression_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     EqualityExpression returns LiteralAnyOrNoneValueExpression
+	 *     EqualityExpression.EqualityBinaryExpression_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     RelationalExpression returns LiteralAnyOrNoneValueExpression
+	 *     RelationalExpression.RelationalBinaryExpression_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     AdditiveExpression returns LiteralAnyOrNoneValueExpression
+	 *     AdditiveExpression.ArithmeticAssociativeExpression_1_0_0 returns LiteralAnyOrNoneValueExpression
+	 *     AdditiveExpression.ArithmeticAssociativeExpression_1_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     MultiplicativeExpression returns LiteralAnyOrNoneValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_0_0 returns LiteralAnyOrNoneValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralAnyOrNoneValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralAnyOrNoneValueExpression
+	 *     UnaryExpression returns LiteralAnyOrNoneValueExpression
+	 *     PrimaryExpression returns LiteralAnyOrNoneValueExpression
+	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralAnyOrNoneValueExpression
+	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralAnyOrNoneValueExpression
+	 *     BaseExpression returns LiteralAnyOrNoneValueExpression
+	 *     LiteralExpression returns LiteralAnyOrNoneValueExpression
+	 *     LiteralTerminalExpression returns LiteralAnyOrNoneValueExpression
+	 *     LiteralAnyOrNoneValueExpression returns LiteralAnyOrNoneValueExpression
+	 *
+	 * Constraint:
+	 *     type=AnyDataTypeReference?
+	 */
+	protected void sequence_LiteralAnyOrNoneValueExpression(ISerializationContext context, LiteralAnyOrNoneValueExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Expression returns LiteralAnyValueExpression
+	 *     ConditionalTestExpression returns LiteralAnyValueExpression
+	 *     ConditionalTestExpression.ConditionalTestExpression_1_0 returns LiteralAnyValueExpression
+	 *     LogicalOrExpression returns LiteralAnyValueExpression
+	 *     LogicalOrExpression.LogicalAssociativeExpression_1_0 returns LiteralAnyValueExpression
+	 *     LogicalAndExpression returns LiteralAnyValueExpression
+	 *     LogicalAndExpression.LogicalAssociativeExpression_1_0 returns LiteralAnyValueExpression
+	 *     BitwiseOrExpression returns LiteralAnyValueExpression
+	 *     BitwiseOrExpression.BitwiseAssociativeExpression_1_0 returns LiteralAnyValueExpression
+	 *     BitwiseXorExpression returns LiteralAnyValueExpression
+	 *     BitwiseXorExpression.BitwiseAssociativeExpression_1_0 returns LiteralAnyValueExpression
+	 *     BitwiseAndExpression returns LiteralAnyValueExpression
+	 *     BitwiseAndExpression.BitwiseAssociativeExpression_1_0 returns LiteralAnyValueExpression
+	 *     EqualityExpression returns LiteralAnyValueExpression
+	 *     EqualityExpression.EqualityBinaryExpression_1_0 returns LiteralAnyValueExpression
+	 *     RelationalExpression returns LiteralAnyValueExpression
+	 *     RelationalExpression.RelationalBinaryExpression_1_0 returns LiteralAnyValueExpression
+	 *     AdditiveExpression returns LiteralAnyValueExpression
+	 *     AdditiveExpression.ArithmeticAssociativeExpression_1_0_0 returns LiteralAnyValueExpression
+	 *     AdditiveExpression.ArithmeticAssociativeExpression_1_1_0 returns LiteralAnyValueExpression
+	 *     MultiplicativeExpression returns LiteralAnyValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_0_0 returns LiteralAnyValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_1_0 returns LiteralAnyValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralAnyValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralAnyValueExpression
+	 *     UnaryExpression returns LiteralAnyValueExpression
+	 *     PrimaryExpression returns LiteralAnyValueExpression
+	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralAnyValueExpression
+	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralAnyValueExpression
+	 *     BaseExpression returns LiteralAnyValueExpression
+	 *     LiteralExpression returns LiteralAnyValueExpression
+	 *     LiteralTerminalExpression returns LiteralAnyValueExpression
+	 *     LiteralAnyValueExpression returns LiteralAnyValueExpression
+	 *
+	 * Constraint:
+	 *     type=AnyDataTypeReference?
+	 */
+	protected void sequence_LiteralAnyValueExpression(ISerializationContext context, LiteralAnyValueExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -2887,7 +3102,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     LiteralCollectionExpression returns LiteralCollectionExpression
 	 *
 	 * Constraint:
-	 *     (datatype=DataType? ((value+=Expression | value+=NamedExpression) value+=Expression? (value+=NamedExpression? value+=Expression?)*)?)
+	 *     (datatype=DataType? ((value+=Expression | value+=NamedExpression) value+=NamedExpression? (value+=Expression? value+=NamedExpression?)*)?)
 	 */
 	protected void sequence_LiteralCollectionExpression(ISerializationContext context, LiteralCollectionExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2938,7 +3153,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ValueSelectionExpression.ValueElementSpecification_2_0 returns LiteralEnvExpression
 	 *     ValuePureNamedMachineExpression returns LiteralEnvExpression
 	 *     ValuePureNamedMachineExpression.ValueElementSpecification_1_0 returns LiteralEnvExpression
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_2_0 returns LiteralEnvExpression
 	 *
 	 * Constraint:
 	 *     {LiteralEnvExpression}
@@ -3051,6 +3265,50 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     Expression returns LiteralNoneValueExpression
+	 *     ConditionalTestExpression returns LiteralNoneValueExpression
+	 *     ConditionalTestExpression.ConditionalTestExpression_1_0 returns LiteralNoneValueExpression
+	 *     LogicalOrExpression returns LiteralNoneValueExpression
+	 *     LogicalOrExpression.LogicalAssociativeExpression_1_0 returns LiteralNoneValueExpression
+	 *     LogicalAndExpression returns LiteralNoneValueExpression
+	 *     LogicalAndExpression.LogicalAssociativeExpression_1_0 returns LiteralNoneValueExpression
+	 *     BitwiseOrExpression returns LiteralNoneValueExpression
+	 *     BitwiseOrExpression.BitwiseAssociativeExpression_1_0 returns LiteralNoneValueExpression
+	 *     BitwiseXorExpression returns LiteralNoneValueExpression
+	 *     BitwiseXorExpression.BitwiseAssociativeExpression_1_0 returns LiteralNoneValueExpression
+	 *     BitwiseAndExpression returns LiteralNoneValueExpression
+	 *     BitwiseAndExpression.BitwiseAssociativeExpression_1_0 returns LiteralNoneValueExpression
+	 *     EqualityExpression returns LiteralNoneValueExpression
+	 *     EqualityExpression.EqualityBinaryExpression_1_0 returns LiteralNoneValueExpression
+	 *     RelationalExpression returns LiteralNoneValueExpression
+	 *     RelationalExpression.RelationalBinaryExpression_1_0 returns LiteralNoneValueExpression
+	 *     AdditiveExpression returns LiteralNoneValueExpression
+	 *     AdditiveExpression.ArithmeticAssociativeExpression_1_0_0 returns LiteralNoneValueExpression
+	 *     AdditiveExpression.ArithmeticAssociativeExpression_1_1_0 returns LiteralNoneValueExpression
+	 *     MultiplicativeExpression returns LiteralNoneValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_0_0 returns LiteralNoneValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_1_0 returns LiteralNoneValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralNoneValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralNoneValueExpression
+	 *     UnaryExpression returns LiteralNoneValueExpression
+	 *     PrimaryExpression returns LiteralNoneValueExpression
+	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralNoneValueExpression
+	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralNoneValueExpression
+	 *     BaseExpression returns LiteralNoneValueExpression
+	 *     LiteralExpression returns LiteralNoneValueExpression
+	 *     LiteralTerminalExpression returns LiteralNoneValueExpression
+	 *     LiteralNoneValueExpression returns LiteralNoneValueExpression
+	 *
+	 * Constraint:
+	 *     type=AnyDataTypeReference?
+	 */
+	protected void sequence_LiteralNoneValueExpression(ISerializationContext context, LiteralNoneValueExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Expression returns LiteralNullExpression
 	 *     ConditionalTestExpression returns LiteralNullExpression
 	 *     ConditionalTestExpression.ConditionalTestExpression_1_0 returns LiteralNullExpression
@@ -3089,6 +3347,50 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     type=NullPrimitiveInstanceType?
 	 */
 	protected void sequence_LiteralNullExpression(ISerializationContext context, LiteralNullExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Expression returns LiteralOptionalValueExpression
+	 *     ConditionalTestExpression returns LiteralOptionalValueExpression
+	 *     ConditionalTestExpression.ConditionalTestExpression_1_0 returns LiteralOptionalValueExpression
+	 *     LogicalOrExpression returns LiteralOptionalValueExpression
+	 *     LogicalOrExpression.LogicalAssociativeExpression_1_0 returns LiteralOptionalValueExpression
+	 *     LogicalAndExpression returns LiteralOptionalValueExpression
+	 *     LogicalAndExpression.LogicalAssociativeExpression_1_0 returns LiteralOptionalValueExpression
+	 *     BitwiseOrExpression returns LiteralOptionalValueExpression
+	 *     BitwiseOrExpression.BitwiseAssociativeExpression_1_0 returns LiteralOptionalValueExpression
+	 *     BitwiseXorExpression returns LiteralOptionalValueExpression
+	 *     BitwiseXorExpression.BitwiseAssociativeExpression_1_0 returns LiteralOptionalValueExpression
+	 *     BitwiseAndExpression returns LiteralOptionalValueExpression
+	 *     BitwiseAndExpression.BitwiseAssociativeExpression_1_0 returns LiteralOptionalValueExpression
+	 *     EqualityExpression returns LiteralOptionalValueExpression
+	 *     EqualityExpression.EqualityBinaryExpression_1_0 returns LiteralOptionalValueExpression
+	 *     RelationalExpression returns LiteralOptionalValueExpression
+	 *     RelationalExpression.RelationalBinaryExpression_1_0 returns LiteralOptionalValueExpression
+	 *     AdditiveExpression returns LiteralOptionalValueExpression
+	 *     AdditiveExpression.ArithmeticAssociativeExpression_1_0_0 returns LiteralOptionalValueExpression
+	 *     AdditiveExpression.ArithmeticAssociativeExpression_1_1_0 returns LiteralOptionalValueExpression
+	 *     MultiplicativeExpression returns LiteralOptionalValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_0_0 returns LiteralOptionalValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_1_0 returns LiteralOptionalValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralOptionalValueExpression
+	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralOptionalValueExpression
+	 *     UnaryExpression returns LiteralOptionalValueExpression
+	 *     PrimaryExpression returns LiteralOptionalValueExpression
+	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralOptionalValueExpression
+	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralOptionalValueExpression
+	 *     BaseExpression returns LiteralOptionalValueExpression
+	 *     LiteralExpression returns LiteralOptionalValueExpression
+	 *     LiteralTerminalExpression returns LiteralOptionalValueExpression
+	 *     LiteralOptionalValueExpression returns LiteralOptionalValueExpression
+	 *
+	 * Constraint:
+	 *     type=AnyDataTypeReference?
+	 */
+	protected void sequence_LiteralOptionalValueExpression(ISerializationContext context, LiteralOptionalValueExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -3137,10 +3439,9 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ValueSelectionExpression.ValueElementSpecification_2_0 returns LiteralParentExpression
 	 *     ValuePureNamedMachineExpression returns LiteralParentExpression
 	 *     ValuePureNamedMachineExpression.ValueElementSpecification_1_0 returns LiteralParentExpression
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_2_0 returns LiteralParentExpression
 	 *
 	 * Constraint:
-	 *     {LiteralParentExpression}
+	 *     model=[Machine|ESUfid]?
 	 */
 	protected void sequence_LiteralParentExpression(ISerializationContext context, LiteralParentExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3153,18 +3454,17 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     LiteralPureReferenceExpression returns LiteralReferenceElement
 	 *     ValuePureNamedMachineExpression returns LiteralReferenceElement
 	 *     ValuePureNamedMachineExpression.ValueElementSpecification_1_0 returns LiteralReferenceElement
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_2_0 returns LiteralReferenceElement
 	 *
 	 * Constraint:
-	 *     value=[NamedElement|ESIdentifier]
+	 *     element=[NamedElement|ESIdentifier]
 	 */
 	protected void sequence_LiteralPureReferenceElement(ISerializationContext context, LiteralReferenceElement semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__VALUE));
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getLiteralPureReferenceElementAccess().getValueNamedElementESIdentifierParserRuleCall_1_0_1(), semanticObject.eGet(ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__VALUE, false));
+		feeder.accept(grammarAccess.getLiteralPureReferenceElementAccess().getElementNamedElementESIdentifierParserRuleCall_2_0_1(), semanticObject.eGet(ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT, false));
 		feeder.finish();
 	}
 	
@@ -3174,15 +3474,15 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     LiteralPureReferenceMachine returns LiteralReferenceElement
 	 *
 	 * Constraint:
-	 *     value=[Machine|ESIdentifier]
+	 *     element=[Machine|ESIdentifier]
 	 */
 	protected void sequence_LiteralPureReferenceMachine(ISerializationContext context, LiteralReferenceElement semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__VALUE));
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getLiteralPureReferenceMachineAccess().getValueMachineESIdentifierParserRuleCall_0_1_0_1(), semanticObject.eGet(ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__VALUE, false));
+		feeder.accept(grammarAccess.getLiteralPureReferenceMachineAccess().getElementMachineESIdentifierParserRuleCall_0_1_0_1(), semanticObject.eGet(ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT, false));
 		feeder.finish();
 	}
 	
@@ -3283,11 +3583,23 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *
 	 * Constraint:
 	 *     (
-	 *         value=[NamedElement|ESIdentifier] 
+	 *         element=[NamedElement|ESIdentifier] 
 	 *         ((kind=ValueIndexExpressionKind arg=PositionalTupleExpressionList) | (kind=ValueParameterExpressionKind arg=MixTupleExpressionList))?
 	 *     )
 	 */
 	protected void sequence_LiteralReferenceElement(ISerializationContext context, LiteralReferenceElement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     LiteralReferenceSpecification returns LiteralReferenceSpecification
+	 *
+	 * Constraint:
+	 *     (parent+=LiteralReferenceExpression* element=LiteralReferenceExpression)
+	 */
+	protected void sequence_LiteralReferenceSpecification(ISerializationContext context, LiteralReferenceSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -3336,10 +3648,9 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ValueSelectionExpression.ValueElementSpecification_2_0 returns LiteralSelfExpression
 	 *     ValuePureNamedMachineExpression returns LiteralSelfExpression
 	 *     ValuePureNamedMachineExpression.ValueElementSpecification_1_0 returns LiteralSelfExpression
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_2_0 returns LiteralSelfExpression
 	 *
 	 * Constraint:
-	 *     {LiteralSelfExpression}
+	 *     model=[Machine|ESUfid]?
 	 */
 	protected void sequence_LiteralSelfExpression(ISerializationContext context, LiteralSelfExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3440,10 +3751,9 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ValueSelectionExpression.ValueElementSpecification_2_0 returns LiteralSuperExpression
 	 *     ValuePureNamedMachineExpression returns LiteralSuperExpression
 	 *     ValuePureNamedMachineExpression.ValueElementSpecification_1_0 returns LiteralSuperExpression
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_2_0 returns LiteralSuperExpression
 	 *
 	 * Constraint:
-	 *     {LiteralSuperExpression}
+	 *     model=[Machine|ESUfid]?
 	 */
 	protected void sequence_LiteralSuperExpression(ISerializationContext context, LiteralSuperExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3494,7 +3804,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ValueSelectionExpression.ValueElementSpecification_2_0 returns LiteralSystemExpression
 	 *     ValuePureNamedMachineExpression returns LiteralSystemExpression
 	 *     ValuePureNamedMachineExpression.ValueElementSpecification_1_0 returns LiteralSystemExpression
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_2_0 returns LiteralSystemExpression
 	 *
 	 * Constraint:
 	 *     {LiteralSystemExpression}
@@ -3548,7 +3857,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ValueSelectionExpression.ValueElementSpecification_2_0 returns LiteralThisExpression
 	 *     ValuePureNamedMachineExpression returns LiteralThisExpression
 	 *     ValuePureNamedMachineExpression.ValueElementSpecification_1_0 returns LiteralThisExpression
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_2_0 returns LiteralThisExpression
 	 *
 	 * Constraint:
 	 *     {LiteralThisExpression}
@@ -3658,6 +3966,24 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     LitteralComElement returns LiteralReferenceElement
+	 *
+	 * Constraint:
+	 *     element=[NamedElement|ESIdentifier]
+	 */
+	protected void sequence_LitteralComElement(ISerializationContext context, LiteralReferenceElement semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getLitteralComElementAccess().getElementNamedElementESIdentifierParserRuleCall_0_1(), semanticObject.eGet(ExpressionPackage.Literals.LITERAL_REFERENCE_ELEMENT__ELEMENT, false));
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Expression returns LogicalAssociativeExpression
 	 *     ConditionalTestExpression returns LogicalAssociativeExpression
 	 *     ConditionalTestExpression.ConditionalTestExpression_1_0 returns LogicalAssociativeExpression
@@ -3759,22 +4085,22 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *
 	 * Constraint:
 	 *     (
-	 *         (visibility=VisibilityKind | timed?='timed' | input_enabled?='input_enabled' | design=DesignKind)* 
+	 *         (visibility=VisibilityKind | timed?='timed' | input_enabled?='input_enabled' | lifeline?='lifeline' | design=DesignKind)* 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         typedef+=TypeDefinition? 
+	 *         signal+=Signal? 
 	 *         (
 	 *             (
 	 *                 port+=Port | 
-	 *                 signal+=Signal | 
 	 *                 buffer+=Buffer | 
 	 *                 channel+=Channel | 
+	 *                 typedef+=TypeDefinition | 
 	 *                 function+=Function | 
 	 *                 variable+=Variable
 	 *             )? 
-	 *             typedef+=TypeDefinition?
+	 *             signal+=Signal?
 	 *         )* 
-	 *         channel+=ChannelProtected? 
+	 *         typedef+=TypeDefinition? 
 	 *         (
 	 *             (
 	 *                 port+=Port | 
@@ -3794,6 +4120,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 port+=PortProtected | 
 	 *                 signal+=SignalProtected | 
 	 *                 buffer+=BufferProtected | 
+	 *                 channel+=ChannelProtected | 
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionProtected | 
 	 *                 variable+=VariableProtected | 
@@ -3801,13 +4128,12 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 signal+=SignalPrivate | 
 	 *                 buffer+=BufferPrivate | 
 	 *                 channel+=ChannelPrivate | 
-	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionPrivate | 
 	 *                 variable+=VariablePrivate
 	 *             )? 
-	 *             channel+=ChannelProtected?
+	 *             typedef+=TypeDefinition?
 	 *         )* 
-	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
+	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (procedure+=Procedure? (routine+=Routine? procedure+=Procedure?)*)) 
 	 *         (machine+=AnyMachineBlock | instance+=InstanceMachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock | instance+=InstanceMachine)* 
 	 *         behavior+=Behavior? 
 	 *         (behavior+=Statemachine? behavior+=Behavior?)* 
@@ -3821,11 +4147,24 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     Statement returns MetaStatement
+	 *     MetaStatement returns MetaStatement
+	 *
+	 * Constraint:
+	 *     (op=OPERATOR_META (operand+=Statement+ | operand+=Expression+ | operand+=Expression+))
+	 */
+	protected void sequence_MetaStatement(ISerializationContext context, MetaStatement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     TupleParameterExpression returns MixTupleExpression
 	 *     MixTupleExpressionList returns MixTupleExpression
 	 *
 	 * Constraint:
-	 *     ((value+=Expression | value+=NamedExpression) value+=NamedExpression? (value+=Expression? value+=NamedExpression?)*)
+	 *     ((value+=Expression | value+=NamedExpression) value+=Expression? (value+=NamedExpression? value+=Expression?)*)
 	 */
 	protected void sequence_MixTupleExpressionList(ISerializationContext context, MixTupleExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3852,6 +4191,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     (
 	 *         routine+=Routine* 
 	 *         (
+	 *             createRoutine=moeRoutine | 
 	 *             initRoutine=moeRoutine | 
 	 *             finalRoutine=moeRoutine | 
 	 *             enableRoutine=moeRoutine | 
@@ -3874,7 +4214,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ModelOfInteraction returns ModelOfInteraction
 	 *
 	 * Constraint:
-	 *     (routes+=Route | connections+=Connection)*
+	 *     (routes+=Route | connectors+=Connector)*
 	 */
 	protected void sequence_ModelOfInteraction(ISerializationContext context, ModelOfInteraction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3898,7 +4238,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     Modifier returns Modifier
 	 *
 	 * Constraint:
-	 *     (static?='static' | final?='final' | volatile?='volatile' | transient?='transient')*
+	 *     (static?='static' | final?='final' | volatile?='volatile' | transient?='transient' | optional?='optional')*
 	 */
 	protected void sequence_Modifier(ISerializationContext context, Modifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4006,30 +4346,62 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     OnWriteRoutine returns Routine
+	 *     ObsComElement returns ValueElementSpecification
 	 *
 	 * Constraint:
-	 *     (parameter+=VariableRoutineParameter? bodyBlock=BlockStatement)
+	 *     (parent=LiteralPureReferenceExpression? element=[NamedElement|ESIdentifier])
 	 */
-	protected void sequence_OnWriteRoutine(ISerializationContext context, Routine semanticObject) {
+	protected void sequence_ObsComElement(ISerializationContext context, ValueElementSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     TypeDefinitionImpl returns DataTypeReference
-	 *     OtherDataTypeDefinitionImpl returns DataTypeReference
+	 *     ObservableStatement returns InputComStatement
+	 *     ObsInputComStatement returns InputComStatement
 	 *
 	 * Constraint:
-	 *     (
-	 *         name=ESIdentifier 
-	 *         unrestrictedName=UnrestrictedName? 
-	 *         ((support=PrimitiveType multiplicity=DataTypeMultiplicity?) | (typeref=[DataType|ESUfid] multiplicity=DataTypeMultiplicity?)) 
-	 *         typedef?=';'
-	 *     )
+	 *     (port=ObsComElement (leftValue+=Expression leftValue+=Expression*)? (target=ValuePureNamedMachineExpression | route=[Channel|ESUfid])*)
 	 */
-	protected void sequence_OtherDataTypeDefinitionImpl(ISerializationContext context, DataTypeReference semanticObject) {
+	protected void sequence_ObsInputComStatement(ISerializationContext context, InputComStatement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ObservableStatement returns OutputComStatement
+	 *     ObsOutputComStatement returns OutputComStatement
+	 *
+	 * Constraint:
+	 *     (port=ObsComElement (rightValue+=Expression rightValue+=Expression*)? (target=ValuePureNamedMachineExpression | route=[Channel|ESUfid])*)
+	 */
+	protected void sequence_ObsOutputComStatement(ISerializationContext context, OutputComStatement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ObserverStatement returns ObserverStatement
+	 *
+	 * Constraint:
+	 *     (context=ValuePureNamedMachineExpression? statement=ObservableStatement (postCondition=Expression | postCondition=Expression)?)
+	 */
+	protected void sequence_ObserverStatement(ISerializationContext context, ObserverStatement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     OnWriteRoutine returns Routine
+	 *
+	 * Constraint:
+	 *     (parameterSet=VariableRoutineParameterSet? bodyBlock=BlockStatement)
+	 */
+	protected void sequence_OnWriteRoutine(ISerializationContext context, Routine semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -4058,7 +4430,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     OtherPseudostate returns Pseudostate
 	 *
 	 * Constraint:
-	 *     (kind=PseudostateKind name=ESIdentifier unrestrictedName=UnrestrictedName? transition+=Transition*)
+	 *     (kind=PseudostateKind name=ESIdentifier unrestrictedName=UnrestrictedName? (transition+=Transition | moe=moePseudotateRoutines)*)
 	 */
 	protected void sequence_OtherPseudostate(ISerializationContext context, Pseudostate semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4074,11 +4446,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     OutputComStatement returns OutputComStatement
 	 *
 	 * Constraint:
-	 *     (
-	 *         port=[NamedElement|ESUfid] 
-	 *         (rigthValue+=Expression rigthValue+=Expression*)? 
-	 *         (target=ValuePureNamedMachineExpression | route=[Channel|ESUfid])*
-	 *     )
+	 *     (port=LitteralComElement (rightValue+=Expression rightValue+=Expression*)? (target=LiteralPureReferenceExpression | route=[Channel|ESUfid])*)
 	 */
 	protected void sequence_OutputComStatement(ISerializationContext context, OutputComStatement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4126,7 +4494,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         (direction=ChannelDirection | direction=ChannelDirection)? 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         (parameter+=FormalParameter parameter+=FormalParameter*)?
+	 *         parameterSet=FormalParameterSet?
 	 *     )
 	 */
 	protected void sequence_PortImpl(ISerializationContext context, Port semanticObject) {
@@ -4144,7 +4512,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         (direction=ChannelDirection | direction=ChannelDirection)? 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         (parameter+=FormalParameter parameter+=FormalParameter*)?
+	 *         parameterSet=FormalParameterSet?
 	 *     )
 	 */
 	protected void sequence_Port(ISerializationContext context, Port semanticObject) {
@@ -4265,9 +4633,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     PrimitiveType returns PrimitiveBooleanType
 	 *     OtherPrimitiveType returns PrimitiveBooleanType
 	 *     PrimitiveBooleanType returns PrimitiveBooleanType
+	 *     AnyDataTypeReference returns PrimitiveBooleanType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns PrimitiveBooleanType
 	 *
 	 * Constraint:
-	 *     {PrimitiveBooleanType}
+	 *     (name='boolean' | name='bool')
 	 */
 	protected void sequence_PrimitiveBooleanType(ISerializationContext context, PrimitiveBooleanType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4283,6 +4653,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     PrimitiveType returns PrimitiveCharacterType
 	 *     OtherPrimitiveType returns PrimitiveCharacterType
 	 *     PrimitiveCharacterType returns PrimitiveCharacterType
+	 *     AnyDataTypeReference returns PrimitiveCharacterType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns PrimitiveCharacterType
 	 *
 	 * Constraint:
 	 *     {PrimitiveCharacterType}
@@ -4302,9 +4674,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     PrimitiveNumberType returns PrimitiveFloatType
 	 *     PrimitiveFloatType returns PrimitiveFloatType
 	 *     PrimitiveTimeNumberType returns PrimitiveFloatType
+	 *     AnyDataTypeReference returns PrimitiveFloatType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns PrimitiveFloatType
 	 *
 	 * Constraint:
-	 *     (sign=PrimitiveNumberSign? (size=EInt | size=EInt)?)
+	 *     (sign=PrimitiveNumberSign? (name='float' | name='ufloat' | name='pos_float' | name='double' | name='udouble') (size=EInt | size=EInt)?)
 	 */
 	protected void sequence_PrimitiveFloatType(ISerializationContext context, PrimitiveFloatType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4320,6 +4694,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     PrimitiveType returns PrimitiveInstanceType
 	 *     OtherPrimitiveType returns PrimitiveInstanceType
 	 *     PrimitiveInstanceType returns PrimitiveInstanceType
+	 *     AnyDataTypeReference returns PrimitiveInstanceType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns PrimitiveInstanceType
 	 *
 	 * Constraint:
 	 *     (expected=PrimitiveInstanceKind model=[NamedElement|ESIdentifier]?)
@@ -4339,9 +4715,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     PrimitiveNumberType returns PrimitiveIntegerType
 	 *     PrimitiveIntegerType returns PrimitiveIntegerType
 	 *     PrimitiveTimeNumberType returns PrimitiveIntegerType
+	 *     AnyDataTypeReference returns PrimitiveIntegerType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns PrimitiveIntegerType
 	 *
 	 * Constraint:
-	 *     (sign=PrimitiveNumberSign? (size=EInt | size=EInt)?)
+	 *     (sign=PrimitiveNumberSign? (name='integer' | name='uinteger' | name='pos_integer' | name='int' | name='uint') (size=EInt | size=EInt)?)
 	 */
 	protected void sequence_PrimitiveIntegerType(ISerializationContext context, PrimitiveIntegerType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4358,9 +4736,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     PrimitiveNumberType returns PrimitiveRationalType
 	 *     PrimitiveRationalType returns PrimitiveRationalType
 	 *     PrimitiveTimeNumberType returns PrimitiveRationalType
+	 *     AnyDataTypeReference returns PrimitiveRationalType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns PrimitiveRationalType
 	 *
 	 * Constraint:
-	 *     (sign=PrimitiveNumberSign? (size=EInt | size=EInt)?)
+	 *     (sign=PrimitiveNumberSign? (name='rational' | name='urational' | name='pos_rational' | name='rat' | name='urat') (size=EInt | size=EInt)?)
 	 */
 	protected void sequence_PrimitiveRationalType(ISerializationContext context, PrimitiveRationalType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4377,9 +4757,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     PrimitiveNumberType returns PrimitiveRealType
 	 *     PrimitiveRealType returns PrimitiveRealType
 	 *     PrimitiveTimeNumberType returns PrimitiveRealType
+	 *     AnyDataTypeReference returns PrimitiveRealType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns PrimitiveRealType
 	 *
 	 * Constraint:
-	 *     (sign=PrimitiveNumberSign? (size=EInt | size=EInt)?)
+	 *     (sign=PrimitiveNumberSign? (name='real' | name='ureal' | name='pos_real') (size=EInt | size=EInt)?)
 	 */
 	protected void sequence_PrimitiveRealType(ISerializationContext context, PrimitiveRealType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4395,9 +4777,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     PrimitiveType returns PrimitiveStringType
 	 *     OtherPrimitiveType returns PrimitiveStringType
 	 *     PrimitiveStringType returns PrimitiveStringType
+	 *     AnyDataTypeReference returns PrimitiveStringType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns PrimitiveStringType
 	 *
 	 * Constraint:
-	 *     (size=EInt | size=EInt)?
+	 *     (name='string' (size=EInt | size=EInt)?)
 	 */
 	protected void sequence_PrimitiveStringType(ISerializationContext context, PrimitiveStringType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4413,6 +4797,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     PrimitiveType returns PrimitiveTimeType
 	 *     PrimitiveNumberType returns PrimitiveTimeType
 	 *     PrimitiveTimeType returns PrimitiveTimeType
+	 *     AnyDataTypeReference returns PrimitiveTimeType
+	 *     AnyDataTypeReference.DataTypeReference_0_1_0 returns PrimitiveTimeType
 	 *
 	 * Constraint:
 	 *     (
@@ -4506,7 +4892,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             port+=Port?
 	 *         )* 
 	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
-	 *         (region+=StatemachineRegion+ | region+=StatemachineRegionLite)? 
+	 *         (region+=StatemachineRegion | region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite)? 
 	 *         execution=ProcedureExecution?
 	 *     )
 	 */
@@ -4689,7 +5075,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     BaseExpression returns RelationalBinaryExpression
 	 *
 	 * Constraint:
-	 *     (leftOperand=RelationalExpression_RelationalBinaryExpression_1_0 operator=RelationalOperator rigthOperand=AdditiveExpression)
+	 *     (leftOperand=RelationalExpression_RelationalBinaryExpression_1_0 operator=RelationalOperator rightOperand=AdditiveExpression)
 	 */
 	protected void sequence_RelationalExpression(ISerializationContext context, RelationalBinaryExpression semanticObject) {
 		if (errorAcceptor != null) {
@@ -4697,13 +5083,13 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__LEFT_OPERAND));
 			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__OPERATOR) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__OPERATOR));
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__RIGTH_OPERAND) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__RIGTH_OPERAND));
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__RIGHT_OPERAND) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.BINARY_EXPRESSION__RIGHT_OPERAND));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRelationalExpressionAccess().getRelationalBinaryExpressionLeftOperandAction_1_0(), semanticObject.getLeftOperand());
 		feeder.accept(grammarAccess.getRelationalExpressionAccess().getOperatorRelationalOperatorParserRuleCall_1_1_0(), semanticObject.getOperator());
-		feeder.accept(grammarAccess.getRelationalExpressionAccess().getRigthOperandAdditiveExpressionParserRuleCall_1_2_0(), semanticObject.getRigthOperand());
+		feeder.accept(grammarAccess.getRelationalExpressionAccess().getRightOperandAdditiveExpressionParserRuleCall_1_2_0(), semanticObject.getRightOperand());
 		feeder.finish();
 	}
 	
@@ -4742,21 +5128,21 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     BaseExpression returns RelationalTernaryExpression
 	 *
 	 * Constraint:
-	 *     (leftRelation=RelationalExpression_RelationalTernaryExpression_1_3_0 rigthOperator=RelationalOperator rigthOperand=AdditiveExpression)
+	 *     (leftRelation=RelationalExpression_RelationalTernaryExpression_1_3_0 rightOperator=RelationalOperator rightOperand=AdditiveExpression)
 	 */
 	protected void sequence_RelationalExpression(ISerializationContext context, RelationalTernaryExpression semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION));
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR));
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND));
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR));
+			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRelationalExpressionAccess().getRelationalTernaryExpressionLeftRelationAction_1_3_0(), semanticObject.getLeftRelation());
-		feeder.accept(grammarAccess.getRelationalExpressionAccess().getRigthOperatorRelationalOperatorParserRuleCall_1_3_1_0(), semanticObject.getRigthOperator());
-		feeder.accept(grammarAccess.getRelationalExpressionAccess().getRigthOperandAdditiveExpressionParserRuleCall_1_3_2_0(), semanticObject.getRigthOperand());
+		feeder.accept(grammarAccess.getRelationalExpressionAccess().getRightOperatorRelationalOperatorParserRuleCall_1_3_1_0(), semanticObject.getRightOperator());
+		feeder.accept(grammarAccess.getRelationalExpressionAccess().getRightOperandAdditiveExpressionParserRuleCall_1_3_2_0(), semanticObject.getRightOperand());
 		feeder.finish();
 	}
 	
@@ -4780,10 +5166,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 * Constraint:
 	 *     (
 	 *         visibility=VisibilityKind? 
+	 *         macro?='macro'? 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         domain=FunctionalParameterSet? 
-	 *         (codomain=FunctionalParameterSet | codomain=FormalParameterSet)? 
+	 *         parameterSet=FormalParameterSet? 
+	 *         (resultSet=FormalParameterSet | resultSet=FormalParameterSet)? 
 	 *         bodyBlock=BlockStatement
 	 *     )
 	 */
@@ -4804,7 +5191,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         (direction=ChannelDirection | direction=ChannelDirection)? 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         (parameter+=FormalParameter parameter+=FormalParameter*)?
+	 *         parameterSet=FormalParameterSet?
 	 *     )
 	 */
 	protected void sequence_SignalImpl(ISerializationContext context, Signal semanticObject) {
@@ -4834,7 +5221,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         (direction=ChannelDirection | direction=ChannelDirection)? 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         (parameter+=FormalParameter parameter+=FormalParameter*)?
+	 *         parameterSet=FormalParameterSet?
 	 *     )
 	 */
 	protected void sequence_Signal(ISerializationContext context, Signal semanticObject) {
@@ -4847,7 +5234,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     SimpleState returns State
 	 *
 	 * Constraint:
-	 *     (simple?='state' name=ESIdentifier unrestrictedName=UnrestrictedName? (transition+=Transition | moe+=moeSimpleStateRoutines)*)
+	 *     (simple?='state' name=ESIdentifier unrestrictedName=UnrestrictedName? (transition+=Transition | moe=moeSimpleStateRoutines)*)
 	 */
 	protected void sequence_SimpleState(ISerializationContext context, State semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4905,10 +5292,22 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     (
 	 *         ((simple?='state' name=ESIdentifier) | simple?='#start') 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         (transition+=Transition | moe+=moeStartStateRoutines)*
+	 *         (transition+=Transition | moe=moeStartStateRoutines)*
 	 *     )
 	 */
 	protected void sequence_StartState(ISerializationContext context, StartState semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     StatemachineNamedRegion returns Region
+	 *
+	 * Constraint:
+	 *     (name=ESIdentifier unrestrictedName=UnrestrictedName? (vertex+=State | vertex+=Pseudostate)+)
+	 */
+	protected void sequence_StatemachineNamedRegion(ISerializationContext context, Region semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -4930,7 +5329,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     StatemachineRegion returns Region
 	 *
 	 * Constraint:
-	 *     ((name=ESIdentifier unrestrictedName=UnrestrictedName?)? (vertex+=State | vertex+=Pseudostate)+)
+	 *     (vertex+=State | vertex+=Pseudostate)+
 	 */
 	protected void sequence_StatemachineRegion(ISerializationContext context, Region semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4945,33 +5344,43 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *
 	 * Constraint:
 	 *     (
-	 *         (visibility=VisibilityKind | timed?='timed' | input_enabled?='input_enabled' | design=DesignKind)* 
+	 *         (visibility=VisibilityKind | timed?='timed' | input_enabled?='input_enabled' | lifeline?='lifeline' | design=DesignKind)* 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
 	 *         (
 	 *             (
-	 *                 parameter+=ParameterInput | 
-	 *                 parameter+=ParameterInput | 
-	 *                 parameter+=ParameterInout | 
-	 *                 parameter+=ParameterInout | 
-	 *                 parameter+=ParameterOutput | 
-	 *                 parameter+=ParameterOutput | 
-	 *                 parameter+=ParameterReturn | 
-	 *                 parameter+=ParameterReturn
-	 *             )+ | 
+	 *                 parameter+=ParameterReturn? 
+	 *                 (
+	 *                     (
+	 *                         parameter+=ParameterInput | 
+	 *                         parameter+=ParameterInput | 
+	 *                         parameter+=ParameterInout | 
+	 *                         parameter+=ParameterInout | 
+	 *                         parameter+=ParameterOutput | 
+	 *                         parameter+=ParameterOutput | 
+	 *                         parameter+=ParameterReturn
+	 *                     )? 
+	 *                     parameter+=ParameterReturn?
+	 *                 )*
+	 *             ) | 
 	 *             (
-	 *                 port+=Port | 
-	 *                 signal+=Signal | 
-	 *                 buffer+=Buffer | 
-	 *                 channel+=Channel | 
-	 *                 typedef+=TypeDefinition | 
-	 *                 function+=Function | 
-	 *                 variable+=Variable
-	 *             )+
-	 *         )? 
+	 *                 typedef+=TypeDefinition? 
+	 *                 (
+	 *                     (
+	 *                         port+=Port | 
+	 *                         signal+=Signal | 
+	 *                         buffer+=Buffer | 
+	 *                         channel+=Channel | 
+	 *                         function+=Function | 
+	 *                         variable+=Variable
+	 *                     )? 
+	 *                     typedef+=TypeDefinition?
+	 *                 )*
+	 *             )
+	 *         ) 
 	 *         parameter+=ParameterOutput? 
 	 *         ((parameter+=ParameterInput | parameter+=ParameterInout | parameter+=ParameterReturn)? parameter+=ParameterOutput?)* 
-	 *         variable+=VariablePrivate? 
+	 *         function+=FunctionPublic? 
 	 *         (
 	 *             (
 	 *                 port+=Port | 
@@ -4986,7 +5395,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 buffer+=BufferPublic | 
 	 *                 channel+=ChannelPublic | 
 	 *                 typedef+=TypeDefinition | 
-	 *                 function+=FunctionPublic | 
 	 *                 variable+=VariablePublic | 
 	 *                 port+=PortProtected | 
 	 *                 signal+=SignalProtected | 
@@ -5000,13 +5408,20 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 buffer+=BufferPrivate | 
 	 *                 channel+=ChannelPrivate | 
 	 *                 typedef+=TypeDefinition | 
-	 *                 function+=FunctionPrivate
+	 *                 function+=FunctionPrivate | 
+	 *                 variable+=VariablePrivate
 	 *             )? 
-	 *             variable+=VariablePrivate?
+	 *             function+=FunctionPublic?
 	 *         )* 
-	 *         ((procedure+=Procedure? (routine+=Routine? procedure+=Procedure?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
-	 *         (machine+=Statemachine+ | region+=StatemachineRegion+ | region+=StatemachineRegionLite) 
-	 *         (execution=ModelOfExecution | interaction=ModelOfInteraction)*
+	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
+	 *         (
+	 *             (machine+=Statemachine | instance+=InstanceMachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock | instance+=InstanceMachine)+ | 
+	 *             region+=StatemachineRegion | 
+	 *             region+=StatemachineNamedRegion+ | 
+	 *             region+=StatemachineRegionLite
+	 *         )? 
+	 *         interaction=ModelOfInteraction? 
+	 *         (execution=ModelOfExecution? interaction=ModelOfInteraction?)*
 	 *     )
 	 */
 	protected void sequence_Statemachine(ISerializationContext context, Statemachine semanticObject) {
@@ -5016,7 +5431,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     TypeDefinitionImpl returns StructureType
 	 *     StructureTypeDefinitionImpl returns StructureType
 	 *
 	 * Constraint:
@@ -5050,77 +5464,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     property+=Variable+
 	 */
 	protected void sequence_StructureType(ISerializationContext context, StructureType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     System returns System
-	 *
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             visibility=VisibilityKind | 
-	 *             timed?='timed' | 
-	 *             dense_timed?='dense_timed' | 
-	 *             discrete_timed?='discrete_timed' | 
-	 *             input_enabled?='input_enabled' | 
-	 *             unsafe?='unsafe'
-	 *         )* 
-	 *         name=ESIdentifier 
-	 *         unrestrictedName=UnrestrictedName? 
-	 *         (
-	 *             port+=Port | 
-	 *             signal+=Signal | 
-	 *             buffer+=Buffer | 
-	 *             channel+=Channel | 
-	 *             typedef+=TypeDefinition | 
-	 *             function+=Function | 
-	 *             variable+=Variable
-	 *         )* 
-	 *         port+=Port? 
-	 *         (
-	 *             (
-	 *                 signal+=Signal | 
-	 *                 buffer+=Buffer | 
-	 *                 channel+=Channel | 
-	 *                 typedef+=TypeDefinition | 
-	 *                 function+=Function | 
-	 *                 variable+=Variable | 
-	 *                 port+=PortPublic | 
-	 *                 signal+=SignalPublic | 
-	 *                 buffer+=BufferPublic | 
-	 *                 channel+=ChannelPublic | 
-	 *                 typedef+=TypeDefinition | 
-	 *                 function+=FunctionPublic | 
-	 *                 variable+=VariablePublic | 
-	 *                 port+=PortProtected | 
-	 *                 signal+=SignalProtected | 
-	 *                 buffer+=BufferProtected | 
-	 *                 channel+=ChannelProtected | 
-	 *                 typedef+=TypeDefinition | 
-	 *                 function+=FunctionProtected | 
-	 *                 variable+=VariableProtected | 
-	 *                 port+=PortPrivate | 
-	 *                 signal+=SignalPrivate | 
-	 *                 buffer+=BufferPrivate | 
-	 *                 channel+=ChannelPrivate | 
-	 *                 typedef+=TypeDefinition | 
-	 *                 function+=FunctionPrivate | 
-	 *                 variable+=VariablePrivate
-	 *             )? 
-	 *             port+=Port?
-	 *         )* 
-	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
-	 *         machine+=AnyMachineBlock? 
-	 *         ((instance+=InstanceMachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock | instance+=InstanceMachine)? machine+=AnyMachineBlock?)* 
-	 *         behavior+=Behavior? 
-	 *         (behavior+=Statemachine? behavior+=Behavior?)* 
-	 *         main=MoeBehavior
-	 *     )
-	 */
-	protected void sequence_System(ISerializationContext context, org.eclipse.efm.ecore.formalml.infrastructure.System semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -5198,7 +5541,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     TransitionMoe returns TransitionMoe
 	 *
 	 * Constraint:
-	 *     ((((moc=TransitionMoc isElse?='else'?) | isElse?='else') prior=EInt?) | prior=EInt)
+	 *     ((((moc=TransitionMoc isElse?='else'?) | isElse?='else') priority=EInt?) | priority=EInt)
 	 */
 	protected void sequence_TransitionMoe(ISerializationContext context, TransitionMoe semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -5213,14 +5556,15 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     (
 	 *         transient?='transient'? 
 	 *         moe=TransitionMoe? 
-	 *         (name=ESIdentifier unrestrictedName=UnrestrictedName?)? 
+	 *         name=ESIdentifier? 
+	 *         unrestrictedName=UnrestrictedName? 
 	 *         (
 	 *             (
 	 *                 ((trigger+=TransitionTrigger* guard=TransitionGuard? tguard=TransitionTimedGuard? effect=TransitionEffect?) | behavior=TransitionBehavior)? 
-	 *                 target=ValuePureNamedMachineExpression?
+	 *                 (target=[Vertex|ESUfid] | targetExpression=ValuePureNamedMachineExpression)?
 	 *             ) | 
 	 *             (
-	 *                 target=ValuePureNamedMachineExpression 
+	 *                 (target=[Vertex|ESUfid] | targetExpression=ValuePureNamedMachineExpression) 
 	 *                 ((trigger+=TransitionTrigger* guard=TransitionGuard? tguard=TransitionTimedGuard? effect=TransitionEffect?) | behavior=TransitionBehavior)?
 	 *             )
 	 *         )
@@ -5233,7 +5577,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     TypeDefinitionImpl returns UnionType
 	 *     UnionTypeDefinitionImpl returns UnionType
 	 *
 	 * Constraint:
@@ -5286,55 +5629,16 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	/**
 	 * Contexts:
 	 *     ValuePureNamedMachineExpression returns ValueElementSpecification
+	 *     ValuePureNamedMachineExpression.ValueElementSpecification_1_0 returns ValueElementSpecification
 	 *
 	 * Constraint:
 	 *     (
-	 *         (parent=ValuePureNamedMachineExpression_ValueElementSpecification_1_0 kind=ValueDotFieldExpressionKind element=[NamedElement|ESIdentifier]) | 
-	 *         (parent=ValuePureNamedMachineExpression_ValueElementSpecification_2_0 kind=ValueArrowFieldExpressionKind element=[NamedElement|ESIdentifier]) | 
-	 *         (parent=ValuePureNamedMachineExpression_ValueElementSpecification_2_3_0 kind=ValueDotFieldExpressionKind element=[NamedElement|ESIdentifier])
+	 *         parent=ValuePureNamedMachineExpression_ValueElementSpecification_1_0 
+	 *         (kind=ValueDotFieldExpressionKind | kind=ValueArrowFieldExpressionKind) 
+	 *         element=[NamedElement|ESIdentifier]
 	 *     )
 	 */
 	protected void sequence_ValuePureNamedMachineExpression(ISerializationContext context, ValueElementSpecification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_1_0 returns ValueElementSpecification
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_2_0 returns ValueElementSpecification
-	 *
-	 * Constraint:
-	 *     (parent=ValuePureNamedMachineExpression_ValueElementSpecification_1_0 kind=ValueDotFieldExpressionKind element=[NamedElement|ESIdentifier])
-	 */
-	protected void sequence_ValuePureNamedMachineExpression_ValueElementSpecification_1_0_ValueElementSpecification_2_0(ISerializationContext context, ValueElementSpecification semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.VALUE_ELEMENT_SPECIFICATION__PARENT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.VALUE_ELEMENT_SPECIFICATION__PARENT));
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.VALUE_ELEMENT_SPECIFICATION__KIND) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.VALUE_ELEMENT_SPECIFICATION__KIND));
-			if (transientValues.isValueTransient(semanticObject, ExpressionPackage.Literals.VALUE_ELEMENT_SPECIFICATION__ELEMENT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ExpressionPackage.Literals.VALUE_ELEMENT_SPECIFICATION__ELEMENT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getValuePureNamedMachineExpressionAccess().getValueElementSpecificationParentAction_1_0(), semanticObject.getParent());
-		feeder.accept(grammarAccess.getValuePureNamedMachineExpressionAccess().getKindValueDotFieldExpressionKindEnumRuleCall_1_1_0(), semanticObject.getKind());
-		feeder.accept(grammarAccess.getValuePureNamedMachineExpressionAccess().getElementNamedElementESIdentifierParserRuleCall_1_2_0_1(), semanticObject.eGet(ExpressionPackage.Literals.VALUE_ELEMENT_SPECIFICATION__ELEMENT, false));
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     ValuePureNamedMachineExpression.ValueElementSpecification_2_3_0 returns ValueElementSpecification
-	 *
-	 * Constraint:
-	 *     (
-	 *         (parent=ValuePureNamedMachineExpression_ValueElementSpecification_2_0 kind=ValueArrowFieldExpressionKind element=[NamedElement|ESIdentifier]) | 
-	 *         (parent=ValuePureNamedMachineExpression_ValueElementSpecification_2_3_0 kind=ValueDotFieldExpressionKind element=[NamedElement|ESIdentifier])
-	 *     )
-	 */
-	protected void sequence_ValuePureNamedMachineExpression_ValueElementSpecification_2_3_0(ISerializationContext context, ValueElementSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -5427,6 +5731,18 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     )
 	 */
 	protected void sequence_VariableImpl(ISerializationContext context, Variable semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     VariableRoutineParameterSet returns ParameterSet
+	 *
+	 * Constraint:
+	 *     parameter+=VariableRoutineParameter
+	 */
+	protected void sequence_VariableRoutineParameterSet(ISerializationContext context, ParameterSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -5586,10 +5902,81 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     XliaSystem returns XliaSystem
+	 *
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             visibility=VisibilityKind | 
+	 *             timed?='timed' | 
+	 *             dense_timed?='timed#dense' | 
+	 *             discrete_timed?='timed#discrete' | 
+	 *             input_enabled?='input_enabled' | 
+	 *             unsafe?='unsafe'
+	 *         )* 
+	 *         name=ESIdentifier 
+	 *         unrestrictedName=UnrestrictedName? 
+	 *         (
+	 *             port+=Port | 
+	 *             signal+=Signal | 
+	 *             buffer+=Buffer | 
+	 *             channel+=Channel | 
+	 *             typedef+=TypeDefinition | 
+	 *             function+=Function | 
+	 *             variable+=Variable
+	 *         )* 
+	 *         port+=Port? 
+	 *         (
+	 *             (
+	 *                 signal+=Signal | 
+	 *                 buffer+=Buffer | 
+	 *                 channel+=Channel | 
+	 *                 typedef+=TypeDefinition | 
+	 *                 function+=Function | 
+	 *                 variable+=Variable | 
+	 *                 port+=PortPublic | 
+	 *                 signal+=SignalPublic | 
+	 *                 buffer+=BufferPublic | 
+	 *                 channel+=ChannelPublic | 
+	 *                 typedef+=TypeDefinition | 
+	 *                 function+=FunctionPublic | 
+	 *                 variable+=VariablePublic | 
+	 *                 port+=PortProtected | 
+	 *                 signal+=SignalProtected | 
+	 *                 buffer+=BufferProtected | 
+	 *                 channel+=ChannelProtected | 
+	 *                 typedef+=TypeDefinition | 
+	 *                 function+=FunctionProtected | 
+	 *                 variable+=VariableProtected | 
+	 *                 port+=PortPrivate | 
+	 *                 signal+=SignalPrivate | 
+	 *                 buffer+=BufferPrivate | 
+	 *                 channel+=ChannelPrivate | 
+	 *                 typedef+=TypeDefinition | 
+	 *                 function+=FunctionPrivate | 
+	 *                 variable+=VariablePrivate
+	 *             )? 
+	 *             port+=Port?
+	 *         )* 
+	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
+	 *         machine+=AnyMachineBlock? 
+	 *         ((instance+=InstanceMachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock | instance+=InstanceMachine)? machine+=AnyMachineBlock?)* 
+	 *         behavior+=Behavior? 
+	 *         (behavior+=Statemachine? behavior+=Behavior?)* 
+	 *         main=MoeBehavior
+	 *     )
+	 */
+	protected void sequence_XliaSystem(ISerializationContext context, XliaSystem semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Xlia returns XliaModel
 	 *
 	 * Constraint:
-	 *     (prolog=XliaPrologObject system=System)
+	 *     (prolog=XliaPrologObject system=XliaSystem)
 	 */
 	protected void sequence_Xlia(ISerializationContext context, XliaModel semanticObject) {
 		if (errorAcceptor != null) {
@@ -5600,43 +5987,53 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getXliaAccess().getPrologXliaPrologObjectParserRuleCall_0_0(), semanticObject.getProlog());
-		feeder.accept(grammarAccess.getXliaAccess().getSystemSystemParserRuleCall_1_0(), semanticObject.getSystem());
+		feeder.accept(grammarAccess.getXliaAccess().getSystemXliaSystemParserRuleCall_1_0(), semanticObject.getSystem());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     moeCompositeStateRoutines returns Routine
+	 *     moeCompositeStateRoutines returns ModelOfExecution
 	 *
 	 * Constraint:
 	 *     (
-	 *         (
-	 *             name='@init' | 
-	 *             name='@final' | 
-	 *             name='@enable' | 
-	 *             name='@disable' | 
-	 *             name='@concurrency' | 
-	 *             name='@schedule' | 
-	 *             name='@irun' | 
-	 *             name='@run'
-	 *         ) 
-	 *         bodyBlock=BlockStatement
-	 *     )
+	 *         createRoutine=moeRoutine | 
+	 *         initRoutine=moeRoutine | 
+	 *         finalRoutine=moeRoutine | 
+	 *         enableRoutine=moeRoutine | 
+	 *         disableRoutine=moeRoutine | 
+	 *         concurrencyRoutine=moeRoutine | 
+	 *         scheduleRoutine=moeRoutine | 
+	 *         irunRoutine=moeRoutine | 
+	 *         runRoutine=moeRoutine
+	 *     )*
 	 */
-	protected void sequence_moeCompositeStateRoutines(ISerializationContext context, Routine semanticObject) {
+	protected void sequence_moeCompositeStateRoutines(ISerializationContext context, ModelOfExecution semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     moeFinalStateRoutines returns Routine
+	 *     moeFinalStateRoutines returns ModelOfExecution
 	 *
 	 * Constraint:
-	 *     ((name='@enable' | name='@final') bodyBlock=BlockStatement)
+	 *     (enableRoutine=moeRoutine | finalRoutine=moeRoutine)*
 	 */
-	protected void sequence_moeFinalStateRoutines(ISerializationContext context, Routine semanticObject) {
+	protected void sequence_moeFinalStateRoutines(ISerializationContext context, ModelOfExecution semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     moePseudotateRoutines returns ModelOfExecution
+	 *
+	 * Constraint:
+	 *     (enableRoutine=moeRoutine | disableRoutine=moeRoutine)*
+	 */
+	protected void sequence_moePseudotateRoutines(ISerializationContext context, ModelOfExecution semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -5646,7 +6043,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     moeRoutine returns Routine
 	 *
 	 * Constraint:
-	 *     (domain=FunctionalParameterSet? (codomain=FunctionalParameterSet | codomain=FunctionalParameterSet)? bodyBlock=BlockStatement)
+	 *     (parameterSet=FormalParameterSet? (resultSet=FormalParameterSet | resultSet=FormalParameterSet)? bodyBlock=BlockStatement)
 	 */
 	protected void sequence_moeRoutine(ISerializationContext context, Routine semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -5655,24 +6052,31 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
-	 *     moeSimpleStateRoutines returns Routine
+	 *     moeSimpleStateRoutines returns ModelOfExecution
 	 *
 	 * Constraint:
-	 *     ((name='@enable' | name='@disable' | name='@irun') bodyBlock=BlockStatement)
+	 *     (enableRoutine=moeRoutine | disableRoutine=moeRoutine | irunRoutine=moeRoutine)*
 	 */
-	protected void sequence_moeSimpleStateRoutines(ISerializationContext context, Routine semanticObject) {
+	protected void sequence_moeSimpleStateRoutines(ISerializationContext context, ModelOfExecution semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     moeStartStateRoutines returns Routine
+	 *     moeStartStateRoutines returns ModelOfExecution
 	 *
 	 * Constraint:
-	 *     ((name='@init' | name='@enable' | name='@disable' | name='@irun') bodyBlock=BlockStatement)
+	 *     (
+	 *         createRoutine=moeRoutine | 
+	 *         initRoutine=moeRoutine | 
+	 *         finalRoutine=moeRoutine | 
+	 *         enableRoutine=moeRoutine | 
+	 *         disableRoutine=moeRoutine | 
+	 *         irunRoutine=moeRoutine
+	 *     )*
 	 */
-	protected void sequence_moeStartStateRoutines(ISerializationContext context, Routine semanticObject) {
+	protected void sequence_moeStartStateRoutines(ISerializationContext context, ModelOfExecution semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

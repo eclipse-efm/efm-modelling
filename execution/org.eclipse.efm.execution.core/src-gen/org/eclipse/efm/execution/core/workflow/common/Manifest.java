@@ -43,7 +43,7 @@ public interface Manifest extends EObject {
 	 * @return the value of the '<em>Autoconf</em>' attribute.
 	 * @see #setAutoconf(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getManifest_Autoconf()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isAutoconf();
@@ -69,7 +69,7 @@ public interface Manifest extends EObject {
 	 * @return the value of the '<em>Autostart</em>' attribute.
 	 * @see #setAutostart(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getManifest_Autostart()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isAutostart();

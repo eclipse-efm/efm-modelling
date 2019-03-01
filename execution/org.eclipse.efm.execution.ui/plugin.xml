@@ -104,12 +104,16 @@
          <actionSet
                id="org.eclipse.debug.ui.debugActionSet">
          </actionSet>
+
          <viewShortcut
                id="org.eclipse.efm.execution.ui.views.SymbexWorkflowView">
          </viewShortcut>
          <!--viewShortcut
                id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbexConsoleView">
          </viewShortcut-->
+         <viewShortcut
+               id="org.eclipse.ui.console.ConsoleView">
+         </viewShortcut>
          <viewShortcut
                id="org.eclipse.efm.execution.launchconfiguration.ui.views.SymbolicExecutionView">
          </viewShortcut>

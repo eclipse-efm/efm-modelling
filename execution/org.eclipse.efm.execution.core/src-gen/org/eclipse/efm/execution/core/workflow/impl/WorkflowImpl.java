@@ -153,6 +153,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Manifest getManifest() {
 		return manifest;
 	}
@@ -177,6 +178,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setManifest(Manifest newManifest) {
 		if (newManifest != manifest) {
 			NotificationChain msgs = null;
@@ -196,6 +198,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Workspace getWorkspace() {
 		return workspace;
 	}
@@ -220,6 +223,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWorkspace(Workspace newWorkspace) {
 		if (newWorkspace != workspace) {
 			NotificationChain msgs = null;
@@ -239,6 +243,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Director> getDirector() {
 		if (director == null) {
 			director = new EObjectContainmentEList<Director>(Director.class, this, WorkflowPackage.WORKFLOW__DIRECTOR);
@@ -251,6 +256,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SymbexOption getSymbexOption() {
 		return symbexOption;
 	}
@@ -275,6 +281,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSymbexOption(SymbexOption newSymbexOption) {
 		if (newSymbexOption != symbexOption) {
 			NotificationChain msgs = null;
@@ -294,6 +301,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConsoleLogFormat getConsole() {
 		return console;
 	}
@@ -318,6 +326,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConsole(ConsoleLogFormat newConsole) {
 		if (newConsole != console) {
 			NotificationChain msgs = null;
@@ -337,6 +346,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ShellMode getShellMode() {
 		return shellMode;
 	}
@@ -361,6 +371,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setShellMode(ShellMode newShellMode) {
 		if (newShellMode != shellMode) {
 			NotificationChain msgs = null;
@@ -380,6 +391,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DeveloperTuningOption getDeveloperTuning() {
 		return developerTuning;
 	}
@@ -404,6 +416,7 @@ public class WorkflowImpl extends NamedObjectImpl implements Workflow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDeveloperTuning(DeveloperTuningOption newDeveloperTuning) {
 		if (newDeveloperTuning != developerTuning) {
 			NotificationChain msgs = null;

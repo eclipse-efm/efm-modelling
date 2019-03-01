@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,9 +16,12 @@ import org.eclipse.efm.ecore.formalml.expression.ExpressionPackage;
 import org.eclipse.efm.ecore.formalml.expression.LiteralSelfExpression;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
+
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -69,6 +72,7 @@ public class LiteralSelfExpressionImpl extends LiteralReferenceExpressionImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Machine getModel() {
 		if (model != null && model.eIsProxy()) {
 			InternalEObject oldModel = (InternalEObject)model;
@@ -95,6 +99,7 @@ public class LiteralSelfExpressionImpl extends LiteralReferenceExpressionImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModel(Machine newModel) {
 		Machine oldModel = model;
 		model = newModel;

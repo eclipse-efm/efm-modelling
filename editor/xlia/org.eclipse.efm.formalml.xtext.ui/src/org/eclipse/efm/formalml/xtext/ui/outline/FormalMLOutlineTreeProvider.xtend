@@ -34,7 +34,7 @@ class FormalMLOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	IImageHelper imageHelper
 
 	@Inject
-	private IQualifiedNameProvider nameProvider;
+	IQualifiedNameProvider nameProvider;
 
 
 //	def _createChildren(DocumentRootNode parentNode, XliaModel xliaModel) {

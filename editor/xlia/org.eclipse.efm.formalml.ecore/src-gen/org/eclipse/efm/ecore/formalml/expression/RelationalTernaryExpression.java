@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,8 +23,8 @@ package org.eclipse.efm.ecore.formalml.expression;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getLeftRelation <em>Left Relation</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRigthOperator <em>Rigth Operator</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRigthOperand <em>Rigth Operand</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRightOperator <em>Right Operator</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRightOperand <em>Right Operand</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getRelationalTernaryExpression()
@@ -59,55 +59,55 @@ public interface RelationalTernaryExpression extends Expression {
 	void setLeftRelation(RelationalBinaryExpression value);
 
 	/**
-	 * Returns the value of the '<em><b>Rigth Operator</b></em>' attribute.
+	 * Returns the value of the '<em><b>Right Operator</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Rigth Operator</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Right Operator</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Rigth Operator</em>' attribute.
-	 * @see #setRigthOperator(String)
-	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getRelationalTernaryExpression_RigthOperator()
+	 * @return the value of the '<em>Right Operator</em>' attribute.
+	 * @see #setRightOperator(String)
+	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getRelationalTernaryExpression_RightOperator()
 	 * @model required="true"
 	 * @generated
 	 */
-	String getRigthOperator();
+	String getRightOperator();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRigthOperator <em>Rigth Operator</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRightOperator <em>Right Operator</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Rigth Operator</em>' attribute.
-	 * @see #getRigthOperator()
+	 * @param value the new value of the '<em>Right Operator</em>' attribute.
+	 * @see #getRightOperator()
 	 * @generated
 	 */
-	void setRigthOperator(String value);
+	void setRightOperator(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Rigth Operand</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Right Operand</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Rigth Operand</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Right Operand</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Rigth Operand</em>' containment reference.
-	 * @see #setRigthOperand(Expression)
-	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getRelationalTernaryExpression_RigthOperand()
+	 * @return the value of the '<em>Right Operand</em>' containment reference.
+	 * @see #setRightOperand(Expression)
+	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getRelationalTernaryExpression_RightOperand()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	Expression getRigthOperand();
+	Expression getRightOperand();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRigthOperand <em>Rigth Operand</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.RelationalTernaryExpression#getRightOperand <em>Right Operand</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Rigth Operand</em>' containment reference.
-	 * @see #getRigthOperand()
+	 * @param value the new value of the '<em>Right Operand</em>' containment reference.
+	 * @see #getRightOperand()
 	 * @generated
 	 */
-	void setRigthOperand(Expression value);
+	void setRightOperand(Expression value);
 
 } // RelationalTernaryExpression

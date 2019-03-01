@@ -72,8 +72,9 @@ public class OverviewTransitionCoverageConfigurationProfile
 	 */
 	public OverviewTransitionCoverageConfigurationProfile(
 			AbstractConfigurationPage configurationPage,
-			OverviewAnalysisProfileSection overviewAnalysisProfileSection) {
-		super(configurationPage);
+			OverviewAnalysisProfileSection overviewAnalysisProfileSection)
+	{
+		super(configurationPage, false);
 
 		this.fOverviewAnalysisProfileSection = overviewAnalysisProfileSection;
 

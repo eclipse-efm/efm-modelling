@@ -16,8 +16,11 @@ import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 
-public class TraceElementSelectionEditingSupport extends EditingSupport {
+public class TraceElementSelectionEditingSupport
+		extends EditingSupport implements FocusListener {
 
 	private final TraceElementTableViewer fTraceElementTableViewer;
 
@@ -35,6 +38,21 @@ public class TraceElementSelectionEditingSupport extends EditingSupport {
 		this.fCellEditor = new CheckboxCellEditor(
 				fTableViewer.getTable(), SWT.CHECK | SWT.READ_ONLY);
 	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		System.out.println("focusGained with FocusEvent " + e);
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		System.out.println("focusLost with FocusEvent " + e);
+		Object value = fCellEditor.getValue();
+		System.out.println("\tValue: " + value);
+
+		this.fCellEditor.getControl().addFocusListener(this);
+	}
+
 
 	@Override
 	protected CellEditor getCellEditor(Object element) {

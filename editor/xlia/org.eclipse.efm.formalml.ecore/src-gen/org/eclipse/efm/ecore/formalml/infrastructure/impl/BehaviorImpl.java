@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -115,6 +115,7 @@ public class BehaviorImpl extends MachineImpl implements Behavior {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Parameter> getParameter() {
 		if (parameter == null) {
 			parameter = new EObjectContainmentEList<Parameter>(Parameter.class, this, InfrastructurePackage.BEHAVIOR__PARAMETER);
@@ -127,6 +128,7 @@ public class BehaviorImpl extends MachineImpl implements Behavior {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelOfComputation getComputation() {
 		return computation;
 	}
@@ -151,6 +153,7 @@ public class BehaviorImpl extends MachineImpl implements Behavior {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComputation(ModelOfComputation newComputation) {
 		if (newComputation != computation) {
 			NotificationChain msgs = null;
@@ -170,6 +173,7 @@ public class BehaviorImpl extends MachineImpl implements Behavior {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelOfExecution getExecution() {
 		return execution;
 	}
@@ -194,6 +198,7 @@ public class BehaviorImpl extends MachineImpl implements Behavior {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExecution(ModelOfExecution newExecution) {
 		if (newExecution != execution) {
 			NotificationChain msgs = null;
@@ -213,6 +218,7 @@ public class BehaviorImpl extends MachineImpl implements Behavior {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelOfInteraction getInteraction() {
 		return interaction;
 	}
@@ -237,6 +243,7 @@ public class BehaviorImpl extends MachineImpl implements Behavior {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInteraction(ModelOfInteraction newInteraction) {
 		if (newInteraction != interaction) {
 			NotificationChain msgs = null;

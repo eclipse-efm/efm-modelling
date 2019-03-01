@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModelOfExecutionImpl#getCreateRoutine <em>Create Routine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModelOfExecutionImpl#getInitRoutine <em>Init Routine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModelOfExecutionImpl#getFinalRoutine <em>Final Routine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModelOfExecutionImpl#getEnableRoutine <em>Enable Routine</em>}</li>
@@ -54,6 +55,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implements ModelOfExecution {
+	/**
+	 * The cached value of the '{@link #getCreateRoutine() <em>Create Routine</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateRoutine()
+	 * @generated
+	 * @ordered
+	 */
+	protected Routine createRoutine;
+
 	/**
 	 * The cached value of the '{@link #getInitRoutine() <em>Init Routine</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -168,6 +179,52 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public Routine getCreateRoutine() {
+		return createRoutine;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCreateRoutine(Routine newCreateRoutine, NotificationChain msgs) {
+		Routine oldCreateRoutine = createRoutine;
+		createRoutine = newCreateRoutine;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MODEL_OF_EXECUTION__CREATE_ROUTINE, oldCreateRoutine, newCreateRoutine);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setCreateRoutine(Routine newCreateRoutine) {
+		if (newCreateRoutine != createRoutine) {
+			NotificationChain msgs = null;
+			if (createRoutine != null)
+				msgs = ((InternalEObject)createRoutine).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.MODEL_OF_EXECUTION__CREATE_ROUTINE, null, msgs);
+			if (newCreateRoutine != null)
+				msgs = ((InternalEObject)newCreateRoutine).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.MODEL_OF_EXECUTION__CREATE_ROUTINE, null, msgs);
+			msgs = basicSetCreateRoutine(newCreateRoutine, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MODEL_OF_EXECUTION__CREATE_ROUTINE, newCreateRoutine, newCreateRoutine));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Routine getInitRoutine() {
 		return initRoutine;
 	}
@@ -192,6 +249,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitRoutine(Routine newInitRoutine) {
 		if (newInitRoutine != initRoutine) {
 			NotificationChain msgs = null;
@@ -211,6 +269,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Routine getFinalRoutine() {
 		return finalRoutine;
 	}
@@ -235,6 +294,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFinalRoutine(Routine newFinalRoutine) {
 		if (newFinalRoutine != finalRoutine) {
 			NotificationChain msgs = null;
@@ -254,6 +314,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Routine getEnableRoutine() {
 		return enableRoutine;
 	}
@@ -278,6 +339,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnableRoutine(Routine newEnableRoutine) {
 		if (newEnableRoutine != enableRoutine) {
 			NotificationChain msgs = null;
@@ -297,6 +359,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Routine getDisableRoutine() {
 		return disableRoutine;
 	}
@@ -321,6 +384,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDisableRoutine(Routine newDisableRoutine) {
 		if (newDisableRoutine != disableRoutine) {
 			NotificationChain msgs = null;
@@ -340,6 +404,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Routine getConcurrencyRoutine() {
 		return concurrencyRoutine;
 	}
@@ -364,6 +429,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConcurrencyRoutine(Routine newConcurrencyRoutine) {
 		if (newConcurrencyRoutine != concurrencyRoutine) {
 			NotificationChain msgs = null;
@@ -383,6 +449,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Routine getScheduleRoutine() {
 		return scheduleRoutine;
 	}
@@ -407,6 +474,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setScheduleRoutine(Routine newScheduleRoutine) {
 		if (newScheduleRoutine != scheduleRoutine) {
 			NotificationChain msgs = null;
@@ -426,6 +494,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Routine getIrunRoutine() {
 		return irunRoutine;
 	}
@@ -450,6 +519,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIrunRoutine(Routine newIrunRoutine) {
 		if (newIrunRoutine != irunRoutine) {
 			NotificationChain msgs = null;
@@ -469,6 +539,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Routine getRunRoutine() {
 		return runRoutine;
 	}
@@ -493,6 +564,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRunRoutine(Routine newRunRoutine) {
 		if (newRunRoutine != runRoutine) {
 			NotificationChain msgs = null;
@@ -512,6 +584,7 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Routine> getRoutine() {
 		if (routine == null) {
 			routine = new EObjectContainmentEList<Routine>(Routine.class, this, InfrastructurePackage.MODEL_OF_EXECUTION__ROUTINE);
@@ -527,6 +600,8 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case InfrastructurePackage.MODEL_OF_EXECUTION__CREATE_ROUTINE:
+				return basicSetCreateRoutine(null, msgs);
 			case InfrastructurePackage.MODEL_OF_EXECUTION__INIT_ROUTINE:
 				return basicSetInitRoutine(null, msgs);
 			case InfrastructurePackage.MODEL_OF_EXECUTION__FINAL_ROUTINE:
@@ -557,6 +632,8 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case InfrastructurePackage.MODEL_OF_EXECUTION__CREATE_ROUTINE:
+				return getCreateRoutine();
 			case InfrastructurePackage.MODEL_OF_EXECUTION__INIT_ROUTINE:
 				return getInitRoutine();
 			case InfrastructurePackage.MODEL_OF_EXECUTION__FINAL_ROUTINE:
@@ -588,6 +665,9 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case InfrastructurePackage.MODEL_OF_EXECUTION__CREATE_ROUTINE:
+				setCreateRoutine((Routine)newValue);
+				return;
 			case InfrastructurePackage.MODEL_OF_EXECUTION__INIT_ROUTINE:
 				setInitRoutine((Routine)newValue);
 				return;
@@ -628,6 +708,9 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case InfrastructurePackage.MODEL_OF_EXECUTION__CREATE_ROUTINE:
+				setCreateRoutine((Routine)null);
+				return;
 			case InfrastructurePackage.MODEL_OF_EXECUTION__INIT_ROUTINE:
 				setInitRoutine((Routine)null);
 				return;
@@ -667,6 +750,8 @@ public class ModelOfExecutionImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case InfrastructurePackage.MODEL_OF_EXECUTION__CREATE_ROUTINE:
+				return createRoutine != null;
 			case InfrastructurePackage.MODEL_OF_EXECUTION__INIT_ROUTINE:
 				return initRoutine != null;
 			case InfrastructurePackage.MODEL_OF_EXECUTION__FINAL_ROUTINE:

@@ -25,9 +25,9 @@ import org.eclipse.jface.text.IRegion
 import org.eclipse.emf.ecore.EObject
 
 /** Inspired by {@link EObjectAtOffsetHelper} */
-public class FormalMLKeywordAtOffsetHelper {
+class FormalMLKeywordAtOffsetHelper {
 	
-	def public Pair<EObject, IRegion> resolveKeywordAt(XtextResource resource, int offset) {
+	def Pair<EObject, IRegion> resolveKeywordAt(XtextResource resource, int offset) {
 		val IParseResult parseResult = resource.getParseResult();
 		if (parseResult !== null) {
 			var ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(

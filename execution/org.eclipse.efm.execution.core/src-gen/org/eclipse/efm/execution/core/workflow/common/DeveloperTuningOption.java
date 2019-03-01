@@ -412,7 +412,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Parsing</em>' attribute.
 	 * @see #setEnabledParsing(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledParsing()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledParsing();
@@ -438,7 +438,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Configuring</em>' attribute.
 	 * @see #setEnabledConfiguring(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledConfiguring()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledConfiguring();
@@ -464,7 +464,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Compiling</em>' attribute.
 	 * @see #setEnabledCompiling(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledCompiling()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledCompiling();
@@ -490,7 +490,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Loading</em>' attribute.
 	 * @see #setEnabledLoading(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledLoading()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledLoading();
@@ -516,7 +516,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Computing</em>' attribute.
 	 * @see #setEnabledComputing(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledComputing()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledComputing();
@@ -542,7 +542,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Reporting</em>' attribute.
 	 * @see #setEnabledReporting(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledReporting()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledReporting();
@@ -568,7 +568,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Solving</em>' attribute.
 	 * @see #setEnabledSolving(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledSolving()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledSolving();
@@ -594,7 +594,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Profiling</em>' attribute.
 	 * @see #setEnabledProfiling(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledProfiling()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledProfiling();
@@ -620,7 +620,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled All Process Stage</em>' attribute.
 	 * @see #setEnabledAllProcessStage(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledAllProcessStage()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledAllProcessStage();
@@ -646,7 +646,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Pre Processing</em>' attribute.
 	 * @see #setEnabledPreProcessing(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledPreProcessing()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledPreProcessing();
@@ -672,7 +672,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Post Processing</em>' attribute.
 	 * @see #setEnabledPostProcessing(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledPostProcessing()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledPostProcessing();
@@ -698,7 +698,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Processing</em>' attribute.
 	 * @see #setEnabledProcessing(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledProcessing()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledProcessing();
@@ -724,7 +724,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Pre Filtering</em>' attribute.
 	 * @see #setEnabledPreFiltering(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledPreFiltering()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledPreFiltering();
@@ -750,7 +750,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Post Filtering</em>' attribute.
 	 * @see #setEnabledPostFiltering(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledPostFiltering()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledPostFiltering();
@@ -776,7 +776,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Filtering</em>' attribute.
 	 * @see #setEnabledFiltering(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledFiltering()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledFiltering();
@@ -802,7 +802,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Queue</em>' attribute.
 	 * @see #setEnabledQueue(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledQueue()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledQueue();
@@ -828,7 +828,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Program</em>' attribute.
 	 * @see #setEnabledProgram(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledProgram()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledProgram();
@@ -854,7 +854,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Statement</em>' attribute.
 	 * @see #setEnabledStatement(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledStatement()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledStatement();
@@ -880,7 +880,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Statement Assignment</em>' attribute.
 	 * @see #setEnabledStatementAssignment(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledStatementAssignment()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledStatementAssignment();
@@ -906,7 +906,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Statement Communication</em>' attribute.
 	 * @see #setEnabledStatementCommunication(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledStatementCommunication()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledStatementCommunication();
@@ -932,7 +932,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Statement Test Decision</em>' attribute.
 	 * @see #setEnabledStatementTestDecision(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledStatementTestDecision()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledStatementTestDecision();
@@ -958,7 +958,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Bytecode</em>' attribute.
 	 * @see #setEnabledBytecode(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledBytecode()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledBytecode();
@@ -984,7 +984,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Data</em>' attribute.
 	 * @see #setEnabledData(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledData()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledData();
@@ -1010,7 +1010,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Trace</em>' attribute.
 	 * @see #setEnabledTrace(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledTrace()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledTrace();
@@ -1036,7 +1036,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Variable</em>' attribute.
 	 * @see #setEnabledVariable(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledVariable()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledVariable();
@@ -1062,7 +1062,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Buffer</em>' attribute.
 	 * @see #setEnabledBuffer(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledBuffer()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledBuffer();
@@ -1088,7 +1088,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Port</em>' attribute.
 	 * @see #setEnabledPort(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledPort()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledPort();
@@ -1114,7 +1114,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Signal</em>' attribute.
 	 * @see #setEnabledSignal(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledSignal()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledSignal();
@@ -1140,7 +1140,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Connexion</em>' attribute.
 	 * @see #setEnabledConnexion(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledConnexion()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledConnexion();
@@ -1166,7 +1166,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Time</em>' attribute.
 	 * @see #setEnabledTime(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledTime()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledTime();
@@ -1192,7 +1192,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Executable</em>' attribute.
 	 * @see #setEnabledExecutable(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledExecutable()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledExecutable();
@@ -1218,7 +1218,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Activity</em>' attribute.
 	 * @see #setEnabledActivity(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledActivity()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledActivity();
@@ -1244,7 +1244,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Routine</em>' attribute.
 	 * @see #setEnabledRoutine(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledRoutine()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledRoutine();
@@ -1270,7 +1270,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Transition</em>' attribute.
 	 * @see #setEnabledTransition(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledTransition()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledTransition();
@@ -1296,7 +1296,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Machine</em>' attribute.
 	 * @see #setEnabledMachine(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledMachine()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledMachine();
@@ -1322,7 +1322,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Statemachine</em>' attribute.
 	 * @see #setEnabledStatemachine(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledStatemachine()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledStatemachine();
@@ -1348,7 +1348,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Name Id</em>' attribute.
 	 * @see #setEnabledNameId(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledNameId()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledNameId();
@@ -1374,7 +1374,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Qualified Name Id</em>' attribute.
 	 * @see #setEnabledQualifiedNameId(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledQualifiedNameId()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledQualifiedNameId();
@@ -1400,7 +1400,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Fully Qualified Name Id</em>' attribute.
 	 * @see #setEnabledFullyQualifiedNameId(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledFullyQualifiedNameId()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledFullyQualifiedNameId();
@@ -1426,7 +1426,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Redundance</em>' attribute.
 	 * @see #setEnabledRedundance(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledRedundance()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledRedundance();
@@ -1452,7 +1452,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Reference Counting</em>' attribute.
 	 * @see #setEnabledReferenceCounting(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledReferenceCounting()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledReferenceCounting();
@@ -1478,7 +1478,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled Nothing</em>' attribute.
 	 * @see #setEnabledNothing(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledNothing()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledNothing();
@@ -1504,7 +1504,7 @@ public interface DeveloperTuningOption extends EObject {
 	 * @return the value of the '<em>Enabled God Mode</em>' attribute.
 	 * @see #setEnabledGodMode(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getDeveloperTuningOption_EnabledGodMode()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledGodMode();

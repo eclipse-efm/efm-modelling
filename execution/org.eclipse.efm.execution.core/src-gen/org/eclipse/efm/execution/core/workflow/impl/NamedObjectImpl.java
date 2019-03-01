@@ -122,6 +122,7 @@ public class NamedObjectImpl extends MinimalEObjectImpl.Container implements Nam
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -131,6 +132,7 @@ public class NamedObjectImpl extends MinimalEObjectImpl.Container implements Nam
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -143,6 +145,7 @@ public class NamedObjectImpl extends MinimalEObjectImpl.Container implements Nam
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -152,6 +155,7 @@ public class NamedObjectImpl extends MinimalEObjectImpl.Container implements Nam
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -164,6 +168,7 @@ public class NamedObjectImpl extends MinimalEObjectImpl.Container implements Nam
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getComment() {
 		return comment;
 	}
@@ -173,6 +178,7 @@ public class NamedObjectImpl extends MinimalEObjectImpl.Container implements Nam
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComment(String newComment) {
 		String oldComment = comment;
 		comment = newComment;
@@ -267,7 +273,7 @@ public class NamedObjectImpl extends MinimalEObjectImpl.Container implements Nam
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", description: ");

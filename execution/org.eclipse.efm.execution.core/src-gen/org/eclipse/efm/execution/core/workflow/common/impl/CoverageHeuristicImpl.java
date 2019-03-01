@@ -375,6 +375,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHeuristicTrials() {
 		return heuristicTrials;
 	}
@@ -384,6 +385,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHeuristicTrials(int newHeuristicTrials) {
 		int oldHeuristicTrials = heuristicTrials;
 		heuristicTrials = newHeuristicTrials;
@@ -396,6 +398,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getObjectiveRateGoal() {
 		return objectiveRateGoal;
 	}
@@ -405,6 +408,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setObjectiveRateGoal(int newObjectiveRateGoal) {
 		int oldObjectiveRateGoal = objectiveRateGoal;
 		objectiveRateGoal = newObjectiveRateGoal;
@@ -417,6 +421,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getObjectiveRestGoal() {
 		return objectiveRestGoal;
 	}
@@ -426,6 +431,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setObjectiveRestGoal(int newObjectiveRestGoal) {
 		int oldObjectiveRestGoal = objectiveRestGoal;
 		objectiveRestGoal = newObjectiveRestGoal;
@@ -438,6 +444,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HeuristicClassKind getHeuristicStart() {
 		return heuristicStart;
 	}
@@ -447,6 +454,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHeuristicStart(HeuristicClassKind newHeuristicStart) {
 		HeuristicClassKind oldHeuristicStart = heuristicStart;
 		heuristicStart = newHeuristicStart == null ? HEURISTIC_START_EDEFAULT : newHeuristicStart;
@@ -459,6 +467,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getDirectiveTraceCount() {
 		return directiveTraceCount;
 	}
@@ -468,6 +477,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDirectiveTraceCount(int newDirectiveTraceCount) {
 		int oldDirectiveTraceCount = directiveTraceCount;
 		directiveTraceCount = newDirectiveTraceCount;
@@ -480,6 +490,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getDirectiveTraceSize() {
 		return directiveTraceSize;
 	}
@@ -489,6 +500,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDirectiveTraceSize(int newDirectiveTraceSize) {
 		int oldDirectiveTraceSize = directiveTraceSize;
 		directiveTraceSize = newDirectiveTraceSize;
@@ -501,6 +513,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HeuristicClassKind getDirectiveTraceHeuristic() {
 		return directiveTraceHeuristic;
 	}
@@ -510,6 +523,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDirectiveTraceHeuristic(HeuristicClassKind newDirectiveTraceHeuristic) {
 		HeuristicClassKind oldDirectiveTraceHeuristic = directiveTraceHeuristic;
 		directiveTraceHeuristic = newDirectiveTraceHeuristic == null ? DIRECTIVE_TRACE_HEURISTIC_EDEFAULT : newDirectiveTraceHeuristic;
@@ -522,6 +536,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getLookaheadDepth() {
 		return lookaheadDepth;
 	}
@@ -531,6 +546,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLookaheadDepth(int newLookaheadDepth) {
 		int oldLookaheadDepth = lookaheadDepth;
 		lookaheadDepth = newLookaheadDepth;
@@ -543,6 +559,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getLookaheadWidth() {
 		return lookaheadWidth;
 	}
@@ -552,6 +569,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLookaheadWidth(int newLookaheadWidth) {
 		int oldLookaheadWidth = lookaheadWidth;
 		lookaheadWidth = newLookaheadWidth;
@@ -564,6 +582,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHitStronglyRandomEnabled() {
 		return hitStronglyRandomEnabled;
 	}
@@ -573,6 +592,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitStronglyRandomEnabled(boolean newHitStronglyRandomEnabled) {
 		boolean oldHitStronglyRandomEnabled = hitStronglyRandomEnabled;
 		hitStronglyRandomEnabled = newHitStronglyRandomEnabled;
@@ -585,6 +605,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHitStronglyCount() {
 		return hitStronglyCount;
 	}
@@ -594,6 +615,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitStronglyCount(int newHitStronglyCount) {
 		int oldHitStronglyCount = hitStronglyCount;
 		hitStronglyCount = newHitStronglyCount;
@@ -606,6 +628,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHitWeaklyRandomEnabled() {
 		return hitWeaklyRandomEnabled;
 	}
@@ -615,6 +638,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitWeaklyRandomEnabled(boolean newHitWeaklyRandomEnabled) {
 		boolean oldHitWeaklyRandomEnabled = hitWeaklyRandomEnabled;
 		hitWeaklyRandomEnabled = newHitWeaklyRandomEnabled;
@@ -627,6 +651,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHitWeaklyCount() {
 		return hitWeaklyCount;
 	}
@@ -636,6 +661,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitWeaklyCount(int newHitWeaklyCount) {
 		int oldHitWeaklyCount = hitWeaklyCount;
 		hitWeaklyCount = newHitWeaklyCount;
@@ -648,6 +674,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHitOtherRandomEnabled() {
 		return hitOtherRandomEnabled;
 	}
@@ -657,6 +684,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitOtherRandomEnabled(boolean newHitOtherRandomEnabled) {
 		boolean oldHitOtherRandomEnabled = hitOtherRandomEnabled;
 		hitOtherRandomEnabled = newHitOtherRandomEnabled;
@@ -669,6 +697,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHitOtherCount() {
 		return hitOtherCount;
 	}
@@ -678,6 +707,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitOtherCount(int newHitOtherCount) {
 		int oldHitOtherCount = hitOtherCount;
 		hitOtherCount = newHitOtherCount;
@@ -892,7 +922,7 @@ public class CoverageHeuristicImpl extends MinimalEObjectImpl.Container implemen
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (heuristicTrials: ");
 		result.append(heuristicTrials);
 		result.append(", objectiveRateGoal: ");

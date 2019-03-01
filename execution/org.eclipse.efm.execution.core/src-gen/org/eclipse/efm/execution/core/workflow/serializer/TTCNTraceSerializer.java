@@ -56,7 +56,7 @@ public interface TTCNTraceSerializer extends Serializer {
 	 * @return the value of the '<em>Enabled Customization</em>' attribute.
 	 * @see #setEnabledCustomization(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.serializer.SerializerPackage#getTTCNTraceSerializer_EnabledCustomization()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledCustomization();
@@ -82,7 +82,7 @@ public interface TTCNTraceSerializer extends Serializer {
 	 * @return the value of the '<em>Enabled Adapters</em>' attribute.
 	 * @see #setEnabledAdapters(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.serializer.SerializerPackage#getTTCNTraceSerializer_EnabledAdapters()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledAdapters();

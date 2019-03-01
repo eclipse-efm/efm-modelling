@@ -27,7 +27,7 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 
 
 	public SupervisorEvaluationLimitsSection(AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+		super(configurationPage, true);
 	}
 
 

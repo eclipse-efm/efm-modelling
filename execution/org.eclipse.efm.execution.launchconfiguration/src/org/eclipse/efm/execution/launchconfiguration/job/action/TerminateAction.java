@@ -22,7 +22,7 @@ public class TerminateAction extends Action implements IUpdate  {
 	private SymbexSpiderConsolePage fSymbexSpiderConsolePage;
 
 	public TerminateAction(
-			SymbexSpiderConsolePage symbexSpiderConsolePage) {
+			final SymbexSpiderConsolePage symbexSpiderConsolePage) {
 		super("Terminate");
 
 		this.fSymbexSpiderConsolePage = symbexSpiderConsolePage;
@@ -30,17 +30,20 @@ public class TerminateAction extends Action implements IUpdate  {
 		setToolTipText("Terminate Process");
 
 		setHoverImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__TERMINATE_ELCL16_ICON));
+				ImageResources.getImageDescriptor(
+						ImageResources.IMAGE__TERMINATE_ELCL16_ICON));
 
 		setDisabledImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__TERMINATE_DLCL16_ICON));
+				ImageResources.getImageDescriptor(
+						ImageResources.IMAGE__TERMINATE_DLCL16_ICON));
 		setImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__TERMINATE_ELCL16_ICON));
+				ImageResources.getImageDescriptor(
+						ImageResources.IMAGE__TERMINATE_ELCL16_ICON));
 
 //		PlatformUI.getWorkbench().getHelpSystem().setHelp(
 //				this, IConsoleHelpContextIds.CONSOLE_WORD_WRAP_ACTION);
 
-		setEnabled(fSymbexSpiderConsolePage.isProcessRunning());
+		update();
 	}
 
 	@Override

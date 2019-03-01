@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,7 +14,7 @@ package org.eclipse.efm.ecore.formalml.statemachine;
 
 import org.eclipse.efm.ecore.formalml.common.NamedElement;
 
-import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
+import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -53,19 +53,29 @@ public interface Vertex extends NamedElement {
 	EList<Transition> getTransition();
 
 	/**
-	 * Returns the value of the '<em><b>Moe</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Routine}.
+	 * Returns the value of the '<em><b>Moe</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Moe</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Moe</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Moe</em>' containment reference list.
+	 * @return the value of the '<em>Moe</em>' containment reference.
+	 * @see #setMoe(ModelOfExecution)
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getVertex_Moe()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Routine> getMoe();
+	ModelOfExecution getMoe();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.Vertex#getMoe <em>Moe</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Moe</em>' containment reference.
+	 * @see #getMoe()
+	 * @generated
+	 */
+	void setMoe(ModelOfExecution value);
 
 } // Vertex

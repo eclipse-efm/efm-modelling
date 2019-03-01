@@ -45,7 +45,7 @@ public interface TraceElement extends EObject {
 	 * @return the value of the '<em>Selected</em>' attribute.
 	 * @see #setSelected(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getTraceElement_Selected()
-	 * @model default="true"
+	 * @model default="true" required="true"
 	 * @generated
 	 */
 	boolean isSelected();

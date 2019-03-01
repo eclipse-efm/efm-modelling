@@ -8,8 +8,10 @@
  * Contributors:
  *     Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr - initial API and implementation
  *******************************************************************************/
-package org.eclipse.efm.modeling.codegen.xlia.core;
+package org.eclipse.efm.modeling.codegen.xlia.datatype;
 
+import org.eclipse.efm.modeling.codegen.xlia.core.AbstractCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.core.MainCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
@@ -143,10 +145,8 @@ public class DataTypeCodeGenerator extends AbstractCodeGenerator {
 			writer.appendTab("type ").append(element.getName()).append(' ');
 
 			for (Classifier redefClassifier : element.getRedefinedClassifiers()) {
-				if( redefClassifier instanceof Type ) {
-					writer.append(typeName(redefClassifier));
-					break;
-				}
+				writer.append(typeName(redefClassifier));
+				break;
 			}
 			writer.appendEol(";");
 		}

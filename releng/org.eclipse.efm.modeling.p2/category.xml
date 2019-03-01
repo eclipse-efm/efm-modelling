@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.efm.modeling.feature_0.0.1.qualifier.jar" id="org.eclipse.efm.modeling.feature" version="0.0.1.qualifier">
-      <category name="org.eclipse.efm.category"/>
-   </feature>
+   <feature url="features/org.eclipse.efm.modeling.textual.feature_0.0.1.qualifier.jar" id="org.eclipse.efm.modeling.textual.feature" version="0.0.1.qualifier"/>
+   <feature url="features/org.eclipse.efm.modeling.feature_0.0.1.qualifier.jar" id="org.eclipse.efm.modeling.feature" version="0.0.1.qualifier"/>
    <category-def name="org.eclipse.efm.category" label="EFM Modeling Category">
       <description>
-         EFM Modeling  Category
+         EFM Modeling Feature: a Papyrus/UML modeling environment to produce behavioral models for analysis with the Symbex Platform (a.k.a. DIVERSITY)
+EFM Modeling Textutal Feature: an advanced xText environment for writing models using the native language of the Symbex Platform (a.k.a. xLIA)
       </description>
    </category-def>
 </site>

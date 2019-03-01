@@ -35,7 +35,7 @@ class FormalMLDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 //	}
 
 	@Inject
-	private IQualifiedNameProvider nameProvider;
+	IQualifiedNameProvider nameProvider;
 
 	def nameID(NamedElement element, String nullNameID) {
 		val fqn = nameProvider.getFullyQualifiedName(element);

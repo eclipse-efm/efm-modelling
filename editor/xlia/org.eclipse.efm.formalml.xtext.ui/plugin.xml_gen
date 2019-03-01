@@ -204,6 +204,15 @@
 			</activeWhen>
 		</handler>
 	</extension>
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="fml,xfml,xlia,xfsp"
+			id="org.eclipse.efm.formalml.xtext.FormalML.contenttype"
+			name="FormalML File"
+			priority="normal">
+		</content-type>
+	</extension>
 	<!-- adding resource factories -->
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -427,12 +436,18 @@
 			class="org.eclipse.efm.formalml.xtext.ui.FormalMLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="fml,xfml,xlia,xfsp">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.eclipse.efm.formalml.xtext.FormalML.contenttype"
+			contentViewerId="org.eclipse.efm.formalml.xtext.FormalML.compare.contentViewers" />
 	</extension>
 	<extension point="org.eclipse.compare.contentMergeViewers">
 		<viewer id="org.eclipse.efm.formalml.xtext.FormalML.compare.contentMergeViewers"
 			class="org.eclipse.efm.formalml.xtext.ui.FormalMLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="fml,xfml,xlia,xfsp" label="FormalML Compare">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.eclipse.efm.formalml.xtext.FormalML.contenttype"
+			contentMergeViewerId="org.eclipse.efm.formalml.xtext.FormalML.compare.contentMergeViewers" />
 	</extension>
 	<extension point="org.eclipse.ui.editors.documentProviders">
 		<provider id="org.eclipse.efm.formalml.xtext.FormalML.editors.documentProviders"

@@ -14,9 +14,12 @@ package org.eclipse.efm.execution.configuration.common.ui.page.overview;
 
 import java.io.File;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
@@ -38,6 +41,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
+import org.eclipse.ui.dialogs.ResourceSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.navigator.ResourceComparator;
@@ -69,7 +74,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	OverviewAnalysisProfileSection fAnalysisProfileSection;
 
 
-	public OverviewConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
+	public OverviewConfigurationPage(final ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
 
 		fAnalysisProfileSection = new OverviewAnalysisProfileSection(this);
@@ -95,7 +100,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	 */
 	private ModifyListener fBasicModifyListener = new ModifyListener() {
 		@Override
-		public void modifyText(ModifyEvent evt) {
+		public void modifyText(final ModifyEvent evt) {
 			propagateUpdateJobScheduling();
 
 			final String absoluteLocation =
@@ -117,7 +122,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
 		createModelFileSelectionComponent(parent, widgetToolkit);
 
@@ -133,12 +138,12 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	 * @param parent the parent to add this component to
 	 */
 	private void createModelFileSelectionComponent(
-			Composite parent, IWidgetToolkit widgetToolkit)
+			final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
-		Group group  = widgetToolkit.createGroup(parent,
+		final Group group  = widgetToolkit.createGroup(parent,
 				"&Model File Selection", 1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = widgetToolkit.createComposite(group, 3, 1, GridData.FILL_HORIZONTAL);
+		final Composite comp = widgetToolkit.createComposite(group, 3, 1, GridData.FILL_HORIZONTAL);
 
 		fModelPathText = widgetToolkit.createText(comp,
 				SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL,
@@ -146,7 +151,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		fModelPathText.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
-					public void getName(AccessibleEvent e) {
+					public void getName(final AccessibleEvent e) {
 						e.result = "Model File";
 					}
 				} );
@@ -157,45 +162,104 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 		fModelWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				ElementTreeSelectionDialog dialog =
-						new ElementTreeSelectionDialog(
-								parent.getShell(),
-								new WorkbenchLabelProvider(),
-								new WorkbenchContentProvider() );
-				dialog.setTitle("Select a Diversity Specification");
-				dialog.setMessage("Select a resource to redirect output to:");
-				dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
-				dialog.setComparator(
-						new ResourceComparator(ResourceComparator.NAME));
-//				dialog.setDialogBoundsSettings(
-//						getDialogBoundsSettings(WORKSPACE_SELECTION_DIALOG),
-//						Dialog.DIALOG_PERSISTSIZE);
-				if(dialog.open() == Window.OK) {
-					IResource resource = (IResource) dialog.getFirstResult();
-					if(resource != null) {
-						fProject = resource.getProject();
+			public void widgetSelected(final SelectionEvent e) {
+				final IResource resource = handleModelWorkspaceBrowse(parent);
 
-						fModelPathText.setText(
-								WorkflowFileUtils.makeRelativeLocation(
-										resource.getLocation()));
-						fModelPathText.setToolTipText(
-								resource.getLocation().toString());
+				if(resource != null) {
+					fProject = resource.getProject();
 
-						fOverviewWorkspaceDataSection.updateWorkspaceRootPath(resource);
-					}
+					fModelPathText.setText(
+							WorkflowFileUtils.makeRelativeLocation(
+									resource.getLocation()));
+					fModelPathText.setToolTipText(
+							resource.getLocation().toString());
+
+					fOverviewWorkspaceDataSection.updateWorkspaceRootPath(resource);
 				}
 			}
 		});
 	}
 
+	private IResource handleModelWorkspaceBrowse(final Composite parent) {
+		final ElementTreeSelectionDialog dialog =
+				new ElementTreeSelectionDialog(
+						parent.getShell(),
+						new WorkbenchLabelProvider(),
+						new WorkbenchContentProvider() );
+		dialog.setTitle("Select a Diversity Specification");
+		dialog.setMessage("Select a resource to redirect output to:");
+		dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
+		dialog.setComparator(
+				new ResourceComparator(ResourceComparator.NAME));
+//		dialog.setDialogBoundsSettings(
+//				getDialogBoundsSettings(WORKSPACE_SELECTION_DIALOG),
+//				Dialog.DIALOG_PERSISTSIZE);
+		if(dialog.open() == Window.OK) {
+			return (IResource) dialog.getFirstResult();
+		}
+		return null;
+	}
+
+	private IResource handleModelWorkspaceBrowse2(final Composite parent) {
+		final IWorkspaceRoot rootElement =
+				ResourcesPlugin.getWorkspace().getRoot();
+
+//		getSite().getWorkbenchWindow().getSelectionService()
+
+		final ResourceSelectionDialog dialog =
+				new ResourceSelectionDialog(parent.getShell(),
+						rootElement, "Select a xLIA file resource");
+
+		final int ret = dialog.open();
+        if( ret == ResourceSelectionDialog.OK ) {
+    		final Object[] results = dialog.getResult();
+    		if( (results != null) && (results.length > 0)
+    			&& (results[0] instanceof IFile) )
+    		{
+    			final IFile file = (IFile)( results[0] );
+
+				return file;
+			}
+		}
+		return null;
+	}
+
+
+	private IResource handleModelWorkspaceBrowse3(final Composite parent) {
+		IResource[] rootElement = new IResource[0];
+		try {
+			rootElement = ResourcesPlugin.getWorkspace().getRoot().members();
+		} catch (final CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+//		getSite().getWorkbenchWindow().getSelectionService()
+
+		final ResourceListSelectionDialog  dialog =
+				new ResourceListSelectionDialog (parent.getShell(),
+						rootElement);//, "Select a xLIA file resource");
+
+		final int ret = dialog.open();
+        if( ret == ResourceSelectionDialog.OK ) {
+    		final Object[] results = dialog.getResult();
+    		if( (results != null) && (results.length > 0)
+    			&& (results[0] instanceof IFile) )
+    		{
+    			final IFile file = (IFile)( results[0] );
+
+				return file;
+			}
+		}
+		return null;
+	}
 
 	// ======================================================================================
 	//                              Fields Values Management
 	// ======================================================================================
 
 	@Override
-	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_PROJECT_LOCATION,
 				DEFAULT_SPECIFICATION_PROJECT_LOCATION);
@@ -217,8 +281,8 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	}
 
 	@Override
-	public void initializeFromImpl(ILaunchConfiguration configuration) {
-		String specMainFileLocation =
+	public void initializeFromImpl(final ILaunchConfiguration configuration) {
+		final String specMainFileLocation =
 				WorkflowFileUtils.getRelativeLocation(configuration,
 						ATTR_SPECIFICATION_MODEL_FILE_LOCATION,
 						DEFAULT_SPECIFICATION_MODEL_FILE_LOCATION);
@@ -236,7 +300,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 
 
 	@Override
-	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		if( fProject != null ) {
 			WorkflowFileUtils.setRelativeLocation(configuration,
 					ATTR_SPECIFICATION_PROJECT_LOCATION,
@@ -261,16 +325,16 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(final ILaunchConfiguration launchConfig) {
 		String messageToSend = null;
 
-		String filePath = WorkflowFileUtils.makeAbsoluteLocation(
+		final String filePath = WorkflowFileUtils.makeAbsoluteLocation(
 				fModelPathText.getText() );
 		if( (filePath == null) || filePath.isEmpty() ) {
 			messageToSend = "The resource model file path is empty (or null)";
 		}
 		else {
-			File aFile = new File(filePath);
+			final File aFile = new File(filePath);
 			if( ! aFile.exists() ) {
 				messageToSend="The resource model file \"" +
 						filePath + "\" does not exist.";
@@ -282,7 +346,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 		}
 
 		// ANALYSIS PROFILE
-		boolean isValid = fOverviewWorkspaceDataSection.isValid(launchConfig)
+		final boolean isValid = fOverviewWorkspaceDataSection.isValid(launchConfig)
 				&& fAnalysisProfileSection.isValid(launchConfig);
 
 		return new FieldValidationReturn(isValid, messageToSend);
@@ -293,7 +357,7 @@ public class OverviewConfigurationPage extends AbstractConfigurationPage {
 	// Property Change
 	//
 	@Override
-	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(final PropertyChangeEvent event) {
 		fOverviewWorkspaceDataSection.handleConfigurationPropertyChange(event);
 
 		fAnalysisProfileSection.handleConfigurationPropertyChange(event);

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -120,6 +120,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Statemachine createStatemachine() {
 		StatemachineImpl statemachine = new StatemachineImpl();
 		return statemachine;
@@ -130,6 +131,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Region createRegion() {
 		RegionImpl region = new RegionImpl();
 		return region;
@@ -140,6 +142,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Vertex createVertex() {
 		VertexImpl vertex = new VertexImpl();
 		return vertex;
@@ -150,6 +153,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Pseudostate createPseudostate() {
 		PseudostateImpl pseudostate = new PseudostateImpl();
 		return pseudostate;
@@ -160,6 +164,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public State createState() {
 		StateImpl state = new StateImpl();
 		return state;
@@ -170,6 +175,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FinalState createFinalState() {
 		FinalStateImpl finalState = new FinalStateImpl();
 		return finalState;
@@ -180,6 +186,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StartState createStartState() {
 		StartStateImpl startState = new StartStateImpl();
 		return startState;
@@ -190,6 +197,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Transition createTransition() {
 		TransitionImpl transition = new TransitionImpl();
 		return transition;
@@ -200,6 +208,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransitionMoe createTransitionMoe() {
 		TransitionMoeImpl transitionMoe = new TransitionMoeImpl();
 		return transitionMoe;
@@ -250,6 +259,7 @@ public class StatemachineFactoryImpl extends EFactoryImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatemachinePackage getStatemachinePackage() {
 		return (StatemachinePackage)getEPackage();
 	}

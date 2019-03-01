@@ -14,10 +14,12 @@ import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.InteractionOperand;
 import org.eclipse.uml2.uml.Lifeline;
+import org.eclipse.uml2.uml.Message;
+import org.eclipse.uml2.uml.TimeObservation;
 
 public interface NameHelper {
 
-	public default String qualifiedNameOf(Lifeline lifeline) {
+	default String qualifiedNameOf(Lifeline lifeline) {
 		StringBuilder buffer = new StringBuilder();
 
 		buffer.append( lifeline.getRepresents().getType().getName() )
@@ -29,7 +31,12 @@ public interface NameHelper {
 		return buffer.toString();
 	}
 
-	public default String nameOfSchedulingVariable(
+	default String nameOfMessageParamsVariable(Message message) {
+		return message.getName() + "#params";
+	}
+
+
+	default String nameOfSchedulingVariable(
 			CombinedFragment combinedFragment)
 	{
 		StringBuilder buffer = new StringBuilder();
@@ -41,7 +48,7 @@ public interface NameHelper {
 		return buffer.toString();
 	}
 
-	public default String nameOfScheduledRegionVariable(
+	default String nameOfScheduledRegionVariable(
 			CombinedFragment combinedFragment)
 	{
 		StringBuilder buffer = new StringBuilder();
@@ -52,9 +59,7 @@ public interface NameHelper {
 		return buffer.toString();
 	}
 
-	public default String nameOfEnumRegionsType(
-			CombinedFragment combinedFragment)
-	{
+	default String nameOfEnumRegionsType(CombinedFragment combinedFragment) {
 		StringBuilder buffer = new StringBuilder();
 
 		buffer.append( "Enum#")
@@ -64,9 +69,7 @@ public interface NameHelper {
 	}
 
 
-	public default String nameOfEnumLiteralRegionOUT(
-			CombinedFragment combinedFragment)
-	{
+	default String nameOfEnumLiteralRegionOUT(CombinedFragment combinedFragment) {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append( "Region#")
 			.append( combinedFragment.getName() )
@@ -75,7 +78,7 @@ public interface NameHelper {
 		return buffer.toString();
 	}
 
-	public default String qualifiedNameOfEnumLiteralRegionOUT(
+	default String qualifiedNameOfEnumLiteralRegionOUT(
 			CombinedFragment combinedFragment)
 	{
 		StringBuilder buffer = new StringBuilder();
@@ -88,9 +91,7 @@ public interface NameHelper {
 	}
 
 
-	public default String nameOfEnumLiteralRegion(
-			InteractionOperand interactionOperand)
-	{
+	default String nameOfEnumLiteralRegion(InteractionOperand interactionOperand) {
 		StringBuilder buffer = new StringBuilder();
 		buffer.append( "Region#")
 			.append( interactionOperand.getName() );
@@ -98,7 +99,7 @@ public interface NameHelper {
 		return buffer.toString();
 	}
 
-	public default String qualifiedNameOfEnumLiteralRegion(
+	default String qualifiedNameOfEnumLiteralRegion(
 			InteractionOperand interactionOperand)
 	{
 		CombinedFragment combinedFragment =
@@ -113,7 +114,7 @@ public interface NameHelper {
 	}
 
 
-	public default String nameOfEntryTransitionFragment(
+	default String nameOfEntryTransitionFragment(
 			InteractionFragment interactionFragment,
 			String interactionOperator, boolean isFirst)
 	{
@@ -126,6 +127,10 @@ public interface NameHelper {
 		return buffer.toString();
 	}
 
+
+	default String nameOfTimeObservationIndex(TimeObservation timeObs) {
+		return "i_" + timeObs.getName();
+	}
 
 
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -76,6 +76,7 @@ public class NamedTupleExpressionImpl extends TupleExpressionImpl implements Nam
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedExpression> getValue() {
 		if (value == null) {
 			value = new EObjectContainmentEList<NamedExpression>(NamedExpression.class, this, ExpressionPackage.NAMED_TUPLE_EXPRESSION__VALUE);

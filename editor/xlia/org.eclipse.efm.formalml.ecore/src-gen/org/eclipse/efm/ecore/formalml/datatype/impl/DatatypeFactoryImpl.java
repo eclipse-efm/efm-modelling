@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -136,6 +136,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataTypeReference createDataTypeReference() {
 		DataTypeReferenceImpl dataTypeReference = new DataTypeReferenceImpl();
 		return dataTypeReference;
@@ -146,6 +147,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EnumerationLiteral createEnumerationLiteral() {
 		EnumerationLiteralImpl enumerationLiteral = new EnumerationLiteralImpl();
 		return enumerationLiteral;
@@ -156,6 +158,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EnumerationType createEnumerationType() {
 		EnumerationTypeImpl enumerationType = new EnumerationTypeImpl();
 		return enumerationType;
@@ -166,6 +169,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StructureType createStructureType() {
 		StructureTypeImpl structureType = new StructureTypeImpl();
 		return structureType;
@@ -176,6 +180,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnionType createUnionType() {
 		UnionTypeImpl unionType = new UnionTypeImpl();
 		return unionType;
@@ -186,6 +191,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ChoiceType createChoiceType() {
 		ChoiceTypeImpl choiceType = new ChoiceTypeImpl();
 		return choiceType;
@@ -196,6 +202,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IntervalType createIntervalType() {
 		IntervalTypeImpl intervalType = new IntervalTypeImpl();
 		return intervalType;
@@ -206,6 +213,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CollectionType createCollectionType() {
 		CollectionTypeImpl collectionType = new CollectionTypeImpl();
 		return collectionType;
@@ -216,6 +224,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveBooleanType createPrimitiveBooleanType() {
 		PrimitiveBooleanTypeImpl primitiveBooleanType = new PrimitiveBooleanTypeImpl();
 		return primitiveBooleanType;
@@ -226,6 +235,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveIntegerType createPrimitiveIntegerType() {
 		PrimitiveIntegerTypeImpl primitiveIntegerType = new PrimitiveIntegerTypeImpl();
 		return primitiveIntegerType;
@@ -236,6 +246,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveRationalType createPrimitiveRationalType() {
 		PrimitiveRationalTypeImpl primitiveRationalType = new PrimitiveRationalTypeImpl();
 		return primitiveRationalType;
@@ -246,6 +257,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveFloatType createPrimitiveFloatType() {
 		PrimitiveFloatTypeImpl primitiveFloatType = new PrimitiveFloatTypeImpl();
 		return primitiveFloatType;
@@ -256,6 +268,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveRealType createPrimitiveRealType() {
 		PrimitiveRealTypeImpl primitiveRealType = new PrimitiveRealTypeImpl();
 		return primitiveRealType;
@@ -266,6 +279,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveTimeType createPrimitiveTimeType() {
 		PrimitiveTimeTypeImpl primitiveTimeType = new PrimitiveTimeTypeImpl();
 		return primitiveTimeType;
@@ -276,6 +290,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveCharacterType createPrimitiveCharacterType() {
 		PrimitiveCharacterTypeImpl primitiveCharacterType = new PrimitiveCharacterTypeImpl();
 		return primitiveCharacterType;
@@ -286,6 +301,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveStringType createPrimitiveStringType() {
 		PrimitiveStringTypeImpl primitiveStringType = new PrimitiveStringTypeImpl();
 		return primitiveStringType;
@@ -296,6 +312,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveInstanceType createPrimitiveInstanceType() {
 		PrimitiveInstanceTypeImpl primitiveInstanceType = new PrimitiveInstanceTypeImpl();
 		return primitiveInstanceType;
@@ -386,6 +403,7 @@ public class DatatypeFactoryImpl extends EFactoryImpl implements DatatypeFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DatatypePackage getDatatypePackage() {
 		return (DatatypePackage)getEPackage();
 	}

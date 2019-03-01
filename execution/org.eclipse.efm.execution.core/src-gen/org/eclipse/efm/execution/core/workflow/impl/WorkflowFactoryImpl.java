@@ -81,6 +81,7 @@ public class WorkflowFactoryImpl extends EFactoryImpl implements WorkflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedObject createNamedObject() {
 		NamedObjectImpl namedObject = new NamedObjectImpl();
 		return namedObject;
@@ -91,6 +92,7 @@ public class WorkflowFactoryImpl extends EFactoryImpl implements WorkflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Workflow createWorkflow() {
 		WorkflowImpl workflow = new WorkflowImpl();
 		return workflow;
@@ -101,6 +103,7 @@ public class WorkflowFactoryImpl extends EFactoryImpl implements WorkflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Director createDirector() {
 		DirectorImpl director = new DirectorImpl();
 		return director;
@@ -111,6 +114,7 @@ public class WorkflowFactoryImpl extends EFactoryImpl implements WorkflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Worker createWorker() {
 		WorkerImpl worker = new WorkerImpl();
 		return worker;
@@ -121,6 +125,7 @@ public class WorkflowFactoryImpl extends EFactoryImpl implements WorkflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SupervisorWorker createSupervisorWorker() {
 		SupervisorWorkerImpl supervisorWorker = new SupervisorWorkerImpl();
 		return supervisorWorker;
@@ -131,6 +136,7 @@ public class WorkflowFactoryImpl extends EFactoryImpl implements WorkflowFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WorkflowPackage getWorkflowPackage() {
 		return (WorkflowPackage)getEPackage();
 	}

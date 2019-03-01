@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,8 +34,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.RelationalTernaryExpressionImpl#getLeftRelation <em>Left Relation</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.RelationalTernaryExpressionImpl#getRigthOperator <em>Rigth Operator</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.RelationalTernaryExpressionImpl#getRigthOperand <em>Rigth Operand</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.RelationalTernaryExpressionImpl#getRightOperator <em>Right Operator</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.RelationalTernaryExpressionImpl#getRightOperand <em>Right Operand</em>}</li>
  * </ul>
  *
  * @generated
@@ -52,34 +52,34 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 	protected RelationalBinaryExpression leftRelation;
 
 	/**
-	 * The default value of the '{@link #getRigthOperator() <em>Rigth Operator</em>}' attribute.
+	 * The default value of the '{@link #getRightOperator() <em>Right Operator</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRigthOperator()
+	 * @see #getRightOperator()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String RIGTH_OPERATOR_EDEFAULT = null;
+	protected static final String RIGHT_OPERATOR_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getRigthOperator() <em>Rigth Operator</em>}' attribute.
+	 * The cached value of the '{@link #getRightOperator() <em>Right Operator</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRigthOperator()
+	 * @see #getRightOperator()
 	 * @generated
 	 * @ordered
 	 */
-	protected String rigthOperator = RIGTH_OPERATOR_EDEFAULT;
+	protected String rightOperator = RIGHT_OPERATOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getRigthOperand() <em>Rigth Operand</em>}' containment reference.
+	 * The cached value of the '{@link #getRightOperand() <em>Right Operand</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRigthOperand()
+	 * @see #getRightOperand()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression rigthOperand;
+	protected Expression rightOperand;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -105,6 +105,7 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RelationalBinaryExpression getLeftRelation() {
 		return leftRelation;
 	}
@@ -129,6 +130,7 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLeftRelation(RelationalBinaryExpression newLeftRelation) {
 		if (newLeftRelation != leftRelation) {
 			NotificationChain msgs = null;
@@ -148,8 +150,9 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getRigthOperator() {
-		return rigthOperator;
+	@Override
+	public String getRightOperator() {
+		return rightOperator;
 	}
 
 	/**
@@ -157,11 +160,12 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRigthOperator(String newRigthOperator) {
-		String oldRigthOperator = rigthOperator;
-		rigthOperator = newRigthOperator;
+	@Override
+	public void setRightOperator(String newRightOperator) {
+		String oldRightOperator = rightOperator;
+		rightOperator = newRightOperator;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR, oldRigthOperator, rigthOperator));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR, oldRightOperator, rightOperator));
 	}
 
 	/**
@@ -169,8 +173,9 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getRigthOperand() {
-		return rigthOperand;
+	@Override
+	public Expression getRightOperand() {
+		return rightOperand;
 	}
 
 	/**
@@ -178,11 +183,11 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRigthOperand(Expression newRigthOperand, NotificationChain msgs) {
-		Expression oldRigthOperand = rigthOperand;
-		rigthOperand = newRigthOperand;
+	public NotificationChain basicSetRightOperand(Expression newRightOperand, NotificationChain msgs) {
+		Expression oldRightOperand = rightOperand;
+		rightOperand = newRightOperand;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND, oldRigthOperand, newRigthOperand);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND, oldRightOperand, newRightOperand);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -193,18 +198,19 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRigthOperand(Expression newRigthOperand) {
-		if (newRigthOperand != rigthOperand) {
+	@Override
+	public void setRightOperand(Expression newRightOperand) {
+		if (newRightOperand != rightOperand) {
 			NotificationChain msgs = null;
-			if (rigthOperand != null)
-				msgs = ((InternalEObject)rigthOperand).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND, null, msgs);
-			if (newRigthOperand != null)
-				msgs = ((InternalEObject)newRigthOperand).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND, null, msgs);
-			msgs = basicSetRigthOperand(newRigthOperand, msgs);
+			if (rightOperand != null)
+				msgs = ((InternalEObject)rightOperand).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND, null, msgs);
+			if (newRightOperand != null)
+				msgs = ((InternalEObject)newRightOperand).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND, null, msgs);
+			msgs = basicSetRightOperand(newRightOperand, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND, newRigthOperand, newRigthOperand));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND, newRightOperand, newRightOperand));
 	}
 
 	/**
@@ -217,8 +223,8 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 		switch (featureID) {
 			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION:
 				return basicSetLeftRelation(null, msgs);
-			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND:
-				return basicSetRigthOperand(null, msgs);
+			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND:
+				return basicSetRightOperand(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -233,10 +239,10 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 		switch (featureID) {
 			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION:
 				return getLeftRelation();
-			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR:
-				return getRigthOperator();
-			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND:
-				return getRigthOperand();
+			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR:
+				return getRightOperator();
+			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND:
+				return getRightOperand();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -252,11 +258,11 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION:
 				setLeftRelation((RelationalBinaryExpression)newValue);
 				return;
-			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR:
-				setRigthOperator((String)newValue);
+			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR:
+				setRightOperator((String)newValue);
 				return;
-			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND:
-				setRigthOperand((Expression)newValue);
+			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND:
+				setRightOperand((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -273,11 +279,11 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION:
 				setLeftRelation((RelationalBinaryExpression)null);
 				return;
-			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR:
-				setRigthOperator(RIGTH_OPERATOR_EDEFAULT);
+			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR:
+				setRightOperator(RIGHT_OPERATOR_EDEFAULT);
 				return;
-			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND:
-				setRigthOperand((Expression)null);
+			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND:
+				setRightOperand((Expression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -293,10 +299,10 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 		switch (featureID) {
 			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__LEFT_RELATION:
 				return leftRelation != null;
-			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERATOR:
-				return RIGTH_OPERATOR_EDEFAULT == null ? rigthOperator != null : !RIGTH_OPERATOR_EDEFAULT.equals(rigthOperator);
-			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGTH_OPERAND:
-				return rigthOperand != null;
+			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERATOR:
+				return RIGHT_OPERATOR_EDEFAULT == null ? rightOperator != null : !RIGHT_OPERATOR_EDEFAULT.equals(rightOperator);
+			case ExpressionPackage.RELATIONAL_TERNARY_EXPRESSION__RIGHT_OPERAND:
+				return rightOperand != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -310,9 +316,9 @@ public class RelationalTernaryExpressionImpl extends ExpressionImpl implements R
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (rigthOperator: ");
-		result.append(rigthOperator);
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (rightOperator: ");
+		result.append(rightOperator);
 		result.append(')');
 		return result.toString();
 	}

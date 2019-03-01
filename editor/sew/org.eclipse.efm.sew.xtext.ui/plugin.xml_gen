@@ -204,6 +204,15 @@
 			</activeWhen>
 		</handler>
 	</extension>
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="sew,favm"
+			id="org.eclipse.efm.sew.xtext.SEW.contenttype"
+			name="SEW File"
+			priority="normal">
+		</content-type>
+	</extension>
 	<!-- adding resource factories -->
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -401,12 +410,18 @@
 			class="org.eclipse.efm.sew.xtext.ui.SEWExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="sew,favm">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.eclipse.efm.sew.xtext.SEW.contenttype"
+			contentViewerId="org.eclipse.efm.sew.xtext.SEW.compare.contentViewers" />
 	</extension>
 	<extension point="org.eclipse.compare.contentMergeViewers">
 		<viewer id="org.eclipse.efm.sew.xtext.SEW.compare.contentMergeViewers"
 			class="org.eclipse.efm.sew.xtext.ui.SEWExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="sew,favm" label="SEW Compare">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.eclipse.efm.sew.xtext.SEW.contenttype"
+			contentMergeViewerId="org.eclipse.efm.sew.xtext.SEW.compare.contentMergeViewers" />
 	</extension>
 	<extension point="org.eclipse.ui.editors.documentProviders">
 		<provider id="org.eclipse.efm.sew.xtext.SEW.editors.documentProviders"

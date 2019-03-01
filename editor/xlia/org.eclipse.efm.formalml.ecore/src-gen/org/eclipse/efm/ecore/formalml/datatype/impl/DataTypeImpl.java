@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -129,6 +129,7 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveTypeKind getKind() {
 		return kind;
 	}
@@ -138,6 +139,7 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(PrimitiveTypeKind newKind) {
 		PrimitiveTypeKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -150,6 +152,7 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isTypedef() {
 		return typedef;
 	}
@@ -159,6 +162,7 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTypedef(boolean newTypedef) {
 		boolean oldTypedef = typedef;
 		typedef = newTypedef;
@@ -171,6 +175,7 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getMultiplicity() {
 		return multiplicity;
 	}
@@ -195,6 +200,7 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMultiplicity(Expression newMultiplicity) {
 		if (newMultiplicity != multiplicity) {
 			NotificationChain msgs = null;
@@ -214,6 +220,7 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getDefaultValue() {
 		return defaultValue;
 	}
@@ -238,6 +245,7 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDefaultValue(Expression newDefaultValue) {
 		if (newDefaultValue != defaultValue) {
 			NotificationChain msgs = null;
@@ -365,7 +373,7 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (kind: ");
 		result.append(kind);
 		result.append(", typedef: ");

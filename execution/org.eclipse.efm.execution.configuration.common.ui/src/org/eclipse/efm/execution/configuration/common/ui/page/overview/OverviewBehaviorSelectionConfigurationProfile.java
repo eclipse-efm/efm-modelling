@@ -49,8 +49,9 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 	 * @param parentTab
 	 */
 	public OverviewBehaviorSelectionConfigurationProfile(
-			AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+			AbstractConfigurationPage configurationPage)
+	{
+		super(configurationPage, false);
 	}
 
 

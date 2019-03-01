@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,9 +12,8 @@
  */
 package org.eclipse.efm.ecore.formalml.statement;
 
-import org.eclipse.efm.ecore.formalml.common.NamedElement;
-
 import org.eclipse.efm.ecore.formalml.expression.Expression;
+
 import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
 
 /**
@@ -37,30 +36,30 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
  */
 public interface AbstractComStatement extends Statement {
 	/**
-	 * Returns the value of the '<em><b>Port</b></em>' reference.
+	 * Returns the value of the '<em><b>Port</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Port</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Port</em>' reference.
-	 * @see #setPort(NamedElement)
+	 * @return the value of the '<em>Port</em>' containment reference.
+	 * @see #setPort(Expression)
 	 * @see org.eclipse.efm.ecore.formalml.statement.StatementPackage#getAbstractComStatement_Port()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
-	NamedElement getPort();
+	Expression getPort();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statement.AbstractComStatement#getPort <em>Port</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statement.AbstractComStatement#getPort <em>Port</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Port</em>' reference.
+	 * @param value the new value of the '<em>Port</em>' containment reference.
 	 * @see #getPort()
 	 * @generated
 	 */
-	void setPort(NamedElement value);
+	void setPort(Expression value);
 
 	/**
 	 * Returns the value of the '<em><b>Route</b></em>' reference.

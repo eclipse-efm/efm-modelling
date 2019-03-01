@@ -84,7 +84,7 @@ public class ExtraneousPackageImpl extends EPackageImpl implements ExtraneousPac
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link ExtraneousPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -98,16 +98,22 @@ public class ExtraneousPackageImpl extends EPackageImpl implements ExtraneousPac
 		if (isInited) return (ExtraneousPackage)EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ExtraneousPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ExtraneousPackageImpl());
+		Object registeredExtraneousPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		ExtraneousPackageImpl theExtraneousPackage = registeredExtraneousPackage instanceof ExtraneousPackageImpl ? (ExtraneousPackageImpl)registeredExtraneousPackage : new ExtraneousPackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) instanceof WorkflowPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) : WorkflowPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) instanceof CoveragePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) : CoveragePackage.eINSTANCE);
-		TestPackageImpl theTestPackage = (TestPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) instanceof TestPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) : TestPackage.eINSTANCE);
-		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) instanceof SerializerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) : SerializerPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI);
+		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(registeredPackage instanceof WorkflowPackageImpl ? registeredPackage : WorkflowPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI);
+		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(registeredPackage instanceof CoveragePackageImpl ? registeredPackage : CoveragePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI);
+		TestPackageImpl theTestPackage = (TestPackageImpl)(registeredPackage instanceof TestPackageImpl ? registeredPackage : TestPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI);
+		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(registeredPackage instanceof SerializerPackageImpl ? registeredPackage : SerializerPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theExtraneousPackage.createPackageContents();
@@ -128,7 +134,6 @@ public class ExtraneousPackageImpl extends EPackageImpl implements ExtraneousPac
 		// Mark meta-data to indicate it can't be changed
 		theExtraneousPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ExtraneousPackage.eNS_URI, theExtraneousPackage);
 		return theExtraneousPackage;
@@ -139,6 +144,7 @@ public class ExtraneousPackageImpl extends EPackageImpl implements ExtraneousPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExtraneousWorker() {
 		return extraneousWorkerEClass;
 	}
@@ -148,6 +154,7 @@ public class ExtraneousPackageImpl extends EPackageImpl implements ExtraneousPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExtraneousWorker_ExtraSEW() {
 		return (EAttribute)extraneousWorkerEClass.getEStructuralFeatures().get(0);
 	}
@@ -157,6 +164,7 @@ public class ExtraneousPackageImpl extends EPackageImpl implements ExtraneousPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExtraneousWorker_AnalysisProfileRequired() {
 		return (EAttribute)extraneousWorkerEClass.getEStructuralFeatures().get(1);
 	}
@@ -166,6 +174,7 @@ public class ExtraneousPackageImpl extends EPackageImpl implements ExtraneousPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExtraneousFactory getExtraneousFactory() {
 		return (ExtraneousFactory)getEFactoryInstance();
 	}

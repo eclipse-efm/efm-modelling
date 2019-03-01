@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -107,6 +107,7 @@ public class ActivityStatementImpl extends StatementImpl implements ActivityStat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivityStatementKind getOp() {
 		return op;
 	}
@@ -116,6 +117,7 @@ public class ActivityStatementImpl extends StatementImpl implements ActivityStat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOp(ActivityStatementKind newOp) {
 		ActivityStatementKind oldOp = op;
 		op = newOp == null ? OP_EDEFAULT : newOp;
@@ -128,6 +130,7 @@ public class ActivityStatementImpl extends StatementImpl implements ActivityStat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getMachine() {
 		return machine;
 	}
@@ -152,6 +155,7 @@ public class ActivityStatementImpl extends StatementImpl implements ActivityStat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMachine(Expression newMachine) {
 		if (newMachine != machine) {
 			NotificationChain msgs = null;
@@ -171,6 +175,7 @@ public class ActivityStatementImpl extends StatementImpl implements ActivityStat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TupleExpression getTuple() {
 		return tuple;
 	}
@@ -195,6 +200,7 @@ public class ActivityStatementImpl extends StatementImpl implements ActivityStat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTuple(TupleExpression newTuple) {
 		if (newTuple != tuple) {
 			NotificationChain msgs = null;
@@ -312,7 +318,7 @@ public class ActivityStatementImpl extends StatementImpl implements ActivityStat
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (op: ");
 		result.append(op);
 		result.append(')');

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -159,6 +159,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isCallProcedure() {
 		return callProcedure;
 	}
@@ -168,6 +169,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCallProcedure(boolean newCallProcedure) {
 		boolean oldCallProcedure = callProcedure;
 		callProcedure = newCallProcedure;
@@ -180,6 +182,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isExecRoutine() {
 		return execRoutine;
 	}
@@ -189,6 +192,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExecRoutine(boolean newExecRoutine) {
 		boolean oldExecRoutine = execRoutine;
 		execRoutine = newExecRoutine;
@@ -201,6 +205,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedElement getInvokable() {
 		if (invokable != null && invokable.eIsProxy()) {
 			InternalEObject oldInvokable = (InternalEObject)invokable;
@@ -227,6 +232,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInvokable(NamedElement newInvokable) {
 		NamedElement oldInvokable = invokable;
 		invokable = newInvokable;
@@ -239,6 +245,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TupleExpression getArgs() {
 		return args;
 	}
@@ -263,6 +270,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setArgs(TupleExpression newArgs) {
 		if (newArgs != args) {
 			NotificationChain msgs = null;
@@ -282,6 +290,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Variable> getRets() {
 		if (rets == null) {
 			rets = new EObjectResolvingEList<Variable>(Variable.class, this, StatementPackage.INVOKE_STATEMENT__RETS);
@@ -294,6 +303,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getExpression() {
 		return expression;
 	}
@@ -318,6 +328,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExpression(Expression newExpression) {
 		if (newExpression != expression) {
 			NotificationChain msgs = null;
@@ -468,7 +479,7 @@ public class InvokeStatementImpl extends StatementImpl implements InvokeStatemen
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (callProcedure: ");
 		result.append(callProcedure);
 		result.append(", execRoutine: ");

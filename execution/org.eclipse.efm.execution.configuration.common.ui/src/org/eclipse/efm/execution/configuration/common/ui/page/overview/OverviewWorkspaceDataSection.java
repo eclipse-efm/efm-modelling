@@ -36,7 +36,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 	public OverviewWorkspaceDataSection(AbstractConfigurationPage configurationPage)
 	{
-		super(configurationPage);
+		super(configurationPage, false);
 	}
 
 

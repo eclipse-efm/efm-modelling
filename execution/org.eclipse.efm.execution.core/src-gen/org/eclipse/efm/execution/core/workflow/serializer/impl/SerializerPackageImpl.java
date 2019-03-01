@@ -108,7 +108,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link SerializerPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -122,16 +122,22 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 		if (isInited) return (SerializerPackage)EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI);
 
 		// Obtain or create and register package
-		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof SerializerPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new SerializerPackageImpl());
+		Object registeredSerializerPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		SerializerPackageImpl theSerializerPackage = registeredSerializerPackage instanceof SerializerPackageImpl ? (SerializerPackageImpl)registeredSerializerPackage : new SerializerPackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) instanceof WorkflowPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) : WorkflowPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) instanceof CoveragePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) : CoveragePackage.eINSTANCE);
-		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) instanceof ExtraneousPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) : ExtraneousPackage.eINSTANCE);
-		TestPackageImpl theTestPackage = (TestPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) instanceof TestPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) : TestPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI);
+		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(registeredPackage instanceof WorkflowPackageImpl ? registeredPackage : WorkflowPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI);
+		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(registeredPackage instanceof CoveragePackageImpl ? registeredPackage : CoveragePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI);
+		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(registeredPackage instanceof ExtraneousPackageImpl ? registeredPackage : ExtraneousPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI);
+		TestPackageImpl theTestPackage = (TestPackageImpl)(registeredPackage instanceof TestPackageImpl ? registeredPackage : TestPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theSerializerPackage.createPackageContents();
@@ -152,7 +158,6 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 		// Mark meta-data to indicate it can't be changed
 		theSerializerPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(SerializerPackage.eNS_URI, theSerializerPackage);
 		return theSerializerPackage;
@@ -163,6 +168,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getModelGraphvizSerializerWorker() {
 		return modelGraphvizSerializerWorkerEClass;
 	}
@@ -172,6 +178,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSymbexGraphVizSerializerWorker() {
 		return symbexGraphVizSerializerWorkerEClass;
 	}
@@ -181,6 +188,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBasicTraceSerializer() {
 		return basicTraceSerializerEClass;
 	}
@@ -190,6 +198,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTTCNTraceSerializer() {
 		return ttcnTraceSerializerEClass;
 	}
@@ -199,6 +208,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_EnabledCustomization() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(0);
 	}
@@ -208,6 +218,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_EnabledAdapters() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(1);
 	}
@@ -217,6 +228,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_ControlModuleName() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(2);
 	}
@@ -226,6 +238,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_DeclarationsModuleName() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(3);
 	}
@@ -235,6 +248,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_TemplatesModuleName() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(4);
 	}
@@ -244,6 +258,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_TestcasesModuleName() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(5);
 	}
@@ -253,6 +268,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_TestcasesStartingWrapper() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(6);
 	}
@@ -262,6 +278,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_TestcasesEndingWrapper() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(7);
 	}
@@ -271,6 +288,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_TestcasesSendingWrapper() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(8);
 	}
@@ -280,6 +298,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_TestcasesReceivingWrapper() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(9);
 	}
@@ -289,6 +308,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_AdaptationModuleName() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(10);
 	}
@@ -298,6 +318,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_AdaptationUtilsImpl() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(11);
 	}
@@ -307,6 +328,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_AdaptationStartingEndingImpl() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(12);
 	}
@@ -316,6 +338,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_AdaptationSendingImpl() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(13);
 	}
@@ -325,6 +348,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTTCNTraceSerializer_AdaptationReceivingImpl() {
 		return (EAttribute)ttcnTraceSerializerEClass.getEStructuralFeatures().get(14);
 	}
@@ -334,6 +358,7 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SerializerFactory getSerializerFactory() {
 		return (SerializerFactory)getEFactoryInstance();
 	}
@@ -425,8 +450,8 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 		initEClass(basicTraceSerializerEClass, BasicTraceSerializer.class, "BasicTraceSerializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(ttcnTraceSerializerEClass, TTCNTraceSerializer.class, "TTCNTraceSerializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTTCNTraceSerializer_EnabledCustomization(), ecorePackage.getEBoolean(), "enabledCustomization", null, 0, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTTCNTraceSerializer_EnabledAdapters(), ecorePackage.getEBoolean(), "enabledAdapters", null, 0, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTTCNTraceSerializer_EnabledCustomization(), ecorePackage.getEBoolean(), "enabledCustomization", null, 1, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTTCNTraceSerializer_EnabledAdapters(), ecorePackage.getEBoolean(), "enabledAdapters", null, 1, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTTCNTraceSerializer_ControlModuleName(), ecorePackage.getEString(), "controlModuleName", null, 0, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTTCNTraceSerializer_DeclarationsModuleName(), ecorePackage.getEString(), "declarationsModuleName", null, 0, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTTCNTraceSerializer_TemplatesModuleName(), ecorePackage.getEString(), "templatesModuleName", null, 0, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

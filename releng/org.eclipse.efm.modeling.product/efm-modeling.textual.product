@@ -262,6 +262,7 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <feature id="org.eclipse.emf.common"/>
       <feature id="org.eclipse.equinox.p2.core.feature"/>
       <feature id="org.eclipse.emf.mwe2.runtime.sdk"/>
+      <feature id="net.sourceforge.plantuml.lib.feature"/>
       <feature id="org.eclipse.ecf.core.ssl.feature"/>
       <feature id="org.eclipse.ecf.filetransfer.ssl.feature"/>
       <feature id="org.eclipse.xtend"/>
@@ -285,27 +286,49 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <feature id="org.eclipse.xtend.dependencies"/>
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.efm.modeling.textual.dependencies.feature"/>
+      <feature id="net.sourceforge.plantuml.feature"/>
       <feature id="org.eclipse.xtend.ui"/>
       <feature id="org.eclipse.emf.ecore.edit"/>
       <feature id="org.eclipse.e4.rcp"/>
+      <feature id="org.eclipse.gef.zest.fx"/>
+      <feature id="org.eclipse.gef.fx"/>
+      <feature id="org.eclipse.gef.graph"/>
+      <feature id="org.eclipse.gef.common"/>
+      <feature id="org.eclipse.gef.fx.swt"/>
+      <feature id="org.eclipse.gef.dot.doc.user"/>
+      <feature id="org.eclipse.gef.layout"/>
+      <feature id="org.eclipse.gef.zest.fx.ui"/>
+      <feature id="org.eclipse.gef.geometry"/>
+      <feature id="org.eclipse.gef.dot.ui"/>
+      <feature id="org.eclipse.gef.mvc.fx"/>
+      <feature id="org.eclipse.gef.geometry.convert.fx"/>
+      <feature id="org.eclipse.fx.runtime.min.feature"/>
+      <feature id="org.eclipse.gef.dot.user"/>
+      <feature id="org.eclipse.gef.mvc.fx.ui"/>
+      <feature id="org.eclipse.gef.fx.jface"/>
+      <feature id="org.eclipse.gef.dot"/>
    </features>
 
    <configurations>
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
+      <property name="file.encoding" value="UTF-8" />
       <property name="org.eclipse.update.reconcile" value="false" />
       <property name="osgi.bundles.defaultStartLevel" value="4" />
+      <property name="osgi.framework.extension" value="org.eclipse.fx.osgi" />
       <property name="osgi.instance.area.default" value="../workspace-efm" />
       <property name="osgi.requiredJavaVersion" value="1.8" />
    </configurations>
 
    <repositories>
-      <repository location="http://download.eclipse.org/releases/oxygen" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2018-12/" enabled="true" />
+      <repository location="http://https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2018-12/" enabled="true" />
+      <repository location="http://download.eclipse.org/modeling/mdt/papyrus/components/designer" enabled="true" />
    </repositories>
 
    <preferencesInfo>

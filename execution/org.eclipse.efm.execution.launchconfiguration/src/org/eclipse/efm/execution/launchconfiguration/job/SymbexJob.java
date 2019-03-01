@@ -30,7 +30,6 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsole;
-import org.eclipse.efm.execution.launchconfiguration.ui.views.SymbexConsoleView;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -42,9 +41,13 @@ import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsoleStream;
-import org.eclipse.ui.internal.console.ConsoleView;
 
 public class SymbexJob extends Job {
+
+
+	private static final String SYMBEX_PROMPT = "Diversity";
+
+
 	///////////////////////////////////////////////////////////////////////////
 	// SYMBEX LAUNCH OPTION
 	///////////////////////////////////////////////////////////////////////////
@@ -66,7 +69,7 @@ public class SymbexJob extends Job {
 	private IConsoleView fConsoleView;
 
 
-	static Map<IPath, SymbexSpiderConsole> fTableOfConsole =
+	public static Map<IPath, SymbexSpiderConsole> fTableOfConsole =
 			new HashMap<IPath, SymbexSpiderConsole>();
 
 	protected SymbexSpiderConsole fSymbexSpiderConsole;
@@ -79,8 +82,8 @@ public class SymbexJob extends Job {
 //	private static final Color RED =
 //			Display.getCurrent().getSystemColor(SWT.COLOR_RED);
 
-	public SymbexJob(IWorkbenchWindow window,
-			String name, IFile symbexWorkflowFile)
+	public SymbexJob(final IWorkbenchWindow window,
+			final String name, final IFile symbexWorkflowFile)
 	{
 		super(name);
 
@@ -96,20 +99,20 @@ public class SymbexJob extends Job {
 				SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS
 		};
 
-		showConsoleView(symbexWorkflowFile.getFullPath());
-//		loadConsoleViewer(symbexWorkflowfile.getFullPath());
+//		showConsoleView(symbexWorkflowFile.getFullPath());
+		loadConsoleViewer(symbexWorkflowFile.getFullPath());
 
 	}
 
-	public SymbexJob(ILaunchConfiguration configuration, String mode,
-			ILaunch launch, String[] commandLine, File workingDirectory, String[] envp)
+	public SymbexJob(final ILaunchConfiguration configuration, final String mode,
+			final ILaunch launch, final String[] commandLine, final File workingDirectory, final String[] envp)
 	{
 		super(configuration.getName());
 
 		this.fWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if( fWindow != null ) {
-			IWorkbench workbench = PlatformUI.getWorkbench();
-			IWorkbenchWindow[] wbWindow = workbench.getWorkbenchWindows();
+		if( fWindow == null ) {
+			final IWorkbench workbench = PlatformUI.getWorkbench();
+			final IWorkbenchWindow[] wbWindow = workbench.getWorkbenchWindows();
 			if( wbWindow.length > 0 ) {
 				fWindow = wbWindow[0];
 			}
@@ -135,9 +138,9 @@ public class SymbexJob extends Job {
 
 
 	@Override
-	public IStatus run(IProgressMonitor monitor) {
+	public IStatus run(final IProgressMonitor monitor) {
 		if( fSymbexSpiderConsole != null ) {
-			IStatus status = fSymbexSpiderConsole.startSymbex(
+			final IStatus status = fSymbexSpiderConsole.startSymbex(
 					fCommandLine, fSymbexWorkflowPath, monitor);
 
 			if( monitor != null ) {
@@ -177,32 +180,34 @@ public class SymbexJob extends Job {
 			//TODO : placer les fichiers de sortie fraichement
 			// generes dans le folder "Outfiles"
 		}
-		catch(CoreException e) {
+		catch(final CoreException e) {
 			e.printStackTrace();
 		}
 	}
 
 
-	private void showConsoleView(IPath symbexResourcePath) {
-		createConsole(symbexResourcePath, "Diversity Console");
+//	private void showConsoleView(final IPath symbexResourcePath) {
+//		createConsole(symbexResourcePath, SYMBEX_PROMPT);
+//
+//		try {
+//			final IConsoleView consoleView =
+//					(IConsoleView) fWindow.getActivePage().showView(
+////							SymbolicExecutionView.SYMBEX_CONSOLE_VIEW_ID);
+//							IConsoleConstants.ID_CONSOLE_VIEW);
+//
+//			if( fConsoleView != null ) {
+//				consoleView.display(fSymbexSpiderConsole);
+//			}
+//		}
+//		catch (final PartInitException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
-		try {
-			IConsoleView fConsoleView =
-					(IConsoleView) fWindow.getActivePage().showView(
-//							SymbolicExecutionView.SYMBEX_CONSOLE_VIEW_ID);
-							IConsoleConstants.ID_CONSOLE_VIEW);
-
-			fConsoleView.display(fSymbexSpiderConsole);
-		}
-		catch (PartInitException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private void loadConsoleViewer(IPath symbexResourcePath) {
-		IWorkbench workbench = PlatformUI.getWorkbench();
-		IWorkbenchWindow[] wbWindow = workbench.getWorkbenchWindows();
+	private void loadConsoleViewer(final IPath symbexResourcePath) {
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		final IWorkbenchWindow[] wbWindow = workbench.getWorkbenchWindows();
 		if( wbWindow.length > 0 ) {
 			fWindow = wbWindow[0];
 
@@ -210,26 +215,26 @@ public class SymbexJob extends Job {
 				@Override
 				public void run() {
 					try {
-						IViewPart viewPart = fWindow.getActivePage().
+						final IViewPart viewPart = fWindow.getActivePage().
 //								showView(SymbolicExecutionView.SYMBEX_CONSOLE_VIEW_ID);
 								showView(IConsoleConstants.ID_CONSOLE_VIEW);
 
-						if( viewPart instanceof SymbexConsoleView ) {
-							fConsoleView = (SymbexConsoleView) viewPart;
+						if( viewPart instanceof IConsoleView ) {
+							fConsoleView = (IConsoleView) viewPart;
 						}
-						else if( viewPart instanceof ConsoleView ) {
-							fConsoleView = (ConsoleView) viewPart;
-						}
-					} catch (PartInitException e) {
+//						else if( viewPart instanceof SymbexConsoleView ) {
+//							fConsoleView = (SymbexConsoleView) viewPart;
+//						}
+					} catch (final PartInitException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+
+					if( fConsoleView != null ) {
+						createConsole(symbexResourcePath, SYMBEX_PROMPT);
+					}
 				}
 			});
-		}
-
-		if( fConsoleView != null ) {
-			createConsole(symbexResourcePath, "Diversity Console");
 		}
 	}
 
@@ -237,28 +242,63 @@ public class SymbexJob extends Job {
 	/*
 	 * Create a console for this execution...
 	 */
-	private void createConsole(IPath symbexResourcePath, String prompt) {
-	      ConsolePlugin plugin = ConsolePlugin.getDefault();
-	      IConsoleManager consoleManager = plugin.getConsoleManager();
+	private void createConsole(final IPath symbexResourcePath, final String prompt) {
+		fSymbexSpiderConsole = fTableOfConsole.get(symbexResourcePath);
+		if( fSymbexSpiderConsole == null ) {
+			//no console found, so create a new one
+			fSymbexSpiderConsole =
+					new SymbexSpiderConsole(prompt, symbexResourcePath);
 
-	      fSymbexSpiderConsole = fTableOfConsole.get(symbexResourcePath);
-	      if( fSymbexSpiderConsole == null ) {
-		      //no console found, so create a new one
-		      StringBuffer bufName = new StringBuffer( prompt );
-		      bufName.append("#").append(fTableOfConsole.size())
-		      		.append(":> ").append(symbexResourcePath);
+			fTableOfConsole.put(symbexResourcePath, fSymbexSpiderConsole);
 
-	    	  fSymbexSpiderConsole = new SymbexSpiderConsole(bufName.toString());
-	    	  fTableOfConsole.put(symbexResourcePath, fSymbexSpiderConsole);
+			final IConsoleManager consoleManager =
+					ConsolePlugin.getDefault().getConsoleManager();
 
-	    	  consoleManager.addConsoles(new IConsole[]{fSymbexSpiderConsole});
-		      mcs = fSymbexSpiderConsole.newMessageStream();
-	      }
-	      else {
-	  		mcs = fSymbexSpiderConsole.newMessageStream();
-	  		mcs.println("=================================================================================");
-	  		mcs.println("=================================================================================");
-	  		mcs.println("=================================================================================");
-	      }
-	   }
+			consoleManager.addConsoles(new IConsole[]{ fSymbexSpiderConsole });
+
+			mcs = fSymbexSpiderConsole.newMessageStream();
+		}
+		else {
+			if( fConsoleView != null ) {
+				fConsoleView.display(fSymbexSpiderConsole);
+			}
+
+			mcs = fSymbexSpiderConsole.newMessageStream();
+			mcs.println("=================================================================================");
+			mcs.println("=================================================================================");
+			mcs.println("=================================================================================");
+		}
+	}
+
+	public static void removeConsole(final SymbexSpiderConsole spiderConsole) {
+		final IPath path = spiderConsole.getfResourcePath();
+
+		if( path != null ) {
+			fTableOfConsole.remove(path, spiderConsole);
+		}
+
+		final IConsoleManager consoleManager =
+				ConsolePlugin.getDefault().getConsoleManager();
+
+		consoleManager.removeConsoles(new IConsole[]{ spiderConsole });
+	}
+
+	public static void removeAllConsole() {
+		fTableOfConsole.clear();
+
+		final IConsoleManager consoleManager =
+				ConsolePlugin.getDefault().getConsoleManager();
+
+		final IConsole[] consoles = consoleManager.getConsoles();
+		for (final IConsole console : consoles) {
+			if( console instanceof SymbexSpiderConsole ) {
+				final SymbexSpiderConsole spiderConsole =
+						(SymbexSpiderConsole) console;
+
+				spiderConsole.getDefaultPage().terminateProcess();
+			}
+		}
+
+		consoleManager.removeConsoles( consoles );
+	}
 }

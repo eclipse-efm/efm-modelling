@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -245,6 +245,22 @@ public class StatementSwitch<T> extends Switch<T> {
 				T result = caseInvokeStatement(invokeStatement);
 				if (result == null) result = caseStatement(invokeStatement);
 				if (result == null) result = caseAbstractElement(invokeStatement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case StatementPackage.OBSERVER_STATEMENT: {
+				ObserverStatement observerStatement = (ObserverStatement)theEObject;
+				T result = caseObserverStatement(observerStatement);
+				if (result == null) result = caseStatement(observerStatement);
+				if (result == null) result = caseAbstractElement(observerStatement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case StatementPackage.META_STATEMENT: {
+				MetaStatement metaStatement = (MetaStatement)theEObject;
+				T result = caseMetaStatement(metaStatement);
+				if (result == null) result = caseStatement(metaStatement);
+				if (result == null) result = caseAbstractElement(metaStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -549,6 +565,36 @@ public class StatementSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseInvokeStatement(InvokeStatement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Observer Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Observer Statement</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseObserverStatement(ObserverStatement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Meta Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Meta Statement</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMetaStatement(MetaStatement object) {
 		return null;
 	}
 

@@ -16,21 +16,19 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.papyrus.infra.emf.utils.EMFHelper;
 import org.eclipse.papyrus.uml.tools.utils.UMLUtil;
-import org.eclipse.uml2.uml.ActionExecutionSpecification;
-import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
+import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.ActivityEdge;
+import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.Class;
-import org.eclipse.uml2.uml.CombinedFragment;
 import org.eclipse.uml2.uml.Connector;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Gate;
-import org.eclipse.uml2.uml.Interaction;
-import org.eclipse.uml2.uml.InteractionOperand;
+import org.eclipse.uml2.uml.InteractionFragment;
 import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
-import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
@@ -91,9 +89,11 @@ public class EditingPropertySectionFilter implements IFilter {
 		if( (element instanceof StateMachine) ||
 			(element instanceof Region      ) ||
 			(element instanceof Vertex      ) ||
-			(element instanceof Transition  ) ){
+			(element instanceof Transition  ) )
+		{
 			return( true );
 		}
+		
 		else if( (element instanceof Model   ) ||
 				(element instanceof Class    ) ||
 				(element instanceof Property ) ||
@@ -102,24 +102,36 @@ public class EditingPropertySectionFilter implements IFilter {
 				(element instanceof Signal   ) ||
 				(element instanceof Connector) ||
 				(element instanceof DataType ) ||
-				(element instanceof EnumerationLiteral ) ){
+				(element instanceof Package  ) ||
+				(element instanceof EnumerationLiteral ) )
+		{
 			return( true );
 		}
 		
-		else if( (element instanceof Interaction )
-			|| (element instanceof Lifeline )
-			|| (element instanceof Message )
-			|| (element instanceof MessageOccurrenceSpecification )
-			|| (element instanceof Constraint)
-			|| (element instanceof Gate )
-			|| (element instanceof InteractionOperand)
-			|| (element instanceof CombinedFragment)
-			|| (element instanceof ActionExecutionSpecification)
-			|| (element instanceof BehaviorExecutionSpecification ) ){
+		else if( (element instanceof Activity )
+				|| (element instanceof ActivityNode )
+				|| (element instanceof ActivityEdge ) )
+		{
 			return( true );
 		}
 
-		return false;
+		else if( (element instanceof InteractionFragment)
+//			|| (element instanceof Interaction )
+			|| (element instanceof Lifeline )
+			|| (element instanceof Message )
+//			|| (element instanceof MessageOccurrenceSpecification )
+			|| (element instanceof Constraint)
+			|| (element instanceof Gate )
+//			|| (element instanceof InteractionOperand)
+//			|| (element instanceof CombinedFragment)
+//			|| (element instanceof ActionExecutionSpecification)
+//			|| (element instanceof BehaviorExecutionSpecification )
+			)
+		{
+			return( true );
+		}
+
+		return true;
 	}
 
 	private boolean isModifiable(Element element) {

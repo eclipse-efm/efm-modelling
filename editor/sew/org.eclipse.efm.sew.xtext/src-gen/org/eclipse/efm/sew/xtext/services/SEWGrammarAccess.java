@@ -165,21 +165,20 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
 		private final Keyword cWorkflowKeyword_2_0 = (Keyword)cAlternatives_2.eContents().get(0);
 		private final Keyword cSewKeyword_2_1 = (Keyword)cAlternatives_2.eContents().get(1);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cEDoubleParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
-		private final Group cGroup_4_0 = (Group)cAlternatives_4.eContents().get(0);
-		private final Keyword cCommaKeyword_4_0_0 = (Keyword)cGroup_4_0.eContents().get(0);
-		private final RuleCall cUFIParserRuleCall_4_0_1 = (RuleCall)cGroup_4_0.eContents().get(1);
-		private final RuleCall cEStringParserRuleCall_4_1 = (RuleCall)cAlternatives_4.eContents().get(1);
-		private final Keyword cGreaterThanSignColonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
+		private final Group cGroup_3_0 = (Group)cAlternatives_3.eContents().get(0);
+		private final Keyword cCommaKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
+		private final Keyword cVersionKeyword_3_0_1 = (Keyword)cGroup_3_0.eContents().get(1);
+		private final RuleCall cEDoubleParserRuleCall_3_0_2 = (RuleCall)cGroup_3_0.eContents().get(2);
+		private final RuleCall cUFIParserRuleCall_3_1 = (RuleCall)cAlternatives_3.eContents().get(1);
+		private final RuleCall cEStringParserRuleCall_3_2 = (RuleCall)cAlternatives_3.eContents().get(2);
+		private final Keyword cGreaterThanSignColonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//Prolog:
-		//	('@sew' | '@favm') '<' ('workflow' | 'sew') (',' EDouble)? (',' UFI | EString)? '>:';
+		//	('@sew' | '@favm') '<' ('workflow' | 'sew') (',' 'version:'? EDouble | UFI | EString)? '>:';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//('@sew' | '@favm') '<' ('workflow' | 'sew') (',' EDouble)? (',' UFI | EString)? '>:'
+		//('@sew' | '@favm') '<' ('workflow' | 'sew') (',' 'version:'? EDouble | UFI | EString)? '>:'
 		public Group getGroup() { return cGroup; }
 		
 		//'@sew' | '@favm'
@@ -203,32 +202,29 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//'sew'
 		public Keyword getSewKeyword_2_1() { return cSewKeyword_2_1; }
 		
-		//(',' EDouble)?
-		public Group getGroup_3() { return cGroup_3; }
+		//(',' 'version:'? EDouble | UFI | EString)?
+		public Alternatives getAlternatives_3() { return cAlternatives_3; }
+		
+		//',' 'version:'? EDouble
+		public Group getGroup_3_0() { return cGroup_3_0; }
 		
 		//','
-		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
+		public Keyword getCommaKeyword_3_0_0() { return cCommaKeyword_3_0_0; }
+		
+		//'version:'?
+		public Keyword getVersionKeyword_3_0_1() { return cVersionKeyword_3_0_1; }
 		
 		//EDouble
-		public RuleCall getEDoubleParserRuleCall_3_1() { return cEDoubleParserRuleCall_3_1; }
-		
-		//(',' UFI | EString)?
-		public Alternatives getAlternatives_4() { return cAlternatives_4; }
-		
-		//',' UFI
-		public Group getGroup_4_0() { return cGroup_4_0; }
-		
-		//','
-		public Keyword getCommaKeyword_4_0_0() { return cCommaKeyword_4_0_0; }
+		public RuleCall getEDoubleParserRuleCall_3_0_2() { return cEDoubleParserRuleCall_3_0_2; }
 		
 		//UFI
-		public RuleCall getUFIParserRuleCall_4_0_1() { return cUFIParserRuleCall_4_0_1; }
+		public RuleCall getUFIParserRuleCall_3_1() { return cUFIParserRuleCall_3_1; }
 		
 		//EString
-		public RuleCall getEStringParserRuleCall_4_1() { return cEStringParserRuleCall_4_1; }
+		public RuleCall getEStringParserRuleCall_3_2() { return cEStringParserRuleCall_3_2; }
 		
 		//'>:'
-		public Keyword getGreaterThanSignColonKeyword_5() { return cGreaterThanSignColonKeyword_5; }
+		public Keyword getGreaterThanSignColonKeyword_4() { return cGreaterThanSignColonKeyword_4; }
 	}
 	public class ReservedWordElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.sew.xtext.SEW.ReservedWord");
@@ -2668,7 +2664,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Prolog:
-	//	('@sew' | '@favm') '<' ('workflow' | 'sew') (',' EDouble)? (',' UFI | EString)? '>:';
+	//	('@sew' | '@favm') '<' ('workflow' | 'sew') (',' 'version:'? EDouble | UFI | EString)? '>:';
 	public PrologElements getPrologAccess() {
 		return pProlog;
 	}

@@ -24,8 +24,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.debug.core.Launch;
 import org.eclipse.debug.core.RefreshUtil;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.ui.IDebugUIConstants;
@@ -40,18 +38,18 @@ public class SymbexJobFactory {
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 
-	public static boolean run(IWorkbenchWindow window, String jobName, IFile sewFile)
+	public static boolean run(final IWorkbenchWindow window, final String jobName, final IFile sewFile)
 	{
 		if( sewFile != null ) {
 			try {
-				SymbexJob job = new SymbexJob(window, jobName, sewFile);
+				final SymbexJob job = new SymbexJob(window, jobName, sewFile);
 
 				job.setUser(true);
 				job.schedule();
 
 				return( true );
 			}
-			catch(Exception e) {
+			catch(final Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -60,21 +58,21 @@ public class SymbexJobFactory {
 	}
 
 
-	public static boolean run(ILaunchConfiguration configuration,
-			String mode, ILaunch launch, IProgressMonitor monitor,
-			String[] commandLine, IPath workingDirecory, String[] envp)
+	public static boolean run(final ILaunchConfiguration configuration,
+			final String mode, final ILaunch launch, final IProgressMonitor monitor,
+			final String[] commandLine, final IPath workingDirecory, final String[] envp)
 	{
-		Launch externLaunch = new Launch(configuration, ILaunchManager.RUN_MODE, null);
+//		Launch externLaunch = new Launch(configuration, ILaunchManager.RUN_MODE, null);
 
 		if( commandLine != null ) {
 //			launch(configuration, mode, commandLine,
 //					workingDirecory, envp, launch, monitor);
 
 			try {
-				File workingFile = (workingDirecory != null) ?
+				final File workingFile = (workingDirecory != null) ?
 						workingDirecory.toFile() : WorkflowFileUtils.WORKSPACE_PATH.toFile();
 
-				SymbexJob job = new SymbexJob(configuration,
+				final SymbexJob job = new SymbexJob(configuration,
 						mode, launch, commandLine, workingFile, envp);
 
 				job.setUser(true);
@@ -82,7 +80,7 @@ public class SymbexJobFactory {
 
 				return( true );
 			}
-			catch(Exception e) {
+			catch(final Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -90,9 +88,9 @@ public class SymbexJobFactory {
 		return( false );
 	}
 
-	public static IStatus launch(ILaunchConfiguration configuration, String mode,
-			String[] commandLine, IPath workingDirectory, String[] envp,
-			ILaunch launch, IProgressMonitor monitor) {
+	public static IStatus launch(final ILaunchConfiguration configuration, final String mode,
+			final String[] commandLine, final IPath workingDirectory, final String[] envp,
+			final ILaunch launch, final IProgressMonitor monitor) {
 
 		if (monitor.isCanceled()) {
 			return Status.CANCEL_STATUS;
@@ -108,18 +106,18 @@ public class SymbexJobFactory {
 		}
 
 		try {
-			Process javaProcess =
+			final Process javaProcess =
 					DebugPlugin.exec(commandLine, workingDir, envp);
 
 			IProcess eclipseProcess = null;
 
 			// add process type to process attributes
-			Map<String, String> processAttributes = new HashMap<String, String>();
+			final Map<String, String> processAttributes = new HashMap<String, String>();
 
-			IPath location = new Path( commandLine[0] );
+			final IPath location = new Path( commandLine[0] );
 
 			String programName = location.lastSegment();
-			String extension = location.getFileExtension();
+			final String extension = location.getFileExtension();
 			if (extension != null) {
 				programName = programName.substring(0, programName.length()
 						- (extension.length() + 1));
@@ -153,10 +151,10 @@ public class SymbexJobFactory {
 			if (configuration.getAttribute(
 					IDebugUIConstants.ATTR_LAUNCH_IN_BACKGROUND, true)) {
 				// refresh resources after process finishes
-				String scope = configuration.getAttribute(
+				final String scope = configuration.getAttribute(
 						RefreshUtil.ATTR_REFRESH_SCOPE, (String)null);
 				if (scope != null) {
-					BackgroundResourceRefresher refresher =
+					final BackgroundResourceRefresher refresher =
 							new BackgroundResourceRefresher(
 									configuration, eclipseProcess);
 					refresher.startBackgroundRefresh();
@@ -170,7 +168,7 @@ public class SymbexJobFactory {
 							break;
 						}
 						Thread.sleep(50);
-					} catch (InterruptedException e) {
+					} catch (final InterruptedException e) {
 					}
 				}
 
@@ -179,25 +177,25 @@ public class SymbexJobFactory {
 
 				return Status.OK_STATUS;
 			}
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			e.printStackTrace();
 		}
 
 		return Status.CANCEL_STATUS;
 	}
 
-	private static String generateCommandLine(String[] commandLine) {
+	private static String generateCommandLine(final String[] commandLine) {
 		if (commandLine.length < 1) {
 			return EMPTY_STRING;
 		}
-		StringBuffer buf = new StringBuffer();
+		final StringBuilder buf = new StringBuilder();
 		for (int i = 0; i < commandLine.length; i++) {
 			buf.append(' ');
-			char[] characters = commandLine[i].toCharArray();
-			StringBuffer command = new StringBuffer();
+			final char[] characters = commandLine[i].toCharArray();
+			final StringBuilder command = new StringBuilder();
 			boolean containsSpace = false;
 			for (int j = 0; j < characters.length; j++) {
-				char character = characters[j];
+				final char character = characters[j];
 				if (character == '\"') {
 					command.append('\\');
 				} else if (character == ' ') {
@@ -218,7 +216,7 @@ public class SymbexJobFactory {
 
 
 
-	public static boolean run(IWorkbenchWindow window, IFile sewFile) {
+	public static boolean run(final IWorkbenchWindow window, final IFile sewFile) {
 		return run(window, "Symbolic Execution Workflow job", sewFile);
 	}
 }

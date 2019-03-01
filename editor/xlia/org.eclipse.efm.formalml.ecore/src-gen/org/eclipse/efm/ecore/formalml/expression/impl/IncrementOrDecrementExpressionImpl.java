@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class IncrementOrDecrementExpressionImpl extends ExpressionImpl implements IncrementOrDecrementExpression {
+public abstract class IncrementOrDecrementExpressionImpl extends ExpressionImpl implements IncrementOrDecrementExpression {
 	/**
 	 * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -93,6 +93,7 @@ public class IncrementOrDecrementExpressionImpl extends ExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getOperator() {
 		return operator;
 	}
@@ -102,6 +103,7 @@ public class IncrementOrDecrementExpressionImpl extends ExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperator(String newOperator) {
 		String oldOperator = operator;
 		operator = newOperator;
@@ -114,6 +116,7 @@ public class IncrementOrDecrementExpressionImpl extends ExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LeftHandSideExpression getLeftHandSide() {
 		return leftHandSide;
 	}
@@ -138,6 +141,7 @@ public class IncrementOrDecrementExpressionImpl extends ExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLeftHandSide(LeftHandSideExpression newLeftHandSide) {
 		if (newLeftHandSide != leftHandSide) {
 			NotificationChain msgs = null;
@@ -243,7 +247,7 @@ public class IncrementOrDecrementExpressionImpl extends ExpressionImpl implement
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (operator: ");
 		result.append(operator);
 		result.append(')');

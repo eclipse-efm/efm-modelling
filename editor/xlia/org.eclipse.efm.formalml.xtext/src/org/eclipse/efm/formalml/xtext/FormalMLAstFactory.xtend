@@ -33,7 +33,7 @@ class FormalMLAstFactory  extends DefaultEcoreElementFactory {
 //	private IQualifiedNameProvider nameProvider;
 
 	
-	override public void add(EObject object,
+	override void add(EObject object,
 		String feature, Object value, String ruleName, INode node)
 				throws ValueConverterException {
 

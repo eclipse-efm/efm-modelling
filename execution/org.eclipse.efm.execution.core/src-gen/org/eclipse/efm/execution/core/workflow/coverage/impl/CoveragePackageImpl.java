@@ -133,7 +133,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link CoveragePackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -147,16 +147,22 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 		if (isInited) return (CoveragePackage)EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI);
 
 		// Obtain or create and register package
-		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof CoveragePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new CoveragePackageImpl());
+		Object registeredCoveragePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		CoveragePackageImpl theCoveragePackage = registeredCoveragePackage instanceof CoveragePackageImpl ? (CoveragePackageImpl)registeredCoveragePackage : new CoveragePackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) instanceof WorkflowPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) : WorkflowPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) instanceof ExtraneousPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) : ExtraneousPackage.eINSTANCE);
-		TestPackageImpl theTestPackage = (TestPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) instanceof TestPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) : TestPackage.eINSTANCE);
-		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) instanceof SerializerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) : SerializerPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI);
+		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(registeredPackage instanceof WorkflowPackageImpl ? registeredPackage : WorkflowPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI);
+		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(registeredPackage instanceof ExtraneousPackageImpl ? registeredPackage : ExtraneousPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI);
+		TestPackageImpl theTestPackage = (TestPackageImpl)(registeredPackage instanceof TestPackageImpl ? registeredPackage : TestPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI);
+		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(registeredPackage instanceof SerializerPackageImpl ? registeredPackage : SerializerPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theCoveragePackage.createPackageContents();
@@ -177,7 +183,6 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 		// Mark meta-data to indicate it can't be changed
 		theCoveragePackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(CoveragePackage.eNS_URI, theCoveragePackage);
 		return theCoveragePackage;
@@ -188,6 +193,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTransitionCoverageWorker() {
 		return transitionCoverageWorkerEClass;
 	}
@@ -197,6 +203,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInputOutputCoverageWorker() {
 		return inputOutputCoverageWorkerEClass;
 	}
@@ -206,6 +213,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConditionCoverageWorker() {
 		return conditionCoverageWorkerEClass;
 	}
@@ -215,6 +223,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDecisionCoverageWorker() {
 		return decisionCoverageWorkerEClass;
 	}
@@ -224,6 +233,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConditionDecisionCoverageWorker() {
 		return conditionDecisionCoverageWorkerEClass;
 	}
@@ -233,6 +243,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getModifiedConditionDecisionCoverageWorker() {
 		return modifiedConditionDecisionCoverageWorkerEClass;
 	}
@@ -242,6 +253,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBehaviorCoverageWorker() {
 		return behaviorCoverageWorkerEClass;
 	}
@@ -251,6 +263,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_CheckingScope() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(0);
 	}
@@ -260,6 +273,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_OrderedTrace() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(1);
 	}
@@ -269,6 +283,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_HitConsecutive() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(2);
 	}
@@ -278,6 +293,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_HitFolding() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(3);
 	}
@@ -287,6 +303,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_HitLucky() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(4);
 	}
@@ -296,6 +313,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_HitMax() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(5);
 	}
@@ -305,6 +323,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_HitFinal() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(6);
 	}
@@ -314,6 +333,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_JumpHeight() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(7);
 	}
@@ -323,6 +343,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_JumpTrialsLimit() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(8);
 	}
@@ -332,6 +353,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_HitCount() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(9);
 	}
@@ -341,6 +363,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_JumpCount() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(10);
 	}
@@ -350,6 +373,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBehaviorCoverageWorker_JumpSlice() {
 		return (EAttribute)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(11);
 	}
@@ -359,6 +383,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehaviorCoverageWorker_Behavior() {
 		return (EReference)behaviorCoverageWorkerEClass.getEStructuralFeatures().get(12);
 	}
@@ -368,6 +393,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CoverageFactory getCoverageFactory() {
 		return (CoverageFactory)getEFactoryInstance();
 	}
@@ -474,17 +500,17 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 
 		initEClass(behaviorCoverageWorkerEClass, BehaviorCoverageWorker.class, "BehaviorCoverageWorker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBehaviorCoverageWorker_CheckingScope(), theCommonPackage.getCheckingScopeKind(), "checkingScope", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_OrderedTrace(), ecorePackage.getEBoolean(), "orderedTrace", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_HitConsecutive(), ecorePackage.getEBoolean(), "hitConsecutive", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_HitFolding(), ecorePackage.getEBoolean(), "hitFolding", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_HitLucky(), ecorePackage.getEBoolean(), "hitLucky", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_HitMax(), ecorePackage.getEBoolean(), "hitMax", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_HitFinal(), ecorePackage.getEBoolean(), "hitFinal", "true", 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_JumpHeight(), ecorePackage.getEInt(), "jumpHeight", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_JumpTrialsLimit(), ecorePackage.getEInt(), "jumpTrialsLimit", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_HitCount(), ecorePackage.getEInt(), "hitCount", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_JumpCount(), ecorePackage.getEInt(), "jumpCount", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehaviorCoverageWorker_JumpSlice(), ecorePackage.getEBoolean(), "jumpSlice", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_OrderedTrace(), ecorePackage.getEBoolean(), "orderedTrace", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_HitConsecutive(), ecorePackage.getEBoolean(), "hitConsecutive", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_HitFolding(), ecorePackage.getEBoolean(), "hitFolding", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_HitLucky(), ecorePackage.getEBoolean(), "hitLucky", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_HitMax(), ecorePackage.getEBoolean(), "hitMax", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_HitFinal(), ecorePackage.getEBoolean(), "hitFinal", "true", 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_JumpHeight(), ecorePackage.getEInt(), "jumpHeight", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_JumpTrialsLimit(), ecorePackage.getEInt(), "jumpTrialsLimit", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_HitCount(), ecorePackage.getEInt(), "hitCount", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_JumpCount(), ecorePackage.getEInt(), "jumpCount", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviorCoverageWorker_JumpSlice(), ecorePackage.getEBoolean(), "jumpSlice", null, 1, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorCoverageWorker_Behavior(), theCommonPackage.getTraceSpecification(), null, "behavior", null, 0, 1, BehaviorCoverageWorker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 

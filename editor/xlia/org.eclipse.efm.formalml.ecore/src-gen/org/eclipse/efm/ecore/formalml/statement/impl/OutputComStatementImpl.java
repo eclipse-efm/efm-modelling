@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -37,21 +37,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.ecore.formalml.statement.impl.OutputComStatementImpl#getRigthValue <em>Rigth Value</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.statement.impl.OutputComStatementImpl#getRightValue <em>Right Value</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class OutputComStatementImpl extends AbstractComStatementImpl implements OutputComStatement {
 	/**
-	 * The cached value of the '{@link #getRigthValue() <em>Rigth Value</em>}' containment reference list.
+	 * The cached value of the '{@link #getRightValue() <em>Right Value</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRigthValue()
+	 * @see #getRightValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Expression> rigthValue;
+	protected EList<Expression> rightValue;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -77,11 +77,12 @@ public class OutputComStatementImpl extends AbstractComStatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Expression> getRigthValue() {
-		if (rigthValue == null) {
-			rigthValue = new EObjectContainmentEList<Expression>(Expression.class, this, StatementPackage.OUTPUT_COM_STATEMENT__RIGTH_VALUE);
+	@Override
+	public EList<Expression> getRightValue() {
+		if (rightValue == null) {
+			rightValue = new EObjectContainmentEList<Expression>(Expression.class, this, StatementPackage.OUTPUT_COM_STATEMENT__RIGHT_VALUE);
 		}
-		return rigthValue;
+		return rightValue;
 	}
 
 	/**
@@ -92,8 +93,8 @@ public class OutputComStatementImpl extends AbstractComStatementImpl implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case StatementPackage.OUTPUT_COM_STATEMENT__RIGTH_VALUE:
-				return ((InternalEList<?>)getRigthValue()).basicRemove(otherEnd, msgs);
+			case StatementPackage.OUTPUT_COM_STATEMENT__RIGHT_VALUE:
+				return ((InternalEList<?>)getRightValue()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -106,8 +107,8 @@ public class OutputComStatementImpl extends AbstractComStatementImpl implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case StatementPackage.OUTPUT_COM_STATEMENT__RIGTH_VALUE:
-				return getRigthValue();
+			case StatementPackage.OUTPUT_COM_STATEMENT__RIGHT_VALUE:
+				return getRightValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -121,9 +122,9 @@ public class OutputComStatementImpl extends AbstractComStatementImpl implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case StatementPackage.OUTPUT_COM_STATEMENT__RIGTH_VALUE:
-				getRigthValue().clear();
-				getRigthValue().addAll((Collection<? extends Expression>)newValue);
+			case StatementPackage.OUTPUT_COM_STATEMENT__RIGHT_VALUE:
+				getRightValue().clear();
+				getRightValue().addAll((Collection<? extends Expression>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -137,8 +138,8 @@ public class OutputComStatementImpl extends AbstractComStatementImpl implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case StatementPackage.OUTPUT_COM_STATEMENT__RIGTH_VALUE:
-				getRigthValue().clear();
+			case StatementPackage.OUTPUT_COM_STATEMENT__RIGHT_VALUE:
+				getRightValue().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -152,8 +153,8 @@ public class OutputComStatementImpl extends AbstractComStatementImpl implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case StatementPackage.OUTPUT_COM_STATEMENT__RIGTH_VALUE:
-				return rigthValue != null && !rigthValue.isEmpty();
+			case StatementPackage.OUTPUT_COM_STATEMENT__RIGHT_VALUE:
+				return rightValue != null && !rightValue.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

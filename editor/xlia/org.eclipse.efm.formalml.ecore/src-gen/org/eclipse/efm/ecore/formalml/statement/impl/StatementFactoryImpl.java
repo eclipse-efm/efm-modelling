@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -84,6 +84,8 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 			case StatementPackage.INTERRUPT_STATEMENT: return createInterruptStatement();
 			case StatementPackage.ACTIVITY_STATEMENT: return createActivityStatement();
 			case StatementPackage.INVOKE_STATEMENT: return createInvokeStatement();
+			case StatementPackage.OBSERVER_STATEMENT: return createObserverStatement();
+			case StatementPackage.META_STATEMENT: return createMetaStatement();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -103,6 +105,8 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 				return createActivityStatementKindFromString(eDataType, initialValue);
 			case StatementPackage.ASSIGNMENT_STATEMENTKIND:
 				return createAssignmentStatementkindFromString(eDataType, initialValue);
+			case StatementPackage.META_STATEMENT_KIND:
+				return createMetaStatementKindFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -122,6 +126,8 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 				return convertActivityStatementKindToString(eDataType, instanceValue);
 			case StatementPackage.ASSIGNMENT_STATEMENTKIND:
 				return convertAssignmentStatementkindToString(eDataType, instanceValue);
+			case StatementPackage.META_STATEMENT_KIND:
+				return convertMetaStatementKindToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -132,6 +138,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BlockStatement createBlockStatement() {
 		BlockStatementImpl blockStatement = new BlockStatementImpl();
 		return blockStatement;
@@ -142,6 +149,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExpressionStatement createExpressionStatement() {
 		ExpressionStatementImpl expressionStatement = new ExpressionStatementImpl();
 		return expressionStatement;
@@ -152,6 +160,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GuardStatement createGuardStatement() {
 		GuardStatementImpl guardStatement = new GuardStatementImpl();
 		return guardStatement;
@@ -162,6 +171,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TimedGuardStatement createTimedGuardStatement() {
 		TimedGuardStatementImpl timedGuardStatement = new TimedGuardStatementImpl();
 		return timedGuardStatement;
@@ -172,6 +182,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EventGuardStatement createEventGuardStatement() {
 		EventGuardStatementImpl eventGuardStatement = new EventGuardStatementImpl();
 		return eventGuardStatement;
@@ -182,6 +193,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CheckSatGuardStatement createCheckSatGuardStatement() {
 		CheckSatGuardStatementImpl checkSatGuardStatement = new CheckSatGuardStatementImpl();
 		return checkSatGuardStatement;
@@ -192,6 +204,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InputComStatement createInputComStatement() {
 		InputComStatementImpl inputComStatement = new InputComStatementImpl();
 		return inputComStatement;
@@ -202,6 +215,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OutputComStatement createOutputComStatement() {
 		OutputComStatementImpl outputComStatement = new OutputComStatementImpl();
 		return outputComStatement;
@@ -212,6 +226,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConditionalBlockStatement createConditionalBlockStatement() {
 		ConditionalBlockStatementImpl conditionalBlockStatement = new ConditionalBlockStatementImpl();
 		return conditionalBlockStatement;
@@ -222,6 +237,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IfStatement createIfStatement() {
 		IfStatementImpl ifStatement = new IfStatementImpl();
 		return ifStatement;
@@ -232,6 +248,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WhileDoStatement createWhileDoStatement() {
 		WhileDoStatementImpl whileDoStatement = new WhileDoStatementImpl();
 		return whileDoStatement;
@@ -242,6 +259,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DoWhileStatement createDoWhileStatement() {
 		DoWhileStatementImpl doWhileStatement = new DoWhileStatementImpl();
 		return doWhileStatement;
@@ -252,6 +270,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ForStatement createForStatement() {
 		ForStatementImpl forStatement = new ForStatementImpl();
 		return forStatement;
@@ -262,6 +281,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ForEachStatement createForEachStatement() {
 		ForEachStatementImpl forEachStatement = new ForEachStatementImpl();
 		return forEachStatement;
@@ -272,6 +292,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InterruptStatement createInterruptStatement() {
 		InterruptStatementImpl interruptStatement = new InterruptStatementImpl();
 		return interruptStatement;
@@ -282,6 +303,7 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivityStatement createActivityStatement() {
 		ActivityStatementImpl activityStatement = new ActivityStatementImpl();
 		return activityStatement;
@@ -292,9 +314,32 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InvokeStatement createInvokeStatement() {
 		InvokeStatementImpl invokeStatement = new InvokeStatementImpl();
 		return invokeStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ObserverStatement createObserverStatement() {
+		ObserverStatementImpl observerStatement = new ObserverStatementImpl();
+		return observerStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public MetaStatement createMetaStatement() {
+		MetaStatementImpl metaStatement = new MetaStatementImpl();
+		return metaStatement;
 	}
 
 	/**
@@ -362,6 +407,27 @@ public class StatementFactoryImpl extends EFactoryImpl implements StatementFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MetaStatementKind createMetaStatementKindFromString(EDataType eDataType, String initialValue) {
+		MetaStatementKind result = MetaStatementKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMetaStatementKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public StatementPackage getStatementPackage() {
 		return (StatementPackage)getEPackage();
 	}

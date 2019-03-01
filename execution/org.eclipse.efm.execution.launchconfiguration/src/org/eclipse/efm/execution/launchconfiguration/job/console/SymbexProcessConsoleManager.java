@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2018 CEA LIST.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
+ *  - Initial API and Implementation
+ *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.job.console;
 
 import java.util.ArrayList;
@@ -5,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchListener;
@@ -34,6 +47,11 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
      */
     private IConsoleColorProvider fDefaultColorProvider;
 
+    /**
+	 * Map of Console
+     */
+	public Map<IPath, SymbexSpiderConsole> fTableOfConsole;
+
 
 	public SymbexProcessConsoleManager() {
 		//!! NOTHING
@@ -44,18 +62,18 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 	}
 
 
-	private boolean isSymbexProcessType(IProcess process) {
+	private boolean isSymbexProcessType(final IProcess process) {
 		return (process != null) && PROCESS_TYPE.equals(
 				process.getAttribute(IProcess.ATTR_PROCESS_TYPE));
 	}
 
 	@Override
-	public void launchRemoved(ILaunch launch) {
+	public void launchRemoved(final ILaunch launch) {
 		removeLaunch(launch);
 	}
 
-	protected void removeLaunch(ILaunch launch) {
-		for( IProcess iProcess : launch.getProcesses() ) {
+	protected void removeLaunch(final ILaunch launch) {
+		for( final IProcess iProcess : launch.getProcesses() ) {
 			removeProcess(iProcess);
 		}
 		if (fProcesses != null) {
@@ -68,11 +86,11 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 	 *
 	 * @param iProcess process to clean up
 	 */
-	private void removeProcess(IProcess iProcess) {
-		IConsole console = getConsole(iProcess);
+	private void removeProcess(final IProcess iProcess) {
+		final IConsole console = getConsole(iProcess);
 
 		if (console != null) {
-			IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
+			final IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
 			manager.removeConsoles(new IConsole[]{console});
 		}
 	}
@@ -83,13 +101,13 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 	 * @param process
 	 * @return the console for the given process, or <code>null</code> if none
 	 */
-	public IConsole getConsole(IProcess process) {
-		IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
-		for( IConsole console : manager.getConsoles() ) {
+	public IConsole getConsole(final IProcess process) {
+		final IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
+		for( final IConsole console : manager.getConsoles() ) {
 			if (console instanceof SymbexSpiderConsole) {
-				SymbexSpiderConsole pc = (SymbexSpiderConsole)console;
-				if (pc.getProcess().equals(process)) {
-					return pc;
+				final SymbexSpiderConsole spiderConsole = (SymbexSpiderConsole)console;
+				if (spiderConsole.getProcess().equals(process)) {
+					return spiderConsole;
 				}
 			}
 		}
@@ -98,13 +116,13 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 
 
 	@Override
-	public void launchAdded(ILaunch launch) {
+	public void launchAdded(final ILaunch launch) {
 		launchChanged(launch);
 	}
 
 	@Override
-	public void launchChanged(ILaunch launch) {
-		for( IProcess process : launch.getProcesses() ) {
+	public void launchChanged(final ILaunch launch) {
+		for( final IProcess process : launch.getProcesses() ) {
 			if( isSymbexProcessType(process) ) {
 				continue;
 			}
@@ -114,22 +132,27 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 				}
 
 				//create a new console.
-				IConsoleColorProvider colorProvider = getColorProvider(
+				final IConsoleColorProvider colorProvider = getColorProvider(
 						process.getAttribute(IProcess.ATTR_PROCESS_TYPE));
-				String encoding = launch.getAttribute(DebugPlugin.ATTR_CONSOLE_ENCODING);
+				final String encoding =
+						launch.getAttribute(DebugPlugin.ATTR_CONSOLE_ENCODING);
 
-				SymbexSpiderConsole pc =
+				final SymbexSpiderConsole spiderConsole =
 						new SymbexSpiderConsole(process, colorProvider, encoding);
 
-				pc.setAttribute(IDebugUIConstants.ATTR_CONSOLE_PROCESS, process);
+				spiderConsole.setAttribute(
+						IDebugUIConstants.ATTR_CONSOLE_PROCESS, process);
 
 				//add new console to console manager.
-				ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[]{pc});
+				final IConsoleManager consoleManager =
+						ConsolePlugin.getDefault().getConsoleManager();
+
+				consoleManager.addConsoles(new IConsole[]{ spiderConsole });
 			}
 		}
-		List<IProcess> removed = getRemovedProcesses(launch);
+		final List<IProcess> removed = getRemovedProcesses(launch);
 		if (removed != null) {
-			for (IProcess p : removed) {
+			for (final IProcess p : removed) {
 				removeProcess(p);
 			}
 		}
@@ -139,8 +162,8 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 	 * Returns the document for the process, or <code>null</code>
 	 * if none.
 	 */
-	public IDocument getConsoleDocument(IProcess process) {
-		SymbexSpiderConsole console = (SymbexSpiderConsole) getConsole(process);
+	public IDocument getConsoleDocument(final IProcess process) {
+		final SymbexSpiderConsole console = (SymbexSpiderConsole) getConsole(process);
 		return (console != null ? console.getDocument() : null);
 	}
 
@@ -151,12 +174,12 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 	 * already exist.
 	 */
 	public void startup() {
-		ILaunchManager launchManager =
+		final ILaunchManager launchManager =
 				DebugPlugin.getDefault().getLaunchManager();
 		launchManager.addLaunchListener(this);
 
 		//set up the docs for launches already registered
-		for( ILaunch launch : launchManager.getLaunches() ) {
+		for( final ILaunch launch : launchManager.getLaunches() ) {
 			launchAdded(launch);
 		}
 	}
@@ -167,14 +190,19 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 	 * launch listener and kills all existing console documents.
 	 */
 	public void shutdown() {
-		ILaunchManager launchManager =
+		final ILaunchManager launchManager =
 				DebugPlugin.getDefault().getLaunchManager();
-		for( ILaunch launch : launchManager.getLaunches() ) {
+		for( final ILaunch launch : launchManager.getLaunches() ) {
 			removeLaunch(launch);
 		}
 		launchManager.removeLaunchListener(this);
+
 		if (fProcesses != null) {
 			fProcesses.clear();
+		}
+
+		if (fTableOfConsole != null) {
+			fTableOfConsole.clear();
 		}
 	}
 
@@ -185,7 +213,7 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 	 * @param type corresponds to <code>IProcess.ATTR_PROCESS_TYPE</code>
 	 * @return IConsoleColorProvider
 	 */
-	public IConsoleColorProvider getColorProvider(String type) {
+	public IConsoleColorProvider getColorProvider(final String type) {
 		//no color provider found of specified type, return default color provider.
 		if (fDefaultColorProvider == null) {
 			fDefaultColorProvider = new ConsoleColorProvider();
@@ -200,15 +228,15 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 	 * @param launch launch that has changed
 	 * @return removed processes or <code>null</code>
 	 */
-	private List<IProcess> getRemovedProcesses(ILaunch launch) {
+	private List<IProcess> getRemovedProcesses(final ILaunch launch) {
 		List<IProcess> removed = null;
 		if (fProcesses == null) {
 			fProcesses = new HashMap<ILaunch, IProcess[]>();
 		}
-		IProcess[] old = fProcesses.get(launch);
-		IProcess[] curr = launch.getProcesses();
+		final IProcess[] old = fProcesses.get(launch);
+		final IProcess[] curr = launch.getProcesses();
 		if (old != null) {
-			for( IProcess process : old ) {
+			for( final IProcess process : old ) {
 				if (!contains(curr, process)) {
 					if (removed == null) {
 						removed = new ArrayList<IProcess>();
@@ -219,6 +247,7 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 		}
 		// update cache with current processes
 		fProcesses.put(launch, curr);
+
 		return removed;
 	}
 
@@ -229,8 +258,8 @@ public class SymbexProcessConsoleManager implements ILaunchListener {
 	 * @param object object to search for
 	 * @return whether the given object is contained in the list
 	 */
-	private boolean contains(Object[] list, Object object) {
-		for( Object object2 : list ) {
+	private boolean contains(final Object[] list, final Object object) {
+		for( final Object object2 : list ) {
 			if (object2.equals(object)) {
 				return true;
 			}

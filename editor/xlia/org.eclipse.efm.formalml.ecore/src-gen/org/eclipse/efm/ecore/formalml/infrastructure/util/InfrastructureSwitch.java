@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,33 +18,7 @@ import org.eclipse.efm.ecore.formalml.common.NamedElement;
 import org.eclipse.efm.ecore.formalml.common.Type;
 import org.eclipse.efm.ecore.formalml.common.TypedElement;
 
-import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
-import org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart;
-import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
-import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
-import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
-import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
-import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
-import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
-import org.eclipse.efm.ecore.formalml.infrastructure.Function;
-import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
-import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
-import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfComputation;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfInteraction;
-import org.eclipse.efm.ecore.formalml.infrastructure.Modifier;
-import org.eclipse.efm.ecore.formalml.infrastructure.Parameter;
-import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
-import org.eclipse.efm.ecore.formalml.infrastructure.Port;
-import org.eclipse.efm.ecore.formalml.infrastructure.Procedure;
-import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition;
-import org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart;
-import org.eclipse.efm.ecore.formalml.infrastructure.Route;
-import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
-import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
-import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty;
-import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
+import org.eclipse.efm.ecore.formalml.infrastructure.*;
 
 import org.eclipse.efm.ecore.formalml.statemachine.Statemachine;
 
@@ -138,14 +112,14 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case InfrastructurePackage.SYSTEM: {
-				org.eclipse.efm.ecore.formalml.infrastructure.System system = (org.eclipse.efm.ecore.formalml.infrastructure.System)theEObject;
-				T result = caseSystem(system);
-				if (result == null) result = caseMachine(system);
-				if (result == null) result = caseClassifierDefinition(system);
-				if (result == null) result = caseType(system);
-				if (result == null) result = caseNamedElement(system);
-				if (result == null) result = caseAbstractElement(system);
+			case InfrastructurePackage.XLIA_SYSTEM: {
+				XliaSystem xliaSystem = (XliaSystem)theEObject;
+				T result = caseXliaSystem(xliaSystem);
+				if (result == null) result = caseMachine(xliaSystem);
+				if (result == null) result = caseClassifierDefinition(xliaSystem);
+				if (result == null) result = caseType(xliaSystem);
+				if (result == null) result = caseNamedElement(xliaSystem);
+				if (result == null) result = caseAbstractElement(xliaSystem);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -329,6 +303,13 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case InfrastructurePackage.CONNECTOR_END: {
+				ConnectorEnd connectorEnd = (ConnectorEnd)theEObject;
+				T result = caseConnectorEnd(connectorEnd);
+				if (result == null) result = caseAbstractElement(connectorEnd);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case InfrastructurePackage.COM_POINT: {
 				ComPoint comPoint = (ComPoint)theEObject;
 				T result = caseComPoint(comPoint);
@@ -401,17 +382,17 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>System</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Xlia System</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>System</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Xlia System</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSystem(org.eclipse.efm.ecore.formalml.infrastructure.System object) {
+	public T caseXliaSystem(XliaSystem object) {
 		return null;
 	}
 
@@ -727,6 +708,21 @@ public class InfrastructureSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConnector(Connector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Connector End</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connector End</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConnectorEnd(ConnectorEnd object) {
 		return null;
 	}
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -112,6 +112,7 @@ public class FormalmlFactoryImpl extends EFactoryImpl implements FormalmlFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public XliaModel createXliaModel() {
 		XliaModelImpl xliaModel = new XliaModelImpl();
 		return xliaModel;
@@ -122,6 +123,7 @@ public class FormalmlFactoryImpl extends EFactoryImpl implements FormalmlFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public XliaNamedElement createXliaNamedElement() {
 		XliaNamedElementImpl xliaNamedElement = new XliaNamedElementImpl();
 		return xliaNamedElement;
@@ -132,6 +134,7 @@ public class FormalmlFactoryImpl extends EFactoryImpl implements FormalmlFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public XliaObject createXliaObject() {
 		XliaObjectImpl xliaObject = new XliaObjectImpl();
 		return xliaObject;
@@ -142,6 +145,7 @@ public class FormalmlFactoryImpl extends EFactoryImpl implements FormalmlFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public XliaSection createXliaSection() {
 		XliaSectionImpl xliaSection = new XliaSectionImpl();
 		return xliaSection;
@@ -152,6 +156,7 @@ public class FormalmlFactoryImpl extends EFactoryImpl implements FormalmlFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public XliaAttribute createXliaAttribute() {
 		XliaAttributeImpl xliaAttribute = new XliaAttributeImpl();
 		return xliaAttribute;
@@ -182,6 +187,7 @@ public class FormalmlFactoryImpl extends EFactoryImpl implements FormalmlFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FormalmlPackage getFormalmlPackage() {
 		return (FormalmlPackage)getEPackage();
 	}

@@ -34,10 +34,11 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		implements IWorkflowConfigurationConstants {
 
 	private static final String WORKFLOW_HEADER =
+//			"@sew< workflow , version: 1.0 >:";
 			"@sew< workflow , 1.0 >:";
 
 	private static final String WORKFLOW_FOOTER =
-			"//EOF of @sew< workflow , 1.0 >:";
+			"//EOF of @sew< workflow , version: 1.0 >:";
 
 	private static final String WORKFLOW_COMMENT =
 			"Symbolic Execution Workflow\n" +
@@ -49,13 +50,13 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		super();
 	}
 
-	protected WorkflowCustomImpl(String name) {
+	protected WorkflowCustomImpl(final String name) {
 		super();
 
 		setName(name);
 	}
 
-	protected WorkflowCustomImpl(String name, String description) {
+	protected WorkflowCustomImpl(final String name, final String description) {
 		super();
 
 		setName(name);
@@ -64,17 +65,17 @@ public class WorkflowCustomImpl extends WorkflowImpl
 
 
 	public static WorkflowCustomImpl create(
-			ILaunchConfiguration configuration,
-			IPath projectRootPath, IPath relativeLaunchPath) {
+			final ILaunchConfiguration configuration,
+			final IPath projectRootPath, final IPath relativeLaunchPath) {
 
-		WorkflowCustomImpl workflow = new WorkflowCustomImpl();
+		final WorkflowCustomImpl workflow = new WorkflowCustomImpl();
 
 		workflow.setComment(WORKFLOW_COMMENT);
 
 //		workflow.setManifest( ManifestCustomImpl.create(true) );
 
 
-		WorkspaceCustomImpl workspace = WorkspaceCustomImpl.create(
+		final WorkspaceCustomImpl workspace = WorkspaceCustomImpl.create(
 				configuration, projectRootPath, relativeLaunchPath);
 
 		workflow.setWorkspace(workspace);
@@ -83,7 +84,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		try {
 			enabledExtension = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_EXTENSION, false);
-		} catch( CoreException e ) {
+		} catch( final CoreException e ) {
 			e.printStackTrace();
 
 			enabledExtension = false;
@@ -103,7 +104,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 
 	        modelAnalysisProfile = AnalysisProfileKind.get(strModelAnalysisProfile);
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 			modelAnalysisProfile = AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		}
@@ -150,7 +151,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		}
 
 
-		SymbexOption symbexOption = CommonFactory.eINSTANCE.createSymbexOption();
+		final SymbexOption symbexOption = CommonFactory.eINSTANCE.createSymbexOption();
 		workflow.setSymbexOption( symbexOption );
 
 
@@ -161,25 +162,25 @@ public class WorkflowCustomImpl extends WorkflowImpl
 							ATTR_CONSOLE_LOG_VERBOSE_LEVEL,
 							ConsoleVerbosityKind.MINIMUM.getLiteral()));
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			e.printStackTrace();
 		}
 		if( verbosity == null ) {
 			verbosity = ConsoleVerbosityKind.MINIMUM;
 		}
 
-		ConsoleLogFormatCustomImpl console =
+		final ConsoleLogFormatCustomImpl console =
 				ConsoleLogFormatCustomImpl.create(verbosity);
 
 		workflow.setConsole( console );
 
 
-		ShellModeCustomImpl shellMode =
+		final ShellModeCustomImpl shellMode =
 				ShellModeCustomImpl.create( configuration );
 		workflow.setShellMode( shellMode );
 
 
-		DeveloperTuningOptionCustomImpl devTuning =
+		final DeveloperTuningOptionCustomImpl devTuning =
 				DeveloperTuningOptionCustomImpl.createWorkflow(configuration);
 
 		workflow.setDeveloperTuning( devTuning );
@@ -189,22 +190,23 @@ public class WorkflowCustomImpl extends WorkflowImpl
 	}
 
 
-	public void toWriter(IPath filePath) {
+	public void toWriter(final IPath filePath) {
 		try {
-			FileWriter buffer = new FileWriter( filePath.toOSString() );
+			final FileWriter buffer = new FileWriter( filePath.toOSString() );
 
-			PrettyPrintWriter writer = new PrettyPrintWriter(buffer);
+			final PrettyPrintWriter writer = new PrettyPrintWriter(buffer);
 
 			toWriter( writer );
 
 			writer.close();
 		}
-		catch (IOException e) {
+		catch (final IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void toWriter(PrettyPrintWriter writer) {
+
+	public void toWriter(final PrettyPrintWriter writer) {
 		writer.appendEol2( WORKFLOW_HEADER );
 
 		writer.commentLine( getComment() );
@@ -222,9 +224,9 @@ public class WorkflowCustomImpl extends WorkflowImpl
 
 		writer.appendEol( " {" );
 
-		PrettyPrintWriter writer2 = writer.itab2();
+		final PrettyPrintWriter writer2 = writer.itab2();
 
-		ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
+		final ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
 		if( manifest != null ) {
 			manifest.toWriter(writer2);
 		}
@@ -232,7 +234,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		((WorkspaceCustomImpl) getWorkspace()).toWriter( writer2 );
 
 		if( ! getDirector().isEmpty() ) {
-			for( Director director : getDirector() ) {
+			for( final Director director : getDirector() ) {
 				((DirectorCustomImpl) director).toWriter( writer2 );
 			}
 
@@ -241,7 +243,7 @@ public class WorkflowCustomImpl extends WorkflowImpl
 //				.appendEol( (str != null) ? str : "'director'" );
 		}
 
-		SymbexOption symbexMode = getSymbexOption();
+		final SymbexOption symbexMode = getSymbexOption();
 		if( symbexMode != null ) {
 			writer.appendTab2Eol( "symbex 'option' [" );
 
@@ -265,18 +267,18 @@ public class WorkflowCustomImpl extends WorkflowImpl
 			writer.appendTab2Eol( "] // end symbex" );
 		}
 
-		ConsoleLogFormatCustomImpl console =
+		final ConsoleLogFormatCustomImpl console =
 				(ConsoleLogFormatCustomImpl) getConsole();
 		if( console != null ) {
 			console.toWriter( writer2 );
 		}
 
-		ShellModeCustomImpl shellMode = (ShellModeCustomImpl) getShellMode();
+		final ShellModeCustomImpl shellMode = (ShellModeCustomImpl) getShellMode();
 		if( shellMode != null ) {
 			shellMode.toWriter( writer2 );
 		}
 
-		DeveloperTuningOptionCustomImpl devTuning =
+		final DeveloperTuningOptionCustomImpl devTuning =
 				(DeveloperTuningOptionCustomImpl) getDeveloperTuning();
 		if( devTuning != null ) {
 			devTuning.toWriter( writer2 );

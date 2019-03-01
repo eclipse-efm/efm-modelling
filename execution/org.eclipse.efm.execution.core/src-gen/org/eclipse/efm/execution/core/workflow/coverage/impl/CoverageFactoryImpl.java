@@ -83,6 +83,7 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransitionCoverageWorker createTransitionCoverageWorker() {
 		TransitionCoverageWorkerImpl transitionCoverageWorker = new TransitionCoverageWorkerImpl();
 		return transitionCoverageWorker;
@@ -93,6 +94,7 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InputOutputCoverageWorker createInputOutputCoverageWorker() {
 		InputOutputCoverageWorkerImpl inputOutputCoverageWorker = new InputOutputCoverageWorkerImpl();
 		return inputOutputCoverageWorker;
@@ -103,6 +105,7 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConditionCoverageWorker createConditionCoverageWorker() {
 		ConditionCoverageWorkerImpl conditionCoverageWorker = new ConditionCoverageWorkerImpl();
 		return conditionCoverageWorker;
@@ -113,6 +116,7 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DecisionCoverageWorker createDecisionCoverageWorker() {
 		DecisionCoverageWorkerImpl decisionCoverageWorker = new DecisionCoverageWorkerImpl();
 		return decisionCoverageWorker;
@@ -123,6 +127,7 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConditionDecisionCoverageWorker createConditionDecisionCoverageWorker() {
 		ConditionDecisionCoverageWorkerImpl conditionDecisionCoverageWorker = new ConditionDecisionCoverageWorkerImpl();
 		return conditionDecisionCoverageWorker;
@@ -133,6 +138,7 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModifiedConditionDecisionCoverageWorker createModifiedConditionDecisionCoverageWorker() {
 		ModifiedConditionDecisionCoverageWorkerImpl modifiedConditionDecisionCoverageWorker = new ModifiedConditionDecisionCoverageWorkerImpl();
 		return modifiedConditionDecisionCoverageWorker;
@@ -143,6 +149,7 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BehaviorCoverageWorker createBehaviorCoverageWorker() {
 		BehaviorCoverageWorkerImpl behaviorCoverageWorker = new BehaviorCoverageWorkerImpl();
 		return behaviorCoverageWorker;
@@ -153,6 +160,7 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CoveragePackage getCoveragePackage() {
 		return (CoveragePackage)getEPackage();
 	}

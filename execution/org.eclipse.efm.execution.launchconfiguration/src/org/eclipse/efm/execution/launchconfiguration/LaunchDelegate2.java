@@ -153,7 +153,7 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //			BufferedReader bufferedTemplate = new BufferedReader(
 //					new InputStreamReader (inputTemplate) );
 //
-//			StringBuffer buffer = new StringBuffer();
+//			StringBuilder buffer = new StringBuilder();
 //
 //			String line = bufferedTemplate.readLine();
 //			while( line != null ) {
@@ -243,7 +243,7 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //					String[] tabString =
 //							fElementNameListStringField.trim().split("\\R|;");
 //
-//					StringBuffer elementStringList = new StringBuffer();
+//					StringBuilder elementStringList = new StringBuilder();
 //					String kind;
 //					String object;
 //					int pos;
@@ -469,14 +469,14 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //				String detailsTraceList = configuration.getAttribute(
 //						ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST, "");
 //				String[] tabString = detailsTraceList.trim().split(";|\\R");
-//				StringBuffer detailsStringBuffer = new StringBuffer();
+//				StringBuilder detailsStringBuilder = new StringBuilder();
 //				for (String eltString : tabString) {
 //					if( ! eltString.isEmpty() ) {
-//						detailsStringBuffer.append( "\t\t\t\t\t\t@" )
+//						detailsStringBuilder.append( "\t\t\t\t\t\t@" )
 //							.append( eltString ).append( ";\n" );
 //					}
 //				}
-//				detailsTraceList = detailsStringBuffer.toString();
+//				detailsTraceList = detailsStringBuilder.toString();
 //				if( ! detailsTraceList.isEmpty() ) {
 //					favmString = favmString.replace(
 //							"\t\t\t\t\t\t//__DetailsElementsListToTrace",
@@ -593,7 +593,7 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //									ATTR_TRANSITION_COVERAGE_SELECTION,
 //									new ArrayList<String>());
 //
-//					StringBuffer TransitionStringList = new StringBuffer();
+//					StringBuilder TransitionStringList = new StringBuilder();
 //
 //					for (String eltString : selectedTransitions) {
 //						TransitionStringList
@@ -1518,11 +1518,11 @@ public class LaunchDelegate2 {//implements ILaunchConfigurationDelegate ,
 //	private String generateCommandLine(String[] commandLine) {
 //		if (commandLine.length < 1)
 //			return "";
-//		StringBuffer buf = new StringBuffer();
+//		StringBuilder buf = new StringBuilder();
 //		for (int i = 0; i < commandLine.length; i++) {
 //			buf.append(' ');
 //			char[] characters = commandLine[i].toCharArray();
-//			StringBuffer command = new StringBuffer();
+//			StringBuilder command = new StringBuilder();
 //			boolean containsSpace = false;
 //			for (int j = 0; j < characters.length; j++) {
 //				char character = characters[j];

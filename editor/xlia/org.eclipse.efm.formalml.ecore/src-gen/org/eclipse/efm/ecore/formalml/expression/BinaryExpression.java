@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,7 +24,7 @@ package org.eclipse.efm.ecore.formalml.expression;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getLeftOperand <em>Left Operand</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getRigthOperand <em>Rigth Operand</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getRightOperand <em>Right Operand</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getBinaryExpression()
@@ -85,29 +85,29 @@ public interface BinaryExpression extends Expression {
 	void setLeftOperand(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Rigth Operand</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Right Operand</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Rigth Operand</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Right Operand</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Rigth Operand</em>' containment reference.
-	 * @see #setRigthOperand(Expression)
-	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getBinaryExpression_RigthOperand()
+	 * @return the value of the '<em>Right Operand</em>' containment reference.
+	 * @see #setRightOperand(Expression)
+	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getBinaryExpression_RightOperand()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	Expression getRigthOperand();
+	Expression getRightOperand();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getRigthOperand <em>Rigth Operand</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.BinaryExpression#getRightOperand <em>Right Operand</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Rigth Operand</em>' containment reference.
-	 * @see #getRigthOperand()
+	 * @param value the new value of the '<em>Right Operand</em>' containment reference.
+	 * @see #getRightOperand()
 	 * @generated
 	 */
-	void setRigthOperand(Expression value);
+	void setRightOperand(Expression value);
 
 } // BinaryExpression

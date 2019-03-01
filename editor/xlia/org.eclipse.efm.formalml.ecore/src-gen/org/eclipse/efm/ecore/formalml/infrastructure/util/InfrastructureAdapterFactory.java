@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,33 +18,7 @@ import org.eclipse.efm.ecore.formalml.common.NamedElement;
 import org.eclipse.efm.ecore.formalml.common.Type;
 import org.eclipse.efm.ecore.formalml.common.TypedElement;
 
-import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
-import org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart;
-import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
-import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
-import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
-import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
-import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
-import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
-import org.eclipse.efm.ecore.formalml.infrastructure.Function;
-import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
-import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
-import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfComputation;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfInteraction;
-import org.eclipse.efm.ecore.formalml.infrastructure.Modifier;
-import org.eclipse.efm.ecore.formalml.infrastructure.Parameter;
-import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
-import org.eclipse.efm.ecore.formalml.infrastructure.Port;
-import org.eclipse.efm.ecore.formalml.infrastructure.Procedure;
-import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition;
-import org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart;
-import org.eclipse.efm.ecore.formalml.infrastructure.Route;
-import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
-import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
-import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty;
-import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
+import org.eclipse.efm.ecore.formalml.infrastructure.*;
 
 import org.eclipse.efm.ecore.formalml.statemachine.Statemachine;
 
@@ -128,8 +102,8 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 				return createBehaviorPartAdapter();
 			}
 			@Override
-			public Adapter caseSystem(org.eclipse.efm.ecore.formalml.infrastructure.System object) {
-				return createSystemAdapter();
+			public Adapter caseXliaSystem(XliaSystem object) {
+				return createXliaSystemAdapter();
 			}
 			@Override
 			public Adapter caseModifier(Modifier object) {
@@ -214,6 +188,10 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseConnector(Connector object) {
 				return createConnectorAdapter();
+			}
+			@Override
+			public Adapter caseConnectorEnd(ConnectorEnd object) {
+				return createConnectorEndAdapter();
 			}
 			@Override
 			public Adapter caseComPoint(ComPoint object) {
@@ -320,16 +298,16 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.infrastructure.System <em>System</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem <em>Xlia System</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.System
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
 	 * @generated
 	 */
-	public Adapter createSystemAdapter() {
+	public Adapter createXliaSystemAdapter() {
 		return null;
 	}
 
@@ -624,6 +602,20 @@ public class InfrastructureAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConnectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd <em>Connector End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd
+	 * @generated
+	 */
+	public Adapter createConnectorEndAdapter() {
 		return null;
 	}
 

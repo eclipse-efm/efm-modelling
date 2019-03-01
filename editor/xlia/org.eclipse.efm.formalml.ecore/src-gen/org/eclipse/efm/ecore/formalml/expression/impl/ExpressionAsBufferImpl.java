@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -72,6 +72,7 @@ public class ExpressionAsBufferImpl extends ExpressionImpl implements Expression
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getBuffer() {
 		return buffer;
 	}
@@ -96,6 +97,7 @@ public class ExpressionAsBufferImpl extends ExpressionImpl implements Expression
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBuffer(Expression newBuffer) {
 		if (newBuffer != buffer) {
 			NotificationChain msgs = null;

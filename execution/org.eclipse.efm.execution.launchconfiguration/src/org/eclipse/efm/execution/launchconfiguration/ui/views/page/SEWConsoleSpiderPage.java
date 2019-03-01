@@ -30,9 +30,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
-import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchDelegate;
@@ -51,8 +49,7 @@ import org.eclipse.ui.console.IOConsole;
 import org.eclipse.ui.part.Page;
 
 public class SEWConsoleSpiderPage extends Page
-		implements IWorkflowConfigurationConstants,
-		IWorkflowPreferenceConstants , IWorkflowSpiderConfigurationUtils {
+		implements IWorkflowSpiderConfigurationUtils {
 
 //	public SymbexSpiderConsolePage(TextConsole console, IConsoleView view) {
 //		super(console, view);
@@ -72,7 +69,7 @@ public class SEWConsoleSpiderPage extends Page
 
 
 	@Override
-	public void createControl(Composite parent) {
+	public void createControl(final Composite parent) {
 		fMainPageControl = new Composite(parent, SWT.RESIZE | SWT.BORDER);
 		fMainPageControl.setLayout( new GridLayout(1, true) );
 
@@ -82,7 +79,7 @@ public class SEWConsoleSpiderPage extends Page
 		// and the edit area on the right
 		fSashForm = new SashForm(fMainPageControl, SWT.SMOOTH);
 		fSashForm.setOrientation(SWT.HORIZONTAL);
-		GridData gd = new GridData(GridData.FILL_BOTH);
+		final GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		fSashForm.setLayoutData(gd);
 		fSashForm.setFont(parent.getFont());
@@ -95,12 +92,12 @@ public class SEWConsoleSpiderPage extends Page
 		fSashForm.setWeights(new int[] {40, 60});
 	}
 
-	private void createConsoleViewer(Composite parent) {
-		Composite comp = new Composite(parent, SWT.BORDER | SWT.RESIZE);
+	private void createConsoleViewer(final Composite parent) {
+		final Composite comp = new Composite(parent, SWT.BORDER | SWT.RESIZE);
 
 		fSEWDashbordConsole = new IOConsole("SEW-Console", null);
 
-		GridData dataRight = new GridData();
+		final GridData dataRight = new GridData();
 		dataRight.horizontalSpan = 2;
         dataRight.grabExcessHorizontalSpace = true;
         dataRight.grabExcessVerticalSpace = true;
@@ -113,7 +110,7 @@ public class SEWConsoleSpiderPage extends Page
 		comp.setLayoutData(dataRight);
 	}
 
-	private SWTSpider createSpider(Composite parent, int x, int y, int r) {
+	private SWTSpider createSpider(final Composite parent, final int x, final int y, final int r) {
 //		Group group = SWTFactory.createGroup(parent, "", 1, 1, GridData.FILL_BOTH);
 //		group.setText("MODEL ANALYSIS");
 
@@ -126,7 +123,7 @@ public class SEWConsoleSpiderPage extends Page
 		compSpider.setExpandVertical(true);
 		compSpider.setMinSize(480, 420);
 
-		GridData dataLeft = new GridData();
+		final GridData dataLeft = new GridData();
 		dataLeft.heightHint = 200;
 //		dataR.horizontalSpan = 1;
 		dataLeft.grabExcessHorizontalSpace = true;
@@ -174,11 +171,11 @@ public class SEWConsoleSpiderPage extends Page
 	private boolean enableLegacyDiversity = false;
 
 
-	private void doRefresh(String[] commandLine, File workingDirectory) {
+	private void doRefresh(final String[] commandLine, final File workingDirectory) {
 		IResource symbexWorkflowResource = null;
 		if( (commandLine != null) && (commandLine.length > 1) )
 		{
-			IPath symbexWorkflowPath = new Path(commandLine[1]);
+			final IPath symbexWorkflowPath = new Path(commandLine[1]);
 
 			symbexWorkflowResource = WorkflowFileUtils.find(symbexWorkflowPath);
 		}
@@ -193,15 +190,15 @@ public class SEWConsoleSpiderPage extends Page
 						IResource.DEPTH_INFINITE, new NullProgressMonitor());
 			}
 		}
-		catch(CoreException e) {
+		catch(final CoreException e) {
 			e.printStackTrace();
 		}
 	}
 
 
-	public void sewLaunchExecProcess(ILaunchConfiguration configuration,
-			String mode, ILaunch launch, IProgressMonitor monitor,
-			String[] commandLine, File workingDirectory, String[] envp) {
+	public void sewLaunchExecProcess(final ILaunchConfiguration configuration,
+			final String mode, final ILaunch launch, final IProgressMonitor monitor,
+			final String[] commandLine, final File workingDirectory, final String[] envp) {
 
 		if( startSymbexProcess(commandLine, workingDirectory, envp) ) {
 			fSEWDashbordConsole.clearConsole();
@@ -239,9 +236,9 @@ public class SEWConsoleSpiderPage extends Page
 
 
 	private boolean startSymbexProcess(
-			String[] commandLine, File workingDirectory, String[] envp) {
-		OutputStream outputStream = fSEWDashbordConsole.newOutputStream();
-		OutputStreamWriter outputStreamWriter =
+			final String[] commandLine, final File workingDirectory, final String[] envp) {
+		final OutputStream outputStream = fSEWDashbordConsole.newOutputStream();
+		final OutputStreamWriter outputStreamWriter =
 				new OutputStreamWriter(outputStream);
 
 		fConsoleBufferedWriter = new BufferedWriter(outputStreamWriter);
@@ -252,7 +249,7 @@ public class SEWConsoleSpiderPage extends Page
 
 		try {
 			fSymbexProcess = processBuilder.start();
-		} catch (IOException e1) {
+		} catch (final IOException e1) {
 			e1.printStackTrace();
 		}
 
@@ -265,8 +262,8 @@ public class SEWConsoleSpiderPage extends Page
 
 		if( fSymbexProcess != null ) {
 
-			InputStream inputStream = fSymbexProcess.getInputStream();
-			InputStreamReader inputStreamReader =
+			final InputStream inputStream = fSymbexProcess.getInputStream();
+			final InputStreamReader inputStreamReader =
 					new InputStreamReader(inputStream);
 
 			fProcessBufferedReader = new BufferedReader(inputStreamReader);
@@ -288,14 +285,14 @@ public class SEWConsoleSpiderPage extends Page
 						"\n* EXECUTION ABORTED ! *" +
 						"\n***********************");
 				fConsoleBufferedWriter.flush();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
 
-	private boolean readSymbexInitLog(IProgressMonitor monitor) {
+	private boolean readSymbexInitLog(final IProgressMonitor monitor) {
 		try {
 			while( true ) {
 				if( fProcessBufferedReader.ready() ) {
@@ -371,7 +368,7 @@ public class SEWConsoleSpiderPage extends Page
 						fSymbexProcess.exitValue();
 						break;
 					}
-					catch( IllegalThreadStateException e ) {
+					catch( final IllegalThreadStateException e ) {
 						//!! NOTHING
 					}
 				}
@@ -383,14 +380,14 @@ public class SEWConsoleSpiderPage extends Page
 				}
 			}
 		}
-		catch(IOException e){
+		catch(final IOException e){
 			e.printStackTrace();
 		}
 
 		return true;
 	}
 
-	private boolean readSymbexStepLog(IProgressMonitor monitor) {
+	private boolean readSymbexStepLog(final IProgressMonitor monitor) {
 		try {
 			while( true ) {
 				if( fProcessBufferedReader.ready() ) {
@@ -471,7 +468,7 @@ public class SEWConsoleSpiderPage extends Page
 						fSymbexProcess.exitValue();
 						break;
 					}
-					catch( IllegalThreadStateException e ) {
+					catch( final IllegalThreadStateException e ) {
 						//!! NOTHING
 					}
 				}
@@ -483,14 +480,14 @@ public class SEWConsoleSpiderPage extends Page
 				}
 			}
 		}
-		catch(IOException e){
+		catch(final IOException e){
 			e.printStackTrace();
 		}
 
 		return true;
 	}
 
-	private boolean readSymbexReportLog(IProgressMonitor monitor) {
+	private boolean readSymbexReportLog(final IProgressMonitor monitor) {
 		try {
 			while( true ) {
 				if( fProcessBufferedReader.ready() ) {
@@ -517,7 +514,7 @@ public class SEWConsoleSpiderPage extends Page
 						fSymbexProcess.exitValue();
 						break;
 					}
-					catch( IllegalThreadStateException e ) {
+					catch( final IllegalThreadStateException e ) {
 						//!! NOTHING
 					}
 				}
@@ -529,7 +526,7 @@ public class SEWConsoleSpiderPage extends Page
 				}
 			}
 		}
-		catch(IOException e){
+		catch(final IOException e){
 			e.printStackTrace();
 		}
 		finally {
@@ -579,12 +576,12 @@ public class SEWConsoleSpiderPage extends Page
 	private int maxCoverage = 0;
 
 
-	private void initSpider(int[] bounds) {
+	private void initSpider(final int[] bounds) {
 		initVar();
 		initMaxAndResize( bounds );
 	}
 
-	private void updateSpider(int[] bounds) {
+	private void updateSpider(final int[] bounds) {
 		majDisplayedData( bounds );
 
 		majStepAndMax();
@@ -629,7 +626,7 @@ public class SEWConsoleSpiderPage extends Page
 	private static final String CONSOLE_WIDTH_SYMBOL     = "width:";
 
 
-	private void initMaxAndResize(int[] bounds) {
+	private void initMaxAndResize(final int[] bounds) {
 		resizeStep = (bounds[0] == INT_INIFINITE);
 		maxStep = resizeStep ? DEFAULT_PERIOD_VALUE : bounds[0];
 
@@ -651,7 +648,7 @@ public class SEWConsoleSpiderPage extends Page
 	}
 
 
-	private void majDisplayedData(int[] positions) {
+	private void majDisplayedData(final int[] positions) {
 		nbStep = positions[0];
 
 		nbContext = positions[1];
@@ -720,14 +717,14 @@ public class SEWConsoleSpiderPage extends Page
 	}
 
 	// DEPRECATED for COMPATIBILITY
-	private void initSpider(String traceLine) {
-		String tmpString = traceLine.replaceAll(" ", "");
+	private void initSpider(final String traceLine) {
+		final String tmpString = traceLine.replaceAll(" ", "");
 		initVar();
 		initMaxAndResize( tmpString );
 	}
 
 
-	private void initMaxAndResize(String aString) {
+	private void initMaxAndResize(final String aString) {
 		String s = aString.substring(CONSOLE_STEP_SYMBOL.length(),
 				aString.indexOf(CONSOLE_CONTEXT_SYMBOL) - 1);
 
@@ -777,8 +774,8 @@ public class SEWConsoleSpiderPage extends Page
 		}
 	}
 
-	private void majSpider(String traceLine) {
-		String tmpString = traceLine.replaceAll(" ", "");
+	private void majSpider(final String traceLine) {
+		final String tmpString = traceLine.replaceAll(" ", "");
 
 		majDisplayedData( tmpString , nbExecution);
 
@@ -790,7 +787,7 @@ public class SEWConsoleSpiderPage extends Page
 
 
 
-	private void majDisplayedData(String aString, int nbExe) {
+	private void majDisplayedData(final String aString, final int nbExe) {
 		int beginIndex;
 		int endIndex;
 		int currentIndex;

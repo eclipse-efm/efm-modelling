@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -32,15 +32,26 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ConditionalTestExpressionImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ConditionalTestExpressionImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ConditionalTestExpressionImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ConditionalTestExpressionImpl#getThenOperand <em>Then Operand</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ConditionalTestExpressionImpl#getElseSeparator <em>Else Separator</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.ConditionalTestExpressionImpl#getElseOperand <em>Else Operand</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ConditionalTestExpressionImpl extends ExpressionImpl implements ConditionalTestExpression {
+	/**
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCondition()
+	 * @generated
+	 * @ordered
+	 */
+	protected Expression condition;
+
 	/**
 	 * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -62,16 +73,6 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	protected String operator = OPERATOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCondition()
-	 * @generated
-	 * @ordered
-	 */
-	protected Expression condition;
-
-	/**
 	 * The cached value of the '{@link #getThenOperand() <em>Then Operand</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -80,6 +81,26 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	 * @ordered
 	 */
 	protected Expression thenOperand;
+
+	/**
+	 * The default value of the '{@link #getElseSeparator() <em>Else Separator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getElseSeparator()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ELSE_SEPARATOR_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getElseSeparator() <em>Else Separator</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getElseSeparator()
+	 * @generated
+	 * @ordered
+	 */
+	protected String elseSeparator = ELSE_SEPARATOR_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getElseOperand() <em>Else Operand</em>}' containment reference.
@@ -115,27 +136,7 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getOperator() {
-		return operator;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setOperator(String newOperator) {
-		String oldOperator = operator;
-		operator = newOperator;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR, oldOperator, operator));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public Expression getCondition() {
 		return condition;
 	}
@@ -160,6 +161,7 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCondition(Expression newCondition) {
 		if (newCondition != condition) {
 			NotificationChain msgs = null;
@@ -179,6 +181,30 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public String getOperator() {
+		return operator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOperator(String newOperator) {
+		String oldOperator = operator;
+		operator = newOperator;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR, oldOperator, operator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Expression getThenOperand() {
 		return thenOperand;
 	}
@@ -203,6 +229,7 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setThenOperand(Expression newThenOperand) {
 		if (newThenOperand != thenOperand) {
 			NotificationChain msgs = null;
@@ -222,6 +249,30 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public String getElseSeparator() {
+		return elseSeparator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setElseSeparator(String newElseSeparator) {
+		String oldElseSeparator = elseSeparator;
+		elseSeparator = newElseSeparator;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR, oldElseSeparator, elseSeparator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Expression getElseOperand() {
 		return elseOperand;
 	}
@@ -246,6 +297,7 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setElseOperand(Expression newElseOperand) {
 		if (newElseOperand != elseOperand) {
 			NotificationChain msgs = null;
@@ -286,12 +338,14 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR:
-				return getOperator();
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__CONDITION:
 				return getCondition();
+			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR:
+				return getOperator();
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__THEN_OPERAND:
 				return getThenOperand();
+			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR:
+				return getElseSeparator();
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__ELSE_OPERAND:
 				return getElseOperand();
 		}
@@ -306,14 +360,17 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR:
-				setOperator((String)newValue);
-				return;
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__CONDITION:
 				setCondition((Expression)newValue);
 				return;
+			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR:
+				setOperator((String)newValue);
+				return;
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__THEN_OPERAND:
 				setThenOperand((Expression)newValue);
+				return;
+			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR:
+				setElseSeparator((String)newValue);
 				return;
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__ELSE_OPERAND:
 				setElseOperand((Expression)newValue);
@@ -330,14 +387,17 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR:
-				setOperator(OPERATOR_EDEFAULT);
-				return;
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__CONDITION:
 				setCondition((Expression)null);
 				return;
+			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR:
+				setOperator(OPERATOR_EDEFAULT);
+				return;
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__THEN_OPERAND:
 				setThenOperand((Expression)null);
+				return;
+			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR:
+				setElseSeparator(ELSE_SEPARATOR_EDEFAULT);
 				return;
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__ELSE_OPERAND:
 				setElseOperand((Expression)null);
@@ -354,12 +414,14 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR:
-				return OPERATOR_EDEFAULT == null ? operator != null : !OPERATOR_EDEFAULT.equals(operator);
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__CONDITION:
 				return condition != null;
+			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__OPERATOR:
+				return OPERATOR_EDEFAULT == null ? operator != null : !OPERATOR_EDEFAULT.equals(operator);
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__THEN_OPERAND:
 				return thenOperand != null;
+			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__ELSE_SEPARATOR:
+				return ELSE_SEPARATOR_EDEFAULT == null ? elseSeparator != null : !ELSE_SEPARATOR_EDEFAULT.equals(elseSeparator);
 			case ExpressionPackage.CONDITIONAL_TEST_EXPRESSION__ELSE_OPERAND:
 				return elseOperand != null;
 		}
@@ -375,9 +437,11 @@ public class ConditionalTestExpressionImpl extends ExpressionImpl implements Con
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (operator: ");
 		result.append(operator);
+		result.append(", elseSeparator: ");
+		result.append(elseSeparator);
 		result.append(')');
 		return result.toString();
 	}

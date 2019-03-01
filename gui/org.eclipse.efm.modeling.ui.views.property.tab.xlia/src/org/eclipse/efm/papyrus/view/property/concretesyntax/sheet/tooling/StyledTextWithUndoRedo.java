@@ -20,31 +20,31 @@ import org.eclipse.swt.widgets.Composite;
 
 public class StyledTextWithUndoRedo extends StyledText {
 
-	public StyledTextWithUndoRedo(Composite parent, int style) {
+	public StyledTextWithUndoRedo(final Composite parent, final int style) {
 		super(parent, style);
 	}
 
 	@Override
-	public void replaceTextRange(int start, int length, String text) {
-		int contentLength = getCharCount();
-		int end = start + length;
+	public void replaceTextRange(final int start, final int length, final String text) {
+		final int contentLength = getCharCount();
+		final int end = start + length;
 		if( (start <= end) && (start >= 0) && (end <= contentLength) ) {
 			super.replaceTextRange(start, length, text);
 		}
 	}
 
 	@Override
-	public void redrawRange(int start, int length, boolean clearBackground) {
-		int end = start + length;
-		int contentLength = getContent().getCharCount();
+	public void redrawRange(final int start, final int length, final boolean clearBackground) {
+		final int end = start + length;
+		final int contentLength = getContent().getCharCount();
 		if( (start <= end) && (start >= 0) && (end <= contentLength) ) {
 			super.redrawRange(start, length, clearBackground);
 		}
 	}
 
 	@Override
-	public Rectangle getTextBounds(int start, int end) {
-		int contentLength = getCharCount();
+	public Rectangle getTextBounds(final int start, final int end) {
+		final int contentLength = getCharCount();
 		if( (start < 0) || (start >= contentLength) ||
 			(end   < 0) || (end   >= contentLength) || (start > end) ) {
 			return new Rectangle(0, 0, 0, 0);
@@ -55,11 +55,11 @@ public class StyledTextWithUndoRedo extends StyledText {
 	}
 
 	@Override
-	public void replaceStyleRanges(int start, int length, StyleRange[] ranges) {
+	public void replaceStyleRanges(final int start, final int length, final StyleRange[] ranges) {
 		try{
 			super.replaceStyleRanges(start, length, ranges);
 		}
-		catch( IllegalArgumentException e ){
+		catch( final IllegalArgumentException e ){
 			//!! NOTHING
 		}
 	}

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -55,6 +55,9 @@ import org.eclipse.efm.ecore.formalml.statement.InputComStatement;
 import org.eclipse.efm.ecore.formalml.statement.InterruptStatement;
 import org.eclipse.efm.ecore.formalml.statement.InterruptStatementKind;
 import org.eclipse.efm.ecore.formalml.statement.InvokeStatement;
+import org.eclipse.efm.ecore.formalml.statement.MetaStatement;
+import org.eclipse.efm.ecore.formalml.statement.MetaStatementKind;
+import org.eclipse.efm.ecore.formalml.statement.ObserverStatement;
 import org.eclipse.efm.ecore.formalml.statement.OutputComStatement;
 import org.eclipse.efm.ecore.formalml.statement.Statement;
 import org.eclipse.efm.ecore.formalml.statement.StatementFactory;
@@ -222,6 +225,20 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass observerStatementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass metaStatementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum interruptStatementKindEEnum = null;
 
 	/**
@@ -237,6 +254,13 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * @generated
 	 */
 	private EEnum assignmentStatementkindEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum metaStatementKindEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -266,7 +290,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link StatementPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -280,17 +304,24 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		if (isInited) return (StatementPackage)EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI);
 
 		// Obtain or create and register package
-		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof StatementPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new StatementPackageImpl());
+		Object registeredStatementPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		StatementPackageImpl theStatementPackage = registeredStatementPackage instanceof StatementPackageImpl ? (StatementPackageImpl)registeredStatementPackage : new StatementPackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) instanceof FormalmlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) : FormalmlPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) instanceof InfrastructurePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) : InfrastructurePackage.eINSTANCE);
-		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
-		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) instanceof ExpressionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) : ExpressionPackage.eINSTANCE);
-		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) instanceof StatemachinePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) : StatemachinePackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI);
+		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(registeredPackage instanceof FormalmlPackageImpl ? registeredPackage : FormalmlPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI);
+		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(registeredPackage instanceof InfrastructurePackageImpl ? registeredPackage : InfrastructurePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI);
+		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(registeredPackage instanceof DatatypePackageImpl ? registeredPackage : DatatypePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
+		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(registeredPackage instanceof ExpressionPackageImpl ? registeredPackage : ExpressionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI);
+		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(registeredPackage instanceof StatemachinePackageImpl ? registeredPackage : StatemachinePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theStatementPackage.createPackageContents();
@@ -313,7 +344,6 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		// Mark meta-data to indicate it can't be changed
 		theStatementPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(StatementPackage.eNS_URI, theStatementPackage);
 		return theStatementPackage;
@@ -324,6 +354,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStatement() {
 		return statementEClass;
 	}
@@ -333,6 +364,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBlockStatement() {
 		return blockStatementEClass;
 	}
@@ -342,6 +374,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getBlockStatement_Op() {
 		return (EAttribute)blockStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -351,6 +384,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBlockStatement_Statement() {
 		return (EReference)blockStatementEClass.getEStructuralFeatures().get(1);
 	}
@@ -360,6 +394,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExpressionStatement() {
 		return expressionStatementEClass;
 	}
@@ -369,6 +404,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExpressionStatement_Expression() {
 		return (EReference)expressionStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -378,6 +414,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAbstractGuardStatement() {
 		return abstractGuardStatementEClass;
 	}
@@ -387,6 +424,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAbstractGuardStatement_Condition() {
 		return (EReference)abstractGuardStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -396,6 +434,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGuardStatement() {
 		return guardStatementEClass;
 	}
@@ -405,6 +444,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTimedGuardStatement() {
 		return timedGuardStatementEClass;
 	}
@@ -414,6 +454,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEventGuardStatement() {
 		return eventGuardStatementEClass;
 	}
@@ -423,6 +464,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCheckSatGuardStatement() {
 		return checkSatGuardStatementEClass;
 	}
@@ -432,6 +474,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCheckSatGuardStatement_Solver() {
 		return (EAttribute)checkSatGuardStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -441,6 +484,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAbstractComStatement() {
 		return abstractComStatementEClass;
 	}
@@ -450,6 +494,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAbstractComStatement_Port() {
 		return (EReference)abstractComStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -459,6 +504,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAbstractComStatement_Route() {
 		return (EReference)abstractComStatementEClass.getEStructuralFeatures().get(1);
 	}
@@ -468,6 +514,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAbstractComStatement_Target() {
 		return (EReference)abstractComStatementEClass.getEStructuralFeatures().get(2);
 	}
@@ -477,6 +524,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInputComStatement() {
 		return inputComStatementEClass;
 	}
@@ -486,6 +534,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInputComStatement_LeftValue() {
 		return (EReference)inputComStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -495,6 +544,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOutputComStatement() {
 		return outputComStatementEClass;
 	}
@@ -504,7 +554,8 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getOutputComStatement_RigthValue() {
+	@Override
+	public EReference getOutputComStatement_RightValue() {
 		return (EReference)outputComStatementEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -513,6 +564,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConditionalBlockStatement() {
 		return conditionalBlockStatementEClass;
 	}
@@ -522,6 +574,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConditionalBlockStatement_Condition() {
 		return (EReference)conditionalBlockStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -531,6 +584,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConditionalBlockStatement_BodyBlock() {
 		return (EReference)conditionalBlockStatementEClass.getEStructuralFeatures().get(1);
 	}
@@ -540,6 +594,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getIfStatement() {
 		return ifStatementEClass;
 	}
@@ -549,6 +604,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getIfStatement_ElseifStatement() {
 		return (EReference)ifStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -558,6 +614,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getIfStatement_ElseBlock() {
 		return (EReference)ifStatementEClass.getEStructuralFeatures().get(1);
 	}
@@ -567,6 +624,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWhileDoStatement() {
 		return whileDoStatementEClass;
 	}
@@ -576,6 +634,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDoWhileStatement() {
 		return doWhileStatementEClass;
 	}
@@ -585,6 +644,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getForStatement() {
 		return forStatementEClass;
 	}
@@ -594,6 +654,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getForStatement_Init() {
 		return (EReference)forStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -603,6 +664,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getForStatement_Iterate() {
 		return (EReference)forStatementEClass.getEStructuralFeatures().get(1);
 	}
@@ -612,6 +674,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getForEachStatement() {
 		return forEachStatementEClass;
 	}
@@ -621,6 +684,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getForEachStatement_Iterator() {
 		return (EReference)forEachStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -630,6 +694,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getForEachStatement_Enumeration() {
 		return (EReference)forEachStatementEClass.getEStructuralFeatures().get(1);
 	}
@@ -639,6 +704,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInterruptStatement() {
 		return interruptStatementEClass;
 	}
@@ -648,6 +714,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterruptStatement_Kind() {
 		return (EAttribute)interruptStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -657,6 +724,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterruptStatement_Expr() {
 		return (EReference)interruptStatementEClass.getEStructuralFeatures().get(1);
 	}
@@ -666,6 +734,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActivityStatement() {
 		return activityStatementEClass;
 	}
@@ -675,6 +744,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActivityStatement_Op() {
 		return (EAttribute)activityStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -684,6 +754,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActivityStatement_Machine() {
 		return (EReference)activityStatementEClass.getEStructuralFeatures().get(1);
 	}
@@ -693,6 +764,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActivityStatement_Tuple() {
 		return (EReference)activityStatementEClass.getEStructuralFeatures().get(2);
 	}
@@ -702,6 +774,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInvokeStatement() {
 		return invokeStatementEClass;
 	}
@@ -711,6 +784,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInvokeStatement_CallProcedure() {
 		return (EAttribute)invokeStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -720,6 +794,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInvokeStatement_ExecRoutine() {
 		return (EAttribute)invokeStatementEClass.getEStructuralFeatures().get(1);
 	}
@@ -729,6 +804,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInvokeStatement_Invokable() {
 		return (EReference)invokeStatementEClass.getEStructuralFeatures().get(2);
 	}
@@ -738,6 +814,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInvokeStatement_Args() {
 		return (EReference)invokeStatementEClass.getEStructuralFeatures().get(3);
 	}
@@ -747,6 +824,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInvokeStatement_Rets() {
 		return (EReference)invokeStatementEClass.getEStructuralFeatures().get(4);
 	}
@@ -756,6 +834,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInvokeStatement_Expression() {
 		return (EReference)invokeStatementEClass.getEStructuralFeatures().get(5);
 	}
@@ -765,6 +844,77 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EClass getObserverStatement() {
+		return observerStatementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getObserverStatement_Context() {
+		return (EReference)observerStatementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getObserverStatement_Statement() {
+		return (EReference)observerStatementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getObserverStatement_PostCondition() {
+		return (EReference)observerStatementEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getMetaStatement() {
+		return metaStatementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMetaStatement_Op() {
+		return (EAttribute)metaStatementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getMetaStatement_Operand() {
+		return (EReference)metaStatementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getInterruptStatementKind() {
 		return interruptStatementKindEEnum;
 	}
@@ -774,6 +924,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getActivityStatementKind() {
 		return activityStatementKindEEnum;
 	}
@@ -783,6 +934,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getAssignmentStatementkind() {
 		return assignmentStatementkindEEnum;
 	}
@@ -792,6 +944,17 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EEnum getMetaStatementKind() {
+		return metaStatementKindEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public StatementFactory getStatementFactory() {
 		return (StatementFactory)getEFactoryInstance();
 	}
@@ -845,7 +1008,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		createEReference(inputComStatementEClass, INPUT_COM_STATEMENT__LEFT_VALUE);
 
 		outputComStatementEClass = createEClass(OUTPUT_COM_STATEMENT);
-		createEReference(outputComStatementEClass, OUTPUT_COM_STATEMENT__RIGTH_VALUE);
+		createEReference(outputComStatementEClass, OUTPUT_COM_STATEMENT__RIGHT_VALUE);
 
 		conditionalBlockStatementEClass = createEClass(CONDITIONAL_BLOCK_STATEMENT);
 		createEReference(conditionalBlockStatementEClass, CONDITIONAL_BLOCK_STATEMENT__CONDITION);
@@ -884,10 +1047,20 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		createEReference(invokeStatementEClass, INVOKE_STATEMENT__RETS);
 		createEReference(invokeStatementEClass, INVOKE_STATEMENT__EXPRESSION);
 
+		observerStatementEClass = createEClass(OBSERVER_STATEMENT);
+		createEReference(observerStatementEClass, OBSERVER_STATEMENT__CONTEXT);
+		createEReference(observerStatementEClass, OBSERVER_STATEMENT__STATEMENT);
+		createEReference(observerStatementEClass, OBSERVER_STATEMENT__POST_CONDITION);
+
+		metaStatementEClass = createEClass(META_STATEMENT);
+		createEAttribute(metaStatementEClass, META_STATEMENT__OP);
+		createEReference(metaStatementEClass, META_STATEMENT__OPERAND);
+
 		// Create enums
 		interruptStatementKindEEnum = createEEnum(INTERRUPT_STATEMENT_KIND);
 		activityStatementKindEEnum = createEEnum(ACTIVITY_STATEMENT_KIND);
 		assignmentStatementkindEEnum = createEEnum(ASSIGNMENT_STATEMENTKIND);
+		metaStatementKindEEnum = createEEnum(META_STATEMENT_KIND);
 	}
 
 	/**
@@ -943,6 +1116,8 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		interruptStatementEClass.getESuperTypes().add(this.getStatement());
 		activityStatementEClass.getESuperTypes().add(this.getStatement());
 		invokeStatementEClass.getESuperTypes().add(this.getStatement());
+		observerStatementEClass.getESuperTypes().add(this.getStatement());
+		metaStatementEClass.getESuperTypes().add(this.getStatement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(statementEClass, Statement.class, "Statement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -967,7 +1142,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		initEAttribute(getCheckSatGuardStatement_Solver(), ecorePackage.getEString(), "solver", null, 0, 1, CheckSatGuardStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractComStatementEClass, AbstractComStatement.class, "AbstractComStatement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAbstractComStatement_Port(), theCommonPackage.getNamedElement(), null, "port", null, 0, 1, AbstractComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractComStatement_Port(), theExpressionPackage.getExpression(), null, "port", null, 0, 1, AbstractComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractComStatement_Route(), theInfrastructurePackage.getChannel(), null, "route", null, 0, 1, AbstractComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractComStatement_Target(), theExpressionPackage.getExpression(), null, "target", null, 0, 1, AbstractComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -975,7 +1150,7 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		initEReference(getInputComStatement_LeftValue(), theExpressionPackage.getExpression(), null, "leftValue", null, 0, -1, InputComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(outputComStatementEClass, OutputComStatement.class, "OutputComStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getOutputComStatement_RigthValue(), theExpressionPackage.getExpression(), null, "rigthValue", null, 0, -1, OutputComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOutputComStatement_RightValue(), theExpressionPackage.getExpression(), null, "rightValue", null, 0, -1, OutputComStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(conditionalBlockStatementEClass, ConditionalBlockStatement.class, "ConditionalBlockStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConditionalBlockStatement_Condition(), theExpressionPackage.getExpression(), null, "condition", null, 1, 1, ConditionalBlockStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1013,6 +1188,15 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		initEReference(getInvokeStatement_Args(), theExpressionPackage.getTupleExpression(), null, "args", null, 0, 1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInvokeStatement_Rets(), theInfrastructurePackage.getVariable(), null, "rets", null, 0, -1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInvokeStatement_Expression(), theExpressionPackage.getExpression(), null, "expression", null, 0, 1, InvokeStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(observerStatementEClass, ObserverStatement.class, "ObserverStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getObserverStatement_Context(), theExpressionPackage.getExpression(), null, "context", null, 0, 1, ObserverStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getObserverStatement_Statement(), this.getStatement(), null, "statement", null, 1, 1, ObserverStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getObserverStatement_PostCondition(), theExpressionPackage.getExpression(), null, "postCondition", null, 1, 1, ObserverStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(metaStatementEClass, MetaStatement.class, "MetaStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMetaStatement_Op(), this.getMetaStatementKind(), "op", null, 1, 1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMetaStatement_Operand(), theCommonPackage.getAbstractElement(), null, "operand", null, 0, -1, MetaStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(interruptStatementKindEEnum, InterruptStatementKind.class, "InterruptStatementKind");
@@ -1073,6 +1257,15 @@ public class StatementPackageImpl extends EPackageImpl implements StatementPacka
 		addEEnumLiteral(assignmentStatementkindEEnum, AssignmentStatementkind.OP_POP);
 		addEEnumLiteral(assignmentStatementkindEEnum, AssignmentStatementkind.INCR);
 		addEEnumLiteral(assignmentStatementkindEEnum, AssignmentStatementkind.DECR);
+
+		initEEnum(metaStatementKindEEnum, MetaStatementKind.class, "MetaStatementKind");
+		addEEnumLiteral(metaStatementKindEEnum, MetaStatementKind.INFORMAL);
+		addEEnumLiteral(metaStatementKindEEnum, MetaStatementKind.TRACE);
+		addEEnumLiteral(metaStatementKindEEnum, MetaStatementKind.DEBUG);
+		addEEnumLiteral(metaStatementKindEEnum, MetaStatementKind.COMMENT);
+		addEEnumLiteral(metaStatementKindEEnum, MetaStatementKind.QUOTE);
+		addEEnumLiteral(metaStatementKindEEnum, MetaStatementKind.EVAL);
+		addEEnumLiteral(metaStatementKindEEnum, MetaStatementKind.RUN);
 	}
 
 } //StatementPackageImpl

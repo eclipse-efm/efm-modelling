@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,10 +19,8 @@ import org.eclipse.efm.ecore.formalml.common.impl.ClassifierDefinitionImpl;
 import org.eclipse.efm.ecore.formalml.datatype.DataType;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
-import org.eclipse.efm.ecore.formalml.infrastructure.BehaviorPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
 import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
-import org.eclipse.efm.ecore.formalml.infrastructure.CompositePart;
 import org.eclipse.efm.ecore.formalml.infrastructure.DesignKind;
 import org.eclipse.efm.ecore.formalml.infrastructure.Function;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
@@ -30,7 +28,6 @@ import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Procedure;
-import org.eclipse.efm.ecore.formalml.infrastructure.PropertyPart;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
@@ -62,10 +59,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#isDiscrete_timed <em>Discrete timed</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#isUnsafe <em>Unsafe</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getDesign <em>Design</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getPropertyPart <em>Property Part</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getCompositePart <em>Composite Part</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getBehaviorPart <em>Behavior Part</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getMachine <em>Machine</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#isLifeline <em>Lifeline</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getTypedef <em>Typedef</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getChannel <em>Channel</em>}</li>
@@ -75,6 +69,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getFunction <em>Function</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getRoutine <em>Routine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getProcedure <em>Procedure</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getMachine <em>Machine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getInstance <em>Instance</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getBehavior <em>Behavior</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.MachineImpl#getMain <em>Main</em>}</li>
@@ -204,44 +199,24 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	protected DesignKind design = DESIGN_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPropertyPart() <em>Property Part</em>}' containment reference.
+	 * The default value of the '{@link #isLifeline() <em>Lifeline</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPropertyPart()
+	 * @see #isLifeline()
 	 * @generated
 	 * @ordered
 	 */
-	protected PropertyPart propertyPart;
+	protected static final boolean LIFELINE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getCompositePart() <em>Composite Part</em>}' containment reference.
+	 * The cached value of the '{@link #isLifeline() <em>Lifeline</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCompositePart()
+	 * @see #isLifeline()
 	 * @generated
 	 * @ordered
 	 */
-	protected CompositePart compositePart;
-
-	/**
-	 * The cached value of the '{@link #getBehaviorPart() <em>Behavior Part</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBehaviorPart()
-	 * @generated
-	 * @ordered
-	 */
-	protected BehaviorPart behaviorPart;
-
-	/**
-	 * The cached value of the '{@link #getMachine() <em>Machine</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMachine()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Machine> machine;
+	protected boolean lifeline = LIFELINE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getTypedef() <em>Typedef</em>}' containment reference list.
@@ -334,6 +309,16 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	protected EList<Procedure> procedure;
 
 	/**
+	 * The cached value of the '{@link #getMachine() <em>Machine</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMachine()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Machine> machine;
+
+	/**
 	 * The cached value of the '{@link #getInstance() <em>Instance</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -387,6 +372,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isInput_enabled() {
 		return input_enabled;
 	}
@@ -396,6 +382,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInput_enabled(boolean newInput_enabled) {
 		boolean oldInput_enabled = input_enabled;
 		input_enabled = newInput_enabled;
@@ -408,6 +395,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isTimed() {
 		return timed;
 	}
@@ -417,6 +405,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTimed(boolean newTimed) {
 		boolean oldTimed = timed;
 		timed = newTimed;
@@ -429,6 +418,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDense_timed() {
 		return dense_timed;
 	}
@@ -438,6 +428,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDense_timed(boolean newDense_timed) {
 		boolean oldDense_timed = dense_timed;
 		dense_timed = newDense_timed;
@@ -450,6 +441,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDiscrete_timed() {
 		return discrete_timed;
 	}
@@ -459,6 +451,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDiscrete_timed(boolean newDiscrete_timed) {
 		boolean oldDiscrete_timed = discrete_timed;
 		discrete_timed = newDiscrete_timed;
@@ -471,6 +464,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isUnsafe() {
 		return unsafe;
 	}
@@ -480,6 +474,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnsafe(boolean newUnsafe) {
 		boolean oldUnsafe = unsafe;
 		unsafe = newUnsafe;
@@ -492,6 +487,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DesignKind getDesign() {
 		return design;
 	}
@@ -501,6 +497,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDesign(DesignKind newDesign) {
 		DesignKind oldDesign = design;
 		design = newDesign == null ? DESIGN_EDEFAULT : newDesign;
@@ -513,8 +510,9 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyPart getPropertyPart() {
-		return propertyPart;
+	@Override
+	public boolean isLifeline() {
+		return lifeline;
 	}
 
 	/**
@@ -522,14 +520,12 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetPropertyPart(PropertyPart newPropertyPart, NotificationChain msgs) {
-		PropertyPart oldPropertyPart = propertyPart;
-		propertyPart = newPropertyPart;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MACHINE__PROPERTY_PART, oldPropertyPart, newPropertyPart);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	@Override
+	public void setLifeline(boolean newLifeline) {
+		boolean oldLifeline = lifeline;
+		lifeline = newLifeline;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MACHINE__LIFELINE, oldLifeline, lifeline));
 	}
 
 	/**
@@ -537,123 +533,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPropertyPart(PropertyPart newPropertyPart) {
-		if (newPropertyPart != propertyPart) {
-			NotificationChain msgs = null;
-			if (propertyPart != null)
-				msgs = ((InternalEObject)propertyPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.MACHINE__PROPERTY_PART, null, msgs);
-			if (newPropertyPart != null)
-				msgs = ((InternalEObject)newPropertyPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.MACHINE__PROPERTY_PART, null, msgs);
-			msgs = basicSetPropertyPart(newPropertyPart, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MACHINE__PROPERTY_PART, newPropertyPart, newPropertyPart));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public CompositePart getCompositePart() {
-		return compositePart;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetCompositePart(CompositePart newCompositePart, NotificationChain msgs) {
-		CompositePart oldCompositePart = compositePart;
-		compositePart = newCompositePart;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MACHINE__COMPOSITE_PART, oldCompositePart, newCompositePart);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCompositePart(CompositePart newCompositePart) {
-		if (newCompositePart != compositePart) {
-			NotificationChain msgs = null;
-			if (compositePart != null)
-				msgs = ((InternalEObject)compositePart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.MACHINE__COMPOSITE_PART, null, msgs);
-			if (newCompositePart != null)
-				msgs = ((InternalEObject)newCompositePart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.MACHINE__COMPOSITE_PART, null, msgs);
-			msgs = basicSetCompositePart(newCompositePart, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MACHINE__COMPOSITE_PART, newCompositePart, newCompositePart));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BehaviorPart getBehaviorPart() {
-		return behaviorPart;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetBehaviorPart(BehaviorPart newBehaviorPart, NotificationChain msgs) {
-		BehaviorPart oldBehaviorPart = behaviorPart;
-		behaviorPart = newBehaviorPart;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MACHINE__BEHAVIOR_PART, oldBehaviorPart, newBehaviorPart);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setBehaviorPart(BehaviorPart newBehaviorPart) {
-		if (newBehaviorPart != behaviorPart) {
-			NotificationChain msgs = null;
-			if (behaviorPart != null)
-				msgs = ((InternalEObject)behaviorPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.MACHINE__BEHAVIOR_PART, null, msgs);
-			if (newBehaviorPart != null)
-				msgs = ((InternalEObject)newBehaviorPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.MACHINE__BEHAVIOR_PART, null, msgs);
-			msgs = basicSetBehaviorPart(newBehaviorPart, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.MACHINE__BEHAVIOR_PART, newBehaviorPart, newBehaviorPart));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Machine> getMachine() {
-		if (machine == null) {
-			machine = new EObjectContainmentEList<Machine>(Machine.class, this, InfrastructurePackage.MACHINE__MACHINE);
-		}
-		return machine;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EList<DataType> getTypedef() {
 		if (typedef == null) {
 			typedef = new EObjectContainmentEList<DataType>(DataType.class, this, InfrastructurePackage.MACHINE__TYPEDEF);
@@ -666,6 +546,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Variable> getVariable() {
 		if (variable == null) {
 			variable = new EObjectContainmentEList<Variable>(Variable.class, this, InfrastructurePackage.MACHINE__VARIABLE);
@@ -678,6 +559,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Channel> getChannel() {
 		if (channel == null) {
 			channel = new EObjectContainmentEList<Channel>(Channel.class, this, InfrastructurePackage.MACHINE__CHANNEL);
@@ -690,6 +572,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Port> getPort() {
 		if (port == null) {
 			port = new EObjectContainmentEList<Port>(Port.class, this, InfrastructurePackage.MACHINE__PORT);
@@ -702,6 +585,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Signal> getSignal() {
 		if (signal == null) {
 			signal = new EObjectContainmentEList<Signal>(Signal.class, this, InfrastructurePackage.MACHINE__SIGNAL);
@@ -714,6 +598,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Buffer> getBuffer() {
 		if (buffer == null) {
 			buffer = new EObjectContainmentEList<Buffer>(Buffer.class, this, InfrastructurePackage.MACHINE__BUFFER);
@@ -726,6 +611,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Function> getFunction() {
 		if (function == null) {
 			function = new EObjectContainmentEList<Function>(Function.class, this, InfrastructurePackage.MACHINE__FUNCTION);
@@ -738,6 +624,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Routine> getRoutine() {
 		if (routine == null) {
 			routine = new EObjectContainmentEList<Routine>(Routine.class, this, InfrastructurePackage.MACHINE__ROUTINE);
@@ -750,6 +637,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Procedure> getProcedure() {
 		if (procedure == null) {
 			procedure = new EObjectContainmentEList<Procedure>(Procedure.class, this, InfrastructurePackage.MACHINE__PROCEDURE);
@@ -762,6 +650,20 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EList<Machine> getMachine() {
+		if (machine == null) {
+			machine = new EObjectContainmentEList<Machine>(Machine.class, this, InfrastructurePackage.MACHINE__MACHINE);
+		}
+		return machine;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EList<InstanceMachine> getInstance() {
 		if (instance == null) {
 			instance = new EObjectContainmentEList<InstanceMachine>(InstanceMachine.class, this, InfrastructurePackage.MACHINE__INSTANCE);
@@ -774,6 +676,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Behavior> getBehavior() {
 		if (behavior == null) {
 			behavior = new EObjectContainmentEList<Behavior>(Behavior.class, this, InfrastructurePackage.MACHINE__BEHAVIOR);
@@ -786,6 +689,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Behavior getMain() {
 		return main;
 	}
@@ -810,6 +714,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMain(Behavior newMain) {
 		if (newMain != main) {
 			NotificationChain msgs = null;
@@ -832,14 +737,6 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case InfrastructurePackage.MACHINE__PROPERTY_PART:
-				return basicSetPropertyPart(null, msgs);
-			case InfrastructurePackage.MACHINE__COMPOSITE_PART:
-				return basicSetCompositePart(null, msgs);
-			case InfrastructurePackage.MACHINE__BEHAVIOR_PART:
-				return basicSetBehaviorPart(null, msgs);
-			case InfrastructurePackage.MACHINE__MACHINE:
-				return ((InternalEList<?>)getMachine()).basicRemove(otherEnd, msgs);
 			case InfrastructurePackage.MACHINE__TYPEDEF:
 				return ((InternalEList<?>)getTypedef()).basicRemove(otherEnd, msgs);
 			case InfrastructurePackage.MACHINE__VARIABLE:
@@ -858,6 +755,8 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 				return ((InternalEList<?>)getRoutine()).basicRemove(otherEnd, msgs);
 			case InfrastructurePackage.MACHINE__PROCEDURE:
 				return ((InternalEList<?>)getProcedure()).basicRemove(otherEnd, msgs);
+			case InfrastructurePackage.MACHINE__MACHINE:
+				return ((InternalEList<?>)getMachine()).basicRemove(otherEnd, msgs);
 			case InfrastructurePackage.MACHINE__INSTANCE:
 				return ((InternalEList<?>)getInstance()).basicRemove(otherEnd, msgs);
 			case InfrastructurePackage.MACHINE__BEHAVIOR:
@@ -888,14 +787,8 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 				return isUnsafe();
 			case InfrastructurePackage.MACHINE__DESIGN:
 				return getDesign();
-			case InfrastructurePackage.MACHINE__PROPERTY_PART:
-				return getPropertyPart();
-			case InfrastructurePackage.MACHINE__COMPOSITE_PART:
-				return getCompositePart();
-			case InfrastructurePackage.MACHINE__BEHAVIOR_PART:
-				return getBehaviorPart();
-			case InfrastructurePackage.MACHINE__MACHINE:
-				return getMachine();
+			case InfrastructurePackage.MACHINE__LIFELINE:
+				return isLifeline();
 			case InfrastructurePackage.MACHINE__TYPEDEF:
 				return getTypedef();
 			case InfrastructurePackage.MACHINE__VARIABLE:
@@ -914,6 +807,8 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 				return getRoutine();
 			case InfrastructurePackage.MACHINE__PROCEDURE:
 				return getProcedure();
+			case InfrastructurePackage.MACHINE__MACHINE:
+				return getMachine();
 			case InfrastructurePackage.MACHINE__INSTANCE:
 				return getInstance();
 			case InfrastructurePackage.MACHINE__BEHAVIOR:
@@ -951,18 +846,8 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 			case InfrastructurePackage.MACHINE__DESIGN:
 				setDesign((DesignKind)newValue);
 				return;
-			case InfrastructurePackage.MACHINE__PROPERTY_PART:
-				setPropertyPart((PropertyPart)newValue);
-				return;
-			case InfrastructurePackage.MACHINE__COMPOSITE_PART:
-				setCompositePart((CompositePart)newValue);
-				return;
-			case InfrastructurePackage.MACHINE__BEHAVIOR_PART:
-				setBehaviorPart((BehaviorPart)newValue);
-				return;
-			case InfrastructurePackage.MACHINE__MACHINE:
-				getMachine().clear();
-				getMachine().addAll((Collection<? extends Machine>)newValue);
+			case InfrastructurePackage.MACHINE__LIFELINE:
+				setLifeline((Boolean)newValue);
 				return;
 			case InfrastructurePackage.MACHINE__TYPEDEF:
 				getTypedef().clear();
@@ -999,6 +884,10 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 			case InfrastructurePackage.MACHINE__PROCEDURE:
 				getProcedure().clear();
 				getProcedure().addAll((Collection<? extends Procedure>)newValue);
+				return;
+			case InfrastructurePackage.MACHINE__MACHINE:
+				getMachine().clear();
+				getMachine().addAll((Collection<? extends Machine>)newValue);
 				return;
 			case InfrastructurePackage.MACHINE__INSTANCE:
 				getInstance().clear();
@@ -1041,17 +930,8 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 			case InfrastructurePackage.MACHINE__DESIGN:
 				setDesign(DESIGN_EDEFAULT);
 				return;
-			case InfrastructurePackage.MACHINE__PROPERTY_PART:
-				setPropertyPart((PropertyPart)null);
-				return;
-			case InfrastructurePackage.MACHINE__COMPOSITE_PART:
-				setCompositePart((CompositePart)null);
-				return;
-			case InfrastructurePackage.MACHINE__BEHAVIOR_PART:
-				setBehaviorPart((BehaviorPart)null);
-				return;
-			case InfrastructurePackage.MACHINE__MACHINE:
-				getMachine().clear();
+			case InfrastructurePackage.MACHINE__LIFELINE:
+				setLifeline(LIFELINE_EDEFAULT);
 				return;
 			case InfrastructurePackage.MACHINE__TYPEDEF:
 				getTypedef().clear();
@@ -1079,6 +959,9 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 				return;
 			case InfrastructurePackage.MACHINE__PROCEDURE:
 				getProcedure().clear();
+				return;
+			case InfrastructurePackage.MACHINE__MACHINE:
+				getMachine().clear();
 				return;
 			case InfrastructurePackage.MACHINE__INSTANCE:
 				getInstance().clear();
@@ -1113,14 +996,8 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 				return unsafe != UNSAFE_EDEFAULT;
 			case InfrastructurePackage.MACHINE__DESIGN:
 				return design != DESIGN_EDEFAULT;
-			case InfrastructurePackage.MACHINE__PROPERTY_PART:
-				return propertyPart != null;
-			case InfrastructurePackage.MACHINE__COMPOSITE_PART:
-				return compositePart != null;
-			case InfrastructurePackage.MACHINE__BEHAVIOR_PART:
-				return behaviorPart != null;
-			case InfrastructurePackage.MACHINE__MACHINE:
-				return machine != null && !machine.isEmpty();
+			case InfrastructurePackage.MACHINE__LIFELINE:
+				return lifeline != LIFELINE_EDEFAULT;
 			case InfrastructurePackage.MACHINE__TYPEDEF:
 				return typedef != null && !typedef.isEmpty();
 			case InfrastructurePackage.MACHINE__VARIABLE:
@@ -1139,6 +1016,8 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 				return routine != null && !routine.isEmpty();
 			case InfrastructurePackage.MACHINE__PROCEDURE:
 				return procedure != null && !procedure.isEmpty();
+			case InfrastructurePackage.MACHINE__MACHINE:
+				return machine != null && !machine.isEmpty();
 			case InfrastructurePackage.MACHINE__INSTANCE:
 				return instance != null && !instance.isEmpty();
 			case InfrastructurePackage.MACHINE__BEHAVIOR:
@@ -1158,7 +1037,7 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (input_enabled: ");
 		result.append(input_enabled);
 		result.append(", timed: ");
@@ -1171,6 +1050,8 @@ public class MachineImpl extends ClassifierDefinitionImpl implements Machine {
 		result.append(unsafe);
 		result.append(", design: ");
 		result.append(design);
+		result.append(", lifeline: ");
+		result.append(lifeline);
 		result.append(')');
 		return result.toString();
 	}

@@ -102,8 +102,10 @@ public class ExpertTransitionCoverageConfigurationProfile extends AbstractConfig
 	 * Constructor
 	 * @param parentTab
 	 */
-	public ExpertTransitionCoverageConfigurationProfile(AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+	public ExpertTransitionCoverageConfigurationProfile(
+			AbstractConfigurationPage configurationPage)
+	{
+		super(configurationPage, false);
 	}
 
 

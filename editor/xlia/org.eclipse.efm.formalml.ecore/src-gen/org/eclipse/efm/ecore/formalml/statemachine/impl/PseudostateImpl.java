@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -80,6 +80,7 @@ public class PseudostateImpl extends VertexImpl implements Pseudostate {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PseudostateKind getKind() {
 		return kind;
 	}
@@ -89,6 +90,7 @@ public class PseudostateImpl extends VertexImpl implements Pseudostate {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(PseudostateKind newKind) {
 		PseudostateKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -163,7 +165,7 @@ public class PseudostateImpl extends VertexImpl implements Pseudostate {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (kind: ");
 		result.append(kind);
 		result.append(')');

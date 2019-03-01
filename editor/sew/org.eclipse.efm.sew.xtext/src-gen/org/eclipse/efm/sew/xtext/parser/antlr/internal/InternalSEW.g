@@ -336,35 +336,25 @@ ruleProlog returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 			}
 		)
 		(
-			kw=','
-			{
-				$current.merge(kw);
-				newLeafNode(kw, grammarAccess.getPrologAccess().getCommaKeyword_3_0());
-			}
-			{
-				newCompositeNode(grammarAccess.getPrologAccess().getEDoubleParserRuleCall_3_1());
-			}
-			this_EDouble_6=ruleEDouble
-			{
-				$current.merge(this_EDouble_6);
-			}
-			{
-				afterParserOrEnumRuleCall();
-			}
-		)?
-		(
 			(
 				kw=','
 				{
 					$current.merge(kw);
-					newLeafNode(kw, grammarAccess.getPrologAccess().getCommaKeyword_4_0_0());
+					newLeafNode(kw, grammarAccess.getPrologAccess().getCommaKeyword_3_0_0());
 				}
+				(
+					kw='version:'
+					{
+						$current.merge(kw);
+						newLeafNode(kw, grammarAccess.getPrologAccess().getVersionKeyword_3_0_1());
+					}
+				)?
 				{
-					newCompositeNode(grammarAccess.getPrologAccess().getUFIParserRuleCall_4_0_1());
+					newCompositeNode(grammarAccess.getPrologAccess().getEDoubleParserRuleCall_3_0_2());
 				}
-				this_UFI_8=ruleUFI
+				this_EDouble_7=ruleEDouble
 				{
-					$current.merge(this_UFI_8);
+					$current.merge(this_EDouble_7);
 				}
 				{
 					afterParserOrEnumRuleCall();
@@ -372,7 +362,18 @@ ruleProlog returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 			)
 			    |
 			{
-				newCompositeNode(grammarAccess.getPrologAccess().getEStringParserRuleCall_4_1());
+				newCompositeNode(grammarAccess.getPrologAccess().getUFIParserRuleCall_3_1());
+			}
+			this_UFI_8=ruleUFI
+			{
+				$current.merge(this_UFI_8);
+			}
+			{
+				afterParserOrEnumRuleCall();
+			}
+			    |
+			{
+				newCompositeNode(grammarAccess.getPrologAccess().getEStringParserRuleCall_3_2());
 			}
 			this_EString_9=ruleEString
 			{
@@ -385,7 +386,7 @@ ruleProlog returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 		kw='>:'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getPrologAccess().getGreaterThanSignColonKeyword_5());
+			newLeafNode(kw, grammarAccess.getPrologAccess().getGreaterThanSignColonKeyword_4());
 		}
 	)
 ;

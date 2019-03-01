@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,21 +12,17 @@
  */
 package org.eclipse.efm.ecore.formalml.infrastructure.impl;
 
-import java.util.Collection;
-
 import org.eclipse.efm.ecore.formalml.infrastructure.Function;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
-import org.eclipse.efm.ecore.formalml.infrastructure.Parameter;
+import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,32 +32,32 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.FunctionImpl#getArgument <em>Argument</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.FunctionImpl#getResult <em>Result</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.FunctionImpl#getParameterSet <em>Parameter Set</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.FunctionImpl#getResultSet <em>Result Set</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class FunctionImpl extends PropertyDefinitionImpl implements Function {
 	/**
-	 * The cached value of the '{@link #getArgument() <em>Argument</em>}' containment reference list.
+	 * The cached value of the '{@link #getParameterSet() <em>Parameter Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArgument()
+	 * @see #getParameterSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Parameter> argument;
+	protected ParameterSet parameterSet;
 
 	/**
-	 * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference list.
+	 * The cached value of the '{@link #getResultSet() <em>Result Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResult()
+	 * @see #getResultSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Parameter> result;
+	protected ParameterSet resultSet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -87,11 +83,9 @@ public class FunctionImpl extends PropertyDefinitionImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Parameter> getArgument() {
-		if (argument == null) {
-			argument = new EObjectContainmentEList<Parameter>(Parameter.class, this, InfrastructurePackage.FUNCTION__ARGUMENT);
-		}
-		return argument;
+	@Override
+	public ParameterSet getParameterSet() {
+		return parameterSet;
 	}
 
 	/**
@@ -99,11 +93,79 @@ public class FunctionImpl extends PropertyDefinitionImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Parameter> getResult() {
-		if (result == null) {
-			result = new EObjectContainmentEList<Parameter>(Parameter.class, this, InfrastructurePackage.FUNCTION__RESULT);
+	public NotificationChain basicSetParameterSet(ParameterSet newParameterSet, NotificationChain msgs) {
+		ParameterSet oldParameterSet = parameterSet;
+		parameterSet = newParameterSet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.FUNCTION__PARAMETER_SET, oldParameterSet, newParameterSet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return result;
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setParameterSet(ParameterSet newParameterSet) {
+		if (newParameterSet != parameterSet) {
+			NotificationChain msgs = null;
+			if (parameterSet != null)
+				msgs = ((InternalEObject)parameterSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.FUNCTION__PARAMETER_SET, null, msgs);
+			if (newParameterSet != null)
+				msgs = ((InternalEObject)newParameterSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.FUNCTION__PARAMETER_SET, null, msgs);
+			msgs = basicSetParameterSet(newParameterSet, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.FUNCTION__PARAMETER_SET, newParameterSet, newParameterSet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ParameterSet getResultSet() {
+		return resultSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetResultSet(ParameterSet newResultSet, NotificationChain msgs) {
+		ParameterSet oldResultSet = resultSet;
+		resultSet = newResultSet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.FUNCTION__RESULT_SET, oldResultSet, newResultSet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResultSet(ParameterSet newResultSet) {
+		if (newResultSet != resultSet) {
+			NotificationChain msgs = null;
+			if (resultSet != null)
+				msgs = ((InternalEObject)resultSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.FUNCTION__RESULT_SET, null, msgs);
+			if (newResultSet != null)
+				msgs = ((InternalEObject)newResultSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.FUNCTION__RESULT_SET, null, msgs);
+			msgs = basicSetResultSet(newResultSet, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.FUNCTION__RESULT_SET, newResultSet, newResultSet));
 	}
 
 	/**
@@ -114,10 +176,10 @@ public class FunctionImpl extends PropertyDefinitionImpl implements Function {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case InfrastructurePackage.FUNCTION__ARGUMENT:
-				return ((InternalEList<?>)getArgument()).basicRemove(otherEnd, msgs);
-			case InfrastructurePackage.FUNCTION__RESULT:
-				return ((InternalEList<?>)getResult()).basicRemove(otherEnd, msgs);
+			case InfrastructurePackage.FUNCTION__PARAMETER_SET:
+				return basicSetParameterSet(null, msgs);
+			case InfrastructurePackage.FUNCTION__RESULT_SET:
+				return basicSetResultSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -130,10 +192,10 @@ public class FunctionImpl extends PropertyDefinitionImpl implements Function {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case InfrastructurePackage.FUNCTION__ARGUMENT:
-				return getArgument();
-			case InfrastructurePackage.FUNCTION__RESULT:
-				return getResult();
+			case InfrastructurePackage.FUNCTION__PARAMETER_SET:
+				return getParameterSet();
+			case InfrastructurePackage.FUNCTION__RESULT_SET:
+				return getResultSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -143,17 +205,14 @@ public class FunctionImpl extends PropertyDefinitionImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case InfrastructurePackage.FUNCTION__ARGUMENT:
-				getArgument().clear();
-				getArgument().addAll((Collection<? extends Parameter>)newValue);
+			case InfrastructurePackage.FUNCTION__PARAMETER_SET:
+				setParameterSet((ParameterSet)newValue);
 				return;
-			case InfrastructurePackage.FUNCTION__RESULT:
-				getResult().clear();
-				getResult().addAll((Collection<? extends Parameter>)newValue);
+			case InfrastructurePackage.FUNCTION__RESULT_SET:
+				setResultSet((ParameterSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -167,11 +226,11 @@ public class FunctionImpl extends PropertyDefinitionImpl implements Function {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case InfrastructurePackage.FUNCTION__ARGUMENT:
-				getArgument().clear();
+			case InfrastructurePackage.FUNCTION__PARAMETER_SET:
+				setParameterSet((ParameterSet)null);
 				return;
-			case InfrastructurePackage.FUNCTION__RESULT:
-				getResult().clear();
+			case InfrastructurePackage.FUNCTION__RESULT_SET:
+				setResultSet((ParameterSet)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -185,10 +244,10 @@ public class FunctionImpl extends PropertyDefinitionImpl implements Function {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case InfrastructurePackage.FUNCTION__ARGUMENT:
-				return argument != null && !argument.isEmpty();
-			case InfrastructurePackage.FUNCTION__RESULT:
-				return result != null && !result.isEmpty();
+			case InfrastructurePackage.FUNCTION__PARAMETER_SET:
+				return parameterSet != null;
+			case InfrastructurePackage.FUNCTION__RESULT_SET:
+				return resultSet != null;
 		}
 		return super.eIsSet(featureID);
 	}

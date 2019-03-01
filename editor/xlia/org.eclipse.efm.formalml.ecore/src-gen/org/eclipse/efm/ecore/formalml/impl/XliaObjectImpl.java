@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,12 +17,14 @@ import java.util.Collection;
 import org.eclipse.efm.ecore.formalml.FormalmlPackage;
 import org.eclipse.efm.ecore.formalml.XliaNamedElement;
 import org.eclipse.efm.ecore.formalml.XliaObject;
+
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -74,6 +76,7 @@ public class XliaObjectImpl extends XliaNamedElementImpl implements XliaObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<XliaNamedElement> getElements() {
 		if (elements == null) {
 			elements = new EObjectContainmentEList<XliaNamedElement>(XliaNamedElement.class, this, FormalmlPackage.XLIA_OBJECT__ELEMENTS);

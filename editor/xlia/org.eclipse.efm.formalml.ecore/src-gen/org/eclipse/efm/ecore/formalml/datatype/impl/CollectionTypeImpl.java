@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -122,6 +122,7 @@ public class CollectionTypeImpl extends DataSupportedTypeImpl implements Collect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CollectionKind getContainer() {
 		return container;
 	}
@@ -131,6 +132,7 @@ public class CollectionTypeImpl extends DataSupportedTypeImpl implements Collect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContainer(CollectionKind newContainer) {
 		CollectionKind oldContainer = container;
 		container = newContainer == null ? CONTAINER_EDEFAULT : newContainer;
@@ -143,6 +145,7 @@ public class CollectionTypeImpl extends DataSupportedTypeImpl implements Collect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getSize() {
 		return size;
 	}
@@ -152,6 +155,7 @@ public class CollectionTypeImpl extends DataSupportedTypeImpl implements Collect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(int newSize) {
 		int oldSize = size;
 		size = newSize;
@@ -164,6 +168,7 @@ public class CollectionTypeImpl extends DataSupportedTypeImpl implements Collect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isUnbounded() {
 		return unbounded;
 	}
@@ -173,6 +178,7 @@ public class CollectionTypeImpl extends DataSupportedTypeImpl implements Collect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnbounded(boolean newUnbounded) {
 		boolean oldUnbounded = unbounded;
 		unbounded = newUnbounded;
@@ -267,7 +273,7 @@ public class CollectionTypeImpl extends DataSupportedTypeImpl implements Collect
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (container: ");
 		result.append(container);
 		result.append(", size: ");

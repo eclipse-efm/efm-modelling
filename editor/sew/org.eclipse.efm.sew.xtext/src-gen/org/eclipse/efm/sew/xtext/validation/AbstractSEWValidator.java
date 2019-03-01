@@ -26,5 +26,4 @@ public abstract class AbstractSEWValidator extends AbstractDeclarativeValidator 
 		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/efm/SEW/Expression"));
 		return result;
 	}
-	
 }

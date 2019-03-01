@@ -17,7 +17,7 @@ import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
 
 class FormalMLEObjectDocumentationProvider implements IEObjectDocumentationProvider {
 	
-	override public String getDocumentation(EObject element) {
+	override String getDocumentation(EObject element) {
 		switch( element ) {
 //		Machine:
 //			return "This is a nice Machine with nice <b>markup</b> in the <i>documentation</i>"

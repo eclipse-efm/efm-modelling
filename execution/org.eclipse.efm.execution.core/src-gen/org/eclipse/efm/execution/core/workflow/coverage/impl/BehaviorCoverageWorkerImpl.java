@@ -328,6 +328,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CheckingScopeKind getCheckingScope() {
 		return checkingScope;
 	}
@@ -337,6 +338,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCheckingScope(CheckingScopeKind newCheckingScope) {
 		CheckingScopeKind oldCheckingScope = checkingScope;
 		checkingScope = newCheckingScope == null ? CHECKING_SCOPE_EDEFAULT : newCheckingScope;
@@ -349,6 +351,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOrderedTrace() {
 		return orderedTrace;
 	}
@@ -358,6 +361,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOrderedTrace(boolean newOrderedTrace) {
 		boolean oldOrderedTrace = orderedTrace;
 		orderedTrace = newOrderedTrace;
@@ -370,6 +374,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHitConsecutive() {
 		return hitConsecutive;
 	}
@@ -379,6 +384,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitConsecutive(boolean newHitConsecutive) {
 		boolean oldHitConsecutive = hitConsecutive;
 		hitConsecutive = newHitConsecutive;
@@ -391,6 +397,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHitFolding() {
 		return hitFolding;
 	}
@@ -400,6 +407,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitFolding(boolean newHitFolding) {
 		boolean oldHitFolding = hitFolding;
 		hitFolding = newHitFolding;
@@ -412,6 +420,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHitLucky() {
 		return hitLucky;
 	}
@@ -421,6 +430,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitLucky(boolean newHitLucky) {
 		boolean oldHitLucky = hitLucky;
 		hitLucky = newHitLucky;
@@ -433,6 +443,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHitMax() {
 		return hitMax;
 	}
@@ -442,6 +453,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitMax(boolean newHitMax) {
 		boolean oldHitMax = hitMax;
 		hitMax = newHitMax;
@@ -454,6 +466,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHitFinal() {
 		return hitFinal;
 	}
@@ -463,6 +476,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitFinal(boolean newHitFinal) {
 		boolean oldHitFinal = hitFinal;
 		hitFinal = newHitFinal;
@@ -475,6 +489,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getJumpHeight() {
 		return jumpHeight;
 	}
@@ -484,6 +499,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJumpHeight(int newJumpHeight) {
 		int oldJumpHeight = jumpHeight;
 		jumpHeight = newJumpHeight;
@@ -496,6 +512,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getJumpTrialsLimit() {
 		return jumpTrialsLimit;
 	}
@@ -505,6 +522,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJumpTrialsLimit(int newJumpTrialsLimit) {
 		int oldJumpTrialsLimit = jumpTrialsLimit;
 		jumpTrialsLimit = newJumpTrialsLimit;
@@ -517,6 +535,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getHitCount() {
 		return hitCount;
 	}
@@ -526,6 +545,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHitCount(int newHitCount) {
 		int oldHitCount = hitCount;
 		hitCount = newHitCount;
@@ -538,6 +558,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getJumpCount() {
 		return jumpCount;
 	}
@@ -547,6 +568,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJumpCount(int newJumpCount) {
 		int oldJumpCount = jumpCount;
 		jumpCount = newJumpCount;
@@ -559,6 +581,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isJumpSlice() {
 		return jumpSlice;
 	}
@@ -568,6 +591,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJumpSlice(boolean newJumpSlice) {
 		boolean oldJumpSlice = jumpSlice;
 		jumpSlice = newJumpSlice;
@@ -580,6 +604,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSpecification getBehavior() {
 		return behavior;
 	}
@@ -604,6 +629,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBehavior(TraceSpecification newBehavior) {
 		if (newBehavior != behavior) {
 			NotificationChain msgs = null;
@@ -819,7 +845,7 @@ public class BehaviorCoverageWorkerImpl extends CoverageWorkerImpl implements Be
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (checkingScope: ");
 		result.append(checkingScope);
 		result.append(", orderedTrace: ");

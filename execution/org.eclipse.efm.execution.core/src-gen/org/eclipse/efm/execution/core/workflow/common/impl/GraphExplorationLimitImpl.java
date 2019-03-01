@@ -206,6 +206,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getStep() {
 		return step;
 	}
@@ -215,6 +216,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStep(long newStep) {
 		long oldStep = step;
 		step = newStep;
@@ -227,6 +229,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getEval() {
 		return eval;
 	}
@@ -236,6 +239,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEval(long newEval) {
 		long oldEval = eval;
 		eval = newEval;
@@ -248,6 +252,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getNode() {
 		return node;
 	}
@@ -257,6 +262,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNode(long newNode) {
 		long oldNode = node;
 		node = newNode;
@@ -269,6 +275,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getHeight() {
 		return height;
 	}
@@ -278,6 +285,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHeight(long newHeight) {
 		long oldHeight = height;
 		height = newHeight;
@@ -290,6 +298,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getWidth() {
 		return width;
 	}
@@ -299,6 +308,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWidth(long newWidth) {
 		long oldWidth = width;
 		width = newWidth;
@@ -311,6 +321,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getReport() {
 		return report;
 	}
@@ -320,6 +331,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReport(long newReport) {
 		long oldReport = report;
 		report = newReport;
@@ -332,6 +344,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getSave() {
 		return save;
 	}
@@ -341,6 +354,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSave(long newSave) {
 		long oldSave = save;
 		save = newSave;
@@ -475,7 +489,7 @@ public class GraphExplorationLimitImpl extends MinimalEObjectImpl.Container impl
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (step: ");
 		result.append(step);
 		result.append(", eval: ");

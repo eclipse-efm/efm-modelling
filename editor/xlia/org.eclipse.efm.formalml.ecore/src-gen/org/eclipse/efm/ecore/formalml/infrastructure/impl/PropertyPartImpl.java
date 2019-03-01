@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -163,6 +163,7 @@ public class PropertyPartImpl extends MinimalEObjectImpl.Container implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Parameter> getParameter() {
 		if (parameter == null) {
 			parameter = new EObjectContainmentEList<Parameter>(Parameter.class, this, InfrastructurePackage.PROPERTY_PART__PARAMETER);
@@ -175,6 +176,7 @@ public class PropertyPartImpl extends MinimalEObjectImpl.Container implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<DataType> getTypedef() {
 		if (typedef == null) {
 			typedef = new EObjectContainmentEList<DataType>(DataType.class, this, InfrastructurePackage.PROPERTY_PART__TYPEDEF);
@@ -187,6 +189,7 @@ public class PropertyPartImpl extends MinimalEObjectImpl.Container implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Variable> getVariable() {
 		if (variable == null) {
 			variable = new EObjectContainmentEList<Variable>(Variable.class, this, InfrastructurePackage.PROPERTY_PART__VARIABLE);
@@ -199,6 +202,7 @@ public class PropertyPartImpl extends MinimalEObjectImpl.Container implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Channel> getChannel() {
 		if (channel == null) {
 			channel = new EObjectContainmentEList<Channel>(Channel.class, this, InfrastructurePackage.PROPERTY_PART__CHANNEL);
@@ -211,6 +215,7 @@ public class PropertyPartImpl extends MinimalEObjectImpl.Container implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Port> getPort() {
 		if (port == null) {
 			port = new EObjectContainmentEList<Port>(Port.class, this, InfrastructurePackage.PROPERTY_PART__PORT);
@@ -223,6 +228,7 @@ public class PropertyPartImpl extends MinimalEObjectImpl.Container implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Signal> getSignal() {
 		if (signal == null) {
 			signal = new EObjectContainmentEList<Signal>(Signal.class, this, InfrastructurePackage.PROPERTY_PART__SIGNAL);
@@ -235,6 +241,7 @@ public class PropertyPartImpl extends MinimalEObjectImpl.Container implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Buffer> getBuffer() {
 		if (buffer == null) {
 			buffer = new EObjectContainmentEList<Buffer>(Buffer.class, this, InfrastructurePackage.PROPERTY_PART__BUFFER);
@@ -247,6 +254,7 @@ public class PropertyPartImpl extends MinimalEObjectImpl.Container implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Function> getFunction() {
 		if (function == null) {
 			function = new EObjectContainmentEList<Function>(Function.class, this, InfrastructurePackage.PROPERTY_PART__FUNCTION);

@@ -101,6 +101,7 @@ public class ManifestImpl extends MinimalEObjectImpl.Container implements Manife
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isAutoconf() {
 		return autoconf;
 	}
@@ -110,6 +111,7 @@ public class ManifestImpl extends MinimalEObjectImpl.Container implements Manife
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAutoconf(boolean newAutoconf) {
 		boolean oldAutoconf = autoconf;
 		autoconf = newAutoconf;
@@ -122,6 +124,7 @@ public class ManifestImpl extends MinimalEObjectImpl.Container implements Manife
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isAutostart() {
 		return autostart;
 	}
@@ -131,6 +134,7 @@ public class ManifestImpl extends MinimalEObjectImpl.Container implements Manife
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAutostart(boolean newAutostart) {
 		boolean oldAutostart = autostart;
 		autostart = newAutostart;
@@ -215,7 +219,7 @@ public class ManifestImpl extends MinimalEObjectImpl.Container implements Manife
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (autoconf: ");
 		result.append(autoconf);
 		result.append(", autostart: ");

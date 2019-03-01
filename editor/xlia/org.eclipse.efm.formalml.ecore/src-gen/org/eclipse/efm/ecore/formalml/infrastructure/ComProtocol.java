@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,6 +16,7 @@ import org.eclipse.efm.ecore.formalml.common.AbstractElement;
 
 import org.eclipse.efm.ecore.formalml.datatype.CollectionType;
 
+import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification;
 import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification;
 
 /**
@@ -31,6 +32,7 @@ import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getCast <em>Cast</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getInner_buffer <em>Inner buffer</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getBuffer <em>Buffer</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getBufferRef <em>Buffer Ref</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComProtocol()
@@ -147,5 +149,31 @@ public interface ComProtocol extends AbstractElement {
 	 * @generated
 	 */
 	void setBuffer(ValueElementSpecification value);
+
+	/**
+	 * Returns the value of the '<em><b>Buffer Ref</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Buffer Ref</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Buffer Ref</em>' containment reference.
+	 * @see #setBufferRef(LiteralReferenceSpecification)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getComProtocol_BufferRef()
+	 * @model containment="true"
+	 * @generated
+	 */
+	LiteralReferenceSpecification getBufferRef();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getBufferRef <em>Buffer Ref</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Buffer Ref</em>' containment reference.
+	 * @see #getBufferRef()
+	 * @generated
+	 */
+	void setBufferRef(LiteralReferenceSpecification value);
 
 } // ComProtocol

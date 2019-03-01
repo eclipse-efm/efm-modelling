@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -77,6 +77,7 @@ public abstract class DataStructuredTypeImpl extends DataTypeImpl implements Dat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<PropertyDefinition> getProperty() {
 		if (property == null) {
 			property = new EObjectContainmentEList<PropertyDefinition>(PropertyDefinition.class, this, DatatypePackage.DATA_STRUCTURED_TYPE__PROPERTY);

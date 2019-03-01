@@ -20,6 +20,7 @@ import org.eclipse.efm.modeling.codegen.xlia.activity.ActivityCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.datatype.DataTypeCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.interaction.InteractionCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.statemachine.StatemachineCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.util.ModelUtils;
 import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.efm.modeling.formalml.Configuration;
 import org.eclipse.efm.modeling.formalml.DirectedPort;
@@ -78,6 +79,11 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 	private static final String STD_ENV_TYPE_NAME = "Env";
 
 	/**
+	 * xLIA target Model
+	 */
+	public ModelUtils xliaModel;
+	
+	/**
 	 * Main System Serilization Flag
 	 */
 	public boolean isSystemSerilization = false;
@@ -120,6 +126,8 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 	public MainCodeGenerator() {
 		super();
 
+		this.xliaModel = new ModelUtils(this, "System");
+		
 		this.fSupervisor = this;
 
 		this.fClassFactory = new ClassCodeGenerator(this);
@@ -512,10 +520,10 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 
 		writer.appendTab("package ")
 			.append(element.getName())
-			.appendEol2(" {");
+			.appendEol(" {");
 
 		for( PackageableElement it : element.getPackagedElements() ) {
-			performTransform( it );
+			performTransform( it, writer.itab2() );
 		}
 
 		writer.appendTab("} // end package ")
@@ -1087,6 +1095,13 @@ public class MainCodeGenerator extends AbstractCodeGenerator {
 			}
 
 			writer.append(")");
+		}
+		else if( value instanceof OpaqueExpression ) {
+			OpaqueExpression opaqExpr = ((OpaqueExpression) value);
+			
+			for ( String opaqBody : opaqExpr.getBodies()) {
+				writer.append( opaqBody );
+			}
 		}
 		else if(  value != null ) {
 			final String name = value.getName();

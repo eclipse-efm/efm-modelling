@@ -39,7 +39,7 @@ public class TestGenerationTTCNConfigurationProfile extends AbstractConfiguratio
 	 * @param parentTab
 	 */
 	public TestGenerationTTCNConfigurationProfile(AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+		super(configurationPage, false);
 	}
 
 

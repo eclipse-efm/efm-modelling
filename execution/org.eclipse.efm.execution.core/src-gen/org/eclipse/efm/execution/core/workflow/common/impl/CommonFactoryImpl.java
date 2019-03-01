@@ -160,6 +160,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Workspace createWorkspace() {
 		WorkspaceImpl workspace = new WorkspaceImpl();
 		return workspace;
@@ -170,6 +171,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Location createLocation() {
 		LocationImpl location = new LocationImpl();
 		return location;
@@ -180,6 +182,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Project createProject() {
 		ProjectImpl project = new ProjectImpl();
 		return project;
@@ -190,6 +193,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GraphExplorationLimit createGraphExplorationLimit() {
 		GraphExplorationLimitImpl graphExplorationLimit = new GraphExplorationLimitImpl();
 		return graphExplorationLimit;
@@ -200,6 +204,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GraphExplorationQueue createGraphExplorationQueue() {
 		GraphExplorationQueueImpl graphExplorationQueue = new GraphExplorationQueueImpl();
 		return graphExplorationQueue;
@@ -210,6 +215,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConsoleLogFormat createConsoleLogFormat() {
 		ConsoleLogFormatImpl consoleLogFormat = new ConsoleLogFormatImpl();
 		return consoleLogFormat;
@@ -220,6 +226,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceElement createTraceElement() {
 		TraceElementImpl traceElement = new TraceElementImpl();
 		return traceElement;
@@ -230,6 +237,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSpecification createTraceSpecification() {
 		TraceSpecificationImpl traceSpecification = new TraceSpecificationImpl();
 		return traceSpecification;
@@ -240,6 +248,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Manifest createManifest() {
 		ManifestImpl manifest = new ManifestImpl();
 		return manifest;
@@ -250,6 +259,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SymbexOption createSymbexOption() {
 		SymbexOptionImpl symbexOption = new SymbexOptionImpl();
 		return symbexOption;
@@ -260,6 +270,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CoverageHeuristic createCoverageHeuristic() {
 		CoverageHeuristicImpl coverageHeuristic = new CoverageHeuristicImpl();
 		return coverageHeuristic;
@@ -270,6 +281,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DeveloperTuningOption createDeveloperTuningOption() {
 		DeveloperTuningOptionImpl developerTuningOption = new DeveloperTuningOptionImpl();
 		return developerTuningOption;
@@ -280,6 +292,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RedundancyDetection createRedundancyDetection() {
 		RedundancyDetectionImpl redundancyDetection = new RedundancyDetectionImpl();
 		return redundancyDetection;
@@ -510,6 +523,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CommonPackage getCommonPackage() {
 		return (CommonPackage)getEPackage();
 	}

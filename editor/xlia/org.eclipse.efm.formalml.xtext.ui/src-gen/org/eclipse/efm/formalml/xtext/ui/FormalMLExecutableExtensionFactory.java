@@ -13,6 +13,7 @@
 package org.eclipse.efm.formalml.xtext.ui;
 
 import com.google.inject.Injector;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.efm.formalml.xtext.ui.internal.XtextActivator;
 import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osgi.framework.Bundle;
@@ -25,12 +26,13 @@ public class FormalMLExecutableExtensionFactory extends AbstractGuiceAwareExecut
 
 	@Override
 	protected Bundle getBundle() {
-		return XtextActivator.getInstance().getBundle();
+		return Platform.getBundle(XtextActivator.PLUGIN_ID);
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return XtextActivator.getInstance().getInjector(XtextActivator.ORG_ECLIPSE_EFM_FORMALML_XTEXT_FORMALML);
+		XtextActivator activator = XtextActivator.getInstance();
+		return activator != null ? activator.getInjector(XtextActivator.ORG_ECLIPSE_EFM_FORMALML_XTEXT_FORMALML) : null;
 	}
-	
+
 }

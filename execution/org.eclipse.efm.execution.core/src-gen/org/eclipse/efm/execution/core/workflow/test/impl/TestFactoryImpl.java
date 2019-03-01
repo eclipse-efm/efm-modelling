@@ -77,6 +77,7 @@ public class TestFactoryImpl extends EFactoryImpl implements TestFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OfflineTestWorker createOfflineTestWorker() {
 		OfflineTestWorkerImpl offlineTestWorker = new OfflineTestWorkerImpl();
 		return offlineTestWorker;
@@ -87,6 +88,7 @@ public class TestFactoryImpl extends EFactoryImpl implements TestFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TestPackage getTestPackage() {
 		return (TestPackage)getEPackage();
 	}

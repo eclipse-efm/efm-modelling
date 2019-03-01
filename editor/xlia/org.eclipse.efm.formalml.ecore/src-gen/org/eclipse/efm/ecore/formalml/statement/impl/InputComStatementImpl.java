@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -77,6 +77,7 @@ public class InputComStatementImpl extends AbstractComStatementImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getLeftValue() {
 		if (leftValue == null) {
 			leftValue = new EObjectContainmentEList<Expression>(Expression.class, this, StatementPackage.INPUT_COM_STATEMENT__LEFT_VALUE);

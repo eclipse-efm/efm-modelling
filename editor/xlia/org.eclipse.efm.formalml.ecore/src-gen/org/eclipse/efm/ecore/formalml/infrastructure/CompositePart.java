@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -54,22 +54,6 @@ public interface CompositePart extends EObject {
 	EList<Routine> getRoutine();
 
 	/**
-	 * Returns the value of the '<em><b>Machine</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Machine}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Machine</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Machine</em>' containment reference list.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getCompositePart_Machine()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Machine> getMachine();
-
-	/**
 	 * Returns the value of the '<em><b>Procedure</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Procedure}.
 	 * <!-- begin-user-doc -->
@@ -84,6 +68,22 @@ public interface CompositePart extends EObject {
 	 * @generated
 	 */
 	EList<Procedure> getProcedure();
+
+	/**
+	 * Returns the value of the '<em><b>Machine</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Machine}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Machine</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Machine</em>' containment reference list.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getCompositePart_Machine()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Machine> getMachine();
 
 	/**
 	 * Returns the value of the '<em><b>Instance</b></em>' containment reference list.

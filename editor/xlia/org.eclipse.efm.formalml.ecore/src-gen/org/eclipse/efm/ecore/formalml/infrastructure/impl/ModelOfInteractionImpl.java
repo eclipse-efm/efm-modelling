@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModelOfInteractionImpl#getRoutes <em>Routes</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModelOfInteractionImpl#getConnections <em>Connections</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModelOfInteractionImpl#getConnectors <em>Connectors</em>}</li>
  * </ul>
  *
  * @generated
@@ -57,14 +57,14 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 	protected EList<Route> routes;
 
 	/**
-	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
+	 * The cached value of the '{@link #getConnectors() <em>Connectors</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConnections()
+	 * @see #getConnectors()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Connector> connections;
+	protected EList<Connector> connectors;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -90,6 +90,7 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Route> getRoutes() {
 		if (routes == null) {
 			routes = new EObjectContainmentEList<Route>(Route.class, this, InfrastructurePackage.MODEL_OF_INTERACTION__ROUTES);
@@ -102,11 +103,12 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Connector> getConnections() {
-		if (connections == null) {
-			connections = new EObjectContainmentEList<Connector>(Connector.class, this, InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTIONS);
+	@Override
+	public EList<Connector> getConnectors() {
+		if (connectors == null) {
+			connectors = new EObjectContainmentEList<Connector>(Connector.class, this, InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTORS);
 		}
-		return connections;
+		return connectors;
 	}
 
 	/**
@@ -119,8 +121,8 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 			case InfrastructurePackage.MODEL_OF_INTERACTION__ROUTES:
 				return ((InternalEList<?>)getRoutes()).basicRemove(otherEnd, msgs);
-			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTIONS:
-				return ((InternalEList<?>)getConnections()).basicRemove(otherEnd, msgs);
+			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTORS:
+				return ((InternalEList<?>)getConnectors()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -135,8 +137,8 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 			case InfrastructurePackage.MODEL_OF_INTERACTION__ROUTES:
 				return getRoutes();
-			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTIONS:
-				return getConnections();
+			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTORS:
+				return getConnectors();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -154,9 +156,9 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 				getRoutes().clear();
 				getRoutes().addAll((Collection<? extends Route>)newValue);
 				return;
-			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTIONS:
-				getConnections().clear();
-				getConnections().addAll((Collection<? extends Connector>)newValue);
+			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTORS:
+				getConnectors().clear();
+				getConnectors().addAll((Collection<? extends Connector>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -173,8 +175,8 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 			case InfrastructurePackage.MODEL_OF_INTERACTION__ROUTES:
 				getRoutes().clear();
 				return;
-			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTIONS:
-				getConnections().clear();
+			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTORS:
+				getConnectors().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -190,8 +192,8 @@ public class ModelOfInteractionImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 			case InfrastructurePackage.MODEL_OF_INTERACTION__ROUTES:
 				return routes != null && !routes.isEmpty();
-			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTIONS:
-				return connections != null && !connections.isEmpty();
+			case InfrastructurePackage.MODEL_OF_INTERACTION__CONNECTORS:
+				return connectors != null && !connectors.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

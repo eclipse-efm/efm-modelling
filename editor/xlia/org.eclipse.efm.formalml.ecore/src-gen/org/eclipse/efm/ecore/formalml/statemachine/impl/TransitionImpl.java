@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,12 +13,15 @@
 package org.eclipse.efm.ecore.formalml.statemachine.impl;
 
 import java.util.Collection;
+
 import org.eclipse.efm.ecore.formalml.common.impl.NamedElementImpl;
 
 import org.eclipse.efm.ecore.formalml.expression.Expression;
+
 import org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage;
 import org.eclipse.efm.ecore.formalml.statemachine.Transition;
 import org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe;
+import org.eclipse.efm.ecore.formalml.statemachine.Vertex;
 
 import org.eclipse.efm.ecore.formalml.statement.AbstractGuardStatement;
 import org.eclipse.efm.ecore.formalml.statement.BlockStatement;
@@ -55,6 +58,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionImpl#getGuard <em>Guard</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionImpl#getTguard <em>Tguard</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionImpl#getEffect <em>Effect</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionImpl#getTargetExpression <em>Target Expression</em>}</li>
  * </ul>
  *
  * @generated
@@ -91,14 +95,14 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	protected TransitionMoe moe;
 
 	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
+	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression target;
+	protected Vertex target;
 
 	/**
 	 * The cached value of the '{@link #getBehavior() <em>Behavior</em>}' containment reference.
@@ -151,6 +155,16 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	protected Statement effect;
 
 	/**
+	 * The cached value of the '{@link #getTargetExpression() <em>Target Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetExpression()
+	 * @generated
+	 * @ordered
+	 */
+	protected Expression targetExpression;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -174,6 +188,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isTransient() {
 		return transient_;
 	}
@@ -183,6 +198,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransient(boolean newTransient) {
 		boolean oldTransient = transient_;
 		transient_ = newTransient;
@@ -195,6 +211,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransitionMoe getMoe() {
 		return moe;
 	}
@@ -219,6 +236,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMoe(TransitionMoe newMoe) {
 		if (newMoe != moe) {
 			NotificationChain msgs = null;
@@ -238,7 +256,8 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getTarget() {
+	@Override
+	public Vertex getTarget() {
 		return target;
 	}
 
@@ -247,14 +266,12 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTarget(Expression newTarget, NotificationChain msgs) {
-		Expression oldTarget = target;
+	@Override
+	public void setTarget(Vertex newTarget) {
+		Vertex oldTarget = target;
 		target = newTarget;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__TARGET, oldTarget, newTarget);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__TARGET, oldTarget, target));
 	}
 
 	/**
@@ -262,25 +279,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTarget(Expression newTarget) {
-		if (newTarget != target) {
-			NotificationChain msgs = null;
-			if (target != null)
-				msgs = ((InternalEObject)target).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__TARGET, null, msgs);
-			if (newTarget != null)
-				msgs = ((InternalEObject)newTarget).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__TARGET, null, msgs);
-			msgs = basicSetTarget(newTarget, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__TARGET, newTarget, newTarget));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public BlockStatement getBehavior() {
 		return behavior;
 	}
@@ -305,6 +304,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBehavior(BlockStatement newBehavior) {
 		if (newBehavior != behavior) {
 			NotificationChain msgs = null;
@@ -324,6 +324,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<InputComStatement> getTrigger() {
 		if (trigger == null) {
 			trigger = new EObjectContainmentEList<InputComStatement>(InputComStatement.class, this, StatemachinePackage.TRANSITION__TRIGGER);
@@ -336,6 +337,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbstractGuardStatement getGuard() {
 		return guard;
 	}
@@ -360,6 +362,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setGuard(AbstractGuardStatement newGuard) {
 		if (newGuard != guard) {
 			NotificationChain msgs = null;
@@ -379,6 +382,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TimedGuardStatement getTguard() {
 		return tguard;
 	}
@@ -403,6 +407,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTguard(TimedGuardStatement newTguard) {
 		if (newTguard != tguard) {
 			NotificationChain msgs = null;
@@ -422,6 +427,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Statement getEffect() {
 		return effect;
 	}
@@ -446,6 +452,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEffect(Statement newEffect) {
 		if (newEffect != effect) {
 			NotificationChain msgs = null;
@@ -466,12 +473,55 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * @generated
 	 */
 	@Override
+	public Expression getTargetExpression() {
+		return targetExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTargetExpression(Expression newTargetExpression, NotificationChain msgs) {
+		Expression oldTargetExpression = targetExpression;
+		targetExpression = newTargetExpression;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__TARGET_EXPRESSION, oldTargetExpression, newTargetExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setTargetExpression(Expression newTargetExpression) {
+		if (newTargetExpression != targetExpression) {
+			NotificationChain msgs = null;
+			if (targetExpression != null)
+				msgs = ((InternalEObject)targetExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__TARGET_EXPRESSION, null, msgs);
+			if (newTargetExpression != null)
+				msgs = ((InternalEObject)newTargetExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StatemachinePackage.TRANSITION__TARGET_EXPRESSION, null, msgs);
+			msgs = basicSetTargetExpression(newTargetExpression, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION__TARGET_EXPRESSION, newTargetExpression, newTargetExpression));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case StatemachinePackage.TRANSITION__MOE:
 				return basicSetMoe(null, msgs);
-			case StatemachinePackage.TRANSITION__TARGET:
-				return basicSetTarget(null, msgs);
 			case StatemachinePackage.TRANSITION__BEHAVIOR:
 				return basicSetBehavior(null, msgs);
 			case StatemachinePackage.TRANSITION__TRIGGER:
@@ -482,6 +532,8 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				return basicSetTguard(null, msgs);
 			case StatemachinePackage.TRANSITION__EFFECT:
 				return basicSetEffect(null, msgs);
+			case StatemachinePackage.TRANSITION__TARGET_EXPRESSION:
+				return basicSetTargetExpression(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -510,6 +562,8 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				return getTguard();
 			case StatemachinePackage.TRANSITION__EFFECT:
 				return getEffect();
+			case StatemachinePackage.TRANSITION__TARGET_EXPRESSION:
+				return getTargetExpression();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -530,7 +584,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				setMoe((TransitionMoe)newValue);
 				return;
 			case StatemachinePackage.TRANSITION__TARGET:
-				setTarget((Expression)newValue);
+				setTarget((Vertex)newValue);
 				return;
 			case StatemachinePackage.TRANSITION__BEHAVIOR:
 				setBehavior((BlockStatement)newValue);
@@ -547,6 +601,9 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				return;
 			case StatemachinePackage.TRANSITION__EFFECT:
 				setEffect((Statement)newValue);
+				return;
+			case StatemachinePackage.TRANSITION__TARGET_EXPRESSION:
+				setTargetExpression((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -567,7 +624,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				setMoe((TransitionMoe)null);
 				return;
 			case StatemachinePackage.TRANSITION__TARGET:
-				setTarget((Expression)null);
+				setTarget((Vertex)null);
 				return;
 			case StatemachinePackage.TRANSITION__BEHAVIOR:
 				setBehavior((BlockStatement)null);
@@ -583,6 +640,9 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				return;
 			case StatemachinePackage.TRANSITION__EFFECT:
 				setEffect((Statement)null);
+				return;
+			case StatemachinePackage.TRANSITION__TARGET_EXPRESSION:
+				setTargetExpression((Expression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -612,6 +672,8 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				return tguard != null;
 			case StatemachinePackage.TRANSITION__EFFECT:
 				return effect != null;
+			case StatemachinePackage.TRANSITION__TARGET_EXPRESSION:
+				return targetExpression != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -625,7 +687,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (transient: ");
 		result.append(transient_);
 		result.append(')');

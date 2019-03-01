@@ -43,14 +43,14 @@ import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.ValueSpecification;
 
-public interface InteractionHelper
-		extends NameHelper , TransitionHelper, XliaConstants {
+public interface InteractionHelper extends NameHelper,
+		TimeObservationHelper , TransitionHelper, XliaConstants {
 
 	///////////////////////////////////////////////////////////////////////////
 	// UTILS FOR SCHEDULE REGION IN COMBINED FRAGMENT
 	///////////////////////////////////////////////////////////////////////////
 
-	public default Property createCombinedRegionScheduleVariable(
+	default Property createCombinedRegionScheduleVariable(
 			StatemachineContext lfContext, CombinedFragment element) {
 
 		String enumRegionTypeName = nameOfEnumRegionsType(element);
@@ -59,14 +59,16 @@ public interface InteractionHelper
 		Property schedulingVariable = lfContext.statemachine.createOwnedAttribute(
 				nameOfSchedulingVariable(element), fifoScheduleType);
 
+		//To-Do declare enumRegionTypeName
+		Type enumRegionType = DataTypeFactory.enumAliasType(enumRegionTypeName);
 		Property currentRegionVariable = lfContext.statemachine.createOwnedAttribute(
-				nameOfScheduledRegionVariable(element), fifoScheduleType);//enumRegionTypeName);
+				nameOfScheduledRegionVariable(element), enumRegionType);//enumRegionTypeName);
 
 		return( schedulingVariable );
 	}
 
 
-	public default void addGuardForFirstRegionEntry(
+	default void addGuardForFirstRegionEntry(
 			Transition transition, Property regionScheduleVariable) {
 
 		StringBuilder guard = new StringBuilder();
@@ -75,11 +77,10 @@ public interface InteractionHelper
 			.append(" );");
 
 		addOpaqueBehaviorEffect(transition, guard.toString());
-
 	}
 
 
-	public default void addGuardForNotFirstRegionEntry(
+	default void addGuardForNotFirstRegionEntry(
 			Transition transition, Property regionScheduleVariable,
 			CombinedFragment element) {
 
@@ -102,11 +103,11 @@ public interface InteractionHelper
 	// TRANSITION
 	///////////////////////////////////////////////////////////////////////////
 
-	public default void addEffectGuard(StatemachineContext lfContext,
+	default void addEffectGuard(StatemachineContext lfContext,
 			Element element, Transition transition, Constraint guard) {
 
 		StringBuilder valueBuffer = new StringBuilder();
-		StringBuilder valueBuffer1 = new StringBuilder();;
+		StringBuilder valueBuffer1 = new StringBuilder();
 		//Transition BH_tr = null;
 
 		if( guard != null ) {
@@ -129,6 +130,14 @@ public interface InteractionHelper
 					else if(languages[i].contains("xLIAstringPost")){
 						valueBuffer.append("currentCall.POST = ");
 						valueBuffer.append(bodies[i]).append(";");
+						addOpaqueBehaviorEffect(transition, valueBuffer.toString());
+					}
+					else if(languages[i].contains("VSL")){
+						valueBuffer.append( transformTimedConstraint(bodies[i]) );
+
+//						valueBuffer.append("tguard( ");
+//						valueBuffer.append(bodies[i]).append(" );");
+
 						addOpaqueBehaviorEffect(transition, valueBuffer.toString());
 					}
 					else if(languages[i].contains("OCL")){
@@ -211,7 +220,7 @@ public interface InteractionHelper
 	}
 
 
-	public default void valueSpecificationToString(
+	default void valueSpecificationToString(
 			ValueSpecification value, StringBuilder stringVar) {
 		if( value instanceof LiteralBoolean ) {
 			stringVar.append(value.booleanValue());
@@ -261,7 +270,7 @@ public interface InteractionHelper
 	}
 
 
-	public default void setGuard(Transition transition,
+	default void setGuard(Transition transition,
 			InteractionConstraint interactionGuard, Property indexVar) {
 		if( interactionGuard != null ) {
 			Constraint constraint = transition.createGuard("guardConstraint");
@@ -296,7 +305,7 @@ public interface InteractionHelper
 		}
 	}
 
-	public default String toIndexConstraint(InteractionConstraint interactionGuard, Property indexVar) {
+	default String toIndexConstraint(InteractionConstraint interactionGuard, Property indexVar) {
 		if( interactionGuard != null ) {
 			StringBuilder loopIndexConstraint = new StringBuilder();
 			if( interactionGuard.getMinint() != null ) {
@@ -319,7 +328,7 @@ public interface InteractionHelper
 	}
 
 
-	public default List< CombinedFragment > listOfCombinedFragment(Interaction interaction) {
+	default List< CombinedFragment > listOfCombinedFragment(Interaction interaction) {
 		ArrayList<CombinedFragment> combinedFragments= new ArrayList<CombinedFragment>();
 
 		for(InteractionFragment fragment : interaction.getFragments() ) {
@@ -334,7 +343,7 @@ public interface InteractionHelper
 		return combinedFragments;
 	}
 
-	public default void listOfCombinedFragment(
+	default void listOfCombinedFragment(
 			CombinedFragment combinedFragment, List< CombinedFragment > combinedFragments) {
 		for(InteractionOperand operand : combinedFragment.getOperands() ) {
 			for(InteractionFragment fragment : operand.getFragments() ) {

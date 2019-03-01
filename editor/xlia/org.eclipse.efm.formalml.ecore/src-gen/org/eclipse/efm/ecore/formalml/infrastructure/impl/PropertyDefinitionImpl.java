@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -87,6 +87,7 @@ public class PropertyDefinitionImpl extends TypedElementImpl implements Property
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Modifier getModifier() {
 		return modifier;
 	}
@@ -111,6 +112,7 @@ public class PropertyDefinitionImpl extends TypedElementImpl implements Property
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModifier(Modifier newModifier) {
 		if (newModifier != modifier) {
 			NotificationChain msgs = null;
@@ -130,6 +132,7 @@ public class PropertyDefinitionImpl extends TypedElementImpl implements Property
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getDefaultValue() {
 		return defaultValue;
 	}
@@ -154,6 +157,7 @@ public class PropertyDefinitionImpl extends TypedElementImpl implements Property
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDefaultValue(Expression newDefaultValue) {
 		if (newDefaultValue != defaultValue) {
 			NotificationChain msgs = null;

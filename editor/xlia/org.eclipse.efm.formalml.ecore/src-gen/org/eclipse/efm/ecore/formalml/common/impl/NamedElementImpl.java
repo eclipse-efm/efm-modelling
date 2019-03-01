@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -143,6 +143,7 @@ public abstract class NamedElementImpl extends AbstractElementImpl implements Na
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -152,6 +153,7 @@ public abstract class NamedElementImpl extends AbstractElementImpl implements Na
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -164,6 +166,7 @@ public abstract class NamedElementImpl extends AbstractElementImpl implements Na
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getUnrestrictedName() {
 		return unrestrictedName;
 	}
@@ -173,6 +176,7 @@ public abstract class NamedElementImpl extends AbstractElementImpl implements Na
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnrestrictedName(String newUnrestrictedName) {
 		String oldUnrestrictedName = unrestrictedName;
 		unrestrictedName = newUnrestrictedName;
@@ -185,6 +189,7 @@ public abstract class NamedElementImpl extends AbstractElementImpl implements Na
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getQualifiedName() {
 		return qualifiedName;
 	}
@@ -194,6 +199,7 @@ public abstract class NamedElementImpl extends AbstractElementImpl implements Na
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setQualifiedName(String newQualifiedName) {
 		String oldQualifiedName = qualifiedName;
 		qualifiedName = newQualifiedName;
@@ -206,6 +212,7 @@ public abstract class NamedElementImpl extends AbstractElementImpl implements Na
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VisibilityKind getVisibility() {
 		return visibility;
 	}
@@ -215,6 +222,7 @@ public abstract class NamedElementImpl extends AbstractElementImpl implements Na
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVisibility(VisibilityKind newVisibility) {
 		VisibilityKind oldVisibility = visibility;
 		visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
@@ -319,7 +327,7 @@ public abstract class NamedElementImpl extends AbstractElementImpl implements Na
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", unrestrictedName: ");

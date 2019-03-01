@@ -35,18 +35,18 @@ class FormalMLDispatchingEObjectTextHover extends DispatchingEObjectTextHover {
 
 	var IInformationControlCreatorProvider lastCreatorProvider = null;
 
-	override public Object getHoverInfo(EObject first, ITextViewer textViewer, IRegion hoverRegion) {
+	override Object getHoverInfo(EObject first, ITextViewer textViewer, IRegion hoverRegion) {
 		if (first instanceof Keyword) {
 			lastCreatorProvider = hoverProvider.getHoverInfo(first, textViewer, hoverRegion);
-			return if (lastCreatorProvider === null) null else  lastCreatorProvider.getInfo();
+			return if(lastCreatorProvider === null) null else lastCreatorProvider.getInfo();
 		}
-		
+
 		lastCreatorProvider = null;
-		
+
 		return super.getHoverInfo(first, textViewer, hoverRegion);
 	}
 
-	override public IInformationControlCreator getHoverControlCreator() {
+	override IInformationControlCreator getHoverControlCreator() {
 		return if(this.lastCreatorProvider === null)
 				super.getHoverControlCreator()
 				else lastCreatorProvider.getHoverControlCreator();

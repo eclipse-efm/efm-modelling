@@ -249,6 +249,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFormat() {
 		return format;
 	}
@@ -258,6 +259,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFormat(String newFormat) {
 		String oldFormat = format;
 		format = newFormat;
@@ -270,6 +272,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getBound() {
 		return bound;
 	}
@@ -279,6 +282,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBound(String newBound) {
 		String oldBound = bound;
 		bound = newBound;
@@ -291,6 +295,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getStep() {
 		return step;
 	}
@@ -300,6 +305,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStep(String newStep) {
 		String oldStep = step;
 		step = newStep;
@@ -312,6 +318,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResult() {
 		return result;
 	}
@@ -321,6 +328,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResult(String newResult) {
 		String oldResult = result;
 		result = newResult;
@@ -333,6 +341,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getReport() {
 		return report;
 	}
@@ -342,6 +351,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReport(String newReport) {
 		String oldReport = report;
 		report = newReport;
@@ -354,6 +364,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConsoleVerbosityKind getVerbosity() {
 		return verbosity;
 	}
@@ -363,6 +374,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVerbosity(ConsoleVerbosityKind newVerbosity) {
 		ConsoleVerbosityKind oldVerbosity = verbosity;
 		verbosity = newVerbosity == null ? VERBOSITY_EDEFAULT : newVerbosity;
@@ -375,6 +387,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSpiderInit() {
 		return spiderInit;
 	}
@@ -384,6 +397,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSpiderInit(String newSpiderInit) {
 		String oldSpiderInit = spiderInit;
 		spiderInit = newSpiderInit;
@@ -396,6 +410,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSpiderStep() {
 		return spiderStep;
 	}
@@ -405,6 +420,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSpiderStep(String newSpiderStep) {
 		String oldSpiderStep = spiderStep;
 		spiderStep = newSpiderStep;
@@ -417,6 +433,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSpiderStop() {
 		return spiderStop;
 	}
@@ -426,6 +443,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSpiderStop(String newSpiderStop) {
 		String oldSpiderStop = spiderStop;
 		spiderStop = newSpiderStop;
@@ -580,7 +598,7 @@ public class ConsoleLogFormatImpl extends MinimalEObjectImpl.Container implement
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (format: ");
 		result.append(format);
 		result.append(", bound: ");

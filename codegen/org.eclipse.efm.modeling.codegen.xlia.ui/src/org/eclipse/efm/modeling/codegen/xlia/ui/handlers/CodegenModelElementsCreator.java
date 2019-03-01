@@ -33,6 +33,8 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 
 	public static final String FML_SCXML_FILE_EXTENSION = "scxml"; //$NON-NLS-1$
 
+	public static final String FML_GRAPHIC_FILE_EXTENSION = "puml"; //$NON-NLS-1$
+
 
 	protected MainCodeGenerator  fXLIACodeGenerator;
 
@@ -97,6 +99,14 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 
 		this.fileSystemAccess.generateFile(scxmlFileLocation.toString(),
 				this.fSCXMLCodeGenerator.performTransform(namedElement));
+
+//		// Graphic Code Generation
+//		final IPath graphicFileLocation = (new Path(FML_GEN_FOLDER))
+//				.append(this.locStrategy.getFileName(namedElement))
+//				.addFileExtension(FML_GRAPHIC_FILE_EXTENSION);
+//
+//		this.fileSystemAccess.generateFile(graphicFileLocation.toString(),
+//				this.fSCXMLCodeGenerator.performTransform(namedElement));
 	}
 
 

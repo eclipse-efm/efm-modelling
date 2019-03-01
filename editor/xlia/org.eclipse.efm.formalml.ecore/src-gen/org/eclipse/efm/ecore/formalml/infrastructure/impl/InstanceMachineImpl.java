@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,8 +15,6 @@ package org.eclipse.efm.ecore.formalml.infrastructure.impl;
 import java.util.Collection;
 
 import org.eclipse.efm.ecore.formalml.common.impl.TypedElementImpl;
-
-import org.eclipse.efm.ecore.formalml.expression.MixTupleExpression;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
@@ -47,7 +45,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.InstanceMachineImpl#getModifier <em>Modifier</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.InstanceMachineImpl#getModel <em>Model</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.InstanceMachineImpl#getArg <em>Arg</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.InstanceMachineImpl#getSlot <em>Slot</em>}</li>
  * </ul>
  *
@@ -73,16 +70,6 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 	 * @ordered
 	 */
 	protected Machine model;
-
-	/**
-	 * The cached value of the '{@link #getArg() <em>Arg</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getArg()
-	 * @generated
-	 * @ordered
-	 */
-	protected MixTupleExpression arg;
 
 	/**
 	 * The cached value of the '{@link #getSlot() <em>Slot</em>}' containment reference list.
@@ -118,6 +105,7 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Modifier getModifier() {
 		return modifier;
 	}
@@ -142,6 +130,7 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModifier(Modifier newModifier) {
 		if (newModifier != modifier) {
 			NotificationChain msgs = null;
@@ -161,6 +150,7 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Machine getModel() {
 		if (model != null && model.eIsProxy()) {
 			InternalEObject oldModel = (InternalEObject)model;
@@ -187,6 +177,7 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModel(Machine newModel) {
 		Machine oldModel = model;
 		model = newModel;
@@ -199,49 +190,7 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MixTupleExpression getArg() {
-		return arg;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetArg(MixTupleExpression newArg, NotificationChain msgs) {
-		MixTupleExpression oldArg = arg;
-		arg = newArg;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.INSTANCE_MACHINE__ARG, oldArg, newArg);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setArg(MixTupleExpression newArg) {
-		if (newArg != arg) {
-			NotificationChain msgs = null;
-			if (arg != null)
-				msgs = ((InternalEObject)arg).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.INSTANCE_MACHINE__ARG, null, msgs);
-			if (newArg != null)
-				msgs = ((InternalEObject)newArg).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.INSTANCE_MACHINE__ARG, null, msgs);
-			msgs = basicSetArg(newArg, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.INSTANCE_MACHINE__ARG, newArg, newArg));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EList<SlotProperty> getSlot() {
 		if (slot == null) {
 			slot = new EObjectContainmentEList<SlotProperty>(SlotProperty.class, this, InfrastructurePackage.INSTANCE_MACHINE__SLOT);
@@ -259,8 +208,6 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 		switch (featureID) {
 			case InfrastructurePackage.INSTANCE_MACHINE__MODIFIER:
 				return basicSetModifier(null, msgs);
-			case InfrastructurePackage.INSTANCE_MACHINE__ARG:
-				return basicSetArg(null, msgs);
 			case InfrastructurePackage.INSTANCE_MACHINE__SLOT:
 				return ((InternalEList<?>)getSlot()).basicRemove(otherEnd, msgs);
 		}
@@ -280,8 +227,6 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 			case InfrastructurePackage.INSTANCE_MACHINE__MODEL:
 				if (resolve) return getModel();
 				return basicGetModel();
-			case InfrastructurePackage.INSTANCE_MACHINE__ARG:
-				return getArg();
 			case InfrastructurePackage.INSTANCE_MACHINE__SLOT:
 				return getSlot();
 		}
@@ -302,9 +247,6 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 				return;
 			case InfrastructurePackage.INSTANCE_MACHINE__MODEL:
 				setModel((Machine)newValue);
-				return;
-			case InfrastructurePackage.INSTANCE_MACHINE__ARG:
-				setArg((MixTupleExpression)newValue);
 				return;
 			case InfrastructurePackage.INSTANCE_MACHINE__SLOT:
 				getSlot().clear();
@@ -328,9 +270,6 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 			case InfrastructurePackage.INSTANCE_MACHINE__MODEL:
 				setModel((Machine)null);
 				return;
-			case InfrastructurePackage.INSTANCE_MACHINE__ARG:
-				setArg((MixTupleExpression)null);
-				return;
 			case InfrastructurePackage.INSTANCE_MACHINE__SLOT:
 				getSlot().clear();
 				return;
@@ -350,8 +289,6 @@ public class InstanceMachineImpl extends TypedElementImpl implements InstanceMac
 				return modifier != null;
 			case InfrastructurePackage.INSTANCE_MACHINE__MODEL:
 				return model != null;
-			case InfrastructurePackage.INSTANCE_MACHINE__ARG:
-				return arg != null;
 			case InfrastructurePackage.INSTANCE_MACHINE__SLOT:
 				return slot != null && !slot.isEmpty();
 		}

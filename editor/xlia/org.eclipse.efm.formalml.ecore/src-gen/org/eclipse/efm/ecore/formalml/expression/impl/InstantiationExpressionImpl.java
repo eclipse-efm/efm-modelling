@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -73,6 +73,7 @@ public class InstantiationExpressionImpl extends ExpressionImpl implements Insta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InstanceMachine getInstance() {
 		return instance;
 	}
@@ -97,6 +98,7 @@ public class InstantiationExpressionImpl extends ExpressionImpl implements Insta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInstance(InstanceMachine newInstance) {
 		if (newInstance != instance) {
 			NotificationChain msgs = null;

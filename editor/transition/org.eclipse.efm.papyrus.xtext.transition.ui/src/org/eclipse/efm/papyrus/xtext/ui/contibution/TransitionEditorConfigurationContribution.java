@@ -31,10 +31,10 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
-import org.eclipse.papyrus.extensionpoints.editors.configuration.ICustomDirectEditorConfiguration;
 import org.eclipse.papyrus.infra.core.services.ServiceException;
 import org.eclipse.papyrus.infra.emf.Activator;
 import org.eclipse.papyrus.infra.emf.utils.ServiceUtilsForEObject;
+import org.eclipse.papyrus.infra.gmfdiag.extensionpoints.editors.configuration.ICustomDirectEditorConfiguration;
 import org.eclipse.papyrus.uml.xtext.integration.DefaultXtextDirectEditorConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.uml2.common.util.UML2Util;
@@ -75,7 +75,7 @@ public class TransitionEditorConfigurationContribution
 	 */
 	@SuppressWarnings("nls")
 	@Override
-	public String getTextToEdit(Object editedObject) {
+	public String getTextToEdit(final Object editedObject) {
 		if (editedObject instanceof Transition) {
 
 			return PrintingUtil.printTransition((Transition)editedObject);
@@ -112,14 +112,14 @@ public class TransitionEditorConfigurationContribution
 		 * , org.eclipse.core.runtime.IAdaptable)
 		 */
 		@Override
-		protected CommandResult doExecuteWithResult(IProgressMonitor arg0, IAdaptable arg1) throws ExecutionException {
+		protected CommandResult doExecuteWithResult(final IProgressMonitor arg0, final IAdaptable arg1) throws ExecutionException {
 			String oldBody = null;
 			// - Events associated with triggers of this transition
-			for (Trigger t : transition.getTriggers()) {
-				Event e = t.getEvent();
+			for (final Trigger t : transition.getTriggers()) {
+				final Event e = t.getEvent();
 				t.setEvent(null);
 				if(e!=null){
-					Collection<Setting> set = UML2Util.getNonNavigableInverseReferences(e);
+					final Collection<Setting> set = UML2Util.getNonNavigableInverseReferences(e);
 					if (UML2Util.getNonNavigableInverseReferences(e).size() <= 1) {
 						// no trigger is referencing the event any more, delete call event
 						e.destroy();
@@ -129,7 +129,7 @@ public class TransitionEditorConfigurationContribution
 			// - Triggers owned by this transition
 			transition.getTriggers().removeAll(transition.getTriggers());
 			// - Guard associated with the transition
-			Constraint guard = transition.getGuard();
+			final Constraint guard = transition.getGuard();
 			transition.setGuard(null);
 			if (guard != null) {
 				guard.destroy();
@@ -143,9 +143,9 @@ public class TransitionEditorConfigurationContribution
 			if (transitionRuleObject != null) {
 				if (transitionRuleObject.getTriggers() != null) {
 //					int i=1;
-					for (TriggerRule triggerRule : transitionRuleObject.getTriggers()) {
-						Trigger newTrigger = UMLFactory.eINSTANCE.createTrigger();
-						NamedElement element = triggerRule.getPort();
+					for (final TriggerRule triggerRule : transitionRuleObject.getTriggers()) {
+						final Trigger newTrigger = UMLFactory.eINSTANCE.createTrigger();
+						final NamedElement element = triggerRule.getPort();
 						if( element instanceof Port ) {
 							newTrigger.getPorts().add((Port)(triggerRule.getPort()));
 							this.newTriggers.add(newTrigger);
@@ -166,20 +166,20 @@ public class TransitionEditorConfigurationContribution
 				// Create the new constraint
 				if (transitionRuleObject.getGuard() != null && transitionRuleObject.getGuard().getConstraint() != null) {
 					this.newConstraint = transition.createGuard(EMPTY);
-					OpaqueExpression guardSpecification = UMLFactory.eINSTANCE.createOpaqueExpression();
+					final OpaqueExpression guardSpecification = UMLFactory.eINSTANCE.createOpaqueExpression();
 					guardSpecification.getLanguages().add(NATURAL_LANGUAGE);
 					guardSpecification.getBodies().add(EMPTY + transitionRuleObject.getGuard().getConstraint());
 					this.newConstraint.setSpecification(guardSpecification);
 					this.newConstraint.setName("guard");
 				}
 
-				boolean hasEffectBody= transitionRuleObject.getEffectBody()!=null;
+				final boolean hasEffectBody= transitionRuleObject.getEffectBody()!=null;
 				if(transition.getEffect() instanceof OpaqueBehavior)
 					oldBody = ((OpaqueBehavior)transition.getEffect()).getBodies().get(0);
 
 				if ((!hasEffectBody) || !(transitionRuleObject.getEffectBody().equals(oldBody))) {
 					// delete owned effect behavior
-					Behavior effect = transition.getEffect();
+					final Behavior effect = transition.getEffect();
 					transition.setEffect(null);
 					if (effect != null) {
 						effect.destroy();
@@ -190,14 +190,14 @@ public class TransitionEditorConfigurationContribution
 				if (hasEffectBody) {
 					if (transition.getEffect() == null) {
 						// behavior does exist yet => create
-						Behavior newEffectBehavior = createXLIAOpaqueBehavior(transitionRuleObject.getEffectBody());
+						final Behavior newEffectBehavior = createXLIAOpaqueBehavior(transitionRuleObject.getEffectBody());
 						transition.setEffect(newEffectBehavior);
 
 					}
 				}
 			} else {
 				// no effect, remove it.
-				Behavior effect = transition.getEffect();
+				final Behavior effect = transition.getEffect();
 				transition.setEffect(null);
 				if (effect != null) {
 					effect.destroy();
@@ -229,8 +229,8 @@ public class TransitionEditorConfigurationContribution
 //			return count;
 //		}
 
-		private Behavior createXLIAOpaqueBehavior(String effectBody) {
-			OpaqueBehavior b = UMLFactory.eINSTANCE.createOpaqueBehavior();
+		private Behavior createXLIAOpaqueBehavior(final String effectBody) {
+			final OpaqueBehavior b = UMLFactory.eINSTANCE.createOpaqueBehavior();
 			b.getLanguages().add("XLIA");
 			b.getBodies().add(effectBody);
 			b.setName("effect");
@@ -243,13 +243,13 @@ public class TransitionEditorConfigurationContribution
 		 * @return the resulting package
 		 */
 		protected Package getEventPackage() {
-			Package np = transition.getNearestPackage();
+			final Package np = transition.getNearestPackage();
 			for (int i = 0;; i++) {
 				String name = EVENTS;
 				if (i > 0) {
 					name += i;
 				}
-				PackageableElement ep = np.getPackagedElement(name);
+				final PackageableElement ep = np.getPackagedElement(name);
 				if (ep instanceof Package) {
 					return (Package) ep;
 				} else if (ep == null) {
@@ -261,7 +261,7 @@ public class TransitionEditorConfigurationContribution
 		}
 
 
-		public UpdateUMLTransitionCommand(TransactionalEditingDomain domain, Transition transition, TransitionRule transitionRule) {
+		public UpdateUMLTransitionCommand(final TransactionalEditingDomain domain, final Transition transition, final TransitionRule transitionRule) {
 			super(domain, "Transition Update", getWorkspaceFiles(transition)); //$NON-NLS-1$
 			this.transition = transition;
 			this.transitionRuleObject = transitionRule;
@@ -274,23 +274,23 @@ public class TransitionEditorConfigurationContribution
 	}
 
 	@Override
-	protected ICommand getParseCommand(EObject modelObject, EObject xtextObject) {
+	protected ICommand getParseCommand(final EObject modelObject, final EObject xtextObject) {
 
 		if (!(modelObject instanceof Transition)) {
 			return null;
 		}
 
-		Transition transition = (Transition) modelObject;
+		final Transition transition = (Transition) modelObject;
 
-		TransitionRule transitionRuleObject = (TransitionRule) xtextObject;
+		final TransitionRule transitionRuleObject = (TransitionRule) xtextObject;
 		// transitionRuleObject may be null, if we have no input left
 
 		// Creates and executes the update command
 		try {
-			TransactionalEditingDomain dom = ServiceUtilsForEObject.getInstance().getTransactionalEditingDomain(transition);
-			UpdateUMLTransitionCommand updateCommand = new UpdateUMLTransitionCommand(dom, transition, transitionRuleObject);
+			final TransactionalEditingDomain dom = ServiceUtilsForEObject.getInstance().getTransactionalEditingDomain(transition);
+			final UpdateUMLTransitionCommand updateCommand = new UpdateUMLTransitionCommand(dom, transition, transitionRuleObject);
 			return updateCommand;
-		} catch (ServiceException ex) {
+		} catch (final ServiceException ex) {
 			Activator.log.error(ex);
 			return null;
 		}

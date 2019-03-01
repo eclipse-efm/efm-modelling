@@ -85,7 +85,6 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Route
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty
-import org.eclipse.efm.ecore.formalml.infrastructure.System
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable
 import org.eclipse.efm.ecore.formalml.statemachine.FinalState
 import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate
@@ -97,7 +96,6 @@ import org.eclipse.efm.ecore.formalml.statemachine.Transition
 import org.eclipse.efm.ecore.formalml.statemachine.TransitionMoc
 import org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe
 import org.eclipse.efm.ecore.formalml.statement.ActivityStatement
-import org.eclipse.efm.ecore.formalml.statement.AssignmentStatement
 import org.eclipse.efm.ecore.formalml.statement.BlockStatement
 import org.eclipse.efm.ecore.formalml.statement.ConditionalBlockStatement
 import org.eclipse.efm.ecore.formalml.statement.DoWhileStatement
@@ -120,6 +118,8 @@ import org.eclipse.efm.ecore.formalml.expression.ExpressionAsMachine
 import org.eclipse.efm.ecore.formalml.expression.Expression
 import org.eclipse.efm.ecore.formalml.expression.LiteralTimeExpression
 import org.eclipse.efm.ecore.formalml.expression.LiteralTimeDeltaExpression
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
+import org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd
 
 /**
  * Provides labels for EObjects.
@@ -161,7 +161,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 	
 	@Inject
-	private IQualifiedNameProvider nameProvider;
+	IQualifiedNameProvider nameProvider;
 
 	
 	def fqnNameID(NamedElement element, String nullNameID) {
@@ -178,7 +178,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 
 	def nameID(NamedElement element, String nullNameID) {
-		element.name ?: nullNameID
+		element?.name ?: nullNameID
 	}
 
 	def nameID(NamedElement element) {
@@ -556,7 +556,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 
-	def text(System system) {
+	def text(XliaSystem system) {
 		val str = new StyledString(system.name)
 
 		if( system.unrestrictedName !== null ) {
@@ -708,7 +708,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	def image(Pseudostate state) {
 		switch( state.kind ) {
 			case INITIAL  : "fml/Pseudostate_initial.gif"
-			case TERMINATE: "fml/Pseudostate_terminate.gif"
+			case TERMINAL : "fml/Pseudostate_terminate.gif"
 
 			case JUNCTION : "fml/Pseudostate_junction.gif"
 			case CHOICE   : "fml/Pseudostate_choice.gif"
@@ -756,11 +756,11 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 		  info += "else"
 		}
 
-		if( moe.prior != 0 ) {
+		if( moe.priority != 0 ) {
 		  if( info != "moe< " ) {
 			info += " , "
 		  }
-		  info += "prior: " + moe.prior
+		  info += "prior: " + moe.priority
 		}
 
 		info += " >"
@@ -850,15 +850,19 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 
-	def text(ComPoint comPoint) {
-//		val str = ( comPoint.machine?.target.name ?: "this" ) + "->"
-//		str + ( comPoint.port.target?.name ?: text( comPoint.port.value ) )
+	def text(ConnectorEnd connectorEnd) {
+		switch( connectorEnd.direction ) {
+			case INPUT : "input"
+			case OUTPUT: "output"
 
-		"<compoint>"
+			case INOUT : "inout"
+
+			default:     "<connector-end>"
+		}
 	}
-
-	def image(ComPoint comPoint) {
-		switch( comPoint.direction ) {
+	
+	def image(ConnectorEnd connectorEnd) {
+		switch( connectorEnd.direction ) {
 //			case INPUT : "fml/FlowPort_IN.gif"
 //			case OUTPUT: "fml/FlowPort_OUT.gif"
 
@@ -869,6 +873,17 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 			default:     "fml/FlowPort.gif"
 		}
+	}
+
+
+	def text(ComPoint comPoint) {
+		val str = ( comPoint.machine?.name ?: "this" ) + "->"
+		
+		str + ( comPoint.port?.name ?: text( comPoint.port ) )
+	}
+
+	def image(ComPoint comPoint) {
+		"fml/FlowPort.gif"
 	}
 
 
@@ -964,11 +979,6 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 			default: "Expression Statement"
 		}
 	}
-
-	def text(AssignmentStatement statement) {
-		"assign " + statement.operator
-	}
-
 
 	def text(GuardStatement statement) {
 		"Guard"
@@ -1160,8 +1170,8 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def text(LiteralReferenceElement expression) {
-		if( expression.value !== null ) {
-			expression.value.nameID( "<reference>" )
+		if( expression.element !== null ) {
+			expression.element.nameID( "<reference>" )
 		}
 		else {
 			"<reference>"
@@ -1169,8 +1179,8 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 	def image(LiteralReferenceElement expression) {
-		if( expression.value !== null ) {
-			image(expression.value)
+		if( expression.element !== null ) {
+			image(expression.element)
 		}
 		else {
 			"fml/QualifierValue.gif"
@@ -1307,7 +1317,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def text(RelationalTernaryExpression expression) {
 		expression.leftRelation.operator
-				+ " operator " + expression.rigthOperator
+				+ " operator " + expression.rightOperator
 	}
 
 	def image(RelationalTernaryExpression expression) {
@@ -1353,7 +1363,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 						}
 						else {
 							if( parent instanceof LiteralReferenceElement ) {
-								qid = parent.value.name + "." + qid
+								qid = parent.element.name + "." + qid
 							}
 							parent = null
 						}
@@ -1433,7 +1443,7 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 	}
 
 
-	def text(Expression expression) {
+	def String text(Expression expression) {
 		switch( expression )
 		{
 			ValueElementSpecification:

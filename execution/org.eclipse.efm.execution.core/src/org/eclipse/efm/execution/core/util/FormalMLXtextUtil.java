@@ -28,6 +28,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Parameter;
 import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem;
 import org.eclipse.efm.ecore.formalml.statemachine.Region;
 import org.eclipse.efm.ecore.formalml.statemachine.State;
 import org.eclipse.efm.ecore.formalml.statemachine.Statemachine;
@@ -348,8 +349,7 @@ public class FormalMLXtextUtil {
 		return allTransitionCoverageElement;
 	}
 
-	private void collectAllElements(
-			org.eclipse.efm.ecore.formalml.infrastructure.System system)
+	private void collectAllElements(XliaSystem system)
 	{
 		if( (this.fModel == null) || (fAllMachines == null) )
 		{

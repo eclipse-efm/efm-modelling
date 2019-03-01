@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -183,6 +183,24 @@ public interface StatementFactory extends EFactory {
 	 * @generated
 	 */
 	InvokeStatement createInvokeStatement();
+
+	/**
+	 * Returns a new object of class '<em>Observer Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Observer Statement</em>'.
+	 * @generated
+	 */
+	ObserverStatement createObserverStatement();
+
+	/**
+	 * Returns a new object of class '<em>Meta Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Meta Statement</em>'.
+	 * @generated
+	 */
+	MetaStatement createMetaStatement();
 
 	/**
 	 * Returns the package supported by this factory.

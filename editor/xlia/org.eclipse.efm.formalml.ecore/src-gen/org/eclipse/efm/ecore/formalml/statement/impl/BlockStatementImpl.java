@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -100,6 +100,7 @@ public class BlockStatementImpl extends StatementImpl implements BlockStatement 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getOp() {
 		return op;
 	}
@@ -109,6 +110,7 @@ public class BlockStatementImpl extends StatementImpl implements BlockStatement 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOp(String newOp) {
 		String oldOp = op;
 		op = newOp;
@@ -121,6 +123,7 @@ public class BlockStatementImpl extends StatementImpl implements BlockStatement 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Statement> getStatement() {
 		if (statement == null) {
 			statement = new EObjectContainmentEList<Statement>(Statement.class, this, StatementPackage.BLOCK_STATEMENT__STATEMENT);
@@ -221,7 +224,7 @@ public class BlockStatementImpl extends StatementImpl implements BlockStatement 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (op: ");
 		result.append(op);
 		result.append(')');

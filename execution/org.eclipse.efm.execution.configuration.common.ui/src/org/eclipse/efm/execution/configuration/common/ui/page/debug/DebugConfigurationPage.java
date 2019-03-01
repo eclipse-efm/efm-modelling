@@ -92,7 +92,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 	private TraceElementTableViewer fSecondSymbexOutputGraphizFormatTableViewer;
 
-	public DebugConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
+	public DebugConfigurationPage(final ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
 
 		if( AbstractLaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION ) {
@@ -128,7 +128,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		 * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
 		 */
 		@Override
-		public void modifyText(ModifyEvent e) {
+		public void modifyText(final ModifyEvent e) {
 			propagateGUIupdate();
 		}
 
@@ -136,7 +136,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		 * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
 		 */
 		@Override
-		public void widgetSelected(SelectionEvent e) {
+		public void widgetSelected(final SelectionEvent e) {
 			final Object source= e.getSource();
 
 			if (source == fConsoleLevelCombo) {
@@ -161,14 +161,14 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
 		createDebugTracePage(parent, widgetToolkit);
 	}
 
-	private void createDebugTracePage(Composite parent, IWidgetToolkit widgetToolkit)
+	private void createDebugTracePage(final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
-		Group group = widgetToolkit.createGroup(parent,
+		final Group group = widgetToolkit.createGroup(parent,
 				"Debug Trace", 1, 1, GridData.FILL_HORIZONTAL);
 
 		createConsoleLogComponent(group, widgetToolkit);
@@ -179,9 +179,9 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	private void createConsoleLogComponent(Composite parent, IWidgetToolkit widgetToolkit)
+	private void createConsoleLogComponent(final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
-		Group group = widgetToolkit.createGroup(parent,
+		final Group group = widgetToolkit.createGroup(parent,
 				"Console Log", 2, 1, GridData.FILL_HORIZONTAL);
 
 		widgetToolkit.createLabel(group, "&Verbose Level : ", 1);
@@ -193,8 +193,8 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	public void createFirstSymbexWorkflowPage(Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
+	public void createFirstSymbexWorkflowPage(final Composite parent, final IWidgetToolkit widgetToolkit) {
+		final Group group = widgetToolkit.createGroup(parent,
 				"First Stage Symbex Workflow Page",
 				1, 1, GridData.FILL_HORIZONTAL);
 
@@ -203,12 +203,12 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		createFirstSymbexOutputComponent(group, widgetToolkit);
 	}
 
-	private void createFirstInputModelGraphicComponent(Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
+	private void createFirstInputModelGraphicComponent(final Composite parent, final IWidgetToolkit widgetToolkit) {
+		final Group group = widgetToolkit.createGroup(parent,
 				"Input Model Generated Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
 
-		Composite comp = widgetToolkit.createComposite(
+		final Composite comp = widgetToolkit.createComposite(
 				group, 1, 1, GridData.FILL_HORIZONTAL);
 
 		fFirstParsedModelTextualEnabledBooleanField = new BooleanFieldEditor(
@@ -218,7 +218,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 		fFirstParsedModelGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_FIRST_PARSED_MODEL_GRAPHVIZ_GENERATION,
-				"&Parsed Model as <Graphiz> Representation", comp, false);
+				"&Parsed Model as <Graphviz> Representation", comp, true);
 		addFieldEditor(fFirstParsedModelGraphizEnabledBooleanField);
 
 		if( fEnabledSymbexDeveloperMode ) {
@@ -230,7 +230,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		}
 	}
 
-	private void createFirstSymbexOutputComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	private void createFirstSymbexOutputComponent(final Composite parent, final IWidgetToolkit widgetToolkit) {
 		Group group = widgetToolkit.createGroup(parent,
 				"Symbex Output Generated Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
@@ -253,11 +253,11 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 		fFirstSymbexOutputGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION,
-				"&<Graphiz> Representation", comp, false);
+				"<&Graphviz> Representation", comp, true);
 		fFirstSymbexOutputGraphizEnabledBooleanField.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
-					public void widgetSelected(SelectionEvent e) {
+					public void widgetSelected(final SelectionEvent e) {
 						setEnableFirstExecutionPage(
 								fFirstSymbexOutputGraphizEnabledBooleanField.
 								getBooleanValue() );
@@ -292,7 +292,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	private void setEnableFirstExecutionPage(boolean checked) {
+	private void setEnableFirstExecutionPage(final boolean checked) {
 		fFirstSymbexOutputGraphizEnabledModifiedDataSelectionBooleanField.setVisible(checked);
 
 		propagateVisibility(fFirstSymbexOutputGraphizTraceTableViewer.getControl(), checked);
@@ -300,7 +300,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	public void createSecondSymbexWorkflowtPage(Composite parent, IWidgetToolkit widgetToolkit) {
+	public void createSecondSymbexWorkflowtPage(final Composite parent, final IWidgetToolkit widgetToolkit) {
 		fGroupSecondStageSymbexWorkflow = widgetToolkit.createGroup(parent,
 				"Second Stage Symbex Workflow Page", 1, 1, GridData.FILL_HORIZONTAL);
 
@@ -325,7 +325,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 //
 //		fSecondParsedModelGraphizEnabledBooleanField = new BooleanFieldEditor(
 //				this, ATTR_ENABLED_SECOND_PARSED_MODEL_GRAPHVIZ_GENERATION,
-//				"&Parsed Model as <Graphiz> Representation", comp, false);
+//				"&Parsed Model as <Graphviz> Representation", comp, true);
 //		addFieldEditor(fSecondParsedModelGraphizEnabledBooleanField);
 //
 //		if( fEnabledSymbexDeveloperMode ) {
@@ -337,7 +337,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 //		}
 //	}
 
-	private void createSecondSymbexOutputComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	private void createSecondSymbexOutputComponent(final Composite parent, final IWidgetToolkit widgetToolkit) {
 		fGroupSymbexOutputGeneratedTraces = widgetToolkit.createGroup(parent,
 				"Symbex Output Generated Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
@@ -351,7 +351,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		addFieldEditor(fSecondSymbexOutputTextualEnabledBooleanField);
 
 
-		Group group = widgetToolkit.createGroup(comp,
+		final Group group = widgetToolkit.createGroup(comp,
 				"Symbex Output Generated Graphic Traces",
 				1, 1, GridData.FILL_HORIZONTAL);
 
@@ -360,11 +360,11 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 		fSecondSymbexOutputGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION,
-				"&<Graphiz> Representation", comp, false);
+				"<&Graphviz> Representation", comp, true);
 		fSecondSymbexOutputGraphizEnabledBooleanField.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
-					public void widgetSelected(SelectionEvent e) {
+					public void widgetSelected(final SelectionEvent e) {
 						setEnableSecondExecutionPage(
 								fSecondSymbexOutputGraphizEnabledBooleanField.
 								getBooleanValue() );
@@ -386,7 +386,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	private void setEnableSecondExecutionPage(boolean checked) {
+	private void setEnableSecondExecutionPage(final boolean checked) {
 		propagateVisibility(
 				fSecondSymbexOutputGraphizTraceTableViewer.getControl(),
 				checked);
@@ -401,7 +401,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, "MINIMUM");
 
@@ -511,13 +511,13 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	}
 
 	@Override
-	public void initializeFromImpl(ILaunchConfiguration configuration) {
+	public void initializeFromImpl(final ILaunchConfiguration configuration) {
 		try {
 			fConsoleLevel = ConsoleVerbosityKind.get(
 					configuration.getAttribute(ATTR_CONSOLE_LOG_VERBOSE_LEVEL,
 							ConsoleVerbosityKind.MINIMUM.getLiteral()) );
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 
 			fConsoleLevel = ConsoleVerbosityKind.MINIMUM;
@@ -538,7 +538,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 			propagateVisibility(fGroupSecondStageSymbexWorkflow,
 					configuration.getAttribute(ATTR_ENABLED_TRACE_EXTENSION, false));
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 		}
 	}
@@ -565,7 +565,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 
 	@Override
-	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_CONSOLE_LOG_VERBOSE_LEVEL, fConsoleLevel.getLiteral());
 
@@ -582,7 +582,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(final ILaunchConfiguration launchConfig) {
 		return new FieldValidationReturn(true, null);
 	}
 
@@ -591,7 +591,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 	// Property Change
 	//
 	@Override
-	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(final PropertyChangeEvent event) {
 		switch( event.getProperty() ) {
 		case ATTR_ENABLED_TRACE_EXTENSION:
 //			fGroupSecondStageSymbexWorkflow.setEnabled( (Boolean)( event.getNewValue() ) );

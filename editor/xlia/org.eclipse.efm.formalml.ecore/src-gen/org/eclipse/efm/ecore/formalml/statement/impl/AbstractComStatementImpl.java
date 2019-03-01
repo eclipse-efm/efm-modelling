@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,9 +12,8 @@
  */
 package org.eclipse.efm.ecore.formalml.statement.impl;
 
-import org.eclipse.efm.ecore.formalml.common.NamedElement;
-
 import org.eclipse.efm.ecore.formalml.expression.Expression;
+
 import org.eclipse.efm.ecore.formalml.infrastructure.Channel;
 
 import org.eclipse.efm.ecore.formalml.statement.AbstractComStatement;
@@ -45,14 +44,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public abstract class AbstractComStatementImpl extends StatementImpl implements AbstractComStatement {
 	/**
-	 * The cached value of the '{@link #getPort() <em>Port</em>}' reference.
+	 * The cached value of the '{@link #getPort() <em>Port</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPort()
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedElement port;
+	protected Expression port;
 
 	/**
 	 * The cached value of the '{@link #getRoute() <em>Route</em>}' reference.
@@ -98,15 +97,8 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedElement getPort() {
-		if (port != null && port.eIsProxy()) {
-			InternalEObject oldPort = (InternalEObject)port;
-			port = (NamedElement)eResolveProxy(oldPort);
-			if (port != oldPort) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, StatementPackage.ABSTRACT_COM_STATEMENT__PORT, oldPort, port));
-			}
-		}
+	@Override
+	public Expression getPort() {
 		return port;
 	}
 
@@ -115,20 +107,14 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedElement basicGetPort() {
-		return port;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPort(NamedElement newPort) {
-		NamedElement oldPort = port;
+	public NotificationChain basicSetPort(Expression newPort, NotificationChain msgs) {
+		Expression oldPort = port;
 		port = newPort;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StatementPackage.ABSTRACT_COM_STATEMENT__PORT, oldPort, port));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StatementPackage.ABSTRACT_COM_STATEMENT__PORT, oldPort, newPort);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -136,6 +122,27 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public void setPort(Expression newPort) {
+		if (newPort != port) {
+			NotificationChain msgs = null;
+			if (port != null)
+				msgs = ((InternalEObject)port).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StatementPackage.ABSTRACT_COM_STATEMENT__PORT, null, msgs);
+			if (newPort != null)
+				msgs = ((InternalEObject)newPort).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StatementPackage.ABSTRACT_COM_STATEMENT__PORT, null, msgs);
+			msgs = basicSetPort(newPort, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StatementPackage.ABSTRACT_COM_STATEMENT__PORT, newPort, newPort));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Channel getRoute() {
 		return route;
 	}
@@ -145,6 +152,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRoute(Channel newRoute) {
 		Channel oldRoute = route;
 		route = newRoute;
@@ -157,6 +165,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getTarget() {
 		return target;
 	}
@@ -181,6 +190,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(Expression newTarget) {
 		if (newTarget != target) {
 			NotificationChain msgs = null;
@@ -203,6 +213,8 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case StatementPackage.ABSTRACT_COM_STATEMENT__PORT:
+				return basicSetPort(null, msgs);
 			case StatementPackage.ABSTRACT_COM_STATEMENT__TARGET:
 				return basicSetTarget(null, msgs);
 		}
@@ -218,8 +230,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case StatementPackage.ABSTRACT_COM_STATEMENT__PORT:
-				if (resolve) return getPort();
-				return basicGetPort();
+				return getPort();
 			case StatementPackage.ABSTRACT_COM_STATEMENT__ROUTE:
 				return getRoute();
 			case StatementPackage.ABSTRACT_COM_STATEMENT__TARGET:
@@ -237,7 +248,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case StatementPackage.ABSTRACT_COM_STATEMENT__PORT:
-				setPort((NamedElement)newValue);
+				setPort((Expression)newValue);
 				return;
 			case StatementPackage.ABSTRACT_COM_STATEMENT__ROUTE:
 				setRoute((Channel)newValue);
@@ -258,7 +269,7 @@ public abstract class AbstractComStatementImpl extends StatementImpl implements 
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case StatementPackage.ABSTRACT_COM_STATEMENT__PORT:
-				setPort((NamedElement)null);
+				setPort((Expression)null);
 				return;
 			case StatementPackage.ABSTRACT_COM_STATEMENT__ROUTE:
 				setRoute((Channel)null);

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -33,10 +33,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#isDiscrete_timed <em>Discrete timed</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#isUnsafe <em>Unsafe</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getDesign <em>Design</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getPropertyPart <em>Property Part</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getCompositePart <em>Composite Part</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getBehaviorPart <em>Behavior Part</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getMachine <em>Machine</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#isLifeline <em>Lifeline</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getTypedef <em>Typedef</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getVariable <em>Variable</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getChannel <em>Channel</em>}</li>
@@ -46,6 +43,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getFunction <em>Function</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getRoutine <em>Routine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getProcedure <em>Procedure</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getMachine <em>Machine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getInstance <em>Instance</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getBehavior <em>Behavior</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getMain <em>Main</em>}</li>
@@ -222,98 +220,31 @@ public interface Machine extends ClassifierDefinition {
 	void setDesign(DesignKind value);
 
 	/**
-	 * Returns the value of the '<em><b>Property Part</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Lifeline</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Property Part</em>' reference isn't clear,
+	 * If the meaning of the '<em>Lifeline</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Property Part</em>' containment reference.
-	 * @see #setPropertyPart(PropertyPart)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getMachine_PropertyPart()
-	 * @model containment="true"
+	 * @return the value of the '<em>Lifeline</em>' attribute.
+	 * @see #setLifeline(boolean)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getMachine_Lifeline()
+	 * @model default="false" required="true"
 	 * @generated
 	 */
-	PropertyPart getPropertyPart();
+	boolean isLifeline();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getPropertyPart <em>Property Part</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#isLifeline <em>Lifeline</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Property Part</em>' containment reference.
-	 * @see #getPropertyPart()
+	 * @param value the new value of the '<em>Lifeline</em>' attribute.
+	 * @see #isLifeline()
 	 * @generated
 	 */
-	void setPropertyPart(PropertyPart value);
-
-	/**
-	 * Returns the value of the '<em><b>Composite Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Composite Part</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Composite Part</em>' containment reference.
-	 * @see #setCompositePart(CompositePart)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getMachine_CompositePart()
-	 * @model containment="true"
-	 * @generated
-	 */
-	CompositePart getCompositePart();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getCompositePart <em>Composite Part</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Composite Part</em>' containment reference.
-	 * @see #getCompositePart()
-	 * @generated
-	 */
-	void setCompositePart(CompositePart value);
-
-	/**
-	 * Returns the value of the '<em><b>Behavior Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Behavior Part</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Behavior Part</em>' containment reference.
-	 * @see #setBehaviorPart(BehaviorPart)
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getMachine_BehaviorPart()
-	 * @model containment="true"
-	 * @generated
-	 */
-	BehaviorPart getBehaviorPart();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getBehaviorPart <em>Behavior Part</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Behavior Part</em>' containment reference.
-	 * @see #getBehaviorPart()
-	 * @generated
-	 */
-	void setBehaviorPart(BehaviorPart value);
-
-	/**
-	 * Returns the value of the '<em><b>Machine</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Machine}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Machine</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Machine</em>' containment reference list.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getMachine_Machine()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Machine> getMachine();
+	void setLifeline(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Typedef</b></em>' containment reference list.
@@ -458,6 +389,22 @@ public interface Machine extends ClassifierDefinition {
 	 * @generated
 	 */
 	EList<Procedure> getProcedure();
+
+	/**
+	 * Returns the value of the '<em><b>Machine</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Machine}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Machine</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Machine</em>' containment reference list.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getMachine_Machine()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Machine> getMachine();
 
 	/**
 	 * Returns the value of the '<em><b>Instance</b></em>' containment reference list.

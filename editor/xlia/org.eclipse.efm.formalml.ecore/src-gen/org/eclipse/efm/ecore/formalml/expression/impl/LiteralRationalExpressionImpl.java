@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -100,6 +100,7 @@ public class LiteralRationalExpressionImpl extends LiteralExpressionImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getNumerator() {
 		return numerator;
 	}
@@ -109,6 +110,7 @@ public class LiteralRationalExpressionImpl extends LiteralExpressionImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNumerator(long newNumerator) {
 		long oldNumerator = numerator;
 		numerator = newNumerator;
@@ -121,6 +123,7 @@ public class LiteralRationalExpressionImpl extends LiteralExpressionImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getDenominator() {
 		return denominator;
 	}
@@ -130,6 +133,7 @@ public class LiteralRationalExpressionImpl extends LiteralExpressionImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDenominator(long newDenominator) {
 		long oldDenominator = denominator;
 		denominator = newDenominator;
@@ -214,7 +218,7 @@ public class LiteralRationalExpressionImpl extends LiteralExpressionImpl impleme
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (numerator: ");
 		result.append(numerator);
 		result.append(", denominator: ");

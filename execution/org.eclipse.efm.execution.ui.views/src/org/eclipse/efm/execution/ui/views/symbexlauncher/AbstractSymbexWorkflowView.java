@@ -49,7 +49,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart
 
 		scrollform = toolkit.createScrolledForm(parentComposite);
 		//scrollform.setText("Run Configuration");
-		GridLayout layout = new GridLayout(1, false);
+		final GridLayout layout = new GridLayout(1, false);
 		scrollform.getBody().setLayout(layout);
 
 		createMessageDisplayGraphics();
@@ -61,34 +61,34 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart
 	private void createMessageDisplayGraphics() {
 		message_display_parentcomposite = toolkit.createComposite(scrollform.getBody());
 
-		GridLayout gl = new GridLayout(2, false);
+		final GridLayout gl = new GridLayout(2, false);
 		message_display_parentcomposite.setLayout(gl);
 
-		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
+		final GridData gd = new GridData(SWT.FILL,SWT.FILL, true, false);
 		message_display_parentcomposite.setLayoutData(gd);
 
 		message_image_display = toolkit.createLabel(message_display_parentcomposite, null);
 
-		GridData gd2 = new GridData(SWT.FILL,SWT.FILL, true, false);
+		final GridData gd2 = new GridData(SWT.FILL,SWT.FILL, true, false);
 
 		message_text_display = toolkit.createLabel(message_display_parentcomposite, null);
 		message_text_display.setLayoutData(gd2);
 	}
 
-	protected void setupTopLevelActionBars(Action[] acts) {
-		IActionBars bars = getViewSite().getActionBars();
-		IMenuManager pullDownMenuManager = bars.getMenuManager();
+	protected void setupTopLevelActionBars(final Action[] acts) {
+		final IActionBars bars = getViewSite().getActionBars();
+		final IMenuManager pullDownMenuManager = bars.getMenuManager();
 		pullDownMenuManager.removeAll();
-		for(Action action: acts) {
+		for(final Action action: acts) {
 			pullDownMenuManager.add(action);
 			pullDownMenuManager.add(new Separator());
 		}
-		IToolBarManager toolBarMenuManager = bars.getToolBarManager();
+		final IToolBarManager toolBarMenuManager = bars.getToolBarManager();
 		toolBarMenuManager.removeAll();
 		toolkit.fillToolBar(toolBarMenuManager, acts);
 	}
 
-	protected void showMessage(String message) {
+	protected void showMessage(final String message) {
 		MessageDialog.openInformation(scrollform.getShell(), "Symbex Workflow", message);
 	}
 
@@ -123,18 +123,24 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart
 	// Message API
 	///////////////////////////////////////////////////////////////////////////
 
+	public String fPreviousMessage = null;
+
 	@Override
 	public void clearErrorMessage() {
-		AnalysisProfileKind analysisProfile =
+		final AnalysisProfileKind analysisProfile =
 				AnalysisProfileKind.get(message_text_display.getText());
 		if( analysisProfile == null  ) {
 			message_text_display.setText("");
 			message_image_display.setImage(null);
+
+			setMessage( fPreviousMessage );
 		}
 	}
 
 	@Override
-	public void setMessage(String message){
+	public void setMessage(final String message){
+		fPreviousMessage = message;
+
 		if(message != null) {
 			message_text_display.setText(message);
 		} else {
@@ -148,7 +154,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart
 	}
 
 	@Override
-	public void setWarningMessage(String warningMessage){
+	public void setWarningMessage(final String warningMessage){
 		if(warningMessage != null) {
 			message_text_display.setText(warningMessage);
 
@@ -164,7 +170,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart
 	}
 
 	@Override
-	public void setErrorMessage(String errorMessage){
+	public void setErrorMessage(final String errorMessage){
 		if(errorMessage != null) {
 			message_text_display.setText(errorMessage);
 

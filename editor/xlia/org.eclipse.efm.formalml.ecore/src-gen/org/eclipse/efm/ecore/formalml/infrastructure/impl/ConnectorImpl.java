@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,10 +16,9 @@ import java.util.Collection;
 
 import org.eclipse.efm.ecore.formalml.common.impl.NamedElementImpl;
 
-import org.eclipse.efm.ecore.formalml.infrastructure.ComCastKind;
-import org.eclipse.efm.ecore.formalml.infrastructure.ComPoint;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
 import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
+import org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -44,8 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ConnectorImpl#getProtocol <em>Protocol</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ConnectorImpl#getCast <em>Cast</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ConnectorImpl#getComPoints <em>Com Points</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ConnectorImpl#getConnectorEnd <em>Connector End</em>}</li>
  * </ul>
  *
  * @generated
@@ -62,34 +60,14 @@ public class ConnectorImpl extends NamedElementImpl implements Connector {
 	protected ComProtocol protocol;
 
 	/**
-	 * The default value of the '{@link #getCast() <em>Cast</em>}' attribute.
+	 * The cached value of the '{@link #getConnectorEnd() <em>Connector End</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCast()
+	 * @see #getConnectorEnd()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final ComCastKind CAST_EDEFAULT = ComCastKind.NONE;
-
-	/**
-	 * The cached value of the '{@link #getCast() <em>Cast</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCast()
-	 * @generated
-	 * @ordered
-	 */
-	protected ComCastKind cast = CAST_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getComPoints() <em>Com Points</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getComPoints()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ComPoint> comPoints;
+	protected EList<ConnectorEnd> connectorEnd;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -115,6 +93,7 @@ public class ConnectorImpl extends NamedElementImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComProtocol getProtocol() {
 		return protocol;
 	}
@@ -139,6 +118,7 @@ public class ConnectorImpl extends NamedElementImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProtocol(ComProtocol newProtocol) {
 		if (newProtocol != protocol) {
 			NotificationChain msgs = null;
@@ -158,32 +138,12 @@ public class ConnectorImpl extends NamedElementImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComCastKind getCast() {
-		return cast;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCast(ComCastKind newCast) {
-		ComCastKind oldCast = cast;
-		cast = newCast == null ? CAST_EDEFAULT : newCast;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.CONNECTOR__CAST, oldCast, cast));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ComPoint> getComPoints() {
-		if (comPoints == null) {
-			comPoints = new EObjectContainmentEList<ComPoint>(ComPoint.class, this, InfrastructurePackage.CONNECTOR__COM_POINTS);
+	@Override
+	public EList<ConnectorEnd> getConnectorEnd() {
+		if (connectorEnd == null) {
+			connectorEnd = new EObjectContainmentEList<ConnectorEnd>(ConnectorEnd.class, this, InfrastructurePackage.CONNECTOR__CONNECTOR_END);
 		}
-		return comPoints;
+		return connectorEnd;
 	}
 
 	/**
@@ -196,8 +156,8 @@ public class ConnectorImpl extends NamedElementImpl implements Connector {
 		switch (featureID) {
 			case InfrastructurePackage.CONNECTOR__PROTOCOL:
 				return basicSetProtocol(null, msgs);
-			case InfrastructurePackage.CONNECTOR__COM_POINTS:
-				return ((InternalEList<?>)getComPoints()).basicRemove(otherEnd, msgs);
+			case InfrastructurePackage.CONNECTOR__CONNECTOR_END:
+				return ((InternalEList<?>)getConnectorEnd()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -212,10 +172,8 @@ public class ConnectorImpl extends NamedElementImpl implements Connector {
 		switch (featureID) {
 			case InfrastructurePackage.CONNECTOR__PROTOCOL:
 				return getProtocol();
-			case InfrastructurePackage.CONNECTOR__CAST:
-				return getCast();
-			case InfrastructurePackage.CONNECTOR__COM_POINTS:
-				return getComPoints();
+			case InfrastructurePackage.CONNECTOR__CONNECTOR_END:
+				return getConnectorEnd();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -232,12 +190,9 @@ public class ConnectorImpl extends NamedElementImpl implements Connector {
 			case InfrastructurePackage.CONNECTOR__PROTOCOL:
 				setProtocol((ComProtocol)newValue);
 				return;
-			case InfrastructurePackage.CONNECTOR__CAST:
-				setCast((ComCastKind)newValue);
-				return;
-			case InfrastructurePackage.CONNECTOR__COM_POINTS:
-				getComPoints().clear();
-				getComPoints().addAll((Collection<? extends ComPoint>)newValue);
+			case InfrastructurePackage.CONNECTOR__CONNECTOR_END:
+				getConnectorEnd().clear();
+				getConnectorEnd().addAll((Collection<? extends ConnectorEnd>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -254,11 +209,8 @@ public class ConnectorImpl extends NamedElementImpl implements Connector {
 			case InfrastructurePackage.CONNECTOR__PROTOCOL:
 				setProtocol((ComProtocol)null);
 				return;
-			case InfrastructurePackage.CONNECTOR__CAST:
-				setCast(CAST_EDEFAULT);
-				return;
-			case InfrastructurePackage.CONNECTOR__COM_POINTS:
-				getComPoints().clear();
+			case InfrastructurePackage.CONNECTOR__CONNECTOR_END:
+				getConnectorEnd().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -274,28 +226,10 @@ public class ConnectorImpl extends NamedElementImpl implements Connector {
 		switch (featureID) {
 			case InfrastructurePackage.CONNECTOR__PROTOCOL:
 				return protocol != null;
-			case InfrastructurePackage.CONNECTOR__CAST:
-				return cast != CAST_EDEFAULT;
-			case InfrastructurePackage.CONNECTOR__COM_POINTS:
-				return comPoints != null && !comPoints.isEmpty();
+			case InfrastructurePackage.CONNECTOR__CONNECTOR_END:
+				return connectorEnd != null && !connectorEnd.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (cast: ");
-		result.append(cast);
-		result.append(')');
-		return result.toString();
 	}
 
 } //ConnectorImpl

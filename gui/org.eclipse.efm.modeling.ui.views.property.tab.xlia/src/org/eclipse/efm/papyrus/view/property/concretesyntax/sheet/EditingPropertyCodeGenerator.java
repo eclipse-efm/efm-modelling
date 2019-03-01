@@ -43,10 +43,11 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 		super();
 	}
 
-	public String performTransform(EObject element) {
+	@Override
+	public String performTransform(final EObject element) {
 		if( element instanceof Element ) {
-			StringWriter buffer = new StringWriter();
-			PrettyPrintWriter writer = new PrettyPrintWriter(buffer);
+			final StringWriter buffer = new StringWriter();
+			final PrettyPrintWriter writer = new PrettyPrintWriter(buffer);
 
 			if( element instanceof Transition ){
 				transformTransition((Transition) element, writer);
@@ -70,7 +71,8 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 	}
 
 
-	public void transformOperation(Operation element, PrettyPrintWriter writer) {
+	@Override
+	public void transformOperation(final Operation element, final PrettyPrintWriter writer) {
 		writer.appendTab("macro routine ");
 		if( element.getName() != null ) {
 			writer.append( element.getName() );
@@ -85,9 +87,9 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 		writer.appendEol(" {");
 
 		// A writer indenting with TAB + iTAB -> TAB2
-		PrettyPrintWriter writer2 = writer.itab2();
+		final PrettyPrintWriter writer2 = writer.itab2();
 
-		for( Behavior method : element.getMethods() ) {
+		for( final Behavior method : element.getMethods() ) {
 			if( method instanceof OpaqueBehavior ) {
 				writer.appendTab2("//begin xlia::behavior method ")
 					.appendEol( method.getName() );
@@ -121,12 +123,12 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 	}
 
 
-	public void transformStateMachine(StateMachine element, PrettyPrintWriter writer) {
+	public void transformStateMachine(final StateMachine element, final PrettyPrintWriter writer) {
 		writer.appendTab("model statemachine< or > ")
 			.append(element.getName())
 			.appendEol(" {");
 
-		for(Region itRegion : element.getRegions() ) {
+		for(final Region itRegion : element.getRegions() ) {
 			writer.appendEol();
 			transformRegion(itRegion, writer);
 		}
@@ -136,7 +138,7 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 	}
 
 
-	public void transformRegion(Region element, PrettyPrintWriter writer) {
+	public void transformRegion(final Region element, final PrettyPrintWriter writer) {
 		writer.appendTabEol("@region:");
 
 		// A writer indenting with TAB + iTAB -> TAB2
@@ -144,7 +146,7 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 }
 
 
-	public void transformPseudostate(Pseudostate element, PrettyPrintWriter writer) {
+	public void transformPseudostate(final Pseudostate element, final PrettyPrintWriter writer) {
 		writer.appendTab("state< ")
 			.append(element.getKind().toString())
 			.append(" > ")
@@ -157,7 +159,7 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 			.appendEol2(element.getName());
 	}
 
-	public void transformFinalState(FinalState element, PrettyPrintWriter writer) {
+	public void transformFinalState(final FinalState element, final PrettyPrintWriter writer) {
 		writer.appendTab("state< final > ")
 			.append(element.getName())
 			.appendEol(" {");
@@ -168,7 +170,7 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 			.appendEol2(element.getName());
 	}
 
-	public void transformState(State element, PrettyPrintWriter writer) {
+	public void transformState(final State element, final PrettyPrintWriter writer) {
 		writer.appendTab("state");
 		if( element.isOrthogonal() ) {
 			writer.append("< and >");
@@ -186,7 +188,7 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 
 		super.fStatemachineFactory.transformConnectionPoint(element, writer);
 
-		for(Region itRegion : element.getRegions() ) {
+		for(final Region itRegion : element.getRegions() ) {
 			writer.appendEol();
 			transformRegion(itRegion, writer);
 		}
@@ -195,7 +197,7 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 			.appendEol2(element.getName());
 	}
 
-	public void transformVertex(Vertex element, PrettyPrintWriter writer) {
+	public void transformVertex(final Vertex element, final PrettyPrintWriter writer) {
 		writer.appendTab("vertex ")
 			.append(element.getName())
 			.appendEol(" {");
@@ -206,11 +208,11 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 			.appendEol2(element.getName());
 	}
 
-	public void transformVertexContent(Vertex element, PrettyPrintWriter writer) {
+	public void transformVertexContent(final Vertex element, final PrettyPrintWriter writer) {
 		// A writer indenting with TAB + iTAB -> TAB2
-		PrettyPrintWriter writer2 = writer.itab2();
+		final PrettyPrintWriter writer2 = writer.itab2();
 
-		for(Transition itTransition : element.getOutgoings() ) {
+		for(final Transition itTransition : element.getOutgoings() ) {
 			transformTransition(itTransition, writer2);
 			// Si ce n'est pas la dernière transition sortante,
 			// Ajout d'un saut de ligne supplémentaire
@@ -222,18 +224,18 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 	}
 
 
-	public void transformTransition(Transition element, PrettyPrintWriter writer) {
-		TimedTransition timedTransition =
+	public void transformTransition(final Transition element, final PrettyPrintWriter writer) {
+		final TimedTransition timedTransition =
 				StereotypeUtil.getTimedTransition(element);
-		
-		boolean isFinalTrigger = ( element.getTrigger(
+
+		final boolean isFinalTrigger = ( element.getTrigger(
 				StatemachineCodeGenerator.TRANSITION_TRIGGER_FINAL) != null );
-		
-		boolean isElseGuard = fSupervisor.isConstraintSymbol(
+
+		final boolean isElseGuard = this.isConstraintSymbol(
 				element.getGuard(), StatemachineCodeGenerator.TRANSITION_GUARD_ELSE);
 
-		boolean isElseTransition = isElseGuard && (timedTransition == null);
-		
+		final boolean isElseTransition = isElseGuard && (timedTransition == null);
+
 		writer.appendTab("transition");
 		if( isFinalTrigger ) {
 			writer.append("< final ");
@@ -247,8 +249,8 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 		else if( isElseTransition ) {
 			writer.append("< else >");
 		}
-		
-		
+
+
 		if( element.getName() != null ) {
 			writer.append(" ")
 				.append(element.getName());
@@ -258,7 +260,7 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 		// Triggers
 		//
 		writer.appendTabEol("@trigger:");
-		for(Trigger itTrigger : element.getTriggers() ) {
+		for(final Trigger itTrigger : element.getTriggers() ) {
 			super.fStatemachineFactory.transformTrigger(itTrigger, writer);
 		}
 
@@ -266,12 +268,12 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 		//
 		writer.appendTabEol("@guard:");
 		if( ! isElseGuard ) {
-			Constraint guard = element.getGuard();
+			final Constraint guard = element.getGuard();
 			if ( guard != null) {
-				ValueSpecification vsGuard = guard.getSpecification();
+				final ValueSpecification vsGuard = guard.getSpecification();
 				if( vsGuard instanceof OpaqueExpression ) {
-					OpaqueExpression exprGuard = (OpaqueExpression) vsGuard;
-					for( String body : exprGuard.getBodies() ) {
+					final OpaqueExpression exprGuard = (OpaqueExpression) vsGuard;
+					for( final String body : exprGuard.getBodies() ) {
 //						writer.appendTab2Eol("guard( " + body + " );");
 						writer.appendTab2Eol( body );
 					}
@@ -283,18 +285,18 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 				}
 			}
 		}
-		
+
 		// Timed Guard
 		//
 		writer.appendTabEol("@tguard:");
 		if( timedTransition != null ) {
-			Constraint constraint = timedTransition.getTguard();
+			final Constraint constraint = timedTransition.getTguard();
 
 			if( constraint != null ) {
-				ValueSpecification vsTGuard = constraint.getSpecification();
+				final ValueSpecification vsTGuard = constraint.getSpecification();
 				if( vsTGuard instanceof OpaqueExpression ) {
-					OpaqueExpression exprTGuard = (OpaqueExpression) vsTGuard;
-					for( String body : exprTGuard.getBodies() ) {
+					final OpaqueExpression exprTGuard = (OpaqueExpression) vsTGuard;
+					for( final String body : exprTGuard.getBodies() ) {
 //						writer.appendTab2Eol("tguard( " + body + " );");
 						writer.appendTab2Eol( body );
 					}
@@ -310,7 +312,7 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 		// Behavior
 		//
 		writer.appendTabEol("@effect:");
-		Behavior behavior = element.getEffect();
+		final Behavior behavior = element.getEffect();
 		if( behavior instanceof OpaqueBehavior ) {
 			transformOpaqueBehavior((OpaqueBehavior)behavior, writer.itab2());
 		}
@@ -339,8 +341,9 @@ public class EditingPropertyCodeGenerator extends MainCodeGenerator {
 	}
 
 
+	@Override
 	public void transformOpaqueBehavior(
-			OpaqueBehavior behavior, PrettyPrintWriter writer) {
+			final OpaqueBehavior behavior, final PrettyPrintWriter writer) {
 		for( String body : behavior.getBodies() ) {
 			if( body.startsWith(writer.iTAB) ) {
 				body = body.trim().replaceAll(

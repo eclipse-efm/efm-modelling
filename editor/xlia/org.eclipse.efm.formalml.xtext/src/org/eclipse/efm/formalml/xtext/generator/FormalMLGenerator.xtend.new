@@ -1,0 +1,270 @@
+/*****************************************************************************
+* Copyright (c) 2016 CEA LIST.
+*
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+*  Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr
+*  - Initial API and implementation
+*****************************************************************************/
+package org.eclipse.efm.formalml.xtext.generator
+
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.generator.AbstractGenerator
+import org.eclipse.xtext.generator.IFileSystemAccess2
+import org.eclipse.xtext.generator.IGeneratorContext
+import org.eclipse.efm.ecore.formalml.XliaModel
+import org.eclipse.efm.ecore.formalml.infrastructure.Machine
+import org.eclipse.efm.ecore.formalml.infrastructure.Behavior
+import org.eclipse.efm.ecore.formalml.statemachine.Statemachine
+import org.eclipse.efm.ecore.formalml.statemachine.Region
+import org.eclipse.efm.ecore.formalml.statemachine.State
+import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate
+import org.eclipse.efm.ecore.formalml.statemachine.Vertex
+import org.eclipse.efm.ecore.formalml.statemachine.StartState
+import org.eclipse.efm.ecore.formalml.statemachine.FinalState
+import org.eclipse.efm.ecore.formalml.statemachine.Transition
+import org.eclipse.emf.common.util.EList
+import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement
+import org.eclipse.efm.ecore.formalml.common.NamedElement
+import org.eclipse.efm.ecore.formalml.statemachine.StatemachineFactory
+
+/**
+ * Generates code from your model files on save.
+ * 
+ * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
+ */
+class FormalMLGenerator extends AbstractGenerator {
+
+	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		val model = resource.contents.filter(XliaModel).head
+		if (model !== null) {
+			val filename = 
+				if( (resource.URI !== null) && (! resource.URI.segments.isEmpty) )
+					'/' + resource.URI.segments.last + '.puml'
+				else '/statemachine_' + resource.hashCode + '.puml'
+
+			fsa.generateFile(filename, generateModelGraphic(model))
+//			fsa.generateFile('/hidden.txt', '''This is an additional generator artifact.''')
+		}
+	}
+	
+	def generateModelGraphic(XliaModel model)
+	'''
+		@startuml
+		
+		skinparam backgroundColor White
+		
+		skinparam state {
+			StartColor Green
+			EndColor Red
+		
+			'Attribut pour les transitions
+			ArrowColor Black
+			ArrowColor<< Else >> Orange
+		
+			'Attribut par défaut pour les états
+			BorderColor Gray
+			BackgroundColor Wheat
+		
+			'Attribut pour les états composites
+			BackgroundColor<< Composite >> SpringGreen
+		
+			'Attribut pour les états simples
+			BackgroundColor<< simple >> PaleTurquoise
+			BackgroundColor<< start >> Green
+			BackgroundColor<< fFinal >> Red
+			BackgroundColor<< sync >> Aqua
+		
+			'Attribut pour les pseudo-états
+			BackgroundColor<< pseudostate >> Lavender
+			BackgroundColor<< initial >> GreenYellow
+			BackgroundColor<< junction >> GreenYellow
+			BackgroundColor<< choice >> Orange
+			BackgroundColor<< fork >> SpringGreen
+			BackgroundColor<< junction >> SpringGreen
+			BackgroundColor<< dhistory >> SpringGreen
+			BackgroundColor<< shistory >> SpringGreen
+			BackgroundColor<< return >>  OrangeRed
+			BackgroundColor<< terminal >> Red
+		
+			FontColor Black
+			FontName Times
+			FontSize 14
+		}
+			
+		«generateMachineGraphic(model.system)»
+			
+		@enduml
+	'''
+	
+	
+	def dispatch generateMachineGraphic(org.eclipse.efm.ecore.formalml.infrastructure.System system)
+	'''	
+		state "System «system.nameOf»" as «system.name»_«system.hashCode» {
+			«generateMachineContentGraphic(system)»
+		}
+	'''
+	
+	def CharSequence generateMachineContentGraphic(Machine machine)
+	'''	
+		«IF machine.compositePart !== null»
+			«FOR itMachine : machine.compositePart.machine»
+				«generateMachineGraphic(itMachine)»
+				--
+			«ENDFOR»
+		«ENDIF»
+		«IF machine.behaviorPart !== null»
+			«FOR itBehavior : machine.behaviorPart.behavior»
+				«generateMachineGraphic(itBehavior)»
+				--
+			«ENDFOR»
+			«IF machine.behaviorPart.main !== null»«generateMachineGraphic(machine.behaviorPart.main)»«ENDIF»
+		«ENDIF»
+	'''
+	
+	def dispatch generateMachineGraphic(Behavior behavior)
+	'''	
+		state "Behavior «behavior.nameOf»" as «behavior.name»_«behavior.hashCode» {
+			«generateMachineContentGraphic(behavior)»
+		}
+«««		«IF behavior instanceof Statemachine»«generateGraphic(behavior as Statemachine)»
+«««		«ELSE»state "Behavior «behavior.nameOf»" as «behavior.name»_«behavior.hashCode» {
+«««			«generateBodyGraphic(behavior)»
+«««		}
+«««		«ENDIF»
+	'''
+	
+	def dispatch generateMachineGraphic(Statemachine statemachine)
+	'''	
+		state "Statemachine «statemachine.nameOf»" as «statemachine.name»_«statemachine.hashCode» {
+			«generateMachineContentGraphic(statemachine)»
+			«generateRegionsGraphic(statemachine.region)»
+		}
+	'''
+	
+	def dispatch generateMachineGraphic(Machine machine)
+	'''	
+		state "Machine «machine.nameOf»" as «machine.name»_«machine.hashCode» {
+			«generateMachineContentGraphic(machine)»
+		}
+	'''
+	
+
+	def CharSequence generateRegionsGraphic(EList<Region> regions)
+	'''	
+		«IF regions.size == 1 »
+			«FOR itVertex : regions.head.vertex»
+				«generateVertexGraphic(itVertex)»
+			«ENDFOR»
+		«ELSE»
+		«FOR itRegion : regions»
+			«generateRegionGraphic(itRegion)»
+			--
+		«ENDFOR»
+		«ENDIF»
+	'''	
+	
+	def generateRegionGraphic(Region region)
+	'''	
+		state "«IF region.name !== null»«region.name»«ELSE»anonym region"«ENDIF» as «region.name»_«region.hashCode» {
+			«FOR itVertex : region.vertex»
+				«generateVertexGraphic(itVertex)»
+			«ENDFOR»
+		}
+	'''
+	
+	def dispatch generateVertexGraphic(Vertex vertex)
+	'''	
+		state "Vertex «vertex.nameOf»" as «vertex.name»_«vertex.hashCode»
+«««		«IF vertex instanceof StartState»
+«««			«generateGraphic(vertex as StartState)»
+«««		«ELSE»«IF vertex instanceof FinalState»
+«««			«generateGraphic(vertex as FinalState)»
+«««		«ELSE»«IF vertex instanceof State»
+«««			«generateGraphic(vertex as State)»
+«««		«ELSE»«IF vertex instanceof Pseudostate»
+«««			«generateGraphic(vertex as Pseudostate)»
+«««		«ELSE»
+«««			state "Vertex «vertex.nameOf»" as «vertex.name»_«vertex.hashCode»
+«««		«ENDIF»
+«««		«ENDIF»
+«««		«ENDIF»
+«««		«ENDIF»
+		«FOR itTransition : vertex.transition»
+			«generateTransitionGraphic(itTransition)»
+		«ENDFOR»
+		
+	'''
+	
+	def dispatch generateVertexGraphic(StartState state)
+	'''	
+		state "«state.nameOf»" as «state.name»_«state.hashCode» << start >>
+		«FOR itTransition : state.transition»
+			«generateTransitionGraphic(itTransition)»
+		«ENDFOR»
+		
+	'''
+	
+	def dispatch generateVertexGraphic(FinalState state)
+	'''	
+		state "«state.nameOf»" as «state.name»_«state.hashCode» << final >>
+		«FOR itTransition : state.transition»
+			«generateTransitionGraphic(itTransition)»
+		«ENDFOR»
+		
+	'''
+	
+	def dispatch generateVertexGraphic(State state)
+	'''	
+		state "«state.nameOf»" as «state.name»_«state.hashCode» << simple >>
+		«IF ! state.region.empty» {
+			«generateRegionsGraphic(state.region)»
+		}
+		«ENDIF»
+		«FOR itTransition : state.transition»
+			«generateTransitionGraphic(itTransition)»
+		«ENDFOR»
+		
+	'''
+	
+	def dispatch generateVertexGraphic(Pseudostate pseudostate)
+	'''	
+		state "«pseudostate.nameOf»" as «pseudostate.name»_«pseudostate.hashCode» << «pseudostate.kind.literal» >>
+		«FOR itTransition : pseudostate.transition»
+			«generateTransitionGraphic(itTransition)»
+		«ENDFOR»
+		
+	'''
+	
+	def generateTransitionGraphic(Transition transition)
+	'''	
+		 «(transition.eContainer as Vertex).name»_«transition.eContainer.hashCode» --> «transition.targetVertex.name»_«transition.targetVertex.hashCode» : «transition.name»
+	'''
+	
+	def targetVertex(Transition transition) {
+		 if( transition.target instanceof LiteralReferenceElement ) {
+		 	val value = (transition.target as LiteralReferenceElement).value
+		 	
+		 	if( value instanceof NamedElement ) {
+		 		return( value as NamedElement )
+		 	}
+		 }
+		 
+		 val vertex = StatemachineFactory.eINSTANCE.createVertex()
+		 vertex.name =  "targetOf_" + transition.name
+		 return vertex
+	}
+	
+	
+	def nameOf(NamedElement element) {
+		if( (element.unrestrictedName !== null) && (! element.unrestrictedName.empty) )
+			element.unrestrictedName.substring(1, element.unrestrictedName.length-1)
+		else if( (element.name !== null) && (! element.name.empty) ) element.name
+		else "<<anonym>>"
+	}
+	
+}

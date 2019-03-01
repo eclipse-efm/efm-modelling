@@ -31,5 +31,4 @@ public abstract class AbstractFormalMLValidator extends AbstractDeclarativeValid
 		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/efm/FormalML/Statement"));
 		return result;
 	}
-	
 }

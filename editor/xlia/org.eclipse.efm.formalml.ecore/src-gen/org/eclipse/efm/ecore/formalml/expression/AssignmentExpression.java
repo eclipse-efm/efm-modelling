@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,7 +24,7 @@ package org.eclipse.efm.ecore.formalml.expression;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getLeftHandSide <em>Left Hand Side</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getRigthHandSide <em>Rigth Hand Side</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getRightHandSide <em>Right Hand Side</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getAssignmentExpression()
@@ -85,29 +85,29 @@ public interface AssignmentExpression extends Expression {
 	void setLeftHandSide(LeftHandSideExpression value);
 
 	/**
-	 * Returns the value of the '<em><b>Rigth Hand Side</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Right Hand Side</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Rigth Hand Side</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Right Hand Side</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Rigth Hand Side</em>' containment reference.
-	 * @see #setRigthHandSide(Expression)
-	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getAssignmentExpression_RigthHandSide()
+	 * @return the value of the '<em>Right Hand Side</em>' containment reference.
+	 * @see #setRightHandSide(Expression)
+	 * @see org.eclipse.efm.ecore.formalml.expression.ExpressionPackage#getAssignmentExpression_RightHandSide()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	Expression getRigthHandSide();
+	Expression getRightHandSide();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getRigthHandSide <em>Rigth Hand Side</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.expression.AssignmentExpression#getRightHandSide <em>Right Hand Side</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Rigth Hand Side</em>' containment reference.
-	 * @see #getRigthHandSide()
+	 * @param value the new value of the '<em>Right Hand Side</em>' containment reference.
+	 * @see #getRightHandSide()
 	 * @generated
 	 */
-	void setRigthHandSide(Expression value);
+	void setRightHandSide(Expression value);
 
 } // AssignmentExpression

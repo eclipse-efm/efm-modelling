@@ -53,11 +53,11 @@ public class TraceElementTableConfigProvider
 	public final String[] VALID_NATURES;
 
 	public TraceElementTableConfigProvider(
-			String storeKey, List<String> defaultAttributeValue,
-			String title, String toolTipText, boolean checkedBoxForColumnZero,
-			boolean isNatureUniqueSet, String natureTitle, int natureWidth,
-			String valueTitle, int valueWidth, int heightHint,
-			TraceElementKind[] validTraces, TraceElementKind deafaultTrace) {
+			final String storeKey, final List<String> defaultAttributeValue,
+			final String title, final String toolTipText, final boolean checkedBoxForColumnZero,
+			final boolean isNatureUniqueSet, final String natureTitle, final int natureWidth,
+			final String valueTitle, final int valueWidth, final int heightHint,
+			final TraceElementKind[] validTraces, final TraceElementKind deafaultTrace) {
 
 		STORE_KEY = storeKey;
 		DEFAULT_ATTRIBUTE_VALUE = defaultAttributeValue;
@@ -87,11 +87,11 @@ public class TraceElementTableConfigProvider
 		DEFAULT_TRACE_NATURE = deafaultTrace;
 	}
 
-	public TraceElementTableConfigProvider(String storeKey,
-			List<String> defaultAttributeValue, String title, String toolTipText,
-			boolean checkedBoxForColumnZero, String natureTitle, int natureWidth,
-			String valueTitle, int valueWidth, int heightHint,
-			TraceElementKind[] validTraces, TraceElementKind deafaultTrace)
+	public TraceElementTableConfigProvider(final String storeKey,
+			final List<String> defaultAttributeValue, final String title, final String toolTipText,
+			final boolean checkedBoxForColumnZero, final String natureTitle, final int natureWidth,
+			final String valueTitle, final int valueWidth, final int heightHint,
+			final TraceElementKind[] validTraces, final TraceElementKind deafaultTrace)
 	{
 		this(storeKey, defaultAttributeValue, title, toolTipText,
 				checkedBoxForColumnZero, false, natureTitle,
@@ -100,11 +100,11 @@ public class TraceElementTableConfigProvider
 	}
 
 
-	public TraceElementTableConfigProvider(String storeKey,
-			List<String> defaultAttributeValue, String title,
-			String toolTipText, boolean checkedBoxForColumnZero,
-			String natureTitle, int natureWidth, String valueTitle,
-			int valueWidth, int heightHint, TraceElementKind[] validTraces)
+	public TraceElementTableConfigProvider(final String storeKey,
+			final List<String> defaultAttributeValue, final String title,
+			final String toolTipText, final boolean checkedBoxForColumnZero,
+			final String natureTitle, final int natureWidth, final String valueTitle,
+			final int valueWidth, final int heightHint, final TraceElementKind[] validTraces)
 	{
 		this(storeKey, defaultAttributeValue, title, toolTipText,
 				checkedBoxForColumnZero, false, natureTitle,
@@ -240,9 +240,15 @@ public class TraceElementTableConfigProvider
 					TraceElementKind.NODE_TIMED_CONDITION,
 					TraceElementKind.NODE_TIMED_CONDITION_LEAF,
 
+					TraceElementKind.META_TRACE,
+					TraceElementKind.META_DEBUG,
+
 //					TraceElementKind.LIFELINE,
 
-//					TraceElementKind.NODE_DATA,
+					TraceElementKind.NODE,
+					TraceElementKind.NODE_LABEL,
+					TraceElementKind.NODE_HEADER,
+					TraceElementKind.NODE_DATA,
 //!					TraceElementKind.NODE_INFO,
 //					TraceElementKind.NODE_TRACE_RUN,
 //					TraceElementKind.NODE_TRACE_IO,
@@ -319,11 +325,15 @@ public class TraceElementTableConfigProvider
 					TraceElementKind.LIFELINE_ID,
 					TraceElementKind.LIFELINE_STATE,
 //					TraceElementKind.RAW_ATTRIBUTE,
+					TraceElementKind.NODE,
+					TraceElementKind.NODE_LABEL,
 					TraceElementKind.NODE_HEADER,
 					TraceElementKind.NODE_DATA,
 					TraceElementKind.NODE_INFO,
 					TraceElementKind.NODE_TRACE_RUN,
 					TraceElementKind.NODE_TRACE_IO,
+					TraceElementKind.META_TRACE,
+					TraceElementKind.META_DEBUG,
 					TraceElementKind.VALUE_PARAMETER_BEGIN,
 					TraceElementKind.VALUE_PARAMETER_SEPARATOR,
 					TraceElementKind.VALUE_PARAMETER_END,
@@ -340,7 +350,7 @@ public class TraceElementTableConfigProvider
 	// Transition Coverage Trace Specification
 	///////////////////////////////////////////////////////////////////////////
 
-	public static TraceElementTableConfigProvider getTransitionCoverage(Font font) {
+	public static TraceElementTableConfigProvider getTransitionCoverage(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -357,7 +367,7 @@ public class TraceElementTableConfigProvider
 	// Behavior Selection Trace Specification
 	///////////////////////////////////////////////////////////////////////////
 
-	public static TraceElementTableConfigProvider getBehaviorSelection(Font font) {
+	public static TraceElementTableConfigProvider getBehaviorSelection(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -374,7 +384,7 @@ public class TraceElementTableConfigProvider
 	// Test Offline Observable / Controllable
 	///////////////////////////////////////////////////////////////////////////
 
-	public static TraceElementTableConfigProvider getObservableTrace(Font font) {
+	public static TraceElementTableConfigProvider getObservableTrace(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -387,7 +397,7 @@ public class TraceElementTableConfigProvider
 				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.VARIABLE);
 	}
 
-	public static TraceElementTableConfigProvider getControllableTrace(Font font) {
+	public static TraceElementTableConfigProvider getControllableTrace(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -402,10 +412,27 @@ public class TraceElementTableConfigProvider
 
 
 	///////////////////////////////////////////////////////////////////////////
+	// Behavior Selection Trace Specification
+	///////////////////////////////////////////////////////////////////////////
+
+	public static TraceElementTableConfigProvider getInferenceSelection(final Font font) {
+		final PixelConverter pixelConverter = new PixelConverter(font);
+
+		return new TraceElementTableConfigProvider(
+				ATTR_INFERENCE_ANALYSIS_ELEMENT_NAME_LIST, BEHAVIOR_INITIAL_SAMPLE,
+				"&Trace Sequence", BEHAVIOR_DESCRIPTION, true,
+				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
+				"Element", pixelConverter.convertWidthInCharsToPixels(48),
+				pixelConverter.convertHeightInCharsToPixels(7),//HEIGHT_HINT_ROW_7,
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+	}
+
+
+	///////////////////////////////////////////////////////////////////////////
 	// Ad'HocTest Generation Extension Trace / Format
 	///////////////////////////////////////////////////////////////////////////
 
-	public static TraceElementTableConfigProvider getTraceExtensionObjective(Font font) {
+	public static TraceElementTableConfigProvider getTraceExtensionObjective(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -417,7 +444,7 @@ public class TraceElementTableConfigProvider
 				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION);
 	}
 
-	public static TraceElementTableConfigProvider getTestGenerationTraceDetail(Font font) {
+	public static TraceElementTableConfigProvider getTestGenerationTraceDetail(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -430,7 +457,7 @@ public class TraceElementTableConfigProvider
 				SERIALIZER_TRACE_ELEMENT, TraceElementKind.TRANSITION);
 	}
 
-	public static TraceElementTableConfigProvider getTestGenenrationTraceFormat(Font font) {
+	public static TraceElementTableConfigProvider getTestGenenrationTraceFormat(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -449,7 +476,7 @@ public class TraceElementTableConfigProvider
 	// First Symbex Output Graphiz Trace / Format
 	///////////////////////////////////////////////////////////////////////////
 
-	public static TraceElementTableConfigProvider getFirstSymbexOutputGraphizTrace(Font font) {
+	public static TraceElementTableConfigProvider getFirstSymbexOutputGraphizTrace(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -462,7 +489,7 @@ public class TraceElementTableConfigProvider
 				SERIALIZER_TRACE_ELEMENT, TraceElementKind.VARIABLE);
 	}
 
-	public static TraceElementTableConfigProvider getFirstSymbexOutputGraphizFormat(Font font) {
+	public static TraceElementTableConfigProvider getFirstSymbexOutputGraphizFormat(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -480,7 +507,7 @@ public class TraceElementTableConfigProvider
 	// Second Symbex Output Graphiz Trace / Format
 	///////////////////////////////////////////////////////////////////////////
 
-	public static TraceElementTableConfigProvider getSecondSymbexOutputGraphizTrace(Font font) {
+	public static TraceElementTableConfigProvider getSecondSymbexOutputGraphizTrace(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(
@@ -494,7 +521,7 @@ public class TraceElementTableConfigProvider
 	}
 
 
-	public static TraceElementTableConfigProvider getSecondSymbexOutputGraphizFormat(Font font) {
+	public static TraceElementTableConfigProvider getSecondSymbexOutputGraphizFormat(final Font font) {
 		final PixelConverter pixelConverter = new PixelConverter(font);
 
 		return new TraceElementTableConfigProvider(

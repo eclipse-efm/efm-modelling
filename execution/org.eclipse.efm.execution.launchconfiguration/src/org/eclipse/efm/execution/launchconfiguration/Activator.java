@@ -35,6 +35,7 @@ public class Activator extends AbstractUIPlugin implements ILaunchListener {
 	 * The constructor
 	 */
 	public Activator() {
+		//!! NOTHING
 	}
 
 
@@ -57,7 +58,7 @@ public class Activator extends AbstractUIPlugin implements ILaunchListener {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
 	@Override
-	public void start(BundleContext context) throws Exception {
+	public void start(final BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
 	}
@@ -67,7 +68,7 @@ public class Activator extends AbstractUIPlugin implements ILaunchListener {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	@Override
-	public void stop(BundleContext context) throws Exception {
+	public void stop(final BundleContext context) throws Exception {
 		plugin = null;
 
         if (fSymbexProcessConsoleManager != null) {
@@ -94,7 +95,7 @@ public class Activator extends AbstractUIPlugin implements ILaunchListener {
 	 * @see org.eclipse.debug.core.ILaunchListener#launchAdded(org.eclipse.debug.core.ILaunch)
 	 */
 	@Override
-	public void launchAdded(ILaunch launch) {
+	public void launchAdded(final ILaunch launch) {
 		DebugPlugin.getDefault().getLaunchManager().removeLaunchListener(this);
 
 		// Creates/starts launch listeners after a launch has been added.
@@ -105,13 +106,17 @@ public class Activator extends AbstractUIPlugin implements ILaunchListener {
 	 * @see org.eclipse.debug.core.ILaunchListener#launchChanged(org.eclipse.debug.core.ILaunch)
 	 */
 	@Override
-	public void launchChanged(ILaunch launch) {}
+	public void launchChanged(final ILaunch launch) {
+		//!! NOTHING
+	}
 
 	/**
 	 * @see org.eclipse.debug.core.ILaunchListener#launchRemoved(org.eclipse.debug.core.ILaunch)
 	 */
 	@Override
-	public void launchRemoved(ILaunch launch) {}
+	public void launchRemoved(final ILaunch launch) {
+		//!! NOTHING
+	}
 
 
 

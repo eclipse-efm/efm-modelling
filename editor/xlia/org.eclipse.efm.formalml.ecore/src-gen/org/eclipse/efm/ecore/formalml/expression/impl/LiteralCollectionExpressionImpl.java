@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -92,6 +92,7 @@ public class LiteralCollectionExpressionImpl extends LiteralExpressionImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataType getDatatype() {
 		return datatype;
 	}
@@ -116,6 +117,7 @@ public class LiteralCollectionExpressionImpl extends LiteralExpressionImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDatatype(DataType newDatatype) {
 		if (newDatatype != datatype) {
 			NotificationChain msgs = null;
@@ -135,6 +137,7 @@ public class LiteralCollectionExpressionImpl extends LiteralExpressionImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getValue() {
 		if (value == null) {
 			value = new EObjectContainmentEList<Expression>(Expression.class, this, ExpressionPackage.LITERAL_COLLECTION_EXPRESSION__VALUE);

@@ -71,8 +71,10 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	 * Constructor
 	 * @param parentTab
 	 */
-	public OverviewTestOfflineConfigurationProfile(AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+	public OverviewTestOfflineConfigurationProfile(
+			AbstractConfigurationPage configurationPage)
+	{
+		super(configurationPage, false);
 
 		this.fWidgetToolkit = null;
 

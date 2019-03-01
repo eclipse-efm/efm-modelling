@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Modifier#isReference <em>Reference</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Modifier#isVolatile <em>Volatile</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Modifier#isTransient <em>Transient</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Modifier#isOptional <em>Optional</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getModifier()
@@ -169,5 +170,32 @@ public interface Modifier extends EObject {
 	 * @generated
 	 */
 	void setTransient(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Optional</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Optional</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Optional</em>' attribute.
+	 * @see #setOptional(boolean)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getModifier_Optional()
+	 * @model default="false" required="true"
+	 * @generated
+	 */
+	boolean isOptional();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Modifier#isOptional <em>Optional</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Optional</em>' attribute.
+	 * @see #isOptional()
+	 * @generated
+	 */
+	void setOptional(boolean value);
 
 } // Modifier

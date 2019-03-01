@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -68,7 +68,6 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ExpressionPackage.VALUE_PRINTABLE_EXPRESSION: return createValuePrintableExpression();
-			case ExpressionPackage.LITERAL_EXPRESSION: return createLiteralExpression();
 			case ExpressionPackage.LITERAL_BOOLEAN_EXPRESSION: return createLiteralBooleanExpression();
 			case ExpressionPackage.LITERAL_INTEGER_EXPRESSION: return createLiteralIntegerExpression();
 			case ExpressionPackage.LITERAL_RATIONAL_EXPRESSION: return createLiteralRationalExpression();
@@ -78,7 +77,10 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 			case ExpressionPackage.LITERAL_STRING_EXPRESSION: return createLiteralStringExpression();
 			case ExpressionPackage.LITERAL_COLLECTION_EXPRESSION: return createLiteralCollectionExpression();
 			case ExpressionPackage.LITERAL_NULL_EXPRESSION: return createLiteralNullExpression();
-			case ExpressionPackage.LITERAL_REFERENCE_EXPRESSION: return createLiteralReferenceExpression();
+			case ExpressionPackage.LITERAL_ANY_VALUE_EXPRESSION: return createLiteralAnyValueExpression();
+			case ExpressionPackage.LITERAL_OPTIONAL_VALUE_EXPRESSION: return createLiteralOptionalValueExpression();
+			case ExpressionPackage.LITERAL_NONE_VALUE_EXPRESSION: return createLiteralNoneValueExpression();
+			case ExpressionPackage.LITERAL_ANY_OR_NONE_VALUE_EXPRESSION: return createLiteralAnyOrNoneValueExpression();
 			case ExpressionPackage.LITERAL_REFERENCE_ELEMENT: return createLiteralReferenceElement();
 			case ExpressionPackage.LITERAL_THIS_EXPRESSION: return createLiteralThisExpression();
 			case ExpressionPackage.LITERAL_SELF_EXPRESSION: return createLiteralSelfExpression();
@@ -89,7 +91,6 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 			case ExpressionPackage.LITERAL_TIME_EXPRESSION: return createLiteralTimeExpression();
 			case ExpressionPackage.LITERAL_TIME_DELTA_EXPRESSION: return createLiteralTimeDeltaExpression();
 			case ExpressionPackage.LEFT_HAND_SIDE_EXPRESSION: return createLeftHandSideExpression();
-			case ExpressionPackage.INCREMENT_OR_DECREMENT_EXPRESSION: return createIncrementOrDecrementExpression();
 			case ExpressionPackage.INCREMENT_OR_DECREMENT_PREFIX_EXPRESSION: return createIncrementOrDecrementPrefixExpression();
 			case ExpressionPackage.INCREMENT_OR_DECREMENT_POSTFIX_EXPRESSION: return createIncrementOrDecrementPostfixExpression();
 			case ExpressionPackage.ASSIGNMENT_EXPRESSION: return createAssignmentExpression();
@@ -120,6 +121,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 			case ExpressionPackage.EXPRESSION_AS_CHANNEL: return createExpressionAsChannel();
 			case ExpressionPackage.EXPRESSION_AS_MACHINE: return createExpressionAsMachine();
 			case ExpressionPackage.EXPRESSION_AS_PORT: return createExpressionAsPort();
+			case ExpressionPackage.LITERAL_REFERENCE_SPECIFICATION: return createLiteralReferenceSpecification();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -168,6 +170,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ValuePrintableExpression createValuePrintableExpression() {
 		ValuePrintableExpressionImpl valuePrintableExpression = new ValuePrintableExpressionImpl();
 		return valuePrintableExpression;
@@ -178,16 +181,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LiteralExpression createLiteralExpression() {
-		LiteralExpressionImpl literalExpression = new LiteralExpressionImpl();
-		return literalExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public LiteralBooleanExpression createLiteralBooleanExpression() {
 		LiteralBooleanExpressionImpl literalBooleanExpression = new LiteralBooleanExpressionImpl();
 		return literalBooleanExpression;
@@ -198,6 +192,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralIntegerExpression createLiteralIntegerExpression() {
 		LiteralIntegerExpressionImpl literalIntegerExpression = new LiteralIntegerExpressionImpl();
 		return literalIntegerExpression;
@@ -208,6 +203,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralRationalExpression createLiteralRationalExpression() {
 		LiteralRationalExpressionImpl literalRationalExpression = new LiteralRationalExpressionImpl();
 		return literalRationalExpression;
@@ -218,6 +214,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralFloatExpression createLiteralFloatExpression() {
 		LiteralFloatExpressionImpl literalFloatExpression = new LiteralFloatExpressionImpl();
 		return literalFloatExpression;
@@ -228,6 +225,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralRealExpression createLiteralRealExpression() {
 		LiteralRealExpressionImpl literalRealExpression = new LiteralRealExpressionImpl();
 		return literalRealExpression;
@@ -238,6 +236,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralCharacterExpression createLiteralCharacterExpression() {
 		LiteralCharacterExpressionImpl literalCharacterExpression = new LiteralCharacterExpressionImpl();
 		return literalCharacterExpression;
@@ -248,6 +247,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralStringExpression createLiteralStringExpression() {
 		LiteralStringExpressionImpl literalStringExpression = new LiteralStringExpressionImpl();
 		return literalStringExpression;
@@ -258,6 +258,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralCollectionExpression createLiteralCollectionExpression() {
 		LiteralCollectionExpressionImpl literalCollectionExpression = new LiteralCollectionExpressionImpl();
 		return literalCollectionExpression;
@@ -268,6 +269,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralNullExpression createLiteralNullExpression() {
 		LiteralNullExpressionImpl literalNullExpression = new LiteralNullExpressionImpl();
 		return literalNullExpression;
@@ -278,9 +280,10 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LiteralReferenceExpression createLiteralReferenceExpression() {
-		LiteralReferenceExpressionImpl literalReferenceExpression = new LiteralReferenceExpressionImpl();
-		return literalReferenceExpression;
+	@Override
+	public LiteralAnyValueExpression createLiteralAnyValueExpression() {
+		LiteralAnyValueExpressionImpl literalAnyValueExpression = new LiteralAnyValueExpressionImpl();
+		return literalAnyValueExpression;
 	}
 
 	/**
@@ -288,6 +291,40 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public LiteralOptionalValueExpression createLiteralOptionalValueExpression() {
+		LiteralOptionalValueExpressionImpl literalOptionalValueExpression = new LiteralOptionalValueExpressionImpl();
+		return literalOptionalValueExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public LiteralNoneValueExpression createLiteralNoneValueExpression() {
+		LiteralNoneValueExpressionImpl literalNoneValueExpression = new LiteralNoneValueExpressionImpl();
+		return literalNoneValueExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public LiteralAnyOrNoneValueExpression createLiteralAnyOrNoneValueExpression() {
+		LiteralAnyOrNoneValueExpressionImpl literalAnyOrNoneValueExpression = new LiteralAnyOrNoneValueExpressionImpl();
+		return literalAnyOrNoneValueExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public LiteralReferenceElement createLiteralReferenceElement() {
 		LiteralReferenceElementImpl literalReferenceElement = new LiteralReferenceElementImpl();
 		return literalReferenceElement;
@@ -298,6 +335,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralThisExpression createLiteralThisExpression() {
 		LiteralThisExpressionImpl literalThisExpression = new LiteralThisExpressionImpl();
 		return literalThisExpression;
@@ -308,6 +346,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralSelfExpression createLiteralSelfExpression() {
 		LiteralSelfExpressionImpl literalSelfExpression = new LiteralSelfExpressionImpl();
 		return literalSelfExpression;
@@ -318,6 +357,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralParentExpression createLiteralParentExpression() {
 		LiteralParentExpressionImpl literalParentExpression = new LiteralParentExpressionImpl();
 		return literalParentExpression;
@@ -328,6 +368,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralSuperExpression createLiteralSuperExpression() {
 		LiteralSuperExpressionImpl literalSuperExpression = new LiteralSuperExpressionImpl();
 		return literalSuperExpression;
@@ -338,6 +379,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralSystemExpression createLiteralSystemExpression() {
 		LiteralSystemExpressionImpl literalSystemExpression = new LiteralSystemExpressionImpl();
 		return literalSystemExpression;
@@ -348,6 +390,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralEnvExpression createLiteralEnvExpression() {
 		LiteralEnvExpressionImpl literalEnvExpression = new LiteralEnvExpressionImpl();
 		return literalEnvExpression;
@@ -358,6 +401,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralTimeExpression createLiteralTimeExpression() {
 		LiteralTimeExpressionImpl literalTimeExpression = new LiteralTimeExpressionImpl();
 		return literalTimeExpression;
@@ -368,6 +412,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralTimeDeltaExpression createLiteralTimeDeltaExpression() {
 		LiteralTimeDeltaExpressionImpl literalTimeDeltaExpression = new LiteralTimeDeltaExpressionImpl();
 		return literalTimeDeltaExpression;
@@ -378,6 +423,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LeftHandSideExpression createLeftHandSideExpression() {
 		LeftHandSideExpressionImpl leftHandSideExpression = new LeftHandSideExpressionImpl();
 		return leftHandSideExpression;
@@ -388,16 +434,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IncrementOrDecrementExpression createIncrementOrDecrementExpression() {
-		IncrementOrDecrementExpressionImpl incrementOrDecrementExpression = new IncrementOrDecrementExpressionImpl();
-		return incrementOrDecrementExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public IncrementOrDecrementPrefixExpression createIncrementOrDecrementPrefixExpression() {
 		IncrementOrDecrementPrefixExpressionImpl incrementOrDecrementPrefixExpression = new IncrementOrDecrementPrefixExpressionImpl();
 		return incrementOrDecrementPrefixExpression;
@@ -408,6 +445,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IncrementOrDecrementPostfixExpression createIncrementOrDecrementPostfixExpression() {
 		IncrementOrDecrementPostfixExpressionImpl incrementOrDecrementPostfixExpression = new IncrementOrDecrementPostfixExpressionImpl();
 		return incrementOrDecrementPostfixExpression;
@@ -418,6 +456,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AssignmentExpression createAssignmentExpression() {
 		AssignmentExpressionImpl assignmentExpression = new AssignmentExpressionImpl();
 		return assignmentExpression;
@@ -428,6 +467,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NewfreshExpression createNewfreshExpression() {
 		NewfreshExpressionImpl newfreshExpression = new NewfreshExpressionImpl();
 		return newfreshExpression;
@@ -438,6 +478,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnaryExpression createUnaryExpression() {
 		UnaryExpressionImpl unaryExpression = new UnaryExpressionImpl();
 		return unaryExpression;
@@ -448,6 +489,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BitwiseUnaryExpression createBitwiseUnaryExpression() {
 		BitwiseUnaryExpressionImpl bitwiseUnaryExpression = new BitwiseUnaryExpressionImpl();
 		return bitwiseUnaryExpression;
@@ -458,6 +500,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LogicalUnaryExpression createLogicalUnaryExpression() {
 		LogicalUnaryExpressionImpl logicalUnaryExpression = new LogicalUnaryExpressionImpl();
 		return logicalUnaryExpression;
@@ -468,6 +511,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CastExpression createCastExpression() {
 		CastExpressionImpl castExpression = new CastExpressionImpl();
 		return castExpression;
@@ -478,6 +522,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArithmeticUnaryExpression createArithmeticUnaryExpression() {
 		ArithmeticUnaryExpressionImpl arithmeticUnaryExpression = new ArithmeticUnaryExpressionImpl();
 		return arithmeticUnaryExpression;
@@ -488,6 +533,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BinaryExpression createBinaryExpression() {
 		BinaryExpressionImpl binaryExpression = new BinaryExpressionImpl();
 		return binaryExpression;
@@ -498,6 +544,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EqualityBinaryExpression createEqualityBinaryExpression() {
 		EqualityBinaryExpressionImpl equalityBinaryExpression = new EqualityBinaryExpressionImpl();
 		return equalityBinaryExpression;
@@ -508,6 +555,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RelationalBinaryExpression createRelationalBinaryExpression() {
 		RelationalBinaryExpressionImpl relationalBinaryExpression = new RelationalBinaryExpressionImpl();
 		return relationalBinaryExpression;
@@ -518,6 +566,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RelationalTernaryExpression createRelationalTernaryExpression() {
 		RelationalTernaryExpressionImpl relationalTernaryExpression = new RelationalTernaryExpressionImpl();
 		return relationalTernaryExpression;
@@ -528,6 +577,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConditionalTestExpression createConditionalTestExpression() {
 		ConditionalTestExpressionImpl conditionalTestExpression = new ConditionalTestExpressionImpl();
 		return conditionalTestExpression;
@@ -538,6 +588,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AssociativeExpression createAssociativeExpression() {
 		AssociativeExpressionImpl associativeExpression = new AssociativeExpressionImpl();
 		return associativeExpression;
@@ -548,6 +599,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ArithmeticAssociativeExpression createArithmeticAssociativeExpression() {
 		ArithmeticAssociativeExpressionImpl arithmeticAssociativeExpression = new ArithmeticAssociativeExpressionImpl();
 		return arithmeticAssociativeExpression;
@@ -558,6 +610,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BitwiseAssociativeExpression createBitwiseAssociativeExpression() {
 		BitwiseAssociativeExpressionImpl bitwiseAssociativeExpression = new BitwiseAssociativeExpressionImpl();
 		return bitwiseAssociativeExpression;
@@ -568,6 +621,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LogicalAssociativeExpression createLogicalAssociativeExpression() {
 		LogicalAssociativeExpressionImpl logicalAssociativeExpression = new LogicalAssociativeExpressionImpl();
 		return logicalAssociativeExpression;
@@ -578,6 +632,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QuantifiedLogicalExpression createQuantifiedLogicalExpression() {
 		QuantifiedLogicalExpressionImpl quantifiedLogicalExpression = new QuantifiedLogicalExpressionImpl();
 		return quantifiedLogicalExpression;
@@ -588,6 +643,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InvokeExpression createInvokeExpression() {
 		InvokeExpressionImpl invokeExpression = new InvokeExpressionImpl();
 		return invokeExpression;
@@ -598,6 +654,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedExpression createNamedExpression() {
 		NamedExpressionImpl namedExpression = new NamedExpressionImpl();
 		return namedExpression;
@@ -608,6 +665,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MixTupleExpression createMixTupleExpression() {
 		MixTupleExpressionImpl mixTupleExpression = new MixTupleExpressionImpl();
 		return mixTupleExpression;
@@ -618,6 +676,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedTupleExpression createNamedTupleExpression() {
 		NamedTupleExpressionImpl namedTupleExpression = new NamedTupleExpressionImpl();
 		return namedTupleExpression;
@@ -628,6 +687,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PositionalTupleExpression createPositionalTupleExpression() {
 		PositionalTupleExpressionImpl positionalTupleExpression = new PositionalTupleExpressionImpl();
 		return positionalTupleExpression;
@@ -638,6 +698,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ValueElementSpecification createValueElementSpecification() {
 		ValueElementSpecificationImpl valueElementSpecification = new ValueElementSpecificationImpl();
 		return valueElementSpecification;
@@ -648,6 +709,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InstantiationExpression createInstantiationExpression() {
 		InstantiationExpressionImpl instantiationExpression = new InstantiationExpressionImpl();
 		return instantiationExpression;
@@ -658,6 +720,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExpressionAsBuffer createExpressionAsBuffer() {
 		ExpressionAsBufferImpl expressionAsBuffer = new ExpressionAsBufferImpl();
 		return expressionAsBuffer;
@@ -668,6 +731,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExpressionAsChannel createExpressionAsChannel() {
 		ExpressionAsChannelImpl expressionAsChannel = new ExpressionAsChannelImpl();
 		return expressionAsChannel;
@@ -678,6 +742,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExpressionAsMachine createExpressionAsMachine() {
 		ExpressionAsMachineImpl expressionAsMachine = new ExpressionAsMachineImpl();
 		return expressionAsMachine;
@@ -688,9 +753,21 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExpressionAsPort createExpressionAsPort() {
 		ExpressionAsPortImpl expressionAsPort = new ExpressionAsPortImpl();
 		return expressionAsPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public LiteralReferenceSpecification createLiteralReferenceSpecification() {
+		LiteralReferenceSpecificationImpl literalReferenceSpecification = new LiteralReferenceSpecificationImpl();
+		return literalReferenceSpecification;
 	}
 
 	/**
@@ -758,6 +835,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExpressionPackage getExpressionPackage() {
 		return (ExpressionPackage)getEPackage();
 	}

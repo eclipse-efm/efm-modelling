@@ -135,7 +135,7 @@ class FormalMLKeywordHovers {
 
 	def hoverText(Keyword k) {
 		val result = switch (k) {
-		case grammarAccess.systemAccess.systemKeyword_1:
+		case grammarAccess.xliaSystemAccess.systemKeyword_1:
 			KEYWORD_SAMPLE//KEYWORD_SYSTEM
 			
 		case grammarAccess.machineBlockAccess.machineKeyword_1:
@@ -149,9 +149,7 @@ class FormalMLKeywordHovers {
 		case grammarAccess.statemachineAccess.statemachineKeyword_2:
 			KEYWORD_STATEMACHINE
 			
-		case grammarAccess.statemachineRegionAccess.regionKeyword_1_0:
-			KEYWORD_AT_REGION
-		case grammarAccess.statemachineRegionAccess.regionKeyword_1_1_0:
+		case grammarAccess.statemachineRegionAccess.regionKeyword_1:
 			KEYWORD_AT_REGION
 			
 		case grammarAccess.compositeStateAccess.compositeStateKeyword_1_0:

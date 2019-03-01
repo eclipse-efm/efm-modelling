@@ -74,7 +74,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 	public OverviewAnalysisProfileSection(AbstractConfigurationPage configurationPage)
 	{
-		super(configurationPage);
+		super(configurationPage, true);
 
 		fExplorationPage =
 				new OverviewExplorationConfigurationProfile(configurationPage);

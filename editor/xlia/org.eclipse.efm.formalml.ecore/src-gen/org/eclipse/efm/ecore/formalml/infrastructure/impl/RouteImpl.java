@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -92,6 +92,7 @@ public class RouteImpl extends NamedElementImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Signal> getSignals() {
 		if (signals == null) {
 			signals = new EObjectResolvingEList<Signal>(Signal.class, this, InfrastructurePackage.ROUTE__SIGNALS);
@@ -104,6 +105,7 @@ public class RouteImpl extends NamedElementImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComProtocol getProtocol() {
 		return protocol;
 	}
@@ -128,6 +130,7 @@ public class RouteImpl extends NamedElementImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProtocol(ComProtocol newProtocol) {
 		if (newProtocol != protocol) {
 			NotificationChain msgs = null;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution#getCreateRoutine <em>Create Routine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution#getInitRoutine <em>Init Routine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution#getFinalRoutine <em>Final Routine</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution#getEnableRoutine <em>Enable Routine</em>}</li>
@@ -41,6 +42,32 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface ModelOfExecution extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Create Routine</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Create Routine</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Create Routine</em>' containment reference.
+	 * @see #setCreateRoutine(Routine)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getModelOfExecution_CreateRoutine()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Routine getCreateRoutine();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution#getCreateRoutine <em>Create Routine</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Create Routine</em>' containment reference.
+	 * @see #getCreateRoutine()
+	 * @generated
+	 */
+	void setCreateRoutine(Routine value);
+
 	/**
 	 * Returns the value of the '<em><b>Init Routine</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

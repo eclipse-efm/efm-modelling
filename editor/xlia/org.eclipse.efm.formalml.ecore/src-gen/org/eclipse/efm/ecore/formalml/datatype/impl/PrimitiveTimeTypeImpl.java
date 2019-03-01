@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -93,6 +93,7 @@ public class PrimitiveTimeTypeImpl extends PrimitiveNumberTypeImpl implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isClock() {
 		return clock;
 	}
@@ -102,6 +103,7 @@ public class PrimitiveTimeTypeImpl extends PrimitiveNumberTypeImpl implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClock(boolean newClock) {
 		boolean oldClock = clock;
 		clock = newClock;
@@ -114,6 +116,7 @@ public class PrimitiveTimeTypeImpl extends PrimitiveNumberTypeImpl implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveNumberType getSupport() {
 		return support;
 	}
@@ -138,6 +141,7 @@ public class PrimitiveTimeTypeImpl extends PrimitiveNumberTypeImpl implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSupport(PrimitiveNumberType newSupport) {
 		if (newSupport != support) {
 			NotificationChain msgs = null;
@@ -243,7 +247,7 @@ public class PrimitiveTimeTypeImpl extends PrimitiveNumberTypeImpl implements Pr
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (clock: ");
 		result.append(clock);
 		result.append(')');

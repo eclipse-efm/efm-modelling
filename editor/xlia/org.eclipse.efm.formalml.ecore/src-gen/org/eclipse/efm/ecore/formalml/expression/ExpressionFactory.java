@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -39,15 +39,6 @@ public interface ExpressionFactory extends EFactory {
 	 * @generated
 	 */
 	ValuePrintableExpression createValuePrintableExpression();
-
-	/**
-	 * Returns a new object of class '<em>Literal Expression</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Literal Expression</em>'.
-	 * @generated
-	 */
-	LiteralExpression createLiteralExpression();
 
 	/**
 	 * Returns a new object of class '<em>Literal Boolean Expression</em>'.
@@ -131,13 +122,40 @@ public interface ExpressionFactory extends EFactory {
 	LiteralNullExpression createLiteralNullExpression();
 
 	/**
-	 * Returns a new object of class '<em>Literal Reference Expression</em>'.
+	 * Returns a new object of class '<em>Literal Any Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Literal Reference Expression</em>'.
+	 * @return a new object of class '<em>Literal Any Value Expression</em>'.
 	 * @generated
 	 */
-	LiteralReferenceExpression createLiteralReferenceExpression();
+	LiteralAnyValueExpression createLiteralAnyValueExpression();
+
+	/**
+	 * Returns a new object of class '<em>Literal Optional Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Literal Optional Value Expression</em>'.
+	 * @generated
+	 */
+	LiteralOptionalValueExpression createLiteralOptionalValueExpression();
+
+	/**
+	 * Returns a new object of class '<em>Literal None Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Literal None Value Expression</em>'.
+	 * @generated
+	 */
+	LiteralNoneValueExpression createLiteralNoneValueExpression();
+
+	/**
+	 * Returns a new object of class '<em>Literal Any Or None Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Literal Any Or None Value Expression</em>'.
+	 * @generated
+	 */
+	LiteralAnyOrNoneValueExpression createLiteralAnyOrNoneValueExpression();
 
 	/**
 	 * Returns a new object of class '<em>Literal Reference Element</em>'.
@@ -228,15 +246,6 @@ public interface ExpressionFactory extends EFactory {
 	 * @generated
 	 */
 	LeftHandSideExpression createLeftHandSideExpression();
-
-	/**
-	 * Returns a new object of class '<em>Increment Or Decrement Expression</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Increment Or Decrement Expression</em>'.
-	 * @generated
-	 */
-	IncrementOrDecrementExpression createIncrementOrDecrementExpression();
 
 	/**
 	 * Returns a new object of class '<em>Increment Or Decrement Prefix Expression</em>'.
@@ -507,6 +516,15 @@ public interface ExpressionFactory extends EFactory {
 	 * @generated
 	 */
 	ExpressionAsPort createExpressionAsPort();
+
+	/**
+	 * Returns a new object of class '<em>Literal Reference Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Literal Reference Specification</em>'.
+	 * @generated
+	 */
+	LiteralReferenceSpecification createLiteralReferenceSpecification();
 
 	/**
 	 * Returns the package supported by this factory.

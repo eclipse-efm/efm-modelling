@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -135,6 +135,7 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isConst() {
 		return const_;
 	}
@@ -144,6 +145,7 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConst(boolean newConst) {
 		boolean oldConst = const_;
 		const_ = newConst;
@@ -156,6 +158,7 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isReference() {
 		return reference;
 	}
@@ -165,6 +168,7 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReference(boolean newReference) {
 		boolean oldReference = reference;
 		reference = newReference;
@@ -177,6 +181,7 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isMacro() {
 		return macro;
 	}
@@ -186,6 +191,7 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMacro(boolean newMacro) {
 		boolean oldMacro = macro;
 		macro = newMacro;
@@ -198,6 +204,7 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Routine getOnWriteAction() {
 		return onWriteAction;
 	}
@@ -222,6 +229,7 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOnWriteAction(Routine newOnWriteAction) {
 		if (newOnWriteAction != onWriteAction) {
 			NotificationChain msgs = null;
@@ -347,7 +355,7 @@ public class VariableImpl extends PropertyDefinitionImpl implements Variable {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (const: ");
 		result.append(const_);
 		result.append(", reference: ");

@@ -14,47 +14,38 @@ package org.eclipse.efm.execution.configuration.common.ui.api;
 
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.forms.widgets.Section;
 
 public abstract class AbstractConfigurationProfile extends AbstractSectionPart
 		implements IWorkflowConfigurationConstants {
 
 	protected AbstractConfigurationPage fConfigurationPage;
 
-	public Composite fCompositeParent;
-
-
 	/**
 	 * Constructor
 	 * @param parentTab
 	 */
-	public AbstractConfigurationProfile(AbstractConfigurationPage configurationPage) {
+	public AbstractConfigurationProfile(
+			AbstractConfigurationPage configurationPage, boolean showDefaultSectionActions)
+	{
+		super(showDefaultSectionActions);
+
 		fConfigurationPage = configurationPage;
 	}
+
+
+	public AbstractConfigurationPage getConfigurationPage() {
+		return fConfigurationPage;
+	}
+
+	@Override
+	protected Action[] getDefaultSectionActions() {
+		return fConfigurationPage.getDefaultSectionActions();
+	}
+
 
 	public void setVisibleAndEnabled(boolean visible) {
 		fConfigurationPage.getWidgetToolkit().setVisibleAndEnabled(getSection(), visible);
 	}
-
-	public final void createControl(Composite parent, IWidgetToolkit widgetToolkit)
-	{
-		fCompositeParent = parent;
-
-		ToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT);
-		Action[] toputinbar = fConfigurationPage.getDefaultSectionActions();
-		widgetToolkit.fillToolBar(toolBarManager, toputinbar);
-
-		widgetToolkit.createSectionPart(this, parent,
-				Section.TITLE_BAR | Section.DESCRIPTION |
-				Section.EXPANDED  | Section.TWISTIE, toolBarManager);
-
-		createContent(getSectionClient(), widgetToolkit);
-	}
-
-	abstract protected void createContent(Composite parent, IWidgetToolkit widgetToolkit);
 
 
 	public void setWarningMessage(String warningMessage) {

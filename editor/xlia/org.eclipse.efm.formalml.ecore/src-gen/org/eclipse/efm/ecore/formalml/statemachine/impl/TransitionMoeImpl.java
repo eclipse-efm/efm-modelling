@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -33,8 +33,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionMoeImpl#getMoc <em>Moc</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionMoeImpl#isIsElse <em>Is Else</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionMoeImpl#getPrior <em>Prior</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionMoeImpl#getProba <em>Proba</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionMoeImpl#getPriority <em>Priority</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionMoeImpl#getProbability <em>Probability</em>}</li>
  * </ul>
  *
  * @generated
@@ -81,44 +81,44 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	protected boolean isElse = IS_ELSE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getPrior() <em>Prior</em>}' attribute.
+	 * The default value of the '{@link #getPriority() <em>Priority</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPrior()
+	 * @see #getPriority()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int PRIOR_EDEFAULT = 0;
+	protected static final int PRIORITY_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getPrior() <em>Prior</em>}' attribute.
+	 * The cached value of the '{@link #getPriority() <em>Priority</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPrior()
+	 * @see #getPriority()
 	 * @generated
 	 * @ordered
 	 */
-	protected int prior = PRIOR_EDEFAULT;
+	protected int priority = PRIORITY_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getProba() <em>Proba</em>}' attribute.
+	 * The default value of the '{@link #getProbability() <em>Probability</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProba()
+	 * @see #getProbability()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final float PROBA_EDEFAULT = 1.0F;
+	protected static final float PROBABILITY_EDEFAULT = 1.0F;
 
 	/**
-	 * The cached value of the '{@link #getProba() <em>Proba</em>}' attribute.
+	 * The cached value of the '{@link #getProbability() <em>Probability</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProba()
+	 * @see #getProbability()
 	 * @generated
 	 * @ordered
 	 */
-	protected float proba = PROBA_EDEFAULT;
+	protected float probability = PROBABILITY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -144,6 +144,7 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransitionMoc getMoc() {
 		return moc;
 	}
@@ -153,6 +154,7 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMoc(TransitionMoc newMoc) {
 		TransitionMoc oldMoc = moc;
 		moc = newMoc == null ? MOC_EDEFAULT : newMoc;
@@ -165,6 +167,7 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIsElse() {
 		return isElse;
 	}
@@ -174,6 +177,7 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIsElse(boolean newIsElse) {
 		boolean oldIsElse = isElse;
 		isElse = newIsElse;
@@ -186,8 +190,9 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getPrior() {
-		return prior;
+	@Override
+	public int getPriority() {
+		return priority;
 	}
 
 	/**
@@ -195,11 +200,12 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPrior(int newPrior) {
-		int oldPrior = prior;
-		prior = newPrior;
+	@Override
+	public void setPriority(int newPriority) {
+		int oldPriority = priority;
+		priority = newPriority;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION_MOE__PRIOR, oldPrior, prior));
+			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION_MOE__PRIORITY, oldPriority, priority));
 	}
 
 	/**
@@ -207,8 +213,9 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public float getProba() {
-		return proba;
+	@Override
+	public float getProbability() {
+		return probability;
 	}
 
 	/**
@@ -216,11 +223,12 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setProba(float newProba) {
-		float oldProba = proba;
-		proba = newProba;
+	@Override
+	public void setProbability(float newProbability) {
+		float oldProbability = probability;
+		probability = newProbability;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION_MOE__PROBA, oldProba, proba));
+			eNotify(new ENotificationImpl(this, Notification.SET, StatemachinePackage.TRANSITION_MOE__PROBABILITY, oldProbability, probability));
 	}
 
 	/**
@@ -235,10 +243,10 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 				return getMoc();
 			case StatemachinePackage.TRANSITION_MOE__IS_ELSE:
 				return isIsElse();
-			case StatemachinePackage.TRANSITION_MOE__PRIOR:
-				return getPrior();
-			case StatemachinePackage.TRANSITION_MOE__PROBA:
-				return getProba();
+			case StatemachinePackage.TRANSITION_MOE__PRIORITY:
+				return getPriority();
+			case StatemachinePackage.TRANSITION_MOE__PROBABILITY:
+				return getProbability();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -257,11 +265,11 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 			case StatemachinePackage.TRANSITION_MOE__IS_ELSE:
 				setIsElse((Boolean)newValue);
 				return;
-			case StatemachinePackage.TRANSITION_MOE__PRIOR:
-				setPrior((Integer)newValue);
+			case StatemachinePackage.TRANSITION_MOE__PRIORITY:
+				setPriority((Integer)newValue);
 				return;
-			case StatemachinePackage.TRANSITION_MOE__PROBA:
-				setProba((Float)newValue);
+			case StatemachinePackage.TRANSITION_MOE__PROBABILITY:
+				setProbability((Float)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -281,11 +289,11 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 			case StatemachinePackage.TRANSITION_MOE__IS_ELSE:
 				setIsElse(IS_ELSE_EDEFAULT);
 				return;
-			case StatemachinePackage.TRANSITION_MOE__PRIOR:
-				setPrior(PRIOR_EDEFAULT);
+			case StatemachinePackage.TRANSITION_MOE__PRIORITY:
+				setPriority(PRIORITY_EDEFAULT);
 				return;
-			case StatemachinePackage.TRANSITION_MOE__PROBA:
-				setProba(PROBA_EDEFAULT);
+			case StatemachinePackage.TRANSITION_MOE__PROBABILITY:
+				setProbability(PROBABILITY_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -303,10 +311,10 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 				return moc != MOC_EDEFAULT;
 			case StatemachinePackage.TRANSITION_MOE__IS_ELSE:
 				return isElse != IS_ELSE_EDEFAULT;
-			case StatemachinePackage.TRANSITION_MOE__PRIOR:
-				return prior != PRIOR_EDEFAULT;
-			case StatemachinePackage.TRANSITION_MOE__PROBA:
-				return proba != PROBA_EDEFAULT;
+			case StatemachinePackage.TRANSITION_MOE__PRIORITY:
+				return priority != PRIORITY_EDEFAULT;
+			case StatemachinePackage.TRANSITION_MOE__PROBABILITY:
+				return probability != PROBABILITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -320,15 +328,15 @@ public class TransitionMoeImpl extends MinimalEObjectImpl.Container implements T
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (moc: ");
 		result.append(moc);
 		result.append(", isElse: ");
 		result.append(isElse);
-		result.append(", prior: ");
-		result.append(prior);
-		result.append(", proba: ");
-		result.append(proba);
+		result.append(", priority: ");
+		result.append(priority);
+		result.append(", probability: ");
+		result.append(probability);
 		result.append(')');
 		return result.toString();
 	}

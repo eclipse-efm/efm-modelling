@@ -12,7 +12,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="prolog" lowerBound="1"
         eType="#//XliaObject" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="system" lowerBound="1"
-        eType="#//infrastructure/System" containment="true"/>
+        eType="#//infrastructure/XliaSystem" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XliaNamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -84,14 +84,9 @@
           defaultValueLiteral="false"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="design" lowerBound="1"
           eType="#//infrastructure/DesignKind" defaultValueLiteral="prototype"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="propertyPart" eType="#//infrastructure/PropertyPart"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="compositePart" eType="#//infrastructure/CompositePart"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorPart" eType="#//infrastructure/BehaviorPart"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="machine" upperBound="-1"
-          eType="#//infrastructure/Machine" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lifeline" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="false"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="typedef" upperBound="-1"
           eType="#//datatype/DataType" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="variable" upperBound="-1"
@@ -110,6 +105,8 @@
           eType="#//infrastructure/Routine" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="procedure" upperBound="-1"
           eType="#//infrastructure/Procedure" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="machine" upperBound="-1"
+          eType="#//infrastructure/Machine" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="instance" upperBound="-1"
           eType="#//infrastructure/InstanceMachine" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" upperBound="-1"
@@ -153,7 +150,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="main" eType="#//infrastructure/Behavior"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="System" eSuperTypes="#//infrastructure/Machine"/>
+    <eClassifiers xsi:type="ecore:EClass" name="XliaSystem" eSuperTypes="#//infrastructure/Machine"/>
     <eClassifiers xsi:type="ecore:EClass" name="Modifier">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="static" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
@@ -168,6 +165,9 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="false"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="transient" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="false"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="optional" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="false"/>
     </eClassifiers>
@@ -198,8 +198,8 @@
           defaultValueLiteral="inout"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="signal" upperBound="-1"
           eType="#//infrastructure/Signal" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
-          eType="#//infrastructure/Parameter" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parameterSet" eType="#//infrastructure/ParameterSet"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Channel" eSuperTypes="#//infrastructure/PropertyDefinition">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//infrastructure/ChannelDirection"
@@ -213,32 +213,30 @@
     <eClassifiers xsi:type="ecore:EClass" name="Signal" eSuperTypes="#//common/ClassifierDefinition">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//infrastructure/ChannelDirection"
           defaultValueLiteral="inout"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
-          eType="#//infrastructure/Parameter" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parameterSet" eType="#//infrastructure/ParameterSet"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Function" eSuperTypes="#//infrastructure/PropertyDefinition">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="argument" upperBound="-1"
-          eType="#//infrastructure/Parameter" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="result" upperBound="-1"
-          eType="#//infrastructure/Parameter" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parameterSet" eType="#//infrastructure/ParameterSet"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="resultSet" eType="#//infrastructure/ParameterSet"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Procedure" eSuperTypes="#//statemachine/Statemachine"/>
     <eClassifiers xsi:type="ecore:EClass" name="Routine" eSuperTypes="#//common/NamedElement">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
-          eType="#//infrastructure/Parameter" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="macro" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parameterSet" eType="#//infrastructure/ParameterSet"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="resultSet" eType="#//infrastructure/ParameterSet"
+          containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="bodyBlock" lowerBound="1"
           eType="#//statement/BlockStatement" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="domain" eType="#//infrastructure/ParameterSet"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="codomain" eType="#//infrastructure/ParameterSet"
-          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="InstanceMachine" eSuperTypes="#//common/TypedElement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="#//infrastructure/Modifier"
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//infrastructure/Machine"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="arg" eType="#//expression/MixTupleExpression"
-          containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="slot" upperBound="-1"
           eType="#//infrastructure/SlotProperty" containment="true"/>
     </eClassifiers>
@@ -273,6 +271,8 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ModelOfComputation"/>
     <eClassifiers xsi:type="ecore:EClass" name="ModelOfExecution">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="createRoutine" eType="#//infrastructure/Routine"
+          containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="initRoutine" eType="#//infrastructure/Routine"
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="finalRoutine" eType="#//infrastructure/Routine"
@@ -295,7 +295,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="ModelOfInteraction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="routes" upperBound="-1"
           eType="#//infrastructure/Route" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="connections" upperBound="-1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connectors" upperBound="-1"
           eType="#//infrastructure/Connector" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ComProtocol" eSuperTypes="#//common/AbstractElement">
@@ -304,6 +304,8 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="inner_buffer" eType="#//datatype/CollectionType"
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="buffer" eType="#//expression/ValueElementSpecification"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="bufferRef" eType="#//expression/LiteralReferenceSpecification"
           containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Route" eSuperTypes="#//common/NamedElement">
@@ -315,19 +317,16 @@
     <eClassifiers xsi:type="ecore:EClass" name="Connector" eSuperTypes="#//common/NamedElement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" eType="#//infrastructure/ComProtocol"
           containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cast" eType="#//infrastructure/ComCastKind"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="comPoints" lowerBound="1"
-          upperBound="-1" eType="#//infrastructure/ComPoint" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connectorEnd" lowerBound="1"
+          upperBound="-1" eType="#//infrastructure/ConnectorEnd" containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ComPoint" eSuperTypes="#//common/AbstractElement">
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectorEnd" eSuperTypes="#//common/AbstractElement">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//infrastructure/ChannelDirection"
           defaultValueLiteral="inout"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" eType="#//infrastructure/ComProtocol"
           containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="point" eType="#//expression/ValueElementSpecification"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="points" upperBound="-1"
-          eType="#//expression/Expression" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="points" lowerBound="1"
+          upperBound="-1" eType="#//infrastructure/ComPoint" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="ComProtocolKind">
       <eLiterals name="none"/>
@@ -342,6 +341,10 @@
       <eLiterals name="anycast" value="2"/>
       <eLiterals name="multicast" value="3"/>
       <eLiterals name="broadcast" value="4"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ComPoint" eSuperTypes="#//common/AbstractElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="machine" eType="#//common/NamedElement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="#//infrastructure/Port"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="datatype" nsURI="http://www.eclipse.org/efm/FormalML/DataType"
@@ -508,7 +511,8 @@
           eType="#//expression/Expression" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true" eSuperTypes="#//common/AbstractElement"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralExpression" eSuperTypes="#//expression/Expression"/>
+    <eClassifiers xsi:type="ecore:EClass" name="LiteralExpression" abstract="true"
+        eSuperTypes="#//expression/Expression"/>
     <eClassifiers xsi:type="ecore:EClass" name="LiteralBooleanExpression" eSuperTypes="#//expression/LiteralExpression">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -549,11 +553,28 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//datatype/PrimitiveInstanceType"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralReferenceExpression" eSuperTypes="#//expression/LiteralExpression"/>
+    <eClassifiers xsi:type="ecore:EClass" name="LiteralAnyValueExpression" eSuperTypes="#//expression/LiteralExpression">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//common/Type"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LiteralOptionalValueExpression" eSuperTypes="#//expression/LiteralExpression">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//common/Type"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LiteralNoneValueExpression" eSuperTypes="#//expression/LiteralExpression">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//common/Type"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LiteralAnyOrNoneValueExpression" eSuperTypes="#//expression/LiteralExpression">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//common/Type"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LiteralReferenceExpression" abstract="true"
+        eSuperTypes="#//expression/LiteralExpression"/>
     <eClassifiers xsi:type="ecore:EClass" name="LiteralReferenceElement" eSuperTypes="#//expression/LiteralReferenceExpression">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1"
           eType="#//expression/ValueElementSpecificationKind" defaultValueLiteral="field"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//common/NamedElement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="#//common/NamedElement"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="arg" eType="#//expression/Expression"
           containment="true"/>
     </eClassifiers>
@@ -575,7 +596,8 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="lvalue" eType="#//expression/Expression"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="IncrementOrDecrementExpression" eSuperTypes="#//expression/Expression">
+    <eClassifiers xsi:type="ecore:EClass" name="IncrementOrDecrementExpression" abstract="true"
+        eSuperTypes="#//expression/Expression">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="leftHandSide" lowerBound="1"
@@ -590,7 +612,7 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="leftHandSide" lowerBound="1"
           eType="#//expression/LeftHandSideExpression" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="rigthHandSide" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rightHandSide" lowerBound="1"
           eType="#//expression/Expression" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="NewfreshExpression" eSuperTypes="#//expression/Expression">
@@ -614,7 +636,7 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="leftOperand" lowerBound="1"
           eType="#//expression/Expression" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="rigthOperand" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rightOperand" lowerBound="1"
           eType="#//expression/Expression" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="EqualityBinaryExpression" eSuperTypes="#//expression/BinaryExpression"/>
@@ -622,18 +644,20 @@
     <eClassifiers xsi:type="ecore:EClass" name="RelationalTernaryExpression" eSuperTypes="#//expression/Expression">
       <eStructuralFeatures xsi:type="ecore:EReference" name="leftRelation" lowerBound="1"
           eType="#//expression/RelationalBinaryExpression" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="rigthOperator" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="rightOperator" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="rigthOperand" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rightOperand" lowerBound="1"
           eType="#//expression/Expression" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ConditionalTestExpression" eSuperTypes="#//expression/Expression">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
           eType="#//expression/Expression" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="thenOperand" lowerBound="1"
           eType="#//expression/Expression" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="elseSeparator" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="elseOperand" lowerBound="1"
           eType="#//expression/Expression" containment="true"/>
     </eClassifiers>
@@ -658,7 +682,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="callProcedure" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="false"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="invoke" eType="#//expression/Expression"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="invokable" eType="#//expression/Expression"
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="args" upperBound="-1"
           eType="#//expression/Expression" containment="true"/>
@@ -704,21 +728,22 @@
     <eClassifiers xsi:type="ecore:EEnum" name="ValueElementSpecificationScheme">
       <eLiterals name="any"/>
       <eLiterals name="variable" value="1"/>
-      <eLiterals name="typedef" value="2"/>
-      <eLiterals name="message" value="3"/>
-      <eLiterals name="signal" value="4"/>
-      <eLiterals name="buffer" value="5"/>
-      <eLiterals name="channel" value="6"/>
-      <eLiterals name="port" value="7"/>
-      <eLiterals name="function" value="8"/>
-      <eLiterals name="com_point" value="9"/>
-      <eLiterals name="instance" value="10"/>
-      <eLiterals name="machine" value="11"/>
-      <eLiterals name="model" value="12"/>
-      <eLiterals name="procedure" value="13"/>
-      <eLiterals name="routine" value="14"/>
-      <eLiterals name="vertex" value="15"/>
-      <eLiterals name="composite" value="16"/>
+      <eLiterals name="constant" value="2"/>
+      <eLiterals name="typedef" value="3"/>
+      <eLiterals name="message" value="4"/>
+      <eLiterals name="signal" value="5"/>
+      <eLiterals name="buffer" value="6"/>
+      <eLiterals name="channel" value="7"/>
+      <eLiterals name="port" value="8"/>
+      <eLiterals name="function" value="9"/>
+      <eLiterals name="com_point" value="10"/>
+      <eLiterals name="instance" value="11"/>
+      <eLiterals name="machine" value="12"/>
+      <eLiterals name="model" value="13"/>
+      <eLiterals name="procedure" value="14"/>
+      <eLiterals name="routine" value="15"/>
+      <eLiterals name="vertex" value="16"/>
+      <eLiterals name="composite" value="17"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="InstantiationExpression" eSuperTypes="#//expression/Expression">
       <eStructuralFeatures xsi:type="ecore:EReference" name="instance" eType="#//infrastructure/InstanceMachine"
@@ -739,6 +764,14 @@
     <eClassifiers xsi:type="ecore:EClass" name="ExpressionAsPort" eSuperTypes="#//expression/Expression">
       <eStructuralFeatures xsi:type="ecore:EReference" name="port" lowerBound="1"
           eType="#//expression/Expression" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LiteralReferenceSpecification" eSuperTypes="#//expression/Expression">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="expected" lowerBound="1"
+          eType="#//expression/ValueElementSpecificationScheme" defaultValueLiteral="any"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parent" upperBound="-1"
+          eType="#//expression/LiteralReferenceExpression" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="#//expression/LiteralReferenceExpression"
+          containment="true"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="statement" nsURI="http://www.eclipse.org/efm/FormalML/Statement"
@@ -766,7 +799,8 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AbstractComStatement" abstract="true"
         eSuperTypes="#//statement/Statement">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="#//common/NamedElement"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="#//expression/Expression"
+          containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="route" eType="#//infrastructure/Channel"
           resolveProxies="false"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//expression/Expression"
@@ -777,7 +811,7 @@
           eType="#//expression/Expression" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="OutputComStatement" eSuperTypes="#//statement/AbstractComStatement">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="rigthValue" upperBound="-1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rightValue" upperBound="-1"
           eType="#//expression/Expression" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ConditionalBlockStatement" eSuperTypes="#//statement/Statement">
@@ -892,6 +926,28 @@
       <eLiterals name="incr" value="31"/>
       <eLiterals name="decr" value="32"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="MetaStatementKind">
+      <eLiterals name="informal"/>
+      <eLiterals name="trace" value="1"/>
+      <eLiterals name="debug" value="2"/>
+      <eLiterals name="comment" value="3"/>
+      <eLiterals name="quote" value="4"/>
+      <eLiterals name="eval" value="5"/>
+      <eLiterals name="run" value="6"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ObserverStatement" eSuperTypes="#//statement/Statement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//expression/Expression"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="statement" lowerBound="1"
+          eType="#//statement/Statement" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="postCondition" lowerBound="1"
+          eType="#//expression/Expression" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MetaStatement" eSuperTypes="#//statement/Statement">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" lowerBound="1" eType="#//statement/MetaStatementKind"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="operand" upperBound="-1"
+          eType="#//common/AbstractElement" containment="true"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="statemachine" nsURI="http://www.eclipse.org/efm/FormalML/Statemachine"
       nsPrefix="Statemachine">
@@ -906,24 +962,24 @@
     <eClassifiers xsi:type="ecore:EClass" name="Vertex" eSuperTypes="#//common/NamedElement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="transition" upperBound="-1"
           eType="#//statemachine/Transition" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="moe" upperBound="-1"
-          eType="#//infrastructure/Routine" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="moe" eType="#//infrastructure/ModelOfExecution"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Pseudostate" eSuperTypes="#//statemachine/Vertex">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//statemachine/PseudostateKind"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="PseudostateKind">
-      <eLiterals name="initial"/>
-      <eLiterals name="deepHistory" value="1"/>
-      <eLiterals name="shallowHistory" value="2"/>
-      <eLiterals name="join" value="3"/>
-      <eLiterals name="fork" value="4"/>
-      <eLiterals name="junction" value="5"/>
-      <eLiterals name="choice" value="6"/>
-      <eLiterals name="entryPoint" value="7"/>
-      <eLiterals name="exitPoint" value="8"/>
-      <eLiterals name="terminate" value="9"/>
-      <eLiterals name="return" value="10"/>
+      <eLiterals name="Initial" literal="initial"/>
+      <eLiterals name="DeepHistory" value="1" literal="dhistory"/>
+      <eLiterals name="ShallowHistory" value="2" literal="shistory"/>
+      <eLiterals name="Join" value="3" literal="join"/>
+      <eLiterals name="Fork" value="4" literal="fork"/>
+      <eLiterals name="Junction" value="5" literal="junction"/>
+      <eLiterals name="Choice" value="6" literal="choice"/>
+      <eLiterals name="EntryPoint" value="7" literal="entryPoint"/>
+      <eLiterals name="ExitPoint" value="8" literal="exitPoint"/>
+      <eLiterals name="Terminal" value="9" literal="terminal"/>
+      <eLiterals name="Return" value="10" literal="return"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="State" eSuperTypes="#//statemachine/Vertex">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="simple" lowerBound="1"
@@ -945,8 +1001,8 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="moe" eType="#//statemachine/TransitionMoe"
           containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//expression/Expression"
-          containment="true" resolveProxies="false"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//statemachine/Vertex"
+          resolveProxies="false"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" eType="#//statement/BlockStatement"
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="trigger" upperBound="-1"
@@ -957,6 +1013,8 @@
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="effect" eType="#//statement/Statement"
           containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="targetExpression" eType="#//expression/Expression"
+          containment="true" resolveProxies="false"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TransitionMoe">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="moc" eType="#//statemachine/TransitionMoc"
@@ -964,9 +1022,9 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="isElse" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="false"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="prior" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="proba" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="probability" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="1.0"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="TransitionMoc">

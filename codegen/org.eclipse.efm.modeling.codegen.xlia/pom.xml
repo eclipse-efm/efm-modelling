@@ -10,5 +10,5 @@
 	<artifactId>org.eclipse.efm.modeling.codegen.xlia</artifactId>
 	<packaging>eclipse-plugin</packaging>
 	<name>org.eclipse.efm.modeling.codegen.xlia</name>
-	<description>This plug-in contains the XXXXXXXXX.</description>
+	<description>This plug-in contains the xLIA code generator for UML model.</description>
 </project>

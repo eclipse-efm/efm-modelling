@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.InvokeExpressionImpl#isCallProcedure <em>Call Procedure</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.InvokeExpressionImpl#getInvoke <em>Invoke</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.InvokeExpressionImpl#getInvokable <em>Invokable</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.InvokeExpressionImpl#getArgs <em>Args</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.InvokeExpressionImpl#getRets <em>Rets</em>}</li>
  * </ul>
@@ -69,14 +69,14 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	protected boolean callProcedure = CALL_PROCEDURE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getInvoke() <em>Invoke</em>}' containment reference.
+	 * The cached value of the '{@link #getInvokable() <em>Invokable</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInvoke()
+	 * @see #getInvokable()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression invoke;
+	protected Expression invokable;
 
 	/**
 	 * The cached value of the '{@link #getArgs() <em>Args</em>}' containment reference list.
@@ -122,6 +122,7 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isCallProcedure() {
 		return callProcedure;
 	}
@@ -131,6 +132,7 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCallProcedure(boolean newCallProcedure) {
 		boolean oldCallProcedure = callProcedure;
 		callProcedure = newCallProcedure;
@@ -143,8 +145,9 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getInvoke() {
-		return invoke;
+	@Override
+	public Expression getInvokable() {
+		return invokable;
 	}
 
 	/**
@@ -152,11 +155,11 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetInvoke(Expression newInvoke, NotificationChain msgs) {
-		Expression oldInvoke = invoke;
-		invoke = newInvoke;
+	public NotificationChain basicSetInvokable(Expression newInvokable, NotificationChain msgs) {
+		Expression oldInvokable = invokable;
+		invokable = newInvokable;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.INVOKE_EXPRESSION__INVOKE, oldInvoke, newInvoke);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.INVOKE_EXPRESSION__INVOKABLE, oldInvokable, newInvokable);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -167,18 +170,19 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInvoke(Expression newInvoke) {
-		if (newInvoke != invoke) {
+	@Override
+	public void setInvokable(Expression newInvokable) {
+		if (newInvokable != invokable) {
 			NotificationChain msgs = null;
-			if (invoke != null)
-				msgs = ((InternalEObject)invoke).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.INVOKE_EXPRESSION__INVOKE, null, msgs);
-			if (newInvoke != null)
-				msgs = ((InternalEObject)newInvoke).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.INVOKE_EXPRESSION__INVOKE, null, msgs);
-			msgs = basicSetInvoke(newInvoke, msgs);
+			if (invokable != null)
+				msgs = ((InternalEObject)invokable).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.INVOKE_EXPRESSION__INVOKABLE, null, msgs);
+			if (newInvokable != null)
+				msgs = ((InternalEObject)newInvokable).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.INVOKE_EXPRESSION__INVOKABLE, null, msgs);
+			msgs = basicSetInvokable(newInvokable, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.INVOKE_EXPRESSION__INVOKE, newInvoke, newInvoke));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.INVOKE_EXPRESSION__INVOKABLE, newInvokable, newInvokable));
 	}
 
 	/**
@@ -186,6 +190,7 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getArgs() {
 		if (args == null) {
 			args = new EObjectContainmentEList<Expression>(Expression.class, this, ExpressionPackage.INVOKE_EXPRESSION__ARGS);
@@ -198,6 +203,7 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getRets() {
 		if (rets == null) {
 			rets = new EObjectContainmentEList<Expression>(Expression.class, this, ExpressionPackage.INVOKE_EXPRESSION__RETS);
@@ -213,8 +219,8 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ExpressionPackage.INVOKE_EXPRESSION__INVOKE:
-				return basicSetInvoke(null, msgs);
+			case ExpressionPackage.INVOKE_EXPRESSION__INVOKABLE:
+				return basicSetInvokable(null, msgs);
 			case ExpressionPackage.INVOKE_EXPRESSION__ARGS:
 				return ((InternalEList<?>)getArgs()).basicRemove(otherEnd, msgs);
 			case ExpressionPackage.INVOKE_EXPRESSION__RETS:
@@ -233,8 +239,8 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 		switch (featureID) {
 			case ExpressionPackage.INVOKE_EXPRESSION__CALL_PROCEDURE:
 				return isCallProcedure();
-			case ExpressionPackage.INVOKE_EXPRESSION__INVOKE:
-				return getInvoke();
+			case ExpressionPackage.INVOKE_EXPRESSION__INVOKABLE:
+				return getInvokable();
 			case ExpressionPackage.INVOKE_EXPRESSION__ARGS:
 				return getArgs();
 			case ExpressionPackage.INVOKE_EXPRESSION__RETS:
@@ -255,8 +261,8 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 			case ExpressionPackage.INVOKE_EXPRESSION__CALL_PROCEDURE:
 				setCallProcedure((Boolean)newValue);
 				return;
-			case ExpressionPackage.INVOKE_EXPRESSION__INVOKE:
-				setInvoke((Expression)newValue);
+			case ExpressionPackage.INVOKE_EXPRESSION__INVOKABLE:
+				setInvokable((Expression)newValue);
 				return;
 			case ExpressionPackage.INVOKE_EXPRESSION__ARGS:
 				getArgs().clear();
@@ -281,8 +287,8 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 			case ExpressionPackage.INVOKE_EXPRESSION__CALL_PROCEDURE:
 				setCallProcedure(CALL_PROCEDURE_EDEFAULT);
 				return;
-			case ExpressionPackage.INVOKE_EXPRESSION__INVOKE:
-				setInvoke((Expression)null);
+			case ExpressionPackage.INVOKE_EXPRESSION__INVOKABLE:
+				setInvokable((Expression)null);
 				return;
 			case ExpressionPackage.INVOKE_EXPRESSION__ARGS:
 				getArgs().clear();
@@ -304,8 +310,8 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 		switch (featureID) {
 			case ExpressionPackage.INVOKE_EXPRESSION__CALL_PROCEDURE:
 				return callProcedure != CALL_PROCEDURE_EDEFAULT;
-			case ExpressionPackage.INVOKE_EXPRESSION__INVOKE:
-				return invoke != null;
+			case ExpressionPackage.INVOKE_EXPRESSION__INVOKABLE:
+				return invokable != null;
 			case ExpressionPackage.INVOKE_EXPRESSION__ARGS:
 				return args != null && !args.isEmpty();
 			case ExpressionPackage.INVOKE_EXPRESSION__RETS:
@@ -323,7 +329,7 @@ public class InvokeExpressionImpl extends ExpressionImpl implements InvokeExpres
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (callProcedure: ");
 		result.append(callProcedure);
 		result.append(')');

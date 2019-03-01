@@ -13,6 +13,14 @@
 package org.eclipse.efm.formalml.xtext.ui.hover
 
 import com.google.inject.Inject
+import org.eclipse.efm.ecore.formalml.infrastructure.Function
+import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine
+import org.eclipse.efm.ecore.formalml.infrastructure.Machine
+import org.eclipse.efm.ecore.formalml.infrastructure.Parameter
+import org.eclipse.efm.ecore.formalml.infrastructure.Port
+import org.eclipse.efm.ecore.formalml.infrastructure.Signal
+import org.eclipse.efm.ecore.formalml.infrastructure.Variable
+import org.eclipse.efm.ecore.formalml.statemachine.Statemachine
 import org.eclipse.efm.formalml.xtext.ui.labeling.FormalMLHoverLabelProvider
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.jface.internal.text.html.HTMLPrinter
@@ -21,14 +29,6 @@ import org.eclipse.jface.viewers.ILabelProvider
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
 import org.eclipse.xtext.ui.editor.hover.html.XtextBrowserInformationControlInput
-import org.eclipse.efm.ecore.formalml.infrastructure.Variable
-import org.eclipse.efm.ecore.formalml.infrastructure.Parameter
-import org.eclipse.efm.ecore.formalml.infrastructure.Port
-import org.eclipse.efm.ecore.formalml.infrastructure.Signal
-import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine
-import org.eclipse.efm.ecore.formalml.statemachine.Statemachine
-import org.eclipse.efm.ecore.formalml.infrastructure.Machine
-import org.eclipse.efm.ecore.formalml.infrastructure.Function
 
 class FormalMLEObjectHoverProvider extends DefaultEObjectHoverProvider  {
 	
@@ -62,7 +62,7 @@ class FormalMLEObjectHoverProvider extends DefaultEObjectHoverProvider  {
 	}
 	
 	@Inject
-	private FormalMLHoverLabelProvider fqnLabelProvider
+	FormalMLHoverLabelProvider fqnLabelProvider
 	
 	override protected ILabelProvider getLabelProvider () {
 		return fqnLabelProvider;
@@ -90,11 +90,11 @@ class FormalMLEObjectHoverProvider extends DefaultEObjectHoverProvider  {
 			
 		Function: {
 			var hover =  clazz +  description + "("
-			for( it : element.argument ) {
+			for( it : element.parameterSet.parameter ) {
 				hover += " " + it.type.label
 			}
 			hover += " ) ->"
-			for( it : element.result ) {
+			for( it : element.resultSet.parameter ) {
 				hover += " " + it.type.label
 			}
 			

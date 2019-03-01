@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,13 +15,13 @@ package org.eclipse.efm.ecore.formalml.infrastructure;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>System</b></em>'.
+ * A representation of the model object '<em><b>Xlia System</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getSystem()
+ * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getXliaSystem()
  * @model
  * @generated
  */
-public interface System extends Machine {
-} // System
+public interface XliaSystem extends Machine {
+} // XliaSystem

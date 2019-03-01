@@ -50,6 +50,9 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 
 public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		implements IWorkflowPreferenceConstants {
@@ -78,7 +81,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	// Property Change
 	//
 	@Override
-	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(final PropertyChangeEvent event) {
 		switch( event.getProperty() ) {
 		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE:
 			setMessage(event.getNewValue().toString());
@@ -100,7 +103,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	 * to create the viewer and initialize it.
 	 */
 	@Override
-	public void createPartControl(Composite parent) {
+	public void createPartControl(final Composite parent) {
 		parentComposite = parent;
 		//compositeSections = new HashSet<SectionCompositeCreator>();
 
@@ -139,8 +142,8 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 
 		fComboLaunchConfiguration.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				int index = fComboLaunchConfiguration.getSelectionIndex();
+			public void widgetSelected(final SelectionEvent e) {
+				final int index = fComboLaunchConfiguration.getSelectionIndex();
 
 				launchConfigurationManager.select(index);
 
@@ -171,7 +174,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	}
 
 	public void refreshLaunchConfigurationsGUI() {
-		int cur_index = fComboLaunchConfiguration.getSelectionIndex();
+		final int cur_index = fComboLaunchConfiguration.getSelectionIndex();
 		String cur_name = null;
 		if (cur_index != -1) {
 			cur_name = fComboLaunchConfiguration.getItem(cur_index);
@@ -179,13 +182,13 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 
 //		launchConfigurationManager.refresh();
 
-		String[] contents = launchConfigurationManager.getNames();
+		final String[] contents = launchConfigurationManager.getNames();
 
 		fComboLaunchConfiguration.setItems(contents);
 
 		if( (cur_name != null) && Arrays.asList(contents).contains(cur_name) )
 		{
-			int new_index = Arrays.asList(contents).indexOf(cur_name);
+			final int new_index = Arrays.asList(contents).indexOf(cur_name);
 			launchConfigurationManager.select(new_index);
 			fComboLaunchConfiguration.select(new_index);
 		} else if( launchConfigurationManager.isPopulated() ) {
@@ -201,20 +204,29 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	}
 
 
-	public void launchConfigurationChanged(ILaunchConfiguration configuration, int index) {
-		if( index >= 0 ) {
-			fComboLaunchConfiguration.select(index);
+	public void launchConfigurationChanged(final ILaunchConfiguration configuration, final int index) {
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		final IWorkbenchWindow[] wbWindow = workbench.getWorkbenchWindows();
+		if( wbWindow.length > 0 ) {
+			workbench.getDisplay().syncExec(new Runnable() {
+				@Override
+				public void run() {
+					if( index >= 0 ) {
+						fComboLaunchConfiguration.select(index);
 
-			initializeFieldValuesFrom(configuration);
-		} else {
-			fComboLaunchConfiguration.deselectAll();
+						initializeFieldValuesFrom(configuration);
+					} else {
+						fComboLaunchConfiguration.deselectAll();
+					}
+				}
+			});
 		}
 	}
 
 
-	private void createSectionsContent(IWidgetToolkit widgetToolkit)
+	private void createSectionsContent(final IWidgetToolkit widgetToolkit)
 	{
-		ArrayList< AbstractConfigurationPage > confPage = new ArrayList<>();
+		final ArrayList< AbstractConfigurationPage > confPage = new ArrayList<>();
 
 		createOverviewTabItem(widgetToolkit, confPage);
 
@@ -254,17 +266,15 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	private Composite fOverviewControl;
 
 	private void createOverviewTabItem(
-			IWidgetToolkit widgetToolkit, List<AbstractConfigurationPage> confPage)
+			final IWidgetToolkit widgetToolkit, final List<AbstractConfigurationPage> confPage)
 	{
 		fOverviewTabItem = new CTabItem(fTabFolder, SWT.BORDER );
 		fOverviewTabItem.setText("Overview");
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
-		OverviewConfigurationPage overviewPage = new OverviewConfigurationPage(this);
-
-		overviewPage.setRegisteredActions(fRegisteredActions);
+		final OverviewConfigurationPage overviewPage = new OverviewConfigurationPage(this);
 
 		overviewPage.setDefaultSectionActions(fDefaultSectionActions);
 
@@ -292,17 +302,15 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	private Composite fSupervisorControl;
 
 	private void createSupervisorTabItem(
-			IWidgetToolkit widgetToolkit, List<AbstractConfigurationPage> confPage)
+			final IWidgetToolkit widgetToolkit, final List<AbstractConfigurationPage> confPage)
 	{
 		fSupervisorTabItem = new CTabItem(fTabFolder, SWT.BORDER );
 		fSupervisorTabItem.setText("Supervisor");
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
-		SupervisorConfigurationPage supervisorPage = new SupervisorConfigurationPage(this);
-
-		supervisorPage.setRegisteredActions(fRegisteredActions);
+		final SupervisorConfigurationPage supervisorPage = new SupervisorConfigurationPage(this);
 
 		supervisorPage.setDefaultSectionActions(fDefaultSectionActions);
 
@@ -330,17 +338,15 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	private Composite fTestGenControl;
 
 	private void createTestGenerationTabItem(
-			IWidgetToolkit widgetToolkit, List<AbstractConfigurationPage> confPage)
+			final IWidgetToolkit widgetToolkit, final List<AbstractConfigurationPage> confPage)
 	{
 		fTestGenTabItem = new CTabItem(fTabFolder, SWT.BORDER );
 		fTestGenTabItem.setText("Test Generation");
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
-		TestGenerationConfigurationPage testGenPage = new TestGenerationConfigurationPage(this);
-
-		testGenPage.setRegisteredActions(fRegisteredActions);
+		final TestGenerationConfigurationPage testGenPage = new TestGenerationConfigurationPage(this);
 
 		testGenPage.setDefaultSectionActions(fDefaultSectionActions);
 
@@ -367,19 +373,21 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	private Composite fDebugControl;
 
 	private void createDebugTabItem(
-			IWidgetToolkit widgetToolkit, List<AbstractConfigurationPage> confPage)
+			final IWidgetToolkit widgetToolkit, final List<AbstractConfigurationPage> confPage)
 	{
 		fDebugTabItem = new CTabItem(fTabFolder, SWT.BORDER );
 		fDebugTabItem.setText("Debug");
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
-		DebugConfigurationPage devugPage = new DebugConfigurationPage(this);
+		final DebugConfigurationPage debugPage = new DebugConfigurationPage(this);
 
-		devugPage.createControl(scrolledComposite, widgetToolkit);
+		debugPage.setDefaultSectionActions(fDefaultSectionActions);
 
-		fDebugControl = devugPage.getControl();
+		debugPage.createControl(scrolledComposite, widgetToolkit);
+
+		fDebugControl = debugPage.getControl();
 		if (fDebugControl != null) {
 			scrolledComposite.setContent(fDebugControl);
 
@@ -393,22 +401,24 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 			fDebugTabItem.setControl(scrolledComposite);
 		}
 
-		confPage.add( devugPage );
+		confPage.add( debugPage );
 	}
 
 	private CTabItem fExpertTabItem;
 	private Composite fExpertControl;
 
 	private void createExpertTabItem(
-			IWidgetToolkit widgetToolkit, List<AbstractConfigurationPage> confPage)
+			final IWidgetToolkit widgetToolkit, final List<AbstractConfigurationPage> confPage)
 	{
 		fExpertTabItem = new CTabItem(fTabFolder, SWT.BORDER );
 		fExpertTabItem.setText("Expert");
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
-		ExpertConfigurationPage expertPage = new ExpertConfigurationPage(this);
+		final ExpertConfigurationPage expertPage = new ExpertConfigurationPage(this);
+
+		expertPage.setDefaultSectionActions(fDefaultSectionActions);
 
 		expertPage.createControl(scrolledComposite, widgetToolkit);
 
@@ -432,17 +442,19 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	private CTabItem fDeveloperTuningTabItem;
 	private Composite fDeveloperTuningControl;
 
-	private void createDeveloperTuningTabItem(IWidgetToolkit widgetToolkit,
-			List<AbstractConfigurationPage> confPage)
+	private void createDeveloperTuningTabItem(final IWidgetToolkit widgetToolkit,
+			final List<AbstractConfigurationPage> confPage)
 	{
 		fDeveloperTuningTabItem = new CTabItem(fTabFolder, SWT.BORDER );
 		fDeveloperTuningTabItem.setText("Developer");
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
-		DeveloperTuningConfigurationPage developerPage =
+		final DeveloperTuningConfigurationPage developerPage =
 				new DeveloperTuningConfigurationPage(this);
+
+		developerPage.setDefaultSectionActions(fDefaultSectionActions);
 
 		developerPage.createControl(scrolledComposite, widgetToolkit);
 
@@ -464,7 +476,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	}
 
 
-	private void updateEnableTab(boolean isLaunchConfSelected) {
+	private void updateEnableTab(final boolean isLaunchConfSelected) {
 	    fOverviewControl.setEnabled(isLaunchConfSelected);
 	}
 
@@ -485,10 +497,10 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	{
 		saveLaunchConfiguration( configuration );
 
-		IStructuredSelection selection = new StructuredSelection(configuration);
-		ILaunchGroup group = DebugUITools.getLaunchGroup(configuration, mode);
+		final IStructuredSelection selection = new StructuredSelection(configuration);
+		final ILaunchGroup group = DebugUITools.getLaunchGroup(configuration, mode);
 
-		String groupIdentifier = group == null ?
+		final String groupIdentifier = group == null ?
 				IDebugUIConstants.ID_RUN_LAUNCH_GROUP : group.getIdentifier();
 
 		DebugUITools.openLaunchConfigurationDialogOnGroup(
@@ -505,7 +517,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 					PREF_LAUNCH_CONFIGURATION_SELECTION,
 					launchConfigurationManager.getSelection().getName());
 
-			for(AbstractConfigurationPage acm : fConfigurationPages) {
+			for(final AbstractConfigurationPage acm : fConfigurationPages) {
 				acm.performApply(rwConfiguration);
 			}
 			rwConfiguration.doSave();
@@ -513,7 +525,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 			if( action_apply_changes != null ) {
 				action_apply_changes.setEnabled(false);
 			}
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			e.printStackTrace();
 		}
 	}
@@ -652,8 +664,8 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 
 	private ILaunchConfigurationWorkingCopy fLastLaunchConfigurationWorkingCopy;
 
-	public void initializeFieldValuesFrom(ILaunchConfiguration configuration) {
-		for(AbstractConfigurationPage acm : fConfigurationPages) {
+	public void initializeFieldValuesFrom(final ILaunchConfiguration configuration) {
+		for(final AbstractConfigurationPage acm : fConfigurationPages) {
 			acm.initializeFrom(configuration);
 		}
 
@@ -662,7 +674,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 
 	public void refreshGUI() {
 		if( launchConfigurationManager.hasSelection() ) {
-			ILaunchConfiguration selectedLC = launchConfigurationManager.getSelection();
+			final ILaunchConfiguration selectedLC = launchConfigurationManager.getSelection();
 			updateEnableTab(true);
 
 			if( action_apply_changes != null ) {
@@ -670,17 +682,17 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 			}
 
 			try {
-				ILaunchConfigurationWorkingCopy newcopy = selectedLC.getWorkingCopy();
+				final ILaunchConfigurationWorkingCopy newcopy = selectedLC.getWorkingCopy();
 				if( (fLastLaunchConfigurationWorkingCopy == null)
 					|| (! fLastLaunchConfigurationWorkingCopy.contentsEqual(newcopy)) ) {
 					fLastLaunchConfigurationWorkingCopy = newcopy;
 					System.err.println("++++---- Biopp");
 
-					for(AbstractConfigurationPage acm : fConfigurationPages) {
+					for(final AbstractConfigurationPage acm : fConfigurationPages) {
 						acm.initializeFrom(selectedLC);
 					}
 				}
-			} catch (CoreException e) {
+			} catch (final CoreException e) {
 				setErrorMessage("could not get launch configuration working copy");
 				e.printStackTrace();
 			}
@@ -711,9 +723,19 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	// Message API
 	///////////////////////////////////////////////////////////////////////////
 
+	@Override
+	public void clearErrorMessage() {
+		final CTabItem selectedTabItem = fTabFolder.getSelection();
+		if( selectedTabItem != null ) {
+			selectedTabItem.setToolTipText("");
+			selectedTabItem.setImage(null);
+		}
+		super.clearErrorMessage();
+	}
+
 	@Override // to change visibility to public
-	public void setWarningMessage(String warningMessage){
-		CTabItem selectedTabItem = fTabFolder.getSelection();
+	public void setWarningMessage(final String warningMessage){
+		final CTabItem selectedTabItem = fTabFolder.getSelection();
 		if( selectedTabItem != null ) {
 			if(warningMessage != null) {
 				selectedTabItem.setToolTipText(warningMessage);
@@ -721,6 +743,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 				selectedTabItem.setImage(
 						ImageResources.getImage(ImageResources.IMAGE__WARNING_ICON));
 			} else {
+				selectedTabItem.setToolTipText("");
 				selectedTabItem.setImage(null);
 			}
 		}
@@ -728,8 +751,8 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	}
 
 	@Override // to change visibility to public
-	public void setErrorMessage(String errorMessage){
-		CTabItem selectedTabItem = fTabFolder.getSelection();
+	public void setErrorMessage(final String errorMessage){
+		final CTabItem selectedTabItem = fTabFolder.getSelection();
 		if( selectedTabItem != null ) {
 			if(errorMessage != null) {
 				selectedTabItem.setToolTipText(errorMessage);
@@ -737,6 +760,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 				selectedTabItem.setImage(
 						ImageResources.getImage(ImageResources.IMAGE__ERROR_ICON));
 			} else {
+				selectedTabItem.setToolTipText("");
 				selectedTabItem.setImage(null);
 			}
 		}

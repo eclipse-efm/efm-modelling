@@ -20,12 +20,18 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.editors.FieldEditor;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.widgets.Section;
 
 public abstract class AbstractSectionPart {
 
-    /**
+	protected boolean fShowDefaultSectionActions;
+
+	/**
      * The field editors, or <code>null</code> if not created yet.
      */
     private List<FieldEditor> fFields = null;
@@ -37,13 +43,18 @@ public abstract class AbstractSectionPart {
 
 	private Composite fSectionClient;
 
+	public Composite fCompositeParent;
 
-	public AbstractSectionPart() {
+
+	public AbstractSectionPart(boolean showDefaultSectionActions) {
 		this.fFields = null;
 
 		this.fSection = null;
 		this.fSectionClient = null;
+
+		fShowDefaultSectionActions = showDefaultSectionActions;
 	}
+
 
 	// Title / Description
 	public abstract String getSectionTitle();
@@ -74,6 +85,38 @@ public abstract class AbstractSectionPart {
 	public Composite getControl() {
 		return fSection;
 	}
+
+	///////////////////////////////////////////////////////////////////////////
+	// createControl
+	///////////////////////////////////////////////////////////////////////////
+
+	public final void createControl(Composite parent, IWidgetToolkit widgetToolkit)
+	{
+		fCompositeParent = parent;
+
+		ToolBarManager toolBarManager = null;
+
+		if( fShowDefaultSectionActions ) {
+			Action[] toputinbar = getDefaultSectionActions();
+
+			if( (toputinbar != null) && (toputinbar.length > 0) )
+			{
+				toolBarManager = new ToolBarManager(SWT.FLAT);
+				widgetToolkit.fillToolBar(toolBarManager, toputinbar);
+			}
+		}
+
+		widgetToolkit.createSectionPart(this, parent,
+				Section.TITLE_BAR | Section.DESCRIPTION |
+				Section.EXPANDED  | Section.TWISTIE, toolBarManager);
+
+		createContent(getSectionClient(), widgetToolkit);
+	}
+
+	abstract protected Action[] getDefaultSectionActions();
+
+	abstract protected void createContent(Composite parent, IWidgetToolkit widgetToolkit);
+
 
 
 	///////////////////////////////////////////////////////////////////////////

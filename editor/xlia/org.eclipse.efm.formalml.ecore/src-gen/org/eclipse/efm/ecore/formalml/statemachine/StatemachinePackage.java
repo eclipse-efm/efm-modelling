@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -172,40 +172,13 @@ public interface StatemachinePackage extends EPackage {
 	int STATEMACHINE__DESIGN = InfrastructurePackage.BEHAVIOR__DESIGN;
 
 	/**
-	 * The feature id for the '<em><b>Property Part</b></em>' containment reference.
+	 * The feature id for the '<em><b>Lifeline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATEMACHINE__PROPERTY_PART = InfrastructurePackage.BEHAVIOR__PROPERTY_PART;
-
-	/**
-	 * The feature id for the '<em><b>Composite Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMACHINE__COMPOSITE_PART = InfrastructurePackage.BEHAVIOR__COMPOSITE_PART;
-
-	/**
-	 * The feature id for the '<em><b>Behavior Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMACHINE__BEHAVIOR_PART = InfrastructurePackage.BEHAVIOR__BEHAVIOR_PART;
-
-	/**
-	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMACHINE__MACHINE = InfrastructurePackage.BEHAVIOR__MACHINE;
+	int STATEMACHINE__LIFELINE = InfrastructurePackage.BEHAVIOR__LIFELINE;
 
 	/**
 	 * The feature id for the '<em><b>Typedef</b></em>' containment reference list.
@@ -287,6 +260,15 @@ public interface StatemachinePackage extends EPackage {
 	 * @ordered
 	 */
 	int STATEMACHINE__PROCEDURE = InfrastructurePackage.BEHAVIOR__PROCEDURE;
+
+	/**
+	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMACHINE__MACHINE = InfrastructurePackage.BEHAVIOR__MACHINE;
 
 	/**
 	 * The feature id for the '<em><b>Instance</b></em>' containment reference list.
@@ -507,7 +489,7 @@ public interface StatemachinePackage extends EPackage {
 	int VERTEX__TRANSITION = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Moe</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Moe</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -589,7 +571,7 @@ public interface StatemachinePackage extends EPackage {
 	int PSEUDOSTATE__TRANSITION = VERTEX__TRANSITION;
 
 	/**
-	 * The feature id for the '<em><b>Moe</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Moe</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -680,7 +662,7 @@ public interface StatemachinePackage extends EPackage {
 	int STATE__TRANSITION = VERTEX__TRANSITION;
 
 	/**
-	 * The feature id for the '<em><b>Moe</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Moe</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -798,7 +780,7 @@ public interface StatemachinePackage extends EPackage {
 	int FINAL_STATE__TRANSITION = STATE__TRANSITION;
 
 	/**
-	 * The feature id for the '<em><b>Moe</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Moe</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -916,7 +898,7 @@ public interface StatemachinePackage extends EPackage {
 	int START_STATE__TRANSITION = STATE__TRANSITION;
 
 	/**
-	 * The feature id for the '<em><b>Moe</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Moe</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1043,7 +1025,7 @@ public interface StatemachinePackage extends EPackage {
 	int TRANSITION__MOE = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * The feature id for the '<em><b>Target</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1097,13 +1079,22 @@ public interface StatemachinePackage extends EPackage {
 	int TRANSITION__EFFECT = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Target Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__TARGET_EXPRESSION = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 8;
+
+	/**
 	 * The number of structural features of the '<em>Transition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_FEATURE_COUNT = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 8;
+	int TRANSITION_FEATURE_COUNT = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of operations of the '<em>Transition</em>' class.
@@ -1143,22 +1134,22 @@ public interface StatemachinePackage extends EPackage {
 	int TRANSITION_MOE__IS_ELSE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Prior</b></em>' attribute.
+	 * The feature id for the '<em><b>Priority</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_MOE__PRIOR = 2;
+	int TRANSITION_MOE__PRIORITY = 2;
 
 	/**
-	 * The feature id for the '<em><b>Proba</b></em>' attribute.
+	 * The feature id for the '<em><b>Probability</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_MOE__PROBA = 3;
+	int TRANSITION_MOE__PROBABILITY = 3;
 
 	/**
 	 * The number of structural features of the '<em>Transition Moe</em>' class.
@@ -1263,10 +1254,10 @@ public interface StatemachinePackage extends EPackage {
 	EReference getVertex_Transition();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.statemachine.Vertex#getMoe <em>Moe</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statemachine.Vertex#getMoe <em>Moe</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Moe</em>'.
+	 * @return the meta object for the containment reference '<em>Moe</em>'.
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.Vertex#getMoe()
 	 * @see #getVertex()
 	 * @generated
@@ -1401,10 +1392,10 @@ public interface StatemachinePackage extends EPackage {
 	EReference getTransition_Moe();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget <em>Target</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @return the meta object for the reference '<em>Target</em>'.
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget()
 	 * @see #getTransition()
 	 * @generated
@@ -1467,6 +1458,17 @@ public interface StatemachinePackage extends EPackage {
 	EReference getTransition_Effect();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTargetExpression <em>Target Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target Expression</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statemachine.Transition#getTargetExpression()
+	 * @see #getTransition()
+	 * @generated
+	 */
+	EReference getTransition_TargetExpression();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe <em>Transition Moe</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1499,26 +1501,26 @@ public interface StatemachinePackage extends EPackage {
 	EAttribute getTransitionMoe_IsElse();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getPrior <em>Prior</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getPriority <em>Priority</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Prior</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getPrior()
+	 * @return the meta object for the attribute '<em>Priority</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getPriority()
 	 * @see #getTransitionMoe()
 	 * @generated
 	 */
-	EAttribute getTransitionMoe_Prior();
+	EAttribute getTransitionMoe_Priority();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getProba <em>Proba</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getProbability <em>Probability</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Proba</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getProba()
+	 * @return the meta object for the attribute '<em>Probability</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe#getProbability()
 	 * @see #getTransitionMoe()
 	 * @generated
 	 */
-	EAttribute getTransitionMoe_Proba();
+	EAttribute getTransitionMoe_Probability();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.ecore.formalml.statemachine.PseudostateKind <em>Pseudostate Kind</em>}'.
@@ -1618,7 +1620,7 @@ public interface StatemachinePackage extends EPackage {
 		EReference VERTEX__TRANSITION = eINSTANCE.getVertex_Transition();
 
 		/**
-		 * The meta object literal for the '<em><b>Moe</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Moe</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1732,7 +1734,7 @@ public interface StatemachinePackage extends EPackage {
 		EReference TRANSITION__MOE = eINSTANCE.getTransition_Moe();
 
 		/**
-		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1780,6 +1782,14 @@ public interface StatemachinePackage extends EPackage {
 		EReference TRANSITION__EFFECT = eINSTANCE.getTransition_Effect();
 
 		/**
+		 * The meta object literal for the '<em><b>Target Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TRANSITION__TARGET_EXPRESSION = eINSTANCE.getTransition_TargetExpression();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statemachine.impl.TransitionMoeImpl <em>Transition Moe</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1806,20 +1816,20 @@ public interface StatemachinePackage extends EPackage {
 		EAttribute TRANSITION_MOE__IS_ELSE = eINSTANCE.getTransitionMoe_IsElse();
 
 		/**
-		 * The meta object literal for the '<em><b>Prior</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Priority</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TRANSITION_MOE__PRIOR = eINSTANCE.getTransitionMoe_Prior();
+		EAttribute TRANSITION_MOE__PRIORITY = eINSTANCE.getTransitionMoe_Priority();
 
 		/**
-		 * The meta object literal for the '<em><b>Proba</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Probability</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TRANSITION_MOE__PROBA = eINSTANCE.getTransitionMoe_Proba();
+		EAttribute TRANSITION_MOE__PROBABILITY = eINSTANCE.getTransitionMoe_Probability();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.statemachine.PseudostateKind <em>Pseudostate Kind</em>}' enum.

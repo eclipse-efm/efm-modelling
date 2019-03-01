@@ -109,6 +109,7 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GraphExplorationLimit getLimit() {
 		return limit;
 	}
@@ -133,6 +134,7 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLimit(GraphExplorationLimit newLimit) {
 		if (newLimit != limit) {
 			NotificationChain msgs = null;
@@ -152,6 +154,7 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GraphExplorationQueue getQueue() {
 		return queue;
 	}
@@ -176,6 +179,7 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setQueue(GraphExplorationQueue newQueue) {
 		if (newQueue != queue) {
 			NotificationChain msgs = null;
@@ -195,6 +199,7 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSpecification getExtender() {
 		return extender;
 	}
@@ -219,6 +224,7 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExtender(TraceSpecification newExtender) {
 		if (newExtender != extender) {
 			NotificationChain msgs = null;
@@ -238,6 +244,7 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RedundancyDetection getRedundancy() {
 		if (redundancy != null && redundancy.eIsProxy()) {
 			InternalEObject oldRedundancy = (InternalEObject)redundancy;
@@ -264,6 +271,7 @@ public class SupervisorWorkerImpl extends WorkerImpl implements SupervisorWorker
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRedundancy(RedundancyDetection newRedundancy) {
 		RedundancyDetection oldRedundancy = redundancy;
 		redundancy = newRedundancy;

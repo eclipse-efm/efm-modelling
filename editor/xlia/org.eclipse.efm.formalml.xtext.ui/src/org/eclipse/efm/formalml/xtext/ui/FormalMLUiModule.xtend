@@ -26,15 +26,15 @@ import org.eclipse.xtext.ui.editor.hover.IEObjectHover
 @FinalFieldsConstructor
 class FormalMLUiModule extends AbstractFormalMLUiModule {
 	
-	override public Class<? extends IEObjectHover> bindIEObjectHover() {
+	override Class<? extends IEObjectHover> bindIEObjectHover() {
 		return FormalMLDispatchingEObjectTextHover;
 	}
 	 
-	def public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+	def Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
 		return FormalMLEObjectHoverProvider;
 	}
 	 
-	def public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProviderr() {
+	def Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProviderr() {
 		return FormalMLEObjectDocumentationProvider;
 	}
 	

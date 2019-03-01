@@ -375,6 +375,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledCustomization() {
 		return enabledCustomization;
 	}
@@ -384,6 +385,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledCustomization(boolean newEnabledCustomization) {
 		boolean oldEnabledCustomization = enabledCustomization;
 		enabledCustomization = newEnabledCustomization;
@@ -396,6 +398,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledAdapters() {
 		return enabledAdapters;
 	}
@@ -405,6 +408,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledAdapters(boolean newEnabledAdapters) {
 		boolean oldEnabledAdapters = enabledAdapters;
 		enabledAdapters = newEnabledAdapters;
@@ -417,6 +421,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getControlModuleName() {
 		return controlModuleName;
 	}
@@ -426,6 +431,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setControlModuleName(String newControlModuleName) {
 		String oldControlModuleName = controlModuleName;
 		controlModuleName = newControlModuleName;
@@ -438,6 +444,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDeclarationsModuleName() {
 		return declarationsModuleName;
 	}
@@ -447,6 +454,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDeclarationsModuleName(String newDeclarationsModuleName) {
 		String oldDeclarationsModuleName = declarationsModuleName;
 		declarationsModuleName = newDeclarationsModuleName;
@@ -459,6 +467,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTemplatesModuleName() {
 		return templatesModuleName;
 	}
@@ -468,6 +477,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTemplatesModuleName(String newTemplatesModuleName) {
 		String oldTemplatesModuleName = templatesModuleName;
 		templatesModuleName = newTemplatesModuleName;
@@ -480,6 +490,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTestcasesModuleName() {
 		return testcasesModuleName;
 	}
@@ -489,6 +500,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTestcasesModuleName(String newTestcasesModuleName) {
 		String oldTestcasesModuleName = testcasesModuleName;
 		testcasesModuleName = newTestcasesModuleName;
@@ -501,6 +513,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTestcasesStartingWrapper() {
 		return testcasesStartingWrapper;
 	}
@@ -510,6 +523,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTestcasesStartingWrapper(String newTestcasesStartingWrapper) {
 		String oldTestcasesStartingWrapper = testcasesStartingWrapper;
 		testcasesStartingWrapper = newTestcasesStartingWrapper;
@@ -522,6 +536,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTestcasesEndingWrapper() {
 		return testcasesEndingWrapper;
 	}
@@ -531,6 +546,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTestcasesEndingWrapper(String newTestcasesEndingWrapper) {
 		String oldTestcasesEndingWrapper = testcasesEndingWrapper;
 		testcasesEndingWrapper = newTestcasesEndingWrapper;
@@ -543,6 +559,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTestcasesSendingWrapper() {
 		return testcasesSendingWrapper;
 	}
@@ -552,6 +569,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTestcasesSendingWrapper(String newTestcasesSendingWrapper) {
 		String oldTestcasesSendingWrapper = testcasesSendingWrapper;
 		testcasesSendingWrapper = newTestcasesSendingWrapper;
@@ -564,6 +582,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTestcasesReceivingWrapper() {
 		return testcasesReceivingWrapper;
 	}
@@ -573,6 +592,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTestcasesReceivingWrapper(String newTestcasesReceivingWrapper) {
 		String oldTestcasesReceivingWrapper = testcasesReceivingWrapper;
 		testcasesReceivingWrapper = newTestcasesReceivingWrapper;
@@ -585,6 +605,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAdaptationModuleName() {
 		return adaptationModuleName;
 	}
@@ -594,6 +615,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdaptationModuleName(String newAdaptationModuleName) {
 		String oldAdaptationModuleName = adaptationModuleName;
 		adaptationModuleName = newAdaptationModuleName;
@@ -606,6 +628,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAdaptationUtilsImpl() {
 		return adaptationUtilsImpl;
 	}
@@ -615,6 +638,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdaptationUtilsImpl(String newAdaptationUtilsImpl) {
 		String oldAdaptationUtilsImpl = adaptationUtilsImpl;
 		adaptationUtilsImpl = newAdaptationUtilsImpl;
@@ -627,6 +651,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAdaptationStartingEndingImpl() {
 		return adaptationStartingEndingImpl;
 	}
@@ -636,6 +661,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdaptationStartingEndingImpl(String newAdaptationStartingEndingImpl) {
 		String oldAdaptationStartingEndingImpl = adaptationStartingEndingImpl;
 		adaptationStartingEndingImpl = newAdaptationStartingEndingImpl;
@@ -648,6 +674,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAdaptationSendingImpl() {
 		return adaptationSendingImpl;
 	}
@@ -657,6 +684,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdaptationSendingImpl(String newAdaptationSendingImpl) {
 		String oldAdaptationSendingImpl = adaptationSendingImpl;
 		adaptationSendingImpl = newAdaptationSendingImpl;
@@ -669,6 +697,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAdaptationReceivingImpl() {
 		return adaptationReceivingImpl;
 	}
@@ -678,6 +707,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdaptationReceivingImpl(String newAdaptationReceivingImpl) {
 		String oldAdaptationReceivingImpl = adaptationReceivingImpl;
 		adaptationReceivingImpl = newAdaptationReceivingImpl;
@@ -892,7 +922,7 @@ public class TTCNTraceSerializerImpl extends SerializerImpl implements TTCNTrace
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (enabledCustomization: ");
 		result.append(enabledCustomization);
 		result.append(", enabledAdapters: ");

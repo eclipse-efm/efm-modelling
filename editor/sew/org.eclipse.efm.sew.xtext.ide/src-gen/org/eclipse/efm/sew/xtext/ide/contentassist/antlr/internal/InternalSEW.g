@@ -1491,21 +1491,27 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Prolog__Alternatives_4
+rule__Prolog__Alternatives_3
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getPrologAccess().getGroup_4_0()); }
-		(rule__Prolog__Group_4_0__0)
-		{ after(grammarAccess.getPrologAccess().getGroup_4_0()); }
+		{ before(grammarAccess.getPrologAccess().getGroup_3_0()); }
+		(rule__Prolog__Group_3_0__0)
+		{ after(grammarAccess.getPrologAccess().getGroup_3_0()); }
 	)
 	|
 	(
-		{ before(grammarAccess.getPrologAccess().getEStringParserRuleCall_4_1()); }
+		{ before(grammarAccess.getPrologAccess().getUFIParserRuleCall_3_1()); }
+		ruleUFI
+		{ after(grammarAccess.getPrologAccess().getUFIParserRuleCall_3_1()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getPrologAccess().getEStringParserRuleCall_3_2()); }
 		ruleEString
-		{ after(grammarAccess.getPrologAccess().getEStringParserRuleCall_4_1()); }
+		{ after(grammarAccess.getPrologAccess().getEStringParserRuleCall_3_2()); }
 	)
 ;
 finally {
@@ -2817,9 +2823,9 @@ rule__Prolog__Group__3__Impl
 	}
 :
 (
-	{ before(grammarAccess.getPrologAccess().getGroup_3()); }
-	(rule__Prolog__Group_3__0)?
-	{ after(grammarAccess.getPrologAccess().getGroup_3()); }
+	{ before(grammarAccess.getPrologAccess().getAlternatives_3()); }
+	(rule__Prolog__Alternatives_3)?
+	{ after(grammarAccess.getPrologAccess().getAlternatives_3()); }
 )
 ;
 finally {
@@ -2832,7 +2838,6 @@ rule__Prolog__Group__4
 	}
 :
 	rule__Prolog__Group__4__Impl
-	rule__Prolog__Group__5
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -2844,35 +2849,9 @@ rule__Prolog__Group__4__Impl
 	}
 :
 (
-	{ before(grammarAccess.getPrologAccess().getAlternatives_4()); }
-	(rule__Prolog__Alternatives_4)?
-	{ after(grammarAccess.getPrologAccess().getAlternatives_4()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Prolog__Group__5
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__Prolog__Group__5__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Prolog__Group__5__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getPrologAccess().getGreaterThanSignColonKeyword_5()); }
+	{ before(grammarAccess.getPrologAccess().getGreaterThanSignColonKeyword_4()); }
 	'>:'
-	{ after(grammarAccess.getPrologAccess().getGreaterThanSignColonKeyword_5()); }
+	{ after(grammarAccess.getPrologAccess().getGreaterThanSignColonKeyword_4()); }
 )
 ;
 finally {
@@ -2880,107 +2859,80 @@ finally {
 }
 
 
-rule__Prolog__Group_3__0
+rule__Prolog__Group_3_0__0
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
-	rule__Prolog__Group_3__0__Impl
-	rule__Prolog__Group_3__1
+	rule__Prolog__Group_3_0__0__Impl
+	rule__Prolog__Group_3_0__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Prolog__Group_3__0__Impl
+rule__Prolog__Group_3_0__0__Impl
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 (
-	{ before(grammarAccess.getPrologAccess().getCommaKeyword_3_0()); }
+	{ before(grammarAccess.getPrologAccess().getCommaKeyword_3_0_0()); }
 	','
-	{ after(grammarAccess.getPrologAccess().getCommaKeyword_3_0()); }
+	{ after(grammarAccess.getPrologAccess().getCommaKeyword_3_0_0()); }
 )
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Prolog__Group_3__1
+rule__Prolog__Group_3_0__1
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
-	rule__Prolog__Group_3__1__Impl
+	rule__Prolog__Group_3_0__1__Impl
+	rule__Prolog__Group_3_0__2
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Prolog__Group_3__1__Impl
+rule__Prolog__Group_3_0__1__Impl
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 (
-	{ before(grammarAccess.getPrologAccess().getEDoubleParserRuleCall_3_1()); }
+	{ before(grammarAccess.getPrologAccess().getVersionKeyword_3_0_1()); }
+	('version:')?
+	{ after(grammarAccess.getPrologAccess().getVersionKeyword_3_0_1()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Prolog__Group_3_0__2
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__Prolog__Group_3_0__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Prolog__Group_3_0__2__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getPrologAccess().getEDoubleParserRuleCall_3_0_2()); }
 	ruleEDouble
-	{ after(grammarAccess.getPrologAccess().getEDoubleParserRuleCall_3_1()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__Prolog__Group_4_0__0
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__Prolog__Group_4_0__0__Impl
-	rule__Prolog__Group_4_0__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Prolog__Group_4_0__0__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getPrologAccess().getCommaKeyword_4_0_0()); }
-	','
-	{ after(grammarAccess.getPrologAccess().getCommaKeyword_4_0_0()); }
-)
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Prolog__Group_4_0__1
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-	rule__Prolog__Group_4_0__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Prolog__Group_4_0__1__Impl
-	@init {
-		int stackSize = keepStackSize();
-	}
-:
-(
-	{ before(grammarAccess.getPrologAccess().getUFIParserRuleCall_4_0_1()); }
-	ruleUFI
-	{ after(grammarAccess.getPrologAccess().getUFIParserRuleCall_4_0_1()); }
+	{ after(grammarAccess.getPrologAccess().getEDoubleParserRuleCall_3_0_2()); }
 )
 ;
 finally {

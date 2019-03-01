@@ -180,7 +180,7 @@ public interface Serializer extends Worker {
 	 * @return the value of the '<em>Enabled Normalization</em>' attribute.
 	 * @see #setEnabledNormalization(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_EnabledNormalization()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isEnabledNormalization();
@@ -207,7 +207,7 @@ public interface Serializer extends Worker {
 	 * @return the value of the '<em>Enabled Initial Values Printing</em>' attribute.
 	 * @see #setEnabledInitialValuesPrinting(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_EnabledInitialValuesPrinting()
-	 * @model default="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isEnabledInitialValuesPrinting();
@@ -234,7 +234,7 @@ public interface Serializer extends Worker {
 	 * @return the value of the '<em>Enabled Lifelines Printing</em>' attribute.
 	 * @see #setEnabledLifelinesPrinting(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_EnabledLifelinesPrinting()
-	 * @model default="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isEnabledLifelinesPrinting();
@@ -261,7 +261,7 @@ public interface Serializer extends Worker {
 	 * @return the value of the '<em>Enabled Modified Data Selection</em>' attribute.
 	 * @see #setEnabledModifiedDataSelection(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_EnabledModifiedDataSelection()
-	 * @model default="true"
+	 * @model default="true" required="true"
 	 * @generated
 	 */
 	boolean isEnabledModifiedDataSelection();

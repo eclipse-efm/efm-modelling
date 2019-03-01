@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -113,6 +113,7 @@ public class QuantifiedLogicalExpressionImpl extends ExpressionImpl implements Q
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getQuantifier() {
 		return quantifier;
 	}
@@ -122,6 +123,7 @@ public class QuantifiedLogicalExpressionImpl extends ExpressionImpl implements Q
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setQuantifier(String newQuantifier) {
 		String oldQuantifier = quantifier;
 		quantifier = newQuantifier;
@@ -134,6 +136,7 @@ public class QuantifiedLogicalExpressionImpl extends ExpressionImpl implements Q
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Variable> getVariable() {
 		if (variable == null) {
 			variable = new EObjectContainmentEList<Variable>(Variable.class, this, ExpressionPackage.QUANTIFIED_LOGICAL_EXPRESSION__VARIABLE);
@@ -146,6 +149,7 @@ public class QuantifiedLogicalExpressionImpl extends ExpressionImpl implements Q
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getPredicate() {
 		return predicate;
 	}
@@ -170,6 +174,7 @@ public class QuantifiedLogicalExpressionImpl extends ExpressionImpl implements Q
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPredicate(Expression newPredicate) {
 		if (newPredicate != predicate) {
 			NotificationChain msgs = null;
@@ -289,7 +294,7 @@ public class QuantifiedLogicalExpressionImpl extends ExpressionImpl implements Q
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (quantifier: ");
 		result.append(quantifier);
 		result.append(')');

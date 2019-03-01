@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,6 +15,8 @@ package org.eclipse.efm.ecore.formalml.impl;
 import org.eclipse.efm.ecore.formalml.FormalmlPackage;
 import org.eclipse.efm.ecore.formalml.XliaModel;
 import org.eclipse.efm.ecore.formalml.XliaObject;
+
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -58,7 +60,7 @@ public class XliaModelImpl extends MinimalEObjectImpl.Container implements XliaM
 	 * @generated
 	 * @ordered
 	 */
-	protected org.eclipse.efm.ecore.formalml.infrastructure.System system;
+	protected XliaSystem system;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,6 +86,7 @@ public class XliaModelImpl extends MinimalEObjectImpl.Container implements XliaM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public XliaObject getProlog() {
 		return prolog;
 	}
@@ -108,6 +111,7 @@ public class XliaModelImpl extends MinimalEObjectImpl.Container implements XliaM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProlog(XliaObject newProlog) {
 		if (newProlog != prolog) {
 			NotificationChain msgs = null;
@@ -127,7 +131,8 @@ public class XliaModelImpl extends MinimalEObjectImpl.Container implements XliaM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public org.eclipse.efm.ecore.formalml.infrastructure.System getSystem() {
+	@Override
+	public XliaSystem getSystem() {
 		return system;
 	}
 
@@ -136,8 +141,8 @@ public class XliaModelImpl extends MinimalEObjectImpl.Container implements XliaM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSystem(org.eclipse.efm.ecore.formalml.infrastructure.System newSystem, NotificationChain msgs) {
-		org.eclipse.efm.ecore.formalml.infrastructure.System oldSystem = system;
+	public NotificationChain basicSetSystem(XliaSystem newSystem, NotificationChain msgs) {
+		XliaSystem oldSystem = system;
 		system = newSystem;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, FormalmlPackage.XLIA_MODEL__SYSTEM, oldSystem, newSystem);
@@ -151,7 +156,8 @@ public class XliaModelImpl extends MinimalEObjectImpl.Container implements XliaM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSystem(org.eclipse.efm.ecore.formalml.infrastructure.System newSystem) {
+	@Override
+	public void setSystem(XliaSystem newSystem) {
 		if (newSystem != system) {
 			NotificationChain msgs = null;
 			if (system != null)
@@ -209,7 +215,7 @@ public class XliaModelImpl extends MinimalEObjectImpl.Container implements XliaM
 				setProlog((XliaObject)newValue);
 				return;
 			case FormalmlPackage.XLIA_MODEL__SYSTEM:
-				setSystem((org.eclipse.efm.ecore.formalml.infrastructure.System)newValue);
+				setSystem((XliaSystem)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -227,7 +233,7 @@ public class XliaModelImpl extends MinimalEObjectImpl.Container implements XliaM
 				setProlog((XliaObject)null);
 				return;
 			case FormalmlPackage.XLIA_MODEL__SYSTEM:
-				setSystem((org.eclipse.efm.ecore.formalml.infrastructure.System)null);
+				setSystem((XliaSystem)null);
 				return;
 		}
 		super.eUnset(featureID);

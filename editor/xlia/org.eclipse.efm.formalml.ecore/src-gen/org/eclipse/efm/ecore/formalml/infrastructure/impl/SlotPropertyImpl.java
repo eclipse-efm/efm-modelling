@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -86,6 +86,7 @@ public class SlotPropertyImpl extends MinimalEObjectImpl.Container implements Sl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyDefinition getXliaProperty() {
 		if (xliaProperty != null && xliaProperty.eIsProxy()) {
 			InternalEObject oldXliaProperty = (InternalEObject)xliaProperty;
@@ -112,6 +113,7 @@ public class SlotPropertyImpl extends MinimalEObjectImpl.Container implements Sl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setXliaProperty(PropertyDefinition newXliaProperty) {
 		PropertyDefinition oldXliaProperty = xliaProperty;
 		xliaProperty = newXliaProperty;
@@ -124,6 +126,7 @@ public class SlotPropertyImpl extends MinimalEObjectImpl.Container implements Sl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getValue() {
 		return value;
 	}
@@ -148,6 +151,7 @@ public class SlotPropertyImpl extends MinimalEObjectImpl.Container implements Sl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(Expression newValue) {
 		if (newValue != value) {
 			NotificationChain msgs = null;

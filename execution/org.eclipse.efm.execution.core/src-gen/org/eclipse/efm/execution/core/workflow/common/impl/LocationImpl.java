@@ -164,6 +164,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getRoot() {
 		return root;
 	}
@@ -173,6 +174,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRoot(String newRoot) {
 		String oldRoot = root;
 		root = newRoot;
@@ -185,6 +187,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLaunch() {
 		return launch;
 	}
@@ -194,6 +197,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLaunch(String newLaunch) {
 		String oldLaunch = launch;
 		launch = newLaunch;
@@ -206,6 +210,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getOutput() {
 		return output;
 	}
@@ -215,6 +220,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOutput(String newOutput) {
 		String oldOutput = output;
 		output = newOutput;
@@ -227,6 +233,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLog() {
 		return log;
 	}
@@ -236,6 +243,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLog(String newLog) {
 		String oldLog = log;
 		log = newLog;
@@ -248,6 +256,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDebug() {
 		return debug;
 	}
@@ -257,6 +266,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDebug(String newDebug) {
 		String oldDebug = debug;
 		debug = newDebug;
@@ -371,7 +381,7 @@ public class LocationImpl extends MinimalEObjectImpl.Container implements Locati
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (root: ");
 		result.append(root);
 		result.append(", launch: ");

@@ -79,6 +79,7 @@ public class TraceSpecificationImpl extends NamedObjectImpl implements TraceSpec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<TraceElement> getElement() {
 		if (element == null) {
 			element = new EObjectContainmentEList<TraceElement>(TraceElement.class, this, CommonPackage.TRACE_SPECIFICATION__ELEMENT);

@@ -15,19 +15,19 @@ package org.eclipse.efm.execution.configuration.common.ui.api;
 
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
-import org.eclipse.ui.forms.widgets.Section;
 
 public abstract class AbstractConfigurationSection extends AbstractSectionPart
 		implements IWorkflowConfigurationConstants {
 
 	protected AbstractConfigurationPage fConfigurationPage;
 
-	public AbstractConfigurationSection(AbstractConfigurationPage configurationPage)
+	public AbstractConfigurationSection(
+			AbstractConfigurationPage configurationPage, boolean showDefaultSectionActions)
 	{
+		super(showDefaultSectionActions);
+
 		this.fConfigurationPage = configurationPage;
 	}
 
@@ -39,23 +39,10 @@ public abstract class AbstractConfigurationSection extends AbstractSectionPart
 		return fConfigurationPage.getConfigurationPages();
 	}
 
-	public void createControl(Composite parent, IWidgetToolkit widgetToolkit)
-	{
-		ToolBarManager toolBarManager = null;
-		Action[] toputinbar = fConfigurationPage.getDefaultSectionActions();
-
-		if( (toputinbar != null) && (toputinbar.length > 0) )
-		{
-			toolBarManager = new ToolBarManager(SWT.FLAT);
-			widgetToolkit.fillToolBar(toolBarManager, toputinbar);
-		}
-		widgetToolkit.createSectionPart(this, parent,
-				Section.TITLE_BAR | Section.DESCRIPTION |
-				Section.EXPANDED  | Section.TWISTIE, toolBarManager);
-
-		createContent(getSectionClient(), widgetToolkit);
+	@Override
+	protected Action[] getDefaultSectionActions() {
+		return fConfigurationPage.getDefaultSectionActions();
 	}
-
 
 	/**
 	 * Programmatically changes expanded state.
@@ -76,8 +63,5 @@ public abstract class AbstractConfigurationSection extends AbstractSectionPart
     public void setToolTipText(String string) {
 //    	section.setToolTipText(string);
     }
-
-
-	protected abstract void createContent(Composite parent, IWidgetToolkit widgetToolkit);
 
 }

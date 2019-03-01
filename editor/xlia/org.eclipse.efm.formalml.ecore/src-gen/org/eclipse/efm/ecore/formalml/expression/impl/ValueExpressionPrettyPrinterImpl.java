@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -119,6 +119,7 @@ public abstract class ValueExpressionPrettyPrinterImpl extends MinimalEObjectImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSymbol() {
 		return symbol;
 	}
@@ -128,6 +129,7 @@ public abstract class ValueExpressionPrettyPrinterImpl extends MinimalEObjectImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSymbol(String newSymbol) {
 		String oldSymbol = symbol;
 		symbol = newSymbol;
@@ -140,6 +142,7 @@ public abstract class ValueExpressionPrettyPrinterImpl extends MinimalEObjectImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PRINTER_FIX getFix() {
 		return fix;
 	}
@@ -149,6 +152,7 @@ public abstract class ValueExpressionPrettyPrinterImpl extends MinimalEObjectImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFix(PRINTER_FIX newFix) {
 		PRINTER_FIX oldFix = fix;
 		fix = newFix == null ? FIX_EDEFAULT : newFix;
@@ -161,6 +165,7 @@ public abstract class ValueExpressionPrettyPrinterImpl extends MinimalEObjectImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getSpecific() {
 		if (specific == null) {
 			specific = new EDataTypeUniqueEList<String>(String.class, this, ExpressionPackage.VALUE_EXPRESSION_PRETTY_PRINTER__SPECIFIC);
@@ -257,7 +262,7 @@ public abstract class ValueExpressionPrettyPrinterImpl extends MinimalEObjectImp
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (symbol: ");
 		result.append(symbol);
 		result.append(", fix: ");

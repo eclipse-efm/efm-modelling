@@ -193,6 +193,31 @@
          </enabledWhen>
       </handler>
    </extension>
+   
+<!-- AFIN DE TEST RAPIDE
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            description="Test new Features"
+            id="org.eclipse.efm.execution.launchconfiguration.commands.category.runTest"
+            name="Test new Features">
+      </category>
+      <command
+            categoryId="org.eclipse.efm.execution.launchconfiguration.commands.category.runTest"
+            description="Test new Features"
+            id="org.eclipse.efm.execution.launchconfiguration.command.runTest"
+            name="Test new Features">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.efm.execution.launchconfiguration.handlers.RunTestHandler"
+            commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest">
+      </handler>
+   </extension>
+ AFIN DE TEST RAPIDE -->
+
    <extension
          point="org.eclipse.ui.bindings">
       <key
@@ -224,6 +249,15 @@
                   id="org.eclipse.efm.execution.launchconfiguration.menu.graphviz"
                   mnemonic="V">
             </command>
+            
+<!-- AFIN DE TEST RAPIDE - ->
+            <command
+                  commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest"
+                  icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/debug_exc.png"
+                  id="org.eclipse.efm.execution.launchconfiguration.menu.runTest"
+                  mnemonic="T">
+            </command>
+<!- - AFIN DE TEST RAPIDE -->
          </menu>
       </menuContribution>
       <menuContribution
@@ -251,6 +285,15 @@
                   id="org.eclipse.efm.execution.launchconfiguration.menu.graphviz"
                   mnemonic="V">
             </command>
+            
+<!-- AFIN DE TEST RAPIDE - ->
+            <command
+                  commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest"
+                  icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/debug_exc.png"
+                  id="org.eclipse.efm.execution.launchconfiguration.menu.runTest"
+                  mnemonic="T">
+            </command>
+<!- - AFIN DE TEST RAPIDE -->
          </menu>
       </menuContribution>
    </extension>
@@ -288,6 +331,16 @@
                   style="pulldown"
                   tooltip="Symbolic Execution Workflow Tools">
             </command>
+            
+<!-- AFIN DE TEST RAPIDE -->
+            <command
+                  commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest"
+                  icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/debug_exc.png"
+                  id="org.eclipse.efm.execution.launchconfiguration.menu.runTest"
+                  mnemonic="T"
+                  tooltip="Test New Features">
+            </command>
+<!-- AFIN DE TEST RAPIDE -->        
          </toolbar>
       </menuContribution>
       <menuContribution
@@ -306,6 +359,16 @@
                   mnemonic="V"
                   tooltip="Graph Visualization">
             </command>
+            
+<!-- AFIN DE TEST RAPIDE - ->
+            <command
+                  commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest"
+                  icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/debug_exc.png"
+                  id="org.eclipse.efm.execution.launchconfiguration.menu.runTest"
+                  mnemonic="T"
+                  tooltip="Test New Features">
+            </command>
+<!- - AFIN DE TEST RAPIDE -->
       </menuContribution>
    </extension>
    <extension

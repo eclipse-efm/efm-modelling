@@ -85,6 +85,7 @@ public class WorkspaceImpl extends MinimalEObjectImpl.Container implements Works
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Location getLocation() {
 		return location;
 	}
@@ -109,6 +110,7 @@ public class WorkspaceImpl extends MinimalEObjectImpl.Container implements Works
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocation(Location newLocation) {
 		if (newLocation != location) {
 			NotificationChain msgs = null;
@@ -128,6 +130,7 @@ public class WorkspaceImpl extends MinimalEObjectImpl.Container implements Works
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Project getProject() {
 		return project;
 	}
@@ -152,6 +155,7 @@ public class WorkspaceImpl extends MinimalEObjectImpl.Container implements Works
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProject(Project newProject) {
 		if (newProject != project) {
 			NotificationChain msgs = null;

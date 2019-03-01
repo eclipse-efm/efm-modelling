@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -170,7 +170,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link StatemachinePackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -184,17 +184,24 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 		if (isInited) return (StatemachinePackage)EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI);
 
 		// Obtain or create and register package
-		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof StatemachinePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new StatemachinePackageImpl());
+		Object registeredStatemachinePackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		StatemachinePackageImpl theStatemachinePackage = registeredStatemachinePackage instanceof StatemachinePackageImpl ? (StatemachinePackageImpl)registeredStatemachinePackage : new StatemachinePackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) instanceof FormalmlPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI) : FormalmlPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) instanceof InfrastructurePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) : InfrastructurePackage.eINSTANCE);
-		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
-		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) instanceof ExpressionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) : ExpressionPackage.eINSTANCE);
-		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) instanceof StatementPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) : StatementPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI);
+		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(registeredPackage instanceof FormalmlPackageImpl ? registeredPackage : FormalmlPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI);
+		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(registeredPackage instanceof InfrastructurePackageImpl ? registeredPackage : InfrastructurePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI);
+		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(registeredPackage instanceof DatatypePackageImpl ? registeredPackage : DatatypePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
+		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(registeredPackage instanceof ExpressionPackageImpl ? registeredPackage : ExpressionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI);
+		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(registeredPackage instanceof StatementPackageImpl ? registeredPackage : StatementPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theStatemachinePackage.createPackageContents();
@@ -217,7 +224,6 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 		// Mark meta-data to indicate it can't be changed
 		theStatemachinePackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(StatemachinePackage.eNS_URI, theStatemachinePackage);
 		return theStatemachinePackage;
@@ -228,6 +234,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStatemachine() {
 		return statemachineEClass;
 	}
@@ -237,6 +244,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getStatemachine_Region() {
 		return (EReference)statemachineEClass.getEStructuralFeatures().get(0);
 	}
@@ -246,6 +254,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRegion() {
 		return regionEClass;
 	}
@@ -255,6 +264,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRegion_Vertex() {
 		return (EReference)regionEClass.getEStructuralFeatures().get(0);
 	}
@@ -264,6 +274,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVertex() {
 		return vertexEClass;
 	}
@@ -273,6 +284,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVertex_Transition() {
 		return (EReference)vertexEClass.getEStructuralFeatures().get(0);
 	}
@@ -282,6 +294,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVertex_Moe() {
 		return (EReference)vertexEClass.getEStructuralFeatures().get(1);
 	}
@@ -291,6 +304,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPseudostate() {
 		return pseudostateEClass;
 	}
@@ -300,6 +314,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPseudostate_Kind() {
 		return (EAttribute)pseudostateEClass.getEStructuralFeatures().get(0);
 	}
@@ -309,6 +324,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getState() {
 		return stateEClass;
 	}
@@ -318,6 +334,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getState_Simple() {
 		return (EAttribute)stateEClass.getEStructuralFeatures().get(0);
 	}
@@ -327,6 +344,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getState_Composite() {
 		return (EAttribute)stateEClass.getEStructuralFeatures().get(1);
 	}
@@ -336,6 +354,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getState_Orthogonal() {
 		return (EAttribute)stateEClass.getEStructuralFeatures().get(2);
 	}
@@ -345,6 +364,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getState_Region() {
 		return (EReference)stateEClass.getEStructuralFeatures().get(3);
 	}
@@ -354,6 +374,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFinalState() {
 		return finalStateEClass;
 	}
@@ -363,6 +384,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStartState() {
 		return startStateEClass;
 	}
@@ -372,6 +394,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTransition() {
 		return transitionEClass;
 	}
@@ -381,6 +404,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTransition_Transient() {
 		return (EAttribute)transitionEClass.getEStructuralFeatures().get(0);
 	}
@@ -390,6 +414,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_Moe() {
 		return (EReference)transitionEClass.getEStructuralFeatures().get(1);
 	}
@@ -399,6 +424,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_Target() {
 		return (EReference)transitionEClass.getEStructuralFeatures().get(2);
 	}
@@ -408,6 +434,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_Behavior() {
 		return (EReference)transitionEClass.getEStructuralFeatures().get(3);
 	}
@@ -417,6 +444,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_Trigger() {
 		return (EReference)transitionEClass.getEStructuralFeatures().get(4);
 	}
@@ -426,6 +454,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_Guard() {
 		return (EReference)transitionEClass.getEStructuralFeatures().get(5);
 	}
@@ -435,6 +464,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_Tguard() {
 		return (EReference)transitionEClass.getEStructuralFeatures().get(6);
 	}
@@ -444,6 +474,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTransition_Effect() {
 		return (EReference)transitionEClass.getEStructuralFeatures().get(7);
 	}
@@ -453,6 +484,17 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EReference getTransition_TargetExpression() {
+		return (EReference)transitionEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getTransitionMoe() {
 		return transitionMoeEClass;
 	}
@@ -462,6 +504,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTransitionMoe_Moc() {
 		return (EAttribute)transitionMoeEClass.getEStructuralFeatures().get(0);
 	}
@@ -471,6 +514,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTransitionMoe_IsElse() {
 		return (EAttribute)transitionMoeEClass.getEStructuralFeatures().get(1);
 	}
@@ -480,7 +524,8 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTransitionMoe_Prior() {
+	@Override
+	public EAttribute getTransitionMoe_Priority() {
 		return (EAttribute)transitionMoeEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -489,7 +534,8 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTransitionMoe_Proba() {
+	@Override
+	public EAttribute getTransitionMoe_Probability() {
 		return (EAttribute)transitionMoeEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -498,6 +544,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getPseudostateKind() {
 		return pseudostateKindEEnum;
 	}
@@ -507,6 +554,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTransitionMoc() {
 		return transitionMocEEnum;
 	}
@@ -516,6 +564,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatemachineFactory getStatemachineFactory() {
 		return (StatemachineFactory)getEFactoryInstance();
 	}
@@ -571,12 +620,13 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 		createEReference(transitionEClass, TRANSITION__GUARD);
 		createEReference(transitionEClass, TRANSITION__TGUARD);
 		createEReference(transitionEClass, TRANSITION__EFFECT);
+		createEReference(transitionEClass, TRANSITION__TARGET_EXPRESSION);
 
 		transitionMoeEClass = createEClass(TRANSITION_MOE);
 		createEAttribute(transitionMoeEClass, TRANSITION_MOE__MOC);
 		createEAttribute(transitionMoeEClass, TRANSITION_MOE__IS_ELSE);
-		createEAttribute(transitionMoeEClass, TRANSITION_MOE__PRIOR);
-		createEAttribute(transitionMoeEClass, TRANSITION_MOE__PROBA);
+		createEAttribute(transitionMoeEClass, TRANSITION_MOE__PRIORITY);
+		createEAttribute(transitionMoeEClass, TRANSITION_MOE__PROBABILITY);
 
 		// Create enums
 		pseudostateKindEEnum = createEEnum(PSEUDOSTATE_KIND);
@@ -609,8 +659,8 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 		// Obtain other dependent packages
 		InfrastructurePackage theInfrastructurePackage = (InfrastructurePackage)EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI);
 		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
-		ExpressionPackage theExpressionPackage = (ExpressionPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
 		StatementPackage theStatementPackage = (StatementPackage)EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI);
+		ExpressionPackage theExpressionPackage = (ExpressionPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -635,7 +685,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 
 		initEClass(vertexEClass, Vertex.class, "Vertex", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVertex_Transition(), this.getTransition(), null, "transition", null, 0, -1, Vertex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getVertex_Moe(), theInfrastructurePackage.getRoutine(), null, "moe", null, 0, -1, Vertex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVertex_Moe(), theInfrastructurePackage.getModelOfExecution(), null, "moe", null, 0, 1, Vertex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pseudostateEClass, Pseudostate.class, "Pseudostate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPseudostate_Kind(), this.getPseudostateKind(), "kind", null, 0, 1, Pseudostate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -653,18 +703,19 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 		initEClass(transitionEClass, Transition.class, "Transition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTransition_Transient(), ecorePackage.getEBoolean(), "transient", null, 1, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_Moe(), this.getTransitionMoe(), null, "moe", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTransition_Target(), theExpressionPackage.getExpression(), null, "target", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransition_Target(), this.getVertex(), null, "target", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_Behavior(), theStatementPackage.getBlockStatement(), null, "behavior", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_Trigger(), theStatementPackage.getInputComStatement(), null, "trigger", null, 0, -1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_Guard(), theStatementPackage.getAbstractGuardStatement(), null, "guard", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_Tguard(), theStatementPackage.getTimedGuardStatement(), null, "tguard", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_Effect(), theStatementPackage.getStatement(), null, "effect", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransition_TargetExpression(), theExpressionPackage.getExpression(), null, "targetExpression", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(transitionMoeEClass, TransitionMoe.class, "TransitionMoe", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTransitionMoe_Moc(), this.getTransitionMoc(), "moc", "simple", 0, 1, TransitionMoe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTransitionMoe_IsElse(), ecorePackage.getEBoolean(), "isElse", "false", 1, 1, TransitionMoe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTransitionMoe_Prior(), ecorePackage.getEInt(), "prior", "0", 1, 1, TransitionMoe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTransitionMoe_Proba(), ecorePackage.getEFloat(), "proba", "1.0", 1, 1, TransitionMoe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTransitionMoe_Priority(), ecorePackage.getEInt(), "priority", "0", 1, 1, TransitionMoe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTransitionMoe_Probability(), ecorePackage.getEFloat(), "probability", "1.0", 1, 1, TransitionMoe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(pseudostateKindEEnum, PseudostateKind.class, "PseudostateKind");
@@ -677,7 +728,7 @@ public class StatemachinePackageImpl extends EPackageImpl implements Statemachin
 		addEEnumLiteral(pseudostateKindEEnum, PseudostateKind.CHOICE);
 		addEEnumLiteral(pseudostateKindEEnum, PseudostateKind.ENTRY_POINT);
 		addEEnumLiteral(pseudostateKindEEnum, PseudostateKind.EXIT_POINT);
-		addEEnumLiteral(pseudostateKindEEnum, PseudostateKind.TERMINATE);
+		addEEnumLiteral(pseudostateKindEEnum, PseudostateKind.TERMINAL);
 		addEEnumLiteral(pseudostateKindEEnum, PseudostateKind.RETURN);
 
 		initEEnum(transitionMocEEnum, TransitionMoc.class, "TransitionMoc");

@@ -56,7 +56,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Heuristic Trials</em>' attribute.
 	 * @see #setHeuristicTrials(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_HeuristicTrials()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getHeuristicTrials();
@@ -82,7 +82,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Objective Rate Goal</em>' attribute.
 	 * @see #setObjectiveRateGoal(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_ObjectiveRateGoal()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getObjectiveRateGoal();
@@ -108,7 +108,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Objective Rest Goal</em>' attribute.
 	 * @see #setObjectiveRestGoal(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_ObjectiveRestGoal()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getObjectiveRestGoal();
@@ -163,7 +163,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Directive Trace Count</em>' attribute.
 	 * @see #setDirectiveTraceCount(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_DirectiveTraceCount()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getDirectiveTraceCount();
@@ -189,7 +189,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Directive Trace Size</em>' attribute.
 	 * @see #setDirectiveTraceSize(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_DirectiveTraceSize()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getDirectiveTraceSize();
@@ -244,7 +244,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Lookahead Depth</em>' attribute.
 	 * @see #setLookaheadDepth(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_LookaheadDepth()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getLookaheadDepth();
@@ -270,7 +270,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Lookahead Width</em>' attribute.
 	 * @see #setLookaheadWidth(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_LookaheadWidth()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getLookaheadWidth();
@@ -296,7 +296,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Hit Strongly Random Enabled</em>' attribute.
 	 * @see #setHitStronglyRandomEnabled(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_HitStronglyRandomEnabled()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isHitStronglyRandomEnabled();
@@ -322,7 +322,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Hit Strongly Count</em>' attribute.
 	 * @see #setHitStronglyCount(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_HitStronglyCount()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getHitStronglyCount();
@@ -348,7 +348,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Hit Weakly Random Enabled</em>' attribute.
 	 * @see #setHitWeaklyRandomEnabled(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_HitWeaklyRandomEnabled()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isHitWeaklyRandomEnabled();
@@ -374,7 +374,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Hit Weakly Count</em>' attribute.
 	 * @see #setHitWeaklyCount(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_HitWeaklyCount()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getHitWeaklyCount();
@@ -400,7 +400,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Hit Other Random Enabled</em>' attribute.
 	 * @see #setHitOtherRandomEnabled(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_HitOtherRandomEnabled()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isHitOtherRandomEnabled();
@@ -426,7 +426,7 @@ public interface CoverageHeuristic extends EObject {
 	 * @return the value of the '<em>Hit Other Count</em>' attribute.
 	 * @see #setHitOtherCount(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getCoverageHeuristic_HitOtherCount()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getHitOtherCount();

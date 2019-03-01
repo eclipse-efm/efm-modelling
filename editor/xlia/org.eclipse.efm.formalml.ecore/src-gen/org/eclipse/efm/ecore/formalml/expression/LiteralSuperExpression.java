@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,7 +13,6 @@
 package org.eclipse.efm.ecore.formalml.expression;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -32,7 +31,6 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
  * @generated
  */
 public interface LiteralSuperExpression extends LiteralReferenceExpression {
-
 	/**
 	 * Returns the value of the '<em><b>Model</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -58,4 +56,5 @@ public interface LiteralSuperExpression extends LiteralReferenceExpression {
 	 * @generated
 	 */
 	void setModel(Machine value);
+
 } // LiteralSuperExpression

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -102,6 +102,7 @@ public class InterruptStatementImpl extends StatementImpl implements InterruptSt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InterruptStatementKind getKind() {
 		return kind;
 	}
@@ -111,6 +112,7 @@ public class InterruptStatementImpl extends StatementImpl implements InterruptSt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKind(InterruptStatementKind newKind) {
 		InterruptStatementKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
@@ -123,6 +125,7 @@ public class InterruptStatementImpl extends StatementImpl implements InterruptSt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Expression> getExpr() {
 		if (expr == null) {
 			expr = new EObjectContainmentEList<Expression>(Expression.class, this, StatementPackage.INTERRUPT_STATEMENT__EXPR);
@@ -223,7 +226,7 @@ public class InterruptStatementImpl extends StatementImpl implements InterruptSt
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (kind: ");
 		result.append(kind);
 		result.append(')');

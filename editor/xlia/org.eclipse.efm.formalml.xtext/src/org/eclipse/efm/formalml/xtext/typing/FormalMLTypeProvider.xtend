@@ -1,6 +1,7 @@
 package org.eclipse.efm.formalml.xtext.typing
 
 import org.eclipse.efm.ecore.formalml.common.Type
+import org.eclipse.efm.ecore.formalml.datatype.CollectionType
 import org.eclipse.efm.ecore.formalml.datatype.DataStructuredType
 import org.eclipse.efm.ecore.formalml.datatype.DataSupportedType
 import org.eclipse.efm.ecore.formalml.datatype.DataTypeReference
@@ -10,11 +11,15 @@ import org.eclipse.efm.ecore.formalml.datatype.IntervalType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveBooleanType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveCharacterType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveFloatType
+import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceKind
+import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveIntegerType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveRationalType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveRealType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveStringType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveTimeType
+import org.eclipse.efm.ecore.formalml.expression.ArithmeticAssociativeExpression
+import org.eclipse.efm.ecore.formalml.expression.ArithmeticUnaryExpression
 import org.eclipse.efm.ecore.formalml.expression.AssignmentExpression
 import org.eclipse.efm.ecore.formalml.expression.EqualityBinaryExpression
 import org.eclipse.efm.ecore.formalml.expression.Expression
@@ -37,6 +42,7 @@ import org.eclipse.efm.ecore.formalml.expression.LiteralSystemExpression
 import org.eclipse.efm.ecore.formalml.expression.LiteralThisExpression
 import org.eclipse.efm.ecore.formalml.expression.LogicalAssociativeExpression
 import org.eclipse.efm.ecore.formalml.expression.LogicalUnaryExpression
+import org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression
 import org.eclipse.efm.ecore.formalml.expression.RelationalBinaryExpression
 import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior
@@ -45,21 +51,15 @@ import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine
 import org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty
-import org.eclipse.efm.ecore.formalml.infrastructure.System
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
 import org.eclipse.efm.ecore.formalml.statemachine.Statemachine
+import org.eclipse.efm.ecore.formalml.statemachine.Vertex
 import org.eclipse.efm.ecore.formalml.statement.AbstractGuardStatement
 import org.eclipse.efm.ecore.formalml.statement.ConditionalBlockStatement
 import org.eclipse.efm.ecore.formalml.statement.StatementPackage
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.EcoreUtil2
-import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceKind
-import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceType
-import org.eclipse.efm.ecore.formalml.datatype.CollectionType
-import org.eclipse.efm.ecore.formalml.expression.ArithmeticUnaryExpression
-import org.eclipse.efm.ecore.formalml.expression.ArithmeticAssociativeExpression
-import org.eclipse.efm.ecore.formalml.expression.QuantifiedLogicalExpression
-import org.eclipse.efm.ecore.formalml.statemachine.Vertex
 
 class FormalMLTypeProvider {
 
@@ -177,7 +177,7 @@ class FormalMLTypeProvider {
 			LiteralStringExpression : return stringType
 
 			LiteralReferenceElement: {
-				val element = e.value
+				val element = e.element
 				switch( element ) {
 					PropertyDefinition : {
 						switch( e.kind ) {
@@ -199,7 +199,7 @@ class FormalMLTypeProvider {
 					Vertex : return( EcoreUtil2.getContainerOfType(
 						element, typeof(Statemachine) ))
 
-					System      : return element
+					XliaSystem  : return element
 					Statemachine: return element
 					
 					Behavior: return element.eContainer as Type
@@ -221,7 +221,7 @@ class FormalMLTypeProvider {
 					Vertex : return( EcoreUtil2.getContainerOfType(
 						element, typeof(Statemachine) ))
 
-					System      : return element
+					XliaSystem  : return element
 					Statemachine: return element
 
 					Behavior: return( element.eContainer as Type )
@@ -239,7 +239,7 @@ class FormalMLTypeProvider {
 				val machine = EcoreUtil2.getContainerOfType(e, typeof(Machine))
 
 				switch( machine ) {
-					System      : return machine
+					XliaSystem  : return machine
 					Statemachine: return machine
 
 					Behavior: return( machine.eContainer as Type )
@@ -254,7 +254,7 @@ class FormalMLTypeProvider {
 				val machine = EcoreUtil2.getContainerOfType(e, typeof(Machine))
 
 				switch( machine ) {
-					System      : return machine
+					XliaSystem : return machine
 					Statemachine: return machine
 
 					Behavior: return( machine.eContainer as Type )
@@ -269,7 +269,7 @@ class FormalMLTypeProvider {
 				val machine = EcoreUtil2.getContainerOfType(e, typeof(Machine))
 
 				switch( machine ) {
-					System : return if( e != machine ) { machine } else { null }
+					XliaSystem : return if( e != machine ) { machine } else { null }
 
 //					Statemachine: return machine.eContainer as Type
 //					Behavior    : return machine.eContainer as Type
@@ -284,7 +284,7 @@ class FormalMLTypeProvider {
 				val machine = EcoreUtil2.getContainerOfType(e, typeof(Machine))
 
 				switch( machine ) {
-					System : return if( e != machine ) { machine } else { null }
+					XliaSystem : return if( e != machine ) { machine } else { null }
 
 //					Statemachine: return( machine.eContainer as Type )
 //					Behavior    : return( machine.eContainer as Type )
@@ -296,10 +296,10 @@ class FormalMLTypeProvider {
 			}
 
 			LiteralSystemExpression:
-				return( EcoreUtil2.getContainerOfType(e, typeof(System)) )
+				return( EcoreUtil2.getContainerOfType(e, typeof(XliaSystem)) )
 
 			LiteralEnvExpression:
-				return( EcoreUtil2.getContainerOfType(e, typeof(System)) )
+				return( EcoreUtil2.getContainerOfType(e, typeof(XliaSystem)) )
 
 			LiteralNullExpression : return( e.type ?: anyNullType )
 			
@@ -469,7 +469,7 @@ class FormalMLTypeProvider {
 
 		switch( eC ) {
 			AssignmentExpression
-			case eCF == exprPack.assignmentExpression_RigthHandSide :
+			case eCF == exprPack.assignmentExpression_RightHandSide :
 				return( eC.leftHandSide.typeFor(eC.operator) )
 
 			Variable
@@ -535,27 +535,43 @@ class FormalMLTypeProvider {
 	}
 
 
-	def isConformant(Type actualType, Type expectedType) {
-		if( actualType == expectedType ) {
-			true
+	def isConformant(Type actualDataType, Type expectedDataType) {
+		if( actualDataType == expectedDataType ) {
+			return true
+		}
+		
+		val actualType = if( actualDataType instanceof DataTypeReference )
+				actualDataType.typeref ?: actualDataType.support
+				else actualDataType
+		
+		val expectedType = if( expectedDataType instanceof DataTypeReference )
+				expectedDataType.typeref ?: expectedDataType.support
+				else expectedDataType
+
+		if( (actualType === null) || (expectedType === null) )
+		{
+			false
 		}
 		else if( actualType.class == expectedType.class )
 		{
-			if( actualType instanceof PrimitiveInstanceType ) {
-				val expectedPIT = expectedType as PrimitiveInstanceType
-				
-				if( actualType.expected == expectedPIT.expected ) {
-					(actualType.model == expectedPIT.model)
-					|| (actualType.model === null)
-					|| (expectedPIT.model === null)
+			if( actualType.class == expectedType.class )
+			{
+				if( actualType instanceof PrimitiveInstanceType ) {
+					val expectedPIT = expectedType as PrimitiveInstanceType
+					
+					if( actualType.expected == expectedPIT.expected ) {
+						(actualType.model == expectedPIT.model)
+						|| (actualType.model === null)
+						|| (expectedPIT.model === null)
+					}
+					else {
+						(expectedPIT.expected == PrimitiveInstanceKind.ANY)
+						|| (actualType.expected == PrimitiveInstanceKind.ANY)
+					}
 				}
 				else {
-					(expectedPIT.expected == PrimitiveInstanceKind.ANY)
-					|| (actualType.expected == PrimitiveInstanceKind.ANY)
+					true
 				}
-			}
-			else {
-				true
 			}
 		}
 		else if( expectedType == stringType )

@@ -48,6 +48,7 @@ import org.eclipse.uml2.uml.Lifeline;
 import org.eclipse.uml2.uml.Message;
 import org.eclipse.uml2.uml.MessageOccurrenceSpecification;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.OccurrenceSpecification;
 import org.eclipse.uml2.uml.OpaqueBehavior;
 import org.eclipse.uml2.uml.OpaqueExpression;
 import org.eclipse.uml2.uml.Operation;
@@ -57,6 +58,7 @@ import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.PseudostateKind;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.State;
+import org.eclipse.uml2.uml.TimeObservation;
 import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.ValueSpecification;
 
@@ -64,14 +66,20 @@ import org.eclipse.uml2.uml.ValueSpecification;
 //import com.cea.aide.core.form.Verbatim;
 
 
-public class InteractionCodeGenerator
-		extends AbstractCodeGenerator implements NameHelper, InteractionHelper {
+public class InteractionCodeGenerator extends AbstractCodeGenerator
+		implements NameHelper, InteractionHelper, TimeObservationHelper {
+
+	private static final String PACKAGE_NAME_INFERENCE_UTILS = "InferenceUtils";
+
+	HashMap<OccurrenceSpecification, TimeObservation> fMapOfOccSpecTimeObs;
 
 	/**
 	 * Constructor
 	 */
 	public InteractionCodeGenerator(MainCodeGenerator supervisor) {
 		super(supervisor);
+
+		fMapOfOccSpecTimeObs = new HashMap<OccurrenceSpecification, TimeObservation>();
 	}
 
 
@@ -177,11 +185,22 @@ public class InteractionCodeGenerator
 	public void transformInteraction(Interaction element, Collection<Lifeline> lifelines,
 			StatemachineContext lfContext, PrettyPrintWriter writer) {
 
+		fillMapOfTimedObservation(element, fMapOfOccSpecTimeObs);
+
+		boolean isInferenceContext =
+				fSupervisor.fClassFactory.hasPackage(element.getModel(), PACKAGE_NAME_INFERENCE_UTILS);
+
 		writer.appendTabEol2(ClassCodeGenerator.XLIA_SYSTEM_1_0);
 
-		writer.appendTab("system< and > ")
+		String modifier = ( fMapOfOccSpecTimeObs.isEmpty() ? "" : "timed#dense " );
+
+		writer.appendTab(modifier)
+			.append("system< and > ")
 			.append(element.getName())
 			.appendEol(" {");
+
+
+
 
 		ArrayList<DataType> datatypes = new ArrayList<DataType>();
 		ArrayList<Signal> signals = new ArrayList<Signal>();
@@ -193,59 +212,64 @@ public class InteractionCodeGenerator
 		writer.appendEol("@property: ");
 		writer.appendTabEol2("// GLOBAL DECLARATIONS");
 
+
+		//If inference Context
 		writer.appendTab2Eol("//Declarations for the formal inference module");
-		for (DataType datatype : datatypes) {
-			fSupervisor.fDataTypeFactory.performTransformImpl(datatype, writer2);
-		}
+		if(isInferenceContext){
+			//To-Do when DataType class but not for inference context?
+			for (DataType datatype : datatypes) {
+				fSupervisor.fDataTypeFactory.performTransformImpl(datatype, writer2);
+			}
 
-		//function signatures vector
-		writer.appendTab2Eol("// Function signatures vector");
+			//function signatures vector
+			writer.appendTab2Eol("// Function signatures vector");
 
-		writer.appendTab2Eol("public var vector<FonctionSignature> AllSignatures = {");
-		for( Lifeline lifeline : lifelines ) {
-			ConnectableElement representedClass = lifeline.getRepresents();
-			if( representedClass instanceof Property ) {
-				Class clazz = (Class) (((Property)representedClass).getType());
+			writer.appendTab2Eol("public var vector<FonctionSignature> AllSignatures = {");
+			for( Lifeline lifeline : lifelines ) {
+				ConnectableElement representedClass = lifeline.getRepresents();
+				if( representedClass instanceof Property ) {
+					Class clazz = (Class) (((Property)representedClass).getType());
 
-				for (int j = 0; j < clazz.getOperations().size(); j++ ) {
-					Operation operation = clazz.getOperations().get(j);
-					writer.appendTab3("{ \"").append(operation.getName()).append("\" , \"")
-					.append(fSupervisor.fDataTypeFactory.typeName( operation.getReturnResult().getType()))
-					.append(" ").append(operation.getName()).append("(");
+					for (int j = 0; j < clazz.getOperations().size(); j++ ) {
+						Operation operation = clazz.getOperations().get(j);
+						writer.appendTab3("{ \"").append(operation.getName()).append("\" , \"")
+						.append(fSupervisor.fDataTypeFactory.typeName( operation.getReturnResult().getType()))
+						.append(" ").append(operation.getName()).append("(");
 
-					for(int i = 0; i < operation.getOwnedParameters().size()-1; i++){
-						Parameter param = operation.getOwnedParameters().get(i);
-						writer.append( fSupervisor.fDataTypeFactory.typeName(param.getType()) //param.getType().getName() //
-								).append(" ").append(param.getName());
-						if(i < operation.getOwnedParameters().size()-2 ){
-						writer.append(", ");
+						for(int i = 0; i < operation.getOwnedParameters().size()-1; i++){
+							Parameter param = operation.getOwnedParameters().get(i);
+							writer.append( fSupervisor.fDataTypeFactory.typeName(param.getType()) //param.getType().getName() //
+									).append(" ").append(param.getName());
+							if(i < operation.getOwnedParameters().size()-2 ){
+								writer.append(", ");
+							}
+						}
+
+						writer.append(")\" }");
+						if(j < clazz.getOperations().size()-1 ){
+							writer.appendEol(", ");
 						}
 					}
 
-					writer.append(")\" }");
-					if(j < clazz.getOperations().size()-1 ){
-						writer.appendEol(", ");
-					}
+
 				}
-
-
 			}
+
+			writer.appendTab2Eol("};");
+			writer.appendTab2Eol2("// end Function signatures vector");
+
+			//function calls vectors
+			writer.appendTab2Eol("// function calls vectors");
+
+			writer.appendTab2Eol("var integer callIndex = -1;");
+			writer.appendTab2Eol("public var vector<CallData> AllCallsStack;");
+			writer.appendTab2Eol("public var CallData currentCall;");
+
+			writer.appendTab2Eol("public var vector EMPTY_VECTOR;");
+			writer.appendTab2Eol("public const CallData EMPTY_CALL = { \"\" , \"\" , EMPTY_VECTOR , \"\" , \"\" };");
+
+			writer.appendTab2Eol2("// end function calls vectors");
 		}
-
-		writer.appendTab2Eol("};");
-		writer.appendTab2Eol2("// end Function signatures vector");
-
-		//function calls vectors
-		writer.appendTab2Eol("// function calls vectors");
-
-		writer.appendTab2Eol("var integer callIndex = -1;");
-		writer.appendTab2Eol("public var vector<CallData> AllCallsStack;");
-		writer.appendTab2Eol("public var CallData currentCall;");
-
-		writer.appendTab2Eol("public var vector EMPTY_VECTOR;");
-		writer.appendTab2Eol("public const CallData EMPTY_CALL = { \"\" , \"\" , EMPTY_VECTOR , \"\" , \"\" };");
-
-		writer.appendTab2Eol2("// end function calls vectors");
 		writer.appendTab2Eol2("//end Declarations for the formal inference module");
 
 		writer.appendTab2Eol("//  Interaction diagram elements ");
@@ -280,9 +304,7 @@ public class InteractionCodeGenerator
 			if( (signature instanceof Signal) && (declaredSignatures.get(signature) == null) ) {
 				declaredSignatures.put(signature, Boolean.TRUE);
 
-				if( ! ((Signal) signature).getAllAttributes().isEmpty() ) {
-					declareSignalMessageType((Signal) signature, writer);
-				}
+				declareSignalMessageType((Signal) signature, writer);
 			}
 			// declare message
 			//writer.appendTab2("message ") // TODO modif until Diversity support
@@ -299,7 +321,14 @@ public class InteractionCodeGenerator
 			writer.appendEol(";");
 		}
 		writer.appendTab2Eol2("// end Interaction messages declaration");
+
+
+
+		// Interaction TimeObservations declaration
+		declareTimeObsVariables(element.getModel(), writer);
+
 		writer.appendTab2Eol2("// end Interaction diagram elements");
+
 
 
 		writer.appendEol("@composite: ");
@@ -383,6 +412,9 @@ public class InteractionCodeGenerator
 ////					"tr_final", lfContext.currentState, lfContext.finalState);
 //	}
 
+		writer.appendEol("****************************** TEST XLIA MODEL ******************************");
+		fSupervisor.xliaModel.performTransform(writer);
+		writer.appendEol("****************************** TEST XLIA MODEL ******************************");
 
 	}
 
@@ -468,7 +500,7 @@ public class InteractionCodeGenerator
 		if( constraints != null ) {
 			for (Constraint constraint : constraints) {
 				addEffectGuard(lfContext, element ,transition, constraint);
-			};
+			}
 		}
 	}
 
@@ -769,6 +801,8 @@ public class InteractionCodeGenerator
 			transition = lfContext.createTransition(
 					"tr_" + exitState.getName(),
 					choiceNotFirstState, exitState);
+
+			buffer.delete(0, buffer.length());
 
 			buffer.append(element.getName())
 				.append("#current#schedule#region")
@@ -1568,6 +1602,9 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		Transition MsgOcc_tr= lfContext.createTransition(
 				"tr_" + element.getName(), lfContext.currentState, targetState);
 
+		// Set time observation point, if need
+		addTimeObservation(MsgOcc_tr, element, fMapOfOccSpecTimeObs);
+
 //		Message message = element.getMessage();
 //		if( element.isReceive() ){
 //
@@ -1604,6 +1641,9 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		Message message = element.getMessage();
 		if( element.isReceive() ){
 
+			//translate constraints
+			transformElementConstraints(element, MsgOcc_tr, lfContext);
+
 		    StringBuilder MsgReceiveAction = new StringBuilder("input ");
 		    lfContext.inputMessage.add(message);
 
@@ -1628,7 +1668,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 				}
 
 				MsgReceiveAction.append("( ")
-				.append(message.getName()).append( "#params );\n" );//append("#").append(message.getSignature().getName()).append(");\n");
+				.append(nameOfMessageParamsVariable(message)).append( " );\n" );//append("#").append(message.getSignature().getName()).append(");\n");
 
 				if (isStartExecBehavExecution){
 					Behavior behavior = behavExecSpecOfComAct.getBehavior();
@@ -1644,7 +1684,8 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 								for (int i = 0; i < inVars.length; i++) {
 									MsgReceiveAction.append(inVars[i])
 									.append(" = ")
-									.append(message.getName()).append( "#params.")//append("#").append(message.getSignature().getName()).append(".")
+									.append(nameOfMessageParamsVariable(message))
+									.append( ".")//append("#").append(message.getSignature().getName()).append(".")
 									.append(signal.getAllAttributes().get(i).getName())
 									.append(";\n");
 								}
@@ -1659,8 +1700,9 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 		        //ancien
 		        NamedElement signature = message.getSignature();
 		        if( signature instanceof Signal ) {
-		            lfContext.addLocalVariable(message.getName() + "#params"//"#" + message.getSignature().getName()
-		            , (Signal) signature);
+		            lfContext.addLocalVariable(
+		            		nameOfMessageParamsVariable(message)//"#" + message.getSignature().getName()
+		            		, (Signal) signature);
 		        }
 
 				addOpaqueBehaviorEffect(MsgOcc_tr, MsgReceiveAction.toString());
@@ -1726,6 +1768,9 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 			addOpaqueBehaviorEffect(MsgOcc_tr, MsgReceiveAction.toString());
 	   }
 		lfContext.currentState = targetState;
+
+		// update time observation index, if need
+		incrementTimeObservationIndex(MsgOcc_tr, element, fMapOfOccSpecTimeObs);
 	}
 
 

@@ -18,10 +18,10 @@ import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider
 import org.eclipse.xtext.naming.QualifiedName
 import java.util.LinkedList
 
-public class FormalMLQualifiedNameProvider
+class FormalMLQualifiedNameProvider
 		extends DefaultDeclarativeQualifiedNameProvider {
 
-	override public QualifiedName getFullyQualifiedName(EObject obj) {
+	override QualifiedName getFullyQualifiedName(EObject obj) {
 		if (obj instanceof NamedElement) {
 			getFullyQualifiedName(obj as NamedElement)
 		} else {

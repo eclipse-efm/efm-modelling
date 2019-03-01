@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -101,6 +101,7 @@ public abstract class PrimitiveNumberTypeImpl extends PrimitiveTypeImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveNumberSign getSign() {
 		return sign;
 	}
@@ -110,6 +111,7 @@ public abstract class PrimitiveNumberTypeImpl extends PrimitiveTypeImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSign(PrimitiveNumberSign newSign) {
 		PrimitiveNumberSign oldSign = sign;
 		sign = newSign == null ? SIGN_EDEFAULT : newSign;
@@ -122,6 +124,7 @@ public abstract class PrimitiveNumberTypeImpl extends PrimitiveTypeImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getSize() {
 		return size;
 	}
@@ -131,6 +134,7 @@ public abstract class PrimitiveNumberTypeImpl extends PrimitiveTypeImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(int newSize) {
 		int oldSize = size;
 		size = newSize;
@@ -215,7 +219,7 @@ public abstract class PrimitiveNumberTypeImpl extends PrimitiveTypeImpl implemen
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (sign: ");
 		result.append(sign);
 		result.append(", size: ");

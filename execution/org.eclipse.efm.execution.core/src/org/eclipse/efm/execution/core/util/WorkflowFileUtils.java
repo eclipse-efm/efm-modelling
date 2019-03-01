@@ -54,8 +54,7 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	 */
 	public static IPath makeRootRelativeToWorkspacePath(final IPath path) {
 		if( WORKSPACE_PATH.isPrefixOf(path) ) {
-			final IPath relativePath =
-					path.makeRelativeTo(WORKSPACE_PATH);
+			final IPath relativePath = path.makeRelativeTo(WORKSPACE_PATH);
 
 			return relativePath;
 		}
@@ -170,7 +169,7 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	 * @param location
 	 * @return
 	 */
-	public static String makeAbsoluteLocation(String location)
+	public static String makeAbsoluteLocation(final String location)
 	{
 		final IPath absolutePath = makeAbsolutePath(new Path(location));
 
@@ -190,14 +189,14 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	 * @return
 	 */
 	public static String getRawLocation(
-			ILaunchConfiguration configuration,
+			final ILaunchConfiguration configuration,
 			final String storeKey, final String defaultLocation)
 	{
 		String location = null;
 		try {
 			location = configuration.getAttribute(storeKey, defaultLocation);
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 
 			location = null;
@@ -214,7 +213,7 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	 * @return
 	 */
 	public static String getAbsoluteLocation(
-			ILaunchConfiguration configuration,
+			final ILaunchConfiguration configuration,
 			final String storeKey, final String defaultLocation)
 	{
 		final String location = makeAbsoluteLocation(
@@ -230,7 +229,7 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	 * @return
 	 */
 	public static String getRelativeLocation(
-			ILaunchConfiguration configuration,
+			final ILaunchConfiguration configuration,
 			final String storeKey, final String defaultLocation)
 	{
 		final String location = makeRelativeLocation(
@@ -247,7 +246,7 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	 * @param location
 	 */
 	public static void setRelativeLocation(
-			ILaunchConfigurationWorkingCopy configuration,
+			final ILaunchConfigurationWorkingCopy configuration,
 			final String storeKey, final String location)
 	{
 		configuration.setAttribute(storeKey, makeRelativeLocation(location));
@@ -286,8 +285,8 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	 * @param storeKey
 	 * @return
 	 */
-	public static String getModelBasename(ILaunchConfiguration configuration) {
-		String modelPath = getRawLocation(configuration,
+	public static String getModelBasename(final ILaunchConfiguration configuration) {
+		final String modelPath = getRawLocation(configuration,
 				ATTR_SPECIFICATION_MODEL_FILE_LOCATION, EMPTY_STRING);
 
 		return( modelPath.isEmpty() ? EMPTY_STRING : basename(modelPath) );
@@ -307,7 +306,7 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 	}
 
 
-	public static IResource find(IPath path) {
+	public static IResource find(final IPath path) {
 		return WORKSPACE_ROOT.findMember(path);
 	}
 

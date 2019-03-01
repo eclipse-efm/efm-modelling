@@ -80,6 +80,7 @@ public class SerializerFactoryImpl extends EFactoryImpl implements SerializerFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelGraphvizSerializerWorker createModelGraphvizSerializerWorker() {
 		ModelGraphvizSerializerWorkerImpl modelGraphvizSerializerWorker = new ModelGraphvizSerializerWorkerImpl();
 		return modelGraphvizSerializerWorker;
@@ -90,6 +91,7 @@ public class SerializerFactoryImpl extends EFactoryImpl implements SerializerFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SymbexGraphVizSerializerWorker createSymbexGraphVizSerializerWorker() {
 		SymbexGraphVizSerializerWorkerImpl symbexGraphVizSerializerWorker = new SymbexGraphVizSerializerWorkerImpl();
 		return symbexGraphVizSerializerWorker;
@@ -100,6 +102,7 @@ public class SerializerFactoryImpl extends EFactoryImpl implements SerializerFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BasicTraceSerializer createBasicTraceSerializer() {
 		BasicTraceSerializerImpl basicTraceSerializer = new BasicTraceSerializerImpl();
 		return basicTraceSerializer;
@@ -110,6 +113,7 @@ public class SerializerFactoryImpl extends EFactoryImpl implements SerializerFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TTCNTraceSerializer createTTCNTraceSerializer() {
 		TTCNTraceSerializerImpl ttcnTraceSerializer = new TTCNTraceSerializerImpl();
 		return ttcnTraceSerializer;
@@ -120,6 +124,7 @@ public class SerializerFactoryImpl extends EFactoryImpl implements SerializerFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SerializerPackage getSerializerPackage() {
 		return (SerializerPackage)getEPackage();
 	}

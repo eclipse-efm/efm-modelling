@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,6 +14,7 @@ package org.eclipse.efm.ecore.formalml.infrastructure.impl;
 
 import org.eclipse.efm.ecore.formalml.datatype.CollectionType;
 
+import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification;
 import org.eclipse.efm.ecore.formalml.expression.ValueElementSpecification;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
@@ -42,6 +43,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.BufferImpl#getCast <em>Cast</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.BufferImpl#getInner_buffer <em>Inner buffer</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.BufferImpl#getBuffer <em>Buffer</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.BufferImpl#getBufferRef <em>Buffer Ref</em>}</li>
  * </ul>
  *
  * @generated
@@ -108,6 +110,16 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	protected ValueElementSpecification buffer;
 
 	/**
+	 * The cached value of the '{@link #getBufferRef() <em>Buffer Ref</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBufferRef()
+	 * @generated
+	 * @ordered
+	 */
+	protected LiteralReferenceSpecification bufferRef;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -131,6 +143,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComProtocolKind getProtocol() {
 		return protocol;
 	}
@@ -140,6 +153,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProtocol(ComProtocolKind newProtocol) {
 		ComProtocolKind oldProtocol = protocol;
 		protocol = newProtocol == null ? PROTOCOL_EDEFAULT : newProtocol;
@@ -152,6 +166,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ComCastKind getCast() {
 		return cast;
 	}
@@ -161,6 +176,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCast(ComCastKind newCast) {
 		ComCastKind oldCast = cast;
 		cast = newCast == null ? CAST_EDEFAULT : newCast;
@@ -173,6 +189,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CollectionType getInner_buffer() {
 		return inner_buffer;
 	}
@@ -197,6 +214,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInner_buffer(CollectionType newInner_buffer) {
 		if (newInner_buffer != inner_buffer) {
 			NotificationChain msgs = null;
@@ -216,6 +234,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ValueElementSpecification getBuffer() {
 		return buffer;
 	}
@@ -240,6 +259,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBuffer(ValueElementSpecification newBuffer) {
 		if (newBuffer != buffer) {
 			NotificationChain msgs = null;
@@ -260,12 +280,59 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	 * @generated
 	 */
 	@Override
+	public LiteralReferenceSpecification getBufferRef() {
+		return bufferRef;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetBufferRef(LiteralReferenceSpecification newBufferRef, NotificationChain msgs) {
+		LiteralReferenceSpecification oldBufferRef = bufferRef;
+		bufferRef = newBufferRef;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.BUFFER__BUFFER_REF, oldBufferRef, newBufferRef);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBufferRef(LiteralReferenceSpecification newBufferRef) {
+		if (newBufferRef != bufferRef) {
+			NotificationChain msgs = null;
+			if (bufferRef != null)
+				msgs = ((InternalEObject)bufferRef).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.BUFFER__BUFFER_REF, null, msgs);
+			if (newBufferRef != null)
+				msgs = ((InternalEObject)newBufferRef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.BUFFER__BUFFER_REF, null, msgs);
+			msgs = basicSetBufferRef(newBufferRef, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.BUFFER__BUFFER_REF, newBufferRef, newBufferRef));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case InfrastructurePackage.BUFFER__INNER_BUFFER:
 				return basicSetInner_buffer(null, msgs);
 			case InfrastructurePackage.BUFFER__BUFFER:
 				return basicSetBuffer(null, msgs);
+			case InfrastructurePackage.BUFFER__BUFFER_REF:
+				return basicSetBufferRef(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -286,6 +353,8 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 				return getInner_buffer();
 			case InfrastructurePackage.BUFFER__BUFFER:
 				return getBuffer();
+			case InfrastructurePackage.BUFFER__BUFFER_REF:
+				return getBufferRef();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -309,6 +378,9 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 				return;
 			case InfrastructurePackage.BUFFER__BUFFER:
 				setBuffer((ValueElementSpecification)newValue);
+				return;
+			case InfrastructurePackage.BUFFER__BUFFER_REF:
+				setBufferRef((LiteralReferenceSpecification)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -334,6 +406,9 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 			case InfrastructurePackage.BUFFER__BUFFER:
 				setBuffer((ValueElementSpecification)null);
 				return;
+			case InfrastructurePackage.BUFFER__BUFFER_REF:
+				setBufferRef((LiteralReferenceSpecification)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -354,6 +429,8 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 				return inner_buffer != null;
 			case InfrastructurePackage.BUFFER__BUFFER:
 				return buffer != null;
+			case InfrastructurePackage.BUFFER__BUFFER_REF:
+				return bufferRef != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -371,6 +448,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 				case InfrastructurePackage.BUFFER__CAST: return InfrastructurePackage.COM_PROTOCOL__CAST;
 				case InfrastructurePackage.BUFFER__INNER_BUFFER: return InfrastructurePackage.COM_PROTOCOL__INNER_BUFFER;
 				case InfrastructurePackage.BUFFER__BUFFER: return InfrastructurePackage.COM_PROTOCOL__BUFFER;
+				case InfrastructurePackage.BUFFER__BUFFER_REF: return InfrastructurePackage.COM_PROTOCOL__BUFFER_REF;
 				default: return -1;
 			}
 		}
@@ -390,6 +468,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 				case InfrastructurePackage.COM_PROTOCOL__CAST: return InfrastructurePackage.BUFFER__CAST;
 				case InfrastructurePackage.COM_PROTOCOL__INNER_BUFFER: return InfrastructurePackage.BUFFER__INNER_BUFFER;
 				case InfrastructurePackage.COM_PROTOCOL__BUFFER: return InfrastructurePackage.BUFFER__BUFFER;
+				case InfrastructurePackage.COM_PROTOCOL__BUFFER_REF: return InfrastructurePackage.BUFFER__BUFFER_REF;
 				default: return -1;
 			}
 		}
@@ -405,7 +484,7 @@ public class BufferImpl extends PropertyDefinitionImpl implements Buffer {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (protocol: ");
 		result.append(protocol);
 		result.append(", cast: ");

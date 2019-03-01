@@ -33,8 +33,7 @@ public interface IWorkflowConfigurationSyntax {
 
 	public static final List<String> BEHAVIOR_INITIAL_SAMPLE
 			= Arrays.asList(
-					"// Sequence of elements (separated by newline or semicolon) "
-					+ "\ncharacterizing the desired behavior."
+					"// Sequence of elements characterizing the desired behavior."
 //					"\n// The elements of the sequence may be selected from:",
 //					"\ntransition =\"<transition_name_id>\"",
 //					"\nstate  =\"<state_name_id>\"",
@@ -152,7 +151,9 @@ public interface IWorkflowConfigurationSyntax {
 			+ "\n- output = \"\\toutput %2%->%3%%4%\""
 
 			+ "\n- input#env  = \"\\tINPUT  %2%->%3%%4%\""
-			+ "\n- output#env = \"\\tOUTPUT %2%->%3%%4%\"";
+			+ "\n- output#env = \"\\tOUTPUT %2%->%3%%4%\""
+			
+			+ "\n- trace = \"%4%\"";
 
 
 	  public static final String SYNTAX_TRACE_FORMAT_SPECIFICATION_LINK

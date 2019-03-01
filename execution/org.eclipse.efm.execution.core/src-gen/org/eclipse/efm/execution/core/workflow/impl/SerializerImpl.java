@@ -221,6 +221,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSpecification getFormat() {
 		return format;
 	}
@@ -245,6 +246,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFormat(TraceSpecification newFormat) {
 		if (newFormat != format) {
 			NotificationChain msgs = null;
@@ -264,6 +266,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSpecification getCSS() {
 		return css;
 	}
@@ -288,6 +291,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCSS(TraceSpecification newCSS) {
 		if (newCSS != css) {
 			NotificationChain msgs = null;
@@ -307,6 +311,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSpecification getTrace() {
 		return trace;
 	}
@@ -331,6 +336,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTrace(TraceSpecification newTrace) {
 		if (newTrace != trace) {
 			NotificationChain msgs = null;
@@ -350,6 +356,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFolderName() {
 		return folderName;
 	}
@@ -359,6 +366,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFolderName(String newFolderName) {
 		String oldFolderName = folderName;
 		folderName = newFolderName;
@@ -371,6 +379,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFileName() {
 		return fileName;
 	}
@@ -380,6 +389,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFileName(String newFileName) {
 		String oldFileName = fileName;
 		fileName = newFileName;
@@ -392,6 +402,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledNormalization() {
 		return enabledNormalization;
 	}
@@ -401,6 +412,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledNormalization(boolean newEnabledNormalization) {
 		boolean oldEnabledNormalization = enabledNormalization;
 		enabledNormalization = newEnabledNormalization;
@@ -413,6 +425,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledInitialValuesPrinting() {
 		return enabledInitialValuesPrinting;
 	}
@@ -422,6 +435,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledInitialValuesPrinting(boolean newEnabledInitialValuesPrinting) {
 		boolean oldEnabledInitialValuesPrinting = enabledInitialValuesPrinting;
 		enabledInitialValuesPrinting = newEnabledInitialValuesPrinting;
@@ -434,6 +448,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledLifelinesPrinting() {
 		return enabledLifelinesPrinting;
 	}
@@ -443,6 +458,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledLifelinesPrinting(boolean newEnabledLifelinesPrinting) {
 		boolean oldEnabledLifelinesPrinting = enabledLifelinesPrinting;
 		enabledLifelinesPrinting = newEnabledLifelinesPrinting;
@@ -455,6 +471,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabledModifiedDataSelection() {
 		return enabledModifiedDataSelection;
 	}
@@ -464,6 +481,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabledModifiedDataSelection(boolean newEnabledModifiedDataSelection) {
 		boolean oldEnabledModifiedDataSelection = enabledModifiedDataSelection;
 		enabledModifiedDataSelection = newEnabledModifiedDataSelection;
@@ -636,7 +654,7 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (folderName: ");
 		result.append(folderName);
 		result.append(", fileName: ");

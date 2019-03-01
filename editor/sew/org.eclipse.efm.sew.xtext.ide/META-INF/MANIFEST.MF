@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.efm.sew.xtext,
  org.eclipse.efm.sew.ecore,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide,
- org.antlr.runtime
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.efm.sew.xtext.ide.contentassist.antlr.internal,
  org.eclipse.efm.sew.xtext.ide.contentassist.antlr

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,7 +16,7 @@ import java.util.Collection;
 
 import org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
-import org.eclipse.efm.ecore.formalml.infrastructure.Parameter;
+import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
 import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
 
@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.PortImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.PortImpl#getSignal <em>Signal</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.PortImpl#getParameter <em>Parameter</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.PortImpl#getParameterSet <em>Parameter Set</em>}</li>
  * </ul>
  *
  * @generated
@@ -80,14 +80,14 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 	protected EList<Signal> signal;
 
 	/**
-	 * The cached value of the '{@link #getParameter() <em>Parameter</em>}' containment reference list.
+	 * The cached value of the '{@link #getParameterSet() <em>Parameter Set</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getParameter()
+	 * @see #getParameterSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Parameter> parameter;
+	protected ParameterSet parameterSet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -113,6 +113,7 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ChannelDirection getDirection() {
 		return direction;
 	}
@@ -122,6 +123,7 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDirection(ChannelDirection newDirection) {
 		ChannelDirection oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
@@ -134,6 +136,7 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Signal> getSignal() {
 		if (signal == null) {
 			signal = new EObjectContainmentEList<Signal>(Signal.class, this, InfrastructurePackage.PORT__SIGNAL);
@@ -146,11 +149,44 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Parameter> getParameter() {
-		if (parameter == null) {
-			parameter = new EObjectContainmentEList<Parameter>(Parameter.class, this, InfrastructurePackage.PORT__PARAMETER);
+	@Override
+	public ParameterSet getParameterSet() {
+		return parameterSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetParameterSet(ParameterSet newParameterSet, NotificationChain msgs) {
+		ParameterSet oldParameterSet = parameterSet;
+		parameterSet = newParameterSet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InfrastructurePackage.PORT__PARAMETER_SET, oldParameterSet, newParameterSet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return parameter;
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setParameterSet(ParameterSet newParameterSet) {
+		if (newParameterSet != parameterSet) {
+			NotificationChain msgs = null;
+			if (parameterSet != null)
+				msgs = ((InternalEObject)parameterSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.PORT__PARAMETER_SET, null, msgs);
+			if (newParameterSet != null)
+				msgs = ((InternalEObject)newParameterSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InfrastructurePackage.PORT__PARAMETER_SET, null, msgs);
+			msgs = basicSetParameterSet(newParameterSet, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InfrastructurePackage.PORT__PARAMETER_SET, newParameterSet, newParameterSet));
 	}
 
 	/**
@@ -163,8 +199,8 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 		switch (featureID) {
 			case InfrastructurePackage.PORT__SIGNAL:
 				return ((InternalEList<?>)getSignal()).basicRemove(otherEnd, msgs);
-			case InfrastructurePackage.PORT__PARAMETER:
-				return ((InternalEList<?>)getParameter()).basicRemove(otherEnd, msgs);
+			case InfrastructurePackage.PORT__PARAMETER_SET:
+				return basicSetParameterSet(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -181,8 +217,8 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 				return getDirection();
 			case InfrastructurePackage.PORT__SIGNAL:
 				return getSignal();
-			case InfrastructurePackage.PORT__PARAMETER:
-				return getParameter();
+			case InfrastructurePackage.PORT__PARAMETER_SET:
+				return getParameterSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -203,9 +239,8 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 				getSignal().clear();
 				getSignal().addAll((Collection<? extends Signal>)newValue);
 				return;
-			case InfrastructurePackage.PORT__PARAMETER:
-				getParameter().clear();
-				getParameter().addAll((Collection<? extends Parameter>)newValue);
+			case InfrastructurePackage.PORT__PARAMETER_SET:
+				setParameterSet((ParameterSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -225,8 +260,8 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 			case InfrastructurePackage.PORT__SIGNAL:
 				getSignal().clear();
 				return;
-			case InfrastructurePackage.PORT__PARAMETER:
-				getParameter().clear();
+			case InfrastructurePackage.PORT__PARAMETER_SET:
+				setParameterSet((ParameterSet)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -244,8 +279,8 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 				return direction != DIRECTION_EDEFAULT;
 			case InfrastructurePackage.PORT__SIGNAL:
 				return signal != null && !signal.isEmpty();
-			case InfrastructurePackage.PORT__PARAMETER:
-				return parameter != null && !parameter.isEmpty();
+			case InfrastructurePackage.PORT__PARAMETER_SET:
+				return parameterSet != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -259,7 +294,7 @@ public class PortImpl extends PropertyDefinitionImpl implements Port {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (direction: ");
 		result.append(direction);
 		result.append(')');

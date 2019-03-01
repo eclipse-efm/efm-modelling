@@ -31,6 +31,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -120,15 +121,9 @@ public class TraceElementTableViewer {
 		addNewElementItemForDoubleClick();
 	}
 
-	public void setFocus() {
-		fTableViewer.getControl().setFocus();
-	}
-
-
 	public void removeAll() {
 		fTableViewer.getTable().removeAll();
 	}
-
 
 
 	public List<TraceElement> getTraceElements() {
@@ -246,7 +241,12 @@ public class TraceElementTableViewer {
 		fTableViewer.getControl().setToolTipText(fTableConfig.TOOLTIP_TEXT);
 
 //		// Set providers
-		fTableViewer.setContentProvider(new ArrayContentProvider());
+		fTableViewer.setContentProvider(new ArrayContentProvider() {
+			@Override
+			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+				super.inputChanged(viewer, oldInput, newInput);
+			}
+		} );
 //		fTableViewer.setLabelProvider(new TraceElementLabelProvider());
 
 //		fTableViewer.addDoubleClickListener(new IDoubleClickListener() {
@@ -443,6 +443,11 @@ public class TraceElementTableViewer {
 	}
 
 
+	private void updateLaunchConfigurationDialog() {
+		fConfigurationProfile.getConfigurationPage().propagateGUIupdate();
+	}
+
+
 	public int lastTablePosition() {
 		final Table table = fTableViewer.getTable();
 
@@ -613,7 +618,7 @@ public class TraceElementTableViewer {
 				new TraceElementAddingDialog(this, null, null);
 
 		if( addingDialog.open() == Window.OK ) {
-			//!! NOTHING
+	        updateLaunchConfigurationDialog();
 		}
 	}
 
@@ -664,6 +669,8 @@ public class TraceElementTableViewer {
 				fTableViewer.add(new TraceElementCustomImpl(
 						TraceElementKind.UNDEFINED, ADD_NEW_ELEMENT));
 			}
+
+	        updateLaunchConfigurationDialog();
 		}
 	}
 
@@ -713,6 +720,7 @@ public class TraceElementTableViewer {
 							(selectionIndex + 1));
 				}
 
+		        updateLaunchConfigurationDialog();
 			}
 		}
 	}
@@ -753,6 +761,8 @@ public class TraceElementTableViewer {
 
 			if( selTraceElement.getNature() != TraceElementKind.UNDEFINED ) {
 				fTableViewer.editElement(selTraceElement, VALUE_COLUMN_INDEX);
+
+		        updateLaunchConfigurationDialog();
 			}
 		}
 	}
@@ -789,6 +799,8 @@ public class TraceElementTableViewer {
 			for( TableItem selection : table.getSelection() ) {
 				fTableViewer.remove( selection.getData() );
 			}
+
+	        updateLaunchConfigurationDialog();
 		}
 	}
 
@@ -820,6 +832,8 @@ public class TraceElementTableViewer {
 //		}
 		fTableViewer.getTable().removeAll();
 		addNewElementItemForDoubleClick();
+
+        updateLaunchConfigurationDialog();
 	}
 
 
@@ -859,6 +873,8 @@ public class TraceElementTableViewer {
 			fTableViewer.insert(selTraceElement, (selectionIndex - 1));
 
 			table.setSelection(selectionIndex - 1);
+
+	        updateLaunchConfigurationDialog();
 		}
 	}
 
@@ -901,6 +917,8 @@ public class TraceElementTableViewer {
 				fTableViewer.insert(selTraceElement, (selectionIndex + 1));
 
 				table.setSelection(selectionIndex + 1);
+
+		        updateLaunchConfigurationDialog();
 			}
 		}
 	}
@@ -947,7 +965,6 @@ public class TraceElementTableViewer {
 
 		configuration.setAttribute(
 				fTableConfig.STORE_KEY, traceSpecification.toSEW());
-
 	}
 
 	public boolean isValid(ILaunchConfiguration configuration) {

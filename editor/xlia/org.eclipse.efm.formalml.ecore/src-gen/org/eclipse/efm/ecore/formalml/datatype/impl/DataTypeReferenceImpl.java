@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -83,6 +83,7 @@ public class DataTypeReferenceImpl extends DataTypeImpl implements DataTypeRefer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataType getTyperef() {
 		if (typeref != null && typeref.eIsProxy()) {
 			InternalEObject oldTyperef = (InternalEObject)typeref;
@@ -109,6 +110,7 @@ public class DataTypeReferenceImpl extends DataTypeImpl implements DataTypeRefer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTyperef(DataType newTyperef) {
 		DataType oldTyperef = typeref;
 		typeref = newTyperef;
@@ -121,6 +123,7 @@ public class DataTypeReferenceImpl extends DataTypeImpl implements DataTypeRefer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataType getSupport() {
 		return support;
 	}
@@ -145,6 +148,7 @@ public class DataTypeReferenceImpl extends DataTypeImpl implements DataTypeRefer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSupport(DataType newSupport) {
 		if (newSupport != support) {
 			NotificationChain msgs = null;

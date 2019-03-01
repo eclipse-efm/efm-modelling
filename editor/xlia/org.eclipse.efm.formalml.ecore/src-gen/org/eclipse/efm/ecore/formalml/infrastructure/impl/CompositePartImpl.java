@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,8 +20,8 @@ import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage;
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Procedure;
-
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
+
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -126,6 +126,7 @@ public class CompositePartImpl extends MinimalEObjectImpl.Container implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Routine> getRoutine() {
 		if (routine == null) {
 			routine = new EObjectContainmentEList<Routine>(Routine.class, this, InfrastructurePackage.COMPOSITE_PART__ROUTINE);
@@ -138,18 +139,7 @@ public class CompositePartImpl extends MinimalEObjectImpl.Container implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Machine> getMachine() {
-		if (machine == null) {
-			machine = new EObjectContainmentEList<Machine>(Machine.class, this, InfrastructurePackage.COMPOSITE_PART__MACHINE);
-		}
-		return machine;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public EList<Procedure> getProcedure() {
 		if (procedure == null) {
 			procedure = new EObjectContainmentEList<Procedure>(Procedure.class, this, InfrastructurePackage.COMPOSITE_PART__PROCEDURE);
@@ -162,6 +152,20 @@ public class CompositePartImpl extends MinimalEObjectImpl.Container implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EList<Machine> getMachine() {
+		if (machine == null) {
+			machine = new EObjectContainmentEList<Machine>(Machine.class, this, InfrastructurePackage.COMPOSITE_PART__MACHINE);
+		}
+		return machine;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EList<InstanceMachine> getInstance() {
 		if (instance == null) {
 			instance = new EObjectContainmentEList<InstanceMachine>(InstanceMachine.class, this, InfrastructurePackage.COMPOSITE_PART__INSTANCE);
@@ -174,6 +178,7 @@ public class CompositePartImpl extends MinimalEObjectImpl.Container implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Behavior> getBehavior() {
 		if (behavior == null) {
 			behavior = new EObjectContainmentEList<Behavior>(Behavior.class, this, InfrastructurePackage.COMPOSITE_PART__BEHAVIOR);

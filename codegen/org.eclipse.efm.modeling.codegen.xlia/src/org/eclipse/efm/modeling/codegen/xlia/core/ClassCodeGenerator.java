@@ -166,6 +166,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 					machinesAsBlock.add( itClass );
 				}
 				else {
+					machinesAsBlock.add( itClass );
 				}
 			}
 			else if( itPE instanceof Package ) {
@@ -271,6 +272,19 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 	}
 
 
+	public boolean hasPackage(Model rootModel, String packageName) {
+		for( Element element : rootModel.getOwnedElements()  ) {
+			if( element instanceof Package ) {
+				if( ((Package) element).getName().equals(packageName) ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	
 	public void collectGlobalElement(Element element,
 			List<DataType> datatypes, List<Signal> signals) {
 		for( EObject container = element.eContainer() ; container != null ;
@@ -327,7 +341,7 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		writer.appendTabEol2(XLIA_SYSTEM_1_0);
 
 
-		writer.appendTabEol("//!!FML:gen< FormalModel >");
+//		writer.appendTabEol("//!!FML:gen< FormalModel >");
 
 		writer.appendTab("system ")
 			.append(element.getName())
@@ -535,9 +549,9 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		//
 		writer.appendTabEol("@property:");
 
-		writer.appendTab2("public buffer fifo<*> buffer_")
-				.append(element.getName())
-				.appendEol2(";");
+//		writer.appendTab2("public buffer fifo<*> buffer_")
+//				.append(element.getName())
+//				.appendEol2(";");
 
 		transformClassContentDefinition(element, writer,
 				properties, machinesAsBlock, blockInstances, behaviors);
@@ -593,9 +607,9 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		//
 		writer.appendTabEol("@property:");
 
-		writer.appendTab2("public buffer fifo<*> buffer_")
-				.append(element.getName())
-				.appendEol2(";");
+//		writer.appendTab2("public buffer fifo<*> buffer_")
+//				.append(element.getName())
+//				.appendEol2(";");
 
 		transformClassContentDefinition(element, writer,
 				properties, machinesAsBlock, blockInstances, behaviors);
@@ -869,9 +883,9 @@ public class ClassCodeGenerator extends AbstractCodeGenerator {
 		//
 		writer.appendTabEol("@property:");
 
-		writer.appendTab2("public buffer fifo<*> buffer_")
-				.append(element.getName())
-				.appendEol2(";");
+//		writer.appendTab2("public buffer fifo<*> buffer_")
+//				.append(element.getName())
+//				.appendEol2(";");
 
 
 		transformClassContentDefinition(element, writer,

@@ -128,6 +128,7 @@ public class OfflineTestWorkerImpl extends WorkerImpl implements OfflineTestWork
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMergedTraceFile() {
 		return mergedTraceFile;
 	}
@@ -137,6 +138,7 @@ public class OfflineTestWorkerImpl extends WorkerImpl implements OfflineTestWork
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMergedTraceFile(String newMergedTraceFile) {
 		String oldMergedTraceFile = mergedTraceFile;
 		mergedTraceFile = newMergedTraceFile;
@@ -149,6 +151,7 @@ public class OfflineTestWorkerImpl extends WorkerImpl implements OfflineTestWork
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTestPurposeFile() {
 		return testPurposeFile;
 	}
@@ -158,6 +161,7 @@ public class OfflineTestWorkerImpl extends WorkerImpl implements OfflineTestWork
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTestPurposeFile(String newTestPurposeFile) {
 		String oldTestPurposeFile = testPurposeFile;
 		testPurposeFile = newTestPurposeFile;
@@ -170,6 +174,7 @@ public class OfflineTestWorkerImpl extends WorkerImpl implements OfflineTestWork
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSpecification getObservable() {
 		return observable;
 	}
@@ -194,6 +199,7 @@ public class OfflineTestWorkerImpl extends WorkerImpl implements OfflineTestWork
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setObservable(TraceSpecification newObservable) {
 		if (newObservable != observable) {
 			NotificationChain msgs = null;
@@ -213,6 +219,7 @@ public class OfflineTestWorkerImpl extends WorkerImpl implements OfflineTestWork
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TraceSpecification getControllable() {
 		return controllable;
 	}
@@ -237,6 +244,7 @@ public class OfflineTestWorkerImpl extends WorkerImpl implements OfflineTestWork
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setControllable(TraceSpecification newControllable) {
 		if (newControllable != controllable) {
 			NotificationChain msgs = null;
@@ -364,7 +372,7 @@ public class OfflineTestWorkerImpl extends WorkerImpl implements OfflineTestWork
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (mergedTraceFile: ");
 		result.append(mergedTraceFile);
 		result.append(", testPurposeFile: ");

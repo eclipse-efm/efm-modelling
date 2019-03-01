@@ -278,7 +278,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link CommonPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -292,16 +292,22 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		if (isInited) return (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
 		// Obtain or create and register package
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new CommonPackageImpl());
+		Object registeredCommonPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		CommonPackageImpl theCommonPackage = registeredCommonPackage instanceof CommonPackageImpl ? (CommonPackageImpl)registeredCommonPackage : new CommonPackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) instanceof WorkflowPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI) : WorkflowPackage.eINSTANCE);
-		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) instanceof CoveragePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI) : CoveragePackage.eINSTANCE);
-		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) instanceof ExtraneousPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI) : ExtraneousPackage.eINSTANCE);
-		TestPackageImpl theTestPackage = (TestPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) instanceof TestPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI) : TestPackage.eINSTANCE);
-		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) instanceof SerializerPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI) : SerializerPackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(WorkflowPackage.eNS_URI);
+		WorkflowPackageImpl theWorkflowPackage = (WorkflowPackageImpl)(registeredPackage instanceof WorkflowPackageImpl ? registeredPackage : WorkflowPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CoveragePackage.eNS_URI);
+		CoveragePackageImpl theCoveragePackage = (CoveragePackageImpl)(registeredPackage instanceof CoveragePackageImpl ? registeredPackage : CoveragePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExtraneousPackage.eNS_URI);
+		ExtraneousPackageImpl theExtraneousPackage = (ExtraneousPackageImpl)(registeredPackage instanceof ExtraneousPackageImpl ? registeredPackage : ExtraneousPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(TestPackage.eNS_URI);
+		TestPackageImpl theTestPackage = (TestPackageImpl)(registeredPackage instanceof TestPackageImpl ? registeredPackage : TestPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SerializerPackage.eNS_URI);
+		SerializerPackageImpl theSerializerPackage = (SerializerPackageImpl)(registeredPackage instanceof SerializerPackageImpl ? registeredPackage : SerializerPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theCommonPackage.createPackageContents();
@@ -322,7 +328,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		// Mark meta-data to indicate it can't be changed
 		theCommonPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(CommonPackage.eNS_URI, theCommonPackage);
 		return theCommonPackage;
@@ -333,6 +338,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWorkspace() {
 		return workspaceEClass;
 	}
@@ -342,6 +348,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorkspace_Location() {
 		return (EReference)workspaceEClass.getEStructuralFeatures().get(0);
 	}
@@ -351,6 +358,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWorkspace_Project() {
 		return (EReference)workspaceEClass.getEStructuralFeatures().get(1);
 	}
@@ -360,6 +368,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLocation() {
 		return locationEClass;
 	}
@@ -369,6 +378,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocation_Root() {
 		return (EAttribute)locationEClass.getEStructuralFeatures().get(0);
 	}
@@ -378,6 +388,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocation_Launch() {
 		return (EAttribute)locationEClass.getEStructuralFeatures().get(1);
 	}
@@ -387,6 +398,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocation_Output() {
 		return (EAttribute)locationEClass.getEStructuralFeatures().get(2);
 	}
@@ -396,6 +408,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocation_Log() {
 		return (EAttribute)locationEClass.getEStructuralFeatures().get(3);
 	}
@@ -405,6 +418,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocation_Debug() {
 		return (EAttribute)locationEClass.getEStructuralFeatures().get(4);
 	}
@@ -414,6 +428,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getProject() {
 		return projectEClass;
 	}
@@ -423,6 +438,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getProject_Source() {
 		return (EAttribute)projectEClass.getEStructuralFeatures().get(0);
 	}
@@ -432,6 +448,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getProject_Model() {
 		return (EAttribute)projectEClass.getEStructuralFeatures().get(1);
 	}
@@ -441,6 +458,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGraphExplorationLimit() {
 		return graphExplorationLimitEClass;
 	}
@@ -450,6 +468,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationLimit_Step() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(0);
 	}
@@ -459,6 +478,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationLimit_Eval() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(1);
 	}
@@ -468,6 +488,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationLimit_Node() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(2);
 	}
@@ -477,6 +498,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationLimit_Height() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(3);
 	}
@@ -486,6 +508,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationLimit_Width() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(4);
 	}
@@ -495,6 +518,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationLimit_Report() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(5);
 	}
@@ -504,6 +528,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationLimit_Save() {
 		return (EAttribute)graphExplorationLimitEClass.getEStructuralFeatures().get(6);
 	}
@@ -513,6 +538,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGraphExplorationQueue() {
 		return graphExplorationQueueEClass;
 	}
@@ -522,6 +548,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationQueue_Strategy() {
 		return (EAttribute)graphExplorationQueueEClass.getEStructuralFeatures().get(0);
 	}
@@ -531,6 +558,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationQueue_HeuristicEnabled() {
 		return (EAttribute)graphExplorationQueueEClass.getEStructuralFeatures().get(1);
 	}
@@ -540,6 +568,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getGraphExplorationQueue_Weight() {
 		return (EAttribute)graphExplorationQueueEClass.getEStructuralFeatures().get(2);
 	}
@@ -549,6 +578,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConsoleLogFormat() {
 		return consoleLogFormatEClass;
 	}
@@ -558,6 +588,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConsoleLogFormat_Format() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(0);
 	}
@@ -567,6 +598,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConsoleLogFormat_Bound() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(1);
 	}
@@ -576,6 +608,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConsoleLogFormat_Step() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(2);
 	}
@@ -585,6 +618,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConsoleLogFormat_Result() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(3);
 	}
@@ -594,6 +628,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConsoleLogFormat_Report() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(4);
 	}
@@ -603,6 +638,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConsoleLogFormat_Verbosity() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(5);
 	}
@@ -612,6 +648,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConsoleLogFormat_SpiderInit() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(6);
 	}
@@ -621,6 +658,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConsoleLogFormat_SpiderStep() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(7);
 	}
@@ -630,6 +668,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConsoleLogFormat_SpiderStop() {
 		return (EAttribute)consoleLogFormatEClass.getEStructuralFeatures().get(8);
 	}
@@ -639,6 +678,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTraceElement() {
 		return traceElementEClass;
 	}
@@ -648,6 +688,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTraceElement_Selected() {
 		return (EAttribute)traceElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -657,6 +698,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTraceElement_Nature() {
 		return (EAttribute)traceElementEClass.getEStructuralFeatures().get(1);
 	}
@@ -666,6 +708,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTraceElement_Value() {
 		return (EAttribute)traceElementEClass.getEStructuralFeatures().get(2);
 	}
@@ -675,6 +718,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTraceSpecification() {
 		return traceSpecificationEClass;
 	}
@@ -684,6 +728,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTraceSpecification_Element() {
 		return (EReference)traceSpecificationEClass.getEStructuralFeatures().get(0);
 	}
@@ -693,6 +738,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getManifest() {
 		return manifestEClass;
 	}
@@ -702,6 +748,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getManifest_Autoconf() {
 		return (EAttribute)manifestEClass.getEStructuralFeatures().get(0);
 	}
@@ -711,6 +758,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getManifest_Autostart() {
 		return (EAttribute)manifestEClass.getEStructuralFeatures().get(1);
 	}
@@ -720,6 +768,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSymbexOption() {
 		return symbexOptionEClass;
 	}
@@ -729,6 +778,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getShellMode() {
 		return shellModeEClass;
 	}
@@ -738,6 +788,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getShellMode_Stop() {
 		return (EAttribute)shellModeEClass.getEStructuralFeatures().get(0);
 	}
@@ -747,6 +798,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCoverageHeuristic() {
 		return coverageHeuristicEClass;
 	}
@@ -756,6 +808,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_HeuristicTrials() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(0);
 	}
@@ -765,6 +818,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_ObjectiveRateGoal() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(1);
 	}
@@ -774,6 +828,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_ObjectiveRestGoal() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(2);
 	}
@@ -783,6 +838,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_HeuristicStart() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(3);
 	}
@@ -792,6 +848,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_DirectiveTraceCount() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(4);
 	}
@@ -801,6 +858,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_DirectiveTraceSize() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(5);
 	}
@@ -810,6 +868,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_DirectiveTraceHeuristic() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(6);
 	}
@@ -819,6 +878,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_LookaheadDepth() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(7);
 	}
@@ -828,6 +888,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_LookaheadWidth() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(8);
 	}
@@ -837,6 +898,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_HitStronglyRandomEnabled() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(9);
 	}
@@ -846,6 +908,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_HitStronglyCount() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(10);
 	}
@@ -855,6 +918,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_HitWeaklyRandomEnabled() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(11);
 	}
@@ -864,6 +928,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_HitWeaklyCount() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(12);
 	}
@@ -873,6 +938,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_HitOtherRandomEnabled() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(13);
 	}
@@ -882,6 +948,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCoverageHeuristic_HitOtherCount() {
 		return (EAttribute)coverageHeuristicEClass.getEStructuralFeatures().get(14);
 	}
@@ -891,6 +958,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDeveloperTuningOption() {
 		return developerTuningOptionEClass;
 	}
@@ -900,6 +968,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_LogTraceFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(0);
 	}
@@ -909,6 +978,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_DebugTraceFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(1);
 	}
@@ -918,6 +988,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_DebugLevel() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(2);
 	}
@@ -927,6 +998,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_DebugFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(3);
 	}
@@ -936,6 +1008,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_OutputFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(4);
 	}
@@ -945,6 +1018,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_SpecificationFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(5);
 	}
@@ -954,6 +1028,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_ExecutableFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(6);
 	}
@@ -963,6 +1038,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_InitializationFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(7);
 	}
@@ -972,6 +1048,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_SymbexGraphFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(8);
 	}
@@ -981,6 +1058,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_ParsedModelFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(9);
 	}
@@ -990,6 +1068,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_CompiledModelFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(10);
 	}
@@ -999,6 +1078,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_SymbexTraceFilename() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(11);
 	}
@@ -1008,6 +1088,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledParsing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(12);
 	}
@@ -1017,6 +1098,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledConfiguring() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(13);
 	}
@@ -1026,6 +1108,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledCompiling() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(14);
 	}
@@ -1035,6 +1118,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledLoading() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(15);
 	}
@@ -1044,6 +1128,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledComputing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(16);
 	}
@@ -1053,6 +1138,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledReporting() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(17);
 	}
@@ -1062,6 +1148,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledSolving() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(18);
 	}
@@ -1071,6 +1158,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledProfiling() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(19);
 	}
@@ -1080,6 +1168,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledAllProcessStage() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(20);
 	}
@@ -1089,6 +1178,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledPreProcessing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(21);
 	}
@@ -1098,6 +1188,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledPostProcessing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(22);
 	}
@@ -1107,6 +1198,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledProcessing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(23);
 	}
@@ -1116,6 +1208,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledPreFiltering() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(24);
 	}
@@ -1125,6 +1218,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledPostFiltering() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(25);
 	}
@@ -1134,6 +1228,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledFiltering() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(26);
 	}
@@ -1143,6 +1238,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledQueue() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(27);
 	}
@@ -1152,6 +1248,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledProgram() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(28);
 	}
@@ -1161,6 +1258,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledStatement() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(29);
 	}
@@ -1170,6 +1268,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledStatementAssignment() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(30);
 	}
@@ -1179,6 +1278,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledStatementCommunication() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(31);
 	}
@@ -1188,6 +1288,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledStatementTestDecision() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(32);
 	}
@@ -1197,6 +1298,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledBytecode() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(33);
 	}
@@ -1206,6 +1308,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledData() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(34);
 	}
@@ -1215,6 +1318,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledTrace() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(35);
 	}
@@ -1224,6 +1328,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledVariable() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(36);
 	}
@@ -1233,6 +1338,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledBuffer() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(37);
 	}
@@ -1242,6 +1348,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledPort() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(38);
 	}
@@ -1251,6 +1358,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledSignal() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(39);
 	}
@@ -1260,6 +1368,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledConnexion() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(40);
 	}
@@ -1269,6 +1378,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledTime() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(41);
 	}
@@ -1278,6 +1388,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledExecutable() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(42);
 	}
@@ -1287,6 +1398,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledActivity() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(43);
 	}
@@ -1296,6 +1408,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledRoutine() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(44);
 	}
@@ -1305,6 +1418,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledTransition() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(45);
 	}
@@ -1314,6 +1428,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledMachine() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(46);
 	}
@@ -1323,6 +1438,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledStatemachine() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(47);
 	}
@@ -1332,6 +1448,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledNameId() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(48);
 	}
@@ -1341,6 +1458,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledQualifiedNameId() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(49);
 	}
@@ -1350,6 +1468,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledFullyQualifiedNameId() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(50);
 	}
@@ -1359,6 +1478,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledRedundance() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(51);
 	}
@@ -1368,6 +1488,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledReferenceCounting() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(52);
 	}
@@ -1377,6 +1498,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledNothing() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(53);
 	}
@@ -1386,6 +1508,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDeveloperTuningOption_EnabledGodMode() {
 		return (EAttribute)developerTuningOptionEClass.getEStructuralFeatures().get(54);
 	}
@@ -1395,6 +1518,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRedundancyDetection() {
 		return redundancyDetectionEClass;
 	}
@@ -1404,6 +1528,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRedundancyDetection_EnabledDetetction() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1413,6 +1538,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRedundancyDetection_PathScope() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1422,6 +1548,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRedundancyDetection_ComparerOperation() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1431,6 +1558,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRedundancyDetection_SolverChoice() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(3);
 	}
@@ -1440,6 +1568,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRedundancyDetection_DataScope() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(4);
 	}
@@ -1449,6 +1578,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRedundancyDetection_EnabledTrivialLoopDetetction() {
 		return (EAttribute)redundancyDetectionEClass.getEStructuralFeatures().get(5);
 	}
@@ -1458,6 +1588,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getAnalysisProfileKind() {
 		return analysisProfileKindEEnum;
 	}
@@ -1467,6 +1598,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getGraphExplorationStrategyKind() {
 		return graphExplorationStrategyKindEEnum;
 	}
@@ -1476,6 +1608,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getConsoleVerbosityKind() {
 		return consoleVerbosityKindEEnum;
 	}
@@ -1485,6 +1618,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTraceElementKind() {
 		return traceElementKindEEnum;
 	}
@@ -1494,6 +1628,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getSolverKind() {
 		return solverKindEEnum;
 	}
@@ -1503,6 +1638,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getHeuristicClassKind() {
 		return heuristicClassKindEEnum;
 	}
@@ -1512,6 +1648,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getCoverageScopeKind() {
 		return coverageScopeKindEEnum;
 	}
@@ -1521,6 +1658,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getCheckingScopeKind() {
 		return checkingScopeKindEEnum;
 	}
@@ -1530,6 +1668,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getDebuglevelKind() {
 		return debuglevelKindEEnum;
 	}
@@ -1539,6 +1678,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getRedundancyPathScope() {
 		return redundancyPathScopeEEnum;
 	}
@@ -1548,6 +1688,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getRedundancyComparerOperation() {
 		return redundancyComparerOperationEEnum;
 	}
@@ -1557,6 +1698,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CommonFactory getCommonFactory() {
 		return (CommonFactory)getEFactoryInstance();
 	}
@@ -1783,18 +1925,18 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getProject_Model(), ecorePackage.getEString(), "model", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(graphExplorationLimitEClass, GraphExplorationLimit.class, "GraphExplorationLimit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGraphExplorationLimit_Step(), ecorePackage.getELong(), "step", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGraphExplorationLimit_Eval(), ecorePackage.getELong(), "eval", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGraphExplorationLimit_Node(), ecorePackage.getELong(), "node", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGraphExplorationLimit_Height(), ecorePackage.getELong(), "height", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGraphExplorationLimit_Width(), ecorePackage.getELong(), "width", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGraphExplorationLimit_Report(), ecorePackage.getELong(), "report", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGraphExplorationLimit_Save(), ecorePackage.getELong(), "save", null, 0, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationLimit_Step(), ecorePackage.getELong(), "step", null, 1, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationLimit_Eval(), ecorePackage.getELong(), "eval", null, 1, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationLimit_Node(), ecorePackage.getELong(), "node", null, 1, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationLimit_Height(), ecorePackage.getELong(), "height", null, 1, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationLimit_Width(), ecorePackage.getELong(), "width", null, 1, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationLimit_Report(), ecorePackage.getELong(), "report", null, 1, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationLimit_Save(), ecorePackage.getELong(), "save", null, 1, 1, GraphExplorationLimit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(graphExplorationQueueEClass, GraphExplorationQueue.class, "GraphExplorationQueue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGraphExplorationQueue_Strategy(), this.getGraphExplorationStrategyKind(), "strategy", "BREADTH_FIRST_SEARCH", 0, 1, GraphExplorationQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGraphExplorationQueue_HeuristicEnabled(), ecorePackage.getEBoolean(), "heuristicEnabled", null, 0, 1, GraphExplorationQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGraphExplorationQueue_Weight(), ecorePackage.getEInt(), "weight", null, 0, 1, GraphExplorationQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationQueue_HeuristicEnabled(), ecorePackage.getEBoolean(), "heuristicEnabled", null, 1, 1, GraphExplorationQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGraphExplorationQueue_Weight(), ecorePackage.getEInt(), "weight", null, 1, 1, GraphExplorationQueue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(consoleLogFormatEClass, ConsoleLogFormat.class, "ConsoleLogFormat", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConsoleLogFormat_Format(), ecorePackage.getEString(), "format", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1808,7 +1950,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getConsoleLogFormat_SpiderStop(), ecorePackage.getEString(), "spiderStop", null, 0, 1, ConsoleLogFormat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(traceElementEClass, TraceElement.class, "TraceElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTraceElement_Selected(), ecorePackage.getEBoolean(), "selected", "true", 0, 1, TraceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTraceElement_Selected(), ecorePackage.getEBoolean(), "selected", "true", 1, 1, TraceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTraceElement_Nature(), this.getTraceElementKind(), "nature", null, 0, 1, TraceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTraceElement_Value(), ecorePackage.getEJavaObject(), "value", null, 0, 1, TraceElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1816,8 +1958,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEReference(getTraceSpecification_Element(), this.getTraceElement(), null, "element", null, 0, -1, TraceSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(manifestEClass, Manifest.class, "Manifest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getManifest_Autoconf(), ecorePackage.getEBoolean(), "autoconf", null, 0, 1, Manifest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getManifest_Autostart(), ecorePackage.getEBoolean(), "autostart", null, 0, 1, Manifest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getManifest_Autoconf(), ecorePackage.getEBoolean(), "autoconf", null, 1, 1, Manifest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getManifest_Autostart(), ecorePackage.getEBoolean(), "autostart", null, 1, 1, Manifest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(symbexOptionEClass, SymbexOption.class, "SymbexOption", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1825,21 +1967,21 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getShellMode_Stop(), ecorePackage.getEString(), "stop", "\"stop.symbex\"", 0, 1, ShellMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(coverageHeuristicEClass, CoverageHeuristic.class, "CoverageHeuristic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCoverageHeuristic_HeuristicTrials(), ecorePackage.getEInt(), "heuristicTrials", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_ObjectiveRateGoal(), ecorePackage.getEInt(), "objectiveRateGoal", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_ObjectiveRestGoal(), ecorePackage.getEInt(), "objectiveRestGoal", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_HeuristicTrials(), ecorePackage.getEInt(), "heuristicTrials", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_ObjectiveRateGoal(), ecorePackage.getEInt(), "objectiveRateGoal", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_ObjectiveRestGoal(), ecorePackage.getEInt(), "objectiveRestGoal", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCoverageHeuristic_HeuristicStart(), this.getHeuristicClassKind(), "heuristicStart", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_DirectiveTraceCount(), ecorePackage.getEInt(), "directiveTraceCount", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_DirectiveTraceSize(), ecorePackage.getEInt(), "directiveTraceSize", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_DirectiveTraceCount(), ecorePackage.getEInt(), "directiveTraceCount", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_DirectiveTraceSize(), ecorePackage.getEInt(), "directiveTraceSize", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCoverageHeuristic_DirectiveTraceHeuristic(), this.getHeuristicClassKind(), "directiveTraceHeuristic", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_LookaheadDepth(), ecorePackage.getEInt(), "lookaheadDepth", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_LookaheadWidth(), ecorePackage.getEInt(), "lookaheadWidth", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_HitStronglyRandomEnabled(), ecorePackage.getEBoolean(), "hitStronglyRandomEnabled", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_HitStronglyCount(), ecorePackage.getEInt(), "hitStronglyCount", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_HitWeaklyRandomEnabled(), ecorePackage.getEBoolean(), "hitWeaklyRandomEnabled", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_HitWeaklyCount(), ecorePackage.getEInt(), "hitWeaklyCount", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_HitOtherRandomEnabled(), ecorePackage.getEBoolean(), "hitOtherRandomEnabled", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCoverageHeuristic_HitOtherCount(), ecorePackage.getEInt(), "hitOtherCount", null, 0, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_LookaheadDepth(), ecorePackage.getEInt(), "lookaheadDepth", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_LookaheadWidth(), ecorePackage.getEInt(), "lookaheadWidth", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_HitStronglyRandomEnabled(), ecorePackage.getEBoolean(), "hitStronglyRandomEnabled", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_HitStronglyCount(), ecorePackage.getEInt(), "hitStronglyCount", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_HitWeaklyRandomEnabled(), ecorePackage.getEBoolean(), "hitWeaklyRandomEnabled", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_HitWeaklyCount(), ecorePackage.getEInt(), "hitWeaklyCount", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_HitOtherRandomEnabled(), ecorePackage.getEBoolean(), "hitOtherRandomEnabled", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverageHeuristic_HitOtherCount(), ecorePackage.getEInt(), "hitOtherCount", null, 1, 1, CoverageHeuristic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(developerTuningOptionEClass, DeveloperTuningOption.class, "DeveloperTuningOption", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDeveloperTuningOption_LogTraceFilename(), ecorePackage.getEString(), "logTraceFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1854,57 +1996,57 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getDeveloperTuningOption_ParsedModelFilename(), ecorePackage.getEString(), "parsedModelFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_CompiledModelFilename(), ecorePackage.getEString(), "compiledModelFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDeveloperTuningOption_SymbexTraceFilename(), ecorePackage.getEString(), "symbexTraceFilename", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledParsing(), ecorePackage.getEBoolean(), "enabledParsing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledConfiguring(), ecorePackage.getEBoolean(), "enabledConfiguring", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledCompiling(), ecorePackage.getEBoolean(), "enabledCompiling", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledLoading(), ecorePackage.getEBoolean(), "enabledLoading", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledComputing(), ecorePackage.getEBoolean(), "enabledComputing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledReporting(), ecorePackage.getEBoolean(), "enabledReporting", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledSolving(), ecorePackage.getEBoolean(), "enabledSolving", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledProfiling(), ecorePackage.getEBoolean(), "enabledProfiling", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledAllProcessStage(), ecorePackage.getEBoolean(), "enabledAllProcessStage", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledPreProcessing(), ecorePackage.getEBoolean(), "enabledPreProcessing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledPostProcessing(), ecorePackage.getEBoolean(), "enabledPostProcessing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledProcessing(), ecorePackage.getEBoolean(), "enabledProcessing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledPreFiltering(), ecorePackage.getEBoolean(), "enabledPreFiltering", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledPostFiltering(), ecorePackage.getEBoolean(), "enabledPostFiltering", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledFiltering(), ecorePackage.getEBoolean(), "enabledFiltering", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledQueue(), ecorePackage.getEBoolean(), "enabledQueue", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledProgram(), ecorePackage.getEBoolean(), "enabledProgram", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledStatement(), ecorePackage.getEBoolean(), "enabledStatement", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledStatementAssignment(), ecorePackage.getEBoolean(), "enabledStatementAssignment", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledStatementCommunication(), ecorePackage.getEBoolean(), "enabledStatementCommunication", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledStatementTestDecision(), ecorePackage.getEBoolean(), "enabledStatementTestDecision", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledBytecode(), ecorePackage.getEBoolean(), "enabledBytecode", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledData(), ecorePackage.getEBoolean(), "enabledData", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledTrace(), ecorePackage.getEBoolean(), "enabledTrace", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledVariable(), ecorePackage.getEBoolean(), "enabledVariable", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledBuffer(), ecorePackage.getEBoolean(), "enabledBuffer", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledPort(), ecorePackage.getEBoolean(), "enabledPort", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledSignal(), ecorePackage.getEBoolean(), "enabledSignal", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledConnexion(), ecorePackage.getEBoolean(), "enabledConnexion", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledTime(), ecorePackage.getEBoolean(), "enabledTime", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledExecutable(), ecorePackage.getEBoolean(), "enabledExecutable", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledActivity(), ecorePackage.getEBoolean(), "enabledActivity", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledRoutine(), ecorePackage.getEBoolean(), "enabledRoutine", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledTransition(), ecorePackage.getEBoolean(), "enabledTransition", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledMachine(), ecorePackage.getEBoolean(), "enabledMachine", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledStatemachine(), ecorePackage.getEBoolean(), "enabledStatemachine", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledNameId(), ecorePackage.getEBoolean(), "enabledNameId", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledQualifiedNameId(), ecorePackage.getEBoolean(), "enabledQualifiedNameId", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledFullyQualifiedNameId(), ecorePackage.getEBoolean(), "enabledFullyQualifiedNameId", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledRedundance(), ecorePackage.getEBoolean(), "enabledRedundance", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledReferenceCounting(), ecorePackage.getEBoolean(), "enabledReferenceCounting", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledNothing(), ecorePackage.getEBoolean(), "enabledNothing", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDeveloperTuningOption_EnabledGodMode(), ecorePackage.getEBoolean(), "enabledGodMode", null, 0, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledParsing(), ecorePackage.getEBoolean(), "enabledParsing", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledConfiguring(), ecorePackage.getEBoolean(), "enabledConfiguring", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledCompiling(), ecorePackage.getEBoolean(), "enabledCompiling", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledLoading(), ecorePackage.getEBoolean(), "enabledLoading", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledComputing(), ecorePackage.getEBoolean(), "enabledComputing", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledReporting(), ecorePackage.getEBoolean(), "enabledReporting", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledSolving(), ecorePackage.getEBoolean(), "enabledSolving", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledProfiling(), ecorePackage.getEBoolean(), "enabledProfiling", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledAllProcessStage(), ecorePackage.getEBoolean(), "enabledAllProcessStage", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledPreProcessing(), ecorePackage.getEBoolean(), "enabledPreProcessing", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledPostProcessing(), ecorePackage.getEBoolean(), "enabledPostProcessing", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledProcessing(), ecorePackage.getEBoolean(), "enabledProcessing", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledPreFiltering(), ecorePackage.getEBoolean(), "enabledPreFiltering", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledPostFiltering(), ecorePackage.getEBoolean(), "enabledPostFiltering", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledFiltering(), ecorePackage.getEBoolean(), "enabledFiltering", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledQueue(), ecorePackage.getEBoolean(), "enabledQueue", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledProgram(), ecorePackage.getEBoolean(), "enabledProgram", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledStatement(), ecorePackage.getEBoolean(), "enabledStatement", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledStatementAssignment(), ecorePackage.getEBoolean(), "enabledStatementAssignment", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledStatementCommunication(), ecorePackage.getEBoolean(), "enabledStatementCommunication", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledStatementTestDecision(), ecorePackage.getEBoolean(), "enabledStatementTestDecision", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledBytecode(), ecorePackage.getEBoolean(), "enabledBytecode", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledData(), ecorePackage.getEBoolean(), "enabledData", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledTrace(), ecorePackage.getEBoolean(), "enabledTrace", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledVariable(), ecorePackage.getEBoolean(), "enabledVariable", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledBuffer(), ecorePackage.getEBoolean(), "enabledBuffer", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledPort(), ecorePackage.getEBoolean(), "enabledPort", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledSignal(), ecorePackage.getEBoolean(), "enabledSignal", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledConnexion(), ecorePackage.getEBoolean(), "enabledConnexion", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledTime(), ecorePackage.getEBoolean(), "enabledTime", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledExecutable(), ecorePackage.getEBoolean(), "enabledExecutable", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledActivity(), ecorePackage.getEBoolean(), "enabledActivity", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledRoutine(), ecorePackage.getEBoolean(), "enabledRoutine", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledTransition(), ecorePackage.getEBoolean(), "enabledTransition", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledMachine(), ecorePackage.getEBoolean(), "enabledMachine", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledStatemachine(), ecorePackage.getEBoolean(), "enabledStatemachine", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledNameId(), ecorePackage.getEBoolean(), "enabledNameId", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledQualifiedNameId(), ecorePackage.getEBoolean(), "enabledQualifiedNameId", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledFullyQualifiedNameId(), ecorePackage.getEBoolean(), "enabledFullyQualifiedNameId", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledRedundance(), ecorePackage.getEBoolean(), "enabledRedundance", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledReferenceCounting(), ecorePackage.getEBoolean(), "enabledReferenceCounting", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledNothing(), ecorePackage.getEBoolean(), "enabledNothing", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeveloperTuningOption_EnabledGodMode(), ecorePackage.getEBoolean(), "enabledGodMode", null, 1, 1, DeveloperTuningOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(redundancyDetectionEClass, RedundancyDetection.class, "RedundancyDetection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRedundancyDetection_EnabledDetetction(), ecorePackage.getEBoolean(), "enabledDetetction", "true", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_EnabledDetetction(), ecorePackage.getEBoolean(), "enabledDetetction", "true", 1, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRedundancyDetection_PathScope(), this.getRedundancyPathScope(), "pathScope", "CURRENT", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRedundancyDetection_ComparerOperation(), this.getRedundancyComparerOperation(), "comparerOperation", "INCLUSION", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRedundancyDetection_SolverChoice(), this.getSolverKind(), "solverChoice", "OMEGA", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRedundancyDetection_DataScope(), ecorePackage.getEString(), "dataScope", "ALL", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRedundancyDetection_EnabledTrivialLoopDetetction(), ecorePackage.getEBoolean(), "enabledTrivialLoopDetetction", "true", 0, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRedundancyDetection_EnabledTrivialLoopDetetction(), ecorePackage.getEBoolean(), "enabledTrivialLoopDetetction", "true", 1, 1, RedundancyDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(analysisProfileKindEEnum, AnalysisProfileKind.class, "AnalysisProfileKind");
@@ -2001,6 +2143,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_ID);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_STATE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.RAW_ATTRIBUTE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_LABEL);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_HEADER);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_DATA);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_INFO);
@@ -2015,6 +2159,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_STRUCT_BEGIN);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_STRUCT_SEPARATOR);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.VALUE_STRUCT_END);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.META_TRACE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.META_DEBUG);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.TIPS);
 
 		initEEnum(solverKindEEnum, SolverKind.class, "SolverKind");

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -94,6 +94,7 @@ public class PrimitiveInstanceTypeImpl extends PrimitiveTypeImpl implements Prim
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PrimitiveInstanceKind getExpected() {
 		return expected;
 	}
@@ -103,6 +104,7 @@ public class PrimitiveInstanceTypeImpl extends PrimitiveTypeImpl implements Prim
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExpected(PrimitiveInstanceKind newExpected) {
 		PrimitiveInstanceKind oldExpected = expected;
 		expected = newExpected == null ? EXPECTED_EDEFAULT : newExpected;
@@ -115,6 +117,7 @@ public class PrimitiveInstanceTypeImpl extends PrimitiveTypeImpl implements Prim
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedElement getModel() {
 		if (model != null && model.eIsProxy()) {
 			InternalEObject oldModel = (InternalEObject)model;
@@ -141,6 +144,7 @@ public class PrimitiveInstanceTypeImpl extends PrimitiveTypeImpl implements Prim
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModel(NamedElement newModel) {
 		NamedElement oldModel = model;
 		model = newModel;
@@ -226,7 +230,7 @@ public class PrimitiveInstanceTypeImpl extends PrimitiveTypeImpl implements Prim
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (expected: ");
 		result.append(expected);
 		result.append(')');

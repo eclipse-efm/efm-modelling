@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,6 +15,7 @@ package org.eclipse.efm.ecore.formalml.statemachine;
 import org.eclipse.efm.ecore.formalml.common.NamedElement;
 
 import org.eclipse.efm.ecore.formalml.expression.Expression;
+
 import org.eclipse.efm.ecore.formalml.statement.AbstractGuardStatement;
 import org.eclipse.efm.ecore.formalml.statement.BlockStatement;
 import org.eclipse.efm.ecore.formalml.statement.InputComStatement;
@@ -40,6 +41,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getGuard <em>Guard</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTguard <em>Tguard</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getEffect <em>Effect</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTargetExpression <em>Target Expression</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransition()
@@ -100,30 +102,30 @@ public interface Transition extends NamedElement {
 	void setMoe(TransitionMoe value);
 
 	/**
-	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Target</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Target</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target</em>' containment reference.
-	 * @see #setTarget(Expression)
+	 * @return the value of the '<em>Target</em>' reference.
+	 * @see #setTarget(Vertex)
 	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransition_Target()
-	 * @model containment="true"
+	 * @model resolveProxies="false"
 	 * @generated
 	 */
-	Expression getTarget();
+	Vertex getTarget();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget <em>Target</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTarget <em>Target</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' containment reference.
+	 * @param value the new value of the '<em>Target</em>' reference.
 	 * @see #getTarget()
 	 * @generated
 	 */
-	void setTarget(Expression value);
+	void setTarget(Vertex value);
 
 	/**
 	 * Returns the value of the '<em><b>Behavior</b></em>' containment reference.
@@ -244,5 +246,31 @@ public interface Transition extends NamedElement {
 	 * @generated
 	 */
 	void setEffect(Statement value);
+
+	/**
+	 * Returns the value of the '<em><b>Target Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Target Expression</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Target Expression</em>' containment reference.
+	 * @see #setTargetExpression(Expression)
+	 * @see org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage#getTransition_TargetExpression()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Expression getTargetExpression();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.statemachine.Transition#getTargetExpression <em>Target Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Target Expression</em>' containment reference.
+	 * @see #getTargetExpression()
+	 * @generated
+	 */
+	void setTargetExpression(Expression value);
 
 } // Transition

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -130,6 +130,22 @@ public class ExpressionAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseLiteralNullExpression(LiteralNullExpression object) {
 				return createLiteralNullExpressionAdapter();
+			}
+			@Override
+			public Adapter caseLiteralAnyValueExpression(LiteralAnyValueExpression object) {
+				return createLiteralAnyValueExpressionAdapter();
+			}
+			@Override
+			public Adapter caseLiteralOptionalValueExpression(LiteralOptionalValueExpression object) {
+				return createLiteralOptionalValueExpressionAdapter();
+			}
+			@Override
+			public Adapter caseLiteralNoneValueExpression(LiteralNoneValueExpression object) {
+				return createLiteralNoneValueExpressionAdapter();
+			}
+			@Override
+			public Adapter caseLiteralAnyOrNoneValueExpression(LiteralAnyOrNoneValueExpression object) {
+				return createLiteralAnyOrNoneValueExpressionAdapter();
 			}
 			@Override
 			public Adapter caseLiteralReferenceExpression(LiteralReferenceExpression object) {
@@ -302,6 +318,10 @@ public class ExpressionAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseExpressionAsPort(ExpressionAsPort object) {
 				return createExpressionAsPortAdapter();
+			}
+			@Override
+			public Adapter caseLiteralReferenceSpecification(LiteralReferenceSpecification object) {
+				return createLiteralReferenceSpecificationAdapter();
 			}
 			@Override
 			public Adapter caseAbstractElement(AbstractElement object) {
@@ -506,6 +526,62 @@ public class ExpressionAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLiteralNullExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralAnyValueExpression <em>Literal Any Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralAnyValueExpression
+	 * @generated
+	 */
+	public Adapter createLiteralAnyValueExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralOptionalValueExpression <em>Literal Optional Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralOptionalValueExpression
+	 * @generated
+	 */
+	public Adapter createLiteralOptionalValueExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralNoneValueExpression <em>Literal None Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralNoneValueExpression
+	 * @generated
+	 */
+	public Adapter createLiteralNoneValueExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralAnyOrNoneValueExpression <em>Literal Any Or None Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralAnyOrNoneValueExpression
+	 * @generated
+	 */
+	public Adapter createLiteralAnyOrNoneValueExpressionAdapter() {
 		return null;
 	}
 
@@ -1108,6 +1184,20 @@ public class ExpressionAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createExpressionAsPortAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification <em>Literal Reference Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification
+	 * @generated
+	 */
+	public Adapter createLiteralReferenceSpecificationAdapter() {
 		return null;
 	}
 

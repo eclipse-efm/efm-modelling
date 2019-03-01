@@ -78,7 +78,7 @@ public interface CoverageWorker extends Worker {
 	 * @return the value of the '<em>Normalization Enabled</em>' attribute.
 	 * @see #setNormalizationEnabled(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getCoverageWorker_NormalizationEnabled()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isNormalizationEnabled();
@@ -104,7 +104,7 @@ public interface CoverageWorker extends Worker {
 	 * @return the value of the '<em>Minimization Enabled</em>' attribute.
 	 * @see #setMinimizationEnabled(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getCoverageWorker_MinimizationEnabled()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isMinimizationEnabled();
@@ -130,7 +130,7 @@ public interface CoverageWorker extends Worker {
 	 * @return the value of the '<em>Stop When Complete</em>' attribute.
 	 * @see #setStopWhenComplete(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getCoverageWorker_StopWhenComplete()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isStopWhenComplete();
@@ -156,7 +156,7 @@ public interface CoverageWorker extends Worker {
 	 * @return the value of the '<em>Break Enabled</em>' attribute.
 	 * @see #setBreakEnabled(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getCoverageWorker_BreakEnabled()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isBreakEnabled();
@@ -182,7 +182,7 @@ public interface CoverageWorker extends Worker {
 	 * @return the value of the '<em>Slice When Complete</em>' attribute.
 	 * @see #setSliceWhenComplete(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getCoverageWorker_SliceWhenComplete()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isSliceWhenComplete();
@@ -208,7 +208,7 @@ public interface CoverageWorker extends Worker {
 	 * @return the value of the '<em>Heuristic Enabled</em>' attribute.
 	 * @see #setHeuristicEnabled(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getCoverageWorker_HeuristicEnabled()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isHeuristicEnabled();

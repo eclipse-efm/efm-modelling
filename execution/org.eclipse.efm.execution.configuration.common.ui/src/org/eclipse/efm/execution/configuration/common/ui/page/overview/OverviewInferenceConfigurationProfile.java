@@ -37,8 +37,10 @@ public class OverviewInferenceConfigurationProfile extends AbstractConfiguration
 	 * Constructor
 	 * @param parentTab
 	 */
-	public OverviewInferenceConfigurationProfile(AbstractConfigurationPage configurationPage) {
-		super(configurationPage);
+	public OverviewInferenceConfigurationProfile(
+			AbstractConfigurationPage configurationPage)
+	{
+		super(configurationPage, false);
 	}
 
 
@@ -59,7 +61,7 @@ public class OverviewInferenceConfigurationProfile extends AbstractConfiguration
 
 		// Trace Sequence
 		fTraceElementTableViewer = new TraceElementTableViewer(this, parent, 2, widgetToolkit,
-				TraceElementTableConfigProvider.getBehaviorSelection(parent.getFont()));
+				TraceElementTableConfigProvider.getInferenceSelection(parent.getFont()));
 
 		addTableViewer(fTraceElementTableViewer);
 
@@ -86,7 +88,7 @@ public class OverviewInferenceConfigurationProfile extends AbstractConfiguration
 	@Override
 	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
-				ATTR_BEHAVIOR_ANALYSIS_ELEMENT_NAME_LIST,
+				ATTR_INFERENCE_ANALYSIS_ELEMENT_NAME_LIST,
 				BEHAVIOR_INITIAL_SAMPLE);
 	}
 
@@ -98,7 +100,7 @@ public class OverviewInferenceConfigurationProfile extends AbstractConfiguration
 
 	@Override
 	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute(ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT, 3);
+		configuration.setAttribute(ATTR_INFERENCE_SELECTION_HOJ_JUMP_HEIGHT, 3);
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -185,6 +185,42 @@ public class ExpressionSwitch<T> extends Switch<T> {
 				if (result == null) result = caseLiteralExpression(literalNullExpression);
 				if (result == null) result = caseExpression(literalNullExpression);
 				if (result == null) result = caseAbstractElement(literalNullExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ExpressionPackage.LITERAL_ANY_VALUE_EXPRESSION: {
+				LiteralAnyValueExpression literalAnyValueExpression = (LiteralAnyValueExpression)theEObject;
+				T result = caseLiteralAnyValueExpression(literalAnyValueExpression);
+				if (result == null) result = caseLiteralExpression(literalAnyValueExpression);
+				if (result == null) result = caseExpression(literalAnyValueExpression);
+				if (result == null) result = caseAbstractElement(literalAnyValueExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ExpressionPackage.LITERAL_OPTIONAL_VALUE_EXPRESSION: {
+				LiteralOptionalValueExpression literalOptionalValueExpression = (LiteralOptionalValueExpression)theEObject;
+				T result = caseLiteralOptionalValueExpression(literalOptionalValueExpression);
+				if (result == null) result = caseLiteralExpression(literalOptionalValueExpression);
+				if (result == null) result = caseExpression(literalOptionalValueExpression);
+				if (result == null) result = caseAbstractElement(literalOptionalValueExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ExpressionPackage.LITERAL_NONE_VALUE_EXPRESSION: {
+				LiteralNoneValueExpression literalNoneValueExpression = (LiteralNoneValueExpression)theEObject;
+				T result = caseLiteralNoneValueExpression(literalNoneValueExpression);
+				if (result == null) result = caseLiteralExpression(literalNoneValueExpression);
+				if (result == null) result = caseExpression(literalNoneValueExpression);
+				if (result == null) result = caseAbstractElement(literalNoneValueExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ExpressionPackage.LITERAL_ANY_OR_NONE_VALUE_EXPRESSION: {
+				LiteralAnyOrNoneValueExpression literalAnyOrNoneValueExpression = (LiteralAnyOrNoneValueExpression)theEObject;
+				T result = caseLiteralAnyOrNoneValueExpression(literalAnyOrNoneValueExpression);
+				if (result == null) result = caseLiteralExpression(literalAnyOrNoneValueExpression);
+				if (result == null) result = caseExpression(literalAnyOrNoneValueExpression);
+				if (result == null) result = caseAbstractElement(literalAnyOrNoneValueExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -565,6 +601,14 @@ public class ExpressionSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ExpressionPackage.LITERAL_REFERENCE_SPECIFICATION: {
+				LiteralReferenceSpecification literalReferenceSpecification = (LiteralReferenceSpecification)theEObject;
+				T result = caseLiteralReferenceSpecification(literalReferenceSpecification);
+				if (result == null) result = caseExpression(literalReferenceSpecification);
+				if (result == null) result = caseAbstractElement(literalReferenceSpecification);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -761,6 +805,66 @@ public class ExpressionSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLiteralNullExpression(LiteralNullExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Literal Any Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Literal Any Value Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLiteralAnyValueExpression(LiteralAnyValueExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Literal Optional Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Literal Optional Value Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLiteralOptionalValueExpression(LiteralOptionalValueExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Literal None Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Literal None Value Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLiteralNoneValueExpression(LiteralNoneValueExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Literal Any Or None Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Literal Any Or None Value Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLiteralAnyOrNoneValueExpression(LiteralAnyOrNoneValueExpression object) {
 		return null;
 	}
 
@@ -1406,6 +1510,21 @@ public class ExpressionSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseExpressionAsPort(ExpressionAsPort object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Literal Reference Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Literal Reference Specification</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLiteralReferenceSpecification(LiteralReferenceSpecification object) {
 		return null;
 	}
 

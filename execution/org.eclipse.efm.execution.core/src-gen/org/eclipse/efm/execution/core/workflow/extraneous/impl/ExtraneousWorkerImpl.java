@@ -101,6 +101,7 @@ public abstract class ExtraneousWorkerImpl extends WorkerImpl implements Extrane
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getExtraSEW() {
 		return extraSEW;
 	}
@@ -110,6 +111,7 @@ public abstract class ExtraneousWorkerImpl extends WorkerImpl implements Extrane
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExtraSEW(String newExtraSEW) {
 		String oldExtraSEW = extraSEW;
 		extraSEW = newExtraSEW;
@@ -122,6 +124,7 @@ public abstract class ExtraneousWorkerImpl extends WorkerImpl implements Extrane
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AnalysisProfileKind> getAnalysisProfileRequired() {
 		if (analysisProfileRequired == null) {
 			analysisProfileRequired = new EDataTypeUniqueEList<AnalysisProfileKind>(AnalysisProfileKind.class, this, ExtraneousPackage.EXTRANEOUS_WORKER__ANALYSIS_PROFILE_REQUIRED);
@@ -208,7 +211,7 @@ public abstract class ExtraneousWorkerImpl extends WorkerImpl implements Extrane
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (extraSEW: ");
 		result.append(extraSEW);
 		result.append(", AnalysisProfileRequired: ");

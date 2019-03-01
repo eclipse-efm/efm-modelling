@@ -153,6 +153,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Manifest getManifest() {
 		return manifest;
 	}
@@ -177,6 +178,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setManifest(Manifest newManifest) {
 		if (newManifest != manifest) {
 			NotificationChain msgs = null;
@@ -196,6 +198,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Workflow getWorkflow() {
 		if (workflow != null && workflow.eIsProxy()) {
 			InternalEObject oldWorkflow = (InternalEObject)workflow;
@@ -222,6 +225,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWorkflow(Workflow newWorkflow) {
 		Workflow oldWorkflow = workflow;
 		workflow = newWorkflow;
@@ -234,6 +238,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Project getProject() {
 		return project;
 	}
@@ -258,6 +263,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProject(Project newProject) {
 		if (newProject != project) {
 			NotificationChain msgs = null;
@@ -277,6 +283,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SupervisorWorker getSupervisor() {
 		return supervisor;
 	}
@@ -301,6 +308,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSupervisor(SupervisorWorker newSupervisor) {
 		if (newSupervisor != supervisor) {
 			NotificationChain msgs = null;
@@ -320,6 +328,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Worker> getWorker() {
 		if (worker == null) {
 			worker = new EObjectContainmentEList<Worker>(Worker.class, this, WorkflowPackage.DIRECTOR__WORKER);
@@ -332,6 +341,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConsoleLogFormat getConsole() {
 		return console;
 	}
@@ -356,6 +366,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConsole(ConsoleLogFormat newConsole) {
 		if (newConsole != console) {
 			NotificationChain msgs = null;
@@ -375,6 +386,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DeveloperTuningOption getDeveloperTuning() {
 		return developerTuning;
 	}
@@ -399,6 +411,7 @@ public class DirectorImpl extends NamedObjectImpl implements Director {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDeveloperTuning(DeveloperTuningOption newDeveloperTuning) {
 		if (newDeveloperTuning != developerTuning) {
 			NotificationChain msgs = null;

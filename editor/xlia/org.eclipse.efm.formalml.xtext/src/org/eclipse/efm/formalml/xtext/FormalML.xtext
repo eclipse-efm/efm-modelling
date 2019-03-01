@@ -42,7 +42,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 Xlia returns XliaModel
 	: prolog = XliaPrologObject
-	  	system = System
+	  	system = XliaSystem
 	;
 
 XliaPrologObject returns XliaObject
@@ -56,7 +56,9 @@ XliaPrologObject returns XliaObject
 
 XliaPrologAttribute returns XliaAttribute
 	: name=( 'system' | 'package' )
-		( ',' value=( LiteralFloatExpression | LiteralStringExpression ) )?
+		( ',' ( 'version:' )?
+			value=( LiteralFloatExpression | LiteralStringExpression )
+		)?
 	;
 
 
@@ -157,7 +159,7 @@ ReservedKeyWord
 	| 'static'    | 'final'
 	| 'volatile'  | 'transient'
 	| 'model'     | 'prototype'   | 'instance'
-	| 'timed'     | 'dense_timed' | 'discrete_timed'
+	| 'timed'     | 'timed#dense' | 'timed#discrete'
 	| 'unsafe'    | 'input_enabled'
 	| 'port'      | 'signal'      | 'message'
 	| 'buffer'    | 'channel'     | 'via'
@@ -169,7 +171,7 @@ ReservedKeyWord
 	| 'choice'    | 'fork'        | 'join'
 	| 'dhistory'  | 'shistory'
 	| 'route'     | 'connector'   | 'connect'
-	| 'env'         | 'rdv'       | 'multi_rdv'
+	| 'env'         | 'rdv'       | 'multirdv'
 	| 'buffer'      | 'unicast'   | 'anycast'
 	| 'multicast' | 'broadcast'
 	| 'boolean'   | 'bool'
@@ -205,7 +207,7 @@ ESIdentifier returns ecore::EString
 	;
 
 ESUfid returns ecore::EString
-	: XLIA_ID  ( ( '.' | ':' | '::' ) XLIA_ID )*
+	: ( 'spec::' | '::' )?  XLIA_ID  ( ( '.' | ':' ) XLIA_ID )*
 	;
 
 UnrestrictedName returns ecore::EString
@@ -267,11 +269,11 @@ enum DesignInstanceKind returns fmlInfra::DesignKind
 	;
 
 
-System returns fmlInfra::System
+XliaSystem returns fmlInfra::XliaSystem
 	: ( ( visibility=VisibilityKind )?
 		& ( timed?='timed' )?
-		& ( dense_timed?='dense_timed' )?
-		& ( discrete_timed?='discrete_timed' )?
+		& ( dense_timed?='timed#dense' )?
+		& ( discrete_timed?='timed#discrete' )?
 		& ( input_enabled ?= 'input_enabled' )?
 		& ( unsafe ?= 'unsafe' )?
 		)
@@ -394,10 +396,10 @@ InstanceMachine returns fmlInfra::InstanceMachine
 	: 'instance' ( 'machine' | 'statemachine' ) ?
 		'<' ( 'model:' )? model=[fmlInfra::Machine|ESUfid] '>'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		/*(paramsSection = DeclareParams)?*/
-//		( ( '(' arg=MixTupleExpressionList ')' )? ';'
-		( ( '(' ( slot+=SlotParameter ( ',' slot+=SlotParameter )* )?')' )? ';'
-		| '{'  ( slot+=SlotProperty ';' )*  '}'
+		( '(' ( slot+=SlotParameter ( ',' slot+=SlotParameter )* )? ')' )?
+		
+		( '{'  ( slot+=SlotProperty ';' )*  '}'
+		| ';'
 		)
 	;
 
@@ -420,6 +422,7 @@ MachineBlock returns fmlInfra::Machine
 	: ( ( visibility=VisibilityKind )?
 		& ( timed?='timed' )?
 		& ( input_enabled ?= 'input_enabled' )?
+		& ( lifeline?='lifeline' )?
 		& ( design=DesignKind )?
 		)
 		'machine'  ('<' ( 'moc:' )?  ( 'and' | 'or' ) '>')?
@@ -720,7 +723,8 @@ Procedure returns fmlInfra::Procedure
 //
 //		compositePart=CompositePart
 
-		( ( region+=StatemachineRegion )+
+		( region+=StatemachineRegion
+		| ( region+=StatemachineNamedRegion )+
 		| region+=StatemachineRegionLite
 		)?
 
@@ -779,6 +783,7 @@ Statemachine returns fmlStmchn::Statemachine
 		( ( visibility=VisibilityKind )?
 		& ( timed?='timed' )?
 		& ( input_enabled ?= 'input_enabled' )?
+		& ( lifeline?='lifeline' )?
 		& ( design=DesignKind )?
 		)
 		'statemachine' ( '<' ( 'moc:' )? ( 'or' | 'and' ) '>' )?
@@ -868,9 +873,19 @@ Statemachine returns fmlStmchn::Statemachine
 		| ( routine+=Routine  | procedure+=Procedure )+
 		)
 
-		( ( '@composite:' | '@statemachine:' )  ( machine +=Statemachine )+
-
-		| ( region+=StatemachineRegion )+
+//		( ( '@composite:' | '@statemachine:' )  ( machine +=Statemachine )+
+		( ( ( '@composite:' | '@statemachine:' )
+	//			( machine +=AnyMachineBlock
+				( machine +=Statemachine
+				| instance+=InstanceMachine
+				)+
+			| '@model:'     ( machine +=AnyMachineBlock )*
+			| '@prototype:' ( machine +=AnyMachineBlock )*
+			| '@instance:'  ( instance+=InstanceMachine )*
+			)+
+			
+		| region+=StatemachineRegion
+		| ( region+=StatemachineNamedRegion )+
 		
 		| region+=StatemachineRegionLite
 		)
@@ -880,7 +895,8 @@ Statemachine returns fmlStmchn::Statemachine
 //
 //		compositePart=CompositePart
 //
-//		( ( region+=StatemachineRegion )+
+//		( region+=StatemachineRegion
+//		| ( region+=StatemachineNamedRegion )+
 //		
 //		| region+=StatemachineRegionLite
 //		)
@@ -896,10 +912,17 @@ Statemachine returns fmlStmchn::Statemachine
 
 StatemachineRegion returns fmlStmchn::Region
 	: {fmlStmchn::Region}
-		( '@region:' 
-		| '@region<'
-			name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?  '>:'
-		)
+		'@region:' 
+
+		( vertex+=State
+		| vertex+=Pseudostate
+		)+
+	;
+
+StatemachineNamedRegion returns fmlStmchn::Region
+	: {fmlStmchn::Region}
+		'@region(' ( 'name:' )?  name=ESIdentifier
+			( unrestrictedName=UnrestrictedName )?  '):'
 
 		( vertex+=State
 		| vertex+=Pseudostate
@@ -932,14 +955,15 @@ CompositeState returns fmlStmchn::State
 		composite?='state' '<' ( 'moc:' )? ( 'or' | orthogonal?='and' ) '>'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		( '{'
-			( ( region+=StatemachineRegion
-			  | '@moe:' ( moe+=moeCompositeStateRoutines )*
-			  | '@transition:' ( transition+=Transition  )*
-			  )+
-			| ( region+=StatemachineRegionLite
-				( transition+=Transition
-				| moe+=moeCompositeStateRoutines
-				)*
+			( ( ( region+=StatemachineRegion
+				| ( region+=StatemachineNamedRegion )+
+			    )
+			  & ( '@moe:' moe=moeCompositeStateRoutines )?
+			  & '@transition:' ( transition+=Transition )*
+			  )
+			| ( ( region+=StatemachineRegionLite )*
+			  & ( moe=moeCompositeStateRoutines  )?
+			  & ( transition+=Transition )*
 			  )
 			)
 		  '}'
@@ -947,13 +971,23 @@ CompositeState returns fmlStmchn::State
 		)
 	;
 
-moeCompositeStateRoutines returns fmlInfra::Routine
-	: { fmlInfra::Routine }
-		name=( '@init' | '@final' | '@enable' | '@disable'
-			| '@concurrency' | '@schedule' | '@irun' |'@run'
-		)
-		bodyBlock=BlockStatement
+moeCompositeStateRoutines returns fmlInfra::ModelOfExecution
+	: { fmlInfra::ModelOfExecution }
+	( ( '@create' createRoutine=moeRoutine )?
+	& ( '@init'   initRoutine=moeRoutine   )?
+	& ( '@final'  finalRoutine=moeRoutine  )?
+
+	& ( '@enable'  enableRoutine=moeRoutine  )?
+	& ( '@disable' disableRoutine=moeRoutine )?
+
+	& ( '@concurrency' concurrencyRoutine=moeRoutine )?
+	& ( '@schedule'    scheduleRoutine=moeRoutine    )?
+
+	& ( '@irun' irunRoutine=moeRoutine )?
+	& ( '@run'  runRoutine=moeRoutine  )?
+	)
 	;
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -962,21 +996,25 @@ moeCompositeStateRoutines returns fmlInfra::Routine
 
 SimpleState returns fmlStmchn::State
 	: { fmlStmchn::State }
-		simple?='state' ( '<' ( 'moc:' )? 'simple' '>' )?
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '{'
-			( transition+=Transition
-			| moe+=moeSimpleStateRoutines
-			)*
-		  '}'
-		| ';'
+	simple?='state' ( '<' ( 'moc:' )? 'simple' '>' )?
+	name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+	( '{'
+		( ( transition+=Transition     )*
+		& ( moe=moeSimpleStateRoutines )?
 		)
+	  '}'
+	| ';'
+	)
 	;
 
-moeSimpleStateRoutines returns fmlInfra::Routine
-	: { fmlInfra::Routine }
-		name=( '@enable' | '@disable' | '@irun' /*| '@run'*/ )
-		bodyBlock=BlockStatement
+moeSimpleStateRoutines returns fmlInfra::ModelOfExecution
+	: { fmlInfra::ModelOfExecution }
+	( ( '@enable'  enableRoutine=moeRoutine  )?
+	& ( '@disable' disableRoutine=moeRoutine )?
+
+	& ( '@irun' irunRoutine=moeRoutine )?
+//	& ( '@run'  runRoutine=moeRoutine  )?
+	)
 	;
 
 
@@ -986,23 +1024,31 @@ moeSimpleStateRoutines returns fmlInfra::Routine
 
 StartState returns fmlStmchn::StartState
 	: { fmlStmchn::StartState }
-		( simple?='state' '<' ( 'moc:' )? 'start' '>' name=ESIdentifier
-		| simple?='#start'
+	( simple?='state' '<' ( 'moc:' )? 'start' '>' name=ESIdentifier
+	| simple?='#start'
+	)
+	( unrestrictedName=UnrestrictedName )?
+	( '{'
+		( ( transition+=Transition    )*
+		& ( moe=moeStartStateRoutines )?
 		)
-		( unrestrictedName=UnrestrictedName )?
-		( '{'
-			( transition+=Transition
-			| moe+=moeStartStateRoutines
-			)*
-		  '}'
-		| ';'
-		)
+	  '}'
+	| ';'
+	)
 	;
 
-moeStartStateRoutines returns fmlInfra::Routine
-	: { fmlInfra::Routine }
-		name=( '@init' | '@enable' | '@disable' | '@irun' /*| '@run'*/ )
-		bodyBlock=BlockStatement
+moeStartStateRoutines returns fmlInfra::ModelOfExecution
+	: { fmlInfra::ModelOfExecution }
+	( ( '@create' createRoutine=moeRoutine )?
+	& ( '@init'   initRoutine=moeRoutine   )?
+	& ( '@final'  finalRoutine=moeRoutine  )?
+
+	& ( '@enable'  enableRoutine=moeRoutine  )?
+	& ( '@disable' disableRoutine=moeRoutine )?
+
+	& ( '@irun' irunRoutine=moeRoutine )?
+//	& ( '@run'  runRoutine=moeRoutine  )?
+	)
 	;
 
 
@@ -1012,21 +1058,23 @@ moeStartStateRoutines returns fmlInfra::Routine
 
 FinalState returns fmlStmchn::FinalState
 	: { fmlStmchn::FinalState }
-		( simple?='state' '<' ( 'moc:' )? 'final' '>' name=ESIdentifier
-		| simple?='#final'
-		)
-		( unrestrictedName=UnrestrictedName )?
-		( '{'
-			( moe+=moeFinalStateRoutines )*
-		  '}'
-		| ';'
-		)
+	( simple?='state' '<' ( 'moc:' )? 'final' '>' name=ESIdentifier
+	| simple?='#final'
+	)
+	( unrestrictedName=UnrestrictedName )?
+	( '{'
+		( moe=moeFinalStateRoutines )?
+	  '}'
+	| ';'
+	)
 	;
 
-moeFinalStateRoutines returns fmlInfra::Routine
-	: { fmlInfra::Routine }
-		name=( '@enable' | '@final' /*| '@run'*/ )
-		bodyBlock=BlockStatement
+moeFinalStateRoutines returns fmlInfra::ModelOfExecution
+	: { fmlInfra::ModelOfExecution }
+	( ( '@enable'  enableRoutine=moeRoutine )?
+	& ( '@final'   finalRoutine=moeRoutine  )?
+//	& ( '@run'     runRoutine=moeRoutine    )?
+	)
 	;
 
 
@@ -1043,9 +1091,13 @@ Pseudostate returns fmlStmchn::Pseudostate
 OtherPseudostate returns fmlStmchn::Pseudostate
 	: { fmlStmchn::Pseudostate }
 		( 'state' | 'pseudostate' ) '<' ( 'moc:' )? kind=PseudostateKind '>'
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-
-		( '{'  ( transition+=Transition )*  '}'
+		name=ESIdentifier
+		( unrestrictedName=UnrestrictedName )?
+		( '{'
+			( ( transition+=Transition    )*
+			& ( moe=moePseudotateRoutines )?
+			)
+		  '}'
 		| ';'
 		)
 
@@ -1060,58 +1112,66 @@ OtherPseudostate returns fmlStmchn::Pseudostate
 //	| PseudostateShallowHistory
 	;
 
+moePseudotateRoutines returns fmlInfra::ModelOfExecution
+	: { fmlInfra::ModelOfExecution }
+	( ( '@enable'  enableRoutine=moeRoutine  )?
+	& ( '@disable' disableRoutine=moeRoutine )?
+	)
+	;
+
+
 
 enum PseudostateKind returns fmlStmchn::PseudostateKind
-	: junction='junction'
-	| choice  ='choice'
+	: Junction='junction'
+	| Choice  ='choice'
 
-	| junction='entryPoint'
-	| choice  ='exitPoint'
+	| EntryPoint='entryPoint'
+	| ExitPoint  ='exitPoint'
 
-//	| initial ='initial'
+//	| Initial ='initial'
 //		
-//	| terminate='terminal'
-//	| return   ='return'
+//	| Terminal='terminal'
+//	| Return   ='return'
 
-	| fork='fork'
-	| join='join'
+	| Fork='fork'
+	| Join='join'
 
-	| deepHistory   ='dhistory'
-	| shallowHistory='shistory'
+	| DeepHistory   ='dhistory'
+	| ShallowHistory='shistory'
 	;
 
 
 PseudostateInitial returns fmlStmchn::Pseudostate
 	: { fmlStmchn::Pseudostate }
-		( ( 'state' | 'pseudostate' )
-			'<' ( 'moc:' )? kind=PseudostateInitialKind '>'
-			name=(ESIdentifier | '#initial' | '#init' )
-		| name=( '#initial' | '#init' )
-		)
-		( unrestrictedName=UnrestrictedName )?
+	( ( 'state' | 'pseudostate' )
+		'<' ( 'moc:' )? kind=PseudostateInitialKind '>'
+		name=(ESIdentifier | '#initial' | '#init' )
+	| name=( '#initial' | '#init' )
+	)
+	( unrestrictedName=UnrestrictedName )?
 
-		( '{'  ( transition+=Transition )*  '}' | ';' )
+	( '{'  ( transition+=Transition )*  '}'
+	| ';'
+	)
 	;
 
 enum PseudostateInitialKind returns fmlStmchn::PseudostateKind
-	: initial ='initial'
+	: Initial ='initial'
 	;
 
 EndingPseudostate returns fmlStmchn::Pseudostate
 	: { fmlStmchn::Pseudostate }
-		( 'state' | 'pseudostate' ) '<' ( 'moc:' )? kind=EndingPseudostateKind '>'
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+	( 'state' | 'pseudostate' ) '<' ( 'moc:' )? kind=EndingPseudostateKind '>'
+	name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 
-		( '{'
-			( moe+=moeFinalStateRoutines )*
-		  '}'
-		| ';'
-		)
+	( '{'  ( moe=moeFinalStateRoutines )?  '}'
+	| ';'
+	)
 	;
 	
 enum EndingPseudostateKind returns fmlStmchn::PseudostateKind
-	: terminate='terminal'
-	| return='return'
+	: Terminal='terminal'
+	| Return='return'
 	;
 
 
@@ -1129,42 +1189,43 @@ ModelOfComputation returns fmlInfra::ModelOfComputation
 
 ModelOfExecution returns fmlInfra::ModelOfExecution
 	: { fmlInfra::ModelOfExecution }
-		'@moe:'
-		( routine+=Routine )*
-		( ( '@init'    initRoutine=moeRoutine )?
-		& ( '@final'   finalRoutine=moeRoutine )?
+	'@moe:'
+	( routine+=Routine )*
+	( ( '@create'  createRoutine=moeRoutine )?
+	& ( '@init'    initRoutine=moeRoutine   )?
+	& ( '@final'   finalRoutine=moeRoutine  )?
 
-		& ( '@enable'  enableRoutine=moeRoutine )?
-		& ( '@disable' disableRoutine=moeRoutine )?
+	& ( '@enable'  enableRoutine=moeRoutine  )?
+	& ( '@disable' disableRoutine=moeRoutine )?
 
-		& ( '@concurrency' concurrencyRoutine=moeRoutine )?
-		& ( '@schedule'    scheduleRoutine=moeRoutine )?
+	& ( '@concurrency' concurrencyRoutine=moeRoutine )?
+	& ( '@schedule'    scheduleRoutine=moeRoutine    )?
 
-		& ( '@irun' irunRoutine=moeRoutine )?
-		& ( '@run'  runRoutine=moeRoutine )?
-		)
-		( routine+=Routine )*
+	& ( '@irun' irunRoutine=moeRoutine )?
+	& ( '@run'  runRoutine=moeRoutine  )?
+	)
+	( routine+=Routine )*
 	;
 
 
 moeRoutine returns fmlInfra::Routine
 	: { fmlInfra::Routine }
-		( '(' ( domain=FunctionalParameterSet )? ')' )?
+		( '(' ( parameterSet=FormalParameterSet )? ')' )?
 		('->'
-			( '(' codomain=FunctionalParameterSet ')'
-			| codomain=FunctionalParameterSet
+			(     resultSet=FormalParameterSet
+			| '(' resultSet=FormalParameterSet ')'
 			)
 		)?
 		bodyBlock=BlockStatement
 	;
 
 Routine returns fmlInfra::Routine
-	: ( visibility=VisibilityKind )?  ( 'macro' )? 'routine'
+	: ( visibility=VisibilityKind )?  (  macro?='macro' )? 'routine'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '(' ( domain=FunctionalParameterSet )? ')' )?
+		( '(' ( parameterSet=FormalParameterSet )? ')' )?
 		( '-->'
-			( '(' codomain=FunctionalParameterSet ')'
-			| codomain=FormalParameterSet
+			(     resultSet=FormalParameterSet
+			| '(' resultSet=FormalParameterSet ')'
 			)
 		)?
 		bodyBlock=BlockStatement
@@ -1179,7 +1240,7 @@ ModelOfInteraction returns fmlInfra::ModelOfInteraction
 	: { fmlInfra::ModelOfInteraction }
 		'@com:'
 		( routes+=Route
-		| connections+=Connection
+		| connectors+=Connector
 		)*
 	;
 
@@ -1215,10 +1276,10 @@ ComRouteProtocol returns fmlInfra::ComProtocol
 	;
 
 
-Connection returns fmlInfra::Connector
+Connector returns fmlInfra::Connector
 	: ( 'connector' | 'connect' ) '<' protocol=ComProtocol '>'
-		( name=ESIdentifier ( unrestrictedName=UnrestrictedName )? )?
-		'{' (comPoints+=ComPoint)+ '}'
+		( name=ESIdentifier )?  ( unrestrictedName=UnrestrictedName )?
+		'{' (connectorEnd+=ConnectorEnd)+ '}'
 	;
 
 ComProtocol returns fmlInfra::ComProtocol
@@ -1247,7 +1308,7 @@ ComProtocol returns fmlInfra::ComProtocol
 enum ComProtocolKind returns fmlInfra::ComProtocolKind
 	: env       = 'env'
 	| rdv       = 'rdv'
-	| multi_rdv = 'multi_rdv'
+	| multi_rdv = 'multirdv'
 	;
 
 enum ComEnvRdvProtocolKind returns fmlInfra::ComProtocolKind
@@ -1256,7 +1317,7 @@ enum ComEnvRdvProtocolKind returns fmlInfra::ComProtocolKind
 	;
 
 enum ComMultiRdvProtocolKind returns fmlInfra::ComProtocolKind
-	: multi_rdv = 'multi_rdv'
+	: multi_rdv = 'multirdv'
 	;
 
 enum BufferProtocolKind returns fmlInfra::ComProtocolKind
@@ -1272,16 +1333,22 @@ enum ComCastKing returns fmlInfra::ComCastKind
 	;
 
 
-ComPoint returns fmlInfra::ComPoint
-	: { fmlInfra::ComPoint }
+ConnectorEnd returns fmlInfra::ConnectorEnd
+	: { fmlInfra::ConnectorEnd }
 		direction=ChannelDirection ( '<' protocol=ComPointProtocol '>' )?
 
-//		( point=ValuePureNamedPortExpression ';'
-		( point=ComElement ';'
-		| '{' points+=ComElement '}'
+		( points+=ComPoint ';'
+		| '[' points+=ComPoint ( ',' points+=ComPoint )* ']' ';'
+		| '{' ( points+=ComPoint ';' )+ '}'
 		)
 	;
 
+ComPoint returns fmlInfra::ComPoint
+	: { fmlInfra::ComPoint }
+		( machine=[fmlCommon::NamedElement|ESIdentifier] ('->'| '.') )?
+//		( machine=ValuePureNamedMachineExpression  ('->'| '.') )?
+		port=[fmlInfra::Port|ESIdentifier]
+	;
 
 ComPointProtocol returns fmlInfra::ComProtocol
 	: protocol=BufferProtocolKind
@@ -1296,7 +1363,8 @@ ComPointProtocol returns fmlInfra::ComProtocol
 		)?
 
 	| inner_buffer=BufferContainerType
-	| buffer=ComBuffer
+//	| buffer=ComBuffer
+	| bufferRef=ComBufferRef
 	;
 
 
@@ -1308,18 +1376,21 @@ ComBuffer returns fmlExpr::ValueElementSpecification
 	  element=[fmlInfra::Buffer|ESIdentifier]
 	;
 
+ComBufferRef returns fmlExpr::LiteralReferenceSpecification
+	: { fmlExpr::LiteralReferenceSpecification }
+		( parent+=LiteralReferenceExpression ( '.'  |  '->' ) )*
 
-ComElement returns fmlExpr::ValueElementSpecification
-	: ( parent=LiteralPureReferenceMachine
-		// ( '.' | '->' ) element
-		kind=( ValueDotFieldExpressionKind | ValueArrowFieldExpressionKind )
-	  )?
-	  element=[fmlInfra::Port|ESIdentifier]
+		element=BufferReferenceElement
+	;
+
+BufferReferenceElement returns fmlExpr::LiteralReferenceElement
+	: {fmlExpr::LiteralReferenceElement}
+		element=[fmlInfra::Buffer|ESIdentifier]
 	;
 
 LiteralPureReferenceMachine returns fmlExpr::LiteralReferenceExpression
 	: {fmlExpr::LiteralReferenceElement}
-		value=[fmlInfra::Machine|ESIdentifier]
+		element=[fmlInfra::Machine|ESIdentifier]
 	| LiteralReferenceMachineContext
 	;
 
@@ -1355,17 +1426,17 @@ TypeDefinition returns fmlType::DataType
 //		)
 //	;
 
-TypeDefinitionImpl returns fmlType::DataType
-	: EnumerationTypeDefinitionImpl
-	| StructureTypeDefinitionImpl
-	| UnionTypeDefinitionImpl
-	| ChoiceTypeDefinitionImpl
-
-	| IntervalTypeDefinitionImpl
-	| CollectionTypeDefinitionImpl
-
-	| OtherDataTypeDefinitionImpl
-	;
+//TypeDefinitionImpl returns fmlType::DataType
+//	: EnumerationTypeDefinitionImpl
+//	| StructureTypeDefinitionImpl
+//	| UnionTypeDefinitionImpl
+//	| ChoiceTypeDefinitionImpl
+//
+//	| IntervalTypeDefinitionImpl
+//	| CollectionTypeDefinitionImpl
+//
+//	| OtherDataTypeDefinitionImpl
+//	;
 
 
 DataTypeMultiplicity returns fmlExpr::Expression
@@ -1395,15 +1466,15 @@ OtherDataTypeDefinition returns fmlType::DataTypeReference
 		)  typedef?=';'
 	;
 
-OtherDataTypeDefinitionImpl returns fmlType::DataTypeReference
-	: {fmlType::DataTypeReference}
-		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( support=PrimitiveType
-			( '[' multiplicity=DataTypeMultiplicity ']' )?
-		| typeref=[fmlType::DataType|ESUfid]
-			( '[' multiplicity=DataTypeMultiplicity ']' )?
-		)  typedef?=';'
-	;
+//OtherDataTypeDefinitionImpl returns fmlType::DataTypeReference
+//	: {fmlType::DataTypeReference}
+//		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
+//		( support=PrimitiveType
+//			( '[' multiplicity=DataTypeMultiplicity ']' )?
+//		| typeref=[fmlType::DataType|ESUfid]
+//			( '[' multiplicity=DataTypeMultiplicity ']' )?
+//		)  typedef?=';'
+//	;
 
 DataType returns fmlType::DataType
 	: DataTypeReference
@@ -1488,8 +1559,9 @@ enum PrimitiveNumberSign returns fmlType::PrimitiveNumberSign
 PrimitiveIntegerType returns fmlType::PrimitiveIntegerType
 	: { fmlType::PrimitiveIntegerType }
 		( sign=PrimitiveNumberSign )?
-		( 'integer'
+		name=( 'integer'
 		| 'uinteger'
+		| 'pos_integer'
 		| 'int'
 		| 'uint'
 		)
@@ -1501,8 +1573,9 @@ PrimitiveIntegerType returns fmlType::PrimitiveIntegerType
 PrimitiveRationalType returns fmlType::PrimitiveRationalType
 	: { fmlType::PrimitiveRationalType }
 		( sign=PrimitiveNumberSign )?
-		( 'rational'
+		name=( 'rational'
 		| 'urational'
+		| 'pos_rational'
 		| 'rat'
 		| 'urat'
 		)
@@ -1514,8 +1587,9 @@ PrimitiveRationalType returns fmlType::PrimitiveRationalType
 PrimitiveFloatType returns fmlType::PrimitiveFloatType
 	: { fmlType::PrimitiveFloatType }
 		( sign=PrimitiveNumberSign )?
-		( 'float'
+		name=( 'float'
 		| 'ufloat'
+		| 'pos_float'
 		| 'double'
 		| 'udouble'
 		)
@@ -1527,8 +1601,9 @@ PrimitiveFloatType returns fmlType::PrimitiveFloatType
 PrimitiveRealType returns fmlType::PrimitiveRealType
 	: { fmlType::PrimitiveRealType }
 		( sign=PrimitiveNumberSign )?
-		( 'real'
+		name=( 'real'
 		| 'ureal'
+		| 'pos_real'
 		)
 		( ':' size = EInt
 			| '<' ( 'size:' )? size = EInt '>'
@@ -1566,7 +1641,7 @@ OtherPrimitiveType returns fmlType::PrimitiveType
 
 PrimitiveBooleanType returns fmlType::PrimitiveBooleanType
 	: { fmlType::PrimitiveBooleanType }
-		( 'boolean'| 'bool' )
+		name=( 'boolean'| 'bool' )
 	;
 
 PrimitiveCharacterType returns fmlType::PrimitiveCharacterType
@@ -1575,7 +1650,7 @@ PrimitiveCharacterType returns fmlType::PrimitiveCharacterType
 
 PrimitiveStringType returns fmlType::PrimitiveStringType
 	: { fmlType::PrimitiveStringType }
-		'string'
+		name='string'
 		( ':' size = EInt
 		| '<' ( 'size:' )? size = EInt '>'
 		)?
@@ -1600,7 +1675,7 @@ PrimitiveInstanceType returns fmlType::PrimitiveInstanceType
 
 IntervalType returns fmlType::IntervalType
 	: {fmlType::IntervalType}
-		'interval'
+		name='interval'
 		'<'
 			support=PrimitiveNumberType
 			( lopen?=']' | '[' )
@@ -1642,7 +1717,7 @@ CollectionType returns fmlType::CollectionType
 		container = CollectionKind
 		( '<'
 			support=DataType
-			( ',' ( size = EInt | unbounded?='*' ) )?
+			( ',' ( size=EInt | unbounded?='*' ) )?
 		'>' )?
 	;
 
@@ -1653,7 +1728,7 @@ CollectionTypeDefinition returns fmlType::CollectionType
 		container = CollectionKind
 		'<'
 			support=DataType
-			( ',' ( size = EInt | unbounded?='*' ) )?
+			( ',' ( size=EInt | unbounded?='*' ) )?
 		'>' ';'
 	;
 
@@ -1663,7 +1738,7 @@ CollectionTypeDefinitionImpl returns fmlType::CollectionType
 		container = CollectionKind
 		'<'
 			support=DataType
-			( ',' ( size = EInt | unbounded?='*' ) )?
+			( ',' ( size=EInt | unbounded?='*' ) )?
 		'>' ';'
 	;
 
@@ -1846,6 +1921,8 @@ Modifier returns fmlInfra::Modifier
 	
 		& ( volatile ?='volatile'  )?
 		& ( transient?='transient' )?
+		
+		& ( optional?='optional' )?
 		)
 	;
 
@@ -1860,14 +1937,10 @@ Function returns fmlInfra::Function
 		)?
 		'fun'
 		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
-		( '('
-			argument+=FormalParameter
-			( ',' argument+=FormalParameter )*
-		  ')'
-		)?
+		( '(' ( parameterSet=FormalParameterSet )? ')' )?
 		'->'
-		(     result+=FormalParameter  ( ',' result+=FormalParameter )*
-		| '(' result+=FormalParameter  ( ',' result+=FormalParameter )* ')'
+		(     resultSet=FormalParameterSet
+		| '(' resultSet=FormalParameterSet ')'
 		)
 		';'
 	;
@@ -1878,13 +1951,10 @@ FunctionImpl returns fmlInfra::Function
 		( modifier=Modifier )?
 		'fun'
 		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
-		( '('
-			argument+=FormalParameter
-			( ','  argument+=FormalParameter )*
-		')' )?
+		( '(' ( parameterSet=FormalParameterSet )? ')' )?
 		'->'
-		(     result+=FormalParameter  ( ',' result+=FormalParameter )*
-		| '(' result+=FormalParameter  ( ',' result+=FormalParameter )* ')'
+		(     resultSet=FormalParameterSet
+		| '(' resultSet=FormalParameterSet ')'
 		)
 		';'
 	;
@@ -1951,10 +2021,15 @@ VariableImpl returns fmlInfra::Variable
 OnWriteRoutine returns fmlInfra::Routine
 	: { fmlInfra::Routine }
 		'@on_write'
-		( '(' parameter+=VariableRoutineParameter ')' )?
+		( '(' parameterSet=VariableRoutineParameterSet ')' )?
 		bodyBlock=BlockStatement
 	;
 
+VariableRoutineParameterSet returns fmlInfra::ParameterSet
+	: {fmlInfra::ParameterSet}
+		parameter+=VariableRoutineParameter
+	;
+	
 VariableRoutineParameter returns fmlInfra::Parameter
 	: ( type=DataType )? 
 		name=ESIdentifier
@@ -2083,8 +2158,8 @@ ParameterReturn returns fmlInfra::Parameter
 BufferContainerType returns fmlType::CollectionType
 	: {fmlType::CollectionType}
 		container = BufferContainerKind
-		( '<' ( size = EInt | unbounded?='*' )? '>' 
-		| '[' ( size = EInt | unbounded?='*' )? ']' 
+		( '<' ( ( 'size:' )? size=EInt | unbounded?='*' )? '>' 
+		| '[' ( ( 'size:' )? size=EInt | unbounded?='*' )? ']' 
 		)?
 	;
 
@@ -2139,11 +2214,7 @@ Port returns fmlInfra::Port
 		| 'port'  ( direction=ChannelDirection )?
 		)
 		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
-		  ')'
-		)?
+		( '(' ( parameterSet=FormalParameterSet )? ')' )?
 		';'
 	;
 
@@ -2155,10 +2226,7 @@ PortImpl returns fmlInfra::Port
 		| 'port'  ( direction=ChannelDirection )?
 		)
 		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ','  parameter+=FormalParameter )*
-		')' )?
+		( '(' ( parameterSet=FormalParameterSet )? ')' )?
 		';'
 	;
 
@@ -2186,10 +2254,7 @@ Signal returns fmlInfra::Signal
 		| 'signal'  ( direction=ChannelDirection )?
 		)
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
-		')' )?
+		( '(' ( parameterSet=FormalParameterSet )? ')' )?
 		';'
 	;
 
@@ -2200,10 +2265,7 @@ SignalImpl returns fmlInfra::Signal
 		| 'signal'  ( direction=ChannelDirection )?
 		)
 		name=ESIdentifier  ( unrestrictedName=UnrestrictedName )?
-		( '('
-			parameter+=FormalParameter
-			( ',' parameter+=FormalParameter )*
-		')' )?
+		( '(' ( parameterSet=FormalParameterSet )? ')' )?
 		';'
 	;
 
@@ -2276,7 +2338,7 @@ Transition returns fmlStmchn::Transition
 	: {fmlStmchn::Transition} (transient?='transient')? 'transition'
 		( moe=TransitionMoe )?
 
-		( name=ESIdentifier ( unrestrictedName=UnrestrictedName )? )?
+		( name=ESIdentifier )?  ( unrestrictedName=UnrestrictedName )?
 
 //		( ( behavior=BlockStatement '-->' target=[fmlStmchn::Vertex|ESUfid] ';' )
 //		| ( '-->' target=[fmlStmchn::Vertex|ESUfid] (behavior=BlockStatement | ';') )
@@ -2290,9 +2352,17 @@ Transition returns fmlStmchn::Transition
 			  )
 			| behavior=TransitionBehavior
 			)?
-			'}'  ( '-->' target=ValuePureNamedMachineExpression ';' )?
+			'}'
+			( '-->'
+				( target=[fmlStmchn::Vertex|ESUfid] 
+				| targetExpression=ValuePureNamedMachineExpression
+				) ';'
+			)?
 		  )
-		| ( '-->' target=ValuePureNamedMachineExpression
+		| ( '-->' 
+			( target=[fmlStmchn::Vertex|ESUfid]
+			| targetExpression=ValuePureNamedMachineExpression
+			)
 			( ( '{'
 				( ( ( '@trigger:' ( trigger+= TransitionTrigger )* )?
 					( guard  = TransitionGuard      | '@guard:' )?
@@ -2314,8 +2384,8 @@ TransitionMoe returns fmlStmchn::TransitionMoe
 		( ('moc:')?
 			( moc=TransitionMoc  ( '&' isElse?='else' )?
 			| isElse?='else'
-			) ( ',' ( "prior:" )? prior = EInt )?
-		| ( "prior:" )? prior = EInt
+			) ( ',' ( 'prior:' )? priority=EInt )?
+		| ( 'prior:' )? priority=EInt
 		)
 	  '>'
 	;
@@ -2421,6 +2491,10 @@ Statement returns fmlStmnt::Statement
 	| ActivityStatement
 
 	| InvokeStatement
+	
+//	| ObserverStatement
+	
+	| MetaStatement
 	;
 
 BlockStatement returns fmlStmnt::BlockStatement
@@ -2463,6 +2537,8 @@ ExpressionStatement returns fmlStmnt::ExpressionStatement
 
 	| expression=IncrementOrDecrementPrefixExpression  ';'
 	| expression=IncrementOrDecrementPostfixExpression ';'
+	
+//	| expression=InvokeExpression ';'
 	;
 
 
@@ -2493,21 +2569,31 @@ CheckSatGuardStatement returns fmlStmnt::CheckSatGuardStatement
 ///////////////////////////////////////////
 
 InputComStatement returns fmlStmnt::InputComStatement
-	: 'input' port=[fmlCommon::NamedElement|ESUfid] //ExpressionAsPort
+	: 'input' port=LitteralComElement //ExpressionAsPort
 		( '(' leftValue+=Expression ( ',' leftValue+= Expression )* ')' )?
 
-		( ( '<--' target=ValuePureNamedMachineExpression )?
+//		( ( '<--' target=ValuePureNamedMachineExpression )?
+		( ( '<--' target=LiteralPureReferenceExpression )?
 		& ( ( '<==' | 'via' ) route=[fmlInfra::Channel|ESUfid]/*ExpressionAsChannel*/ )?
 		) ';'
 	;
 
 OutputComStatement returns fmlStmnt::OutputComStatement
-	: 'output' port=[fmlCommon::NamedElement|ESUfid] //port=ExpressionAsPort
-		( '(' rigthValue+=Expression ( ',' rigthValue+=Expression )* ')' )?
+	: 'output' port=LitteralComElement //port=ExpressionAsPort
+		( '(' rightValue+=Expression ( ',' rightValue+=Expression )* ')' )?
 
-		( ( '-->' target=ValuePureNamedMachineExpression )?
+//		( ( '-->' target=ValuePureNamedMachineExpression )?
+		( ( '-->' target=LiteralPureReferenceExpression )?
 		& ( ( '==>' | 'via' ) route=[fmlInfra::Channel|ESUfid]/*ExpressionAsChannel*/ )?
 		) ';'
+	;
+
+
+LitteralComElement returns fmlExpr::LiteralReferenceElement
+	: element=[fmlCommon::NamedElement|ESIdentifier]
+//	| element=[fmlInfra::Port|ESIdentifier]
+//	| element=[fmlInfra::Signal|ESIdentifier]
+//	| element=[fmlInfra::Message|ESIdentifier]
 	;
 
 
@@ -2656,6 +2742,103 @@ InvokeStatement returns fmlStmnt::InvokeStatement
 	;
 
 
+///////////////////////////////////////////
+//// ObsStatement Rules
+///////////////////////////////////////////
+
+ObserverStatement returns fmlStmnt::ObserverStatement
+	: {fmlStmnt::ObserverStatement}
+		( '@observe' | '@obs' )
+		( '('  'ctx:'  context=ValuePureNamedMachineExpression  ')'  )?
+	  	'{'
+	  		 statement=ObservableStatement
+	  	'}'
+		(
+		( 'provided:' postCondition=Expression
+	 	| '[' postCondition=Expression ']'
+	 	)
+		';'
+		)?
+	;
+
+ObservableStatement returns fmlStmnt::Statement
+	: ObsInputComStatement
+	| ObsOutputComStatement
+	;
+	
+	
+	
+ObsInputComStatement returns fmlStmnt::InputComStatement
+	: 'input' port=ObsComElement
+		( '(' leftValue+=Expression ( ',' leftValue+= Expression )* ')' )?
+
+		( ( '<--' target=ValuePureNamedMachineExpression )?
+		& ( ( '<==' | 'via' ) route=[fmlInfra::Channel|ESUfid]/*ExpressionAsChannel*/ )?
+		) ';'
+	;
+
+ObsOutputComStatement returns fmlStmnt::OutputComStatement
+	: 'output' port=ObsComElement
+		( '(' rightValue+=Expression ( ',' rightValue+=Expression )* ')' )?
+
+		( ( '-->' target=ValuePureNamedMachineExpression )?
+		& ( ( '==>' | 'via' ) route=[fmlInfra::Channel|ESUfid]/*ExpressionAsChannel*/ )?
+		) ';'
+	;
+
+
+ObsComElement returns fmlExpr::ValueElementSpecification
+	: ( parent=LiteralPureReferenceExpression
+//	: ( parent=ValuePureNamedInstanceExpression
+//		// ( '.' | '->' ) element
+//		kind=( ValueDotFieldExpressionKind | ValueArrowFieldExpressionKind )
+	  )?
+	  element=[fmlCommon::NamedElement|ESIdentifier]
+	;
+	
+//ValuePureNamedInstanceExpression returns fmlExpr::Expression
+//	: LiteralPureReferenceExpression
+//
+//		// ( '.' | '->' ) element
+//		( { fmlExpr::ValueElementSpecification.parent=current }
+////			kind=(ValueDotFieldExpressionKind | ValueArrowFieldExpressionKind )
+//			kind=ValueDotFieldExpressionKind
+//			element=[fmlCommon::NamedElement|ESIdentifier]
+//		)*
+//	;
+
+
+///////////////////////////////////////////
+//// MetaStatement Rules
+///////////////////////////////////////////
+
+MetaStatement returns fmlStmnt::MetaStatement
+	: {fmlStmnt::MetaStatement}
+		op=OPERATOR_META
+		( '{'  
+	    	( ( operand+=Statement  )+
+	    	| ( operand+=Expression )+
+	    	)
+	  	  '}'
+		| ( operand+=Expression )+  ';'
+	  	)
+	;
+	
+enum OPERATOR_META returns fmlStmnt::MetaStatementKind
+	: informal = '@informal'
+	| trace    = '@trace'
+	| debug    = '@debug'
+
+	| comment  = '@comment'
+
+	| quote    = '@quote'
+	
+	| eval     = '@eval'
+	| run      = '@run'
+	;
+
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // Expression Rules
 ////////////////////////////////////////////////////////////////////////////////
@@ -2669,7 +2852,7 @@ Expression returns fmlExpr::Expression
 // Assignment Expression
 AssignmentExpression returns fmlExpr::AssignmentExpression
 	: leftHandSide=LeftHandSideExpression
-		operator=AssignmentOperator rigthHandSide=Expression
+		operator=AssignmentOperator rightHandSide=Expression
 	;
 
 AssignmentOperator
@@ -2701,7 +2884,8 @@ LeftHandSideExpression returns fmlExpr::LeftHandSideExpression
 ConditionalTestExpression returns fmlExpr::Expression
 	: LogicalOrExpression
 		( {fmlExpr::ConditionalTestExpression.condition=current}
-			operator='?' thenOperand=Expression ':' elseOperand=Expression
+			operator='?' thenOperand=Expression elseSeparator=':'
+			elseOperand=Expression
 		)?
 	;
 
@@ -2754,12 +2938,12 @@ BitwiseAndExpression returns fmlExpr::Expression
 EqualityExpression returns fmlExpr::Expression
 	: RelationalExpression
 		( {fmlExpr::EqualityBinaryExpression.leftOperand=current}
-			operator=EqualityOperator rigthOperand=RelationalExpression
+			operator=EqualityOperator rightOperand=RelationalExpression
 		)?
 	;
 
 EqualityOperator
-	: '==' | '!=' | '===' | '=!=' | '=/='
+	: '==' | '!=' | '===' | '!==' | '=!=' | '=/='
 	;
 
 
@@ -2767,16 +2951,16 @@ EqualityOperator
 RelationalExpression returns fmlExpr::Expression
 	: AdditiveExpression
 		( {fmlExpr::RelationalBinaryExpression.leftOperand=current}
-			operator=RelationalOperator rigthOperand=AdditiveExpression
+			operator=RelationalOperator rightOperand=AdditiveExpression
 
 			( {fmlExpr::RelationalTernaryExpression.leftRelation=current}
-				rigthOperator=RelationalOperator rigthOperand=AdditiveExpression
+				rightOperator=RelationalOperator rightOperand=AdditiveExpression
 			)?
 		)?
 	;
 
 RelationalOperator
-	: '<' | '>' | '<=' | '>='
+	: '<' | '>' | '<=' | '>=' | 'in'
 	;
 
 
@@ -2963,12 +3147,12 @@ BaseExpression returns fmlExpr::Expression
 // Behavior Invoke Expression
 InvokeExpression returns fmlExpr::InvokeExpression
 	: {fmlExpr::InvokeExpression}
-		invoke=ValueSelectionExpression
+		invokable=ValueSelectionExpression
 	;
 
 InvokeExpressionDeprecated returns fmlExpr::InvokeExpression
 	: {fmlExpr::InvokeExpression}
-		'(:' args+=Expression invoke=LiteralReferenceElement ( args+=Expression )* ')'
+		'(:' args+=Expression invokable=LiteralReferenceElement ( args+=Expression )* ')'
 	;
 
 
@@ -2981,9 +3165,10 @@ DynamicInstanceSpecification returns fmlInfra::InstanceMachine
 	: {fmlInfra::InstanceMachine}
 		'new' model=[fmlInfra::Machine|ESIdentifier]
 //		( '(' arg=MixTupleExpressionList ')'
-		( '(' ( slot+=SlotParameter ( ',' slot+=SlotParameter )* )? ')'
-		| '{' ( slot+=SlotProperty ';' )*  '}'
-		)?
+
+		( '(' ( slot+=SlotParameter ( ',' slot+=SlotParameter )* )? ')' )?
+		
+		( '{' ( slot+=SlotProperty ';' )*  '}' )?
 	;
 
 
@@ -3071,6 +3256,10 @@ LiteralTerminalExpression returns fmlExpr::LiteralExpression
 	| LiteralStringExpression
 
 	| LiteralNullExpression
+	| LiteralAnyValueExpression
+	| LiteralOptionalValueExpression
+	| LiteralNoneValueExpression
+	| LiteralAnyOrNoneValueExpression
 	;
 
 
@@ -3142,6 +3331,48 @@ NullPrimitiveInstanceType returns fmlType::PrimitiveInstanceType
 	;
 
 ////////////////////////////////////////////////////////////////////////////////
+// Literal Predefined Constant Expression Rules
+////////////////////////////////////////////////////////////////////////////////
+
+AnyDataTypeReference returns fmlType::DataType
+	: SimpleDataType
+		( {fmlType::DataTypeReference.support=current}
+			'[' multiplicity=DataTypeMultiplicity ']'
+		)?
+
+	| {fmlType::DataTypeReference}
+		typeref=[fmlType::DataType|ESUfid]
+		( '[' multiplicity=DataTypeMultiplicity ']' )?
+	;
+
+
+
+LiteralAnyValueExpression returns fmlExpr::LiteralAnyValueExpression
+	: {fmlExpr::LiteralAnyValueExpression}
+		'$any'
+		( '<'  type=AnyDataTypeReference  '>' )?
+	;
+
+LiteralOptionalValueExpression returns fmlExpr::LiteralOptionalValueExpression
+	: {fmlExpr::LiteralOptionalValueExpression}
+		'$optional'
+		( '<'  type=AnyDataTypeReference  '>' )?
+	;
+
+LiteralNoneValueExpression returns fmlExpr::LiteralNoneValueExpression
+	: {fmlExpr::LiteralNoneValueExpression}
+		'$none'
+		( '<'  type=AnyDataTypeReference  '>' )?
+	;
+
+LiteralAnyOrNoneValueExpression returns fmlExpr::LiteralAnyOrNoneValueExpression
+	: {fmlExpr::LiteralAnyOrNoneValueExpression}
+		'$any$none'
+		( '<'  type=AnyDataTypeReference  '>' )?
+	;
+
+
+////////////////////////////////////////////////////////////////////////////////
 // Literal Collection Expression Rules
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -3174,7 +3405,7 @@ LiteralReferenceExpression returns fmlExpr::LiteralReferenceExpression
 
 LiteralReferenceElement returns fmlExpr::LiteralReferenceElement
 	: {fmlExpr::LiteralReferenceElement}
-		value=[fmlCommon::NamedElement|ESIdentifier]
+		( 'spec::' | '::' )?  element=[fmlCommon::NamedElement|ESIdentifier]
 
 		// '[' index ',' ... ',' index ']'
 		( kind=ValueIndexExpressionKind
@@ -3188,7 +3419,7 @@ LiteralReferenceElement returns fmlExpr::LiteralReferenceElement
 
 LiteralPureReferenceElement returns fmlExpr::LiteralReferenceElement
 	: {fmlExpr::LiteralReferenceElement}
-		value=[fmlCommon::NamedElement|ESIdentifier]
+		( 'spec::' | '::' )?  element=[fmlCommon::NamedElement|ESIdentifier]
 	;
 
 
@@ -3224,14 +3455,17 @@ LiteralThisExpression returns fmlExpr::LiteralThisExpression
 
 LiteralSelfExpression returns fmlExpr::LiteralSelfExpression
 	: {fmlExpr::LiteralSelfExpression} ( '$self' )
+		( '<' ( 'model:' )? model=[fmlInfra::Machine|ESUfid] '>' )?
 	;
 
 LiteralParentExpression returns fmlExpr::LiteralParentExpression
 	: {fmlExpr::LiteralParentExpression} ( '$parent' )
+		( '<' ( 'model:' )? model=[fmlInfra::Machine|ESUfid] '>' )?
 	;
 
 LiteralSuperExpression returns fmlExpr::LiteralSuperExpression
 	: {fmlExpr::LiteralSuperExpression} ( '$super' )
+		( '<' ( 'model:' )? model=[fmlInfra::Machine|ESUfid] '>' )?
 	;
 
 LiteralSystemExpression returns fmlExpr::LiteralSystemExpression
@@ -3250,6 +3484,14 @@ LiteralEnvExpression returns fmlExpr::LiteralEnvExpression
 LiteralPureReferenceExpression returns fmlExpr::LiteralReferenceExpression
 	: LiteralPureReferenceElement
 	| LiteralReferenceMachineContext
+	;
+
+
+LiteralReferenceSpecification returns fmlExpr::LiteralReferenceSpecification
+	: { fmlExpr::LiteralReferenceSpecification }
+		( parent+=LiteralReferenceExpression ( '.'  |  '->' ) )*
+		
+		element=LiteralReferenceExpression
 	;
 
 
@@ -3330,23 +3572,11 @@ ValueSelectionExpression returns fmlExpr::Expression
 ValuePureNamedMachineExpression returns fmlExpr::Expression
 	: LiteralPureReferenceExpression
 
-		// '.' element
+		// ( '.' | '->' ) element
 		( { fmlExpr::ValueElementSpecification.parent=current }
-			kind=ValueDotFieldExpressionKind
+			kind=(ValueDotFieldExpressionKind | ValueArrowFieldExpressionKind )
 			element=[fmlCommon::NamedElement|ESIdentifier]
 		)*
-
-		// '->' element
-		( { fmlExpr::ValueElementSpecification.parent=current }
-			kind=ValueArrowFieldExpressionKind
-			element=[fmlCommon::NamedElement|ESIdentifier]
-
-			// '.' element
-			( { fmlExpr::ValueElementSpecification.parent=current }
-				kind=ValueDotFieldExpressionKind
-				element=[fmlCommon::NamedElement|ESIdentifier]
-			)*
-		)?
 	;
 
 

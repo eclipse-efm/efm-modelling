@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,7 +12,6 @@
  */
 package org.eclipse.efm.ecore.formalml.infrastructure;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,8 +22,8 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getArgument <em>Argument</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getResult <em>Result</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getParameterSet <em>Parameter Set</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getResultSet <em>Result Set</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getFunction()
@@ -33,35 +32,55 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Function extends PropertyDefinition {
 	/**
-	 * Returns the value of the '<em><b>Argument</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Parameter}.
+	 * Returns the value of the '<em><b>Parameter Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Argument</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Parameter Set</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Argument</em>' containment reference list.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getFunction_Argument()
+	 * @return the value of the '<em>Parameter Set</em>' containment reference.
+	 * @see #setParameterSet(ParameterSet)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getFunction_ParameterSet()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Parameter> getArgument();
+	ParameterSet getParameterSet();
 
 	/**
-	 * Returns the value of the '<em><b>Result</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.efm.ecore.formalml.infrastructure.Parameter}.
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getParameterSet <em>Parameter Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parameter Set</em>' containment reference.
+	 * @see #getParameterSet()
+	 * @generated
+	 */
+	void setParameterSet(ParameterSet value);
+
+	/**
+	 * Returns the value of the '<em><b>Result Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Result</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Result Set</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Result</em>' containment reference list.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getFunction_Result()
+	 * @return the value of the '<em>Result Set</em>' containment reference.
+	 * @see #setResultSet(ParameterSet)
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage#getFunction_ResultSet()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Parameter> getResult();
+	ParameterSet getResultSet();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getResultSet <em>Result Set</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Result Set</em>' containment reference.
+	 * @see #getResultSet()
+	 * @generated
+	 */
+	void setResultSet(ParameterSet value);
 
 } // Function

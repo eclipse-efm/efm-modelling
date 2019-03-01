@@ -40,8 +40,8 @@ public class LaunchExecConsoleManager {
 	}
 
 	private boolean loadConsoleViewer() {
-		IWorkbench wb = PlatformUI.getWorkbench();
-		IWorkbenchWindow[] wws = wb.getWorkbenchWindows();
+		final IWorkbench wb = PlatformUI.getWorkbench();
+		final IWorkbenchWindow[] wws = wb.getWorkbenchWindows();
 		if( wws.length > 0 ) {
 			fWindow = wws[0];
 
@@ -49,14 +49,14 @@ public class LaunchExecConsoleManager {
 				@Override
 				public void run() {
 					try {
-						IViewPart viewPart = fWindow.getActivePage().
+						final IViewPart viewPart = fWindow.getActivePage().
 								showView(SymbolicExecutionView.SYMBEX_CONSOLE_VIEW_ID);
 //								showView(IConsoleConstants.ID_CONSOLE_VIEW);
 
 						if( viewPart instanceof SymbolicExecutionView ) {
 							fSymbexView = (SymbolicExecutionView) viewPart;
 						}
-					} catch (PartInitException e) {
+					} catch (final PartInitException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -68,9 +68,9 @@ public class LaunchExecConsoleManager {
 	}
 
 
-	public void sewLaunchExecProcess(ILaunchConfiguration configuration,
-			String mode, ILaunch launch, IProgressMonitor monitor,
-			String[] commandLine, File workingDirectory, String[] envp) {
+	public void sewLaunchExecProcess(final ILaunchConfiguration configuration,
+			final String mode, final ILaunch launch, final IProgressMonitor monitor,
+			final String[] commandLine, final File workingDirectory, final String[] envp) {
 
 		if( loadConsoleViewer() ) {
 			fSymbexView.sewLaunchExecProcess(configuration, mode,

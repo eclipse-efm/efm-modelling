@@ -74,7 +74,7 @@ public interface GraphExplorationQueue extends EObject {
 	 * @return the value of the '<em>Heuristic Enabled</em>' attribute.
 	 * @see #setHeuristicEnabled(boolean)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationQueue_HeuristicEnabled()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	boolean isHeuristicEnabled();
@@ -100,7 +100,7 @@ public interface GraphExplorationQueue extends EObject {
 	 * @return the value of the '<em>Weight</em>' attribute.
 	 * @see #setWeight(int)
 	 * @see org.eclipse.efm.execution.core.workflow.common.CommonPackage#getGraphExplorationQueue_Weight()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	int getWeight();

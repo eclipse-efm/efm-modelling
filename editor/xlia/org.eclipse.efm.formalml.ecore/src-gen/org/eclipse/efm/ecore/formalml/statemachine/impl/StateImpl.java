@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -142,6 +142,7 @@ public class StateImpl extends VertexImpl implements State {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSimple() {
 		return simple;
 	}
@@ -151,6 +152,7 @@ public class StateImpl extends VertexImpl implements State {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSimple(boolean newSimple) {
 		boolean oldSimple = simple;
 		simple = newSimple;
@@ -163,6 +165,7 @@ public class StateImpl extends VertexImpl implements State {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isComposite() {
 		return composite;
 	}
@@ -172,6 +175,7 @@ public class StateImpl extends VertexImpl implements State {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComposite(boolean newComposite) {
 		boolean oldComposite = composite;
 		composite = newComposite;
@@ -184,6 +188,7 @@ public class StateImpl extends VertexImpl implements State {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isOrthogonal() {
 		return orthogonal;
 	}
@@ -193,6 +198,7 @@ public class StateImpl extends VertexImpl implements State {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOrthogonal(boolean newOrthogonal) {
 		boolean oldOrthogonal = orthogonal;
 		orthogonal = newOrthogonal;
@@ -205,6 +211,7 @@ public class StateImpl extends VertexImpl implements State {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Region> getRegion() {
 		if (region == null) {
 			region = new EObjectContainmentEList<Region>(Region.class, this, StatemachinePackage.STATE__REGION);
@@ -325,7 +332,7 @@ public class StateImpl extends VertexImpl implements State {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (simple: ");
 		result.append(simple);
 		result.append(", composite: ");

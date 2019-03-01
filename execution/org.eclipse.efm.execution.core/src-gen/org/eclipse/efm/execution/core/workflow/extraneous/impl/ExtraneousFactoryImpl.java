@@ -76,6 +76,7 @@ public class ExtraneousFactoryImpl extends EFactoryImpl implements ExtraneousFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExtraneousPackage getExtraneousPackage() {
 		return (ExtraneousPackage)getEPackage();
 	}

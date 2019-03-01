@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -86,7 +86,9 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FUNCTION(5, "function", "function"), /**
+	FUNCTION(5, "function", "function"),
+
+	/**
 	 * The '<em><b>Com point</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -124,7 +126,9 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMPOSITE(9, "composite", "composite"), /**
+	COMPOSITE(9, "composite", "composite"),
+
+	/**
 	 * The '<em><b>Machine</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -427,6 +431,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 	  return value;
 	}
@@ -436,6 +441,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 	  return name;
 	}
@@ -445,6 +451,7 @@ public enum PrimitiveInstanceKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 	  return literal;
 	}

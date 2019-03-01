@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.datatype;
 
+import java.util.HashMap;
+
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLFactory;
 
@@ -54,7 +56,7 @@ public class DataTypeFactory {
 	public static Type fifoIntType() {
 		if( fifoIntType == null ) {
 			fifoIntType = UMLFactory.eINSTANCE.createPrimitiveType();
-			fifoIntType.setName("fifo<integer , *>");
+			fifoIntType.setName("fifo< integer , * >");
 		}
 
 		return( fifoIntType );
@@ -62,18 +64,42 @@ public class DataTypeFactory {
 
 	public static Type fifoIntType(int size) {
 		Type fifoIntType = UMLFactory.eINSTANCE.createPrimitiveType();
-		fifoIntType.setName("fifo<integer , " + size + " >");
+		fifoIntType.setName("fifo< integer , " + size + " >");
 
 		return( fifoIntType );
 	}
 
+	// Contient la liste de tous les types alias utile à la traduction
+	private static HashMap<String, Type> enumAliasesType = new HashMap<String, Type>();
+	
+	public static Type enumAliasType(String typeName) {
+		Type foundType = enumAliasesType.get(typeName);
+		if( foundType == null ) {
+			foundType = UMLFactory.eINSTANCE.createPrimitiveType();
+			foundType.setName(typeName);
+			enumAliasesType.put(typeName, foundType);
+		}
 
-	public static Type fifoType(String typeName){//, int size) {
-		Type fifoIntType = UMLFactory.eINSTANCE.createPrimitiveType();
-		fifoIntType.setName("fifo<"+typeName + " >");
-		//fifoIntType.setName("fifo<"+typeName + ", " + ((size > 0)? size : "*") + " >");
+		return( foundType );
+	}
+	
+	public static boolean isAliasType(Type type) {
+		return( enumAliasesType.get(type.getName()) != null );
+	}
 
-		return( fifoIntType );
+	public static Type fifoType(String typeName) {//, int size) {
+		
+		String fifoTypeName = "fifo< "+ typeName + " >";
+		
+		Type fifoType = enumAliasesType.get(fifoTypeName);
+		if( fifoType == null ) {
+			fifoType = UMLFactory.eINSTANCE.createPrimitiveType();
+			fifoType.setName(fifoTypeName);
+			//fifoType.setName("fifo<"+typeName + ", " + ((size > 0)? size : "*") + " >");
+			
+			enumAliasesType.put(fifoTypeName, fifoType);
+		}
+		return( fifoType );
 	}
 
 }

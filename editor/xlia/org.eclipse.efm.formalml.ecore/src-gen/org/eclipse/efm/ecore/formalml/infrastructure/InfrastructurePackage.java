@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -172,40 +172,13 @@ public interface InfrastructurePackage extends EPackage {
 	int MACHINE__DESIGN = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Property Part</b></em>' containment reference.
+	 * The feature id for the '<em><b>Lifeline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__PROPERTY_PART = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Composite Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MACHINE__COMPOSITE_PART = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Behavior Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MACHINE__BEHAVIOR_PART = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MACHINE__MACHINE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 9;
+	int MACHINE__LIFELINE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Typedef</b></em>' containment reference list.
@@ -214,7 +187,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__TYPEDEF = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 10;
+	int MACHINE__TYPEDEF = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' containment reference list.
@@ -223,7 +196,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__VARIABLE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 11;
+	int MACHINE__VARIABLE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Channel</b></em>' containment reference list.
@@ -232,7 +205,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__CHANNEL = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 12;
+	int MACHINE__CHANNEL = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' containment reference list.
@@ -241,7 +214,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__PORT = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 13;
+	int MACHINE__PORT = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Signal</b></em>' containment reference list.
@@ -250,7 +223,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__SIGNAL = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 14;
+	int MACHINE__SIGNAL = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Buffer</b></em>' containment reference list.
@@ -259,7 +232,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__BUFFER = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 15;
+	int MACHINE__BUFFER = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Function</b></em>' containment reference list.
@@ -268,7 +241,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__FUNCTION = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 16;
+	int MACHINE__FUNCTION = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>Routine</b></em>' containment reference list.
@@ -277,7 +250,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__ROUTINE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 17;
+	int MACHINE__ROUTINE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 14;
 
 	/**
 	 * The feature id for the '<em><b>Procedure</b></em>' containment reference list.
@@ -286,7 +259,16 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__PROCEDURE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 18;
+	int MACHINE__PROCEDURE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 15;
+
+	/**
+	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MACHINE__MACHINE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 16;
 
 	/**
 	 * The feature id for the '<em><b>Instance</b></em>' containment reference list.
@@ -295,7 +277,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__INSTANCE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 19;
+	int MACHINE__INSTANCE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 17;
 
 	/**
 	 * The feature id for the '<em><b>Behavior</b></em>' containment reference list.
@@ -304,7 +286,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__BEHAVIOR = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 20;
+	int MACHINE__BEHAVIOR = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 18;
 
 	/**
 	 * The feature id for the '<em><b>Main</b></em>' containment reference.
@@ -313,7 +295,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE__MAIN = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 21;
+	int MACHINE__MAIN = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 19;
 
 	/**
 	 * The number of structural features of the '<em>Machine</em>' class.
@@ -322,7 +304,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MACHINE_FEATURE_COUNT = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 22;
+	int MACHINE_FEATURE_COUNT = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 20;
 
 	/**
 	 * The number of operations of the '<em>Machine</em>' class.
@@ -553,14 +535,14 @@ public interface InfrastructurePackage extends EPackage {
 	int BEHAVIOR_PART_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.SystemImpl <em>System</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.XliaSystemImpl <em>Xlia System</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.SystemImpl
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getSystem()
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.XliaSystemImpl
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getXliaSystem()
 	 * @generated
 	 */
-	int SYSTEM = 4;
+	int XLIA_SYSTEM = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -569,7 +551,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__NAME = MACHINE__NAME;
+	int XLIA_SYSTEM__NAME = MACHINE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Unrestricted Name</b></em>' attribute.
@@ -578,7 +560,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__UNRESTRICTED_NAME = MACHINE__UNRESTRICTED_NAME;
+	int XLIA_SYSTEM__UNRESTRICTED_NAME = MACHINE__UNRESTRICTED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -587,7 +569,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__QUALIFIED_NAME = MACHINE__QUALIFIED_NAME;
+	int XLIA_SYSTEM__QUALIFIED_NAME = MACHINE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
@@ -596,7 +578,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__VISIBILITY = MACHINE__VISIBILITY;
+	int XLIA_SYSTEM__VISIBILITY = MACHINE__VISIBILITY;
 
 	/**
 	 * The feature id for the '<em><b>Input enabled</b></em>' attribute.
@@ -605,7 +587,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__INPUT_ENABLED = MACHINE__INPUT_ENABLED;
+	int XLIA_SYSTEM__INPUT_ENABLED = MACHINE__INPUT_ENABLED;
 
 	/**
 	 * The feature id for the '<em><b>Timed</b></em>' attribute.
@@ -614,7 +596,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__TIMED = MACHINE__TIMED;
+	int XLIA_SYSTEM__TIMED = MACHINE__TIMED;
 
 	/**
 	 * The feature id for the '<em><b>Dense timed</b></em>' attribute.
@@ -623,7 +605,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__DENSE_TIMED = MACHINE__DENSE_TIMED;
+	int XLIA_SYSTEM__DENSE_TIMED = MACHINE__DENSE_TIMED;
 
 	/**
 	 * The feature id for the '<em><b>Discrete timed</b></em>' attribute.
@@ -632,7 +614,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__DISCRETE_TIMED = MACHINE__DISCRETE_TIMED;
+	int XLIA_SYSTEM__DISCRETE_TIMED = MACHINE__DISCRETE_TIMED;
 
 	/**
 	 * The feature id for the '<em><b>Unsafe</b></em>' attribute.
@@ -641,7 +623,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__UNSAFE = MACHINE__UNSAFE;
+	int XLIA_SYSTEM__UNSAFE = MACHINE__UNSAFE;
 
 	/**
 	 * The feature id for the '<em><b>Design</b></em>' attribute.
@@ -650,43 +632,16 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__DESIGN = MACHINE__DESIGN;
+	int XLIA_SYSTEM__DESIGN = MACHINE__DESIGN;
 
 	/**
-	 * The feature id for the '<em><b>Property Part</b></em>' containment reference.
+	 * The feature id for the '<em><b>Lifeline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__PROPERTY_PART = MACHINE__PROPERTY_PART;
-
-	/**
-	 * The feature id for the '<em><b>Composite Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM__COMPOSITE_PART = MACHINE__COMPOSITE_PART;
-
-	/**
-	 * The feature id for the '<em><b>Behavior Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM__BEHAVIOR_PART = MACHINE__BEHAVIOR_PART;
-
-	/**
-	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SYSTEM__MACHINE = MACHINE__MACHINE;
+	int XLIA_SYSTEM__LIFELINE = MACHINE__LIFELINE;
 
 	/**
 	 * The feature id for the '<em><b>Typedef</b></em>' containment reference list.
@@ -695,7 +650,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__TYPEDEF = MACHINE__TYPEDEF;
+	int XLIA_SYSTEM__TYPEDEF = MACHINE__TYPEDEF;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' containment reference list.
@@ -704,7 +659,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__VARIABLE = MACHINE__VARIABLE;
+	int XLIA_SYSTEM__VARIABLE = MACHINE__VARIABLE;
 
 	/**
 	 * The feature id for the '<em><b>Channel</b></em>' containment reference list.
@@ -713,7 +668,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__CHANNEL = MACHINE__CHANNEL;
+	int XLIA_SYSTEM__CHANNEL = MACHINE__CHANNEL;
 
 	/**
 	 * The feature id for the '<em><b>Port</b></em>' containment reference list.
@@ -722,7 +677,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__PORT = MACHINE__PORT;
+	int XLIA_SYSTEM__PORT = MACHINE__PORT;
 
 	/**
 	 * The feature id for the '<em><b>Signal</b></em>' containment reference list.
@@ -731,7 +686,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__SIGNAL = MACHINE__SIGNAL;
+	int XLIA_SYSTEM__SIGNAL = MACHINE__SIGNAL;
 
 	/**
 	 * The feature id for the '<em><b>Buffer</b></em>' containment reference list.
@@ -740,7 +695,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__BUFFER = MACHINE__BUFFER;
+	int XLIA_SYSTEM__BUFFER = MACHINE__BUFFER;
 
 	/**
 	 * The feature id for the '<em><b>Function</b></em>' containment reference list.
@@ -749,7 +704,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__FUNCTION = MACHINE__FUNCTION;
+	int XLIA_SYSTEM__FUNCTION = MACHINE__FUNCTION;
 
 	/**
 	 * The feature id for the '<em><b>Routine</b></em>' containment reference list.
@@ -758,7 +713,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__ROUTINE = MACHINE__ROUTINE;
+	int XLIA_SYSTEM__ROUTINE = MACHINE__ROUTINE;
 
 	/**
 	 * The feature id for the '<em><b>Procedure</b></em>' containment reference list.
@@ -767,7 +722,16 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__PROCEDURE = MACHINE__PROCEDURE;
+	int XLIA_SYSTEM__PROCEDURE = MACHINE__PROCEDURE;
+
+	/**
+	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XLIA_SYSTEM__MACHINE = MACHINE__MACHINE;
 
 	/**
 	 * The feature id for the '<em><b>Instance</b></em>' containment reference list.
@@ -776,7 +740,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__INSTANCE = MACHINE__INSTANCE;
+	int XLIA_SYSTEM__INSTANCE = MACHINE__INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Behavior</b></em>' containment reference list.
@@ -785,7 +749,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__BEHAVIOR = MACHINE__BEHAVIOR;
+	int XLIA_SYSTEM__BEHAVIOR = MACHINE__BEHAVIOR;
 
 	/**
 	 * The feature id for the '<em><b>Main</b></em>' containment reference.
@@ -794,25 +758,25 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM__MAIN = MACHINE__MAIN;
+	int XLIA_SYSTEM__MAIN = MACHINE__MAIN;
 
 	/**
-	 * The number of structural features of the '<em>System</em>' class.
+	 * The number of structural features of the '<em>Xlia System</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_FEATURE_COUNT = MACHINE_FEATURE_COUNT + 0;
+	int XLIA_SYSTEM_FEATURE_COUNT = MACHINE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>System</em>' class.
+	 * The number of operations of the '<em>Xlia System</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_OPERATION_COUNT = MACHINE_OPERATION_COUNT + 0;
+	int XLIA_SYSTEM_OPERATION_COUNT = MACHINE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModifierImpl <em>Modifier</em>}' class.
@@ -870,13 +834,22 @@ public interface InfrastructurePackage extends EPackage {
 	int MODIFIER__TRANSIENT = 4;
 
 	/**
+	 * The feature id for the '<em><b>Optional</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODIFIER__OPTIONAL = 5;
+
+	/**
 	 * The number of structural features of the '<em>Modifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODIFIER_FEATURE_COUNT = 5;
+	int MODIFIER_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Modifier</em>' class.
@@ -1215,13 +1188,22 @@ public interface InfrastructurePackage extends EPackage {
 	int BUFFER__BUFFER = PROPERTY_DEFINITION_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Buffer Ref</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUFFER__BUFFER_REF = PROPERTY_DEFINITION_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Buffer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUFFER_FEATURE_COUNT = PROPERTY_DEFINITION_FEATURE_COUNT + 4;
+	int BUFFER_FEATURE_COUNT = PROPERTY_DEFINITION_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Buffer</em>' class.
@@ -1324,13 +1306,13 @@ public interface InfrastructurePackage extends EPackage {
 	int PORT__SIGNAL = PROPERTY_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Parameter Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT__PARAMETER = PROPERTY_DEFINITION_FEATURE_COUNT + 2;
+	int PORT__PARAMETER_SET = PROPERTY_DEFINITION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Port</em>' class.
@@ -1533,13 +1515,13 @@ public interface InfrastructurePackage extends EPackage {
 	int SIGNAL__DIRECTION = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Parameter Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIGNAL__PARAMETER = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 1;
+	int SIGNAL__PARAMETER_SET = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Signal</em>' class.
@@ -1633,22 +1615,22 @@ public interface InfrastructurePackage extends EPackage {
 	int FUNCTION__DEFAULT_VALUE = PROPERTY_DEFINITION__DEFAULT_VALUE;
 
 	/**
-	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Parameter Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__ARGUMENT = PROPERTY_DEFINITION_FEATURE_COUNT + 0;
+	int FUNCTION__PARAMETER_SET = PROPERTY_DEFINITION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Result</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Result Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION__RESULT = PROPERTY_DEFINITION_FEATURE_COUNT + 1;
+	int FUNCTION__RESULT_SET = PROPERTY_DEFINITION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Function</em>' class.
@@ -1769,40 +1751,13 @@ public interface InfrastructurePackage extends EPackage {
 	int BEHAVIOR__DESIGN = MACHINE__DESIGN;
 
 	/**
-	 * The feature id for the '<em><b>Property Part</b></em>' containment reference.
+	 * The feature id for the '<em><b>Lifeline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR__PROPERTY_PART = MACHINE__PROPERTY_PART;
-
-	/**
-	 * The feature id for the '<em><b>Composite Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR__COMPOSITE_PART = MACHINE__COMPOSITE_PART;
-
-	/**
-	 * The feature id for the '<em><b>Behavior Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR__BEHAVIOR_PART = MACHINE__BEHAVIOR_PART;
-
-	/**
-	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIOR__MACHINE = MACHINE__MACHINE;
+	int BEHAVIOR__LIFELINE = MACHINE__LIFELINE;
 
 	/**
 	 * The feature id for the '<em><b>Typedef</b></em>' containment reference list.
@@ -1884,6 +1839,15 @@ public interface InfrastructurePackage extends EPackage {
 	 * @ordered
 	 */
 	int BEHAVIOR__PROCEDURE = MACHINE__PROCEDURE;
+
+	/**
+	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR__MACHINE = MACHINE__MACHINE;
 
 	/**
 	 * The feature id for the '<em><b>Instance</b></em>' containment reference list.
@@ -2067,40 +2031,13 @@ public interface InfrastructurePackage extends EPackage {
 	int PROCEDURE__DESIGN = StatemachinePackage.STATEMACHINE__DESIGN;
 
 	/**
-	 * The feature id for the '<em><b>Property Part</b></em>' containment reference.
+	 * The feature id for the '<em><b>Lifeline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCEDURE__PROPERTY_PART = StatemachinePackage.STATEMACHINE__PROPERTY_PART;
-
-	/**
-	 * The feature id for the '<em><b>Composite Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCEDURE__COMPOSITE_PART = StatemachinePackage.STATEMACHINE__COMPOSITE_PART;
-
-	/**
-	 * The feature id for the '<em><b>Behavior Part</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCEDURE__BEHAVIOR_PART = StatemachinePackage.STATEMACHINE__BEHAVIOR_PART;
-
-	/**
-	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCEDURE__MACHINE = StatemachinePackage.STATEMACHINE__MACHINE;
+	int PROCEDURE__LIFELINE = StatemachinePackage.STATEMACHINE__LIFELINE;
 
 	/**
 	 * The feature id for the '<em><b>Typedef</b></em>' containment reference list.
@@ -2182,6 +2119,15 @@ public interface InfrastructurePackage extends EPackage {
 	 * @ordered
 	 */
 	int PROCEDURE__PROCEDURE = StatemachinePackage.STATEMACHINE__PROCEDURE;
+
+	/**
+	 * The feature id for the '<em><b>Machine</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCEDURE__MACHINE = StatemachinePackage.STATEMACHINE__MACHINE;
 
 	/**
 	 * The feature id for the '<em><b>Instance</b></em>' containment reference list.
@@ -2320,13 +2266,31 @@ public interface InfrastructurePackage extends EPackage {
 	int ROUTINE__VISIBILITY = CommonPackage.NAMED_ELEMENT__VISIBILITY;
 
 	/**
-	 * The feature id for the '<em><b>Parameter</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Macro</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROUTINE__PARAMETER = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int ROUTINE__MACRO = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Parameter Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUTINE__PARAMETER_SET = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Result Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUTINE__RESULT_SET = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Body Block</b></em>' containment reference.
@@ -2335,25 +2299,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ROUTINE__BODY_BLOCK = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Domain</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ROUTINE__DOMAIN = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Codomain</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ROUTINE__CODOMAIN = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int ROUTINE__BODY_BLOCK = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Routine</em>' class.
@@ -2447,22 +2393,13 @@ public interface InfrastructurePackage extends EPackage {
 	int INSTANCE_MACHINE__MODEL = CommonPackage.TYPED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Arg</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_MACHINE__ARG = CommonPackage.TYPED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Slot</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INSTANCE_MACHINE__SLOT = CommonPackage.TYPED_ELEMENT_FEATURE_COUNT + 3;
+	int INSTANCE_MACHINE__SLOT = CommonPackage.TYPED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Instance Machine</em>' class.
@@ -2471,7 +2408,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INSTANCE_MACHINE_FEATURE_COUNT = CommonPackage.TYPED_ELEMENT_FEATURE_COUNT + 4;
+	int INSTANCE_MACHINE_FEATURE_COUNT = CommonPackage.TYPED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Instance Machine</em>' class.
@@ -2704,13 +2641,22 @@ public interface InfrastructurePackage extends EPackage {
 	int MODEL_OF_EXECUTION = 21;
 
 	/**
+	 * The feature id for the '<em><b>Create Routine</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_OF_EXECUTION__CREATE_ROUTINE = 0;
+
+	/**
 	 * The feature id for the '<em><b>Init Routine</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION__INIT_ROUTINE = 0;
+	int MODEL_OF_EXECUTION__INIT_ROUTINE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Final Routine</b></em>' containment reference.
@@ -2719,7 +2665,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION__FINAL_ROUTINE = 1;
+	int MODEL_OF_EXECUTION__FINAL_ROUTINE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Enable Routine</b></em>' containment reference.
@@ -2728,7 +2674,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION__ENABLE_ROUTINE = 2;
+	int MODEL_OF_EXECUTION__ENABLE_ROUTINE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Disable Routine</b></em>' containment reference.
@@ -2737,7 +2683,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION__DISABLE_ROUTINE = 3;
+	int MODEL_OF_EXECUTION__DISABLE_ROUTINE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Concurrency Routine</b></em>' containment reference.
@@ -2746,7 +2692,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION__CONCURRENCY_ROUTINE = 4;
+	int MODEL_OF_EXECUTION__CONCURRENCY_ROUTINE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Schedule Routine</b></em>' containment reference.
@@ -2755,7 +2701,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION__SCHEDULE_ROUTINE = 5;
+	int MODEL_OF_EXECUTION__SCHEDULE_ROUTINE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Irun Routine</b></em>' containment reference.
@@ -2764,7 +2710,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION__IRUN_ROUTINE = 6;
+	int MODEL_OF_EXECUTION__IRUN_ROUTINE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Run Routine</b></em>' containment reference.
@@ -2773,7 +2719,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION__RUN_ROUTINE = 7;
+	int MODEL_OF_EXECUTION__RUN_ROUTINE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Routine</b></em>' containment reference list.
@@ -2782,7 +2728,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION__ROUTINE = 8;
+	int MODEL_OF_EXECUTION__ROUTINE = 9;
 
 	/**
 	 * The number of structural features of the '<em>Model Of Execution</em>' class.
@@ -2791,7 +2737,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_EXECUTION_FEATURE_COUNT = 9;
+	int MODEL_OF_EXECUTION_FEATURE_COUNT = 10;
 
 	/**
 	 * The number of operations of the '<em>Model Of Execution</em>' class.
@@ -2822,13 +2768,13 @@ public interface InfrastructurePackage extends EPackage {
 	int MODEL_OF_INTERACTION__ROUTES = 0;
 
 	/**
-	 * The feature id for the '<em><b>Connections</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Connectors</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_OF_INTERACTION__CONNECTIONS = 1;
+	int MODEL_OF_INTERACTION__CONNECTORS = 1;
 
 	/**
 	 * The number of structural features of the '<em>Model Of Interaction</em>' class.
@@ -2895,13 +2841,22 @@ public interface InfrastructurePackage extends EPackage {
 	int COM_PROTOCOL__BUFFER = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Buffer Ref</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COM_PROTOCOL__BUFFER_REF = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Com Protocol</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COM_PROTOCOL_FEATURE_COUNT = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 4;
+	int COM_PROTOCOL_FEATURE_COUNT = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Com Protocol</em>' class.
@@ -3050,22 +3005,13 @@ public interface InfrastructurePackage extends EPackage {
 	int CONNECTOR__PROTOCOL = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Cast</b></em>' attribute.
+	 * The feature id for the '<em><b>Connector End</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__CAST = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Com Points</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTOR__COM_POINTS = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int CONNECTOR__CONNECTOR_END = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Connector</em>' class.
@@ -3074,7 +3020,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR_FEATURE_COUNT = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int CONNECTOR_FEATURE_COUNT = CommonPackage.NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Connector</em>' class.
@@ -3086,14 +3032,14 @@ public interface InfrastructurePackage extends EPackage {
 	int CONNECTOR_OPERATION_COUNT = CommonPackage.NAMED_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ComPointImpl <em>Com Point</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ConnectorEndImpl <em>Connector End</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.ComPointImpl
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getComPoint()
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.ConnectorEndImpl
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getConnectorEnd()
 	 * @generated
 	 */
-	int COM_POINT = 26;
+	int CONNECTOR_END = 26;
 
 	/**
 	 * The feature id for the '<em><b>Direction</b></em>' attribute.
@@ -3102,7 +3048,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COM_POINT__DIRECTION = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 0;
+	int CONNECTOR_END__DIRECTION = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Protocol</b></em>' containment reference.
@@ -3111,16 +3057,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COM_POINT__PROTOCOL = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Point</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COM_POINT__POINT = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 2;
+	int CONNECTOR_END__PROTOCOL = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Points</b></em>' containment reference list.
@@ -3129,7 +3066,53 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COM_POINT__POINTS = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 3;
+	int CONNECTOR_END__POINTS = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Connector End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTOR_END_FEATURE_COUNT = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Connector End</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTOR_END_OPERATION_COUNT = CommonPackage.ABSTRACT_ELEMENT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ComPointImpl <em>Com Point</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.ComPointImpl
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getComPoint()
+	 * @generated
+	 */
+	int COM_POINT = 27;
+
+	/**
+	 * The feature id for the '<em><b>Machine</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COM_POINT__MACHINE = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Port</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COM_POINT__PORT = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Com Point</em>' class.
@@ -3138,7 +3121,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COM_POINT_FEATURE_COUNT = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 4;
+	int COM_POINT_FEATURE_COUNT = CommonPackage.ABSTRACT_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Com Point</em>' class.
@@ -3157,7 +3140,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getDesignKind()
 	 * @generated
 	 */
-	int DESIGN_KIND = 27;
+	int DESIGN_KIND = 28;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection <em>Channel Direction</em>}' enum.
@@ -3167,7 +3150,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getChannelDirection()
 	 * @generated
 	 */
-	int CHANNEL_DIRECTION = 28;
+	int CHANNEL_DIRECTION = 29;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ParameterDirectionKind <em>Parameter Direction Kind</em>}' enum.
@@ -3177,7 +3160,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getParameterDirectionKind()
 	 * @generated
 	 */
-	int PARAMETER_DIRECTION_KIND = 29;
+	int PARAMETER_DIRECTION_KIND = 30;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocolKind <em>Com Protocol Kind</em>}' enum.
@@ -3187,7 +3170,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getComProtocolKind()
 	 * @generated
 	 */
-	int COM_PROTOCOL_KIND = 30;
+	int COM_PROTOCOL_KIND = 31;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComCastKind <em>Com Cast Kind</em>}' enum.
@@ -3197,7 +3180,7 @@ public interface InfrastructurePackage extends EPackage {
 	 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getComCastKind()
 	 * @generated
 	 */
-	int COM_CAST_KIND = 31;
+	int COM_CAST_KIND = 32;
 
 
 	/**
@@ -3277,48 +3260,15 @@ public interface InfrastructurePackage extends EPackage {
 	EAttribute getMachine_Design();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getPropertyPart <em>Property Part</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#isLifeline <em>Lifeline</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Property Part</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Machine#getPropertyPart()
+	 * @return the meta object for the attribute '<em>Lifeline</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Machine#isLifeline()
 	 * @see #getMachine()
 	 * @generated
 	 */
-	EReference getMachine_PropertyPart();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getCompositePart <em>Composite Part</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Composite Part</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Machine#getCompositePart()
-	 * @see #getMachine()
-	 * @generated
-	 */
-	EReference getMachine_CompositePart();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getBehaviorPart <em>Behavior Part</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Behavior Part</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Machine#getBehaviorPart()
-	 * @see #getMachine()
-	 * @generated
-	 */
-	EReference getMachine_BehaviorPart();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getMachine <em>Machine</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Machine</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Machine#getMachine()
-	 * @see #getMachine()
-	 * @generated
-	 */
-	EReference getMachine_Machine();
+	EAttribute getMachine_Lifeline();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getTypedef <em>Typedef</em>}'.
@@ -3418,6 +3368,17 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMachine_Procedure();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getMachine <em>Machine</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Machine</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Machine#getMachine()
+	 * @see #getMachine()
+	 * @generated
+	 */
+	EReference getMachine_Machine();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Machine#getInstance <em>Instance</em>}'.
@@ -3572,17 +3533,6 @@ public interface InfrastructurePackage extends EPackage {
 	EReference getCompositePart_Routine();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.CompositePart#getMachine <em>Machine</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Machine</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.CompositePart#getMachine()
-	 * @see #getCompositePart()
-	 * @generated
-	 */
-	EReference getCompositePart_Machine();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.CompositePart#getProcedure <em>Procedure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3592,6 +3542,17 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getCompositePart_Procedure();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.CompositePart#getMachine <em>Machine</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Machine</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.CompositePart#getMachine()
+	 * @see #getCompositePart()
+	 * @generated
+	 */
+	EReference getCompositePart_Machine();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.CompositePart#getInstance <em>Instance</em>}'.
@@ -3648,14 +3609,14 @@ public interface InfrastructurePackage extends EPackage {
 	EReference getBehaviorPart_Main();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.System <em>System</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem <em>Xlia System</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>System</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.System
+	 * @return the meta object for class '<em>Xlia System</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
 	 * @generated
 	 */
-	EClass getSystem();
+	EClass getXliaSystem();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.Modifier <em>Modifier</em>}'.
@@ -3721,6 +3682,17 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getModifier_Transient();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.infrastructure.Modifier#isOptional <em>Optional</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Optional</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Modifier#isOptional()
+	 * @see #getModifier()
+	 * @generated
+	 */
+	EAttribute getModifier_Optional();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.PropertyDefinition <em>Property Definition</em>}'.
@@ -3851,15 +3823,15 @@ public interface InfrastructurePackage extends EPackage {
 	EReference getPort_Signal();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Port#getParameter <em>Parameter</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Port#getParameterSet <em>Parameter Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parameter</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Port#getParameter()
+	 * @return the meta object for the containment reference '<em>Parameter Set</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Port#getParameterSet()
 	 * @see #getPort()
 	 * @generated
 	 */
-	EReference getPort_Parameter();
+	EReference getPort_ParameterSet();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.Channel <em>Channel</em>}'.
@@ -3937,15 +3909,15 @@ public interface InfrastructurePackage extends EPackage {
 	EAttribute getSignal_Direction();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Signal#getParameter <em>Parameter</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Signal#getParameterSet <em>Parameter Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parameter</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Signal#getParameter()
+	 * @return the meta object for the containment reference '<em>Parameter Set</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Signal#getParameterSet()
 	 * @see #getSignal()
 	 * @generated
 	 */
-	EReference getSignal_Parameter();
+	EReference getSignal_ParameterSet();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.Function <em>Function</em>}'.
@@ -3958,26 +3930,26 @@ public interface InfrastructurePackage extends EPackage {
 	EClass getFunction();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getArgument <em>Argument</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getParameterSet <em>Parameter Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Argument</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Function#getArgument()
+	 * @return the meta object for the containment reference '<em>Parameter Set</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Function#getParameterSet()
 	 * @see #getFunction()
 	 * @generated
 	 */
-	EReference getFunction_Argument();
+	EReference getFunction_ParameterSet();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getResult <em>Result</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Function#getResultSet <em>Result Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Result</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Function#getResult()
+	 * @return the meta object for the containment reference '<em>Result Set</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Function#getResultSet()
 	 * @see #getFunction()
 	 * @generated
 	 */
-	EReference getFunction_Result();
+	EReference getFunction_ResultSet();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.Procedure <em>Procedure</em>}'.
@@ -4000,15 +3972,37 @@ public interface InfrastructurePackage extends EPackage {
 	EClass getRoutine();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getParameter <em>Parameter</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#isMacro <em>Macro</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parameter</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Routine#getParameter()
+	 * @return the meta object for the attribute '<em>Macro</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Routine#isMacro()
 	 * @see #getRoutine()
 	 * @generated
 	 */
-	EReference getRoutine_Parameter();
+	EAttribute getRoutine_Macro();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getParameterSet <em>Parameter Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Parameter Set</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Routine#getParameterSet()
+	 * @see #getRoutine()
+	 * @generated
+	 */
+	EReference getRoutine_ParameterSet();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getResultSet <em>Result Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Result Set</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Routine#getResultSet()
+	 * @see #getRoutine()
+	 * @generated
+	 */
+	EReference getRoutine_ResultSet();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getBodyBlock <em>Body Block</em>}'.
@@ -4020,28 +4014,6 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getRoutine_BodyBlock();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getDomain <em>Domain</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Domain</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Routine#getDomain()
-	 * @see #getRoutine()
-	 * @generated
-	 */
-	EReference getRoutine_Domain();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.Routine#getCodomain <em>Codomain</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Codomain</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Routine#getCodomain()
-	 * @see #getRoutine()
-	 * @generated
-	 */
-	EReference getRoutine_Codomain();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine <em>Instance Machine</em>}'.
@@ -4074,17 +4046,6 @@ public interface InfrastructurePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getInstanceMachine_Model();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine#getArg <em>Arg</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Arg</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine#getArg()
-	 * @see #getInstanceMachine()
-	 * @generated
-	 */
-	EReference getInstanceMachine_Arg();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine#getSlot <em>Slot</em>}'.
@@ -4246,6 +4207,17 @@ public interface InfrastructurePackage extends EPackage {
 	EClass getModelOfExecution();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution#getCreateRoutine <em>Create Routine</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Create Routine</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution#getCreateRoutine()
+	 * @see #getModelOfExecution()
+	 * @generated
+	 */
+	EReference getModelOfExecution_CreateRoutine();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution#getInitRoutine <em>Init Routine</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4366,15 +4338,15 @@ public interface InfrastructurePackage extends EPackage {
 	EReference getModelOfInteraction_Routes();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.ModelOfInteraction#getConnections <em>Connections</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.ModelOfInteraction#getConnectors <em>Connectors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Connections</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ModelOfInteraction#getConnections()
+	 * @return the meta object for the containment reference list '<em>Connectors</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ModelOfInteraction#getConnectors()
 	 * @see #getModelOfInteraction()
 	 * @generated
 	 */
-	EReference getModelOfInteraction_Connections();
+	EReference getModelOfInteraction_Connectors();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol <em>Com Protocol</em>}'.
@@ -4431,6 +4403,17 @@ public interface InfrastructurePackage extends EPackage {
 	EReference getComProtocol_Buffer();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getBufferRef <em>Buffer Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Buffer Ref</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol#getBufferRef()
+	 * @see #getComProtocol()
+	 * @generated
+	 */
+	EReference getComProtocol_BufferRef();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.Route <em>Route</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4484,26 +4467,58 @@ public interface InfrastructurePackage extends EPackage {
 	EReference getConnector_Protocol();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.infrastructure.Connector#getCast <em>Cast</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Connector#getConnectorEnd <em>Connector End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Cast</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Connector#getCast()
+	 * @return the meta object for the containment reference list '<em>Connector End</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Connector#getConnectorEnd()
 	 * @see #getConnector()
 	 * @generated
 	 */
-	EAttribute getConnector_Cast();
+	EReference getConnector_ConnectorEnd();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.Connector#getComPoints <em>Com Points</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd <em>Connector End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Com Points</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.Connector#getComPoints()
-	 * @see #getConnector()
+	 * @return the meta object for class '<em>Connector End</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd
 	 * @generated
 	 */
-	EReference getConnector_ComPoints();
+	EClass getConnectorEnd();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd#getDirection <em>Direction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Direction</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd#getDirection()
+	 * @see #getConnectorEnd()
+	 * @generated
+	 */
+	EAttribute getConnectorEnd_Direction();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd#getProtocol <em>Protocol</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Protocol</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd#getProtocol()
+	 * @see #getConnectorEnd()
+	 * @generated
+	 */
+	EReference getConnectorEnd_Protocol();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd#getPoints <em>Points</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Points</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd#getPoints()
+	 * @see #getConnectorEnd()
+	 * @generated
+	 */
+	EReference getConnectorEnd_Points();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint <em>Com Point</em>}'.
@@ -4516,48 +4531,26 @@ public interface InfrastructurePackage extends EPackage {
 	EClass getComPoint();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getDirection <em>Direction</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getMachine <em>Machine</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Direction</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getDirection()
+	 * @return the meta object for the reference '<em>Machine</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getMachine()
 	 * @see #getComPoint()
 	 * @generated
 	 */
-	EAttribute getComPoint_Direction();
+	EReference getComPoint_Machine();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getProtocol <em>Protocol</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPort <em>Port</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Protocol</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getProtocol()
+	 * @return the meta object for the reference '<em>Port</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPort()
 	 * @see #getComPoint()
 	 * @generated
 	 */
-	EReference getComPoint_Protocol();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPoint <em>Point</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Point</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPoint()
-	 * @see #getComPoint()
-	 * @generated
-	 */
-	EReference getComPoint_Point();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPoints <em>Points</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Points</em>'.
-	 * @see org.eclipse.efm.ecore.formalml.infrastructure.ComPoint#getPoints()
-	 * @see #getComPoint()
-	 * @generated
-	 */
-	EReference getComPoint_Points();
+	EReference getComPoint_Port();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.efm.ecore.formalml.infrastructure.DesignKind <em>Design Kind</em>}'.
@@ -4691,36 +4684,12 @@ public interface InfrastructurePackage extends EPackage {
 		EAttribute MACHINE__DESIGN = eINSTANCE.getMachine_Design();
 
 		/**
-		 * The meta object literal for the '<em><b>Property Part</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Lifeline</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MACHINE__PROPERTY_PART = eINSTANCE.getMachine_PropertyPart();
-
-		/**
-		 * The meta object literal for the '<em><b>Composite Part</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MACHINE__COMPOSITE_PART = eINSTANCE.getMachine_CompositePart();
-
-		/**
-		 * The meta object literal for the '<em><b>Behavior Part</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MACHINE__BEHAVIOR_PART = eINSTANCE.getMachine_BehaviorPart();
-
-		/**
-		 * The meta object literal for the '<em><b>Machine</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MACHINE__MACHINE = eINSTANCE.getMachine_Machine();
+		EAttribute MACHINE__LIFELINE = eINSTANCE.getMachine_Lifeline();
 
 		/**
 		 * The meta object literal for the '<em><b>Typedef</b></em>' containment reference list feature.
@@ -4793,6 +4762,14 @@ public interface InfrastructurePackage extends EPackage {
 		 * @generated
 		 */
 		EReference MACHINE__PROCEDURE = eINSTANCE.getMachine_Procedure();
+
+		/**
+		 * The meta object literal for the '<em><b>Machine</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MACHINE__MACHINE = eINSTANCE.getMachine_Machine();
 
 		/**
 		 * The meta object literal for the '<em><b>Instance</b></em>' containment reference list feature.
@@ -4911,20 +4888,20 @@ public interface InfrastructurePackage extends EPackage {
 		EReference COMPOSITE_PART__ROUTINE = eINSTANCE.getCompositePart_Routine();
 
 		/**
-		 * The meta object literal for the '<em><b>Machine</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COMPOSITE_PART__MACHINE = eINSTANCE.getCompositePart_Machine();
-
-		/**
 		 * The meta object literal for the '<em><b>Procedure</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference COMPOSITE_PART__PROCEDURE = eINSTANCE.getCompositePart_Procedure();
+
+		/**
+		 * The meta object literal for the '<em><b>Machine</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPOSITE_PART__MACHINE = eINSTANCE.getCompositePart_Machine();
 
 		/**
 		 * The meta object literal for the '<em><b>Instance</b></em>' containment reference list feature.
@@ -4969,14 +4946,14 @@ public interface InfrastructurePackage extends EPackage {
 		EReference BEHAVIOR_PART__MAIN = eINSTANCE.getBehaviorPart_Main();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.SystemImpl <em>System</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.XliaSystemImpl <em>Xlia System</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.SystemImpl
-		 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getSystem()
+		 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.XliaSystemImpl
+		 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getXliaSystem()
 		 * @generated
 		 */
-		EClass SYSTEM = eINSTANCE.getSystem();
+		EClass XLIA_SYSTEM = eINSTANCE.getXliaSystem();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ModifierImpl <em>Modifier</em>}' class.
@@ -5027,6 +5004,14 @@ public interface InfrastructurePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MODIFIER__TRANSIENT = eINSTANCE.getModifier_Transient();
+
+		/**
+		 * The meta object literal for the '<em><b>Optional</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODIFIER__OPTIONAL = eINSTANCE.getModifier_Optional();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.PropertyDefinitionImpl <em>Property Definition</em>}' class.
@@ -5133,12 +5118,12 @@ public interface InfrastructurePackage extends EPackage {
 		EReference PORT__SIGNAL = eINSTANCE.getPort_Signal();
 
 		/**
-		 * The meta object literal for the '<em><b>Parameter</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Parameter Set</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PORT__PARAMETER = eINSTANCE.getPort_Parameter();
+		EReference PORT__PARAMETER_SET = eINSTANCE.getPort_ParameterSet();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ChannelImpl <em>Channel</em>}' class.
@@ -5201,12 +5186,12 @@ public interface InfrastructurePackage extends EPackage {
 		EAttribute SIGNAL__DIRECTION = eINSTANCE.getSignal_Direction();
 
 		/**
-		 * The meta object literal for the '<em><b>Parameter</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Parameter Set</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SIGNAL__PARAMETER = eINSTANCE.getSignal_Parameter();
+		EReference SIGNAL__PARAMETER_SET = eINSTANCE.getSignal_ParameterSet();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.FunctionImpl <em>Function</em>}' class.
@@ -5219,20 +5204,20 @@ public interface InfrastructurePackage extends EPackage {
 		EClass FUNCTION = eINSTANCE.getFunction();
 
 		/**
-		 * The meta object literal for the '<em><b>Argument</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Parameter Set</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FUNCTION__ARGUMENT = eINSTANCE.getFunction_Argument();
+		EReference FUNCTION__PARAMETER_SET = eINSTANCE.getFunction_ParameterSet();
 
 		/**
-		 * The meta object literal for the '<em><b>Result</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Result Set</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FUNCTION__RESULT = eINSTANCE.getFunction_Result();
+		EReference FUNCTION__RESULT_SET = eINSTANCE.getFunction_ResultSet();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ProcedureImpl <em>Procedure</em>}' class.
@@ -5255,12 +5240,28 @@ public interface InfrastructurePackage extends EPackage {
 		EClass ROUTINE = eINSTANCE.getRoutine();
 
 		/**
-		 * The meta object literal for the '<em><b>Parameter</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Macro</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ROUTINE__PARAMETER = eINSTANCE.getRoutine_Parameter();
+		EAttribute ROUTINE__MACRO = eINSTANCE.getRoutine_Macro();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameter Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROUTINE__PARAMETER_SET = eINSTANCE.getRoutine_ParameterSet();
+
+		/**
+		 * The meta object literal for the '<em><b>Result Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROUTINE__RESULT_SET = eINSTANCE.getRoutine_ResultSet();
 
 		/**
 		 * The meta object literal for the '<em><b>Body Block</b></em>' containment reference feature.
@@ -5269,22 +5270,6 @@ public interface InfrastructurePackage extends EPackage {
 		 * @generated
 		 */
 		EReference ROUTINE__BODY_BLOCK = eINSTANCE.getRoutine_BodyBlock();
-
-		/**
-		 * The meta object literal for the '<em><b>Domain</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ROUTINE__DOMAIN = eINSTANCE.getRoutine_Domain();
-
-		/**
-		 * The meta object literal for the '<em><b>Codomain</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ROUTINE__CODOMAIN = eINSTANCE.getRoutine_Codomain();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.InstanceMachineImpl <em>Instance Machine</em>}' class.
@@ -5311,14 +5296,6 @@ public interface InfrastructurePackage extends EPackage {
 		 * @generated
 		 */
 		EReference INSTANCE_MACHINE__MODEL = eINSTANCE.getInstanceMachine_Model();
-
-		/**
-		 * The meta object literal for the '<em><b>Arg</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference INSTANCE_MACHINE__ARG = eINSTANCE.getInstanceMachine_Arg();
 
 		/**
 		 * The meta object literal for the '<em><b>Slot</b></em>' containment reference list feature.
@@ -5453,6 +5430,14 @@ public interface InfrastructurePackage extends EPackage {
 		EClass MODEL_OF_EXECUTION = eINSTANCE.getModelOfExecution();
 
 		/**
+		 * The meta object literal for the '<em><b>Create Routine</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_OF_EXECUTION__CREATE_ROUTINE = eINSTANCE.getModelOfExecution_CreateRoutine();
+
+		/**
 		 * The meta object literal for the '<em><b>Init Routine</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5543,12 +5528,12 @@ public interface InfrastructurePackage extends EPackage {
 		EReference MODEL_OF_INTERACTION__ROUTES = eINSTANCE.getModelOfInteraction_Routes();
 
 		/**
-		 * The meta object literal for the '<em><b>Connections</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Connectors</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODEL_OF_INTERACTION__CONNECTIONS = eINSTANCE.getModelOfInteraction_Connections();
+		EReference MODEL_OF_INTERACTION__CONNECTORS = eINSTANCE.getModelOfInteraction_Connectors();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ComProtocolImpl <em>Com Protocol</em>}' class.
@@ -5591,6 +5576,14 @@ public interface InfrastructurePackage extends EPackage {
 		 * @generated
 		 */
 		EReference COM_PROTOCOL__BUFFER = eINSTANCE.getComProtocol_Buffer();
+
+		/**
+		 * The meta object literal for the '<em><b>Buffer Ref</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COM_PROTOCOL__BUFFER_REF = eINSTANCE.getComProtocol_BufferRef();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.RouteImpl <em>Route</em>}' class.
@@ -5637,20 +5630,46 @@ public interface InfrastructurePackage extends EPackage {
 		EReference CONNECTOR__PROTOCOL = eINSTANCE.getConnector_Protocol();
 
 		/**
-		 * The meta object literal for the '<em><b>Cast</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Connector End</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONNECTOR__CAST = eINSTANCE.getConnector_Cast();
+		EReference CONNECTOR__CONNECTOR_END = eINSTANCE.getConnector_ConnectorEnd();
 
 		/**
-		 * The meta object literal for the '<em><b>Com Points</b></em>' containment reference list feature.
+		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ConnectorEndImpl <em>Connector End</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.ConnectorEndImpl
+		 * @see org.eclipse.efm.ecore.formalml.infrastructure.impl.InfrastructurePackageImpl#getConnectorEnd()
+		 * @generated
+		 */
+		EClass CONNECTOR_END = eINSTANCE.getConnectorEnd();
+
+		/**
+		 * The meta object literal for the '<em><b>Direction</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTOR__COM_POINTS = eINSTANCE.getConnector_ComPoints();
+		EAttribute CONNECTOR_END__DIRECTION = eINSTANCE.getConnectorEnd_Direction();
+
+		/**
+		 * The meta object literal for the '<em><b>Protocol</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTOR_END__PROTOCOL = eINSTANCE.getConnectorEnd_Protocol();
+
+		/**
+		 * The meta object literal for the '<em><b>Points</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTOR_END__POINTS = eINSTANCE.getConnectorEnd_Points();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.impl.ComPointImpl <em>Com Point</em>}' class.
@@ -5663,36 +5682,20 @@ public interface InfrastructurePackage extends EPackage {
 		EClass COM_POINT = eINSTANCE.getComPoint();
 
 		/**
-		 * The meta object literal for the '<em><b>Direction</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Machine</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute COM_POINT__DIRECTION = eINSTANCE.getComPoint_Direction();
+		EReference COM_POINT__MACHINE = eINSTANCE.getComPoint_Machine();
 
 		/**
-		 * The meta object literal for the '<em><b>Protocol</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Port</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COM_POINT__PROTOCOL = eINSTANCE.getComPoint_Protocol();
-
-		/**
-		 * The meta object literal for the '<em><b>Point</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COM_POINT__POINT = eINSTANCE.getComPoint_Point();
-
-		/**
-		 * The meta object literal for the '<em><b>Points</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COM_POINT__POINTS = eINSTANCE.getComPoint_Points();
+		EReference COM_POINT__PORT = eINSTANCE.getComPoint_Port();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.infrastructure.DesignKind <em>Design Kind</em>}' enum.

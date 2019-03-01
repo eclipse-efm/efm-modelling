@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,8 +19,8 @@ import org.eclipse.efm.ecore.formalml.XliaModel;
 import org.eclipse.efm.ecore.formalml.XliaModelKind;
 import org.eclipse.efm.ecore.formalml.XliaNamedElement;
 import org.eclipse.efm.ecore.formalml.XliaObject;
-
 import org.eclipse.efm.ecore.formalml.XliaSection;
+
 import org.eclipse.efm.ecore.formalml.common.CommonPackage;
 
 import org.eclipse.efm.ecore.formalml.common.impl.CommonPackageImpl;
@@ -130,7 +130,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link FormalmlPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -144,17 +144,24 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 		if (isInited) return (FormalmlPackage)EPackage.Registry.INSTANCE.getEPackage(FormalmlPackage.eNS_URI);
 
 		// Obtain or create and register package
-		FormalmlPackageImpl theFormalmlPackage = (FormalmlPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof FormalmlPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new FormalmlPackageImpl());
+		Object registeredFormalmlPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		FormalmlPackageImpl theFormalmlPackage = registeredFormalmlPackage instanceof FormalmlPackageImpl ? (FormalmlPackageImpl)registeredFormalmlPackage : new FormalmlPackageImpl();
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) instanceof InfrastructurePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI) : InfrastructurePackage.eINSTANCE);
-		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) instanceof DatatypePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI) : DatatypePackage.eINSTANCE);
-		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) instanceof ExpressionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) : ExpressionPackage.eINSTANCE);
-		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) instanceof StatementPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI) : StatementPackage.eINSTANCE);
-		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) instanceof StatemachinePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI) : StatemachinePackage.eINSTANCE);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(registeredPackage instanceof CommonPackageImpl ? registeredPackage : CommonPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(InfrastructurePackage.eNS_URI);
+		InfrastructurePackageImpl theInfrastructurePackage = (InfrastructurePackageImpl)(registeredPackage instanceof InfrastructurePackageImpl ? registeredPackage : InfrastructurePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(DatatypePackage.eNS_URI);
+		DatatypePackageImpl theDatatypePackage = (DatatypePackageImpl)(registeredPackage instanceof DatatypePackageImpl ? registeredPackage : DatatypePackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
+		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(registeredPackage instanceof ExpressionPackageImpl ? registeredPackage : ExpressionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatementPackage.eNS_URI);
+		StatementPackageImpl theStatementPackage = (StatementPackageImpl)(registeredPackage instanceof StatementPackageImpl ? registeredPackage : StatementPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(StatemachinePackage.eNS_URI);
+		StatemachinePackageImpl theStatemachinePackage = (StatemachinePackageImpl)(registeredPackage instanceof StatemachinePackageImpl ? registeredPackage : StatemachinePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theFormalmlPackage.createPackageContents();
@@ -177,7 +184,6 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 		// Mark meta-data to indicate it can't be changed
 		theFormalmlPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(FormalmlPackage.eNS_URI, theFormalmlPackage);
 		return theFormalmlPackage;
@@ -188,6 +194,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getXliaModel() {
 		return xliaModelEClass;
 	}
@@ -197,6 +204,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getXliaModel_Prolog() {
 		return (EReference)xliaModelEClass.getEStructuralFeatures().get(0);
 	}
@@ -206,6 +214,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getXliaModel_System() {
 		return (EReference)xliaModelEClass.getEStructuralFeatures().get(1);
 	}
@@ -215,6 +224,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getXliaNamedElement() {
 		return xliaNamedElementEClass;
 	}
@@ -224,6 +234,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getXliaNamedElement_Name() {
 		return (EAttribute)xliaNamedElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -233,6 +244,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getXliaObject() {
 		return xliaObjectEClass;
 	}
@@ -242,6 +254,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getXliaObject_Elements() {
 		return (EReference)xliaObjectEClass.getEStructuralFeatures().get(0);
 	}
@@ -251,6 +264,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getXliaSection() {
 		return xliaSectionEClass;
 	}
@@ -260,6 +274,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getXliaSection_Elements() {
 		return (EReference)xliaSectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -269,6 +284,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getXliaAttribute() {
 		return xliaAttributeEClass;
 	}
@@ -278,6 +294,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getXliaAttribute_Value() {
 		return (EReference)xliaAttributeEClass.getEStructuralFeatures().get(0);
 	}
@@ -287,6 +304,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getXliaModelKind() {
 		return xliaModelKindEEnum;
 	}
@@ -296,6 +314,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FormalmlFactory getFormalmlFactory() {
 		return (FormalmlFactory)getEFactoryInstance();
 	}
@@ -390,7 +409,7 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 		// Initialize classes, features, and operations; add parameters
 		initEClass(xliaModelEClass, XliaModel.class, "XliaModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getXliaModel_Prolog(), this.getXliaObject(), null, "prolog", null, 1, 1, XliaModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getXliaModel_System(), theInfrastructurePackage.getSystem(), null, "system", null, 1, 1, XliaModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getXliaModel_System(), theInfrastructurePackage.getXliaSystem(), null, "system", null, 1, 1, XliaModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(xliaNamedElementEClass, XliaNamedElement.class, "XliaNamedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getXliaNamedElement_Name(), ecorePackage.getEString(), "name", "1.0", 0, 1, XliaNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -424,12 +443,12 @@ public class FormalmlPackageImpl extends EPackageImpl implements FormalmlPackage
 	 * @generated
 	 */
 	protected void createImportAnnotations() {
-		String source = "http://www.eclipse.org/OCL/Import";	
+		String source = "http://www.eclipse.org/OCL/Import";
 		addAnnotation
-		  (this, 
-		   source, 
+		  (this,
+		   source,
 		   new String[] {
-			 "ecore", "http://www.eclipse.org/emf/2002/Ecore"
+			   "ecore", "http://www.eclipse.org/emf/2002/Ecore"
 		   });
 	}
 

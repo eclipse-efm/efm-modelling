@@ -18,10 +18,14 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.widgets.TableItem;
 
-public class TraceElementNatureEditingSupport extends EditingSupport {
+public class TraceElementNatureEditingSupport
+		extends EditingSupport implements FocusListener {
 
 	private final TraceElementTableViewer fTraceElementTableViewer;
 
@@ -57,9 +61,49 @@ public class TraceElementNatureEditingSupport extends EditingSupport {
 		this.fCellEditor = new ComboBoxCellEditor(
 				fTableViewer.getTable(), fValidNatures, SWT.READ_ONLY);
 
+		this.fCellEditor.getControl().addFocusListener(this);
+
 		fUsedTraceNatures = new ArrayList<TraceElementKind>();
 		fUnusedTraceNatures = new ArrayList<TraceElementKind>();
 	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		System.out.println("focusGained with FocusEvent " + e);
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		System.out.println("focusLost with FocusEvent " + e);
+		Object value = fCellEditor.getValue();
+		if( value instanceof Integer ) {
+			final int offset = (Integer) value;
+			final TraceElementKind newNature = fValidTraceNatures[offset];
+
+			System.out.println("\tValue: " + newNature.getLiteral());
+
+			if( newNature != TraceElementKind.UNDEFINED) {
+//				saveCellEditorValue(fCellEditor, cell);
+
+		        ViewerCell cell = fTableViewer.getColumnViewerEditor().getFocusCell();
+
+		        saveCellEditorValue(fCellEditor, cell);
+
+//				final int index = fTableViewer.getTable().getSelectionIndex();
+//				final TableItem item = fTableViewer.getTable().getItem(index);
+//				final Object data = item.getData();
+//				if( data instanceof TraceElement ) {
+//					final TraceElement traceElement = (TraceElement) data;
+////					if( newNature != traceElement.getNature() ) {
+//						traceElement.setNature(newNature);
+//
+//						fTableViewer.update(traceElement, null);
+////					}
+//				}
+			}
+		}
+	}
+
 
 	@Override
 	protected CellEditor getCellEditor(Object element) {
@@ -81,9 +125,9 @@ public class TraceElementNatureEditingSupport extends EditingSupport {
 	private void updateValidNatures() {
 		fUsedTraceNatures.clear();
 		for( TableItem tableItem : fTableViewer.getTable().getItems() ) {
-			if( tableItem.getData() instanceof TraceElement ) {
-				fUsedTraceNatures.add(
-						((TraceElement) tableItem.getData()).getNature());
+			final Object data = tableItem.getData();
+			if( data instanceof TraceElement ) {
+				fUsedTraceNatures.add(((TraceElement) data).getNature());
 			}
 		}
 

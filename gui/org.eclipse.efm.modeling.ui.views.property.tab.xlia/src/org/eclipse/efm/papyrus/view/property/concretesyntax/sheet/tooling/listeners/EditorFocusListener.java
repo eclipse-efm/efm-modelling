@@ -26,7 +26,7 @@ public class EditorFocusListener extends FocusAdapter {
 
 //	private XliaEditionPropertySection section;
 
-	public EditorFocusListener(EditingPropertySection section) {
+	public EditorFocusListener(final EditingPropertySection section) {
 //		this.section = section;
 	}
 
@@ -36,7 +36,7 @@ public class EditorFocusListener extends FocusAdapter {
 	 * Modifications introduced in text are not propagated in the current model element.
 	 */
 	@Override
-	public void focusLost(FocusEvent event) {
+	public void focusLost(final FocusEvent event) {
 		/* 1. Retrieve the alf editor */
 		StyledText xliaEditor = null;
 		if (event.getSource() instanceof StyledText) {

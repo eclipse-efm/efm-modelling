@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 CEA LIST.
+ * Copyright (c) 2018 CEA LIST.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.AssignmentExpressionImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.AssignmentExpressionImpl#getLeftHandSide <em>Left Hand Side</em>}</li>
- *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.AssignmentExpressionImpl#getRigthHandSide <em>Rigth Hand Side</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.expression.impl.AssignmentExpressionImpl#getRightHandSide <em>Right Hand Side</em>}</li>
  * </ul>
  *
  * @generated
@@ -72,14 +72,14 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 	protected LeftHandSideExpression leftHandSide;
 
 	/**
-	 * The cached value of the '{@link #getRigthHandSide() <em>Rigth Hand Side</em>}' containment reference.
+	 * The cached value of the '{@link #getRightHandSide() <em>Right Hand Side</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRigthHandSide()
+	 * @see #getRightHandSide()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression rigthHandSide;
+	protected Expression rightHandSide;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -105,6 +105,7 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getOperator() {
 		return operator;
 	}
@@ -114,6 +115,7 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperator(String newOperator) {
 		String oldOperator = operator;
 		operator = newOperator;
@@ -126,6 +128,7 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LeftHandSideExpression getLeftHandSide() {
 		return leftHandSide;
 	}
@@ -150,6 +153,7 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLeftHandSide(LeftHandSideExpression newLeftHandSide) {
 		if (newLeftHandSide != leftHandSide) {
 			NotificationChain msgs = null;
@@ -169,8 +173,9 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getRigthHandSide() {
-		return rigthHandSide;
+	@Override
+	public Expression getRightHandSide() {
+		return rightHandSide;
 	}
 
 	/**
@@ -178,11 +183,11 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRigthHandSide(Expression newRigthHandSide, NotificationChain msgs) {
-		Expression oldRigthHandSide = rigthHandSide;
-		rigthHandSide = newRigthHandSide;
+	public NotificationChain basicSetRightHandSide(Expression newRightHandSide, NotificationChain msgs) {
+		Expression oldRightHandSide = rightHandSide;
+		rightHandSide = newRightHandSide;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE, oldRigthHandSide, newRigthHandSide);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE, oldRightHandSide, newRightHandSide);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -193,18 +198,19 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRigthHandSide(Expression newRigthHandSide) {
-		if (newRigthHandSide != rigthHandSide) {
+	@Override
+	public void setRightHandSide(Expression newRightHandSide) {
+		if (newRightHandSide != rightHandSide) {
 			NotificationChain msgs = null;
-			if (rigthHandSide != null)
-				msgs = ((InternalEObject)rigthHandSide).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE, null, msgs);
-			if (newRigthHandSide != null)
-				msgs = ((InternalEObject)newRigthHandSide).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE, null, msgs);
-			msgs = basicSetRigthHandSide(newRigthHandSide, msgs);
+			if (rightHandSide != null)
+				msgs = ((InternalEObject)rightHandSide).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE, null, msgs);
+			if (newRightHandSide != null)
+				msgs = ((InternalEObject)newRightHandSide).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE, null, msgs);
+			msgs = basicSetRightHandSide(newRightHandSide, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE, newRigthHandSide, newRigthHandSide));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE, newRightHandSide, newRightHandSide));
 	}
 
 	/**
@@ -217,8 +223,8 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 		switch (featureID) {
 			case ExpressionPackage.ASSIGNMENT_EXPRESSION__LEFT_HAND_SIDE:
 				return basicSetLeftHandSide(null, msgs);
-			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE:
-				return basicSetRigthHandSide(null, msgs);
+			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE:
+				return basicSetRightHandSide(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -235,8 +241,8 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 				return getOperator();
 			case ExpressionPackage.ASSIGNMENT_EXPRESSION__LEFT_HAND_SIDE:
 				return getLeftHandSide();
-			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE:
-				return getRigthHandSide();
+			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE:
+				return getRightHandSide();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -255,8 +261,8 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 			case ExpressionPackage.ASSIGNMENT_EXPRESSION__LEFT_HAND_SIDE:
 				setLeftHandSide((LeftHandSideExpression)newValue);
 				return;
-			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE:
-				setRigthHandSide((Expression)newValue);
+			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE:
+				setRightHandSide((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -276,8 +282,8 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 			case ExpressionPackage.ASSIGNMENT_EXPRESSION__LEFT_HAND_SIDE:
 				setLeftHandSide((LeftHandSideExpression)null);
 				return;
-			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE:
-				setRigthHandSide((Expression)null);
+			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE:
+				setRightHandSide((Expression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -295,8 +301,8 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 				return OPERATOR_EDEFAULT == null ? operator != null : !OPERATOR_EDEFAULT.equals(operator);
 			case ExpressionPackage.ASSIGNMENT_EXPRESSION__LEFT_HAND_SIDE:
 				return leftHandSide != null;
-			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGTH_HAND_SIDE:
-				return rigthHandSide != null;
+			case ExpressionPackage.ASSIGNMENT_EXPRESSION__RIGHT_HAND_SIDE:
+				return rightHandSide != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -310,7 +316,7 @@ public class AssignmentExpressionImpl extends ExpressionImpl implements Assignme
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (operator: ");
 		result.append(operator);
 		result.append(')');
