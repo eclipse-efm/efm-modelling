@@ -77,6 +77,7 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_TEST_OFFLINE_PROFILE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_ACSL_GENERATION_PROFILE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_EXTRANEOUS_PROFILE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/AnalysisProfileKind/ANALYSIS_USER_SEW_PROFILE"/>
       </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="workflow.ecore#//common/GraphExplorationStrategyKind">
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/GraphExplorationStrategyKind/BEST_FIRST_SEARCH"/>

@@ -63,7 +63,9 @@ public class SWTSpider extends Canvas
 	private int currentDepth2 = 0;
 	private int currentContext2 = 0;
 
-	public SWTSpider(ScrolledComposite parent, int style, int x, int y, int r) {
+	public SWTSpider(final ScrolledComposite parent, final int style,
+			final int x, final int y, final int r, final String title)
+	{
 		super(parent, style);
 
 		xDecalage = x;
@@ -71,12 +73,12 @@ public class SWTSpider extends Canvas
 		rayon = r;
 
 		fRedrawBySystem = true;
-		spiderTitle = "";
+		spiderTitle = title;
 
 		createContent(parent);
 	}
 
-	private void createContent(ScrolledComposite parent) {
+	private void createContent(final ScrolledComposite parent) {
 //		parent.setLayout(new BorderLayout() );
 
 		this.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
@@ -85,7 +87,7 @@ public class SWTSpider extends Canvas
 	}
 
 	@Override
-	public void paintControl(PaintEvent e) {
+	public void paintControl(final PaintEvent e) {
 
 		if( fRedrawBySystem || fResetFlag ) {
 // 			System.out.println("fRedrawBySystem:>" + fRedrawBySystem);
@@ -132,7 +134,7 @@ public class SWTSpider extends Canvas
 		}
 	}
 
-	public void resetSpider(SPIDER_GEOMETRY geometry) {
+	public void resetSpider(final SPIDER_GEOMETRY geometry) {
 		fResetFlag = true;
 
 		fSpidertype = geometry;
@@ -145,14 +147,13 @@ public class SWTSpider extends Canvas
 		});
 	}
 
-	private void initSpider4Segments(PaintEvent e) {
+	private void initSpider4Segments(final PaintEvent e) {
 		e.gc.fillRectangle(0, 0, SPIDER_RECTANGLE_WIDTH, SPIDER_RECTANGLE_HEIGHT);
 
-		spiderTitle = LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase();
 		e.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
 
 		// Point central
-		int rayonCentre = 2;
+		final int rayonCentre = 2;
 		e.gc.fillOval(xCentre-rayonCentre, yCentre-rayonCentre, 2*rayonCentre, 2*rayonCentre);
 
 		// 4 Rayons
@@ -183,18 +184,18 @@ public class SWTSpider extends Canvas
 		draw4RegularSegments(e, rayon);
 	}
 
-	public void draw4RegularSegments(PaintEvent pe, int lg) {
+	public void draw4RegularSegments(final PaintEvent pe, final int lg) {
 		pe.gc.drawLine(xCentre, yCentre - lg, xCentre+lg, yCentre);
 		pe.gc.drawLine(xCentre+lg, yCentre, xCentre, yCentre+lg);
 		pe.gc.drawLine(xCentre, yCentre+lg, xCentre-lg, yCentre);
 		pe.gc.drawLine(xCentre-lg, yCentre, xCentre, yCentre - lg);
 	}
 
-	public void draw4CurrentSegments(PaintEvent pe,
-			int cStep, int mStep,
-			int cDepth, int mDepth,
-			int cContext, int mContext,
-			int cWidth, int mWidth) {
+	public void draw4CurrentSegments(final PaintEvent pe,
+			final int cStep, final int mStep,
+			final int cDepth, final int mDepth,
+			final int cContext, final int mContext,
+			final int cWidth, final int mWidth) {
 
 		if ( mStep == 0 ||
 			 mDepth == 0 ||
@@ -208,22 +209,22 @@ public class SWTSpider extends Canvas
 			}
 
 		int lgPoint = rayon * cStep / mStep;
-		int xP1 = xCentre;
-		int yP1 = yCentre - lgPoint;
+		final int xP1 = xCentre;
+		final int yP1 = yCentre - lgPoint;
 
 		lgPoint = rayon * cDepth / mDepth;
-		int xP2 = xCentre+lgPoint;
-		int yP2 = yCentre;
+		final int xP2 = xCentre+lgPoint;
+		final int yP2 = yCentre;
 
 		lgPoint = rayon * cContext / mContext;
-		int xP3 = xCentre;
-		int yP3 = yCentre+lgPoint;
+		final int xP3 = xCentre;
+		final int yP3 = yCentre+lgPoint;
 
 		lgPoint = rayon * cWidth / mWidth;
-		int xP4 = xCentre-lgPoint;
-		int yP4 = yCentre;
+		final int xP4 = xCentre-lgPoint;
+		final int yP4 = yCentre;
 
-		Device device = Display.getCurrent();
+		final Device device = Display.getCurrent();
 		pe.gc.setForeground(device.getSystemColor(SWT.COLOR_GREEN));
 
 		pe.gc.setLineWidth(3);
@@ -239,14 +240,13 @@ public class SWTSpider extends Canvas
 	private static final int SPIDER_RECTANGLE_HEIGHT = 300;
 
 
-	private void initSpider5Segments(PaintEvent e) {
+	private void initSpider5Segments(final PaintEvent e) {
 		e.gc.fillRectangle(0, 0, SPIDER_RECTANGLE_WIDTH, SPIDER_RECTANGLE_HEIGHT);
 
-		spiderTitle = LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase();
 		e.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
 
 		// Point central
-		int rayonCentre = 2;
+		final int rayonCentre = 2;
 		e.gc.fillOval(xCentre-rayonCentre, yCentre-rayonCentre, 2*rayonCentre, 2*rayonCentre);
 
 		// 5 Rayons
@@ -256,8 +256,8 @@ public class SWTSpider extends Canvas
 		e.gc.drawString(Integer.toString(currentCoverage)+"/"+Integer.toString(maxCoverage),
 						xCentre-20, yCentre-rayon-30);
 
-		int xVariation1 = (int) (rayon * 0.951); // sinus(72)
-		int yVariation1 = (int) (rayon * 0.309); // cosinus(72)
+		final int xVariation1 = (int) (rayon * 0.951); // sinus(72)
+		final int yVariation1 = (int) (rayon * 0.309); // cosinus(72)
 		e.gc.drawLine(xCentre, yCentre, xCentre-xVariation1, yCentre-yVariation1);
 		e.gc.drawString("context", xCentre-xVariation1-80, yCentre-yVariation1-20);
 		e.gc.drawString(Integer.toString(currentContext)+"/"+Integer.toString(maxContext),
@@ -268,8 +268,8 @@ public class SWTSpider extends Canvas
 		e.gc.drawString(Integer.toString(currentStep)+"/"+Integer.toString(maxStep),
 				xCentre+xVariation1+10, yCentre-yVariation1);
 
-		int xVariation2 = (int) (rayon * 0.588); // sinus(72/2)
-		int yVariation2 = (int) (rayon * 0.809); // cosinus(72/2)
+		final int xVariation2 = (int) (rayon * 0.588); // sinus(72/2)
+		final int yVariation2 = (int) (rayon * 0.809); // cosinus(72/2)
 		e.gc.drawLine(xCentre, yCentre, xCentre-xVariation2, yCentre+yVariation2);
 		e.gc.drawString("depth", xCentre-xVariation2-20, yCentre+yVariation2+10);
 		e.gc.drawString(Integer.toString(currentDepth)+"/"+Integer.toString(maxDepth),
@@ -287,24 +287,24 @@ public class SWTSpider extends Canvas
 		draw5RegularSegments(e, rayon);
 	}
 
-	public void draw5RegularSegments(PaintEvent pe, int lg) {
-		int xVariation1 = (int) (lg * 0.951); // sinus(72)
-		int yVariation1 = (int) (lg  * 0.309); // cosinus(72)
+	public void draw5RegularSegments(final PaintEvent pe, final int lg) {
+		final int xVariation1 = (int) (lg * 0.951); // sinus(72)
+		final int yVariation1 = (int) (lg  * 0.309); // cosinus(72)
 		pe.gc.drawLine(xCentre, yCentre - lg, xCentre-xVariation1, yCentre-yVariation1);
 		pe.gc.drawLine(xCentre, yCentre - lg, xCentre+xVariation1, yCentre-yVariation1);
-		int xVariation2 = (int) (lg * 0.588); // sinus(72/2)
-		int yVariation2 = (int) (lg * 0.809); // cosinus(72/2)
+		final int xVariation2 = (int) (lg * 0.588); // sinus(72/2)
+		final int yVariation2 = (int) (lg * 0.809); // cosinus(72/2)
 		pe.gc.drawLine(xCentre-xVariation1, yCentre-yVariation1, xCentre-xVariation2, yCentre+yVariation2);
 		pe.gc.drawLine(xCentre+xVariation1, yCentre-yVariation1, xCentre+xVariation2, yCentre+yVariation2);
 		pe.gc.drawLine(xCentre-xVariation2, yCentre+yVariation2, xCentre+xVariation2, yCentre+yVariation2);
 	}
 
-	public void draw5CurrentSegments(PaintEvent pe,
-								int cCoverage, int mCoverage,
-								int cStep, int mStep,
-								int cWidth, int mWidth,
-								int cDepth, int mDepth,
-								int cContext, int mContext) {
+	public void draw5CurrentSegments(final PaintEvent pe,
+								final int cCoverage, final int mCoverage,
+								final int cStep, final int mStep,
+								final int cWidth, final int mWidth,
+								final int cDepth, final int mDepth,
+								final int cContext, final int mContext) {
 
 		if ( mCoverage == 0 ||
 			 mContext == 0 ||
@@ -319,34 +319,34 @@ public class SWTSpider extends Canvas
 		}
 
 		int lgPoint = rayon * cCoverage / mCoverage;
-		int xP1 = xCentre;
-		int yP1 = yCentre - lgPoint;
+		final int xP1 = xCentre;
+		final int yP1 = yCentre - lgPoint;
 
 		lgPoint = rayon * cContext / mContext;
 		int xVariation = (int) (lgPoint * 0.951); // sinus(72)
 		int yVariation = (int) (lgPoint  * 0.309); // cosinus(72)
-		int xP2 = xCentre-xVariation;
-		int yP2 = yCentre-yVariation;
+		final int xP2 = xCentre-xVariation;
+		final int yP2 = yCentre-yVariation;
 
 		lgPoint = rayon * cDepth / mDepth;
 		xVariation = (int) (lgPoint * 0.588); // sinus(72/2)
 		yVariation = (int) (lgPoint * 0.809); // cosinus(72/2)
-		int xP3 = xCentre-xVariation;
-		int yP3 = yCentre+yVariation;
+		final int xP3 = xCentre-xVariation;
+		final int yP3 = yCentre+yVariation;
 
 		lgPoint = rayon * cWidth / mWidth;
 		xVariation = (int) (lgPoint * 0.588); // sinus(72/2)
 		yVariation = (int) (lgPoint * 0.809); // cosinus(72/2)
-		int xP4 = xCentre+xVariation;
-		int yP4 = yCentre+yVariation;
+		final int xP4 = xCentre+xVariation;
+		final int yP4 = yCentre+yVariation;
 
 		lgPoint = rayon * cStep / mStep;
 		xVariation = (int) (lgPoint * 0.951); // sinus(72)
 		yVariation = (int) (lgPoint  * 0.309); // cosinus(72)
-		int xP5 = xCentre+xVariation;
-		int yP5 = yCentre-yVariation;
+		final int xP5 = xCentre+xVariation;
+		final int yP5 = yCentre-yVariation;
 
-		Device device = Display.getCurrent();
+		final Device device = Display.getCurrent();
 
 		if ( cCoverage < mCoverage)	{
 			pe.gc.setForeground(device.getSystemColor(SWT.COLOR_RED));
@@ -365,8 +365,8 @@ public class SWTSpider extends Canvas
 		pe.gc.drawLine(xP5, yP5, xP1, yP1);
 	}
 
-	private void drawExe2(PaintEvent pe) {
-		Device device = Display.getCurrent();
+	private void drawExe2(final PaintEvent pe) {
+		final Device device = Display.getCurrent();
 		if ( currentCoverage < maxCoverage)	{
 			pe.gc.setForeground(device.getSystemColor(SWT.COLOR_RED));
 			pe.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
@@ -385,9 +385,9 @@ public class SWTSpider extends Canvas
 	}
 
 
-	public void updateSpider(int exeNumber, int cStep, int mStep,
-			int cContext, int mContext, int cDepth, int mDepth,
-			int cWidth, int mWidth, int cCoverage, int mCoverage) {
+	public void updateSpider(final int exeNumber, final int cStep, final int mStep,
+			final int cContext, final int mContext, final int cDepth, final int mDepth,
+			final int cWidth, final int mWidth, final int cCoverage, final int mCoverage) {
 
 		executionNumber = exeNumber;
 

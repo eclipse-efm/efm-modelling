@@ -2057,6 +2057,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_TEST_OFFLINE_PROFILE);
 		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_ACSL_GENERATION_PROFILE);
 		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_EXTRANEOUS_PROFILE);
+		addEEnumLiteral(analysisProfileKindEEnum, AnalysisProfileKind.ANALYSIS_USER_SEW_PROFILE);
 
 		initEEnum(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.class, "GraphExplorationStrategyKind");
 		addEEnumLiteral(graphExplorationStrategyKindEEnum, GraphExplorationStrategyKind.BEST_FIRST_SEARCH);

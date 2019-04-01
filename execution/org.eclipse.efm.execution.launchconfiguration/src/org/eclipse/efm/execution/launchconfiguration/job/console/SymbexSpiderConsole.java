@@ -12,8 +12,6 @@
  */
 package org.eclipse.efm.execution.launchconfiguration.job.console;
 
-import java.io.File;
-
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -123,10 +121,8 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 		if( fSymbexSpiderConsolePage != null ) {
 			monitor.beginTask("Diversity", IProgressMonitor.UNKNOWN);
 
-			final File workingDirectory = WorkflowFileUtils.WORKSPACE_PATH.toFile();
-
-			fSymbexSpiderConsolePage.sewLaunchExecProcess("user", monitor,
-					commandLine, workingDirectory, DEFAULT_ENVIRONMENT_VARS);
+			fSymbexSpiderConsolePage.sewLaunchExecProcess("user", monitor, commandLine,
+					WorkflowFileUtils.WORKSPACE_PATH, DEFAULT_ENVIRONMENT_VARS);
 
 			return Status.OK_STATUS;
 		}

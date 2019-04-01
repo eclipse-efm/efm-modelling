@@ -99,13 +99,14 @@
   </eClassifiers>
   <eSubpackages name="common" nsURI="http://www.eclipse.org/efm/Workflow/Common" nsPrefix="Common">
     <eClassifiers xsi:type="ecore:EEnum" name="AnalysisProfileKind">
-      <eLiterals name="ANALYSIS_UNDEFINED_PROFILE"/>
+      <eLiterals name="ANALYSIS_UNDEFINED_PROFILE" literal="ANALYSIS_UNDEFINED_PROFILE"/>
       <eLiterals name="ANALYSIS_EXPLORATION_PROFILE" value="1" literal="Exploration"/>
       <eLiterals name="ANALYSIS_TRANSITION_COVERAGE_PROFILE" value="2" literal="Transition Coverage"/>
       <eLiterals name="ANALYSIS_BEHAVIOR_SELECTION_PROFILE" value="3" literal="Behavior Selection"/>
       <eLiterals name="ANALYSIS_TEST_OFFLINE_PROFILE" value="4" literal="Test Offline"/>
       <eLiterals name="ANALYSIS_ACSL_GENERATION_PROFILE" value="5" literal="Inference"/>
       <eLiterals name="ANALYSIS_EXTRANEOUS_PROFILE" value="10" literal="Extra"/>
+      <eLiterals name="ANALYSIS_USER_SEW_PROFILE" value="10" literal="ANALYSIS USER-SEW PROFILE"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Workspace">
       <eStructuralFeatures xsi:type="ecore:EReference" name="location" eType="#//common/Location"

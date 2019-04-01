@@ -7,12 +7,12 @@
 		<artifactId>org.eclipse.efm.modeling.releng</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>org.eclipse.efm.modeling.product</artifactId>
+	<artifactId>org.eclipse.efm.modeling.textual.product</artifactId>
 	<packaging>eclipse-repository</packaging>
-	<name>org.eclipse.efm.modeling.product</name>
+	<name>org.eclipse.efm.modeling.textual.product</name>
 	<description>This plugins defines the product used in the RCP org.eclipse.efm-modeling.</description>
 	<properties>
-		<product-id>org.eclipse.efm.modeling.product</product-id>
+		<product-id>org.eclipse.efm.modeling.textual.product</product-id>
 	</properties>
 	<build>
 		<plugins>

@@ -85,7 +85,8 @@ public class SEWConsoleSpiderPage extends Page
 		fSashForm.setFont(parent.getFont());
 		fSashForm.setVisible(true);
 
-		fSpider = createSpider(fSashForm, 100, 90, 150);
+		fSpider = createSpider(fSashForm, 100, 90, 150,
+				LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase());
 
 		createConsoleViewer(fSashForm);
 
@@ -110,14 +111,16 @@ public class SEWConsoleSpiderPage extends Page
 		comp.setLayoutData(dataRight);
 	}
 
-	private SWTSpider createSpider(final Composite parent, final int x, final int y, final int r) {
+	private SWTSpider createSpider(final Composite parent,
+			final int x, final int y, final int r, final String title)
+	{
 //		Group group = SWTFactory.createGroup(parent, "", 1, 1, GridData.FILL_BOTH);
 //		group.setText("MODEL ANALYSIS");
 
 		compSpider = new ScrolledComposite (parent,
 				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.RESIZE);
 
-		fSpider = new SWTSpider(compSpider, SWT.NULL, x, y, r);
+		fSpider = new SWTSpider(compSpider, SWT.NULL, x, y, r, title);
 		compSpider.setContent(fSpider);
 		compSpider.setExpandHorizontal(true);
 		compSpider.setExpandVertical(true);

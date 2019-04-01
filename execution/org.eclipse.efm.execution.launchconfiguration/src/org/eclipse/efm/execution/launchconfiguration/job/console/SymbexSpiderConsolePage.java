@@ -36,10 +36,15 @@ import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
+import org.eclipse.efm.execution.launchconfiguration.LaunchDelegate;
 import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
+import org.eclipse.efm.execution.launchconfiguration.job.SymbexJobFactory;
+import org.eclipse.efm.execution.launchconfiguration.job.action.ChangeSashFormOrientationAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.CloseAllConsoleAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.CloseConsoleAction;
+import org.eclipse.efm.execution.launchconfiguration.job.action.RestartAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateAction;
+import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateRestartAction;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider.SPIDER_GEOMETRY;
 import org.eclipse.jface.action.IMenuManager;
@@ -69,7 +74,13 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 	private SWTSpider fSpider;
 
+	private ChangeSashFormOrientationAction fChangeSashFormOrientationAction;
+
+	private RestartAction fRestartAction;
+
 	private TerminateAction fTerminateAction;
+
+	private TerminateRestartAction fTerminateRestartAction;
 
 	private CloseConsoleAction fCloseConsoleAction;
 	private CloseAllConsoleAction fCloseAllConsoleAction;
@@ -83,16 +94,27 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		fMessageConsole = console;
 	}
 
-	public MessageConsole getfMessageConsole() {
+	public MessageConsole getMessageConsole() {
 		return fMessageConsole;
 	}
+
+
+	public void changeSashFormOrientation() {
+		if( fSashForm.getOrientation() == SWT.VERTICAL ) {
+			fSashForm.setOrientation(SWT.HORIZONTAL);
+		}
+		else {
+			fSashForm.setOrientation(SWT.VERTICAL);
+		}
+	}
+
 
     @Override
 	public void createControl(final Composite parent) {
 		// Create the SashForm that contains the selection area on the left,
 		// and the edit area on the right
     	fMainPageControl = fSashForm = new SashForm(parent, SWT.SMOOTH);
-		fSashForm.setOrientation(SWT.HORIZONTAL);
+		fSashForm.setOrientation(SWT.VERTICAL);
 		final GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		fSashForm.setLayoutData(gd);
@@ -102,18 +124,20 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(fSashForm,
 				HelpContextIdConstants.sew_view_SymbexConsoleSpider);
 
-		fSpider = createSpider(fSashForm, 100, 90, 150);
+		fSpider = createSpider(fSashForm, 100, 90, 150,
+				LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase());
 
 		super.createControl(fSashForm);
 
 		fSashForm.setWeights(new int[] {40, 60});
     }
 
-	private SWTSpider createSpider(final Composite parent, final int x, final int y, final int r) {
+	private SWTSpider createSpider(final Composite parent,
+			final int x, final int y, final int r, final String title) {
 		final ScrolledComposite compSpider = new ScrolledComposite (parent,
 				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.RESIZE);
 
-		fSpider = new SWTSpider(compSpider, SWT.NULL, x, y, r);
+		fSpider = new SWTSpider(compSpider, SWT.NULL, x, y, r, title);
 		compSpider.setContent(fSpider);
 		compSpider.setExpandHorizontal(true);
 		compSpider.setExpandVertical(true);
@@ -156,6 +180,12 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	protected void createActions() {
 		super.createActions();
 
+		fChangeSashFormOrientationAction = new ChangeSashFormOrientationAction(this);
+
+		fRestartAction = new RestartAction(this);
+
+		fTerminateRestartAction = new TerminateRestartAction(this);
+
 		fTerminateAction = new TerminateAction(this);
 
 		fCloseConsoleAction = new CloseConsoleAction(this);
@@ -167,6 +197,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	protected void contextMenuAboutToShow(final IMenuManager menuManager) {
 		super.contextMenuAboutToShow(menuManager);
 
+		menuManager.add(fChangeSashFormOrientationAction);
+		menuManager.add(fRestartAction);
+		menuManager.add(fTerminateRestartAction);
 		menuManager.add(fTerminateAction);
 		menuManager.add(fCloseConsoleAction);
 		menuManager.add(fCloseAllConsoleAction);
@@ -175,6 +208,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	@Override
 	protected void configureToolBar(final IToolBarManager mgr) {
         super.configureToolBar(mgr);
+        mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fChangeSashFormOrientationAction);
+        mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fRestartAction);
+        mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fTerminateRestartAction);
         mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fTerminateAction);
         mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fCloseConsoleAction);
         mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fCloseAllConsoleAction);
@@ -182,6 +218,21 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 
 	public void disposeAction() {
+        if (fChangeSashFormOrientationAction != null) {
+        	fChangeSashFormOrientationAction.dispose();
+        	fChangeSashFormOrientationAction = null;
+        }
+
+        if (fRestartAction != null) {
+        	fRestartAction.dispose();
+        	fRestartAction = null;
+        }
+
+        if (fTerminateRestartAction != null) {
+        	fTerminateRestartAction.dispose();
+        	fTerminateRestartAction = null;
+        }
+
         if (fTerminateAction != null) {
         	fTerminateAction.dispose();
         	fTerminateAction = null;
@@ -251,8 +302,14 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 	public void sewLaunchExecProcess(final String mode,
 			final IProgressMonitor monitor, final String[] commandLine,
-			final File workingDirectory, final String[] envp)
+			final IPath workingDirectory, final String[] envp)
 	{
+		fMode = mode;
+		fMonitor = monitor;
+		fCommandLine = commandLine;
+		fWorkingDirectory = workingDirectory;
+		fEnvp = envp;
+
 		if( startSymbexProcess(commandLine, workingDirectory, envp) ) {
 			fMessageConsole.clearConsole();
 
@@ -274,14 +331,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 
-			doRefresh(commandLine, workingDirectory);
+			doRefresh(commandLine, workingDirectory.toFile());
 
-	        if (fTerminateAction != null) {
-	        	fTerminateAction.setEnabled(false);
-	        }
-	        if (fCloseConsoleAction != null) {
-	        	fCloseConsoleAction.setEnabled(true);
-	        }
+			updateActionEndingProcess();
 		}
 	}
 
@@ -295,10 +347,10 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	private String traceLine = null;
 
 
-	private boolean startSymbexProcess(
-			final String[] commandLine, final File workingDirectory, final String[] envp) {
-		final OutputStream outputStream =
-				fMessageConsole.newOutputStream();
+	private boolean startSymbexProcess(final String[] commandLine,
+			final IPath workingDirectory, final String[] envp) {
+
+		final OutputStream outputStream = fMessageConsole.newOutputStream();
 		final OutputStreamWriter outputStreamWriter =
 				new OutputStreamWriter(outputStream);
 
@@ -306,17 +358,12 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		ProcessBuilder processBuilder = new ProcessBuilder(commandLine);
 		processBuilder = processBuilder.redirectErrorStream(true);
-		processBuilder.directory(workingDirectory);
+		processBuilder.directory(workingDirectory.toFile());
 
 		try {
 			fSymbexProcess = processBuilder.start();
 
-	        if (fTerminateAction != null) {
-	        	fTerminateAction.setEnabled(true);
-	        }
-	        if (fCloseConsoleAction != null) {
-	        	fCloseConsoleAction.setEnabled(false);
-	        }
+			updateActionBeginningProcess();
 
 		} catch (final IOException e1) {
 			e1.printStackTrace();
@@ -325,8 +372,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 //		try {
 //			fSymbexProcess = DebugPlugin.exec(commandLine, workingDirectory, envp);
 //
-//			fTerminateAction.setEnabled(true);
-//			fCloseConsoleAction.setEnabled(false);
+//			updateActionBeginningProcess();
 //		} catch (CoreException e1) {
 //			e1.printStackTrace();
 //			fSymbexProcess = null;
@@ -365,12 +411,37 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				e.printStackTrace();
 			}
 
-	        if (fTerminateAction != null) {
-	        	fTerminateAction.setEnabled(false);
-	        }
-	        if (fCloseConsoleAction != null) {
-	        	fCloseConsoleAction.setEnabled(true);
-	        }
+	        updateActionEndingProcess();
+		}
+	}
+
+	private void updateActionBeginningProcess() {
+		if (fRestartAction != null) {
+			fRestartAction.setEnabled(false);
+		}
+		if (fTerminateAction != null) {
+			fTerminateAction.setEnabled(true);
+		}
+		if (fTerminateRestartAction != null) {
+			fTerminateRestartAction.setEnabled(true);
+		}
+		if (fCloseConsoleAction != null) {
+			fCloseConsoleAction.setEnabled(false);
+		}
+	}
+
+	private void updateActionEndingProcess() {
+		if (fRestartAction != null) {
+			fRestartAction.setEnabled(true);
+		}
+		if (fTerminateAction != null) {
+			fTerminateAction.setEnabled(false);
+		}
+		if (fTerminateRestartAction != null) {
+			fTerminateRestartAction.setEnabled(false);
+		}
+		if (fCloseConsoleAction != null) {
+			fCloseConsoleAction.setEnabled(true);
 		}
 	}
 
@@ -382,11 +453,45 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	}
 
 
+	private ILaunchConfiguration fConfiguration;
+	private String fMode;
+	private ILaunch fLaunch;
+	IProgressMonitor fMonitor;
+	private String[] fCommandLine;
+	private IPath fWorkingDirectory;
+	private String[] fEnvp;
+
+	public void restartProcess() {
+		if( (fConfiguration != null) && (fLaunch != null) ) {
+			SymbexJobFactory.run(fConfiguration, fMode, fLaunch, //fMonitor,
+					fCommandLine, fWorkingDirectory, fEnvp);
+		}
+		else {
+			SymbexJobFactory.run(fMode, //fMonitor,
+					fCommandLine, fWorkingDirectory, fEnvp);
+		}
+	}
+
+	public void TerminateRestartProcess() {
+		terminateProcess();
+
+		restartProcess();
+	}
+
+
 	public void sewLaunchExecProcess(final ILaunchConfiguration configuration,
 			final String mode, final ILaunch launch,
 			final IProgressMonitor monitor, final String[] commandLine,
-			final File workingDirectory, final String[] envp)
+			final IPath workingDirectory, final String[] envp)
 	{
+		fConfiguration = configuration;
+		fMode = mode;
+		fLaunch = launch;
+		fMonitor = monitor;
+		fCommandLine = commandLine;
+		fWorkingDirectory = workingDirectory;
+		fEnvp = envp;
+
 		if( startSymbexProcess(commandLine, workingDirectory, envp) ) {
 			fMessageConsole.clearConsole();
 
@@ -408,7 +513,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 
-			doRefresh(commandLine, workingDirectory);
+			doRefresh(commandLine, workingDirectory.toFile());
 		}
 	}
 

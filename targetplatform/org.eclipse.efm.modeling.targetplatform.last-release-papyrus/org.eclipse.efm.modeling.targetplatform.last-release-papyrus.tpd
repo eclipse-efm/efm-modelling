@@ -6,6 +6,8 @@ with source requirements
 location "http://download.eclipse.org/releases/2018-12" eclipse-2018-12 {
  org.eclipse.cdt.core lazy
  
+ org.eclipse.egit.feature.group lazy
+ 
  org.eclipse.emf.feature.group lazy
  org.eclipse.emf.source.feature.group lazy
  org.eclipse.emf.mwe.core.feature.feature.group lazy

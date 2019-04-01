@@ -72,7 +72,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	 * @param parentTab
 	 */
 	public OverviewTestOfflineConfigurationProfile(
-			AbstractConfigurationPage configurationPage)
+			final AbstractConfigurationPage configurationPage)
 	{
 		super(configurationPage, false);
 
@@ -88,7 +88,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	 */
 	private ModifyListener fBasicModifyListener = new ModifyListener() {
 		@Override
-		public void modifyText(ModifyEvent evt) {
+		public void modifyText(final ModifyEvent evt) {
 			fConfigurationPage.propagateUpdateJobScheduling();
 		}
 	};
@@ -100,8 +100,8 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	 * @return the {@link IDialogSettings} to pass into the {@link ContainerSelectionDialog}
 	 * @since 3.6
 	 */
-	IDialogSettings getDialogBoundsSettings(String id) {
-		IDialogSettings settings = Activator.getDefault().getDialogSettings();
+	IDialogSettings getDialogBoundsSettings(final String id) {
+		final IDialogSettings settings = Activator.getDefault().getDialogSettings();
 		IDialogSettings section = settings.getSection(id);
 		if(section == null) {
 			section = settings.addNewSection(id);
@@ -122,7 +122,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit) {
 		fWidgetToolkit = widgetToolkit;
 
 //		SWTFactory.createGroup(
@@ -139,7 +139,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		fTracePathText.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
-					public void getName(AccessibleEvent e) {
+					public void getName(final AccessibleEvent e) {
 						e.result = "Trace File";
 					}
 				} );
@@ -149,8 +149,8 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 				widgetToolkit.createPushButton(comp, "&Workspace...", null);
 		fTraceWorkspaceBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				ElementTreeSelectionDialog dialog =
+			public void widgetSelected(final SelectionEvent e) {
+				final ElementTreeSelectionDialog dialog =
 						new ElementTreeSelectionDialog(
 								fCompositeParent.getShell(),
 								new WorkbenchLabelProvider(),
@@ -164,9 +164,9 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 						getDialogBoundsSettings(WORKSPACE_SELECTION_DIALOG),
 						Dialog.DIALOG_PERSISTSIZE);
 				if(dialog.open() == Window.OK) {
-					IResource resource = (IResource) dialog.getFirstResult();
+					final IResource resource = (IResource) dialog.getFirstResult();
 					if(resource != null) {
-						String arg = resource.getLocation().toString();
+						final String arg = resource.getLocation().toString();
 						fTracePathText.setText(arg);
 					}
 				}
@@ -184,7 +184,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		fTestPurposePathText.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
-					public void getName(AccessibleEvent e) {
+					public void getName(final AccessibleEvent e) {
 						e.result = "Test Purpose File";
 					}
 				} );
@@ -195,8 +195,8 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		fTestPurposeWorkspaceBrowse.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
-					public void widgetSelected(SelectionEvent e) {
-						ElementTreeSelectionDialog dialog =
+					public void widgetSelected(final SelectionEvent e) {
+						final ElementTreeSelectionDialog dialog =
 								new ElementTreeSelectionDialog(
 										fCompositeParent.getShell(),
 										new WorkbenchLabelProvider(),
@@ -214,10 +214,10 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 										WORKSPACE_SELECTION_DIALOG),
 								Dialog.DIALOG_PERSISTSIZE);
 						if(dialog.open() == Window.OK) {
-							IResource resource =
+							final IResource resource =
 									(IResource) dialog.getFirstResult();
 							if(resource != null) {
-								String arg = resource.getLocation().toString();
+								final String arg = resource.getLocation().toString();
 								fTestPurposePathText.setText(arg);
 							}
 						}
@@ -233,11 +233,12 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 						ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION,
 						"&Enable Observable / Controllable Configuration",
 						fObservableControllableComposite, false);
+        addFieldEditor(fEnabledObservableControllableBooleanField);
 
 		fEnabledObservableControllableBooleanField.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
-					public void widgetSelected(SelectionEvent e) {
+					public void widgetSelected(final SelectionEvent e) {
 						handleEnablingTraceConfiguration();
 					}
 				});
@@ -262,7 +263,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 
 	private void handleEnablingTraceConfiguration() {
-		boolean enabled =
+		final boolean enabled =
 				fEnabledObservableControllableBooleanField.getBooleanValue();
 
 		if( (fObservableTraceTableViewer == null)
@@ -279,7 +280,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
 				DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
@@ -302,13 +303,13 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	protected void initializeFromImpl(ILaunchConfiguration configuration) {
+	protected void initializeFromImpl(final ILaunchConfiguration configuration) {
 		String traceFile;
 		try {
 			traceFile = configuration.getAttribute(
 					ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
 					DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
-		} catch( CoreException e ) {
+		} catch( final CoreException e ) {
 			e.printStackTrace();
 			traceFile = DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION;
 		}
@@ -319,7 +320,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 			testPurposeFile = configuration.getAttribute(
 					ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
 					DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
-		} catch( CoreException e ) {
+		} catch( final CoreException e ) {
 			e.printStackTrace();
 			testPurposeFile = DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION;
 		}
@@ -329,7 +330,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	}
 
 	@Override
-	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+	protected void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
 				fTracePathText.getText());
@@ -341,7 +342,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 
 	@Override
-	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(final ILaunchConfiguration launchConfig) {
 
 		String filePath = fTracePathText.getText();
 

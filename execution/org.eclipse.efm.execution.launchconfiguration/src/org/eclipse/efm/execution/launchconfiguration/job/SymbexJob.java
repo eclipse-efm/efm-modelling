@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.job;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,8 +103,43 @@ public class SymbexJob extends Job {
 
 	}
 
+	public SymbexJob(final String jobName,
+			final String mode, final String[] commandLine,
+			final IPath workingDirectory, final String[] envp)
+	{
+		super(jobName);
+
+		this.fWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if( fWindow == null ) {
+			final IWorkbench workbench = PlatformUI.getWorkbench();
+			final IWorkbenchWindow[] wbWindow = workbench.getWorkbenchWindows();
+			if( wbWindow.length > 0 ) {
+				fWindow = wbWindow[0];
+			}
+		}
+
+		this.fSymbexWorkflowFile = null;
+		this.fSymbexWorkflowPath = null;
+
+		this.fCommandLine = commandLine;
+
+		if( (commandLine != null) && (commandLine.length > 1) )
+		{
+			this.fSymbexWorkflowPath = new Path(commandLine[1]);
+
+			this.fSymbexWorkflowFile =
+					WorkflowFileUtils.find(this.fSymbexWorkflowPath);
+
+//			showConsoleView(this.fSymbexWorkflowPath);
+
+			loadConsoleViewer(this.fSymbexWorkflowPath);
+}
+	}
+
+
 	public SymbexJob(final ILaunchConfiguration configuration, final String mode,
-			final ILaunch launch, final String[] commandLine, final File workingDirectory, final String[] envp)
+			final ILaunch launch, final String[] commandLine,
+			final IPath workingDirectory, final String[] envp)
 	{
 		super(configuration.getName());
 

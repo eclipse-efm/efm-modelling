@@ -339,8 +339,8 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 //		fConsoleManager.sewLaunchExecProcess(configuration, mode,
 //				launch, monitor, commandLine, fLaunchingDirectory.toFile(), envp);
 
-		SymbexJobFactory.run(configuration, mode,
-				launch, monitor, commandLine, fLaunchingDirectory, envp);
+		SymbexJobFactory.run(configuration, mode, launch, //monitor,
+				commandLine, fLaunchingDirectory, envp);
 
 		// Console par défault
 //		defaultLaunchExecProcess(configuration, mode, launch,

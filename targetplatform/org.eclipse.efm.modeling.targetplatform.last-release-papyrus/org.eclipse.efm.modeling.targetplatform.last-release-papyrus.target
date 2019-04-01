@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde?><!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform --><target name="Eclipse Formal Modeling Papyrus last-release" sequenceNumber="1551445611">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde?><!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform --><target name="Eclipse Formal Modeling Papyrus last-release" sequenceNumber="1553620688">
   <locations>
     <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
       <unit id="org.eclipse.cdt.core" version="0.0.0"/>
+      <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.source.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.mwe.core.feature.feature.group" version="0.0.0"/>

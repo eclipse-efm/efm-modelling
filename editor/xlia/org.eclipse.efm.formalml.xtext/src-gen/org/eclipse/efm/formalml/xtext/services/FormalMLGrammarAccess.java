@@ -609,38 +609,39 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cListKeyword_89 = (Keyword)cAlternatives.eContents().get(89);
 		private final Keyword cSetKeyword_90 = (Keyword)cAlternatives.eContents().get(90);
 		private final Keyword cBagKeyword_91 = (Keyword)cAlternatives.eContents().get(91);
-		private final Keyword cFifoKeyword_92 = (Keyword)cAlternatives.eContents().get(92);
-		private final Keyword cLifoKeyword_93 = (Keyword)cAlternatives.eContents().get(93);
-		private final Keyword cGuardKeyword_94 = (Keyword)cAlternatives.eContents().get(94);
-		private final Keyword cTguardKeyword_95 = (Keyword)cAlternatives.eContents().get(95);
-		private final Keyword cEventKeyword_96 = (Keyword)cAlternatives.eContents().get(96);
-		private final Keyword cChecksatKeyword_97 = (Keyword)cAlternatives.eContents().get(97);
-		private final Keyword cBreakKeyword_98 = (Keyword)cAlternatives.eContents().get(98);
-		private final Keyword cContinueKeyword_99 = (Keyword)cAlternatives.eContents().get(99);
-		private final Keyword cExitKeyword_100 = (Keyword)cAlternatives.eContents().get(100);
-		private final Keyword cInitKeyword_101 = (Keyword)cAlternatives.eContents().get(101);
-		private final Keyword cDestroyKeyword_102 = (Keyword)cAlternatives.eContents().get(102);
-		private final Keyword cStopKeyword_103 = (Keyword)cAlternatives.eContents().get(103);
-		private final Keyword cAbortKeyword_104 = (Keyword)cAlternatives.eContents().get(104);
-		private final Keyword cRestartKeyword_105 = (Keyword)cAlternatives.eContents().get(105);
-		private final Keyword cSuspendKeyword_106 = (Keyword)cAlternatives.eContents().get(106);
-		private final Keyword cResumeKeyword_107 = (Keyword)cAlternatives.eContents().get(107);
-		private final Keyword cWaitKeyword_108 = (Keyword)cAlternatives.eContents().get(108);
-		private final Keyword cDisableKeyword_109 = (Keyword)cAlternatives.eContents().get(109);
-		private final Keyword cEnableKeyword_110 = (Keyword)cAlternatives.eContents().get(110);
-		private final Keyword cScheduleKeyword_111 = (Keyword)cAlternatives.eContents().get(111);
-		private final Keyword cIrunKeyword_112 = (Keyword)cAlternatives.eContents().get(112);
-		private final Keyword cRunKeyword_113 = (Keyword)cAlternatives.eContents().get(113);
-		private final Keyword cRtcKeyword_114 = (Keyword)cAlternatives.eContents().get(114);
-		private final Keyword cCallKeyword_115 = (Keyword)cAlternatives.eContents().get(115);
-		private final Keyword cNewKeyword_116 = (Keyword)cAlternatives.eContents().get(116);
-		private final Keyword cCtorKeyword_117 = (Keyword)cAlternatives.eContents().get(117);
-		private final Keyword cNewfreshKeyword_118 = (Keyword)cAlternatives.eContents().get(118);
-		private final Keyword cThisKeyword_119 = (Keyword)cAlternatives.eContents().get(119);
-		private final Keyword cSelfKeyword_120 = (Keyword)cAlternatives.eContents().get(120);
-		private final Keyword cParentKeyword_121 = (Keyword)cAlternatives.eContents().get(121);
-		private final Keyword cSuperKeyword_122 = (Keyword)cAlternatives.eContents().get(122);
-		private final Keyword cNullKeyword_123 = (Keyword)cAlternatives.eContents().get(123);
+		private final Keyword cMultisetKeyword_92 = (Keyword)cAlternatives.eContents().get(92);
+		private final Keyword cFifoKeyword_93 = (Keyword)cAlternatives.eContents().get(93);
+		private final Keyword cLifoKeyword_94 = (Keyword)cAlternatives.eContents().get(94);
+		private final Keyword cGuardKeyword_95 = (Keyword)cAlternatives.eContents().get(95);
+		private final Keyword cTguardKeyword_96 = (Keyword)cAlternatives.eContents().get(96);
+		private final Keyword cEventKeyword_97 = (Keyword)cAlternatives.eContents().get(97);
+		private final Keyword cChecksatKeyword_98 = (Keyword)cAlternatives.eContents().get(98);
+		private final Keyword cBreakKeyword_99 = (Keyword)cAlternatives.eContents().get(99);
+		private final Keyword cContinueKeyword_100 = (Keyword)cAlternatives.eContents().get(100);
+		private final Keyword cExitKeyword_101 = (Keyword)cAlternatives.eContents().get(101);
+		private final Keyword cInitKeyword_102 = (Keyword)cAlternatives.eContents().get(102);
+		private final Keyword cDestroyKeyword_103 = (Keyword)cAlternatives.eContents().get(103);
+		private final Keyword cStopKeyword_104 = (Keyword)cAlternatives.eContents().get(104);
+		private final Keyword cAbortKeyword_105 = (Keyword)cAlternatives.eContents().get(105);
+		private final Keyword cRestartKeyword_106 = (Keyword)cAlternatives.eContents().get(106);
+		private final Keyword cSuspendKeyword_107 = (Keyword)cAlternatives.eContents().get(107);
+		private final Keyword cResumeKeyword_108 = (Keyword)cAlternatives.eContents().get(108);
+		private final Keyword cWaitKeyword_109 = (Keyword)cAlternatives.eContents().get(109);
+		private final Keyword cDisableKeyword_110 = (Keyword)cAlternatives.eContents().get(110);
+		private final Keyword cEnableKeyword_111 = (Keyword)cAlternatives.eContents().get(111);
+		private final Keyword cScheduleKeyword_112 = (Keyword)cAlternatives.eContents().get(112);
+		private final Keyword cIrunKeyword_113 = (Keyword)cAlternatives.eContents().get(113);
+		private final Keyword cRunKeyword_114 = (Keyword)cAlternatives.eContents().get(114);
+		private final Keyword cRtcKeyword_115 = (Keyword)cAlternatives.eContents().get(115);
+		private final Keyword cCallKeyword_116 = (Keyword)cAlternatives.eContents().get(116);
+		private final Keyword cNewKeyword_117 = (Keyword)cAlternatives.eContents().get(117);
+		private final Keyword cCtorKeyword_118 = (Keyword)cAlternatives.eContents().get(118);
+		private final Keyword cNewfreshKeyword_119 = (Keyword)cAlternatives.eContents().get(119);
+		private final Keyword cThisKeyword_120 = (Keyword)cAlternatives.eContents().get(120);
+		private final Keyword cSelfKeyword_121 = (Keyword)cAlternatives.eContents().get(121);
+		private final Keyword cParentKeyword_122 = (Keyword)cAlternatives.eContents().get(122);
+		private final Keyword cSuperKeyword_123 = (Keyword)cAlternatives.eContents().get(123);
+		private final Keyword cNullKeyword_124 = (Keyword)cAlternatives.eContents().get(124);
 		
 		////QualifiedName returns ecore::EString
 		////	: ID ( '[' ID ']' )? '.' ID ( '[' ID ']' )? | ID
@@ -681,7 +682,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//	| 'ufloat' | 'udouble' | 'ureal'
 		//	| 'interval' | 'enum' | 'struct' | 'union'
 		//	| 'vector' | 'rvector' | 'list'
-		//	| 'set' | 'bag' | 'fifo' | 'lifo'
+		//	| 'set' | 'bag' | 'multiset'
+		//	| 'fifo' | 'lifo'
 		//	| 'guard' | 'tguard'
 		//	| 'event' | 'checksat'
 		//	| 'break' | 'continue' | 'exit' | 'init'
@@ -703,9 +705,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'anycast' | 'multicast' | 'broadcast' | 'boolean' | 'bool' | 'char' | 'string' | 'integer' | 'int' | 'uinteger' |
 		//'uint' | 'rational' | 'rat' | 'urational' | 'urat' | 'time' | 'clock' | 'float' | 'double' | 'real' | 'ufloat' |
 		//'udouble' | 'ureal' | 'interval' | 'enum' | 'struct' | 'union' | 'vector' | 'rvector' | 'list' | 'set' | 'bag' |
-		//'fifo' | 'lifo' | 'guard' | 'tguard' | 'event' | 'checksat' | 'break' | 'continue' | 'exit' | 'init' | 'destroy' |
-		//'stop' | 'abort' | 'restart' | 'suspend' | 'resume' | 'wait' | 'disable' | 'enable' | 'schedule' | 'irun' | 'run' |
-		//'rtc' | 'call' | 'new' | 'ctor' | 'newfresh' | 'this' | 'self' | 'parent' | 'super' | 'null'
+		//'multiset' | 'fifo' | 'lifo' | 'guard' | 'tguard' | 'event' | 'checksat' | 'break' | 'continue' | 'exit' | 'init' |
+		//'destroy' | 'stop' | 'abort' | 'restart' | 'suspend' | 'resume' | 'wait' | 'disable' | 'enable' | 'schedule' | 'irun'
+		//| 'run' | 'rtc' | 'call' | 'new' | 'ctor' | 'newfresh' | 'this' | 'self' | 'parent' | 'super' | 'null'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'package'
@@ -984,101 +986,104 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'bag'
 		public Keyword getBagKeyword_91() { return cBagKeyword_91; }
 		
+		//'multiset'
+		public Keyword getMultisetKeyword_92() { return cMultisetKeyword_92; }
+		
 		//'fifo'
-		public Keyword getFifoKeyword_92() { return cFifoKeyword_92; }
+		public Keyword getFifoKeyword_93() { return cFifoKeyword_93; }
 		
 		//'lifo'
-		public Keyword getLifoKeyword_93() { return cLifoKeyword_93; }
+		public Keyword getLifoKeyword_94() { return cLifoKeyword_94; }
 		
 		//'guard'
-		public Keyword getGuardKeyword_94() { return cGuardKeyword_94; }
+		public Keyword getGuardKeyword_95() { return cGuardKeyword_95; }
 		
 		//'tguard'
-		public Keyword getTguardKeyword_95() { return cTguardKeyword_95; }
+		public Keyword getTguardKeyword_96() { return cTguardKeyword_96; }
 		
 		//'event'
-		public Keyword getEventKeyword_96() { return cEventKeyword_96; }
+		public Keyword getEventKeyword_97() { return cEventKeyword_97; }
 		
 		//'checksat'
-		public Keyword getChecksatKeyword_97() { return cChecksatKeyword_97; }
+		public Keyword getChecksatKeyword_98() { return cChecksatKeyword_98; }
 		
 		//'break'
-		public Keyword getBreakKeyword_98() { return cBreakKeyword_98; }
+		public Keyword getBreakKeyword_99() { return cBreakKeyword_99; }
 		
 		//'continue'
-		public Keyword getContinueKeyword_99() { return cContinueKeyword_99; }
+		public Keyword getContinueKeyword_100() { return cContinueKeyword_100; }
 		
 		//'exit'
-		public Keyword getExitKeyword_100() { return cExitKeyword_100; }
+		public Keyword getExitKeyword_101() { return cExitKeyword_101; }
 		
 		//'init'
-		public Keyword getInitKeyword_101() { return cInitKeyword_101; }
+		public Keyword getInitKeyword_102() { return cInitKeyword_102; }
 		
 		//'destroy'
-		public Keyword getDestroyKeyword_102() { return cDestroyKeyword_102; }
+		public Keyword getDestroyKeyword_103() { return cDestroyKeyword_103; }
 		
 		//'stop'
-		public Keyword getStopKeyword_103() { return cStopKeyword_103; }
+		public Keyword getStopKeyword_104() { return cStopKeyword_104; }
 		
 		//'abort'
-		public Keyword getAbortKeyword_104() { return cAbortKeyword_104; }
+		public Keyword getAbortKeyword_105() { return cAbortKeyword_105; }
 		
 		//'restart'
-		public Keyword getRestartKeyword_105() { return cRestartKeyword_105; }
+		public Keyword getRestartKeyword_106() { return cRestartKeyword_106; }
 		
 		//'suspend'
-		public Keyword getSuspendKeyword_106() { return cSuspendKeyword_106; }
+		public Keyword getSuspendKeyword_107() { return cSuspendKeyword_107; }
 		
 		//'resume'
-		public Keyword getResumeKeyword_107() { return cResumeKeyword_107; }
+		public Keyword getResumeKeyword_108() { return cResumeKeyword_108; }
 		
 		//'wait'
-		public Keyword getWaitKeyword_108() { return cWaitKeyword_108; }
+		public Keyword getWaitKeyword_109() { return cWaitKeyword_109; }
 		
 		//'disable'
-		public Keyword getDisableKeyword_109() { return cDisableKeyword_109; }
+		public Keyword getDisableKeyword_110() { return cDisableKeyword_110; }
 		
 		//'enable'
-		public Keyword getEnableKeyword_110() { return cEnableKeyword_110; }
+		public Keyword getEnableKeyword_111() { return cEnableKeyword_111; }
 		
 		//'schedule'
-		public Keyword getScheduleKeyword_111() { return cScheduleKeyword_111; }
+		public Keyword getScheduleKeyword_112() { return cScheduleKeyword_112; }
 		
 		//'irun'
-		public Keyword getIrunKeyword_112() { return cIrunKeyword_112; }
+		public Keyword getIrunKeyword_113() { return cIrunKeyword_113; }
 		
 		//'run'
-		public Keyword getRunKeyword_113() { return cRunKeyword_113; }
+		public Keyword getRunKeyword_114() { return cRunKeyword_114; }
 		
 		//'rtc'
-		public Keyword getRtcKeyword_114() { return cRtcKeyword_114; }
+		public Keyword getRtcKeyword_115() { return cRtcKeyword_115; }
 		
 		//'call'
-		public Keyword getCallKeyword_115() { return cCallKeyword_115; }
+		public Keyword getCallKeyword_116() { return cCallKeyword_116; }
 		
 		//'new'
-		public Keyword getNewKeyword_116() { return cNewKeyword_116; }
+		public Keyword getNewKeyword_117() { return cNewKeyword_117; }
 		
 		//'ctor'
-		public Keyword getCtorKeyword_117() { return cCtorKeyword_117; }
+		public Keyword getCtorKeyword_118() { return cCtorKeyword_118; }
 		
 		//'newfresh'
-		public Keyword getNewfreshKeyword_118() { return cNewfreshKeyword_118; }
+		public Keyword getNewfreshKeyword_119() { return cNewfreshKeyword_119; }
 		
 		//'this'
-		public Keyword getThisKeyword_119() { return cThisKeyword_119; }
+		public Keyword getThisKeyword_120() { return cThisKeyword_120; }
 		
 		//'self'
-		public Keyword getSelfKeyword_120() { return cSelfKeyword_120; }
+		public Keyword getSelfKeyword_121() { return cSelfKeyword_121; }
 		
 		//'parent'
-		public Keyword getParentKeyword_121() { return cParentKeyword_121; }
+		public Keyword getParentKeyword_122() { return cParentKeyword_122; }
 		
 		//'super'
-		public Keyword getSuperKeyword_122() { return cSuperKeyword_122; }
+		public Keyword getSuperKeyword_123() { return cSuperKeyword_123; }
 		
 		//'null'
-		public Keyword getNullKeyword_123() { return cNullKeyword_123; }
+		public Keyword getNullKeyword_124() { return cNullKeyword_124; }
 	}
 	public class ESIdentifierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ESIdentifier");
@@ -23117,7 +23122,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	| 'ufloat' | 'udouble' | 'ureal'
 	//	| 'interval' | 'enum' | 'struct' | 'union'
 	//	| 'vector' | 'rvector' | 'list'
-	//	| 'set' | 'bag' | 'fifo' | 'lifo'
+	//	| 'set' | 'bag' | 'multiset'
+	//	| 'fifo' | 'lifo'
 	//	| 'guard' | 'tguard'
 	//	| 'event' | 'checksat'
 	//	| 'break' | 'continue' | 'exit' | 'init'

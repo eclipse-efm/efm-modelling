@@ -532,7 +532,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 					"output     = \\toutput %2%:%3%%4%\\n",
 
 					"routine    = \\tinvoke %2%:%3%\\n",
-					"transition = \\tfired %2%:%3%\\n",
+					"transition = \\tfired %1%:%3%\\n",
 
 					"machine    = \\trun %2%:%3%\\n",
 
@@ -824,7 +824,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 //					"output     = %1%->%3% ? %4%",
 
 					"routine    = invoke %2%:%3%",
-					"transition = fired %2%.%3%",
+					"transition = fired %1%.%3%",
 
 					"machine    = run %2%:%3%"
 			);

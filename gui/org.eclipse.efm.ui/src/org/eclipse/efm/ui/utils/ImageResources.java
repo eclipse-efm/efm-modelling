@@ -117,17 +117,26 @@ public class ImageResources {
 	public static final String IMAGE__VALIDATE_ICON = ICONS_PLUGIN_PATH + "validate.gif";
 
 
-	public static final String IMAGE__REMOVE_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "rem_co.png";
+	public static final String IMAGE__RESTART_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "restart_co.png";
+	public static final String IMAGE__RESTART_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "restart_co.png";
 
+	public static final String IMAGE__RESUME_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "resume_co.png";
+	public static final String IMAGE__RESUME_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "resume_co.png";
+
+	public static final String IMAGE__RUNLAST_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "runlast_co.png";
+	public static final String IMAGE__RUNLAST_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "runlast_co.png";
+
+	public static final String IMAGE__REMOVE_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "rem_co.png";
 	public static final String IMAGE__REMOVE_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "rem_co.png";
 
 	public static final String IMAGE__REMOVE_ALL_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "rem_all_co.png";
-
 	public static final String IMAGE__REMOVE_ALL_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "rem_all_co.png";
 
 	public static final String IMAGE__TERMINATE_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "terminate_co.png";
-
 	public static final String IMAGE__TERMINATE_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "terminate_co.png";
+
+	public static final String IMAGE__TERMINATE_RESTART_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "term_restart.png";
+	public static final String IMAGE__TERMINATE_RESTART_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "term_restart.png";
 
 
 
