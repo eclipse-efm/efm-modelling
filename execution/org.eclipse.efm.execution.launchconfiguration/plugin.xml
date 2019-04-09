@@ -194,7 +194,7 @@
       </handler>
    </extension>
    
-<!-- AFIN DE TEST RAPIDE
+<!-- AFIN DE TEST RAPIDE - ->
    <extension
          point="org.eclipse.ui.commands">
       <category
@@ -216,7 +216,7 @@
             commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest">
       </handler>
    </extension>
- AFIN DE TEST RAPIDE -->
+<!- - AFIN DE TEST RAPIDE -->
 
    <extension
          point="org.eclipse.ui.bindings">
@@ -332,7 +332,7 @@
                   tooltip="Symbolic Execution Workflow Tools">
             </command>
             
-<!-- AFIN DE TEST RAPIDE -->
+<!-- AFIN DE TEST RAPIDE - ->
             <command
                   commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest"
                   icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/debug_exc.png"
@@ -340,7 +340,7 @@
                   mnemonic="T"
                   tooltip="Test New Features">
             </command>
-<!-- AFIN DE TEST RAPIDE -->        
+<!- - AFIN DE TEST RAPIDE -->        
          </toolbar>
       </menuContribution>
       <menuContribution

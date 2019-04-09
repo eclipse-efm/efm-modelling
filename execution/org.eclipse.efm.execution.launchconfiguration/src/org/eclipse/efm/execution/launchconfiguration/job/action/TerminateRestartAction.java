@@ -15,6 +15,9 @@ package org.eclipse.efm.execution.launchconfiguration.job.action;
 import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsolePage;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.IUpdate;
 
 public class TerminateRestartAction extends Action implements IUpdate  {
@@ -27,7 +30,8 @@ public class TerminateRestartAction extends Action implements IUpdate  {
 
 		this.fSymbexSpiderConsolePage = symbexSpiderConsolePage;
 
-		setToolTipText("Terminate and Restart Process");
+		setToolTipText("Terminate and Restart "
+				+ symbexSpiderConsolePage.getProcessName());
 
 		setHoverImageDescriptor(
 				ImageResources.getImageDescriptor(
@@ -48,7 +52,15 @@ public class TerminateRestartAction extends Action implements IUpdate  {
 
 	@Override
 	public void run() {
-		fSymbexSpiderConsolePage.TerminateRestartProcess();
+		final Shell shell =
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+
+		if( MessageDialog.openConfirm(shell, "Confirm",
+				"Please confirm << Terminate & Restart Launch "
+				+ fSymbexSpiderConsolePage.getProcessName() + " >>!") )
+		{
+			fSymbexSpiderConsolePage.TerminateRestartProcess();
+		}
 	}
 
 	@Override

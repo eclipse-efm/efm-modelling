@@ -19,19 +19,19 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 public class RunSewHandler extends AbstractHandler {
 
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		ISelection selection = window.getSelectionService().getSelection();
+	public Object execute(final ExecutionEvent event) throws ExecutionException {
+		final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 
 		IFile sewFile = null;
 
-		IEditorInput editorInput = HandlerUtil.getActiveEditorInput(event);
+		final IEditorInput editorInput = HandlerUtil.getActiveEditorInput(event);
 		if( editorInput instanceof IFileEditorInput ) {
 			sewFile = ((IFileEditorInput) editorInput).getFile();
 
@@ -41,11 +41,21 @@ public class RunSewHandler extends AbstractHandler {
 			}
 		}
 
-		if( (sewFile == null ) &&
-			(selection instanceof IStructuredSelection) ) {
-			Object selObj =((IStructuredSelection) selection).getFirstElement();
+		ISelection selection = window.getSelectionService().getSelection();
+		if( ! (selection instanceof IStructuredSelection) ) {
+			selection = window.getSelectionService().getSelection(
+					IPageLayout.ID_PROJECT_EXPLORER);
+		}
+
+		if( (sewFile == null ) && (selection instanceof IStructuredSelection) ) {
+			final Object selObj =((IStructuredSelection) selection).getFirstElement();
 			if( selObj instanceof IFile ) {
 				sewFile = (IFile) selObj;
+
+				if( ! Util.isWorkflowFile(sewFile) )
+				{
+					sewFile = null;
+				}
 			}
 		}
 
@@ -55,7 +65,6 @@ public class RunSewHandler extends AbstractHandler {
 				//!!! ERROR
 			}
 		}
-
 
 		return null;
 	}

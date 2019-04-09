@@ -21,7 +21,10 @@ public class Util {
 	 * @param aFile
 	 * @return
 	 */
-	public static boolean isWorkflowFile(IFile aFile) {
+	public static boolean isWorkflowFile(final IFile aFile) {
+		if( aFile == null ) {
+			return false;
+		}
 		return( aFile.getFileExtension().endsWith("sew")
 			|| aFile.getFileExtension().endsWith("favm") );
 	}
@@ -32,8 +35,8 @@ public class Util {
 	 * @param aFile
 	 * @return
 	 */
-	public static boolean isGraphizFile(IFile aFile) {
-		return( aFile.getFileExtension().endsWith("gv") );
+	public static boolean isGraphizFile(final IFile aFile) {
+		return( (aFile != null) && aFile.getFileExtension().endsWith("gv") );
 	}
 
 }

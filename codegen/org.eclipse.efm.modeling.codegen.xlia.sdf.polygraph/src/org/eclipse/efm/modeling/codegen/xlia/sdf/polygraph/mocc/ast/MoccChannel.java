@@ -16,7 +16,7 @@ public class MoccChannel {
 
 	protected final MoccSystem system;
 
-	protected final String name;
+	protected String name;
 
 	protected final MoccPort outputPort;
 
@@ -92,6 +92,10 @@ public class MoccChannel {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	// Output actor & port

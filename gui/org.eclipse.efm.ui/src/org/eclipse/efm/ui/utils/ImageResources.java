@@ -94,9 +94,9 @@ public class ImageResources {
 	public static final String IMAGE__SAVE_AS_ICON = ICONS_PLUGIN_PATH + "save_as.gis";
 
 
-	public static final String IMAGE__LAUNCHDEBUG_ICON = ICONS_PLUGIN_PATH + "debug_exc.png";
+	public static final String IMAGE__DEBUG_EXEC_ICON = ICONS_PLUGIN_PATH + "debug_exc.png";
 
-	public static final String IMAGE__LAUNCHRUN_ICON = ICONS_PLUGIN_PATH + "run_exc.png";
+	public static final String IMAGE__RUN_EXEC_ICON = ICONS_PLUGIN_PATH + "run_exc.png";
 
 
 	public static final String IMAGE__DIALDEBUG_ICON = ICONS_PLUGIN_PATH + "debug_dial.png";
@@ -134,6 +134,9 @@ public class ImageResources {
 
 	public static final String IMAGE__TERMINATE_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "terminate_co.png";
 	public static final String IMAGE__TERMINATE_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "terminate_co.png";
+
+	public static final String IMAGE__TERMINATE_ALL_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "terminate_all_co.png";
+	public static final String IMAGE__TERMINATE_ALL_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "terminate_all_co.png";
 
 	public static final String IMAGE__TERMINATE_RESTART_ELCL16_ICON = ICONS_ELCL16_PLUGIN_PATH + "term_restart.png";
 	public static final String IMAGE__TERMINATE_RESTART_DLCL16_ICON = ICONS_DLCL16_PLUGIN_PATH + "term_restart.png";

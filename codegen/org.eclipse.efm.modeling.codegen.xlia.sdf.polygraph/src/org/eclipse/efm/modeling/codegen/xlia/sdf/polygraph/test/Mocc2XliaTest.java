@@ -21,11 +21,11 @@ import java.util.Random;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.efm.ecore.formalml.XliaModel;
 import org.eclipse.efm.formalml.ecore.factory.XLIAGenerator;
-import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.ast.MoccActor;
-import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.ast.MoccChannel;
-import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.ast.MoccMode;
-import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.ast.MoccSystem;
-import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.generator.MoccCodeGenerator;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccActor;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccChannel;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccMode;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccSystem;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.xlia.MoCC2XLIA;
 
 public class Mocc2XliaTest {
 
@@ -854,9 +854,11 @@ public class Mocc2XliaTest {
 		final String message = "MoCC --> xLIA : " + moccSystem.getName();
 		System.out.println(message + "...");
 
-		final MoccCodeGenerator moccGenerator = new MoccCodeGenerator(moccSystem);
+		final MoCC2XLIA moccGenerator = new MoCC2XLIA(moccSystem, true);
 
-		final XliaModel xliaModel = moccGenerator.transformModel();
+		moccGenerator.transform();
+
+		final XliaModel xliaModel = moccGenerator.xliaModel;
 
 		System.out.println(message + " OK transformation");
 
@@ -954,11 +956,11 @@ public class Mocc2XliaTest {
 
 	public static void testTransformations(final IPath path)
 	{
-		testTransformations(path, mocc_model_basic_mode());
+//		testTransformations(path, mocc_model_basic_mode());
 		testTransformations(path, mocc_model_automotive());
 
-		testTransformations(path, mocc_model_adas());
-		testTransformations(path, mocc_model_adas_mode());
+//		testTransformations(path, mocc_model_adas());
+//		testTransformations(path, mocc_model_adas_mode());
 
 //		testTransformations(path, mocc_model_fusion_1());
 //		testTransformations(path, mocc_model_fusion_2());
@@ -1010,10 +1012,11 @@ public class Mocc2XliaTest {
 				moccSystem = mutationChannel(random);
 			}
 
-			final MoccCodeGenerator moccGenerator =
-					new MoccCodeGenerator(moccSystem);
+			final MoCC2XLIA moccGenerator = new MoCC2XLIA(moccSystem, true);
 
-			final XliaModel xliaModel = moccGenerator.transformModel();
+			moccGenerator.transform();
+
+			final XliaModel xliaModel = moccGenerator.xliaModel;
 
 			if( xliaModel != null ) {
 				++mutationConsistentCount;

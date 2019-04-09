@@ -43,12 +43,16 @@ import org.eclipse.efm.execution.launchconfiguration.job.action.ChangeSashFormOr
 import org.eclipse.efm.execution.launchconfiguration.job.action.CloseAllConsoleAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.CloseConsoleAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.RestartAction;
+import org.eclipse.efm.execution.launchconfiguration.job.action.RunSelectedSymbexWorkflowAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateAction;
+import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateAllAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateRestartAction;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider.SPIDER_GEOMETRY;
+import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -74,16 +78,28 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 	private SWTSpider fSpider;
 
+	public final static String LAYOUT_GROUP  = "layoutGroup"; //$NON-NLS-1$
+
+	public final static String RUN_SEW_GROUP = "runSEWGroup"; //$NON-NLS-1$
+
+	public final static String RESTART_GROUP = "restartGroup"; //$NON-NLS-1$
+
+
 	private ChangeSashFormOrientationAction fChangeSashFormOrientationAction;
+
+	private RunSelectedSymbexWorkflowAction fRunSelectedSymbexWorkflowAction;
 
 	private RestartAction fRestartAction;
 
-	private TerminateAction fTerminateAction;
-
 	private TerminateRestartAction fTerminateRestartAction;
 
+	private TerminateAction fTerminateAction;
+
 	private CloseConsoleAction fCloseConsoleAction;
+
 	private CloseAllConsoleAction fCloseAllConsoleAction;
+
+	private TerminateAllAction fTerminateAllAction;
 
 
 	public SymbexSpiderConsolePage(
@@ -114,7 +130,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		// Create the SashForm that contains the selection area on the left,
 		// and the edit area on the right
     	fMainPageControl = fSashForm = new SashForm(parent, SWT.SMOOTH);
-		fSashForm.setOrientation(SWT.VERTICAL);
+		fSashForm.setOrientation(SWT.HORIZONTAL);
 		final GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		fSashForm.setLayoutData(gd);
@@ -182,6 +198,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		fChangeSashFormOrientationAction = new ChangeSashFormOrientationAction(this);
 
+		fRunSelectedSymbexWorkflowAction = new RunSelectedSymbexWorkflowAction(this);
+
 		fRestartAction = new RestartAction(this);
 
 		fTerminateRestartAction = new TerminateRestartAction(this);
@@ -191,29 +209,54 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		fCloseConsoleAction = new CloseConsoleAction(this);
 
 		fCloseAllConsoleAction = new CloseAllConsoleAction();
+
+		fTerminateAllAction = new TerminateAllAction();
 	}
+
 
 	@Override
 	protected void contextMenuAboutToShow(final IMenuManager menuManager) {
 		super.contextMenuAboutToShow(menuManager);
 
 		menuManager.add(fChangeSashFormOrientationAction);
+
+		menuManager.add(fRunSelectedSymbexWorkflowAction);
+
 		menuManager.add(fRestartAction);
 		menuManager.add(fTerminateRestartAction);
+
 		menuManager.add(fTerminateAction);
 		menuManager.add(fCloseConsoleAction);
+
 		menuManager.add(fCloseAllConsoleAction);
+		menuManager.add(fTerminateAllAction);
 	}
+
 
 	@Override
 	protected void configureToolBar(final IToolBarManager mgr) {
         super.configureToolBar(mgr);
-        mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fChangeSashFormOrientationAction);
-        mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fRestartAction);
-        mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fTerminateRestartAction);
+
+        mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new Separator(LAYOUT_GROUP));
+        mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new GroupMarker(LAYOUT_GROUP));
+
+        mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new Separator(RUN_SEW_GROUP));
+        mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new GroupMarker(RUN_SEW_GROUP));
+
+        mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new Separator(RESTART_GROUP));
+        mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new GroupMarker(RESTART_GROUP));
+
+        mgr.appendToGroup(LAYOUT_GROUP, fChangeSashFormOrientationAction);
+
+        mgr.appendToGroup(RUN_SEW_GROUP, fRunSelectedSymbexWorkflowAction);
+
+        mgr.appendToGroup(RESTART_GROUP, fRestartAction);
+        mgr.appendToGroup(RESTART_GROUP, fTerminateRestartAction);
+
         mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fTerminateAction);
         mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fCloseConsoleAction);
         mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fCloseAllConsoleAction);
+        mgr.appendToGroup(IConsoleConstants.LAUNCH_GROUP, fTerminateAllAction);
     }
 
 
@@ -221,6 +264,11 @@ public class SymbexSpiderConsolePage extends IOConsolePage
         if (fChangeSashFormOrientationAction != null) {
         	fChangeSashFormOrientationAction.dispose();
         	fChangeSashFormOrientationAction = null;
+        }
+
+        if (fRunSelectedSymbexWorkflowAction != null) {
+        	fRunSelectedSymbexWorkflowAction.dispose();
+        	fRunSelectedSymbexWorkflowAction = null;
         }
 
         if (fRestartAction != null) {
@@ -393,9 +441,22 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	}
 
 
+	public String getProcessName() {
+		if( fConfiguration != null ) {
+			return fConfiguration.getName();
+		}
+		else if( (fCommandLine != null) && (fCommandLine.length > 1) ) {
+			final IPath sewPath = new Path(fCommandLine[1]);
+			return sewPath.lastSegment();
+		}
+
+		return "Process";
+	}
+
 	public boolean isProcessRunning() {
 		return( (fSymbexProcess != null) && fSymbexProcess.isAlive() );
 	}
+
 
 	public void terminateProcess() {
 		if( fSymbexProcess != null ) {
@@ -428,6 +489,13 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		if (fCloseConsoleAction != null) {
 			fCloseConsoleAction.setEnabled(false);
 		}
+
+		if (fCloseAllConsoleAction != null) {
+			fCloseAllConsoleAction.update();
+		}
+		if (fTerminateAllAction != null) {
+			fTerminateAllAction.update();
+		}
 	}
 
 	private void updateActionEndingProcess() {
@@ -442,6 +510,14 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		}
 		if (fCloseConsoleAction != null) {
 			fCloseConsoleAction.setEnabled(true);
+		}
+
+
+		if (fCloseAllConsoleAction != null) {
+			fCloseAllConsoleAction.update();
+		}
+		if (fTerminateAllAction != null) {
+			fTerminateAllAction.update();
 		}
 	}
 
@@ -478,6 +554,10 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		restartProcess();
 	}
 
+
+	///////////////////////////////////////////////////////////////////////////
+	// SYMBEX PROCESS LAUCHER
+	///////////////////////////////////////////////////////////////////////////
 
 	public void sewLaunchExecProcess(final ILaunchConfiguration configuration,
 			final String mode, final ILaunch launch,
@@ -847,7 +927,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		maxStep = resizeStep ? DEFAULT_PERIOD_VALUE : bounds[0];
 
 		resizeContext = (bounds[1] == INT_INIFINITE);
-		maxContext = resizeContext ? DEFAULT_PERIOD_VALUE : bounds[1];;
+		maxContext = resizeContext ? DEFAULT_PERIOD_VALUE : bounds[1];
 
 		resizeHeight = (bounds[2] == INT_INIFINITE);
 		maxHeight = resizeHeight ? DEFAULT_PERIOD_VALUE : bounds[2];

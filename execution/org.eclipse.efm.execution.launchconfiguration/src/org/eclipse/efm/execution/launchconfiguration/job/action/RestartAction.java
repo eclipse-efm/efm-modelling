@@ -27,7 +27,7 @@ public class RestartAction extends Action implements IUpdate  {
 
 		this.fSymbexSpiderConsolePage = symbexSpiderConsolePage;
 
-		setToolTipText("Restart Process");
+		setToolTipText("Restart " + symbexSpiderConsolePage.getProcessName());
 
 		setHoverImageDescriptor(
 				ImageResources.getImageDescriptor(

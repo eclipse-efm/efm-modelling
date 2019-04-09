@@ -115,6 +115,8 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		// Actions
 		makeActions();
 		setupTopLevelActionBars(new Action[] {
+				action_reload_launches,
+
 				action_apply_changes,
 
 				action_launch_runconf,
@@ -143,16 +145,17 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		fComboLaunchConfiguration.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final int index = fComboLaunchConfiguration.getSelectionIndex();
+				int index = fComboLaunchConfiguration.getSelectionIndex();
+				if (index == -1) {
+					index = 0;
+				}
 
 				launchConfigurationManager.select(index);
 
 				initializeFieldValuesFrom(launchConfigurationManager.getSelection());
 
+				updateActionToolTipText(launchConfigurationManager.getSelection());
 //				refreshGUI();
-				if (index != -1) {
-					launchConfigurationManager.select(index);
-				}
 			}
 		});
 
@@ -545,12 +548,33 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 	private Action action_opend_help;
 	private Action action_apply_changes;
 
+	private Action action_reload_launches;
+
 	private Map<String, Action> fRegisteredActions;
 
 	private Action[] fDefaultSectionActions;
 
 
 	private void makeActions() {
+		action_reload_launches = new Action() {
+			@Override
+			public void run() {
+				if( launchConfigurationManager != null ) {
+					launchConfigurationManager.refresh();
+
+					refreshLaunchConfigurationsGUI();
+				}
+			}
+		};
+		action_reload_launches.setText("Relaoad");
+		action_reload_launches.setToolTipText("Relaoad Launch Configuration List");
+		action_reload_launches.setImageDescriptor(
+				ImageResources.getImageDescriptor(
+						ImageResources.IMAGE__REFRESH_ICON));
+
+		action_reload_launches.setEnabled(true);
+
+
 		action_apply_changes = new Action() {
 			@Override
 			public void run() {
@@ -559,14 +583,15 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 				}
 			}
 		};
-		action_apply_changes.setText("Apply changes on Launch Configuration");
-		action_apply_changes.setToolTipText("Apply changes on Launch Configuration");
+		action_apply_changes.setText("Save");
+		action_apply_changes.setToolTipText("Save Selected Launch Configuration");
 		action_apply_changes.setImageDescriptor(
 				ImageResources.getImageDescriptor(
 //						ImageResources.IMAGE__PUSH_ICON));
 						ImageResources.IMAGE__SAVE_ICON));
 
 		action_apply_changes.setEnabled(false);
+
 
 		action_launch_runconf = new Action() {
 			@Override
@@ -580,10 +605,11 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 				}
 			}
 		};
-		action_launch_runconf.setText("Launch Run Configuration");
-		action_launch_runconf.setToolTipText("Launch Selected Run Configuration");
+		action_launch_runconf.setText("Run");
+		action_launch_runconf.setToolTipText("Run Selected Launch Configuration");
 		action_launch_runconf.setImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__LAUNCHRUN_ICON));
+				ImageResources.getImageDescriptor(ImageResources.IMAGE__RUN_EXEC_ICON));
+
 
 		action_launch_debugconf = new Action() {
 			@Override
@@ -597,10 +623,10 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 				}
 			}
 		};
-		action_launch_debugconf.setText("Launch Debug Configuration");
-		action_launch_debugconf.setToolTipText("Launch Selected Debug Configuration");
+		action_launch_debugconf.setText("Debug");
+		action_launch_debugconf.setToolTipText("Debug Selected Launch Configuration");
 		action_launch_debugconf.setImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__LAUNCHDEBUG_ICON));
+				ImageResources.getImageDescriptor(ImageResources.IMAGE__DEBUG_EXEC_ICON));
 
 
 		action_opend_runconf = new Action() {
@@ -615,10 +641,11 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 				}
 			}
 		};
-		action_opend_runconf.setText("Open Run Configurations...");
-		action_opend_runconf.setToolTipText("Open the Run Configurations Dialog");
+		action_opend_runconf.setText("Open Run...");
+		action_opend_runconf.setToolTipText("Open Run Selected Launch Configuration...");
 		action_opend_runconf.setImageDescriptor(
 				ImageResources.getImageDescriptor(ImageResources.IMAGE__DIALRUN_ICON));
+
 
 		action_opend_debugconf = new Action() {
 			@Override
@@ -632,8 +659,8 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 				}
 			}
 		};
-		action_opend_debugconf.setText("Open Debug Configuration...");
-		action_opend_debugconf.setToolTipText("Open the Debug Configuration Dialog");
+		action_opend_debugconf.setText("Open Debug...");
+		action_opend_debugconf.setToolTipText("Open Debug Selected Launch Configuration...");
 		action_opend_debugconf.setImageDescriptor(
 				ImageResources.getImageDescriptor(ImageResources.IMAGE__DIALDEBUG_ICON));
 
@@ -648,14 +675,51 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		action_opend_help.setImageDescriptor(
 				ImageResources.getImageDescriptor(ImageResources.IMAGE__HELP_ICON));
 
+
 		fRegisteredActions = new HashMap<String, Action>();
 		fRegisteredActions.put("action_apply_changes", action_apply_changes);
 		fRegisteredActions.put("action_launch_runconf", action_launch_runconf);
 		fRegisteredActions.put("action_launch_debugconf", action_launch_debugconf);
 
+		updateActionToolTipText(launchConfigurationManager.getSelection());
+
 		fDefaultSectionActions = new Action[] {
 				action_apply_changes, action_launch_runconf, action_launch_debugconf };
 	}
+
+
+	protected void updateActionToolTipText(final ILaunchConfiguration launch) {
+		if( launch != null ) {
+			final String launchName = launch.getName();
+			if( (launchName != null) && (! launchName.isEmpty()) ) {
+				updateActionToolTipText(launchName);
+				return;
+			}
+		}
+
+		updateActionToolTipText("Selected Configuration");
+	}
+
+	protected void updateActionToolTipText(final String launchName) {
+		if( action_apply_changes != null ) {
+			action_apply_changes.setToolTipText("Save " + launchName);
+		}
+		if( action_launch_runconf != null ) {
+			action_launch_runconf.setToolTipText("Run " + launchName);
+		}
+		if( action_launch_debugconf != null ) {
+			action_launch_debugconf.setToolTipText( "Debug " + launchName);
+		}
+		if( action_opend_runconf != null ) {
+			action_opend_runconf.setToolTipText( "Open Run " + launchName);
+		}
+		if( action_opend_debugconf != null ) {
+			action_opend_debugconf.setToolTipText( "Open Debug " + launchName);
+		}
+	}
+
+
+
 
 	// ======================================================================================
 	//                              ILaunchConfigurationGUIelement interface methods

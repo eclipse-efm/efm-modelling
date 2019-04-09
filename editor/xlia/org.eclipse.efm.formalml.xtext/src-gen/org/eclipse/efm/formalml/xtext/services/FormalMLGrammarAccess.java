@@ -2393,12 +2393,16 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVisibilityVisibilityKindEnumRuleCall_0_0_0 = (RuleCall)cVisibilityAssignment_0_0.eContents().get(0);
 		private final Assignment cTimedAssignment_0_1 = (Assignment)cUnorderedGroup_0.eContents().get(1);
 		private final Keyword cTimedTimedKeyword_0_1_0 = (Keyword)cTimedAssignment_0_1.eContents().get(0);
-		private final Assignment cInput_enabledAssignment_0_2 = (Assignment)cUnorderedGroup_0.eContents().get(2);
-		private final Keyword cInput_enabledInput_enabledKeyword_0_2_0 = (Keyword)cInput_enabledAssignment_0_2.eContents().get(0);
-		private final Assignment cLifelineAssignment_0_3 = (Assignment)cUnorderedGroup_0.eContents().get(3);
-		private final Keyword cLifelineLifelineKeyword_0_3_0 = (Keyword)cLifelineAssignment_0_3.eContents().get(0);
-		private final Assignment cDesignAssignment_0_4 = (Assignment)cUnorderedGroup_0.eContents().get(4);
-		private final RuleCall cDesignDesignKindEnumRuleCall_0_4_0 = (RuleCall)cDesignAssignment_0_4.eContents().get(0);
+		private final Assignment cDense_timedAssignment_0_2 = (Assignment)cUnorderedGroup_0.eContents().get(2);
+		private final Keyword cDense_timedTimedDenseKeyword_0_2_0 = (Keyword)cDense_timedAssignment_0_2.eContents().get(0);
+		private final Assignment cDiscrete_timedAssignment_0_3 = (Assignment)cUnorderedGroup_0.eContents().get(3);
+		private final Keyword cDiscrete_timedTimedDiscreteKeyword_0_3_0 = (Keyword)cDiscrete_timedAssignment_0_3.eContents().get(0);
+		private final Assignment cInput_enabledAssignment_0_4 = (Assignment)cUnorderedGroup_0.eContents().get(4);
+		private final Keyword cInput_enabledInput_enabledKeyword_0_4_0 = (Keyword)cInput_enabledAssignment_0_4.eContents().get(0);
+		private final Assignment cLifelineAssignment_0_5 = (Assignment)cUnorderedGroup_0.eContents().get(5);
+		private final Keyword cLifelineLifelineKeyword_0_5_0 = (Keyword)cLifelineAssignment_0_5.eContents().get(0);
+		private final Assignment cDesignAssignment_0_6 = (Assignment)cUnorderedGroup_0.eContents().get(6);
+		private final RuleCall cDesignDesignKindEnumRuleCall_0_6_0 = (RuleCall)cDesignAssignment_0_6.eContents().get(0);
 		private final Keyword cMachineKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cLessThanSignKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
@@ -2551,6 +2555,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//MachineBlock fmlInfra::Machine:
 		//	(visibility=VisibilityKind?
 		//	& timed?='timed'?
+		//	& dense_timed?='timed#dense'?
+		//	& discrete_timed?='timed#discrete'?
 		//	& input_enabled?='input_enabled'?
 		//	& lifeline?='lifeline'?
 		//	& design=DesignKind?)
@@ -2608,21 +2614,21 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//(visibility=VisibilityKind? & timed?='timed'? & input_enabled?='input_enabled'? & lifeline?='lifeline'? &
-		//design=DesignKind?) 'machine' ('<' 'moc:'? ('and' | 'or') '>')? name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//'{' (port+=Port | signal+=Signal | buffer+=Buffer | channel+=Channel | typedef+=TypeDefinition | function+=Function |
-		//variable+=Variable)* ('@property:' (port+=Port | signal+=Signal | buffer+=Buffer | channel+=Channel |
-		//typedef+=TypeDefinition | function+=Function | variable+=Variable)* | '@public:' (port+=PortPublic |
-		//signal+=SignalPublic | buffer+=BufferPublic | channel+=ChannelPublic | typedef+=TypeDefinition |
-		//function+=FunctionPublic | variable+=VariablePublic)* | '@protected:' (port+=PortProtected | signal+=SignalProtected |
-		//buffer+=BufferProtected | channel+=ChannelProtected | typedef+=TypeDefinition | function+=FunctionProtected |
-		//variable+=VariableProtected)* | '@private:' (port+=PortPrivate | signal+=SignalPrivate | buffer+=BufferPrivate |
-		//channel+=ChannelPrivate | typedef+=TypeDefinition | function+=FunctionPrivate | variable+=VariablePrivate)*)*
-		//((('@routine:' | '@macro:') routine+=Routine+ | '@procedure:' procedure+=Procedure+)* | (routine+=Routine |
-		//procedure+=Procedure)+) (('@composite:' | '@machine:') (machine+=AnyMachineBlock | instance+=InstanceMachine)+ |
-		//'@model:' machine+=AnyMachineBlock* | '@prototype:' machine+=AnyMachineBlock* | '@instance:'
-		//instance+=InstanceMachine*)* ('@behavior:' behavior+=Behavior+ | '@statemachine:' behavior+=Statemachine+)*
-		//main=MoeBehavior //		// optional unnamed section for property full declaration / definition
+		//(visibility=VisibilityKind? & timed?='timed'? & dense_timed?='timed#dense'? & discrete_timed?='timed#discrete'? &
+		//input_enabled?='input_enabled'? & lifeline?='lifeline'? & design=DesignKind?) 'machine' ('<' 'moc:'? ('and' | 'or')
+		//'>')? name=ESIdentifier unrestrictedName=UnrestrictedName? '{' (port+=Port | signal+=Signal | buffer+=Buffer |
+		//channel+=Channel | typedef+=TypeDefinition | function+=Function | variable+=Variable)* ('@property:' (port+=Port |
+		//signal+=Signal | buffer+=Buffer | channel+=Channel | typedef+=TypeDefinition | function+=Function |
+		//variable+=Variable)* | '@public:' (port+=PortPublic | signal+=SignalPublic | buffer+=BufferPublic |
+		//channel+=ChannelPublic | typedef+=TypeDefinition | function+=FunctionPublic | variable+=VariablePublic)* |
+		//'@protected:' (port+=PortProtected | signal+=SignalProtected | buffer+=BufferProtected | channel+=ChannelProtected |
+		//typedef+=TypeDefinition | function+=FunctionProtected | variable+=VariableProtected)* | '@private:' (port+=PortPrivate
+		//| signal+=SignalPrivate | buffer+=BufferPrivate | channel+=ChannelPrivate | typedef+=TypeDefinition |
+		//function+=FunctionPrivate | variable+=VariablePrivate)*)* ((('@routine:' | '@macro:') routine+=Routine+ |
+		//'@procedure:' procedure+=Procedure+)* | (routine+=Routine | procedure+=Procedure)+) (('@composite:' | '@machine:')
+		//(machine+=AnyMachineBlock | instance+=InstanceMachine)+ | '@model:' machine+=AnyMachineBlock* | '@prototype:'
+		//machine+=AnyMachineBlock* | '@instance:' instance+=InstanceMachine*)* ('@behavior:' behavior+=Behavior+ |
+		//'@statemachine:' behavior+=Statemachine+)* main=MoeBehavior //		// optional unnamed section for property full declaration / definition
 		////		propertyPart=PropertyPart
 		////
 		////		compositePart=CompositePart
@@ -2631,8 +2637,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'}'
 		public Group getGroup() { return cGroup; }
 		
-		//visibility=VisibilityKind? & timed?='timed'? & input_enabled?='input_enabled'? & lifeline?='lifeline'? &
-		//design=DesignKind?
+		//visibility=VisibilityKind? & timed?='timed'? & dense_timed?='timed#dense'? & discrete_timed?='timed#discrete'? &
+		//input_enabled?='input_enabled'? & lifeline?='lifeline'? & design=DesignKind?
 		public UnorderedGroup getUnorderedGroup_0() { return cUnorderedGroup_0; }
 		
 		//visibility=VisibilityKind?
@@ -2647,23 +2653,35 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'timed'
 		public Keyword getTimedTimedKeyword_0_1_0() { return cTimedTimedKeyword_0_1_0; }
 		
+		//dense_timed?='timed#dense'?
+		public Assignment getDense_timedAssignment_0_2() { return cDense_timedAssignment_0_2; }
+		
+		//'timed#dense'
+		public Keyword getDense_timedTimedDenseKeyword_0_2_0() { return cDense_timedTimedDenseKeyword_0_2_0; }
+		
+		//discrete_timed?='timed#discrete'?
+		public Assignment getDiscrete_timedAssignment_0_3() { return cDiscrete_timedAssignment_0_3; }
+		
+		//'timed#discrete'
+		public Keyword getDiscrete_timedTimedDiscreteKeyword_0_3_0() { return cDiscrete_timedTimedDiscreteKeyword_0_3_0; }
+		
 		//input_enabled?='input_enabled'?
-		public Assignment getInput_enabledAssignment_0_2() { return cInput_enabledAssignment_0_2; }
+		public Assignment getInput_enabledAssignment_0_4() { return cInput_enabledAssignment_0_4; }
 		
 		//'input_enabled'
-		public Keyword getInput_enabledInput_enabledKeyword_0_2_0() { return cInput_enabledInput_enabledKeyword_0_2_0; }
+		public Keyword getInput_enabledInput_enabledKeyword_0_4_0() { return cInput_enabledInput_enabledKeyword_0_4_0; }
 		
 		//lifeline?='lifeline'?
-		public Assignment getLifelineAssignment_0_3() { return cLifelineAssignment_0_3; }
+		public Assignment getLifelineAssignment_0_5() { return cLifelineAssignment_0_5; }
 		
 		//'lifeline'
-		public Keyword getLifelineLifelineKeyword_0_3_0() { return cLifelineLifelineKeyword_0_3_0; }
+		public Keyword getLifelineLifelineKeyword_0_5_0() { return cLifelineLifelineKeyword_0_5_0; }
 		
 		//design=DesignKind?
-		public Assignment getDesignAssignment_0_4() { return cDesignAssignment_0_4; }
+		public Assignment getDesignAssignment_0_6() { return cDesignAssignment_0_6; }
 		
 		//DesignKind
-		public RuleCall getDesignDesignKindEnumRuleCall_0_4_0() { return cDesignDesignKindEnumRuleCall_0_4_0; }
+		public RuleCall getDesignDesignKindEnumRuleCall_0_6_0() { return cDesignDesignKindEnumRuleCall_0_6_0; }
 		
 		//'machine'
 		public Keyword getMachineKeyword_1() { return cMachineKeyword_1; }
@@ -5211,12 +5229,16 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVisibilityVisibilityKindEnumRuleCall_1_0_0 = (RuleCall)cVisibilityAssignment_1_0.eContents().get(0);
 		private final Assignment cTimedAssignment_1_1 = (Assignment)cUnorderedGroup_1.eContents().get(1);
 		private final Keyword cTimedTimedKeyword_1_1_0 = (Keyword)cTimedAssignment_1_1.eContents().get(0);
-		private final Assignment cInput_enabledAssignment_1_2 = (Assignment)cUnorderedGroup_1.eContents().get(2);
-		private final Keyword cInput_enabledInput_enabledKeyword_1_2_0 = (Keyword)cInput_enabledAssignment_1_2.eContents().get(0);
-		private final Assignment cLifelineAssignment_1_3 = (Assignment)cUnorderedGroup_1.eContents().get(3);
-		private final Keyword cLifelineLifelineKeyword_1_3_0 = (Keyword)cLifelineAssignment_1_3.eContents().get(0);
-		private final Assignment cDesignAssignment_1_4 = (Assignment)cUnorderedGroup_1.eContents().get(4);
-		private final RuleCall cDesignDesignKindEnumRuleCall_1_4_0 = (RuleCall)cDesignAssignment_1_4.eContents().get(0);
+		private final Assignment cDense_timedAssignment_1_2 = (Assignment)cUnorderedGroup_1.eContents().get(2);
+		private final Keyword cDense_timedTimedDenseKeyword_1_2_0 = (Keyword)cDense_timedAssignment_1_2.eContents().get(0);
+		private final Assignment cDiscrete_timedAssignment_1_3 = (Assignment)cUnorderedGroup_1.eContents().get(3);
+		private final Keyword cDiscrete_timedTimedDiscreteKeyword_1_3_0 = (Keyword)cDiscrete_timedAssignment_1_3.eContents().get(0);
+		private final Assignment cInput_enabledAssignment_1_4 = (Assignment)cUnorderedGroup_1.eContents().get(4);
+		private final Keyword cInput_enabledInput_enabledKeyword_1_4_0 = (Keyword)cInput_enabledAssignment_1_4.eContents().get(0);
+		private final Assignment cLifelineAssignment_1_5 = (Assignment)cUnorderedGroup_1.eContents().get(5);
+		private final Keyword cLifelineLifelineKeyword_1_5_0 = (Keyword)cLifelineAssignment_1_5.eContents().get(0);
+		private final Assignment cDesignAssignment_1_6 = (Assignment)cUnorderedGroup_1.eContents().get(6);
+		private final RuleCall cDesignDesignKindEnumRuleCall_1_6_0 = (RuleCall)cDesignAssignment_1_6.eContents().get(0);
 		private final Keyword cStatemachineKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cLessThanSignKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
@@ -5434,6 +5456,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//Statemachine fmlStmchn::Statemachine:
 		//	{fmlStmchn::Statemachine} (visibility=VisibilityKind?
 		//	& timed?='timed'?
+		//	& dense_timed?='timed#dense'?
+		//	& discrete_timed?='timed#discrete'?
 		//	& input_enabled?='input_enabled'?
 		//	& lifeline?='lifeline'?
 		//	& design=DesignKind?)
@@ -5499,33 +5523,34 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlStmchn::Statemachine} (visibility=VisibilityKind? & timed?='timed'? & input_enabled?='input_enabled'? &
-		//lifeline?='lifeline'? & design=DesignKind?) 'statemachine' ('<' 'moc:'? ('or' | 'and') '>')? name=ESIdentifier
-		//unrestrictedName=UnrestrictedName? '{' ('@parameter:' ('input' (parameter+=ParameterInput | '{'
-		//parameter+=ParameterInput+ '}') | 'inout' (parameter+=ParameterInout | '{' parameter+=ParameterInout+ '}') | 'output'
-		//(parameter+=ParameterOutput | '{' parameter+=ParameterOutput+ '}') | 'return' (parameter+=ParameterReturn | '{'
-		//parameter+=ParameterReturn+ '}'))* | (port+=Port | signal+=Signal | buffer+=Buffer | channel+=Channel |
-		//typedef+=TypeDefinition | function+=Function | variable+=Variable)*) ('@input:' parameter+=ParameterInput* | '@inout:'
-		//parameter+=ParameterInout* | '@output:' parameter+=ParameterOutput* | '@return:' parameter+=ParameterReturn*)*
-		//('@property:' (port+=Port | signal+=Signal | buffer+=Buffer | channel+=Channel | typedef+=TypeDefinition |
-		//function+=Function | variable+=Variable)* | '@public:' (port+=PortPublic | signal+=SignalPublic | buffer+=BufferPublic
-		//| channel+=ChannelPublic | typedef+=TypeDefinition | function+=FunctionPublic | variable+=VariablePublic)* |
-		//'@protected:' (port+=PortProtected | signal+=SignalProtected | buffer+=BufferProtected | channel+=ChannelProtected |
-		//typedef+=TypeDefinition | function+=FunctionProtected | variable+=VariableProtected)* | '@private:' (port+=PortPrivate
-		//| signal+=SignalPrivate | buffer+=BufferPrivate | channel+=ChannelPrivate | typedef+=TypeDefinition |
-		//function+=FunctionPrivate | variable+=VariablePrivate)*)* ((('@routine:' | '@macro:') routine+=Routine+ |
-		//'@procedure:' procedure+=Procedure+)* | (routine+=Routine | procedure+=Procedure)+) ((('@composite:' |
-		//'@statemachine:') (machine+=Statemachine | instance+=InstanceMachine)+ | '@model:' machine+=AnyMachineBlock* |
-		//'@prototype:' machine+=AnyMachineBlock* | '@instance:' instance+=InstanceMachine*)+ | region+=StatemachineRegion |
-		//region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite) (execution=ModelOfExecution? //		& ( computation=ModelOfComputation )?
+		//{fmlStmchn::Statemachine} (visibility=VisibilityKind? & timed?='timed'? & dense_timed?='timed#dense'? &
+		//discrete_timed?='timed#discrete'? & input_enabled?='input_enabled'? & lifeline?='lifeline'? & design=DesignKind?)
+		//'statemachine' ('<' 'moc:'? ('or' | 'and') '>')? name=ESIdentifier unrestrictedName=UnrestrictedName? '{'
+		//('@parameter:' ('input' (parameter+=ParameterInput | '{' parameter+=ParameterInput+ '}') | 'inout'
+		//(parameter+=ParameterInout | '{' parameter+=ParameterInout+ '}') | 'output' (parameter+=ParameterOutput | '{'
+		//parameter+=ParameterOutput+ '}') | 'return' (parameter+=ParameterReturn | '{' parameter+=ParameterReturn+ '}'))* |
+		//(port+=Port | signal+=Signal | buffer+=Buffer | channel+=Channel | typedef+=TypeDefinition | function+=Function |
+		//variable+=Variable)*) ('@input:' parameter+=ParameterInput* | '@inout:' parameter+=ParameterInout* | '@output:'
+		//parameter+=ParameterOutput* | '@return:' parameter+=ParameterReturn*)* ('@property:' (port+=Port | signal+=Signal |
+		//buffer+=Buffer | channel+=Channel | typedef+=TypeDefinition | function+=Function | variable+=Variable)* | '@public:'
+		//(port+=PortPublic | signal+=SignalPublic | buffer+=BufferPublic | channel+=ChannelPublic | typedef+=TypeDefinition |
+		//function+=FunctionPublic | variable+=VariablePublic)* | '@protected:' (port+=PortProtected | signal+=SignalProtected |
+		//buffer+=BufferProtected | channel+=ChannelProtected | typedef+=TypeDefinition | function+=FunctionProtected |
+		//variable+=VariableProtected)* | '@private:' (port+=PortPrivate | signal+=SignalPrivate | buffer+=BufferPrivate |
+		//channel+=ChannelPrivate | typedef+=TypeDefinition | function+=FunctionPrivate | variable+=VariablePrivate)*)*
+		//((('@routine:' | '@macro:') routine+=Routine+ | '@procedure:' procedure+=Procedure+)* | (routine+=Routine |
+		//procedure+=Procedure)+) ((('@composite:' | '@statemachine:') (machine+=Statemachine | instance+=InstanceMachine)+ |
+		//'@model:' machine+=AnyMachineBlock* | '@prototype:' machine+=AnyMachineBlock* | '@instance:'
+		//instance+=InstanceMachine*)+ | region+=StatemachineRegion | region+=StatemachineNamedRegion+ |
+		//region+=StatemachineRegionLite) (execution=ModelOfExecution? //		& ( computation=ModelOfComputation )?
 		//& interaction=ModelOfInteraction?) '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlStmchn::Statemachine}
 		public Action getStatemachineAction_0() { return cStatemachineAction_0; }
 		
-		//visibility=VisibilityKind? & timed?='timed'? & input_enabled?='input_enabled'? & lifeline?='lifeline'? &
-		//design=DesignKind?
+		//visibility=VisibilityKind? & timed?='timed'? & dense_timed?='timed#dense'? & discrete_timed?='timed#discrete'? &
+		//input_enabled?='input_enabled'? & lifeline?='lifeline'? & design=DesignKind?
 		public UnorderedGroup getUnorderedGroup_1() { return cUnorderedGroup_1; }
 		
 		//visibility=VisibilityKind?
@@ -5540,23 +5565,35 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'timed'
 		public Keyword getTimedTimedKeyword_1_1_0() { return cTimedTimedKeyword_1_1_0; }
 		
+		//dense_timed?='timed#dense'?
+		public Assignment getDense_timedAssignment_1_2() { return cDense_timedAssignment_1_2; }
+		
+		//'timed#dense'
+		public Keyword getDense_timedTimedDenseKeyword_1_2_0() { return cDense_timedTimedDenseKeyword_1_2_0; }
+		
+		//discrete_timed?='timed#discrete'?
+		public Assignment getDiscrete_timedAssignment_1_3() { return cDiscrete_timedAssignment_1_3; }
+		
+		//'timed#discrete'
+		public Keyword getDiscrete_timedTimedDiscreteKeyword_1_3_0() { return cDiscrete_timedTimedDiscreteKeyword_1_3_0; }
+		
 		//input_enabled?='input_enabled'?
-		public Assignment getInput_enabledAssignment_1_2() { return cInput_enabledAssignment_1_2; }
+		public Assignment getInput_enabledAssignment_1_4() { return cInput_enabledAssignment_1_4; }
 		
 		//'input_enabled'
-		public Keyword getInput_enabledInput_enabledKeyword_1_2_0() { return cInput_enabledInput_enabledKeyword_1_2_0; }
+		public Keyword getInput_enabledInput_enabledKeyword_1_4_0() { return cInput_enabledInput_enabledKeyword_1_4_0; }
 		
 		//lifeline?='lifeline'?
-		public Assignment getLifelineAssignment_1_3() { return cLifelineAssignment_1_3; }
+		public Assignment getLifelineAssignment_1_5() { return cLifelineAssignment_1_5; }
 		
 		//'lifeline'
-		public Keyword getLifelineLifelineKeyword_1_3_0() { return cLifelineLifelineKeyword_1_3_0; }
+		public Keyword getLifelineLifelineKeyword_1_5_0() { return cLifelineLifelineKeyword_1_5_0; }
 		
 		//design=DesignKind?
-		public Assignment getDesignAssignment_1_4() { return cDesignAssignment_1_4; }
+		public Assignment getDesignAssignment_1_6() { return cDesignAssignment_1_6; }
 		
 		//DesignKind
-		public RuleCall getDesignDesignKindEnumRuleCall_1_4_0() { return cDesignDesignKindEnumRuleCall_1_4_0; }
+		public RuleCall getDesignDesignKindEnumRuleCall_1_6_0() { return cDesignDesignKindEnumRuleCall_1_6_0; }
 		
 		//'statemachine'
 		public Keyword getStatemachineKeyword_2() { return cStatemachineKeyword_2; }
@@ -23384,6 +23421,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//MachineBlock fmlInfra::Machine:
 	//	(visibility=VisibilityKind?
 	//	& timed?='timed'?
+	//	& dense_timed?='timed#dense'?
+	//	& discrete_timed?='timed#discrete'?
 	//	& input_enabled?='input_enabled'?
 	//	& lifeline?='lifeline'?
 	//	& design=DesignKind?)
@@ -23649,6 +23688,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//Statemachine fmlStmchn::Statemachine:
 	//	{fmlStmchn::Statemachine} (visibility=VisibilityKind?
 	//	& timed?='timed'?
+	//	& dense_timed?='timed#dense'?
+	//	& discrete_timed?='timed#discrete'?
 	//	& input_enabled?='input_enabled'?
 	//	& lifeline?='lifeline'?
 	//	& design=DesignKind?)

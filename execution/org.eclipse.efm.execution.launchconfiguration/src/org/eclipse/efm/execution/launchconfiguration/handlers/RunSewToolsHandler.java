@@ -39,8 +39,8 @@ public class RunSewToolsHandler extends AbstractHandler {
 	 * @param event
 	 * @return
 	 */
-	private Object executeWorkflow(ExecutionEvent event,
-			IWorkbenchWindow window, IFile sewFile) {
+	private Object executeWorkflow(final ExecutionEvent event,
+			final IWorkbenchWindow window, final IFile sewFile) {
 
 		fLastSelectionFile = sewFile;
 
@@ -57,29 +57,29 @@ public class RunSewToolsHandler extends AbstractHandler {
 	 * @param aFile
 	 * @return
 	 */
-	private Object executeGraphiz(ExecutionEvent event,
-			IWorkbenchWindow window, IFile gvFile) {
+	private Object executeGraphiz(final ExecutionEvent event,
+			final IWorkbenchWindow window, final IFile gvFile) {
 
 		fLastSelectionFile = gvFile;
 
 		if( SymbexPreferenceUtil.hasExternalDotGraphViewerPath() ) {
 			try {
-				String[] commandLine = {
+				final String[] commandLine = {
 						SymbexPreferenceUtil.strExternalDotGraphViewerPath(),
 						gvFile.getLocation().toOSString()
 					};
 
-				File workingDir = ResourcesPlugin.getWorkspace().
+				final File workingDir = ResourcesPlugin.getWorkspace().
 						getRoot().getLocation().toFile();
 
-				Process viewerProcess = Runtime.getRuntime().
+				final Process viewerProcess = Runtime.getRuntime().
 						exec(commandLine, null, workingDir);
 
 				if( viewerProcess == null ) {
 					System.out.println(event.toString());
 				}
 			}
-			catch(Exception e)
+			catch(final Exception e)
 			{
 				e.printStackTrace();
 			}
@@ -95,14 +95,14 @@ public class RunSewToolsHandler extends AbstractHandler {
 
 
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		ISelection selection = window.getSelectionService().getSelection();
+	public Object execute(final ExecutionEvent event) throws ExecutionException {
+		final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		final ISelection selection = window.getSelectionService().getSelection();
 
 		if( selection instanceof IStructuredSelection ) {
-			Object selObj =((IStructuredSelection) selection).getFirstElement();
+			final Object selObj =((IStructuredSelection) selection).getFirstElement();
 			if( selObj instanceof IFile ) {
-				IFile selectedFile = (IFile) selObj;
+				final IFile selectedFile = (IFile) selObj;
 
 				if( Util.isWorkflowFile(selectedFile) )
 				{
@@ -114,9 +114,9 @@ public class RunSewToolsHandler extends AbstractHandler {
 			}
 		}
 
-		IEditorInput editorInput = HandlerUtil.getActiveEditorInput(event);
+		final IEditorInput editorInput = HandlerUtil.getActiveEditorInput(event);
 		if( editorInput instanceof IFileEditorInput ) {
-			IFile selectedFile = ((IFileEditorInput) editorInput).getFile();
+			final IFile selectedFile = ((IFileEditorInput) editorInput).getFile();
 
 			if( Util.isWorkflowFile(selectedFile) )
 			{

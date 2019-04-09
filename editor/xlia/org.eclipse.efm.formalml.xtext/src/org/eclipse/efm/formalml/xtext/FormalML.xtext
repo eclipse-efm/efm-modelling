@@ -422,6 +422,8 @@ SlotProperty returns fmlInfra::SlotProperty
 MachineBlock returns fmlInfra::Machine
 	: ( ( visibility=VisibilityKind )?
 		& ( timed?='timed' )?
+		& ( dense_timed?='timed#dense' )?
+		& ( discrete_timed?='timed#discrete' )?
 		& ( input_enabled ?= 'input_enabled' )?
 		& ( lifeline?='lifeline' )?
 		& ( design=DesignKind )?
@@ -783,6 +785,8 @@ Statemachine returns fmlStmchn::Statemachine
 	: { fmlStmchn::Statemachine }
 		( ( visibility=VisibilityKind )?
 		& ( timed?='timed' )?
+		& ( dense_timed?='timed#dense' )?
+		& ( discrete_timed?='timed#discrete' )?
 		& ( input_enabled ?= 'input_enabled' )?
 		& ( lifeline?='lifeline' )?
 		& ( design=DesignKind )?

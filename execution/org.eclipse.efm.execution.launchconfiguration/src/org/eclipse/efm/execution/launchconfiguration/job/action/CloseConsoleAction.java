@@ -15,6 +15,9 @@ package org.eclipse.efm.execution.launchconfiguration.job.action;
 import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsolePage;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.IUpdate;
 
 public class CloseConsoleAction extends Action implements IUpdate  {
@@ -27,7 +30,8 @@ public class CloseConsoleAction extends Action implements IUpdate  {
 
 		this.fSymbexSpiderConsolePage = symbexSpiderConsolePage;
 
-		setToolTipText("Close Console");
+		setToolTipText("Remove Launch "
+				+ symbexSpiderConsolePage.getProcessName());
 
 		setHoverImageDescriptor(
 				ImageResources.getImageDescriptor(
@@ -45,7 +49,16 @@ public class CloseConsoleAction extends Action implements IUpdate  {
 
 	@Override
 	public void run() {
-		fSymbexSpiderConsolePage.closePage();
+		final Shell shell =
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+
+		if( (! fSymbexSpiderConsolePage.isProcessRunning())
+			|| MessageDialog.openConfirm(shell, "Confirm",
+				"Please confirm << Terminate & Close Launch "
+				+ fSymbexSpiderConsolePage.getProcessName() + " >>!") )
+		{
+			fSymbexSpiderConsolePage.closePage();
+		}
 	}
 
 	@Override

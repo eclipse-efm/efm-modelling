@@ -15,14 +15,17 @@ package org.eclipse.efm.execution.launchconfiguration.job.action;
 import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.IUpdate;
 
 public class CloseAllConsoleAction extends Action implements IUpdate  {
 
 	public CloseAllConsoleAction() {
-		super("Close");
+		super("CloseAll");
 
-		setToolTipText("Close Console");
+		setToolTipText("Remove All Launches");
 
 		setHoverImageDescriptor(
 				ImageResources.getImageDescriptor(
@@ -40,12 +43,19 @@ public class CloseAllConsoleAction extends Action implements IUpdate  {
 
 	@Override
 	public void run() {
-		SymbexJob.removeAllConsole();
+		final Shell shell =
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+
+		if( MessageDialog.openConfirm(shell, "Confirm", "Please confirm "
+				+ "<< Remove All Terminated Launches >>!") )
+		{
+			SymbexJob.removeAllConsole();
+		}
 	}
 
 	@Override
 	public void update() {
-		setEnabled(true);
+		setEnabled( SymbexJob.hasTerminatedConsole() );
 	}
 
 }

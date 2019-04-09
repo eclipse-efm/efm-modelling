@@ -2832,9 +2832,55 @@ ruleMachineBlock returns [EObject current=null]
 						getUnorderedGroupHelper().select(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 2);
 					}
 								({true}?=>((
-									lv_input_enabled_3_0='input_enabled'
+									lv_dense_timed_3_0='timed#dense'
 									{
-										newLeafNode(lv_input_enabled_3_0, grammarAccess.getMachineBlockAccess().getInput_enabledInput_enabledKeyword_0_2_0());
+										newLeafNode(lv_dense_timed_3_0, grammarAccess.getMachineBlockAccess().getDense_timedTimedDenseKeyword_0_2_0());
+									}
+									{
+										if ($current==null) {
+											$current = createModelElement(grammarAccess.getMachineBlockRule());
+										}
+										setWithLastConsumed($current, "dense_timed", true, "timed#dense");
+									}
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 3)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 3);
+					}
+								({true}?=>((
+									lv_discrete_timed_4_0='timed#discrete'
+									{
+										newLeafNode(lv_discrete_timed_4_0, grammarAccess.getMachineBlockAccess().getDiscrete_timedTimedDiscreteKeyword_0_3_0());
+									}
+									{
+										if ($current==null) {
+											$current = createModelElement(grammarAccess.getMachineBlockRule());
+										}
+										setWithLastConsumed($current, "discrete_timed", true, "timed#discrete");
+									}
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 4)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 4);
+					}
+								({true}?=>((
+									lv_input_enabled_5_0='input_enabled'
+									{
+										newLeafNode(lv_input_enabled_5_0, grammarAccess.getMachineBlockAccess().getInput_enabledInput_enabledKeyword_0_4_0());
 									}
 									{
 										if ($current==null) {
@@ -2850,14 +2896,14 @@ ruleMachineBlock returns [EObject current=null]
 				)
 			)|
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 3)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 5)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 3);
+						getUnorderedGroupHelper().select(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 5);
 					}
 								({true}?=>((
-									lv_lifeline_4_0='lifeline'
+									lv_lifeline_6_0='lifeline'
 									{
-										newLeafNode(lv_lifeline_4_0, grammarAccess.getMachineBlockAccess().getLifelineLifelineKeyword_0_3_0());
+										newLeafNode(lv_lifeline_6_0, grammarAccess.getMachineBlockAccess().getLifelineLifelineKeyword_0_5_0());
 									}
 									{
 										if ($current==null) {
@@ -2873,15 +2919,15 @@ ruleMachineBlock returns [EObject current=null]
 				)
 			)|
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 4)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 6)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 4);
+						getUnorderedGroupHelper().select(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0(), 6);
 					}
 								({true}?=>((
 									{
-										newCompositeNode(grammarAccess.getMachineBlockAccess().getDesignDesignKindEnumRuleCall_0_4_0());
+										newCompositeNode(grammarAccess.getMachineBlockAccess().getDesignDesignKindEnumRuleCall_0_6_0());
 									}
-									lv_design_5_0=ruleDesignKind
+									lv_design_7_0=ruleDesignKind
 									{
 										if ($current==null) {
 											$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -2889,7 +2935,7 @@ ruleMachineBlock returns [EObject current=null]
 										set(
 											$current,
 											"design",
-											lv_design_5_0,
+											lv_design_7_0,
 											"org.eclipse.efm.formalml.xtext.FormalML.DesignKind");
 										afterParserOrEnumRuleCall();
 									}
@@ -2907,35 +2953,35 @@ ruleMachineBlock returns [EObject current=null]
 				  getUnorderedGroupHelper().leave(grammarAccess.getMachineBlockAccess().getUnorderedGroup_0());
 				}
 		)
-		otherlv_6='machine'
+		otherlv_8='machine'
 		{
-			newLeafNode(otherlv_6, grammarAccess.getMachineBlockAccess().getMachineKeyword_1());
+			newLeafNode(otherlv_8, grammarAccess.getMachineBlockAccess().getMachineKeyword_1());
 		}
 		(
-			otherlv_7='<'
+			otherlv_9='<'
 			{
-				newLeafNode(otherlv_7, grammarAccess.getMachineBlockAccess().getLessThanSignKeyword_2_0());
+				newLeafNode(otherlv_9, grammarAccess.getMachineBlockAccess().getLessThanSignKeyword_2_0());
 			}
 			(
-				otherlv_8='moc:'
+				otherlv_10='moc:'
 				{
-					newLeafNode(otherlv_8, grammarAccess.getMachineBlockAccess().getMocKeyword_2_1());
+					newLeafNode(otherlv_10, grammarAccess.getMachineBlockAccess().getMocKeyword_2_1());
 				}
 			)?
 			(
-				otherlv_9='and'
+				otherlv_11='and'
 				{
-					newLeafNode(otherlv_9, grammarAccess.getMachineBlockAccess().getAndKeyword_2_2_0());
+					newLeafNode(otherlv_11, grammarAccess.getMachineBlockAccess().getAndKeyword_2_2_0());
 				}
 				    |
-				otherlv_10='or'
+				otherlv_12='or'
 				{
-					newLeafNode(otherlv_10, grammarAccess.getMachineBlockAccess().getOrKeyword_2_2_1());
+					newLeafNode(otherlv_12, grammarAccess.getMachineBlockAccess().getOrKeyword_2_2_1());
 				}
 			)
-			otherlv_11='>'
+			otherlv_13='>'
 			{
-				newLeafNode(otherlv_11, grammarAccess.getMachineBlockAccess().getGreaterThanSignKeyword_2_3());
+				newLeafNode(otherlv_13, grammarAccess.getMachineBlockAccess().getGreaterThanSignKeyword_2_3());
 			}
 		)?
 		(
@@ -2943,7 +2989,7 @@ ruleMachineBlock returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getMachineBlockAccess().getNameESIdentifierParserRuleCall_3_0());
 				}
-				lv_name_12_0=ruleESIdentifier
+				lv_name_14_0=ruleESIdentifier
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -2951,7 +2997,7 @@ ruleMachineBlock returns [EObject current=null]
 					set(
 						$current,
 						"name",
-						lv_name_12_0,
+						lv_name_14_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.ESIdentifier");
 					afterParserOrEnumRuleCall();
 				}
@@ -2962,7 +3008,7 @@ ruleMachineBlock returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getMachineBlockAccess().getUnrestrictedNameUnrestrictedNameParserRuleCall_4_0());
 				}
-				lv_unrestrictedName_13_0=ruleUnrestrictedName
+				lv_unrestrictedName_15_0=ruleUnrestrictedName
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -2970,15 +3016,15 @@ ruleMachineBlock returns [EObject current=null]
 					set(
 						$current,
 						"unrestrictedName",
-						lv_unrestrictedName_13_0,
+						lv_unrestrictedName_15_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.UnrestrictedName");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)?
-		otherlv_14='{'
+		otherlv_16='{'
 		{
-			newLeafNode(otherlv_14, grammarAccess.getMachineBlockAccess().getLeftCurlyBracketKeyword_5());
+			newLeafNode(otherlv_16, grammarAccess.getMachineBlockAccess().getLeftCurlyBracketKeyword_5());
 		}
 		(
 			(
@@ -2986,7 +3032,7 @@ ruleMachineBlock returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getMachineBlockAccess().getPortPortParserRuleCall_6_0_0());
 					}
-					lv_port_15_0=rulePort
+					lv_port_17_0=rulePort
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -2994,7 +3040,7 @@ ruleMachineBlock returns [EObject current=null]
 						add(
 							$current,
 							"port",
-							lv_port_15_0,
+							lv_port_17_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.Port");
 						afterParserOrEnumRuleCall();
 					}
@@ -3006,7 +3052,7 @@ ruleMachineBlock returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getMachineBlockAccess().getSignalSignalParserRuleCall_6_1_0());
 					}
-					lv_signal_16_0=ruleSignal
+					lv_signal_18_0=ruleSignal
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3014,7 +3060,7 @@ ruleMachineBlock returns [EObject current=null]
 						add(
 							$current,
 							"signal",
-							lv_signal_16_0,
+							lv_signal_18_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.Signal");
 						afterParserOrEnumRuleCall();
 					}
@@ -3026,7 +3072,7 @@ ruleMachineBlock returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getMachineBlockAccess().getBufferBufferParserRuleCall_6_2_0());
 					}
-					lv_buffer_17_0=ruleBuffer
+					lv_buffer_19_0=ruleBuffer
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3034,7 +3080,7 @@ ruleMachineBlock returns [EObject current=null]
 						add(
 							$current,
 							"buffer",
-							lv_buffer_17_0,
+							lv_buffer_19_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.Buffer");
 						afterParserOrEnumRuleCall();
 					}
@@ -3046,7 +3092,7 @@ ruleMachineBlock returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getMachineBlockAccess().getChannelChannelParserRuleCall_6_3_0());
 					}
-					lv_channel_18_0=ruleChannel
+					lv_channel_20_0=ruleChannel
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3054,7 +3100,7 @@ ruleMachineBlock returns [EObject current=null]
 						add(
 							$current,
 							"channel",
-							lv_channel_18_0,
+							lv_channel_20_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.Channel");
 						afterParserOrEnumRuleCall();
 					}
@@ -3066,7 +3112,7 @@ ruleMachineBlock returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getMachineBlockAccess().getTypedefTypeDefinitionParserRuleCall_6_4_0());
 					}
-					lv_typedef_19_0=ruleTypeDefinition
+					lv_typedef_21_0=ruleTypeDefinition
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3074,7 +3120,7 @@ ruleMachineBlock returns [EObject current=null]
 						add(
 							$current,
 							"typedef",
-							lv_typedef_19_0,
+							lv_typedef_21_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 						afterParserOrEnumRuleCall();
 					}
@@ -3086,7 +3132,7 @@ ruleMachineBlock returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getMachineBlockAccess().getFunctionFunctionParserRuleCall_6_5_0());
 					}
-					lv_function_20_0=ruleFunction
+					lv_function_22_0=ruleFunction
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3094,7 +3140,7 @@ ruleMachineBlock returns [EObject current=null]
 						add(
 							$current,
 							"function",
-							lv_function_20_0,
+							lv_function_22_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.Function");
 						afterParserOrEnumRuleCall();
 					}
@@ -3106,7 +3152,7 @@ ruleMachineBlock returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getMachineBlockAccess().getVariableVariableParserRuleCall_6_6_0());
 					}
-					lv_variable_21_0=ruleVariable
+					lv_variable_23_0=ruleVariable
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3114,7 +3160,7 @@ ruleMachineBlock returns [EObject current=null]
 						add(
 							$current,
 							"variable",
-							lv_variable_21_0,
+							lv_variable_23_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.Variable");
 						afterParserOrEnumRuleCall();
 					}
@@ -3123,9 +3169,9 @@ ruleMachineBlock returns [EObject current=null]
 		)*
 		(
 			(
-				otherlv_22='@property:'
+				otherlv_24='@property:'
 				{
-					newLeafNode(otherlv_22, grammarAccess.getMachineBlockAccess().getPropertyKeyword_7_0_0());
+					newLeafNode(otherlv_24, grammarAccess.getMachineBlockAccess().getPropertyKeyword_7_0_0());
 				}
 				(
 					(
@@ -3133,7 +3179,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getPortPortParserRuleCall_7_0_1_0_0());
 							}
-							lv_port_23_0=rulePort
+							lv_port_25_0=rulePort
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3141,7 +3187,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"port",
-									lv_port_23_0,
+									lv_port_25_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Port");
 								afterParserOrEnumRuleCall();
 							}
@@ -3153,7 +3199,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getSignalSignalParserRuleCall_7_0_1_1_0());
 							}
-							lv_signal_24_0=ruleSignal
+							lv_signal_26_0=ruleSignal
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3161,7 +3207,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"signal",
-									lv_signal_24_0,
+									lv_signal_26_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Signal");
 								afterParserOrEnumRuleCall();
 							}
@@ -3173,7 +3219,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getBufferBufferParserRuleCall_7_0_1_2_0());
 							}
-							lv_buffer_25_0=ruleBuffer
+							lv_buffer_27_0=ruleBuffer
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3181,7 +3227,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"buffer",
-									lv_buffer_25_0,
+									lv_buffer_27_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Buffer");
 								afterParserOrEnumRuleCall();
 							}
@@ -3193,7 +3239,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getChannelChannelParserRuleCall_7_0_1_3_0());
 							}
-							lv_channel_26_0=ruleChannel
+							lv_channel_28_0=ruleChannel
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3201,7 +3247,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"channel",
-									lv_channel_26_0,
+									lv_channel_28_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Channel");
 								afterParserOrEnumRuleCall();
 							}
@@ -3213,7 +3259,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getTypedefTypeDefinitionParserRuleCall_7_0_1_4_0());
 							}
-							lv_typedef_27_0=ruleTypeDefinition
+							lv_typedef_29_0=ruleTypeDefinition
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3221,7 +3267,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"typedef",
-									lv_typedef_27_0,
+									lv_typedef_29_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 								afterParserOrEnumRuleCall();
 							}
@@ -3233,7 +3279,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getFunctionFunctionParserRuleCall_7_0_1_5_0());
 							}
-							lv_function_28_0=ruleFunction
+							lv_function_30_0=ruleFunction
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3241,7 +3287,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"function",
-									lv_function_28_0,
+									lv_function_30_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Function");
 								afterParserOrEnumRuleCall();
 							}
@@ -3253,7 +3299,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getVariableVariableParserRuleCall_7_0_1_6_0());
 							}
-							lv_variable_29_0=ruleVariable
+							lv_variable_31_0=ruleVariable
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3261,7 +3307,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"variable",
-									lv_variable_29_0,
+									lv_variable_31_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Variable");
 								afterParserOrEnumRuleCall();
 							}
@@ -3271,9 +3317,9 @@ ruleMachineBlock returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_30='@public:'
+				otherlv_32='@public:'
 				{
-					newLeafNode(otherlv_30, grammarAccess.getMachineBlockAccess().getPublicKeyword_7_1_0());
+					newLeafNode(otherlv_32, grammarAccess.getMachineBlockAccess().getPublicKeyword_7_1_0());
 				}
 				(
 					(
@@ -3281,7 +3327,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getPortPortPublicParserRuleCall_7_1_1_0_0());
 							}
-							lv_port_31_0=rulePortPublic
+							lv_port_33_0=rulePortPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3289,7 +3335,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"port",
-									lv_port_31_0,
+									lv_port_33_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.PortPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -3301,7 +3347,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getSignalSignalPublicParserRuleCall_7_1_1_1_0());
 							}
-							lv_signal_32_0=ruleSignalPublic
+							lv_signal_34_0=ruleSignalPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3309,7 +3355,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"signal",
-									lv_signal_32_0,
+									lv_signal_34_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.SignalPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -3321,7 +3367,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getBufferBufferPublicParserRuleCall_7_1_1_2_0());
 							}
-							lv_buffer_33_0=ruleBufferPublic
+							lv_buffer_35_0=ruleBufferPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3329,7 +3375,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"buffer",
-									lv_buffer_33_0,
+									lv_buffer_35_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.BufferPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -3341,7 +3387,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getChannelChannelPublicParserRuleCall_7_1_1_3_0());
 							}
-							lv_channel_34_0=ruleChannelPublic
+							lv_channel_36_0=ruleChannelPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3349,7 +3395,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"channel",
-									lv_channel_34_0,
+									lv_channel_36_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.ChannelPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -3361,7 +3407,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getTypedefTypeDefinitionParserRuleCall_7_1_1_4_0());
 							}
-							lv_typedef_35_0=ruleTypeDefinition
+							lv_typedef_37_0=ruleTypeDefinition
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3369,7 +3415,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"typedef",
-									lv_typedef_35_0,
+									lv_typedef_37_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 								afterParserOrEnumRuleCall();
 							}
@@ -3381,7 +3427,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getFunctionFunctionPublicParserRuleCall_7_1_1_5_0());
 							}
-							lv_function_36_0=ruleFunctionPublic
+							lv_function_38_0=ruleFunctionPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3389,7 +3435,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"function",
-									lv_function_36_0,
+									lv_function_38_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.FunctionPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -3401,7 +3447,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getVariableVariablePublicParserRuleCall_7_1_1_6_0());
 							}
-							lv_variable_37_0=ruleVariablePublic
+							lv_variable_39_0=ruleVariablePublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3409,7 +3455,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"variable",
-									lv_variable_37_0,
+									lv_variable_39_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.VariablePublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -3419,9 +3465,9 @@ ruleMachineBlock returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_38='@protected:'
+				otherlv_40='@protected:'
 				{
-					newLeafNode(otherlv_38, grammarAccess.getMachineBlockAccess().getProtectedKeyword_7_2_0());
+					newLeafNode(otherlv_40, grammarAccess.getMachineBlockAccess().getProtectedKeyword_7_2_0());
 				}
 				(
 					(
@@ -3429,7 +3475,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getPortPortProtectedParserRuleCall_7_2_1_0_0());
 							}
-							lv_port_39_0=rulePortProtected
+							lv_port_41_0=rulePortProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3437,7 +3483,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"port",
-									lv_port_39_0,
+									lv_port_41_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.PortProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -3449,7 +3495,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getSignalSignalProtectedParserRuleCall_7_2_1_1_0());
 							}
-							lv_signal_40_0=ruleSignalProtected
+							lv_signal_42_0=ruleSignalProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3457,7 +3503,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"signal",
-									lv_signal_40_0,
+									lv_signal_42_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.SignalProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -3469,7 +3515,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getBufferBufferProtectedParserRuleCall_7_2_1_2_0());
 							}
-							lv_buffer_41_0=ruleBufferProtected
+							lv_buffer_43_0=ruleBufferProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3477,7 +3523,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"buffer",
-									lv_buffer_41_0,
+									lv_buffer_43_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.BufferProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -3489,7 +3535,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getChannelChannelProtectedParserRuleCall_7_2_1_3_0());
 							}
-							lv_channel_42_0=ruleChannelProtected
+							lv_channel_44_0=ruleChannelProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3497,7 +3543,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"channel",
-									lv_channel_42_0,
+									lv_channel_44_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.ChannelProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -3509,7 +3555,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getTypedefTypeDefinitionParserRuleCall_7_2_1_4_0());
 							}
-							lv_typedef_43_0=ruleTypeDefinition
+							lv_typedef_45_0=ruleTypeDefinition
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3517,7 +3563,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"typedef",
-									lv_typedef_43_0,
+									lv_typedef_45_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 								afterParserOrEnumRuleCall();
 							}
@@ -3529,7 +3575,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getFunctionFunctionProtectedParserRuleCall_7_2_1_5_0());
 							}
-							lv_function_44_0=ruleFunctionProtected
+							lv_function_46_0=ruleFunctionProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3537,7 +3583,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"function",
-									lv_function_44_0,
+									lv_function_46_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.FunctionProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -3549,7 +3595,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getVariableVariableProtectedParserRuleCall_7_2_1_6_0());
 							}
-							lv_variable_45_0=ruleVariableProtected
+							lv_variable_47_0=ruleVariableProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3557,7 +3603,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"variable",
-									lv_variable_45_0,
+									lv_variable_47_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.VariableProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -3567,9 +3613,9 @@ ruleMachineBlock returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_46='@private:'
+				otherlv_48='@private:'
 				{
-					newLeafNode(otherlv_46, grammarAccess.getMachineBlockAccess().getPrivateKeyword_7_3_0());
+					newLeafNode(otherlv_48, grammarAccess.getMachineBlockAccess().getPrivateKeyword_7_3_0());
 				}
 				(
 					(
@@ -3577,7 +3623,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getPortPortPrivateParserRuleCall_7_3_1_0_0());
 							}
-							lv_port_47_0=rulePortPrivate
+							lv_port_49_0=rulePortPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3585,7 +3631,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"port",
-									lv_port_47_0,
+									lv_port_49_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.PortPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -3597,7 +3643,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getSignalSignalPrivateParserRuleCall_7_3_1_1_0());
 							}
-							lv_signal_48_0=ruleSignalPrivate
+							lv_signal_50_0=ruleSignalPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3605,7 +3651,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"signal",
-									lv_signal_48_0,
+									lv_signal_50_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.SignalPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -3617,7 +3663,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getBufferBufferPrivateParserRuleCall_7_3_1_2_0());
 							}
-							lv_buffer_49_0=ruleBufferPrivate
+							lv_buffer_51_0=ruleBufferPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3625,7 +3671,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"buffer",
-									lv_buffer_49_0,
+									lv_buffer_51_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.BufferPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -3637,7 +3683,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getChannelChannelPrivateParserRuleCall_7_3_1_3_0());
 							}
-							lv_channel_50_0=ruleChannelPrivate
+							lv_channel_52_0=ruleChannelPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3645,7 +3691,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"channel",
-									lv_channel_50_0,
+									lv_channel_52_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.ChannelPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -3657,7 +3703,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getTypedefTypeDefinitionParserRuleCall_7_3_1_4_0());
 							}
-							lv_typedef_51_0=ruleTypeDefinition
+							lv_typedef_53_0=ruleTypeDefinition
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3665,7 +3711,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"typedef",
-									lv_typedef_51_0,
+									lv_typedef_53_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 								afterParserOrEnumRuleCall();
 							}
@@ -3677,7 +3723,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getFunctionFunctionPrivateParserRuleCall_7_3_1_5_0());
 							}
-							lv_function_52_0=ruleFunctionPrivate
+							lv_function_54_0=ruleFunctionPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3685,7 +3731,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"function",
-									lv_function_52_0,
+									lv_function_54_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.FunctionPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -3697,7 +3743,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getVariableVariablePrivateParserRuleCall_7_3_1_6_0());
 							}
-							lv_variable_53_0=ruleVariablePrivate
+							lv_variable_55_0=ruleVariablePrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3705,7 +3751,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"variable",
-									lv_variable_53_0,
+									lv_variable_55_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.VariablePrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -3718,14 +3764,14 @@ ruleMachineBlock returns [EObject current=null]
 			(
 				(
 					(
-						otherlv_54='@routine:'
+						otherlv_56='@routine:'
 						{
-							newLeafNode(otherlv_54, grammarAccess.getMachineBlockAccess().getRoutineKeyword_8_0_0_0_0());
+							newLeafNode(otherlv_56, grammarAccess.getMachineBlockAccess().getRoutineKeyword_8_0_0_0_0());
 						}
 						    |
-						otherlv_55='@macro:'
+						otherlv_57='@macro:'
 						{
-							newLeafNode(otherlv_55, grammarAccess.getMachineBlockAccess().getMacroKeyword_8_0_0_0_1());
+							newLeafNode(otherlv_57, grammarAccess.getMachineBlockAccess().getMacroKeyword_8_0_0_0_1());
 						}
 					)
 					(
@@ -3733,7 +3779,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getRoutineRoutineParserRuleCall_8_0_0_1_0());
 							}
-							lv_routine_56_0=ruleRoutine
+							lv_routine_58_0=ruleRoutine
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3741,7 +3787,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"routine",
-									lv_routine_56_0,
+									lv_routine_58_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Routine");
 								afterParserOrEnumRuleCall();
 							}
@@ -3750,16 +3796,16 @@ ruleMachineBlock returns [EObject current=null]
 				)
 				    |
 				(
-					otherlv_57='@procedure:'
+					otherlv_59='@procedure:'
 					{
-						newLeafNode(otherlv_57, grammarAccess.getMachineBlockAccess().getProcedureKeyword_8_0_1_0());
+						newLeafNode(otherlv_59, grammarAccess.getMachineBlockAccess().getProcedureKeyword_8_0_1_0());
 					}
 					(
 						(
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getProcedureProcedureParserRuleCall_8_0_1_1_0());
 							}
-							lv_procedure_58_0=ruleProcedure
+							lv_procedure_60_0=ruleProcedure
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3767,7 +3813,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"procedure",
-									lv_procedure_58_0,
+									lv_procedure_60_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Procedure");
 								afterParserOrEnumRuleCall();
 							}
@@ -3782,7 +3828,7 @@ ruleMachineBlock returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getMachineBlockAccess().getRoutineRoutineParserRuleCall_8_1_0_0());
 						}
-						lv_routine_59_0=ruleRoutine
+						lv_routine_61_0=ruleRoutine
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3790,7 +3836,7 @@ ruleMachineBlock returns [EObject current=null]
 							add(
 								$current,
 								"routine",
-								lv_routine_59_0,
+								lv_routine_61_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Routine");
 							afterParserOrEnumRuleCall();
 						}
@@ -3802,7 +3848,7 @@ ruleMachineBlock returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getMachineBlockAccess().getProcedureProcedureParserRuleCall_8_1_1_0());
 						}
-						lv_procedure_60_0=ruleProcedure
+						lv_procedure_62_0=ruleProcedure
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3810,7 +3856,7 @@ ruleMachineBlock returns [EObject current=null]
 							add(
 								$current,
 								"procedure",
-								lv_procedure_60_0,
+								lv_procedure_62_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Procedure");
 							afterParserOrEnumRuleCall();
 						}
@@ -3821,14 +3867,14 @@ ruleMachineBlock returns [EObject current=null]
 		(
 			(
 				(
-					otherlv_61='@composite:'
+					otherlv_63='@composite:'
 					{
-						newLeafNode(otherlv_61, grammarAccess.getMachineBlockAccess().getCompositeKeyword_9_0_0_0());
+						newLeafNode(otherlv_63, grammarAccess.getMachineBlockAccess().getCompositeKeyword_9_0_0_0());
 					}
 					    |
-					otherlv_62='@machine:'
+					otherlv_64='@machine:'
 					{
-						newLeafNode(otherlv_62, grammarAccess.getMachineBlockAccess().getMachineKeyword_9_0_0_1());
+						newLeafNode(otherlv_64, grammarAccess.getMachineBlockAccess().getMachineKeyword_9_0_0_1());
 					}
 				)
 				(
@@ -3837,7 +3883,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getMachineAnyMachineBlockParserRuleCall_9_0_1_0_0());
 							}
-							lv_machine_63_0=ruleAnyMachineBlock
+							lv_machine_65_0=ruleAnyMachineBlock
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3845,7 +3891,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"machine",
-									lv_machine_63_0,
+									lv_machine_65_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.AnyMachineBlock");
 								afterParserOrEnumRuleCall();
 							}
@@ -3857,7 +3903,7 @@ ruleMachineBlock returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getMachineBlockAccess().getInstanceInstanceMachineParserRuleCall_9_0_1_1_0());
 							}
-							lv_instance_64_0=ruleInstanceMachine
+							lv_instance_66_0=ruleInstanceMachine
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3865,7 +3911,7 @@ ruleMachineBlock returns [EObject current=null]
 								add(
 									$current,
 									"instance",
-									lv_instance_64_0,
+									lv_instance_66_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.InstanceMachine");
 								afterParserOrEnumRuleCall();
 							}
@@ -3875,40 +3921,14 @@ ruleMachineBlock returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_65='@model:'
+				otherlv_67='@model:'
 				{
-					newLeafNode(otherlv_65, grammarAccess.getMachineBlockAccess().getModelKeyword_9_1_0());
+					newLeafNode(otherlv_67, grammarAccess.getMachineBlockAccess().getModelKeyword_9_1_0());
 				}
 				(
 					(
 						{
 							newCompositeNode(grammarAccess.getMachineBlockAccess().getMachineAnyMachineBlockParserRuleCall_9_1_1_0());
-						}
-						lv_machine_66_0=ruleAnyMachineBlock
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
-							}
-							add(
-								$current,
-								"machine",
-								lv_machine_66_0,
-								"org.eclipse.efm.formalml.xtext.FormalML.AnyMachineBlock");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)*
-			)
-			    |
-			(
-				otherlv_67='@prototype:'
-				{
-					newLeafNode(otherlv_67, grammarAccess.getMachineBlockAccess().getPrototypeKeyword_9_2_0());
-				}
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getMachineBlockAccess().getMachineAnyMachineBlockParserRuleCall_9_2_1_0());
 						}
 						lv_machine_68_0=ruleAnyMachineBlock
 						{
@@ -3927,16 +3947,42 @@ ruleMachineBlock returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_69='@instance:'
+				otherlv_69='@prototype:'
 				{
-					newLeafNode(otherlv_69, grammarAccess.getMachineBlockAccess().getInstanceKeyword_9_3_0());
+					newLeafNode(otherlv_69, grammarAccess.getMachineBlockAccess().getPrototypeKeyword_9_2_0());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getMachineBlockAccess().getMachineAnyMachineBlockParserRuleCall_9_2_1_0());
+						}
+						lv_machine_70_0=ruleAnyMachineBlock
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
+							}
+							add(
+								$current,
+								"machine",
+								lv_machine_70_0,
+								"org.eclipse.efm.formalml.xtext.FormalML.AnyMachineBlock");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)*
+			)
+			    |
+			(
+				otherlv_71='@instance:'
+				{
+					newLeafNode(otherlv_71, grammarAccess.getMachineBlockAccess().getInstanceKeyword_9_3_0());
 				}
 				(
 					(
 						{
 							newCompositeNode(grammarAccess.getMachineBlockAccess().getInstanceInstanceMachineParserRuleCall_9_3_1_0());
 						}
-						lv_instance_70_0=ruleInstanceMachine
+						lv_instance_72_0=ruleInstanceMachine
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3944,7 +3990,7 @@ ruleMachineBlock returns [EObject current=null]
 							add(
 								$current,
 								"instance",
-								lv_instance_70_0,
+								lv_instance_72_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.InstanceMachine");
 							afterParserOrEnumRuleCall();
 						}
@@ -3954,42 +4000,16 @@ ruleMachineBlock returns [EObject current=null]
 		)*
 		(
 			(
-				otherlv_71='@behavior:'
+				otherlv_73='@behavior:'
 				{
-					newLeafNode(otherlv_71, grammarAccess.getMachineBlockAccess().getBehaviorKeyword_10_0_0());
+					newLeafNode(otherlv_73, grammarAccess.getMachineBlockAccess().getBehaviorKeyword_10_0_0());
 				}
 				(
 					(
 						{
 							newCompositeNode(grammarAccess.getMachineBlockAccess().getBehaviorBehaviorParserRuleCall_10_0_1_0());
 						}
-						lv_behavior_72_0=ruleBehavior
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
-							}
-							add(
-								$current,
-								"behavior",
-								lv_behavior_72_0,
-								"org.eclipse.efm.formalml.xtext.FormalML.Behavior");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)+
-			)
-			    |
-			(
-				otherlv_73='@statemachine:'
-				{
-					newLeafNode(otherlv_73, grammarAccess.getMachineBlockAccess().getStatemachineKeyword_10_1_0());
-				}
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getMachineBlockAccess().getBehaviorStatemachineParserRuleCall_10_1_1_0());
-						}
-						lv_behavior_74_0=ruleStatemachine
+						lv_behavior_74_0=ruleBehavior
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -3998,6 +4018,32 @@ ruleMachineBlock returns [EObject current=null]
 								$current,
 								"behavior",
 								lv_behavior_74_0,
+								"org.eclipse.efm.formalml.xtext.FormalML.Behavior");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)+
+			)
+			    |
+			(
+				otherlv_75='@statemachine:'
+				{
+					newLeafNode(otherlv_75, grammarAccess.getMachineBlockAccess().getStatemachineKeyword_10_1_0());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getMachineBlockAccess().getBehaviorStatemachineParserRuleCall_10_1_1_0());
+						}
+						lv_behavior_76_0=ruleStatemachine
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
+							}
+							add(
+								$current,
+								"behavior",
+								lv_behavior_76_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Statemachine");
 							afterParserOrEnumRuleCall();
 						}
@@ -4010,7 +4056,7 @@ ruleMachineBlock returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getMachineBlockAccess().getMainMoeBehaviorParserRuleCall_11_0());
 				}
-				lv_main_75_0=ruleMoeBehavior
+				lv_main_77_0=ruleMoeBehavior
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getMachineBlockRule());
@@ -4018,15 +4064,15 @@ ruleMachineBlock returns [EObject current=null]
 					set(
 						$current,
 						"main",
-						lv_main_75_0,
+						lv_main_77_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.MoeBehavior");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		otherlv_76='}'
+		otherlv_78='}'
 		{
-			newLeafNode(otherlv_76, grammarAccess.getMachineBlockAccess().getRightCurlyBracketKeyword_12());
+			newLeafNode(otherlv_78, grammarAccess.getMachineBlockAccess().getRightCurlyBracketKeyword_12());
 		}
 	)
 ;
@@ -6073,9 +6119,55 @@ ruleStatemachine returns [EObject current=null]
 						getUnorderedGroupHelper().select(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 2);
 					}
 								({true}?=>((
-									lv_input_enabled_4_0='input_enabled'
+									lv_dense_timed_4_0='timed#dense'
 									{
-										newLeafNode(lv_input_enabled_4_0, grammarAccess.getStatemachineAccess().getInput_enabledInput_enabledKeyword_1_2_0());
+										newLeafNode(lv_dense_timed_4_0, grammarAccess.getStatemachineAccess().getDense_timedTimedDenseKeyword_1_2_0());
+									}
+									{
+										if ($current==null) {
+											$current = createModelElement(grammarAccess.getStatemachineRule());
+										}
+										setWithLastConsumed($current, "dense_timed", true, "timed#dense");
+									}
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStatemachineAccess().getUnorderedGroup_1());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 3)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 3);
+					}
+								({true}?=>((
+									lv_discrete_timed_5_0='timed#discrete'
+									{
+										newLeafNode(lv_discrete_timed_5_0, grammarAccess.getStatemachineAccess().getDiscrete_timedTimedDiscreteKeyword_1_3_0());
+									}
+									{
+										if ($current==null) {
+											$current = createModelElement(grammarAccess.getStatemachineRule());
+										}
+										setWithLastConsumed($current, "discrete_timed", true, "timed#discrete");
+									}
+								)
+								))
+					{ 
+						getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStatemachineAccess().getUnorderedGroup_1());
+					}
+				)
+			)|
+			(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 4)}?=>(
+					{
+						getUnorderedGroupHelper().select(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 4);
+					}
+								({true}?=>((
+									lv_input_enabled_6_0='input_enabled'
+									{
+										newLeafNode(lv_input_enabled_6_0, grammarAccess.getStatemachineAccess().getInput_enabledInput_enabledKeyword_1_4_0());
 									}
 									{
 										if ($current==null) {
@@ -6091,14 +6183,14 @@ ruleStatemachine returns [EObject current=null]
 				)
 			)|
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 3)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 5)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 3);
+						getUnorderedGroupHelper().select(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 5);
 					}
 								({true}?=>((
-									lv_lifeline_5_0='lifeline'
+									lv_lifeline_7_0='lifeline'
 									{
-										newLeafNode(lv_lifeline_5_0, grammarAccess.getStatemachineAccess().getLifelineLifelineKeyword_1_3_0());
+										newLeafNode(lv_lifeline_7_0, grammarAccess.getStatemachineAccess().getLifelineLifelineKeyword_1_5_0());
 									}
 									{
 										if ($current==null) {
@@ -6114,15 +6206,15 @@ ruleStatemachine returns [EObject current=null]
 				)
 			)|
 			(
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 4)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 6)}?=>(
 					{
-						getUnorderedGroupHelper().select(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 4);
+						getUnorderedGroupHelper().select(grammarAccess.getStatemachineAccess().getUnorderedGroup_1(), 6);
 					}
 								({true}?=>((
 									{
-										newCompositeNode(grammarAccess.getStatemachineAccess().getDesignDesignKindEnumRuleCall_1_4_0());
+										newCompositeNode(grammarAccess.getStatemachineAccess().getDesignDesignKindEnumRuleCall_1_6_0());
 									}
-									lv_design_6_0=ruleDesignKind
+									lv_design_8_0=ruleDesignKind
 									{
 										if ($current==null) {
 											$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6130,7 +6222,7 @@ ruleStatemachine returns [EObject current=null]
 										set(
 											$current,
 											"design",
-											lv_design_6_0,
+											lv_design_8_0,
 											"org.eclipse.efm.formalml.xtext.FormalML.DesignKind");
 										afterParserOrEnumRuleCall();
 									}
@@ -6148,35 +6240,35 @@ ruleStatemachine returns [EObject current=null]
 				  getUnorderedGroupHelper().leave(grammarAccess.getStatemachineAccess().getUnorderedGroup_1());
 				}
 		)
-		otherlv_7='statemachine'
+		otherlv_9='statemachine'
 		{
-			newLeafNode(otherlv_7, grammarAccess.getStatemachineAccess().getStatemachineKeyword_2());
+			newLeafNode(otherlv_9, grammarAccess.getStatemachineAccess().getStatemachineKeyword_2());
 		}
 		(
-			otherlv_8='<'
+			otherlv_10='<'
 			{
-				newLeafNode(otherlv_8, grammarAccess.getStatemachineAccess().getLessThanSignKeyword_3_0());
+				newLeafNode(otherlv_10, grammarAccess.getStatemachineAccess().getLessThanSignKeyword_3_0());
 			}
 			(
-				otherlv_9='moc:'
+				otherlv_11='moc:'
 				{
-					newLeafNode(otherlv_9, grammarAccess.getStatemachineAccess().getMocKeyword_3_1());
+					newLeafNode(otherlv_11, grammarAccess.getStatemachineAccess().getMocKeyword_3_1());
 				}
 			)?
 			(
-				otherlv_10='or'
+				otherlv_12='or'
 				{
-					newLeafNode(otherlv_10, grammarAccess.getStatemachineAccess().getOrKeyword_3_2_0());
+					newLeafNode(otherlv_12, grammarAccess.getStatemachineAccess().getOrKeyword_3_2_0());
 				}
 				    |
-				otherlv_11='and'
+				otherlv_13='and'
 				{
-					newLeafNode(otherlv_11, grammarAccess.getStatemachineAccess().getAndKeyword_3_2_1());
+					newLeafNode(otherlv_13, grammarAccess.getStatemachineAccess().getAndKeyword_3_2_1());
 				}
 			)
-			otherlv_12='>'
+			otherlv_14='>'
 			{
-				newLeafNode(otherlv_12, grammarAccess.getStatemachineAccess().getGreaterThanSignKeyword_3_3());
+				newLeafNode(otherlv_14, grammarAccess.getStatemachineAccess().getGreaterThanSignKeyword_3_3());
 			}
 		)?
 		(
@@ -6184,7 +6276,7 @@ ruleStatemachine returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getStatemachineAccess().getNameESIdentifierParserRuleCall_4_0());
 				}
-				lv_name_13_0=ruleESIdentifier
+				lv_name_15_0=ruleESIdentifier
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6192,7 +6284,7 @@ ruleStatemachine returns [EObject current=null]
 					set(
 						$current,
 						"name",
-						lv_name_13_0,
+						lv_name_15_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.ESIdentifier");
 					afterParserOrEnumRuleCall();
 				}
@@ -6203,7 +6295,7 @@ ruleStatemachine returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getStatemachineAccess().getUnrestrictedNameUnrestrictedNameParserRuleCall_5_0());
 				}
-				lv_unrestrictedName_14_0=ruleUnrestrictedName
+				lv_unrestrictedName_16_0=ruleUnrestrictedName
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6211,27 +6303,27 @@ ruleStatemachine returns [EObject current=null]
 					set(
 						$current,
 						"unrestrictedName",
-						lv_unrestrictedName_14_0,
+						lv_unrestrictedName_16_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.UnrestrictedName");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)?
-		otherlv_15='{'
+		otherlv_17='{'
 		{
-			newLeafNode(otherlv_15, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_6());
+			newLeafNode(otherlv_17, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_6());
 		}
 		(
 			(
-				otherlv_16='@parameter:'
+				otherlv_18='@parameter:'
 				{
-					newLeafNode(otherlv_16, grammarAccess.getStatemachineAccess().getParameterKeyword_7_0_0());
+					newLeafNode(otherlv_18, grammarAccess.getStatemachineAccess().getParameterKeyword_7_0_0());
 				}
 				(
 					(
-						otherlv_17='input'
+						otherlv_19='input'
 						{
-							newLeafNode(otherlv_17, grammarAccess.getStatemachineAccess().getInputKeyword_7_0_1_0_0());
+							newLeafNode(otherlv_19, grammarAccess.getStatemachineAccess().getInputKeyword_7_0_1_0_0());
 						}
 						(
 							(
@@ -6239,7 +6331,7 @@ ruleStatemachine returns [EObject current=null]
 									{
 										newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterInputParserRuleCall_7_0_1_0_1_0_0());
 									}
-									lv_parameter_18_0=ruleParameterInput
+									lv_parameter_20_0=ruleParameterInput
 									{
 										if ($current==null) {
 											$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6247,7 +6339,7 @@ ruleStatemachine returns [EObject current=null]
 										add(
 											$current,
 											"parameter",
-											lv_parameter_18_0,
+											lv_parameter_20_0,
 											"org.eclipse.efm.formalml.xtext.FormalML.ParameterInput");
 										afterParserOrEnumRuleCall();
 									}
@@ -6255,16 +6347,16 @@ ruleStatemachine returns [EObject current=null]
 							)
 							    |
 							(
-								otherlv_19='{'
+								otherlv_21='{'
 								{
-									newLeafNode(otherlv_19, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_7_0_1_0_1_1_0());
+									newLeafNode(otherlv_21, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_7_0_1_0_1_1_0());
 								}
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterInputParserRuleCall_7_0_1_0_1_1_1_0());
 										}
-										lv_parameter_20_0=ruleParameterInput
+										lv_parameter_22_0=ruleParameterInput
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6272,24 +6364,24 @@ ruleStatemachine returns [EObject current=null]
 											add(
 												$current,
 												"parameter",
-												lv_parameter_20_0,
+												lv_parameter_22_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.ParameterInput");
 											afterParserOrEnumRuleCall();
 										}
 									)
 								)+
-								otherlv_21='}'
+								otherlv_23='}'
 								{
-									newLeafNode(otherlv_21, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_7_0_1_0_1_1_2());
+									newLeafNode(otherlv_23, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_7_0_1_0_1_1_2());
 								}
 							)
 						)
 					)
 					    |
 					(
-						otherlv_22='inout'
+						otherlv_24='inout'
 						{
-							newLeafNode(otherlv_22, grammarAccess.getStatemachineAccess().getInoutKeyword_7_0_1_1_0());
+							newLeafNode(otherlv_24, grammarAccess.getStatemachineAccess().getInoutKeyword_7_0_1_1_0());
 						}
 						(
 							(
@@ -6297,7 +6389,7 @@ ruleStatemachine returns [EObject current=null]
 									{
 										newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterInoutParserRuleCall_7_0_1_1_1_0_0());
 									}
-									lv_parameter_23_0=ruleParameterInout
+									lv_parameter_25_0=ruleParameterInout
 									{
 										if ($current==null) {
 											$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6305,7 +6397,7 @@ ruleStatemachine returns [EObject current=null]
 										add(
 											$current,
 											"parameter",
-											lv_parameter_23_0,
+											lv_parameter_25_0,
 											"org.eclipse.efm.formalml.xtext.FormalML.ParameterInout");
 										afterParserOrEnumRuleCall();
 									}
@@ -6313,16 +6405,16 @@ ruleStatemachine returns [EObject current=null]
 							)
 							    |
 							(
-								otherlv_24='{'
+								otherlv_26='{'
 								{
-									newLeafNode(otherlv_24, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_7_0_1_1_1_1_0());
+									newLeafNode(otherlv_26, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_7_0_1_1_1_1_0());
 								}
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterInoutParserRuleCall_7_0_1_1_1_1_1_0());
 										}
-										lv_parameter_25_0=ruleParameterInout
+										lv_parameter_27_0=ruleParameterInout
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6330,24 +6422,24 @@ ruleStatemachine returns [EObject current=null]
 											add(
 												$current,
 												"parameter",
-												lv_parameter_25_0,
+												lv_parameter_27_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.ParameterInout");
 											afterParserOrEnumRuleCall();
 										}
 									)
 								)+
-								otherlv_26='}'
+								otherlv_28='}'
 								{
-									newLeafNode(otherlv_26, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_7_0_1_1_1_1_2());
+									newLeafNode(otherlv_28, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_7_0_1_1_1_1_2());
 								}
 							)
 						)
 					)
 					    |
 					(
-						otherlv_27='output'
+						otherlv_29='output'
 						{
-							newLeafNode(otherlv_27, grammarAccess.getStatemachineAccess().getOutputKeyword_7_0_1_2_0());
+							newLeafNode(otherlv_29, grammarAccess.getStatemachineAccess().getOutputKeyword_7_0_1_2_0());
 						}
 						(
 							(
@@ -6355,7 +6447,7 @@ ruleStatemachine returns [EObject current=null]
 									{
 										newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterOutputParserRuleCall_7_0_1_2_1_0_0());
 									}
-									lv_parameter_28_0=ruleParameterOutput
+									lv_parameter_30_0=ruleParameterOutput
 									{
 										if ($current==null) {
 											$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6363,7 +6455,7 @@ ruleStatemachine returns [EObject current=null]
 										add(
 											$current,
 											"parameter",
-											lv_parameter_28_0,
+											lv_parameter_30_0,
 											"org.eclipse.efm.formalml.xtext.FormalML.ParameterOutput");
 										afterParserOrEnumRuleCall();
 									}
@@ -6371,16 +6463,16 @@ ruleStatemachine returns [EObject current=null]
 							)
 							    |
 							(
-								otherlv_29='{'
+								otherlv_31='{'
 								{
-									newLeafNode(otherlv_29, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_7_0_1_2_1_1_0());
+									newLeafNode(otherlv_31, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_7_0_1_2_1_1_0());
 								}
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterOutputParserRuleCall_7_0_1_2_1_1_1_0());
 										}
-										lv_parameter_30_0=ruleParameterOutput
+										lv_parameter_32_0=ruleParameterOutput
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6388,24 +6480,24 @@ ruleStatemachine returns [EObject current=null]
 											add(
 												$current,
 												"parameter",
-												lv_parameter_30_0,
+												lv_parameter_32_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.ParameterOutput");
 											afterParserOrEnumRuleCall();
 										}
 									)
 								)+
-								otherlv_31='}'
+								otherlv_33='}'
 								{
-									newLeafNode(otherlv_31, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_7_0_1_2_1_1_2());
+									newLeafNode(otherlv_33, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_7_0_1_2_1_1_2());
 								}
 							)
 						)
 					)
 					    |
 					(
-						otherlv_32='return'
+						otherlv_34='return'
 						{
-							newLeafNode(otherlv_32, grammarAccess.getStatemachineAccess().getReturnKeyword_7_0_1_3_0());
+							newLeafNode(otherlv_34, grammarAccess.getStatemachineAccess().getReturnKeyword_7_0_1_3_0());
 						}
 						(
 							(
@@ -6413,7 +6505,7 @@ ruleStatemachine returns [EObject current=null]
 									{
 										newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterReturnParserRuleCall_7_0_1_3_1_0_0());
 									}
-									lv_parameter_33_0=ruleParameterReturn
+									lv_parameter_35_0=ruleParameterReturn
 									{
 										if ($current==null) {
 											$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6421,7 +6513,7 @@ ruleStatemachine returns [EObject current=null]
 										add(
 											$current,
 											"parameter",
-											lv_parameter_33_0,
+											lv_parameter_35_0,
 											"org.eclipse.efm.formalml.xtext.FormalML.ParameterReturn");
 										afterParserOrEnumRuleCall();
 									}
@@ -6429,16 +6521,16 @@ ruleStatemachine returns [EObject current=null]
 							)
 							    |
 							(
-								otherlv_34='{'
+								otherlv_36='{'
 								{
-									newLeafNode(otherlv_34, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_7_0_1_3_1_1_0());
+									newLeafNode(otherlv_36, grammarAccess.getStatemachineAccess().getLeftCurlyBracketKeyword_7_0_1_3_1_1_0());
 								}
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterReturnParserRuleCall_7_0_1_3_1_1_1_0());
 										}
-										lv_parameter_35_0=ruleParameterReturn
+										lv_parameter_37_0=ruleParameterReturn
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6446,15 +6538,15 @@ ruleStatemachine returns [EObject current=null]
 											add(
 												$current,
 												"parameter",
-												lv_parameter_35_0,
+												lv_parameter_37_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.ParameterReturn");
 											afterParserOrEnumRuleCall();
 										}
 									)
 								)+
-								otherlv_36='}'
+								otherlv_38='}'
 								{
-									newLeafNode(otherlv_36, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_7_0_1_3_1_1_2());
+									newLeafNode(otherlv_38, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_7_0_1_3_1_1_2());
 								}
 							)
 						)
@@ -6468,7 +6560,7 @@ ruleStatemachine returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getPortPortParserRuleCall_7_1_0_0());
 						}
-						lv_port_37_0=rulePort
+						lv_port_39_0=rulePort
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6476,7 +6568,7 @@ ruleStatemachine returns [EObject current=null]
 							add(
 								$current,
 								"port",
-								lv_port_37_0,
+								lv_port_39_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Port");
 							afterParserOrEnumRuleCall();
 						}
@@ -6488,7 +6580,7 @@ ruleStatemachine returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getSignalSignalParserRuleCall_7_1_1_0());
 						}
-						lv_signal_38_0=ruleSignal
+						lv_signal_40_0=ruleSignal
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6496,7 +6588,7 @@ ruleStatemachine returns [EObject current=null]
 							add(
 								$current,
 								"signal",
-								lv_signal_38_0,
+								lv_signal_40_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Signal");
 							afterParserOrEnumRuleCall();
 						}
@@ -6508,7 +6600,7 @@ ruleStatemachine returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getBufferBufferParserRuleCall_7_1_2_0());
 						}
-						lv_buffer_39_0=ruleBuffer
+						lv_buffer_41_0=ruleBuffer
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6516,7 +6608,7 @@ ruleStatemachine returns [EObject current=null]
 							add(
 								$current,
 								"buffer",
-								lv_buffer_39_0,
+								lv_buffer_41_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Buffer");
 							afterParserOrEnumRuleCall();
 						}
@@ -6528,7 +6620,7 @@ ruleStatemachine returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getChannelChannelParserRuleCall_7_1_3_0());
 						}
-						lv_channel_40_0=ruleChannel
+						lv_channel_42_0=ruleChannel
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6536,7 +6628,7 @@ ruleStatemachine returns [EObject current=null]
 							add(
 								$current,
 								"channel",
-								lv_channel_40_0,
+								lv_channel_42_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Channel");
 							afterParserOrEnumRuleCall();
 						}
@@ -6548,7 +6640,7 @@ ruleStatemachine returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getTypedefTypeDefinitionParserRuleCall_7_1_4_0());
 						}
-						lv_typedef_41_0=ruleTypeDefinition
+						lv_typedef_43_0=ruleTypeDefinition
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6556,7 +6648,7 @@ ruleStatemachine returns [EObject current=null]
 							add(
 								$current,
 								"typedef",
-								lv_typedef_41_0,
+								lv_typedef_43_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 							afterParserOrEnumRuleCall();
 						}
@@ -6568,7 +6660,7 @@ ruleStatemachine returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getFunctionFunctionParserRuleCall_7_1_5_0());
 						}
-						lv_function_42_0=ruleFunction
+						lv_function_44_0=ruleFunction
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6576,7 +6668,7 @@ ruleStatemachine returns [EObject current=null]
 							add(
 								$current,
 								"function",
-								lv_function_42_0,
+								lv_function_44_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Function");
 							afterParserOrEnumRuleCall();
 						}
@@ -6588,7 +6680,7 @@ ruleStatemachine returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getVariableVariableParserRuleCall_7_1_6_0());
 						}
-						lv_variable_43_0=ruleVariable
+						lv_variable_45_0=ruleVariable
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6596,7 +6688,7 @@ ruleStatemachine returns [EObject current=null]
 							add(
 								$current,
 								"variable",
-								lv_variable_43_0,
+								lv_variable_45_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Variable");
 							afterParserOrEnumRuleCall();
 						}
@@ -6606,42 +6698,16 @@ ruleStatemachine returns [EObject current=null]
 		)
 		(
 			(
-				otherlv_44='@input:'
+				otherlv_46='@input:'
 				{
-					newLeafNode(otherlv_44, grammarAccess.getStatemachineAccess().getInputKeyword_8_0_0());
+					newLeafNode(otherlv_46, grammarAccess.getStatemachineAccess().getInputKeyword_8_0_0());
 				}
 				(
 					(
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterInputParserRuleCall_8_0_1_0());
 						}
-						lv_parameter_45_0=ruleParameterInput
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
-							}
-							add(
-								$current,
-								"parameter",
-								lv_parameter_45_0,
-								"org.eclipse.efm.formalml.xtext.FormalML.ParameterInput");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)*
-			)
-			    |
-			(
-				otherlv_46='@inout:'
-				{
-					newLeafNode(otherlv_46, grammarAccess.getStatemachineAccess().getInoutKeyword_8_1_0());
-				}
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterInoutParserRuleCall_8_1_1_0());
-						}
-						lv_parameter_47_0=ruleParameterInout
+						lv_parameter_47_0=ruleParameterInput
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6650,7 +6716,7 @@ ruleStatemachine returns [EObject current=null]
 								$current,
 								"parameter",
 								lv_parameter_47_0,
-								"org.eclipse.efm.formalml.xtext.FormalML.ParameterInout");
+								"org.eclipse.efm.formalml.xtext.FormalML.ParameterInput");
 							afterParserOrEnumRuleCall();
 						}
 					)
@@ -6658,16 +6724,16 @@ ruleStatemachine returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_48='@output:'
+				otherlv_48='@inout:'
 				{
-					newLeafNode(otherlv_48, grammarAccess.getStatemachineAccess().getOutputKeyword_8_2_0());
+					newLeafNode(otherlv_48, grammarAccess.getStatemachineAccess().getInoutKeyword_8_1_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterOutputParserRuleCall_8_2_1_0());
+							newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterInoutParserRuleCall_8_1_1_0());
 						}
-						lv_parameter_49_0=ruleParameterOutput
+						lv_parameter_49_0=ruleParameterInout
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6676,7 +6742,7 @@ ruleStatemachine returns [EObject current=null]
 								$current,
 								"parameter",
 								lv_parameter_49_0,
-								"org.eclipse.efm.formalml.xtext.FormalML.ParameterOutput");
+								"org.eclipse.efm.formalml.xtext.FormalML.ParameterInout");
 							afterParserOrEnumRuleCall();
 						}
 					)
@@ -6684,16 +6750,16 @@ ruleStatemachine returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_50='@return:'
+				otherlv_50='@output:'
 				{
-					newLeafNode(otherlv_50, grammarAccess.getStatemachineAccess().getReturnKeyword_8_3_0());
+					newLeafNode(otherlv_50, grammarAccess.getStatemachineAccess().getOutputKeyword_8_2_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterReturnParserRuleCall_8_3_1_0());
+							newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterOutputParserRuleCall_8_2_1_0());
 						}
-						lv_parameter_51_0=ruleParameterReturn
+						lv_parameter_51_0=ruleParameterOutput
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6702,6 +6768,32 @@ ruleStatemachine returns [EObject current=null]
 								$current,
 								"parameter",
 								lv_parameter_51_0,
+								"org.eclipse.efm.formalml.xtext.FormalML.ParameterOutput");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)*
+			)
+			    |
+			(
+				otherlv_52='@return:'
+				{
+					newLeafNode(otherlv_52, grammarAccess.getStatemachineAccess().getReturnKeyword_8_3_0());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getStatemachineAccess().getParameterParameterReturnParserRuleCall_8_3_1_0());
+						}
+						lv_parameter_53_0=ruleParameterReturn
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
+							}
+							add(
+								$current,
+								"parameter",
+								lv_parameter_53_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.ParameterReturn");
 							afterParserOrEnumRuleCall();
 						}
@@ -6711,9 +6803,9 @@ ruleStatemachine returns [EObject current=null]
 		)*
 		(
 			(
-				otherlv_52='@property:'
+				otherlv_54='@property:'
 				{
-					newLeafNode(otherlv_52, grammarAccess.getStatemachineAccess().getPropertyKeyword_9_0_0());
+					newLeafNode(otherlv_54, grammarAccess.getStatemachineAccess().getPropertyKeyword_9_0_0());
 				}
 				(
 					(
@@ -6721,7 +6813,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getPortPortParserRuleCall_9_0_1_0_0());
 							}
-							lv_port_53_0=rulePort
+							lv_port_55_0=rulePort
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6729,7 +6821,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"port",
-									lv_port_53_0,
+									lv_port_55_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Port");
 								afterParserOrEnumRuleCall();
 							}
@@ -6741,7 +6833,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getSignalSignalParserRuleCall_9_0_1_1_0());
 							}
-							lv_signal_54_0=ruleSignal
+							lv_signal_56_0=ruleSignal
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6749,7 +6841,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"signal",
-									lv_signal_54_0,
+									lv_signal_56_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Signal");
 								afterParserOrEnumRuleCall();
 							}
@@ -6761,7 +6853,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getBufferBufferParserRuleCall_9_0_1_2_0());
 							}
-							lv_buffer_55_0=ruleBuffer
+							lv_buffer_57_0=ruleBuffer
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6769,7 +6861,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"buffer",
-									lv_buffer_55_0,
+									lv_buffer_57_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Buffer");
 								afterParserOrEnumRuleCall();
 							}
@@ -6781,7 +6873,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getChannelChannelParserRuleCall_9_0_1_3_0());
 							}
-							lv_channel_56_0=ruleChannel
+							lv_channel_58_0=ruleChannel
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6789,7 +6881,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"channel",
-									lv_channel_56_0,
+									lv_channel_58_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Channel");
 								afterParserOrEnumRuleCall();
 							}
@@ -6801,7 +6893,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getTypedefTypeDefinitionParserRuleCall_9_0_1_4_0());
 							}
-							lv_typedef_57_0=ruleTypeDefinition
+							lv_typedef_59_0=ruleTypeDefinition
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6809,7 +6901,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"typedef",
-									lv_typedef_57_0,
+									lv_typedef_59_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 								afterParserOrEnumRuleCall();
 							}
@@ -6821,7 +6913,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getFunctionFunctionParserRuleCall_9_0_1_5_0());
 							}
-							lv_function_58_0=ruleFunction
+							lv_function_60_0=ruleFunction
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6829,7 +6921,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"function",
-									lv_function_58_0,
+									lv_function_60_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Function");
 								afterParserOrEnumRuleCall();
 							}
@@ -6841,7 +6933,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getVariableVariableParserRuleCall_9_0_1_6_0());
 							}
-							lv_variable_59_0=ruleVariable
+							lv_variable_61_0=ruleVariable
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6849,7 +6941,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"variable",
-									lv_variable_59_0,
+									lv_variable_61_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Variable");
 								afterParserOrEnumRuleCall();
 							}
@@ -6859,9 +6951,9 @@ ruleStatemachine returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_60='@public:'
+				otherlv_62='@public:'
 				{
-					newLeafNode(otherlv_60, grammarAccess.getStatemachineAccess().getPublicKeyword_9_1_0());
+					newLeafNode(otherlv_62, grammarAccess.getStatemachineAccess().getPublicKeyword_9_1_0());
 				}
 				(
 					(
@@ -6869,7 +6961,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getPortPortPublicParserRuleCall_9_1_1_0_0());
 							}
-							lv_port_61_0=rulePortPublic
+							lv_port_63_0=rulePortPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6877,7 +6969,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"port",
-									lv_port_61_0,
+									lv_port_63_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.PortPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -6889,7 +6981,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getSignalSignalPublicParserRuleCall_9_1_1_1_0());
 							}
-							lv_signal_62_0=ruleSignalPublic
+							lv_signal_64_0=ruleSignalPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6897,7 +6989,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"signal",
-									lv_signal_62_0,
+									lv_signal_64_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.SignalPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -6909,7 +7001,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getBufferBufferPublicParserRuleCall_9_1_1_2_0());
 							}
-							lv_buffer_63_0=ruleBufferPublic
+							lv_buffer_65_0=ruleBufferPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6917,7 +7009,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"buffer",
-									lv_buffer_63_0,
+									lv_buffer_65_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.BufferPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -6929,7 +7021,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getChannelChannelPublicParserRuleCall_9_1_1_3_0());
 							}
-							lv_channel_64_0=ruleChannelPublic
+							lv_channel_66_0=ruleChannelPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6937,7 +7029,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"channel",
-									lv_channel_64_0,
+									lv_channel_66_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.ChannelPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -6949,7 +7041,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getTypedefTypeDefinitionParserRuleCall_9_1_1_4_0());
 							}
-							lv_typedef_65_0=ruleTypeDefinition
+							lv_typedef_67_0=ruleTypeDefinition
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6957,7 +7049,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"typedef",
-									lv_typedef_65_0,
+									lv_typedef_67_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 								afterParserOrEnumRuleCall();
 							}
@@ -6969,7 +7061,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getFunctionFunctionPublicParserRuleCall_9_1_1_5_0());
 							}
-							lv_function_66_0=ruleFunctionPublic
+							lv_function_68_0=ruleFunctionPublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6977,7 +7069,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"function",
-									lv_function_66_0,
+									lv_function_68_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.FunctionPublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -6989,7 +7081,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getVariableVariablePublicParserRuleCall_9_1_1_6_0());
 							}
-							lv_variable_67_0=ruleVariablePublic
+							lv_variable_69_0=ruleVariablePublic
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -6997,7 +7089,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"variable",
-									lv_variable_67_0,
+									lv_variable_69_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.VariablePublic");
 								afterParserOrEnumRuleCall();
 							}
@@ -7007,9 +7099,9 @@ ruleStatemachine returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_68='@protected:'
+				otherlv_70='@protected:'
 				{
-					newLeafNode(otherlv_68, grammarAccess.getStatemachineAccess().getProtectedKeyword_9_2_0());
+					newLeafNode(otherlv_70, grammarAccess.getStatemachineAccess().getProtectedKeyword_9_2_0());
 				}
 				(
 					(
@@ -7017,7 +7109,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getPortPortProtectedParserRuleCall_9_2_1_0_0());
 							}
-							lv_port_69_0=rulePortProtected
+							lv_port_71_0=rulePortProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7025,7 +7117,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"port",
-									lv_port_69_0,
+									lv_port_71_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.PortProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -7037,7 +7129,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getSignalSignalProtectedParserRuleCall_9_2_1_1_0());
 							}
-							lv_signal_70_0=ruleSignalProtected
+							lv_signal_72_0=ruleSignalProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7045,7 +7137,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"signal",
-									lv_signal_70_0,
+									lv_signal_72_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.SignalProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -7057,7 +7149,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getBufferBufferProtectedParserRuleCall_9_2_1_2_0());
 							}
-							lv_buffer_71_0=ruleBufferProtected
+							lv_buffer_73_0=ruleBufferProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7065,7 +7157,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"buffer",
-									lv_buffer_71_0,
+									lv_buffer_73_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.BufferProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -7077,7 +7169,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getChannelChannelProtectedParserRuleCall_9_2_1_3_0());
 							}
-							lv_channel_72_0=ruleChannelProtected
+							lv_channel_74_0=ruleChannelProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7085,7 +7177,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"channel",
-									lv_channel_72_0,
+									lv_channel_74_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.ChannelProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -7097,7 +7189,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getTypedefTypeDefinitionParserRuleCall_9_2_1_4_0());
 							}
-							lv_typedef_73_0=ruleTypeDefinition
+							lv_typedef_75_0=ruleTypeDefinition
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7105,7 +7197,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"typedef",
-									lv_typedef_73_0,
+									lv_typedef_75_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 								afterParserOrEnumRuleCall();
 							}
@@ -7117,7 +7209,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getFunctionFunctionProtectedParserRuleCall_9_2_1_5_0());
 							}
-							lv_function_74_0=ruleFunctionProtected
+							lv_function_76_0=ruleFunctionProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7125,7 +7217,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"function",
-									lv_function_74_0,
+									lv_function_76_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.FunctionProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -7137,7 +7229,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getVariableVariableProtectedParserRuleCall_9_2_1_6_0());
 							}
-							lv_variable_75_0=ruleVariableProtected
+							lv_variable_77_0=ruleVariableProtected
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7145,7 +7237,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"variable",
-									lv_variable_75_0,
+									lv_variable_77_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.VariableProtected");
 								afterParserOrEnumRuleCall();
 							}
@@ -7155,9 +7247,9 @@ ruleStatemachine returns [EObject current=null]
 			)
 			    |
 			(
-				otherlv_76='@private:'
+				otherlv_78='@private:'
 				{
-					newLeafNode(otherlv_76, grammarAccess.getStatemachineAccess().getPrivateKeyword_9_3_0());
+					newLeafNode(otherlv_78, grammarAccess.getStatemachineAccess().getPrivateKeyword_9_3_0());
 				}
 				(
 					(
@@ -7165,7 +7257,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getPortPortPrivateParserRuleCall_9_3_1_0_0());
 							}
-							lv_port_77_0=rulePortPrivate
+							lv_port_79_0=rulePortPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7173,7 +7265,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"port",
-									lv_port_77_0,
+									lv_port_79_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.PortPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -7185,7 +7277,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getSignalSignalPrivateParserRuleCall_9_3_1_1_0());
 							}
-							lv_signal_78_0=ruleSignalPrivate
+							lv_signal_80_0=ruleSignalPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7193,7 +7285,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"signal",
-									lv_signal_78_0,
+									lv_signal_80_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.SignalPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -7205,7 +7297,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getBufferBufferPrivateParserRuleCall_9_3_1_2_0());
 							}
-							lv_buffer_79_0=ruleBufferPrivate
+							lv_buffer_81_0=ruleBufferPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7213,7 +7305,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"buffer",
-									lv_buffer_79_0,
+									lv_buffer_81_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.BufferPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -7225,7 +7317,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getChannelChannelPrivateParserRuleCall_9_3_1_3_0());
 							}
-							lv_channel_80_0=ruleChannelPrivate
+							lv_channel_82_0=ruleChannelPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7233,7 +7325,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"channel",
-									lv_channel_80_0,
+									lv_channel_82_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.ChannelPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -7245,7 +7337,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getTypedefTypeDefinitionParserRuleCall_9_3_1_4_0());
 							}
-							lv_typedef_81_0=ruleTypeDefinition
+							lv_typedef_83_0=ruleTypeDefinition
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7253,7 +7345,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"typedef",
-									lv_typedef_81_0,
+									lv_typedef_83_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.TypeDefinition");
 								afterParserOrEnumRuleCall();
 							}
@@ -7265,7 +7357,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getFunctionFunctionPrivateParserRuleCall_9_3_1_5_0());
 							}
-							lv_function_82_0=ruleFunctionPrivate
+							lv_function_84_0=ruleFunctionPrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7273,7 +7365,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"function",
-									lv_function_82_0,
+									lv_function_84_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.FunctionPrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -7285,7 +7377,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getVariableVariablePrivateParserRuleCall_9_3_1_6_0());
 							}
-							lv_variable_83_0=ruleVariablePrivate
+							lv_variable_85_0=ruleVariablePrivate
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7293,7 +7385,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"variable",
-									lv_variable_83_0,
+									lv_variable_85_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.VariablePrivate");
 								afterParserOrEnumRuleCall();
 							}
@@ -7306,14 +7398,14 @@ ruleStatemachine returns [EObject current=null]
 			(
 				(
 					(
-						otherlv_84='@routine:'
+						otherlv_86='@routine:'
 						{
-							newLeafNode(otherlv_84, grammarAccess.getStatemachineAccess().getRoutineKeyword_10_0_0_0_0());
+							newLeafNode(otherlv_86, grammarAccess.getStatemachineAccess().getRoutineKeyword_10_0_0_0_0());
 						}
 						    |
-						otherlv_85='@macro:'
+						otherlv_87='@macro:'
 						{
-							newLeafNode(otherlv_85, grammarAccess.getStatemachineAccess().getMacroKeyword_10_0_0_0_1());
+							newLeafNode(otherlv_87, grammarAccess.getStatemachineAccess().getMacroKeyword_10_0_0_0_1());
 						}
 					)
 					(
@@ -7321,7 +7413,7 @@ ruleStatemachine returns [EObject current=null]
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getRoutineRoutineParserRuleCall_10_0_0_1_0());
 							}
-							lv_routine_86_0=ruleRoutine
+							lv_routine_88_0=ruleRoutine
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7329,7 +7421,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"routine",
-									lv_routine_86_0,
+									lv_routine_88_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Routine");
 								afterParserOrEnumRuleCall();
 							}
@@ -7338,16 +7430,16 @@ ruleStatemachine returns [EObject current=null]
 				)
 				    |
 				(
-					otherlv_87='@procedure:'
+					otherlv_89='@procedure:'
 					{
-						newLeafNode(otherlv_87, grammarAccess.getStatemachineAccess().getProcedureKeyword_10_0_1_0());
+						newLeafNode(otherlv_89, grammarAccess.getStatemachineAccess().getProcedureKeyword_10_0_1_0());
 					}
 					(
 						(
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getProcedureProcedureParserRuleCall_10_0_1_1_0());
 							}
-							lv_procedure_88_0=ruleProcedure
+							lv_procedure_90_0=ruleProcedure
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7355,7 +7447,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"procedure",
-									lv_procedure_88_0,
+									lv_procedure_90_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.Procedure");
 								afterParserOrEnumRuleCall();
 							}
@@ -7370,7 +7462,7 @@ ruleStatemachine returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getRoutineRoutineParserRuleCall_10_1_0_0());
 						}
-						lv_routine_89_0=ruleRoutine
+						lv_routine_91_0=ruleRoutine
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7378,7 +7470,7 @@ ruleStatemachine returns [EObject current=null]
 							add(
 								$current,
 								"routine",
-								lv_routine_89_0,
+								lv_routine_91_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Routine");
 							afterParserOrEnumRuleCall();
 						}
@@ -7390,7 +7482,7 @@ ruleStatemachine returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getStatemachineAccess().getProcedureProcedureParserRuleCall_10_1_1_0());
 						}
-						lv_procedure_90_0=ruleProcedure
+						lv_procedure_92_0=ruleProcedure
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7398,7 +7490,7 @@ ruleStatemachine returns [EObject current=null]
 							add(
 								$current,
 								"procedure",
-								lv_procedure_90_0,
+								lv_procedure_92_0,
 								"org.eclipse.efm.formalml.xtext.FormalML.Procedure");
 							afterParserOrEnumRuleCall();
 						}
@@ -7410,14 +7502,14 @@ ruleStatemachine returns [EObject current=null]
 			(
 				(
 					(
-						otherlv_91='@composite:'
+						otherlv_93='@composite:'
 						{
-							newLeafNode(otherlv_91, grammarAccess.getStatemachineAccess().getCompositeKeyword_11_0_0_0_0());
+							newLeafNode(otherlv_93, grammarAccess.getStatemachineAccess().getCompositeKeyword_11_0_0_0_0());
 						}
 						    |
-						otherlv_92='@statemachine:'
+						otherlv_94='@statemachine:'
 						{
-							newLeafNode(otherlv_92, grammarAccess.getStatemachineAccess().getStatemachineKeyword_11_0_0_0_1());
+							newLeafNode(otherlv_94, grammarAccess.getStatemachineAccess().getStatemachineKeyword_11_0_0_0_1());
 						}
 					)
 					(
@@ -7426,7 +7518,7 @@ ruleStatemachine returns [EObject current=null]
 								{
 									newCompositeNode(grammarAccess.getStatemachineAccess().getMachineStatemachineParserRuleCall_11_0_0_1_0_0());
 								}
-								lv_machine_93_0=ruleStatemachine
+								lv_machine_95_0=ruleStatemachine
 								{
 									if ($current==null) {
 										$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7434,7 +7526,7 @@ ruleStatemachine returns [EObject current=null]
 									add(
 										$current,
 										"machine",
-										lv_machine_93_0,
+										lv_machine_95_0,
 										"org.eclipse.efm.formalml.xtext.FormalML.Statemachine");
 									afterParserOrEnumRuleCall();
 								}
@@ -7446,7 +7538,7 @@ ruleStatemachine returns [EObject current=null]
 								{
 									newCompositeNode(grammarAccess.getStatemachineAccess().getInstanceInstanceMachineParserRuleCall_11_0_0_1_1_0());
 								}
-								lv_instance_94_0=ruleInstanceMachine
+								lv_instance_96_0=ruleInstanceMachine
 								{
 									if ($current==null) {
 										$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7454,7 +7546,7 @@ ruleStatemachine returns [EObject current=null]
 									add(
 										$current,
 										"instance",
-										lv_instance_94_0,
+										lv_instance_96_0,
 										"org.eclipse.efm.formalml.xtext.FormalML.InstanceMachine");
 									afterParserOrEnumRuleCall();
 								}
@@ -7464,40 +7556,14 @@ ruleStatemachine returns [EObject current=null]
 				)
 				    |
 				(
-					otherlv_95='@model:'
+					otherlv_97='@model:'
 					{
-						newLeafNode(otherlv_95, grammarAccess.getStatemachineAccess().getModelKeyword_11_0_1_0());
+						newLeafNode(otherlv_97, grammarAccess.getStatemachineAccess().getModelKeyword_11_0_1_0());
 					}
 					(
 						(
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getMachineAnyMachineBlockParserRuleCall_11_0_1_1_0());
-							}
-							lv_machine_96_0=ruleAnyMachineBlock
-							{
-								if ($current==null) {
-									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
-								}
-								add(
-									$current,
-									"machine",
-									lv_machine_96_0,
-									"org.eclipse.efm.formalml.xtext.FormalML.AnyMachineBlock");
-								afterParserOrEnumRuleCall();
-							}
-						)
-					)*
-				)
-				    |
-				(
-					otherlv_97='@prototype:'
-					{
-						newLeafNode(otherlv_97, grammarAccess.getStatemachineAccess().getPrototypeKeyword_11_0_2_0());
-					}
-					(
-						(
-							{
-								newCompositeNode(grammarAccess.getStatemachineAccess().getMachineAnyMachineBlockParserRuleCall_11_0_2_1_0());
 							}
 							lv_machine_98_0=ruleAnyMachineBlock
 							{
@@ -7516,16 +7582,42 @@ ruleStatemachine returns [EObject current=null]
 				)
 				    |
 				(
-					otherlv_99='@instance:'
+					otherlv_99='@prototype:'
 					{
-						newLeafNode(otherlv_99, grammarAccess.getStatemachineAccess().getInstanceKeyword_11_0_3_0());
+						newLeafNode(otherlv_99, grammarAccess.getStatemachineAccess().getPrototypeKeyword_11_0_2_0());
+					}
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getStatemachineAccess().getMachineAnyMachineBlockParserRuleCall_11_0_2_1_0());
+							}
+							lv_machine_100_0=ruleAnyMachineBlock
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
+								}
+								add(
+									$current,
+									"machine",
+									lv_machine_100_0,
+									"org.eclipse.efm.formalml.xtext.FormalML.AnyMachineBlock");
+								afterParserOrEnumRuleCall();
+							}
+						)
+					)*
+				)
+				    |
+				(
+					otherlv_101='@instance:'
+					{
+						newLeafNode(otherlv_101, grammarAccess.getStatemachineAccess().getInstanceKeyword_11_0_3_0());
 					}
 					(
 						(
 							{
 								newCompositeNode(grammarAccess.getStatemachineAccess().getInstanceInstanceMachineParserRuleCall_11_0_3_1_0());
 							}
-							lv_instance_100_0=ruleInstanceMachine
+							lv_instance_102_0=ruleInstanceMachine
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7533,7 +7625,7 @@ ruleStatemachine returns [EObject current=null]
 								add(
 									$current,
 									"instance",
-									lv_instance_100_0,
+									lv_instance_102_0,
 									"org.eclipse.efm.formalml.xtext.FormalML.InstanceMachine");
 								afterParserOrEnumRuleCall();
 							}
@@ -7547,7 +7639,7 @@ ruleStatemachine returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getStatemachineAccess().getRegionStatemachineRegionParserRuleCall_11_1_0());
 					}
-					lv_region_101_0=ruleStatemachineRegion
+					lv_region_103_0=ruleStatemachineRegion
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7555,7 +7647,7 @@ ruleStatemachine returns [EObject current=null]
 						add(
 							$current,
 							"region",
-							lv_region_101_0,
+							lv_region_103_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.StatemachineRegion");
 						afterParserOrEnumRuleCall();
 					}
@@ -7567,7 +7659,7 @@ ruleStatemachine returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getStatemachineAccess().getRegionStatemachineNamedRegionParserRuleCall_11_2_0());
 					}
-					lv_region_102_0=ruleStatemachineNamedRegion
+					lv_region_104_0=ruleStatemachineNamedRegion
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7575,7 +7667,7 @@ ruleStatemachine returns [EObject current=null]
 						add(
 							$current,
 							"region",
-							lv_region_102_0,
+							lv_region_104_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.StatemachineNamedRegion");
 						afterParserOrEnumRuleCall();
 					}
@@ -7587,7 +7679,7 @@ ruleStatemachine returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getStatemachineAccess().getRegionStatemachineRegionLiteParserRuleCall_11_3_0());
 					}
-					lv_region_103_0=ruleStatemachineRegionLite
+					lv_region_105_0=ruleStatemachineRegionLite
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7595,7 +7687,7 @@ ruleStatemachine returns [EObject current=null]
 						add(
 							$current,
 							"region",
-							lv_region_103_0,
+							lv_region_105_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.StatemachineRegionLite");
 						afterParserOrEnumRuleCall();
 					}
@@ -7618,7 +7710,7 @@ ruleStatemachine returns [EObject current=null]
 									{
 										newCompositeNode(grammarAccess.getStatemachineAccess().getExecutionModelOfExecutionParserRuleCall_12_0_0());
 									}
-									lv_execution_105_0=ruleModelOfExecution
+									lv_execution_107_0=ruleModelOfExecution
 									{
 										if ($current==null) {
 											$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7626,7 +7718,7 @@ ruleStatemachine returns [EObject current=null]
 										set(
 											$current,
 											"execution",
-											lv_execution_105_0,
+											lv_execution_107_0,
 											"org.eclipse.efm.formalml.xtext.FormalML.ModelOfExecution");
 										afterParserOrEnumRuleCall();
 									}
@@ -7646,7 +7738,7 @@ ruleStatemachine returns [EObject current=null]
 									{
 										newCompositeNode(grammarAccess.getStatemachineAccess().getInteractionModelOfInteractionParserRuleCall_12_1_0());
 									}
-									lv_interaction_106_0=ruleModelOfInteraction
+									lv_interaction_108_0=ruleModelOfInteraction
 									{
 										if ($current==null) {
 											$current = createModelElementForParent(grammarAccess.getStatemachineRule());
@@ -7654,7 +7746,7 @@ ruleStatemachine returns [EObject current=null]
 										set(
 											$current,
 											"interaction",
-											lv_interaction_106_0,
+											lv_interaction_108_0,
 											"org.eclipse.efm.formalml.xtext.FormalML.ModelOfInteraction");
 										afterParserOrEnumRuleCall();
 									}
@@ -7672,9 +7764,9 @@ ruleStatemachine returns [EObject current=null]
 				  getUnorderedGroupHelper().leave(grammarAccess.getStatemachineAccess().getUnorderedGroup_12());
 				}
 		)
-		otherlv_107='}'
+		otherlv_109='}'
 		{
-			newLeafNode(otherlv_107, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_13());
+			newLeafNode(otherlv_109, grammarAccess.getStatemachineAccess().getRightCurlyBracketKeyword_13());
 		}
 	)
 ;

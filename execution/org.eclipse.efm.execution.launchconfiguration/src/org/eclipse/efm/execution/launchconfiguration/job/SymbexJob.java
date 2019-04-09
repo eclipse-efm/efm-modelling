@@ -29,6 +29,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsole;
+import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsolePage;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -92,8 +93,8 @@ public class SymbexJob extends Job {
 		this.fSymbexWorkflowPath = symbexWorkflowFile.getLocation();
 
 		this.fCommandLine = new String[] {
-				SymbexPreferenceUtil.strDiversityAvmExecLocation(), //SEW_EXE
-				symbexWorkflowFile.getLocation().toOSString(),
+				SymbexPreferenceUtil.strDiversityAvmExecLocation(), //SYMBEX_EXE
+				symbexWorkflowFile.getLocation().toOSString(),      //SEW
 				SYMBEX_LAUNCH_OPTION_ENABLE_SERVER_MODE,
 				SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS
 		};
@@ -317,9 +318,33 @@ public class SymbexJob extends Job {
 		consoleManager.removeConsoles(new IConsole[]{ spiderConsole });
 	}
 
-	public static void removeAllConsole() {
-		fTableOfConsole.clear();
 
+	////////////////////////////////////////////////////////////////////////////
+	// Close All Terminated Console
+	////////////////////////////////////////////////////////////////////////////
+	public static boolean hasTerminatedConsole() {
+		final IConsoleManager consoleManager =
+				ConsolePlugin.getDefault().getConsoleManager();
+
+		final IConsole[] consoles = consoleManager.getConsoles();
+		for (final IConsole console : consoles) {
+			if( console instanceof SymbexSpiderConsole ) {
+				final SymbexSpiderConsolePage spiderConsolePage =
+						((SymbexSpiderConsole) console).getDefaultPage();
+
+				if( (spiderConsolePage != null)
+					&& (! spiderConsolePage.isProcessRunning()) )
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+
+	public static void removeAllConsole() {
 		final IConsoleManager consoleManager =
 				ConsolePlugin.getDefault().getConsoleManager();
 
@@ -329,10 +354,64 @@ public class SymbexJob extends Job {
 				final SymbexSpiderConsole spiderConsole =
 						(SymbexSpiderConsole) console;
 
-				spiderConsole.getDefaultPage().terminateProcess();
+				if( ! spiderConsole.getDefaultPage().isProcessRunning() )
+				{
+					final IPath path = spiderConsole.getfResourcePath();
+
+					if( path != null ) {
+						fTableOfConsole.remove(path, spiderConsole);
+					}
+
+					consoleManager.removeConsoles(new IConsole[]{ spiderConsole });
+				}
+			}
+		}
+	}
+
+
+
+	////////////////////////////////////////////////////////////////////////////
+	//Terminate All Running Console
+	////////////////////////////////////////////////////////////////////////////
+	public static boolean hasRunningConsole() {
+		final IConsoleManager consoleManager =
+				ConsolePlugin.getDefault().getConsoleManager();
+
+		final IConsole[] consoles = consoleManager.getConsoles();
+		for (final IConsole console : consoles) {
+			if( console instanceof SymbexSpiderConsole ) {
+				final SymbexSpiderConsolePage spiderConsolePage =
+						((SymbexSpiderConsole) console).getDefaultPage();
+
+				if( (spiderConsolePage != null)
+					&& spiderConsolePage.isProcessRunning() )
+				{
+					return true;
+				}
 			}
 		}
 
-		consoleManager.removeConsoles( consoles );
+		return false;
 	}
+
+	public static void TerminateAllConsole() {
+		final IConsoleManager consoleManager =
+				ConsolePlugin.getDefault().getConsoleManager();
+
+		final IConsole[] consoles = consoleManager.getConsoles();
+		for (final IConsole console : consoles) {
+			if( console instanceof SymbexSpiderConsole ) {
+				final SymbexSpiderConsolePage spiderConsolePage =
+						((SymbexSpiderConsole) console).getDefaultPage();
+
+				if( (spiderConsolePage != null)
+					&& (! spiderConsolePage.isProcessRunning()) )
+				{
+					spiderConsolePage.terminateProcess();
+				}
+			}
+		}
+	}
+
+
 }

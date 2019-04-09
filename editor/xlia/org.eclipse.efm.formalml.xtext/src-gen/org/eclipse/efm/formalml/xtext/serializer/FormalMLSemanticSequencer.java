@@ -3102,7 +3102,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     LiteralCollectionExpression returns LiteralCollectionExpression
 	 *
 	 * Constraint:
-	 *     (datatype=DataType? ((value+=Expression | value+=NamedExpression) value+=Expression? (value+=NamedExpression? value+=Expression?)*)?)
+	 *     (datatype=DataType? ((value+=Expression | value+=NamedExpression) value+=NamedExpression? (value+=Expression? value+=NamedExpression?)*)?)
 	 */
 	protected void sequence_LiteralCollectionExpression(ISerializationContext context, LiteralCollectionExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4085,22 +4085,27 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *
 	 * Constraint:
 	 *     (
-	 *         (visibility=VisibilityKind | timed?='timed' | input_enabled?='input_enabled' | lifeline?='lifeline' | design=DesignKind)* 
+	 *         (
+	 *             visibility=VisibilityKind | 
+	 *             timed?='timed' | 
+	 *             dense_timed?='timed#dense' | 
+	 *             discrete_timed?='timed#discrete' | 
+	 *             input_enabled?='input_enabled' | 
+	 *             lifeline?='lifeline' | 
+	 *             design=DesignKind
+	 *         )* 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         buffer+=Buffer? 
 	 *         (
-	 *             (
-	 *                 port+=Port | 
-	 *                 signal+=Signal | 
-	 *                 channel+=Channel | 
-	 *                 typedef+=TypeDefinition | 
-	 *                 function+=Function | 
-	 *                 variable+=Variable
-	 *             )? 
-	 *             buffer+=Buffer?
+	 *             port+=Port | 
+	 *             signal+=Signal | 
+	 *             buffer+=Buffer | 
+	 *             channel+=Channel | 
+	 *             typedef+=TypeDefinition | 
+	 *             function+=Function | 
+	 *             variable+=Variable
 	 *         )* 
-	 *         typedef+=TypeDefinition? 
+	 *         channel+=ChannelPublic? 
 	 *         (
 	 *             (
 	 *                 port+=Port | 
@@ -4113,7 +4118,6 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 port+=PortPublic | 
 	 *                 signal+=SignalPublic | 
 	 *                 buffer+=BufferPublic | 
-	 *                 channel+=ChannelPublic | 
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionPublic | 
 	 *                 variable+=VariablePublic | 
@@ -4121,6 +4125,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 signal+=SignalProtected | 
 	 *                 buffer+=BufferProtected | 
 	 *                 channel+=ChannelProtected | 
+	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionProtected | 
 	 *                 variable+=VariableProtected | 
 	 *                 port+=PortPrivate | 
@@ -4131,10 +4136,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 function+=FunctionPrivate | 
 	 *                 variable+=VariablePrivate
 	 *             )? 
-	 *             typedef+=TypeDefinition?
+	 *             channel+=ChannelPublic?
 	 *         )* 
 	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
-	 *         (machine+=AnyMachineBlock | instance+=InstanceMachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock | instance+=InstanceMachine)* 
+	 *         machine+=AnyMachineBlock? 
+	 *         ((machine+=AnyMachineBlock | instance+=InstanceMachine | machine+=AnyMachineBlock | instance+=InstanceMachine)? machine+=AnyMachineBlock?)* 
 	 *         behavior+=Behavior? 
 	 *         (behavior+=Statemachine? behavior+=Behavior?)* 
 	 *         main=MoeBehavior
@@ -4164,7 +4170,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MixTupleExpressionList returns MixTupleExpression
 	 *
 	 * Constraint:
-	 *     ((value+=Expression | value+=NamedExpression) value+=NamedExpression? (value+=Expression? value+=NamedExpression?)*)
+	 *     ((value+=Expression | value+=NamedExpression) value+=Expression? (value+=NamedExpression? value+=Expression?)*)
 	 */
 	protected void sequence_MixTupleExpressionList(ISerializationContext context, MixTupleExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -5344,44 +5350,52 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *
 	 * Constraint:
 	 *     (
-	 *         (visibility=VisibilityKind | timed?='timed' | input_enabled?='input_enabled' | lifeline?='lifeline' | design=DesignKind)* 
+	 *         (
+	 *             visibility=VisibilityKind | 
+	 *             timed?='timed' | 
+	 *             dense_timed?='timed#dense' | 
+	 *             discrete_timed?='timed#discrete' | 
+	 *             input_enabled?='input_enabled' | 
+	 *             lifeline?='lifeline' | 
+	 *             design=DesignKind
+	 *         )* 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
 	 *         (
 	 *             (
-	 *                 parameter+=ParameterInput? 
+	 *                 parameter+=ParameterReturn? 
 	 *                 (
 	 *                     (
+	 *                         parameter+=ParameterInput | 
 	 *                         parameter+=ParameterInput | 
 	 *                         parameter+=ParameterInout | 
 	 *                         parameter+=ParameterInout | 
 	 *                         parameter+=ParameterOutput | 
 	 *                         parameter+=ParameterOutput | 
-	 *                         parameter+=ParameterReturn | 
 	 *                         parameter+=ParameterReturn
 	 *                     )? 
-	 *                     parameter+=ParameterInput?
+	 *                     parameter+=ParameterReturn?
 	 *                 )*
 	 *             ) | 
 	 *             (
-	 *                 typedef+=TypeDefinition? 
+	 *                 buffer+=Buffer? 
 	 *                 (
 	 *                     (
 	 *                         port+=Port | 
 	 *                         signal+=Signal | 
-	 *                         buffer+=Buffer | 
 	 *                         channel+=Channel | 
+	 *                         typedef+=TypeDefinition | 
 	 *                         function+=Function | 
 	 *                         variable+=Variable
 	 *                     )? 
-	 *                     typedef+=TypeDefinition?
+	 *                     buffer+=Buffer?
 	 *                 )*
 	 *             )
 	 *         ) 
-	 *         parameter+=ParameterReturn? 
-	 *         ((parameter+=ParameterInput | parameter+=ParameterInout | parameter+=ParameterOutput)? parameter+=ParameterReturn?)* 
-	 *         typedef+=TypeDefinition? 
+	 *         parameter+=ParameterInput? 
+	 *         ((parameter+=ParameterInout | parameter+=ParameterOutput | parameter+=ParameterReturn)? parameter+=ParameterInput?)* 
 	 *         (
+	 *             channel+=ChannelPublic? 
 	 *             (
 	 *                 port+=Port | 
 	 *                 signal+=Signal | 
@@ -5393,7 +5407,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 port+=PortPublic | 
 	 *                 signal+=SignalPublic | 
 	 *                 buffer+=BufferPublic | 
-	 *                 channel+=ChannelPublic | 
+	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionPublic | 
 	 *                 variable+=VariablePublic | 
 	 *                 port+=PortProtected | 
@@ -5410,18 +5424,30 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionPrivate | 
 	 *                 variable+=VariablePrivate
-	 *             )? 
-	 *             typedef+=TypeDefinition?
+	 *             )?
 	 *         )* 
-	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (procedure+=Procedure? (routine+=Routine? procedure+=Procedure?)*)) 
 	 *         (
-	 *             (machine+=Statemachine | instance+=InstanceMachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock | instance+=InstanceMachine)+ | 
-	 *             region+=StatemachineRegion | 
-	 *             region+=StatemachineNamedRegion+ | 
-	 *             region+=StatemachineRegionLite
-	 *         )? 
-	 *         interaction=ModelOfInteraction? 
-	 *         (execution=ModelOfExecution? interaction=ModelOfInteraction?)*
+	 *             (
+	 *                 channel+=ChannelPublic? 
+	 *                 (routine+=Routine? procedure+=Procedure?)* 
+	 *                 routine+=Routine? 
+	 *                 (region+=StatemachineRegion | region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite)?
+	 *             ) | 
+	 *             (
+	 *                 channel+=ChannelPublic? 
+	 *                 (routine+=Routine? procedure+=Procedure?)* 
+	 *                 routine+=Routine? 
+	 *                 (region+=StatemachineRegion | region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite)?
+	 *             ) | 
+	 *             (
+	 *                 (
+	 *                     (channel+=ChannelPublic? (routine+=Routine? procedure+=Procedure?)* routine+=Routine? instance+=InstanceMachine?) | 
+	 *                     (channel+=ChannelPublic? (routine+=Routine? procedure+=Procedure?)* routine+=Routine? instance+=InstanceMachine?)
+	 *                 ) 
+	 *                 ((machine+=Statemachine | instance+=InstanceMachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock)? instance+=InstanceMachine?)*
+	 *             )
+	 *         ) 
+	 *         (execution=ModelOfExecution | interaction=ModelOfInteraction)*
 	 *     )
 	 */
 	protected void sequence_Statemachine(ISerializationContext context, Statemachine semanticObject) {

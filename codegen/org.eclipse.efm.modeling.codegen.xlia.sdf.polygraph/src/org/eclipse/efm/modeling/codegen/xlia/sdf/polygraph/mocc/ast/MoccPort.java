@@ -22,7 +22,7 @@ public class MoccPort {
 
 	protected final String name;
 
-	protected final int rate;
+	public int rate;
 
 	protected final int rateDenominator;
 
