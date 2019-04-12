@@ -144,7 +144,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def dispatch generateMachineGraphic(XliaSystem system)
 	'''	
 		«generateMachineRoutineGraphic(system)»
-		state "**«modifier(system)»system** «system.nameOf»" as «system.name»_«system.hashCode» << System >> {
+		state "**«modifier(system)»system** «system.nameOf»" as «system.nameIdOf» << System >> {
 			«generateMachineContentGraphic(system)»
 		}
 	'''
@@ -169,7 +169,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def generateMachineRoutineGraphic(Machine machine)
 	'''	
 		«IF (! machine.routine.empty)»
-		note top of «machine.name»_«machine.hashCode»
+		note top of «machine.nameIdOf»
 		«FOR it : machine.routine»
 			«generateRoutineGraphic(it)»
 		«ENDFOR»
@@ -193,19 +193,16 @@ class FormalMLGenerator extends AbstractGenerator {
 	def generateBehaviorGraphic(Behavior behavior)
 	'''	
 		«generateMoeGraphic(behavior, behavior.execution)»
-		state "main behavior" as behavior_«behavior.hashCode» {
+		state "main behavior" as «behavior.nameIdOf» {
 			«generateMachineContentGraphic(behavior)»
 		}
 		
 «««		«IF behavior instanceof Statemachine»«generateGraphic(behavior as Statemachine)»
-«««		«ELSE»state "Behavior «behavior.nameOf»" as «behavior.name»_«behavior.hashCode» {
+«««		«ELSE»state "Behavior «behavior.nameOf»" as «behavior.nameIdOf» {
 «««			«generateBodyGraphic(behavior)»
 «««		}
 «««		«ENDIF»
 	'''
-	
-	def nameIdOf(NamedElement element)
-	'''«IF ((element.name === null) && (element instanceof Behavior))»behavior«ELSE»«element.name»«ENDIF»_«element.hashCode»'''
 	
 	def generateMoeGraphic(NamedElement container, ModelOfExecution moe)
 	'''	
@@ -303,9 +300,9 @@ class FormalMLGenerator extends AbstractGenerator {
 	
 	def generateInstanceGraphic(InstanceMachine instance)
 	'''
-		state "**«modifier(instance.model)»instance< «instance.model.name» >** «instance.nameOf»" as «instance.name»_«instance.hashCode» << Instance >> {
+		state "**«modifier(instance.model)»instance< «instance.model.name» >** «instance.nameOf»" as «instance.nameIdOf» << Instance >> {
 		«FOR it : instance.slot»
-			«instance.name»_«instance.hashCode»: «it.xliaProperty.name» = «XLIAGenerator.generateExpression(it.value)»
+			«instance.nameIdOf»: «it.xliaProperty.name» = «XLIAGenerator.generateExpression(it.value)»
 		«ENDFOR»
 		}
 	'''	
@@ -313,7 +310,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def dispatch generateMachineGraphic(Statemachine statemachine)
 	'''	
 		«generateMachineRoutineGraphic(statemachine)»
-		state "**«modifier(statemachine)»statemachine** «statemachine.nameOf»" as «statemachine.name»_«statemachine.hashCode» << Statemachine >> {
+		state "**«modifier(statemachine)»statemachine** «statemachine.nameOf»" as «statemachine.nameIdOf» << Statemachine >> {
 			«generateMachineContentGraphic(statemachine)»
 			«generateRegionsGraphic(statemachine.region)»
 		}
@@ -322,7 +319,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def dispatch generateMachineGraphic(Machine machine)
 	'''	
 		«generateMachineRoutineGraphic(machine)»
-		state "**«modifier(machine)»machine** «machine.nameOf»" as «machine.name»_«machine.hashCode» << Machine >> {
+		state "**«modifier(machine)»machine** «machine.nameOf»" as «machine.nameIdOf» << Machine >> {
 			«generateMachineContentGraphic(machine)»
 		}
 	'''
@@ -344,7 +341,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	
 	def generateRegionGraphic(Region region)
 	'''	
-		state "«IF region.name !== null»«region.name»«ELSE»anonym region"«ENDIF» as «region.name»_«region.hashCode» {
+		state "«IF region.name !== null»«region.name»«ELSE»anonym region"«ENDIF» as «region.nameIdOf» {
 			«FOR itVertex : region.vertex»
 				«generateVertexGraphic(itVertex)»
 			«ENDFOR»
@@ -354,7 +351,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def dispatch generateVertexGraphic(Vertex vertex)
 	'''	
 		«generateMoeGraphic(vertex, vertex.moe)»
-		state "Vertex «vertex.nameOf»" as «vertex.name»_«vertex.hashCode»
+		state "Vertex «vertex.nameOf»" as «vertex.nameIdOf»
 «««		«IF vertex instanceof StartState»
 «««			«generateGraphic(vertex as StartState)»
 «««		«ELSE»«IF vertex instanceof FinalState»
@@ -364,7 +361,7 @@ class FormalMLGenerator extends AbstractGenerator {
 «««		«ELSE»«IF vertex instanceof Pseudostate»
 «««			«generateGraphic(vertex as Pseudostate)»
 «««		«ELSE»
-«««			state "Vertex «vertex.nameOf»" as «vertex.name»_«vertex.hashCode»
+«««			state "Vertex «vertex.nameOf»" as «vertex.nameIdOf»
 «««		«ENDIF»
 «««		«ENDIF»
 «««		«ENDIF»
@@ -378,7 +375,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def dispatch generateVertexGraphic(StartState state)
 	'''	
 		«generateMoeGraphic(state, state.moe)»
-		state "«state.nameOf»" as «state.name»_«state.hashCode» << start >>
+		state "«state.nameOf»" as «state.nameIdOf» << start >>
 		«FOR itTransition : state.transition»
 			«generateTransitionGraphic(itTransition)»
 		«ENDFOR»
@@ -388,7 +385,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def dispatch generateVertexGraphic(FinalState state)
 	'''	
 		«generateMoeGraphic(state, state.moe)»
-		state "«state.nameOf»" as «state.name»_«state.hashCode» << final >>
+		state "«state.nameOf»" as «state.nameIdOf» << final >>
 		«FOR itTransition : state.transition»
 			«generateTransitionGraphic(itTransition)»
 		«ENDFOR»
@@ -398,7 +395,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def dispatch generateVertexGraphic(State state)
 	'''	
 		«generateMoeGraphic(state, state.moe)»
-		state "«state.nameOf»" as «state.name»_«state.hashCode» << simple >>
+		state "«state.nameOf»" as «state.nameIdOf» << simple >>
 		«IF ! state.region.empty» {
 			«generateRegionsGraphic(state.region)»
 		}
@@ -412,7 +409,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def dispatch generateVertexGraphic(Pseudostate pseudostate)
 	'''	
 		«generateMoeGraphic(pseudostate, pseudostate.moe)»
-		state "«pseudostate.nameOf»" as «pseudostate.name»_«pseudostate.hashCode» << «pseudostate.kind.literal» >>
+		state "«pseudostate.nameOf»" as «pseudostate.nameIdOf» << «pseudostate.kind.literal» >>
 		«FOR itTransition : pseudostate.transition»
 			«generateTransitionGraphic(itTransition)»
 		«ENDFOR»
@@ -421,7 +418,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	
 	def generateTransitionGraphic(Transition transition)
 	'''	
-		 «(transition.eContainer as Vertex).name»_«transition.eContainer.hashCode» --> «transition.targetVertex.name»_«transition.targetVertex.hashCode»
+		 «(transition.eContainer as Vertex).nameIdOf» --> «transition.targetVertex.nameIdOf»
 		 note on link #white
 		 	**«transition.name»:«generateTransitionMoe(transition.moe)»** «IF (transition.behavior !== null) && (! transition.behavior.statement.empty)»«IF transition.behavior.op !== null»«transition.behavior.op»«ENDIF»
 	«FOR it : transition.behavior.statement»
@@ -465,5 +462,9 @@ class FormalMLGenerator extends AbstractGenerator {
 		else if( (element.name !== null) && (! element.name.empty) ) element.name
 		else "<<anonym>>"
 	}
+	
+	def nameIdOf(NamedElement element)
+	'''«IF (element.name === null)»«element.class.name»«ELSE»«element.name.replaceAll('#', '_')»«ENDIF»_«element.hashCode»'''
+	
 	
 }

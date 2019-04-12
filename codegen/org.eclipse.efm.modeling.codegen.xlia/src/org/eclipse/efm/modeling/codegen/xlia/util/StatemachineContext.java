@@ -45,7 +45,7 @@ import org.eclipse.uml2.uml.Vertex;
 
 public class StatemachineContext implements StatemachineFactory , UmlFactory {
 
-	public enum CONTEXT { INTERACTION ,  LIFELINE };
+	public enum CONTEXT { INTERACTION ,  LIFELINE }
 
 
 	public StatemachineContext parentContext;
@@ -95,7 +95,7 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 	 * Create a StatemachineContext for the Interaction element which initializes the constraints map
 	 * @param interaction
 	 */
-	public StatemachineContext(Interaction interaction, CONTEXT context) {
+	public StatemachineContext(final Interaction interaction, final CONTEXT context) {
 		parentContext = null;
 
 		transfoCtx = context;
@@ -121,7 +121,7 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 		intermediateTransition = null;
 	}
 
-	public StatemachineContext(StatemachineContext parentCtx, Lifeline lifeline) {
+	public StatemachineContext(final StatemachineContext parentCtx, final Lifeline lifeline) {
 		parentContext = parentCtx;
 
 		transfoCtx = parentCtx.transfoCtx;
@@ -154,12 +154,12 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 	}
 
 
-	public StatemachineContext(Lifeline lifeline) {
+	public StatemachineContext(final Lifeline lifeline) {
 		this(new StatemachineContext(lifeline.getInteraction(), CONTEXT.INTERACTION), lifeline);
 	}
 
 
-	public StatemachineContext(StatemachineContext parentCtx, InteractionFragment element) {
+	public StatemachineContext(final StatemachineContext parentCtx, final InteractionFragment element) {
 		parentContext = parentCtx;
 
 		transfoCtx = parentCtx.transfoCtx;
@@ -183,12 +183,12 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 	}
 
 
-	private void initializeState(String name) {
+	private void initializeState(final String name) {
 		initialState = createInitialState(region, "init_" + name);
 
 		currentState = createTargetState("start_" + name);
 
-		Transition transition = createTransition(
+		final Transition transition = createTransition(
 				"t_init_" + name, initialState, currentState);
 
 		finalState = (FinalState) region.createSubvertex(
@@ -218,27 +218,27 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 	// [COMPOSITE] STATE
 	///////////////////////////////////////////////////////////////////////////
 
-	public static State createCompositeState(Region region, String name) {
-		State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
+	public static State createCompositeState(final Region region, final String name) {
+		final State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
 		state.createRegion(name);
 
 		return( state );
 	}
 
-	public State createTargetState(String name) {
+	public State createTargetState(final String name) {
 		if( isLastFragmentTransformation ) {
 //			finalState.setName(name);
 
 			return finalState;
 		}
 		else {
-			State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
+			final State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
 
 			return( state );
 		}
 	}
 
-	public State createExitState(String name) {
+	public State createExitState(final String name) {
 		if( isLastFragmentTransformation ) {
 //			finalState.setName(name);
 
@@ -247,26 +247,26 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 			return finalState;
 		}
 		else {
-			State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
+			final State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
 
 			return( state );
 		}
 	}
 
-	public Pseudostate createNewState(String name, PseudostateKind kind) {
-		Pseudostate state = (Pseudostate) region.createSubvertex(name, UMLPackage.eINSTANCE.getPseudostate());
+	public Pseudostate createNewState(final String name, final PseudostateKind kind) {
+		final Pseudostate state = (Pseudostate) region.createSubvertex(name, UMLPackage.eINSTANCE.getPseudostate());
 		state.setKind(kind);
 
 		return( state );
 	}
 
-	public State createIntermediateState(String name) {
-		State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
+	public State createIntermediateState(final String name) {
+		final State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
 		return( state );
 	}
 
-	public State createNewState(String name) {
-		State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
+	public State createNewState(final String name) {
+		final State state = (State) region.createSubvertex(name, UMLPackage.eINSTANCE.getState());
 
 		return( state );
 	}
@@ -277,8 +277,8 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 	///////////////////////////////////////////////////////////////////////////
 
 	public Transition createTransition(
-			String name, Vertex source, Vertex target) {
-		Transition transition = region.createTransition(name);
+			final String name, final Vertex source, final Vertex target) {
+		final Transition transition = region.createTransition(name);
 
 		transition.setSource(source);
 		transition.setTarget(target);
@@ -289,14 +289,14 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 
 
 	public Transition createElseTransition(
-			String name, Vertex source, Vertex target) {
-		Transition transition = region.createTransition(name);
+			final String name, final Vertex source, final Vertex target) {
+		final Transition transition = region.createTransition(name);
 
 		transition.setSource(source);
 		transition.setTarget(target);
 
-		Constraint constraint = transition.createGuard("ElseGuardConstraint");
-		Expression guardExpression = UMLFactory.eINSTANCE.createExpression();
+		final Constraint constraint = transition.createGuard("ElseGuardConstraint");
+		final Expression guardExpression = UMLFactory.eINSTANCE.createExpression();
 		guardExpression.setSymbol(StatemachineCodeGenerator.TRANSITION_GUARD_ELSE);
 		constraint.setSpecification(guardExpression);
 
@@ -306,8 +306,8 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 
 
 	public Transition createFinalTransition(
-			String name, Vertex source, Vertex target) {
-		Transition transition = region.createTransition(name);
+			final String name, final Vertex source, final Vertex target) {
+		final Transition transition = region.createTransition(name);
 
 		transition.setSource(source);
 		transition.setTarget(target);
@@ -319,37 +319,37 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 
 
 	public Transition createFinalElseTransition(
-			String name, Vertex source, Vertex target) {
-		Transition transition = region.createTransition(name);
+			final String name, final Vertex source, final Vertex target) {
+		final Transition transition = region.createTransition(name);
 
 		transition.setSource(source);
 		transition.setTarget(target);
 
 		transition.createTrigger(StatemachineCodeGenerator.TRANSITION_TRIGGER_FINAL);
 
-		Constraint constraint = transition.createGuard("ElseGuardConstraint");
-		Expression guardExpression = UMLFactory.eINSTANCE.createExpression();
+		final Constraint constraint = transition.createGuard("ElseGuardConstraint");
+		final Expression guardExpression = UMLFactory.eINSTANCE.createExpression();
 		guardExpression.setSymbol(StatemachineCodeGenerator.TRANSITION_GUARD_ELSE);
 		constraint.setSpecification(guardExpression);
 
 		return( transition );
 	}
 
-	public void addInputMessage(Message message){
+	public void addInputMessage(final Message message){
 		if( ! inputMessage.contains(message) ) {
 			inputMessage.add(message);
 		}
 	}
 
 
-	public void addOutputMessage(Message message){
+	public void addOutputMessage(final Message message){
 		if( ! outputMessage.contains(message) ) {
 			outputMessage.add(message);
 		}
 	}
 
 	//data constraints
-	public void addElementConstraint(Element element, Constraint constraint) {
+	public void addElementConstraint(final Element element, final Constraint constraint) {
 		List<Constraint> list = constraintMap.get(element);
 
 		if( list == null ) {
@@ -360,20 +360,20 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 		list.add(constraint);
 	}
 
-	public List<Constraint> getElementConstraints(Element element) {
+	public List<Constraint> getElementConstraints(final Element element) {
 		return constraintMap.get(element);
 	}
 
-	public void initializeConstraintMap(Interaction interaction) {
-		for (Constraint constraint : interaction.getOwnedRules()) {
-			for (Element element : constraint.getConstrainedElements()) {
+	public void initializeConstraintMap(final Interaction interaction) {
+		for (final Constraint constraint : interaction.getOwnedRules()) {
+			for (final Element element : constraint.getConstrainedElements()) {
 				addElementConstraint(element, constraint);
 			}
 		}
 	}
 
 	// TODO time constraints
-	public void addElementTimeConstraint(Element element, Constraint constraint) {
+	public void addElementTimeConstraint(final Element element, final Constraint constraint) {
 		List<Constraint> list = constraintMap.get(element);
 
 		if( list == null ) {
@@ -384,20 +384,20 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 		list.add(constraint);
 	}
 
-	public List<Constraint> getElementTimeConstraints(Element element) {
+	public List<Constraint> getElementTimeConstraints(final Element element) {
 		return constraintMap.get(element);
 	}
 
-	public void initializeTimeConstraintMap(Interaction interaction) {
-		for (Constraint constraint : interaction.getOwnedRules()) {
-			for (Element element : constraint.getConstrainedElements()) {
+	public void initializeTimeConstraintMap(final Interaction interaction) {
+		for (final Constraint constraint : interaction.getOwnedRules()) {
+			for (final Element element : constraint.getConstrainedElements()) {
 				addElementTimeConstraint(element, constraint);
 			}
 		}
 	}
 
 	//TODO time observations
-	public void addTimeObservation(NamedElement element, TimeObservation timeObservation) {
+	public void addTimeObservation(final NamedElement element, final TimeObservation timeObservation) {
 		List<TimeObservation> list = timeObservationMap.get(element);
 
 		if( list == null ) {
@@ -408,11 +408,11 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 		list.add(timeObservation);
 	}
 
-	public List<TimeObservation> getTimeObservation(NamedElement element) {
+	public List<TimeObservation> getTimeObservation(final NamedElement element) {
 		return timeObservationMap.get(element);
 	}
 
-	public void initializeTimeObservationMap(Interaction interaction) {
+	public void initializeTimeObservationMap(final Interaction interaction) {
 		EObject eobj = interaction.eContainer();
 
 		EList<PackageableElement> packElems = null;
@@ -422,7 +422,7 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 			if (eobj instanceof Package){
 				packElems = ((Package)eobj).getPackagedElements();
 
-				for (PackageableElement packElt : packElems) {
+				for (final PackageableElement packElt : packElems) {
 					if (packElt instanceof TimeObservation) {
 						obsFound = true;
 						break;
@@ -431,9 +431,9 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 			}
 		}
 		if (packElems != null) {
-			for (PackageableElement packElt : packElems) {
+			for (final PackageableElement packElt : packElems) {
 				if (packElt instanceof TimeObservation) {
-					TimeObservation tObs = (TimeObservation) packElt ;
+					final TimeObservation tObs = (TimeObservation) packElt ;
 					//System.err.println("Ici : "+tObs.getName());
 					//System.err.println("Ici : "+((OccurrenceSpecification)tObs.getEvent()).getName());
 					//mapOfTObs.put(((OccurrenceSpecification)tObs.getEvent()).getName(), tObs);
@@ -445,11 +445,14 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 	}
 
 
-	public void toWriter(MainCodeGenerator mainCodegen, PrettyPrintWriter writer) {
-		if( (coveredLifeline != null) && (interactionFragment == null) ) {
-			Type representsType = coveredLifeline.getRepresents().getType();
+	public void toWriter(final MainCodeGenerator mainCodegen, final PrettyPrintWriter writer) {
+		if( (coveredLifeline != null)
+			&& (interactionFragment == null)
+			&& (coveredLifeline.getRepresents() != null))
+		{
+			final Type representsType = coveredLifeline.getRepresents().getType();
 			if( representsType instanceof org.eclipse.uml2.uml.Class ) {
-				org.eclipse.uml2.uml.Class representsTypeClass = (org.eclipse.uml2.uml.Class) representsType;
+				final org.eclipse.uml2.uml.Class representsTypeClass = (org.eclipse.uml2.uml.Class) representsType;
 
 				mainCodegen.fClassFactory.transformClassLifelineDefinition(
 						representsTypeClass, statemachine, writer);
@@ -461,14 +464,14 @@ public class StatemachineContext implements StatemachineFactory , UmlFactory {
 	}
 
 
-	public void toWriter(StatemachineCodeGenerator statemachineCodegen, PrettyPrintWriter writer) {
+	public void toWriter(final StatemachineCodeGenerator statemachineCodegen, final PrettyPrintWriter writer) {
 		if( statemachine != null ) {
 			statemachineCodegen.transformStatemachine(statemachine, inputMessage, writer);
 		}
 
 	}
 
-	public void addLocalVariable(String varName, Type varType) {
+	public void addLocalVariable(final String varName, final Type varType) {
         createVariable(statemachine, varName, varType);
     }
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde?><!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform --><target name="Eclipse Formal Modeling Papyrus last-release" sequenceNumber="1553620688">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde?><!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform --><target name="Eclipse Formal Modeling Papyrus last-release" sequenceNumber="1555078636">
   <locations>
     <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
       <unit id="org.eclipse.cdt.core" version="0.0.0"/>
@@ -64,7 +64,7 @@
       <unit id="org.eclipse.wst.common.core" version="0.0.0"/>
       <unit id="org.eclipse.wst.sse.core" version="0.0.0"/>
       <unit id="org.eclipse.wst.xml.core" version="0.0.0"/>
-      <repository id="eclipse-2018-12" location="http://download.eclipse.org/releases/2018-12"/>
+      <repository id="eclipse-2019-03" location="http://download.eclipse.org/releases/2019-03"/>
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
       <unit id="org.eclipse.papyrus.marte.core.feature.feature.group" version="0.0.0"/>

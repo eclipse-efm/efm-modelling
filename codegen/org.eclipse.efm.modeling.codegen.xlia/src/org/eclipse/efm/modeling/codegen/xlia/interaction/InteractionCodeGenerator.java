@@ -29,6 +29,8 @@ import org.eclipse.efm.modeling.codegen.xlia.util.PrettyPrintWriter;
 import org.eclipse.efm.modeling.codegen.xlia.util.StatemachineContext;
 import org.eclipse.efm.modeling.codegen.xlia.util.StatemachineContext.CONTEXT;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
 import org.eclipse.uml2.uml.Class;
@@ -76,7 +78,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 	/**
 	 * Constructor
 	 */
-	public InteractionCodeGenerator(MainCodeGenerator supervisor) {
+	public InteractionCodeGenerator(final MainCodeGenerator supervisor) {
 		super(supervisor);
 
 		fMapOfOccSpecTimeObs = new HashMap<OccurrenceSpecification, TimeObservation>();
@@ -88,7 +90,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 	 * @param element
 	 * @param writer
 	 */
-	public void performTransformImpl(Element element, PrettyPrintWriter writer) {
+	public void performTransformImpl(final Element element, final PrettyPrintWriter writer) {
 		if( element instanceof Interaction ) {
 			transformInteraction((Interaction)element, writer);
 		}
@@ -136,14 +138,14 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 
 
-	public void declareSignalMessageType(Signal signal, PrettyPrintWriter writer) {
+	public void declareSignalMessageType(final Signal signal, final PrettyPrintWriter writer) {
 	    writer.appendTab2("type ")
 	        .append(signal.getName())
 	        .appendEol(" struct {");
 	        writer.appendTab3("var ")
             .appendEol( "string signature;" );
 
-	    for (Property property : signal.getAllAttributes()) {
+	    for (final Property property : signal.getAllAttributes()) {
 	        writer.appendTab3("var ")
 	            .append( fSupervisor.fDataTypeFactory.typeName(property) )
 	            .append(" ")
@@ -162,10 +164,10 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 	 * @return
 	 */
 	private ArrayList<InteractionFragment> coveredFragments(
-			Lifeline lifeline, List<InteractionFragment> fragments) {
-		ArrayList<InteractionFragment> coveredFragmentList = new ArrayList<InteractionFragment>();
+			final Lifeline lifeline, final List<InteractionFragment> fragments) {
+		final ArrayList<InteractionFragment> coveredFragmentList = new ArrayList<InteractionFragment>();
 
-		for( InteractionFragment iFragment : fragments ) {
+		for( final InteractionFragment iFragment : fragments ) {
 			if (iFragment.getCovereds().contains(lifeline)) {
 				if( !( iFragment instanceof ExecutionOccurrenceSpecification) ) {
 					coveredFragmentList.add(iFragment);
@@ -182,17 +184,17 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 	 * @param element
 	 * @param writer
 	 */
-	public void transformInteraction(Interaction element, Collection<Lifeline> lifelines,
-			StatemachineContext lfContext, PrettyPrintWriter writer) {
+	public void transformInteraction(final Interaction element, final Collection<Lifeline> lifelines,
+			final StatemachineContext lfContext, final PrettyPrintWriter writer) {
 
 		fillMapOfTimedObservation(element, fMapOfOccSpecTimeObs);
 
-		boolean isInferenceContext =
+		final boolean isInferenceContext =
 				fSupervisor.fClassFactory.hasPackage(element.getModel(), PACKAGE_NAME_INFERENCE_UTILS);
 
 		writer.appendTabEol2(ClassCodeGenerator.XLIA_SYSTEM_1_0);
 
-		String modifier = ( fMapOfOccSpecTimeObs.isEmpty() ? "" : "timed#dense " );
+		final String modifier = ( fMapOfOccSpecTimeObs.isEmpty() ? "" : "timed#dense " );
 
 		writer.appendTab(modifier)
 			.append("system< and > ")
@@ -202,13 +204,13 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 
 
-		ArrayList<DataType> datatypes = new ArrayList<DataType>();
-		ArrayList<Signal> signals = new ArrayList<Signal>();
+		final ArrayList<DataType> datatypes = new ArrayList<DataType>();
+		final ArrayList<Signal> signals = new ArrayList<Signal>();
 		fSupervisor.fClassFactory.collectGlobalElement(element, datatypes, signals);
 
-		PrettyPrintWriter writer2 = writer.itab2();
+		final PrettyPrintWriter writer2 = writer.itab2();
 
-		Map<NamedElement, Boolean> declaredSignatures = new HashMap<NamedElement, Boolean>();
+		final Map<NamedElement, Boolean> declaredSignatures = new HashMap<NamedElement, Boolean>();
 		writer.appendEol("@property: ");
 		writer.appendTabEol2("// GLOBAL DECLARATIONS");
 
@@ -217,7 +219,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		writer.appendTab2Eol("//Declarations for the formal inference module");
 		if(isInferenceContext){
 			//To-Do when DataType class but not for inference context?
-			for (DataType datatype : datatypes) {
+			for (final DataType datatype : datatypes) {
 				fSupervisor.fDataTypeFactory.performTransformImpl(datatype, writer2);
 			}
 
@@ -225,19 +227,19 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 			writer.appendTab2Eol("// Function signatures vector");
 
 			writer.appendTab2Eol("public var vector<FonctionSignature> AllSignatures = {");
-			for( Lifeline lifeline : lifelines ) {
-				ConnectableElement representedClass = lifeline.getRepresents();
+			for( final Lifeline lifeline : lifelines ) {
+				final ConnectableElement representedClass = lifeline.getRepresents();
 				if( representedClass instanceof Property ) {
-					Class clazz = (Class) (((Property)representedClass).getType());
+					final Class clazz = (Class) (((Property)representedClass).getType());
 
 					for (int j = 0; j < clazz.getOperations().size(); j++ ) {
-						Operation operation = clazz.getOperations().get(j);
+						final Operation operation = clazz.getOperations().get(j);
 						writer.appendTab3("{ \"").append(operation.getName()).append("\" , \"")
 						.append(fSupervisor.fDataTypeFactory.typeName( operation.getReturnResult().getType()))
 						.append(" ").append(operation.getName()).append("(");
 
 						for(int i = 0; i < operation.getOwnedParameters().size()-1; i++){
-							Parameter param = operation.getOwnedParameters().get(i);
+							final Parameter param = operation.getOwnedParameters().get(i);
 							writer.append( fSupervisor.fDataTypeFactory.typeName(param.getType()) //param.getType().getName() //
 									).append(" ").append(param.getName());
 							if(i < operation.getOwnedParameters().size()-2 ){
@@ -275,15 +277,15 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		writer.appendTab2Eol("//  Interaction diagram elements ");
 		writer.appendTab2Eol("//  TypeEnum declarations for Combined Fragment region's scheduling");
 
-		List< CombinedFragment > combinedFragments = listOfCombinedFragment(element);
-		for(InteractionFragment fragment : combinedFragments ) {
+		final List< CombinedFragment > combinedFragments = listOfCombinedFragment(element);
+		for(final InteractionFragment fragment : combinedFragments ) {
 			if(fragment instanceof CombinedFragment){
-				CombinedFragment combinedFragment = (CombinedFragment) fragment;
+				final CombinedFragment combinedFragment = (CombinedFragment) fragment;
 
 				writer.appendTab2("type ")
 					.append(nameOfEnumRegionsType(combinedFragment))
 					.appendEol(" enum { " );
-				for( InteractionOperand iFragment : combinedFragment.getOperands() ) {
+				for( final InteractionOperand iFragment : combinedFragment.getOperands() ) {
 					writer.appendTab3(nameOfEnumLiteralRegion(iFragment))
 					.appendEol(",");
 				}
@@ -298,9 +300,9 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 
 		writer.appendTab2Eol("// Interaction messages declaration");
-		for( Message message : element.getMessages() ) {
+		for( final Message message : element.getMessages() ) {
 			//declare signal structure
-			NamedElement signature = message.getSignature();
+			final NamedElement signature = message.getSignature();
 			if( (signature instanceof Signal) && (declaredSignatures.get(signature) == null) ) {
 				declaredSignatures.put(signature, Boolean.TRUE);
 
@@ -311,8 +313,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 			writer.appendTab2("signal ")
 				.append(message.getName());
 
-			if( (signature instanceof Signal)
-				&& (! ((Signal) signature).getAllAttributes().isEmpty()) ) {
+			if( signature instanceof Signal ) {
 				writer.append("( " )
 					.append(signature.getName())
 					.append(" )");
@@ -333,28 +334,30 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 		writer.appendEol("@composite: ");
 
-		for( Lifeline alifeline : lifelines ) {
+		for( final Lifeline alifeline : lifelines ) {
 
 			transformWriteLifeline(alifeline, lfContext, writer2);
 		}
 
-		// Section moe
-		//
-		writer.appendEolTab_Eol("@moe:");
-		// Section irun
 
-		writer.appendTab2Eol("@irun{");
-		writer.appendTab3Eol("currentCall = EMPTY_CALL;");
-		writer.appendTab2Eol2("}");
+		if( isInferenceContext ) {
+			// Section moe
+			//
+			writer.appendEolTab_Eol("@moe:");
+			// Section irun
 
+			writer.appendTab2Eol("@irun{");
+			writer.appendTab3Eol("currentCall = EMPTY_CALL;");
+			writer.appendTab2Eol2("}");
+		}
 
 		//route fifo | env messages
 
-		String routeProtocol = (lifelines.size() < 2) ? "env" : "fifo";
+		final String routeProtocol = (lifelines.size() < 2) ? "env" : "fifo";
 
 		writer.appendEol("@com: ");
 		writer.appendTabEol("// route: message fifo");
-		for( Message message : element.getMessages() ) {
+		for( final Message message : element.getMessages() ) {
 			//declare message fifo
 			if(message.getSendEvent() instanceof Gate){
 				writer.appendTab2("route<")
@@ -412,9 +415,9 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 ////					"tr_final", lfContext.currentState, lfContext.finalState);
 //	}
 
-		writer.appendEol("****************************** TEST XLIA MODEL ******************************");
-		fSupervisor.xliaModel.performTransform(writer);
-		writer.appendEol("****************************** TEST XLIA MODEL ******************************");
+//		writer.appendEol("****************************** TEST XLIA MODEL ******************************");
+//		fSupervisor.xliaModel.performTransform(writer);
+//		writer.appendEol("****************************** TEST XLIA MODEL ******************************");
 
 	}
 
@@ -434,7 +437,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 //
 
 
-	public void transformInteraction(Interaction element,  PrettyPrintWriter writer)
+	public void transformInteraction(final Interaction element,  final PrettyPrintWriter writer)
 	{
 		final StatemachineContext lfContext = new StatemachineContext(element, CONTEXT.INTERACTION);
 
@@ -448,10 +451,10 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 	 * @param writer
 	 */
 
-	private void transformFragment(InteractionFragment element, PrettyPrintWriter writer)
+	private void transformFragment(final InteractionFragment element, final PrettyPrintWriter writer)
 	{
-		for (Lifeline lifeline : element.getCovereds()) {
-			StatemachineContext lfContext = new StatemachineContext(lifeline);
+		for (final Lifeline lifeline : element.getCovereds()) {
+			final StatemachineContext lfContext = new StatemachineContext(lifeline);
 
 			transformFragment(element, lfContext);
 
@@ -459,8 +462,8 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		}
 	}
 
-	private void transformFragment(InteractionFragment iFragment,
-			StatemachineContext lfContext) {
+	private void transformFragment(final InteractionFragment iFragment,
+			final StatemachineContext lfContext) {
 		if( iFragment instanceof CombinedFragment ) {
 			transformCombinedFragment(
 					(CombinedFragment)iFragment, lfContext);
@@ -494,11 +497,11 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
  // transform data constraint
 	public void transformElementConstraints(
-			Element element, Transition transition, StatemachineContext lfContext) {
+			final Element element, final Transition transition, final StatemachineContext lfContext) {
 
-		List<Constraint> constraints = lfContext.getElementConstraints(element);
+		final List<Constraint> constraints = lfContext.getElementConstraints(element);
 		if( constraints != null ) {
-			for (Constraint constraint : constraints) {
+			for (final Constraint constraint : constraints) {
 				addEffectGuard(lfContext, element ,transition, constraint);
 			}
 		}
@@ -536,13 +539,13 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 	 * @param element
 	 * @param writer
 	 */
-	private void transformInteractionOperand(InteractionOperand element,
-			StatemachineContext lfContext) {
+	private void transformInteractionOperand(final InteractionOperand element,
+			final StatemachineContext lfContext) {
 
 		lfContext.initialState.setName("init#" + element.getName());
 		lfContext.finalState.setName("final#" + element.getName());
 
-		ArrayList<InteractionFragment> coveredFragmentList =
+		final ArrayList<InteractionFragment> coveredFragmentList =
 				coveredFragments(lfContext.coveredLifeline, element.getFragments());
 
 		if( coveredFragmentList.isEmpty() ) {
@@ -551,10 +554,10 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		else {
 			lfContext.isLastFragmentTransformation = false;
 
-			InteractionFragment lastFragment =
+			final InteractionFragment lastFragment =
 					coveredFragmentList.get( coveredFragmentList.size() - 1 );
 
-			for( InteractionFragment itFragment : coveredFragmentList ) {
+			for( final InteractionFragment itFragment : coveredFragmentList ) {
 				if( itFragment == lastFragment ) {
 					lfContext.isLastFragmentTransformation = true;
 
@@ -573,8 +576,8 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 	 * @param element
 	 * @param writer
 	 */
-	public void transformCombinedFragment(CombinedFragment element,
-			StatemachineContext lfContext) {
+	public void transformCombinedFragment(final CombinedFragment element,
+			final StatemachineContext lfContext) {
 
 		switch (element.getInteractionOperator()) {
 		case LOOP_LITERAL:
@@ -609,11 +612,11 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 	}
 
 
-	public void transformCombinedFragmentScheduling(CombinedFragment element,
-			StatemachineContext lfContext, ArrayList<State> regionStates) {
+	public void transformCombinedFragmentScheduling(final CombinedFragment element,
+			final StatemachineContext lfContext, final ArrayList<State> regionStates) {
 
 		// Choice State for Fragment State Entry Scheduling Region value as Guard
-		Pseudostate choiceNotFirstState = lfContext.createNewState(
+		final Pseudostate choiceNotFirstState = lfContext.createNewState(
 				"choice#schedule#" + element.getName() + "#Region",
 				PseudostateKind.CHOICE_LITERAL);
 
@@ -625,12 +628,12 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 				nameOfSchedulingVariable(element) + " >=> " +
 				nameOfScheduledRegionVariable(element) + ";");
 
-		StringBuilder buffer = new StringBuilder();
+		final StringBuilder buffer = new StringBuilder();
 
 		int offset = 0;
 		State regionState;
 
-		for( InteractionOperand iFragment : element.getOperands()) {
+		for( final InteractionOperand iFragment : element.getOperands()) {
 			regionState = regionStates.get(offset++);
 
 			transition = lfContext.createTransition(
@@ -660,20 +663,20 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 	}
 
 
-	public void transformCombinedFragmentGeneric(CombinedFragment element,
-			StatemachineContext lfContext) {
-		String interactionOperator = element.getInteractionOperator().getLiteral();
+	public void transformCombinedFragmentGeneric(final CombinedFragment element,
+			final StatemachineContext lfContext) {
+		final String interactionOperator = element.getInteractionOperator().getLiteral();
 
-		StringBuilder buffer = new StringBuilder();
+		final StringBuilder buffer = new StringBuilder();
 
 		boolean hasElseOrTrueGuard = false;
 
 		// Unique Exit State
-		State exitState = lfContext.createExitState(
+		final State exitState = lfContext.createExitState(
 				"exit_" + interactionOperator + "#" + element.getName());
 
 		// transformation Context
-		boolean isInteractionCtx = (element.getCovereds().size() >= 2)
+		final boolean isInteractionCtx = (element.getCovereds().size() >= 2)
 				&& (lfContext.transfoCtx == CONTEXT.INTERACTION);
 
 		// Variables need in Interaction Context
@@ -681,7 +684,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		Pseudostate choiceNotFirstState = null;
 
 		// Choice State for Fragment State Entry Constraint as Guard
-		Pseudostate choiceFirstState = lfContext.createNewState(
+		final Pseudostate choiceFirstState = lfContext.createNewState(
 				"choice#constraint#" + element.getName() + "#Region",
 				PseudostateKind.CHOICE_LITERAL);
 
@@ -694,7 +697,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		if( isInteractionCtx ) {
 			regionScheduleVariable = createCombinedRegionScheduleVariable(lfContext, element);
 
-			StringBuilder guard = new StringBuilder();
+			final StringBuilder guard = new StringBuilder();
 			guard.append("empty( ")
 				.append(regionScheduleVariable.getName())
 				.append(" )");
@@ -717,9 +720,9 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		}
 
 		// InteractionOperand i.e. Region transformation
-		for( InteractionOperand iFragment : element.getOperands() ) {
+		for( final InteractionOperand iFragment : element.getOperands() ) {
 
-			State regionState = lfContext.createNewState(
+			final State regionState = lfContext.createNewState(
 					"region_" + interactionOperator + "#" + iFragment.getName());
 
 			transition = lfContext.createTransition(
@@ -733,7 +736,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 			if( isInteractionCtx ) {
 				// Set Scheduling for other LifeLine per Combined Fragment
-				for( Lifeline lf : element.getCovereds() ) {
+				for( final Lifeline lf : element.getCovereds() ) {
 					if( lf != lfContext.coveredLifeline ) {
 						buffer.delete(0, buffer.length());
 
@@ -764,7 +767,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 			lfContext.currentState = regionState;
 
-			StatemachineContext regionContext = new StatemachineContext(lfContext, element);
+			final StatemachineContext regionContext = new StatemachineContext(lfContext, element);
 
 			transformInteractionOperand(iFragment, regionContext);
 
@@ -780,7 +783,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 			if( isInteractionCtx ) {
 				// Set Scheduling: entry none region
-				for( Lifeline lf : element.getCovereds() ) {
+				for( final Lifeline lf : element.getCovereds() ) {
 					if( lf != lfContext.coveredLifeline ) {
 						buffer.delete(0, buffer.length());
 
@@ -821,18 +824,18 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 
 	public void transformCombinedFragmentLoop(
-			CombinedFragment element, StatemachineContext lfContext)
+			final CombinedFragment element, final StatemachineContext lfContext)
 	{
-		String interactionOperator = element.getInteractionOperator().getLiteral();
+		final String interactionOperator = element.getInteractionOperator().getLiteral();
 
-		StringBuilder buffer = new StringBuilder();
+		final StringBuilder buffer = new StringBuilder();
 
 		// Unique Exit State
-		State exitState = lfContext.createExitState(
+		final State exitState = lfContext.createExitState(
 				"exit_" + interactionOperator + "#" + element.getName());
 
 		// transformation Context
-		boolean isInteractionCtx =
+		final boolean isInteractionCtx =
 				element.getCovereds().size() >= 2 && lfContext.transfoCtx == CONTEXT.INTERACTION;
 
 		// Variables need in Interaction Context
@@ -840,7 +843,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		Pseudostate choiceNotFirstState = null;
 
 		// Choice State for Fragment State Entry Constraint as Guard
-		Pseudostate choiceFirstState = lfContext.createNewState(
+		final Pseudostate choiceFirstState = lfContext.createNewState(
 				"choice#constraint#" + element.getName() + "#Region",
 				PseudostateKind.CHOICE_LITERAL);
 
@@ -854,7 +857,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		if( isInteractionCtx ) {
 			regionScheduleVariable = createCombinedRegionScheduleVariable(lfContext, element);
 
-			StringBuilder guard = new StringBuilder();
+			final StringBuilder guard = new StringBuilder();
 			guard.append("empty( ")
 				.append(regionScheduleVariable.getName())
 				.append(" )");
@@ -877,11 +880,11 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		}
 
 		// InteractionOperand i.e. Region transformation
-		InteractionOperand contentFragment = element.getOperands().get(0);
+		final InteractionOperand contentFragment = element.getOperands().get(0);
 
-		Constraint loopGuard = contentFragment.getGuard();
+		final Constraint loopGuard = contentFragment.getGuard();
 
-		State regionState = lfContext.createNewState(
+		final State regionState = lfContext.createNewState(
 				"region_" + interactionOperator + "#" + contentFragment.getName());
 
 		buffer.delete(0, buffer.length());
@@ -898,7 +901,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 		if( isInteractionCtx ) {
 			// Set Scheduling for other LifeLine per Combined Fragment
-			for( Lifeline lf : element.getCovereds() ) {
+			for( final Lifeline lf : element.getCovereds() ) {
 				if( lf != lfContext.coveredLifeline ) {
 					buffer.delete(0, buffer.length());
 
@@ -929,7 +932,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 		lfContext.currentState = regionState;
 
-		StatemachineContext regionContext = new StatemachineContext(lfContext, element);
+		final StatemachineContext regionContext = new StatemachineContext(lfContext, element);
 
 		transformInteractionOperand(contentFragment, regionContext);
 
@@ -939,11 +942,11 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 
 		// loop boucle with min/max index constraint
-		Transition trLoop = lfContext.createFinalTransition(
+		final Transition trLoop = lfContext.createFinalTransition(
 				"tr_loop", regionState, regionState);
 
 		if( loopGuard instanceof InteractionConstraint ) {
-			InteractionConstraint interactionMinMax = (InteractionConstraint) loopGuard;
+			final InteractionConstraint interactionMinMax = (InteractionConstraint) loopGuard;
 
 			hasTrueGuard = hasTrueGuard
 					&& fSupervisor.isExpressionSymbol(interactionMinMax.getMinint(), 0)
@@ -955,7 +958,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 				// UNLIMITED LOOP ?!?
 			}
 			else {
-				Property varLoopIndex = createVariable(lfContext.statemachine,
+				final Property varLoopIndex = createVariable(lfContext.statemachine,
 						//"loopIndex_"
 						"count#" + element.getName(), DataTypeFactory.integerType());
 
@@ -977,7 +980,7 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 			if( isInteractionCtx ) {
 				// Set Scheduling: entry none region
-				for( Lifeline lf : element.getCovereds() ) {
+				for( final Lifeline lf : element.getCovereds() ) {
 					if( lf != lfContext.coveredLifeline ) {
 						buffer.delete(0, buffer.length());
 
@@ -1010,21 +1013,21 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		lfContext.currentState = exitState;
 	}
 
-	public void transformCombinedFragmentLoopOLD(CombinedFragment element,
-			StatemachineContext lfContext) {
+	public void transformCombinedFragmentLoopOLD(final CombinedFragment element,
+			final StatemachineContext lfContext) {
 
 		lfContext.currentState.setName("LoopFragment#" + element.getName());
-		Constraint loopGuard = element.getOperands().get(0).getGuard();
-		State loopState = lfContext.createNewState("loop#" + element.getName());
+		final Constraint loopGuard = element.getOperands().get(0).getGuard();
+		final State loopState = lfContext.createNewState("loop#" + element.getName());
 
 		if( element.getCovereds().size() < 2 || lfContext.transfoCtx == CONTEXT.LIFELINE ) {
 
-			Transition entryLoop = lfContext.createTransition(
+			final Transition entryLoop = lfContext.createTransition(
 					"tr_loop_entry", lfContext.currentState, loopState);
 			setGuard(entryLoop, loopGuard);
 		}
 		else {
-			Property regionScheduleVariable =
+			final Property regionScheduleVariable =
 					createCombinedRegionScheduleVariable(lfContext, element);
 
 			Transition entryLoop = lfContext.createTransition(
@@ -1057,9 +1060,9 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		lfContext.currentState = loopState;
 
 		// loop boucle with min/max index constraint
-		Transition trLoop = lfContext.createFinalTransition(
+		final Transition trLoop = lfContext.createFinalTransition(
 				"tr_loop", loopState, loopState);
-		Property varLoopIndex = createVariable(lfContext.statemachine,
+		final Property varLoopIndex = createVariable(lfContext.statemachine,
 				//"loopIndex_"
 				"count#" + element.getName(), DataTypeFactory.integerType());
 
@@ -1077,15 +1080,15 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		}
 
 
-		StatemachineContext loopContext = new StatemachineContext(lfContext, element);
+		final StatemachineContext loopContext = new StatemachineContext(lfContext, element);
 
-		for( InteractionOperand iFragment : element.getOperands() ) {
+		for( final InteractionOperand iFragment : element.getOperands() ) {
 			transformInteractionOperand(iFragment, loopContext);
 		}
 
 		// quit loop transition
-		State quitloopState = lfContext.createExitState("quit_loop#" + element.getName());
-		Transition quitLoop = lfContext.createFinalElseTransition(
+		final State quitloopState = lfContext.createExitState("quit_loop#" + element.getName());
+		final Transition quitLoop = lfContext.createFinalElseTransition(
 				"final#tr_quit_loop", loopState, quitloopState);
 
 		lfContext.currentState = quitloopState;
@@ -1096,27 +1099,27 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 ////////////////////////////////////// Transform Alt Fragment //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-public void transformCombinedFragmentAlt(CombinedFragment element, StatemachineContext lfContext) {
+public void transformCombinedFragmentAlt(final CombinedFragment element, final StatemachineContext lfContext) {
 
 	// Save Current State for transformCombinedFragmentScheduling()
-	State sourceAltState = lfContext.currentState;
+	final State sourceAltState = lfContext.currentState;
 
 	// Unique Exit State
-	State exitAltState = lfContext.createExitState("exit_alt#" + element.getName());
+	final State exitAltState = lfContext.createExitState("exit_alt#" + element.getName());
 
 	// transformation Context
-	boolean isInteractionCtx =
+	final boolean isInteractionCtx =
 			element.getCovereds().size() >= 2 && lfContext.transfoCtx == CONTEXT.INTERACTION;
 
 	Property regionScheduleVariable = null;
 	ArrayList<State> regionStates = null ;
 
 	// Choice State for Fragment State Entry Constraint as Guard
-	Pseudostate choiceFirstState = lfContext.createNewState(
+	final Pseudostate choiceFirstState = lfContext.createNewState(
 			"choice#constraint#" + element.getName() + "#Region",
 			PseudostateKind.CHOICE_LITERAL);
 
-	Transition transitionAlt = lfContext.createTransition(
+	final Transition transitionAlt = lfContext.createTransition(
 			(isInteractionCtx ?  "tr_alt_first#" : "tr_alt_entry#" ) + element.getName(),
 			lfContext.currentState, choiceFirstState);
 
@@ -1124,7 +1127,7 @@ public void transformCombinedFragmentAlt(CombinedFragment element, StatemachineC
 	if( isInteractionCtx ) {
 		regionScheduleVariable = createCombinedRegionScheduleVariable(lfContext, element);
 
-		StringBuilder guard = new StringBuilder();
+		final StringBuilder guard = new StringBuilder();
 		guard.append("empty( ")
 			.append(regionScheduleVariable.getName())
 			.append(" )");
@@ -1135,11 +1138,11 @@ public void transformCombinedFragmentAlt(CombinedFragment element, StatemachineC
 	}
 
 	// InteractionOperand i.e. Region transformation
-	for( InteractionOperand iFragment : element.getOperands() ) {
+	for( final InteractionOperand iFragment : element.getOperands() ) {
 
-		State regionAltState = lfContext.createNewState("region_alt#" + iFragment.getName());
+		final State regionAltState = lfContext.createNewState("region_alt#" + iFragment.getName());
 
-		Transition entryAltFirst = lfContext.createTransition(
+		final Transition entryAltFirst = lfContext.createTransition(
 				(isInteractionCtx ? "tr_alt_first#" : "tr_alt_entry#" ) + iFragment.getName(),
 				choiceFirstState, regionAltState);
 		setGuard(entryAltFirst, iFragment.getGuard());
@@ -1148,9 +1151,9 @@ public void transformCombinedFragmentAlt(CombinedFragment element, StatemachineC
 			regionStates.add(regionAltState);
 
 			// Set Scheduling for other LifeLine per Combined Fragment
-			for( Lifeline lf : element.getCovereds() ) {
+			for( final Lifeline lf : element.getCovereds() ) {
 				if( lf != lfContext.coveredLifeline ) {
-					StringBuilder buffer = new StringBuilder();
+					final StringBuilder buffer = new StringBuilder();
 					buffer.append( qualifiedNameOf(lf) )
 						.append( "." )
 						.append( regionScheduleVariable.getName() )
@@ -1165,22 +1168,22 @@ public void transformCombinedFragmentAlt(CombinedFragment element, StatemachineC
 
 		lfContext.currentState = regionAltState;
 
-		StatemachineContext altContext = new StatemachineContext(lfContext, element);
+		final StatemachineContext altContext = new StatemachineContext(lfContext, element);
 
 		transformInteractionOperand(iFragment, altContext);
 
-		Transition exitRegionAlt = lfContext.createFinalTransition(
+		final Transition exitRegionAlt = lfContext.createFinalTransition(
 				"tr_alt_quit#" + iFragment.getName(), regionAltState, exitAltState);
 	}
 
-	Transition elseAltFirst = lfContext.createElseTransition(
+	final Transition elseAltFirst = lfContext.createElseTransition(
 			"tr_alt_else#" + element.getName(), choiceFirstState, exitAltState);
 
 	if( isInteractionCtx ) {
 		// Set Scheduling: entry none region
-		for( Lifeline lf : element.getCovereds() ) {
+		for( final Lifeline lf : element.getCovereds() ) {
 			if( lf != lfContext.coveredLifeline ) {
-				StringBuilder buffer = new StringBuilder();
+				final StringBuilder buffer = new StringBuilder();
 				buffer.append( qualifiedNameOf(lf) )
 					.append( "." )
 					.append( regionScheduleVariable.getName() )
@@ -1206,27 +1209,27 @@ public void transformCombinedFragmentAlt(CombinedFragment element, StatemachineC
 ////////////////////////////////////////////////////////////////////////////////////////////
 // TODO
 public void transformCombinedFragmentSequence(
-		CombinedFragment element, StatemachineContext lfContext) {
+		final CombinedFragment element, final StatemachineContext lfContext) {
 
 	lfContext.currentState.setName("SeqFragment#" + element.getName());
-	State exitSeqState = lfContext.createExitState("exit_seq#" + element.getName());
+	final State exitSeqState = lfContext.createExitState("exit_seq#" + element.getName());
 
-	State regionSeqState = lfContext.createNewState("target_seq#" + element.getName());
-	for( InteractionOperand iFragment : element.getOperands()) {
+	final State regionSeqState = lfContext.createNewState("target_seq#" + element.getName());
+	for( final InteractionOperand iFragment : element.getOperands()) {
 
-		Constraint regionGuard = iFragment.getGuard();
+		final Constraint regionGuard = iFragment.getGuard();
 
-		Transition entrySeq = lfContext.createTransition(
+		final Transition entrySeq = lfContext.createTransition(
 				"tr_seq_region#" + iFragment.getName(), lfContext.currentState, regionSeqState);
 		//	setGuard(entryStrict, regionGuard);
 
-		StatemachineContext seqContext = new StatemachineContext(lfContext, iFragment);
+		final StatemachineContext seqContext = new StatemachineContext(lfContext, iFragment);
 
 		transformInteractionOperand(iFragment, seqContext);
 
 	}
 
-	Transition exitSeq = lfContext.createFinalTransition(
+	final Transition exitSeq = lfContext.createFinalTransition(
 			"tr_seq_quit#" + element.getName(), lfContext.currentState, exitSeqState);
 	lfContext.currentState = exitSeqState;
 }
@@ -1236,7 +1239,7 @@ public void transformCombinedFragmentSequence(
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 public void transformCombinedFragmentStrict(
-		CombinedFragment element, StatemachineContext lfContext) {
+		final CombinedFragment element, final StatemachineContext lfContext) {
 
 	lfContext.currentState.setName("StrictFragment#" + element.getName());
 
@@ -1244,10 +1247,10 @@ public void transformCombinedFragmentStrict(
 	Transition elseStrictTransition = null;
 	State operandStrictState = null;
 
-	InteractionFragment lastFragment =
+	final InteractionFragment lastFragment =
 			element.getOperands().get( element.getOperands().size() - 1 );
 
-	for( InteractionOperand iFragment : element.getOperands() ) {
+	for( final InteractionOperand iFragment : element.getOperands() ) {
 
 		if( elseStrictState != null ) {
 			elseStrictState.setName("strict#" + iFragment.getName());
@@ -1257,10 +1260,10 @@ public void transformCombinedFragmentStrict(
 		else {
 			operandStrictState = lfContext.createNewState("strict#" + iFragment.getName());
 		}
-		Transition operandStrictTransition = lfContext.createTransition(
+		final Transition operandStrictTransition = lfContext.createTransition(
 				"tr_strict_region#" + iFragment.getName(), lfContext.currentState, operandStrictState);
 
-		Constraint regionGuard = iFragment.getGuard();
+		final Constraint regionGuard = iFragment.getGuard();
 		if( regionGuard != null ) {
 			setGuard(operandStrictTransition, regionGuard);
 
@@ -1282,7 +1285,7 @@ public void transformCombinedFragmentStrict(
 
 		lfContext.currentState = operandStrictState;
 
-		StatemachineContext strictContext = new StatemachineContext(lfContext, iFragment);
+		final StatemachineContext strictContext = new StatemachineContext(lfContext, iFragment);
 
 		transformInteractionOperand(iFragment, strictContext);
 	}
@@ -1293,7 +1296,7 @@ public void transformCombinedFragmentStrict(
 	else {
 		elseStrictState = lfContext.createExitState("exit_strict#" + element.getName());
 	}
-	Transition exitStrict = lfContext.createTransition(
+	final Transition exitStrict = lfContext.createTransition(
 			"tr_strict_quit#" + element.getName(), lfContext.currentState, elseStrictState);
 	lfContext.currentState = elseStrictState;
 }
@@ -1304,26 +1307,26 @@ public void transformCombinedFragmentStrict(
 //TODO
 
 public void transformCombinedFragmentParallel(
-		CombinedFragment element, StatemachineContext lfContext) {
+		final CombinedFragment element, final StatemachineContext lfContext) {
 
 	lfContext.currentState.setName("ParFragment#" + element.getName());
-	State exitParState = lfContext.createExitState("exit_par#" + element.getName());
+	final State exitParState = lfContext.createExitState("exit_par#" + element.getName());
 
-	State regionStrictState = lfContext.createNewState("target_par#" + element.getName());
-	for( InteractionOperand iFragment : element.getOperands()) {
+	final State regionStrictState = lfContext.createNewState("target_par#" + element.getName());
+	for( final InteractionOperand iFragment : element.getOperands()) {
 
-		Constraint regionGuard = iFragment.getGuard();
+		final Constraint regionGuard = iFragment.getGuard();
 		//	Transition entryStrict = lfContext.createTransition(
 		//			"tr_strict_region#" + iFragment.getName(), lfContext.currentState, regionStrictState);
 		//	setGuard(entryStrict, regionGuard);
 
-		StatemachineContext parContext = new StatemachineContext(lfContext, iFragment);
+		final StatemachineContext parContext = new StatemachineContext(lfContext, iFragment);
 
 		transformInteractionOperand(iFragment, parContext);
 
 	}
 
-	Transition exitPar = lfContext.createTransition(
+	final Transition exitPar = lfContext.createTransition(
 			"tr_par_quit#" + element.getName(), lfContext.currentState, exitParState);
 	lfContext.currentState = exitParState;
 
@@ -1335,8 +1338,8 @@ public void transformCombinedFragmentParallel(
 //////////////////////////////////////Transform Opt Fragment //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-public void transformCombinedFragmentOpt(CombinedFragment element,
-		StatemachineContext lfContext) {
+public void transformCombinedFragmentOpt(final CombinedFragment element,
+		final StatemachineContext lfContext) {
 
 	transformCombinedFragmentAlt( element, lfContext);
 
@@ -1434,11 +1437,11 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	 * @param element
 	 */
 	public void transformExecutionOccurrenceSpecification(
-			ExecutionOccurrenceSpecification element, StatemachineContext lfContext) {
+			final ExecutionOccurrenceSpecification element, final StatemachineContext lfContext) {
 
-		State execOccState = lfContext.createTargetState("execOcc#" + element.getName());
+		final State execOccState = lfContext.createTargetState("execOcc#" + element.getName());
 
-		Transition execOccTrqns = lfContext.createTransition(
+		final Transition execOccTrqns = lfContext.createTransition(
 				"tr_execOcc", lfContext.currentState, execOccState);
 
 
@@ -1451,7 +1454,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	 * @param element
 	 * @param writer
 	 */
-	public void transformLifeline(Lifeline element, PrettyPrintWriter writer)
+	public void transformLifeline(final Lifeline element, final PrettyPrintWriter writer)
 	{
 		final StatemachineContext lfContext =
 				new StatemachineContext(element.getInteraction(), CONTEXT.LIFELINE);
@@ -1460,8 +1463,8 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 				Arrays.asList( element ), lfContext, writer);
 	}
 
-	public void transformWriteLifeline(Lifeline element,
-			StatemachineContext lfContext, PrettyPrintWriter writer) {
+	public void transformWriteLifeline(final Lifeline element,
+			StatemachineContext lfContext, final PrettyPrintWriter writer) {
 
 		lfContext = transformWriteLifeline(element, lfContext);
 
@@ -1470,22 +1473,22 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 
 
 	public StatemachineContext transformWriteLifeline(
-			Lifeline element, StatemachineContext lfContext) {
+			final Lifeline element, StatemachineContext lfContext) {
 
-		Interaction interaction = element.getInteraction();
+		final Interaction interaction = element.getInteraction();
 
 		if( interaction != null ) {
 			lfContext = new StatemachineContext(lfContext, element);
 
-			ArrayList<InteractionFragment> coveredFragmentList =
+			final ArrayList<InteractionFragment> coveredFragmentList =
 					coveredFragments(element, interaction.getFragments());
 
 			lfContext.isLastFragmentTransformation = false;
 
-			InteractionFragment lastFragment =
+			final InteractionFragment lastFragment =
 					coveredFragmentList.get( coveredFragmentList.size() - 1 );
 
-			for (InteractionFragment itFragment : coveredFragmentList) {
+			for (final InteractionFragment itFragment : coveredFragmentList) {
 				if( itFragment == lastFragment ) {
 					lfContext.isLastFragmentTransformation = true;
 
@@ -1511,17 +1514,17 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	 * @param writer
 	 */
 	public void transformBehaviorExecutionSpecification(
-			BehaviorExecutionSpecification element,
-			StatemachineContext lfContext) {
+			final BehaviorExecutionSpecification element,
+			final StatemachineContext lfContext) {
 		if(element.getStart() instanceof ExecutionOccurrenceSpecification){
-			BehaviorExecutionSpecification act = element;
+			final BehaviorExecutionSpecification act = element;
 
-			State targetState = needIntermediateState(element, lfContext)
+			final State targetState = needIntermediateState(element, lfContext)
 					? lfContext.createIntermediateState("targetBhExec#" + element.getName())
 					: lfContext.createTargetState("targetBhExec#" + element.getName());
 
 			lfContext.currentState.setName("BhExec#" + element.getName());
-			Transition BH_tr= lfContext.createTransition(
+			final Transition BH_tr= lfContext.createTransition(
 					act.getName(), lfContext.currentState, targetState);
 
 			transformElementConstraints(element.getStart(), BH_tr, lfContext);
@@ -1532,11 +1535,11 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 			//add constraint of finishOccurrence to the transition
 			if(element.getFinish() instanceof ExecutionOccurrenceSpecification ){
 
-				List<Constraint> constraints = lfContext.getElementConstraints(element.getFinish());
+				final List<Constraint> constraints = lfContext.getElementConstraints(element.getFinish());
 				if( constraints != null ){
 					lfContext.intermediateTransition = null;
 
-					for (Constraint constraint : constraints) {
+					for (final Constraint constraint : constraints) {
 						addEffectGuard(lfContext, element, BH_tr, constraint);
 					}
 
@@ -1561,19 +1564,19 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	}
 
 	private boolean needIntermediateState(
-			BehaviorExecutionSpecification element,
-			StatemachineContext lfContext) {
+			final BehaviorExecutionSpecification element,
+			final StatemachineContext lfContext) {
 		if( lfContext.isLastFragmentTransformation
 			&& (element.getFinish() instanceof ExecutionOccurrenceSpecification) ){
 
-			List<Constraint> constraints = lfContext.getElementConstraints(element.getFinish());
+			final List<Constraint> constraints = lfContext.getElementConstraints(element.getFinish());
 			if( constraints != null ){
-				for (Constraint constraint : constraints)
+				for (final Constraint constraint : constraints)
 				{
-					ValueSpecification valueSpec = constraint.getSpecification();
+					final ValueSpecification valueSpec = constraint.getSpecification();
 					if( valueSpec instanceof OpaqueExpression ) {
-						OpaqueExpression opaqExpr = (OpaqueExpression)valueSpec;
-						for (String language : opaqExpr.getLanguages()) {
+						final OpaqueExpression opaqExpr = (OpaqueExpression)valueSpec;
+						for (final String language : opaqExpr.getLanguages()) {
 							if(language.contains("xLIA")){
 								{
 									return true;
@@ -1593,13 +1596,13 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	 * @param writer
 	 */
 	public void transformMessageOccurrenceSpecification(
-			MessageOccurrenceSpecification element,
-			StatemachineContext lfContext) {
+			final MessageOccurrenceSpecification element,
+			final StatemachineContext lfContext) {
 
 
 		lfContext.currentState.setName("MsgOcc#" + element.getName());
-		State targetState = lfContext.createTargetState("targetMsgOcc#" + element.getName());
-		Transition MsgOcc_tr= lfContext.createTransition(
+		final State targetState = lfContext.createTargetState("targetMsgOcc#" + element.getName());
+		final Transition MsgOcc_tr= lfContext.createTransition(
 				"tr_" + element.getName(), lfContext.currentState, targetState);
 
 		// Set time observation point, if need
@@ -1638,13 +1641,13 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 
 
 
-		Message message = element.getMessage();
+		final Message message = element.getMessage();
 		if( element.isReceive() ){
 
 			//translate constraints
 			transformElementConstraints(element, MsgOcc_tr, lfContext);
 
-		    StringBuilder MsgReceiveAction = new StringBuilder("input ");
+		    final StringBuilder MsgReceiveAction = new StringBuilder("input ");
 		    lfContext.inputMessage.add(message);
 
 		    MsgReceiveAction.append( message.getName() );
@@ -1652,11 +1655,11 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 
 		//    if (! (message.getArguments().isEmpty()) ){
 		    	// check if there is a behaviorExecution that specifies the variables on which we receive the message
-				EList<InteractionFragment> fragments = lfContext.coveredLifeline.getCoveredBys();
+				final EList<InteractionFragment> fragments = lfContext.coveredLifeline.getCoveredBys();
 				Boolean isStartExecBehavExecution = false;
 				BehaviorExecutionSpecification behavExecSpecOfComAct = null;
-				for (Iterator<InteractionFragment> iterator = fragments.iterator(); iterator.hasNext();) {
-					InteractionFragment interactionFragment = iterator.next();
+				for (final Iterator<InteractionFragment> iterator = fragments.iterator(); iterator.hasNext();) {
+					final InteractionFragment interactionFragment = iterator.next();
 					if (interactionFragment instanceof BehaviorExecutionSpecification){
 
 						behavExecSpecOfComAct = (BehaviorExecutionSpecification) interactionFragment;
@@ -1671,16 +1674,16 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 				.append(nameOfMessageParamsVariable(message)).append( " );\n" );//append("#").append(message.getSignature().getName()).append(");\n");
 
 				if (isStartExecBehavExecution){
-					Behavior behavior = behavExecSpecOfComAct.getBehavior();
+					final Behavior behavior = behavExecSpecOfComAct.getBehavior();
 					if (behavior instanceof OpaqueBehavior){
-						OpaqueBehavior opaqueBehavior = (OpaqueBehavior) behavior;
+						final OpaqueBehavior opaqueBehavior = (OpaqueBehavior) behavior;
 						if (opaqueBehavior.getBodies().size() > 0){
 							String strinBehavior = opaqueBehavior.getBodies().get(0).trim();
 							if( strinBehavior.startsWith("in ") ) {
 								strinBehavior = strinBehavior.substring(3, strinBehavior.length()-1);
-								String[] inVars = strinBehavior.split(" *, *");
+								final String[] inVars = strinBehavior.split(" *, *");
 
-								Signal signal = (Signal) message.getSignature();
+								final Signal signal = (Signal) message.getSignature();
 								for (int i = 0; i < inVars.length; i++) {
 									MsgReceiveAction.append(inVars[i])
 									.append(" = ")
@@ -1698,7 +1701,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 				}
 
 		        //ancien
-		        NamedElement signature = message.getSignature();
+		        final NamedElement signature = message.getSignature();
 		        if( signature instanceof Signal ) {
 		            lfContext.addLocalVariable(
 		            		nameOfMessageParamsVariable(message)//"#" + message.getSignature().getName()
@@ -1714,7 +1717,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 			transformElementConstraints(element, MsgOcc_tr, lfContext);
 
 			//translate output action
-			StringBuilder MsgReceiveAction = new StringBuilder("output ");
+			final StringBuilder MsgReceiveAction = new StringBuilder("output ");
 			lfContext.outputMessage.add(message);
 
 			MsgReceiveAction.append( message.getName() )
@@ -1728,7 +1731,7 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 
 				boolean isnotFirst = false;
 
-				for (ValueSpecification itArg : message.getArguments()) {
+				for (final ValueSpecification itArg : message.getArguments()) {
 					if( isnotFirst ) {
 						MsgReceiveAction.append(" , ");
 					}
@@ -1747,10 +1750,30 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 
 				if( lfContext.transfoCtx == CONTEXT.INTERACTION )
 				{
-					MessageOccurrenceSpecification target = (MessageOccurrenceSpecification) message.getReceiveEvent();
-
-					MsgReceiveAction.append(target.getCovered().getRepresents().getType().getName())
-						.append('#').append(target.getCovered().getName());
+					final MessageOccurrenceSpecification target = (MessageOccurrenceSpecification) message.getReceiveEvent();
+					try {
+						MsgReceiveAction.append(target.getCovered().getRepresents().getType().getName())
+							.append('#').append(target.getCovered().getName());
+					}
+					catch (final NullPointerException e) {
+						if( target.getCovered() == null ) {
+							MessageDialog.openError(
+									PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+									"EFM Sequence Diagramm transformation"
+									+ "< MessageOccurrenceSpecification >",
+									"==> " + target.getName()
+									+ " has null Covered Lifeline <==");
+						}
+						else if( target.getCovered().getRepresents() == null ) {
+							MessageDialog.openError(
+									PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+									"EFM Sequence Diagramm transformation"
+									+ "< MessageOccurrenceSpecification >",
+									"==> " + target.getName() + "< covered lifeline: "
+									+ target.getCovered().getName()
+									+ " > has null Represents <==");
+						}
+					}
 				}
 				else {
 					MsgReceiveAction.append("$env");
@@ -1780,13 +1803,13 @@ public void transformCombinedFragmentOpt(CombinedFragment element,
 	 * @param element
 	 * @param writer
 	 */
-	public void transformMessage(Message element,
-			StatemachineContext lfContext,  PrettyPrintWriter writer) {
-		writer.appendTab("Message ")
+	public void transformMessage(final Message element,
+			final StatemachineContext lfContext,  final PrettyPrintWriter writer) {
+		writer.appendTab("message ").append(element.getName())
 			.appendEol(" {");
 
 
-		writer.appendTab("} // end Message ")
+		writer.appendTab("} // end message ")
 			.appendEol2(element.getName());
 	}
 
