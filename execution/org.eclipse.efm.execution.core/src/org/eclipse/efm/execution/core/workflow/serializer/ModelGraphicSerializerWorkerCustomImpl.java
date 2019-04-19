@@ -19,13 +19,13 @@ import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
-import org.eclipse.efm.execution.core.workflow.serializer.impl.ModelGraphvizSerializerWorkerImpl;
+import org.eclipse.efm.execution.core.workflow.serializer.impl.ModelGraphicSerializerWorkerImpl;
 
-public class ModelGraphvizSerializerWorkerCustomImpl
-		extends ModelGraphvizSerializerWorkerImpl
+public class ModelGraphicSerializerWorkerCustomImpl
+		extends ModelGraphicSerializerWorkerImpl
 		implements IWorkflowConfigurationConstants {
 
-	protected ModelGraphvizSerializerWorkerCustomImpl(
+	protected ModelGraphicSerializerWorkerCustomImpl(
 			final Director director, final String name) {
 		super();
 
@@ -33,7 +33,7 @@ public class ModelGraphvizSerializerWorkerCustomImpl
 		setName(name);
 	}
 
-	protected ModelGraphvizSerializerWorkerCustomImpl(
+	protected ModelGraphicSerializerWorkerCustomImpl(
 			final Director director, final String name, final String description) {
 		super();
 
@@ -43,12 +43,12 @@ public class ModelGraphvizSerializerWorkerCustomImpl
 	}
 
 
-	public static ModelGraphvizSerializerWorkerCustomImpl create(
+	public static ModelGraphicSerializerWorkerCustomImpl create(
 			final Director director, final ILaunchConfiguration configuration) {
 
-		final ModelGraphvizSerializerWorkerCustomImpl serializerWorker =
-				new ModelGraphvizSerializerWorkerCustomImpl(
-						director, "model2graphviz");
+		final ModelGraphicSerializerWorkerCustomImpl serializerWorker =
+				new ModelGraphicSerializerWorkerCustomImpl(
+						director, "model2graphic");
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
 
@@ -60,7 +60,7 @@ public class ModelGraphvizSerializerWorkerCustomImpl
 
 		final String modelFilename = WorkflowFileUtils.getModelBasename(configuration);
 
-		serializerWorker.setFileName(modelFilename + "_graph.gv");
+		serializerWorker.setFileName(modelFilename + ".puml");
 
 		return( serializerWorker );
 	}
@@ -69,7 +69,7 @@ public class ModelGraphvizSerializerWorkerCustomImpl
 	public void toWriter(final PrettyPrintWriter writer) {
 		writer.commentLine( getComment() );
 
-		writer.appendTab( "serializer#model#graphviz" );
+		writer.appendTab( "serializer#model#graphic" );
 
 		String str = getName();
 		if( str != null ) {
@@ -88,6 +88,19 @@ public class ModelGraphvizSerializerWorkerCustomImpl
 		if( manifest != null ) {
 			manifest.toWriter(writer2);
 		}
+
+		writer2.appendTabEol( "statemachine [" );
+		writer2.appendTab2Eol( "transition = true" );
+		writer2.appendTabEol( "] // end property" );
+
+		writer2.appendTabEol( "transition [" );
+		writer2.appendTab2Eol( "statement = true" );
+		writer2.appendTabEol( "] // end property" );
+
+		writer2.appendTabEol( "statement [" );
+		writer2.appendTab2Eol( "statement = true" );
+		writer2.appendTabEol( "] // end property" );
+
 
 		final TraceSpecificationCustomImpl format =
 				(TraceSpecificationCustomImpl) getFormat();

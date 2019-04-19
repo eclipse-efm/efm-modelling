@@ -21,12 +21,13 @@ import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
-import org.eclipse.efm.execution.core.workflow.serializer.impl.BasicTraceSerializerImpl;
+import org.eclipse.efm.execution.core.workflow.serializer.impl.SequenceDiagramTraceSerializerImpl;
 
-public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerImpl
+public class SequenceDiagramTraceSerializerWorkerCustomImpl
+		extends SequenceDiagramTraceSerializerImpl
 		implements IWorkflowConfigurationConstants {
 
-	protected BasicTraceSerializerWorkerCustomImpl(
+	protected SequenceDiagramTraceSerializerWorkerCustomImpl(
 			final Director director, final String name) {
 		super();
 
@@ -34,7 +35,7 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		setName(name);
 	}
 
-	protected BasicTraceSerializerWorkerCustomImpl(
+	protected SequenceDiagramTraceSerializerWorkerCustomImpl(
 			final Director director, final String name, final String description) {
 		super();
 
@@ -44,12 +45,12 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 	}
 
 
-	public static BasicTraceSerializerWorkerCustomImpl create(
+	public static SequenceDiagramTraceSerializerWorkerCustomImpl create(
 			final Director director, final ILaunchConfiguration configuration) {
 
-		final BasicTraceSerializerWorkerCustomImpl serializerWorker =
-				new BasicTraceSerializerWorkerCustomImpl(
-						director, "basic_trace_generator");
+		final SequenceDiagramTraceSerializerWorkerCustomImpl serializerWorker =
+				new SequenceDiagramTraceSerializerWorkerCustomImpl(
+						director, "sequence_diagram_trace_generator");
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
 
@@ -91,8 +92,8 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		final TraceSpecificationCustomImpl format =
 				TraceSpecificationCustomImpl.create(
 						"format", configuration,
-						ATTR_BASIC_TRACE_FORMAT_ELEMENT_LIST,
-						DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST,
+						ATTR_SEQUENCE_DIAGRAM_TRACE_FORMAT_ELEMENT_LIST,
+						DEFAULT_SEQUENCE_DIAGRAM_TRACE_FORMAT_ELEMENT_LIST,
 						TraceElementKind.UNDEFINED);
 
 		serializerWorker.setFormat( format );
@@ -119,10 +120,11 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 			path = configuration.getAttribute(
 					ATTR_BASIC_TRACE_FILE_NAME,
 					DEFAULT_BASIC_TRACE_FILE_NAME);
+			path = "sd_trace.puml";
 		} catch( final CoreException e ) {
 			e.printStackTrace();
 
-			path = "tests.txt";
+			path = "sd_trace.puml";
 		}
 		serializerWorker.setFileName( path );
 
@@ -272,7 +274,7 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 	public void toWriter(final PrettyPrintWriter writer) {
 		writer.commentLine( getComment() );
 
-		writer.appendTab( "serializer#symbex#trace#basic" );
+		writer.appendTab( "serializer#symbex#trace#sequencediagram" );
 
 		String str = getName();
 		if( str != null ) {
@@ -295,7 +297,7 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		writer2.appendTabEol( "property [" );
 
 		writer2.appendTab2Eol( "solver = 'CVC4'" );
-		writer2.appendTab2Eol( "format = 'BASIC'" );
+		writer2.appendTab2Eol( "format = 'SEQUENCE_DIAGRAM'" );
 		writer2.appendTab2Eol( "info#selection = 'ALL'" );
 		writer2.appendTab2Eol( "data#selection = 'MODIFIED'" );
 
@@ -310,6 +312,8 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		writer2.appendTab2( "print#lifelines = " )
 		.appendEol( isEnabledLifelinesPrinting() );
 
+		writer2.appendTab2Eol( "trace#count = 42" );
+		writer2.appendTab2Eol( "one#trace#per#file = false" );
 		writer2.appendTabEol( "] // end property" );
 
 		final TraceSpecificationCustomImpl trace =

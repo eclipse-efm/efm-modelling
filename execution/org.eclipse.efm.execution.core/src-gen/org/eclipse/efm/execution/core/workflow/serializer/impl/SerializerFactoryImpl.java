@@ -66,10 +66,14 @@ public class SerializerFactoryImpl extends EFactoryImpl implements SerializerFac
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case SerializerPackage.MODEL_GRAPHIC_SERIALIZER_WORKER: return createModelGraphicSerializerWorker();
 			case SerializerPackage.MODEL_GRAPHVIZ_SERIALIZER_WORKER: return createModelGraphvizSerializerWorker();
+			case SerializerPackage.SYMBEX_GRAPHIC_SERIALIZER_WORKER: return createSymbexGraphicSerializerWorker();
 			case SerializerPackage.SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER: return createSymbexGraphVizSerializerWorker();
 			case SerializerPackage.BASIC_TRACE_SERIALIZER: return createBasicTraceSerializer();
 			case SerializerPackage.TTCN_TRACE_SERIALIZER: return createTTCNTraceSerializer();
+			case SerializerPackage.SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER: return createSymbexSequenceDiagramSerializerWorker();
+			case SerializerPackage.SEQUENCE_DIAGRAM_TRACE_SERIALIZER: return createSequenceDiagramTraceSerializer();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -81,9 +85,31 @@ public class SerializerFactoryImpl extends EFactoryImpl implements SerializerFac
 	 * @generated
 	 */
 	@Override
+	public ModelGraphicSerializerWorker createModelGraphicSerializerWorker() {
+		ModelGraphicSerializerWorkerImpl modelGraphicSerializerWorker = new ModelGraphicSerializerWorkerImpl();
+		return modelGraphicSerializerWorker;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ModelGraphvizSerializerWorker createModelGraphvizSerializerWorker() {
 		ModelGraphvizSerializerWorkerImpl modelGraphvizSerializerWorker = new ModelGraphvizSerializerWorkerImpl();
 		return modelGraphvizSerializerWorker;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SymbexGraphicSerializerWorker createSymbexGraphicSerializerWorker() {
+		SymbexGraphicSerializerWorkerImpl symbexGraphicSerializerWorker = new SymbexGraphicSerializerWorkerImpl();
+		return symbexGraphicSerializerWorker;
 	}
 
 	/**
@@ -117,6 +143,28 @@ public class SerializerFactoryImpl extends EFactoryImpl implements SerializerFac
 	public TTCNTraceSerializer createTTCNTraceSerializer() {
 		TTCNTraceSerializerImpl ttcnTraceSerializer = new TTCNTraceSerializerImpl();
 		return ttcnTraceSerializer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SymbexSequenceDiagramSerializerWorker createSymbexSequenceDiagramSerializerWorker() {
+		SymbexSequenceDiagramSerializerWorkerImpl symbexSequenceDiagramSerializerWorker = new SymbexSequenceDiagramSerializerWorkerImpl();
+		return symbexSequenceDiagramSerializerWorker;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SequenceDiagramTraceSerializer createSequenceDiagramTraceSerializer() {
+		SequenceDiagramTraceSerializerImpl sequenceDiagramTraceSerializer = new SequenceDiagramTraceSerializerImpl();
+		return sequenceDiagramTraceSerializer;
 	}
 
 	/**

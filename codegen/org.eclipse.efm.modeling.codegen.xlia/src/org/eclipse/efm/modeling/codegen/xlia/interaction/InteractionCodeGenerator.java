@@ -214,15 +214,13 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 		writer.appendEol("@property: ");
 		writer.appendTabEol2("// GLOBAL DECLARATIONS");
 
+		for (final DataType datatype : datatypes) {
+			fSupervisor.fDataTypeFactory.performTransformImpl(datatype, writer2);
+		}
 
 		//If inference Context
 		writer.appendTab2Eol("//Declarations for the formal inference module");
 		if(isInferenceContext){
-			//To-Do when DataType class but not for inference context?
-			for (final DataType datatype : datatypes) {
-				fSupervisor.fDataTypeFactory.performTransformImpl(datatype, writer2);
-			}
-
 			//function signatures vector
 			writer.appendTab2Eol("// Function signatures vector");
 
@@ -252,8 +250,6 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 							writer.appendEol(", ");
 						}
 					}
-
-
 				}
 			}
 

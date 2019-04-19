@@ -32,6 +32,15 @@ public interface SerializerFactory extends EFactory {
 	SerializerFactory eINSTANCE = org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Model Graphic Serializer Worker</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Model Graphic Serializer Worker</em>'.
+	 * @generated
+	 */
+	ModelGraphicSerializerWorker createModelGraphicSerializerWorker();
+
+	/**
 	 * Returns a new object of class '<em>Model Graphviz Serializer Worker</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39,6 +48,15 @@ public interface SerializerFactory extends EFactory {
 	 * @generated
 	 */
 	ModelGraphvizSerializerWorker createModelGraphvizSerializerWorker();
+
+	/**
+	 * Returns a new object of class '<em>Symbex Graphic Serializer Worker</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Symbex Graphic Serializer Worker</em>'.
+	 * @generated
+	 */
+	SymbexGraphicSerializerWorker createSymbexGraphicSerializerWorker();
 
 	/**
 	 * Returns a new object of class '<em>Symbex Graph Viz Serializer Worker</em>'.
@@ -66,6 +84,24 @@ public interface SerializerFactory extends EFactory {
 	 * @generated
 	 */
 	TTCNTraceSerializer createTTCNTraceSerializer();
+
+	/**
+	 * Returns a new object of class '<em>Symbex Sequence Diagram Serializer Worker</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Symbex Sequence Diagram Serializer Worker</em>'.
+	 * @generated
+	 */
+	SymbexSequenceDiagramSerializerWorker createSymbexSequenceDiagramSerializerWorker();
+
+	/**
+	 * Returns a new object of class '<em>Sequence Diagram Trace Serializer</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Sequence Diagram Trace Serializer</em>'.
+	 * @generated
+	 */
+	SequenceDiagramTraceSerializer createSequenceDiagramTraceSerializer();
 
 	/**
 	 * Returns the package supported by this factory.

@@ -36,8 +36,8 @@ public interface TimeObservationHelper extends NameHelper , TransitionHelper {
 	 * @param UML Interaction
 	 * @return create and fill timed observation hash table
 	 */
-	default void fillMapOfTimedObservation(Interaction interaction,
-			HashMap<OccurrenceSpecification, TimeObservation> mapOfTObs) {
+	default void fillMapOfTimedObservation(final Interaction interaction,
+			final HashMap<OccurrenceSpecification, TimeObservation> mapOfTObs) {
 		EObject eobj = interaction;
 		EList<PackageableElement> packElems = null;
 		Boolean obsFound = false;
@@ -46,10 +46,10 @@ public interface TimeObservationHelper extends NameHelper , TransitionHelper {
 			if (eobj.eContainer() instanceof Package){
 				packElems = ((Package)eobj.eContainer()).getPackagedElements();
 
-				Iterator<PackageableElement> iterator2 = packElems.iterator();
+				final Iterator<PackageableElement> iterator2 = packElems.iterator();
 
 				while (iterator2.hasNext() && !obsFound) {
-					PackageableElement packElt = iterator2
+					final PackageableElement packElt = iterator2
 						.next();
 					if (packElt instanceof TimeObservation) {
 						obsFound = true;
@@ -59,12 +59,12 @@ public interface TimeObservationHelper extends NameHelper , TransitionHelper {
 			eobj = eobj.eContainer();
 		}
 		if (packElems != null) {
-			Iterator<PackageableElement> iterator1 = packElems.iterator();
+			final Iterator<PackageableElement> iterator1 = packElems.iterator();
 			while (iterator1.hasNext()) {
-				PackageableElement packElt = iterator1
+				final PackageableElement packElt = iterator1
 						.next();
 				if (packElt instanceof TimeObservation) {
-					TimeObservation tObs =(TimeObservation)packElt ;
+					final TimeObservation tObs =(TimeObservation)packElt ;
 					//System.err.println("Ici : "+tObs.getName());
 					//System.err.println("Ici : "+((OccurrenceSpecification)tObs.getEvent()).getName());
 					//mapOfTObs.put(((OccurrenceSpecification)tObs.getEvent()).getName(), tObs);
@@ -75,17 +75,17 @@ public interface TimeObservationHelper extends NameHelper , TransitionHelper {
 	}
 
 
-	default void declareTimeObsVariables(Model model, PrettyPrintWriter writer) {
+	default void declareTimeObsVariables(final Model model, final PrettyPrintWriter writer) {
 		declareTimeObsVariables(model.allOwnedElements(), writer);
 	}
 
-	default void declareTimeObsVariables(Interaction interaction, PrettyPrintWriter writer) {
+	default void declareTimeObsVariables(final Interaction interaction, final PrettyPrintWriter writer) {
 		declareTimeObsVariables(interaction.allOwnedElements(), writer);
 	}
 
-	default void declareTimeObsVariables(List< Element > allOwnedElements, PrettyPrintWriter writer) {
+	default void declareTimeObsVariables(final List< Element > allOwnedElements, final PrettyPrintWriter writer) {
 		writer.appendTab2Eol("// Interaction TimeObservations declaration");
-		for( Element eltObs : allOwnedElements ) {
+		for( final Element eltObs : allOwnedElements ) {
 			//declare timeObservation variables
 			if( eltObs instanceof TimeObservation ) {
 				declareTimeObsTab((TimeObservation) eltObs, writer);
@@ -94,7 +94,7 @@ public interface TimeObservationHelper extends NameHelper , TransitionHelper {
 		writer.appendTab2Eol2("// end Interaction TimeObservations declaration");
 	}
 
-	default void declareTimeObsTab(TimeObservation timeObs, PrettyPrintWriter writer) {
+	default void declareTimeObsTab(final TimeObservation timeObs, final PrettyPrintWriter writer) {
 		writer.appendTab2("var ")
 	        .append("vector<integer> ")
 	        .append(timeObs.getName())
@@ -107,18 +107,18 @@ public interface TimeObservationHelper extends NameHelper , TransitionHelper {
 	}
 
 
-	default String transformTimedConstraint(String constraintAsString) {
+	default String transformTimedConstraint(final String constraintAsString) {
 		// processes a timed constraint in order to get a Weak form of a time formula
 	    //        to avoid the case where index expressions are out of range
 
-		ArrayList<String> indexExpressions = new ArrayList<String>();
+		final ArrayList<String> indexExpressions = new ArrayList<String>();
 
 		String indexExpr = "";
 		boolean startIndexExpr = false;
 
 		for (int i = 0; i < constraintAsString.length(); i++) {
 			 // Get the char
-		    char ch = constraintAsString.charAt(i);
+		    final char ch = constraintAsString.charAt(i);
 
 			if (ch=='[') {
 				startIndexExpr = true;
@@ -135,14 +135,14 @@ public interface TimeObservationHelper extends NameHelper , TransitionHelper {
 			}
 		}
 
-		String tguardStr = "tguard(" + constraintAsString + ")";
+		final String tguardStr = "tguard(" + constraintAsString + ");";
 
 		if (indexExpressions.isEmpty()){
 			//case no index expression in the constraint
 			return tguardStr;
 		}
 		else{
-			StringBuilder constraintBuffer = new StringBuilder();
+			final StringBuilder constraintBuffer = new StringBuilder();
 
 			constraintBuffer.append( "if( " )
 				.append( indexExpressions.get(0) );
@@ -159,13 +159,13 @@ public interface TimeObservationHelper extends NameHelper , TransitionHelper {
 		}
 	}
 
-	default void addTimeObservation(Transition transition,
-			OccurrenceSpecification occurrenceSpecification,
-			HashMap<OccurrenceSpecification, TimeObservation> mapOfTObs)
+	default void addTimeObservation(final Transition transition,
+			final OccurrenceSpecification occurrenceSpecification,
+			final HashMap<OccurrenceSpecification, TimeObservation> mapOfTObs)
 	{
-		TimeObservation timeObs = mapOfTObs.get(occurrenceSpecification);
+		final TimeObservation timeObs = mapOfTObs.get(occurrenceSpecification);
 		if( timeObs != null ) {
-			StringBuilder timeObsStatement = new StringBuilder();
+			final StringBuilder timeObsStatement = new StringBuilder();
 			timeObsStatement.append(timeObs.getName())
 				.append(" <=< $time;");
 
@@ -173,13 +173,13 @@ public interface TimeObservationHelper extends NameHelper , TransitionHelper {
 		}
 	}
 
-	default void incrementTimeObservationIndex(Transition transition,
-			OccurrenceSpecification occurrenceSpecification,
-			HashMap<OccurrenceSpecification, TimeObservation> mapOfTObs)
+	default void incrementTimeObservationIndex(final Transition transition,
+			final OccurrenceSpecification occurrenceSpecification,
+			final HashMap<OccurrenceSpecification, TimeObservation> mapOfTObs)
 	{
-		TimeObservation timeObs = mapOfTObs.get(occurrenceSpecification);
+		final TimeObservation timeObs = mapOfTObs.get(occurrenceSpecification);
 		if( timeObs != null ) {
-			StringBuilder timeObsStatement = new StringBuilder();
+			final StringBuilder timeObsStatement = new StringBuilder();
 			final String index = nameOfTimeObservationIndex(timeObs);
 			timeObsStatement.append(index)
 				.append(" = ")

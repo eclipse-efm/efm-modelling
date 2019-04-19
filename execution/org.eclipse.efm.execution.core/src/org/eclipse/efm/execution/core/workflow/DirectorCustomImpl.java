@@ -34,7 +34,10 @@ import org.eclipse.efm.execution.core.workflow.impl.DirectorImpl;
 import org.eclipse.efm.execution.core.workflow.incubation.ExtraneousWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.inference.InferenceContractWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.BasicTraceSerializerWorkerCustomImpl;
+import org.eclipse.efm.execution.core.workflow.serializer.ModelGraphicSerializerWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.ModelGraphvizSerializerWorkerCustomImpl;
+import org.eclipse.efm.execution.core.workflow.serializer.SequenceDiagramTraceSerializerWorkerCustomImpl;
+import org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphicSerializerWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphvizSerializerWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.serializer.TTCNTraceSerializerWorkerCustomImpl;
 import org.eclipse.efm.execution.core.workflow.test.OfflineTestWorkerCustomImpl;
@@ -42,13 +45,13 @@ import org.eclipse.efm.execution.core.workflow.test.OfflineTestWorkerCustomImpl;
 public class DirectorCustomImpl extends DirectorImpl
 		implements IWorkflowConfigurationConstants {
 
-	protected DirectorCustomImpl(Workflow workflow) {
+	protected DirectorCustomImpl(final Workflow workflow) {
 		super();
 
 		setWorkflow(workflow);
 	}
 
-	protected DirectorCustomImpl(Workflow workflow, String name) {
+	protected DirectorCustomImpl(final Workflow workflow, final String name) {
 		super();
 
 		setWorkflow(workflow);
@@ -56,10 +59,10 @@ public class DirectorCustomImpl extends DirectorImpl
 	}
 
 
-	public static DirectorCustomImpl create(Workflow workflow,
-		ILaunchConfiguration configuration, IPath projectRootPath, boolean hasSecond) {
+	public static DirectorCustomImpl create(final Workflow workflow,
+		final ILaunchConfiguration configuration, final IPath projectRootPath, final boolean hasSecond) {
 
-		DirectorCustomImpl director = new DirectorCustomImpl(workflow);
+		final DirectorCustomImpl director = new DirectorCustomImpl(workflow);
 
 		director.setManifest( ManifestCustomImpl.create(true, true) );
 
@@ -92,12 +95,12 @@ public class DirectorCustomImpl extends DirectorImpl
 
 
 	public boolean configureProject(
-			ILaunchConfiguration configuration, IPath projectRootPath) {
-		String modelPath = WorkflowFileUtils.getAbsoluteLocation(
+			final ILaunchConfiguration configuration, final IPath projectRootPath) {
+		final String modelPath = WorkflowFileUtils.getAbsoluteLocation(
 				configuration, ATTR_SPECIFICATION_MODEL_FILE_LOCATION, "");
 
 		if( ! modelPath.isEmpty() ) {
-			Project project = CommonFactory.eINSTANCE.createProject();
+			final Project project = CommonFactory.eINSTANCE.createProject();
 
 			project.setSource(WorkflowFileUtils.makeRelativeParentLocation(
 							projectRootPath, modelPath));
@@ -113,7 +116,7 @@ public class DirectorCustomImpl extends DirectorImpl
 	}
 
 
-	public static boolean isCoverageAnalysisProfile(AnalysisProfileKind analysisProfile) {
+	public static boolean isCoverageAnalysisProfile(final AnalysisProfileKind analysisProfile) {
 		switch( analysisProfile ) {
 		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
 		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
@@ -125,7 +128,7 @@ public class DirectorCustomImpl extends DirectorImpl
 		}
 	}
 
-	public static boolean isExplorationAnalysisProfile(AnalysisProfileKind analysisProfile) {
+	public static boolean isExplorationAnalysisProfile(final AnalysisProfileKind analysisProfile) {
 		switch( analysisProfile ) {
 		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
 		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
@@ -142,7 +145,7 @@ public class DirectorCustomImpl extends DirectorImpl
 	}
 
 
-	public boolean configureMainWorker(ILaunchConfiguration configuration) {
+	public boolean configureMainWorker(final ILaunchConfiguration configuration) {
 		AnalysisProfileKind modelAnalysisProfile = null;
 		try {
 			final String strAnalysisProfile = configuration.getAttribute(
@@ -151,7 +154,7 @@ public class DirectorCustomImpl extends DirectorImpl
 
 			modelAnalysisProfile = AnalysisProfileKind.get(strAnalysisProfile);
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 		}
 
@@ -160,7 +163,7 @@ public class DirectorCustomImpl extends DirectorImpl
 			modelAnalysisProfile = AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		}
 
-		SupervisorWorkerCustomImpl supervisor = SupervisorWorkerCustomImpl.create(
+		final SupervisorWorkerCustomImpl supervisor = SupervisorWorkerCustomImpl.create(
 				configuration, isCoverageAnalysisProfile(modelAnalysisProfile));
 
 		setDescription( "of graph exploration" );
@@ -181,7 +184,7 @@ public class DirectorCustomImpl extends DirectorImpl
 				break;
 			}
 			case ANALYSIS_TRANSITION_COVERAGE_PROFILE: {
-				TransitionCoverageWorkerCustomImpl worker =
+				final TransitionCoverageWorkerCustomImpl worker =
 						TransitionCoverageWorkerCustomImpl.create(
 								this, configuration);
 
@@ -196,7 +199,7 @@ public class DirectorCustomImpl extends DirectorImpl
 				break;
 			}
 			case ANALYSIS_BEHAVIOR_SELECTION_PROFILE: {
-				BehaviorCoverageWorkerCustomImpl worker =
+				final BehaviorCoverageWorkerCustomImpl worker =
 						BehaviorCoverageWorkerCustomImpl.create(
 								this, configuration);
 
@@ -207,7 +210,7 @@ public class DirectorCustomImpl extends DirectorImpl
 				break;
 			}
 			case ANALYSIS_TEST_OFFLINE_PROFILE: {
-				OfflineTestWorkerCustomImpl worker =
+				final OfflineTestWorkerCustomImpl worker =
 						OfflineTestWorkerCustomImpl.create(
 								this, configuration);
 
@@ -219,7 +222,7 @@ public class DirectorCustomImpl extends DirectorImpl
 			}
 
 			case ANALYSIS_ACSL_GENERATION_PROFILE: {
-				InferenceContractWorkerCustomImpl worker =
+				final InferenceContractWorkerCustomImpl worker =
 						InferenceContractWorkerCustomImpl.create(
 								this, configuration);
 
@@ -229,7 +232,7 @@ public class DirectorCustomImpl extends DirectorImpl
 			}
 
 			case ANALYSIS_EXTRANEOUS_PROFILE: {
-				ExtraneousWorkerCustomImpl worker =
+				final ExtraneousWorkerCustomImpl worker =
 						ExtraneousWorkerCustomImpl.create(this, configuration);
 
 				getWorker().add( worker );
@@ -252,14 +255,14 @@ public class DirectorCustomImpl extends DirectorImpl
 						ATTR_OPAQUE_MODULE_ENABLED_AS_ADDITIONAL_WORKER,
 						DEFAULT_OPAQUE_MODULE_ENABLED_AS_ADDITIONAL_WORKER);
 			}
-			catch( CoreException e ) {
+			catch( final CoreException e ) {
 				e.printStackTrace();
 
 				couldUsedAsAdditionalModule = false;
 			}
 
 			if( couldUsedAsAdditionalModule ) {
-				ExtraneousWorkerCustomImpl worker =
+				final ExtraneousWorkerCustomImpl worker =
 						ExtraneousWorkerCustomImpl.create(this, configuration);
 
 				getWorker().add( worker );
@@ -267,7 +270,7 @@ public class DirectorCustomImpl extends DirectorImpl
 		}
 
 		if( isRedundancyDetectionPossible ) {
-			RedundancyDetection redundancy =
+			final RedundancyDetection redundancy =
 					CommonFactory.eINSTANCE.createRedundancyDetection();
 			getSupervisor().setRedundancy(redundancy);
 
@@ -276,7 +279,7 @@ public class DirectorCustomImpl extends DirectorImpl
 				enabledRedundancyDetection = configuration.getAttribute(
 						ATTR_ENABLED_REDUNDANCY_DETECTION, false);
 			}
-			catch( CoreException e ) {
+			catch( final CoreException e ) {
 				e.printStackTrace();
 
 				enabledRedundancyDetection = false;
@@ -289,7 +292,7 @@ public class DirectorCustomImpl extends DirectorImpl
 				enabledRedundancyDetection = configuration.getAttribute(
 						ATTR_ENABLED_REDUNDANCY_TRIVIAL_LOOP_DETECTION, false);
 			}
-			catch( CoreException e ) {
+			catch( final CoreException e ) {
 				e.printStackTrace();
 
 				enabledRedundancyDetection = false;
@@ -303,7 +306,7 @@ public class DirectorCustomImpl extends DirectorImpl
 						configuration.getAttribute(ATTR_REDUNDANCY_PATH_SCOPE,
 								RedundancyPathScope.CURRENT.getLiteral()));
 			}
-			catch( CoreException e1 ) {
+			catch( final CoreException e1 ) {
 				e1.printStackTrace();
 			}
 			if( scope == null ) {
@@ -317,7 +320,7 @@ public class DirectorCustomImpl extends DirectorImpl
 						configuration.getAttribute(ATTR_REDUNDANCY_COMPARER_OPERATION,
 								RedundancyComparerOperation.INCLUSION.getLiteral()));
 			}
-			catch( CoreException e1 ) {
+			catch( final CoreException e1 ) {
 				e1.printStackTrace();
 			}
 			if( comparer == null ) {
@@ -332,7 +335,7 @@ public class DirectorCustomImpl extends DirectorImpl
 		return( true );
 	}
 
-	public boolean configureSerializerWorker(ILaunchConfiguration configuration) {
+	public boolean configureSerializerWorker(final ILaunchConfiguration configuration) {
 
 		boolean enabledSerialization;
 
@@ -341,17 +344,25 @@ public class DirectorCustomImpl extends DirectorImpl
 			enabledSerialization = configuration.getAttribute(
 					ATTR_ENABLED_FIRST_PARSED_MODEL_GRAPHVIZ_GENERATION, false);
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 
 			enabledSerialization = false;
 		}
 		if( enabledSerialization ) {
-			ModelGraphvizSerializerWorkerCustomImpl modelSerializer =
+			// Graphic (PlantUML Statemachne Diagram) serializer
+			final ModelGraphicSerializerWorkerCustomImpl graphicSerializer =
+					ModelGraphicSerializerWorkerCustomImpl.create(
+							this, configuration);
+
+			getWorker().add( graphicSerializer );
+
+			// GraphViz (Dot Statemachne Diagram) serializer
+			final ModelGraphvizSerializerWorkerCustomImpl graphvizSerializer =
 					ModelGraphvizSerializerWorkerCustomImpl.create(
 							this, configuration);
 
-			getWorker().add( modelSerializer );
+			getWorker().add( graphvizSerializer );
 		}
 
 		// Symbex Graph [ GraphViz ] serialization
@@ -359,21 +370,29 @@ public class DirectorCustomImpl extends DirectorImpl
 			enabledSerialization = configuration.getAttribute(
 				ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION, false);
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 
 			enabledSerialization = false;
 		}
 		if( enabledSerialization ) {
-			SymbexGraphvizSerializerWorkerCustomImpl modelSerializer =
+			// Graphic (PlantUML Sequence Diagram) serializer
+//			final SymbexGraphicSerializerWorkerCustomImpl graphicSerializer =
+//					SymbexGraphicSerializerWorkerCustomImpl.create(
+//							this, configuration);
+//
+//			getWorker().add( graphicSerializer );
+
+			// GraphViz (Dot Graph) serializer
+			final SymbexGraphvizSerializerWorkerCustomImpl graphvizSerializer =
 					SymbexGraphvizSerializerWorkerCustomImpl.create(
 							this, configuration);
 
-			getWorker().add( modelSerializer );
+			getWorker().add( graphvizSerializer );
 		}
 
 
-		DeveloperTuningOptionCustomImpl devTuning =
+		final DeveloperTuningOptionCustomImpl devTuning =
 				DeveloperTuningOptionCustomImpl.createDirector(configuration);
 
 		setDeveloperTuning( devTuning );
@@ -382,22 +401,22 @@ public class DirectorCustomImpl extends DirectorImpl
 		return( true );
 	}
 
-	public boolean configureDebugWorker(ILaunchConfiguration configuration) {
+	public boolean configureDebugWorker(final ILaunchConfiguration configuration) {
 
 		return( true );
 	}
 
 
-	public boolean configureOtherWorker(ILaunchConfiguration configuration) {
+	public boolean configureOtherWorker(final ILaunchConfiguration configuration) {
 
 		return( true );
 	}
 
 
-	public static DirectorCustomImpl createSecond(Workflow workflow,
-			ILaunchConfiguration configuration) {
+	public static DirectorCustomImpl createSecond(final Workflow workflow,
+			final ILaunchConfiguration configuration) {
 
-		DirectorCustomImpl director = new DirectorCustomImpl(workflow);
+		final DirectorCustomImpl director = new DirectorCustomImpl(workflow);
 
 		director.setManifest( ManifestCustomImpl.create(true, true) );
 
@@ -413,9 +432,9 @@ public class DirectorCustomImpl extends DirectorImpl
 		return( director );
 	}
 
-	public boolean configureSecondWorker(ILaunchConfiguration configuration) {
+	public boolean configureSecondWorker(final ILaunchConfiguration configuration) {
 
-		SupervisorWorkerCustomImpl supervisor =
+		final SupervisorWorkerCustomImpl supervisor =
 				SupervisorWorkerCustomImpl.createSecond(configuration);
 
 		setDescription( "of graph exploration" );
@@ -423,7 +442,7 @@ public class DirectorCustomImpl extends DirectorImpl
 		setSupervisor( supervisor );
 
 		// Execution completion to next observable (default 'output#env = [*]')
-		BehaviorCoverageWorkerCustomImpl worker =
+		final BehaviorCoverageWorkerCustomImpl worker =
 				BehaviorCoverageWorkerCustomImpl.createSecond(
 						this, configuration);
 
@@ -435,7 +454,7 @@ public class DirectorCustomImpl extends DirectorImpl
 	}
 
 	public boolean configureSecondSerializerWorker(
-			ILaunchConfiguration configuration, boolean hasSecond) {
+			final ILaunchConfiguration configuration, final boolean hasSecond) {
 
 		boolean enabledSerialization;
 
@@ -443,13 +462,21 @@ public class DirectorCustomImpl extends DirectorImpl
 		try {
 			enabledSerialization = configuration.getAttribute(
 					ATTR_BASIC_TRACE_ENABLED_GENERATION, false);
-		} catch( CoreException e ) {
+		} catch( final CoreException e ) {
 			e.printStackTrace();
 
 			enabledSerialization = false;
 		}
 		if( enabledSerialization ) {
-			BasicTraceSerializerWorkerCustomImpl basicSerializer =
+			// Sequence Diagram ( PlantUML format) Trace Serializer
+			final SequenceDiagramTraceSerializerWorkerCustomImpl sequenceDiagramSerializer =
+					SequenceDiagramTraceSerializerWorkerCustomImpl.create(
+							this, configuration);
+
+			this.getWorker().add( sequenceDiagramSerializer );
+
+			// Basic Textual (ad'oc  format) Trace Serializer
+			final BasicTraceSerializerWorkerCustomImpl basicSerializer =
 					BasicTraceSerializerWorkerCustomImpl.create(
 							this, configuration);
 
@@ -460,13 +487,13 @@ public class DirectorCustomImpl extends DirectorImpl
 		try {
 			enabledSerialization = configuration.getAttribute(
 					ATTR_TTCN_ENABLED_GENERATION, false);
-		} catch( CoreException e ) {
+		} catch( final CoreException e ) {
 			e.printStackTrace();
 
 			enabledSerialization = false;
 		}
 		if( enabledSerialization ) {
-			TTCNTraceSerializerWorkerCustomImpl ttcnSerializer =
+			final TTCNTraceSerializerWorkerCustomImpl ttcnSerializer =
 					TTCNTraceSerializerWorkerCustomImpl.create(
 							this, configuration);
 
@@ -478,13 +505,13 @@ public class DirectorCustomImpl extends DirectorImpl
 			enabledSerialization = configuration.getAttribute(
 				ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION, false);
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 
 			enabledSerialization = false;
 		}
 		if( enabledSerialization ) {
-			SymbexGraphvizSerializerWorkerCustomImpl modelSerializer =
+			final SymbexGraphvizSerializerWorkerCustomImpl modelSerializer =
 					SymbexGraphvizSerializerWorkerCustomImpl.createSecond(
 							this, configuration);
 
@@ -492,7 +519,7 @@ public class DirectorCustomImpl extends DirectorImpl
 		}
 
 		if( hasSecond ) {
-			DeveloperTuningOptionCustomImpl devTuning =
+			final DeveloperTuningOptionCustomImpl devTuning =
 				DeveloperTuningOptionCustomImpl.createSecondDirector(configuration);
 
 			setDeveloperTuning( devTuning );
@@ -502,7 +529,7 @@ public class DirectorCustomImpl extends DirectorImpl
 	}
 
 
-	public void toWriter(PrettyPrintWriter writer) {
+	public void toWriter(final PrettyPrintWriter writer) {
 		writer.commentLine( getComment() );
 
 		writer.appendTab( "director" );
@@ -518,14 +545,14 @@ public class DirectorCustomImpl extends DirectorImpl
 
 		writer.appendEol( " {" );
 
-		PrettyPrintWriter writer2 = writer.itab2();
+		final PrettyPrintWriter writer2 = writer.itab2();
 
-		ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
+		final ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
 		if( manifest != null ) {
 			manifest.toWriter(writer2);
 		}
 
-		Project project = getProject();
+		final Project project = getProject();
 		if( project != null ) {
 			writer2.appendTabEol( "project 'path of input model' [" );
 			writer2.appendTab2( "source = \"" )
@@ -538,9 +565,9 @@ public class DirectorCustomImpl extends DirectorImpl
 		((SupervisorWorkerCustomImpl) getSupervisor()).toWriter( writer2 );
 
 		writer2.appendTabEol( "worker [" );
-		PrettyPrintWriter writer3 = writer.itab3();
+		final PrettyPrintWriter writer3 = writer.itab3();
 
-		for( Worker worker : getWorker() ) {
+		for( final Worker worker : getWorker() ) {
 			// Coverage Worker
 			if( worker instanceof BehaviorCoverageWorkerCustomImpl ) {
 				((BehaviorCoverageWorkerCustomImpl)
@@ -552,8 +579,17 @@ public class DirectorCustomImpl extends DirectorImpl
 			}
 
 			// Serializer Worker
+			else if( worker instanceof ModelGraphicSerializerWorkerCustomImpl ) {
+				((ModelGraphicSerializerWorkerCustomImpl)
+						worker).toWriter( writer3 );
+			}
 			else if( worker instanceof ModelGraphvizSerializerWorkerCustomImpl ) {
 				((ModelGraphvizSerializerWorkerCustomImpl)
+						worker).toWriter( writer3 );
+			}
+
+			else if( worker instanceof SymbexGraphicSerializerWorkerCustomImpl ) {
+				((SymbexGraphicSerializerWorkerCustomImpl)
 						worker).toWriter( writer3 );
 			}
 			else if( worker instanceof SymbexGraphvizSerializerWorkerCustomImpl ) {
@@ -563,6 +599,10 @@ public class DirectorCustomImpl extends DirectorImpl
 
 			else if( worker instanceof BasicTraceSerializerWorkerCustomImpl ) {
 				((BasicTraceSerializerWorkerCustomImpl)
+						worker).toWriter( writer3 );
+			}
+			else if( worker instanceof SequenceDiagramTraceSerializerWorkerCustomImpl ) {
+				((SequenceDiagramTraceSerializerWorkerCustomImpl)
 						worker).toWriter( writer3 );
 			}
 			else if( worker instanceof TTCNTraceSerializerWorkerCustomImpl ) {
@@ -604,13 +644,13 @@ public class DirectorCustomImpl extends DirectorImpl
 
 		writer.appendTab2Eol( "] // end worker" );
 
-		ConsoleLogFormatCustomImpl console =
+		final ConsoleLogFormatCustomImpl console =
 				(ConsoleLogFormatCustomImpl) getConsole();
 		if( console != null ) {
 			console.toWriter( writer2 );
 		}
 
-		DeveloperTuningOptionCustomImpl devTuning =
+		final DeveloperTuningOptionCustomImpl devTuning =
 				(DeveloperTuningOptionCustomImpl) getDeveloperTuning();
 		if( devTuning != null ) {
 			devTuning.toWriter( writer2 ); // "debug" );

@@ -12,7 +12,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.efm.modeling.codegen.scxml.SCXMLCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.core.MainCodeGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.util.SimpleLogger;
 import org.eclipse.papyrus.designer.languages.common.base.HierarchyLocationStrategy;
@@ -38,16 +37,16 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 
 	protected MainCodeGenerator  fXLIACodeGenerator;
 
-	protected SCXMLCodeGenerator fSCXMLCodeGenerator;
+//	protected SCXMLCodeGenerator fSCXMLCodeGenerator;
 
 
-	public CodegenModelElementsCreator(IProject project) {
+	public CodegenModelElementsCreator(final IProject project) {
 		super(new ProjectBasedFileAccess(project),
 				new HierarchyLocationStrategy(), FML_LANGUAGE);
 
 		this.fXLIACodeGenerator  = new MainCodeGenerator();
 
-		this.fSCXMLCodeGenerator = new SCXMLCodeGenerator();
+//		this.fSCXMLCodeGenerator = new SCXMLCodeGenerator();
 	}
 
 	/**
@@ -59,7 +58,7 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 
 	@Override
 	protected void createPackageableElementFile(
-			PackageableElement classifier, IProgressMonitor monitor) {
+			final PackageableElement classifier, final IProgressMonitor monitor) {
 
 		if( (classifier instanceof org.eclipse.uml2.uml.Class) ||
 			(classifier instanceof org.eclipse.uml2.uml.Model) ) {
@@ -75,14 +74,14 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 	}
 
 	@Override
-	protected boolean noCodeGen(Element element) {
+	protected boolean noCodeGen(final Element element) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	protected void createElementFile(
-			NamedElement namedElement, IProgressMonitor monitor)
+			final NamedElement namedElement, final IProgressMonitor monitor)
 	{
 		// xLIA Code Generation
 		final IPath xliaFileLocation = (new Path(FML_GEN_FOLDER))
@@ -92,13 +91,13 @@ public class CodegenModelElementsCreator extends ModelElementsCreator {
 		this.fileSystemAccess.generateFile(xliaFileLocation.toString(),
 				this.fXLIACodeGenerator.performTransform(namedElement));
 
-		// SCXML Code Generation
-		final IPath scxmlFileLocation = (new Path(FML_GEN_FOLDER))
-				.append(this.locStrategy.getFileName(namedElement))
-				.addFileExtension(FML_SCXML_FILE_EXTENSION);
-
-		this.fileSystemAccess.generateFile(scxmlFileLocation.toString(),
-				this.fSCXMLCodeGenerator.performTransform(namedElement));
+		// SCXML Code Generation ==> replace by XTEXT PlantUML generator
+//		final IPath scxmlFileLocation = (new Path(FML_GEN_FOLDER))
+//				.append(this.locStrategy.getFileName(namedElement))
+//				.addFileExtension(FML_SCXML_FILE_EXTENSION);
+//
+//		this.fileSystemAccess.generateFile(scxmlFileLocation.toString(),
+//				this.fSCXMLCodeGenerator.performTransform(namedElement));
 
 //		// Graphic Code Generation
 //		final IPath graphicFileLocation = (new Path(FML_GEN_FOLDER))

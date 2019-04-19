@@ -18,7 +18,7 @@ import org.eclipse.uml2.uml.NamedElement;
 public abstract class AbstractCodeGenerator {
 
 	/**
-	 * SCXMLCodeGenerator Supervisor
+	 * MainCodeGeneratorMainCodeGenerator Supervisor
 	 */
 	protected MainCodeGenerator fSupervisor;
 
@@ -43,7 +43,7 @@ public abstract class AbstractCodeGenerator {
 	 * Constructor
 	 * @param supervisor
 	 */
-	public AbstractCodeGenerator(MainCodeGenerator supervisor) {
+	public AbstractCodeGenerator(final MainCodeGenerator supervisor) {
 		super();
 
 		this.fSupervisor = supervisor;
@@ -60,7 +60,7 @@ public abstract class AbstractCodeGenerator {
 		return LOGGER.reset();
 	}
 
-	public void log(IStatus aStatus) {
+	public void log(final IStatus aStatus) {
 		LOGGER.log(aStatus);
 	}
 
@@ -81,7 +81,7 @@ public abstract class AbstractCodeGenerator {
 
 
 	public void performTransformError(
-			AbstractCodeGenerator context, Element element) {
+			final AbstractCodeGenerator context, final Element element) {
 		if( element instanceof NamedElement ) {
 			LOGGER.error( ( new StringBuilder(context.getClass().getSimpleName()) )
 				.append( ":> unexpected " )

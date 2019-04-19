@@ -21,7 +21,7 @@ public interface IWorkflowConfigurationSyntax {
 	// HELPERS for BEHAVIOR SELECTION ANALYSIS
 	///////////////////////////////////////////////////////////////////////////
 
-	public static final String BEHAVIOR_DESCRIPTION
+	String BEHAVIOR_DESCRIPTION
 			= "Select a list of elements to characterize the behavior to be find."
 			+ "\nThe list can be a set of following elements:"
 			+ "\n\t- transition =\"a-transition-name\""
@@ -31,7 +31,7 @@ public interface IWorkflowConfigurationSyntax {
 			+ "\n\t_ com =\"a_com_input_or_output_port_or_signal_used_in_a_statement\""
 			+ "\nAll items must be separated by newline or semicolon.";
 
-	public static final List<String> BEHAVIOR_INITIAL_SAMPLE
+	List<String> BEHAVIOR_INITIAL_SAMPLE
 			= Arrays.asList(
 					"// Sequence of elements characterizing the desired behavior."
 //					"\n// The elements of the sequence may be selected from:",
@@ -49,10 +49,10 @@ public interface IWorkflowConfigurationSyntax {
 	// HELPERS for TEST OFFLINE ANALYSIS
 	///////////////////////////////////////////////////////////////////////////
 
-	public static final String TEST_OFFLINE_OBSERVABLE
+	String TEST_OFFLINE_OBSERVABLE
 			= "Selection of Observable Element";
 
-	public static final String TEST_OFFLINE_CONTROLLABLE
+	String TEST_OFFLINE_CONTROLLABLE
 			= "Selection of Controllable Element";
 
 
@@ -60,7 +60,7 @@ public interface IWorkflowConfigurationSyntax {
 	// TRACE SPECIFICATION
 	////////////////////////////////////////////////////////////////////////////
 
-	public static final String SYNTAX_TRACE_SPECIFICATION
+	String SYNTAX_TRACE_SPECIFICATION
 			= "\n## Trace Specification"
 			+ "\n- [*] , use for ANY element"
 			+ "\n- com_element_id ::= <port_name_id> | <signal_name_id>"
@@ -81,7 +81,7 @@ public interface IWorkflowConfigurationSyntax {
 			+ "\n- statemachine = <statemachine_name_id>";
 
 
-	public static final String SYNTAX_TRACE_SPECIFICATION_LINK
+	String SYNTAX_TRACE_SPECIFICATION_LINK
 			= "// See full grammar of [Trace Specification] "
 			+ "at the end of this generated file";
 
@@ -90,7 +90,7 @@ public interface IWorkflowConfigurationSyntax {
 	// AD'HOC FORMAT SPECIFICATION
 	////////////////////////////////////////////////////////////////////////////
 
-	public static final String SYNTAX_TRACE_FORMAT_SPECIFICATION
+	String SYNTAX_TRACE_FORMAT_SPECIFICATION
 			= "\n## Trace Format Specification"
 			+ "\n- line#wrap#width = 80"
 			+ "\n- line#wrap#separator = \"\\n\\\t\""
@@ -140,6 +140,8 @@ public interface IWorkflowConfigurationSyntax {
 			+ "\n// %2% --> machine container identifier"
 			+ "\n// %3% --> port | signal | variable | machine | transition | routine"
 			+ "\n// %4% --> value"
+			+ "\n// %5% --> machine sender   identifier name"
+			+ "\n// %6% --> machine receiver identifier name"
 
 			+ "\n- time   = \"\\t%4%\""
 
@@ -152,11 +154,11 @@ public interface IWorkflowConfigurationSyntax {
 
 			+ "\n- input#env  = \"\\tINPUT  %2%->%3%%4%\""
 			+ "\n- output#env = \"\\tOUTPUT %2%->%3%%4%\""
-			
+
 			+ "\n- trace = \"%4%\"";
 
 
-	  public static final String SYNTAX_TRACE_FORMAT_SPECIFICATION_LINK
+	  String SYNTAX_TRACE_FORMAT_SPECIFICATION_LINK
 			= "// See full grammar of [Trace Format Specification] "
 			+ "at the end of this generated file";
 
@@ -165,7 +167,7 @@ public interface IWorkflowConfigurationSyntax {
 	// HELPERS for AD'HOC FORMAT SPECIFICATION
 	////////////////////////////////////////////////////////////////////////////
 
-	  public final String HELPER_TRACE_FORMAT_SPECIFICATION
+	  String HELPER_TRACE_FORMAT_SPECIFICATION
 			= "// TracePoint with only <value> attribute as "
 					+ "condition (e.g. path#condition...)"
 			+ "\n%1% --> condition"
@@ -183,7 +185,7 @@ public interface IWorkflowConfigurationSyntax {
 	// HELPERS for TTCN3  TESTCASES_IMPLEMENTATION
 	///////////////////////////////////////////////////////////////////////////
 
-	public final String HELPER_MODULE_TESTCASE_IMPLEMENTATION_TEMPLATE
+	String HELPER_MODULE_TESTCASE_IMPLEMENTATION_TEMPLATE
 			= "module TTCN_Testcases {"
 			+ "\n\timport from TTCN_Adaptation all;"
 			+ "\n\timport from TTCN_Templates all;"
@@ -202,11 +204,11 @@ public interface IWorkflowConfigurationSyntax {
 			+ "\n}";
 
 
-	public final String HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS
+	String HELPER_MODULE_TESTCASE_STARTING_ENDING_PATTERN_PARAMETERS
 			= "%1% --> <system identifier>";
 
 
-	public final String HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS
+	String HELPER_MODULE_TESTCASE_COMMUNICATION_PATTERN_PARAMETERS
 			=   "%1% --> <port name id>"
 			+ "\n%2% --> <container/lifeline/component name id>"
 			+ "\n%3% --> <system name id>"
@@ -217,7 +219,7 @@ public interface IWorkflowConfigurationSyntax {
 			+ "\n%8% --> <port parameters template message>";
 
 
-	public final String HELPER_MODULE_ADAPTATION_IMPLEMENTATION_TEMPLATE
+	String HELPER_MODULE_ADAPTATION_IMPLEMENTATION_TEMPLATE
 			= "module TTCN_Adaptation {"
 			+ "\n\timport from TTCN_Declarations all;"
 			+ "\n\t// Components declaration"
@@ -235,7 +237,7 @@ public interface IWorkflowConfigurationSyntax {
 	// HELPER for INCUBATION MODULE as OPAQUE WORKER
 	////////////////////////////////////////////////////////////////////////////
 
-	public static final String HELPER_OPAQUE_MODULE_TEXTUAL_CONFIGURATION
+	String HELPER_OPAQUE_MODULE_TEXTUAL_CONFIGURATION
 			= "// a sample of opaque worker workflow with its textual configuration\n"
 			+ "incubation#worker  new_incubation_worker {\n"
 			+ "\tproperty [\n"

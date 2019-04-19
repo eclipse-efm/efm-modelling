@@ -20,13 +20,13 @@ import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
-import org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphVizSerializerWorkerImpl;
+import org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphicSerializerWorkerImpl;
 
-public class SymbexGraphvizSerializerWorkerCustomImpl
-		extends SymbexGraphVizSerializerWorkerImpl
+public class SymbexGraphicSerializerWorkerCustomImpl
+		extends SymbexGraphicSerializerWorkerImpl
 		implements IWorkflowConfigurationConstants {
 
-	protected SymbexGraphvizSerializerWorkerCustomImpl(
+	protected SymbexGraphicSerializerWorkerCustomImpl(
 			final Director director, final String name) {
 		super();
 
@@ -34,7 +34,7 @@ public class SymbexGraphvizSerializerWorkerCustomImpl
 		setName(name);
 	}
 
-	protected SymbexGraphvizSerializerWorkerCustomImpl(
+	protected SymbexGraphicSerializerWorkerCustomImpl(
 			final Director director, final String name, final String description) {
 		super();
 
@@ -44,12 +44,12 @@ public class SymbexGraphvizSerializerWorkerCustomImpl
 	}
 
 
-	public static SymbexGraphvizSerializerWorkerCustomImpl create(
+	public static SymbexGraphicSerializerWorkerCustomImpl create(
 			final Director director, final ILaunchConfiguration configuration) {
 
-		final SymbexGraphvizSerializerWorkerCustomImpl serializerWorker =
-				new SymbexGraphvizSerializerWorkerCustomImpl(
-						director, "symbex2graphviz");
+		final SymbexGraphicSerializerWorkerCustomImpl serializerWorker =
+				new SymbexGraphicSerializerWorkerCustomImpl(
+						director, "symbex2graphic");
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
 
@@ -114,11 +114,11 @@ public class SymbexGraphvizSerializerWorkerCustomImpl
 	}
 
 
-	public static SymbexGraphvizSerializerWorkerCustomImpl createSecond(
+	public static SymbexGraphicSerializerWorkerCustomImpl createSecond(
 			final Director director, final ILaunchConfiguration configuration) {
 
-		final SymbexGraphvizSerializerWorkerCustomImpl serializerWorker =
-				new SymbexGraphvizSerializerWorkerCustomImpl(
+		final SymbexGraphicSerializerWorkerCustomImpl serializerWorker =
+				new SymbexGraphicSerializerWorkerCustomImpl(
 						director, "symbex2graphiz#extension");
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
@@ -173,7 +173,7 @@ public class SymbexGraphvizSerializerWorkerCustomImpl
 	public void toWriter(final PrettyPrintWriter writer) {
 		writer.commentLine( getComment() );
 
-		writer.appendTab( "serializer#symbex#graphviz" );
+		writer.appendTab( "serializer#symbex#graphic" );
 
 		String str = getName();
 		if( str != null ) {

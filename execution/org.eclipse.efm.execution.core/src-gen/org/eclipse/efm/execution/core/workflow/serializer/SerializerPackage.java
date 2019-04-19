@@ -68,6 +68,169 @@ public interface SerializerPackage extends EPackage {
 	SerializerPackage eINSTANCE = org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.ModelGraphicSerializerWorkerImpl <em>Model Graphic Serializer Worker</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.ModelGraphicSerializerWorkerImpl
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getModelGraphicSerializerWorker()
+	 * @generated
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__NAME = WorkflowPackage.SERIALIZER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__DESCRIPTION = WorkflowPackage.SERIALIZER__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Comment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__COMMENT = WorkflowPackage.SERIALIZER__COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Manifest</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__MANIFEST = WorkflowPackage.SERIALIZER__MANIFEST;
+
+	/**
+	 * The feature id for the '<em><b>Director</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__DIRECTOR = WorkflowPackage.SERIALIZER__DIRECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Console</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__CONSOLE = WorkflowPackage.SERIALIZER__CONSOLE;
+
+	/**
+	 * The feature id for the '<em><b>Format</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__FORMAT = WorkflowPackage.SERIALIZER__FORMAT;
+
+	/**
+	 * The feature id for the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__CSS = WorkflowPackage.SERIALIZER__CSS;
+
+	/**
+	 * The feature id for the '<em><b>Trace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__TRACE = WorkflowPackage.SERIALIZER__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Folder Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__FOLDER_NAME = WorkflowPackage.SERIALIZER__FOLDER_NAME;
+
+	/**
+	 * The feature id for the '<em><b>File Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__ENABLED_INITIAL_VALUES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Lifelines Printing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__ENABLED_LIFELINES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__ENABLED_MODIFIED_DATA_SELECTION = WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION;
+
+	/**
+	 * The number of structural features of the '<em>Model Graphic Serializer Worker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER_FEATURE_COUNT = WorkflowPackage.SERIALIZER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Model Graphic Serializer Worker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER_OPERATION_COUNT = WorkflowPackage.SERIALIZER_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.ModelGraphvizSerializerWorkerImpl <em>Model Graphviz Serializer Worker</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -75,7 +238,7 @@ public interface SerializerPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getModelGraphvizSerializerWorker()
 	 * @generated
 	 */
-	int MODEL_GRAPHVIZ_SERIALIZER_WORKER = 0;
+	int MODEL_GRAPHVIZ_SERIALIZER_WORKER = 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -231,6 +394,169 @@ public interface SerializerPackage extends EPackage {
 	int MODEL_GRAPHVIZ_SERIALIZER_WORKER_OPERATION_COUNT = WorkflowPackage.SERIALIZER_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphicSerializerWorkerImpl <em>Symbex Graphic Serializer Worker</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphicSerializerWorkerImpl
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getSymbexGraphicSerializerWorker()
+	 * @generated
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER = 2;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__NAME = WorkflowPackage.SERIALIZER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__DESCRIPTION = WorkflowPackage.SERIALIZER__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Comment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__COMMENT = WorkflowPackage.SERIALIZER__COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Manifest</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__MANIFEST = WorkflowPackage.SERIALIZER__MANIFEST;
+
+	/**
+	 * The feature id for the '<em><b>Director</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__DIRECTOR = WorkflowPackage.SERIALIZER__DIRECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Console</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__CONSOLE = WorkflowPackage.SERIALIZER__CONSOLE;
+
+	/**
+	 * The feature id for the '<em><b>Format</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__FORMAT = WorkflowPackage.SERIALIZER__FORMAT;
+
+	/**
+	 * The feature id for the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__CSS = WorkflowPackage.SERIALIZER__CSS;
+
+	/**
+	 * The feature id for the '<em><b>Trace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__TRACE = WorkflowPackage.SERIALIZER__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Folder Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__FOLDER_NAME = WorkflowPackage.SERIALIZER__FOLDER_NAME;
+
+	/**
+	 * The feature id for the '<em><b>File Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__ENABLED_INITIAL_VALUES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Lifelines Printing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__ENABLED_LIFELINES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__ENABLED_MODIFIED_DATA_SELECTION = WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION;
+
+	/**
+	 * The number of structural features of the '<em>Symbex Graphic Serializer Worker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER_FEATURE_COUNT = WorkflowPackage.SERIALIZER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Symbex Graphic Serializer Worker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER_OPERATION_COUNT = WorkflowPackage.SERIALIZER_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphVizSerializerWorkerImpl <em>Symbex Graph Viz Serializer Worker</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -238,7 +564,7 @@ public interface SerializerPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getSymbexGraphVizSerializerWorker()
 	 * @generated
 	 */
-	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER = 1;
+	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -401,7 +727,7 @@ public interface SerializerPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getBasicTraceSerializer()
 	 * @generated
 	 */
-	int BASIC_TRACE_SERIALIZER = 2;
+	int BASIC_TRACE_SERIALIZER = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -564,7 +890,7 @@ public interface SerializerPackage extends EPackage {
 	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getTTCNTraceSerializer()
 	 * @generated
 	 */
-	int TTCN_TRACE_SERIALIZER = 3;
+	int TTCN_TRACE_SERIALIZER = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -856,6 +1182,344 @@ public interface SerializerPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexSequenceDiagramSerializerWorkerImpl <em>Symbex Sequence Diagram Serializer Worker</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexSequenceDiagramSerializerWorkerImpl
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getSymbexSequenceDiagramSerializerWorker()
+	 * @generated
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER = 6;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__NAME = WorkflowPackage.SERIALIZER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__DESCRIPTION = WorkflowPackage.SERIALIZER__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Comment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__COMMENT = WorkflowPackage.SERIALIZER__COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Manifest</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__MANIFEST = WorkflowPackage.SERIALIZER__MANIFEST;
+
+	/**
+	 * The feature id for the '<em><b>Director</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__DIRECTOR = WorkflowPackage.SERIALIZER__DIRECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Console</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__CONSOLE = WorkflowPackage.SERIALIZER__CONSOLE;
+
+	/**
+	 * The feature id for the '<em><b>Format</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__FORMAT = WorkflowPackage.SERIALIZER__FORMAT;
+
+	/**
+	 * The feature id for the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__CSS = WorkflowPackage.SERIALIZER__CSS;
+
+	/**
+	 * The feature id for the '<em><b>Trace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__TRACE = WorkflowPackage.SERIALIZER__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Folder Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__FOLDER_NAME = WorkflowPackage.SERIALIZER__FOLDER_NAME;
+
+	/**
+	 * The feature id for the '<em><b>File Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__ENABLED_INITIAL_VALUES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Lifelines Printing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__ENABLED_LIFELINES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__ENABLED_MODIFIED_DATA_SELECTION = WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION;
+
+	/**
+	 * The number of structural features of the '<em>Symbex Sequence Diagram Serializer Worker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER_FEATURE_COUNT = WorkflowPackage.SERIALIZER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Symbex Sequence Diagram Serializer Worker</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER_OPERATION_COUNT = WorkflowPackage.SERIALIZER_OPERATION_COUNT + 0;
+
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.SequenceDiagramTraceSerializerImpl <em>Sequence Diagram Trace Serializer</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SequenceDiagramTraceSerializerImpl
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getSequenceDiagramTraceSerializer()
+	 * @generated
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__NAME = WorkflowPackage.SERIALIZER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__DESCRIPTION = WorkflowPackage.SERIALIZER__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Comment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__COMMENT = WorkflowPackage.SERIALIZER__COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Manifest</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__MANIFEST = WorkflowPackage.SERIALIZER__MANIFEST;
+
+	/**
+	 * The feature id for the '<em><b>Director</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__DIRECTOR = WorkflowPackage.SERIALIZER__DIRECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Console</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__CONSOLE = WorkflowPackage.SERIALIZER__CONSOLE;
+
+	/**
+	 * The feature id for the '<em><b>Format</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__FORMAT = WorkflowPackage.SERIALIZER__FORMAT;
+
+	/**
+	 * The feature id for the '<em><b>CSS</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__CSS = WorkflowPackage.SERIALIZER__CSS;
+
+	/**
+	 * The feature id for the '<em><b>Trace</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__TRACE = WorkflowPackage.SERIALIZER__TRACE;
+
+	/**
+	 * The feature id for the '<em><b>Folder Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__FOLDER_NAME = WorkflowPackage.SERIALIZER__FOLDER_NAME;
+
+	/**
+	 * The feature id for the '<em><b>File Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Lifelines Printing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__ENABLED_LIFELINES_PRINTING = WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION = WorkflowPackage.SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION;
+
+	/**
+	 * The number of structural features of the '<em>Sequence Diagram Trace Serializer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER_FEATURE_COUNT = WorkflowPackage.SERIALIZER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Sequence Diagram Trace Serializer</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER_OPERATION_COUNT = WorkflowPackage.SERIALIZER_OPERATION_COUNT + 0;
+
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.execution.core.workflow.serializer.ModelGraphicSerializerWorker <em>Model Graphic Serializer Worker</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Model Graphic Serializer Worker</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.ModelGraphicSerializerWorker
+	 * @generated
+	 */
+	EClass getModelGraphicSerializerWorker();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.execution.core.workflow.serializer.ModelGraphvizSerializerWorker <em>Model Graphviz Serializer Worker</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -864,6 +1528,16 @@ public interface SerializerPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getModelGraphvizSerializerWorker();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphicSerializerWorker <em>Symbex Graphic Serializer Worker</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Symbex Graphic Serializer Worker</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphicSerializerWorker
+	 * @generated
+	 */
+	EClass getSymbexGraphicSerializerWorker();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphVizSerializerWorker <em>Symbex Graph Viz Serializer Worker</em>}'.
@@ -1061,6 +1735,26 @@ public interface SerializerPackage extends EPackage {
 	EAttribute getTTCNTraceSerializer_AdaptationReceivingImpl();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.execution.core.workflow.serializer.SymbexSequenceDiagramSerializerWorker <em>Symbex Sequence Diagram Serializer Worker</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Symbex Sequence Diagram Serializer Worker</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.SymbexSequenceDiagramSerializerWorker
+	 * @generated
+	 */
+	EClass getSymbexSequenceDiagramSerializerWorker();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.efm.execution.core.workflow.serializer.SequenceDiagramTraceSerializer <em>Sequence Diagram Trace Serializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Sequence Diagram Trace Serializer</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.SequenceDiagramTraceSerializer
+	 * @generated
+	 */
+	EClass getSequenceDiagramTraceSerializer();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1084,6 +1778,16 @@ public interface SerializerPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.ModelGraphicSerializerWorkerImpl <em>Model Graphic Serializer Worker</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.ModelGraphicSerializerWorkerImpl
+		 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getModelGraphicSerializerWorker()
+		 * @generated
+		 */
+		EClass MODEL_GRAPHIC_SERIALIZER_WORKER = eINSTANCE.getModelGraphicSerializerWorker();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.ModelGraphvizSerializerWorkerImpl <em>Model Graphviz Serializer Worker</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1092,6 +1796,16 @@ public interface SerializerPackage extends EPackage {
 		 * @generated
 		 */
 		EClass MODEL_GRAPHVIZ_SERIALIZER_WORKER = eINSTANCE.getModelGraphvizSerializerWorker();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphicSerializerWorkerImpl <em>Symbex Graphic Serializer Worker</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphicSerializerWorkerImpl
+		 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getSymbexGraphicSerializerWorker()
+		 * @generated
+		 */
+		EClass SYMBEX_GRAPHIC_SERIALIZER_WORKER = eINSTANCE.getSymbexGraphicSerializerWorker();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexGraphVizSerializerWorkerImpl <em>Symbex Graph Viz Serializer Worker</em>}' class.
@@ -1242,6 +1956,26 @@ public interface SerializerPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TTCN_TRACE_SERIALIZER__ADAPTATION_RECEIVING_IMPL = eINSTANCE.getTTCNTraceSerializer_AdaptationReceivingImpl();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexSequenceDiagramSerializerWorkerImpl <em>Symbex Sequence Diagram Serializer Worker</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SymbexSequenceDiagramSerializerWorkerImpl
+		 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getSymbexSequenceDiagramSerializerWorker()
+		 * @generated
+		 */
+		EClass SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER = eINSTANCE.getSymbexSequenceDiagramSerializerWorker();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.serializer.impl.SequenceDiagramTraceSerializerImpl <em>Sequence Diagram Trace Serializer</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SequenceDiagramTraceSerializerImpl
+		 * @see org.eclipse.efm.execution.core.workflow.serializer.impl.SerializerPackageImpl#getSequenceDiagramTraceSerializer()
+		 * @generated
+		 */
+		EClass SEQUENCE_DIAGRAM_TRACE_SERIALIZER = eINSTANCE.getSequenceDiagramTraceSerializer();
 
 	}
 

@@ -646,10 +646,10 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		var parentElement = context.parentOf
 //			?: EcoreUtil2.getContainerOfType(context, typeof(Machine))
 
-//		if( parentElement === null )
-//		{
-//			return parentScope
-//		}
+		if( parentElement === null )
+		{
+			return parentScope
+		}
 
 		var container = context.eContainer
 		
@@ -1162,7 +1162,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			container = EcoreUtil2.getContainerOfType(
 				container.eContainer, typeof(Machine))
 		}
-
+		
 		hierarchy.reverseView
 	}
 

@@ -80,12 +80,30 @@ public class SerializerSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case SerializerPackage.MODEL_GRAPHIC_SERIALIZER_WORKER: {
+				ModelGraphicSerializerWorker modelGraphicSerializerWorker = (ModelGraphicSerializerWorker)theEObject;
+				T result = caseModelGraphicSerializerWorker(modelGraphicSerializerWorker);
+				if (result == null) result = caseSerializer(modelGraphicSerializerWorker);
+				if (result == null) result = caseWorker(modelGraphicSerializerWorker);
+				if (result == null) result = caseNamedObject(modelGraphicSerializerWorker);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case SerializerPackage.MODEL_GRAPHVIZ_SERIALIZER_WORKER: {
 				ModelGraphvizSerializerWorker modelGraphvizSerializerWorker = (ModelGraphvizSerializerWorker)theEObject;
 				T result = caseModelGraphvizSerializerWorker(modelGraphvizSerializerWorker);
 				if (result == null) result = caseSerializer(modelGraphvizSerializerWorker);
 				if (result == null) result = caseWorker(modelGraphvizSerializerWorker);
 				if (result == null) result = caseNamedObject(modelGraphvizSerializerWorker);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SerializerPackage.SYMBEX_GRAPHIC_SERIALIZER_WORKER: {
+				SymbexGraphicSerializerWorker symbexGraphicSerializerWorker = (SymbexGraphicSerializerWorker)theEObject;
+				T result = caseSymbexGraphicSerializerWorker(symbexGraphicSerializerWorker);
+				if (result == null) result = caseSerializer(symbexGraphicSerializerWorker);
+				if (result == null) result = caseWorker(symbexGraphicSerializerWorker);
+				if (result == null) result = caseNamedObject(symbexGraphicSerializerWorker);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -116,8 +134,41 @@ public class SerializerSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SerializerPackage.SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER: {
+				SymbexSequenceDiagramSerializerWorker symbexSequenceDiagramSerializerWorker = (SymbexSequenceDiagramSerializerWorker)theEObject;
+				T result = caseSymbexSequenceDiagramSerializerWorker(symbexSequenceDiagramSerializerWorker);
+				if (result == null) result = caseSerializer(symbexSequenceDiagramSerializerWorker);
+				if (result == null) result = caseWorker(symbexSequenceDiagramSerializerWorker);
+				if (result == null) result = caseNamedObject(symbexSequenceDiagramSerializerWorker);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SerializerPackage.SEQUENCE_DIAGRAM_TRACE_SERIALIZER: {
+				SequenceDiagramTraceSerializer sequenceDiagramTraceSerializer = (SequenceDiagramTraceSerializer)theEObject;
+				T result = caseSequenceDiagramTraceSerializer(sequenceDiagramTraceSerializer);
+				if (result == null) result = caseSerializer(sequenceDiagramTraceSerializer);
+				if (result == null) result = caseWorker(sequenceDiagramTraceSerializer);
+				if (result == null) result = caseNamedObject(sequenceDiagramTraceSerializer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Model Graphic Serializer Worker</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Model Graphic Serializer Worker</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseModelGraphicSerializerWorker(ModelGraphicSerializerWorker object) {
+		return null;
 	}
 
 	/**
@@ -132,6 +183,21 @@ public class SerializerSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseModelGraphvizSerializerWorker(ModelGraphvizSerializerWorker object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Symbex Graphic Serializer Worker</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Symbex Graphic Serializer Worker</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSymbexGraphicSerializerWorker(SymbexGraphicSerializerWorker object) {
 		return null;
 	}
 
@@ -177,6 +243,36 @@ public class SerializerSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTTCNTraceSerializer(TTCNTraceSerializer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Symbex Sequence Diagram Serializer Worker</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Symbex Sequence Diagram Serializer Worker</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSymbexSequenceDiagramSerializerWorker(SymbexSequenceDiagramSerializerWorker object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Sequence Diagram Trace Serializer</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Sequence Diagram Trace Serializer</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSequenceDiagramTraceSerializer(SequenceDiagramTraceSerializer object) {
 		return null;
 	}
 

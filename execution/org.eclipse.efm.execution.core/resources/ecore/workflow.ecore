@@ -550,7 +550,9 @@
   </eSubpackages>
   <eSubpackages name="serializer" nsURI="http://www.eclipse.org/efm/Workflow/Serializer"
       nsPrefix="Serializer">
+    <eClassifiers xsi:type="ecore:EClass" name="ModelGraphicSerializerWorker" eSuperTypes="#//Serializer"/>
     <eClassifiers xsi:type="ecore:EClass" name="ModelGraphvizSerializerWorker" eSuperTypes="#//Serializer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SymbexGraphicSerializerWorker" eSuperTypes="#//Serializer"/>
     <eClassifiers xsi:type="ecore:EClass" name="SymbexGraphVizSerializerWorker" eSuperTypes="#//Serializer"/>
     <eClassifiers xsi:type="ecore:EClass" name="BasicTraceSerializer" eSuperTypes="#//Serializer"/>
     <eClassifiers xsi:type="ecore:EClass" name="TTCNTraceSerializer" eSuperTypes="#//Serializer">
@@ -584,5 +586,8 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="adaptationReceivingImpl"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="SymbexSequenceDiagramSerializerWorker"
+        eSuperTypes="#//Serializer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SequenceDiagramTraceSerializer" eSuperTypes="#//Serializer"/>
   </eSubpackages>
 </ecore:EPackage>

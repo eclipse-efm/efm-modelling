@@ -29,10 +29,14 @@ import org.eclipse.efm.execution.core.workflow.extraneous.impl.ExtraneousPackage
 import org.eclipse.efm.execution.core.workflow.impl.WorkflowPackageImpl;
 
 import org.eclipse.efm.execution.core.workflow.serializer.BasicTraceSerializer;
+import org.eclipse.efm.execution.core.workflow.serializer.ModelGraphicSerializerWorker;
 import org.eclipse.efm.execution.core.workflow.serializer.ModelGraphvizSerializerWorker;
+import org.eclipse.efm.execution.core.workflow.serializer.SequenceDiagramTraceSerializer;
 import org.eclipse.efm.execution.core.workflow.serializer.SerializerFactory;
 import org.eclipse.efm.execution.core.workflow.serializer.SerializerPackage;
 import org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphVizSerializerWorker;
+import org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphicSerializerWorker;
+import org.eclipse.efm.execution.core.workflow.serializer.SymbexSequenceDiagramSerializerWorker;
 import org.eclipse.efm.execution.core.workflow.serializer.TTCNTraceSerializer;
 
 import org.eclipse.efm.execution.core.workflow.test.TestPackage;
@@ -57,7 +61,21 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass modelGraphicSerializerWorkerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass modelGraphvizSerializerWorkerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass symbexGraphicSerializerWorkerEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -79,6 +97,20 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * @generated
 	 */
 	private EClass ttcnTraceSerializerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass symbexSequenceDiagramSerializerWorkerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sequenceDiagramTraceSerializerEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -169,8 +201,28 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * @generated
 	 */
 	@Override
+	public EClass getModelGraphicSerializerWorker() {
+		return modelGraphicSerializerWorkerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getModelGraphvizSerializerWorker() {
 		return modelGraphvizSerializerWorkerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getSymbexGraphicSerializerWorker() {
+		return symbexGraphicSerializerWorkerEClass;
 	}
 
 	/**
@@ -359,6 +411,26 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 	 * @generated
 	 */
 	@Override
+	public EClass getSymbexSequenceDiagramSerializerWorker() {
+		return symbexSequenceDiagramSerializerWorkerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getSequenceDiagramTraceSerializer() {
+		return sequenceDiagramTraceSerializerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public SerializerFactory getSerializerFactory() {
 		return (SerializerFactory)getEFactoryInstance();
 	}
@@ -382,7 +454,11 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 		isCreated = true;
 
 		// Create classes and their features
+		modelGraphicSerializerWorkerEClass = createEClass(MODEL_GRAPHIC_SERIALIZER_WORKER);
+
 		modelGraphvizSerializerWorkerEClass = createEClass(MODEL_GRAPHVIZ_SERIALIZER_WORKER);
+
+		symbexGraphicSerializerWorkerEClass = createEClass(SYMBEX_GRAPHIC_SERIALIZER_WORKER);
 
 		symbexGraphVizSerializerWorkerEClass = createEClass(SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER);
 
@@ -404,6 +480,10 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 		createEAttribute(ttcnTraceSerializerEClass, TTCN_TRACE_SERIALIZER__ADAPTATION_STARTING_ENDING_IMPL);
 		createEAttribute(ttcnTraceSerializerEClass, TTCN_TRACE_SERIALIZER__ADAPTATION_SENDING_IMPL);
 		createEAttribute(ttcnTraceSerializerEClass, TTCN_TRACE_SERIALIZER__ADAPTATION_RECEIVING_IMPL);
+
+		symbexSequenceDiagramSerializerWorkerEClass = createEClass(SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER);
+
+		sequenceDiagramTraceSerializerEClass = createEClass(SEQUENCE_DIAGRAM_TRACE_SERIALIZER);
 	}
 
 	/**
@@ -437,13 +517,21 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		modelGraphicSerializerWorkerEClass.getESuperTypes().add(theWorkflowPackage.getSerializer());
 		modelGraphvizSerializerWorkerEClass.getESuperTypes().add(theWorkflowPackage.getSerializer());
+		symbexGraphicSerializerWorkerEClass.getESuperTypes().add(theWorkflowPackage.getSerializer());
 		symbexGraphVizSerializerWorkerEClass.getESuperTypes().add(theWorkflowPackage.getSerializer());
 		basicTraceSerializerEClass.getESuperTypes().add(theWorkflowPackage.getSerializer());
 		ttcnTraceSerializerEClass.getESuperTypes().add(theWorkflowPackage.getSerializer());
+		symbexSequenceDiagramSerializerWorkerEClass.getESuperTypes().add(theWorkflowPackage.getSerializer());
+		sequenceDiagramTraceSerializerEClass.getESuperTypes().add(theWorkflowPackage.getSerializer());
 
 		// Initialize classes, features, and operations; add parameters
+		initEClass(modelGraphicSerializerWorkerEClass, ModelGraphicSerializerWorker.class, "ModelGraphicSerializerWorker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(modelGraphvizSerializerWorkerEClass, ModelGraphvizSerializerWorker.class, "ModelGraphvizSerializerWorker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(symbexGraphicSerializerWorkerEClass, SymbexGraphicSerializerWorker.class, "SymbexGraphicSerializerWorker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(symbexGraphVizSerializerWorkerEClass, SymbexGraphVizSerializerWorker.class, "SymbexGraphVizSerializerWorker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -465,6 +553,10 @@ public class SerializerPackageImpl extends EPackageImpl implements SerializerPac
 		initEAttribute(getTTCNTraceSerializer_AdaptationStartingEndingImpl(), ecorePackage.getEString(), "adaptationStartingEndingImpl", null, 0, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTTCNTraceSerializer_AdaptationSendingImpl(), ecorePackage.getEString(), "adaptationSendingImpl", null, 0, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTTCNTraceSerializer_AdaptationReceivingImpl(), ecorePackage.getEString(), "adaptationReceivingImpl", null, 0, 1, TTCNTraceSerializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(symbexSequenceDiagramSerializerWorkerEClass, SymbexSequenceDiagramSerializerWorker.class, "SymbexSequenceDiagramSerializerWorker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(sequenceDiagramTraceSerializerEClass, SequenceDiagramTraceSerializer.class, "SequenceDiagramTraceSerializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 	}
 
 } //SerializerPackageImpl

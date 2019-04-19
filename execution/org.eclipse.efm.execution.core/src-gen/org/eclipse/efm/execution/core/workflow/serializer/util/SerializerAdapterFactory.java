@@ -82,8 +82,16 @@ public class SerializerAdapterFactory extends AdapterFactoryImpl {
 	protected SerializerSwitch<Adapter> modelSwitch =
 		new SerializerSwitch<Adapter>() {
 			@Override
+			public Adapter caseModelGraphicSerializerWorker(ModelGraphicSerializerWorker object) {
+				return createModelGraphicSerializerWorkerAdapter();
+			}
+			@Override
 			public Adapter caseModelGraphvizSerializerWorker(ModelGraphvizSerializerWorker object) {
 				return createModelGraphvizSerializerWorkerAdapter();
+			}
+			@Override
+			public Adapter caseSymbexGraphicSerializerWorker(SymbexGraphicSerializerWorker object) {
+				return createSymbexGraphicSerializerWorkerAdapter();
 			}
 			@Override
 			public Adapter caseSymbexGraphVizSerializerWorker(SymbexGraphVizSerializerWorker object) {
@@ -96,6 +104,14 @@ public class SerializerAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTTCNTraceSerializer(TTCNTraceSerializer object) {
 				return createTTCNTraceSerializerAdapter();
+			}
+			@Override
+			public Adapter caseSymbexSequenceDiagramSerializerWorker(SymbexSequenceDiagramSerializerWorker object) {
+				return createSymbexSequenceDiagramSerializerWorkerAdapter();
+			}
+			@Override
+			public Adapter caseSequenceDiagramTraceSerializer(SequenceDiagramTraceSerializer object) {
+				return createSequenceDiagramTraceSerializerAdapter();
 			}
 			@Override
 			public Adapter caseNamedObject(NamedObject object) {
@@ -130,6 +146,20 @@ public class SerializerAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.execution.core.workflow.serializer.ModelGraphicSerializerWorker <em>Model Graphic Serializer Worker</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.ModelGraphicSerializerWorker
+	 * @generated
+	 */
+	public Adapter createModelGraphicSerializerWorkerAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.execution.core.workflow.serializer.ModelGraphvizSerializerWorker <em>Model Graphviz Serializer Worker</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -140,6 +170,20 @@ public class SerializerAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createModelGraphvizSerializerWorkerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphicSerializerWorker <em>Symbex Graphic Serializer Worker</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.SymbexGraphicSerializerWorker
+	 * @generated
+	 */
+	public Adapter createSymbexGraphicSerializerWorkerAdapter() {
 		return null;
 	}
 
@@ -182,6 +226,34 @@ public class SerializerAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTTCNTraceSerializerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.execution.core.workflow.serializer.SymbexSequenceDiagramSerializerWorker <em>Symbex Sequence Diagram Serializer Worker</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.SymbexSequenceDiagramSerializerWorker
+	 * @generated
+	 */
+	public Adapter createSymbexSequenceDiagramSerializerWorkerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.efm.execution.core.workflow.serializer.SequenceDiagramTraceSerializer <em>Sequence Diagram Trace Serializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.efm.execution.core.workflow.serializer.SequenceDiagramTraceSerializer
+	 * @generated
+	 */
+	public Adapter createSequenceDiagramTraceSerializerAdapter() {
 		return null;
 	}
 

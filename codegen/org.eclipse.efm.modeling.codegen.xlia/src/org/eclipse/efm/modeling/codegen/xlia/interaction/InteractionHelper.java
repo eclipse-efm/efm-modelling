@@ -51,17 +51,17 @@ public interface InteractionHelper extends NameHelper,
 	///////////////////////////////////////////////////////////////////////////
 
 	default Property createCombinedRegionScheduleVariable(
-			StatemachineContext lfContext, CombinedFragment element) {
+			final StatemachineContext lfContext, final CombinedFragment element) {
 
-		String enumRegionTypeName = nameOfEnumRegionsType(element);
-		Type fifoScheduleType = DataTypeFactory.fifoType(enumRegionTypeName);//, -1);
+		final String enumRegionTypeName = nameOfEnumRegionsType(element);
+		final Type fifoScheduleType = DataTypeFactory.fifoType(enumRegionTypeName);//, -1);
 
-		Property schedulingVariable = lfContext.statemachine.createOwnedAttribute(
+		final Property schedulingVariable = lfContext.statemachine.createOwnedAttribute(
 				nameOfSchedulingVariable(element), fifoScheduleType);
 
 		//To-Do declare enumRegionTypeName
-		Type enumRegionType = DataTypeFactory.enumAliasType(enumRegionTypeName);
-		Property currentRegionVariable = lfContext.statemachine.createOwnedAttribute(
+		final Type enumRegionType = DataTypeFactory.enumAliasType(enumRegionTypeName);
+		final Property currentRegionVariable = lfContext.statemachine.createOwnedAttribute(
 				nameOfScheduledRegionVariable(element), enumRegionType);//enumRegionTypeName);
 
 		return( schedulingVariable );
@@ -69,9 +69,9 @@ public interface InteractionHelper extends NameHelper,
 
 
 	default void addGuardForFirstRegionEntry(
-			Transition transition, Property regionScheduleVariable) {
+			final Transition transition, final Property regionScheduleVariable) {
 
-		StringBuilder guard = new StringBuilder();
+		final StringBuilder guard = new StringBuilder();
 		guard.append("//guard empty( ")
 			.append(regionScheduleVariable.getName())
 			.append(" );");
@@ -81,8 +81,8 @@ public interface InteractionHelper extends NameHelper,
 
 
 	default void addGuardForNotFirstRegionEntry(
-			Transition transition, Property regionScheduleVariable,
-			CombinedFragment element) {
+			final Transition transition, final Property regionScheduleVariable,
+			final CombinedFragment element) {
 
 		StringBuilder guard = new StringBuilder();
 		guard.append("//guard notempty( ")
@@ -103,19 +103,19 @@ public interface InteractionHelper extends NameHelper,
 	// TRANSITION
 	///////////////////////////////////////////////////////////////////////////
 
-	default void addEffectGuard(StatemachineContext lfContext,
-			Element element, Transition transition, Constraint guard) {
+	default void addEffectGuard(final StatemachineContext lfContext,
+			final Element element, final Transition transition, final Constraint guard) {
 
-		StringBuilder valueBuffer = new StringBuilder();
-		StringBuilder valueBuffer1 = new StringBuilder();
+		final StringBuilder valueBuffer = new StringBuilder();
+		final StringBuilder valueBuffer1 = new StringBuilder();
 		//Transition BH_tr = null;
 
 		if( guard != null ) {
-			ValueSpecification valueSpec = guard.getSpecification();
+			final ValueSpecification valueSpec = guard.getSpecification();
 			if( valueSpec instanceof OpaqueExpression ) {
-				OpaqueExpression opaqExpr = (OpaqueExpression)valueSpec;
-				String[] bodies = opaqExpr.getBodies().toArray(new String[opaqExpr.getBodies().size()]);
-				String[] languages = opaqExpr.getLanguages().toArray(new String[opaqExpr.getLanguages().size()]);
+				final OpaqueExpression opaqExpr = (OpaqueExpression)valueSpec;
+				final String[] bodies = opaqExpr.getBodies().toArray(new String[opaqExpr.getBodies().size()]);
+				final String[] languages = opaqExpr.getLanguages().toArray(new String[opaqExpr.getLanguages().size()]);
 				for (int i = 0; i < languages.length; i++) {
 					if(languages[i].contains("Assertion")){
 						valueBuffer.append("globalAssertion <=< ");
@@ -144,18 +144,18 @@ public interface InteractionHelper extends NameHelper,
 						valueBuffer.append("globalAssertion <=< ");
 						valueBuffer.append(bodies[i]).append(";");
 
-						 EList<Element> constrainedElements = guard.getConstrainedElements();
+						 final EList<Element> constrainedElements = guard.getConstrainedElements();
 						 if( ! constrainedElements.isEmpty() ) {
-							 Element constrainedElement = constrainedElements.get(0);
+							 final Element constrainedElement = constrainedElements.get(0);
 							 if( constrainedElement instanceof ExecutionOccurrenceSpecification ) {
-								ExecutionOccurrenceSpecification eos = (ExecutionOccurrenceSpecification) constrainedElement;
+								final ExecutionOccurrenceSpecification eos = (ExecutionOccurrenceSpecification) constrainedElement;
 
 								if( eos.getExecution() instanceof BehaviorExecutionSpecification ) {
-									BehaviorExecutionSpecification bes = (BehaviorExecutionSpecification) eos.getExecution();
+									final BehaviorExecutionSpecification bes = (BehaviorExecutionSpecification) eos.getExecution();
 
 									if(bes.getFinish() == eos){
 										if( bes.getBehavior() instanceof FunctionBehavior ) {
-											FunctionBehavior fb = (FunctionBehavior) bes.getBehavior();
+											final FunctionBehavior fb = (FunctionBehavior) bes.getBehavior();
 											valueBuffer.append(" // fun.behavior: ").append(fb.getBodies());
 										}
 
@@ -170,7 +170,7 @@ public interface InteractionHelper extends NameHelper,
 					{
 						if( lfContext.intermediateTransition == null )
 						{
-							State targetState = lfContext.createTargetState("targetBhExec#1" + transition.getName());
+							final State targetState = lfContext.createTargetState("targetBhExec#1" + transition.getName());
 
 							lfContext.currentState.setName("BhExec#" + transition.getName()+"_1");
 							lfContext.intermediateTransition = lfContext.createTransition(
@@ -202,13 +202,13 @@ public interface InteractionHelper extends NameHelper,
 					{
 						valueBuffer.append("guard( ");
 						valueBuffer.append(bodies[i]).append(" );");
-						//addOpaqueBehaviorEffect(transition, valueBuffer.toString());
-						setGuard(transition, guard);
+						addOpaqueBehaviorEffect(transition, valueBuffer.toString());
+//						setGuard(transition, guard);
 					}
 				}
 			}
 			else if( valueSpec instanceof Expression ) {
-				Expression valueExpr = (Expression) valueSpec;
+				final Expression valueExpr = (Expression) valueSpec;
 				valueBuffer.append(valueExpr); //TODO expression to string
 				addOpaqueBehaviorEffect(transition, valueBuffer.toString());
 			}
@@ -221,7 +221,7 @@ public interface InteractionHelper extends NameHelper,
 
 
 	default void valueSpecificationToString(
-			ValueSpecification value, StringBuilder stringVar) {
+			final ValueSpecification value, final StringBuilder stringVar) {
 		if( value instanceof LiteralBoolean ) {
 			stringVar.append(value.booleanValue());
 		}
@@ -240,12 +240,12 @@ public interface InteractionHelper extends NameHelper,
 		else if( value instanceof Expression ) {
 			stringVar.append("(");
 
-			Expression expr = (Expression) value;
+			final Expression expr = (Expression) value;
 
 			stringVar.append( (expr.getSymbol() != null) ?
 					expr.getSymbol() : "<symbol:null>" );
 
-			for(ValueSpecification vs : expr.getOperands() ) {
+			for(final ValueSpecification vs : expr.getOperands() ) {
 				stringVar.append(" ");
 				valueSpecificationToString(vs, stringVar);
 			}
@@ -254,7 +254,7 @@ public interface InteractionHelper extends NameHelper,
 		}
 
 		else if( value instanceof OpaqueExpression ) {
-			OpaqueExpression expr = (OpaqueExpression) value;
+			final OpaqueExpression expr = (OpaqueExpression) value;
 			stringVar.append(expr.getBodies().get(0).toString());
 		}
 
@@ -270,16 +270,16 @@ public interface InteractionHelper extends NameHelper,
 	}
 
 
-	default void setGuard(Transition transition,
-			InteractionConstraint interactionGuard, Property indexVar) {
+	default void setGuard(final Transition transition,
+			final InteractionConstraint interactionGuard, final Property indexVar) {
 		if( interactionGuard != null ) {
-			Constraint constraint = transition.createGuard("guardConstraint");
-			ValueSpecification valueSpec = interactionGuard.getSpecification();
+			final Constraint constraint = transition.createGuard("guardConstraint");
+			final ValueSpecification valueSpec = interactionGuard.getSpecification();
 
-			String loopIndexConstraint = toIndexConstraint(interactionGuard, indexVar);
+			final String loopIndexConstraint = toIndexConstraint(interactionGuard, indexVar);
 
 			if( valueSpec instanceof OpaqueExpression ) {
-				OpaqueExpression guardSpecification = UMLFactory.eINSTANCE.createOpaqueExpression();
+				final OpaqueExpression guardSpecification = UMLFactory.eINSTANCE.createOpaqueExpression();
 				guardSpecification.getLanguages().addAll(((OpaqueExpression)valueSpec).getLanguages());
 				guardSpecification.getBodies().addAll(((OpaqueExpression)valueSpec).getBodies());
 
@@ -291,7 +291,7 @@ public interface InteractionHelper extends NameHelper,
 				constraint.setSpecification(guardSpecification);
 			}
 			else {
-				OpaqueExpression guardExpression = UMLFactory.eINSTANCE.createOpaqueExpression();
+				final OpaqueExpression guardExpression = UMLFactory.eINSTANCE.createOpaqueExpression();
 				guardExpression.setName("guardExpression");
 
 				guardExpression.getLanguages().add(LANGUAGE_X_LIA);
@@ -305,9 +305,9 @@ public interface InteractionHelper extends NameHelper,
 		}
 	}
 
-	default String toIndexConstraint(InteractionConstraint interactionGuard, Property indexVar) {
+	default String toIndexConstraint(final InteractionConstraint interactionGuard, final Property indexVar) {
 		if( interactionGuard != null ) {
-			StringBuilder loopIndexConstraint = new StringBuilder();
+			final StringBuilder loopIndexConstraint = new StringBuilder();
 			if( interactionGuard.getMinint() != null ) {
 				loopIndexConstraint.append(indexVar.getName()).append(" >= ");
 				valueSpecificationToString(interactionGuard.getMinint(), loopIndexConstraint);
@@ -328,12 +328,12 @@ public interface InteractionHelper extends NameHelper,
 	}
 
 
-	default List< CombinedFragment > listOfCombinedFragment(Interaction interaction) {
-		ArrayList<CombinedFragment> combinedFragments= new ArrayList<CombinedFragment>();
+	default List< CombinedFragment > listOfCombinedFragment(final Interaction interaction) {
+		final ArrayList<CombinedFragment> combinedFragments= new ArrayList<CombinedFragment>();
 
-		for(InteractionFragment fragment : interaction.getFragments() ) {
+		for(final InteractionFragment fragment : interaction.getFragments() ) {
 			if(fragment instanceof CombinedFragment){
-				CombinedFragment combinedFragment = (CombinedFragment) fragment;
+				final CombinedFragment combinedFragment = (CombinedFragment) fragment;
 				combinedFragments.add(combinedFragment);
 
 				listOfCombinedFragment(combinedFragment, combinedFragments);
@@ -344,11 +344,11 @@ public interface InteractionHelper extends NameHelper,
 	}
 
 	default void listOfCombinedFragment(
-			CombinedFragment combinedFragment, List< CombinedFragment > combinedFragments) {
-		for(InteractionOperand operand : combinedFragment.getOperands() ) {
-			for(InteractionFragment fragment : operand.getFragments() ) {
+			final CombinedFragment combinedFragment, final List< CombinedFragment > combinedFragments) {
+		for(final InteractionOperand operand : combinedFragment.getOperands() ) {
+			for(final InteractionFragment fragment : operand.getFragments() ) {
 				if(fragment instanceof CombinedFragment){
-					CombinedFragment combFragment = (CombinedFragment) fragment;
+					final CombinedFragment combFragment = (CombinedFragment) fragment;
 					combinedFragments.add(combFragment);
 
 					listOfCombinedFragment(combFragment, combinedFragments);

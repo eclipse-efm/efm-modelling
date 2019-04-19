@@ -409,7 +409,9 @@
     </nestedGenPackages>
     <nestedGenPackages prefix="Serializer" basePackage="org.eclipse.efm.execution.core.workflow"
         disposableProviderFactory="true" ecorePackage="workflow.ecore#//serializer">
+      <genClasses ecoreClass="workflow.ecore#//serializer/ModelGraphicSerializerWorker"/>
       <genClasses ecoreClass="workflow.ecore#//serializer/ModelGraphvizSerializerWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//serializer/SymbexGraphicSerializerWorker"/>
       <genClasses ecoreClass="workflow.ecore#//serializer/SymbexGraphVizSerializerWorker"/>
       <genClasses ecoreClass="workflow.ecore#//serializer/BasicTraceSerializer"/>
       <genClasses ecoreClass="workflow.ecore#//serializer/TTCNTraceSerializer">
@@ -429,6 +431,8 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/adaptationSendingImpl"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//serializer/TTCNTraceSerializer/adaptationReceivingImpl"/>
       </genClasses>
+      <genClasses ecoreClass="workflow.ecore#//serializer/SymbexSequenceDiagramSerializerWorker"/>
+      <genClasses ecoreClass="workflow.ecore#//serializer/SequenceDiagramTraceSerializer"/>
     </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

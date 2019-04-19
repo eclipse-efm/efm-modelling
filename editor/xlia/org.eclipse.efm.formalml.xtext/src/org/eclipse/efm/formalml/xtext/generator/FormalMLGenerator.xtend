@@ -110,9 +110,10 @@ class FormalMLGenerator extends AbstractGenerator {
 			BackgroundColor<< Composite    >> SpringGreen
 		
 			'Attribut pour les états simples
+			BackgroundColor<< simple_hierarchic >> PaleTurquoise
 			BackgroundColor<< simple >> PaleTurquoise
 			BackgroundColor<< start  >> Green
-			BackgroundColor<< fFinal >> Red
+			BackgroundColor<< final >> Red
 			BackgroundColor<< sync   >> Aqua
 		
 			'Attribut pour les pseudo-états
@@ -395,8 +396,8 @@ class FormalMLGenerator extends AbstractGenerator {
 	def dispatch generateVertexGraphic(State state)
 	'''	
 		«generateMoeGraphic(state, state.moe)»
-		state "«state.nameOf»" as «state.nameIdOf» << simple >>
-		«IF ! state.region.empty» {
+		state "«state.nameOf»" as «state.nameIdOf» «IF state.region.empty»<< simple >>«ELSE»<< Composite >> {«ENDIF»
+		«IF ! state.region.empty»
 			«generateRegionsGraphic(state.region)»
 		}
 		«ENDIF»
@@ -464,7 +465,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	}
 	
 	def nameIdOf(NamedElement element)
-	'''«IF (element.name === null)»«element.class.name»«ELSE»«element.name.replaceAll('#', '_')»«ENDIF»_«element.hashCode»'''
+	'''«IF (element.name === null)»«element.class.simpleName»«ELSE»«element.name.replaceAll('#', '_')»«ENDIF»_«element.hashCode»'''
 	
 	
 }
