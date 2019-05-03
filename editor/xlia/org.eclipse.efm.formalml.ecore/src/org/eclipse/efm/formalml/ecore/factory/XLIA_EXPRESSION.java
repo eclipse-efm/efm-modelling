@@ -70,11 +70,20 @@ public class XLIA_EXPRESSION {
 	public final static String OP_OR      = "||";
 
 
-	public static final NamedElement SINGLETON = XLIA_INFRA.createFunction("singleton");
+	public static final NamedElement EMPTY =
+			XLIA_INFRA.createFunction("empty");
 
-	public static final NamedElement POPULATED = XLIA_INFRA.createFunction("populated");
+	public static final NamedElement NONEMPTY =
+			XLIA_INFRA.createFunction("nonempty");
 
-	public static final NamedElement SIZE = XLIA_INFRA.createFunction("size");
+	public static final NamedElement SINGLETON =
+			XLIA_INFRA.createFunction("singleton");
+
+	public static final NamedElement POPULATED =
+			XLIA_INFRA.createFunction("populated");
+
+	public static final NamedElement SIZE =
+			XLIA_INFRA.createFunction("size");
 
 
 	// ExpressionFactory FACTORY

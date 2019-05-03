@@ -120,6 +120,7 @@ import org.eclipse.efm.ecore.formalml.expression.LiteralTimeExpression
 import org.eclipse.efm.ecore.formalml.expression.LiteralTimeDeltaExpression
 import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
 import org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd
+import org.eclipse.efm.ecore.formalml.infrastructure.Function
 
 /**
  * Provides labels for EObjects.
@@ -258,6 +259,15 @@ class FormalMLLabelProvider extends DefaultEObjectLabelProvider {
 
 	def image(Buffer decl) {
 		"fml/Signal.gif"
+	}
+
+
+	def text(Function funct) {
+		funct.nameID( "<buffer>" )
+	}
+
+	def image(Function funct) {
+		"fml/FunctionBehavior.gif"
 	}
 
 

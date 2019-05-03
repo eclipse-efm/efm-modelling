@@ -29,6 +29,7 @@ import org.eclipse.jface.viewers.ILabelProvider
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider
 import org.eclipse.xtext.ui.editor.hover.html.XtextBrowserInformationControlInput
+import org.eclipse.efm.ecore.formalml.infrastructure.Routine
 
 class FormalMLEObjectHoverProvider extends DefaultEObjectHoverProvider  {
 	
@@ -90,12 +91,43 @@ class FormalMLEObjectHoverProvider extends DefaultEObjectHoverProvider  {
 			
 		Function: {
 			var hover =  clazz +  description + "("
-			for( it : element.parameterSet.parameter ) {
-				hover += " " + it.type.label
+			if( (element.parameterSet !== null)
+				&& (! element.parameterSet.parameter.empty) )
+			{
+				for( it : element.parameterSet.parameter ) {
+					hover += " " + it.type.label
+				}
 			}
-			hover += " ) ->"
-			for( it : element.resultSet.parameter ) {
-				hover += " " + it.type.label
+			hover += " )"
+			if( (element.resultSet !== null)
+				&& (! element.resultSet.parameter.empty) )
+			{
+				hover += " ->"
+				for( it : element.resultSet.parameter ) {
+					hover += " " + it.type.label
+				}
+			}
+			
+			return hover
+		}
+		
+		Routine: {
+			var hover =  clazz +  description + "("
+			if( (element.parameterSet !== null)
+				&& (! element.parameterSet.parameter.empty) )
+			{
+				for( it : element.parameterSet.parameter ) {
+					hover += " " + it.type.label
+				}
+			}
+			hover += " )"
+			if( (element.resultSet !== null)
+				&& (! element.resultSet.parameter.empty) )
+			{
+				hover += " ->"
+				for( it : element.resultSet.parameter ) {
+					hover += " " + it.type.label
+				}
 			}
 			
 			return hover

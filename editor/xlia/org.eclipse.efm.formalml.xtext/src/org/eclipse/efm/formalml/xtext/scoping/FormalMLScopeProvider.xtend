@@ -83,6 +83,9 @@ import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.xbase.lib.Functions.Function1
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol
 import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification
+import org.eclipse.efm.ecore.formalml.infrastructure.Function
+import org.eclipse.efm.formalml.ecore.factory.XLIA_EXPRESSION
+import org.eclipse.efm.formalml.ecore.factory.XLIA_STATEMENT
 
 /**
  * This class contains custom scoping description.
@@ -409,6 +412,14 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	// scope_LiteralReferenceElement_element
 	////////////////////////////////////////////////////////////////////////////
 	
+	static val xliaFunctions = newArrayList(
+		XLIA_EXPRESSION.EMPTY,
+		XLIA_EXPRESSION.NONEMPTY,
+		XLIA_EXPRESSION.SINGLETON,
+		XLIA_EXPRESSION.POPULATED,
+		XLIA_EXPRESSION.SIZE
+	)
+	
 	def scope_LiteralReferenceElement_element(
 		LiteralReferenceElement context, EReference reference)
 	{
@@ -425,20 +436,30 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 				LeftHandSideExpression : return container.scopeForThis(context)
 
-				AssignmentExpression : return container.scopeForThis(context)
+				AssignmentExpression :
+					return Scopes::scopeFor(xliaFunctions,
+						container.scopeForThis(context))
 
-				TupleExpression : return container.scopeForThis(context)
+				TupleExpression :
+					return Scopes::scopeFor(xliaFunctions,
+						container.scopeForThis(context))
 				
-				QuantifiedLogicalExpression : return container.scopeForThis(context)
+				QuantifiedLogicalExpression :
+					return Scopes::scopeFor(xliaFunctions,
+						container.scopeForThis(context))
 
-				InvokeExpression : return container.scopeForThis(context)
+				InvokeExpression :
+					return Scopes::scopeFor(xliaFunctions,
+						container.scopeForThis(context))
 
 				InputComStatement : return container.scopeForThis(context)
 				OutputComStatement: return container.scopeForThis(context)
 
 				ActivityStatement : return container.scopeForThis(context)
 
-				Statement : return container.scopeForThis(context)
+				Statement : 
+					return Scopes::scopeFor(xliaFunctions,
+						container.scopeForThis(context))
 
 				Transition : return container.scopeForThis(context)
 
@@ -868,6 +889,10 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	// scope_InvokeStatement_invokable
 	////////////////////////////////////////////////////////////////////////////
 	
+	static val xliaRoutines = newArrayList(
+		XLIA_STATEMENT.CLEAR
+	)
+	
 	def scope_InvokeStatement_invokable(
 		InvokeStatement context, EReference reference)
 	{
@@ -926,7 +951,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 			}
 		}
 		
-		parentScope
+		Scopes::scopeFor(xliaRoutines, parentScope)
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1064,39 +1089,47 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 	def Iterable< ? extends NamedElement> selectPublic(
 		Iterable< ? extends NamedElement> elements)
 	{
-		elements.filter[ visibility === VisibilityKind.PUBLIC ]
+		elements.filter[ element |
+			(! (element instanceof PropertyDefinition))
+			|| (element.visibility === VisibilityKind.PUBLIC)
+		]
 	}
 
 	def Iterable< ? extends NamedElement> selectNonPublic(
 		Iterable< ? extends NamedElement> elements)
 	{
-		elements.filter[ visibility != VisibilityKind.PUBLIC ]
+		elements.filter[ element |
+			(! (element instanceof PropertyDefinition))
+			|| (element.visibility !== VisibilityKind.PUBLIC)
+		]
 	}
 
 	def Iterable< ? extends NamedElement> selectNonPrivate(
 		Iterable< ? extends NamedElement> elements)
 	{
-		elements.filter[ visibility != VisibilityKind.PRIVATE ]
+		elements.filter[ element |
+			(! (element instanceof PropertyDefinition))
+			|| (element.visibility !== VisibilityKind.PRIVATE)
+		]
 	}
 
 	// Select PropertyElement by MODIFIER
 	def Iterable< ? extends Variable > selectFinalOrConst(
 		Iterable< ? extends Variable > elements) 
 	{
-		val finalOrConstPredicate = [ Variable P |
-			(P.modifier.final || (P as Variable).const) ]
-
-		elements.filter( finalOrConstPredicate )
+		elements.filter[ variable |
+			(variable.modifier.final || variable.const)
+		]
 	}
 
 	def Iterable< ? extends PropertyDefinition > selectNonFinalNorConst(
 		Iterable< ? extends PropertyDefinition > elements)
 	{
-		val nonFinalNorConstPredicate = [ PropertyDefinition P |
-			(P.modifier.final === false) &&
-			((! (P instanceof Variable)) || ((P as Variable).const === false)) ]
-
-		elements.filter( nonFinalNorConstPredicate )
+		elements.filter[ property |
+			(property.modifier.final === false) 
+			&& ( (! (property instanceof Variable))
+				|| ((property as Variable).const === false) )
+		]
 	}
 
 
@@ -1140,12 +1173,10 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 		Iterable< ? extends TypedElement > elements,
 		PrimitiveInstanceKind expected)
 	{
-
-		val typePredicate = [ TypedElement element |
+		elements.filter[ element |
 			(element.type instanceof PrimitiveInstanceType)
-			 && ((element.type as PrimitiveInstanceType).expected === expected) ]
-
-		elements.filter( typePredicate )
+			 && ((element.type as PrimitiveInstanceType).expected === expected)
+		]
 	}
 
 	// Machine Hierarcy -- Reverse View List
@@ -1963,9 +1994,8 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 					ValueElementSpecificationScheme.CHANNEL)
 
 			case container.target:
-				container.scopeForHierarchicRigthElement(
-					ValueElementSpecificationScheme.MACHINE)
-
+				container.scopeForAllCompositeMachine
+				
 			default:
 				container.scopeForHierarchicLeftElement(
 					ValueElementSpecificationScheme.ANY)
@@ -1986,8 +2016,7 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 					ValueElementSpecificationScheme.CHANNEL)
 
 			case container.target:
-				container.scopeForHierarchicRigthElement(
-					ValueElementSpecificationScheme.MACHINE)
+				container.scopeForAllCompositeMachine
 
 			default:
 				container.scopeForHierarchicRigthElement(
@@ -2680,5 +2709,59 @@ class FormalMLScopeProvider extends AbstractFormalMLScopeProvider {
 
 		IScope::NULLSCOPE
 	}
+	
+	
+	
+	def scopeForAllCompositeMachine(EObject context)
+	{
+		for( var it = context ; it !== null; it = it.eContainer() )
+		{
+			switch( it )
+			{
+				XliaSystem:
+					return it.scopeForAllCompositeMachine(
+						Scopes::scopeFor(newArrayList( it ), IScope::NULLSCOPE)
+					)
+			}
+		}
+
+		IScope::NULLSCOPE
+	}
+
+	def IScope scopeForAllCompositeMachine(Machine block, IScope parentScope)
+	{
+		var scope = parentScope
+
+		val composites = < Machine >newArrayList()
+		
+		if( (block.behavior !== null) && (! block.behavior.empty) )
+		{
+			for( it : block.behavior )
+			{
+				if( it instanceof Statemachine )
+				{
+					composites.add( it )
+				}
+			}
+		}
+		
+		if( (block.machine !== null) && (! block.machine.empty) )
+		{
+			for( it : block.machine )
+			{
+				composites.add( it )
+				
+				scope = it.scopeForAllCompositeMachine(scope)
+			}
+		}
+		
+		if( ! composites.empty )
+		{
+			scope = Scopes::scopeFor(composites, scope)
+		}
+		
+		scope
+	}
+
 
 }

@@ -24,6 +24,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol;
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocolKind;
 import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
 import org.eclipse.efm.ecore.formalml.infrastructure.ConnectorEnd;
+import org.eclipse.efm.ecore.formalml.infrastructure.Function;
 import org.eclipse.efm.ecore.formalml.infrastructure.InfrastructureFactory;
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
 import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution;
@@ -217,8 +218,14 @@ public class XLIA_INFRA {
 	}
 
 	// FUNCTION
-	public static Routine createFunction(final String name) {
-		return createRoutine(name);
+	// ROUTINE
+	public static Function createFunction(final String name) {
+		final Function function = FACTORY.createFunction();
+		function.setName(name);
+
+		return function;
+
+//		return createRoutine(name);
 	}
 
 

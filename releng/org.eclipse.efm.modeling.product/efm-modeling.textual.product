@@ -20,6 +20,8 @@ Apache Software Foundation http://www.apache.org/
    </configIni>
 
    <launcherArgs>
+      <vmArgs>-Xms256m -Xmx1024m
+      </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
@@ -38,6 +40,7 @@ Apache Software Foundation http://www.apache.org/
          <bmp/>
       </win>
    </launcher>
+
 
    <vm>
       <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</windows>
@@ -326,9 +329,9 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
    </configurations>
 
    <repositories>
-      <repository location="http://download.eclipse.org/releases/2018-12/" enabled="true" />
-      <repository location="http://https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2018-12/" enabled="true" />
       <repository location="http://download.eclipse.org/modeling/mdt/papyrus/components/designer" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2019-03/" enabled="true" />
+      <repository location="http://https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2019-03/" enabled="true" />
    </repositories>
 
    <preferencesInfo>

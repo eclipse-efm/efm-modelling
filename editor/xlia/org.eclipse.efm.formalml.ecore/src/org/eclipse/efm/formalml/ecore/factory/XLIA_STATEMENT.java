@@ -48,7 +48,7 @@ public class XLIA_STATEMENT {
 	public final static String OP_INTERLEAVING = "|i|" ;
 
 
-	public static final Routine CLEAR = XLIA_INFRA.createFunction("clear");
+	public static final Routine CLEAR = XLIA_INFRA.createRoutine("clear");
 
 	// StatementFactory FACTORY
 	static StatementFactory FACTORY = StatementFactory.eINSTANCE;
