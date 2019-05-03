@@ -72,7 +72,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		IWorkflowPreferenceConstants , IWorkflowSpiderConfigurationUtils {
 
 	private Composite fMainPageControl;
-	private SymbexSpiderConsole fMessageConsole;
+	private final SymbexSpiderConsole fMessageConsole;
 
 	private SashForm fSashForm;
 
@@ -396,7 +396,11 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 
 	private boolean startSymbexProcess(final String[] commandLine,
-			final IPath workingDirectory, final String[] envp) {
+			final IPath workingDirectory, final String[] envp)
+	{
+		if( ! isAutoScroll() ) {
+			setAutoScroll(true);
+		}
 
 		final OutputStream outputStream = fMessageConsole.newOutputStream();
 		final OutputStreamWriter outputStreamWriter =

@@ -35,7 +35,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditor;
@@ -58,10 +57,10 @@ public class TraceElementAddingDialog extends PopupDialog {
 	private EmbeddedEditorModelAccess fEmbededEditorModelAccess;
 
 
-	public TraceElementAddingDialog(TraceElementTableViewer traceElementTableViewer,
-			String titleText, String infoText)
+	public TraceElementAddingDialog(final TraceElementTableViewer traceElementTableViewer,
+			final String titleText, final String infoText)
 	{
-		super(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+		super(Display.getCurrent().getActiveShell(),
 				PopupDialog.INFOPOPUP_SHELLSTYLE | SWT.RESIZE,
 				true /*takeFocusOnOpen*/, true /*persistSize*/,
 				false /*persistLocation*/, false /*showDialogMenu*/,
@@ -78,9 +77,9 @@ public class TraceElementAddingDialog extends PopupDialog {
 
 
 	@Override
-	protected Control createDialogArea(Composite parent) {
-		Composite composite = (Composite) super.createDialogArea(parent);
-		boolean isWin32 = Util.isWindows();
+	protected Control createDialogArea(final Composite parent) {
+		final Composite composite = (Composite) super.createDialogArea(parent);
+		final boolean isWin32 = Util.isWindows();
 		GridLayoutFactory.fillDefaults().extendedMargins(isWin32 ? 0 : 3, 3, 2, 2)
 				.applyTo(composite);
 
@@ -96,13 +95,13 @@ public class TraceElementAddingDialog extends PopupDialog {
 
 		createEmbededXtextSEWEditor(composite);
 
-		Button addingButton = new Button(parent, SWT.PUSH);;
+		final Button addingButton = new Button(parent, SWT.PUSH);
 		addingButton.setText("Adding Element...");
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		final GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		addingButton.setLayoutData(gd);
 		addingButton.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent event) {
+			public void widgetSelected(final SelectionEvent event) {
 				handleAddingTraceElement();
 
 				TraceElementAddingDialog.this.close();
@@ -113,46 +112,46 @@ public class TraceElementAddingDialog extends PopupDialog {
 	}
 
 
-	private void createEmbededXtextSEWEditor(Composite parent) {
-		XtextActivator activator = XtextActivator.getInstance();
-		Injector injector =
+	private void createEmbededXtextSEWEditor(final Composite parent) {
+		final XtextActivator activator = XtextActivator.getInstance();
+		final Injector injector =
 				activator.getInjector(XtextActivator.ORG_ECLIPSE_EFM_SEW_XTEXT_SEW);
 
-		XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
+		final XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
 
-		IEditedResourceProvider resourceProvider = new IEditedResourceProvider() {
+		final IEditedResourceProvider resourceProvider = new IEditedResourceProvider() {
 			@Override
 			public XtextResource createResource() {
 				try {
-					Resource resource = resourceSet.createResource(
+					final Resource resource = resourceSet.createResource(
 							URI.createURI(".sew/workflow-trace-configuration.sew"));
 
 					return (XtextResource) resource;
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					return null;
 				}
 			}
 		};
 
-		EmbeddedEditorFactory factory = injector.getInstance(EmbeddedEditorFactory.class);
+		final EmbeddedEditorFactory factory = injector.getInstance(EmbeddedEditorFactory.class);
 
-		EmbeddedEditor handle = factory.newEditor(resourceProvider).withParent(parent);
+		final EmbeddedEditor handle = factory.newEditor(resourceProvider).withParent(parent);
 
 		fEmbededEditorModelAccess = handle.createPartialEditor(EMPTY_STRING, getClipBoard(), EMPTY_STRING, false);
 	}
 
 
 	private String getClipBoard() {
-		Clipboard clipboard = new Clipboard(Display.getCurrent());
+		final Clipboard clipboard = new Clipboard(Display.getCurrent());
 
-		TextTransfer textTransfer = TextTransfer.getInstance();
+		final TextTransfer textTransfer = TextTransfer.getInstance();
 
-		String textData = (String) clipboard.getContents(textTransfer);
+		final String textData = (String) clipboard.getContents(textTransfer);
 
 		clipboard.dispose();
 
 		if( (textData != null) && (! textData.isEmpty()) ) {
-			for ( TraceElementKind nature :
+			for ( final TraceElementKind nature :
 				fTraceElementTableViewer.getTableConfig().VALID_TRACE_NATURES ) {
 				if( textData.contains(nature.getLiteral()) ) {
 					return textData;
@@ -166,10 +165,10 @@ public class TraceElementAddingDialog extends PopupDialog {
 
 	private void handleAddingTraceElement() {
 //		String traceText = fTexField.getText();
-		String traceText = fEmbededEditorModelAccess.getEditablePart();
+		final String traceText = fEmbededEditorModelAccess.getEditablePart();
 
 		if( traceText != null ) {
-			TraceSpecificationCustomImpl trace =
+			final TraceSpecificationCustomImpl trace =
 					TraceSpecificationCustomImpl.create("edited_trace", traceText,
 							fTraceElementTableViewer.getTableConfig().DEFAULT_TRACE_NATURE);
 
@@ -178,7 +177,7 @@ public class TraceElementAddingDialog extends PopupDialog {
 				selectionIndex = fTraceElementTableViewer.lastTablePosition();
 			}
 
-			for( TraceElement element : trace.getElement() ) {
+			for( final TraceElement element : trace.getElement() ) {
 				fTableViewer.insert(
 						new TraceElementCustomImpl(element),
 						++selectionIndex);
@@ -194,13 +193,13 @@ public class TraceElementAddingDialog extends PopupDialog {
 		if( display == null ) {
 			display = Display.getDefault();
 		}
-		Point point = display.getCursorLocation();
+		final Point point = display.getCursorLocation();
 		getShell().setLocation(point.x, point.y + 21);
 	}
 
 	@Override
 	protected Point getDefaultSize() {
-		Rectangle tableBounds = fTableViewer.getTable().getBounds();
+		final Rectangle tableBounds = fTableViewer.getTable().getBounds();
 
 		return new Point(Math.min(tableBounds.width, 320), tableBounds.height);
 	}

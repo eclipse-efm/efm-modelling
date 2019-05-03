@@ -333,7 +333,7 @@ public class MoccSystemFeature {
 
 
 
-	private Map<MoccActor, Rational> rationals = new HashMap<MoccActor, Rational>();
+	private final Map<MoccActor, Rational> rationals = new HashMap<MoccActor, Rational>();
 
 	private int[] computeReptetition() {
 		calculateRate(system.getActor().get(0), new Rational(1, 1));
@@ -406,6 +406,9 @@ public class MoccSystemFeature {
 
 			if (outputRate * prod != inputRate * conso) {
 				consistency = false;
+
+				outputPort.actor.FEATURE.consistency = false;
+				inputPort.actor.FEATURE.consistency = false;
 			}
 		}
 

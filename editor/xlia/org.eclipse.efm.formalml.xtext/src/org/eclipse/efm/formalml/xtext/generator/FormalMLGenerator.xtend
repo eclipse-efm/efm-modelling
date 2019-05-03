@@ -194,9 +194,11 @@ class FormalMLGenerator extends AbstractGenerator {
 	def generateBehaviorGraphic(Behavior behavior)
 	'''	
 		«generateMoeGraphic(behavior, behavior.execution)»
+		«IF behavior.hasCompositeBehavior»
 		state "main behavior" as «behavior.nameIdOf» {
 			«generateMachineContentGraphic(behavior)»
 		}
+		«ENDIF»
 		
 «««		«IF behavior instanceof Statemachine»«generateGraphic(behavior as Statemachine)»
 «««		«ELSE»state "Behavior «behavior.nameOf»" as «behavior.nameIdOf» {
@@ -205,100 +207,98 @@ class FormalMLGenerator extends AbstractGenerator {
 «««		«ENDIF»
 	'''
 	
+	def hasCompositeBehavior(Behavior behavior) {
+		return( (! behavior.machine.empty ) || (! behavior.behavior.empty)
+			 || (! behavior.instance.empty) || (behavior.main !== null) )
+	}
+	
 	def generateMoeGraphic(NamedElement container, ModelOfExecution moe)
 	'''	
-		«IF (moe !== null)»
-			«IF isSingleLineActivityRoutine(moe.createRoutine)»
-				«generateSingleLineRoutine(container, moe.createRoutine, "create")»
-			«ENDIF»
-			«IF isSingleLineActivityRoutine(moe.initRoutine)»
-				«generateSingleLineRoutine(container, moe.initRoutine, "init")»
-			«ENDIF»
-			«IF isSingleLineActivityRoutine(moe.finalRoutine)»
-				«generateSingleLineRoutine(container, moe.finalRoutine, "final")»
-			«ENDIF»
-			«IF isSingleLineActivityRoutine(moe.enableRoutine)»
-				«generateSingleLineRoutine(container, moe.enableRoutine, "enable")»
-			«ENDIF»
-			«IF isSingleLineActivityRoutine(moe.disableRoutine)»
-				«generateSingleLineRoutine(container, moe.disableRoutine, "disable")»
-			«ENDIF»
-			«IF isSingleLineActivityRoutine(moe.concurrencyRoutine)»
-				«generateSingleLineRoutine(container, moe.concurrencyRoutine, "concurrency")»
-			«ENDIF»
-			«IF isSingleLineActivityRoutine(moe.scheduleRoutine)»
-				«generateSingleLineRoutine(container, moe.scheduleRoutine, "schedule")»
-			«ENDIF»
-			«IF isSingleLineActivityRoutine(moe.irunRoutine)»
-				«generateSingleLineRoutine(container, moe.irunRoutine, "irun")»
-			«ENDIF»
-			«IF isSingleLineActivityRoutine(moe.runRoutine)»
-				«generateSingleLineRoutine(container, moe.runRoutine, "run")»
-			«ENDIF»
-«««			«IF ((moe.createRoutine !== null)
-«««				|| (moe.initRoutine !== null) || (moe.finalRoutine !== null)
-«««				|| (moe.enableRoutine !== null) || (moe.disableRoutine !== null)
-«««				|| (moe.concurrencyRoutine !== null) || (moe.scheduleRoutine !== null)
-«««				|| (moe.irunRoutine !== null) || (moe.runRoutine !== null))»
-«««				note top of «nameIdOf(container)»
-«««					«generateActivityRoutine(moe.createRoutine, "create")»
-«««					«generateActivityRoutine(moe.initRoutine, "init")»
-«««					«generateActivityRoutine(moe.finalRoutine, "final")»
-«««					«generateActivityRoutine(moe.enableRoutine, "enable")»
-«««					«generateActivityRoutine(moe.disableRoutine, "disable")»
-«««					«generateActivityRoutine(moe.concurrencyRoutine, "concurrency")»
-«««					«generateActivityRoutine(moe.scheduleRoutine, "schedule")»
-«««					«generateActivityRoutine(moe.irunRoutine, "irun")»
-«««					«generateActivityRoutine(moe.runRoutine, "run")»
-«««				end note
-«««			«ENDIF»
+		«IF moe.hasPrimitive»
+			note as primitives_«container.nameIdOf»
+				«generateActivityRoutine(moe.createRoutine, "create")»
+				«generateActivityRoutine(moe.initRoutine, "init")»
+				«generateActivityRoutine(moe.finalRoutine, "final")»
+				«generateActivityRoutine(moe.enableRoutine, "enable")»
+				«generateActivityRoutine(moe.disableRoutine, "disable")»
+				«generateActivityRoutine(moe.concurrencyRoutine, "concurrency")»
+				«generateActivityRoutine(moe.scheduleRoutine, "schedule")»
+				«generateActivityRoutine(moe.irunRoutine, "irun")»
+				«generateActivityRoutine(moe.runRoutine, "run")»
+			end note
 		«ENDIF»
 	'''
-	
-	def isSingleLineActivityRoutine(Routine routine) {
+
+	def hasPrimitive(ModelOfExecution moe) {
+		return( (moe !== null)
+			 && (  (moe.runRoutine !== null)
+				|| (moe.irunRoutine !== null)
+				|| (moe.scheduleRoutine !== null)
+				|| (moe.enableRoutine !== null)
+				|| (moe.disableRoutine !== null)
+				|| (moe.initRoutine !== null)
+				|| (moe.finalRoutine !== null)
+				|| (moe.createRoutine !== null)
+				|| (moe.concurrencyRoutine !== null)) )
+	}
+
+
+	def hasStatement(Routine routine) {
 		return( (routine !== null) && (routine.bodyBlock !== null)
-			&& (routine.bodyBlock.statement.size == 1)
-			&& isSingleLineStatement( routine.bodyBlock.statement.get(0) ) )
+			&& (routine.bodyBlock.statement !== null)
+			&& (! routine.bodyBlock.statement.empty) )
 	}
-	
-	def isSingleLineStatement(Statement statement) {
-		switch( statement ) {
-			ExpressionStatement : return true
-			
-			AbstractGuardStatement: return
-				(! (statement.condition instanceof LogicalAssociativeExpression))
-				
-			AbstractComStatement: return true
-			ActivityStatement   : return true
-			InvokeStatement     : return true
-			InterruptStatement  : return true
-			
-			default : return false
-		}
-	}
-	
-	def generateSingleLineRoutine(
-		NamedElement container, Routine routine, String name)
-	'''
-		«nameIdOf(container)»: **@«name»:**
-		«nameIdOf(container)»: «XLIAGenerator.generateStatement(routine.bodyBlock.statement.get(0))»
-		
-	'''
-	
 	
 	def generateActivityRoutine(Routine routine, String name)
 	'''
-		«IF routine !== null »
-		**«name»:** «IF (routine.bodyBlock !== null) && (! routine.bodyBlock.statement.empty)»«IF routine.bodyBlock.op !== null»«routine.bodyBlock.op»«ENDIF»
+		«IF routine.hasStatement»
+		**«name»:**
 		«FOR it : routine.bodyBlock.statement»
 			«XLIAGenerator.generateStatement(it)»
 		«ENDFOR»
 		«ENDIF»
-		«ENDIF»
 	'''
 	
+//	def isSingleLineActivityRoutine(Routine routine) {
+//		return( (routine !== null) && (routine.bodyBlock !== null)
+//			&& (routine.bodyBlock.statement.size == 1)
+//			&& isSingleLineStatement( routine.bodyBlock.statement.get(0) ) )
+//	}
+//	
+//	def isSingleLineStatement(Statement statement) {
+//		switch( statement ) {
+//			ExpressionStatement : return true
+//			
+//			AbstractGuardStatement: return
+//				(! (statement.condition instanceof LogicalAssociativeExpression))
+//				
+//			AbstractComStatement: return true
+//			ActivityStatement   : return true
+//			InvokeStatement     : return true
+//			InterruptStatement  : return true
+//			
+//			default : return false
+//		}
+//	}
+//	
+//	def generateSingleLineRoutine(
+//		NamedElement container, Routine routine, String name)
+//	'''
+//		«nameIdOf(container)»: **@«name»:**
+//		«nameIdOf(container)»: «XLIAGenerator.generateStatement(routine.bodyBlock.statement.get(0))»
+//		
+//	'''
+//
+//	def generateActivityRoutine(Routine routine, String name)
+//	'''
+//		**«name»:** «IF (routine.bodyBlock !== null) && (! routine.bodyBlock.statement.empty)»«IF routine.bodyBlock.op !== null»«routine.bodyBlock.op»«ENDIF»
+//		«FOR it : routine.bodyBlock.statement»
+//			«XLIAGenerator.generateStatement(it)»
+//		«ENDFOR»
+//		«ENDIF»
+//	'''
 	
-	
+
 	def generateInstanceGraphic(InstanceMachine instance)
 	'''
 		state "**«modifier(instance.model)»instance< «instance.model.name» >** «instance.nameOf»" as «instance.nameIdOf» << Instance >> {

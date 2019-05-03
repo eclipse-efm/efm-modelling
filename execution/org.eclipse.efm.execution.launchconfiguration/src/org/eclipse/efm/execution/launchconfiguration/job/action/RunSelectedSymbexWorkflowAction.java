@@ -122,15 +122,19 @@ public class RunSelectedSymbexWorkflowAction extends Action
 	protected void registerOnSelectionService() {
 		final IWorkbenchWindow window =
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		window.getSelectionService().addSelectionListener(
-				IPageLayout.ID_PROJECT_EXPLORER, this);
+		if( window != null ) {
+			window.getSelectionService().addSelectionListener(
+					IPageLayout.ID_PROJECT_EXPLORER, this);
+		}
 	}
 
 	protected void unregisterOnSelectionService() {
 		final IWorkbenchWindow window =
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		window.getSelectionService().removeSelectionListener(
-				IPageLayout.ID_PROJECT_EXPLORER, this);
+		if( window != null ) {
+			window.getSelectionService().removeSelectionListener(
+					IPageLayout.ID_PROJECT_EXPLORER, this);
+		}
 	}
 
 	@Override
@@ -155,10 +159,13 @@ public class RunSelectedSymbexWorkflowAction extends Action
 		final IWorkbenchWindow window =
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
-		ISelection selection = window.getSelectionService().getSelection();
-		if( ! (selection instanceof IStructuredSelection) ) {
-			selection = window.getSelectionService().getSelection(
-					IPageLayout.ID_PROJECT_EXPLORER);
+		ISelection selection = null;
+		if( window != null ) {
+			selection = window.getSelectionService().getSelection();
+			if( ! (selection instanceof IStructuredSelection) ) {
+				selection = window.getSelectionService().getSelection(
+						IPageLayout.ID_PROJECT_EXPLORER);
+			}
 		}
 		if( selection instanceof IStructuredSelection ) {
 			final Object selObj =

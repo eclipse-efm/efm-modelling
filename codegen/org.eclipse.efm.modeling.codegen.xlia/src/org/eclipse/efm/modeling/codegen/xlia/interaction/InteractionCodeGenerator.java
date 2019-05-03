@@ -30,7 +30,7 @@ import org.eclipse.efm.modeling.codegen.xlia.util.StatemachineContext;
 import org.eclipse.efm.modeling.codegen.xlia.util.StatemachineContext.CONTEXT;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehaviorExecutionSpecification;
 import org.eclipse.uml2.uml.Class;
@@ -1729,7 +1729,7 @@ public void transformCombinedFragmentOpt(final CombinedFragment element,
 
 				for (final ValueSpecification itArg : message.getArguments()) {
 					if( isnotFirst ) {
-						MsgReceiveAction.append(" , ");
+						MsgReceiveAction.append(", ");
 					}
 					else {
 						isnotFirst = true;
@@ -1748,13 +1748,15 @@ public void transformCombinedFragmentOpt(final CombinedFragment element,
 				{
 					final MessageOccurrenceSpecification target = (MessageOccurrenceSpecification) message.getReceiveEvent();
 					try {
-						MsgReceiveAction.append(target.getCovered().getRepresents().getType().getName())
-							.append('#').append(target.getCovered().getName());
+						MsgReceiveAction
+//							.append(target.getCovered().getRepresents().getType().getName())
+//							.append('#')
+							.append(target.getCovered().getName());
 					}
 					catch (final NullPointerException e) {
 						if( target.getCovered() == null ) {
 							MessageDialog.openError(
-									PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+									Display.getCurrent().getActiveShell(),
 									"EFM Sequence Diagramm transformation"
 									+ "< MessageOccurrenceSpecification >",
 									"==> " + target.getName()
@@ -1762,7 +1764,7 @@ public void transformCombinedFragmentOpt(final CombinedFragment element,
 						}
 						else if( target.getCovered().getRepresents() == null ) {
 							MessageDialog.openError(
-									PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+									Display.getCurrent().getActiveShell(),
 									"EFM Sequence Diagramm transformation"
 									+ "< MessageOccurrenceSpecification >",
 									"==> " + target.getName() + "< covered lifeline: "

@@ -1,6 +1,6 @@
 target "Eclipse Formal Modeling Textual last-release" with source requirements
 
-location "http://download.eclipse.org/releases/oxygen/" eclipse-oxygen {
+location "http://download.eclipse.org/releases/photon/" eclipse-photon {
  org.eclipse.emf.feature.group lazy
 // org.eclipse.emf.mwe.ui lazy
  org.eclipse.emf.mwe.ui.feature.feature.group lazy

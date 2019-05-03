@@ -16,8 +16,7 @@ import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.texteditor.IUpdate;
 
 public class TerminateAllAction extends Action implements IUpdate  {
@@ -46,10 +45,8 @@ public class TerminateAllAction extends Action implements IUpdate  {
 
 	@Override
 	public void run() {
-		final Shell shell =
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-
-		if( MessageDialog.openConfirm(shell, "Confirm",
+		if( MessageDialog.openConfirm(Display.getCurrent().getActiveShell(),
+				"Confirm",
 				"Please confirm << Terminate All Running Processes >>!") )
 		{
 			SymbexJob.TerminateAllConsole();

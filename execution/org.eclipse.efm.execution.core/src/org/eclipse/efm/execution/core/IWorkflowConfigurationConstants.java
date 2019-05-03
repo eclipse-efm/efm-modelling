@@ -552,7 +552,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 //			%1% --> trace number
 //			%2% --> execution context identifier
 			"testcase#header = \"== PATH %1% %2% ==\\n\"",
-			"comment = \\t// %1%\\n",
+			"comment = \"== %1% ==\\n\"",
 
 			"participant = \"participant %1%\\n\"",
 //			%1% --> machine runtime pid
@@ -568,9 +568,9 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			"input#rdv = \"\"",
 			"input = \"%6% -[%8%]> %6% : <font color = %8%> %3% ? %4%\\n\"",
 
-			"output#env = \"<[#black]- %5% : %3% ! %4%\\n\"",
-			"output#rdv = \"%5% -[%8%]> %6% : <font color = %8%> %3% ! %4%\\n\"",
-			"output = \"%5% -[%8%]> %6% : <font color = %8%> %3% ! %4%\\n\"",
+			"output#env = \"<[#black]- %5% : %3%%4%\\n\"",
+			"output#rdv = \"%5% -[%8%]> %6% : <font color = %8%> %3%%4%\\n\"",
+			"output = \"%5% -[%8%]> %6% : <font color = %8%> %3%%4%\\n\"",
 
 			"routine    = \"hnote over of %2% #yellow : invoke %2%:%3%\\n\"",
 			"transition = \"hnote over of %2% #yellow : fired %1%:%3%\\n\"",
