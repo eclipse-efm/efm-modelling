@@ -48,7 +48,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//////////////////////////////////////////////////////////////////////////////////
 		//// Main Rules
 		//////////////////////////////////////////////////////////////////////////////////
-		//Xlia XliaModel:
+		//Xlia fml::XliaModel:
 		//	prolog=XliaPrologObject
 		//	system=XliaSystem;
 		@Override public ParserRule getRule() { return rule; }
@@ -86,7 +86,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cElementsAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cElementsXliaOptionObjectParserRuleCall_4_0 = (RuleCall)cElementsAssignment_4.eContents().get(0);
 		
-		//XliaPrologObject XliaObject:
+		//XliaPrologObject fml::XliaObject:
 		//	name=('@FormalML' | '@xfml' | '@fml' | '@xlia' | '@xfsp' | '@diversity')
 		//	'<'
 		//	elements+=XliaPrologAttribute '>:'
@@ -155,7 +155,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueLiteralFloatExpressionParserRuleCall_1_2_0_0 = (RuleCall)cValueAlternatives_1_2_0.eContents().get(0);
 		private final RuleCall cValueLiteralStringExpressionParserRuleCall_1_2_0_1 = (RuleCall)cValueAlternatives_1_2_0.eContents().get(1);
 		
-		//XliaPrologAttribute XliaAttribute:
+		//XliaPrologAttribute fml::XliaAttribute:
 		//	name=('system' | 'package') (',' 'version:'?
 		//	value=(LiteralFloatExpression | LiteralStringExpression))?;
 		@Override public ParserRule getRule() { return rule; }
@@ -215,7 +215,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		////XliaModelKind returns fmlExpr::LiteralStringExpression
 		////	: value=( 'system' | 'package' )
 		////	;
-		//XliaOptionObject XliaObject:
+		//XliaOptionObject fml::XliaObject:
 		//	name='@option' '{'
 		//	elements+=XliaNamedElement*
 		//	'}';
@@ -249,7 +249,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cXliaSectionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cXliaAttributeParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
-		//XliaNamedElement:
+		//XliaNamedElement fml::XliaNamedElement:
 		//	XliaObject
 		//	| XliaSection
 		//	| XliaAttribute;
@@ -277,7 +277,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cElementsXliaNamedElementParserRuleCall_2_0 = (RuleCall)cElementsAssignment_2.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//XliaObject:
+		//XliaObject fml::XliaObject:
 		//	name=XLIA_ID '{'
 		//	elements+=XliaNamedElement*
 		//	'}';
@@ -314,7 +314,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cElementsXliaAttributeParserRuleCall_2_0 = (RuleCall)cElementsAssignment_2.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//XliaSection:
+		//XliaSection fml::XliaSection:
 		//	name=XLIA_ID '['
 		//	elements+=XliaAttribute*
 		//	']';
@@ -351,7 +351,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueExpressionParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//XliaAttribute:
+		//XliaAttribute fml::XliaAttribute:
 		//	name=XLIA_ID '=' value=Expression ';';
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -514,140 +514,161 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getSTRINGTerminalRuleCall() { return cSTRINGTerminalRuleCall; }
 	}
+	public class EOffsetElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.EOffset");
+		private final RuleCall cOFFSETTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//EOffset:
+		//	OFFSET;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//OFFSET
+		public RuleCall getOFFSETTerminalRuleCall() { return cOFFSETTerminalRuleCall; }
+	}
 	public class ReservedKeyWordElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ReservedKeyWord");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Keyword cPackageKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
 		private final Keyword cSystemKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
 		private final Keyword cMachineKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
-		private final Keyword cVertexKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
-		private final Keyword cPseudostateKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
-		private final Keyword cStateKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
-		private final Keyword cStatemachineKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
-		private final Keyword cMacroKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
-		private final Keyword cRoutineKeyword_8 = (Keyword)cAlternatives.eContents().get(8);
-		private final Keyword cProcedureKeyword_9 = (Keyword)cAlternatives.eContents().get(9);
-		private final Keyword cTransitionKeyword_10 = (Keyword)cAlternatives.eContents().get(10);
-		private final Keyword cPublicKeyword_11 = (Keyword)cAlternatives.eContents().get(11);
-		private final Keyword cPrivateKeyword_12 = (Keyword)cAlternatives.eContents().get(12);
-		private final Keyword cProtectedKeyword_13 = (Keyword)cAlternatives.eContents().get(13);
-		private final Keyword cStaticKeyword_14 = (Keyword)cAlternatives.eContents().get(14);
-		private final Keyword cFinalKeyword_15 = (Keyword)cAlternatives.eContents().get(15);
-		private final Keyword cVolatileKeyword_16 = (Keyword)cAlternatives.eContents().get(16);
-		private final Keyword cTransientKeyword_17 = (Keyword)cAlternatives.eContents().get(17);
-		private final Keyword cModelKeyword_18 = (Keyword)cAlternatives.eContents().get(18);
-		private final Keyword cPrototypeKeyword_19 = (Keyword)cAlternatives.eContents().get(19);
-		private final Keyword cInstanceKeyword_20 = (Keyword)cAlternatives.eContents().get(20);
-		private final Keyword cTimedKeyword_21 = (Keyword)cAlternatives.eContents().get(21);
-		private final Keyword cTimedDenseKeyword_22 = (Keyword)cAlternatives.eContents().get(22);
-		private final Keyword cTimedDiscreteKeyword_23 = (Keyword)cAlternatives.eContents().get(23);
-		private final Keyword cUnsafeKeyword_24 = (Keyword)cAlternatives.eContents().get(24);
-		private final Keyword cInput_enabledKeyword_25 = (Keyword)cAlternatives.eContents().get(25);
-		private final Keyword cPortKeyword_26 = (Keyword)cAlternatives.eContents().get(26);
-		private final Keyword cSignalKeyword_27 = (Keyword)cAlternatives.eContents().get(27);
-		private final Keyword cMessageKeyword_28 = (Keyword)cAlternatives.eContents().get(28);
-		private final Keyword cBufferKeyword_29 = (Keyword)cAlternatives.eContents().get(29);
-		private final Keyword cChannelKeyword_30 = (Keyword)cAlternatives.eContents().get(30);
-		private final Keyword cViaKeyword_31 = (Keyword)cAlternatives.eContents().get(31);
-		private final Keyword cVarKeyword_32 = (Keyword)cAlternatives.eContents().get(32);
-		private final Keyword cValKeyword_33 = (Keyword)cAlternatives.eContents().get(33);
-		private final Keyword cConstKeyword_34 = (Keyword)cAlternatives.eContents().get(34);
-		private final Keyword cInputKeyword_35 = (Keyword)cAlternatives.eContents().get(35);
-		private final Keyword cInKeyword_36 = (Keyword)cAlternatives.eContents().get(36);
-		private final Keyword cInoutKeyword_37 = (Keyword)cAlternatives.eContents().get(37);
-		private final Keyword cOutputKeyword_38 = (Keyword)cAlternatives.eContents().get(38);
-		private final Keyword cOutKeyword_39 = (Keyword)cAlternatives.eContents().get(39);
-		private final Keyword cReturnKeyword_40 = (Keyword)cAlternatives.eContents().get(40);
-		private final Keyword cSimpleKeyword_41 = (Keyword)cAlternatives.eContents().get(41);
-		private final Keyword cStartKeyword_42 = (Keyword)cAlternatives.eContents().get(42);
-		private final Keyword cFinalKeyword_43 = (Keyword)cAlternatives.eContents().get(43);
-		private final Keyword cInitialKeyword_44 = (Keyword)cAlternatives.eContents().get(44);
-		private final Keyword cTerminalKeyword_45 = (Keyword)cAlternatives.eContents().get(45);
-		private final Keyword cJunctionKeyword_46 = (Keyword)cAlternatives.eContents().get(46);
-		private final Keyword cChoiceKeyword_47 = (Keyword)cAlternatives.eContents().get(47);
-		private final Keyword cForkKeyword_48 = (Keyword)cAlternatives.eContents().get(48);
-		private final Keyword cJoinKeyword_49 = (Keyword)cAlternatives.eContents().get(49);
-		private final Keyword cDhistoryKeyword_50 = (Keyword)cAlternatives.eContents().get(50);
-		private final Keyword cShistoryKeyword_51 = (Keyword)cAlternatives.eContents().get(51);
-		private final Keyword cRouteKeyword_52 = (Keyword)cAlternatives.eContents().get(52);
-		private final Keyword cConnectorKeyword_53 = (Keyword)cAlternatives.eContents().get(53);
-		private final Keyword cConnectKeyword_54 = (Keyword)cAlternatives.eContents().get(54);
-		private final Keyword cEnvKeyword_55 = (Keyword)cAlternatives.eContents().get(55);
-		private final Keyword cRdvKeyword_56 = (Keyword)cAlternatives.eContents().get(56);
-		private final Keyword cMultirdvKeyword_57 = (Keyword)cAlternatives.eContents().get(57);
-		private final Keyword cBufferKeyword_58 = (Keyword)cAlternatives.eContents().get(58);
-		private final Keyword cUnicastKeyword_59 = (Keyword)cAlternatives.eContents().get(59);
-		private final Keyword cAnycastKeyword_60 = (Keyword)cAlternatives.eContents().get(60);
-		private final Keyword cMulticastKeyword_61 = (Keyword)cAlternatives.eContents().get(61);
-		private final Keyword cBroadcastKeyword_62 = (Keyword)cAlternatives.eContents().get(62);
-		private final Keyword cBooleanKeyword_63 = (Keyword)cAlternatives.eContents().get(63);
-		private final Keyword cBoolKeyword_64 = (Keyword)cAlternatives.eContents().get(64);
-		private final Keyword cCharKeyword_65 = (Keyword)cAlternatives.eContents().get(65);
-		private final Keyword cStringKeyword_66 = (Keyword)cAlternatives.eContents().get(66);
-		private final Keyword cIntegerKeyword_67 = (Keyword)cAlternatives.eContents().get(67);
-		private final Keyword cIntKeyword_68 = (Keyword)cAlternatives.eContents().get(68);
-		private final Keyword cUintegerKeyword_69 = (Keyword)cAlternatives.eContents().get(69);
-		private final Keyword cUintKeyword_70 = (Keyword)cAlternatives.eContents().get(70);
-		private final Keyword cRationalKeyword_71 = (Keyword)cAlternatives.eContents().get(71);
-		private final Keyword cRatKeyword_72 = (Keyword)cAlternatives.eContents().get(72);
-		private final Keyword cUrationalKeyword_73 = (Keyword)cAlternatives.eContents().get(73);
-		private final Keyword cUratKeyword_74 = (Keyword)cAlternatives.eContents().get(74);
-		private final Keyword cTimeKeyword_75 = (Keyword)cAlternatives.eContents().get(75);
-		private final Keyword cClockKeyword_76 = (Keyword)cAlternatives.eContents().get(76);
-		private final Keyword cFloatKeyword_77 = (Keyword)cAlternatives.eContents().get(77);
-		private final Keyword cDoubleKeyword_78 = (Keyword)cAlternatives.eContents().get(78);
-		private final Keyword cRealKeyword_79 = (Keyword)cAlternatives.eContents().get(79);
-		private final Keyword cUfloatKeyword_80 = (Keyword)cAlternatives.eContents().get(80);
-		private final Keyword cUdoubleKeyword_81 = (Keyword)cAlternatives.eContents().get(81);
-		private final Keyword cUrealKeyword_82 = (Keyword)cAlternatives.eContents().get(82);
-		private final Keyword cIntervalKeyword_83 = (Keyword)cAlternatives.eContents().get(83);
-		private final Keyword cEnumKeyword_84 = (Keyword)cAlternatives.eContents().get(84);
-		private final Keyword cStructKeyword_85 = (Keyword)cAlternatives.eContents().get(85);
-		private final Keyword cUnionKeyword_86 = (Keyword)cAlternatives.eContents().get(86);
-		private final Keyword cVectorKeyword_87 = (Keyword)cAlternatives.eContents().get(87);
-		private final Keyword cRvectorKeyword_88 = (Keyword)cAlternatives.eContents().get(88);
-		private final Keyword cListKeyword_89 = (Keyword)cAlternatives.eContents().get(89);
-		private final Keyword cSetKeyword_90 = (Keyword)cAlternatives.eContents().get(90);
-		private final Keyword cBagKeyword_91 = (Keyword)cAlternatives.eContents().get(91);
-		private final Keyword cMultisetKeyword_92 = (Keyword)cAlternatives.eContents().get(92);
-		private final Keyword cFifoKeyword_93 = (Keyword)cAlternatives.eContents().get(93);
-		private final Keyword cLifoKeyword_94 = (Keyword)cAlternatives.eContents().get(94);
-		private final Keyword cGuardKeyword_95 = (Keyword)cAlternatives.eContents().get(95);
-		private final Keyword cTguardKeyword_96 = (Keyword)cAlternatives.eContents().get(96);
-		private final Keyword cEventKeyword_97 = (Keyword)cAlternatives.eContents().get(97);
-		private final Keyword cChecksatKeyword_98 = (Keyword)cAlternatives.eContents().get(98);
-		private final Keyword cBreakKeyword_99 = (Keyword)cAlternatives.eContents().get(99);
-		private final Keyword cContinueKeyword_100 = (Keyword)cAlternatives.eContents().get(100);
-		private final Keyword cExitKeyword_101 = (Keyword)cAlternatives.eContents().get(101);
-		private final Keyword cInitKeyword_102 = (Keyword)cAlternatives.eContents().get(102);
-		private final Keyword cDestroyKeyword_103 = (Keyword)cAlternatives.eContents().get(103);
-		private final Keyword cStopKeyword_104 = (Keyword)cAlternatives.eContents().get(104);
-		private final Keyword cAbortKeyword_105 = (Keyword)cAlternatives.eContents().get(105);
-		private final Keyword cRestartKeyword_106 = (Keyword)cAlternatives.eContents().get(106);
-		private final Keyword cSuspendKeyword_107 = (Keyword)cAlternatives.eContents().get(107);
-		private final Keyword cResumeKeyword_108 = (Keyword)cAlternatives.eContents().get(108);
-		private final Keyword cWaitKeyword_109 = (Keyword)cAlternatives.eContents().get(109);
-		private final Keyword cDisableKeyword_110 = (Keyword)cAlternatives.eContents().get(110);
-		private final Keyword cEnableKeyword_111 = (Keyword)cAlternatives.eContents().get(111);
-		private final Keyword cScheduleKeyword_112 = (Keyword)cAlternatives.eContents().get(112);
-		private final Keyword cIrunKeyword_113 = (Keyword)cAlternatives.eContents().get(113);
-		private final Keyword cRunKeyword_114 = (Keyword)cAlternatives.eContents().get(114);
-		private final Keyword cRtcKeyword_115 = (Keyword)cAlternatives.eContents().get(115);
-		private final Keyword cCallKeyword_116 = (Keyword)cAlternatives.eContents().get(116);
-		private final Keyword cNewKeyword_117 = (Keyword)cAlternatives.eContents().get(117);
-		private final Keyword cCtorKeyword_118 = (Keyword)cAlternatives.eContents().get(118);
-		private final Keyword cNewfreshKeyword_119 = (Keyword)cAlternatives.eContents().get(119);
-		private final Keyword cThisKeyword_120 = (Keyword)cAlternatives.eContents().get(120);
-		private final Keyword cSelfKeyword_121 = (Keyword)cAlternatives.eContents().get(121);
-		private final Keyword cParentKeyword_122 = (Keyword)cAlternatives.eContents().get(122);
-		private final Keyword cSuperKeyword_123 = (Keyword)cAlternatives.eContents().get(123);
-		private final Keyword cNullKeyword_124 = (Keyword)cAlternatives.eContents().get(124);
+		private final Keyword cExecutableKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cVertexKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
+		private final Keyword cPseudostateKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
+		private final Keyword cStateKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
+		private final Keyword cStatemachineKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
+		private final Keyword cMacroKeyword_8 = (Keyword)cAlternatives.eContents().get(8);
+		private final Keyword cRoutineKeyword_9 = (Keyword)cAlternatives.eContents().get(9);
+		private final Keyword cProcedureKeyword_10 = (Keyword)cAlternatives.eContents().get(10);
+		private final Keyword cTransitionKeyword_11 = (Keyword)cAlternatives.eContents().get(11);
+		private final Keyword cPublicKeyword_12 = (Keyword)cAlternatives.eContents().get(12);
+		private final Keyword cPrivateKeyword_13 = (Keyword)cAlternatives.eContents().get(13);
+		private final Keyword cProtectedKeyword_14 = (Keyword)cAlternatives.eContents().get(14);
+		private final Keyword cStaticKeyword_15 = (Keyword)cAlternatives.eContents().get(15);
+		private final Keyword cFinalKeyword_16 = (Keyword)cAlternatives.eContents().get(16);
+		private final Keyword cVolatileKeyword_17 = (Keyword)cAlternatives.eContents().get(17);
+		private final Keyword cTransientKeyword_18 = (Keyword)cAlternatives.eContents().get(18);
+		private final Keyword cModelKeyword_19 = (Keyword)cAlternatives.eContents().get(19);
+		private final Keyword cPrototypeKeyword_20 = (Keyword)cAlternatives.eContents().get(20);
+		private final Keyword cInstanceKeyword_21 = (Keyword)cAlternatives.eContents().get(21);
+		private final Keyword cTimedKeyword_22 = (Keyword)cAlternatives.eContents().get(22);
+		private final Keyword cTimedDenseKeyword_23 = (Keyword)cAlternatives.eContents().get(23);
+		private final Keyword cTimedDiscreteKeyword_24 = (Keyword)cAlternatives.eContents().get(24);
+		private final Keyword cUnsafeKeyword_25 = (Keyword)cAlternatives.eContents().get(25);
+		private final Keyword cInput_enabledKeyword_26 = (Keyword)cAlternatives.eContents().get(26);
+		private final Keyword cPortKeyword_27 = (Keyword)cAlternatives.eContents().get(27);
+		private final Keyword cSignalKeyword_28 = (Keyword)cAlternatives.eContents().get(28);
+		private final Keyword cMessageKeyword_29 = (Keyword)cAlternatives.eContents().get(29);
+		private final Keyword cBufferKeyword_30 = (Keyword)cAlternatives.eContents().get(30);
+		private final Keyword cChannelKeyword_31 = (Keyword)cAlternatives.eContents().get(31);
+		private final Keyword cViaKeyword_32 = (Keyword)cAlternatives.eContents().get(32);
+		private final Keyword cVarKeyword_33 = (Keyword)cAlternatives.eContents().get(33);
+		private final Keyword cValKeyword_34 = (Keyword)cAlternatives.eContents().get(34);
+		private final Keyword cConstKeyword_35 = (Keyword)cAlternatives.eContents().get(35);
+		private final Keyword cInputKeyword_36 = (Keyword)cAlternatives.eContents().get(36);
+		private final Keyword cInKeyword_37 = (Keyword)cAlternatives.eContents().get(37);
+		private final Keyword cInoutKeyword_38 = (Keyword)cAlternatives.eContents().get(38);
+		private final Keyword cOutputKeyword_39 = (Keyword)cAlternatives.eContents().get(39);
+		private final Keyword cOutKeyword_40 = (Keyword)cAlternatives.eContents().get(40);
+		private final Keyword cReturnKeyword_41 = (Keyword)cAlternatives.eContents().get(41);
+		private final Keyword cSimpleKeyword_42 = (Keyword)cAlternatives.eContents().get(42);
+		private final Keyword cStartKeyword_43 = (Keyword)cAlternatives.eContents().get(43);
+		private final Keyword cFinalKeyword_44 = (Keyword)cAlternatives.eContents().get(44);
+		private final Keyword cInitialKeyword_45 = (Keyword)cAlternatives.eContents().get(45);
+		private final Keyword cTerminalKeyword_46 = (Keyword)cAlternatives.eContents().get(46);
+		private final Keyword cJunctionKeyword_47 = (Keyword)cAlternatives.eContents().get(47);
+		private final Keyword cChoiceKeyword_48 = (Keyword)cAlternatives.eContents().get(48);
+		private final Keyword cForkKeyword_49 = (Keyword)cAlternatives.eContents().get(49);
+		private final Keyword cJoinKeyword_50 = (Keyword)cAlternatives.eContents().get(50);
+		private final Keyword cDhistoryKeyword_51 = (Keyword)cAlternatives.eContents().get(51);
+		private final Keyword cShistoryKeyword_52 = (Keyword)cAlternatives.eContents().get(52);
+		private final Keyword cRouteKeyword_53 = (Keyword)cAlternatives.eContents().get(53);
+		private final Keyword cConnectorKeyword_54 = (Keyword)cAlternatives.eContents().get(54);
+		private final Keyword cConnectKeyword_55 = (Keyword)cAlternatives.eContents().get(55);
+		private final Keyword cEnvKeyword_56 = (Keyword)cAlternatives.eContents().get(56);
+		private final Keyword cRdvKeyword_57 = (Keyword)cAlternatives.eContents().get(57);
+		private final Keyword cMultirdvKeyword_58 = (Keyword)cAlternatives.eContents().get(58);
+		private final Keyword cBufferKeyword_59 = (Keyword)cAlternatives.eContents().get(59);
+		private final Keyword cUnicastKeyword_60 = (Keyword)cAlternatives.eContents().get(60);
+		private final Keyword cAnycastKeyword_61 = (Keyword)cAlternatives.eContents().get(61);
+		private final Keyword cMulticastKeyword_62 = (Keyword)cAlternatives.eContents().get(62);
+		private final Keyword cBroadcastKeyword_63 = (Keyword)cAlternatives.eContents().get(63);
+		private final Keyword cBooleanKeyword_64 = (Keyword)cAlternatives.eContents().get(64);
+		private final Keyword cBoolKeyword_65 = (Keyword)cAlternatives.eContents().get(65);
+		private final Keyword cCharKeyword_66 = (Keyword)cAlternatives.eContents().get(66);
+		private final Keyword cStringKeyword_67 = (Keyword)cAlternatives.eContents().get(67);
+		private final Keyword cIntegerKeyword_68 = (Keyword)cAlternatives.eContents().get(68);
+		private final Keyword cIntKeyword_69 = (Keyword)cAlternatives.eContents().get(69);
+		private final Keyword cUintegerKeyword_70 = (Keyword)cAlternatives.eContents().get(70);
+		private final Keyword cUintKeyword_71 = (Keyword)cAlternatives.eContents().get(71);
+		private final Keyword cRationalKeyword_72 = (Keyword)cAlternatives.eContents().get(72);
+		private final Keyword cRatKeyword_73 = (Keyword)cAlternatives.eContents().get(73);
+		private final Keyword cUrationalKeyword_74 = (Keyword)cAlternatives.eContents().get(74);
+		private final Keyword cUratKeyword_75 = (Keyword)cAlternatives.eContents().get(75);
+		private final Keyword cTimeKeyword_76 = (Keyword)cAlternatives.eContents().get(76);
+		private final Keyword cClockKeyword_77 = (Keyword)cAlternatives.eContents().get(77);
+		private final Keyword cFloatKeyword_78 = (Keyword)cAlternatives.eContents().get(78);
+		private final Keyword cDoubleKeyword_79 = (Keyword)cAlternatives.eContents().get(79);
+		private final Keyword cRealKeyword_80 = (Keyword)cAlternatives.eContents().get(80);
+		private final Keyword cUfloatKeyword_81 = (Keyword)cAlternatives.eContents().get(81);
+		private final Keyword cUdoubleKeyword_82 = (Keyword)cAlternatives.eContents().get(82);
+		private final Keyword cUrealKeyword_83 = (Keyword)cAlternatives.eContents().get(83);
+		private final Keyword cIntervalKeyword_84 = (Keyword)cAlternatives.eContents().get(84);
+		private final Keyword cEnumKeyword_85 = (Keyword)cAlternatives.eContents().get(85);
+		private final Keyword cStructKeyword_86 = (Keyword)cAlternatives.eContents().get(86);
+		private final Keyword cUnionKeyword_87 = (Keyword)cAlternatives.eContents().get(87);
+		private final Keyword cVectorKeyword_88 = (Keyword)cAlternatives.eContents().get(88);
+		private final Keyword cRvectorKeyword_89 = (Keyword)cAlternatives.eContents().get(89);
+		private final Keyword cListKeyword_90 = (Keyword)cAlternatives.eContents().get(90);
+		private final Keyword cSetKeyword_91 = (Keyword)cAlternatives.eContents().get(91);
+		private final Keyword cBagKeyword_92 = (Keyword)cAlternatives.eContents().get(92);
+		private final Keyword cMultisetKeyword_93 = (Keyword)cAlternatives.eContents().get(93);
+		private final Keyword cFifoKeyword_94 = (Keyword)cAlternatives.eContents().get(94);
+		private final Keyword cLifoKeyword_95 = (Keyword)cAlternatives.eContents().get(95);
+		private final Keyword cGuardKeyword_96 = (Keyword)cAlternatives.eContents().get(96);
+		private final Keyword cTguardKeyword_97 = (Keyword)cAlternatives.eContents().get(97);
+		private final Keyword cEventKeyword_98 = (Keyword)cAlternatives.eContents().get(98);
+		private final Keyword cChecksatKeyword_99 = (Keyword)cAlternatives.eContents().get(99);
+		private final Keyword cBreakKeyword_100 = (Keyword)cAlternatives.eContents().get(100);
+		private final Keyword cContinueKeyword_101 = (Keyword)cAlternatives.eContents().get(101);
+		private final Keyword cExitKeyword_102 = (Keyword)cAlternatives.eContents().get(102);
+		private final Keyword cInitKeyword_103 = (Keyword)cAlternatives.eContents().get(103);
+		private final Keyword cDestroyKeyword_104 = (Keyword)cAlternatives.eContents().get(104);
+		private final Keyword cStopKeyword_105 = (Keyword)cAlternatives.eContents().get(105);
+		private final Keyword cAbortKeyword_106 = (Keyword)cAlternatives.eContents().get(106);
+		private final Keyword cRestartKeyword_107 = (Keyword)cAlternatives.eContents().get(107);
+		private final Keyword cSuspendKeyword_108 = (Keyword)cAlternatives.eContents().get(108);
+		private final Keyword cResumeKeyword_109 = (Keyword)cAlternatives.eContents().get(109);
+		private final Keyword cWaitKeyword_110 = (Keyword)cAlternatives.eContents().get(110);
+		private final Keyword cDisableKeyword_111 = (Keyword)cAlternatives.eContents().get(111);
+		private final Keyword cEnableKeyword_112 = (Keyword)cAlternatives.eContents().get(112);
+		private final Keyword cScheduleKeyword_113 = (Keyword)cAlternatives.eContents().get(113);
+		private final Keyword cIrunKeyword_114 = (Keyword)cAlternatives.eContents().get(114);
+		private final Keyword cRunKeyword_115 = (Keyword)cAlternatives.eContents().get(115);
+		private final Keyword cRtcKeyword_116 = (Keyword)cAlternatives.eContents().get(116);
+		private final Keyword cCallKeyword_117 = (Keyword)cAlternatives.eContents().get(117);
+		private final Keyword cNewKeyword_118 = (Keyword)cAlternatives.eContents().get(118);
+		private final Keyword cCtorKeyword_119 = (Keyword)cAlternatives.eContents().get(119);
+		private final Keyword cNewfreshKeyword_120 = (Keyword)cAlternatives.eContents().get(120);
+		private final Keyword cThisKeyword_121 = (Keyword)cAlternatives.eContents().get(121);
+		private final Keyword cSelfKeyword_122 = (Keyword)cAlternatives.eContents().get(122);
+		private final Keyword cParentKeyword_123 = (Keyword)cAlternatives.eContents().get(123);
+		private final Keyword cSuperKeyword_124 = (Keyword)cAlternatives.eContents().get(124);
+		private final Keyword cNullKeyword_125 = (Keyword)cAlternatives.eContents().get(125);
+		private final Keyword cModelKeyword_126 = (Keyword)cAlternatives.eContents().get(126);
+		private final Keyword cInstanceKeyword_127 = (Keyword)cAlternatives.eContents().get(127);
+		private final Keyword cStaticKeyword_128 = (Keyword)cAlternatives.eContents().get(128);
+		private final Keyword cDynamicKeyword_129 = (Keyword)cAlternatives.eContents().get(129);
+		private final Keyword cRuntimeKeyword_130 = (Keyword)cAlternatives.eContents().get(130);
+		private final Keyword cStaticInstanceKeyword_131 = (Keyword)cAlternatives.eContents().get(131);
+		private final Keyword cDynamicInstanceKeyword_132 = (Keyword)cAlternatives.eContents().get(132);
+		private final Keyword cPrototypeKeyword_133 = (Keyword)cAlternatives.eContents().get(133);
+		private final Keyword cDynamicPrototypeKeyword_134 = (Keyword)cAlternatives.eContents().get(134);
 		
 		////QualifiedName returns ecore::EString
 		////	: ID ( '[' ID ']' )? '.' ID ( '[' ID ']' )? | ID
 		////	;
 		//ReservedKeyWord:
-		//	'package' | 'system' | 'machine'
+		//	'package' | 'system' | 'machine' | 'executable'
 		//	| 'vertex' | 'pseudostate'
 		//	| 'state' | 'statemachine'
 		//	| 'macro' | 'routine'
@@ -693,21 +714,26 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//	| 'schedule' | 'irun' | 'run' | 'rtc'
 		//	| 'call' | 'new' | 'ctor' | 'newfresh'
 		//	| 'this' | 'self' | 'parent' | 'super'
-		//	| 'null';
+		//	| 'null'
+		//	| '#model' | '#instance' | '#static' | '#dynamic'
+		//	| '#runtime' | '#static#instance' | '#dynamic#instance'
+		//	| '#prototype' | '#dynamic#prototype';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'package' | 'system' | 'machine' | 'vertex' | 'pseudostate' | 'state' | 'statemachine' | 'macro' | 'routine' |
-		//'procedure' | 'transition' | 'public' | 'private' | 'protected' | 'static' | 'final' | 'volatile' | 'transient' |
-		//'model' | 'prototype' | 'instance' | 'timed' | 'timed#dense' | 'timed#discrete' | 'unsafe' | 'input_enabled' | 'port'
-		//| 'signal' | 'message' | 'buffer' | 'channel' | 'via' | 'var' | 'val' | 'const' | 'input' | 'in' | 'inout' | 'output'
-		//| 'out' | 'return' | 'simple' | 'start' | 'final' | 'initial' | 'terminal' | 'junction' | 'choice' | 'fork' | 'join' |
-		//'dhistory' | 'shistory' | 'route' | 'connector' | 'connect' | 'env' | 'rdv' | 'multirdv' | 'buffer' | 'unicast' |
-		//'anycast' | 'multicast' | 'broadcast' | 'boolean' | 'bool' | 'char' | 'string' | 'integer' | 'int' | 'uinteger' |
-		//'uint' | 'rational' | 'rat' | 'urational' | 'urat' | 'time' | 'clock' | 'float' | 'double' | 'real' | 'ufloat' |
-		//'udouble' | 'ureal' | 'interval' | 'enum' | 'struct' | 'union' | 'vector' | 'rvector' | 'list' | 'set' | 'bag' |
-		//'multiset' | 'fifo' | 'lifo' | 'guard' | 'tguard' | 'event' | 'checksat' | 'break' | 'continue' | 'exit' | 'init' |
-		//'destroy' | 'stop' | 'abort' | 'restart' | 'suspend' | 'resume' | 'wait' | 'disable' | 'enable' | 'schedule' | 'irun'
-		//| 'run' | 'rtc' | 'call' | 'new' | 'ctor' | 'newfresh' | 'this' | 'self' | 'parent' | 'super' | 'null'
+		//'package' | 'system' | 'machine' | 'executable' | 'vertex' | 'pseudostate' | 'state' | 'statemachine' | 'macro' |
+		//'routine' | 'procedure' | 'transition' | 'public' | 'private' | 'protected' | 'static' | 'final' | 'volatile' |
+		//'transient' | 'model' | 'prototype' | 'instance' | 'timed' | 'timed#dense' | 'timed#discrete' | 'unsafe' |
+		//'input_enabled' | 'port' | 'signal' | 'message' | 'buffer' | 'channel' | 'via' | 'var' | 'val' | 'const' | 'input' |
+		//'in' | 'inout' | 'output' | 'out' | 'return' | 'simple' | 'start' | 'final' | 'initial' | 'terminal' | 'junction' |
+		//'choice' | 'fork' | 'join' | 'dhistory' | 'shistory' | 'route' | 'connector' | 'connect' | 'env' | 'rdv' | 'multirdv' |
+		//'buffer' | 'unicast' | 'anycast' | 'multicast' | 'broadcast' | 'boolean' | 'bool' | 'char' | 'string' | 'integer' |
+		//'int' | 'uinteger' | 'uint' | 'rational' | 'rat' | 'urational' | 'urat' | 'time' | 'clock' | 'float' | 'double' |
+		//'real' | 'ufloat' | 'udouble' | 'ureal' | 'interval' | 'enum' | 'struct' | 'union' | 'vector' | 'rvector' | 'list' |
+		//'set' | 'bag' | 'multiset' | 'fifo' | 'lifo' | 'guard' | 'tguard' | 'event' | 'checksat' | 'break' | 'continue' |
+		//'exit' | 'init' | 'destroy' | 'stop' | 'abort' | 'restart' | 'suspend' | 'resume' | 'wait' | 'disable' | 'enable' |
+		//'schedule' | 'irun' | 'run' | 'rtc' | 'call' | 'new' | 'ctor' | 'newfresh' | 'this' | 'self' | 'parent' | 'super' |
+		//'null' | '#model' | '#instance' | '#static' | '#dynamic' | '#runtime' | '#static#instance' | '#dynamic#instance' |
+		//'#prototype' | '#dynamic#prototype'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//'package'
@@ -719,371 +745,401 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'machine'
 		public Keyword getMachineKeyword_2() { return cMachineKeyword_2; }
 		
+		//'executable'
+		public Keyword getExecutableKeyword_3() { return cExecutableKeyword_3; }
+		
 		//'vertex'
-		public Keyword getVertexKeyword_3() { return cVertexKeyword_3; }
+		public Keyword getVertexKeyword_4() { return cVertexKeyword_4; }
 		
 		//'pseudostate'
-		public Keyword getPseudostateKeyword_4() { return cPseudostateKeyword_4; }
+		public Keyword getPseudostateKeyword_5() { return cPseudostateKeyword_5; }
 		
 		//'state'
-		public Keyword getStateKeyword_5() { return cStateKeyword_5; }
+		public Keyword getStateKeyword_6() { return cStateKeyword_6; }
 		
 		//'statemachine'
-		public Keyword getStatemachineKeyword_6() { return cStatemachineKeyword_6; }
+		public Keyword getStatemachineKeyword_7() { return cStatemachineKeyword_7; }
 		
 		//'macro'
-		public Keyword getMacroKeyword_7() { return cMacroKeyword_7; }
+		public Keyword getMacroKeyword_8() { return cMacroKeyword_8; }
 		
 		//'routine'
-		public Keyword getRoutineKeyword_8() { return cRoutineKeyword_8; }
+		public Keyword getRoutineKeyword_9() { return cRoutineKeyword_9; }
 		
 		//'procedure'
-		public Keyword getProcedureKeyword_9() { return cProcedureKeyword_9; }
+		public Keyword getProcedureKeyword_10() { return cProcedureKeyword_10; }
 		
 		//'transition'
-		public Keyword getTransitionKeyword_10() { return cTransitionKeyword_10; }
+		public Keyword getTransitionKeyword_11() { return cTransitionKeyword_11; }
 		
 		//'public'
-		public Keyword getPublicKeyword_11() { return cPublicKeyword_11; }
+		public Keyword getPublicKeyword_12() { return cPublicKeyword_12; }
 		
 		//'private'
-		public Keyword getPrivateKeyword_12() { return cPrivateKeyword_12; }
+		public Keyword getPrivateKeyword_13() { return cPrivateKeyword_13; }
 		
 		//'protected'
-		public Keyword getProtectedKeyword_13() { return cProtectedKeyword_13; }
+		public Keyword getProtectedKeyword_14() { return cProtectedKeyword_14; }
 		
 		//'static'
-		public Keyword getStaticKeyword_14() { return cStaticKeyword_14; }
+		public Keyword getStaticKeyword_15() { return cStaticKeyword_15; }
 		
 		//'final'
-		public Keyword getFinalKeyword_15() { return cFinalKeyword_15; }
+		public Keyword getFinalKeyword_16() { return cFinalKeyword_16; }
 		
 		//'volatile'
-		public Keyword getVolatileKeyword_16() { return cVolatileKeyword_16; }
+		public Keyword getVolatileKeyword_17() { return cVolatileKeyword_17; }
 		
 		//'transient'
-		public Keyword getTransientKeyword_17() { return cTransientKeyword_17; }
+		public Keyword getTransientKeyword_18() { return cTransientKeyword_18; }
 		
 		//'model'
-		public Keyword getModelKeyword_18() { return cModelKeyword_18; }
+		public Keyword getModelKeyword_19() { return cModelKeyword_19; }
 		
 		//'prototype'
-		public Keyword getPrototypeKeyword_19() { return cPrototypeKeyword_19; }
+		public Keyword getPrototypeKeyword_20() { return cPrototypeKeyword_20; }
 		
 		//'instance'
-		public Keyword getInstanceKeyword_20() { return cInstanceKeyword_20; }
+		public Keyword getInstanceKeyword_21() { return cInstanceKeyword_21; }
 		
 		//'timed'
-		public Keyword getTimedKeyword_21() { return cTimedKeyword_21; }
+		public Keyword getTimedKeyword_22() { return cTimedKeyword_22; }
 		
 		//'timed#dense'
-		public Keyword getTimedDenseKeyword_22() { return cTimedDenseKeyword_22; }
+		public Keyword getTimedDenseKeyword_23() { return cTimedDenseKeyword_23; }
 		
 		//'timed#discrete'
-		public Keyword getTimedDiscreteKeyword_23() { return cTimedDiscreteKeyword_23; }
+		public Keyword getTimedDiscreteKeyword_24() { return cTimedDiscreteKeyword_24; }
 		
 		//'unsafe'
-		public Keyword getUnsafeKeyword_24() { return cUnsafeKeyword_24; }
+		public Keyword getUnsafeKeyword_25() { return cUnsafeKeyword_25; }
 		
 		//'input_enabled'
-		public Keyword getInput_enabledKeyword_25() { return cInput_enabledKeyword_25; }
+		public Keyword getInput_enabledKeyword_26() { return cInput_enabledKeyword_26; }
 		
 		//'port'
-		public Keyword getPortKeyword_26() { return cPortKeyword_26; }
+		public Keyword getPortKeyword_27() { return cPortKeyword_27; }
 		
 		//'signal'
-		public Keyword getSignalKeyword_27() { return cSignalKeyword_27; }
+		public Keyword getSignalKeyword_28() { return cSignalKeyword_28; }
 		
 		//'message'
-		public Keyword getMessageKeyword_28() { return cMessageKeyword_28; }
+		public Keyword getMessageKeyword_29() { return cMessageKeyword_29; }
 		
 		//'buffer'
-		public Keyword getBufferKeyword_29() { return cBufferKeyword_29; }
+		public Keyword getBufferKeyword_30() { return cBufferKeyword_30; }
 		
 		//'channel'
-		public Keyword getChannelKeyword_30() { return cChannelKeyword_30; }
+		public Keyword getChannelKeyword_31() { return cChannelKeyword_31; }
 		
 		//'via'
-		public Keyword getViaKeyword_31() { return cViaKeyword_31; }
+		public Keyword getViaKeyword_32() { return cViaKeyword_32; }
 		
 		//'var'
-		public Keyword getVarKeyword_32() { return cVarKeyword_32; }
+		public Keyword getVarKeyword_33() { return cVarKeyword_33; }
 		
 		//'val'
-		public Keyword getValKeyword_33() { return cValKeyword_33; }
+		public Keyword getValKeyword_34() { return cValKeyword_34; }
 		
 		//'const'
-		public Keyword getConstKeyword_34() { return cConstKeyword_34; }
+		public Keyword getConstKeyword_35() { return cConstKeyword_35; }
 		
 		//'input'
-		public Keyword getInputKeyword_35() { return cInputKeyword_35; }
+		public Keyword getInputKeyword_36() { return cInputKeyword_36; }
 		
 		//'in'
-		public Keyword getInKeyword_36() { return cInKeyword_36; }
+		public Keyword getInKeyword_37() { return cInKeyword_37; }
 		
 		//'inout'
-		public Keyword getInoutKeyword_37() { return cInoutKeyword_37; }
+		public Keyword getInoutKeyword_38() { return cInoutKeyword_38; }
 		
 		//'output'
-		public Keyword getOutputKeyword_38() { return cOutputKeyword_38; }
+		public Keyword getOutputKeyword_39() { return cOutputKeyword_39; }
 		
 		//'out'
-		public Keyword getOutKeyword_39() { return cOutKeyword_39; }
+		public Keyword getOutKeyword_40() { return cOutKeyword_40; }
 		
 		//'return'
-		public Keyword getReturnKeyword_40() { return cReturnKeyword_40; }
+		public Keyword getReturnKeyword_41() { return cReturnKeyword_41; }
 		
 		//'simple'
-		public Keyword getSimpleKeyword_41() { return cSimpleKeyword_41; }
+		public Keyword getSimpleKeyword_42() { return cSimpleKeyword_42; }
 		
 		//'start'
-		public Keyword getStartKeyword_42() { return cStartKeyword_42; }
+		public Keyword getStartKeyword_43() { return cStartKeyword_43; }
 		
 		//'final'
-		public Keyword getFinalKeyword_43() { return cFinalKeyword_43; }
+		public Keyword getFinalKeyword_44() { return cFinalKeyword_44; }
 		
 		//'initial'
-		public Keyword getInitialKeyword_44() { return cInitialKeyword_44; }
+		public Keyword getInitialKeyword_45() { return cInitialKeyword_45; }
 		
 		//'terminal'
-		public Keyword getTerminalKeyword_45() { return cTerminalKeyword_45; }
+		public Keyword getTerminalKeyword_46() { return cTerminalKeyword_46; }
 		
 		//'junction'
-		public Keyword getJunctionKeyword_46() { return cJunctionKeyword_46; }
+		public Keyword getJunctionKeyword_47() { return cJunctionKeyword_47; }
 		
 		//'choice'
-		public Keyword getChoiceKeyword_47() { return cChoiceKeyword_47; }
+		public Keyword getChoiceKeyword_48() { return cChoiceKeyword_48; }
 		
 		//'fork'
-		public Keyword getForkKeyword_48() { return cForkKeyword_48; }
+		public Keyword getForkKeyword_49() { return cForkKeyword_49; }
 		
 		//'join'
-		public Keyword getJoinKeyword_49() { return cJoinKeyword_49; }
+		public Keyword getJoinKeyword_50() { return cJoinKeyword_50; }
 		
 		//'dhistory'
-		public Keyword getDhistoryKeyword_50() { return cDhistoryKeyword_50; }
+		public Keyword getDhistoryKeyword_51() { return cDhistoryKeyword_51; }
 		
 		//'shistory'
-		public Keyword getShistoryKeyword_51() { return cShistoryKeyword_51; }
+		public Keyword getShistoryKeyword_52() { return cShistoryKeyword_52; }
 		
 		//'route'
-		public Keyword getRouteKeyword_52() { return cRouteKeyword_52; }
+		public Keyword getRouteKeyword_53() { return cRouteKeyword_53; }
 		
 		//'connector'
-		public Keyword getConnectorKeyword_53() { return cConnectorKeyword_53; }
+		public Keyword getConnectorKeyword_54() { return cConnectorKeyword_54; }
 		
 		//'connect'
-		public Keyword getConnectKeyword_54() { return cConnectKeyword_54; }
+		public Keyword getConnectKeyword_55() { return cConnectKeyword_55; }
 		
 		//'env'
-		public Keyword getEnvKeyword_55() { return cEnvKeyword_55; }
+		public Keyword getEnvKeyword_56() { return cEnvKeyword_56; }
 		
 		//'rdv'
-		public Keyword getRdvKeyword_56() { return cRdvKeyword_56; }
+		public Keyword getRdvKeyword_57() { return cRdvKeyword_57; }
 		
 		//'multirdv'
-		public Keyword getMultirdvKeyword_57() { return cMultirdvKeyword_57; }
+		public Keyword getMultirdvKeyword_58() { return cMultirdvKeyword_58; }
 		
 		//'buffer'
-		public Keyword getBufferKeyword_58() { return cBufferKeyword_58; }
+		public Keyword getBufferKeyword_59() { return cBufferKeyword_59; }
 		
 		//'unicast'
-		public Keyword getUnicastKeyword_59() { return cUnicastKeyword_59; }
+		public Keyword getUnicastKeyword_60() { return cUnicastKeyword_60; }
 		
 		//'anycast'
-		public Keyword getAnycastKeyword_60() { return cAnycastKeyword_60; }
+		public Keyword getAnycastKeyword_61() { return cAnycastKeyword_61; }
 		
 		//'multicast'
-		public Keyword getMulticastKeyword_61() { return cMulticastKeyword_61; }
+		public Keyword getMulticastKeyword_62() { return cMulticastKeyword_62; }
 		
 		//'broadcast'
-		public Keyword getBroadcastKeyword_62() { return cBroadcastKeyword_62; }
+		public Keyword getBroadcastKeyword_63() { return cBroadcastKeyword_63; }
 		
 		//'boolean'
-		public Keyword getBooleanKeyword_63() { return cBooleanKeyword_63; }
+		public Keyword getBooleanKeyword_64() { return cBooleanKeyword_64; }
 		
 		//'bool'
-		public Keyword getBoolKeyword_64() { return cBoolKeyword_64; }
+		public Keyword getBoolKeyword_65() { return cBoolKeyword_65; }
 		
 		//'char'
-		public Keyword getCharKeyword_65() { return cCharKeyword_65; }
+		public Keyword getCharKeyword_66() { return cCharKeyword_66; }
 		
 		//'string'
-		public Keyword getStringKeyword_66() { return cStringKeyword_66; }
+		public Keyword getStringKeyword_67() { return cStringKeyword_67; }
 		
 		//'integer'
-		public Keyword getIntegerKeyword_67() { return cIntegerKeyword_67; }
+		public Keyword getIntegerKeyword_68() { return cIntegerKeyword_68; }
 		
 		//'int'
-		public Keyword getIntKeyword_68() { return cIntKeyword_68; }
+		public Keyword getIntKeyword_69() { return cIntKeyword_69; }
 		
 		//'uinteger'
-		public Keyword getUintegerKeyword_69() { return cUintegerKeyword_69; }
+		public Keyword getUintegerKeyword_70() { return cUintegerKeyword_70; }
 		
 		//'uint'
-		public Keyword getUintKeyword_70() { return cUintKeyword_70; }
+		public Keyword getUintKeyword_71() { return cUintKeyword_71; }
 		
 		//'rational'
-		public Keyword getRationalKeyword_71() { return cRationalKeyword_71; }
+		public Keyword getRationalKeyword_72() { return cRationalKeyword_72; }
 		
 		//'rat'
-		public Keyword getRatKeyword_72() { return cRatKeyword_72; }
+		public Keyword getRatKeyword_73() { return cRatKeyword_73; }
 		
 		//'urational'
-		public Keyword getUrationalKeyword_73() { return cUrationalKeyword_73; }
+		public Keyword getUrationalKeyword_74() { return cUrationalKeyword_74; }
 		
 		//'urat'
-		public Keyword getUratKeyword_74() { return cUratKeyword_74; }
+		public Keyword getUratKeyword_75() { return cUratKeyword_75; }
 		
 		//'time'
-		public Keyword getTimeKeyword_75() { return cTimeKeyword_75; }
+		public Keyword getTimeKeyword_76() { return cTimeKeyword_76; }
 		
 		//'clock'
-		public Keyword getClockKeyword_76() { return cClockKeyword_76; }
+		public Keyword getClockKeyword_77() { return cClockKeyword_77; }
 		
 		//'float'
-		public Keyword getFloatKeyword_77() { return cFloatKeyword_77; }
+		public Keyword getFloatKeyword_78() { return cFloatKeyword_78; }
 		
 		//'double'
-		public Keyword getDoubleKeyword_78() { return cDoubleKeyword_78; }
+		public Keyword getDoubleKeyword_79() { return cDoubleKeyword_79; }
 		
 		//'real'
-		public Keyword getRealKeyword_79() { return cRealKeyword_79; }
+		public Keyword getRealKeyword_80() { return cRealKeyword_80; }
 		
 		//'ufloat'
-		public Keyword getUfloatKeyword_80() { return cUfloatKeyword_80; }
+		public Keyword getUfloatKeyword_81() { return cUfloatKeyword_81; }
 		
 		//'udouble'
-		public Keyword getUdoubleKeyword_81() { return cUdoubleKeyword_81; }
+		public Keyword getUdoubleKeyword_82() { return cUdoubleKeyword_82; }
 		
 		//'ureal'
-		public Keyword getUrealKeyword_82() { return cUrealKeyword_82; }
+		public Keyword getUrealKeyword_83() { return cUrealKeyword_83; }
 		
 		//'interval'
-		public Keyword getIntervalKeyword_83() { return cIntervalKeyword_83; }
+		public Keyword getIntervalKeyword_84() { return cIntervalKeyword_84; }
 		
 		//'enum'
-		public Keyword getEnumKeyword_84() { return cEnumKeyword_84; }
+		public Keyword getEnumKeyword_85() { return cEnumKeyword_85; }
 		
 		//'struct'
-		public Keyword getStructKeyword_85() { return cStructKeyword_85; }
+		public Keyword getStructKeyword_86() { return cStructKeyword_86; }
 		
 		//'union'
-		public Keyword getUnionKeyword_86() { return cUnionKeyword_86; }
+		public Keyword getUnionKeyword_87() { return cUnionKeyword_87; }
 		
 		//'vector'
-		public Keyword getVectorKeyword_87() { return cVectorKeyword_87; }
+		public Keyword getVectorKeyword_88() { return cVectorKeyword_88; }
 		
 		//'rvector'
-		public Keyword getRvectorKeyword_88() { return cRvectorKeyword_88; }
+		public Keyword getRvectorKeyword_89() { return cRvectorKeyword_89; }
 		
 		//'list'
-		public Keyword getListKeyword_89() { return cListKeyword_89; }
+		public Keyword getListKeyword_90() { return cListKeyword_90; }
 		
 		//'set'
-		public Keyword getSetKeyword_90() { return cSetKeyword_90; }
+		public Keyword getSetKeyword_91() { return cSetKeyword_91; }
 		
 		//'bag'
-		public Keyword getBagKeyword_91() { return cBagKeyword_91; }
+		public Keyword getBagKeyword_92() { return cBagKeyword_92; }
 		
 		//'multiset'
-		public Keyword getMultisetKeyword_92() { return cMultisetKeyword_92; }
+		public Keyword getMultisetKeyword_93() { return cMultisetKeyword_93; }
 		
 		//'fifo'
-		public Keyword getFifoKeyword_93() { return cFifoKeyword_93; }
+		public Keyword getFifoKeyword_94() { return cFifoKeyword_94; }
 		
 		//'lifo'
-		public Keyword getLifoKeyword_94() { return cLifoKeyword_94; }
+		public Keyword getLifoKeyword_95() { return cLifoKeyword_95; }
 		
 		//'guard'
-		public Keyword getGuardKeyword_95() { return cGuardKeyword_95; }
+		public Keyword getGuardKeyword_96() { return cGuardKeyword_96; }
 		
 		//'tguard'
-		public Keyword getTguardKeyword_96() { return cTguardKeyword_96; }
+		public Keyword getTguardKeyword_97() { return cTguardKeyword_97; }
 		
 		//'event'
-		public Keyword getEventKeyword_97() { return cEventKeyword_97; }
+		public Keyword getEventKeyword_98() { return cEventKeyword_98; }
 		
 		//'checksat'
-		public Keyword getChecksatKeyword_98() { return cChecksatKeyword_98; }
+		public Keyword getChecksatKeyword_99() { return cChecksatKeyword_99; }
 		
 		//'break'
-		public Keyword getBreakKeyword_99() { return cBreakKeyword_99; }
+		public Keyword getBreakKeyword_100() { return cBreakKeyword_100; }
 		
 		//'continue'
-		public Keyword getContinueKeyword_100() { return cContinueKeyword_100; }
+		public Keyword getContinueKeyword_101() { return cContinueKeyword_101; }
 		
 		//'exit'
-		public Keyword getExitKeyword_101() { return cExitKeyword_101; }
+		public Keyword getExitKeyword_102() { return cExitKeyword_102; }
 		
 		//'init'
-		public Keyword getInitKeyword_102() { return cInitKeyword_102; }
+		public Keyword getInitKeyword_103() { return cInitKeyword_103; }
 		
 		//'destroy'
-		public Keyword getDestroyKeyword_103() { return cDestroyKeyword_103; }
+		public Keyword getDestroyKeyword_104() { return cDestroyKeyword_104; }
 		
 		//'stop'
-		public Keyword getStopKeyword_104() { return cStopKeyword_104; }
+		public Keyword getStopKeyword_105() { return cStopKeyword_105; }
 		
 		//'abort'
-		public Keyword getAbortKeyword_105() { return cAbortKeyword_105; }
+		public Keyword getAbortKeyword_106() { return cAbortKeyword_106; }
 		
 		//'restart'
-		public Keyword getRestartKeyword_106() { return cRestartKeyword_106; }
+		public Keyword getRestartKeyword_107() { return cRestartKeyword_107; }
 		
 		//'suspend'
-		public Keyword getSuspendKeyword_107() { return cSuspendKeyword_107; }
+		public Keyword getSuspendKeyword_108() { return cSuspendKeyword_108; }
 		
 		//'resume'
-		public Keyword getResumeKeyword_108() { return cResumeKeyword_108; }
+		public Keyword getResumeKeyword_109() { return cResumeKeyword_109; }
 		
 		//'wait'
-		public Keyword getWaitKeyword_109() { return cWaitKeyword_109; }
+		public Keyword getWaitKeyword_110() { return cWaitKeyword_110; }
 		
 		//'disable'
-		public Keyword getDisableKeyword_110() { return cDisableKeyword_110; }
+		public Keyword getDisableKeyword_111() { return cDisableKeyword_111; }
 		
 		//'enable'
-		public Keyword getEnableKeyword_111() { return cEnableKeyword_111; }
+		public Keyword getEnableKeyword_112() { return cEnableKeyword_112; }
 		
 		//'schedule'
-		public Keyword getScheduleKeyword_112() { return cScheduleKeyword_112; }
+		public Keyword getScheduleKeyword_113() { return cScheduleKeyword_113; }
 		
 		//'irun'
-		public Keyword getIrunKeyword_113() { return cIrunKeyword_113; }
+		public Keyword getIrunKeyword_114() { return cIrunKeyword_114; }
 		
 		//'run'
-		public Keyword getRunKeyword_114() { return cRunKeyword_114; }
+		public Keyword getRunKeyword_115() { return cRunKeyword_115; }
 		
 		//'rtc'
-		public Keyword getRtcKeyword_115() { return cRtcKeyword_115; }
+		public Keyword getRtcKeyword_116() { return cRtcKeyword_116; }
 		
 		//'call'
-		public Keyword getCallKeyword_116() { return cCallKeyword_116; }
+		public Keyword getCallKeyword_117() { return cCallKeyword_117; }
 		
 		//'new'
-		public Keyword getNewKeyword_117() { return cNewKeyword_117; }
+		public Keyword getNewKeyword_118() { return cNewKeyword_118; }
 		
 		//'ctor'
-		public Keyword getCtorKeyword_118() { return cCtorKeyword_118; }
+		public Keyword getCtorKeyword_119() { return cCtorKeyword_119; }
 		
 		//'newfresh'
-		public Keyword getNewfreshKeyword_119() { return cNewfreshKeyword_119; }
+		public Keyword getNewfreshKeyword_120() { return cNewfreshKeyword_120; }
 		
 		//'this'
-		public Keyword getThisKeyword_120() { return cThisKeyword_120; }
+		public Keyword getThisKeyword_121() { return cThisKeyword_121; }
 		
 		//'self'
-		public Keyword getSelfKeyword_121() { return cSelfKeyword_121; }
+		public Keyword getSelfKeyword_122() { return cSelfKeyword_122; }
 		
 		//'parent'
-		public Keyword getParentKeyword_122() { return cParentKeyword_122; }
+		public Keyword getParentKeyword_123() { return cParentKeyword_123; }
 		
 		//'super'
-		public Keyword getSuperKeyword_123() { return cSuperKeyword_123; }
+		public Keyword getSuperKeyword_124() { return cSuperKeyword_124; }
 		
 		//'null'
-		public Keyword getNullKeyword_124() { return cNullKeyword_124; }
+		public Keyword getNullKeyword_125() { return cNullKeyword_125; }
+		
+		//'#model'
+		public Keyword getModelKeyword_126() { return cModelKeyword_126; }
+		
+		//'#instance'
+		public Keyword getInstanceKeyword_127() { return cInstanceKeyword_127; }
+		
+		//'#static'
+		public Keyword getStaticKeyword_128() { return cStaticKeyword_128; }
+		
+		//'#dynamic'
+		public Keyword getDynamicKeyword_129() { return cDynamicKeyword_129; }
+		
+		//'#runtime'
+		public Keyword getRuntimeKeyword_130() { return cRuntimeKeyword_130; }
+		
+		//'#static#instance'
+		public Keyword getStaticInstanceKeyword_131() { return cStaticInstanceKeyword_131; }
+		
+		//'#dynamic#instance'
+		public Keyword getDynamicInstanceKeyword_132() { return cDynamicInstanceKeyword_132; }
+		
+		//'#prototype'
+		public Keyword getPrototypeKeyword_133() { return cPrototypeKeyword_133; }
+		
+		//'#dynamic#prototype'
+		public Keyword getDynamicPrototypeKeyword_134() { return cDynamicPrototypeKeyword_134; }
 	}
 	public class ESIdentifierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ESIdentifier");
@@ -1357,6 +1413,163 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//XLIA_ID
 		public RuleCall getXLIA_IDTerminalRuleCall() { return cXLIA_IDTerminalRuleCall; }
+	}
+	public class ModelOfComputationKingElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ModelOfComputationKing");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cAndKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cOrKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cSTFKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
+		private final Keyword cSTSKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cDFKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
+		private final Keyword cAltKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
+		private final Keyword cOptKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
+		private final Keyword cLoopKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
+		private final Keyword cBreakKeyword_8 = (Keyword)cAlternatives.eContents().get(8);
+		private final Keyword cParKeyword_9 = (Keyword)cAlternatives.eContents().get(9);
+		private final Keyword cStrictKeyword_10 = (Keyword)cAlternatives.eContents().get(10);
+		private final Keyword cWeakKeyword_11 = (Keyword)cAlternatives.eContents().get(11);
+		private final Keyword cSeqKeyword_12 = (Keyword)cAlternatives.eContents().get(12);
+		private final Keyword cCriticalKeyword_13 = (Keyword)cAlternatives.eContents().get(13);
+		private final Keyword cIgnoreKeyword_14 = (Keyword)cAlternatives.eContents().get(14);
+		private final Keyword cConsiderKeyword_15 = (Keyword)cAlternatives.eContents().get(15);
+		private final Keyword cAssertKeyword_16 = (Keyword)cAlternatives.eContents().get(16);
+		private final Keyword cNegKeyword_17 = (Keyword)cAlternatives.eContents().get(17);
+		
+		//ModelOfComputationKing:
+		//	'and'
+		//	| 'or'
+		//	| '#STF'
+		//	| '#STS'
+		//	| '#DF'
+		//	| '#alt'
+		//	| '#opt'
+		//	| '#loop'
+		//	| '#break'
+		//	| '#par'
+		//	| '#strict'
+		//	| '#weak'
+		//	| '#seq'
+		//	| '#critical'
+		//	| '#ignore'
+		//	| '#consider'
+		//	| '#assert'
+		//	| '#neg';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'and' | 'or' | '#STF' | '#STS' | '#DF' | '#alt' | '#opt' | '#loop' | '#break' | '#par' | '#strict' | '#weak' | '#seq' |
+		//'#critical' | '#ignore' | '#consider' | '#assert' | '#neg'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//'and'
+		public Keyword getAndKeyword_0() { return cAndKeyword_0; }
+		
+		//'or'
+		public Keyword getOrKeyword_1() { return cOrKeyword_1; }
+		
+		//'#STF'
+		public Keyword getSTFKeyword_2() { return cSTFKeyword_2; }
+		
+		//'#STS'
+		public Keyword getSTSKeyword_3() { return cSTSKeyword_3; }
+		
+		//'#DF'
+		public Keyword getDFKeyword_4() { return cDFKeyword_4; }
+		
+		//'#alt'
+		public Keyword getAltKeyword_5() { return cAltKeyword_5; }
+		
+		//'#opt'
+		public Keyword getOptKeyword_6() { return cOptKeyword_6; }
+		
+		//'#loop'
+		public Keyword getLoopKeyword_7() { return cLoopKeyword_7; }
+		
+		//'#break'
+		public Keyword getBreakKeyword_8() { return cBreakKeyword_8; }
+		
+		//'#par'
+		public Keyword getParKeyword_9() { return cParKeyword_9; }
+		
+		//'#strict'
+		public Keyword getStrictKeyword_10() { return cStrictKeyword_10; }
+		
+		//'#weak'
+		public Keyword getWeakKeyword_11() { return cWeakKeyword_11; }
+		
+		//'#seq'
+		public Keyword getSeqKeyword_12() { return cSeqKeyword_12; }
+		
+		//'#critical'
+		public Keyword getCriticalKeyword_13() { return cCriticalKeyword_13; }
+		
+		//'#ignore'
+		public Keyword getIgnoreKeyword_14() { return cIgnoreKeyword_14; }
+		
+		//'#consider'
+		public Keyword getConsiderKeyword_15() { return cConsiderKeyword_15; }
+		
+		//'#assert'
+		public Keyword getAssertKeyword_16() { return cAssertKeyword_16; }
+		
+		//'#neg'
+		public Keyword getNegKeyword_17() { return cNegKeyword_17; }
+	}
+	public class DesignDebugTraceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.DesignDebugTrace");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cModelKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cInstanceKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cStaticKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
+		private final Keyword cDynamicKeyword_3 = (Keyword)cAlternatives.eContents().get(3);
+		private final Keyword cRuntimeKeyword_4 = (Keyword)cAlternatives.eContents().get(4);
+		private final Keyword cStaticInstanceKeyword_5 = (Keyword)cAlternatives.eContents().get(5);
+		private final Keyword cDynamicInstanceKeyword_6 = (Keyword)cAlternatives.eContents().get(6);
+		private final Keyword cPrototypeKeyword_7 = (Keyword)cAlternatives.eContents().get(7);
+		private final Keyword cDynamicPrototypeKeyword_8 = (Keyword)cAlternatives.eContents().get(8);
+		
+		//DesignDebugTrace:
+		//	'#model'
+		//	| '#instance'
+		//	| '#static'
+		//	| '#dynamic'
+		//	| '#runtime'
+		//	| '#static#instance'
+		//	| '#dynamic#instance'
+		//	| '#prototype'
+		//	| '#dynamic#prototype';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'#model' | '#instance' | '#static' | '#dynamic' | '#runtime' | '#static#instance' | '#dynamic#instance' | '#prototype' |
+		//'#dynamic#prototype'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//'#model'
+		public Keyword getModelKeyword_0() { return cModelKeyword_0; }
+		
+		//'#instance'
+		public Keyword getInstanceKeyword_1() { return cInstanceKeyword_1; }
+		
+		//'#static'
+		public Keyword getStaticKeyword_2() { return cStaticKeyword_2; }
+		
+		//'#dynamic'
+		public Keyword getDynamicKeyword_3() { return cDynamicKeyword_3; }
+		
+		//'#runtime'
+		public Keyword getRuntimeKeyword_4() { return cRuntimeKeyword_4; }
+		
+		//'#static#instance'
+		public Keyword getStaticInstanceKeyword_5() { return cStaticInstanceKeyword_5; }
+		
+		//'#dynamic#instance'
+		public Keyword getDynamicInstanceKeyword_6() { return cDynamicInstanceKeyword_6; }
+		
+		//'#prototype'
+		public Keyword getPrototypeKeyword_7() { return cPrototypeKeyword_7; }
+		
+		//'#dynamic#prototype'
+		public Keyword getDynamicPrototypeKeyword_8() { return cDynamicPrototypeKeyword_8; }
 	}
 	public class XliaSystemElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.XliaSystem");
@@ -2174,8 +2387,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//InstanceMachine fmlInfra::InstanceMachine:
 		//	'instance' ('machine' | 'statemachine')?
 		//	'<' 'model:'? model=[fmlInfra::Machine|ESUfid] '>'
-		//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('(' (slot+=SlotParameter (',' slot+=SlotParameter)*)? ')')?
-		//	('{' (slot+=SlotProperty ';')* '}'
+		//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('(' (slot+=SlotParameter (',' slot+=SlotParameter)*)? ')')? ('{'
+		//	(slot+=SlotProperty ';')* '}'
 		//	| ';');
 		@Override public ParserRule getRule() { return rule; }
 		
@@ -2403,13 +2616,26 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLifelineLifelineKeyword_0_5_0 = (Keyword)cLifelineAssignment_0_5.eContents().get(0);
 		private final Assignment cDesignAssignment_0_6 = (Assignment)cUnorderedGroup_0.eContents().get(6);
 		private final RuleCall cDesignDesignKindEnumRuleCall_0_6_0 = (RuleCall)cDesignAssignment_0_6.eContents().get(0);
-		private final Keyword cMachineKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Keyword cMachineKeyword_1_0 = (Keyword)cAlternatives_1.eContents().get(0);
+		private final Keyword cExecutableKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cLessThanSignKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Keyword cMocKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
-		private final Alternatives cAlternatives_2_2 = (Alternatives)cGroup_2.eContents().get(2);
-		private final Keyword cAndKeyword_2_2_0 = (Keyword)cAlternatives_2_2.eContents().get(0);
-		private final Keyword cOrKeyword_2_2_1 = (Keyword)cAlternatives_2_2.eContents().get(1);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Keyword cMocKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final RuleCall cModelOfComputationKingParserRuleCall_2_1_1 = (RuleCall)cGroup_2_1.eContents().get(1);
+		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
+		private final Keyword cInstanceKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_2_2_1 = (Keyword)cGroup_2_2.eContents().get(1);
+		private final Alternatives cAlternatives_2_2_2 = (Alternatives)cGroup_2_2.eContents().get(2);
+		private final Keyword cPlusSignKeyword_2_2_2_0 = (Keyword)cAlternatives_2_2_2.eContents().get(0);
+		private final Keyword cAsteriskKeyword_2_2_2_1 = (Keyword)cAlternatives_2_2_2.eContents().get(1);
+		private final Group cGroup_2_2_2_2 = (Group)cAlternatives_2_2_2.eContents().get(2);
+		private final Keyword cInitKeyword_2_2_2_2_0 = (Keyword)cGroup_2_2_2_2.eContents().get(0);
+		private final RuleCall cEIntegerParserRuleCall_2_2_2_2_1 = (RuleCall)cGroup_2_2_2_2.eContents().get(1);
+		private final Keyword cMaxKeyword_2_2_2_2_2 = (Keyword)cGroup_2_2_2_2.eContents().get(2);
+		private final RuleCall cEIntegerParserRuleCall_2_2_2_2_3 = (RuleCall)cGroup_2_2_2_2.eContents().get(3);
+		private final Keyword cRightSquareBracketKeyword_2_2_3 = (Keyword)cGroup_2_2.eContents().get(3);
 		private final Keyword cGreaterThanSignKeyword_2_3 = (Keyword)cGroup_2.eContents().get(3);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
@@ -2559,8 +2785,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//	& discrete_timed?='timed#discrete'?
 		//	& input_enabled?='input_enabled'?
 		//	& lifeline?='lifeline'?
-		//	& design=DesignKind?)
-		//	'machine' ('<' 'moc:'? ('and' | 'or') '>')?
+		//	& design=DesignKind?) ('machine' | 'executable') ('<' ('moc:'? ModelOfComputationKing)? ('instance:' '[' ('+' | '*'
+		//	| 'init:' EInteger 'max:' EInteger) ']')? '>')?
 		//	name=ESIdentifier unrestrictedName=UnrestrictedName?
 		//	'{' (port+=Port
 		//	| signal+=Signal
@@ -2615,20 +2841,21 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 		
 		//(visibility=VisibilityKind? & timed?='timed'? & dense_timed?='timed#dense'? & discrete_timed?='timed#discrete'? &
-		//input_enabled?='input_enabled'? & lifeline?='lifeline'? & design=DesignKind?) 'machine' ('<' 'moc:'? ('and' | 'or')
-		//'>')? name=ESIdentifier unrestrictedName=UnrestrictedName? '{' (port+=Port | signal+=Signal | buffer+=Buffer |
-		//channel+=Channel | typedef+=TypeDefinition | function+=Function | variable+=Variable)* ('@property:' (port+=Port |
-		//signal+=Signal | buffer+=Buffer | channel+=Channel | typedef+=TypeDefinition | function+=Function |
-		//variable+=Variable)* | '@public:' (port+=PortPublic | signal+=SignalPublic | buffer+=BufferPublic |
-		//channel+=ChannelPublic | typedef+=TypeDefinition | function+=FunctionPublic | variable+=VariablePublic)* |
-		//'@protected:' (port+=PortProtected | signal+=SignalProtected | buffer+=BufferProtected | channel+=ChannelProtected |
-		//typedef+=TypeDefinition | function+=FunctionProtected | variable+=VariableProtected)* | '@private:' (port+=PortPrivate
-		//| signal+=SignalPrivate | buffer+=BufferPrivate | channel+=ChannelPrivate | typedef+=TypeDefinition |
-		//function+=FunctionPrivate | variable+=VariablePrivate)*)* ((('@routine:' | '@macro:') routine+=Routine+ |
-		//'@procedure:' procedure+=Procedure+)* | (routine+=Routine | procedure+=Procedure)+) (('@composite:' | '@machine:')
-		//(machine+=AnyMachineBlock | instance+=InstanceMachine)+ | '@model:' machine+=AnyMachineBlock* | '@prototype:'
-		//machine+=AnyMachineBlock* | '@instance:' instance+=InstanceMachine*)* ('@behavior:' behavior+=Behavior+ |
-		//'@statemachine:' behavior+=Statemachine+)* main=MoeBehavior //		// optional unnamed section for property full declaration / definition
+		//input_enabled?='input_enabled'? & lifeline?='lifeline'? & design=DesignKind?) ('machine' | 'executable') ('<' ('moc:'?
+		//ModelOfComputationKing)? ('instance:' '[' ('+' | '*' | 'init:' EInteger 'max:' EInteger) ']')? '>')? name=ESIdentifier
+		//unrestrictedName=UnrestrictedName? '{' (port+=Port | signal+=Signal | buffer+=Buffer | channel+=Channel |
+		//typedef+=TypeDefinition | function+=Function | variable+=Variable)* ('@property:' (port+=Port | signal+=Signal |
+		//buffer+=Buffer | channel+=Channel | typedef+=TypeDefinition | function+=Function | variable+=Variable)* | '@public:'
+		//(port+=PortPublic | signal+=SignalPublic | buffer+=BufferPublic | channel+=ChannelPublic | typedef+=TypeDefinition |
+		//function+=FunctionPublic | variable+=VariablePublic)* | '@protected:' (port+=PortProtected | signal+=SignalProtected |
+		//buffer+=BufferProtected | channel+=ChannelProtected | typedef+=TypeDefinition | function+=FunctionProtected |
+		//variable+=VariableProtected)* | '@private:' (port+=PortPrivate | signal+=SignalPrivate | buffer+=BufferPrivate |
+		//channel+=ChannelPrivate | typedef+=TypeDefinition | function+=FunctionPrivate | variable+=VariablePrivate)*)*
+		//((('@routine:' | '@macro:') routine+=Routine+ | '@procedure:' procedure+=Procedure+)* | (routine+=Routine |
+		//procedure+=Procedure)+) (('@composite:' | '@machine:') (machine+=AnyMachineBlock | instance+=InstanceMachine)+ |
+		//'@model:' machine+=AnyMachineBlock* | '@prototype:' machine+=AnyMachineBlock* | '@instance:'
+		//instance+=InstanceMachine*)* ('@behavior:' behavior+=Behavior+ | '@statemachine:' behavior+=Statemachine+)*
+		//main=MoeBehavior //		// optional unnamed section for property full declaration / definition
 		////		propertyPart=PropertyPart
 		////
 		////		compositePart=CompositePart
@@ -2683,26 +2910,65 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//DesignKind
 		public RuleCall getDesignDesignKindEnumRuleCall_0_6_0() { return cDesignDesignKindEnumRuleCall_0_6_0; }
 		
-		//'machine'
-		public Keyword getMachineKeyword_1() { return cMachineKeyword_1; }
+		//'machine' | 'executable'
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 		
-		//('<' 'moc:'? ('and' | 'or') '>')?
+		//'machine'
+		public Keyword getMachineKeyword_1_0() { return cMachineKeyword_1_0; }
+		
+		//'executable'
+		public Keyword getExecutableKeyword_1_1() { return cExecutableKeyword_1_1; }
+		
+		//('<' ('moc:'? ModelOfComputationKing)? ('instance:' '[' ('+' | '*' | 'init:' EInteger 'max:' EInteger) ']')? '>')?
 		public Group getGroup_2() { return cGroup_2; }
 		
 		//'<'
 		public Keyword getLessThanSignKeyword_2_0() { return cLessThanSignKeyword_2_0; }
 		
+		//('moc:'? ModelOfComputationKing)?
+		public Group getGroup_2_1() { return cGroup_2_1; }
+		
 		//'moc:'?
-		public Keyword getMocKeyword_2_1() { return cMocKeyword_2_1; }
+		public Keyword getMocKeyword_2_1_0() { return cMocKeyword_2_1_0; }
 		
-		//'and' | 'or'
-		public Alternatives getAlternatives_2_2() { return cAlternatives_2_2; }
+		//ModelOfComputationKing
+		public RuleCall getModelOfComputationKingParserRuleCall_2_1_1() { return cModelOfComputationKingParserRuleCall_2_1_1; }
 		
-		//'and'
-		public Keyword getAndKeyword_2_2_0() { return cAndKeyword_2_2_0; }
+		//('instance:' '[' ('+' | '*' | 'init:' EInteger 'max:' EInteger) ']')?
+		public Group getGroup_2_2() { return cGroup_2_2; }
 		
-		//'or'
-		public Keyword getOrKeyword_2_2_1() { return cOrKeyword_2_2_1; }
+		//'instance:'
+		public Keyword getInstanceKeyword_2_2_0() { return cInstanceKeyword_2_2_0; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_2_2_1() { return cLeftSquareBracketKeyword_2_2_1; }
+		
+		//'+' | '*' | 'init:' EInteger 'max:' EInteger
+		public Alternatives getAlternatives_2_2_2() { return cAlternatives_2_2_2; }
+		
+		//'+'
+		public Keyword getPlusSignKeyword_2_2_2_0() { return cPlusSignKeyword_2_2_2_0; }
+		
+		//'*'
+		public Keyword getAsteriskKeyword_2_2_2_1() { return cAsteriskKeyword_2_2_2_1; }
+		
+		//'init:' EInteger 'max:' EInteger
+		public Group getGroup_2_2_2_2() { return cGroup_2_2_2_2; }
+		
+		//'init:'
+		public Keyword getInitKeyword_2_2_2_2_0() { return cInitKeyword_2_2_2_2_0; }
+		
+		//EInteger
+		public RuleCall getEIntegerParserRuleCall_2_2_2_2_1() { return cEIntegerParserRuleCall_2_2_2_2_1; }
+		
+		//'max:'
+		public Keyword getMaxKeyword_2_2_2_2_2() { return cMaxKeyword_2_2_2_2_2; }
+		
+		//EInteger
+		public RuleCall getEIntegerParserRuleCall_2_2_2_2_3() { return cEIntegerParserRuleCall_2_2_2_2_3; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_2_2_3() { return cRightSquareBracketKeyword_2_2_3; }
 		
 		//'>'
 		public Keyword getGreaterThanSignKeyword_2_3() { return cGreaterThanSignKeyword_2_3; }
@@ -5243,9 +5509,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cLessThanSignKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Keyword cMocKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
-		private final Alternatives cAlternatives_3_2 = (Alternatives)cGroup_3.eContents().get(2);
-		private final Keyword cOrKeyword_3_2_0 = (Keyword)cAlternatives_3_2.eContents().get(0);
-		private final Keyword cAndKeyword_3_2_1 = (Keyword)cAlternatives_3_2.eContents().get(1);
+		private final RuleCall cModelOfComputationKingParserRuleCall_3_2 = (RuleCall)cGroup_3.eContents().get(2);
 		private final Keyword cGreaterThanSignKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
 		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cNameESIdentifierParserRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
@@ -5417,26 +5681,25 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_11 = (Alternatives)cGroup.eContents().get(11);
 		private final Alternatives cAlternatives_11_0 = (Alternatives)cAlternatives_11.eContents().get(0);
 		private final Group cGroup_11_0_0 = (Group)cAlternatives_11_0.eContents().get(0);
-		private final Alternatives cAlternatives_11_0_0_0 = (Alternatives)cGroup_11_0_0.eContents().get(0);
-		private final Keyword cCompositeKeyword_11_0_0_0_0 = (Keyword)cAlternatives_11_0_0_0.eContents().get(0);
-		private final Keyword cStatemachineKeyword_11_0_0_0_1 = (Keyword)cAlternatives_11_0_0_0.eContents().get(1);
-		private final Alternatives cAlternatives_11_0_0_1 = (Alternatives)cGroup_11_0_0.eContents().get(1);
-		private final Assignment cMachineAssignment_11_0_0_1_0 = (Assignment)cAlternatives_11_0_0_1.eContents().get(0);
-		private final RuleCall cMachineStatemachineParserRuleCall_11_0_0_1_0_0 = (RuleCall)cMachineAssignment_11_0_0_1_0.eContents().get(0);
-		private final Assignment cInstanceAssignment_11_0_0_1_1 = (Assignment)cAlternatives_11_0_0_1.eContents().get(1);
-		private final RuleCall cInstanceInstanceMachineParserRuleCall_11_0_0_1_1_0 = (RuleCall)cInstanceAssignment_11_0_0_1_1.eContents().get(0);
+		private final Keyword cStatemachineKeyword_11_0_0_0 = (Keyword)cGroup_11_0_0.eContents().get(0);
+		private final Assignment cMachineAssignment_11_0_0_1 = (Assignment)cGroup_11_0_0.eContents().get(1);
+		private final RuleCall cMachineStatemachineParserRuleCall_11_0_0_1_0 = (RuleCall)cMachineAssignment_11_0_0_1.eContents().get(0);
 		private final Group cGroup_11_0_1 = (Group)cAlternatives_11_0.eContents().get(1);
-		private final Keyword cModelKeyword_11_0_1_0 = (Keyword)cGroup_11_0_1.eContents().get(0);
+		private final Keyword cCompositeKeyword_11_0_1_0 = (Keyword)cGroup_11_0_1.eContents().get(0);
 		private final Assignment cMachineAssignment_11_0_1_1 = (Assignment)cGroup_11_0_1.eContents().get(1);
 		private final RuleCall cMachineAnyMachineBlockParserRuleCall_11_0_1_1_0 = (RuleCall)cMachineAssignment_11_0_1_1.eContents().get(0);
 		private final Group cGroup_11_0_2 = (Group)cAlternatives_11_0.eContents().get(2);
-		private final Keyword cPrototypeKeyword_11_0_2_0 = (Keyword)cGroup_11_0_2.eContents().get(0);
+		private final Keyword cModelKeyword_11_0_2_0 = (Keyword)cGroup_11_0_2.eContents().get(0);
 		private final Assignment cMachineAssignment_11_0_2_1 = (Assignment)cGroup_11_0_2.eContents().get(1);
 		private final RuleCall cMachineAnyMachineBlockParserRuleCall_11_0_2_1_0 = (RuleCall)cMachineAssignment_11_0_2_1.eContents().get(0);
 		private final Group cGroup_11_0_3 = (Group)cAlternatives_11_0.eContents().get(3);
-		private final Keyword cInstanceKeyword_11_0_3_0 = (Keyword)cGroup_11_0_3.eContents().get(0);
-		private final Assignment cInstanceAssignment_11_0_3_1 = (Assignment)cGroup_11_0_3.eContents().get(1);
-		private final RuleCall cInstanceInstanceMachineParserRuleCall_11_0_3_1_0 = (RuleCall)cInstanceAssignment_11_0_3_1.eContents().get(0);
+		private final Keyword cPrototypeKeyword_11_0_3_0 = (Keyword)cGroup_11_0_3.eContents().get(0);
+		private final Assignment cMachineAssignment_11_0_3_1 = (Assignment)cGroup_11_0_3.eContents().get(1);
+		private final RuleCall cMachineAnyMachineBlockParserRuleCall_11_0_3_1_0 = (RuleCall)cMachineAssignment_11_0_3_1.eContents().get(0);
+		private final Group cGroup_11_0_4 = (Group)cAlternatives_11_0.eContents().get(4);
+		private final Keyword cInstanceKeyword_11_0_4_0 = (Keyword)cGroup_11_0_4.eContents().get(0);
+		private final Assignment cInstanceAssignment_11_0_4_1 = (Assignment)cGroup_11_0_4.eContents().get(1);
+		private final RuleCall cInstanceInstanceMachineParserRuleCall_11_0_4_1_0 = (RuleCall)cInstanceAssignment_11_0_4_1.eContents().get(0);
 		private final Assignment cRegionAssignment_11_1 = (Assignment)cAlternatives_11.eContents().get(1);
 		private final RuleCall cRegionStatemachineRegionParserRuleCall_11_1_0 = (RuleCall)cRegionAssignment_11_1.eContents().get(0);
 		private final Assignment cRegionAssignment_11_2 = (Assignment)cAlternatives_11.eContents().get(2);
@@ -5461,7 +5724,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//	& input_enabled?='input_enabled'?
 		//	& lifeline?='lifeline'?
 		//	& design=DesignKind?)
-		//	'statemachine' ('<' 'moc:'? ('or' | 'and') '>')?
+		//	'statemachine' ('<' 'moc:'? ModelOfComputationKing '>')?
 		//	name=ESIdentifier unrestrictedName=UnrestrictedName?
 		//	'{' ('@parameter:' ('input' (parameter+=ParameterInput
 		//	| '{' parameter+=ParameterInput+ '}') | 'inout' (parameter+=ParameterInout
@@ -5510,8 +5773,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//	| function+=FunctionPrivate
 		//	| variable+=VariablePrivate)*)* ((('@routine:' | '@macro:') routine+=Routine+
 		//	| '@procedure:' procedure+=Procedure+)*
-		//	| (routine+=Routine | procedure+=Procedure)+) ((('@composite:' | '@statemachine:') (machine+=Statemachine
-		//	| instance+=InstanceMachine)+
+		//	| (routine+=Routine | procedure+=Procedure)+) (('@statemachine:' machine+=Statemachine+
+		//	| '@composite:' machine+=AnyMachineBlock*
 		//	| '@model:' machine+=AnyMachineBlock*
 		//	| '@prototype:' machine+=AnyMachineBlock*
 		//	| '@instance:' instance+=InstanceMachine*)+
@@ -5525,7 +5788,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//{fmlStmchn::Statemachine} (visibility=VisibilityKind? & timed?='timed'? & dense_timed?='timed#dense'? &
 		//discrete_timed?='timed#discrete'? & input_enabled?='input_enabled'? & lifeline?='lifeline'? & design=DesignKind?)
-		//'statemachine' ('<' 'moc:'? ('or' | 'and') '>')? name=ESIdentifier unrestrictedName=UnrestrictedName? '{'
+		//'statemachine' ('<' 'moc:'? ModelOfComputationKing '>')? name=ESIdentifier unrestrictedName=UnrestrictedName? '{'
 		//('@parameter:' ('input' (parameter+=ParameterInput | '{' parameter+=ParameterInput+ '}') | 'inout'
 		//(parameter+=ParameterInout | '{' parameter+=ParameterInout+ '}') | 'output' (parameter+=ParameterOutput | '{'
 		//parameter+=ParameterOutput+ '}') | 'return' (parameter+=ParameterReturn | '{' parameter+=ParameterReturn+ '}'))* |
@@ -5539,10 +5802,10 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//variable+=VariableProtected)* | '@private:' (port+=PortPrivate | signal+=SignalPrivate | buffer+=BufferPrivate |
 		//channel+=ChannelPrivate | typedef+=TypeDefinition | function+=FunctionPrivate | variable+=VariablePrivate)*)*
 		//((('@routine:' | '@macro:') routine+=Routine+ | '@procedure:' procedure+=Procedure+)* | (routine+=Routine |
-		//procedure+=Procedure)+) ((('@composite:' | '@statemachine:') (machine+=Statemachine | instance+=InstanceMachine)+ |
-		//'@model:' machine+=AnyMachineBlock* | '@prototype:' machine+=AnyMachineBlock* | '@instance:'
-		//instance+=InstanceMachine*)+ | region+=StatemachineRegion | region+=StatemachineNamedRegion+ |
-		//region+=StatemachineRegionLite) (execution=ModelOfExecution? //		& ( computation=ModelOfComputation )?
+		//procedure+=Procedure)+) (('@statemachine:' machine+=Statemachine+ | '@composite:' machine+=AnyMachineBlock* | '@model:'
+		//machine+=AnyMachineBlock* | '@prototype:' machine+=AnyMachineBlock* | '@instance:' instance+=InstanceMachine*)+ |
+		//region+=StatemachineRegion | region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite)
+		//(execution=ModelOfExecution? //		& ( computation=ModelOfComputation )?
 		//& interaction=ModelOfInteraction?) '}'
 		public Group getGroup() { return cGroup; }
 		
@@ -5598,7 +5861,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'statemachine'
 		public Keyword getStatemachineKeyword_2() { return cStatemachineKeyword_2; }
 		
-		//('<' 'moc:'? ('or' | 'and') '>')?
+		//('<' 'moc:'? ModelOfComputationKing '>')?
 		public Group getGroup_3() { return cGroup_3; }
 		
 		//'<'
@@ -5607,14 +5870,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'moc:'?
 		public Keyword getMocKeyword_3_1() { return cMocKeyword_3_1; }
 		
-		//'or' | 'and'
-		public Alternatives getAlternatives_3_2() { return cAlternatives_3_2; }
-		
-		//'or'
-		public Keyword getOrKeyword_3_2_0() { return cOrKeyword_3_2_0; }
-		
-		//'and'
-		public Keyword getAndKeyword_3_2_1() { return cAndKeyword_3_2_1; }
+		//ModelOfComputationKing
+		public RuleCall getModelOfComputationKingParserRuleCall_3_2() { return cModelOfComputationKingParserRuleCall_3_2; }
 		
 		//'>'
 		public Keyword getGreaterThanSignKeyword_3_3() { return cGreaterThanSignKeyword_3_3; }
@@ -6145,47 +6402,32 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//Procedure
 		public RuleCall getProcedureProcedureParserRuleCall_10_1_1_0() { return cProcedureProcedureParserRuleCall_10_1_1_0; }
 		
-		//(('@composite:' | '@statemachine:') (machine+=Statemachine | instance+=InstanceMachine)+ | '@model:'
-		//machine+=AnyMachineBlock* | '@prototype:' machine+=AnyMachineBlock* | '@instance:' instance+=InstanceMachine*)+ |
-		//region+=StatemachineRegion | region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite
+		//('@statemachine:' machine+=Statemachine+ | '@composite:' machine+=AnyMachineBlock* | '@model:' machine+=AnyMachineBlock*
+		//| '@prototype:' machine+=AnyMachineBlock* | '@instance:' instance+=InstanceMachine*)+ | region+=StatemachineRegion |
+		//region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite
 		public Alternatives getAlternatives_11() { return cAlternatives_11; }
 		
-		//(('@composite:' | '@statemachine:') (machine+=Statemachine | instance+=InstanceMachine)+ | '@model:'
-		//machine+=AnyMachineBlock* | '@prototype:' machine+=AnyMachineBlock* | '@instance:' instance+=InstanceMachine*)+
+		//('@statemachine:' machine+=Statemachine+ | '@composite:' machine+=AnyMachineBlock* | '@model:' machine+=AnyMachineBlock*
+		//| '@prototype:' machine+=AnyMachineBlock* | '@instance:' instance+=InstanceMachine*)+
 		public Alternatives getAlternatives_11_0() { return cAlternatives_11_0; }
 		
-		//('@composite:' | '@statemachine:') (machine+=Statemachine | instance+=InstanceMachine)+
+		//'@statemachine:' machine+=Statemachine+
 		public Group getGroup_11_0_0() { return cGroup_11_0_0; }
 		
-		//'@composite:' | '@statemachine:'
-		public Alternatives getAlternatives_11_0_0_0() { return cAlternatives_11_0_0_0; }
-		
-		//'@composite:'
-		public Keyword getCompositeKeyword_11_0_0_0_0() { return cCompositeKeyword_11_0_0_0_0; }
-		
 		//'@statemachine:'
-		public Keyword getStatemachineKeyword_11_0_0_0_1() { return cStatemachineKeyword_11_0_0_0_1; }
+		public Keyword getStatemachineKeyword_11_0_0_0() { return cStatemachineKeyword_11_0_0_0; }
 		
-		//(machine+=Statemachine | instance+=InstanceMachine)+
-		public Alternatives getAlternatives_11_0_0_1() { return cAlternatives_11_0_0_1; }
-		
-		//machine+=Statemachine
-		public Assignment getMachineAssignment_11_0_0_1_0() { return cMachineAssignment_11_0_0_1_0; }
+		//machine+=Statemachine+
+		public Assignment getMachineAssignment_11_0_0_1() { return cMachineAssignment_11_0_0_1; }
 		
 		//Statemachine
-		public RuleCall getMachineStatemachineParserRuleCall_11_0_0_1_0_0() { return cMachineStatemachineParserRuleCall_11_0_0_1_0_0; }
+		public RuleCall getMachineStatemachineParserRuleCall_11_0_0_1_0() { return cMachineStatemachineParserRuleCall_11_0_0_1_0; }
 		
-		//instance+=InstanceMachine
-		public Assignment getInstanceAssignment_11_0_0_1_1() { return cInstanceAssignment_11_0_0_1_1; }
-		
-		//InstanceMachine
-		public RuleCall getInstanceInstanceMachineParserRuleCall_11_0_0_1_1_0() { return cInstanceInstanceMachineParserRuleCall_11_0_0_1_1_0; }
-		
-		//'@model:' machine+=AnyMachineBlock*
+		//'@composite:' machine+=AnyMachineBlock*
 		public Group getGroup_11_0_1() { return cGroup_11_0_1; }
 		
-		//'@model:'
-		public Keyword getModelKeyword_11_0_1_0() { return cModelKeyword_11_0_1_0; }
+		//'@composite:'
+		public Keyword getCompositeKeyword_11_0_1_0() { return cCompositeKeyword_11_0_1_0; }
 		
 		//machine+=AnyMachineBlock*
 		public Assignment getMachineAssignment_11_0_1_1() { return cMachineAssignment_11_0_1_1; }
@@ -6193,11 +6435,11 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//AnyMachineBlock
 		public RuleCall getMachineAnyMachineBlockParserRuleCall_11_0_1_1_0() { return cMachineAnyMachineBlockParserRuleCall_11_0_1_1_0; }
 		
-		//'@prototype:' machine+=AnyMachineBlock*
+		//'@model:' machine+=AnyMachineBlock*
 		public Group getGroup_11_0_2() { return cGroup_11_0_2; }
 		
-		//'@prototype:'
-		public Keyword getPrototypeKeyword_11_0_2_0() { return cPrototypeKeyword_11_0_2_0; }
+		//'@model:'
+		public Keyword getModelKeyword_11_0_2_0() { return cModelKeyword_11_0_2_0; }
 		
 		//machine+=AnyMachineBlock*
 		public Assignment getMachineAssignment_11_0_2_1() { return cMachineAssignment_11_0_2_1; }
@@ -6205,17 +6447,29 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//AnyMachineBlock
 		public RuleCall getMachineAnyMachineBlockParserRuleCall_11_0_2_1_0() { return cMachineAnyMachineBlockParserRuleCall_11_0_2_1_0; }
 		
-		//'@instance:' instance+=InstanceMachine*
+		//'@prototype:' machine+=AnyMachineBlock*
 		public Group getGroup_11_0_3() { return cGroup_11_0_3; }
 		
+		//'@prototype:'
+		public Keyword getPrototypeKeyword_11_0_3_0() { return cPrototypeKeyword_11_0_3_0; }
+		
+		//machine+=AnyMachineBlock*
+		public Assignment getMachineAssignment_11_0_3_1() { return cMachineAssignment_11_0_3_1; }
+		
+		//AnyMachineBlock
+		public RuleCall getMachineAnyMachineBlockParserRuleCall_11_0_3_1_0() { return cMachineAnyMachineBlockParserRuleCall_11_0_3_1_0; }
+		
+		//'@instance:' instance+=InstanceMachine*
+		public Group getGroup_11_0_4() { return cGroup_11_0_4; }
+		
 		//'@instance:'
-		public Keyword getInstanceKeyword_11_0_3_0() { return cInstanceKeyword_11_0_3_0; }
+		public Keyword getInstanceKeyword_11_0_4_0() { return cInstanceKeyword_11_0_4_0; }
 		
 		//instance+=InstanceMachine*
-		public Assignment getInstanceAssignment_11_0_3_1() { return cInstanceAssignment_11_0_3_1; }
+		public Assignment getInstanceAssignment_11_0_4_1() { return cInstanceAssignment_11_0_4_1; }
 		
 		//InstanceMachine
-		public RuleCall getInstanceInstanceMachineParserRuleCall_11_0_3_1_0() { return cInstanceInstanceMachineParserRuleCall_11_0_3_1_0; }
+		public RuleCall getInstanceInstanceMachineParserRuleCall_11_0_4_1_0() { return cInstanceInstanceMachineParserRuleCall_11_0_4_1_0; }
 		
 		//region+=StatemachineRegion
 		public Assignment getRegionAssignment_11_1() { return cRegionAssignment_11_1; }
@@ -8118,40 +8372,42 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVisibilityVisibilityKindEnumRuleCall_0_0 = (RuleCall)cVisibilityAssignment_0.eContents().get(0);
 		private final Assignment cMacroAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final Keyword cMacroMacroKeyword_1_0 = (Keyword)cMacroAssignment_1.eContents().get(0);
-		private final Keyword cRoutineKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
-		private final Assignment cUnrestrictedNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0 = (RuleCall)cUnrestrictedNameAssignment_4.eContents().get(0);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cLeftParenthesisKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Assignment cParameterSetAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cParameterSetFormalParameterSetParserRuleCall_5_1_0 = (RuleCall)cParameterSetAssignment_5_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final RuleCall cDesignDebugTraceParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cRoutineKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cNameESIdentifierParserRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
+		private final Assignment cUnrestrictedNameAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cUnrestrictedNameUnrestrictedNameParserRuleCall_5_0 = (RuleCall)cUnrestrictedNameAssignment_5.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cHyphenMinusHyphenMinusGreaterThanSignKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Alternatives cAlternatives_6_1 = (Alternatives)cGroup_6.eContents().get(1);
-		private final Assignment cResultSetAssignment_6_1_0 = (Assignment)cAlternatives_6_1.eContents().get(0);
-		private final RuleCall cResultSetFormalParameterSetParserRuleCall_6_1_0_0 = (RuleCall)cResultSetAssignment_6_1_0.eContents().get(0);
-		private final Group cGroup_6_1_1 = (Group)cAlternatives_6_1.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_6_1_1_0 = (Keyword)cGroup_6_1_1.eContents().get(0);
-		private final Assignment cResultSetAssignment_6_1_1_1 = (Assignment)cGroup_6_1_1.eContents().get(1);
-		private final RuleCall cResultSetFormalParameterSetParserRuleCall_6_1_1_1_0 = (RuleCall)cResultSetAssignment_6_1_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_6_1_1_2 = (Keyword)cGroup_6_1_1.eContents().get(2);
-		private final Assignment cBodyBlockAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cBodyBlockBlockStatementParserRuleCall_7_0 = (RuleCall)cBodyBlockAssignment_7.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cParameterSetAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cParameterSetFormalParameterSetParserRuleCall_6_1_0 = (RuleCall)cParameterSetAssignment_6_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cHyphenMinusHyphenMinusGreaterThanSignKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Alternatives cAlternatives_7_1 = (Alternatives)cGroup_7.eContents().get(1);
+		private final Assignment cResultSetAssignment_7_1_0 = (Assignment)cAlternatives_7_1.eContents().get(0);
+		private final RuleCall cResultSetFormalParameterSetParserRuleCall_7_1_0_0 = (RuleCall)cResultSetAssignment_7_1_0.eContents().get(0);
+		private final Group cGroup_7_1_1 = (Group)cAlternatives_7_1.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_7_1_1_0 = (Keyword)cGroup_7_1_1.eContents().get(0);
+		private final Assignment cResultSetAssignment_7_1_1_1 = (Assignment)cGroup_7_1_1.eContents().get(1);
+		private final RuleCall cResultSetFormalParameterSetParserRuleCall_7_1_1_1_0 = (RuleCall)cResultSetAssignment_7_1_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_7_1_1_2 = (Keyword)cGroup_7_1_1.eContents().get(2);
+		private final Assignment cBodyBlockAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cBodyBlockBlockStatementParserRuleCall_8_0 = (RuleCall)cBodyBlockAssignment_8.eContents().get(0);
 		
 		//Routine fmlInfra::Routine:
-		//	visibility=VisibilityKind? macro?='macro'? 'routine'
+		//	visibility=VisibilityKind? macro?='macro'? DesignDebugTrace*
+		//	'routine'
 		//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('(' parameterSet=FormalParameterSet? ')')? ('-->'
 		//	(resultSet=FormalParameterSet
 		//	| '(' resultSet=FormalParameterSet ')'))?
 		//	bodyBlock=BlockStatement;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//visibility=VisibilityKind? macro?='macro'? 'routine' name=ESIdentifier unrestrictedName=UnrestrictedName? ('('
-		//parameterSet=FormalParameterSet? ')')? ('-->' (resultSet=FormalParameterSet | '(' resultSet=FormalParameterSet ')'))?
-		//bodyBlock=BlockStatement
+		//visibility=VisibilityKind? macro?='macro'? DesignDebugTrace* 'routine' name=ESIdentifier
+		//unrestrictedName=UnrestrictedName? ('(' parameterSet=FormalParameterSet? ')')? ('-->' (resultSet=FormalParameterSet |
+		//'(' resultSet=FormalParameterSet ')'))? bodyBlock=BlockStatement
 		public Group getGroup() { return cGroup; }
 		
 		//visibility=VisibilityKind?
@@ -8166,71 +8422,74 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'macro'
 		public Keyword getMacroMacroKeyword_1_0() { return cMacroMacroKeyword_1_0; }
 		
+		//DesignDebugTrace*
+		public RuleCall getDesignDebugTraceParserRuleCall_2() { return cDesignDebugTraceParserRuleCall_2; }
+		
 		//'routine'
-		public Keyword getRoutineKeyword_2() { return cRoutineKeyword_2; }
+		public Keyword getRoutineKeyword_3() { return cRoutineKeyword_3; }
 		
 		//name=ESIdentifier
-		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
+		public Assignment getNameAssignment_4() { return cNameAssignment_4; }
 		
 		//ESIdentifier
-		public RuleCall getNameESIdentifierParserRuleCall_3_0() { return cNameESIdentifierParserRuleCall_3_0; }
+		public RuleCall getNameESIdentifierParserRuleCall_4_0() { return cNameESIdentifierParserRuleCall_4_0; }
 		
 		//unrestrictedName=UnrestrictedName?
-		public Assignment getUnrestrictedNameAssignment_4() { return cUnrestrictedNameAssignment_4; }
+		public Assignment getUnrestrictedNameAssignment_5() { return cUnrestrictedNameAssignment_5; }
 		
 		//UnrestrictedName
-		public RuleCall getUnrestrictedNameUnrestrictedNameParserRuleCall_4_0() { return cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0; }
+		public RuleCall getUnrestrictedNameUnrestrictedNameParserRuleCall_5_0() { return cUnrestrictedNameUnrestrictedNameParserRuleCall_5_0; }
 		
 		//('(' parameterSet=FormalParameterSet? ')')?
-		public Group getGroup_5() { return cGroup_5; }
-		
-		//'('
-		public Keyword getLeftParenthesisKeyword_5_0() { return cLeftParenthesisKeyword_5_0; }
-		
-		//parameterSet=FormalParameterSet?
-		public Assignment getParameterSetAssignment_5_1() { return cParameterSetAssignment_5_1; }
-		
-		//FormalParameterSet
-		public RuleCall getParameterSetFormalParameterSetParserRuleCall_5_1_0() { return cParameterSetFormalParameterSetParserRuleCall_5_1_0; }
-		
-		//')'
-		public Keyword getRightParenthesisKeyword_5_2() { return cRightParenthesisKeyword_5_2; }
-		
-		//('-->' (resultSet=FormalParameterSet | '(' resultSet=FormalParameterSet ')'))?
 		public Group getGroup_6() { return cGroup_6; }
 		
-		//'-->'
-		public Keyword getHyphenMinusHyphenMinusGreaterThanSignKeyword_6_0() { return cHyphenMinusHyphenMinusGreaterThanSignKeyword_6_0; }
-		
-		//resultSet=FormalParameterSet | '(' resultSet=FormalParameterSet ')'
-		public Alternatives getAlternatives_6_1() { return cAlternatives_6_1; }
-		
-		//resultSet=FormalParameterSet
-		public Assignment getResultSetAssignment_6_1_0() { return cResultSetAssignment_6_1_0; }
-		
-		//FormalParameterSet
-		public RuleCall getResultSetFormalParameterSetParserRuleCall_6_1_0_0() { return cResultSetFormalParameterSetParserRuleCall_6_1_0_0; }
-		
-		//'(' resultSet=FormalParameterSet ')'
-		public Group getGroup_6_1_1() { return cGroup_6_1_1; }
-		
 		//'('
-		public Keyword getLeftParenthesisKeyword_6_1_1_0() { return cLeftParenthesisKeyword_6_1_1_0; }
+		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 		
-		//resultSet=FormalParameterSet
-		public Assignment getResultSetAssignment_6_1_1_1() { return cResultSetAssignment_6_1_1_1; }
+		//parameterSet=FormalParameterSet?
+		public Assignment getParameterSetAssignment_6_1() { return cParameterSetAssignment_6_1; }
 		
 		//FormalParameterSet
-		public RuleCall getResultSetFormalParameterSetParserRuleCall_6_1_1_1_0() { return cResultSetFormalParameterSetParserRuleCall_6_1_1_1_0; }
+		public RuleCall getParameterSetFormalParameterSetParserRuleCall_6_1_0() { return cParameterSetFormalParameterSetParserRuleCall_6_1_0; }
 		
 		//')'
-		public Keyword getRightParenthesisKeyword_6_1_1_2() { return cRightParenthesisKeyword_6_1_1_2; }
+		public Keyword getRightParenthesisKeyword_6_2() { return cRightParenthesisKeyword_6_2; }
+		
+		//('-->' (resultSet=FormalParameterSet | '(' resultSet=FormalParameterSet ')'))?
+		public Group getGroup_7() { return cGroup_7; }
+		
+		//'-->'
+		public Keyword getHyphenMinusHyphenMinusGreaterThanSignKeyword_7_0() { return cHyphenMinusHyphenMinusGreaterThanSignKeyword_7_0; }
+		
+		//resultSet=FormalParameterSet | '(' resultSet=FormalParameterSet ')'
+		public Alternatives getAlternatives_7_1() { return cAlternatives_7_1; }
+		
+		//resultSet=FormalParameterSet
+		public Assignment getResultSetAssignment_7_1_0() { return cResultSetAssignment_7_1_0; }
+		
+		//FormalParameterSet
+		public RuleCall getResultSetFormalParameterSetParserRuleCall_7_1_0_0() { return cResultSetFormalParameterSetParserRuleCall_7_1_0_0; }
+		
+		//'(' resultSet=FormalParameterSet ')'
+		public Group getGroup_7_1_1() { return cGroup_7_1_1; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_7_1_1_0() { return cLeftParenthesisKeyword_7_1_1_0; }
+		
+		//resultSet=FormalParameterSet
+		public Assignment getResultSetAssignment_7_1_1_1() { return cResultSetAssignment_7_1_1_1; }
+		
+		//FormalParameterSet
+		public RuleCall getResultSetFormalParameterSetParserRuleCall_7_1_1_1_0() { return cResultSetFormalParameterSetParserRuleCall_7_1_1_1_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_7_1_1_2() { return cRightParenthesisKeyword_7_1_1_2; }
 		
 		//bodyBlock=BlockStatement
-		public Assignment getBodyBlockAssignment_7() { return cBodyBlockAssignment_7; }
+		public Assignment getBodyBlockAssignment_8() { return cBodyBlockAssignment_8; }
 		
 		//BlockStatement
-		public RuleCall getBodyBlockBlockStatementParserRuleCall_7_0() { return cBodyBlockBlockStatementParserRuleCall_7_0; }
+		public RuleCall getBodyBlockBlockStatementParserRuleCall_8_0() { return cBodyBlockBlockStatementParserRuleCall_8_0; }
 	}
 	public class ModelOfInteractionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ModelOfInteraction");
@@ -9405,7 +9664,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cDataTypeReferenceAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cVisibilityAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cVisibilityVisibilityKindEnumRuleCall_1_0 = (RuleCall)cVisibilityAssignment_1.eContents().get(0);
-		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypedefAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cTypedefTypeKeyword_2_0 = (Keyword)cTypedefAssignment_2.eContents().get(0);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Assignment cUnrestrictedNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
@@ -9428,19 +9688,23 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cMultiplicityAssignment_5_1_1_1 = (Assignment)cGroup_5_1_1.eContents().get(1);
 		private final RuleCall cMultiplicityDataTypeMultiplicityParserRuleCall_5_1_1_1_0 = (RuleCall)cMultiplicityAssignment_5_1_1_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5_1_1_2 = (Keyword)cGroup_5_1_1.eContents().get(2);
-		private final Assignment cTypedefAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final Keyword cTypedefSemicolonKeyword_6_0 = (Keyword)cTypedefAssignment_6.eContents().get(0);
+		private final Alternatives cAlternatives_6 = (Alternatives)cGroup.eContents().get(6);
+		private final Assignment cConstraintAssignment_6_0 = (Assignment)cAlternatives_6.eContents().get(0);
+		private final RuleCall cConstraintTypeConstraintRoutineParserRuleCall_6_0_0 = (RuleCall)cConstraintAssignment_6_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_6_1 = (Keyword)cAlternatives_6.eContents().get(1);
 		
 		//OtherDataTypeDefinition fmlType::DataTypeReference:
-		//	{fmlType::DataTypeReference} visibility=VisibilityKind? 'type'
+		//	{fmlType::DataTypeReference} visibility=VisibilityKind? typedef?='type'
 		//	name=ESIdentifier unrestrictedName=UnrestrictedName? (support=PrimitiveType ('[' multiplicity=DataTypeMultiplicity
 		//	']')?
-		//	| typeref=[fmlType::DataType|ESUfid] ('[' multiplicity=DataTypeMultiplicity ']')?) typedef?=';';
+		//	| typeref=[fmlType::DataType|ESUfid] ('[' multiplicity=DataTypeMultiplicity ']')?) (constraint=TypeConstraintRoutine |
+		//	';');
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::DataTypeReference} visibility=VisibilityKind? 'type' name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//(support=PrimitiveType ('[' multiplicity=DataTypeMultiplicity ']')? | typeref=[fmlType::DataType|ESUfid] ('['
-		//multiplicity=DataTypeMultiplicity ']')?) typedef?=';'
+		//{fmlType::DataTypeReference} visibility=VisibilityKind? typedef?='type' name=ESIdentifier
+		//unrestrictedName=UnrestrictedName? (support=PrimitiveType ('[' multiplicity=DataTypeMultiplicity ']')? |
+		//typeref=[fmlType::DataType|ESUfid] ('[' multiplicity=DataTypeMultiplicity ']')?) (constraint=TypeConstraintRoutine |
+		//';')
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::DataTypeReference}
@@ -9452,8 +9716,11 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//VisibilityKind
 		public RuleCall getVisibilityVisibilityKindEnumRuleCall_1_0() { return cVisibilityVisibilityKindEnumRuleCall_1_0; }
 		
+		//typedef?='type'
+		public Assignment getTypedefAssignment_2() { return cTypedefAssignment_2; }
+		
 		//'type'
-		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+		public Keyword getTypedefTypeKeyword_2_0() { return cTypedefTypeKeyword_2_0; }
 		
 		//name=ESIdentifier
 		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
@@ -9522,11 +9789,142 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//']'
 		public Keyword getRightSquareBracketKeyword_5_1_1_2() { return cRightSquareBracketKeyword_5_1_1_2; }
 		
-		//typedef?=';'
-		public Assignment getTypedefAssignment_6() { return cTypedefAssignment_6; }
+		//constraint=TypeConstraintRoutine | ';'
+		public Alternatives getAlternatives_6() { return cAlternatives_6; }
+		
+		//constraint=TypeConstraintRoutine
+		public Assignment getConstraintAssignment_6_0() { return cConstraintAssignment_6_0; }
+		
+		//TypeConstraintRoutine
+		public RuleCall getConstraintTypeConstraintRoutineParserRuleCall_6_0_0() { return cConstraintTypeConstraintRoutineParserRuleCall_6_0_0; }
 		
 		//';'
-		public Keyword getTypedefSemicolonKeyword_6_0() { return cTypedefSemicolonKeyword_6_0; }
+		public Keyword getSemicolonKeyword_6_1() { return cSemicolonKeyword_6_1; }
+	}
+	public class TypeConstraintRoutineElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.TypeConstraintRoutine");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cRoutineAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cConstraintKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cParameterSetAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cParameterSetVariableRoutineParameterSetParserRuleCall_3_1_0 = (RuleCall)cParameterSetAssignment_3_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
+		private final Assignment cBodyBlockAssignment_4_0 = (Assignment)cAlternatives_4.eContents().get(0);
+		private final RuleCall cBodyBlockBlockStatementParserRuleCall_4_0_0 = (RuleCall)cBodyBlockAssignment_4_0.eContents().get(0);
+		private final Group cGroup_4_1 = (Group)cAlternatives_4.eContents().get(1);
+		private final Assignment cBodyBlockAssignment_4_1_0 = (Assignment)cGroup_4_1.eContents().get(0);
+		private final RuleCall cBodyBlockConditionalBlockStatementParserRuleCall_4_1_0_0 = (RuleCall)cBodyBlockAssignment_4_1_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4_1_1 = (Keyword)cGroup_4_1.eContents().get(1);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//TypeConstraintRoutine fmlInfra::Routine:
+		//	{fmlInfra::Routine} '{'
+		//	'@constraint' ('(' parameterSet=VariableRoutineParameterSet ')')? (bodyBlock=BlockStatement
+		//	| bodyBlock=ConditionalBlockStatement ';')
+		//	'}';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{fmlInfra::Routine} '{' '@constraint' ('(' parameterSet=VariableRoutineParameterSet ')')? (bodyBlock=BlockStatement |
+		//bodyBlock=ConditionalBlockStatement ';') '}'
+		public Group getGroup() { return cGroup; }
+		
+		//{fmlInfra::Routine}
+		public Action getRoutineAction_0() { return cRoutineAction_0; }
+		
+		//'{'
+		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
+		
+		//'@constraint'
+		public Keyword getConstraintKeyword_2() { return cConstraintKeyword_2; }
+		
+		//('(' parameterSet=VariableRoutineParameterSet ')')?
+		public Group getGroup_3() { return cGroup_3; }
+		
+		//'('
+		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
+		
+		//parameterSet=VariableRoutineParameterSet
+		public Assignment getParameterSetAssignment_3_1() { return cParameterSetAssignment_3_1; }
+		
+		//VariableRoutineParameterSet
+		public RuleCall getParameterSetVariableRoutineParameterSetParserRuleCall_3_1_0() { return cParameterSetVariableRoutineParameterSetParserRuleCall_3_1_0; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
+		
+		//bodyBlock=BlockStatement | bodyBlock=ConditionalBlockStatement ';'
+		public Alternatives getAlternatives_4() { return cAlternatives_4; }
+		
+		//bodyBlock=BlockStatement
+		public Assignment getBodyBlockAssignment_4_0() { return cBodyBlockAssignment_4_0; }
+		
+		//BlockStatement
+		public RuleCall getBodyBlockBlockStatementParserRuleCall_4_0_0() { return cBodyBlockBlockStatementParserRuleCall_4_0_0; }
+		
+		//bodyBlock=ConditionalBlockStatement ';'
+		public Group getGroup_4_1() { return cGroup_4_1; }
+		
+		//bodyBlock=ConditionalBlockStatement
+		public Assignment getBodyBlockAssignment_4_1_0() { return cBodyBlockAssignment_4_1_0; }
+		
+		//ConditionalBlockStatement
+		public RuleCall getBodyBlockConditionalBlockStatementParserRuleCall_4_1_0_0() { return cBodyBlockConditionalBlockStatementParserRuleCall_4_1_0_0; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_4_1_1() { return cSemicolonKeyword_4_1_1; }
+		
+		//'}'
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+	public class ConditionalBlockStatementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ConditionalBlockStatement");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cBlockStatementAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cStatementAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cStatementGuardTestExpressionParserRuleCall_1_0 = (RuleCall)cStatementAssignment_1.eContents().get(0);
+		
+		//ConditionalBlockStatement fmlStmnt::BlockStatement:
+		//	{fmlStmnt::BlockStatement} statement+=GuardTestExpression;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{fmlStmnt::BlockStatement} statement+=GuardTestExpression
+		public Group getGroup() { return cGroup; }
+		
+		//{fmlStmnt::BlockStatement}
+		public Action getBlockStatementAction_0() { return cBlockStatementAction_0; }
+		
+		//statement+=GuardTestExpression
+		public Assignment getStatementAssignment_1() { return cStatementAssignment_1; }
+		
+		//GuardTestExpression
+		public RuleCall getStatementGuardTestExpressionParserRuleCall_1_0() { return cStatementGuardTestExpressionParserRuleCall_1_0; }
+	}
+	public class GuardTestExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.GuardTestExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cVerticalLineEqualsSignGreaterThanSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cConditionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cConditionExpressionParserRuleCall_1_0 = (RuleCall)cConditionAssignment_1.eContents().get(0);
+		
+		//GuardTestExpression fmlStmnt::GuardStatement:
+		//	'|=>' condition=Expression;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'|=>' condition=Expression
+		public Group getGroup() { return cGroup; }
+		
+		//'|=>'
+		public Keyword getVerticalLineEqualsSignGreaterThanSignKeyword_0() { return cVerticalLineEqualsSignGreaterThanSignKeyword_0; }
+		
+		//condition=Expression
+		public Assignment getConditionAssignment_1() { return cConditionAssignment_1; }
+		
+		//Expression
+		public RuleCall getConditionExpressionParserRuleCall_1_0() { return cConditionExpressionParserRuleCall_1_0; }
 	}
 	public class DataTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.DataType");
@@ -11104,13 +11502,13 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cEnumerationTypeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cVisibilityAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cVisibilityVisibilityKindEnumRuleCall_1_0 = (RuleCall)cVisibilityAssignment_1.eContents().get(0);
-		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypedefAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cTypedefTypeKeyword_2_0 = (Keyword)cTypedefAssignment_2.eContents().get(0);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Assignment cUnrestrictedNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0 = (RuleCall)cUnrestrictedNameAssignment_4.eContents().get(0);
-		private final Assignment cTypedefAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final Keyword cTypedefEnumKeyword_5_0 = (Keyword)cTypedefAssignment_5.eContents().get(0);
+		private final Keyword cEnumKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Assignment cLiteralAssignment_7 = (Assignment)cGroup.eContents().get(7);
 		private final RuleCall cLiteralEnumerationLiteralParserRuleCall_7_0 = (RuleCall)cLiteralAssignment_7.eContents().get(0);
@@ -11121,16 +11519,16 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//EnumerationTypeDefinition fmlType::EnumerationType:
-		//	{fmlType::EnumerationType} visibility=VisibilityKind? 'type'
+		//	{fmlType::EnumerationType} visibility=VisibilityKind? typedef?='type'
 		//	name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//	typedef?='enum'
+		//	'enum'
 		//	'{'
 		//	literal+=EnumerationLiteral (',' literal+=EnumerationLiteral)*
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::EnumerationType} visibility=VisibilityKind? 'type' name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//typedef?='enum' '{' literal+=EnumerationLiteral (',' literal+=EnumerationLiteral)* '}'
+		//{fmlType::EnumerationType} visibility=VisibilityKind? typedef?='type' name=ESIdentifier
+		//unrestrictedName=UnrestrictedName? 'enum' '{' literal+=EnumerationLiteral (',' literal+=EnumerationLiteral)* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::EnumerationType}
@@ -11142,8 +11540,11 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//VisibilityKind
 		public RuleCall getVisibilityVisibilityKindEnumRuleCall_1_0() { return cVisibilityVisibilityKindEnumRuleCall_1_0; }
 		
+		//typedef?='type'
+		public Assignment getTypedefAssignment_2() { return cTypedefAssignment_2; }
+		
 		//'type'
-		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+		public Keyword getTypedefTypeKeyword_2_0() { return cTypedefTypeKeyword_2_0; }
 		
 		//name=ESIdentifier
 		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
@@ -11157,11 +11558,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//UnrestrictedName
 		public RuleCall getUnrestrictedNameUnrestrictedNameParserRuleCall_4_0() { return cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0; }
 		
-		//typedef?='enum'
-		public Assignment getTypedefAssignment_5() { return cTypedefAssignment_5; }
-		
 		//'enum'
-		public Keyword getTypedefEnumKeyword_5_0() { return cTypedefEnumKeyword_5_0; }
+		public Keyword getEnumKeyword_5() { return cEnumKeyword_5; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
@@ -11312,19 +11710,21 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cStructureTypeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cStructKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cPropertyAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cPropertyVariableParserRuleCall_3_0 = (RuleCall)cPropertyAssignment_3.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cPropertyKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cPropertyAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cPropertyVariableParserRuleCall_4_0 = (RuleCall)cPropertyAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//StructureType fmlType::StructureType:
 		//	{fmlType::StructureType}
 		//	'struct'
 		//	'{'
+		//	'@property:'?
 		//	property+=Variable+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::StructureType} 'struct' '{' property+=Variable+ '}'
+		//{fmlType::StructureType} 'struct' '{' '@property:'? property+=Variable+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::StructureType}
@@ -11336,14 +11736,17 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
+		//'@property:'?
+		public Keyword getPropertyKeyword_3() { return cPropertyKeyword_3; }
+		
 		//property+=Variable+
-		public Assignment getPropertyAssignment_3() { return cPropertyAssignment_3; }
+		public Assignment getPropertyAssignment_4() { return cPropertyAssignment_4; }
 		
 		//Variable
-		public RuleCall getPropertyVariableParserRuleCall_3_0() { return cPropertyVariableParserRuleCall_3_0; }
+		public RuleCall getPropertyVariableParserRuleCall_4_0() { return cPropertyVariableParserRuleCall_4_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
 	public class StructureTypeDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.StructureTypeDefinition");
@@ -11351,29 +11754,31 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cStructureTypeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cVisibilityAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cVisibilityVisibilityKindEnumRuleCall_1_0 = (RuleCall)cVisibilityAssignment_1.eContents().get(0);
-		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypedefAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cTypedefTypeKeyword_2_0 = (Keyword)cTypedefAssignment_2.eContents().get(0);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Assignment cUnrestrictedNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0 = (RuleCall)cUnrestrictedNameAssignment_4.eContents().get(0);
-		private final Assignment cTypedefAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final Keyword cTypedefStructKeyword_5_0 = (Keyword)cTypedefAssignment_5.eContents().get(0);
+		private final Keyword cStructKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cPropertyAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cPropertyVariableParserRuleCall_7_0 = (RuleCall)cPropertyAssignment_7.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cPropertyKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cPropertyAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cPropertyVariableParserRuleCall_8_0 = (RuleCall)cPropertyAssignment_8.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//StructureTypeDefinition fmlType::StructureType:
-		//	{fmlType::StructureType} visibility=VisibilityKind? 'type'
+		//	{fmlType::StructureType} visibility=VisibilityKind? typedef?='type'
 		//	name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//	typedef?='struct'
+		//	'struct'
 		//	'{'
+		//	'@property:'?
 		//	property+=Variable+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::StructureType} visibility=VisibilityKind? 'type' name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//typedef?='struct' '{' property+=Variable+ '}'
+		//{fmlType::StructureType} visibility=VisibilityKind? typedef?='type' name=ESIdentifier unrestrictedName=UnrestrictedName?
+		//'struct' '{' '@property:'? property+=Variable+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::StructureType}
@@ -11385,8 +11790,11 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//VisibilityKind
 		public RuleCall getVisibilityVisibilityKindEnumRuleCall_1_0() { return cVisibilityVisibilityKindEnumRuleCall_1_0; }
 		
+		//typedef?='type'
+		public Assignment getTypedefAssignment_2() { return cTypedefAssignment_2; }
+		
 		//'type'
-		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+		public Keyword getTypedefTypeKeyword_2_0() { return cTypedefTypeKeyword_2_0; }
 		
 		//name=ESIdentifier
 		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
@@ -11400,23 +11808,23 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//UnrestrictedName
 		public RuleCall getUnrestrictedNameUnrestrictedNameParserRuleCall_4_0() { return cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0; }
 		
-		//typedef?='struct'
-		public Assignment getTypedefAssignment_5() { return cTypedefAssignment_5; }
-		
 		//'struct'
-		public Keyword getTypedefStructKeyword_5_0() { return cTypedefStructKeyword_5_0; }
+		public Keyword getStructKeyword_5() { return cStructKeyword_5; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
 		
+		//'@property:'?
+		public Keyword getPropertyKeyword_7() { return cPropertyKeyword_7; }
+		
 		//property+=Variable+
-		public Assignment getPropertyAssignment_7() { return cPropertyAssignment_7; }
+		public Assignment getPropertyAssignment_8() { return cPropertyAssignment_8; }
 		
 		//Variable
-		public RuleCall getPropertyVariableParserRuleCall_7_0() { return cPropertyVariableParserRuleCall_7_0; }
+		public RuleCall getPropertyVariableParserRuleCall_8_0() { return cPropertyVariableParserRuleCall_8_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
 	}
 	public class StructureTypeDefinitionImplElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.StructureTypeDefinitionImpl");
@@ -11429,20 +11837,22 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTypedefAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final Keyword cTypedefStructKeyword_3_0 = (Keyword)cTypedefAssignment_3.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cPropertyAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cPropertyVariableParserRuleCall_5_0 = (RuleCall)cPropertyAssignment_5.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cPropertyKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cPropertyAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cPropertyVariableParserRuleCall_6_0 = (RuleCall)cPropertyAssignment_6.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//StructureTypeDefinitionImpl fmlType::StructureType:
 		//	{fmlType::StructureType} name=ESIdentifier unrestrictedName=UnrestrictedName?
 		//	typedef?='struct'
 		//	'{'
+		//	'@property:'?
 		//	property+=Variable+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::StructureType} name=ESIdentifier unrestrictedName=UnrestrictedName? typedef?='struct' '{' property+=Variable+
-		//'}'
+		//{fmlType::StructureType} name=ESIdentifier unrestrictedName=UnrestrictedName? typedef?='struct' '{' '@property:'?
+		//property+=Variable+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::StructureType}
@@ -11469,14 +11879,17 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
 		
+		//'@property:'?
+		public Keyword getPropertyKeyword_5() { return cPropertyKeyword_5; }
+		
 		//property+=Variable+
-		public Assignment getPropertyAssignment_5() { return cPropertyAssignment_5; }
+		public Assignment getPropertyAssignment_6() { return cPropertyAssignment_6; }
 		
 		//Variable
-		public RuleCall getPropertyVariableParserRuleCall_5_0() { return cPropertyVariableParserRuleCall_5_0; }
+		public RuleCall getPropertyVariableParserRuleCall_6_0() { return cPropertyVariableParserRuleCall_6_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
+		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
 	}
 	public class UnionTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.UnionType");
@@ -11484,19 +11897,21 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cUnionTypeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cUnionKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cPropertyAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cPropertyVariableParserRuleCall_3_0 = (RuleCall)cPropertyAssignment_3.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cPropertyKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cPropertyAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cPropertyVariableParserRuleCall_4_0 = (RuleCall)cPropertyAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//UnionType fmlType::UnionType:
 		//	{fmlType::UnionType}
 		//	'union'
 		//	'{'
+		//	'@property:'?
 		//	property+=Variable+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::UnionType} 'union' '{' property+=Variable+ '}'
+		//{fmlType::UnionType} 'union' '{' '@property:'? property+=Variable+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::UnionType}
@@ -11508,14 +11923,17 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
+		//'@property:'?
+		public Keyword getPropertyKeyword_3() { return cPropertyKeyword_3; }
+		
 		//property+=Variable+
-		public Assignment getPropertyAssignment_3() { return cPropertyAssignment_3; }
+		public Assignment getPropertyAssignment_4() { return cPropertyAssignment_4; }
 		
 		//Variable
-		public RuleCall getPropertyVariableParserRuleCall_3_0() { return cPropertyVariableParserRuleCall_3_0; }
+		public RuleCall getPropertyVariableParserRuleCall_4_0() { return cPropertyVariableParserRuleCall_4_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
 	public class UnionTypeDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.UnionTypeDefinition");
@@ -11523,29 +11941,31 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cUnionTypeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cVisibilityAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cVisibilityVisibilityKindEnumRuleCall_1_0 = (RuleCall)cVisibilityAssignment_1.eContents().get(0);
-		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypedefAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cTypedefTypeKeyword_2_0 = (Keyword)cTypedefAssignment_2.eContents().get(0);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Assignment cUnrestrictedNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0 = (RuleCall)cUnrestrictedNameAssignment_4.eContents().get(0);
-		private final Assignment cTypedefAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final Keyword cTypedefUnionKeyword_5_0 = (Keyword)cTypedefAssignment_5.eContents().get(0);
+		private final Keyword cUnionKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cPropertyAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cPropertyVariableParserRuleCall_7_0 = (RuleCall)cPropertyAssignment_7.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cPropertyKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cPropertyAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cPropertyVariableParserRuleCall_8_0 = (RuleCall)cPropertyAssignment_8.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//UnionTypeDefinition fmlType::UnionType:
-		//	{fmlType::UnionType} visibility=VisibilityKind? 'type'
+		//	{fmlType::UnionType} visibility=VisibilityKind? typedef?='type'
 		//	name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//	typedef?='union'
+		//	'union'
 		//	'{'
+		//	'@property:'?
 		//	property+=Variable+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::UnionType} visibility=VisibilityKind? 'type' name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//typedef?='union' '{' property+=Variable+ '}'
+		//{fmlType::UnionType} visibility=VisibilityKind? typedef?='type' name=ESIdentifier unrestrictedName=UnrestrictedName?
+		//'union' '{' '@property:'? property+=Variable+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::UnionType}
@@ -11557,8 +11977,11 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//VisibilityKind
 		public RuleCall getVisibilityVisibilityKindEnumRuleCall_1_0() { return cVisibilityVisibilityKindEnumRuleCall_1_0; }
 		
+		//typedef?='type'
+		public Assignment getTypedefAssignment_2() { return cTypedefAssignment_2; }
+		
 		//'type'
-		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+		public Keyword getTypedefTypeKeyword_2_0() { return cTypedefTypeKeyword_2_0; }
 		
 		//name=ESIdentifier
 		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
@@ -11572,23 +11995,23 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//UnrestrictedName
 		public RuleCall getUnrestrictedNameUnrestrictedNameParserRuleCall_4_0() { return cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0; }
 		
-		//typedef?='union'
-		public Assignment getTypedefAssignment_5() { return cTypedefAssignment_5; }
-		
 		//'union'
-		public Keyword getTypedefUnionKeyword_5_0() { return cTypedefUnionKeyword_5_0; }
+		public Keyword getUnionKeyword_5() { return cUnionKeyword_5; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
 		
+		//'@property:'?
+		public Keyword getPropertyKeyword_7() { return cPropertyKeyword_7; }
+		
 		//property+=Variable+
-		public Assignment getPropertyAssignment_7() { return cPropertyAssignment_7; }
+		public Assignment getPropertyAssignment_8() { return cPropertyAssignment_8; }
 		
 		//Variable
-		public RuleCall getPropertyVariableParserRuleCall_7_0() { return cPropertyVariableParserRuleCall_7_0; }
+		public RuleCall getPropertyVariableParserRuleCall_8_0() { return cPropertyVariableParserRuleCall_8_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
 	}
 	public class UnionTypeDefinitionImplElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.UnionTypeDefinitionImpl");
@@ -11601,19 +12024,22 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTypedefAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final Keyword cTypedefUnionKeyword_3_0 = (Keyword)cTypedefAssignment_3.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cPropertyAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cPropertyVariableParserRuleCall_5_0 = (RuleCall)cPropertyAssignment_5.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cPropertyKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cPropertyAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cPropertyVariableParserRuleCall_6_0 = (RuleCall)cPropertyAssignment_6.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//UnionTypeDefinitionImpl fmlType::UnionType:
 		//	{fmlType::UnionType} name=ESIdentifier unrestrictedName=UnrestrictedName?
 		//	typedef?='union'
 		//	'{'
+		//	'@property:'?
 		//	property+=Variable+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::UnionType} name=ESIdentifier unrestrictedName=UnrestrictedName? typedef?='union' '{' property+=Variable+ '}'
+		//{fmlType::UnionType} name=ESIdentifier unrestrictedName=UnrestrictedName? typedef?='union' '{' '@property:'?
+		//property+=Variable+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::UnionType}
@@ -11640,14 +12066,17 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
 		
+		//'@property:'?
+		public Keyword getPropertyKeyword_5() { return cPropertyKeyword_5; }
+		
 		//property+=Variable+
-		public Assignment getPropertyAssignment_5() { return cPropertyAssignment_5; }
+		public Assignment getPropertyAssignment_6() { return cPropertyAssignment_6; }
 		
 		//Variable
-		public RuleCall getPropertyVariableParserRuleCall_5_0() { return cPropertyVariableParserRuleCall_5_0; }
+		public RuleCall getPropertyVariableParserRuleCall_6_0() { return cPropertyVariableParserRuleCall_6_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
+		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
 	}
 	public class ChoiceTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ChoiceType");
@@ -11655,19 +12084,21 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cChoiceTypeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cChoiceKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cPropertyAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cPropertyVariableParserRuleCall_3_0 = (RuleCall)cPropertyAssignment_3.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cPropertyKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cPropertyAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cPropertyVariableParserRuleCall_4_0 = (RuleCall)cPropertyAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ChoiceType fmlType::ChoiceType:
 		//	{fmlType::ChoiceType}
 		//	'choice'
 		//	'{'
+		//	'@property:'?
 		//	property+=Variable+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::ChoiceType} 'choice' '{' property+=Variable+ '}'
+		//{fmlType::ChoiceType} 'choice' '{' '@property:'? property+=Variable+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::ChoiceType}
@@ -11679,14 +12110,17 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 		
+		//'@property:'?
+		public Keyword getPropertyKeyword_3() { return cPropertyKeyword_3; }
+		
 		//property+=Variable+
-		public Assignment getPropertyAssignment_3() { return cPropertyAssignment_3; }
+		public Assignment getPropertyAssignment_4() { return cPropertyAssignment_4; }
 		
 		//Variable
-		public RuleCall getPropertyVariableParserRuleCall_3_0() { return cPropertyVariableParserRuleCall_3_0; }
+		public RuleCall getPropertyVariableParserRuleCall_4_0() { return cPropertyVariableParserRuleCall_4_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
 	public class ChoiceTypeDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ChoiceTypeDefinition");
@@ -11694,29 +12128,31 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cChoiceTypeAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cVisibilityAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cVisibilityVisibilityKindEnumRuleCall_1_0 = (RuleCall)cVisibilityAssignment_1.eContents().get(0);
-		private final Keyword cTypeKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTypedefAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Keyword cTypedefTypeKeyword_2_0 = (Keyword)cTypedefAssignment_2.eContents().get(0);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Assignment cUnrestrictedNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0 = (RuleCall)cUnrestrictedNameAssignment_4.eContents().get(0);
-		private final Assignment cTypedefAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final Keyword cTypedefChoiceKeyword_5_0 = (Keyword)cTypedefAssignment_5.eContents().get(0);
+		private final Keyword cChoiceKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cPropertyAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cPropertyVariableParserRuleCall_7_0 = (RuleCall)cPropertyAssignment_7.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Keyword cPropertyKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cPropertyAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cPropertyVariableParserRuleCall_8_0 = (RuleCall)cPropertyAssignment_8.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//ChoiceTypeDefinition fmlType::ChoiceType:
-		//	{fmlType::ChoiceType} visibility=VisibilityKind? 'type'
+		//	{fmlType::ChoiceType} visibility=VisibilityKind? typedef?='type'
 		//	name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//	typedef?='choice'
+		//	'choice'
 		//	'{'
+		//	'@property:'?
 		//	property+=Variable+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::ChoiceType} visibility=VisibilityKind? 'type' name=ESIdentifier unrestrictedName=UnrestrictedName?
-		//typedef?='choice' '{' property+=Variable+ '}'
+		//{fmlType::ChoiceType} visibility=VisibilityKind? typedef?='type' name=ESIdentifier unrestrictedName=UnrestrictedName?
+		//'choice' '{' '@property:'? property+=Variable+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::ChoiceType}
@@ -11728,8 +12164,11 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//VisibilityKind
 		public RuleCall getVisibilityVisibilityKindEnumRuleCall_1_0() { return cVisibilityVisibilityKindEnumRuleCall_1_0; }
 		
+		//typedef?='type'
+		public Assignment getTypedefAssignment_2() { return cTypedefAssignment_2; }
+		
 		//'type'
-		public Keyword getTypeKeyword_2() { return cTypeKeyword_2; }
+		public Keyword getTypedefTypeKeyword_2_0() { return cTypedefTypeKeyword_2_0; }
 		
 		//name=ESIdentifier
 		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
@@ -11743,23 +12182,23 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//UnrestrictedName
 		public RuleCall getUnrestrictedNameUnrestrictedNameParserRuleCall_4_0() { return cUnrestrictedNameUnrestrictedNameParserRuleCall_4_0; }
 		
-		//typedef?='choice'
-		public Assignment getTypedefAssignment_5() { return cTypedefAssignment_5; }
-		
 		//'choice'
-		public Keyword getTypedefChoiceKeyword_5_0() { return cTypedefChoiceKeyword_5_0; }
+		public Keyword getChoiceKeyword_5() { return cChoiceKeyword_5; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
 		
+		//'@property:'?
+		public Keyword getPropertyKeyword_7() { return cPropertyKeyword_7; }
+		
 		//property+=Variable+
-		public Assignment getPropertyAssignment_7() { return cPropertyAssignment_7; }
+		public Assignment getPropertyAssignment_8() { return cPropertyAssignment_8; }
 		
 		//Variable
-		public RuleCall getPropertyVariableParserRuleCall_7_0() { return cPropertyVariableParserRuleCall_7_0; }
+		public RuleCall getPropertyVariableParserRuleCall_8_0() { return cPropertyVariableParserRuleCall_8_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
 	}
 	public class ChoiceTypeDefinitionImplElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ChoiceTypeDefinitionImpl");
@@ -11772,19 +12211,22 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTypedefAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final Keyword cTypedefChoiceKeyword_3_0 = (Keyword)cTypedefAssignment_3.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cPropertyAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cPropertyVariableParserRuleCall_5_0 = (RuleCall)cPropertyAssignment_5.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cPropertyKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cPropertyAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cPropertyVariableParserRuleCall_6_0 = (RuleCall)cPropertyAssignment_6.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ChoiceTypeDefinitionImpl fmlType::ChoiceType:
 		//	{fmlType::ChoiceType} name=ESIdentifier unrestrictedName=UnrestrictedName?
 		//	typedef?='choice'
 		//	'{'
+		//	'@property:'?
 		//	property+=Variable+
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlType::ChoiceType} name=ESIdentifier unrestrictedName=UnrestrictedName? typedef?='choice' '{' property+=Variable+ '}'
+		//{fmlType::ChoiceType} name=ESIdentifier unrestrictedName=UnrestrictedName? typedef?='choice' '{' '@property:'?
+		//property+=Variable+ '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlType::ChoiceType}
@@ -11811,14 +12253,17 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
 		
+		//'@property:'?
+		public Keyword getPropertyKeyword_5() { return cPropertyKeyword_5; }
+		
 		//property+=Variable+
-		public Assignment getPropertyAssignment_5() { return cPropertyAssignment_5; }
+		public Assignment getPropertyAssignment_6() { return cPropertyAssignment_6; }
 		
 		//Variable
-		public RuleCall getPropertyVariableParserRuleCall_5_0() { return cPropertyVariableParserRuleCall_5_0; }
+		public RuleCall getPropertyVariableParserRuleCall_6_0() { return cPropertyVariableParserRuleCall_6_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
+		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
 	}
 	public class ModifierElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.Modifier");
@@ -11969,8 +12414,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{fmlInfra::Function} (visibility=VisibilityKind & modifier=Modifier)? 'fun' name=ESIdentifier
-		//unrestrictedName=UnrestrictedName? ('(' parameterSet=FormalParameterSet? ')')? '->' (resultSet=FormalParameterSet |
-		//'(' resultSet=FormalParameterSet ')') ';'
+		//unrestrictedName=UnrestrictedName? ('(' parameterSet=FormalParameterSet? ')')? '->' (resultSet=FormalParameterSet | '('
+		//resultSet=FormalParameterSet ')') ';'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlInfra::Function}
@@ -12625,7 +13070,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.OnWriteRoutine");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cRoutineAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cOn_writeKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Keyword cWriteKeyword_1_0 = (Keyword)cAlternatives_1.eContents().get(0);
+		private final Keyword cOn_writeKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cParameterSetAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
@@ -12635,19 +13082,25 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cBodyBlockBlockStatementParserRuleCall_3_0 = (RuleCall)cBodyBlockAssignment_3.eContents().get(0);
 		
 		//OnWriteRoutine fmlInfra::Routine:
-		//	{fmlInfra::Routine}
-		//	'@on_write' ('(' parameterSet=VariableRoutineParameterSet ')')?
+		//	{fmlInfra::Routine} ('@write' | '@on_write') ('(' parameterSet=VariableRoutineParameterSet ')')?
 		//	bodyBlock=BlockStatement;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlInfra::Routine} '@on_write' ('(' parameterSet=VariableRoutineParameterSet ')')? bodyBlock=BlockStatement
+		//{fmlInfra::Routine} ('@write' | '@on_write') ('(' parameterSet=VariableRoutineParameterSet ')')?
+		//bodyBlock=BlockStatement
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlInfra::Routine}
 		public Action getRoutineAction_0() { return cRoutineAction_0; }
 		
+		//'@write' | '@on_write'
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+		
+		//'@write'
+		public Keyword getWriteKeyword_1_0() { return cWriteKeyword_1_0; }
+		
 		//'@on_write'
-		public Keyword getOn_writeKeyword_1() { return cOn_writeKeyword_1; }
+		public Keyword getOn_writeKeyword_1_1() { return cOn_writeKeyword_1_1; }
 		
 		//('(' parameterSet=VariableRoutineParameterSet ')')?
 		public Group getGroup_2() { return cGroup_2; }
@@ -12696,46 +13149,60 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	public class VariableRoutineParameterElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.VariableRoutineParameter");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTypeDataTypeParserRuleCall_0_0 = (RuleCall)cTypeAssignment_0.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameESIdentifierParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cEqualsSignKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cDefaultValueAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cDefaultValueExpressionParserRuleCall_2_1_0 = (RuleCall)cDefaultValueAssignment_2_1.eContents().get(0);
+		private final RuleCall cFormalParameterOffsetParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cDirectionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cDirectionParameterDirectionKindEnumRuleCall_1_0 = (RuleCall)cDirectionAssignment_1.eContents().get(0);
+		private final Assignment cTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cTypeDataTypeParserRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cEqualsSignKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cDefaultValueAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cDefaultValueExpressionParserRuleCall_4_1_0 = (RuleCall)cDefaultValueAssignment_4_1.eContents().get(0);
 		
 		//VariableRoutineParameter fmlInfra::Parameter:
+		//	FormalParameterOffset?
+		//	direction=ParameterDirectionKind?
 		//	type=DataType?
 		//	name=ESIdentifier ('=' defaultValue=Expression)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//type=DataType? name=ESIdentifier ('=' defaultValue=Expression)?
+		//FormalParameterOffset? direction=ParameterDirectionKind? type=DataType? name=ESIdentifier ('=' defaultValue=Expression)?
 		public Group getGroup() { return cGroup; }
 		
+		//FormalParameterOffset?
+		public RuleCall getFormalParameterOffsetParserRuleCall_0() { return cFormalParameterOffsetParserRuleCall_0; }
+		
+		//direction=ParameterDirectionKind?
+		public Assignment getDirectionAssignment_1() { return cDirectionAssignment_1; }
+		
+		//ParameterDirectionKind
+		public RuleCall getDirectionParameterDirectionKindEnumRuleCall_1_0() { return cDirectionParameterDirectionKindEnumRuleCall_1_0; }
+		
 		//type=DataType?
-		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
+		public Assignment getTypeAssignment_2() { return cTypeAssignment_2; }
 		
 		//DataType
-		public RuleCall getTypeDataTypeParserRuleCall_0_0() { return cTypeDataTypeParserRuleCall_0_0; }
+		public RuleCall getTypeDataTypeParserRuleCall_2_0() { return cTypeDataTypeParserRuleCall_2_0; }
 		
 		//name=ESIdentifier
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 		
 		//ESIdentifier
-		public RuleCall getNameESIdentifierParserRuleCall_1_0() { return cNameESIdentifierParserRuleCall_1_0; }
+		public RuleCall getNameESIdentifierParserRuleCall_3_0() { return cNameESIdentifierParserRuleCall_3_0; }
 		
 		//('=' defaultValue=Expression)?
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_4() { return cGroup_4; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_2_0() { return cEqualsSignKeyword_2_0; }
+		public Keyword getEqualsSignKeyword_4_0() { return cEqualsSignKeyword_4_0; }
 		
 		//defaultValue=Expression
-		public Assignment getDefaultValueAssignment_2_1() { return cDefaultValueAssignment_2_1; }
+		public Assignment getDefaultValueAssignment_4_1() { return cDefaultValueAssignment_4_1; }
 		
 		//Expression
-		public RuleCall getDefaultValueExpressionParserRuleCall_2_1_0() { return cDefaultValueExpressionParserRuleCall_2_1_0; }
+		public RuleCall getDefaultValueExpressionParserRuleCall_4_1_0() { return cDefaultValueExpressionParserRuleCall_4_1_0; }
 	}
 	public class VariablePublicElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.VariablePublic");
@@ -12908,57 +13375,82 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.FormalParameter");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cParameterAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cDirectionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cDirectionParameterDirectionKindEnumRuleCall_1_0 = (RuleCall)cDirectionAssignment_1.eContents().get(0);
-		private final Assignment cTypeAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cTypeDataTypeParserRuleCall_2_0 = (RuleCall)cTypeAssignment_2.eContents().get(0);
-		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cEqualsSignKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cDefaultValueAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cDefaultValueExpressionParserRuleCall_4_1_0 = (RuleCall)cDefaultValueAssignment_4_1.eContents().get(0);
+		private final RuleCall cFormalParameterOffsetParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cDirectionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDirectionParameterDirectionKindEnumRuleCall_2_0 = (RuleCall)cDirectionAssignment_2.eContents().get(0);
+		private final Assignment cModifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cModifierModifierParserRuleCall_3_0 = (RuleCall)cModifierAssignment_3.eContents().get(0);
+		private final Assignment cTypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cTypeDataTypeParserRuleCall_4_0 = (RuleCall)cTypeAssignment_4.eContents().get(0);
+		private final Assignment cNameAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cNameESIdentifierParserRuleCall_5_0 = (RuleCall)cNameAssignment_5.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cEqualsSignKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cDefaultValueAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cDefaultValueExpressionParserRuleCall_6_1_0 = (RuleCall)cDefaultValueAssignment_6_1.eContents().get(0);
 		
 		//FormalParameter fmlInfra::Parameter:
-		//	{fmlInfra::Parameter} direction=ParameterDirectionKind? type=DataType
-		//	name=ESIdentifier? ('=' defaultValue=Expression)?;
+		//	{fmlInfra::Parameter} FormalParameterOffset?
+		//	direction=ParameterDirectionKind? modifier=Modifier?
+		//	type=DataType name=ESIdentifier? ('=' defaultValue=Expression)?;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlInfra::Parameter} direction=ParameterDirectionKind? type=DataType name=ESIdentifier? ('=' defaultValue=Expression)?
+		//{fmlInfra::Parameter} FormalParameterOffset? direction=ParameterDirectionKind? modifier=Modifier? type=DataType
+		//name=ESIdentifier? ('=' defaultValue=Expression)?
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlInfra::Parameter}
 		public Action getParameterAction_0() { return cParameterAction_0; }
 		
+		//FormalParameterOffset?
+		public RuleCall getFormalParameterOffsetParserRuleCall_1() { return cFormalParameterOffsetParserRuleCall_1; }
+		
 		//direction=ParameterDirectionKind?
-		public Assignment getDirectionAssignment_1() { return cDirectionAssignment_1; }
+		public Assignment getDirectionAssignment_2() { return cDirectionAssignment_2; }
 		
 		//ParameterDirectionKind
-		public RuleCall getDirectionParameterDirectionKindEnumRuleCall_1_0() { return cDirectionParameterDirectionKindEnumRuleCall_1_0; }
+		public RuleCall getDirectionParameterDirectionKindEnumRuleCall_2_0() { return cDirectionParameterDirectionKindEnumRuleCall_2_0; }
+		
+		//modifier=Modifier?
+		public Assignment getModifierAssignment_3() { return cModifierAssignment_3; }
+		
+		//Modifier
+		public RuleCall getModifierModifierParserRuleCall_3_0() { return cModifierModifierParserRuleCall_3_0; }
 		
 		//type=DataType
-		public Assignment getTypeAssignment_2() { return cTypeAssignment_2; }
+		public Assignment getTypeAssignment_4() { return cTypeAssignment_4; }
 		
 		//DataType
-		public RuleCall getTypeDataTypeParserRuleCall_2_0() { return cTypeDataTypeParserRuleCall_2_0; }
+		public RuleCall getTypeDataTypeParserRuleCall_4_0() { return cTypeDataTypeParserRuleCall_4_0; }
 		
 		//name=ESIdentifier?
-		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
+		public Assignment getNameAssignment_5() { return cNameAssignment_5; }
 		
 		//ESIdentifier
-		public RuleCall getNameESIdentifierParserRuleCall_3_0() { return cNameESIdentifierParserRuleCall_3_0; }
+		public RuleCall getNameESIdentifierParserRuleCall_5_0() { return cNameESIdentifierParserRuleCall_5_0; }
 		
 		//('=' defaultValue=Expression)?
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_6() { return cGroup_6; }
 		
 		//'='
-		public Keyword getEqualsSignKeyword_4_0() { return cEqualsSignKeyword_4_0; }
+		public Keyword getEqualsSignKeyword_6_0() { return cEqualsSignKeyword_6_0; }
 		
 		//defaultValue=Expression
-		public Assignment getDefaultValueAssignment_4_1() { return cDefaultValueAssignment_4_1; }
+		public Assignment getDefaultValueAssignment_6_1() { return cDefaultValueAssignment_6_1; }
 		
 		//Expression
-		public RuleCall getDefaultValueExpressionParserRuleCall_4_1_0() { return cDefaultValueExpressionParserRuleCall_4_1_0; }
+		public RuleCall getDefaultValueExpressionParserRuleCall_6_1_0() { return cDefaultValueExpressionParserRuleCall_6_1_0; }
+	}
+	public class FormalParameterOffsetElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.FormalParameterOffset");
+		private final RuleCall cEOffsetParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//FormalParameterOffset:
+		//	EOffset;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//EOffset
+		public RuleCall getEOffsetParserRuleCall() { return cEOffsetParserRuleCall; }
 	}
 	public class BlockParameterSetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.BlockParameterSet");
@@ -13649,8 +14141,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{fmlInfra::Port} (visibility=VisibilityKind & modifier=Modifier)? (direction=ChannelDirection 'port' | 'port'
-		//direction=ChannelDirection?) name=ESIdentifier unrestrictedName=UnrestrictedName? ('('
-		//parameterSet=FormalParameterSet? ')')? ';'
+		//direction=ChannelDirection?) name=ESIdentifier unrestrictedName=UnrestrictedName? ('(' parameterSet=FormalParameterSet?
+		//')')? ';'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlInfra::Port}
@@ -13901,8 +14393,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{fmlInfra::Signal} visibility=VisibilityKind? (direction=ChannelDirection 'signal' | 'signal'
-		//direction=ChannelDirection?) name=ESIdentifier unrestrictedName=UnrestrictedName? ('('
-		//parameterSet=FormalParameterSet? ')')? ';'
+		//direction=ChannelDirection?) name=ESIdentifier unrestrictedName=UnrestrictedName? ('(' parameterSet=FormalParameterSet?
+		//')')? ';'
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlInfra::Signal}
@@ -18331,10 +18823,10 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//UnaryExpression ({fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='*' operand+=UnaryExpression ('*'
 		//operand+=UnaryExpression)* | {fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='**'
-		//operand+=UnaryExpression ('**' operand+=UnaryExpression)* |
-		//{fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='/' operand+=UnaryExpression ('/'
-		//operand+=UnaryExpression)* | {fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='%'
-		//operand+=UnaryExpression ('%' operand+=UnaryExpression)*)*
+		//operand+=UnaryExpression ('**' operand+=UnaryExpression)* | {fmlExpr::ArithmeticAssociativeExpression.operand+=current}
+		//operator='/' operand+=UnaryExpression ('/' operand+=UnaryExpression)* |
+		//{fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='%' operand+=UnaryExpression ('%'
+		//operand+=UnaryExpression)*)*
 		public Group getGroup() { return cGroup; }
 		
 		//UnaryExpression
@@ -18342,10 +18834,10 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//({fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='*' operand+=UnaryExpression ('*'
 		//operand+=UnaryExpression)* | {fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='**'
-		//operand+=UnaryExpression ('**' operand+=UnaryExpression)* |
-		//{fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='/' operand+=UnaryExpression ('/'
-		//operand+=UnaryExpression)* | {fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='%'
-		//operand+=UnaryExpression ('%' operand+=UnaryExpression)*)*
+		//operand+=UnaryExpression ('**' operand+=UnaryExpression)* | {fmlExpr::ArithmeticAssociativeExpression.operand+=current}
+		//operator='/' operand+=UnaryExpression ('/' operand+=UnaryExpression)* |
+		//{fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='%' operand+=UnaryExpression ('%'
+		//operand+=UnaryExpression)*)*
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 		
 		//{fmlExpr::ArithmeticAssociativeExpression.operand+=current} operator='*' operand+=UnaryExpression ('*'
@@ -18495,14 +18987,16 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//	| BitwiseUnaryExpression
 		//	| NewfreshExpression
 		//	| CastExpression
+		//	//	| CollectionFunctionExpression
+		//
 		//	| PrefixUnaryExpression
 		//	| PostfixUnaryExpression
 		//	| PrimaryExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//LiteralTerminalExpression | ArithmeticUnaryExpression | LogicalUnaryExpression | QuantifiedLogicalExpression |
-		//BitwiseUnaryExpression | NewfreshExpression | CastExpression | PrefixUnaryExpression | PostfixUnaryExpression |
-		//PrimaryExpression
+		//BitwiseUnaryExpression | NewfreshExpression | CastExpression //	| CollectionFunctionExpression
+		//| PrefixUnaryExpression | PostfixUnaryExpression | PrimaryExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//LiteralTerminalExpression
@@ -18737,6 +19231,68 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
+	}
+	public class CollectionFunctionExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.CollectionFunctionExpression");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Keyword cEmptyKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
+		private final RuleCall cExpressionParserRuleCall_0_1 = (RuleCall)cGroup_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Keyword cNonemptyKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cExpressionParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final Keyword cSizeKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cExpressionParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
+		
+		////CollectionFunctionExpression  fmlExpr::MixTupleExpression
+		//CollectionFunctionExpression fmlExpr::Expression:
+		//	'empty(' Expression ')'
+		//	| 'nonempty(' Expression ')'
+		//	| 'size(' Expression ')';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'empty(' Expression ')' | 'nonempty(' Expression ')' | 'size(' Expression ')'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//'empty(' Expression ')'
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//'empty('
+		public Keyword getEmptyKeyword_0_0() { return cEmptyKeyword_0_0; }
+		
+		//Expression
+		public RuleCall getExpressionParserRuleCall_0_1() { return cExpressionParserRuleCall_0_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_0_2() { return cRightParenthesisKeyword_0_2; }
+		
+		//'nonempty(' Expression ')'
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'nonempty('
+		public Keyword getNonemptyKeyword_1_0() { return cNonemptyKeyword_1_0; }
+		
+		//Expression
+		public RuleCall getExpressionParserRuleCall_1_1() { return cExpressionParserRuleCall_1_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
+		
+		//'size(' Expression ')'
+		public Group getGroup_2() { return cGroup_2; }
+		
+		//'size('
+		public Keyword getSizeKeyword_2_0() { return cSizeKeyword_2_0; }
+		
+		//Expression
+		public RuleCall getExpressionParserRuleCall_2_1() { return cExpressionParserRuleCall_2_1; }
+		
+		//')'
+		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
 	}
 	public class ArithmeticUnaryExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.ArithmeticUnaryExpression");
@@ -20580,13 +21136,17 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cLiteralTimeExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cLiteralTimeDeltaExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cLiteralTimeInitialExpressionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cLiteralTimeDeltaInitialExpressionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//LiteralReferenceVariableContext fmlExpr::LiteralReferenceExpression:
 		//	LiteralTimeExpression
-		//	| LiteralTimeDeltaExpression;
+		//	| LiteralTimeDeltaExpression
+		//	| LiteralTimeInitialExpression
+		//	| LiteralTimeDeltaInitialExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//LiteralTimeExpression | LiteralTimeDeltaExpression
+		//LiteralTimeExpression | LiteralTimeDeltaExpression | LiteralTimeInitialExpression | LiteralTimeDeltaInitialExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//LiteralTimeExpression
@@ -20594,6 +21154,12 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//LiteralTimeDeltaExpression
 		public RuleCall getLiteralTimeDeltaExpressionParserRuleCall_1() { return cLiteralTimeDeltaExpressionParserRuleCall_1; }
+		
+		//LiteralTimeInitialExpression
+		public RuleCall getLiteralTimeInitialExpressionParserRuleCall_2() { return cLiteralTimeInitialExpressionParserRuleCall_2; }
+		
+		//LiteralTimeDeltaInitialExpression
+		public RuleCall getLiteralTimeDeltaInitialExpressionParserRuleCall_3() { return cLiteralTimeDeltaInitialExpressionParserRuleCall_3; }
 	}
 	public class LiteralTimeExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.LiteralTimeExpression");
@@ -20614,6 +21180,25 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'$time'
 		public Keyword getTimeKeyword_1() { return cTimeKeyword_1; }
 	}
+	public class LiteralTimeInitialExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.LiteralTimeInitialExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cLiteralTimeExpressionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cTimeInitialKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//LiteralTimeInitialExpression fmlExpr::LiteralTimeExpression:
+		//	{fmlExpr::LiteralTimeExpression} '$time#initial';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{fmlExpr::LiteralTimeExpression} '$time#initial'
+		public Group getGroup() { return cGroup; }
+		
+		//{fmlExpr::LiteralTimeExpression}
+		public Action getLiteralTimeExpressionAction_0() { return cLiteralTimeExpressionAction_0; }
+		
+		//'$time#initial'
+		public Keyword getTimeInitialKeyword_1() { return cTimeInitialKeyword_1; }
+	}
 	public class LiteralTimeDeltaExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.LiteralTimeDeltaExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -20632,6 +21217,25 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'$delta'
 		public Keyword getDeltaKeyword_1() { return cDeltaKeyword_1; }
+	}
+	public class LiteralTimeDeltaInitialExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.LiteralTimeDeltaInitialExpression");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cLiteralTimeDeltaExpressionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cDeltaInitialKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//LiteralTimeDeltaInitialExpression fmlExpr::LiteralTimeDeltaExpression:
+		//	{fmlExpr::LiteralTimeDeltaExpression} '$delta#initial';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//{fmlExpr::LiteralTimeDeltaExpression} '$delta#initial'
+		public Group getGroup() { return cGroup; }
+		
+		//{fmlExpr::LiteralTimeDeltaExpression}
+		public Action getLiteralTimeDeltaExpressionAction_0() { return cLiteralTimeDeltaExpressionAction_0; }
+		
+		//'$delta#initial'
+		public Keyword getDeltaInitialKeyword_1() { return cDeltaInitialKeyword_1; }
 	}
 	public class LiteralReferenceMachineContextElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.LiteralReferenceMachineContext");
@@ -21291,12 +21895,17 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cModelModelKeyword_0_0 = (Keyword)cModelEnumLiteralDeclaration_0.eContents().get(0);
 		private final EnumLiteralDeclaration cPrototypeEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
 		private final Keyword cPrototypePrototypeKeyword_1_0 = (Keyword)cPrototypeEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cModelEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cModelModelKeyword_2_0 = (Keyword)cModelEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cPrototypeEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cPrototypePrototypeKeyword_3_0 = (Keyword)cPrototypeEnumLiteralDeclaration_3.eContents().get(0);
 		
 		//enum DesignKind returns fmlInfra::DesignKind:
-		//	model | prototype;
+		//	model | prototype | model='#model'
+		//	| prototype='#prototype';
 		public EnumRule getRule() { return rule; }
 		
-		//model | prototype
+		//model | prototype | model='#model' | prototype='#prototype'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//model
@@ -21310,6 +21919,18 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'prototype'
 		public Keyword getPrototypePrototypeKeyword_1_0() { return cPrototypePrototypeKeyword_1_0; }
+		
+		//model='#model'
+		public EnumLiteralDeclaration getModelEnumLiteralDeclaration_2() { return cModelEnumLiteralDeclaration_2; }
+		
+		//'#model'
+		public Keyword getModelModelKeyword_2_0() { return cModelModelKeyword_2_0; }
+		
+		//prototype='#prototype'
+		public EnumLiteralDeclaration getPrototypeEnumLiteralDeclaration_3() { return cPrototypeEnumLiteralDeclaration_3; }
+		
+		//'#prototype'
+		public Keyword getPrototypePrototypeKeyword_3_0() { return cPrototypePrototypeKeyword_3_0; }
 	}
 	public class DesignInstanceKindElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.DesignInstanceKind");
@@ -21772,18 +22393,24 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cInEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cInInKeyword_0_0 = (Keyword)cInEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cInoutEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cInoutInoutKeyword_1_0 = (Keyword)cInoutEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cOutEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cOutOutKeyword_2_0 = (Keyword)cOutEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cReturnEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cReturnReturnKeyword_3_0 = (Keyword)cReturnEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cInEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cInInputKeyword_1_0 = (Keyword)cInEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cInoutEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cInoutInoutKeyword_2_0 = (Keyword)cInoutEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cOutEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cOutOutKeyword_3_0 = (Keyword)cOutEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cOutEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cOutOutputKeyword_4_0 = (Keyword)cOutEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cReturnEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cReturnReturnKeyword_5_0 = (Keyword)cReturnEnumLiteralDeclaration_5.eContents().get(0);
 		
 		//enum ParameterDirectionKind returns fmlInfra::ParameterDirectionKind:
-		//	in | inout | out | return;
+		//	in | in='input'
+		//	| inout | out | out='output'
+		//	| return;
 		public EnumRule getRule() { return rule; }
 		
-		//in | inout | out | return
+		//in | in='input' | inout | out | out='output' | return
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//in
@@ -21792,23 +22419,35 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'in'
 		public Keyword getInInKeyword_0_0() { return cInInKeyword_0_0; }
 		
+		//in='input'
+		public EnumLiteralDeclaration getInEnumLiteralDeclaration_1() { return cInEnumLiteralDeclaration_1; }
+		
+		//'input'
+		public Keyword getInInputKeyword_1_0() { return cInInputKeyword_1_0; }
+		
 		//inout
-		public EnumLiteralDeclaration getInoutEnumLiteralDeclaration_1() { return cInoutEnumLiteralDeclaration_1; }
+		public EnumLiteralDeclaration getInoutEnumLiteralDeclaration_2() { return cInoutEnumLiteralDeclaration_2; }
 		
 		//'inout'
-		public Keyword getInoutInoutKeyword_1_0() { return cInoutInoutKeyword_1_0; }
+		public Keyword getInoutInoutKeyword_2_0() { return cInoutInoutKeyword_2_0; }
 		
 		//out
-		public EnumLiteralDeclaration getOutEnumLiteralDeclaration_2() { return cOutEnumLiteralDeclaration_2; }
+		public EnumLiteralDeclaration getOutEnumLiteralDeclaration_3() { return cOutEnumLiteralDeclaration_3; }
 		
 		//'out'
-		public Keyword getOutOutKeyword_2_0() { return cOutOutKeyword_2_0; }
+		public Keyword getOutOutKeyword_3_0() { return cOutOutKeyword_3_0; }
+		
+		//out='output'
+		public EnumLiteralDeclaration getOutEnumLiteralDeclaration_4() { return cOutEnumLiteralDeclaration_4; }
+		
+		//'output'
+		public Keyword getOutOutputKeyword_4_0() { return cOutOutputKeyword_4_0; }
 		
 		//return
-		public EnumLiteralDeclaration getReturnEnumLiteralDeclaration_3() { return cReturnEnumLiteralDeclaration_3; }
+		public EnumLiteralDeclaration getReturnEnumLiteralDeclaration_5() { return cReturnEnumLiteralDeclaration_5; }
 		
 		//'return'
-		public Keyword getReturnReturnKeyword_3_0() { return cReturnReturnKeyword_3_0; }
+		public Keyword getReturnReturnKeyword_5_0() { return cReturnReturnKeyword_5_0; }
 	}
 	public class BufferContainerKindElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.BufferContainerKind");
@@ -22003,8 +22642,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRtcRtcKeyword_15_0 = (Keyword)cRtcEnumLiteralDeclaration_15.eContents().get(0);
 		
 		//enum OPERATOR_ACTIVITY returns fmlStmnt::ActivityStatementKind:
-		//	init | final | destroy | start | stop | restart | suspend | resume | wait | disable | enable | abort | schedule |
-		//	irun | run | rtc;
+		//	init | final | destroy | start | stop | restart | suspend | resume | wait | disable | enable | abort | schedule | irun
+		//	| run | rtc;
 		public EnumRule getRule() { return rule; }
 		
 		//init | final | destroy | start | stop | restart | suspend | resume | wait | disable | enable | abort | schedule | irun |
@@ -22303,6 +22942,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tCHARACTER;
 	private final ECharacterElements pECharacter;
 	private final EStringElements pEString;
+	private final TerminalRule tOFFSET;
+	private final EOffsetElements pEOffset;
 	private final ReservedKeyWordElements pReservedKeyWord;
 	private final TerminalRule tXLIA_ID;
 	private final ESIdentifierElements pESIdentifier;
@@ -22315,7 +22956,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	private final UnqualifiedNameElements pUnqualifiedName;
 	private final NameBindingElements pNameBinding;
 	private final VisibilityKindElements eVisibilityKind;
+	private final ModelOfComputationKingElements pModelOfComputationKing;
 	private final DesignKindElements eDesignKind;
+	private final DesignDebugTraceElements pDesignDebugTrace;
 	private final DesignInstanceKindElements eDesignInstanceKind;
 	private final XliaSystemElements pXliaSystem;
 	private final AnyMachineBlockElements pAnyMachineBlock;
@@ -22376,6 +23019,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	private final DataTypeMultiplicityElements pDataTypeMultiplicity;
 	private final DataTypeReferenceElements pDataTypeReference;
 	private final OtherDataTypeDefinitionElements pOtherDataTypeDefinition;
+	private final TypeConstraintRoutineElements pTypeConstraintRoutine;
+	private final ConditionalBlockStatementElements pConditionalBlockStatement;
+	private final GuardTestExpressionElements pGuardTestExpression;
 	private final DataTypeElements pDataType;
 	private final SimpleDataTypeElements pSimpleDataType;
 	private final StructuredDataTypeElements pStructuredDataType;
@@ -22434,6 +23080,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	private final FunctionalParameterElements pFunctionalParameter;
 	private final FormalParameterSetElements pFormalParameterSet;
 	private final FormalParameterElements pFormalParameter;
+	private final FormalParameterOffsetElements pFormalParameterOffset;
 	private final BlockParameterSetElements pBlockParameterSet;
 	private final ParameterElements pParameter;
 	private final ParameterImplElements pParameterImpl;
@@ -22529,6 +23176,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	private final AffixOperatorElements pAffixOperator;
 	private final NewfreshExpressionElements pNewfreshExpression;
 	private final CastExpressionElements pCastExpression;
+	private final CollectionFunctionExpressionElements pCollectionFunctionExpression;
 	private final ArithmeticUnaryExpressionElements pArithmeticUnaryExpression;
 	private final ArithmeticUnaryOperatorElements pArithmeticUnaryOperator;
 	private final QuantifiedLogicalExpressionElements pQuantifiedLogicalExpression;
@@ -22569,7 +23217,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	private final LiteralPureReferenceElementElements pLiteralPureReferenceElement;
 	private final LiteralReferenceVariableContextElements pLiteralReferenceVariableContext;
 	private final LiteralTimeExpressionElements pLiteralTimeExpression;
+	private final LiteralTimeInitialExpressionElements pLiteralTimeInitialExpression;
 	private final LiteralTimeDeltaExpressionElements pLiteralTimeDeltaExpression;
+	private final LiteralTimeDeltaInitialExpressionElements pLiteralTimeDeltaInitialExpression;
 	private final LiteralReferenceMachineContextElements pLiteralReferenceMachineContext;
 	private final LiteralThisExpressionElements pLiteralThisExpression;
 	private final LiteralSelfExpressionElements pLiteralSelfExpression;
@@ -22614,6 +23264,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		this.tCHARACTER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.CHARACTER");
 		this.pECharacter = new ECharacterElements();
 		this.pEString = new EStringElements();
+		this.tOFFSET = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.OFFSET");
+		this.pEOffset = new EOffsetElements();
 		this.pReservedKeyWord = new ReservedKeyWordElements();
 		this.tXLIA_ID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.XLIA_ID");
 		this.pESIdentifier = new ESIdentifierElements();
@@ -22626,7 +23278,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pUnqualifiedName = new UnqualifiedNameElements();
 		this.pNameBinding = new NameBindingElements();
 		this.eVisibilityKind = new VisibilityKindElements();
+		this.pModelOfComputationKing = new ModelOfComputationKingElements();
 		this.eDesignKind = new DesignKindElements();
+		this.pDesignDebugTrace = new DesignDebugTraceElements();
 		this.eDesignInstanceKind = new DesignInstanceKindElements();
 		this.pXliaSystem = new XliaSystemElements();
 		this.pAnyMachineBlock = new AnyMachineBlockElements();
@@ -22687,6 +23341,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDataTypeMultiplicity = new DataTypeMultiplicityElements();
 		this.pDataTypeReference = new DataTypeReferenceElements();
 		this.pOtherDataTypeDefinition = new OtherDataTypeDefinitionElements();
+		this.pTypeConstraintRoutine = new TypeConstraintRoutineElements();
+		this.pConditionalBlockStatement = new ConditionalBlockStatementElements();
+		this.pGuardTestExpression = new GuardTestExpressionElements();
 		this.pDataType = new DataTypeElements();
 		this.pSimpleDataType = new SimpleDataTypeElements();
 		this.pStructuredDataType = new StructuredDataTypeElements();
@@ -22745,6 +23402,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFunctionalParameter = new FunctionalParameterElements();
 		this.pFormalParameterSet = new FormalParameterSetElements();
 		this.pFormalParameter = new FormalParameterElements();
+		this.pFormalParameterOffset = new FormalParameterOffsetElements();
 		this.pBlockParameterSet = new BlockParameterSetElements();
 		this.pParameter = new ParameterElements();
 		this.pParameterImpl = new ParameterImplElements();
@@ -22840,6 +23498,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAffixOperator = new AffixOperatorElements();
 		this.pNewfreshExpression = new NewfreshExpressionElements();
 		this.pCastExpression = new CastExpressionElements();
+		this.pCollectionFunctionExpression = new CollectionFunctionExpressionElements();
 		this.pArithmeticUnaryExpression = new ArithmeticUnaryExpressionElements();
 		this.pArithmeticUnaryOperator = new ArithmeticUnaryOperatorElements();
 		this.pQuantifiedLogicalExpression = new QuantifiedLogicalExpressionElements();
@@ -22880,7 +23539,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pLiteralPureReferenceElement = new LiteralPureReferenceElementElements();
 		this.pLiteralReferenceVariableContext = new LiteralReferenceVariableContextElements();
 		this.pLiteralTimeExpression = new LiteralTimeExpressionElements();
+		this.pLiteralTimeInitialExpression = new LiteralTimeInitialExpressionElements();
 		this.pLiteralTimeDeltaExpression = new LiteralTimeDeltaExpressionElements();
+		this.pLiteralTimeDeltaInitialExpression = new LiteralTimeDeltaInitialExpressionElements();
 		this.pLiteralReferenceMachineContext = new LiteralReferenceMachineContextElements();
 		this.pLiteralThisExpression = new LiteralThisExpressionElements();
 		this.pLiteralSelfExpression = new LiteralSelfExpressionElements();
@@ -22930,7 +23591,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//////////////////////////////////////////////////////////////////////////////////
 	//// Main Rules
 	//////////////////////////////////////////////////////////////////////////////////
-	//Xlia XliaModel:
+	//Xlia fml::XliaModel:
 	//	prolog=XliaPrologObject
 	//	system=XliaSystem;
 	public XliaElements getXliaAccess() {
@@ -22941,7 +23602,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		return getXliaAccess().getRule();
 	}
 	
-	//XliaPrologObject XliaObject:
+	//XliaPrologObject fml::XliaObject:
 	//	name=('@FormalML' | '@xfml' | '@fml' | '@xlia' | '@xfsp' | '@diversity')
 	//	'<'
 	//	elements+=XliaPrologAttribute '>:'
@@ -22954,7 +23615,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		return getXliaPrologObjectAccess().getRule();
 	}
 	
-	//XliaPrologAttribute XliaAttribute:
+	//XliaPrologAttribute fml::XliaAttribute:
 	//	name=('system' | 'package') (',' 'version:'?
 	//	value=(LiteralFloatExpression | LiteralStringExpression))?;
 	public XliaPrologAttributeElements getXliaPrologAttributeAccess() {
@@ -22974,7 +23635,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	////XliaModelKind returns fmlExpr::LiteralStringExpression
 	////	: value=( 'system' | 'package' )
 	////	;
-	//XliaOptionObject XliaObject:
+	//XliaOptionObject fml::XliaObject:
 	//	name='@option' '{'
 	//	elements+=XliaNamedElement*
 	//	'}';
@@ -22986,7 +23647,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		return getXliaOptionObjectAccess().getRule();
 	}
 	
-	//XliaNamedElement:
+	//XliaNamedElement fml::XliaNamedElement:
 	//	XliaObject
 	//	| XliaSection
 	//	| XliaAttribute;
@@ -22998,7 +23659,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		return getXliaNamedElementAccess().getRule();
 	}
 	
-	//XliaObject:
+	//XliaObject fml::XliaObject:
 	//	name=XLIA_ID '{'
 	//	elements+=XliaNamedElement*
 	//	'}';
@@ -23010,7 +23671,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		return getXliaObjectAccess().getRule();
 	}
 	
-	//XliaSection:
+	//XliaSection fml::XliaSection:
 	//	name=XLIA_ID '['
 	//	elements+=XliaAttribute*
 	//	']';
@@ -23022,7 +23683,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		return getXliaSectionAccess().getRule();
 	}
 	
-	//XliaAttribute:
+	//XliaAttribute fml::XliaAttribute:
 	//	name=XLIA_ID '=' value=Expression ';';
 	public XliaAttributeElements getXliaAttributeAccess() {
 		return pXliaAttribute;
@@ -23120,11 +23781,27 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		return getEStringAccess().getRule();
 	}
 	
+	//terminal OFFSET:
+	//	'$' INT? ':';
+	public TerminalRule getOFFSETRule() {
+		return tOFFSET;
+	}
+	
+	//EOffset:
+	//	OFFSET;
+	public EOffsetElements getEOffsetAccess() {
+		return pEOffset;
+	}
+	
+	public ParserRule getEOffsetRule() {
+		return getEOffsetAccess().getRule();
+	}
+	
 	////QualifiedName returns ecore::EString
 	////	: ID ( '[' ID ']' )? '.' ID ( '[' ID ']' )? | ID
 	////	;
 	//ReservedKeyWord:
-	//	'package' | 'system' | 'machine'
+	//	'package' | 'system' | 'machine' | 'executable'
 	//	| 'vertex' | 'pseudostate'
 	//	| 'state' | 'statemachine'
 	//	| 'macro' | 'routine'
@@ -23170,7 +23847,10 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	| 'schedule' | 'irun' | 'run' | 'rtc'
 	//	| 'call' | 'new' | 'ctor' | 'newfresh'
 	//	| 'this' | 'self' | 'parent' | 'super'
-	//	| 'null';
+	//	| 'null'
+	//	| '#model' | '#instance' | '#static' | '#dynamic'
+	//	| '#runtime' | '#static#instance' | '#dynamic#instance'
+	//	| '#prototype' | '#dynamic#prototype';
 	public ReservedKeyWordElements getReservedKeyWordAccess() {
 		return pReservedKeyWord;
 	}
@@ -23286,14 +23966,60 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		return getVisibilityKindAccess().getRule();
 	}
 	
+	//ModelOfComputationKing:
+	//	'and'
+	//	| 'or'
+	//	| '#STF'
+	//	| '#STS'
+	//	| '#DF'
+	//	| '#alt'
+	//	| '#opt'
+	//	| '#loop'
+	//	| '#break'
+	//	| '#par'
+	//	| '#strict'
+	//	| '#weak'
+	//	| '#seq'
+	//	| '#critical'
+	//	| '#ignore'
+	//	| '#consider'
+	//	| '#assert'
+	//	| '#neg';
+	public ModelOfComputationKingElements getModelOfComputationKingAccess() {
+		return pModelOfComputationKing;
+	}
+	
+	public ParserRule getModelOfComputationKingRule() {
+		return getModelOfComputationKingAccess().getRule();
+	}
+	
 	//enum DesignKind returns fmlInfra::DesignKind:
-	//	model | prototype;
+	//	model | prototype | model='#model'
+	//	| prototype='#prototype';
 	public DesignKindElements getDesignKindAccess() {
 		return eDesignKind;
 	}
 	
 	public EnumRule getDesignKindRule() {
 		return getDesignKindAccess().getRule();
+	}
+	
+	//DesignDebugTrace:
+	//	'#model'
+	//	| '#instance'
+	//	| '#static'
+	//	| '#dynamic'
+	//	| '#runtime'
+	//	| '#static#instance'
+	//	| '#dynamic#instance'
+	//	| '#prototype'
+	//	| '#dynamic#prototype';
+	public DesignDebugTraceElements getDesignDebugTraceAccess() {
+		return pDesignDebugTrace;
+	}
+	
+	public ParserRule getDesignDebugTraceRule() {
+		return getDesignDebugTraceAccess().getRule();
 	}
 	
 	//enum DesignInstanceKind returns fmlInfra::DesignKind:
@@ -23387,8 +24113,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//InstanceMachine fmlInfra::InstanceMachine:
 	//	'instance' ('machine' | 'statemachine')?
 	//	'<' 'model:'? model=[fmlInfra::Machine|ESUfid] '>'
-	//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('(' (slot+=SlotParameter (',' slot+=SlotParameter)*)? ')')?
-	//	('{' (slot+=SlotProperty ';')* '}'
+	//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('(' (slot+=SlotParameter (',' slot+=SlotParameter)*)? ')')? ('{'
+	//	(slot+=SlotProperty ';')* '}'
 	//	| ';');
 	public InstanceMachineElements getInstanceMachineAccess() {
 		return pInstanceMachine;
@@ -23425,8 +24151,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	& discrete_timed?='timed#discrete'?
 	//	& input_enabled?='input_enabled'?
 	//	& lifeline?='lifeline'?
-	//	& design=DesignKind?)
-	//	'machine' ('<' 'moc:'? ('and' | 'or') '>')?
+	//	& design=DesignKind?) ('machine' | 'executable') ('<' ('moc:'? ModelOfComputationKing)? ('instance:' '[' ('+' | '*'
+	//	| 'init:' EInteger 'max:' EInteger) ']')? '>')?
 	//	name=ESIdentifier unrestrictedName=UnrestrictedName?
 	//	'{' (port+=Port
 	//	| signal+=Signal
@@ -23693,7 +24419,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	& input_enabled?='input_enabled'?
 	//	& lifeline?='lifeline'?
 	//	& design=DesignKind?)
-	//	'statemachine' ('<' 'moc:'? ('or' | 'and') '>')?
+	//	'statemachine' ('<' 'moc:'? ModelOfComputationKing '>')?
 	//	name=ESIdentifier unrestrictedName=UnrestrictedName?
 	//	'{' ('@parameter:' ('input' (parameter+=ParameterInput
 	//	| '{' parameter+=ParameterInput+ '}') | 'inout' (parameter+=ParameterInout
@@ -23742,8 +24468,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	| function+=FunctionPrivate
 	//	| variable+=VariablePrivate)*)* ((('@routine:' | '@macro:') routine+=Routine+
 	//	| '@procedure:' procedure+=Procedure+)*
-	//	| (routine+=Routine | procedure+=Procedure)+) ((('@composite:' | '@statemachine:') (machine+=Statemachine
-	//	| instance+=InstanceMachine)+
+	//	| (routine+=Routine | procedure+=Procedure)+) (('@statemachine:' machine+=Statemachine+
+	//	| '@composite:' machine+=AnyMachineBlock*
 	//	| '@model:' machine+=AnyMachineBlock*
 	//	| '@prototype:' machine+=AnyMachineBlock*
 	//	| '@instance:' instance+=InstanceMachine*)+
@@ -24105,7 +24831,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Routine fmlInfra::Routine:
-	//	visibility=VisibilityKind? macro?='macro'? 'routine'
+	//	visibility=VisibilityKind? macro?='macro'? DesignDebugTrace*
+	//	'routine'
 	//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('(' parameterSet=FormalParameterSet? ')')? ('-->'
 	//	(resultSet=FormalParameterSet
 	//	| '(' resultSet=FormalParameterSet ')'))?
@@ -24390,16 +25117,50 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//OtherDataTypeDefinition fmlType::DataTypeReference:
-	//	{fmlType::DataTypeReference} visibility=VisibilityKind? 'type'
+	//	{fmlType::DataTypeReference} visibility=VisibilityKind? typedef?='type'
 	//	name=ESIdentifier unrestrictedName=UnrestrictedName? (support=PrimitiveType ('[' multiplicity=DataTypeMultiplicity
 	//	']')?
-	//	| typeref=[fmlType::DataType|ESUfid] ('[' multiplicity=DataTypeMultiplicity ']')?) typedef?=';';
+	//	| typeref=[fmlType::DataType|ESUfid] ('[' multiplicity=DataTypeMultiplicity ']')?) (constraint=TypeConstraintRoutine |
+	//	';');
 	public OtherDataTypeDefinitionElements getOtherDataTypeDefinitionAccess() {
 		return pOtherDataTypeDefinition;
 	}
 	
 	public ParserRule getOtherDataTypeDefinitionRule() {
 		return getOtherDataTypeDefinitionAccess().getRule();
+	}
+	
+	//TypeConstraintRoutine fmlInfra::Routine:
+	//	{fmlInfra::Routine} '{'
+	//	'@constraint' ('(' parameterSet=VariableRoutineParameterSet ')')? (bodyBlock=BlockStatement
+	//	| bodyBlock=ConditionalBlockStatement ';')
+	//	'}';
+	public TypeConstraintRoutineElements getTypeConstraintRoutineAccess() {
+		return pTypeConstraintRoutine;
+	}
+	
+	public ParserRule getTypeConstraintRoutineRule() {
+		return getTypeConstraintRoutineAccess().getRule();
+	}
+	
+	//ConditionalBlockStatement fmlStmnt::BlockStatement:
+	//	{fmlStmnt::BlockStatement} statement+=GuardTestExpression;
+	public ConditionalBlockStatementElements getConditionalBlockStatementAccess() {
+		return pConditionalBlockStatement;
+	}
+	
+	public ParserRule getConditionalBlockStatementRule() {
+		return getConditionalBlockStatementAccess().getRule();
+	}
+	
+	//GuardTestExpression fmlStmnt::GuardStatement:
+	//	'|=>' condition=Expression;
+	public GuardTestExpressionElements getGuardTestExpressionAccess() {
+		return pGuardTestExpression;
+	}
+	
+	public ParserRule getGuardTestExpressionRule() {
+		return getGuardTestExpressionAccess().getRule();
 	}
 	
 	////OtherDataTypeDefinitionImpl returns fmlType::DataTypeReference
@@ -24787,9 +25548,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//EnumerationTypeDefinition fmlType::EnumerationType:
-	//	{fmlType::EnumerationType} visibility=VisibilityKind? 'type'
+	//	{fmlType::EnumerationType} visibility=VisibilityKind? typedef?='type'
 	//	name=ESIdentifier unrestrictedName=UnrestrictedName?
-	//	typedef?='enum'
+	//	'enum'
 	//	'{'
 	//	literal+=EnumerationLiteral (',' literal+=EnumerationLiteral)*
 	//	'}';
@@ -24829,6 +25590,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	{fmlType::StructureType}
 	//	'struct'
 	//	'{'
+	//	'@property:'?
 	//	property+=Variable+
 	//	'}';
 	public StructureTypeElements getStructureTypeAccess() {
@@ -24840,10 +25602,11 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//StructureTypeDefinition fmlType::StructureType:
-	//	{fmlType::StructureType} visibility=VisibilityKind? 'type'
+	//	{fmlType::StructureType} visibility=VisibilityKind? typedef?='type'
 	//	name=ESIdentifier unrestrictedName=UnrestrictedName?
-	//	typedef?='struct'
+	//	'struct'
 	//	'{'
+	//	'@property:'?
 	//	property+=Variable+
 	//	'}';
 	public StructureTypeDefinitionElements getStructureTypeDefinitionAccess() {
@@ -24858,6 +25621,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	{fmlType::StructureType} name=ESIdentifier unrestrictedName=UnrestrictedName?
 	//	typedef?='struct'
 	//	'{'
+	//	'@property:'?
 	//	property+=Variable+
 	//	'}';
 	public StructureTypeDefinitionImplElements getStructureTypeDefinitionImplAccess() {
@@ -24872,6 +25636,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	{fmlType::UnionType}
 	//	'union'
 	//	'{'
+	//	'@property:'?
 	//	property+=Variable+
 	//	'}';
 	public UnionTypeElements getUnionTypeAccess() {
@@ -24883,10 +25648,11 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//UnionTypeDefinition fmlType::UnionType:
-	//	{fmlType::UnionType} visibility=VisibilityKind? 'type'
+	//	{fmlType::UnionType} visibility=VisibilityKind? typedef?='type'
 	//	name=ESIdentifier unrestrictedName=UnrestrictedName?
-	//	typedef?='union'
+	//	'union'
 	//	'{'
+	//	'@property:'?
 	//	property+=Variable+
 	//	'}';
 	public UnionTypeDefinitionElements getUnionTypeDefinitionAccess() {
@@ -24901,6 +25667,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	{fmlType::UnionType} name=ESIdentifier unrestrictedName=UnrestrictedName?
 	//	typedef?='union'
 	//	'{'
+	//	'@property:'?
 	//	property+=Variable+
 	//	'}';
 	public UnionTypeDefinitionImplElements getUnionTypeDefinitionImplAccess() {
@@ -24915,6 +25682,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	{fmlType::ChoiceType}
 	//	'choice'
 	//	'{'
+	//	'@property:'?
 	//	property+=Variable+
 	//	'}';
 	public ChoiceTypeElements getChoiceTypeAccess() {
@@ -24926,10 +25694,11 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//ChoiceTypeDefinition fmlType::ChoiceType:
-	//	{fmlType::ChoiceType} visibility=VisibilityKind? 'type'
+	//	{fmlType::ChoiceType} visibility=VisibilityKind? typedef?='type'
 	//	name=ESIdentifier unrestrictedName=UnrestrictedName?
-	//	typedef?='choice'
+	//	'choice'
 	//	'{'
+	//	'@property:'?
 	//	property+=Variable+
 	//	'}';
 	public ChoiceTypeDefinitionElements getChoiceTypeDefinitionAccess() {
@@ -24944,6 +25713,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	{fmlType::ChoiceType} name=ESIdentifier unrestrictedName=UnrestrictedName?
 	//	typedef?='choice'
 	//	'{'
+	//	'@property:'?
 	//	property+=Variable+
 	//	'}';
 	public ChoiceTypeDefinitionImplElements getChoiceTypeDefinitionImplAccess() {
@@ -25119,8 +25889,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//OnWriteRoutine fmlInfra::Routine:
-	//	{fmlInfra::Routine}
-	//	'@on_write' ('(' parameterSet=VariableRoutineParameterSet ')')?
+	//	{fmlInfra::Routine} ('@write' | '@on_write') ('(' parameterSet=VariableRoutineParameterSet ')')?
 	//	bodyBlock=BlockStatement;
 	public OnWriteRoutineElements getOnWriteRoutineAccess() {
 		return pOnWriteRoutine;
@@ -25141,6 +25910,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//VariableRoutineParameter fmlInfra::Parameter:
+	//	FormalParameterOffset?
+	//	direction=ParameterDirectionKind?
 	//	type=DataType?
 	//	name=ESIdentifier ('=' defaultValue=Expression)?;
 	public VariableRoutineParameterElements getVariableRoutineParameterAccess() {
@@ -25182,7 +25953,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//enum ParameterDirectionKind returns fmlInfra::ParameterDirectionKind:
-	//	in | inout | out | return;
+	//	in | in='input'
+	//	| inout | out | out='output'
+	//	| return;
 	public ParameterDirectionKindElements getParameterDirectionKindAccess() {
 		return eParameterDirectionKind;
 	}
@@ -25223,14 +25996,25 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//FormalParameter fmlInfra::Parameter:
-	//	{fmlInfra::Parameter} direction=ParameterDirectionKind? type=DataType
-	//	name=ESIdentifier? ('=' defaultValue=Expression)?;
+	//	{fmlInfra::Parameter} FormalParameterOffset?
+	//	direction=ParameterDirectionKind? modifier=Modifier?
+	//	type=DataType name=ESIdentifier? ('=' defaultValue=Expression)?;
 	public FormalParameterElements getFormalParameterAccess() {
 		return pFormalParameter;
 	}
 	
 	public ParserRule getFormalParameterRule() {
 		return getFormalParameterAccess().getRule();
+	}
+	
+	//FormalParameterOffset:
+	//	EOffset;
+	public FormalParameterOffsetElements getFormalParameterOffsetAccess() {
+		return pFormalParameterOffset;
+	}
+	
+	public ParserRule getFormalParameterOffsetRule() {
+		return getFormalParameterOffsetAccess().getRule();
 	}
 	
 	//////////////////////////////////////////////////////////////////////////////////
@@ -26021,8 +26805,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//enum OPERATOR_ACTIVITY returns fmlStmnt::ActivityStatementKind:
-	//	init | final | destroy | start | stop | restart | suspend | resume | wait | disable | enable | abort | schedule |
-	//	irun | run | rtc;
+	//	init | final | destroy | start | stop | restart | suspend | resume | wait | disable | enable | abort | schedule | irun
+	//	| run | rtc;
 	public OPERATOR_ACTIVITYElements getOPERATOR_ACTIVITYAccess() {
 		return eOPERATOR_ACTIVITY;
 	}
@@ -26373,6 +27157,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	| BitwiseUnaryExpression
 	//	| NewfreshExpression
 	//	| CastExpression
+	//	//	| CollectionFunctionExpression
+	//
 	//	| PrefixUnaryExpression
 	//	| PostfixUnaryExpression
 	//	| PrimaryExpression;
@@ -26458,6 +27244,19 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getCastExpressionRule() {
 		return getCastExpressionAccess().getRule();
+	}
+	
+	////CollectionFunctionExpression  fmlExpr::MixTupleExpression
+	//CollectionFunctionExpression fmlExpr::Expression:
+	//	'empty(' Expression ')'
+	//	| 'nonempty(' Expression ')'
+	//	| 'size(' Expression ')';
+	public CollectionFunctionExpressionElements getCollectionFunctionExpressionAccess() {
+		return pCollectionFunctionExpression;
+	}
+	
+	public ParserRule getCollectionFunctionExpressionRule() {
+		return getCollectionFunctionExpressionAccess().getRule();
 	}
 	
 	//// Arithmetic Unary Expression
@@ -26953,7 +27752,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//LiteralReferenceVariableContext fmlExpr::LiteralReferenceExpression:
 	//	LiteralTimeExpression
-	//	| LiteralTimeDeltaExpression;
+	//	| LiteralTimeDeltaExpression
+	//	| LiteralTimeInitialExpression
+	//	| LiteralTimeDeltaInitialExpression;
 	public LiteralReferenceVariableContextElements getLiteralReferenceVariableContextAccess() {
 		return pLiteralReferenceVariableContext;
 	}
@@ -26972,6 +27773,16 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		return getLiteralTimeExpressionAccess().getRule();
 	}
 	
+	//LiteralTimeInitialExpression fmlExpr::LiteralTimeExpression:
+	//	{fmlExpr::LiteralTimeExpression} '$time#initial';
+	public LiteralTimeInitialExpressionElements getLiteralTimeInitialExpressionAccess() {
+		return pLiteralTimeInitialExpression;
+	}
+	
+	public ParserRule getLiteralTimeInitialExpressionRule() {
+		return getLiteralTimeInitialExpressionAccess().getRule();
+	}
+	
 	//LiteralTimeDeltaExpression fmlExpr::LiteralTimeDeltaExpression:
 	//	{fmlExpr::LiteralTimeDeltaExpression} '$delta';
 	public LiteralTimeDeltaExpressionElements getLiteralTimeDeltaExpressionAccess() {
@@ -26980,6 +27791,16 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getLiteralTimeDeltaExpressionRule() {
 		return getLiteralTimeDeltaExpressionAccess().getRule();
+	}
+	
+	//LiteralTimeDeltaInitialExpression fmlExpr::LiteralTimeDeltaExpression:
+	//	{fmlExpr::LiteralTimeDeltaExpression} '$delta#initial';
+	public LiteralTimeDeltaInitialExpressionElements getLiteralTimeDeltaInitialExpressionAccess() {
+		return pLiteralTimeDeltaInitialExpression;
+	}
+	
+	public ParserRule getLiteralTimeDeltaInitialExpressionRule() {
+		return getLiteralTimeDeltaInitialExpressionAccess().getRule();
 	}
 	
 	//LiteralReferenceMachineContext fmlExpr::LiteralReferenceExpression:
@@ -27213,7 +28034,8 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' |
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	}

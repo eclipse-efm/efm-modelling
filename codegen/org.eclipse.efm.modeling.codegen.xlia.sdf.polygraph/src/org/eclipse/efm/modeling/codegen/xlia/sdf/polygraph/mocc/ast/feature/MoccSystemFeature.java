@@ -53,7 +53,8 @@ public class MoccSystemFeature {
 
 	public final int[] frequencies;
 
-	public final int tick_interval;
+	public final int time_interval;
+	public final int time_period;
 	public final int tick_period;
 
 	public final boolean consistency;
@@ -178,33 +179,27 @@ public class MoccSystemFeature {
 			this.frequencies[offset++] = frequency;
 		}
 
-		int tick_interval = 1;
-		int tick_period   = 1;
 		if( this.frequencies.length > 1 ) {
-			tick_interval = gcd( this.frequencies );
-			tick_period   = lcm( this.frequencies );
+			this.time_interval = gcd( this.frequencies );
+			this.time_period   = lcm( this.frequencies );
+			this.tick_period   = time_period / time_interval;
 		}
 		else if( this.frequencies.length == 1 ) {
-			tick_interval = this.frequencies[0];
-			tick_period   = this.frequencies[0];
+			this.time_interval = this.frequencies[0];
+			this.time_period   = this.frequencies[0];
+			this.tick_period   = 1;
 		}
 		else {
-			tick_interval = 1;
-			tick_period   = 1;
-//					IntStream.of( this.repetitions ).sum()
-//							+ 1 - system.getActor().size();
+			this.time_interval = 1;
+			this.time_period   = 1;
+			this.tick_period   = 1;
+//		IntStream.of( this.repetitions ).sum() + 1 - system.getActor().size();
 		}
-		this.tick_interval = tick_interval;
-		this.tick_period   = tick_period;
 
 		this.consistency = checkConsistency();
 
 		for( final MoccActor actor : system.getActor() ) {
 			actor.FEATURE.computeActivation(this);
-		}
-
-		if( ! isStrict ) {
-			this.inferFrequencies();
 		}
 	}
 
@@ -387,9 +382,8 @@ public class MoccSystemFeature {
 		for( final MoccActor actor : rationals.keySet() ) {
 			actor.FEATURE.consistency = (! actor.FEATURE.isTimed) ||
 				((actor.FEATURE.repetition ==
-						(actor.getFrequency() / this.tick_interval))
-				&& (actor.getPhase() <
-						(this.tick_period / actor.getFrequency())));
+						(actor.getFrequency() / this.time_interval))
+				&& (actor.getPhase() < (this.time_period / actor.getFrequency())));
 
 			consistency &= actor.FEATURE.consistency;
 		}
@@ -415,54 +409,4 @@ public class MoccSystemFeature {
 		return consistency;
 	}
 
-	public void inferFrequencies() {
-		for (final MoccActor actor : this.system.getActor()) {
-			if (!actor.isTimed() && actor.FEATURE.inferredFrequency < 0) {
-				actor.FEATURE.inferredFrequency = computeInferredFrequency(actor, 1.0, new ArrayList<MoccActor>());
-			}
-		}
-	}
-
-	public double computeInferredFrequency(final MoccActor actor, final double rateMultiplier, final List<MoccActor> visitedActors) {
-		if (visitedActors.contains(actor)) {
-			return -1; // Avoid infinite loop if we don't find a timed actor
-		}
-
-		visitedActors.add(actor);
-
-		if (actor.FEATURE.inferredFrequency > 0) {
-			return rateMultiplier * actor.FEATURE.inferredFrequency;
-		}
-
-		if (actor.frequency > 0) {
-			return actor.frequency * rateMultiplier;
-		}
-
-		if (actor.hasInputPort()) {
-			double minInferredFrequency = -1;
-			for (final MoccPort inputPort : actor.getInputPort()) {
-				final double newRateMultiplier = rateMultiplier *
-						(1.0 / ((double) inputPort.getRate() / (double) inputPort.getRateDenominator())) *
-						((double) inputPort.getChannel().getOutputPort().getRate() / (double) inputPort.getChannel().getOutputPort().getRateDenominator());
-				final List<MoccActor> newVisitedActors = new ArrayList<MoccActor>();
-				for (final MoccActor moccActor : visitedActors) {
-					newVisitedActors.add(moccActor);
-				}
-				minInferredFrequency = minInferredFrequency < 0 ?
-						computeInferredFrequency(inputPort.getChannel().getOutputActor(), newRateMultiplier, newVisitedActors) :
-							Math.min(minInferredFrequency, computeInferredFrequency(inputPort.getChannel().getOutputActor(), newRateMultiplier, newVisitedActors));
-			}
-			return minInferredFrequency;
-		}
-
-		return -1;
-	}
-
-	public void useInferredFrequency() {
-		for (final MoccActor actor : this.system.getActor()) {
-			if (!actor.isTimed() && actor.FEATURE.inferredFrequency > 0) {
-				actor.frequency = (int) actor.FEATURE.inferredFrequency;
-			}
-		}
-	}
 }

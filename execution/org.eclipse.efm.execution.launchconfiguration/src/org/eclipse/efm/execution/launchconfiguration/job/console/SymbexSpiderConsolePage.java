@@ -53,6 +53,7 @@ import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -60,6 +61,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.IConsoleView;
@@ -815,6 +817,22 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 						else {
 							fConsoleBufferedWriter.append(traceLine).append('\n');
 							fConsoleBufferedWriter.flush();
+
+							if( traceLine.contains(SYMBEX_VERDICT_TAG) )
+							{
+								if( traceLine.contains(SYMBEX_VERDICT_PASS) )
+								{
+									showSymbexVerdict(SYMBEX_VERDICT_PASS);
+
+//									openDialog("The Trace is CONFORM !", true);
+								}
+								else if( traceLine.contains(SYMBEX_VERDICT_FAIL) )
+								{
+									showSymbexVerdict(SYMBEX_VERDICT_FAIL);
+
+//									openDialog("The Trace is NOT CONFORM !!!", false);
+								}
+							}
 						}
 					}
 				}
@@ -899,6 +917,11 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		fSpider.updateSpider(nbExecution, nbStep, maxStep, nbContext, maxContext,
 				nbHeight, maxHeight, nbWidth, maxWidth, nbCoverage, maxCoverage);
+	}
+
+
+	private void showSymbexVerdict(final String strVerdict) {
+		fSpider.showSymbexVerdict(strVerdict);
 	}
 
 
@@ -1014,6 +1037,30 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
+	}
+
+
+	protected void openDialog(final String strMessage, final boolean isInfo)
+	{
+		Display display = PlatformUI.getWorkbench().getDisplay();
+		if( display == null ) {
+			display = Display.getDefault();
+		}
+		final Display finalDisplay = display;
+
+		finalDisplay.syncExec(new Runnable() {
+		    @Override
+			public void run() {
+		    	if( isInfo ) {
+					MessageDialog.openInformation(finalDisplay.getActiveShell(),
+							"Diversity Conformance Checking" , strMessage);
+		    	}
+		    	else {
+					MessageDialog.openError(finalDisplay.getActiveShell(),
+							"Diversity Conformance Checking" , strMessage);
+		    	}
+		    }
+		});
 	}
 
 }

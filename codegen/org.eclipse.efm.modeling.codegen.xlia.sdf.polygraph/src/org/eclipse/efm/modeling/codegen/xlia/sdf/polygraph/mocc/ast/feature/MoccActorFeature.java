@@ -152,8 +152,7 @@ public class MoccActorFeature {
 
 
 	public void computeActivation(final MoccSystemFeature moccSystemFeature) {
-		this.activation = new boolean[ moccSystemFeature.tick_period
-		               				/ moccSystemFeature.tick_interval ];
+		this.activation = new boolean[ moccSystemFeature.tick_period ];
 
 		if( isTimed && consistency ) {
 			final int period = this.activation.length / this.repetition;

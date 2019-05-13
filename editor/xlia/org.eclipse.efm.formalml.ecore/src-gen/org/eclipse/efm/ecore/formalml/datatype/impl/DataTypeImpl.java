@@ -20,6 +20,7 @@ import org.eclipse.efm.ecore.formalml.datatype.PrimitiveTypeKind;
 
 import org.eclipse.efm.ecore.formalml.expression.Expression;
 
+import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -40,6 +41,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.impl.DataTypeImpl#isTypedef <em>Typedef</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.impl.DataTypeImpl#getMultiplicity <em>Multiplicity</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.impl.DataTypeImpl#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.impl.DataTypeImpl#getConstraint <em>Constraint</em>}</li>
  * </ul>
  *
  * @generated
@@ -104,6 +106,16 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * @ordered
 	 */
 	protected Expression defaultValue;
+
+	/**
+	 * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected Routine constraint;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -266,12 +278,59 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 	 * @generated
 	 */
 	@Override
+	public Routine getConstraint() {
+		return constraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetConstraint(Routine newConstraint, NotificationChain msgs) {
+		Routine oldConstraint = constraint;
+		constraint = newConstraint;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatatypePackage.DATA_TYPE__CONSTRAINT, oldConstraint, newConstraint);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setConstraint(Routine newConstraint) {
+		if (newConstraint != constraint) {
+			NotificationChain msgs = null;
+			if (constraint != null)
+				msgs = ((InternalEObject)constraint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatatypePackage.DATA_TYPE__CONSTRAINT, null, msgs);
+			if (newConstraint != null)
+				msgs = ((InternalEObject)newConstraint).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatatypePackage.DATA_TYPE__CONSTRAINT, null, msgs);
+			msgs = basicSetConstraint(newConstraint, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatatypePackage.DATA_TYPE__CONSTRAINT, newConstraint, newConstraint));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DatatypePackage.DATA_TYPE__MULTIPLICITY:
 				return basicSetMultiplicity(null, msgs);
 			case DatatypePackage.DATA_TYPE__DEFAULT_VALUE:
 				return basicSetDefaultValue(null, msgs);
+			case DatatypePackage.DATA_TYPE__CONSTRAINT:
+				return basicSetConstraint(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -292,6 +351,8 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 				return getMultiplicity();
 			case DatatypePackage.DATA_TYPE__DEFAULT_VALUE:
 				return getDefaultValue();
+			case DatatypePackage.DATA_TYPE__CONSTRAINT:
+				return getConstraint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -315,6 +376,9 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 				return;
 			case DatatypePackage.DATA_TYPE__DEFAULT_VALUE:
 				setDefaultValue((Expression)newValue);
+				return;
+			case DatatypePackage.DATA_TYPE__CONSTRAINT:
+				setConstraint((Routine)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -340,6 +404,9 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 			case DatatypePackage.DATA_TYPE__DEFAULT_VALUE:
 				setDefaultValue((Expression)null);
 				return;
+			case DatatypePackage.DATA_TYPE__CONSTRAINT:
+				setConstraint((Routine)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -360,6 +427,8 @@ public abstract class DataTypeImpl extends ClassifierDefinitionImpl implements D
 				return multiplicity != null;
 			case DatatypePackage.DATA_TYPE__DEFAULT_VALUE:
 				return defaultValue != null;
+			case DatatypePackage.DATA_TYPE__CONSTRAINT:
+				return constraint != null;
 		}
 		return super.eIsSet(featureID);
 	}

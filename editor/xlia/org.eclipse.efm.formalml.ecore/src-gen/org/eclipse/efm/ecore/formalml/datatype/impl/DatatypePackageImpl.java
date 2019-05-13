@@ -405,6 +405,16 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * @generated
 	 */
 	@Override
+	public EReference getDataType_Constraint() {
+		return (EReference)dataTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getDataTypeReference() {
 		return dataTypeReferenceEClass;
 	}
@@ -883,6 +893,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 		createEAttribute(dataTypeEClass, DATA_TYPE__TYPEDEF);
 		createEReference(dataTypeEClass, DATA_TYPE__MULTIPLICITY);
 		createEReference(dataTypeEClass, DATA_TYPE__DEFAULT_VALUE);
+		createEReference(dataTypeEClass, DATA_TYPE__CONSTRAINT);
 
 		dataTypeReferenceEClass = createEClass(DATA_TYPE_REFERENCE);
 		createEReference(dataTypeReferenceEClass, DATA_TYPE_REFERENCE__TYPEREF);
@@ -1015,6 +1026,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 		initEAttribute(getDataType_Typedef(), ecorePackage.getEBoolean(), "typedef", null, 1, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataType_Multiplicity(), theExpressionPackage.getExpression(), null, "multiplicity", null, 0, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataType_DefaultValue(), theExpressionPackage.getExpression(), null, "defaultValue", null, 0, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDataType_Constraint(), theInfrastructurePackage.getRoutine(), null, "constraint", null, 0, 1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataTypeReferenceEClass, DataTypeReference.class, "DataTypeReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataTypeReference_Typeref(), this.getDataType(), null, "typeref", null, 0, 1, DataTypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

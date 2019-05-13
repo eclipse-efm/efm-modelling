@@ -308,6 +308,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.ecore#//datatype/DataType/typedef"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.ecore#//datatype/DataType/multiplicity"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.ecore#//datatype/DataType/defaultValue"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.ecore#//datatype/DataType/constraint"/>
       </genClasses>
       <genClasses ecoreClass="formalml.ecore#//datatype/DataTypeReference">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"

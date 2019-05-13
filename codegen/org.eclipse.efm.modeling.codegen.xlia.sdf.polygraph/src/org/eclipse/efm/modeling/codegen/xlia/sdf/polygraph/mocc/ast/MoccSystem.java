@@ -68,8 +68,7 @@ public class MoccSystem {
 
 	public MoccMode newMode(final String name, final String literal) {
 		for (final MoccMode moccMode : MODE_SET) {
-			if( moccMode.getName().equals(name)
-				&& moccMode.getLiteral().equals(literal) )
+			if( moccMode.getLiteral().equals(literal) )
 			{
 				return moccMode;
 			}
@@ -328,6 +327,9 @@ public class MoccSystem {
 		sout.append('\n').append("moe {").append('\n');
 
 		if( FEATURE != null ) {
+			sout.append('\t').append("consistency = ")
+				.append(FEATURE.consistency).append('\n');
+
 			sout.append('\t').append("// Causality partial order").append('\n');
 			sout.append('\t').append("root = [ " );
 			for( final MoccActor actor : this.FEATURE.rootActor ) {
@@ -367,10 +369,10 @@ public class MoccSystem {
 			sout.append('\n')
 				.append('\t').append("frequencies = " )
 					.append(Arrays.toString(FEATURE.frequencies)).append('\n')
-				.append('\t').append("tick = +" )
-					.append(FEATURE.tick_interval).append('\n')
+				.append('\t').append("time        = +" )
+					.append(FEATURE.time_interval).append('\n')
 				.append('\t').append("period = " )
-					.append(FEATURE.tick_period).append('\n')
+					.append(FEATURE.time_period).append('\n')
 				.append('\t').append("repetition = " )
 					.append(Arrays.toString(FEATURE.repetitions))
 					.append('\n')

@@ -433,6 +433,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 						|| action == grammarAccess.getMultiplicativeExpressionAccess().getArithmeticAssociativeExpressionOperandAction_1_2_0()
 						|| action == grammarAccess.getMultiplicativeExpressionAccess().getArithmeticAssociativeExpressionOperandAction_1_3_0()
 						|| rule == grammarAccess.getUnaryExpressionRule()
+						|| rule == grammarAccess.getCollectionFunctionExpressionRule()
 						|| rule == grammarAccess.getPrimaryExpressionRule()
 						|| action == grammarAccess.getPrimaryExpressionAccess().getValueElementSpecificationParentAction_1_0()
 						|| action == grammarAccess.getPrimaryExpressionAccess().getValueElementSpecificationParentAction_2_0()
@@ -531,6 +532,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 						|| action == grammarAccess.getMultiplicativeExpressionAccess().getArithmeticAssociativeExpressionOperandAction_1_2_0()
 						|| action == grammarAccess.getMultiplicativeExpressionAccess().getArithmeticAssociativeExpressionOperandAction_1_3_0()
 						|| rule == grammarAccess.getUnaryExpressionRule()
+						|| rule == grammarAccess.getCollectionFunctionExpressionRule()
 						|| rule == grammarAccess.getPrimaryExpressionRule()
 						|| action == grammarAccess.getPrimaryExpressionAccess().getValueElementSpecificationParentAction_1_0()
 						|| action == grammarAccess.getPrimaryExpressionAccess().getValueElementSpecificationParentAction_2_0()
@@ -576,10 +578,10 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				sequence_LiteralThisExpression(context, (LiteralThisExpression) semanticObject); 
 				return; 
 			case ExpressionPackage.LITERAL_TIME_DELTA_EXPRESSION:
-				sequence_LiteralTimeDeltaExpression(context, (LiteralTimeDeltaExpression) semanticObject); 
+				sequence_LiteralTimeDeltaExpression_LiteralTimeDeltaInitialExpression(context, (LiteralTimeDeltaExpression) semanticObject); 
 				return; 
 			case ExpressionPackage.LITERAL_TIME_EXPRESSION:
-				sequence_LiteralTimeExpression(context, (LiteralTimeExpression) semanticObject); 
+				sequence_LiteralTimeExpression_LiteralTimeInitialExpression(context, (LiteralTimeExpression) semanticObject); 
 				return; 
 			case ExpressionPackage.LOGICAL_ASSOCIATIVE_EXPRESSION:
 				if (rule == grammarAccess.getExpressionRule()
@@ -608,6 +610,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 						|| action == grammarAccess.getMultiplicativeExpressionAccess().getArithmeticAssociativeExpressionOperandAction_1_2_0()
 						|| action == grammarAccess.getMultiplicativeExpressionAccess().getArithmeticAssociativeExpressionOperandAction_1_3_0()
 						|| rule == grammarAccess.getUnaryExpressionRule()
+						|| rule == grammarAccess.getCollectionFunctionExpressionRule()
 						|| rule == grammarAccess.getPrimaryExpressionRule()
 						|| action == grammarAccess.getPrimaryExpressionAccess().getValueElementSpecificationParentAction_1_0()
 						|| action == grammarAccess.getPrimaryExpressionAccess().getValueElementSpecificationParentAction_2_0()
@@ -679,6 +682,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 						|| action == grammarAccess.getMultiplicativeExpressionAccess().getArithmeticAssociativeExpressionOperandAction_1_2_0()
 						|| action == grammarAccess.getMultiplicativeExpressionAccess().getArithmeticAssociativeExpressionOperandAction_1_3_0()
 						|| rule == grammarAccess.getUnaryExpressionRule()
+						|| rule == grammarAccess.getCollectionFunctionExpressionRule()
 						|| rule == grammarAccess.getPrimaryExpressionRule()
 						|| action == grammarAccess.getPrimaryExpressionAccess().getValueElementSpecificationParentAction_1_0()
 						|| action == grammarAccess.getPrimaryExpressionAccess().getValueElementSpecificationParentAction_2_0()
@@ -952,6 +956,10 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 					sequence_Routine(context, (Routine) semanticObject); 
 					return; 
 				}
+				else if (rule == grammarAccess.getTypeConstraintRoutineRule()) {
+					sequence_TypeConstraintRoutine(context, (Routine) semanticObject); 
+					return; 
+				}
 				else if (rule == grammarAccess.getMoeRoutineRule()) {
 					sequence_moeRoutine(context, (Routine) semanticObject); 
 					return; 
@@ -1080,6 +1088,10 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 					sequence_BlockStatement(context, (BlockStatement) semanticObject); 
 					return; 
 				}
+				else if (rule == grammarAccess.getConditionalBlockStatementRule()) {
+					sequence_ConditionalBlockStatement(context, (BlockStatement) semanticObject); 
+					return; 
+				}
 				else if (rule == grammarAccess.getTransitionBehaviorRule()) {
 					sequence_TransitionBehavior(context, (BlockStatement) semanticObject); 
 					return; 
@@ -1119,6 +1131,10 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				}
 				else if (rule == grammarAccess.getTransitionGuardRule()) {
 					sequence_GuardStatement_TransitionGuard(context, (GuardStatement) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getGuardTestExpressionRule()) {
+					sequence_GuardTestExpression(context, (GuardStatement) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1228,6 +1244,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns ArithmeticAssociativeExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns ArithmeticAssociativeExpression
 	 *     UnaryExpression returns ArithmeticAssociativeExpression
+	 *     CollectionFunctionExpression returns ArithmeticAssociativeExpression
 	 *     PrimaryExpression returns ArithmeticAssociativeExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns ArithmeticAssociativeExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns ArithmeticAssociativeExpression
@@ -1319,6 +1336,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns ArithmeticUnaryExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns ArithmeticUnaryExpression
 	 *     UnaryExpression returns ArithmeticUnaryExpression
+	 *     CollectionFunctionExpression returns ArithmeticUnaryExpression
 	 *     ArithmeticUnaryExpression returns ArithmeticUnaryExpression
 	 *     PrimaryExpression returns ArithmeticUnaryExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns ArithmeticUnaryExpression
@@ -1372,6 +1390,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns AssignmentExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns AssignmentExpression
 	 *     UnaryExpression returns AssignmentExpression
+	 *     CollectionFunctionExpression returns AssignmentExpression
 	 *     PrimaryExpression returns AssignmentExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns AssignmentExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns AssignmentExpression
@@ -1437,6 +1456,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns BitwiseAssociativeExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns BitwiseAssociativeExpression
 	 *     UnaryExpression returns BitwiseAssociativeExpression
+	 *     CollectionFunctionExpression returns BitwiseAssociativeExpression
 	 *     PrimaryExpression returns BitwiseAssociativeExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns BitwiseAssociativeExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns BitwiseAssociativeExpression
@@ -1482,6 +1502,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns BitwiseUnaryExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns BitwiseUnaryExpression
 	 *     UnaryExpression returns BitwiseUnaryExpression
+	 *     CollectionFunctionExpression returns BitwiseUnaryExpression
 	 *     BitwiseUnaryExpression returns BitwiseUnaryExpression
 	 *     PrimaryExpression returns BitwiseUnaryExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns BitwiseUnaryExpression
@@ -1646,6 +1667,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns CastExpression
 	 *     UnaryExpression returns CastExpression
 	 *     CastExpression returns CastExpression
+	 *     CollectionFunctionExpression returns CastExpression
 	 *     PrimaryExpression returns CastExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns CastExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns CastExpression
@@ -1736,7 +1758,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ChoiceTypeDefinition returns ChoiceType
 	 *
 	 * Constraint:
-	 *     (visibility=VisibilityKind? name=ESIdentifier unrestrictedName=UnrestrictedName? typedef?='choice' property+=Variable+)
+	 *     (visibility=VisibilityKind? typedef?='type' name=ESIdentifier unrestrictedName=UnrestrictedName? property+=Variable+)
 	 */
 	protected void sequence_ChoiceTypeDefinition(ISerializationContext context, ChoiceType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1970,6 +1992,18 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     ConditionalBlockStatement returns BlockStatement
+	 *
+	 * Constraint:
+	 *     statement+=GuardTestExpression
+	 */
+	protected void sequence_ConditionalBlockStatement(ISerializationContext context, BlockStatement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Expression returns ConditionalTestExpression
 	 *     ConditionalTestExpression returns ConditionalTestExpression
 	 *     ConditionalTestExpression.ConditionalTestExpression_1_0 returns ConditionalTestExpression
@@ -1996,6 +2030,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns ConditionalTestExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns ConditionalTestExpression
 	 *     UnaryExpression returns ConditionalTestExpression
+	 *     CollectionFunctionExpression returns ConditionalTestExpression
 	 *     PrimaryExpression returns ConditionalTestExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns ConditionalTestExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns ConditionalTestExpression
@@ -2201,9 +2236,9 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 * Constraint:
 	 *     (
 	 *         visibility=VisibilityKind? 
+	 *         typedef?='type' 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
-	 *         typedef?='enum' 
 	 *         literal+=EnumerationLiteral 
 	 *         literal+=EnumerationLiteral*
 	 *     )
@@ -2255,6 +2290,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns EqualityBinaryExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns EqualityBinaryExpression
 	 *     UnaryExpression returns EqualityBinaryExpression
+	 *     CollectionFunctionExpression returns EqualityBinaryExpression
 	 *     PrimaryExpression returns EqualityBinaryExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns EqualityBinaryExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns EqualityBinaryExpression
@@ -2389,7 +2425,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     FormalParameter returns Parameter
 	 *
 	 * Constraint:
-	 *     (direction=ParameterDirectionKind? type=DataType name=ESIdentifier? defaultValue=Expression?)
+	 *     (direction=ParameterDirectionKind? modifier=Modifier? type=DataType name=ESIdentifier? defaultValue=Expression?)
 	 */
 	protected void sequence_FormalParameter(ISerializationContext context, org.eclipse.efm.ecore.formalml.infrastructure.Parameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -2492,6 +2528,24 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     GuardTestExpression returns GuardStatement
+	 *
+	 * Constraint:
+	 *     condition=Expression
+	 */
+	protected void sequence_GuardTestExpression(ISerializationContext context, GuardStatement semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, StatementPackage.Literals.ABSTRACT_GUARD_STATEMENT__CONDITION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, StatementPackage.Literals.ABSTRACT_GUARD_STATEMENT__CONDITION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getGuardTestExpressionAccess().getConditionExpressionParserRuleCall_1_0(), semanticObject.getCondition());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     TransitionEffect returns IfStatement
 	 *     TransitionEffect.BlockStatement_1_0 returns IfStatement
 	 *     TransitionEffectStatement returns IfStatement
@@ -2537,6 +2591,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     UnaryExpression returns IncrementOrDecrementPostfixExpression
 	 *     PostfixUnaryExpression returns IncrementOrDecrementPostfixExpression
 	 *     IncrementOrDecrementPostfixExpression returns IncrementOrDecrementPostfixExpression
+	 *     CollectionFunctionExpression returns IncrementOrDecrementPostfixExpression
 	 *     PrimaryExpression returns IncrementOrDecrementPostfixExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns IncrementOrDecrementPostfixExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns IncrementOrDecrementPostfixExpression
@@ -2590,6 +2645,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     UnaryExpression returns IncrementOrDecrementPrefixExpression
 	 *     PrefixUnaryExpression returns IncrementOrDecrementPrefixExpression
 	 *     IncrementOrDecrementPrefixExpression returns IncrementOrDecrementPrefixExpression
+	 *     CollectionFunctionExpression returns IncrementOrDecrementPrefixExpression
 	 *     PrimaryExpression returns IncrementOrDecrementPrefixExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns IncrementOrDecrementPrefixExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns IncrementOrDecrementPrefixExpression
@@ -2666,6 +2722,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns InstantiationExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns InstantiationExpression
 	 *     UnaryExpression returns InstantiationExpression
+	 *     CollectionFunctionExpression returns InstantiationExpression
 	 *     PrimaryExpression returns InstantiationExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns InstantiationExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns InstantiationExpression
@@ -2797,6 +2854,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns InvokeExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns InvokeExpression
 	 *     UnaryExpression returns InvokeExpression
+	 *     CollectionFunctionExpression returns InvokeExpression
 	 *     PrimaryExpression returns InvokeExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns InvokeExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns InvokeExpression
@@ -2905,6 +2963,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralAnyOrNoneValueExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralAnyOrNoneValueExpression
 	 *     UnaryExpression returns LiteralAnyOrNoneValueExpression
+	 *     CollectionFunctionExpression returns LiteralAnyOrNoneValueExpression
 	 *     PrimaryExpression returns LiteralAnyOrNoneValueExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralAnyOrNoneValueExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralAnyOrNoneValueExpression
@@ -2949,6 +3008,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralAnyValueExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralAnyValueExpression
 	 *     UnaryExpression returns LiteralAnyValueExpression
+	 *     CollectionFunctionExpression returns LiteralAnyValueExpression
 	 *     PrimaryExpression returns LiteralAnyValueExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralAnyValueExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralAnyValueExpression
@@ -2993,6 +3053,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralBooleanExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralBooleanExpression
 	 *     UnaryExpression returns LiteralBooleanExpression
+	 *     CollectionFunctionExpression returns LiteralBooleanExpression
 	 *     PrimaryExpression returns LiteralBooleanExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralBooleanExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralBooleanExpression
@@ -3043,6 +3104,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralCharacterExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralCharacterExpression
 	 *     UnaryExpression returns LiteralCharacterExpression
+	 *     CollectionFunctionExpression returns LiteralCharacterExpression
 	 *     PrimaryExpression returns LiteralCharacterExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralCharacterExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralCharacterExpression
@@ -3093,6 +3155,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralCollectionExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralCollectionExpression
 	 *     UnaryExpression returns LiteralCollectionExpression
+	 *     CollectionFunctionExpression returns LiteralCollectionExpression
 	 *     PrimaryExpression returns LiteralCollectionExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralCollectionExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralCollectionExpression
@@ -3102,7 +3165,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     LiteralCollectionExpression returns LiteralCollectionExpression
 	 *
 	 * Constraint:
-	 *     (datatype=DataType? ((value+=Expression | value+=NamedExpression) value+=NamedExpression? (value+=Expression? value+=NamedExpression?)*)?)
+	 *     (datatype=DataType? ((value+=Expression | value+=NamedExpression) value+=Expression? (value+=NamedExpression? value+=Expression?)*)?)
 	 */
 	protected void sequence_LiteralCollectionExpression(ISerializationContext context, LiteralCollectionExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -3138,6 +3201,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralEnvExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralEnvExpression
 	 *     UnaryExpression returns LiteralEnvExpression
+	 *     CollectionFunctionExpression returns LiteralEnvExpression
 	 *     PrimaryExpression returns LiteralEnvExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralEnvExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralEnvExpression
@@ -3190,6 +3254,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralFloatExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralFloatExpression
 	 *     UnaryExpression returns LiteralFloatExpression
+	 *     CollectionFunctionExpression returns LiteralFloatExpression
 	 *     PrimaryExpression returns LiteralFloatExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralFloatExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralFloatExpression
@@ -3241,6 +3306,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralIntegerExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralIntegerExpression
 	 *     UnaryExpression returns LiteralIntegerExpression
+	 *     CollectionFunctionExpression returns LiteralIntegerExpression
 	 *     PrimaryExpression returns LiteralIntegerExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralIntegerExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralIntegerExpression
@@ -3291,6 +3357,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralNoneValueExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralNoneValueExpression
 	 *     UnaryExpression returns LiteralNoneValueExpression
+	 *     CollectionFunctionExpression returns LiteralNoneValueExpression
 	 *     PrimaryExpression returns LiteralNoneValueExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralNoneValueExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralNoneValueExpression
@@ -3335,6 +3402,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralNullExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralNullExpression
 	 *     UnaryExpression returns LiteralNullExpression
+	 *     CollectionFunctionExpression returns LiteralNullExpression
 	 *     PrimaryExpression returns LiteralNullExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralNullExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralNullExpression
@@ -3379,6 +3447,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralOptionalValueExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralOptionalValueExpression
 	 *     UnaryExpression returns LiteralOptionalValueExpression
+	 *     CollectionFunctionExpression returns LiteralOptionalValueExpression
 	 *     PrimaryExpression returns LiteralOptionalValueExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralOptionalValueExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralOptionalValueExpression
@@ -3424,6 +3493,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralParentExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralParentExpression
 	 *     UnaryExpression returns LiteralParentExpression
+	 *     CollectionFunctionExpression returns LiteralParentExpression
 	 *     PrimaryExpression returns LiteralParentExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralParentExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralParentExpression
@@ -3515,6 +3585,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralRationalExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralRationalExpression
 	 *     UnaryExpression returns LiteralRationalExpression
+	 *     CollectionFunctionExpression returns LiteralRationalExpression
 	 *     PrimaryExpression returns LiteralRationalExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralRationalExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralRationalExpression
@@ -3569,6 +3640,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralReferenceElement
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralReferenceElement
 	 *     UnaryExpression returns LiteralReferenceElement
+	 *     CollectionFunctionExpression returns LiteralReferenceElement
 	 *     PrimaryExpression returns LiteralReferenceElement
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralReferenceElement
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralReferenceElement
@@ -3633,6 +3705,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralSelfExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralSelfExpression
 	 *     UnaryExpression returns LiteralSelfExpression
+	 *     CollectionFunctionExpression returns LiteralSelfExpression
 	 *     PrimaryExpression returns LiteralSelfExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralSelfExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralSelfExpression
@@ -3685,6 +3758,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralStringExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralStringExpression
 	 *     UnaryExpression returns LiteralStringExpression
+	 *     CollectionFunctionExpression returns LiteralStringExpression
 	 *     PrimaryExpression returns LiteralStringExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralStringExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralStringExpression
@@ -3736,6 +3810,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralSuperExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralSuperExpression
 	 *     UnaryExpression returns LiteralSuperExpression
+	 *     CollectionFunctionExpression returns LiteralSuperExpression
 	 *     PrimaryExpression returns LiteralSuperExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralSuperExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralSuperExpression
@@ -3789,6 +3864,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralSystemExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralSystemExpression
 	 *     UnaryExpression returns LiteralSystemExpression
+	 *     CollectionFunctionExpression returns LiteralSystemExpression
 	 *     PrimaryExpression returns LiteralSystemExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralSystemExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralSystemExpression
@@ -3842,6 +3918,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralThisExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralThisExpression
 	 *     UnaryExpression returns LiteralThisExpression
+	 *     CollectionFunctionExpression returns LiteralThisExpression
 	 *     PrimaryExpression returns LiteralThisExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralThisExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralThisExpression
@@ -3894,6 +3971,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralTimeDeltaExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralTimeDeltaExpression
 	 *     UnaryExpression returns LiteralTimeDeltaExpression
+	 *     CollectionFunctionExpression returns LiteralTimeDeltaExpression
 	 *     PrimaryExpression returns LiteralTimeDeltaExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralTimeDeltaExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralTimeDeltaExpression
@@ -3903,6 +3981,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     LiteralReferenceExpression returns LiteralTimeDeltaExpression
 	 *     LiteralReferenceVariableContext returns LiteralTimeDeltaExpression
 	 *     LiteralTimeDeltaExpression returns LiteralTimeDeltaExpression
+	 *     LiteralTimeDeltaInitialExpression returns LiteralTimeDeltaExpression
 	 *     ValueSelectionExpression returns LiteralTimeDeltaExpression
 	 *     ValueSelectionExpression.ValueElementSpecification_1_0 returns LiteralTimeDeltaExpression
 	 *     ValueSelectionExpression.ValueElementSpecification_2_0 returns LiteralTimeDeltaExpression
@@ -3910,7 +3989,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 * Constraint:
 	 *     {LiteralTimeDeltaExpression}
 	 */
-	protected void sequence_LiteralTimeDeltaExpression(ISerializationContext context, LiteralTimeDeltaExpression semanticObject) {
+	protected void sequence_LiteralTimeDeltaExpression_LiteralTimeDeltaInitialExpression(ISerializationContext context, LiteralTimeDeltaExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -3943,6 +4022,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LiteralTimeExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LiteralTimeExpression
 	 *     UnaryExpression returns LiteralTimeExpression
+	 *     CollectionFunctionExpression returns LiteralTimeExpression
 	 *     PrimaryExpression returns LiteralTimeExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LiteralTimeExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LiteralTimeExpression
@@ -3952,6 +4032,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     LiteralReferenceExpression returns LiteralTimeExpression
 	 *     LiteralReferenceVariableContext returns LiteralTimeExpression
 	 *     LiteralTimeExpression returns LiteralTimeExpression
+	 *     LiteralTimeInitialExpression returns LiteralTimeExpression
 	 *     ValueSelectionExpression returns LiteralTimeExpression
 	 *     ValueSelectionExpression.ValueElementSpecification_1_0 returns LiteralTimeExpression
 	 *     ValueSelectionExpression.ValueElementSpecification_2_0 returns LiteralTimeExpression
@@ -3959,7 +4040,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 * Constraint:
 	 *     {LiteralTimeExpression}
 	 */
-	protected void sequence_LiteralTimeExpression(ISerializationContext context, LiteralTimeExpression semanticObject) {
+	protected void sequence_LiteralTimeExpression_LiteralTimeInitialExpression(ISerializationContext context, LiteralTimeExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -4010,6 +4091,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LogicalAssociativeExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LogicalAssociativeExpression
 	 *     UnaryExpression returns LogicalAssociativeExpression
+	 *     CollectionFunctionExpression returns LogicalAssociativeExpression
 	 *     PrimaryExpression returns LogicalAssociativeExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LogicalAssociativeExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns LogicalAssociativeExpression
@@ -4064,6 +4146,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns LogicalUnaryExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns LogicalUnaryExpression
 	 *     UnaryExpression returns LogicalUnaryExpression
+	 *     CollectionFunctionExpression returns LogicalUnaryExpression
 	 *     LogicalUnaryExpression returns LogicalUnaryExpression
 	 *     PrimaryExpression returns LogicalUnaryExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns LogicalUnaryExpression
@@ -4105,7 +4188,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             function+=Function | 
 	 *             variable+=Variable
 	 *         )* 
-	 *         channel+=ChannelPublic? 
+	 *         signal+=SignalPublic? 
 	 *         (
 	 *             (
 	 *                 port+=Port | 
@@ -4116,8 +4199,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 function+=Function | 
 	 *                 variable+=Variable | 
 	 *                 port+=PortPublic | 
-	 *                 signal+=SignalPublic | 
 	 *                 buffer+=BufferPublic | 
+	 *                 channel+=ChannelPublic | 
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionPublic | 
 	 *                 variable+=VariablePublic | 
@@ -4136,13 +4219,13 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 function+=FunctionPrivate | 
 	 *                 variable+=VariablePrivate
 	 *             )? 
-	 *             channel+=ChannelPublic?
+	 *             signal+=SignalPublic?
 	 *         )* 
 	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
 	 *         machine+=AnyMachineBlock? 
 	 *         ((machine+=AnyMachineBlock | instance+=InstanceMachine | machine+=AnyMachineBlock | instance+=InstanceMachine)? machine+=AnyMachineBlock?)* 
-	 *         behavior+=Behavior? 
-	 *         (behavior+=Statemachine? behavior+=Behavior?)* 
+	 *         behavior+=Statemachine? 
+	 *         (behavior+=Behavior? behavior+=Statemachine?)* 
 	 *         main=MoeBehavior
 	 *     )
 	 */
@@ -4170,7 +4253,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MixTupleExpressionList returns MixTupleExpression
 	 *
 	 * Constraint:
-	 *     ((value+=Expression | value+=NamedExpression) value+=Expression? (value+=NamedExpression? value+=Expression?)*)
+	 *     ((value+=Expression | value+=NamedExpression) value+=NamedExpression? (value+=Expression? value+=NamedExpression?)*)
 	 */
 	protected void sequence_MixTupleExpressionList(ISerializationContext context, MixTupleExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -4325,6 +4408,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns NewfreshExpression
 	 *     UnaryExpression returns NewfreshExpression
 	 *     NewfreshExpression returns NewfreshExpression
+	 *     CollectionFunctionExpression returns NewfreshExpression
 	 *     PrimaryExpression returns NewfreshExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns NewfreshExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns NewfreshExpression
@@ -4420,10 +4504,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 * Constraint:
 	 *     (
 	 *         visibility=VisibilityKind? 
+	 *         typedef?='type' 
 	 *         name=ESIdentifier 
 	 *         unrestrictedName=UnrestrictedName? 
 	 *         ((support=PrimitiveType multiplicity=DataTypeMultiplicity?) | (typeref=[DataType|ESUfid] multiplicity=DataTypeMultiplicity?)) 
-	 *         typedef?=';'
+	 *         constraint=TypeConstraintRoutine?
 	 *     )
 	 */
 	protected void sequence_OtherDataTypeDefinition(ISerializationContext context, DataTypeReference semanticObject) {
@@ -4578,6 +4663,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns ValueElementSpecification
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns ValueElementSpecification
 	 *     UnaryExpression returns ValueElementSpecification
+	 *     CollectionFunctionExpression returns ValueElementSpecification
 	 *     PrimaryExpression returns ValueElementSpecification
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns ValueElementSpecification
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns ValueElementSpecification
@@ -5032,6 +5118,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns QuantifiedLogicalExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns QuantifiedLogicalExpression
 	 *     UnaryExpression returns QuantifiedLogicalExpression
+	 *     CollectionFunctionExpression returns QuantifiedLogicalExpression
 	 *     QuantifiedLogicalExpression returns QuantifiedLogicalExpression
 	 *     PrimaryExpression returns QuantifiedLogicalExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns QuantifiedLogicalExpression
@@ -5075,6 +5162,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns RelationalBinaryExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns RelationalBinaryExpression
 	 *     UnaryExpression returns RelationalBinaryExpression
+	 *     CollectionFunctionExpression returns RelationalBinaryExpression
 	 *     PrimaryExpression returns RelationalBinaryExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns RelationalBinaryExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns RelationalBinaryExpression
@@ -5128,6 +5216,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_2_0 returns RelationalTernaryExpression
 	 *     MultiplicativeExpression.ArithmeticAssociativeExpression_1_3_0 returns RelationalTernaryExpression
 	 *     UnaryExpression returns RelationalTernaryExpression
+	 *     CollectionFunctionExpression returns RelationalTernaryExpression
 	 *     PrimaryExpression returns RelationalTernaryExpression
 	 *     PrimaryExpression.ValueElementSpecification_1_0 returns RelationalTernaryExpression
 	 *     PrimaryExpression.ValueElementSpecification_2_0 returns RelationalTernaryExpression
@@ -5363,7 +5452,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *         unrestrictedName=UnrestrictedName? 
 	 *         (
 	 *             (
-	 *                 parameter+=ParameterReturn? 
+	 *                 parameter+=ParameterOutput? 
 	 *                 (
 	 *                     (
 	 *                         parameter+=ParameterInput | 
@@ -5371,31 +5460,31 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                         parameter+=ParameterInout | 
 	 *                         parameter+=ParameterInout | 
 	 *                         parameter+=ParameterOutput | 
-	 *                         parameter+=ParameterOutput | 
+	 *                         parameter+=ParameterReturn | 
 	 *                         parameter+=ParameterReturn
 	 *                     )? 
-	 *                     parameter+=ParameterReturn?
+	 *                     parameter+=ParameterOutput?
 	 *                 )*
 	 *             ) | 
 	 *             (
-	 *                 buffer+=Buffer? 
+	 *                 typedef+=TypeDefinition? 
 	 *                 (
 	 *                     (
 	 *                         port+=Port | 
 	 *                         signal+=Signal | 
+	 *                         buffer+=Buffer | 
 	 *                         channel+=Channel | 
-	 *                         typedef+=TypeDefinition | 
 	 *                         function+=Function | 
 	 *                         variable+=Variable
 	 *                     )? 
-	 *                     buffer+=Buffer?
+	 *                     typedef+=TypeDefinition?
 	 *                 )*
 	 *             )
 	 *         ) 
 	 *         parameter+=ParameterInput? 
 	 *         ((parameter+=ParameterInout | parameter+=ParameterOutput | parameter+=ParameterReturn)? parameter+=ParameterInput?)* 
+	 *         port+=PortPublic? 
 	 *         (
-	 *             channel+=ChannelPublic? 
 	 *             (
 	 *                 port+=Port | 
 	 *                 signal+=Signal | 
@@ -5404,9 +5493,9 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=Function | 
 	 *                 variable+=Variable | 
-	 *                 port+=PortPublic | 
 	 *                 signal+=SignalPublic | 
 	 *                 buffer+=BufferPublic | 
+	 *                 channel+=ChannelPublic | 
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionPublic | 
 	 *                 variable+=VariablePublic | 
@@ -5424,30 +5513,18 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionPrivate | 
 	 *                 variable+=VariablePrivate
-	 *             )?
+	 *             )? 
+	 *             port+=PortPublic?
 	 *         )* 
+	 *         ((procedure+=Procedure? (routine+=Routine? procedure+=Procedure?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
 	 *         (
-	 *             (
-	 *                 channel+=ChannelPublic? 
-	 *                 (routine+=Routine? procedure+=Procedure?)* 
-	 *                 routine+=Routine? 
-	 *                 (region+=StatemachineRegion | region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite)?
-	 *             ) | 
-	 *             (
-	 *                 channel+=ChannelPublic? 
-	 *                 (routine+=Routine? procedure+=Procedure?)* 
-	 *                 routine+=Routine? 
-	 *                 (region+=StatemachineRegion | region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite)?
-	 *             ) | 
-	 *             (
-	 *                 (
-	 *                     (channel+=ChannelPublic? (routine+=Routine? procedure+=Procedure?)* routine+=Routine? instance+=InstanceMachine?) | 
-	 *                     (channel+=ChannelPublic? (routine+=Routine? procedure+=Procedure?)* routine+=Routine? instance+=InstanceMachine?)
-	 *                 ) 
-	 *                 ((machine+=Statemachine | instance+=InstanceMachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock)? instance+=InstanceMachine?)*
-	 *             )
-	 *         ) 
-	 *         (execution=ModelOfExecution | interaction=ModelOfInteraction)*
+	 *             (machine+=Statemachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock | machine+=AnyMachineBlock | instance+=InstanceMachine)+ | 
+	 *             region+=StatemachineRegion | 
+	 *             region+=StatemachineNamedRegion+ | 
+	 *             region+=StatemachineRegionLite
+	 *         )? 
+	 *         interaction=ModelOfInteraction? 
+	 *         (execution=ModelOfExecution? interaction=ModelOfInteraction?)*
 	 *     )
 	 */
 	protected void sequence_Statemachine(ISerializationContext context, Statemachine semanticObject) {
@@ -5473,7 +5550,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     StructureTypeDefinition returns StructureType
 	 *
 	 * Constraint:
-	 *     (visibility=VisibilityKind? name=ESIdentifier unrestrictedName=UnrestrictedName? typedef?='struct' property+=Variable+)
+	 *     (visibility=VisibilityKind? typedef?='type' name=ESIdentifier unrestrictedName=UnrestrictedName? property+=Variable+)
 	 */
 	protected void sequence_StructureTypeDefinition(ISerializationContext context, StructureType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -5603,6 +5680,18 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     TypeConstraintRoutine returns Routine
+	 *
+	 * Constraint:
+	 *     (parameterSet=VariableRoutineParameterSet? (bodyBlock=BlockStatement | bodyBlock=ConditionalBlockStatement))
+	 */
+	protected void sequence_TypeConstraintRoutine(ISerializationContext context, Routine semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     UnionTypeDefinitionImpl returns UnionType
 	 *
 	 * Constraint:
@@ -5619,7 +5708,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     UnionTypeDefinition returns UnionType
 	 *
 	 * Constraint:
-	 *     (visibility=VisibilityKind? name=ESIdentifier unrestrictedName=UnrestrictedName? typedef?='union' property+=Variable+)
+	 *     (visibility=VisibilityKind? typedef?='type' name=ESIdentifier unrestrictedName=UnrestrictedName? property+=Variable+)
 	 */
 	protected void sequence_UnionTypeDefinition(ISerializationContext context, UnionType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -5778,7 +5867,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     VariableRoutineParameter returns Parameter
 	 *
 	 * Constraint:
-	 *     (type=DataType? name=ESIdentifier defaultValue=Expression?)
+	 *     (direction=ParameterDirectionKind? type=DataType? name=ESIdentifier defaultValue=Expression?)
 	 */
 	protected void sequence_VariableRoutineParameter(ISerializationContext context, org.eclipse.efm.ecore.formalml.infrastructure.Parameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

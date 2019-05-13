@@ -152,13 +152,22 @@ public interface DatatypePackage extends EPackage {
 	int DATA_TYPE__DEFAULT_VALUE = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_TYPE__CONSTRAINT = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Data Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_TYPE_FEATURE_COUNT = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 4;
+	int DATA_TYPE_FEATURE_COUNT = CommonPackage.CLASSIFIER_DEFINITION_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of operations of the '<em>Data Type</em>' class.
@@ -250,6 +259,15 @@ public interface DatatypePackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_TYPE_REFERENCE__DEFAULT_VALUE = DATA_TYPE__DEFAULT_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_TYPE_REFERENCE__CONSTRAINT = DATA_TYPE__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Typeref</b></em>' reference.
@@ -443,6 +461,15 @@ public interface DatatypePackage extends EPackage {
 	int ENUMERATION_TYPE__DEFAULT_VALUE = DATA_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUMERATION_TYPE__CONSTRAINT = DATA_TYPE__CONSTRAINT;
+
+	/**
 	 * The feature id for the '<em><b>Literal</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -550,6 +577,15 @@ public interface DatatypePackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_STRUCTURED_TYPE__DEFAULT_VALUE = DATA_TYPE__DEFAULT_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_STRUCTURED_TYPE__CONSTRAINT = DATA_TYPE__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
@@ -661,6 +697,15 @@ public interface DatatypePackage extends EPackage {
 	int STRUCTURE_TYPE__DEFAULT_VALUE = DATA_STRUCTURED_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURE_TYPE__CONSTRAINT = DATA_STRUCTURED_TYPE__CONSTRAINT;
+
+	/**
 	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -768,6 +813,15 @@ public interface DatatypePackage extends EPackage {
 	 * @ordered
 	 */
 	int UNION_TYPE__DEFAULT_VALUE = DATA_STRUCTURED_TYPE__DEFAULT_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNION_TYPE__CONSTRAINT = DATA_STRUCTURED_TYPE__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
@@ -879,6 +933,15 @@ public interface DatatypePackage extends EPackage {
 	int CHOICE_TYPE__DEFAULT_VALUE = DATA_STRUCTURED_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHOICE_TYPE__CONSTRAINT = DATA_STRUCTURED_TYPE__CONSTRAINT;
+
+	/**
 	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -988,6 +1051,15 @@ public interface DatatypePackage extends EPackage {
 	int DATA_SUPPORTED_TYPE__DEFAULT_VALUE = DATA_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SUPPORTED_TYPE__CONSTRAINT = DATA_TYPE__CONSTRAINT;
+
+	/**
 	 * The feature id for the '<em><b>Support</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1095,6 +1167,15 @@ public interface DatatypePackage extends EPackage {
 	 * @ordered
 	 */
 	int INTERVAL_TYPE__DEFAULT_VALUE = DATA_SUPPORTED_TYPE__DEFAULT_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERVAL_TYPE__CONSTRAINT = DATA_SUPPORTED_TYPE__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Support</b></em>' containment reference.
@@ -1242,6 +1323,15 @@ public interface DatatypePackage extends EPackage {
 	int COLLECTION_TYPE__DEFAULT_VALUE = DATA_SUPPORTED_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLLECTION_TYPE__CONSTRAINT = DATA_SUPPORTED_TYPE__CONSTRAINT;
+
+	/**
 	 * The feature id for the '<em><b>Support</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1378,6 +1468,15 @@ public interface DatatypePackage extends EPackage {
 	int PRIMITIVE_TYPE__DEFAULT_VALUE = DATA_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE__CONSTRAINT = DATA_TYPE__CONSTRAINT;
+
+	/**
 	 * The number of structural features of the '<em>Primitive Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1478,6 +1577,15 @@ public interface DatatypePackage extends EPackage {
 	int PRIMITIVE_BOOLEAN_TYPE__DEFAULT_VALUE = PRIMITIVE_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_BOOLEAN_TYPE__CONSTRAINT = PRIMITIVE_TYPE__CONSTRAINT;
+
+	/**
 	 * The number of structural features of the '<em>Primitive Boolean Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1576,6 +1684,15 @@ public interface DatatypePackage extends EPackage {
 	 * @ordered
 	 */
 	int PRIMITIVE_NUMBER_TYPE__DEFAULT_VALUE = PRIMITIVE_TYPE__DEFAULT_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_NUMBER_TYPE__CONSTRAINT = PRIMITIVE_TYPE__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Sign</b></em>' attribute.
@@ -1696,6 +1813,15 @@ public interface DatatypePackage extends EPackage {
 	int PRIMITIVE_INTEGER_TYPE__DEFAULT_VALUE = PRIMITIVE_NUMBER_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_INTEGER_TYPE__CONSTRAINT = PRIMITIVE_NUMBER_TYPE__CONSTRAINT;
+
+	/**
 	 * The feature id for the '<em><b>Sign</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1812,6 +1938,15 @@ public interface DatatypePackage extends EPackage {
 	 * @ordered
 	 */
 	int PRIMITIVE_RATIONAL_TYPE__DEFAULT_VALUE = PRIMITIVE_NUMBER_TYPE__DEFAULT_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_RATIONAL_TYPE__CONSTRAINT = PRIMITIVE_NUMBER_TYPE__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Sign</b></em>' attribute.
@@ -1932,6 +2067,15 @@ public interface DatatypePackage extends EPackage {
 	int PRIMITIVE_FLOAT_TYPE__DEFAULT_VALUE = PRIMITIVE_NUMBER_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_FLOAT_TYPE__CONSTRAINT = PRIMITIVE_NUMBER_TYPE__CONSTRAINT;
+
+	/**
 	 * The feature id for the '<em><b>Sign</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2050,6 +2194,15 @@ public interface DatatypePackage extends EPackage {
 	int PRIMITIVE_REAL_TYPE__DEFAULT_VALUE = PRIMITIVE_NUMBER_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_REAL_TYPE__CONSTRAINT = PRIMITIVE_NUMBER_TYPE__CONSTRAINT;
+
+	/**
 	 * The feature id for the '<em><b>Sign</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2166,6 +2319,15 @@ public interface DatatypePackage extends EPackage {
 	 * @ordered
 	 */
 	int PRIMITIVE_TIME_TYPE__DEFAULT_VALUE = PRIMITIVE_NUMBER_TYPE__DEFAULT_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TIME_TYPE__CONSTRAINT = PRIMITIVE_NUMBER_TYPE__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Sign</b></em>' attribute.
@@ -2304,6 +2466,15 @@ public interface DatatypePackage extends EPackage {
 	int PRIMITIVE_CHARACTER_TYPE__DEFAULT_VALUE = PRIMITIVE_TYPE__DEFAULT_VALUE;
 
 	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_CHARACTER_TYPE__CONSTRAINT = PRIMITIVE_TYPE__CONSTRAINT;
+
+	/**
 	 * The number of structural features of the '<em>Primitive Character Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2402,6 +2573,15 @@ public interface DatatypePackage extends EPackage {
 	 * @ordered
 	 */
 	int PRIMITIVE_STRING_TYPE__DEFAULT_VALUE = PRIMITIVE_TYPE__DEFAULT_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_STRING_TYPE__CONSTRAINT = PRIMITIVE_TYPE__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' attribute.
@@ -2511,6 +2691,15 @@ public interface DatatypePackage extends EPackage {
 	 * @ordered
 	 */
 	int PRIMITIVE_INSTANCE_TYPE__DEFAULT_VALUE = PRIMITIVE_TYPE__DEFAULT_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_INSTANCE_TYPE__CONSTRAINT = PRIMITIVE_TYPE__CONSTRAINT;
 
 	/**
 	 * The feature id for the '<em><b>Expected</b></em>' attribute.
@@ -2642,6 +2831,17 @@ public interface DatatypePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDataType_DefaultValue();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.efm.ecore.formalml.datatype.DataType#getConstraint <em>Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Constraint</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.datatype.DataType#getConstraint()
+	 * @see #getDataType()
+	 * @generated
+	 */
+	EReference getDataType_Constraint();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.datatype.DataTypeReference <em>Data Type Reference</em>}'.
@@ -3177,6 +3377,14 @@ public interface DatatypePackage extends EPackage {
 		 * @generated
 		 */
 		EReference DATA_TYPE__DEFAULT_VALUE = eINSTANCE.getDataType_DefaultValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DATA_TYPE__CONSTRAINT = eINSTANCE.getDataType_Constraint();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.datatype.impl.DataTypeReferenceImpl <em>Data Type Reference</em>}' class.

@@ -11,32 +11,40 @@
 package org.eclipse.efm.execution.launchconfiguration.ui.views.page;
 
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.launchconfiguration.LaunchDelegate;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 
-public class SWTSpider extends Canvas
-		implements PaintListener , IWorkflowConfigurationConstants {
+
+public class SWTSpider extends Canvas  implements PaintListener ,
+		IWorkflowConfigurationConstants , IWorkflowSpiderConfigurationUtils {
 
 	private boolean fRedrawBySystem;
 
 	private boolean fResetFlag = false;
 
-	public static enum SPIDER_GEOMETRY {
+	public enum SPIDER_GEOMETRY {
 		/*TRIGON ,*/  TETRAGON , PENTAGON /*, HEXAGON*/
 	}
 
 	private SPIDER_GEOMETRY fSpidertype = SPIDER_GEOMETRY.TETRAGON;
 
-	private String spiderTitle;
-	private int xDecalage;
-	private int yDecalage;
-	private int rayon;
+	private final String spiderTitle;
+
+	private String symbexVerdict;
+	boolean enabledVerdictPrinting;
+
+	private final int xDecalage;
+	private final int yDecalage;
+	private final int rayon;
 
 //	private int xDecalage = 150;
 //	private int yDecalage = 150;
@@ -74,6 +82,10 @@ public class SWTSpider extends Canvas
 
 		fRedrawBySystem = true;
 		spiderTitle = title;
+
+		symbexVerdict = "";
+		enabledVerdictPrinting = false;
+
 
 		createContent(parent);
 	}
@@ -132,12 +144,18 @@ public class SWTSpider extends Canvas
 		if (LaunchDelegate.fEnableTraceExtension && executionNumber > 1 ){
 			drawExe2(e);
 		}
+
+		if( enabledVerdictPrinting ) {
+			drawVerdict(e);
+		}
 	}
 
 	public void resetSpider(final SPIDER_GEOMETRY geometry) {
 		fResetFlag = true;
 
 		fSpidertype = geometry;
+
+		enabledVerdictPrinting = false;
 
 		Display.getDefault().syncExec(new Runnable() {
 			@Override
@@ -150,6 +168,7 @@ public class SWTSpider extends Canvas
 	private void initSpider4Segments(final PaintEvent e) {
 		e.gc.fillRectangle(0, 0, SPIDER_RECTANGLE_WIDTH, SPIDER_RECTANGLE_HEIGHT);
 
+		// Print Title
 		e.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
 
 		// Point central
@@ -243,6 +262,7 @@ public class SWTSpider extends Canvas
 	private void initSpider5Segments(final PaintEvent e) {
 		e.gc.fillRectangle(0, 0, SPIDER_RECTANGLE_WIDTH, SPIDER_RECTANGLE_HEIGHT);
 
+		// Print Title
 		e.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
 
 		// Point central
@@ -420,6 +440,41 @@ public class SWTSpider extends Canvas
 		});
 
 		fRedrawBySystem = true;
+	}
+
+
+	public void showSymbexVerdict(final String strVerdict) {
+		symbexVerdict = strVerdict;
+
+		enabledVerdictPrinting = true;
+
+		fRedrawBySystem = false;
+
+		Display.getDefault().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				redraw();
+			}
+		});
+
+		fRedrawBySystem = true;
+	}
+
+
+	private void drawVerdict(final PaintEvent pe) {
+		final Device device = Display.getCurrent();
+
+		pe.gc.setForeground(device.getSystemColor(
+				symbexVerdict.contains(SYMBEX_VERDICT_FAIL) ?
+						SWT.COLOR_RED : SWT.COLOR_BLUE));
+
+		final FontData[] fontData = pe.gc.getFont().getFontData();
+		for(int i = 0; i < fontData.length; ++i)
+		    fontData[i].setHeight(64);
+
+		pe.gc.setFont (new Font(device, fontData));
+
+		pe.gc.drawString(symbexVerdict, xCentre - 95, yCentre - 60, true);
 	}
 
 

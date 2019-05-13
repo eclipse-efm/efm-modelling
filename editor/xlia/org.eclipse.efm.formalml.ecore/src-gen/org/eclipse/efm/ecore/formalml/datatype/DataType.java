@@ -15,6 +15,7 @@ package org.eclipse.efm.ecore.formalml.datatype;
 import org.eclipse.efm.ecore.formalml.common.ClassifierDefinition;
 
 import org.eclipse.efm.ecore.formalml.expression.Expression;
+import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +30,7 @@ import org.eclipse.efm.ecore.formalml.expression.Expression;
  *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.DataType#isTypedef <em>Typedef</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.DataType#getMultiplicity <em>Multiplicity</em>}</li>
  *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.DataType#getDefaultValue <em>Default Value</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.DataType#getConstraint <em>Constraint</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.datatype.DatatypePackage#getDataType()
@@ -142,5 +144,27 @@ public interface DataType extends ClassifierDefinition {
 	 * @generated
 	 */
 	void setDefaultValue(Expression value);
+
+	/**
+	 * Returns the value of the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Constraint</em>' containment reference.
+	 * @see #setConstraint(Routine)
+	 * @see org.eclipse.efm.ecore.formalml.datatype.DatatypePackage#getDataType_Constraint()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Routine getConstraint();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.datatype.DataType#getConstraint <em>Constraint</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Constraint</em>' containment reference.
+	 * @see #getConstraint()
+	 * @generated
+	 */
+	void setConstraint(Routine value);
 
 } // DataType

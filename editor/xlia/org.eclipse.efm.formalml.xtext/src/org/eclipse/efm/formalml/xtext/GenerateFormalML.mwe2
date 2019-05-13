@@ -12,10 +12,20 @@
 *****************************************************************************/
 module org.eclipse.efm.formalml.xtext.GenerateFormalML
 
+import org.eclipse.xtext.resource.XtextResourceSet 
 import org.eclipse.xtext.xtext.generator.*
 import org.eclipse.xtext.xtext.generator.model.project.*
+import org.eclipse.xtext.generator.parser.antlr.XtextAntlrGeneratorComparisonFragment
 
 var rootPath = ".."
+var baseName = "org.eclipse.efm.formalml.xtext"
+var runtimeProjectName = "org.eclipse.efm.formalml.xtext"
+var projectPath = "${rootPath}/${runtimeProjectName}"
+
+var file.extensions = "fml,xfml,xlia,xfsp"
+
+var lineDelimiter = "\n"
+
 
 var fileHeader =
 "/*****************************************************************************
@@ -34,11 +44,14 @@ var fileHeader =
 
 Workflow {
 	
-	component = XtextGenerator {
+	component = XtextGenerator auto-inject {
 		configuration = {
 			project = StandardProjectConfig {
-				baseName = "org.eclipse.efm.formalml.xtext"
+				baseName = baseName
 				rootPath = rootPath
+//				runtime = {
+//					name = runtimeProjectName
+//				}
 				runtimeTest = {
 					enabled = true
 				}
@@ -52,12 +65,14 @@ Workflow {
 			}
 			code = {
 				encoding = "UTF-8"
+				lineDelimiter = lineDelimiter
 				fileHeader = fileHeader
 			}
 		}
 		language = StandardLanguage {
 			name = "org.eclipse.efm.formalml.xtext.FormalML"
-			fileExtensions = "fml,xfml,xlia,xfsp"
+			fileExtensions = file.extensions
+			resourceSet = XtextResourceSet : resourceSet {}
 			referencedResource = "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.genmodel"
 			
 			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment2 auto-inject {}

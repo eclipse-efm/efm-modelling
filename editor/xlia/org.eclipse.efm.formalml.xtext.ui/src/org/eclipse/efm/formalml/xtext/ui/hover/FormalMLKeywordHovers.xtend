@@ -138,7 +138,7 @@ class FormalMLKeywordHovers {
 		case grammarAccess.xliaSystemAccess.systemKeyword_1:
 			KEYWORD_SAMPLE//KEYWORD_SYSTEM
 			
-		case grammarAccess.machineBlockAccess.machineKeyword_1:
+		case grammarAccess.machineBlockAccess.machineKeyword_1_0:
 			KEYWORD_MACHINE
 //		case grammarAccess.machineBlockAccess.machineKeyword_1d_9_0_0_1:
 //			KEYWORD_MACHINE

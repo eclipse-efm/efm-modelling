@@ -64,6 +64,9 @@ public class MoCC2XLIA {
 
 	protected boolean CONFORMANCE_PURPOSE;
 
+	// For Moka Trace compatibility
+	protected boolean ALWAYS_USING_MODE;
+
 	protected Map< MoccActor, MoccActorHelper> actorHelper;
 
 	protected Map< MoccPort , MoccPortHelper > portHelper;
@@ -76,8 +79,8 @@ public class MoCC2XLIA {
 	protected Behavior mainBehavior;
 
 	protected Variable varTick;
-	protected Variable varTickInterval;
 	protected Variable varTickPeriod;
+	protected Variable varTimeDelta;
 
 	protected Variable varTimestamp;
 
@@ -115,8 +118,8 @@ public class MoCC2XLIA {
 		this.mainBehavior = null;
 
 		this.varTick         = null;
-		this.varTickInterval = null;
 		this.varTickPeriod   = null;
+		this.varTimeDelta = null;
 
 		this.varTimestamp    = null;
 
@@ -168,6 +171,11 @@ public class MoCC2XLIA {
 			return;
 		}
 
+
+		// For Moka Trace compatibility
+		ALWAYS_USING_MODE = true; //moccSystem.FEATURE.hasModeSelector;
+
+
 		// Transformation to XLIA
 		this.xliaModel = XLIA_INFRA.createModel();
 		this.xliaSystem = XLIA_INFRA.createSystem(this.moccSystem.getName());
@@ -191,11 +199,11 @@ public class MoCC2XLIA {
 				createReceiveTokenModeRoutine(this.xliaSystem);
 
 		// TIME CONFIGURATION
-		this.varTickInterval = XLIA_INFRA.createConstant(
-				XLIA_DATATYPE.createInterger(), "TICK_INTERVAL",
+		this.varTimeDelta = XLIA_INFRA.createConstant(
+				XLIA_DATATYPE.createInterger(), "TIME_DELTA",
 				XLIA_EXPRESSION.createInteger(
-						moccSystemFeature.tick_interval));
-		this.xliaSystem.getVariable().add(this.varTickInterval);
+						moccSystemFeature.time_interval));
+		this.xliaSystem.getVariable().add(this.varTimeDelta);
 
 		this.varTickPeriod = XLIA_INFRA.createConstant(
 				XLIA_DATATYPE.createInterger(), "TICK_PERIOD",
@@ -227,7 +235,8 @@ public class MoCC2XLIA {
 
 		// ACTOR TRANSFORMATIONS
 		for (final MoccActor actor : this.moccSystem.getActor()) {
-			this.xliaSystem.getMachine().add( transformActor(actor) );
+			this.xliaSystem.getMachine().add(
+					transformActor(actor, moccSystemFeature) );
 		}
 
 
@@ -270,6 +279,9 @@ public class MoCC2XLIA {
 						XLIA_EXPRESSION.createExpression(kind),
 						XLIA_EXPRESSION.createExpression("\","),
 				XLIA_EXPRESSION.createExpression("\n\t\t\t\"tick\": "),
+//						XLIA_EXPRESSION.createExpression(
+//								XLIA_EXPRESSION.OP_MULT,
+//								this.varTick, this.varTimeDelta),
 						XLIA_EXPRESSION.createExpression(this.varTick),
 						XLIA_EXPRESSION.createExpression(","),
 				XLIA_EXPRESSION.createExpression("\n\t\t\t\"timestamp\": "),
@@ -331,7 +343,7 @@ public class MoCC2XLIA {
 						XLIA_EXPRESSION.createExpression(tokenCount),
 						XLIA_EXPRESSION.createExpression("\","));
 
-		if( moccSystem.FEATURE.hasModeSelector ) {
+		if( ALWAYS_USING_MODE ) {
 			final Parameter tokenMode = XLIA_INFRA.createParameter(
 					XLIA_DATATYPE.createString(), "tokenMode");
 			parameterSet.getParameter().add(tokenMode);
@@ -490,7 +502,8 @@ public class MoCC2XLIA {
 	}
 
 
-	public Statemachine transformActor(final MoccActor actor)
+	public Statemachine transformActor(
+			final MoccActor actor, final MoccSystemFeature moccSystemFeature)
 	{
 		// Basic static analysis feature
 		final Statemachine xliaActor =
@@ -501,7 +514,7 @@ public class MoCC2XLIA {
 		final MoccActorHelper actorHELPER = helper(actor);
 
 		// MODE TYPE
-		if( moccSystem.FEATURE.hasModeSelector ) {
+		if( ALWAYS_USING_MODE ) {
 			modeActorDeclaration(actor, actorHELPER, xliaActor);
 		}
 
@@ -584,14 +597,14 @@ public class MoCC2XLIA {
 
 			computeReceptionBehavior(actor);
 
-			computeActivationTestBehavior(actor);
+			computeActivationTestBehavior(actor, moccSystemFeature);
 
 			computeConsumptionBehavior(actor);
 
 			computeConsumptionTraceBehavior(actor);
 		}
 		else {
-			computeActivationTestBehavior(actor);
+			computeActivationTestBehavior(actor, moccSystemFeature);
 		}
 
 		if( actor.hasOutputPort() ) {
@@ -778,7 +791,7 @@ public class MoCC2XLIA {
 				XLIA_DATATYPE.createRationalOrInteger(moccPort.isRational());
 
 		Port xliaPort = null;
-		if( moccSystem.FEATURE.hasModeSelector )
+		if( ALWAYS_USING_MODE )
 		{
 			final DataType modeType =
 					XLIA_DATATYPE.createReference(this.MODE_SET_TYPE);
@@ -862,7 +875,7 @@ public class MoCC2XLIA {
 		Port xliaChannelPort = null;
 		Variable varReceivedMode = null;
 
-		if( moccSystem.FEATURE.hasModeSelector )
+		if( ALWAYS_USING_MODE )
 		{
 			xliaPort = createPortTokenMode(moccPort,
 					ChannelDirection.INPUT, xliaActor, portTokenType,
@@ -883,13 +896,11 @@ public class MoCC2XLIA {
 			xliaPort = createPortToken(moccPort,
 					ChannelDirection.INPUT, xliaActor, portTokenType);
 
-			if( CONFORMANCE_PURPOSE ) {
-				xliaChannelPort = createPortToken(
-						moccPort.getChannel().getName(), moccPort,
-//						ChannelDirection.INPUT, xliaActor, channelTokenType);
-						ChannelDirection.OUTPUT, xliaActor, channelTokenType);
+			xliaChannelPort = createPortToken(
+					moccPort.getChannel().getName(), moccPort,
+//					ChannelDirection.INPUT, xliaActor, channelTokenType);
+					ChannelDirection.OUTPUT, xliaActor, channelTokenType);
 			}
-		}
 
 		// Mapping: MoccPort-->PortHelper
 		portHelper.put(moccPort, new MoccPortHelper(xliaPort, xliaChannelPort,
@@ -977,8 +988,7 @@ public class MoCC2XLIA {
 		final BlockStatement blockSchedule =
 				XLIA_STATEMENT.createBlockStatement(scheduleRoutine);
 
-		int activationCount =
-				moccSystemFeature.tick_period / moccSystemFeature.tick_interval;
+		int activationCount = moccSystemFeature.tick_period;
 
 		if( activationCount > 1 ) {
 			final IfStatement ifStatement = XLIA_STATEMENT.addIf(blockSchedule);
@@ -1002,19 +1012,20 @@ public class MoCC2XLIA {
 		XLIA_STATEMENT.addAssignment(blockRun, this.varTimestamp,
 				XLIA_EXPRESSION.createExpression(
 						XLIA_EXPRESSION.OP_PLUS,
-						this.varTimestamp, this.varTickInterval));
+							this.varTimestamp, this.varTimeDelta));
 
 		XLIA_STATEMENT.addAssignment(blockRun, this.varTick,
-				XLIA_EXPRESSION.createExpression(
-						XLIA_EXPRESSION.OP_PLUS,
-						this.varTick, this.varTickInterval));
+					XLIA_EXPRESSION.createExpression(
+							XLIA_EXPRESSION.OP_PLUS, this.varTick,
+							XLIA_EXPRESSION.createInteger(1)));
+
 
 		// PERIOD RE-INITIALISATION
 		final IfStatement ifPeriod = XLIA_STATEMENT.addIf(blockRun,
 				XLIA_EXPRESSION.createRelational(
 						XLIA_EXPRESSION.OP_EQ,
 						this.varTick, this.varTickPeriod));
-
+	
 		Expression untimedConditionalReinitialisation = null;
 
 		final BlockStatement blockReinit =
@@ -1034,7 +1045,7 @@ public class MoCC2XLIA {
 								XLIA_EXPRESSION.OP_EQ,
 								actorHELPER.statemachine,
 								actorHELPER.varActivationCount,
-								actorHELPER.constREPETITION);
+									actorHELPER.constREPETITION);
 
 				if( activationCount > 1 ) {
 					XLIA_STATEMENT.addGuard(blockReinit, actorRepetitionCond);
@@ -1062,13 +1073,14 @@ public class MoCC2XLIA {
 		}
 
 		// ENABLED ONLY RECEPTION BEFORE RE-INITIALISATION
-		XLIA_STATEMENT.addAssignment(blockReinit,
-				this.varCanBeActivate,
-				XLIA_EXPRESSION.falseValue());
-
 		final BlockStatement blockReception =
 				XLIA_STATEMENT.createBlockStatement(
 						blockReinit, XLIA_STATEMENT.OP_SEQUENCE_WEAK);
+
+		XLIA_STATEMENT.addAssignment(blockReception,
+				this.varCanBeActivate,
+				XLIA_EXPRESSION.falseValue());
+
 
 		for( final MoccActor actor : moccSystem.getActor() ) {
 			if( actor.FEATURE.hasInput ) {
@@ -1076,7 +1088,6 @@ public class MoCC2XLIA {
 						helper(actor).statemachine);
 			}
 		}
-
 //		else {
 //			computeSchedulingActor(moccSystemFeature, blockSchedule, 0);
 //
@@ -1086,7 +1097,7 @@ public class MoCC2XLIA {
 //						XLIA_EXPRESSION.OP_MODULO,
 //						XLIA_EXPRESSION.createExpression(
 //							XLIA_EXPRESSION.OP_PLUS,
-//							this.varTick, this.varTickInterval),
+//							this.varTick, XLIA_EXPRESSION.createInteger(1)),
 //						XLIA_EXPRESSION.createExpression(
 //								this.varTickPeriod)));
 //		}
@@ -1100,10 +1111,8 @@ public class MoCC2XLIA {
 				XLIA_STATEMENT.createBlockStatement(ifBlock);
 
 		ifBlock.setCondition(XLIA_EXPRESSION.createRelational(
-				XLIA_EXPRESSION.OP_EQ,
-				this.varTick,
-				XLIA_EXPRESSION.createInteger(
-					activationIndex * moccSystemFeature.tick_interval)));
+				XLIA_EXPRESSION.OP_EQ, this.varTick,
+				XLIA_EXPRESSION.createInteger(activationIndex)));
 
 		computeSchedulingActor(moccSystemFeature, thenBlock, activationIndex);
 	}
@@ -1345,7 +1354,7 @@ public class MoCC2XLIA {
 				XLIA_STATEMACHINE.createJunctionState("activation");
 		region.getVertex().add(s_activation);
 
-		if( moccSystem.FEATURE.hasModeSelector && actor.FEATURE.hasInput ) {
+		if( ALWAYS_USING_MODE && actor.FEATURE.hasInput ) {
 			final BlockStatement blockEnable =
 					XLIA_STATEMENT.createBlockStatement();
 
@@ -1581,7 +1590,7 @@ public class MoCC2XLIA {
 			final Variable vaReceivedToken = moccPort.isOutputRational() ?
 					actorHELPER.varRatToken : actorHELPER.varIntToken;
 
-			if( moccSystem.FEATURE.hasModeSelector ) {
+			if( ALWAYS_USING_MODE ) {
 				XLIA_STATEMENT.addInvoke(block, this.macroReceiveTokenMode,
 						helper(moccPort).xliaPort, vaReceivedToken,
 						helper(moccPort).varReceivedModeTokenCount,
@@ -1613,7 +1622,8 @@ public class MoCC2XLIA {
 	 * @param actor
 	 * @param block
 	 */
-	protected void computeActivationTestBehavior(final MoccActor actor)
+	protected void computeActivationTestBehavior(
+			final MoccActor actor, final MoccSystemFeature moccSystemFeature)
 	{
 		final MoccActorHelper actorHELPER = helper(actor);
 
@@ -1689,8 +1699,7 @@ public class MoCC2XLIA {
 			if( actor.FEATURE.isModeProcessor ) {
 				computeActivationProcessingTestBehavior(actor);
 			}
-			else if( moccSystem.FEATURE.hasModeSelector
-					&& actor.FEATURE.hasOutput ) {
+			else if( ALWAYS_USING_MODE && actor.FEATURE.hasOutput ) {
 				computeActivationMode(actor);
 			}
 		}
@@ -1992,7 +2001,7 @@ public class MoCC2XLIA {
 					XLIA_EXPRESSION.createExpression(
 							helper(moccPort).constTOKEN_RATE));
 
-			if( moccSystem.FEATURE.hasModeSelector )
+			if( ALWAYS_USING_MODE )
 			{
 				assert (helper(moccPort).varReceivedMode != null) :
 					"Unexpected a null varReceivedMode for port " +
@@ -2043,7 +2052,7 @@ public class MoCC2XLIA {
 //			final Variable vaReceivedToken = moccPort.isInputRational() ?
 //					actorHELPER.varRatToken : actorHELPER.varIntToken;
 
-			if( moccSystem.FEATURE.hasModeSelector )
+			if( ALWAYS_USING_MODE )
 			{
 				assert (helper(moccPort).varReceivedMode != null) :
 					"Unexpected a null varReceivedMode for port " +
@@ -2138,7 +2147,7 @@ public class MoCC2XLIA {
 		}
 		else {
 			for( final MoccPort moccPort : actor.getOutputPort() ) {
-				if( moccSystem.FEATURE.hasModeSelector )
+				if( ALWAYS_USING_MODE )
 				{
 					XLIA_STATEMENT.addOutputCom(block,
 							helper(moccPort).xliaPort,

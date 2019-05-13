@@ -15,6 +15,7 @@ package org.eclipse.efm.execution.core.workflow.test;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
+import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl;
@@ -24,9 +25,9 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomIm
 import org.eclipse.efm.execution.core.workflow.test.impl.OfflineTestWorkerImpl;
 
 public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
-		implements IWorkflowConfigurationConstants {
+		implements IWorkflowConfigurationConstants, IWorkflowSpiderConfigurationUtils {
 
-	protected OfflineTestWorkerCustomImpl(Director director, String name) {
+	protected OfflineTestWorkerCustomImpl(final Director director, final String name) {
 		super();
 
 		setDirector(director);
@@ -34,7 +35,7 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 	}
 
 	protected OfflineTestWorkerCustomImpl(
-			Director director, String name, String description) {
+			final Director director, final String name, final String description) {
 		super();
 
 		setDirector(director);
@@ -44,9 +45,9 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 
 
 	public static OfflineTestWorkerCustomImpl create(
-			Director director, ILaunchConfiguration configuration) {
+			final Director director, final ILaunchConfiguration configuration) {
 
-		OfflineTestWorkerCustomImpl testWorker =
+		final OfflineTestWorkerCustomImpl testWorker =
 				new OfflineTestWorkerCustomImpl(
 						director, "offline_test");
 
@@ -59,7 +60,7 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 					ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
 					DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			e.printStackTrace();
 
 			path = DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION;
@@ -74,7 +75,7 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 					ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
 					DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			e.printStackTrace();
 
 			path = DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION;
@@ -93,7 +94,7 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 					ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION,
 					false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			e.printStackTrace();
 
 			enabledObservableControllable = false;
@@ -121,17 +122,20 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 		}
 
 
-//		ConsoleLogFormatCustomImpl console =
-//				ConsoleLogFormatCustomImpl.create(
-//						" , test: %1% / %2%" );
-//
-//		testWorker.setConsole( console );
+		final ConsoleLogFormatCustomImpl console =
+				ConsoleLogFormatCustomImpl.create(
+						DEFAULT_COVERAGE_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_INIT_POSITION_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_STEP_POSITION_FORMAT,
+						DEFAULT_COVERAGE_SPIDER_STOP_POSITION_FORMAT);
+
+		testWorker.setConsole( console );
 
 		return( testWorker );
 	}
 
 
-	public void toWriter(PrettyPrintWriter writer) {
+	public void toWriter(final PrettyPrintWriter writer) {
 		writer.commentLine( getComment() );
 
 		writer.appendTab( "test#offline" );
@@ -147,9 +151,9 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 
 		writer.appendEol( " {" );
 
-		PrettyPrintWriter writer2 = writer.itab2();
+		final PrettyPrintWriter writer2 = writer.itab2();
 
-		ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
+		final ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
 		if( manifest != null ) {
 			manifest.toWriter(writer2);
 		}
@@ -181,22 +185,22 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 				.appendEol( "\"" );
 		}
 
-		writer.appendTab2Eol( "] // end queue" );
+		writer.appendTab2Eol( "] // end merged_trace" );
 
 
-		TraceSpecificationCustomImpl observable =
+		final TraceSpecificationCustomImpl observable =
 				(TraceSpecificationCustomImpl) getObservable();
 		if( observable != null ) {
 			observable.toWriter(writer2);
 		}
 
-		TraceSpecificationCustomImpl controllable =
+		final TraceSpecificationCustomImpl controllable =
 				(TraceSpecificationCustomImpl) getControllable();
 		if( controllable != null ) {
 			controllable.toWriter(writer2);
 		}
 
-		ConsoleLogFormatCustomImpl console =
+		final ConsoleLogFormatCustomImpl console =
 				(ConsoleLogFormatCustomImpl) getConsole();
 		if( console != null ) {
 			console.toWriter( writer2 );

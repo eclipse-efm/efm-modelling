@@ -12,7 +12,7 @@
 *****************************************************************************/
 grammar org.eclipse.efm.formalml.xtext.FormalML with org.eclipse.xtext.common.Terminals
 
-import "http://www.eclipse.org/efm/FormalML"
+import "http://www.eclipse.org/efm/FormalML" as fml
 
 //import "http://www.eclipse.org/efm/FormalML/Common" as fmlCommon
 //import "http://www.eclipse.org/efm/FormalML/DataType" as fmlType
@@ -40,12 +40,12 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 // Main Rules
 ////////////////////////////////////////////////////////////////////////////////
 
-Xlia returns XliaModel
+Xlia returns fml::XliaModel
 	: prolog = XliaPrologObject
 	  	system = XliaSystem
 	;
 
-XliaPrologObject returns XliaObject
+XliaPrologObject returns fml::XliaObject
 	: name=( '@FormalML' | '@xfml' | '@fml' | '@xlia' | '@xfsp' | '@diversity' )
 		'<'
 		( elements+=XliaPrologAttribute )
@@ -54,7 +54,7 @@ XliaPrologObject returns XliaObject
 		( elements += XliaOptionObject )?
 	;
 
-XliaPrologAttribute returns XliaAttribute
+XliaPrologAttribute returns fml::XliaAttribute
 	: name=( 'system' | 'package' )
 		( ',' ( 'version:' )?
 			value=( LiteralFloatExpression | LiteralStringExpression )
@@ -73,31 +73,31 @@ XliaPrologAttribute returns XliaAttribute
 //	;
 
 
-XliaOptionObject returns XliaObject
+XliaOptionObject returns fml::XliaObject
 	: name='@option'  '{'
 		( elements+=XliaNamedElement )*
 	  '}'
 	;
 
-XliaNamedElement returns XliaNamedElement
+XliaNamedElement returns fml::XliaNamedElement
 	: XliaObject
 	| XliaSection
 	| XliaAttribute
 	;
 
-XliaObject returns XliaObject
+XliaObject returns fml::XliaObject
 	: name=XLIA_ID '{'
 		( elements+=XliaNamedElement )*
 	  '}'
 	;
 
-XliaSection returns XliaSection
+XliaSection returns fml::XliaSection
 	: name=XLIA_ID '['
 		( elements+=XliaAttribute )*
 	  ']'
 	;
 
-XliaAttribute returns XliaAttribute
+XliaAttribute returns fml::XliaAttribute
 	: name=XLIA_ID '=' value=Expression ';'
 	;
 
@@ -144,13 +144,20 @@ EString returns ecore::EString
 	;
 
 
+terminal OFFSET
+	: '$' INT? ':'
+	;
+
+EOffset returns ecore::EString
+	: OFFSET ;
+
 //QualifiedName returns ecore::EString
 //	: ID ( '[' ID ']' )? '.' ID ( '[' ID ']' )? | ID
 //	;
 
 
 ReservedKeyWord
-	: 'package'   | 'system'      | 'machine'
+	: 'package'   | 'system'      | 'machine'  | 'executable'
 	| 'vertex'    | 'pseudostate'
 	| 'state'     | 'statemachine'
 	| 'macro'     | 'routine'
@@ -197,6 +204,10 @@ ReservedKeyWord
 	| 'call'      | 'new'         | 'ctor'   | 'newfresh'
 	| 'this'      | 'self'        | 'parent' | 'super'
 	| 'null'
+
+	| '#model'    | '#instance'        | '#static'   |  '#dynamic'
+	| '#runtime'  | '#static#instance' | '#dynamic#instance'
+	| '#prototype'| '#dynamic#prototype'
 	;
 
 terminal XLIA_ID
@@ -206,7 +217,7 @@ terminal XLIA_ID
 ESIdentifier returns ecore::EString
 	: XLIA_ID
 	;
-
+	
 ESUfid returns ecore::EString
 	: ( 'spec::' | '::' )?  XLIA_ID  ( ( '.' | ':' ) XLIA_ID )*
 	;
@@ -256,6 +267,29 @@ enum VisibilityKind returns fmlCommon::VisibilityKind
 	;
 
 
+ModelOfComputationKing
+	: 'and'
+	| 'or'
+	| '#STF'
+	| '#STS'
+	| '#DF'
+	
+	| '#alt'
+	| '#opt'
+	| '#loop'
+	| '#break'
+	| '#par'
+	| '#strict'
+	| '#weak'
+	| '#seq'
+	| '#critical'
+	| '#ignore'
+	| '#consider'
+	| '#assert'
+	| '#neg'
+	;
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // Machine PropertyDefinition Rules
 ////////////////////////////////////////////////////////////////////////////////
@@ -263,7 +297,23 @@ enum VisibilityKind returns fmlCommon::VisibilityKind
 enum DesignKind returns fmlInfra::DesignKind
 	: model     = 'model'
 	| prototype = 'prototype'
+	
+	| model     = '#model'
+	| prototype = '#prototype'
 	;
+
+DesignDebugTrace
+	: '#model'
+	| '#instance'
+	| '#static'
+	| '#dynamic'
+	| '#runtime'
+	| '#static#instance'
+	| '#dynamic#instance'
+	| '#prototype'
+	| '#dynamic#prototype'
+	;
+
 
 enum DesignInstanceKind returns fmlInfra::DesignKind
 	: instance  = 'instance'
@@ -428,7 +478,11 @@ MachineBlock returns fmlInfra::Machine
 		& ( lifeline?='lifeline' )?
 		& ( design=DesignKind )?
 		)
-		'machine'  ('<' ( 'moc:' )?  ( 'and' | 'or' ) '>')?
+		( 'machine' | 'executable' )
+		( '<' ( ( 'moc:' )?  ModelOfComputationKing )?
+			( 'instance:' '[' ( '+' | '*' 
+				| ( 'init:' EInteger 'max:' EInteger ) ) ']' )? '>'
+		)?
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		'{'
 		( // optional unnamed section for property full declaration / definition
@@ -791,7 +845,7 @@ Statemachine returns fmlStmchn::Statemachine
 		& ( lifeline?='lifeline' )?
 		& ( design=DesignKind )?
 		)
-		'statemachine' ( '<' ( 'moc:' )? ( 'or' | 'and' ) '>' )?
+		'statemachine' ( '<' ( 'moc:' )? ModelOfComputationKing '>' )?
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		'{'
 		( '@parameter:'
@@ -879,14 +933,11 @@ Statemachine returns fmlStmchn::Statemachine
 		)
 
 //		( ( '@composite:' | '@statemachine:' )  ( machine +=Statemachine )+
-		( ( ( '@composite:' | '@statemachine:' )
-	//			( machine +=AnyMachineBlock
-				( machine +=Statemachine
-				| instance+=InstanceMachine
-				)+
-			| '@model:'     ( machine +=AnyMachineBlock )*
-			| '@prototype:' ( machine +=AnyMachineBlock )*
-			| '@instance:'  ( instance+=InstanceMachine )*
+		( ( '@statemachine:' ( machine +=Statemachine    )+
+			| '@composite:'  ( machine +=AnyMachineBlock )*
+			| '@model:'      ( machine +=AnyMachineBlock )*
+			| '@prototype:'  ( machine +=AnyMachineBlock )*
+			| '@instance:'   ( instance+=InstanceMachine )*
 			)+
 			
 		| region+=StatemachineRegion
@@ -1225,7 +1276,8 @@ moeRoutine returns fmlInfra::Routine
 	;
 
 Routine returns fmlInfra::Routine
-	: ( visibility=VisibilityKind )?  (  macro?='macro' )? 'routine'
+	: ( visibility=VisibilityKind )?  ( macro?='macro' )?  ( DesignDebugTrace )*
+		'routine'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		( '(' ( parameterSet=FormalParameterSet )? ')' )?
 		( '-->'
@@ -1462,14 +1514,35 @@ DataTypeReference returns fmlType::DataType
 
 OtherDataTypeDefinition returns fmlType::DataTypeReference
 	: {fmlType::DataTypeReference}
-		( visibility=VisibilityKind )? 'type'
+		( visibility=VisibilityKind )?  typedef?='type'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		( support=PrimitiveType
 			( '[' multiplicity=DataTypeMultiplicity ']' )?
 		| typeref=[fmlType::DataType|ESUfid]
 			( '[' multiplicity=DataTypeMultiplicity ']' )?
-		)  typedef?=';'
+		)  ( constraint=TypeConstraintRoutine | ';' )
 	;
+
+
+TypeConstraintRoutine returns fmlInfra::Routine
+	: { fmlInfra::Routine } '{'
+		'@constraint'
+		( '(' parameterSet=VariableRoutineParameterSet ')' )?
+		( bodyBlock=BlockStatement
+		| bodyBlock=ConditionalBlockStatement ';'
+	    ) 
+	    '}'
+	;
+
+ConditionalBlockStatement returns fmlStmnt::BlockStatement
+	: {fmlStmnt::BlockStatement}
+		statement+=GuardTestExpression
+	;
+
+GuardTestExpression returns fmlStmnt::GuardStatement
+	: '|=>' condition=Expression
+	;
+
 
 //OtherDataTypeDefinitionImpl returns fmlType::DataTypeReference
 //	: {fmlType::DataTypeReference}
@@ -1768,9 +1841,9 @@ EnumerationType returns fmlType::EnumerationType
 
 EnumerationTypeDefinition returns fmlType::EnumerationType
 	: {fmlType::EnumerationType}
-		( visibility=VisibilityKind )? 'type'
+		( visibility=VisibilityKind )? typedef?='type'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		typedef?='enum'
+		'enum'
 		'{'
 			literal+= EnumerationLiteral  ( ',' literal+= EnumerationLiteral )*
 		'}'
@@ -1795,16 +1868,18 @@ StructureType returns fmlType::StructureType
 	: {fmlType::StructureType}
 		'struct'
 		'{'
+			( '@property:' )?
 			( property+=Variable )+
 		'}'
 	;
 
 StructureTypeDefinition returns fmlType::StructureType
 	: {fmlType::StructureType}
-		( visibility=VisibilityKind )? 'type'
+		( visibility=VisibilityKind )? typedef?='type'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		typedef?='struct'
+		'struct'
 		'{'
+			( '@property:' )?
 			( property+=Variable )+
 		'}'
 	;
@@ -1814,6 +1889,7 @@ StructureTypeDefinitionImpl returns fmlType::StructureType
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		typedef?='struct'
 		'{'
+			( '@property:' )?
 			( property+=Variable )+
 		'}'
 	;
@@ -1823,16 +1899,18 @@ UnionType returns fmlType::UnionType
 	: {fmlType::UnionType}
 		'union'
 		'{'
+			( '@property:' )?
 			( property+=Variable )+
 		'}'
 	;
 
 UnionTypeDefinition returns fmlType::UnionType
 	: {fmlType::UnionType}
-		( visibility=VisibilityKind )? 'type'
+		( visibility=VisibilityKind )? typedef?='type'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		typedef?='union'
+		'union'
 		'{'
+			( '@property:' )?
 			( property+=Variable )+
 		'}'
 	;
@@ -1842,6 +1920,7 @@ UnionTypeDefinitionImpl returns fmlType::UnionType
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		typedef?='union'
 		'{'
+			( '@property:' )?
 			( property+=Variable )+
 		'}'
 	;
@@ -1851,16 +1930,18 @@ ChoiceType returns fmlType::ChoiceType
 	: {fmlType::ChoiceType}
 		'choice'
 		'{'
+			( '@property:' )?
 			( property+=Variable )+
 		'}'
 	;
 
 ChoiceTypeDefinition returns fmlType::ChoiceType
 	: {fmlType::ChoiceType}
-		( visibility=VisibilityKind )? 'type'
+		( visibility=VisibilityKind )? typedef?='type'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		typedef?='choice'
+		'choice'
 		'{'
+			( '@property:' )?
 			( property+=Variable )+
 		'}'
 	;
@@ -1870,6 +1951,7 @@ ChoiceTypeDefinitionImpl returns fmlType::ChoiceType
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		typedef?='choice'
 		'{'
+			( '@property:' )?
 			( property+=Variable )+
 		'}'
 	;
@@ -2025,7 +2107,7 @@ VariableImpl returns fmlInfra::Variable
 
 OnWriteRoutine returns fmlInfra::Routine
 	: { fmlInfra::Routine }
-		'@on_write'
+		( '@write' | '@on_write' )
 		( '(' parameterSet=VariableRoutineParameterSet ')' )?
 		bodyBlock=BlockStatement
 	;
@@ -2036,7 +2118,9 @@ VariableRoutineParameterSet returns fmlInfra::ParameterSet
 	;
 	
 VariableRoutineParameter returns fmlInfra::Parameter
-	: ( type=DataType )? 
+	: ( FormalParameterOffset )?
+		( direction=ParameterDirectionKind )? 
+		( type=DataType )? 
 		name=ESIdentifier
 		( '=' defaultValue=Expression )?
 	;
@@ -2061,8 +2145,10 @@ VariablePrivate returns fmlInfra::Variable
 
 enum ParameterDirectionKind returns fmlInfra::ParameterDirectionKind
 	: in     = 'in'
+	| in     = 'input'
 	| inout  = 'inout'
 	| out    = 'out'
+	| out    = 'output'
 	| return = 'return'
 	;
 
@@ -2088,12 +2174,16 @@ FormalParameterSet returns fmlInfra::ParameterSet
 
 FormalParameter returns fmlInfra::Parameter
 	: {fmlInfra::Parameter}
-		( direction=ParameterDirectionKind )?  type=DataType
-	 	( name=ESIdentifier )?
+		( FormalParameterOffset )?
+		( direction=ParameterDirectionKind )? ( modifier=Modifier )?
+		type=DataType  ( name=ESIdentifier )?
 		( '=' defaultValue=Expression )?
 	;
 
 
+FormalParameterOffset
+	: EOffset
+	;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Block ParameterSet Rules
@@ -2428,7 +2518,7 @@ TransitionGuard returns fmlStmnt::AbstractGuardStatement
 
 TransitionGuardExpression returns fmlExpr::Expression
 	: {fmlExpr::LogicalAssociativeExpression}
-		operator=(  '&&' | 'and' | '||' | 'or' ) '>:'
+		operator=( '&&' | 'and' | '||' | 'or' ) '>:'
 		( operand+=BitwiseOrExpression )+
 	;
 
@@ -3014,6 +3104,9 @@ UnaryExpression returns fmlExpr::Expression
 
 	| NewfreshExpression
 	| CastExpression
+	
+//	| CollectionFunctionExpression
+	
 
 	| PrefixUnaryExpression
 	| PostfixUnaryExpression
@@ -3057,7 +3150,17 @@ NewfreshExpression returns fmlExpr::NewfreshExpression
 CastExpression returns fmlExpr::CastExpression
 	: 'ctor' '<' datatype=[fmlType::DataType|ESUfid] '>'
 		 '(' operand=Expression ')'
-;
+	;
+
+
+//CollectionFunctionExpression  fmlExpr::MixTupleExpression
+CollectionFunctionExpression returns fmlExpr::Expression
+	: 'empty('    Expression ')'
+	| 'nonempty(' Expression ')'
+	| 'size('     Expression ')'
+	;
+
+
 
 // Arithmetic Unary Expression
 ArithmeticUnaryExpression returns fmlExpr::ArithmeticUnaryExpression
@@ -3431,14 +3534,25 @@ LiteralPureReferenceElement returns fmlExpr::LiteralReferenceElement
 LiteralReferenceVariableContext returns fmlExpr::LiteralReferenceExpression
 	: LiteralTimeExpression
 	| LiteralTimeDeltaExpression
+
+	| LiteralTimeInitialExpression
+	| LiteralTimeDeltaInitialExpression
 	;
 
 LiteralTimeExpression returns fmlExpr::LiteralTimeExpression
 	: {fmlExpr::LiteralTimeExpression} ( '$time' )
 	;
 
+LiteralTimeInitialExpression returns fmlExpr::LiteralTimeExpression
+	: {fmlExpr::LiteralTimeExpression} ( '$time#initial' )
+	;
+
 LiteralTimeDeltaExpression returns fmlExpr::LiteralTimeDeltaExpression
 	: {fmlExpr::LiteralTimeDeltaExpression} ( '$delta' )
+	;
+
+LiteralTimeDeltaInitialExpression returns fmlExpr::LiteralTimeDeltaExpression
+	: {fmlExpr::LiteralTimeDeltaExpression} ( '$delta#initial' )
 	;
 
 

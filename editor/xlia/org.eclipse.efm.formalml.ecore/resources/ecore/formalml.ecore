@@ -381,6 +381,8 @@
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" eType="#//expression/Expression"
           containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//infrastructure/Routine"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataTypeReference" eSuperTypes="#//datatype/DataType">
       <eStructuralFeatures xsi:type="ecore:EReference" name="typeref" eType="#//datatype/DataType"/>
@@ -891,6 +893,14 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//expression/Expression"
           containment="true"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ObserverStatement" eSuperTypes="#//statement/Statement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//expression/Expression"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="statement" lowerBound="1"
+          eType="#//statement/Statement" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="postCondition" lowerBound="1"
+          eType="#//expression/Expression" containment="true"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="AssignmentStatementkind">
       <eLiterals name="assign"/>
       <eLiterals name="assign_after" value="1"/>
@@ -934,14 +944,6 @@
       <eLiterals name="quote" value="4"/>
       <eLiterals name="eval" value="5"/>
       <eLiterals name="run" value="6"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ObserverStatement" eSuperTypes="#//statement/Statement">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//expression/Expression"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="statement" lowerBound="1"
-          eType="#//statement/Statement" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="postCondition" lowerBound="1"
-          eType="#//expression/Expression" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="MetaStatement" eSuperTypes="#//statement/Statement">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" lowerBound="1" eType="#//statement/MetaStatementKind"/>

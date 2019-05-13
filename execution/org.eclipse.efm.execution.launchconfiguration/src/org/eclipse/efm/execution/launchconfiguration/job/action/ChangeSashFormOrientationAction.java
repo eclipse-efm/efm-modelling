@@ -15,6 +15,7 @@ package org.eclipse.efm.execution.launchconfiguration.job.action;
 import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsolePage;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.texteditor.IUpdate;
 
 public class ChangeSashFormOrientationAction extends Action implements IUpdate  {
@@ -29,16 +30,13 @@ public class ChangeSashFormOrientationAction extends Action implements IUpdate  
 
 		setToolTipText("Change Sash Orientation");
 
-		setHoverImageDescriptor(
+		final ImageDescriptor refreshImage =
 				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__REFRESH_ICON));
+						ImageResources.IMAGE__REFRESH_ICON);
 
-		setDisabledImageDescriptor(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__REFRESH_ICON));
-		setImageDescriptor(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__REFRESH_ICON));
+		setHoverImageDescriptor(refreshImage);
+		setDisabledImageDescriptor(refreshImage);
+		setImageDescriptor(refreshImage);
 
 //		PlatformUI.getWorkbench().getHelpSystem().setHelp(
 //				this, IConsoleHelpContextIds.CONSOLE_WORD_WRAP_ACTION);
