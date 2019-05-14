@@ -33,9 +33,14 @@ public interface IWorkflowSpiderConfigurationUtils {
 	String SYMBEX_TRACE_STEP_PREFIX  = "step";
 	String SYMBEX_TRACE_STOP_PREFIX  = "stop";
 
-	String SYMBEX_VERDICT_TAG  = "THE VERDICT IS :";
-	String SYMBEX_VERDICT_FAIL = "FAIL";
-	String SYMBEX_VERDICT_PASS = "PASS";
+	String SYMBEX_EXIT_TAG      = "@exit";
+
+	String SYMBEX_VERDICT_TAG   = "verdict:";
+	String SYMBEX_VERDICT_FAIL  = "FAIL";
+	String SYMBEX_VERDICT_PASS  = "PASS";
+
+	String SYMBEX_COVERAGE_TAG  = "coverage:";
+	String SYMBEX_GOAL_ACHIEVED = "GOAL ACHIEVED";
 
 
 	/**

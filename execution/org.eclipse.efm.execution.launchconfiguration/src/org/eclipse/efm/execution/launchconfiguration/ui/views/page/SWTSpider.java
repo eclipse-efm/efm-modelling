@@ -20,6 +20,7 @@ import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 
@@ -42,13 +43,7 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 	private String symbexVerdict;
 	boolean enabledVerdictPrinting;
 
-	private final int xDecalage;
-	private final int yDecalage;
-	private final int rayon;
-
-//	private int xDecalage = 150;
-//	private int yDecalage = 150;
-//	private int rayon = 60;
+	private int rayon;   // 150
 
 	private int xCentre;
 	private int yCentre;
@@ -71,14 +66,10 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 	private int currentDepth2 = 0;
 	private int currentContext2 = 0;
 
-	public SWTSpider(final ScrolledComposite parent, final int style,
-			final int x, final int y, final int r, final String title)
+	public SWTSpider(final ScrolledComposite parent,
+			final int style, final String title)
 	{
 		super(parent, style);
-
-		xDecalage = x;
-		yDecalage = y;
-		rayon = r;
 
 		fRedrawBySystem = true;
 		spiderTitle = title;
@@ -95,18 +86,13 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 
 		this.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		addPaintListener(this);
-
 	}
 
 	@Override
 	public void paintControl(final PaintEvent e) {
 
 		if( fRedrawBySystem || fResetFlag ) {
-// 			System.out.println("fRedrawBySystem:>" + fRedrawBySystem);
-			xCentre = xDecalage + rayon;
-			yCentre = yDecalage + rayon;
-
-//			Device device = Display.getCurrent();
+			fillRectangle(e);
 
 			switch( fSpidertype ) {
 			case TETRAGON:
@@ -165,11 +151,56 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 		});
 	}
 
-	private void initSpider4Segments(final PaintEvent e) {
-		e.gc.fillRectangle(0, 0, SPIDER_RECTANGLE_WIDTH, SPIDER_RECTANGLE_HEIGHT);
 
+	private static final int SPIDER_RECTANGLE_MIN_WIDTH  = 200;
+
+	private static final int SPIDER_RECTANGLE_MIN_HEIGHT = 150;
+
+	private static final int SPIDER_MIN_RAYON = 50;
+
+
+	protected void fillRectangle(final PaintEvent pe) {
+		final Point paintArea = this.getSize();
+
+		final int width  = Math.max(SPIDER_RECTANGLE_MIN_WIDTH , paintArea.x);
+		final int height = Math.max(SPIDER_RECTANGLE_MIN_HEIGHT, paintArea.y);
+
+		pe.gc.fillRectangle(0, 0, width, height);
+
+		rayon = Math.max(Math.min(width, height) / 2 - 100 , SPIDER_MIN_RAYON);
+
+		xCentre = paintArea.x / 2;
+		yCentre = paintArea.y / 2;
+
+//		final int xOffset = 10;
+//		pe.gc.drawString("cadre: " + paintArea.x + " - " + paintArea.y, xOffset, 30);
+//		pe.gc.drawString("centr: " + xCentre     + " - " + yCentre    , xOffset, 50);
+//		pe.gc.drawString("rayon: " + rayon                            , xOffset, 70);
+	}
+
+	private void drawTitle(final PaintEvent pe) {
+        final Point textSize = pe.gc.textExtent(spiderTitle);
+
+        pe.gc.drawText(spiderTitle, (this.getSize().x - textSize.x)/2, 10);
+
+//		pe.gc.drawString(spiderTitle, 160, 10);
+	}
+
+//	private void drawTitle(final PaintEvent pe, final int color) {
+//		final Device device = Display.getCurrent();
+//
+//		pe.gc.setForeground(device.getSystemColor(color));
+//
+//		final Point textSize = pe.gc.textExtent(spiderTitle);
+//
+//		pe.gc.drawText(spiderTitle, (this.getSize().x - textSize.x)/2, 10);
+//
+////		pe.gc.drawString(spiderTitle, 160, 10);
+//	}
+
+	private void initSpider4Segments(final PaintEvent e) {
 		// Print Title
-		e.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
+		drawTitle(e);
 
 		// Point central
 		final int rayonCentre = 2;
@@ -178,22 +209,22 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 		// 4 Rayons
 		e.gc.drawLine(xCentre, yCentre, xCentre, yCentre-rayon);
 		e.gc.drawString("step", xCentre-15, yCentre-rayon-50);
-		e.gc.drawString(Integer.toString(currentStep)+"/"+Integer.toString(maxStep),
+		e.gc.drawString(Integer.toString(currentStep)+" / "+Integer.toString(maxStep),
 						xCentre-20, yCentre-rayon-30);
 
 		e.gc.drawLine(xCentre, yCentre, xCentre+rayon, yCentre);
 		e.gc.drawString("depth", xCentre+rayon+20, yCentre-20);
-		e.gc.drawString(Integer.toString(currentDepth)+"/"+Integer.toString(maxDepth),
+		e.gc.drawString(Integer.toString(currentDepth)+" / "+Integer.toString(maxDepth),
 				xCentre+rayon+20, yCentre);
 
 		e.gc.drawLine(xCentre, yCentre, xCentre, yCentre+rayon);
 		e.gc.drawString("context", xCentre-20, yCentre+rayon+10);
-		e.gc.drawString(Integer.toString(currentContext)+"/"+Integer.toString(maxContext),
+		e.gc.drawString(Integer.toString(currentContext)+" / "+Integer.toString(maxContext),
 				xCentre-20, yCentre+rayon+30);
 
 		e.gc.drawLine(xCentre, yCentre, xCentre-rayon, yCentre);
 		e.gc.drawString("width", xCentre-rayon-50, yCentre-20);
-		e.gc.drawString(Integer.toString(currentWidth)+"/"+Integer.toString(maxWidth),
+		e.gc.drawString(Integer.toString(currentWidth)+" / "+Integer.toString(maxWidth),
 				xCentre-rayon-50, yCentre);
 
 		// Segments
@@ -254,16 +285,9 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 	}
 
 
-	private static final int SPIDER_RECTANGLE_WIDTH = 600;
-
-	private static final int SPIDER_RECTANGLE_HEIGHT = 300;
-
-
 	private void initSpider5Segments(final PaintEvent e) {
-		e.gc.fillRectangle(0, 0, SPIDER_RECTANGLE_WIDTH, SPIDER_RECTANGLE_HEIGHT);
-
 		// Print Title
-		e.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
+		drawTitle(e);
 
 		// Point central
 		final int rayonCentre = 2;
@@ -273,31 +297,33 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 //		e.gc.setBackground(device.getSystemColor(SWT.COLOR_TRANSPARENT));
 		e.gc.drawLine(xCentre, yCentre, xCentre, yCentre-rayon);
 		e.gc.drawString("coverage", xCentre-30, yCentre-rayon-50);
-		e.gc.drawString(Integer.toString(currentCoverage)+"/"+Integer.toString(maxCoverage),
+		e.gc.drawString(Integer.toString(currentCoverage)+" / "+Integer.toString(maxCoverage),
 						xCentre-20, yCentre-rayon-30);
 
 		final int xVariation1 = (int) (rayon * 0.951); // sinus(72)
 		final int yVariation1 = (int) (rayon * 0.309); // cosinus(72)
+
 		e.gc.drawLine(xCentre, yCentre, xCentre-xVariation1, yCentre-yVariation1);
-		e.gc.drawString("context", xCentre-xVariation1-80, yCentre-yVariation1-20);
-		e.gc.drawString(Integer.toString(currentContext)+"/"+Integer.toString(maxContext),
-				xCentre-xVariation1-80, yCentre-yVariation1);
+		final String context = currentContext + " / " + maxContext;
+        final Point textSize = e.gc.textExtent(context);
+		e.gc.drawString("context", xCentre-xVariation1-50, yCentre-yVariation1-20);
+		e.gc.drawString(context, xCentre-xVariation1-textSize.x - 10, yCentre-yVariation1);
 
 		e.gc.drawLine(xCentre, yCentre, xCentre+xVariation1, yCentre-yVariation1);
 		e.gc.drawString("step", xCentre+xVariation1+10, yCentre-yVariation1-20);
-		e.gc.drawString(Integer.toString(currentStep)+"/"+Integer.toString(maxStep),
+		e.gc.drawString(Integer.toString(currentStep)+" / "+Integer.toString(maxStep),
 				xCentre+xVariation1+10, yCentre-yVariation1);
 
 		final int xVariation2 = (int) (rayon * 0.588); // sinus(72/2)
 		final int yVariation2 = (int) (rayon * 0.809); // cosinus(72/2)
 		e.gc.drawLine(xCentre, yCentre, xCentre-xVariation2, yCentre+yVariation2);
 		e.gc.drawString("depth", xCentre-xVariation2-20, yCentre+yVariation2+10);
-		e.gc.drawString(Integer.toString(currentDepth)+"/"+Integer.toString(maxDepth),
+		e.gc.drawString(Integer.toString(currentDepth)+" / "+Integer.toString(maxDepth),
 				xCentre-xVariation2-20, yCentre+yVariation2+30);
 
 		e.gc.drawLine(xCentre, yCentre, xCentre+xVariation2, yCentre+yVariation2);
 		e.gc.drawString("width", xCentre+xVariation2-20, yCentre+yVariation2+10);
-		e.gc.drawString(Integer.toString(currentWidth)+"/"+Integer.toString(maxWidth),
+		e.gc.drawString(Integer.toString(currentWidth)+" / "+Integer.toString(maxWidth),
 				xCentre+xVariation2-20, yCentre+yVariation2+30);
 
 		// Segments
@@ -373,7 +399,7 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 		}
 		else {
 			pe.gc.setForeground(device.getSystemColor(SWT.COLOR_DARK_GREEN));
-			pe.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
+			drawTitle(pe);
 			pe.gc.setForeground(device.getSystemColor(SWT.COLOR_GREEN));
 		}
 
@@ -389,19 +415,19 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 		final Device device = Display.getCurrent();
 		if ( currentCoverage < maxCoverage)	{
 			pe.gc.setForeground(device.getSystemColor(SWT.COLOR_RED));
-			pe.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
+			drawTitle(pe);
 //			pe.gc.setForeground(device.getSystemColor(SWT.COLOR_DARK_GREEN));
 		}
 		else {
 			pe.gc.setForeground(device.getSystemColor(SWT.COLOR_DARK_GREEN));
-			pe.gc.drawString(spiderTitle, xDecalage + 60, yDecalage - 80);
+			drawTitle(pe);
 		}
 
-		pe.gc.drawString("Trace extension:", xDecalage + 250, yDecalage - 80);
-		pe.gc.drawString("- step = " + currentStep2, xDecalage + 250, yDecalage - 60);
-		pe.gc.drawString("- context = " + currentContext2, xDecalage + 250, yDecalage - 40);
-		pe.gc.drawString("- depth = " + currentDepth2, xDecalage + 250, yDecalage - 20);
-		pe.gc.drawString("- width = " + currentWidth2, xDecalage + 250, yDecalage);
+		pe.gc.drawString("Trace extension:", 350, 10);
+		pe.gc.drawString("- step = "    + currentStep2   , 350, 30);
+		pe.gc.drawString("- context = " + currentContext2, 350, 50);
+		pe.gc.drawString("- depth = "   + currentDepth2  , 350, 70);
+		pe.gc.drawString("- width = "   + currentWidth2  , 350, 90);
 	}
 
 
@@ -474,7 +500,12 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 
 		pe.gc.setFont (new Font(device, fontData));
 
-		pe.gc.drawString(symbexVerdict, xCentre - 95, yCentre - 60, true);
+//        final Point textSize = pe.gc.textExtent(spiderTitle);
+//
+//        pe.gc.drawText(symbexVerdict,
+//        		(this.getSize().x - textSize.x)/2,
+//        		(this.getSize().y - textSize.y)/2, true);
+        pe.gc.drawString(symbexVerdict, xCentre - 95, yCentre - 60, true);
 	}
 
 

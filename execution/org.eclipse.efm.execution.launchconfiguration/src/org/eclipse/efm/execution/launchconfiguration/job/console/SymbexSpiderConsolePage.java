@@ -142,7 +142,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(fSashForm,
 				HelpContextIdConstants.sew_view_SymbexConsoleSpider);
 
-		fSpider = createSpider(fSashForm, 100, 90, 150,
+		fSpider = createSpider(fSashForm,
 				LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase());
 
 		super.createControl(fSashForm);
@@ -150,12 +150,12 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		fSashForm.setWeights(new int[] {40, 60});
     }
 
-	private SWTSpider createSpider(final Composite parent,
-			final int x, final int y, final int r, final String title) {
+	private SWTSpider createSpider(final Composite parent, final String title)
+	{
 		final ScrolledComposite compSpider = new ScrolledComposite (parent,
 				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.RESIZE);
 
-		fSpider = new SWTSpider(compSpider, SWT.NULL, x, y, r, title);
+		fSpider = new SWTSpider(compSpider, SWT.NULL, title);
 		compSpider.setContent(fSpider);
 		compSpider.setExpandHorizontal(true);
 		compSpider.setExpandVertical(true);
@@ -818,19 +818,53 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 							fConsoleBufferedWriter.append(traceLine).append('\n');
 							fConsoleBufferedWriter.flush();
 
-							if( traceLine.contains(SYMBEX_VERDICT_TAG) )
-							{
-								if( traceLine.contains(SYMBEX_VERDICT_PASS) )
-								{
-									showSymbexVerdict(SYMBEX_VERDICT_PASS);
+							int startExit = traceLine.indexOf(SYMBEX_EXIT_TAG);
+							if( startExit > 0 ) {
+								startExit += SYMBEX_EXIT_TAG.length() + 2;
+								int startPos = traceLine.indexOf(
+										SYMBEX_VERDICT_TAG, startExit);
+								if( startPos > 0 ) {
+									startPos += SYMBEX_VERDICT_TAG.length() + 1;
+									final int endPos =
+											traceLine.indexOf(" >", startPos);
+									if( endPos > 0 ) {
+										final String strVerdict =
+												traceLine.substring(startPos, endPos);
 
-//									openDialog("The Trace is CONFORM !", true);
+										showSymbexVerdict(strVerdict);
+
+//										if( strVerdict.contains(SYMBEX_VERDICT_PASS) )
+//										{
+//											showSymbexVerdict(SYMBEX_VERDICT_PASS);
+//
+//	//										openDialog("The Trace is CONFORM !", true);
+//										}
+//										else if( strVerdict.contains(SYMBEX_VERDICT_FAIL) )
+//										{
+//											showSymbexVerdict(SYMBEX_VERDICT_FAIL);
+//
+//	//										openDialog("The Trace is NOT CONFORM !!!", false);
+//										}
+									}
 								}
-								else if( traceLine.contains(SYMBEX_VERDICT_FAIL) )
+								else if( (startPos = traceLine.indexOf(
+										SYMBEX_COVERAGE_TAG, startExit)) > 0 )
 								{
-									showSymbexVerdict(SYMBEX_VERDICT_FAIL);
+									startPos += SYMBEX_COVERAGE_TAG.length() + 1;
 
-//									openDialog("The Trace is NOT CONFORM !!!", false);
+									final int endPos = traceLine.indexOf(" >", startPos);
+
+									if( endPos > 0 ) {
+										final String strVerdict =
+												traceLine.substring(startPos, endPos);
+
+										if( strVerdict.contains(SYMBEX_GOAL_ACHIEVED) )
+										{
+											showSymbexVerdict("100%");
+
+	//										openDialog("The Objective is ACHIEVED !!!", false);
+										}
+									}
 								}
 							}
 						}

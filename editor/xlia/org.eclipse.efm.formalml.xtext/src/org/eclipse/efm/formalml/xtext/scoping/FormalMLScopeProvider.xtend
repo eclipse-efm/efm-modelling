@@ -83,7 +83,6 @@ import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.xbase.lib.Functions.Function1
 import org.eclipse.efm.ecore.formalml.infrastructure.ComProtocol
 import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceSpecification
-import org.eclipse.efm.ecore.formalml.infrastructure.Function
 import org.eclipse.efm.formalml.ecore.factory.XLIA_EXPRESSION
 import org.eclipse.efm.formalml.ecore.factory.XLIA_STATEMENT
 

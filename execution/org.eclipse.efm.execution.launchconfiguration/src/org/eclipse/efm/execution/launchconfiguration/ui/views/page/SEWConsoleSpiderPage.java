@@ -85,7 +85,7 @@ public class SEWConsoleSpiderPage extends Page
 		fSashForm.setFont(parent.getFont());
 		fSashForm.setVisible(true);
 
-		fSpider = createSpider(fSashForm, 100, 90, 150,
+		fSpider = createSpider(fSashForm,
 				LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase());
 
 		createConsoleViewer(fSashForm);
@@ -111,8 +111,7 @@ public class SEWConsoleSpiderPage extends Page
 		comp.setLayoutData(dataRight);
 	}
 
-	private SWTSpider createSpider(final Composite parent,
-			final int x, final int y, final int r, final String title)
+	private SWTSpider createSpider(final Composite parent, final String title)
 	{
 //		Group group = SWTFactory.createGroup(parent, "", 1, 1, GridData.FILL_BOTH);
 //		group.setText("MODEL ANALYSIS");
@@ -120,7 +119,7 @@ public class SEWConsoleSpiderPage extends Page
 		compSpider = new ScrolledComposite (parent,
 				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.RESIZE);
 
-		fSpider = new SWTSpider(compSpider, SWT.NULL, x, y, r, title);
+		fSpider = new SWTSpider(compSpider, SWT.NULL, title);
 		compSpider.setContent(fSpider);
 		compSpider.setExpandHorizontal(true);
 		compSpider.setExpandVertical(true);
@@ -634,7 +633,7 @@ public class SEWConsoleSpiderPage extends Page
 		maxStep = resizeStep ? DEFAULT_PERIOD_VALUE : bounds[0];
 
 		resizeContext = (bounds[1] == INT_INIFINITE);
-		maxContext = resizeContext ? DEFAULT_PERIOD_VALUE : bounds[1];;
+		maxContext = resizeContext ? DEFAULT_PERIOD_VALUE : bounds[1];
 
 		resizeHeight = (bounds[2] == INT_INIFINITE);
 		maxHeight = resizeHeight ? DEFAULT_PERIOD_VALUE : bounds[2];
