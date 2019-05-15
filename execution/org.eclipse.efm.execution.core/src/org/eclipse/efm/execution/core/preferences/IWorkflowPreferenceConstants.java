@@ -26,7 +26,7 @@ public interface IWorkflowPreferenceConstants {
 	 *
 	 * @since org.eclipse.efm.runconfiguration 1.0.100
 	 */
-	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
+	String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	/**
 	 * Plug-in identifier for Diversity SDK Common UI (value <code>org.eclipse.efm.symbex.ui</code>).
@@ -37,22 +37,22 @@ public interface IWorkflowPreferenceConstants {
 	// PREFERENCE PLUGIN PREFIX ID
 	////////////////////////////////////////////////////////////////////////////
 
-	public static final String PLUGIN_PREFERENCE_ID = Activator.PLUGIN_ID; //$NON-NLS-1$;
+	String PLUGIN_PREFERENCE_ID = Activator.PLUGIN_ID; //$NON-NLS-1$;
 
 
 	// The Diversity install location
-	public static final String PREF_DIVERSITY_INSTALLATION_LOCATION =
+	String PREF_DIVERSITY_INSTALLATION_LOCATION =
 			PLUGIN_PREFERENCE_ID + ".PREF_DIVERSITY_INSTALLATION_LOCATION";
 
 	// The Abstract Virtual Machine executable location
-	public static final String PREF_DIVERSITY_AVM_EXECUTABLE_LOCATION =
+	String PREF_DIVERSITY_AVM_EXECUTABLE_LOCATION =
 			PLUGIN_PREFERENCE_ID + ".PREF_DIVERSITY_AVM_EXECUTABLE_LOCATION";
 
-	public static final String PREF_DIVERSITY_AVM_EXECUTABLE_VERSION =
+	String PREF_DIVERSITY_AVM_EXECUTABLE_VERSION =
 			PLUGIN_PREFERENCE_ID + ".PREF_DIVERSITY_AVM_EXECUTABLE_VERSION";
 
 	// The Diversity graph viewer location
-	public static final String PREF_DIVERSITY_GRAPH_VIEWER_LOCATION =
+	String PREF_DIVERSITY_GRAPH_VIEWER_LOCATION =
 			PLUGIN_PREFERENCE_ID + ".PREF_DIVERSITY_GRAPH_VIEWER_LOCATION";
 
 	/**
@@ -64,21 +64,36 @@ public interface IWorkflowPreferenceConstants {
 	// LAUNCH CONFIGURATION ID
 	////////////////////////////////////////////////////////////////////////////
 
-	public static final String PREF_LAUNCH_CONFIGURATION_SELECTION =
+	String PREF_LAUNCH_CONFIGURATION_SELECTION =
 			PLUGIN_PREFERENCE_ID + ".PREF_LAUNCH_CONFIGURATION_SELECTION";
 
 
-	public static final String PREF_EXPERT_MODE =
+	String PREF_EXPERT_MODE =
 			PLUGIN_PREFERENCE_ID + ".PREF_EXPERT_MODE";
 
-	public static final String PREF_INCUBATION_MODE =
+	String PREF_INCUBATION_MODE =
 			PLUGIN_PREFERENCE_ID + ".PREF_INCUBATION_MODE";
 
-	public static final String PREF_DEBUG_OPTIONS =
+	String PREF_DEBUG_OPTIONS =
 			PLUGIN_PREFERENCE_ID + ".PREF_DEBUG_OPTIONS";
 
-	public static final String PREF_SYMBEX_DEVELOPER_MODE =
+	String PREF_SYMBEX_DEVELOPER_MODE =
 			PLUGIN_PREFERENCE_ID + ".PREF_SYMBEX_DEVELOPER_MODE";
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// SYMBEX CONSOLE PREFERENCE  ID
+	////////////////////////////////////////////////////////////////////////////
+
+	String PREF_SYMBEX_CONSOLE_SASH_ORIENTATION =
+			PLUGIN_PREFERENCE_ID + ".PREF_SYMBEX_CONSOLE_SASH_ORIENTATION";
+
+	String PREF_SYMBEX_CONSOLE_SASH_WEIGHT_CHILD_0 =
+			PLUGIN_PREFERENCE_ID + ".PREF_SYMBEX_CONSOLE_SASH_WEIGHT_CHILD_0";
+
+	String PREF_SYMBEX_CONSOLE_SASH_WEIGHT_CHILD_1 =
+			PLUGIN_PREFERENCE_ID + ".PREF_SYMBEX_CONSOLE_SASH_WEIGHT_CHILD_1";
+
 
 
 //	/**
@@ -122,7 +137,7 @@ public interface IWorkflowPreferenceConstants {
 	/**
 	 * Status code indicating an unexpected internal error.
 	 */
-	public static final int ERR_INTERNAL_ERROR = 150;
+	int ERR_INTERNAL_ERROR = 150;
 
 //	/**
 //	 * String attribute identifying a non-external tool builder launch configuration that is disabled

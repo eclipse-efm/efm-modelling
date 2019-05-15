@@ -3,7 +3,7 @@
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * http://www.eclipse.org/legal/epl - v10.html
  *
  * Contributors:
  *     Alain Faivre (CEA LIST) alain.faivre@cea.fr - Initial API and implementation
@@ -43,7 +43,7 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 	private String symbexVerdict;
 	boolean enabledVerdictPrinting;
 
-	private int rayon;   // 150
+	private int rayon;
 
 	private int xCentre;
 	private int yCentre;
@@ -86,6 +86,17 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 
 		this.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TRANSPARENT));
 		addPaintListener(this);
+	}
+
+	protected void syncRedraw() {
+		Display.getDefault().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				if( ! isDisposed() ) {
+					redraw();
+				}
+			}
+		});
 	}
 
 	@Override
@@ -143,12 +154,7 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 
 		enabledVerdictPrinting = false;
 
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				redraw();
-			}
-		});
+		syncRedraw();
 	}
 
 
@@ -204,28 +210,34 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 
 		// Point central
 		final int rayonCentre = 2;
-		e.gc.fillOval(xCentre-rayonCentre, yCentre-rayonCentre, 2*rayonCentre, 2*rayonCentre);
+		e.gc.fillOval(xCentre - rayonCentre, yCentre - rayonCentre, 2*rayonCentre, 2*rayonCentre);
 
 		// 4 Rayons
-		e.gc.drawLine(xCentre, yCentre, xCentre, yCentre-rayon);
-		e.gc.drawString("step", xCentre-15, yCentre-rayon-50);
-		e.gc.drawString(Integer.toString(currentStep)+" / "+Integer.toString(maxStep),
-						xCentre-20, yCentre-rayon-30);
+		e.gc.drawLine(xCentre, yCentre, xCentre, yCentre - rayon);
+		e.gc.drawString("step", (this.getSize().x - e.gc.textExtent("step").x)/2,
+				yCentre - rayon - 50);
+		final String step = currentStep + " / " + maxStep;
+        final Point stepSize = e.gc.textExtent(step);
+		e.gc.drawString(step, (this.getSize().x - stepSize.x)/2, yCentre - rayon - 30);
 
-		e.gc.drawLine(xCentre, yCentre, xCentre+rayon, yCentre);
-		e.gc.drawString("depth", xCentre+rayon+20, yCentre-20);
-		e.gc.drawString(Integer.toString(currentDepth)+" / "+Integer.toString(maxDepth),
-				xCentre+rayon+20, yCentre);
+		e.gc.drawLine(xCentre, yCentre, xCentre + rayon, yCentre);
+		e.gc.drawString("depth", xCentre + rayon + 10, yCentre - 20);
+		e.gc.drawString(currentDepth + " / " + maxDepth,
+				xCentre + rayon + 10, yCentre);
 
-		e.gc.drawLine(xCentre, yCentre, xCentre, yCentre+rayon);
-		e.gc.drawString("context", xCentre-20, yCentre+rayon+10);
-		e.gc.drawString(Integer.toString(currentContext)+" / "+Integer.toString(maxContext),
-				xCentre-20, yCentre+rayon+30);
 
-		e.gc.drawLine(xCentre, yCentre, xCentre-rayon, yCentre);
-		e.gc.drawString("width", xCentre-rayon-50, yCentre-20);
-		e.gc.drawString(Integer.toString(currentWidth)+" / "+Integer.toString(maxWidth),
-				xCentre-rayon-50, yCentre);
+		e.gc.drawLine(xCentre, yCentre, xCentre, yCentre + rayon);
+		e.gc.drawString("context", (this.getSize().x - e.gc.textExtent("context").x)/2,
+				yCentre + rayon + 10);
+		final String context = currentContext + " / " + maxContext;
+        final Point contextSize = e.gc.textExtent(context);
+		e.gc.drawString(context, (this.getSize().x - contextSize.x)/2, yCentre + rayon + 30);
+
+		e.gc.drawLine(xCentre, yCentre, xCentre - rayon, yCentre);
+		e.gc.drawString("width", xCentre - rayon - e.gc.textExtent("width").x - 10, yCentre - 20);
+		final String width = currentWidth + " / " + maxWidth;
+        final Point widthSize = e.gc.textExtent(width);
+		e.gc.drawString(width, xCentre - rayon - widthSize.x - 10, yCentre);
 
 		// Segments
 		draw4RegularSegments(e, rayon / 4);
@@ -235,10 +247,10 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 	}
 
 	public void draw4RegularSegments(final PaintEvent pe, final int lg) {
-		pe.gc.drawLine(xCentre, yCentre - lg, xCentre+lg, yCentre);
-		pe.gc.drawLine(xCentre+lg, yCentre, xCentre, yCentre+lg);
-		pe.gc.drawLine(xCentre, yCentre+lg, xCentre-lg, yCentre);
-		pe.gc.drawLine(xCentre-lg, yCentre, xCentre, yCentre - lg);
+		pe.gc.drawLine(xCentre, yCentre - lg, xCentre + lg, yCentre);
+		pe.gc.drawLine(xCentre + lg, yCentre, xCentre, yCentre + lg);
+		pe.gc.drawLine(xCentre, yCentre + lg, xCentre - lg, yCentre);
+		pe.gc.drawLine(xCentre - lg, yCentre, xCentre, yCentre - lg);
 	}
 
 	public void draw4CurrentSegments(final PaintEvent pe,
@@ -252,7 +264,7 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 			 mContext == 0 ||
 			 mWidth == 0 )
 			{
-				// Pb de rafraichissement des variables en multi-threading
+				// Pb de rafraichissement des variables en multi - threading
 				// qui peut provoquer une division par zéro
 				//
 				return;
@@ -263,15 +275,15 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 		final int yP1 = yCentre - lgPoint;
 
 		lgPoint = rayon * cDepth / mDepth;
-		final int xP2 = xCentre+lgPoint;
+		final int xP2 = xCentre + lgPoint;
 		final int yP2 = yCentre;
 
 		lgPoint = rayon * cContext / mContext;
 		final int xP3 = xCentre;
-		final int yP3 = yCentre+lgPoint;
+		final int yP3 = yCentre + lgPoint;
 
 		lgPoint = rayon * cWidth / mWidth;
-		final int xP4 = xCentre-lgPoint;
+		final int xP4 = xCentre - lgPoint;
 		final int yP4 = yCentre;
 
 		final Device device = Display.getCurrent();
@@ -291,40 +303,44 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 
 		// Point central
 		final int rayonCentre = 2;
-		e.gc.fillOval(xCentre-rayonCentre, yCentre-rayonCentre, 2*rayonCentre, 2*rayonCentre);
+		e.gc.fillOval(xCentre - rayonCentre,
+				yCentre - rayonCentre, 2*rayonCentre, 2*rayonCentre);
 
 		// 5 Rayons
 //		e.gc.setBackground(device.getSystemColor(SWT.COLOR_TRANSPARENT));
-		e.gc.drawLine(xCentre, yCentre, xCentre, yCentre-rayon);
-		e.gc.drawString("coverage", xCentre-30, yCentre-rayon-50);
-		e.gc.drawString(Integer.toString(currentCoverage)+" / "+Integer.toString(maxCoverage),
-						xCentre-20, yCentre-rayon-30);
+		e.gc.drawLine(xCentre, yCentre, xCentre, yCentre - rayon);
+		e.gc.drawString("coverage", (this.getSize().x - e.gc.textExtent("coverage").x)/2,
+				yCentre - rayon - 50);
+		final String coverage = currentCoverage + " / " + maxCoverage;
+        final Point coverageSize = e.gc.textExtent(coverage);
+		e.gc.drawString(coverage, (this.getSize().x - coverageSize.x)/2,
+				yCentre - rayon - 30);
 
 		final int xVariation1 = (int) (rayon * 0.951); // sinus(72)
 		final int yVariation1 = (int) (rayon * 0.309); // cosinus(72)
 
-		e.gc.drawLine(xCentre, yCentre, xCentre-xVariation1, yCentre-yVariation1);
+		e.gc.drawLine(xCentre, yCentre, xCentre - xVariation1, yCentre - yVariation1);
+		e.gc.drawString("context", xCentre - xVariation1 - 50, yCentre - yVariation1 - 20);
 		final String context = currentContext + " / " + maxContext;
-        final Point textSize = e.gc.textExtent(context);
-		e.gc.drawString("context", xCentre-xVariation1-50, yCentre-yVariation1-20);
-		e.gc.drawString(context, xCentre-xVariation1-textSize.x - 10, yCentre-yVariation1);
+        final Point contextSize = e.gc.textExtent(context);
+		e.gc.drawString(context, xCentre - xVariation1 - contextSize.x - 10, yCentre - yVariation1);
 
-		e.gc.drawLine(xCentre, yCentre, xCentre+xVariation1, yCentre-yVariation1);
-		e.gc.drawString("step", xCentre+xVariation1+10, yCentre-yVariation1-20);
-		e.gc.drawString(Integer.toString(currentStep)+" / "+Integer.toString(maxStep),
-				xCentre+xVariation1+10, yCentre-yVariation1);
+		e.gc.drawLine(xCentre, yCentre, xCentre + xVariation1, yCentre - yVariation1);
+		e.gc.drawString("step", xCentre + xVariation1 + 10, yCentre - yVariation1 - 20);
+		e.gc.drawString(currentStep + " / " + maxStep,
+				xCentre + xVariation1 + 10, yCentre - yVariation1);
 
 		final int xVariation2 = (int) (rayon * 0.588); // sinus(72/2)
 		final int yVariation2 = (int) (rayon * 0.809); // cosinus(72/2)
-		e.gc.drawLine(xCentre, yCentre, xCentre-xVariation2, yCentre+yVariation2);
-		e.gc.drawString("depth", xCentre-xVariation2-20, yCentre+yVariation2+10);
-		e.gc.drawString(Integer.toString(currentDepth)+" / "+Integer.toString(maxDepth),
-				xCentre-xVariation2-20, yCentre+yVariation2+30);
+		e.gc.drawLine(xCentre, yCentre, xCentre - xVariation2, yCentre + yVariation2);
+		e.gc.drawString("depth", xCentre - xVariation2 - 20, yCentre + yVariation2 + 10);
+		e.gc.drawString(currentDepth + " / " + maxDepth,
+				xCentre - xVariation2 - 20, yCentre + yVariation2 + 30);
 
-		e.gc.drawLine(xCentre, yCentre, xCentre+xVariation2, yCentre+yVariation2);
-		e.gc.drawString("width", xCentre+xVariation2-20, yCentre+yVariation2+10);
-		e.gc.drawString(Integer.toString(currentWidth)+" / "+Integer.toString(maxWidth),
-				xCentre+xVariation2-20, yCentre+yVariation2+30);
+		e.gc.drawLine(xCentre, yCentre, xCentre + xVariation2, yCentre + yVariation2);
+		e.gc.drawString("width", xCentre + xVariation2 - 20, yCentre + yVariation2 + 10);
+		e.gc.drawString(currentWidth + " / " + maxWidth,
+				xCentre + xVariation2 - 20, yCentre + yVariation2 + 30);
 
 		// Segments
 		draw5RegularSegments(e, rayon / 4);
@@ -336,29 +352,30 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 	public void draw5RegularSegments(final PaintEvent pe, final int lg) {
 		final int xVariation1 = (int) (lg * 0.951); // sinus(72)
 		final int yVariation1 = (int) (lg  * 0.309); // cosinus(72)
-		pe.gc.drawLine(xCentre, yCentre - lg, xCentre-xVariation1, yCentre-yVariation1);
-		pe.gc.drawLine(xCentre, yCentre - lg, xCentre+xVariation1, yCentre-yVariation1);
+		pe.gc.drawLine(xCentre, yCentre - lg, xCentre - xVariation1, yCentre - yVariation1);
+		pe.gc.drawLine(xCentre, yCentre - lg, xCentre + xVariation1, yCentre - yVariation1);
+
 		final int xVariation2 = (int) (lg * 0.588); // sinus(72/2)
 		final int yVariation2 = (int) (lg * 0.809); // cosinus(72/2)
-		pe.gc.drawLine(xCentre-xVariation1, yCentre-yVariation1, xCentre-xVariation2, yCentre+yVariation2);
-		pe.gc.drawLine(xCentre+xVariation1, yCentre-yVariation1, xCentre+xVariation2, yCentre+yVariation2);
-		pe.gc.drawLine(xCentre-xVariation2, yCentre+yVariation2, xCentre+xVariation2, yCentre+yVariation2);
+		pe.gc.drawLine( xCentre - xVariation1, yCentre - yVariation1,
+						xCentre - xVariation2, yCentre + yVariation2 );
+		pe.gc.drawLine( xCentre + xVariation1, yCentre - yVariation1,
+						xCentre + xVariation2, yCentre + yVariation2 );
+		pe.gc.drawLine( xCentre - xVariation2, yCentre + yVariation2,
+						xCentre + xVariation2, yCentre + yVariation2 );
 	}
 
 	public void draw5CurrentSegments(final PaintEvent pe,
-								final int cCoverage, final int mCoverage,
-								final int cStep, final int mStep,
-								final int cWidth, final int mWidth,
-								final int cDepth, final int mDepth,
-								final int cContext, final int mContext) {
+			final int cCoverage, final int mCoverage,
+			final int cStep, final int mStep,
+			final int cWidth, final int mWidth,
+			final int cDepth, final int mDepth,
+			final int cContext, final int mContext) {
 
-		if ( mCoverage == 0 ||
-			 mContext == 0 ||
-			 mDepth == 0 ||
-			 mWidth == 0 ||
-			 mStep == 0 )
+		if ( mCoverage == 0 || mContext == 0 ||
+			 mDepth    == 0 || mWidth   == 0 || mStep == 0 )
 		{
-			// Pb de rafraichissement des variables en multi-threading
+			// Pb de rafraichissement des variables en multi - threading
 			// qui peut provoquer une division par zéro
 			//
 			return;
@@ -371,26 +388,26 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 		lgPoint = rayon * cContext / mContext;
 		int xVariation = (int) (lgPoint * 0.951); // sinus(72)
 		int yVariation = (int) (lgPoint  * 0.309); // cosinus(72)
-		final int xP2 = xCentre-xVariation;
-		final int yP2 = yCentre-yVariation;
+		final int xP2 = xCentre - xVariation;
+		final int yP2 = yCentre - yVariation;
 
 		lgPoint = rayon * cDepth / mDepth;
 		xVariation = (int) (lgPoint * 0.588); // sinus(72/2)
 		yVariation = (int) (lgPoint * 0.809); // cosinus(72/2)
-		final int xP3 = xCentre-xVariation;
-		final int yP3 = yCentre+yVariation;
+		final int xP3 = xCentre - xVariation;
+		final int yP3 = yCentre + yVariation;
 
 		lgPoint = rayon * cWidth / mWidth;
 		xVariation = (int) (lgPoint * 0.588); // sinus(72/2)
 		yVariation = (int) (lgPoint * 0.809); // cosinus(72/2)
-		final int xP4 = xCentre+xVariation;
-		final int yP4 = yCentre+yVariation;
+		final int xP4 = xCentre + xVariation;
+		final int yP4 = yCentre + yVariation;
 
 		lgPoint = rayon * cStep / mStep;
 		xVariation = (int) (lgPoint * 0.951); // sinus(72)
 		yVariation = (int) (lgPoint  * 0.309); // cosinus(72)
-		final int xP5 = xCentre+xVariation;
-		final int yP5 = yCentre-yVariation;
+		final int xP5 = xCentre + xVariation;
+		final int yP5 = yCentre - yVariation;
 
 		final Device device = Display.getCurrent();
 
@@ -458,12 +475,7 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 
 		fRedrawBySystem = false;
 
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				redraw();
-			}
-		});
+		syncRedraw();
 
 		fRedrawBySystem = true;
 	}
@@ -476,12 +488,7 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 
 		fRedrawBySystem = false;
 
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				redraw();
-			}
-		});
+		syncRedraw();
 
 		fRedrawBySystem = true;
 	}
@@ -495,17 +502,16 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 						SWT.COLOR_RED : SWT.COLOR_BLUE));
 
 		final FontData[] fontData = pe.gc.getFont().getFontData();
-		for(int i = 0; i < fontData.length; ++i)
+		for(int i = 0; i < fontData.length; ++ i)
 		    fontData[i].setHeight(64);
 
 		pe.gc.setFont (new Font(device, fontData));
 
-//        final Point textSize = pe.gc.textExtent(spiderTitle);
-//
-//        pe.gc.drawText(symbexVerdict,
-//        		(this.getSize().x - textSize.x)/2,
-//        		(this.getSize().y - textSize.y)/2, true);
-        pe.gc.drawString(symbexVerdict, xCentre - 95, yCentre - 60, true);
+        final Point textSize = pe.gc.textExtent(symbexVerdict);
+
+        pe.gc.drawText(symbexVerdict,
+        		(this.getSize().x - textSize.x)/2,
+        		(this.getSize().y - textSize.y)/2, true);
 	}
 
 

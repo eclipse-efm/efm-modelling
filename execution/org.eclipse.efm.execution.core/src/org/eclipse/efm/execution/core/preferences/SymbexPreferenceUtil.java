@@ -12,6 +12,8 @@ package org.eclipse.efm.execution.core.preferences;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.efm.execution.core.Activator;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -30,24 +32,28 @@ public class SymbexPreferenceUtil {
 	// PREFERENCE STORE UTILS
 	////////////////////////////////////////////////////////////////////////////
 
+	public static IEclipsePreferences getPreference() {
+		return InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
+	}
+
 	public static IPreferenceStore getDefaultPreferenceStore() {
 		return Activator.getDefault().getPreferenceStore();
 	}
 
-	public static boolean getBooleanPreference(String name) {
+	public static boolean getBooleanPreference(final String name) {
 		return Activator.getDefault().getPreferenceStore().getBoolean(name);
 	}
 
-	public static String getStringPreference(String name) {
+	public static String getStringPreference(final String name) {
 		return Activator.getDefault().getPreferenceStore().getString(name);
 	}
 
-	public static void setPreference(String name, String value) {
+	public static void setPreference(final String name, final String value) {
 		Activator.getDefault().getPreferenceStore().setValue(name, value);
 	}
 
 
-	public static void loadGlobals(IPreferenceStore prefs) throws Exception {
+	public static void loadGlobals(final IPreferenceStore prefs) throws Exception {
 		fDiversityInstallationLocation = new Path( prefs.getString(
 				IWorkflowPreferenceConstants.PREF_DIVERSITY_INSTALLATION_LOCATION) );
 
@@ -75,7 +81,7 @@ public class SymbexPreferenceUtil {
 		return( fDiversityInstallationLocation != null );
 	}
 
-	public static void setDiversityInstallationLocation(IPath path) {
+	public static void setDiversityInstallationLocation(final IPath path) {
 		fDiversityInstallationLocation = path;
 	}
 
@@ -97,7 +103,7 @@ public class SymbexPreferenceUtil {
 				fDiversityAvmExecLocation.toFile().exists() );
 	}
 
-	public static void setDiversityAvmExecLocation(IPath path) {
+	public static void setDiversityAvmExecLocation(final IPath path) {
 		fDiversityAvmExecLocation = path;
 	}
 
@@ -119,7 +125,7 @@ public class SymbexPreferenceUtil {
 				fExternalDotGraphViewerPath.toFile().exists() );
 	}
 
-	public static void setExternalDotGraphViewerPath(IPath path) {
+	public static void setExternalDotGraphViewerPath(final IPath path) {
 		fExternalDotGraphViewerPath = path;
 	}
 

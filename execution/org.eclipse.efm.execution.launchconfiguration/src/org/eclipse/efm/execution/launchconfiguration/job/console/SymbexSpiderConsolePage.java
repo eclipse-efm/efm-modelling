@@ -29,11 +29,13 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
+import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchDelegate;
@@ -57,6 +59,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -67,6 +71,7 @@ import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.internal.console.IOConsolePage;
+import org.osgi.service.prefs.BackingStoreException;
 
 @SuppressWarnings("restriction")
 public class SymbexSpiderConsolePage extends IOConsolePage
@@ -132,7 +137,6 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		// Create the SashForm that contains the selection area on the left,
 		// and the edit area on the right
     	fMainPageControl = fSashForm = new SashForm(parent, SWT.SMOOTH);
-		fSashForm.setOrientation(SWT.HORIZONTAL);
 		final GridData gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		fSashForm.setLayoutData(gd);
@@ -147,7 +151,52 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		super.createControl(fSashForm);
 
-		fSashForm.setWeights(new int[] {40, 60});
+		// Sash: restore/save orientation & weights
+		restoreSashConfiguration();
+
+		fSashForm.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(final DisposeEvent e) {
+				saveSashConfiguration();
+			}
+		});
+    }
+
+    private void restoreSashConfiguration() {
+
+    	final IEclipsePreferences prefs = SymbexPreferenceUtil.getPreference();
+
+		// SASH ORIENTATION
+		final int orientation = prefs.getInt(
+				PREF_SYMBEX_CONSOLE_SASH_ORIENTATION, SWT.HORIZONTAL);
+		fSashForm.setOrientation(orientation);
+
+		// SASH _WEIGHTS
+		fSashForm.setWeights( new int[] {
+				prefs.getInt(PREF_SYMBEX_CONSOLE_SASH_WEIGHT_CHILD_0, 40),
+				prefs.getInt(PREF_SYMBEX_CONSOLE_SASH_WEIGHT_CHILD_1, 60) } );
+   }
+
+    private void saveSashConfiguration() {
+    	final IEclipsePreferences prefs = SymbexPreferenceUtil.getPreference();
+
+		// SASH ORIENTATION
+    	prefs.putInt(
+				PREF_SYMBEX_CONSOLE_SASH_ORIENTATION,
+				fSashForm.getOrientation());
+
+
+		// SASH _WEIGHTS
+		final int[] weights = fSashForm.getWeights();
+		prefs.putInt(PREF_SYMBEX_CONSOLE_SASH_WEIGHT_CHILD_0, weights[0]);
+		prefs.putInt(PREF_SYMBEX_CONSOLE_SASH_WEIGHT_CHILD_1, weights[1]);
+
+		try {
+			prefs.flush();
+		}
+		catch (final BackingStoreException e) {
+			e.printStackTrace();
+		}
     }
 
 	private SWTSpider createSpider(final Composite parent, final String title)
