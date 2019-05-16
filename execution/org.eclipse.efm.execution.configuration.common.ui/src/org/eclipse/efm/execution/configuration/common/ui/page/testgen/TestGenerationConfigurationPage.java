@@ -42,12 +42,12 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 
 
 	// BASIC TRACE GENERATION
-	private TestGenerationBasicTraceConfigurationProfile fBasicTracePage;
+	private final TestGenerationBasicTraceConfigurationProfile fBasicTracePage;
 
 	// TTCN TRACE GENERATION
-	private TestGenerationTTCNConfigurationProfile fTTCNTracePage;
+	private final TestGenerationTTCNConfigurationProfile fTTCNTracePage;
 
-	public TestGenerationConfigurationPage(ILaunchConfigurationGUIelement masterGUIelement) {
+	public TestGenerationConfigurationPage(final ILaunchConfigurationGUIelement masterGUIelement) {
 		super(masterGUIelement);
 		fBasicTracePage = new TestGenerationBasicTraceConfigurationProfile(this);
 
@@ -59,7 +59,7 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
 		createExtensionFormatPage(parent, widgetToolkit);
 
@@ -79,15 +79,15 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	}
 
 
-	public void createExtensionFormatPage(Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(
+	public void createExtensionFormatPage(final Composite parent, final IWidgetToolkit widgetToolkit) {
+		final Group group = widgetToolkit.createGroup(
 				parent, "Trace Extension Page",
 				1, 1, GridData.FILL_HORIZONTAL);
 
 		createExtensionSelectionComponent(group, widgetToolkit);
 	}
 
-	private void createExtensionSelectionComponent(Composite parent, IWidgetToolkit widgetToolkit) {
+	private void createExtensionSelectionComponent(final Composite parent, final IWidgetToolkit widgetToolkit) {
 		groupTraceExtension = widgetToolkit.createGroup(parent,
 				"Trace Extension for Test Generation Purpose",
 				1, 1, GridData.FILL_HORIZONTAL);
@@ -101,12 +101,12 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 		fTraceExtensionEnabledBooleanField.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
-					public void widgetSelected(SelectionEvent e) {
+					public void widgetSelected(final SelectionEvent e) {
 						handleEnablingTraceExtension();
 
 						propertyChange( new PropertyChangeEvent(this, ATTR_ENABLED_TRACE_EXTENSION,
-								new Boolean(fTraceExtensionEnabledBooleanField.getBooleanValue()),
-								new Boolean(fTraceExtensionEnabledBooleanField.getBooleanValue()) ));
+								Boolean.valueOf(fTraceExtensionEnabledBooleanField.getBooleanValue()),
+								Boolean.valueOf(fTraceExtensionEnabledBooleanField.getBooleanValue()) ));
 
 					}
 				});
@@ -152,7 +152,7 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_ENABLED_TRACE_EXTENSION, false);
 
@@ -169,7 +169,7 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	}
 
 	@Override
-	public void initializeFromImpl(ILaunchConfiguration configuration) {
+	public void initializeFromImpl(final ILaunchConfiguration configuration) {
 //		String analysisProfile;
 //		try {
 //			analysisProfile = configuration.getAttribute(
@@ -195,7 +195,7 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 
 
 	@Override
-	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration)
+	public void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration)
 	{
 		fBasicTracePage.performApply(configuration);
 
@@ -207,7 +207,7 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	// ======================================================================================
 
 	@Override
-	public FieldValidationReturn areFieldsValidImpl(ILaunchConfiguration launchConfig) {
+	public FieldValidationReturn areFieldsValidImpl(final ILaunchConfiguration launchConfig) {
 		if( ! fTraceExtensionEvaluationStepsLimitIntegerField.isValid() ) {
 			return new FieldValidationReturn(false, "Evaluation Steps is not a valid integer");
 		}
@@ -228,22 +228,23 @@ public class TestGenerationConfigurationPage extends AbstractConfigurationPage {
 	// Property Change
 	//
 	@Override
-	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(final PropertyChangeEvent event) {
 		switch( event.getProperty() ) {
 		case ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE:
 			switch ( (AnalysisProfileKind) event.getNewValue() ) {
-			case ANALYSIS_TEST_OFFLINE_PROFILE:
-				groupTraceExtension.setEnabled(false);
-
-				propagateVisibility(groupExtensionObjective, false);
-
-				setVisibleAndEnabled(fBasicTracePage.getSection(), false);
-				setVisibleAndEnabled(fTTCNTracePage.getSection() , false);
-
-				break;
+//			case :
+//				groupTraceExtension.setEnabled(false);
+//
+//				propagateVisibility(groupExtensionObjective, false);
+//
+//				setVisibleAndEnabled(fBasicTracePage.getSection(), false);
+//				setVisibleAndEnabled(fTTCNTracePage.getSection() , false);
+//
+//				break;
 
 			case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
 			case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
+			case ANALYSIS_TEST_OFFLINE_PROFILE:
 			case ANALYSIS_ACSL_GENERATION_PROFILE:
 			case ANALYSIS_EXTRANEOUS_PROFILE:
 			case ANALYSIS_EXPLORATION_PROFILE:

@@ -120,6 +120,7 @@ public class DirectorCustomImpl extends DirectorImpl
 		switch( analysisProfile ) {
 		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
 		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
+		case ANALYSIS_TEST_OFFLINE_PROFILE:
 		case ANALYSIS_ACSL_GENERATION_PROFILE:
 			return true;
 
@@ -132,11 +133,11 @@ public class DirectorCustomImpl extends DirectorImpl
 		switch( analysisProfile ) {
 		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
 		case ANALYSIS_BEHAVIOR_SELECTION_PROFILE:
+		case ANALYSIS_TEST_OFFLINE_PROFILE:
 		case ANALYSIS_ACSL_GENERATION_PROFILE:
 			return false;
 
 		case ANALYSIS_EXPLORATION_PROFILE:
-		case ANALYSIS_TEST_OFFLINE_PROFILE:
 		case ANALYSIS_EXTRANEOUS_PROFILE:
 		case ANALYSIS_UNDEFINED_PROFILE:
 		default:

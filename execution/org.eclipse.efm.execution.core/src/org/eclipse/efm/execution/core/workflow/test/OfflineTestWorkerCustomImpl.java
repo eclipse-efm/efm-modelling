@@ -158,9 +158,12 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 			manifest.toWriter(writer2);
 		}
 
-
 		writer.appendTab2Eol( "property [" )
 			.appendTab3Eol( "format = \"BASIC#XLIA\"" )
+			.appendTab3Eol( "trace#folding  = true" )
+			.appendTab3Eol( "step#scheduler = '|i|'" )
+			.appendTab3Eol( "trace#reporting#size = 7" )
+			.appendTab3Eol( "slice = true" )
 			.appendTab2Eol( "] // end property" );
 
 		writer.appendTab2Eol( "merged_trace [" );
