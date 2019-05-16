@@ -38,7 +38,7 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 
 	private SPIDER_GEOMETRY fSpidertype = SPIDER_GEOMETRY.TETRAGON;
 
-	private final String spiderTitle;
+	private String spiderTitle;
 
 	private String symbexVerdict;
 	boolean enabledVerdictPrinting;
@@ -147,9 +147,10 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 		}
 	}
 
-	public void resetSpider(final SPIDER_GEOMETRY geometry) {
+	public void resetSpider(final String title, final SPIDER_GEOMETRY geometry) {
 		fResetFlag = true;
 
+		spiderTitle = title;
 		fSpidertype = geometry;
 
 		enabledVerdictPrinting = false;
@@ -184,12 +185,26 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 //		pe.gc.drawString("rayon: " + rayon                            , xOffset, 70);
 	}
 
+
 	private void drawTitle(final PaintEvent pe) {
-        final Point textSize = pe.gc.textExtent(spiderTitle);
+		final Device device = Display.getCurrent();
+
+		final FontData[] saveFontData = pe.gc.getFont().getFontData();
+
+		final FontData[] fontData16 = new FontData[saveFontData.length];
+		for(int i = 0; i < saveFontData.length; ++ i)
+			fontData16[i] = new FontData(
+					saveFontData[i].getName(), 18, saveFontData[i].getStyle());
+
+		pe.gc.setFont (new Font(device, fontData16));
+
+		final Point textSize = pe.gc.textExtent(spiderTitle);
 
         pe.gc.drawText(spiderTitle, (this.getSize().x - textSize.x)/2, 10);
-
 //		pe.gc.drawString(spiderTitle, 160, 10);
+
+        // Restore original font size
+		pe.gc.setFont (new Font(device, saveFontData));
 	}
 
 //	private void drawTitle(final PaintEvent pe, final int color) {

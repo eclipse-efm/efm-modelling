@@ -206,7 +206,9 @@ public class SEWConsoleSpiderPage extends Page
 			fSEWDashbordConsole.clearConsole();
 
 			if ( fSpider != null ) {
-				fSpider.resetSpider(SPIDER_GEOMETRY.TETRAGON);
+				fSpider.resetSpider(
+						LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase(),
+						SPIDER_GEOMETRY.TETRAGON);
 			}
 
 			nbExecution = 1;
@@ -329,9 +331,11 @@ public class SEWConsoleSpiderPage extends Page
 //							System.out.print( traceLine );
 //							System.out.println( Arrays.toString(bounds) );
 
-							fSpider.resetSpider( (bounds.length == 6)
-									? SPIDER_GEOMETRY.PENTAGON
-									: SPIDER_GEOMETRY.TETRAGON );
+							fSpider.resetSpider(
+									LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase(),
+									(bounds.length == 6)
+											? SPIDER_GEOMETRY.PENTAGON
+											: SPIDER_GEOMETRY.TETRAGON );
 
 							initSpider( spiderPositions(traceLine) );
 

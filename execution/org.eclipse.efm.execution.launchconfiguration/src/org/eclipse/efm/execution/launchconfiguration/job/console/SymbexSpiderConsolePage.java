@@ -413,7 +413,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 			fMessageConsole.clearConsole();
 
 			if ( fSpider != null ) {
-				fSpider.resetSpider(SPIDER_GEOMETRY.TETRAGON);
+				fSpider.resetSpider(
+						LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase(),
+						SPIDER_GEOMETRY.TETRAGON);
 			}
 
 			nbExecution = 1;
@@ -631,7 +633,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 			fMessageConsole.clearConsole();
 
 			if ( fSpider != null ) {
-				fSpider.resetSpider(SPIDER_GEOMETRY.TETRAGON);
+				fSpider.resetSpider(
+						LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase(),
+						SPIDER_GEOMETRY.TETRAGON);
 			}
 
 			nbExecution = 1;
@@ -688,9 +692,11 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 							System.out.print( traceLine );
 							System.out.println( Arrays.toString(bounds) );
 
-							fSpider.resetSpider( (bounds.length == 6)
-									? SPIDER_GEOMETRY.PENTAGON
-									: SPIDER_GEOMETRY.TETRAGON );
+							fSpider.resetSpider(
+									LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase(),
+									(bounds.length == 6)
+											? SPIDER_GEOMETRY.PENTAGON
+											: SPIDER_GEOMETRY.TETRAGON );
 
 							initSpider( spiderPositions(traceLine) );
 
