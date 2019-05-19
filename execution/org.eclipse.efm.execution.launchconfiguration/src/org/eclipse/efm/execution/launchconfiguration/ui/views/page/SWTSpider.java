@@ -147,6 +147,7 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 		}
 	}
 
+
 	public void resetSpider(final String title, final SPIDER_GEOMETRY geometry) {
 		fResetFlag = true;
 
@@ -186,25 +187,33 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 	}
 
 
+	Font TITLE_FONT = null;
+	Font  SAVE_FONT = null;
+
 	private void drawTitle(final PaintEvent pe) {
-		final Device device = Display.getCurrent();
+		if( (TITLE_FONT == null)   || TITLE_FONT.isDisposed()
+			|| (SAVE_FONT == null) || SAVE_FONT.isDisposed() )
+		{
+			final Device device = Display.getCurrent();
 
-		final FontData[] saveFontData = pe.gc.getFont().getFontData();
+			SAVE_FONT = pe.gc.getFont();
+			final FontData[] saveFontData = SAVE_FONT.getFontData();
 
-		final FontData[] fontData16 = new FontData[saveFontData.length];
-		for(int i = 0; i < saveFontData.length; ++ i)
-			fontData16[i] = new FontData(
-					saveFontData[i].getName(), 18, saveFontData[i].getStyle());
+			final FontData[] fontData16 = new FontData[saveFontData.length];
+			for(int i = 0; i < saveFontData.length; ++ i)
+				fontData16[i] = new FontData(
+						saveFontData[i].getName(), 18, saveFontData[i].getStyle());
+			TITLE_FONT = new Font(device, fontData16);
+		}
 
-		pe.gc.setFont (new Font(device, fontData16));
+		pe.gc.setFont(TITLE_FONT);
 
 		final Point textSize = pe.gc.textExtent(spiderTitle);
 
         pe.gc.drawText(spiderTitle, (this.getSize().x - textSize.x)/2, 10);
-//		pe.gc.drawString(spiderTitle, 160, 10);
 
         // Restore original font size
-		pe.gc.setFont (new Font(device, saveFontData));
+		pe.gc.setFont(SAVE_FONT);
 	}
 
 //	private void drawTitle(final PaintEvent pe, final int color) {
@@ -509,24 +518,30 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 	}
 
 
+	Font VERDICT_FONT = null;
+
 	private void drawVerdict(final PaintEvent pe) {
 		final Device device = Display.getCurrent();
+
+		if( (VERDICT_FONT == null) || VERDICT_FONT.isDisposed() ) {
+			final FontData[] fontData = pe.gc.getFont().getFontData();
+			for(int i = 0; i < fontData.length; ++ i)
+				fontData[i].setHeight(64);
+
+			VERDICT_FONT = new Font(device, fontData);
+		}
+
+		pe.gc.setFont(VERDICT_FONT);
 
 		pe.gc.setForeground(device.getSystemColor(
 				symbexVerdict.contains(SYMBEX_VERDICT_FAIL) ?
 						SWT.COLOR_RED : SWT.COLOR_BLUE));
 
-		final FontData[] fontData = pe.gc.getFont().getFontData();
-		for(int i = 0; i < fontData.length; ++ i)
-		    fontData[i].setHeight(64);
+		final Point textSize = pe.gc.textExtent(symbexVerdict);
 
-		pe.gc.setFont (new Font(device, fontData));
-
-        final Point textSize = pe.gc.textExtent(symbexVerdict);
-
-        pe.gc.drawText(symbexVerdict,
-        		(this.getSize().x - textSize.x)/2,
-        		(this.getSize().y - textSize.y)/2, true);
+		pe.gc.drawText(symbexVerdict,
+				(this.getSize().x - textSize.x)/2,
+				(this.getSize().y - textSize.y)/2, true);
 	}
 
 

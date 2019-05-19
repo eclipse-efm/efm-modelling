@@ -71,9 +71,11 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_DynamicInstanceSpecification___LeftParenthesisKeyword_3_0_RightParenthesisKeyword_3_2__q;
 	protected AbstractElementAlias match_ElseIfStatement_ElseifKeyword_0_0_or___ElseKeyword_0_1_0_IfKeyword_0_1_1__;
 	protected AbstractElementAlias match_EndingPseudostate_MocKeyword_3_q;
+	protected AbstractElementAlias match_EndingPseudostate_MoeKeyword_8_0_1_0_q;
 	protected AbstractElementAlias match_EndingPseudostate_PseudostateKeyword_1_1_or_StateKeyword_1_0;
 	protected AbstractElementAlias match_EndingPseudostate_SemicolonKeyword_8_1_or___LeftCurlyBracketKeyword_8_0_0_RightCurlyBracketKeyword_8_0_2__;
 	protected AbstractElementAlias match_FinalState_MocKeyword_1_0_2_q;
+	protected AbstractElementAlias match_FinalState_MoeKeyword_3_0_1_0_q;
 	protected AbstractElementAlias match_FinalState_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__;
 	protected AbstractElementAlias match_FormalParameter_FormalParameterOffsetParserRuleCall_1_q;
 	protected AbstractElementAlias match_FunctionImpl___LeftParenthesisKeyword_5_0_RightParenthesisKeyword_5_2__q;
@@ -199,7 +201,8 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_PropertyPart_____PropertyKeyword_3_0_0_or_ProtectedKeyword_3_2_0_or_PublicKeyword_3_1_0__a_PrivateKeyword_3_3_0__p;
 	protected AbstractElementAlias match_PseudostateInitial_MocKeyword_1_0_2_q;
 	protected AbstractElementAlias match_PseudostateInitial_PseudostateKeyword_1_0_0_1_or_StateKeyword_1_0_0_0;
-	protected AbstractElementAlias match_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__;
+	protected AbstractElementAlias match_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_TransitionKeyword_3_0_1_0_q_RightCurlyBracketKeyword_3_0_2__;
+	protected AbstractElementAlias match_PseudostateInitial_TransitionKeyword_3_0_1_0_q;
 	protected AbstractElementAlias match_Routine_DesignDebugTraceParserRuleCall_2_a;
 	protected AbstractElementAlias match_Routine___LeftParenthesisKeyword_6_0_RightParenthesisKeyword_6_2__q;
 	protected AbstractElementAlias match_SignalImpl___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q;
@@ -210,7 +213,8 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_SlotProperty_ColonColonEqualsSignKeyword_1_3_or_ColonEqualsSignKeyword_1_2_or_ColonKeyword_1_1_or_EqualsSignKeyword_1_0;
 	protected AbstractElementAlias match_StartState_MocKeyword_1_0_2_q;
 	protected AbstractElementAlias match_StartState_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__;
-	protected AbstractElementAlias match_StatemachineNamedRegion_NameKeyword_2_q;
+	protected AbstractElementAlias match_StatemachineNamedRegion___IdKeyword_2_0_or_NameKeyword_2_1__q;
+	protected AbstractElementAlias match_StatemachineRegion_RegionKeyword_1_1_or_StateKeyword_1_0;
 	protected AbstractElementAlias match_Statemachine_InoutKeyword_8_1_0_q;
 	protected AbstractElementAlias match_Statemachine_MacroKeyword_10_0_0_0_1_or_RoutineKeyword_10_0_0_0_0;
 	protected AbstractElementAlias match_Statemachine_OutputKeyword_8_2_0_q;
@@ -353,9 +357,11 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_DynamicInstanceSpecification___LeftParenthesisKeyword_3_0_RightParenthesisKeyword_3_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getDynamicInstanceSpecificationAccess().getLeftParenthesisKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getDynamicInstanceSpecificationAccess().getRightParenthesisKeyword_3_2()));
 		match_ElseIfStatement_ElseifKeyword_0_0_or___ElseKeyword_0_1_0_IfKeyword_0_1_1__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getElseIfStatementAccess().getElseKeyword_0_1_0()), new TokenAlias(false, false, grammarAccess.getElseIfStatementAccess().getIfKeyword_0_1_1())), new TokenAlias(false, false, grammarAccess.getElseIfStatementAccess().getElseifKeyword_0_0()));
 		match_EndingPseudostate_MocKeyword_3_q = new TokenAlias(false, true, grammarAccess.getEndingPseudostateAccess().getMocKeyword_3());
+		match_EndingPseudostate_MoeKeyword_8_0_1_0_q = new TokenAlias(false, true, grammarAccess.getEndingPseudostateAccess().getMoeKeyword_8_0_1_0());
 		match_EndingPseudostate_PseudostateKeyword_1_1_or_StateKeyword_1_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getEndingPseudostateAccess().getPseudostateKeyword_1_1()), new TokenAlias(false, false, grammarAccess.getEndingPseudostateAccess().getStateKeyword_1_0()));
 		match_EndingPseudostate_SemicolonKeyword_8_1_or___LeftCurlyBracketKeyword_8_0_0_RightCurlyBracketKeyword_8_0_2__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getEndingPseudostateAccess().getLeftCurlyBracketKeyword_8_0_0()), new TokenAlias(false, false, grammarAccess.getEndingPseudostateAccess().getRightCurlyBracketKeyword_8_0_2())), new TokenAlias(false, false, grammarAccess.getEndingPseudostateAccess().getSemicolonKeyword_8_1()));
 		match_FinalState_MocKeyword_1_0_2_q = new TokenAlias(false, true, grammarAccess.getFinalStateAccess().getMocKeyword_1_0_2());
+		match_FinalState_MoeKeyword_3_0_1_0_q = new TokenAlias(false, true, grammarAccess.getFinalStateAccess().getMoeKeyword_3_0_1_0());
 		match_FinalState_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getFinalStateAccess().getLeftCurlyBracketKeyword_3_0_0()), new TokenAlias(false, false, grammarAccess.getFinalStateAccess().getRightCurlyBracketKeyword_3_0_2())), new TokenAlias(false, false, grammarAccess.getFinalStateAccess().getSemicolonKeyword_3_1()));
 		match_FormalParameter_FormalParameterOffsetParserRuleCall_1_q = new TokenAlias(false, true, grammarAccess.getFormalParameterAccess().getFormalParameterOffsetParserRuleCall_1());
 		match_FunctionImpl___LeftParenthesisKeyword_5_0_RightParenthesisKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getFunctionImplAccess().getLeftParenthesisKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getFunctionImplAccess().getRightParenthesisKeyword_5_2()));
@@ -481,7 +487,8 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_PropertyPart_____PropertyKeyword_3_0_0_or_ProtectedKeyword_3_2_0_or_PublicKeyword_3_1_0__a_PrivateKeyword_3_3_0__p = new GroupAlias(true, false, new AlternativeAlias(true, true, new TokenAlias(false, false, grammarAccess.getPropertyPartAccess().getPropertyKeyword_3_0_0()), new TokenAlias(false, false, grammarAccess.getPropertyPartAccess().getProtectedKeyword_3_2_0()), new TokenAlias(false, false, grammarAccess.getPropertyPartAccess().getPublicKeyword_3_1_0())), new TokenAlias(false, false, grammarAccess.getPropertyPartAccess().getPrivateKeyword_3_3_0()));
 		match_PseudostateInitial_MocKeyword_1_0_2_q = new TokenAlias(false, true, grammarAccess.getPseudostateInitialAccess().getMocKeyword_1_0_2());
 		match_PseudostateInitial_PseudostateKeyword_1_0_0_1_or_StateKeyword_1_0_0_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getPseudostateInitialAccess().getPseudostateKeyword_1_0_0_1()), new TokenAlias(false, false, grammarAccess.getPseudostateInitialAccess().getStateKeyword_1_0_0_0()));
-		match_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getPseudostateInitialAccess().getLeftCurlyBracketKeyword_3_0_0()), new TokenAlias(false, false, grammarAccess.getPseudostateInitialAccess().getRightCurlyBracketKeyword_3_0_2())), new TokenAlias(false, false, grammarAccess.getPseudostateInitialAccess().getSemicolonKeyword_3_1()));
+		match_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_TransitionKeyword_3_0_1_0_q_RightCurlyBracketKeyword_3_0_2__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getPseudostateInitialAccess().getLeftCurlyBracketKeyword_3_0_0()), new TokenAlias(false, true, grammarAccess.getPseudostateInitialAccess().getTransitionKeyword_3_0_1_0()), new TokenAlias(false, false, grammarAccess.getPseudostateInitialAccess().getRightCurlyBracketKeyword_3_0_2())), new TokenAlias(false, false, grammarAccess.getPseudostateInitialAccess().getSemicolonKeyword_3_1()));
+		match_PseudostateInitial_TransitionKeyword_3_0_1_0_q = new TokenAlias(false, true, grammarAccess.getPseudostateInitialAccess().getTransitionKeyword_3_0_1_0());
 		match_Routine_DesignDebugTraceParserRuleCall_2_a = new TokenAlias(true, true, grammarAccess.getRoutineAccess().getDesignDebugTraceParserRuleCall_2());
 		match_Routine___LeftParenthesisKeyword_6_0_RightParenthesisKeyword_6_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRoutineAccess().getLeftParenthesisKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getRoutineAccess().getRightParenthesisKeyword_6_2()));
 		match_SignalImpl___LeftParenthesisKeyword_4_0_RightParenthesisKeyword_4_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSignalImplAccess().getLeftParenthesisKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getSignalImplAccess().getRightParenthesisKeyword_4_2()));
@@ -492,7 +499,8 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_SlotProperty_ColonColonEqualsSignKeyword_1_3_or_ColonEqualsSignKeyword_1_2_or_ColonKeyword_1_1_or_EqualsSignKeyword_1_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getSlotPropertyAccess().getColonColonEqualsSignKeyword_1_3()), new TokenAlias(false, false, grammarAccess.getSlotPropertyAccess().getColonEqualsSignKeyword_1_2()), new TokenAlias(false, false, grammarAccess.getSlotPropertyAccess().getColonKeyword_1_1()), new TokenAlias(false, false, grammarAccess.getSlotPropertyAccess().getEqualsSignKeyword_1_0()));
 		match_StartState_MocKeyword_1_0_2_q = new TokenAlias(false, true, grammarAccess.getStartStateAccess().getMocKeyword_1_0_2());
 		match_StartState_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getStartStateAccess().getLeftCurlyBracketKeyword_3_0_0()), new TokenAlias(false, false, grammarAccess.getStartStateAccess().getRightCurlyBracketKeyword_3_0_2())), new TokenAlias(false, false, grammarAccess.getStartStateAccess().getSemicolonKeyword_3_1()));
-		match_StatemachineNamedRegion_NameKeyword_2_q = new TokenAlias(false, true, grammarAccess.getStatemachineNamedRegionAccess().getNameKeyword_2());
+		match_StatemachineNamedRegion___IdKeyword_2_0_or_NameKeyword_2_1__q = new AlternativeAlias(false, true, new TokenAlias(false, false, grammarAccess.getStatemachineNamedRegionAccess().getIdKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getStatemachineNamedRegionAccess().getNameKeyword_2_1()));
+		match_StatemachineRegion_RegionKeyword_1_1_or_StateKeyword_1_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getStatemachineRegionAccess().getRegionKeyword_1_1()), new TokenAlias(false, false, grammarAccess.getStatemachineRegionAccess().getStateKeyword_1_0()));
 		match_Statemachine_InoutKeyword_8_1_0_q = new TokenAlias(false, true, grammarAccess.getStatemachineAccess().getInoutKeyword_8_1_0());
 		match_Statemachine_MacroKeyword_10_0_0_0_1_or_RoutineKeyword_10_0_0_0_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getStatemachineAccess().getMacroKeyword_10_0_0_0_1()), new TokenAlias(false, false, grammarAccess.getStatemachineAccess().getRoutineKeyword_10_0_0_0_0()));
 		match_Statemachine_OutputKeyword_8_2_0_q = new TokenAlias(false, true, grammarAccess.getStatemachineAccess().getOutputKeyword_8_2_0());
@@ -762,12 +770,16 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_ElseIfStatement_ElseifKeyword_0_0_or___ElseKeyword_0_1_0_IfKeyword_0_1_1__(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_EndingPseudostate_MocKeyword_3_q.equals(syntax))
 				emit_EndingPseudostate_MocKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_EndingPseudostate_MoeKeyword_8_0_1_0_q.equals(syntax))
+				emit_EndingPseudostate_MoeKeyword_8_0_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_EndingPseudostate_PseudostateKeyword_1_1_or_StateKeyword_1_0.equals(syntax))
 				emit_EndingPseudostate_PseudostateKeyword_1_1_or_StateKeyword_1_0(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_EndingPseudostate_SemicolonKeyword_8_1_or___LeftCurlyBracketKeyword_8_0_0_RightCurlyBracketKeyword_8_0_2__.equals(syntax))
 				emit_EndingPseudostate_SemicolonKeyword_8_1_or___LeftCurlyBracketKeyword_8_0_0_RightCurlyBracketKeyword_8_0_2__(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_FinalState_MocKeyword_1_0_2_q.equals(syntax))
 				emit_FinalState_MocKeyword_1_0_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_FinalState_MoeKeyword_3_0_1_0_q.equals(syntax))
+				emit_FinalState_MoeKeyword_3_0_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_FinalState_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__.equals(syntax))
 				emit_FinalState_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_FormalParameter_FormalParameterOffsetParserRuleCall_1_q.equals(syntax))
@@ -1018,8 +1030,10 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_PseudostateInitial_MocKeyword_1_0_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_PseudostateInitial_PseudostateKeyword_1_0_0_1_or_StateKeyword_1_0_0_0.equals(syntax))
 				emit_PseudostateInitial_PseudostateKeyword_1_0_0_1_or_StateKeyword_1_0_0_0(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__.equals(syntax))
-				emit_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_TransitionKeyword_3_0_1_0_q_RightCurlyBracketKeyword_3_0_2__.equals(syntax))
+				emit_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_TransitionKeyword_3_0_1_0_q_RightCurlyBracketKeyword_3_0_2__(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_PseudostateInitial_TransitionKeyword_3_0_1_0_q.equals(syntax))
+				emit_PseudostateInitial_TransitionKeyword_3_0_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_Routine_DesignDebugTraceParserRuleCall_2_a.equals(syntax))
 				emit_Routine_DesignDebugTraceParserRuleCall_2_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_Routine___LeftParenthesisKeyword_6_0_RightParenthesisKeyword_6_2__q.equals(syntax))
@@ -1040,8 +1054,10 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_StartState_MocKeyword_1_0_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_StartState_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__.equals(syntax))
 				emit_StartState_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_StatemachineNamedRegion_NameKeyword_2_q.equals(syntax))
-				emit_StatemachineNamedRegion_NameKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_StatemachineNamedRegion___IdKeyword_2_0_or_NameKeyword_2_1__q.equals(syntax))
+				emit_StatemachineNamedRegion___IdKeyword_2_0_or_NameKeyword_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_StatemachineRegion_RegionKeyword_1_1_or_StateKeyword_1_0.equals(syntax))
+				emit_StatemachineRegion_RegionKeyword_1_1_or_StateKeyword_1_0(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_Statemachine_InoutKeyword_8_1_0_q.equals(syntax))
 				emit_Statemachine_InoutKeyword_8_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_Statemachine_MacroKeyword_10_0_0_0_1_or_RoutineKeyword_10_0_0_0_0.equals(syntax))
@@ -1954,6 +1970,18 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
+	 *     '@moe:'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ESIdentifier '{' (ambiguity) moe=moeFinalStateRoutines
+	 *     unrestrictedName=UnrestrictedName '{' (ambiguity) moe=moeFinalStateRoutines
+	 */
+	protected void emit_EndingPseudostate_MoeKeyword_8_0_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
 	 *     'state' | 'pseudostate'
 	 *
 	 * This ambiguous syntax occurs at:
@@ -1983,6 +2011,19 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     simple?='state' '<' (ambiguity) 'final' '>' name=ESIdentifier
 	 */
 	protected void emit_FinalState_MocKeyword_1_0_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '@moe:'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ESIdentifier '{' (ambiguity) moe=moeFinalStateRoutines
+	 *     simple?='#final' '{' (ambiguity) moe=moeFinalStateRoutines
+	 *     unrestrictedName=UnrestrictedName '{' (ambiguity) moe=moeFinalStateRoutines
+	 */
+	protected void emit_FinalState_MoeKeyword_3_0_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -12908,7 +12949,7 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     ('{' '}') | ';'
+	 *     ('{' '@transition:'? '}') | ';'
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     name='#init' (ambiguity) (rule end)
@@ -12916,7 +12957,21 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     name=ESIdentifier (ambiguity) (rule end)
 	 *     unrestrictedName=UnrestrictedName (ambiguity) (rule end)
 	 */
-	protected void emit_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_RightCurlyBracketKeyword_3_0_2__(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_PseudostateInitial_SemicolonKeyword_3_1_or___LeftCurlyBracketKeyword_3_0_0_TransitionKeyword_3_0_1_0_q_RightCurlyBracketKeyword_3_0_2__(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '@transition:'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name='#init' '{' (ambiguity) transition+=Transition
+	 *     name='#initial' '{' (ambiguity) transition+=Transition
+	 *     name=ESIdentifier '{' (ambiguity) transition+=Transition
+	 *     unrestrictedName=UnrestrictedName '{' (ambiguity) transition+=Transition
+	 */
+	protected void emit_PseudostateInitial_TransitionKeyword_3_0_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -13044,12 +13099,24 @@ public class FormalMLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'name:'?
+	 *     ('id:' | 'name:')?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) '@region(' (ambiguity) name=ESIdentifier
 	 */
-	protected void emit_StatemachineNamedRegion_NameKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_StatemachineNamedRegion___IdKeyword_2_0_or_NameKeyword_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '@state:' | '@region:'
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) vertex+=Pseudostate
+	 *     (rule start) (ambiguity) vertex+=State
+	 */
+	protected void emit_StatemachineRegion_RegionKeyword_1_1_or_StateKeyword_1_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

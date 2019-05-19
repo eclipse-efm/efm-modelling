@@ -110,6 +110,14 @@ public class MoccSystem {
 		channels.add(channel);
 	}
 
+	public MoccChannel addChannel(final String name, final MoccPort outputPort,
+			final int initialRate, final int initialRateDenominator,
+			final MoccMode initialMode, final MoccPort inputPort)
+	{
+		return new MoccChannel(this, name, outputPort, initialMode,
+				initialRate, initialRateDenominator, inputPort);
+	}
+
 	public MoccChannel addChannel(final String name,
 			final MoccPort outputPort, final int initialRate,
 			final int initialRateDenominator, final MoccPort inputPort)
@@ -248,6 +256,22 @@ public class MoccSystem {
 
 	public MoccChannel addChannel(
 			final int initialRate, final int initialRateDenominator,
+			final MoccMode initialMode,
+			final MoccActor outputActor, final int outRate,
+			final MoccActor inputActor, final int inRate, final int inRateDenom)
+	{
+		final MoccPort outPort = outputActor.addOutputPort(
+				"to" + inputActor.getName(), outRate);
+
+		final MoccPort inPort = inputActor.addInputPort(
+				"from" + outputActor.getName(), inRate, inRateDenom);
+
+		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+				outPort, initialRate, initialRateDenominator, initialMode, inPort);
+	}
+
+	public MoccChannel addChannel(
+			final int initialRate, final int initialRateDenominator,
 			final MoccActor outputActor, final int outRate,
 			final MoccActor inputActor, final int inRate, final int inRateDenom)
 	{
@@ -261,6 +285,22 @@ public class MoccSystem {
 				outPort, initialRate, initialRateDenominator, inPort);
 	}
 
+
+	public MoccChannel addChannel(
+			final int initialRate, final int initialRateDenominator,
+			final MoccMode initialMode, final MoccActor outputActor,
+			final int outRate, final int outRateDenominator,
+			final MoccActor inputActor, final int inRate)
+	{
+		final MoccPort outPort = outputActor.addOutputPort(
+				"to" + inputActor.getName(), outRate, outRateDenominator);
+
+		final MoccPort inPort  = inputActor.addInputPort(
+				"from" + outputActor.getName(), inRate);
+
+		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+				outPort, initialRate, initialRateDenominator, initialMode, inPort);
+	}
 
 	public MoccChannel addChannel(final int initialRate,
 			final int initialRateDenominator, final MoccActor outputActor,
@@ -282,6 +322,15 @@ public class MoccSystem {
 			final int outRate, final MoccActor inputActor, final int inRate)
 	{
 		return addChannel(initialRate, 1,
+				outputActor, outRate, 1, inputActor, inRate);
+	}
+
+	public MoccChannel addChannel(
+			final int initialRate, final MoccMode initialMode,
+			final MoccActor outputActor, final int outRate,
+			final MoccActor inputActor, final int inRate)
+	{
+		return addChannel(initialRate, 1, initialMode,
 				outputActor, outRate, 1, inputActor, inRate);
 	}
 
@@ -371,9 +420,9 @@ public class MoccSystem {
 					.append(Arrays.toString(FEATURE.frequencies)).append('\n')
 				.append('\t').append("time        = +" )
 					.append(FEATURE.time_interval).append('\n')
-				.append('\t').append("period = " )
+				.append('\t').append("period      = " )
 					.append(FEATURE.time_period).append('\n')
-				.append('\t').append("repetition = " )
+				.append('\t').append("repetition  = " )
 					.append(Arrays.toString(FEATURE.repetitions))
 					.append('\n')
 				.append('\n');

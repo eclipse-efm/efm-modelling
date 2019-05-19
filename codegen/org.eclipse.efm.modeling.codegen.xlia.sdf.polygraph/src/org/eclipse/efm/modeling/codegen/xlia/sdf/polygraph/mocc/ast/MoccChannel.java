@@ -94,7 +94,7 @@ public class MoccChannel {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -116,11 +116,21 @@ public class MoccChannel {
 		return inputPort.getActor();
 	}
 
-	// Initial rate & mode
+	// Initial mode
 	public MoccMode getInitialMode() {
 		return initialMode;
 	}
 
+	public boolean hasInitialMode() {
+		return( hasInitialRate()
+				&& (initialMode != null)
+				&& (outputPort.getActor().isModeProducer()
+					|| inputPort.getActor().isModeProcessor()) );
+//				&& (! initialMode.equals(system.NOMINAL)) );
+	}
+
+
+	// Initial rate
 	public int getInitialRate() {
 		return initialRate;
 	}
@@ -164,7 +174,13 @@ public class MoccChannel {
 
 		if( hasInitialRate() ) {
 			sout.append('\t').append("initial{ rate = ")
-				.append(strInitialRate()).append(" }")
+				.append(strInitialRate());
+
+			if( hasInitialMode() ) {
+				sout.append(" , mode = ").append(initialMode.getLiteral());
+			}
+
+			sout.append(" }")
 				.append('\n');
 		}
 

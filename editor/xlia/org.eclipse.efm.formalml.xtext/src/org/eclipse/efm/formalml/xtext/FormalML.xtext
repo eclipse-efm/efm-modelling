@@ -968,7 +968,7 @@ Statemachine returns fmlStmchn::Statemachine
 
 StatemachineRegion returns fmlStmchn::Region
 	: {fmlStmchn::Region}
-		'@region:' 
+		( '@state:' | '@region:' )
 
 		( vertex+=State
 		| vertex+=Pseudostate
@@ -977,7 +977,7 @@ StatemachineRegion returns fmlStmchn::Region
 
 StatemachineNamedRegion returns fmlStmchn::Region
 	: {fmlStmchn::Region}
-		'@region(' ( 'name:' )?  name=ESIdentifier
+		'@region(' ( 'id:' | 'name:' )?  name=ESIdentifier
 			( unrestrictedName=UnrestrictedName )?  '):'
 
 		( vertex+=State
@@ -1055,8 +1055,14 @@ SimpleState returns fmlStmchn::State
 	simple?='state' ( '<' ( 'moc:' )? 'simple' '>' )?
 	name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 	( '{'
-		( ( transition+=Transition     )*
-		& ( moe=moeSimpleStateRoutines )?
+		(
+			( ( transition+=Transition    )*
+			& ( moe=moeSimpleStateRoutines )?
+			)
+//		|
+//			( ( '@transition:'  ( transition+=Transition )* )?
+//			& ( '@moe:'         moe=moeSimpleStateRoutines  )?
+//			)
 		)
 	  '}'
 	| ';'
@@ -1085,8 +1091,14 @@ StartState returns fmlStmchn::StartState
 	)
 	( unrestrictedName=UnrestrictedName )?
 	( '{'
-		( ( transition+=Transition    )*
-		& ( moe=moeStartStateRoutines )?
+		(
+			( ( transition+=Transition    )*
+			& ( moe=moeStartStateRoutines )?
+			)
+//		|
+//			( ( '@transition:'  ( transition+=Transition )* )?
+//			& ( '@moe:'         moe=moeStartStateRoutines  )?
+//			)
 		)
 	  '}'
 	| ';'
@@ -1119,7 +1131,7 @@ FinalState returns fmlStmchn::FinalState
 	)
 	( unrestrictedName=UnrestrictedName )?
 	( '{'
-		( moe=moeFinalStateRoutines )?
+		( ( '@moe:' )?  moe=moeFinalStateRoutines )?
 	  '}'
 	| ';'
 	)
@@ -1150,9 +1162,15 @@ OtherPseudostate returns fmlStmchn::Pseudostate
 		name=ESIdentifier
 		( unrestrictedName=UnrestrictedName )?
 		( '{'
+		(
 			( ( transition+=Transition    )*
 			& ( moe=moePseudotateRoutines )?
 			)
+//		|
+//			( ( '@transition:'  ( transition+=Transition )* )?
+//			& ( '@moe:'         moe=moePseudotateRoutines  )?
+//			)
+		)
 		  '}'
 		| ';'
 		)
@@ -1206,7 +1224,7 @@ PseudostateInitial returns fmlStmchn::Pseudostate
 	)
 	( unrestrictedName=UnrestrictedName )?
 
-	( '{'  ( transition+=Transition )*  '}'
+	( '{'  ( ( '@transition:' )?  ( transition+=Transition )* )?  '}'
 	| ';'
 	)
 	;
@@ -1220,7 +1238,7 @@ EndingPseudostate returns fmlStmchn::Pseudostate
 	( 'state' | 'pseudostate' ) '<' ( 'moc:' )? kind=EndingPseudostateKind '>'
 	name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 
-	( '{'  ( moe=moeFinalStateRoutines )?  '}'
+	( '{'  ( ( '@moe:' )?  moe=moeFinalStateRoutines )?  '}'
 	| ';'
 	)
 	;

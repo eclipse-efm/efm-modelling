@@ -180,6 +180,10 @@ public class MoccPort {
 		if( channel.hasInitialRate() ) {
 			sout.append(" , initial = ").append(channel.strInitialRate());
 		}
+		if( channel.hasInitialMode() ) {
+			sout.append(" , mode = ")
+				.append(channel.getInitialMode().getLiteral());
+		}
 
 		sout.append(" > ").append(name);
 

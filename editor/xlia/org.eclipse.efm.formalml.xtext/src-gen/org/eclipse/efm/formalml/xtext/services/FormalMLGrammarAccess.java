@@ -6522,7 +6522,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.efm.formalml.xtext.FormalML.StatemachineRegion");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cRegionAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cRegionKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Keyword cStateKeyword_1_0 = (Keyword)cAlternatives_1.eContents().get(0);
+		private final Keyword cRegionKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
 		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
 		private final Assignment cVertexAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
 		private final RuleCall cVertexStateParserRuleCall_2_0_0 = (RuleCall)cVertexAssignment_2_0.eContents().get(0);
@@ -6530,19 +6532,24 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVertexPseudostateParserRuleCall_2_1_0 = (RuleCall)cVertexAssignment_2_1.eContents().get(0);
 		
 		//StatemachineRegion fmlStmchn::Region:
-		//	{fmlStmchn::Region}
-		//	'@region:' (vertex+=State
+		//	{fmlStmchn::Region} ('@state:' | '@region:') (vertex+=State
 		//	| vertex+=Pseudostate)+;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlStmchn::Region} '@region:' (vertex+=State | vertex+=Pseudostate)+
+		//{fmlStmchn::Region} ('@state:' | '@region:') (vertex+=State | vertex+=Pseudostate)+
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlStmchn::Region}
 		public Action getRegionAction_0() { return cRegionAction_0; }
 		
+		//'@state:' | '@region:'
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+		
+		//'@state:'
+		public Keyword getStateKeyword_1_0() { return cStateKeyword_1_0; }
+		
 		//'@region:'
-		public Keyword getRegionKeyword_1() { return cRegionKeyword_1; }
+		public Keyword getRegionKeyword_1_1() { return cRegionKeyword_1_1; }
 		
 		//(vertex+=State | vertex+=Pseudostate)+
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
@@ -6564,7 +6571,9 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cRegionAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cRegionKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cNameKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Keyword cIdKeyword_2_0 = (Keyword)cAlternatives_2.eContents().get(0);
+		private final Keyword cNameKeyword_2_1 = (Keyword)cAlternatives_2.eContents().get(1);
 		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cNameESIdentifierParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
 		private final Assignment cUnrestrictedNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
@@ -6578,13 +6587,13 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//StatemachineNamedRegion fmlStmchn::Region:
 		//	{fmlStmchn::Region}
-		//	'@region(' 'name:'? name=ESIdentifier
+		//	'@region(' ('id:' | 'name:')? name=ESIdentifier
 		//	unrestrictedName=UnrestrictedName? '):' (vertex+=State
 		//	| vertex+=Pseudostate)+;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{fmlStmchn::Region} '@region(' 'name:'? name=ESIdentifier unrestrictedName=UnrestrictedName? '):' (vertex+=State |
-		//vertex+=Pseudostate)+
+		//{fmlStmchn::Region} '@region(' ('id:' | 'name:')? name=ESIdentifier unrestrictedName=UnrestrictedName? '):'
+		//(vertex+=State | vertex+=Pseudostate)+
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlStmchn::Region}
@@ -6593,8 +6602,14 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//'@region('
 		public Keyword getRegionKeyword_1() { return cRegionKeyword_1; }
 		
-		//'name:'?
-		public Keyword getNameKeyword_2() { return cNameKeyword_2; }
+		//('id:' | 'name:')?
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+		
+		//'id:'
+		public Keyword getIdKeyword_2_0() { return cIdKeyword_2_0; }
+		
+		//'name:'
+		public Keyword getNameKeyword_2_1() { return cNameKeyword_2_1; }
 		
 		//name=ESIdentifier
 		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
@@ -7505,8 +7520,10 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
 		private final Group cGroup_3_0 = (Group)cAlternatives_3.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
-		private final Assignment cMoeAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
-		private final RuleCall cMoeMoeFinalStateRoutinesParserRuleCall_3_0_1_0 = (RuleCall)cMoeAssignment_3_0_1.eContents().get(0);
+		private final Group cGroup_3_0_1 = (Group)cGroup_3_0.eContents().get(1);
+		private final Keyword cMoeKeyword_3_0_1_0 = (Keyword)cGroup_3_0_1.eContents().get(0);
+		private final Assignment cMoeAssignment_3_0_1_1 = (Assignment)cGroup_3_0_1.eContents().get(1);
+		private final RuleCall cMoeMoeFinalStateRoutinesParserRuleCall_3_0_1_1_0 = (RuleCall)cMoeAssignment_3_0_1_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_3_0_2 = (Keyword)cGroup_3_0.eContents().get(2);
 		private final Keyword cSemicolonKeyword_3_1 = (Keyword)cAlternatives_3.eContents().get(1);
 		
@@ -7515,14 +7532,13 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//////////////////////////////////////////////////////////////////////////////////
 		//FinalState fmlStmchn::FinalState:
 		//	{fmlStmchn::FinalState} (simple?='state' '<' 'moc:'? 'final' '>' name=ESIdentifier
-		//	| simple?='#final') unrestrictedName=UnrestrictedName? ('{'
-		//	moe=moeFinalStateRoutines?
+		//	| simple?='#final') unrestrictedName=UnrestrictedName? ('{' ('@moe:'? moe=moeFinalStateRoutines)?
 		//	'}'
 		//	| ';');
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{fmlStmchn::FinalState} (simple?='state' '<' 'moc:'? 'final' '>' name=ESIdentifier | simple?='#final')
-		//unrestrictedName=UnrestrictedName? ('{' moe=moeFinalStateRoutines? '}' | ';')
+		//unrestrictedName=UnrestrictedName? ('{' ('@moe:'? moe=moeFinalStateRoutines)? '}' | ';')
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlStmchn::FinalState}
@@ -7570,20 +7586,26 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//UnrestrictedName
 		public RuleCall getUnrestrictedNameUnrestrictedNameParserRuleCall_2_0() { return cUnrestrictedNameUnrestrictedNameParserRuleCall_2_0; }
 		
-		//'{' moe=moeFinalStateRoutines? '}' | ';'
+		//'{' ('@moe:'? moe=moeFinalStateRoutines)? '}' | ';'
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 		
-		//'{' moe=moeFinalStateRoutines? '}'
+		//'{' ('@moe:'? moe=moeFinalStateRoutines)? '}'
 		public Group getGroup_3_0() { return cGroup_3_0; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_3_0_0() { return cLeftCurlyBracketKeyword_3_0_0; }
 		
-		//moe=moeFinalStateRoutines?
-		public Assignment getMoeAssignment_3_0_1() { return cMoeAssignment_3_0_1; }
+		//('@moe:'? moe=moeFinalStateRoutines)?
+		public Group getGroup_3_0_1() { return cGroup_3_0_1; }
+		
+		//'@moe:'?
+		public Keyword getMoeKeyword_3_0_1_0() { return cMoeKeyword_3_0_1_0; }
+		
+		//moe=moeFinalStateRoutines
+		public Assignment getMoeAssignment_3_0_1_1() { return cMoeAssignment_3_0_1_1; }
 		
 		//moeFinalStateRoutines
-		public RuleCall getMoeMoeFinalStateRoutinesParserRuleCall_3_0_1_0() { return cMoeMoeFinalStateRoutinesParserRuleCall_3_0_1_0; }
+		public RuleCall getMoeMoeFinalStateRoutinesParserRuleCall_3_0_1_1_0() { return cMoeMoeFinalStateRoutinesParserRuleCall_3_0_1_1_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_3_0_2() { return cRightCurlyBracketKeyword_3_0_2; }
@@ -7863,8 +7885,10 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
 		private final Group cGroup_3_0 = (Group)cAlternatives_3.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
-		private final Assignment cTransitionAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
-		private final RuleCall cTransitionTransitionParserRuleCall_3_0_1_0 = (RuleCall)cTransitionAssignment_3_0_1.eContents().get(0);
+		private final Group cGroup_3_0_1 = (Group)cGroup_3_0.eContents().get(1);
+		private final Keyword cTransitionKeyword_3_0_1_0 = (Keyword)cGroup_3_0_1.eContents().get(0);
+		private final Assignment cTransitionAssignment_3_0_1_1 = (Assignment)cGroup_3_0_1.eContents().get(1);
+		private final RuleCall cTransitionTransitionParserRuleCall_3_0_1_1_0 = (RuleCall)cTransitionAssignment_3_0_1_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_3_0_2 = (Keyword)cGroup_3_0.eContents().get(2);
 		private final Keyword cSemicolonKeyword_3_1 = (Keyword)cAlternatives_3.eContents().get(1);
 		
@@ -7872,13 +7896,13 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//	{fmlStmchn::Pseudostate} (('state' | 'pseudostate')
 		//	'<' 'moc:'? kind=PseudostateInitialKind '>'
 		//	name=(ESIdentifier | '#initial' | '#init') | name=('#initial' | '#init')) unrestrictedName=UnrestrictedName? ('{'
-		//	transition+=Transition* '}'
+		//	('@transition:'? transition+=Transition*)? '}'
 		//	| ';');
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{fmlStmchn::Pseudostate} (('state' | 'pseudostate') '<' 'moc:'? kind=PseudostateInitialKind '>' name=(ESIdentifier |
-		//'#initial' | '#init') | name=('#initial' | '#init')) unrestrictedName=UnrestrictedName? ('{' transition+=Transition*
-		//'}' | ';')
+		//'#initial' | '#init') | name=('#initial' | '#init')) unrestrictedName=UnrestrictedName? ('{' ('@transition:'?
+		//transition+=Transition*)? '}' | ';')
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlStmchn::Pseudostate}
@@ -7948,20 +7972,26 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//UnrestrictedName
 		public RuleCall getUnrestrictedNameUnrestrictedNameParserRuleCall_2_0() { return cUnrestrictedNameUnrestrictedNameParserRuleCall_2_0; }
 		
-		//'{' transition+=Transition* '}' | ';'
+		//'{' ('@transition:'? transition+=Transition*)? '}' | ';'
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 		
-		//'{' transition+=Transition* '}'
+		//'{' ('@transition:'? transition+=Transition*)? '}'
 		public Group getGroup_3_0() { return cGroup_3_0; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_3_0_0() { return cLeftCurlyBracketKeyword_3_0_0; }
 		
+		//('@transition:'? transition+=Transition*)?
+		public Group getGroup_3_0_1() { return cGroup_3_0_1; }
+		
+		//'@transition:'?
+		public Keyword getTransitionKeyword_3_0_1_0() { return cTransitionKeyword_3_0_1_0; }
+		
 		//transition+=Transition*
-		public Assignment getTransitionAssignment_3_0_1() { return cTransitionAssignment_3_0_1; }
+		public Assignment getTransitionAssignment_3_0_1_1() { return cTransitionAssignment_3_0_1_1; }
 		
 		//Transition
-		public RuleCall getTransitionTransitionParserRuleCall_3_0_1_0() { return cTransitionTransitionParserRuleCall_3_0_1_0; }
+		public RuleCall getTransitionTransitionParserRuleCall_3_0_1_1_0() { return cTransitionTransitionParserRuleCall_3_0_1_1_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_3_0_2() { return cRightCurlyBracketKeyword_3_0_2; }
@@ -7988,19 +8018,21 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_8 = (Alternatives)cGroup.eContents().get(8);
 		private final Group cGroup_8_0 = (Group)cAlternatives_8.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_8_0_0 = (Keyword)cGroup_8_0.eContents().get(0);
-		private final Assignment cMoeAssignment_8_0_1 = (Assignment)cGroup_8_0.eContents().get(1);
-		private final RuleCall cMoeMoeFinalStateRoutinesParserRuleCall_8_0_1_0 = (RuleCall)cMoeAssignment_8_0_1.eContents().get(0);
+		private final Group cGroup_8_0_1 = (Group)cGroup_8_0.eContents().get(1);
+		private final Keyword cMoeKeyword_8_0_1_0 = (Keyword)cGroup_8_0_1.eContents().get(0);
+		private final Assignment cMoeAssignment_8_0_1_1 = (Assignment)cGroup_8_0_1.eContents().get(1);
+		private final RuleCall cMoeMoeFinalStateRoutinesParserRuleCall_8_0_1_1_0 = (RuleCall)cMoeAssignment_8_0_1_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_8_0_2 = (Keyword)cGroup_8_0.eContents().get(2);
 		private final Keyword cSemicolonKeyword_8_1 = (Keyword)cAlternatives_8.eContents().get(1);
 		
 		//EndingPseudostate fmlStmchn::Pseudostate:
 		//	{fmlStmchn::Pseudostate} ('state' | 'pseudostate') '<' 'moc:'? kind=EndingPseudostateKind '>'
-		//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('{' moe=moeFinalStateRoutines? '}'
+		//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('{' ('@moe:'? moe=moeFinalStateRoutines)? '}'
 		//	| ';');
 		@Override public ParserRule getRule() { return rule; }
 		
 		//{fmlStmchn::Pseudostate} ('state' | 'pseudostate') '<' 'moc:'? kind=EndingPseudostateKind '>' name=ESIdentifier
-		//unrestrictedName=UnrestrictedName? ('{' moe=moeFinalStateRoutines? '}' | ';')
+		//unrestrictedName=UnrestrictedName? ('{' ('@moe:'? moe=moeFinalStateRoutines)? '}' | ';')
 		public Group getGroup() { return cGroup; }
 		
 		//{fmlStmchn::Pseudostate}
@@ -8042,20 +8074,26 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 		//UnrestrictedName
 		public RuleCall getUnrestrictedNameUnrestrictedNameParserRuleCall_7_0() { return cUnrestrictedNameUnrestrictedNameParserRuleCall_7_0; }
 		
-		//'{' moe=moeFinalStateRoutines? '}' | ';'
+		//'{' ('@moe:'? moe=moeFinalStateRoutines)? '}' | ';'
 		public Alternatives getAlternatives_8() { return cAlternatives_8; }
 		
-		//'{' moe=moeFinalStateRoutines? '}'
+		//'{' ('@moe:'? moe=moeFinalStateRoutines)? '}'
 		public Group getGroup_8_0() { return cGroup_8_0; }
 		
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_8_0_0() { return cLeftCurlyBracketKeyword_8_0_0; }
 		
-		//moe=moeFinalStateRoutines?
-		public Assignment getMoeAssignment_8_0_1() { return cMoeAssignment_8_0_1; }
+		//('@moe:'? moe=moeFinalStateRoutines)?
+		public Group getGroup_8_0_1() { return cGroup_8_0_1; }
+		
+		//'@moe:'?
+		public Keyword getMoeKeyword_8_0_1_0() { return cMoeKeyword_8_0_1_0; }
+		
+		//moe=moeFinalStateRoutines
+		public Assignment getMoeAssignment_8_0_1_1() { return cMoeAssignment_8_0_1_1; }
 		
 		//moeFinalStateRoutines
-		public RuleCall getMoeMoeFinalStateRoutinesParserRuleCall_8_0_1_0() { return cMoeMoeFinalStateRoutinesParserRuleCall_8_0_1_0; }
+		public RuleCall getMoeMoeFinalStateRoutinesParserRuleCall_8_0_1_1_0() { return cMoeMoeFinalStateRoutinesParserRuleCall_8_0_1_1_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_8_0_2() { return cRightCurlyBracketKeyword_8_0_2; }
@@ -24488,8 +24526,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//StatemachineRegion fmlStmchn::Region:
-	//	{fmlStmchn::Region}
-	//	'@region:' (vertex+=State
+	//	{fmlStmchn::Region} ('@state:' | '@region:') (vertex+=State
 	//	| vertex+=Pseudostate)+;
 	public StatemachineRegionElements getStatemachineRegionAccess() {
 		return pStatemachineRegion;
@@ -24501,7 +24538,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//StatemachineNamedRegion fmlStmchn::Region:
 	//	{fmlStmchn::Region}
-	//	'@region(' 'name:'? name=ESIdentifier
+	//	'@region(' ('id:' | 'name:')? name=ESIdentifier
 	//	unrestrictedName=UnrestrictedName? '):' (vertex+=State
 	//	| vertex+=Pseudostate)+;
 	public StatemachineNamedRegionElements getStatemachineNamedRegionAccess() {
@@ -24647,8 +24684,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//////////////////////////////////////////////////////////////////////////////////
 	//FinalState fmlStmchn::FinalState:
 	//	{fmlStmchn::FinalState} (simple?='state' '<' 'moc:'? 'final' '>' name=ESIdentifier
-	//	| simple?='#final') unrestrictedName=UnrestrictedName? ('{'
-	//	moe=moeFinalStateRoutines?
+	//	| simple?='#final') unrestrictedName=UnrestrictedName? ('{' ('@moe:'? moe=moeFinalStateRoutines)?
 	//	'}'
 	//	| ';');
 	public FinalStateElements getFinalStateAccess() {
@@ -24739,7 +24775,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	//	{fmlStmchn::Pseudostate} (('state' | 'pseudostate')
 	//	'<' 'moc:'? kind=PseudostateInitialKind '>'
 	//	name=(ESIdentifier | '#initial' | '#init') | name=('#initial' | '#init')) unrestrictedName=UnrestrictedName? ('{'
-	//	transition+=Transition* '}'
+	//	('@transition:'? transition+=Transition*)? '}'
 	//	| ';');
 	public PseudostateInitialElements getPseudostateInitialAccess() {
 		return pPseudostateInitial;
@@ -24761,7 +24797,7 @@ public class FormalMLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//EndingPseudostate fmlStmchn::Pseudostate:
 	//	{fmlStmchn::Pseudostate} ('state' | 'pseudostate') '<' 'moc:'? kind=EndingPseudostateKind '>'
-	//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('{' moe=moeFinalStateRoutines? '}'
+	//	name=ESIdentifier unrestrictedName=UnrestrictedName? ('{' ('@moe:'? moe=moeFinalStateRoutines)? '}'
 	//	| ';');
 	public EndingPseudostateElements getEndingPseudostateAccess() {
 		return pEndingPseudostate;

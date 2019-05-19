@@ -149,7 +149,7 @@ class FormalMLKeywordHovers {
 		case grammarAccess.statemachineAccess.statemachineKeyword_2:
 			KEYWORD_STATEMACHINE
 			
-		case grammarAccess.statemachineRegionAccess.regionKeyword_1:
+		case grammarAccess.statemachineRegionAccess.regionKeyword_1_1:
 			KEYWORD_AT_REGION
 			
 		case grammarAccess.compositeStateAccess.compositeStateKeyword_1_0:

@@ -21,9 +21,9 @@ public class MoccPortHelper {
 	public Port xliaChannelPort;
 
 	public Variable constTOKEN_INITIAL_RATE;
-
 	public Variable varReceivedModeTokenCount;
 
+	public Variable constMODE_INITIAL;
 	public Variable varReceivedMode;
 
 	public Variable constTOKEN_RATE;
@@ -33,6 +33,7 @@ public class MoccPortHelper {
 			final Port xliaChannelPort,
 			final Variable constTokenInitialRate,
 			final Variable varReceivedModeTokenCount,
+			final Variable constModeInitial,
 			final Variable varReceivedMode,
 			final Variable constTokenRate) {
 		super();
@@ -41,16 +42,16 @@ public class MoccPortHelper {
 		this.xliaChannelPort = xliaChannelPort;
 
 		this.constTOKEN_INITIAL_RATE = constTokenInitialRate;
-
 		this.varReceivedModeTokenCount = varReceivedModeTokenCount;
 
+		constMODE_INITIAL = constModeInitial;
 		this.varReceivedMode = varReceivedMode;
 
 		this.constTOKEN_RATE = constTokenRate;
 	}
 
 	public MoccPortHelper(final Port xliaPort, final Variable constTokenRate) {
-		this(xliaPort, xliaPort, null, null, null, constTokenRate);
+		this(xliaPort, xliaPort, null, null, null, null, constTokenRate);
 	}
 
 }

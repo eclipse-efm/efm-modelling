@@ -147,7 +147,9 @@ public class FormalMLParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getStatemachineAccess().getAlternatives_10_1(), "rule__Statemachine__Alternatives_10_1");
 			builder.put(grammarAccess.getStatemachineAccess().getAlternatives_11(), "rule__Statemachine__Alternatives_11");
 			builder.put(grammarAccess.getStatemachineAccess().getAlternatives_11_0(), "rule__Statemachine__Alternatives_11_0");
+			builder.put(grammarAccess.getStatemachineRegionAccess().getAlternatives_1(), "rule__StatemachineRegion__Alternatives_1");
 			builder.put(grammarAccess.getStatemachineRegionAccess().getAlternatives_2(), "rule__StatemachineRegion__Alternatives_2");
+			builder.put(grammarAccess.getStatemachineNamedRegionAccess().getAlternatives_2(), "rule__StatemachineNamedRegion__Alternatives_2");
 			builder.put(grammarAccess.getStatemachineNamedRegionAccess().getAlternatives_6(), "rule__StatemachineNamedRegion__Alternatives_6");
 			builder.put(grammarAccess.getStatemachineRegionLiteAccess().getAlternatives(), "rule__StatemachineRegionLite__Alternatives");
 			builder.put(grammarAccess.getStateAccess().getAlternatives(), "rule__State__Alternatives");
@@ -536,6 +538,7 @@ public class FormalMLParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getFinalStateAccess().getGroup(), "rule__FinalState__Group__0");
 			builder.put(grammarAccess.getFinalStateAccess().getGroup_1_0(), "rule__FinalState__Group_1_0__0");
 			builder.put(grammarAccess.getFinalStateAccess().getGroup_3_0(), "rule__FinalState__Group_3_0__0");
+			builder.put(grammarAccess.getFinalStateAccess().getGroup_3_0_1(), "rule__FinalState__Group_3_0_1__0");
 			builder.put(grammarAccess.getMoeFinalStateRoutinesAccess().getGroup(), "rule__MoeFinalStateRoutines__Group__0");
 			builder.put(grammarAccess.getMoeFinalStateRoutinesAccess().getGroup_1_0(), "rule__MoeFinalStateRoutines__Group_1_0__0");
 			builder.put(grammarAccess.getMoeFinalStateRoutinesAccess().getGroup_1_1(), "rule__MoeFinalStateRoutines__Group_1_1__0");
@@ -547,8 +550,10 @@ public class FormalMLParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getPseudostateInitialAccess().getGroup(), "rule__PseudostateInitial__Group__0");
 			builder.put(grammarAccess.getPseudostateInitialAccess().getGroup_1_0(), "rule__PseudostateInitial__Group_1_0__0");
 			builder.put(grammarAccess.getPseudostateInitialAccess().getGroup_3_0(), "rule__PseudostateInitial__Group_3_0__0");
+			builder.put(grammarAccess.getPseudostateInitialAccess().getGroup_3_0_1(), "rule__PseudostateInitial__Group_3_0_1__0");
 			builder.put(grammarAccess.getEndingPseudostateAccess().getGroup(), "rule__EndingPseudostate__Group__0");
 			builder.put(grammarAccess.getEndingPseudostateAccess().getGroup_8_0(), "rule__EndingPseudostate__Group_8_0__0");
+			builder.put(grammarAccess.getEndingPseudostateAccess().getGroup_8_0_1(), "rule__EndingPseudostate__Group_8_0_1__0");
 			builder.put(grammarAccess.getModelOfExecutionAccess().getGroup(), "rule__ModelOfExecution__Group__0");
 			builder.put(grammarAccess.getModelOfExecutionAccess().getGroup_3_0(), "rule__ModelOfExecution__Group_3_0__0");
 			builder.put(grammarAccess.getModelOfExecutionAccess().getGroup_3_1(), "rule__ModelOfExecution__Group_3_1__0");
@@ -1368,7 +1373,7 @@ public class FormalMLParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getFinalStateAccess().getNameAssignment_1_0_5(), "rule__FinalState__NameAssignment_1_0_5");
 			builder.put(grammarAccess.getFinalStateAccess().getSimpleAssignment_1_1(), "rule__FinalState__SimpleAssignment_1_1");
 			builder.put(grammarAccess.getFinalStateAccess().getUnrestrictedNameAssignment_2(), "rule__FinalState__UnrestrictedNameAssignment_2");
-			builder.put(grammarAccess.getFinalStateAccess().getMoeAssignment_3_0_1(), "rule__FinalState__MoeAssignment_3_0_1");
+			builder.put(grammarAccess.getFinalStateAccess().getMoeAssignment_3_0_1_1(), "rule__FinalState__MoeAssignment_3_0_1_1");
 			builder.put(grammarAccess.getMoeFinalStateRoutinesAccess().getEnableRoutineAssignment_1_0_1(), "rule__MoeFinalStateRoutines__EnableRoutineAssignment_1_0_1");
 			builder.put(grammarAccess.getMoeFinalStateRoutinesAccess().getFinalRoutineAssignment_1_1_1(), "rule__MoeFinalStateRoutines__FinalRoutineAssignment_1_1_1");
 			builder.put(grammarAccess.getOtherPseudostateAccess().getKindAssignment_4(), "rule__OtherPseudostate__KindAssignment_4");
@@ -1382,11 +1387,11 @@ public class FormalMLParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getPseudostateInitialAccess().getNameAssignment_1_0_5(), "rule__PseudostateInitial__NameAssignment_1_0_5");
 			builder.put(grammarAccess.getPseudostateInitialAccess().getNameAssignment_1_1(), "rule__PseudostateInitial__NameAssignment_1_1");
 			builder.put(grammarAccess.getPseudostateInitialAccess().getUnrestrictedNameAssignment_2(), "rule__PseudostateInitial__UnrestrictedNameAssignment_2");
-			builder.put(grammarAccess.getPseudostateInitialAccess().getTransitionAssignment_3_0_1(), "rule__PseudostateInitial__TransitionAssignment_3_0_1");
+			builder.put(grammarAccess.getPseudostateInitialAccess().getTransitionAssignment_3_0_1_1(), "rule__PseudostateInitial__TransitionAssignment_3_0_1_1");
 			builder.put(grammarAccess.getEndingPseudostateAccess().getKindAssignment_4(), "rule__EndingPseudostate__KindAssignment_4");
 			builder.put(grammarAccess.getEndingPseudostateAccess().getNameAssignment_6(), "rule__EndingPseudostate__NameAssignment_6");
 			builder.put(grammarAccess.getEndingPseudostateAccess().getUnrestrictedNameAssignment_7(), "rule__EndingPseudostate__UnrestrictedNameAssignment_7");
-			builder.put(grammarAccess.getEndingPseudostateAccess().getMoeAssignment_8_0_1(), "rule__EndingPseudostate__MoeAssignment_8_0_1");
+			builder.put(grammarAccess.getEndingPseudostateAccess().getMoeAssignment_8_0_1_1(), "rule__EndingPseudostate__MoeAssignment_8_0_1_1");
 			builder.put(grammarAccess.getModelOfExecutionAccess().getRoutineAssignment_2(), "rule__ModelOfExecution__RoutineAssignment_2");
 			builder.put(grammarAccess.getModelOfExecutionAccess().getCreateRoutineAssignment_3_0_1(), "rule__ModelOfExecution__CreateRoutineAssignment_3_0_1");
 			builder.put(grammarAccess.getModelOfExecutionAccess().getInitRoutineAssignment_3_1_1(), "rule__ModelOfExecution__InitRoutineAssignment_3_1_1");

@@ -1077,13 +1077,17 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		if ( positions.length > 4 ) {
 			nbCoverage = positions[4];
+
+			if ( positions.length > 5 ) {
+				maxCoverage = positions[5];
+			}
 		}
 	}
 
 
 	private void majStepAndMax() {
-		if ( resizeStep || (resizeStep = (nbStep >= maxStep)) ) {
-			while ( nbStep >= maxStep ) {
+		if ( resizeStep || (resizeStep = (nbStep > maxStep)) ) {
+			while ( nbStep > maxStep ) {
 				if ( maxStep/stepStep <= 9 ) {
 					maxStep = maxStep + stepStep;
 				}
@@ -1093,8 +1097,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
-		if ( resizeContext || (resizeContext = (nbContext >= maxContext)) ) {
-			while ( nbContext >= maxContext ) {
+		if ( resizeContext || (resizeContext = (nbContext > maxContext)) ) {
+			while ( nbContext > maxContext ) {
 				if ( maxContext/stepContext <= 9 ) {
 					maxContext = maxContext + stepContext;
 				}
@@ -1104,8 +1108,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
-		if ( resizeHeight || (resizeHeight = (nbHeight >= maxHeight)) ) {
-			while ( nbHeight >= maxHeight ) {
+		if ( resizeHeight || (resizeHeight = (nbHeight > maxHeight)) ) {
+			while ( nbHeight > maxHeight ) {
 				if ( maxHeight/stepHeight <= 9 ) {
 					maxHeight = maxHeight + stepHeight;
 				}
@@ -1115,8 +1119,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 				}
 			}
 		}
-		if ( resizeWidth || (resizeWidth = (nbWidth >= maxWidth)) ) {
-			while ( nbWidth >= maxWidth ) {
+		if ( resizeWidth || (resizeWidth = (nbWidth > maxWidth)) ) {
+			while ( nbWidth > maxWidth ) {
 				if ( maxWidth/stepWidth <= 9 ) {
 					maxWidth = maxWidth + stepWidth;
 				}

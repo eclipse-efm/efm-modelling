@@ -565,6 +565,7 @@ class XLIAGenerator {
 	
 	def static CharSequence generateRegion(Region region)
 	'''
+«««		@state:
 		@region:
 			«FOR it : region.vertex»
 				«generateState(it)»

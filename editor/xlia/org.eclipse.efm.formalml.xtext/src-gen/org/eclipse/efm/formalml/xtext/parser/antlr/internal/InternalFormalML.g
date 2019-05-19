@@ -8082,17 +8082,24 @@ ruleStatemachineRegion returns [EObject current=null]
 					$current);
 			}
 		)
-		otherlv_1='@region:'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getStatemachineRegionAccess().getRegionKeyword_1());
-		}
+		(
+			otherlv_1='@state:'
+			{
+				newLeafNode(otherlv_1, grammarAccess.getStatemachineRegionAccess().getStateKeyword_1_0());
+			}
+			    |
+			otherlv_2='@region:'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getStatemachineRegionAccess().getRegionKeyword_1_1());
+			}
+		)
 		(
 			(
 				(
 					{
 						newCompositeNode(grammarAccess.getStatemachineRegionAccess().getVertexStateParserRuleCall_2_0_0());
 					}
-					lv_vertex_2_0=ruleState
+					lv_vertex_3_0=ruleState
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getStatemachineRegionRule());
@@ -8100,7 +8107,7 @@ ruleStatemachineRegion returns [EObject current=null]
 						add(
 							$current,
 							"vertex",
-							lv_vertex_2_0,
+							lv_vertex_3_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.State");
 						afterParserOrEnumRuleCall();
 					}
@@ -8112,7 +8119,7 @@ ruleStatemachineRegion returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getStatemachineRegionAccess().getVertexPseudostateParserRuleCall_2_1_0());
 					}
-					lv_vertex_3_0=rulePseudostate
+					lv_vertex_4_0=rulePseudostate
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getStatemachineRegionRule());
@@ -8120,7 +8127,7 @@ ruleStatemachineRegion returns [EObject current=null]
 						add(
 							$current,
 							"vertex",
-							lv_vertex_3_0,
+							lv_vertex_4_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.Pseudostate");
 						afterParserOrEnumRuleCall();
 					}
@@ -8161,9 +8168,14 @@ ruleStatemachineNamedRegion returns [EObject current=null]
 			newLeafNode(otherlv_1, grammarAccess.getStatemachineNamedRegionAccess().getRegionKeyword_1());
 		}
 		(
-			otherlv_2='name:'
+			otherlv_2='id:'
 			{
-				newLeafNode(otherlv_2, grammarAccess.getStatemachineNamedRegionAccess().getNameKeyword_2());
+				newLeafNode(otherlv_2, grammarAccess.getStatemachineNamedRegionAccess().getIdKeyword_2_0());
+			}
+			    |
+			otherlv_3='name:'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getStatemachineNamedRegionAccess().getNameKeyword_2_1());
 			}
 		)?
 		(
@@ -8171,7 +8183,7 @@ ruleStatemachineNamedRegion returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getStatemachineNamedRegionAccess().getNameESIdentifierParserRuleCall_3_0());
 				}
-				lv_name_3_0=ruleESIdentifier
+				lv_name_4_0=ruleESIdentifier
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getStatemachineNamedRegionRule());
@@ -8179,7 +8191,7 @@ ruleStatemachineNamedRegion returns [EObject current=null]
 					set(
 						$current,
 						"name",
-						lv_name_3_0,
+						lv_name_4_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.ESIdentifier");
 					afterParserOrEnumRuleCall();
 				}
@@ -8190,7 +8202,7 @@ ruleStatemachineNamedRegion returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getStatemachineNamedRegionAccess().getUnrestrictedNameUnrestrictedNameParserRuleCall_4_0());
 				}
-				lv_unrestrictedName_4_0=ruleUnrestrictedName
+				lv_unrestrictedName_5_0=ruleUnrestrictedName
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getStatemachineNamedRegionRule());
@@ -8198,15 +8210,15 @@ ruleStatemachineNamedRegion returns [EObject current=null]
 					set(
 						$current,
 						"unrestrictedName",
-						lv_unrestrictedName_4_0,
+						lv_unrestrictedName_5_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.UnrestrictedName");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)?
-		otherlv_5='):'
+		otherlv_6='):'
 		{
-			newLeafNode(otherlv_5, grammarAccess.getStatemachineNamedRegionAccess().getRightParenthesisColonKeyword_5());
+			newLeafNode(otherlv_6, grammarAccess.getStatemachineNamedRegionAccess().getRightParenthesisColonKeyword_5());
 		}
 		(
 			(
@@ -8214,7 +8226,7 @@ ruleStatemachineNamedRegion returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getStatemachineNamedRegionAccess().getVertexStateParserRuleCall_6_0_0());
 					}
-					lv_vertex_6_0=ruleState
+					lv_vertex_7_0=ruleState
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getStatemachineNamedRegionRule());
@@ -8222,7 +8234,7 @@ ruleStatemachineNamedRegion returns [EObject current=null]
 						add(
 							$current,
 							"vertex",
-							lv_vertex_6_0,
+							lv_vertex_7_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.State");
 						afterParserOrEnumRuleCall();
 					}
@@ -8234,7 +8246,7 @@ ruleStatemachineNamedRegion returns [EObject current=null]
 					{
 						newCompositeNode(grammarAccess.getStatemachineNamedRegionAccess().getVertexPseudostateParserRuleCall_6_1_0());
 					}
-					lv_vertex_7_0=rulePseudostate
+					lv_vertex_8_0=rulePseudostate
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getStatemachineNamedRegionRule());
@@ -8242,7 +8254,7 @@ ruleStatemachineNamedRegion returns [EObject current=null]
 						add(
 							$current,
 							"vertex",
-							lv_vertex_7_0,
+							lv_vertex_8_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.Pseudostate");
 						afterParserOrEnumRuleCall();
 					}
@@ -10080,32 +10092,40 @@ ruleFinalState returns [EObject current=null]
 				}
 				(
 					(
+						otherlv_10='@moe:'
 						{
-							newCompositeNode(grammarAccess.getFinalStateAccess().getMoeMoeFinalStateRoutinesParserRuleCall_3_0_1_0());
+							newLeafNode(otherlv_10, grammarAccess.getFinalStateAccess().getMoeKeyword_3_0_1_0());
 						}
-						lv_moe_10_0=rulemoeFinalStateRoutines
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getFinalStateRule());
+					)?
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getFinalStateAccess().getMoeMoeFinalStateRoutinesParserRuleCall_3_0_1_1_0());
 							}
-							set(
-								$current,
-								"moe",
-								lv_moe_10_0,
-								"org.eclipse.efm.formalml.xtext.FormalML.moeFinalStateRoutines");
-							afterParserOrEnumRuleCall();
-						}
+							lv_moe_11_0=rulemoeFinalStateRoutines
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getFinalStateRule());
+								}
+								set(
+									$current,
+									"moe",
+									lv_moe_11_0,
+									"org.eclipse.efm.formalml.xtext.FormalML.moeFinalStateRoutines");
+								afterParserOrEnumRuleCall();
+							}
+						)
 					)
 				)?
-				otherlv_11='}'
+				otherlv_12='}'
 				{
-					newLeafNode(otherlv_11, grammarAccess.getFinalStateAccess().getRightCurlyBracketKeyword_3_0_2());
+					newLeafNode(otherlv_12, grammarAccess.getFinalStateAccess().getRightCurlyBracketKeyword_3_0_2());
 				}
 			)
 			    |
-			otherlv_12=';'
+			otherlv_13=';'
 			{
-				newLeafNode(otherlv_12, grammarAccess.getFinalStateAccess().getSemicolonKeyword_3_1());
+				newLeafNode(otherlv_13, grammarAccess.getFinalStateAccess().getSemicolonKeyword_3_1());
 			}
 		)
 	)
@@ -10796,32 +10816,40 @@ rulePseudostateInitial returns [EObject current=null]
 				}
 				(
 					(
+						otherlv_11='@transition:'
 						{
-							newCompositeNode(grammarAccess.getPseudostateInitialAccess().getTransitionTransitionParserRuleCall_3_0_1_0());
+							newLeafNode(otherlv_11, grammarAccess.getPseudostateInitialAccess().getTransitionKeyword_3_0_1_0());
 						}
-						lv_transition_11_0=ruleTransition
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getPseudostateInitialRule());
+					)?
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getPseudostateInitialAccess().getTransitionTransitionParserRuleCall_3_0_1_1_0());
 							}
-							add(
-								$current,
-								"transition",
-								lv_transition_11_0,
-								"org.eclipse.efm.formalml.xtext.FormalML.Transition");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)*
-				otherlv_12='}'
+							lv_transition_12_0=ruleTransition
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getPseudostateInitialRule());
+								}
+								add(
+									$current,
+									"transition",
+									lv_transition_12_0,
+									"org.eclipse.efm.formalml.xtext.FormalML.Transition");
+								afterParserOrEnumRuleCall();
+							}
+						)
+					)*
+				)?
+				otherlv_13='}'
 				{
-					newLeafNode(otherlv_12, grammarAccess.getPseudostateInitialAccess().getRightCurlyBracketKeyword_3_0_2());
+					newLeafNode(otherlv_13, grammarAccess.getPseudostateInitialAccess().getRightCurlyBracketKeyword_3_0_2());
 				}
 			)
 			    |
-			otherlv_13=';'
+			otherlv_14=';'
 			{
-				newLeafNode(otherlv_13, grammarAccess.getPseudostateInitialAccess().getSemicolonKeyword_3_1());
+				newLeafNode(otherlv_14, grammarAccess.getPseudostateInitialAccess().getSemicolonKeyword_3_1());
 			}
 		)
 	)
@@ -10943,32 +10971,40 @@ ruleEndingPseudostate returns [EObject current=null]
 				}
 				(
 					(
+						otherlv_10='@moe:'
 						{
-							newCompositeNode(grammarAccess.getEndingPseudostateAccess().getMoeMoeFinalStateRoutinesParserRuleCall_8_0_1_0());
+							newLeafNode(otherlv_10, grammarAccess.getEndingPseudostateAccess().getMoeKeyword_8_0_1_0());
 						}
-						lv_moe_10_0=rulemoeFinalStateRoutines
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getEndingPseudostateRule());
+					)?
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getEndingPseudostateAccess().getMoeMoeFinalStateRoutinesParserRuleCall_8_0_1_1_0());
 							}
-							set(
-								$current,
-								"moe",
-								lv_moe_10_0,
-								"org.eclipse.efm.formalml.xtext.FormalML.moeFinalStateRoutines");
-							afterParserOrEnumRuleCall();
-						}
+							lv_moe_11_0=rulemoeFinalStateRoutines
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getEndingPseudostateRule());
+								}
+								set(
+									$current,
+									"moe",
+									lv_moe_11_0,
+									"org.eclipse.efm.formalml.xtext.FormalML.moeFinalStateRoutines");
+								afterParserOrEnumRuleCall();
+							}
+						)
 					)
 				)?
-				otherlv_11='}'
+				otherlv_12='}'
 				{
-					newLeafNode(otherlv_11, grammarAccess.getEndingPseudostateAccess().getRightCurlyBracketKeyword_8_0_2());
+					newLeafNode(otherlv_12, grammarAccess.getEndingPseudostateAccess().getRightCurlyBracketKeyword_8_0_2());
 				}
 			)
 			    |
-			otherlv_12=';'
+			otherlv_13=';'
 			{
-				newLeafNode(otherlv_12, grammarAccess.getEndingPseudostateAccess().getSemicolonKeyword_8_1());
+				newLeafNode(otherlv_13, grammarAccess.getEndingPseudostateAccess().getSemicolonKeyword_8_1());
 			}
 		)
 	)

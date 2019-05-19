@@ -124,32 +124,39 @@ public interface IWorkflowSpiderConfigurationUtils {
 	String SPIDER_POSITIONS_SEPARATOR = "\\D+";
 	String OLD_POSITIONS_SEPARATOR = "[, ]*\\w+[:][ ]*|[,/ ]+";
 
+	int[] RESCUE_POSITIONS = new int[] { 0 , 0 , 0 , 0 };
+
 	default int[] spiderPositions(final String spiderInformations) {
-		String[] strPositions;
-
-		final char firstChar = spiderInformations.charAt(0);
-		if( (firstChar == '$') || (firstChar == '<') || (firstChar == '>') ) {
-			strPositions = spiderInformations.split(SPIDER_POSITIONS_SEPARATOR);
+		if( spiderInformations.length() < 2 ) {
+			return RESCUE_POSITIONS;
 		}
-		else { //if (firstChar == 's')
-			strPositions = spiderInformations.split(OLD_POSITIONS_SEPARATOR);
-		}
+		else {
+			String[] strPositions;
 
-		final int[] positions = new int[strPositions.length - 1];
-
-		for (int i = 1; i < strPositions.length; i++) {
-			try {
-				positions[i - 1] = Integer.parseInt(strPositions[i]);
-			} catch(final NumberFormatException e) {
-				//!! NOTHING ELSE !!
-				positions[i - 1] = 0;
-
-				System.out.print( "spiderPosition< unexpected as number > : " );
-				System.out.println( strPositions[i] );
+			final char firstChar = spiderInformations.charAt(0);
+			if( (firstChar == '$') || (firstChar == '<') || (firstChar == '>') ) {
+				strPositions = spiderInformations.split(SPIDER_POSITIONS_SEPARATOR);
 			}
-		}
+			else { //if (firstChar == 's')
+				strPositions = spiderInformations.split(OLD_POSITIONS_SEPARATOR);
+			}
 
-		return( positions );
+			final int[] positions = new int[strPositions.length - 1];
+
+			for (int i = 1; i < strPositions.length; i++) {
+				try {
+					positions[i - 1] = Integer.parseInt(strPositions[i]);
+				} catch(final NumberFormatException e) {
+					//!! NOTHING ELSE !!
+					positions[i - 1] = 0;
+
+					System.out.print( "spiderPosition< unexpected as number > : " );
+					System.out.println( strPositions[i] );
+				}
+			}
+
+			return( positions );
+		}
 	}
 
 }

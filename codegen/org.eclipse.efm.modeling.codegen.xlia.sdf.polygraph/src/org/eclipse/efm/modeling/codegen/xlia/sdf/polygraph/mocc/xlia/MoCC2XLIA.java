@@ -216,14 +216,14 @@ public class MoCC2XLIA {
 				"tick", XLIA_EXPRESSION.zero());
 		this.xliaSystem.getVariable().add(this.varTick);
 
-		this.varTimestamp = XLIA_INFRA.createVariable(
+		this.varTimestamp = XLIA_INFRA.createLocaleVariable(
 				XLIA_DATATYPE.createInterger(),
 				"timestamp", XLIA_EXPRESSION.zero());
 		this.xliaSystem.getVariable().add(this.varTimestamp);
 
 
 		// GENERAL ENABLED ACTIVATION
-		this.varCanBeActivate = XLIA_INFRA.createVariable(
+		this.varCanBeActivate = XLIA_INFRA.createLocaleVariable(
 				XLIA_DATATYPE.createBoolean(),
 				"canBeActivate", XLIA_EXPRESSION.trueValue());
 		this.xliaSystem.getVariable().add(this.varCanBeActivate);
@@ -797,11 +797,11 @@ public class MoCC2XLIA {
 					XLIA_DATATYPE.createReference(this.MODE_SET_TYPE);
 
 			xliaPort = createPortTokenMode(
-					moccPort.getChannel().getName(), moccPort,
+					"out#" + moccPort.getChannel().getName(), moccPort,
 					ChannelDirection.OUTPUT, xliaActor, tokenType, modeType);
 		}
 		else {
-			xliaPort = createPortToken(moccPort.getChannel().getName(),
+			xliaPort = createPortToken("out#" + moccPort.getChannel().getName(),
 					moccPort, ChannelDirection.OUTPUT, xliaActor, tokenType);
 		}
 
@@ -835,6 +835,7 @@ public class MoCC2XLIA {
 
 		// CONSTANT: INITIAL TOKEN COUNT
 		Variable tokenInitialRate = null;
+		Variable modeInitial = null;
 		final MoccChannel channel = moccPort.getChannel();
 		if( channel.hasInitialRate() ) {
 			constType = XLIA_DATATYPE.createRationalOrInteger(
@@ -847,9 +848,21 @@ public class MoCC2XLIA {
 					: XLIA_EXPRESSION.createInteger(channel.getInitialRate());
 
 			tokenInitialRate = XLIA_INFRA.createConstant(constType,
-					"INITIAL_FROM_" + sourceActor/*.toUpperCase()*/, value);
+					"INITIAL_TOKEN_FROM_" + sourceActor/*.toUpperCase()*/, value);
 
 			xliaActor.getVariable().add(tokenInitialRate);
+
+			if( channel.hasInitialMode() ) {
+				constType = XLIA_DATATYPE.createReference(this.MODE_SET_TYPE);
+
+				modeInitial = XLIA_INFRA.createConstant(constType,
+						"INITIAL_MODE_FROM_" + sourceActor/*.toUpperCase()*/,
+						XLIA_EXPRESSION.createExpression(
+								XLIA_DATATYPE.getEnumLiteral(this.MODE_SET_TYPE,
+										channel.getInitialMode().getLiteral())));
+
+				xliaActor.getVariable().add(modeInitial);
+			}
 		}
 
 
@@ -883,11 +896,13 @@ public class MoCC2XLIA {
 
 			varReceivedMode = XLIA_INFRA.createVariable(
 					XLIA_DATATYPE.createReference(this.MODE_SET_TYPE),
-					"receivedMode_from_" + sourceActor);
+					"receivedMode_from_" + sourceActor,
+					XLIA_EXPRESSION.createExpression(
+							helper(moccPort.actor).constDEFAULT_MODE));
 			xliaActor.getVariable().add(varReceivedMode);
 
 			xliaChannelPort = createPortTokenMode(
-					moccPort.getChannel().getName(), moccPort,
+					"in#" + moccPort.getChannel().getName(), moccPort,
 //					ChannelDirection.INPUT, xliaActor, channelTokenType,
 					ChannelDirection.OUTPUT, xliaActor, channelTokenType,
 					XLIA_DATATYPE.createReference(this.MODE_SET_TYPE));
@@ -897,14 +912,16 @@ public class MoCC2XLIA {
 					ChannelDirection.INPUT, xliaActor, portTokenType);
 
 			xliaChannelPort = createPortToken(
-					moccPort.getChannel().getName(), moccPort,
+					"in#" + moccPort.getChannel().getName(), moccPort,
 //					ChannelDirection.INPUT, xliaActor, channelTokenType);
 					ChannelDirection.OUTPUT, xliaActor, channelTokenType);
 			}
 
 		// Mapping: MoccPort-->PortHelper
-		portHelper.put(moccPort, new MoccPortHelper(xliaPort, xliaChannelPort,
-				tokenInitialRate, varTokenCount, varReceivedMode, constREQ));
+		portHelper.put(moccPort,
+				new MoccPortHelper(xliaPort, xliaChannelPort,
+						tokenInitialRate, varTokenCount,
+						modeInitial, varReceivedMode, constREQ));
 	}
 
 
@@ -1025,7 +1042,7 @@ public class MoCC2XLIA {
 				XLIA_EXPRESSION.createRelational(
 						XLIA_EXPRESSION.OP_EQ,
 						this.varTick, this.varTickPeriod));
-	
+
 		Expression untimedConditionalReinitialisation = null;
 
 		final BlockStatement blockReinit =
@@ -1557,14 +1574,21 @@ public class MoCC2XLIA {
 
 		for( final MoccPort moccPort : actor.getInputPort() ) {
 
+			final MoccPortHelper helperPort = helper(moccPort);
+
 			final Expression value =
-					(helper(moccPort).constTOKEN_INITIAL_RATE == null)
+					(helperPort.constTOKEN_INITIAL_RATE == null)
 						? XLIA_EXPRESSION.zero()
 						: XLIA_EXPRESSION.createExpression(
-								helper(moccPort).constTOKEN_INITIAL_RATE);
+								helperPort.constTOKEN_INITIAL_RATE);
 
 			XLIA_STATEMENT.addAssignment(block,
-					helper(moccPort).varReceivedModeTokenCount, value);
+					helperPort.varReceivedModeTokenCount, value);
+
+			if( helperPort.constMODE_INITIAL != null ) {
+				XLIA_STATEMENT.addAssignment(block,
+						helperPort.varReceivedMode, helperPort.constMODE_INITIAL);
+			}
 		}
 
 		final MoccActorHelper actorHELPER = helper(actor);

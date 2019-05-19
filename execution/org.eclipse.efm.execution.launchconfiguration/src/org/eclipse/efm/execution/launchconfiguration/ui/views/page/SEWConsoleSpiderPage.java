@@ -677,7 +677,7 @@ public class SEWConsoleSpiderPage extends Page
 
 	private void majStepAndMax() {
 		if ( resizeStep ) {
-			while ( nbStep >= maxStep ) {
+			while ( nbStep > maxStep ) {
 				if ( maxStep/stepStep <= 9 ) {
 					maxStep = maxStep + stepStep;
 				}
@@ -688,7 +688,7 @@ public class SEWConsoleSpiderPage extends Page
 			}
 		}
 		if ( resizeContext ) {
-			while ( nbContext >= maxContext ) {
+			while ( nbContext > maxContext ) {
 				if ( maxContext/stepContext <= 9 ) {
 					maxContext = maxContext + stepContext;
 				}
@@ -699,7 +699,7 @@ public class SEWConsoleSpiderPage extends Page
 			}
 		}
 		if ( resizeHeight ) {
-			while ( nbHeight >= maxHeight ) {
+			while ( nbHeight > maxHeight ) {
 				if ( maxHeight/stepHeight <= 9 ) {
 					maxHeight = maxHeight + stepHeight;
 				}
@@ -710,7 +710,7 @@ public class SEWConsoleSpiderPage extends Page
 			}
 		}
 		if ( resizeWidth ) {
-			while ( nbWidth >= maxWidth ) {
+			while ( nbWidth > maxWidth ) {
 				if ( maxWidth/stepWidth <= 9 ) {
 					maxWidth = maxWidth + stepWidth;
 				}
@@ -723,11 +723,11 @@ public class SEWConsoleSpiderPage extends Page
 	}
 
 	// DEPRECATED for COMPATIBILITY
-	private void initSpider(final String traceLine) {
-		final String tmpString = traceLine.replaceAll(" ", "");
-		initVar();
-		initMaxAndResize( tmpString );
-	}
+//	private void initSpider(final String traceLine) {
+//		final String tmpString = traceLine.replaceAll(" ", "");
+//		initVar();
+//		initMaxAndResize( tmpString );
+//	}
 
 
 	private void initMaxAndResize(final String aString) {

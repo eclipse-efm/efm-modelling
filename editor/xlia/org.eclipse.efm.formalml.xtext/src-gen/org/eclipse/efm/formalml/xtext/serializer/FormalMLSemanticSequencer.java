@@ -4188,7 +4188,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *             function+=Function | 
 	 *             variable+=Variable
 	 *         )* 
-	 *         signal+=SignalPublic? 
+	 *         channel+=ChannelPublic? 
 	 *         (
 	 *             (
 	 *                 port+=Port | 
@@ -4199,8 +4199,8 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 function+=Function | 
 	 *                 variable+=Variable | 
 	 *                 port+=PortPublic | 
+	 *                 signal+=SignalPublic | 
 	 *                 buffer+=BufferPublic | 
-	 *                 channel+=ChannelPublic | 
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionPublic | 
 	 *                 variable+=VariablePublic | 
@@ -4219,7 +4219,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 function+=FunctionPrivate | 
 	 *                 variable+=VariablePrivate
 	 *             )? 
-	 *             signal+=SignalPublic?
+	 *             channel+=ChannelPublic?
 	 *         )* 
 	 *         ((routine+=Routine? (procedure+=Procedure? routine+=Routine?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
 	 *         machine+=AnyMachineBlock? 
@@ -4253,7 +4253,7 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     MixTupleExpressionList returns MixTupleExpression
 	 *
 	 * Constraint:
-	 *     ((value+=Expression | value+=NamedExpression) value+=NamedExpression? (value+=Expression? value+=NamedExpression?)*)
+	 *     ((value+=Expression | value+=NamedExpression) value+=Expression? (value+=NamedExpression? value+=Expression?)*)
 	 */
 	protected void sequence_MixTupleExpressionList(ISerializationContext context, MixTupleExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -5467,24 +5467,24 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 )*
 	 *             ) | 
 	 *             (
-	 *                 typedef+=TypeDefinition? 
+	 *                 port+=Port? 
 	 *                 (
 	 *                     (
-	 *                         port+=Port | 
 	 *                         signal+=Signal | 
 	 *                         buffer+=Buffer | 
 	 *                         channel+=Channel | 
+	 *                         typedef+=TypeDefinition | 
 	 *                         function+=Function | 
 	 *                         variable+=Variable
 	 *                     )? 
-	 *                     typedef+=TypeDefinition?
+	 *                     port+=Port?
 	 *                 )*
 	 *             )
 	 *         ) 
-	 *         parameter+=ParameterInput? 
-	 *         ((parameter+=ParameterInout | parameter+=ParameterOutput | parameter+=ParameterReturn)? parameter+=ParameterInput?)* 
-	 *         port+=PortPublic? 
+	 *         parameter+=ParameterOutput? 
+	 *         ((parameter+=ParameterInput | parameter+=ParameterInout | parameter+=ParameterReturn)? parameter+=ParameterOutput?)* 
 	 *         (
+	 *             function+=FunctionPublic? 
 	 *             (
 	 *                 port+=Port | 
 	 *                 signal+=Signal | 
@@ -5493,11 +5493,11 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=Function | 
 	 *                 variable+=Variable | 
+	 *                 port+=PortPublic | 
 	 *                 signal+=SignalPublic | 
 	 *                 buffer+=BufferPublic | 
 	 *                 channel+=ChannelPublic | 
 	 *                 typedef+=TypeDefinition | 
-	 *                 function+=FunctionPublic | 
 	 *                 variable+=VariablePublic | 
 	 *                 port+=PortProtected | 
 	 *                 signal+=SignalProtected | 
@@ -5513,18 +5513,30 @@ public class FormalMLSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *                 typedef+=TypeDefinition | 
 	 *                 function+=FunctionPrivate | 
 	 *                 variable+=VariablePrivate
-	 *             )? 
-	 *             port+=PortPublic?
+	 *             )?
 	 *         )* 
-	 *         ((procedure+=Procedure? (routine+=Routine? procedure+=Procedure?)*) | (routine+=Routine? (procedure+=Procedure? routine+=Routine?)*)) 
 	 *         (
-	 *             (machine+=Statemachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock | machine+=AnyMachineBlock | instance+=InstanceMachine)+ | 
-	 *             region+=StatemachineRegion | 
-	 *             region+=StatemachineNamedRegion+ | 
-	 *             region+=StatemachineRegionLite
-	 *         )? 
-	 *         interaction=ModelOfInteraction? 
-	 *         (execution=ModelOfExecution? interaction=ModelOfInteraction?)*
+	 *             (
+	 *                 function+=FunctionPublic? 
+	 *                 (procedure+=Procedure? routine+=Routine?)* 
+	 *                 procedure+=Procedure? 
+	 *                 (region+=StatemachineRegion | region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite)?
+	 *             ) | 
+	 *             (
+	 *                 function+=FunctionPublic? 
+	 *                 (procedure+=Procedure? routine+=Routine?)* 
+	 *                 procedure+=Procedure? 
+	 *                 (region+=StatemachineRegion | region+=StatemachineNamedRegion+ | region+=StatemachineRegionLite)?
+	 *             ) | 
+	 *             (
+	 *                 (
+	 *                     (function+=FunctionPublic? (procedure+=Procedure? routine+=Routine?)* procedure+=Procedure? machine+=AnyMachineBlock?) | 
+	 *                     (function+=FunctionPublic? (procedure+=Procedure? routine+=Routine?)* procedure+=Procedure? machine+=AnyMachineBlock?)
+	 *                 ) 
+	 *                 ((machine+=Statemachine | machine+=AnyMachineBlock | machine+=AnyMachineBlock | instance+=InstanceMachine)? machine+=AnyMachineBlock?)*
+	 *             )
+	 *         ) 
+	 *         (execution=ModelOfExecution | interaction=ModelOfInteraction)*
 	 *     )
 	 */
 	protected void sequence_Statemachine(ISerializationContext context, Statemachine semanticObject) {
