@@ -50,6 +50,8 @@ public class XLIA_STATEMENT {
 
 	public static final Routine CLEAR = XLIA_INFRA.createRoutine("clear");
 
+	public static final Routine EXIT = XLIA_INFRA.createRoutine("exit");
+
 	// StatementFactory FACTORY
 	static StatementFactory FACTORY = StatementFactory.eINSTANCE;
 
@@ -382,8 +384,13 @@ public class XLIA_STATEMENT {
 
 	public static void addInvokeClear(
 			final BlockStatement block, final NamedElement collection) {
-		block.getStatement().add(
-				createInvoke(CLEAR, collection) );
+		block.getStatement().add( createInvoke(CLEAR, collection) );
+	}
+
+	public static void addInvokeExit(
+			final BlockStatement block, final String exitMessage) {
+		block.getStatement().add( createInvoke(EXIT,
+				XLIA_EXPRESSION.createExpression(exitMessage)) );
 	}
 
 

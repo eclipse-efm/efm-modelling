@@ -190,4 +190,20 @@ public class MoccActorFeature {
 			return "[null]";
 		}
 	}
+
+
+	public void computeCycloStaticRate() {
+		for( final MoccPort moccPort : actor.getInputPort() ) {
+			if( moccPort.isRational() ) {
+				moccPort.computeCycloStaticInputRate();
+			}
+		}
+
+		for( final MoccPort moccPort : actor.getOutputPort() ) {
+			if( moccPort.isRational() ) {
+				moccPort.computeCycloStaticOutputRate();
+			}
+		}
+	}
+
 }

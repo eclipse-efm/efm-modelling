@@ -543,6 +543,18 @@ public class XLIA_EXPRESSION {
 
 	// COLLECTION
 	public static LiteralCollectionExpression createCollection(
+			final int[] values) {
+		final LiteralCollectionExpression expression =
+				FACTORY.createLiteralCollectionExpression();
+
+		for (final int value : values) {
+			expression.getValue().add( XLIA_EXPRESSION.createInteger(value) );
+		}
+
+		return expression;
+	}
+
+	public static LiteralCollectionExpression createCollection(
 			final String[] values) {
 		final LiteralCollectionExpression expression =
 				FACTORY.createLiteralCollectionExpression();

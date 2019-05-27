@@ -786,6 +786,17 @@ public class MoCC2XLIA {
 						varType, "PRODUCTION_TO_" + targetActor, value);
 		xliaActor.getVariable().add(constTokenProductionRate);
 
+
+		Variable constTokenProductionRateCSDF = null;
+		if( moccPort.hasCycloStaticRate() ) {
+			final int[] cycloStaticRate = moccPort.getCycloStaticRate();
+			constTokenProductionRateCSDF = XLIA_INFRA.createVariable(
+					XLIA_DATATYPE.createInterger(cycloStaticRate.length),
+					"CSDF_PRODUCTION_TO_" + targetActor,
+					XLIA_EXPRESSION.createCollection(cycloStaticRate));
+			xliaActor.getVariable().add(constTokenProductionRateCSDF);
+		}
+
 		// OUTPUT PORT
 		final DataType tokenType =
 				XLIA_DATATYPE.createRationalOrInteger(moccPort.isRational());
@@ -805,8 +816,8 @@ public class MoCC2XLIA {
 					moccPort, ChannelDirection.OUTPUT, xliaActor, tokenType);
 		}
 
-		portHelper.put(moccPort,
-				new MoccPortHelper(xliaPort, constTokenProductionRate));
+		portHelper.put(moccPort, new MoccPortHelper(xliaPort,
+				constTokenProductionRate, constTokenProductionRateCSDF));
 	}
 
 	/**
@@ -832,6 +843,16 @@ public class MoCC2XLIA {
 		final Variable constREQ = XLIA_INFRA.createConstant(constType,
 				"REQUIRED_FROM_" + sourceActor/*.toUpperCase()*/, value);
 		xliaActor.getVariable().add(constREQ);
+
+		Variable constTokenConsumptionRateCSDF = null;
+		if( moccPort.hasCycloStaticRate() ) {
+			final int[] cycloStaticRate = moccPort.getCycloStaticRate();
+			constTokenConsumptionRateCSDF = XLIA_INFRA.createVariable(
+					XLIA_DATATYPE.createInterger(cycloStaticRate.length),
+					"CSDF_REQUIRED_FROM_" + sourceActor,
+					XLIA_EXPRESSION.createCollection(cycloStaticRate));
+			xliaActor.getVariable().add(constTokenConsumptionRateCSDF);
+		}
 
 		// CONSTANT: INITIAL TOKEN COUNT
 		Variable tokenInitialRate = null;
@@ -918,10 +939,9 @@ public class MoCC2XLIA {
 			}
 
 		// Mapping: MoccPort-->PortHelper
-		portHelper.put(moccPort,
-				new MoccPortHelper(xliaPort, xliaChannelPort,
-						tokenInitialRate, varTokenCount,
-						modeInitial, varReceivedMode, constREQ));
+		portHelper.put(moccPort, new MoccPortHelper(xliaPort, xliaChannelPort,
+				tokenInitialRate, varTokenCount, modeInitial,
+				varReceivedMode, constREQ, constTokenConsumptionRateCSDF));
 	}
 
 
@@ -1806,6 +1826,8 @@ public class MoCC2XLIA {
 		XLIA_STATEMENT.addAssignment(thenBlock,
 				actorHELPER.varProcessingMode, this.MODE_UNDEFINED);
 
+		XLIA_STATEMENT.addInvokeExit(thenBlock, "MoCC::MODE<UNDEFINED>");
+
 		// Else Nominal Mode Passing
 		final BlockStatement elseBlock =
 				XLIA_STATEMENT.createElseBlockStatement(ifStatement);
@@ -1840,6 +1862,8 @@ public class MoCC2XLIA {
 
 		XLIA_STATEMENT.addAssignment(thenBlock,
 				actorHELPER.varProcessingMode, this.MODE_UNDEFINED);
+
+		XLIA_STATEMENT.addInvokeExit(thenBlock, "MoCC::MODE<UNDEFINED>");
 
 		// Else Identical i.e. Singleton
 		final BlockStatement elseBlock =
@@ -1907,6 +1931,8 @@ public class MoCC2XLIA {
 			XLIA_STATEMENT.addAssignment(thenBlock,
 					actorHELPER.varProcessingMode, this.MODE_UNDEFINED);
 
+			XLIA_STATEMENT.addInvokeExit(thenBlock, "MoCC::MODE<UNDEFINED>");
+
 			// Else Mode computing
 			ifStatement.setElseBlock(blockCollectMode);
 
@@ -1931,6 +1957,9 @@ public class MoCC2XLIA {
 
 			XLIA_STATEMENT.addAssignment(elseIfBlockMultiple,
 					actorHELPER.varProcessingMode, this.MODE_UNDEFINED);
+
+			XLIA_STATEMENT.addInvokeExit(
+					elseIfBlockMultiple, "MoCC::MODE<UNDEFINED>");
 
 //			// Different Mode passing
 //			final ConditionalBlockStatement diffElseIfStatement =

@@ -51,6 +51,14 @@ public class XLIA_DATATYPE {
 		return FACTORY.createPrimitiveIntegerType();
 	}
 
+	public static PrimitiveIntegerType createInterger(final int size) {
+		final PrimitiveIntegerType intArray = FACTORY.createPrimitiveIntegerType();
+
+		intArray.setMultiplicity(XLIA_EXPRESSION.createInteger(size));
+
+		return intArray;
+	}
+
 	public static PrimitiveRationalType createRational() {
 		return FACTORY.createPrimitiveRationalType();
 	}

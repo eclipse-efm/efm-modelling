@@ -167,7 +167,12 @@ public class MoccChannel {
 
 		sout.append(' ').append(name).append(" {")
 			.append('\n')
-			.append('\t').append("output<").append(outputPort.strRate()).append("> ")
+			.append('\t').append("output<").append(outputPort.strRate());
+		if( outputPort.cycloStaticRate != null ) {
+			sout.append(" , ");
+			outputPort.strCycloStaticRate(sout);
+		}
+		sout.append("> ")
 			.append(outputPort.getActor().getName())
 			.append("->").append(outputPort.getName())
 			.append('\n');
@@ -184,7 +189,12 @@ public class MoccChannel {
 				.append('\n');
 		}
 
-		sout.append('\t').append("input<").append(inputPort.strRate()).append("> ")
+		sout.append('\t').append("input<").append(inputPort.strRate());
+		if( inputPort.cycloStaticRate != null ) {
+			sout.append(" , ");
+			inputPort.strCycloStaticRate(sout);
+		}
+		sout.append("> ")
 			.append(inputPort.getActor().getName())
 			.append("->").append(inputPort.getName())
 			.append('\n')

@@ -12,6 +12,8 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast;
 
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.util.Rational;
+
 public class MoccPort {
 
 	public final MoccActor actor;
@@ -25,6 +27,8 @@ public class MoccPort {
 	public int rate;
 
 	protected final int rateDenominator;
+
+	protected int[] cycloStaticRate;
 
 	protected MoccChannel channel;
 
@@ -40,6 +44,7 @@ public class MoccPort {
 
 		this.rate = rate;
 		this.rateDenominator = rateDenominator;
+		cycloStaticRate = null;
 
 		this.channel = null;
 
@@ -103,6 +108,14 @@ public class MoccPort {
 		return( rateDenominator > 1 );
 	}
 
+	public int[] getCycloStaticRate() {
+		return cycloStaticRate;
+	}
+
+	public boolean hasCycloStaticRate() {
+		return( cycloStaticRate != null );
+	}
+
 
 	public boolean isInputRational() {
 		return( (channel != null) && channel.getInputPort().isRational() );
@@ -139,6 +152,127 @@ public class MoccPort {
 	}
 
 
+/*
+	def csdf_sequence(rate, rate_initial):
+	    s = []
+	    for i in range(rate.denominator):
+	        r = rate_initial + rate
+	        s += [abs(floor(r)-floor(rate_initial))]
+	        rate_initial = r
+	    return s
+*/
+	public static int[] computeRateCSDF(final Rational rate, Rational initial ) {
+		final int[] cycloStaticRate = new int[rate.getDenominator()];
+
+		for (int i = 0; i < cycloStaticRate.length; i++) {
+			final Rational sum = (new Rational(initial)).add(rate);
+			cycloStaticRate[i] = Math.abs(sum.floor() - initial.floor());
+			initial = sum;
+		}
+
+		return cycloStaticRate;
+	}
+
+
+	public static void printRate(final int[] rate) {
+		System.out.print('[');
+		for (final int r : rate) {
+			System.out.print(' ');
+			System.out.print(r);
+		}
+		System.out.println(" ]");
+	}
+
+
+/*
+	for den in range(5):
+	    for num in range(1,den):
+	        rate = Fraction(num,den)
+	        for ps in range(den):
+	            rate_initial = Fraction(ps,den)
+	            print("case:",rate,"-",rate_initial,"->",2)
+	            print("csdf production:",csdf_sequence(rate,rate_initial))
+	            print("csdf consumption:",csdf_sequence(-2,rate_initial))
+	            print("case:",2,"-",rate_initial,"->",rate)
+	            print("csdf production:",csdf_sequence(2,rate_initial))
+	            print("csdf consumption:",csdf_sequence(-rate,rate_initial))
+	            print()
+	        print()
+	    print()
+*/
+	public static void main(final String[] args) {
+		final Rational deux = new Rational(2,  1);
+		final Rational neg_deux = new Rational(-2,  1);
+
+		for (int den = 0; den < 5; den++) {
+			for (int num = 1; num < den; num++) {
+				final Rational rate = new Rational(num,den);
+				for (int ps = 0; ps < den; ps++) {
+					final Rational rate_initial = new Rational(ps,den);
+					System.out.println("case: " + rate + " -- " + rate_initial + " --> " + 2);
+					System.out.print("csdf production : "); printRate(computeRateCSDF(rate , rate_initial));
+					System.out.print("csdf consumption: "); printRate(computeRateCSDF(neg_deux , rate_initial));
+
+					System.out.println("case: " + 2 + " -- " + rate_initial + " --> " + rate);
+					System.out.print("csdf production : "); printRate(computeRateCSDF(deux , rate_initial));
+					System.out.print("csdf consumption: "); printRate(computeRateCSDF(rate.negate() , rate_initial));
+					System.out.println();
+				}
+				System.out.println();
+			}
+			System.out.println();
+		}
+
+		final Rational prod = new Rational(4, 3);
+		final Rational init = new Rational(0, 1);
+		final Rational conso = new Rational(-1, 1);
+		System.out.println("case: 4/3 -- 0 --> 1");
+		System.out.print("csdf prod : "); printRate(computeRateCSDF(prod , init));
+		System.out.print("csdf conso: "); printRate(computeRateCSDF(conso , init));
+		System.out.println();
+	}
+
+	public void computeCycloStaticInputRate() {
+		cycloStaticRate = computeRateCSDF(
+				new Rational(-rate, rateDenominator),
+				new Rational(channel.initialRate, channel.initialRateDenominator));
+
+//		cycloStaticRate = new int[rateDenominator];
+//		int intTokenCount = 0;
+//		float floatTokenCount = 0;
+//		for (int i = 0; i < cycloStaticRate.length; i++) {
+//			floatTokenCount += ((float)rate) / rateDenominator;
+//			if( ((int) floatTokenCount) <= (rate - 1) ) {
+//				cycloStaticRate[i] = ((int) floatTokenCount ) + 1 - intTokenCount;
+//
+//				intTokenCount += cycloStaticRate[i];
+//			}
+//			else {
+//				cycloStaticRate[i] = 0;
+//			}
+//		}
+	}
+
+	public void computeCycloStaticOutputRate() {
+		cycloStaticRate = computeRateCSDF(
+				new Rational(rate, rateDenominator),
+				new Rational(0, 1));
+//				new Rational(channel.initialRate, channel.initialRateDenominator));
+
+
+
+//		cycloStaticRate = new int[rateDenominator];
+//		int intTokenCount = 0;
+//		float floatTokenCount = 0;
+//		for (int i = 0; i < cycloStaticRate.length; i++) {
+//			floatTokenCount += rate;
+//			cycloStaticRate[i] = ((int) (floatTokenCount / rateDenominator)) - intTokenCount;
+//			intTokenCount += cycloStaticRate[i];
+//		}
+	}
+
+
+
 	public MoccChannel getChannel() {
 		return channel;
 	}
@@ -170,12 +304,27 @@ public class MoccPort {
 		}
 	}
 
+	public void strCycloStaticRate(final StringBuilder sout) {
+		sout.append('[');
+		for (final int rate : cycloStaticRate) {
+			sout.append(' ').append(rate);
+		}
+		sout.append(" ]");
+	}
+
+
+
 	@Override
 	public String toString() {
 		final StringBuilder sout = new StringBuilder();
 
 		sout.append(direction.toString().toLowerCase())
 			.append(" port< rate = ").append(strRate());
+
+		if( cycloStaticRate != null ) {
+			sout.append(" , cyclo = ");
+			strCycloStaticRate(sout);
+		}
 
 		if( channel.hasInitialRate() ) {
 			sout.append(" , initial = ").append(channel.strInitialRate());

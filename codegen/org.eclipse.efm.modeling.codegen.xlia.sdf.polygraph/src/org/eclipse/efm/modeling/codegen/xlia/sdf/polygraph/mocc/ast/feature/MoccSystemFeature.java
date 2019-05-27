@@ -199,6 +199,7 @@ public class MoccSystemFeature {
 		this.consistency = checkConsistency();
 
 		for( final MoccActor actor : system.getActor() ) {
+			actor.FEATURE.computeCycloStaticRate();
 			actor.FEATURE.computeActivation(this);
 		}
 	}

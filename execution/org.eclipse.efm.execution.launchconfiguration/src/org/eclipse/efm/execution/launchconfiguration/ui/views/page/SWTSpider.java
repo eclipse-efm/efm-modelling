@@ -200,9 +200,10 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 			final FontData[] saveFontData = SAVE_FONT.getFontData();
 
 			final FontData[] fontData16 = new FontData[saveFontData.length];
-			for(int i = 0; i < saveFontData.length; ++ i)
+			for(int i = 0; i < saveFontData.length; ++i)
 				fontData16[i] = new FontData(
-						saveFontData[i].getName(), 18, saveFontData[i].getStyle());
+						saveFontData[i].getName(), 16,
+						saveFontData[i].getStyle());
 			TITLE_FONT = new Font(device, fontData16);
 		}
 
