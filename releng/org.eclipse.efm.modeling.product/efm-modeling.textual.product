@@ -20,7 +20,7 @@ Apache Software Foundation http://www.apache.org/
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Xms256m -Xmx1024m
+      <vmArgs>-Xms512m -Xmx2048m
       </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
@@ -43,7 +43,7 @@ Apache Software Foundation http://www.apache.org/
 
 
    <vm>
-      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</windows>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</windows>
    </vm>
 
    <license>
@@ -255,61 +255,63 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
    <features>
       <feature id="org.eclipse.efm.modeling.rcp.feature" version="0.0.1.qualifier"/>
       <feature id="org.eclipse.efm.modeling.textual.feature" version="0.0.1.qualifier"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.feature"/>
-      <feature id="org.eclipse.help"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature"/>
-      <feature id="org.eclipse.emf.common.ui"/>
-      <feature id="org.eclipse.xtext.xbase.lib"/>
-      <feature id="org.eclipse.emf.codegen"/>
-      <feature id="org.eclipse.jdt"/>
-      <feature id="org.eclipse.emf.common"/>
-      <feature id="org.eclipse.equinox.p2.core.feature"/>
-      <feature id="org.eclipse.emf.mwe2.runtime.sdk"/>
-      <feature id="net.sourceforge.plantuml.lib.feature"/>
-      <feature id="org.eclipse.ecf.core.ssl.feature"/>
-      <feature id="org.eclipse.ecf.filetransfer.ssl.feature"/>
-      <feature id="org.eclipse.xtend"/>
-      <feature id="org.eclipse.xpand"/>
-      <feature id="org.eclipse.xtext.runtime"/>
-      <feature id="org.eclipse.emf.edit"/>
-      <feature id="org.eclipse.emf.ecore"/>
-      <feature id="org.eclipse.equinox.p2.user.ui"/>
-      <feature id="org.eclipse.xtext.xbase"/>
-      <feature id="org.eclipse.equinox.p2.extras.feature"/>
-      <feature id="org.eclipse.emf.codegen.ecore"/>
-      <feature id="org.eclipse.emf.converter"/>
-      <feature id="org.eclipse.xtend.typesystem.emf"/>
-      <feature id="org.eclipse.emf.edit.ui"/>
-      <feature id="org.eclipse.rcp"/>
-      <feature id="org.eclipse.ecf.core.feature"/>
-      <feature id="org.eclipse.emf.ecore.editor"/>
-      <feature id="org.eclipse.equinox.p2.rcp.feature"/>
-      <feature id="org.eclipse.ecf.filetransfer.feature"/>
-      <feature id="org.eclipse.xtext.ui"/>
-      <feature id="org.eclipse.xtend.dependencies"/>
-      <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.efm.modeling.textual.dependencies.feature"/>
-      <feature id="net.sourceforge.plantuml.feature"/>
-      <feature id="org.eclipse.xtend.ui"/>
-      <feature id="org.eclipse.emf.ecore.edit"/>
-      <feature id="org.eclipse.e4.rcp"/>
-      <feature id="org.eclipse.gef.zest.fx"/>
-      <feature id="org.eclipse.gef.fx"/>
-      <feature id="org.eclipse.gef.graph"/>
-      <feature id="org.eclipse.gef.common"/>
-      <feature id="org.eclipse.gef.fx.swt"/>
-      <feature id="org.eclipse.gef.dot.doc.user"/>
-      <feature id="org.eclipse.gef.layout"/>
-      <feature id="org.eclipse.gef.zest.fx.ui"/>
-      <feature id="org.eclipse.gef.geometry"/>
-      <feature id="org.eclipse.gef.dot.ui"/>
-      <feature id="org.eclipse.gef.mvc.fx"/>
-      <feature id="org.eclipse.gef.geometry.convert.fx"/>
-      <feature id="org.eclipse.fx.runtime.min.feature"/>
-      <feature id="org.eclipse.gef.dot.user"/>
-      <feature id="org.eclipse.gef.mvc.fx.ui"/>
-      <feature id="org.eclipse.gef.fx.jface"/>
-      <feature id="org.eclipse.gef.dot"/>
+      <feature id="org.eclipse.help" installMode="root"/>
+      <feature id="org.eclipse.gef.zest.fx" installMode="root"/>
+      <feature id="org.eclipse.xtext.xbase.lib" installMode="root"/>
+      <feature id="org.eclipse.emf.codegen" installMode="root"/>
+      <feature id="org.eclipse.equinox.p2.core.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.mwe2.runtime.sdk" installMode="root"/>
+      <feature id="org.eclipse.gef.fx" installMode="root"/>
+      <feature id="org.eclipse.egit" installMode="root"/>
+      <feature id="org.eclipse.gef.graph" installMode="root"/>
+      <feature id="org.eclipse.ecf.core.ssl.feature" installMode="root"/>
+      <feature id="org.eclipse.ecf.filetransfer.ssl.feature" installMode="root"/>
+      <feature id="org.eclipse.xtend" installMode="root"/>
+      <feature id="org.eclipse.xpand" installMode="root"/>
+      <feature id="org.eclipse.xtext.runtime" installMode="root"/>
+      <feature id="org.eclipse.emf.edit" installMode="root"/>
+      <feature id="org.eclipse.xtext.xbase" installMode="root"/>
+      <feature id="org.eclipse.emf.codegen.ecore" installMode="root"/>
+      <feature id="org.eclipse.emf.converter" installMode="root"/>
+      <feature id="org.eclipse.xtend.typesystem.emf" installMode="root"/>
+      <feature id="org.eclipse.emf.edit.ui" installMode="root"/>
+      <feature id="org.eclipse.rcp" installMode="root"/>
+      <feature id="org.eclipse.gef.common" installMode="root"/>
+      <feature id="org.eclipse.equinox.p2.rcp.feature" installMode="root"/>
+      <feature id="org.eclipse.ecf.filetransfer.feature" installMode="root"/>
+      <feature id="org.eclipse.xtext.ui" installMode="root"/>
+      <feature id="org.eclipse.xtend.dependencies" installMode="root"/>
+      <feature id="net.sourceforge.plantuml.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.fx.swt" installMode="root"/>
+      <feature id="org.eclipse.xtend.ui" installMode="root"/>
+      <feature id="org.eclipse.gef.dot.doc.user" installMode="root"/>
+      <feature id="org.eclipse.emf.common.ui" installMode="root"/>
+      <feature id="org.eclipse.jgit.ssh.apache" installMode="root"/>
+      <feature id="org.eclipse.gef.layout" installMode="root"/>
+      <feature id="org.eclipse.gef.zest.fx.ui" installMode="root"/>
+      <feature id="org.eclipse.jdt" installMode="root"/>
+      <feature id="org.eclipse.emf.common" installMode="root"/>
+      <feature id="net.sourceforge.plantuml.lib.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.geometry" installMode="root"/>
+      <feature id="org.eclipse.gef.dot.ui" installMode="root"/>
+      <feature id="org.eclipse.emf.ecore" installMode="root"/>
+      <feature id="org.eclipse.equinox.p2.user.ui" installMode="root"/>
+      <feature id="org.eclipse.gef.mvc.fx" installMode="root"/>
+      <feature id="org.eclipse.gef.geometry.convert.fx" installMode="root"/>
+      <feature id="org.eclipse.equinox.p2.extras.feature" installMode="root"/>
+      <feature id="org.eclipse.fx.runtime.min.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.dot.user" installMode="root"/>
+      <feature id="org.eclipse.ecf.core.feature" installMode="root"/>
+      <feature id="org.eclipse.ecf.filetransfer.httpclient45.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecore.editor" installMode="root"/>
+      <feature id="org.eclipse.jgit" installMode="root"/>
+      <feature id="org.eclipse.platform" installMode="root"/>
+      <feature id="org.eclipse.gef.mvc.fx.ui" installMode="root"/>
+      <feature id="org.eclipse.gef.fx.jface" installMode="root"/>
+      <feature id="org.eclipse.emf.ecore.edit" installMode="root"/>
+      <feature id="org.eclipse.gef.dot" installMode="root"/>
+      <feature id="org.eclipse.e4.rcp" installMode="root"/>
    </features>
 
    <configurations>
@@ -321,17 +323,19 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
       <property name="file.encoding" value="UTF-8" />
+      <property name="org.eclipse.efm.executable.diversity.default" value="../bin/diversity.exe" />
+      <property name="org.eclipse.efm.executable.graphviz.default" value="../bin/zgrviewer-0.10.0/run.bat" />
       <property name="org.eclipse.update.reconcile" value="false" />
       <property name="osgi.bundles.defaultStartLevel" value="4" />
       <property name="osgi.framework.extension" value="org.eclipse.fx.osgi" />
-      <property name="osgi.instance.area.default" value="../workspace-efm" />
+      <property name="osgi.instance.area.default" value="../workspace" />
       <property name="osgi.requiredJavaVersion" value="1.8" />
    </configurations>
 
    <repositories>
       <repository location="http://download.eclipse.org/modeling/mdt/papyrus/components/designer" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2019-03/" enabled="true" />
-      <repository location="http://https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2019-03/" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2019-06/" enabled="true" />
+      <repository location="http://https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2019-06/" enabled="true" />
    </repositories>
 
    <preferencesInfo>

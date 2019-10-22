@@ -56,9 +56,9 @@ import com.google.inject.Injector;
 
 public class FormalMLXtextUtil {
 
-	private String fModelFileLocation;
+	private final String fModelFileLocation;
 
-	private String fModelFileUriLocation;
+	private final String fModelFileUriLocation;
 
 	private XliaModel fModel;
 
@@ -76,9 +76,9 @@ public class FormalMLXtextUtil {
 	private BasicEList<Parameter> fAllParameters;
 
 
-	private boolean USING_IPARSER = true;
+	private final boolean USING_IPARSER = true;
 
-	public FormalMLXtextUtil(String fileLocation) {
+	public FormalMLXtextUtil(final String fileLocation) {
 		super();
 		this.fModelFileLocation    = fileLocation;
 		this.fModelFileUriLocation = WorkflowFileUtils.makeURI(fileLocation);
@@ -143,12 +143,12 @@ public class FormalMLXtextUtil {
 				fModel = (XliaModel) astModel;
 			}
 		}
-		catch (FileNotFoundException e) {
+		catch (final FileNotFoundException e) {
 			e.printStackTrace();
 
 			return false;
 		}
-		catch (Exception e) {
+		catch (final Exception e) {
 			e.printStackTrace();
 
 			return false;
@@ -170,7 +170,7 @@ public class FormalMLXtextUtil {
 	private IParser fFMLParser;
 
 	private void setupParser() {
-		Injector injector = Guice.createInjector(new FormalMLRuntimeModule());
+		final Injector injector = Guice.createInjector(new FormalMLRuntimeModule());
 //				new FormalMLStandaloneSetup().createInjectorAndDoEMFRegistration();
 
 		injector.injectMembers(this);
@@ -182,9 +182,9 @@ public class FormalMLXtextUtil {
 	 * @return root object node
 	 * @throws IOException when errors occur during the parsing process
 	 */
-	public EObject parse(Reader reader) throws IOException
+	public EObject parse(final Reader reader) throws IOException
 	{
-		IParseResult result = fFMLParser.parse(reader);
+		final IParseResult result = fFMLParser.parse(reader);
 		if(result.hasSyntaxErrors())
 		{
 			throw new ParseException("Provided input contains syntax errors.");
@@ -204,7 +204,7 @@ public class FormalMLXtextUtil {
 		new org.eclipse.emf.mwe.utils.StandaloneSetup().setPlatformUri(
 				WorkflowFileUtils.PLATFORM_URI);
 
-		Injector injector = Guice.createInjector(new FormalMLRuntimeModule());
+		final Injector injector = Guice.createInjector(new FormalMLRuntimeModule());
 
 		injector.injectMembers(this);
 
@@ -217,9 +217,9 @@ public class FormalMLXtextUtil {
 	 * @return Root model object
 	 * @throws IOException When and I/O related parser error occurs
 	 */
-	public EObject parse(InputStream input) throws IOException
+	public EObject parse(final InputStream input) throws IOException
 	{
-		Resource resource = fResourceSet.createResource(
+		final Resource resource = fResourceSet.createResource(
 				URI.createURI("dummy:/inmemory.ext"));
 
 		resource.load(input, fResourceSet.getLoadOptions());
@@ -232,8 +232,8 @@ public class FormalMLXtextUtil {
 	 * @param uri URI of resource to be parsed
 	 * @return Root model object
 	 */
-	public EObject parse(URI uri) {
-		Resource resource = fResourceSet.getResource(uri, true);
+	public EObject parse(final URI uri) {
+		final Resource resource = fResourceSet.getResource(uri, true);
 
 		return resource.getContents().get(0);
 	}
@@ -248,24 +248,24 @@ public class FormalMLXtextUtil {
 			new org.eclipse.emf.mwe.utils.StandaloneSetup().setPlatformUri(
 					WorkflowFileUtils.PLATFORM_URI);
 
-			Injector injector = Guice.createInjector(new FormalMLRuntimeModule());
+			final Injector injector = Guice.createInjector(new FormalMLRuntimeModule());
 //					new FormalMLStandaloneSetup().createInjectorAndDoEMFRegistration();
 
-			XtextResourceSet resourceSet =
+			final XtextResourceSet resourceSet =
 					injector.getInstance(XtextResourceSet.class);
 
 			resourceSet.addLoadOption(
 					XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 
 			final URI fileURI = URI.createURI(fModelFileUriLocation);
-			Resource resource = resourceSet.getResource(fileURI, true);
+			final Resource resource = resourceSet.getResource(fileURI, true);
 
-			EObject model = resource.getContents().get(0);
+			final EObject model = resource.getContents().get(0);
 
 			if( model instanceof XliaModel ) {
 				fModel = (XliaModel) model;
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 
 			return false;
@@ -280,11 +280,11 @@ public class FormalMLXtextUtil {
 	///////////////////////////////////////////////////////////////////////////
 
 	public List<TraceElement> getAllTransitionCoverageElements() {
-		List<TraceElement> allTransitionCoverageElement = new ArrayList<TraceElement>();
+		final List<TraceElement> allTransitionCoverageElement = new ArrayList<TraceElement>();
 
 		collectAllElements(fModel.getSystem());
 
-		for (Transition transition : fAllTransitions) {
+		for (final Transition transition : fAllTransitions) {
 			final QualifiedName qualifiedName =
 					fQualifiedNameProvider.getFullyQualifiedName(transition);
 
@@ -296,60 +296,60 @@ public class FormalMLXtextUtil {
 //			System.out.println(fqName);
 		}
 
-		for (Machine machine : fAllMachines) {
-			final QualifiedName qualifiedName =
-					fQualifiedNameProvider.getFullyQualifiedName(machine);
-
-			final String fqName = qualifiedName.toString();
-
-			TraceElementKind nature = TraceElementKind.MODEL_MACHINE;
-			switch( machine.getDesign() ) {
-			case MODEL:
-				nature = TraceElementKind.MODEL_MACHINE;
-				break;
-			case PROTOTYPE:
-				nature = TraceElementKind.PROTOTYPE_MACHINE;
-				break;
-			case INSTANCE:
-				nature = TraceElementKind.INSTANCE_MACHINE;
-				break;
-			default:
-				break;
-			}
-			allTransitionCoverageElement.add(
-					new TraceElementCustomImpl(true, nature, fqName));
-
-//			System.out.println(fqName);
-		}
-
-		for (Vertex vertex : fAllStates) {
-			final QualifiedName qualifiedName =
-					fQualifiedNameProvider.getFullyQualifiedName(vertex);
-
-			final String fqName = qualifiedName.toString();
-
-			allTransitionCoverageElement.add(new TraceElementCustomImpl(
-					true, TraceElementKind.STATE, fqName));
-
-//			System.out.println(fqName);
-		}
-
-		for (InstanceMachine instance : fAllInstanceMachines) {
-			final QualifiedName qualifiedName =
-					fQualifiedNameProvider.getFullyQualifiedName(instance);
-
-			final String fqName = qualifiedName.toString();
-
-			allTransitionCoverageElement.add(new TraceElementCustomImpl(
-					true, TraceElementKind.INSTANCE_MACHINE, fqName));
-
-//			System.out.println(fqName);
-		}
+//		for (Machine machine : fAllMachines) {
+//			final QualifiedName qualifiedName =
+//					fQualifiedNameProvider.getFullyQualifiedName(machine);
+//
+//			final String fqName = qualifiedName.toString();
+//
+//			TraceElementKind nature = TraceElementKind.MODEL_MACHINE;
+//			switch( machine.getDesign() ) {
+//			case MODEL:
+//				nature = TraceElementKind.MODEL_MACHINE;
+//				break;
+//			case PROTOTYPE:
+//				nature = TraceElementKind.PROTOTYPE_MACHINE;
+//				break;
+//			case INSTANCE:
+//				nature = TraceElementKind.INSTANCE_MACHINE;
+//				break;
+//			default:
+//				break;
+//			}
+//			allTransitionCoverageElement.add(
+//					new TraceElementCustomImpl(true, nature, fqName));
+//
+////			System.out.println(fqName);
+//		}
+//
+//		for (Vertex vertex : fAllStates) {
+//			final QualifiedName qualifiedName =
+//					fQualifiedNameProvider.getFullyQualifiedName(vertex);
+//
+//			final String fqName = qualifiedName.toString();
+//
+//			allTransitionCoverageElement.add(new TraceElementCustomImpl(
+//					true, TraceElementKind.STATE, fqName));
+//
+////			System.out.println(fqName);
+//		}
+//
+//		for (InstanceMachine instance : fAllInstanceMachines) {
+//			final QualifiedName qualifiedName =
+//					fQualifiedNameProvider.getFullyQualifiedName(instance);
+//
+//			final String fqName = qualifiedName.toString();
+//
+//			allTransitionCoverageElement.add(new TraceElementCustomImpl(
+//					true, TraceElementKind.INSTANCE_MACHINE, fqName));
+//
+////			System.out.println(fqName);
+//		}
 
 		return allTransitionCoverageElement;
 	}
 
-	private void collectAllElements(XliaSystem system)
+	private void collectAllElements(final XliaSystem system)
 	{
 		if( (this.fModel == null) || (fAllMachines == null) )
 		{
@@ -359,7 +359,7 @@ public class FormalMLXtextUtil {
 		}
 	}
 
-	private void collectAllElements(Machine machine) {
+	private void collectAllElements(final Machine machine) {
 		if( (machine == null) )
 //			|| (machine.getDesign() == DesignKind.MODEL) )
 		{
@@ -373,7 +373,7 @@ public class FormalMLXtextUtil {
 			fAllStatemachines.add(statemachine);
 			fAllParameters.addAll(statemachine.getParameter());
 
-			for (Region region : ((Statemachine) machine).getRegion()) {
+			for (final Region region : ((Statemachine) machine).getRegion()) {
 				collectAllElements(region);
 			}
 		}
@@ -387,7 +387,7 @@ public class FormalMLXtextUtil {
 
 		fAllVariables.addAll(machine.getVariable());
 
-		for( Machine itMachine : machine.getMachine() ) {
+		for( final Machine itMachine : machine.getMachine() ) {
 			collectAllElements(itMachine);
 		}
 
@@ -395,7 +395,7 @@ public class FormalMLXtextUtil {
 //			collectAllElements(instance.getModel());
 //		}
 
-		for( Behavior behavior : machine.getBehavior() ) {
+		for( final Behavior behavior : machine.getBehavior() ) {
 			collectAllElements(behavior);
 		}
 
@@ -412,21 +412,21 @@ public class FormalMLXtextUtil {
 //	}
 
 
-	private void collectAllElements(Region region) {
+	private void collectAllElements(final Region region) {
 		fAllStates.addAll(region.getVertex());
 
-		for (Vertex vertex : region.getVertex()) {
+		for (final Vertex vertex : region.getVertex()) {
 			collectAllElements(vertex);
 		}
 	}
 
-	private void collectAllElements(Vertex vertex) {
+	private void collectAllElements(final Vertex vertex) {
 		fAllTransitions.addAll(vertex.getTransition());
 
 		if( vertex instanceof State ) {
 			//			collectAllElements((State) vertex);
 
-			for (Region region : ((State) vertex).getRegion()) {
+			for (final Region region : ((State) vertex).getRegion()) {
 				collectAllElements(region);
 			}
 		}

@@ -18,6 +18,7 @@ import org.eclipse.efm.ecore.formalml.datatype.DatatypePackage;
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationLiteral;
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationType;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -25,6 +26,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -37,6 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.impl.EnumerationTypeImpl#getLiteral <em>Literal</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.impl.EnumerationTypeImpl#getSuperType <em>Super Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -51,6 +54,16 @@ public class EnumerationTypeImpl extends DataTypeImpl implements EnumerationType
 	 * @ordered
 	 */
 	protected EList<EnumerationLiteral> literal;
+
+	/**
+	 * The cached value of the '{@link #getSuperType() <em>Super Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSuperType()
+	 * @generated
+	 * @ordered
+	 */
+	protected EnumerationType superType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -90,6 +103,46 @@ public class EnumerationTypeImpl extends DataTypeImpl implements EnumerationType
 	 * @generated
 	 */
 	@Override
+	public EnumerationType getSuperType() {
+		if (superType != null && superType.eIsProxy()) {
+			InternalEObject oldSuperType = (InternalEObject)superType;
+			superType = (EnumerationType)eResolveProxy(oldSuperType);
+			if (superType != oldSuperType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DatatypePackage.ENUMERATION_TYPE__SUPER_TYPE, oldSuperType, superType));
+			}
+		}
+		return superType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EnumerationType basicGetSuperType() {
+		return superType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSuperType(EnumerationType newSuperType) {
+		EnumerationType oldSuperType = superType;
+		superType = newSuperType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatatypePackage.ENUMERATION_TYPE__SUPER_TYPE, oldSuperType, superType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DatatypePackage.ENUMERATION_TYPE__LITERAL:
@@ -108,6 +161,9 @@ public class EnumerationTypeImpl extends DataTypeImpl implements EnumerationType
 		switch (featureID) {
 			case DatatypePackage.ENUMERATION_TYPE__LITERAL:
 				return getLiteral();
+			case DatatypePackage.ENUMERATION_TYPE__SUPER_TYPE:
+				if (resolve) return getSuperType();
+				return basicGetSuperType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -125,6 +181,9 @@ public class EnumerationTypeImpl extends DataTypeImpl implements EnumerationType
 				getLiteral().clear();
 				getLiteral().addAll((Collection<? extends EnumerationLiteral>)newValue);
 				return;
+			case DatatypePackage.ENUMERATION_TYPE__SUPER_TYPE:
+				setSuperType((EnumerationType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -140,6 +199,9 @@ public class EnumerationTypeImpl extends DataTypeImpl implements EnumerationType
 			case DatatypePackage.ENUMERATION_TYPE__LITERAL:
 				getLiteral().clear();
 				return;
+			case DatatypePackage.ENUMERATION_TYPE__SUPER_TYPE:
+				setSuperType((EnumerationType)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -154,6 +216,8 @@ public class EnumerationTypeImpl extends DataTypeImpl implements EnumerationType
 		switch (featureID) {
 			case DatatypePackage.ENUMERATION_TYPE__LITERAL:
 				return literal != null && !literal.isEmpty();
+			case DatatypePackage.ENUMERATION_TYPE__SUPER_TYPE:
+				return superType != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -396,6 +396,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="EnumerationType" eSuperTypes="#//datatype/DataType">
       <eStructuralFeatures xsi:type="ecore:EReference" name="literal" upperBound="-1"
           eType="#//datatype/EnumerationLiteral" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="superType" eType="#//datatype/EnumerationType"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataStructuredType" abstract="true"
         eSuperTypes="#//datatype/DataType">

@@ -71,22 +71,15 @@ public class DirectorCustomImpl extends DirectorImpl
 			//!! ERROR
 		}
 
-		if( ! director.configureMainWorker(configuration) ) {
+		if( ! director.configureMainWorker(configuration, projectRootPath) ) {
 			//!! ERROR
 		}
 
-		if( ! director.configureSerializerWorker(configuration) ) {
+		if( ! director.configureSerializerWorker(configuration, projectRootPath, hasSecond) ) {
 			//!! ERROR
 		}
 
-		if( ! hasSecond ) {
-			if( ! director.configureSecondSerializerWorker(
-					configuration, hasSecond) ) {
-				//!! ERROR
-			}
-		}
-
-		if( ! director.configureDebugWorker(configuration) ) {
+		if( ! director.configureDebugWorker(configuration, projectRootPath) ) {
 			//!! ERROR
 		}
 
@@ -146,7 +139,8 @@ public class DirectorCustomImpl extends DirectorImpl
 	}
 
 
-	public boolean configureMainWorker(final ILaunchConfiguration configuration) {
+	public boolean configureMainWorker(
+			final ILaunchConfiguration configuration, final IPath projectRootPath) {
 		AnalysisProfileKind modelAnalysisProfile = null;
 		try {
 			final String strAnalysisProfile = configuration.getAttribute(
@@ -213,7 +207,7 @@ public class DirectorCustomImpl extends DirectorImpl
 			case ANALYSIS_TEST_OFFLINE_PROFILE: {
 				final OfflineTestWorkerCustomImpl worker =
 						OfflineTestWorkerCustomImpl.create(
-								this, configuration);
+								this, configuration, projectRootPath);
 
 				getWorker().add( worker );
 
@@ -336,7 +330,65 @@ public class DirectorCustomImpl extends DirectorImpl
 		return( true );
 	}
 
-	public boolean configureSerializerWorker(final ILaunchConfiguration configuration) {
+
+	public boolean configureGeneratedTraceSerializerWorker(
+			final ILaunchConfiguration configuration) {
+
+		boolean enabledSerialization;
+
+		// Basic Trace generation
+		try {
+			enabledSerialization = configuration.getAttribute(
+					ATTR_BASIC_TRACE_ENABLED_GENERATION, false);
+		} catch( final CoreException e ) {
+			e.printStackTrace();
+
+			enabledSerialization = false;
+		}
+		if( enabledSerialization ) {
+			// Sequence Diagram ( PlantUML format) Trace Serializer
+			final SequenceDiagramTraceSerializerWorkerCustomImpl sequenceDiagramSerializer =
+					SequenceDiagramTraceSerializerWorkerCustomImpl.create(
+							this, configuration);
+
+			this.getWorker().add( sequenceDiagramSerializer );
+
+			// Basic Textual (ad'oc  format) Trace Serializer
+			final BasicTraceSerializerWorkerCustomImpl basicSerializer =
+					BasicTraceSerializerWorkerCustomImpl.create(
+							this, configuration);
+
+			this.getWorker().add( basicSerializer );
+		}
+
+		// TTCN3 Trace generation
+		try {
+			enabledSerialization = configuration.getAttribute(
+					ATTR_TTCN_ENABLED_GENERATION, false);
+		} catch( final CoreException e ) {
+			e.printStackTrace();
+
+			enabledSerialization = false;
+		}
+		if( enabledSerialization ) {
+			final TTCNTraceSerializerWorkerCustomImpl ttcnSerializer =
+					TTCNTraceSerializerWorkerCustomImpl.create(
+							this, configuration);
+
+			getWorker().add( ttcnSerializer );
+		}
+
+		return true;
+	}
+
+	public boolean configureSerializerWorker(final ILaunchConfiguration configuration,
+			final IPath projectRootPath, final boolean enabledExtension) {
+
+		if( ! enabledExtension ) {
+			if( ! configureGeneratedTraceSerializerWorker(configuration) ) {
+				//!! ERROR
+			}
+		}
 
 		boolean enabledSerialization;
 
@@ -402,7 +454,8 @@ public class DirectorCustomImpl extends DirectorImpl
 		return( true );
 	}
 
-	public boolean configureDebugWorker(final ILaunchConfiguration configuration) {
+	public boolean configureDebugWorker(
+			final ILaunchConfiguration configuration, final IPath projectRootPath) {
 
 		return( true );
 	}
@@ -426,7 +479,7 @@ public class DirectorCustomImpl extends DirectorImpl
 			//!! ERROR
 		}
 
-		if( ! director.configureSecondSerializerWorker(configuration, true) ) {
+		if( ! director.configureSecondSerializerWorker(configuration) ) {
 			//!! ERROR
 		}
 
@@ -455,51 +508,12 @@ public class DirectorCustomImpl extends DirectorImpl
 	}
 
 	public boolean configureSecondSerializerWorker(
-			final ILaunchConfiguration configuration, final boolean hasSecond) {
-
-		boolean enabledSerialization;
+			final ILaunchConfiguration configuration) {
 
 		// Basic Trace generation
-		try {
-			enabledSerialization = configuration.getAttribute(
-					ATTR_BASIC_TRACE_ENABLED_GENERATION, false);
-		} catch( final CoreException e ) {
-			e.printStackTrace();
+		configureGeneratedTraceSerializerWorker(configuration);
 
-			enabledSerialization = false;
-		}
-		if( enabledSerialization ) {
-			// Sequence Diagram ( PlantUML format) Trace Serializer
-			final SequenceDiagramTraceSerializerWorkerCustomImpl sequenceDiagramSerializer =
-					SequenceDiagramTraceSerializerWorkerCustomImpl.create(
-							this, configuration);
-
-			this.getWorker().add( sequenceDiagramSerializer );
-
-			// Basic Textual (ad'oc  format) Trace Serializer
-			final BasicTraceSerializerWorkerCustomImpl basicSerializer =
-					BasicTraceSerializerWorkerCustomImpl.create(
-							this, configuration);
-
-			this.getWorker().add( basicSerializer );
-		}
-
-		// TTCN3 Trace generation
-		try {
-			enabledSerialization = configuration.getAttribute(
-					ATTR_TTCN_ENABLED_GENERATION, false);
-		} catch( final CoreException e ) {
-			e.printStackTrace();
-
-			enabledSerialization = false;
-		}
-		if( enabledSerialization ) {
-			final TTCNTraceSerializerWorkerCustomImpl ttcnSerializer =
-					TTCNTraceSerializerWorkerCustomImpl.create(
-							this, configuration);
-
-			getWorker().add( ttcnSerializer );
-		}
+		boolean enabledSerialization;
 
 		// Symbex Graph [ GraphViz ] serialization
 		try {
@@ -519,12 +533,10 @@ public class DirectorCustomImpl extends DirectorImpl
 			getWorker().add( modelSerializer );
 		}
 
-		if( hasSecond ) {
-			final DeveloperTuningOptionCustomImpl devTuning =
-				DeveloperTuningOptionCustomImpl.createSecondDirector(configuration);
+		final DeveloperTuningOptionCustomImpl devTuning =
+			DeveloperTuningOptionCustomImpl.createSecondDirector(configuration);
 
-			setDeveloperTuning( devTuning );
-		}
+		setDeveloperTuning( devTuning );
 
 		return( true );
 	}

@@ -34,7 +34,6 @@ public class FormalMLInjectorProvider implements IInjectorProvider, IRegistryCon
 	@Override
 	public Injector getInjector() {
 		if (injector == null) {
-			stateBeforeInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
 			this.injector = internalCreateInjector();
 			stateAfterInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
 		}
@@ -65,11 +64,15 @@ public class FormalMLInjectorProvider implements IInjectorProvider, IRegistryCon
 	@Override
 	public void restoreRegistry() {
 		stateBeforeInjectorCreation.restoreGlobalState();
+		stateBeforeInjectorCreation = null;
 	}
 
 	@Override
 	public void setupRegistry() {
-		getInjector();
+		stateBeforeInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
+		if (injector == null) {
+			getInjector();
+		}
 		stateAfterInjectorCreation.restoreGlobalState();
 	}
 }

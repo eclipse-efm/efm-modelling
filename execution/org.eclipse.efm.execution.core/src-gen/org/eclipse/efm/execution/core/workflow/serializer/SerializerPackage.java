@@ -186,6 +186,15 @@ public interface SerializerPackage extends EPackage {
 	int MODEL_GRAPHIC_SERIALIZER_WORKER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
 
 	/**
+	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__ENABLED_NUMERIZATION = WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -347,6 +356,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int MODEL_GRAPHVIZ_SERIALIZER_WORKER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHVIZ_SERIALIZER_WORKER__ENABLED_NUMERIZATION = WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
@@ -512,6 +530,15 @@ public interface SerializerPackage extends EPackage {
 	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
 
 	/**
+	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__ENABLED_NUMERIZATION = WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -673,6 +700,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER__ENABLED_NUMERIZATION = WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
@@ -838,6 +874,15 @@ public interface SerializerPackage extends EPackage {
 	int BASIC_TRACE_SERIALIZER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
 
 	/**
+	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_TRACE_SERIALIZER__ENABLED_NUMERIZATION = WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -999,6 +1044,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int TTCN_TRACE_SERIALIZER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TTCN_TRACE_SERIALIZER__ENABLED_NUMERIZATION = WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
@@ -1300,6 +1354,15 @@ public interface SerializerPackage extends EPackage {
 	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
 
 	/**
+	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__ENABLED_NUMERIZATION = WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1462,6 +1525,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__ENABLED_NORMALIZATION = WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION;
+
+	/**
+	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__ENABLED_NUMERIZATION = WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.

@@ -219,6 +219,22 @@ public class XLIA_STATEMENT {
 		block.getStatement().add( createDecrementation(variable, rvalue) );
 	}
 
+	// NEWFRESH
+	public static ExpressionStatement createNewfresh(
+			final PropertyDefinition variable) {
+		final ExpressionStatement statement = FACTORY.createExpressionStatement();
+
+		statement.setExpression( XLIA_EXPRESSION.createNewfresh(variable) );
+
+		return statement;
+	}
+
+	public static void addNewfresh(
+			final BlockStatement block, final PropertyDefinition variable) {
+
+		block.getStatement().add( createNewfresh(variable) );
+	}
+
 
 	// GUARD
 	public static GuardStatement createGuard(final Expression condition) {
@@ -262,17 +278,30 @@ public class XLIA_STATEMENT {
 		block.getStatement().add( statement );
 	}
 
-//	public static void addOutputCom(final BlockStatement block,
-//			final Port port, final Expression... rightValue) {
-//
-//		final OutputComStatement statement = createOutputCom(port);
-//
-//		for (final Expression rvalue : rightValue) {
-//			statement.getRightValue().add(rvalue);
-//		}
-//
-//		block.getStatement().add( statement );
-//	}
+	public static void addOutputCom(final BlockStatement block,
+			final Port port, final Expression... rightValue) {
+
+		final OutputComStatement statement = createOutputCom(port);
+
+		for (final Expression rvalue : rightValue) {
+			statement.getRightValue().add(rvalue);
+		}
+
+		block.getStatement().add( statement );
+	}
+
+	public static void addOutputCom(final BlockStatement block, final Port port,
+			final Expression rightExpr, final NamedElement rightElement) {
+
+		final OutputComStatement statement = createOutputCom(port);
+
+		statement.getRightValue().add(rightExpr);
+
+		statement.getRightValue().add(
+				XLIA_EXPRESSION.createExpression(rightElement));
+
+		block.getStatement().add( statement );
+	}
 
 
 	// INPUT COM
@@ -382,15 +411,21 @@ public class XLIA_STATEMENT {
 		block.getStatement().add( createInvoke(routine, args) );
 	}
 
+	// clear( <collection> )
 	public static void addInvokeClear(
 			final BlockStatement block, final NamedElement collection) {
 		block.getStatement().add( createInvoke(CLEAR, collection) );
 	}
 
+	// exit( <string-expression>
+	public static void addInvokeExit(
+			final BlockStatement block, final Expression exitMessage) {
+		block.getStatement().add( createInvoke(EXIT, exitMessage));
+	}
+
 	public static void addInvokeExit(
 			final BlockStatement block, final String exitMessage) {
-		block.getStatement().add( createInvoke(EXIT,
-				XLIA_EXPRESSION.createExpression(exitMessage)) );
+		addInvokeExit(block, XLIA_EXPRESSION.createExpression(exitMessage));
 	}
 
 
@@ -423,6 +458,15 @@ public class XLIA_STATEMENT {
 		block.getStatement().add(statement);
 
 		return statement;
+	}
+
+	public static BlockStatement addIfThen(
+			final BlockStatement block, final Expression condition) {
+		final IfStatement statement = createIf(condition);
+
+		block.getStatement().add(statement);
+
+		return XLIA_STATEMENT.createBlockStatement(statement);
 	}
 
 	// ELSE IF

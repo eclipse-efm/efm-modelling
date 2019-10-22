@@ -35,7 +35,7 @@
 					<products>
 						<product>
 							<id>${product-id}</id>
-							<rootFolder>efmorg.eclipse.efm-modeling</rootFolder>
+							<rootFolder>efm-modeling</rootFolder>
 						</product>
 					</products>
 				</configuration>

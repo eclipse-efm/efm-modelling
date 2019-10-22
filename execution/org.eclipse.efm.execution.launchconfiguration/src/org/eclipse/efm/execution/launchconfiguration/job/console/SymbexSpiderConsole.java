@@ -18,8 +18,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.ui.console.IConsoleColorProvider;
-import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.Activator;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.ISymbexWorkflowProvider;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -36,14 +36,12 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 	public static final String ID_PROCESS_CONSOLE_TYPE =
 			Activator.PLUGIN_ID + ".SymbexProcessConsoleType"; //$NON-NLS-1$
 
-	private IPath fResourcePath;
+	private final IPath fResourcePath;
 
 	private IProcess fProcess = null;
 
 	private final static ImageDescriptor IDESC_CONSOLE =
 			ImageResources.getImageDescriptor(ImageResources.IMAGE__DIVERSITY_ICON);
-
-	private final static String[] DEFAULT_ENVIRONMENT_VARS = new String[0];
 
 
 	private SymbexSpiderConsolePage fSymbexSpiderConsolePage;
@@ -107,10 +105,10 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 	}
 
 
-	public IStatus startSymbex(final String[] commandLine,
-			final IPath symbexWorkflowPath, final IProgressMonitor monitor) {
-		int waitingTime = 25;
-		while( (fSymbexSpiderConsolePage == null) && (waitingTime < 1024) ) {
+	public IStatus startSymbex(final ISymbexWorkflowProvider sewProvider,
+			final IProgressMonitor monitor) {
+		int waitingTime = 16;
+		while( (fSymbexSpiderConsolePage == null) && (waitingTime <= 1024) ) {
 			try {
 				Thread.sleep( waitingTime *= 2 );
 			} catch (final InterruptedException e) {
@@ -121,15 +119,14 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 		if( fSymbexSpiderConsolePage != null ) {
 			monitor.beginTask("Diversity", IProgressMonitor.UNKNOWN);
 
-			fSymbexSpiderConsolePage.sewLaunchExecProcess("user", monitor, commandLine,
-					WorkflowFileUtils.WORKSPACE_PATH, DEFAULT_ENVIRONMENT_VARS);
+			fSymbexSpiderConsolePage.sewLaunchExecProcess(sewProvider, monitor);
 
 			return Status.OK_STATUS;
 		}
 
 		MessageDialog.openInformation(getDefaultShell(), "SYMBEX ANALYSIS",
 				"No SymbexSpiderConsolePage for evaluation of "
-				+ symbexWorkflowPath.toString() + " !"
+				+ sewProvider.getSymbexWorkflowPath().toString() + " !"
 				+ "\nRetry again, please...");
 
 		return Status.CANCEL_STATUS;

@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.efm.ecore.formalml.common.NamedElement;
 import org.eclipse.efm.ecore.formalml.datatype.DataType;
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationLiteral;
+import org.eclipse.efm.ecore.formalml.expression.ArithmeticAssociativeExpression;
 import org.eclipse.efm.ecore.formalml.expression.AssignmentExpression;
 import org.eclipse.efm.ecore.formalml.expression.BinaryExpression;
 import org.eclipse.efm.ecore.formalml.expression.CastExpression;
@@ -32,6 +33,7 @@ import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement;
 import org.eclipse.efm.ecore.formalml.expression.LiteralStringExpression;
 import org.eclipse.efm.ecore.formalml.expression.LiteralThisExpression;
 import org.eclipse.efm.ecore.formalml.expression.LogicalAssociativeExpression;
+import org.eclipse.efm.ecore.formalml.expression.NewfreshExpression;
 import org.eclipse.efm.ecore.formalml.expression.PositionalTupleExpression;
 import org.eclipse.efm.ecore.formalml.expression.RelationalBinaryExpression;
 import org.eclipse.efm.ecore.formalml.expression.UnaryExpression;
@@ -68,6 +70,7 @@ public class XLIA_EXPRESSION {
 
 	public final static String OP_AND     = "&&";
 	public final static String OP_OR      = "||";
+	public final static String OP_NOT     = "not";
 
 
 	public static final NamedElement EMPTY =
@@ -190,7 +193,7 @@ public class XLIA_EXPRESSION {
 
 	// ELEMENT REFERENCE
 	public static LiteralReferenceElement createArrayElement(
-			final NamedElement element, final NamedElement index) {
+			final NamedElement element, final Expression index) {
 		final LiteralReferenceElement expression =
 				FACTORY.createLiteralReferenceElement();
 
@@ -198,9 +201,15 @@ public class XLIA_EXPRESSION {
 
 		expression.setElement(element);
 
-		expression.setArg(createExpression(index));
+		expression.setArg(index);
 
 		return expression;
+	}
+
+	public static LiteralReferenceElement createArrayElement(
+			final NamedElement element, final NamedElement index)
+	{
+		return createArrayElement(element, createExpression(index));
 	}
 
 	// ELEMENT LVALUE
@@ -278,8 +287,7 @@ public class XLIA_EXPRESSION {
 
 	public static Expression createDecrementation(
 			final PropertyDefinition variable, final Expression rvalue) {
-		final AssignmentExpression expression =
-				FACTORY.createAssignmentExpression();
+		final AssignmentExpression expression = FACTORY.createAssignmentExpression();
 
 		expression.setOperator(OP_ASSIGN);
 
@@ -287,6 +295,16 @@ public class XLIA_EXPRESSION {
 
 		expression.setRightHandSide(
 				createExpression(OP_MINUS, variable, rvalue));
+
+		return expression;
+	}
+
+
+	// NEWFRESH
+	public static Expression createNewfresh(final PropertyDefinition variable) {
+		final NewfreshExpression expression = FACTORY.createNewfreshExpression();
+
+		expression.setLeftHandSide( createLValue(variable) );
 
 		return expression;
 	}
@@ -386,7 +404,6 @@ public class XLIA_EXPRESSION {
 
 
 	// LOGICAL EXPRESSION
-	// LOGICAL EXPRESSION
 	public static Expression createLogical(
 			final String operator, final List<Expression> conditions)
 	{
@@ -485,6 +502,40 @@ public class XLIA_EXPRESSION {
 
 	public static Expression createFlatOR(final Expression... conditions) {
 		return( createFlatLogical(OP_OR, conditions) );
+	}
+
+	public static Expression createNOT(final Expression condition) {
+		return( createExpression(OP_NOT, condition) );
+	}
+
+
+	// ARITHMETIC EXPRESSION
+	public static Expression createArithmetic(
+			final String operator, final Expression... operands)
+	{
+		if( operands.length == 0 ) {
+			return XLIA_EXPRESSION.zero();
+		}
+		else if( operands.length == 1 ) {
+			return( operands[0] );
+		}
+		else {
+			final ArithmeticAssociativeExpression expression =
+					FACTORY.createArithmeticAssociativeExpression();
+			expression.setOperator(operator);
+
+			for (final Expression operand: operands) {
+				if( operand != null ) {
+					expression.getOperand().add(operand);
+				}
+			}
+
+			return expression;
+		}
+	}
+
+	public static Expression createPLUS(final Expression... operands) {
+		return( createLogical(OP_PLUS, operands) );
 	}
 
 

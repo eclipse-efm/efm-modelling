@@ -2144,6 +2144,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_ID);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.LIFELINE_STATE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.RAW_ATTRIBUTE);
+		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.EXECUTION_CONTEXT_ID);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_LABEL);
 		addEEnumLiteral(traceElementKindEEnum, TraceElementKind.NODE_HEADER);

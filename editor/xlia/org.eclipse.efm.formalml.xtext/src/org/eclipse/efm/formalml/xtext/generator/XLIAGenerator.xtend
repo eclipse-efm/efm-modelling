@@ -633,9 +633,12 @@ class XLIAGenerator {
 	
 	def static generateTransition(Transition transition)
 	'''
-		transition«generateTransitionMoe(transition.moe)» «namesOf(transition)»«IF transition.target !== null» --> «transition.target.name»«ELSEIF transition.targetExpression !== null» --> «generateExpression(transition.targetExpression)»«ENDIF» «generateBlockStatement(transition.behavior)»
+		«generateTransitionModifier(transition)»transition«generateTransitionMoe(transition.moe)» «namesOf(transition)»«IF transition.target !== null» --> «transition.target.name»«ELSEIF transition.targetExpression !== null» --> «generateExpression(transition.targetExpression)»«ENDIF» «generateBlockStatement(transition.behavior)»
 		}
 	'''
+	
+	def static generateTransitionModifier(Transition transition)
+	'''«IF transition.isTransient»transient «ENDIF»'''
 	
 	def static generateTransitionMoe(TransitionMoe moe)
 	'''«IF moe !== null»<«IF moe.moc !== TransitionMoc.SIMPLE» «moe.moc.literal»«ENDIF»«IF moe.isIsElse» else«ENDIF»«IF moe.priority > 0» prior: «moe.priority»«ENDIF» >«ENDIF»'''
@@ -984,7 +987,7 @@ class XLIAGenerator {
 	'''(«generateExpression(expression.leftHandSide)» «expression.operator» «generateExpression(expression.rightHandSide)»)'''
 	
 	def static dispatch generateExpression(NewfreshExpression expression)
-	'''newfresh «generateExpression(expression.leftHandSide)»'''
+	'''newfresh( «generateExpression(expression.leftHandSide)» )'''
 	
 	
 	def static dispatch generateExpression(UnaryExpression expression)

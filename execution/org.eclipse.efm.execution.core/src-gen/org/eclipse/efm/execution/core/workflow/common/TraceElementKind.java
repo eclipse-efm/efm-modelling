@@ -476,7 +476,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FILE_HEADER(44, "FILE_HEADER", "file#header"),
+	FILE_HEADER(50, "FILE_HEADER", "file#header"),
 
 	/**
 	 * The '<em><b>FILE BEGIN</b></em>' literal object.
@@ -486,7 +486,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FILE_BEGIN(45, "FILE_BEGIN", "file#begin"),
+	FILE_BEGIN(51, "FILE_BEGIN", "file#begin"),
 
 	/**
 	 * The '<em><b>FILE END</b></em>' literal object.
@@ -496,7 +496,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FILE_END(46, "FILE_END", "file#end"),
+	FILE_END(52, "FILE_END", "file#end"),
 
 	/**
 	 * The '<em><b>TESTCASE HEADER</b></em>' literal object.
@@ -506,7 +506,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TESTCASE_HEADER(47, "TESTCASE_HEADER", "testcase#header"),
+	TESTCASE_HEADER(53, "TESTCASE_HEADER", "testcase#header"),
 
 	/**
 	 * The '<em><b>TESTCASE BEGIN</b></em>' literal object.
@@ -516,7 +516,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TESTCASE_BEGIN(48, "TESTCASE_BEGIN", "testcase#begin"),
+	TESTCASE_BEGIN(54, "TESTCASE_BEGIN", "testcase#begin"),
 
 	/**
 	 * The '<em><b>TESTCASE END</b></em>' literal object.
@@ -526,7 +526,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TESTCASE_END(49, "TESTCASE_END", "testcase#end"),
+	TESTCASE_END(55, "TESTCASE_END", "testcase#end"),
 
 	/**
 	 * The '<em><b>INIT HEADER</b></em>' literal object.
@@ -536,7 +536,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INIT_HEADER(50, "INIT_HEADER", "init#header"),
+	INIT_HEADER(56, "INIT_HEADER", "init#header"),
 
 	/**
 	 * The '<em><b>INIT BEGIN</b></em>' literal object.
@@ -546,7 +546,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INIT_BEGIN(51, "INIT_BEGIN", "init#begin"),
+	INIT_BEGIN(57, "INIT_BEGIN", "init#begin"),
 
 	/**
 	 * The '<em><b>INIT END</b></em>' literal object.
@@ -556,7 +556,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INIT_END(52, "INIT_END", "init#end"),
+	INIT_END(58, "INIT_END", "init#end"),
 
 	/**
 	 * The '<em><b>STEP HEADER</b></em>' literal object.
@@ -566,7 +566,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	STEP_HEADER(53, "STEP_HEADER", "step#header"),
+	STEP_HEADER(59, "STEP_HEADER", "step#header"),
 
 	/**
 	 * The '<em><b>STEP BEGIN</b></em>' literal object.
@@ -576,7 +576,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	STEP_BEGIN(54, "STEP_BEGIN", "step#begin"),
+	STEP_BEGIN(60, "STEP_BEGIN", "step#begin"),
 
 	/**
 	 * The '<em><b>STEP END</b></em>' literal object.
@@ -586,7 +586,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	STEP_END(55, "STEP_END", "step#end"),
+	STEP_END(61, "STEP_END", "step#end"),
 
 	/**
 	 * The '<em><b>COMMENT</b></em>' literal object.
@@ -596,7 +596,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	COMMENT(56, "COMMENT", "comment"),
+	COMMENT(62, "COMMENT", "comment"),
 
 	/**
 	 * The '<em><b>SEPARATOR</b></em>' literal object.
@@ -606,7 +606,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SEPARATOR(57, "SEPARATOR", "separator"),
+	SEPARATOR(63, "SEPARATOR", "separator"),
 
 	/**
 	 * The '<em><b>NEWLINE</b></em>' literal object.
@@ -616,7 +616,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NEWLINE(58, "NEWLINE", "newline"),
+	NEWLINE(64, "NEWLINE", "newline"),
 
 	/**
 	 * The '<em><b>NEXT</b></em>' literal object.
@@ -626,7 +626,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NEXT(59, "NEXT", "next"),
+	NEXT(65, "NEXT", "next"),
 
 	/**
 	 * The '<em><b>LIFELINE</b></em>' literal object.
@@ -636,7 +636,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LIFELINE(60, "LIFELINE", "lifeline"),
+	LIFELINE(66, "LIFELINE", "lifeline"),
 
 	/**
 	 * The '<em><b>LIFELINE HEADER</b></em>' literal object.
@@ -646,7 +646,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LIFELINE_HEADER(61, "LIFELINE_HEADER", "lifeline#header"),
+	LIFELINE_HEADER(67, "LIFELINE_HEADER", "lifeline#header"),
 
 	/**
 	 * The '<em><b>LIFELINE BEGIN</b></em>' literal object.
@@ -656,7 +656,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LIFELINE_BEGIN(62, "LIFELINE_BEGIN", "lifeline#begin"),
+	LIFELINE_BEGIN(68, "LIFELINE_BEGIN", "lifeline#begin"),
 
 	/**
 	 * The '<em><b>LIFELINE END</b></em>' literal object.
@@ -666,7 +666,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LIFELINE_END(63, "LIFELINE_END", "lifeline#end"),
+	LIFELINE_END(69, "LIFELINE_END", "lifeline#end"),
 
 	/**
 	 * The '<em><b>LIFELINE ID</b></em>' literal object.
@@ -676,7 +676,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LIFELINE_ID(64, "LIFELINE_ID", "lifeline#id"),
+	LIFELINE_ID(70, "LIFELINE_ID", "lifeline#id"),
 
 	/**
 	 * The '<em><b>LIFELINE STATE</b></em>' literal object.
@@ -686,7 +686,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LIFELINE_STATE(65, "LIFELINE_STATE", "lifeline#state"),
+	LIFELINE_STATE(71, "LIFELINE_STATE", "lifeline#state"),
 
 	/**
 	 * The '<em><b>RAW ATTRIBUTE</b></em>' literal object.
@@ -696,9 +696,17 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RAW_ATTRIBUTE(66, "RAW_ATTRIBUTE", "__raw__"),
+	RAW_ATTRIBUTE(72, "RAW_ATTRIBUTE", "__raw__"),
 
 	/**
+	 * The '<em><b>EXECUTION CONTEXT ID</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EXECUTION_CONTEXT_ID_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	EXECUTION_CONTEXT_ID(80, "EXECUTION_CONTEXT_ID", "execution#context#id"), /**
 	 * The '<em><b>NODE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -706,7 +714,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE(70, "NODE", "node"), /**
+	NODE(81, "NODE", "node"), /**
 	 * The '<em><b>NODE LABEL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -714,7 +722,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_LABEL(71, "NODE_LABEL", "node#label"), /**
+	NODE_LABEL(82, "NODE_LABEL", "node#label"), /**
 	 * The '<em><b>NODE HEADER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -722,7 +730,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_HEADER(72, "NODE_HEADER", "node#header"),
+	NODE_HEADER(83, "NODE_HEADER", "node#header"),
 
 	/**
 	 * The '<em><b>NODE DATA</b></em>' literal object.
@@ -732,7 +740,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_DATA(73, "NODE_DATA", "node#data"),
+	NODE_DATA(84, "NODE_DATA", "node#data"),
 
 	/**
 	 * The '<em><b>NODE INFO</b></em>' literal object.
@@ -742,7 +750,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_INFO(74, "NODE_INFO", "node#info"),
+	NODE_INFO(85, "NODE_INFO", "node#info"),
 
 	/**
 	 * The '<em><b>NODE TRACE RUN</b></em>' literal object.
@@ -752,7 +760,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_TRACE_RUN(75, "NODE_TRACE_RUN", "node#trace#run"),
+	NODE_TRACE_RUN(86, "NODE_TRACE_RUN", "node#trace#run"),
 
 	/**
 	 * The '<em><b>NODE TRACE IO</b></em>' literal object.
@@ -762,7 +770,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NODE_TRACE_IO(76, "NODE_TRACE_IO", "node#trace#io"),
+	NODE_TRACE_IO(87, "NODE_TRACE_IO", "node#trace#io"),
 
 	/**
 	 * The '<em><b>VALUE PARAMETER BEGIN</b></em>' literal object.
@@ -772,7 +780,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_PARAMETER_BEGIN(80, "VALUE_PARAMETER_BEGIN", "value#parameter#begin"),
+	VALUE_PARAMETER_BEGIN(88, "VALUE_PARAMETER_BEGIN", "value#parameter#begin"),
 
 	/**
 	 * The '<em><b>VALUE PARAMETER SEPARATOR</b></em>' literal object.
@@ -782,7 +790,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_PARAMETER_SEPARATOR(81, "VALUE_PARAMETER_SEPARATOR", "value#parameter#separator"),
+	VALUE_PARAMETER_SEPARATOR(89, "VALUE_PARAMETER_SEPARATOR", "value#parameter#separator"),
 
 	/**
 	 * The '<em><b>VALUE PARAMETER END</b></em>' literal object.
@@ -792,7 +800,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_PARAMETER_END(82, "VALUE_PARAMETER_END", "value#parameter#end"),
+	VALUE_PARAMETER_END(90, "VALUE_PARAMETER_END", "value#parameter#end"),
 
 	/**
 	 * The '<em><b>VALUE ARRAY BEGIN</b></em>' literal object.
@@ -802,7 +810,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_ARRAY_BEGIN(83, "VALUE_ARRAY_BEGIN", "value#array#begin"),
+	VALUE_ARRAY_BEGIN(91, "VALUE_ARRAY_BEGIN", "value#array#begin"),
 
 	/**
 	 * The '<em><b>VALUE ARRAY SEPARATOR</b></em>' literal object.
@@ -812,7 +820,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_ARRAY_SEPARATOR(84, "VALUE_ARRAY_SEPARATOR", "value#array#separator"),
+	VALUE_ARRAY_SEPARATOR(92, "VALUE_ARRAY_SEPARATOR", "value#array#separator"),
 
 	/**
 	 * The '<em><b>VALUE ARRAY END</b></em>' literal object.
@@ -822,7 +830,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_ARRAY_END(85, "VALUE_ARRAY_END", "value#array#end"),
+	VALUE_ARRAY_END(93, "VALUE_ARRAY_END", "value#array#end"),
 
 	/**
 	 * The '<em><b>VALUE STRUCT BEGIN</b></em>' literal object.
@@ -832,7 +840,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_STRUCT_BEGIN(86, "VALUE_STRUCT_BEGIN", "value#struct#begin"),
+	VALUE_STRUCT_BEGIN(94, "VALUE_STRUCT_BEGIN", "value#struct#begin"),
 
 	/**
 	 * The '<em><b>VALUE STRUCT SEPARATOR</b></em>' literal object.
@@ -842,7 +850,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_STRUCT_SEPARATOR(87, "VALUE_STRUCT_SEPARATOR", "value#struct#separator"),
+	VALUE_STRUCT_SEPARATOR(95, "VALUE_STRUCT_SEPARATOR", "value#struct#separator"),
 
 	/**
 	 * The '<em><b>VALUE STRUCT END</b></em>' literal object.
@@ -852,7 +860,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	VALUE_STRUCT_END(88, "VALUE_STRUCT_END", "value#struct#end"),
+	VALUE_STRUCT_END(96, "VALUE_STRUCT_END", "value#struct#end"),
 
 	/**
 	 * The '<em><b>META TRACE</b></em>' literal object.
@@ -862,7 +870,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	META_TRACE(90, "META_TRACE", "trace"), /**
+	META_TRACE(97, "META_TRACE", "trace"), /**
 	 * The '<em><b>META DEBUG</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -870,7 +878,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	META_DEBUG(91, "META_DEBUG", "debug"), /**
+	META_DEBUG(98, "META_DEBUG", "debug"), /**
 	 * The '<em><b>TIPS</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1553,7 +1561,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FILE_HEADER_VALUE = 44;
+	public static final int FILE_HEADER_VALUE = 50;
 
 	/**
 	 * The '<em><b>FILE BEGIN</b></em>' literal value.
@@ -1568,7 +1576,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FILE_BEGIN_VALUE = 45;
+	public static final int FILE_BEGIN_VALUE = 51;
 
 	/**
 	 * The '<em><b>FILE END</b></em>' literal value.
@@ -1583,7 +1591,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FILE_END_VALUE = 46;
+	public static final int FILE_END_VALUE = 52;
 
 	/**
 	 * The '<em><b>TESTCASE HEADER</b></em>' literal value.
@@ -1598,7 +1606,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TESTCASE_HEADER_VALUE = 47;
+	public static final int TESTCASE_HEADER_VALUE = 53;
 
 	/**
 	 * The '<em><b>TESTCASE BEGIN</b></em>' literal value.
@@ -1613,7 +1621,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TESTCASE_BEGIN_VALUE = 48;
+	public static final int TESTCASE_BEGIN_VALUE = 54;
 
 	/**
 	 * The '<em><b>TESTCASE END</b></em>' literal value.
@@ -1628,7 +1636,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TESTCASE_END_VALUE = 49;
+	public static final int TESTCASE_END_VALUE = 55;
 
 	/**
 	 * The '<em><b>INIT HEADER</b></em>' literal value.
@@ -1643,7 +1651,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INIT_HEADER_VALUE = 50;
+	public static final int INIT_HEADER_VALUE = 56;
 
 	/**
 	 * The '<em><b>INIT BEGIN</b></em>' literal value.
@@ -1658,7 +1666,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INIT_BEGIN_VALUE = 51;
+	public static final int INIT_BEGIN_VALUE = 57;
 
 	/**
 	 * The '<em><b>INIT END</b></em>' literal value.
@@ -1673,7 +1681,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INIT_END_VALUE = 52;
+	public static final int INIT_END_VALUE = 58;
 
 	/**
 	 * The '<em><b>STEP HEADER</b></em>' literal value.
@@ -1688,7 +1696,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STEP_HEADER_VALUE = 53;
+	public static final int STEP_HEADER_VALUE = 59;
 
 	/**
 	 * The '<em><b>STEP BEGIN</b></em>' literal value.
@@ -1703,7 +1711,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STEP_BEGIN_VALUE = 54;
+	public static final int STEP_BEGIN_VALUE = 60;
 
 	/**
 	 * The '<em><b>STEP END</b></em>' literal value.
@@ -1718,7 +1726,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STEP_END_VALUE = 55;
+	public static final int STEP_END_VALUE = 61;
 
 	/**
 	 * The '<em><b>COMMENT</b></em>' literal value.
@@ -1733,7 +1741,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int COMMENT_VALUE = 56;
+	public static final int COMMENT_VALUE = 62;
 
 	/**
 	 * The '<em><b>SEPARATOR</b></em>' literal value.
@@ -1748,7 +1756,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int SEPARATOR_VALUE = 57;
+	public static final int SEPARATOR_VALUE = 63;
 
 	/**
 	 * The '<em><b>NEWLINE</b></em>' literal value.
@@ -1763,7 +1771,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NEWLINE_VALUE = 58;
+	public static final int NEWLINE_VALUE = 64;
 
 	/**
 	 * The '<em><b>NEXT</b></em>' literal value.
@@ -1778,7 +1786,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NEXT_VALUE = 59;
+	public static final int NEXT_VALUE = 65;
 
 	/**
 	 * The '<em><b>LIFELINE</b></em>' literal value.
@@ -1793,7 +1801,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LIFELINE_VALUE = 60;
+	public static final int LIFELINE_VALUE = 66;
 
 	/**
 	 * The '<em><b>LIFELINE HEADER</b></em>' literal value.
@@ -1808,7 +1816,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LIFELINE_HEADER_VALUE = 61;
+	public static final int LIFELINE_HEADER_VALUE = 67;
 
 	/**
 	 * The '<em><b>LIFELINE BEGIN</b></em>' literal value.
@@ -1823,7 +1831,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LIFELINE_BEGIN_VALUE = 62;
+	public static final int LIFELINE_BEGIN_VALUE = 68;
 
 	/**
 	 * The '<em><b>LIFELINE END</b></em>' literal value.
@@ -1838,7 +1846,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LIFELINE_END_VALUE = 63;
+	public static final int LIFELINE_END_VALUE = 69;
 
 	/**
 	 * The '<em><b>LIFELINE ID</b></em>' literal value.
@@ -1853,7 +1861,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LIFELINE_ID_VALUE = 64;
+	public static final int LIFELINE_ID_VALUE = 70;
 
 	/**
 	 * The '<em><b>LIFELINE STATE</b></em>' literal value.
@@ -1868,7 +1876,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LIFELINE_STATE_VALUE = 65;
+	public static final int LIFELINE_STATE_VALUE = 71;
 
 	/**
 	 * The '<em><b>RAW ATTRIBUTE</b></em>' literal value.
@@ -1883,7 +1891,18 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int RAW_ATTRIBUTE_VALUE = 66;
+	public static final int RAW_ATTRIBUTE_VALUE = 72;
+
+	/**
+	 * The '<em><b>EXECUTION CONTEXT ID</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EXECUTION_CONTEXT_ID
+	 * @model literal="execution#context#id"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int EXECUTION_CONTEXT_ID_VALUE = 80;
 
 	/**
 	 * The '<em><b>NODE</b></em>' literal value.
@@ -1898,7 +1917,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_VALUE = 70;
+	public static final int NODE_VALUE = 81;
 
 	/**
 	 * The '<em><b>NODE LABEL</b></em>' literal value.
@@ -1913,7 +1932,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_LABEL_VALUE = 71;
+	public static final int NODE_LABEL_VALUE = 82;
 
 	/**
 	 * The '<em><b>NODE HEADER</b></em>' literal value.
@@ -1928,7 +1947,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_HEADER_VALUE = 72;
+	public static final int NODE_HEADER_VALUE = 83;
 
 	/**
 	 * The '<em><b>NODE DATA</b></em>' literal value.
@@ -1943,7 +1962,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_DATA_VALUE = 73;
+	public static final int NODE_DATA_VALUE = 84;
 
 	/**
 	 * The '<em><b>NODE INFO</b></em>' literal value.
@@ -1958,7 +1977,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_INFO_VALUE = 74;
+	public static final int NODE_INFO_VALUE = 85;
 
 	/**
 	 * The '<em><b>NODE TRACE RUN</b></em>' literal value.
@@ -1973,7 +1992,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_TRACE_RUN_VALUE = 75;
+	public static final int NODE_TRACE_RUN_VALUE = 86;
 
 	/**
 	 * The '<em><b>NODE TRACE IO</b></em>' literal value.
@@ -1988,7 +2007,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NODE_TRACE_IO_VALUE = 76;
+	public static final int NODE_TRACE_IO_VALUE = 87;
 
 	/**
 	 * The '<em><b>VALUE PARAMETER BEGIN</b></em>' literal value.
@@ -2003,7 +2022,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_PARAMETER_BEGIN_VALUE = 80;
+	public static final int VALUE_PARAMETER_BEGIN_VALUE = 88;
 
 	/**
 	 * The '<em><b>VALUE PARAMETER SEPARATOR</b></em>' literal value.
@@ -2018,7 +2037,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_PARAMETER_SEPARATOR_VALUE = 81;
+	public static final int VALUE_PARAMETER_SEPARATOR_VALUE = 89;
 
 	/**
 	 * The '<em><b>VALUE PARAMETER END</b></em>' literal value.
@@ -2033,7 +2052,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_PARAMETER_END_VALUE = 82;
+	public static final int VALUE_PARAMETER_END_VALUE = 90;
 
 	/**
 	 * The '<em><b>VALUE ARRAY BEGIN</b></em>' literal value.
@@ -2048,7 +2067,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_ARRAY_BEGIN_VALUE = 83;
+	public static final int VALUE_ARRAY_BEGIN_VALUE = 91;
 
 	/**
 	 * The '<em><b>VALUE ARRAY SEPARATOR</b></em>' literal value.
@@ -2063,7 +2082,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_ARRAY_SEPARATOR_VALUE = 84;
+	public static final int VALUE_ARRAY_SEPARATOR_VALUE = 92;
 
 	/**
 	 * The '<em><b>VALUE ARRAY END</b></em>' literal value.
@@ -2078,7 +2097,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_ARRAY_END_VALUE = 85;
+	public static final int VALUE_ARRAY_END_VALUE = 93;
 
 	/**
 	 * The '<em><b>VALUE STRUCT BEGIN</b></em>' literal value.
@@ -2093,7 +2112,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_STRUCT_BEGIN_VALUE = 86;
+	public static final int VALUE_STRUCT_BEGIN_VALUE = 94;
 
 	/**
 	 * The '<em><b>VALUE STRUCT SEPARATOR</b></em>' literal value.
@@ -2108,7 +2127,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_STRUCT_SEPARATOR_VALUE = 87;
+	public static final int VALUE_STRUCT_SEPARATOR_VALUE = 95;
 
 	/**
 	 * The '<em><b>VALUE STRUCT END</b></em>' literal value.
@@ -2123,7 +2142,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int VALUE_STRUCT_END_VALUE = 88;
+	public static final int VALUE_STRUCT_END_VALUE = 96;
 
 	/**
 	 * The '<em><b>META TRACE</b></em>' literal value.
@@ -2138,7 +2157,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int META_TRACE_VALUE = 90;
+	public static final int META_TRACE_VALUE = 97;
 
 	/**
 	 * The '<em><b>META DEBUG</b></em>' literal value.
@@ -2153,7 +2172,7 @@ public enum TraceElementKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int META_DEBUG_VALUE = 91;
+	public static final int META_DEBUG_VALUE = 98;
 
 	/**
 	 * The '<em><b>TIPS</b></em>' literal value.
@@ -2245,6 +2264,7 @@ public enum TraceElementKind implements Enumerator {
 			LIFELINE_ID,
 			LIFELINE_STATE,
 			RAW_ATTRIBUTE,
+			EXECUTION_CONTEXT_ID,
 			NODE,
 			NODE_LABEL,
 			NODE_HEADER,
@@ -2387,6 +2407,7 @@ public enum TraceElementKind implements Enumerator {
 			case LIFELINE_ID_VALUE: return LIFELINE_ID;
 			case LIFELINE_STATE_VALUE: return LIFELINE_STATE;
 			case RAW_ATTRIBUTE_VALUE: return RAW_ATTRIBUTE;
+			case EXECUTION_CONTEXT_ID_VALUE: return EXECUTION_CONTEXT_ID;
 			case NODE_VALUE: return NODE;
 			case NODE_LABEL_VALUE: return NODE_LABEL;
 			case NODE_HEADER_VALUE: return NODE_HEADER;

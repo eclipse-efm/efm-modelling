@@ -14,7 +14,6 @@ package org.eclipse.efm.execution.launchconfiguration.job.console;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,21 +21,12 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
 
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.debug.core.ILaunch;
-import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
-import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchDelegate;
 import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
@@ -49,6 +39,7 @@ import org.eclipse.efm.execution.launchconfiguration.job.action.RunSelectedSymbe
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateAllAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateRestartAction;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.ISymbexWorkflowProvider;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider.SPIDER_GEOMETRY;
 import org.eclipse.jface.action.GroupMarker;
@@ -107,6 +98,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	private CloseAllConsoleAction fCloseAllConsoleAction;
 
 	private TerminateAllAction fTerminateAllAction;
+
+	private boolean fTerminateSymbexProcessFlag;
 
 
 	public SymbexSpiderConsolePage(
@@ -371,50 +364,56 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 	private final static String UNKNOWN_LAUNCH_OPTION = "Unknown AVM launch option";
 
-//	private boolean enableLegacyDiversity = false;
 
+	public void sewLaunchExecProcess(
+			final ISymbexWorkflowProvider sewProvider,
+			final IProgressMonitor monitor)
+	{
+		assert (sewProvider != null) : "Unexpected null ISymbexWorkflowProvider";
 
-	private void doRefresh(final String[] commandLine, final File workingDirectory) {
-		IResource symbexWorkflowResource = null;
-		if( (commandLine != null) && (commandLine.length > 1) )
-		{
-			final IPath symbexWorkflowPath = new Path(commandLine[1]);
+		fSymbexWorkflowProvider = sewProvider;
 
-			symbexWorkflowResource = WorkflowFileUtils.find(symbexWorkflowPath);
-		}
+		fTerminateSymbexProcessFlag = false;
 
-		try {
-			if( symbexWorkflowResource != null ) {
-				symbexWorkflowResource.getProject().refreshLocal(
-						IResource.DEPTH_INFINITE, new NullProgressMonitor());
+		if( fSymbexWorkflowProvider.isIterable() ) {
+			if( monitor != null ) {
+				monitor.beginTask(sewProvider.getSymbexlAnalysisProfileName(),
+						sewProvider.count());
 			}
-			else {
-				ResourcesPlugin.getWorkspace().getRoot().refreshLocal(
-						IResource.DEPTH_INFINITE, new NullProgressMonitor());
+
+			for( ; sewProvider.hasNext() && (! fTerminateSymbexProcessFlag) ;
+					sewProvider.next() )
+			{
+				if( monitor != null ) {
+					monitor.worked(sewProvider.index());
+					monitor.setTaskName(sewProvider.getTaskName());
+				}
+				fSymbexWorkflowProvider.beginLoggingSymbex();
+
+				if( fSymbexWorkflowProvider.isConsistent() ) {
+					sewLaunchExecProcess(monitor);
+				}
+
+				fSymbexWorkflowProvider.endLoggingSymbex();
 			}
 		}
-		catch(final CoreException e) {
-			e.printStackTrace();
+		else if( fSymbexWorkflowProvider.isConsistent() ) {
+			sewLaunchExecProcess(monitor);
 		}
+
+		sewProvider.finalize();
+
+		updateActionEndingProcess();
 	}
 
-
-	public void sewLaunchExecProcess(final String mode,
-			final IProgressMonitor monitor, final String[] commandLine,
-			final IPath workingDirectory, final String[] envp)
+	public void sewLaunchExecProcess(final IProgressMonitor monitor)
 	{
-		fMode = mode;
-		fMonitor = monitor;
-		fCommandLine = commandLine;
-		fWorkingDirectory = workingDirectory;
-		fEnvp = envp;
-
-		if( startSymbexProcess(commandLine, workingDirectory, envp) ) {
+		if( startSymbexProcess() ) {
 			fMessageConsole.clearConsole();
 
 			if ( fSpider != null ) {
 				fSpider.resetSpider(
-						LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase(),
+						fSymbexWorkflowProvider.getSymbexlAnalysisProfileName(),
 						SPIDER_GEOMETRY.TETRAGON);
 			}
 
@@ -431,10 +430,6 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 					}
 				}
 			}
-
-			doRefresh(commandLine, workingDirectory.toFile());
-
-			updateActionEndingProcess();
 		}
 	}
 
@@ -448,9 +443,11 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	private String traceLine = null;
 
 
-	private boolean startSymbexProcess(final String[] commandLine,
-			final IPath workingDirectory, final String[] envp)
+	private boolean startSymbexProcess()
 	{
+		assert (fSymbexWorkflowProvider != null)
+			: "Unexpected null ISymbexWorkflowProvider";
+
 		if( ! isAutoScroll() ) {
 			setAutoScroll(true);
 		}
@@ -461,9 +458,13 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		fConsoleBufferedWriter = new BufferedWriter(outputStreamWriter);
 
-		ProcessBuilder processBuilder = new ProcessBuilder(commandLine);
+		ProcessBuilder processBuilder =
+				new ProcessBuilder(fSymbexWorkflowProvider.getCommandLine());
+
 		processBuilder = processBuilder.redirectErrorStream(true);
-		processBuilder.directory(workingDirectory.toFile());
+
+		processBuilder.directory(
+				fSymbexWorkflowProvider.getWorkingDirectoryPath().toFile());
 
 		try {
 			fSymbexProcess = processBuilder.start();
@@ -499,12 +500,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 
 	public String getProcessName() {
-		if( fConfiguration != null ) {
-			return fConfiguration.getName();
-		}
-		else if( (fCommandLine != null) && (fCommandLine.length > 1) ) {
-			final IPath sewPath = new Path(fCommandLine[1]);
-			return sewPath.lastSegment();
+		if( fSymbexWorkflowProvider != null ) {
+			return fSymbexWorkflowProvider.getProcessName();
 		}
 
 		return "Process";
@@ -530,6 +527,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 			}
 
 	        updateActionEndingProcess();
+
+	        fTerminateSymbexProcessFlag = true;
 		}
 	}
 
@@ -586,22 +585,12 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	}
 
 
-	private ILaunchConfiguration fConfiguration;
-	private String fMode;
-	private ILaunch fLaunch;
-	IProgressMonitor fMonitor;
-	private String[] fCommandLine;
-	private IPath fWorkingDirectory;
-	private String[] fEnvp;
+	private ISymbexWorkflowProvider fSymbexWorkflowProvider;
+
 
 	public void restartProcess() {
-		if( (fConfiguration != null) && (fLaunch != null) ) {
-			SymbexJobFactory.run(fConfiguration, fMode, fLaunch, //fMonitor,
-					fCommandLine, fWorkingDirectory, fEnvp);
-		}
-		else {
-			SymbexJobFactory.run(fMode, //fMonitor,
-					fCommandLine, fWorkingDirectory, fEnvp);
+		if(fSymbexWorkflowProvider != null) {
+			SymbexJobFactory.run(fSymbexWorkflowProvider);
 		}
 	}
 
@@ -615,47 +604,6 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	///////////////////////////////////////////////////////////////////////////
 	// SYMBEX PROCESS LAUCHER
 	///////////////////////////////////////////////////////////////////////////
-
-	public void sewLaunchExecProcess(final ILaunchConfiguration configuration,
-			final String mode, final ILaunch launch,
-			final IProgressMonitor monitor, final String[] commandLine,
-			final IPath workingDirectory, final String[] envp)
-	{
-		fConfiguration = configuration;
-		fMode = mode;
-		fLaunch = launch;
-		fMonitor = monitor;
-		fCommandLine = commandLine;
-		fWorkingDirectory = workingDirectory;
-		fEnvp = envp;
-
-		if( startSymbexProcess(commandLine, workingDirectory, envp) ) {
-			fMessageConsole.clearConsole();
-
-			if ( fSpider != null ) {
-				fSpider.resetSpider(
-						LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase(),
-						SPIDER_GEOMETRY.TETRAGON);
-			}
-
-			nbExecution = 1;
-
-			disabledSpiderTrace = true;
-
-			enablePrintEmptyLine = true;
-
-			if( readSymbexInitLog(monitor) ) {
-				if( readSymbexStepLog(monitor) ) {
-					if( readSymbexReportLog(monitor) ) {
-						//!! THAT'S END
-					}
-				}
-			}
-
-			doRefresh(commandLine, workingDirectory.toFile());
-		}
-	}
-
 
 	private boolean readSymbexInitLog(final IProgressMonitor monitor) {
 		try {
@@ -678,11 +626,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 							// Unknown AVM launch option:
 							// << --enable-print-spider-positions >> !!!
 
-							if( traceLine.lastIndexOf(SymbexJob.
+							if( traceLine.lastIndexOf(ISymbexWorkflowProvider.
 								SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS) > 0 )
 							{
-//								enableLegacyDiversity = true;
-
 								continue;
 							}
 						}
@@ -693,7 +639,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 							System.out.println( Arrays.toString(bounds) );
 
 							fSpider.resetSpider(
-									LaunchDelegate.fModelAnalysisProfile.getLiteral().toUpperCase(),
+									fSymbexWorkflowProvider
+											.getSymbexlAnalysisProfileName(),
 									(bounds.length == 6)
 											? SPIDER_GEOMETRY.PENTAGON
 											: SPIDER_GEOMETRY.TETRAGON );
@@ -765,7 +712,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 								fConsoleBufferedWriter.append('\n');
 							}
 							else {
-								enablePrintEmptyLine = true;
+//								enablePrintEmptyLine = true;
 							}
 
 							continue;
@@ -853,6 +800,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		return true;
 	}
 
+
 	private boolean readSymbexReportLog(final IProgressMonitor monitor) {
 		try {
 			while( true ) {
@@ -864,7 +812,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 								fConsoleBufferedWriter.append('\n');
 							}
 							else {
-								enablePrintEmptyLine = true;
+//								enablePrintEmptyLine = true;
 							}
 
 							continue;
@@ -885,6 +833,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 									if( endPos > 0 ) {
 										final String strVerdict =
 												traceLine.substring(startPos, endPos);
+
+										fSymbexWorkflowProvider.setVerdict(strVerdict);
 
 										showSymbexVerdict(strVerdict);
 
@@ -917,10 +867,19 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 										{
 											showSymbexVerdict("100%");
 
+											fSymbexWorkflowProvider.reportCoverage("100%");
+
 	//										openDialog("The Objective is ACHIEVED !!!", false);
 										}
 									}
 								}
+								else if( fSymbexWorkflowProvider.hasVerdict() )
+								{
+									showSymbexVerdict(fSymbexWorkflowProvider.getVerdict());
+								}
+							}
+							else {
+								fSymbexWorkflowProvider.analyzeReport(traceLine);
 							}
 						}
 					}
@@ -949,11 +908,11 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 			if( fSymbexProcess != null ) {
 				fSymbexProcess.destroy();
 			}
-			monitor.done();
 		}
 
 		return true;
 	}
+
 
 
 	///////////////////////////////////////////////////////////////////////////

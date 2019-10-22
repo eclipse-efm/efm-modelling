@@ -44,8 +44,8 @@ import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.core.workflow.DirectorCustomImpl;
 import org.eclipse.efm.execution.core.workflow.WorkflowCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
-import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
 import org.eclipse.efm.execution.launchconfiguration.job.SymbexJobFactory;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.ISymbexWorkflowProvider;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.LaunchExecConsoleManager;
 import org.eclipse.efm.execution.launchconfiguration.util.BackgroundResourceRefresher;
 import org.eclipse.efm.execution.launchconfiguration.util.CoreUtil;
@@ -71,7 +71,7 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 	private IPath fSewLocation;
 	private IPath fWorkingDirectory;
 
-	private IPath fLaunchingDirectory;
+	private final IPath fLaunchingDirectory;
 
 
 	public static AnalysisProfileKind fModelAnalysisProfile =
@@ -299,8 +299,8 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 		commandLine[0] = fAvmExecLocation.toOSString();
 		commandLine[1] = fSewLocation.toOSString();
-		commandLine[2] = SymbexJob.SYMBEX_LAUNCH_OPTION_ENABLE_SERVER_MODE;
-		commandLine[3] = SymbexJob.SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS;
+		commandLine[2] = ISymbexWorkflowProvider.SYMBEX_LAUNCH_OPTION_ENABLE_SERVER_MODE;
+		commandLine[3] = ISymbexWorkflowProvider.SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS;
 
 		if (arguments != null) {
 			System.arraycopy(arguments, 0, commandLine, 4, arguments.length);
@@ -309,9 +309,6 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 		if (monitor.isCanceled()) {
 			return;
 		}
-
-		final String[] envp = DebugPlugin.getDefault().getLaunchManager()
-				.getEnvironment(configuration);
 
 		if (monitor.isCanceled()) {
 			return;
@@ -322,8 +319,8 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 // Modif pour non-régression
 //
-//		defaultLaunchExecProcess(configuration, mode, launch,
-//				monitor,commandLine, workingDir, envp);
+//		defaultLaunchExecProcess(configuration, mode,
+//				launch, monitor, commandLine, workingDir);
 //
 //		System.out.println("Debut deuxieme execution");
 //		try {
@@ -337,23 +334,27 @@ public class LaunchDelegate extends AbstractLaunchDelegate {
 
 
 //		fConsoleManager.sewLaunchExecProcess(configuration, mode,
-//				launch, monitor, commandLine, fLaunchingDirectory.toFile(), envp);
+//				launch, monitor, commandLine, fLaunchingDirectory.toFile());
 
-		SymbexJobFactory.run(configuration, mode, launch, //monitor,
-				commandLine, fLaunchingDirectory, envp);
+		SymbexJobFactory.run(configuration, launch, mode, //monitor,
+				fModelAnalysisProfile.getLiteral().toUpperCase(),
+				commandLine, fLaunchingDirectory);
 
 		// Console par défault
 //		defaultLaunchExecProcess(configuration, mode, launch,
-//				monitor,commandLine, fLaunchingDirectory, envp);
+//				monitor, commandLine, fLaunchingDirectory);
 	}
 
 	protected void defaultLaunchExecProcess(final ILaunchConfiguration configuration,
 			final String mode, final ILaunch launch, final IProgressMonitor monitor,
-			final String[] commandLine, final IPath workingDirecory, final String[] envp)
+			final String[] commandLine, final IPath workingDirecory)
 					throws CoreException {
 
 		final File workingDir = (workingDirecory != null) ?
 				workingDirecory.toFile() : null;
+
+		final String[] envp = DebugPlugin.getDefault()
+				.getLaunchManager().getEnvironment(configuration);
 
 		final Process javaProcess = DebugPlugin.exec(commandLine, workingDir, envp);
 		IProcess eclipseProcess = null;

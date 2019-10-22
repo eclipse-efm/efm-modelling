@@ -72,7 +72,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 			AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 
 
-	public OverviewAnalysisProfileSection(AbstractConfigurationPage configurationPage)
+	public OverviewAnalysisProfileSection(final AbstractConfigurationPage configurationPage)
 	{
 		super(configurationPage, true);
 
@@ -85,21 +85,22 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		fBehaviorSelectionPage =
 				new OverviewBehaviorSelectionConfigurationProfile(configurationPage);
 
+		// REQUIRED null if its not instantiated
+		fTestOfflinePage = null;
+		fInferencePage = null;
+		fExtraneouslModulePage = null;
+
 		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
 			fTestOfflinePage =
 					new OverviewTestOfflineConfigurationProfile(configurationPage);
 
-			fInferencePage =
-					new OverviewInferenceConfigurationProfile(configurationPage);
+			if( getConfigurationPage().isEnabledSymbexDeveloperMode() ) {
+				fInferencePage =
+						new OverviewInferenceConfigurationProfile(configurationPage);
+			}
 
 			fExtraneouslModulePage =
 					new OverviewExtraneousModuleConfigurationProfile(configurationPage);
-		} else {
-			fTestOfflinePage = null;
-
-			fInferencePage = null;
-
-			fExtraneouslModulePage = null;
 		}
 	}
 
@@ -122,7 +123,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
 		fTabFolder = widgetToolkit.createTabFolder( parent, SWT.TOP );
 
@@ -135,27 +136,31 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 				+ "\t- TESTOFFLINE : Test Verdict Computation: Offline testing...\n"
 				+ "\t- INFERENCE : Generate relational properties to be prooved by Frama-C...\n");
 
-		GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true, 2, 1);
+		final GridData gd = new GridData(SWT.FILL,SWT.FILL, true, true, 2, 1);
 		fTabFolder.setLayoutData(gd);
 
 		createExplorationTabItem(widgetToolkit);
 		createTransitionCoverageTabItem(widgetToolkit);
 		createBehaviorSelectionTabItem(widgetToolkit);
 
+		// REQUIRED null if its not instantiated
+		fTestOfflineTabItem = null;
+		fInferenceTabItem = null;
+		fExtraneousModuleTabItem = null;
+
 		if( getConfigurationPage().isEnabledSymbexIncubationMode() ) {
 			createTestOfflineTabItem(widgetToolkit);
 
-			createInferenceTabItem(widgetToolkit);
+			if( getConfigurationPage().isEnabledSymbexDeveloperMode() ) {
+				createInferenceTabItem(widgetToolkit);
+			}
 
 			createExtraneousModuleTabItem(widgetToolkit);
-		} else {
-			fTestOfflineTabItem = null;
-			fExtraneousModuleTabItem = null;
 		}
 
 		fTabFolder.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(final SelectionEvent e) {
 				handleModelAnalysisProfileSelectionChange();
 
 		        fConfigurationPage.propertyChange(
@@ -169,18 +174,18 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	}
 
 
-	private void createExplorationTabItem(IWidgetToolkit widgetToolkit)
+	private void createExplorationTabItem(final IWidgetToolkit widgetToolkit)
 	{
 		fExplorationTabItem = new CTabItem(fTabFolder, SWT.NONE );
 		fExplorationTabItem.setText(
 				AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE.getLiteral());
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
 		fExplorationPage.createControl(scrolledComposite, widgetToolkit);
 
-		Composite control = fExplorationPage.getControl();
+		final Composite control = fExplorationPage.getControl();
 		if (control != null) {
 			scrolledComposite.setContent(control);
 //			scrolledComposite.setMinSize(
@@ -190,18 +195,18 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 	}
 
-	private void createTransitionCoverageTabItem(IWidgetToolkit widgetToolkit)
+	private void createTransitionCoverageTabItem(final IWidgetToolkit widgetToolkit)
 	{
 		fTransitionCoverageTabItem = new CTabItem(fTabFolder, SWT.NONE );
 		fTransitionCoverageTabItem.setText(
 				AnalysisProfileKind.ANALYSIS_TRANSITION_COVERAGE_PROFILE.getLiteral());
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
 		fTransitionCoveragePage.createControl(scrolledComposite, widgetToolkit);
 
-		Composite control = fTransitionCoveragePage.getControl();
+		final Composite control = fTransitionCoveragePage.getControl();
 		if (control != null) {
 			scrolledComposite.setContent(control);
 //			scrolledComposite.setMinSize(
@@ -211,19 +216,19 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 	}
 
-	private void createBehaviorSelectionTabItem(IWidgetToolkit widgetToolkit)
+	private void createBehaviorSelectionTabItem(final IWidgetToolkit widgetToolkit)
 	{
 		fBehaviorSelectionTabItem = new CTabItem(fTabFolder, SWT.NONE );
 		fBehaviorSelectionTabItem.setText(
 				AnalysisProfileKind.ANALYSIS_BEHAVIOR_SELECTION_PROFILE.getLiteral());
 
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
 		fBehaviorSelectionPage.createControl(scrolledComposite, widgetToolkit);
 
-		Composite control = fBehaviorSelectionPage.getControl();
+		final Composite control = fBehaviorSelectionPage.getControl();
 		if (control != null) {
 			scrolledComposite.setContent(control);
 //			scrolledComposite.setMinSize(
@@ -233,19 +238,19 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 	}
 
-	private void createTestOfflineTabItem(IWidgetToolkit widgetToolkit)
+	private void createTestOfflineTabItem(final IWidgetToolkit widgetToolkit)
 	{
 		fTestOfflineTabItem = new CTabItem(fTabFolder, SWT.NONE );
 		fTestOfflineTabItem.setText(
 				AnalysisProfileKind.ANALYSIS_TEST_OFFLINE_PROFILE.getLiteral());
 
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
 		fTestOfflinePage.createControl(scrolledComposite, widgetToolkit);
 
-		Composite control = fTestOfflinePage.getControl();
+		final Composite control = fTestOfflinePage.getControl();
 		if (control != null) {
 			scrolledComposite.setContent(control);
 //			scrolledComposite.setMinSize(
@@ -255,19 +260,19 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 	}
 
-	private void createInferenceTabItem(IWidgetToolkit widgetToolkit)
+	private void createInferenceTabItem(final IWidgetToolkit widgetToolkit)
 	{
 		fInferenceTabItem = new CTabItem(fTabFolder, SWT.NONE );
 		fInferenceTabItem.setText(
 				AnalysisProfileKind.ANALYSIS_ACSL_GENERATION_PROFILE.getLiteral());
 
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
 		fInferencePage.createControl(scrolledComposite, widgetToolkit);
 
-		Composite control = fInferencePage.getControl();
+		final Composite control = fInferencePage.getControl();
 		if (control != null) {
 			scrolledComposite.setContent(control);
 //			scrolledComposite.setMinSize(
@@ -277,18 +282,18 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 		}
 	}
 
-	private void createExtraneousModuleTabItem(IWidgetToolkit widgetToolkit)
+	private void createExtraneousModuleTabItem(final IWidgetToolkit widgetToolkit)
 	{
 		fExtraneousModuleTabItem = new CTabItem(fTabFolder, SWT.NONE );
 		fExtraneousModuleTabItem.setText(
 				AnalysisProfileKind.ANALYSIS_EXTRANEOUS_PROFILE.getLiteral());
 
-		ScrolledComposite scrolledComposite =
+		final ScrolledComposite scrolledComposite =
 				widgetToolkit.createScrolledComposite(fTabFolder);
 
 		fExtraneouslModulePage.createControl(scrolledComposite, widgetToolkit);
 
-		Composite control = fExtraneouslModulePage.getControl();
+		final Composite control = fExtraneouslModulePage.getControl();
 		if (control != null) {
 			scrolledComposite.setContent(control);
 //			scrolledComposite.setMinSize(
@@ -299,7 +304,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	}
 
 
-	public void setVisibleModelAnalysisProfilePage(AnalysisProfileKind profile) {
+	public void setVisibleModelAnalysisProfilePage(final AnalysisProfileKind profile) {
 		switch ( profile ) {
 		case ANALYSIS_TRANSITION_COVERAGE_PROFILE:
 			fTabFolder.setSelection( fTransitionCoverageTabItem );
@@ -355,7 +360,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	///////////////////////////////////////////////////////////////////////////
 
 	@Override
-	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
 				AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE.getLiteral());
@@ -381,7 +386,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	}
 
 	@Override
-	public void initializeFromImpl(ILaunchConfiguration configuration) {
+	public void initializeFromImpl(final ILaunchConfiguration configuration) {
 		try {
 			final String strModelAnalysisProfile = configuration.getAttribute(
 					ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
@@ -394,7 +399,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 			fModelAnalysisProfile = AnalysisProfileKind.get(strModelAnalysisProfile);
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 
 			fModelAnalysisProfile = AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
@@ -432,7 +437,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 
 
 	@Override
-	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_MODEL_ANALYSIS_PROFILE,
 				fModelAnalysisProfile.getLiteral());
@@ -468,7 +473,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	// ======================================================================================
 
 	@Override
-	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(final ILaunchConfiguration launchConfig) {
 		switch( fModelAnalysisProfile ) {
 		case ANALYSIS_EXPLORATION_PROFILE: {
 			// MODEL EXPLORATION ANALYSIS
@@ -545,7 +550,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 	// Property Change
 	//
 	@Override
-	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(final PropertyChangeEvent event) {
 		fExplorationPage.handleConfigurationPropertyChange(event);
 
 		fTransitionCoveragePage.handleConfigurationPropertyChange(event);

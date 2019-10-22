@@ -320,6 +320,8 @@
       </genClasses>
       <genClasses ecoreClass="formalml.ecore#//datatype/EnumerationType">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.ecore#//datatype/EnumerationType/literal"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference formalml.ecore#//datatype/EnumerationType/superType"/>
       </genClasses>
       <genClasses image="false" ecoreClass="formalml.ecore#//datatype/DataStructuredType">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.ecore#//datatype/DataStructuredType/property"/>

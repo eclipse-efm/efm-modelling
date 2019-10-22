@@ -922,13 +922,22 @@ public interface WorkflowPackage extends EPackage {
 	int SERIALIZER__ENABLED_NORMALIZATION = WORKER_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERIALIZER__ENABLED_NUMERIZATION = WORKER_FEATURE_COUNT + 6;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING = WORKER_FEATURE_COUNT + 6;
+	int SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING = WORKER_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Lifelines Printing</b></em>' attribute.
@@ -937,7 +946,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_LIFELINES_PRINTING = WORKER_FEATURE_COUNT + 7;
+	int SERIALIZER__ENABLED_LIFELINES_PRINTING = WORKER_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
@@ -946,7 +955,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION = WORKER_FEATURE_COUNT + 8;
+	int SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION = WORKER_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Serializer</em>' class.
@@ -955,7 +964,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 9;
+	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of operations of the '<em>Serializer</em>' class.
@@ -1477,6 +1486,17 @@ public interface WorkflowPackage extends EPackage {
 	EAttribute getSerializer_EnabledNormalization();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNumerization <em>Enabled Numerization</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled Numerization</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNumerization()
+	 * @see #getSerializer()
+	 * @generated
+	 */
+	EAttribute getSerializer_EnabledNumerization();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1923,6 +1943,14 @@ public interface WorkflowPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SERIALIZER__ENABLED_NORMALIZATION = eINSTANCE.getSerializer_EnabledNormalization();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled Numerization</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERIALIZER__ENABLED_NUMERIZATION = eINSTANCE.getSerializer_EnabledNumerization();
 
 		/**
 		 * The meta object literal for the '<em><b>Enabled Initial Values Printing</b></em>' attribute feature.

@@ -33,6 +33,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	private Group groupBasicObservable;
 
 	private BooleanFieldEditor fBasicTraceEnabledGenerationBooleanField;
+	private BooleanFieldEditor fBasicTraceEnabledNumerizationBooleanField;
 	private BooleanFieldEditor fBasicTraceLifelinesEnabledGenerationBooleanField;
 
 
@@ -41,7 +42,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	 * @param parentTab
 	 */
 	public TestGenerationBasicTraceConfigurationProfile(
-			AbstractConfigurationPage configurationPage)
+			final AbstractConfigurationPage configurationPage)
 	{
 		super(configurationPage, false);
 	}
@@ -59,9 +60,9 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
-				"Enabled Options", 2, 1, GridData.FILL_HORIZONTAL);
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit) {
+		final Group group = widgetToolkit.createGroup(parent,
+				"Enabled Options", 3, 1, GridData.FILL_HORIZONTAL);
 
 		Composite comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
@@ -76,10 +77,20 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 		fBasicTraceEnabledGenerationBooleanField.addSelectionListener(
 				new SelectionAdapter() {
 					@Override
-					public void widgetSelected(SelectionEvent e) {
+					public void widgetSelected(final SelectionEvent e) {
 						handleEnablingGeneration();
 					}
 				});
+
+		comp = widgetToolkit.createComposite(
+				group, 2, 1, GridData.FILL_HORIZONTAL);
+
+		fBasicTraceEnabledNumerizationBooleanField =
+				new BooleanFieldEditor(fConfigurationPage,
+						ATTR_BASIC_TRACE_ENABLED_NUMERIZATION,
+						"&Numerization", comp,
+						DEFAULT_BASIC_TRACE_ENABLED_NUMERIZATION);
+		addFieldEditor(fBasicTraceEnabledNumerizationBooleanField);
 
 		comp = widgetToolkit.createComposite(
 				group, 2, 1, GridData.FILL_HORIZONTAL);
@@ -97,6 +108,9 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	}
 
 	private void handleEnablingGeneration() {
+		fBasicTraceEnabledNumerizationBooleanField.setEnabled(
+				fBasicTraceEnabledGenerationBooleanField.getBooleanValue() );
+
 		fBasicTraceLifelinesEnabledGenerationBooleanField.setEnabled(
 				fBasicTraceEnabledGenerationBooleanField.getBooleanValue() );
 
@@ -108,7 +122,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	}
 
 	private void createBasicConfigurationComponent(
-			Composite parent, IWidgetToolkit widgetToolkit) {
+			final Composite parent, final IWidgetToolkit widgetToolkit) {
 		groupBasicConfiguration = widgetToolkit.createGroup(parent,
 				"&Configuration", 2, 1, GridData.FILL_HORIZONTAL);
 
@@ -150,7 +164,7 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	}
 
 	public void createObservableSelectionComponent(
-			Composite parent, IWidgetToolkit widgetToolkit) {
+			final Composite parent, final IWidgetToolkit widgetToolkit) {
 		groupBasicObservable = widgetToolkit.createGroup(parent,
 				"&Observable Traces Selection", 2, 1, GridData.FILL_HORIZONTAL);
 
@@ -164,8 +178,8 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	}
 
 	private void createExternalCommunicationComponent(
-			Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
+			final Composite parent, final IWidgetToolkit widgetToolkit) {
+		final Group group = widgetToolkit.createGroup(parent,
 				"External Communication", 2, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText(
 				"External, Input or Output, Communication Selection" );
@@ -191,8 +205,8 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	}
 
 	private void createInternalCommunicationComponent(
-			Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
+			final Composite parent, final IWidgetToolkit widgetToolkit) {
+		final Group group = widgetToolkit.createGroup(parent,
 				"&Any Communication", 2, 1, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( "External or Internal, "
 				+ "Input or Output, Communication Selection" );
@@ -217,8 +231,8 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 	}
 
 	private void createOtherObservableComponent(
-			Composite parent, IWidgetToolkit widgetToolkit) {
-		Group group = widgetToolkit.createGroup(parent,
+			final Composite parent, final IWidgetToolkit widgetToolkit) {
+		final Group group = widgetToolkit.createGroup(parent,
 				"&Other Elements", 4, 2, GridData.FILL_HORIZONTAL);
 		group.setToolTipText( "Other Elements like, Time, Variable, "
 				+ "Transition, State..., Communication Selection" );
@@ -264,9 +278,9 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 
 	private void createTraceElementTableViewerComponent(
-			Composite parent, IWidgetToolkit widgetToolkit) {
+			final Composite parent, final IWidgetToolkit widgetToolkit) {
 
-		Composite comp = widgetToolkit.createComposite(
+		final Composite comp = widgetToolkit.createComposite(
 				parent, 1, 2, GridData.FILL_HORIZONTAL);
 
 		fDetailTraceElementTableViewer =
@@ -284,11 +298,15 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 
 	@Override
-	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration)
+	protected void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration)
 	{
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_ENABLED_GENERATION,
 				DEFAULT_BASIC_TRACE_ENABLED_GENERATION);
+
+		configuration.setAttribute(
+				ATTR_BASIC_TRACE_ENABLED_NUMERIZATION,
+				DEFAULT_BASIC_TRACE_ENABLED_NUMERIZATION);
 
 		configuration.setAttribute(
 				ATTR_BASIC_TRACE_LIFELINES_ENABLED_PRINTING,
@@ -344,17 +362,17 @@ public class TestGenerationBasicTraceConfigurationProfile extends AbstractConfig
 
 
 	@Override
-	protected void initializeFromImpl(ILaunchConfiguration configuration) {
+	protected void initializeFromImpl(final ILaunchConfiguration configuration) {
 		handleEnablingGeneration();
 	}
 
 	@Override
-	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+	protected void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		//!! NOTHING
 	}
 
 	@Override
-	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(final ILaunchConfiguration launchConfig) {
 		//!! NOTHING
 		return true;
 	}

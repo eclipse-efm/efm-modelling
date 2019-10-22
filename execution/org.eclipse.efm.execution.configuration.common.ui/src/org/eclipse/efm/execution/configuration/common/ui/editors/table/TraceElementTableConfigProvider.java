@@ -245,6 +245,8 @@ public class TraceElementTableConfigProvider
 
 //					TraceElementKind.LIFELINE,
 
+					TraceElementKind.EXECUTION_CONTEXT_ID,
+
 					TraceElementKind.NODE,
 					TraceElementKind.NODE_LABEL,
 					TraceElementKind.NODE_HEADER,
@@ -325,6 +327,7 @@ public class TraceElementTableConfigProvider
 					TraceElementKind.LIFELINE_ID,
 					TraceElementKind.LIFELINE_STATE,
 //					TraceElementKind.RAW_ATTRIBUTE,
+					TraceElementKind.EXECUTION_CONTEXT_ID,
 					TraceElementKind.NODE,
 					TraceElementKind.NODE_LABEL,
 					TraceElementKind.NODE_HEADER,
@@ -468,7 +471,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(32),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(10),//HEIGHT_HINT_ROW_10,
-				FORMAT_ELEMENT, TraceElementKind.VARIABLE);
+				FORMAT_ELEMENT, TraceElementKind.RAW_ATTRIBUTE);
 	}
 
 

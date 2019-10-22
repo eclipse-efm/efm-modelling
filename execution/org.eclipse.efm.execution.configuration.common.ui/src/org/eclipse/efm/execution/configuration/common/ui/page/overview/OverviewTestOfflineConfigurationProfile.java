@@ -14,7 +14,7 @@ import java.io.File;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
@@ -24,6 +24,7 @@ import org.eclipse.efm.execution.configuration.common.ui.editors.BooleanFieldEdi
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableConfigProvider;
 import org.eclipse.efm.execution.configuration.common.ui.editors.table.TraceElementTableViewer;
 import org.eclipse.efm.execution.core.Activator;
+import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.window.Window;
@@ -86,7 +87,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	/**
 	 * Modify listener that simply updates the owning launch configuration dialog.
 	 */
-	private ModifyListener fBasicModifyListener = new ModifyListener() {
+	private final ModifyListener fBasicModifyListener = new ModifyListener() {
 		@Override
 		public void modifyText(final ModifyEvent evt) {
 			fConfigurationPage.propagateUpdateJobScheduling();
@@ -166,8 +167,12 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 				if(dialog.open() == Window.OK) {
 					final IResource resource = (IResource) dialog.getFirstResult();
 					if(resource != null) {
-						final String arg = resource.getLocation().toString();
-						fTracePathText.setText(arg);
+						final IPath path = resource.getLocation();
+
+						fTracePathText.setToolTipText(path.toString());
+
+						fTracePathText.setText(
+								WorkflowFileUtils.makeRelativeLocation(path));
 					}
 				}
 			}
@@ -217,8 +222,12 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 							final IResource resource =
 									(IResource) dialog.getFirstResult();
 							if(resource != null) {
-								final String arg = resource.getLocation().toString();
-								fTestPurposePathText.setText(arg);
+								final IPath path = resource.getLocation();
+
+								fTestPurposePathText.setToolTipText(path.toString());
+
+								fTestPurposePathText.setText(
+										WorkflowFileUtils.makeRelativeLocation(path));
 							}
 						}
 					}
@@ -304,27 +313,25 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 
 	@Override
 	protected void initializeFromImpl(final ILaunchConfiguration configuration) {
-		String traceFile;
-		try {
-			traceFile = configuration.getAttribute(
-					ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
-					DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
-		} catch( final CoreException e ) {
-			e.printStackTrace();
-			traceFile = DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION;
-		}
+		final String traceFile =
+				WorkflowFileUtils.getRelativeLocation(configuration,
+						ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
+						DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
 		fTracePathText.setText(traceFile);
 
-		String testPurposeFile;
-		try {
-			testPurposeFile = configuration.getAttribute(
-					ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
-					DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
-		} catch( final CoreException e ) {
-			e.printStackTrace();
-			testPurposeFile = DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION;
-		}
+		fTracePathText.setToolTipText(
+				WorkflowFileUtils.makeAbsoluteLocation(traceFile));
+
+
+		final String testPurposeFile =
+				WorkflowFileUtils.getRelativeLocation(configuration,
+						ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
+						DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
 		fTestPurposePathText.setText(testPurposeFile);
+
+		fTestPurposePathText.setToolTipText(
+				WorkflowFileUtils.makeAbsoluteLocation(testPurposeFile));
+
 
 		handleEnablingTraceConfiguration();
 	}
@@ -344,36 +351,38 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 	@Override
 	protected boolean isValidImpl(final ILaunchConfiguration launchConfig) {
 
-		String filePath = fTracePathText.getText();
+		String filePath = WorkflowFileUtils.makeAbsoluteLocation(
+				fTracePathText.getText() );
 
 		if( (filePath == null) || filePath.isEmpty() ) {
-			setWarningMessage("The ressource Test Offline trace "
+			setErrorMessage("The ressource Test Offline trace "
 					+ "file path is empty (or null)");
 
 			return false;
 		}
+		if( filePath.endsWith(DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION) ) {
+			setErrorMessage("Select a SUT Trace file for Offline-Testing");
+
+				return false;
+			}
 		else if( ! ( new File(filePath) ).exists() ) {
-			setWarningMessage("The ressource Test Offline trace "
+			setErrorMessage("The ressource Test Offline trace "
 					+ "file \"" + filePath + "\" does not exist.");
 
 			return false;
 		}
 
 
-		filePath = fTestPurposePathText.getText();
+		filePath = WorkflowFileUtils.makeAbsoluteLocation(
+				fTestPurposePathText.getText() );
 
-		if( (filePath == null) || filePath.isEmpty() ) {
-			setWarningMessage("The ressource Test Offline test "
-					+ "purpose file path is empty (or null)");
-
-			return false;
-		}
-		else if( filePath.equals(
-				DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION) ) {
+		if( (filePath == null)
+			|| filePath.isEmpty()
+			|| filePath.endsWith(DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION) ) {
 			//!! NOTHING
 		}
 		else if( ! ( new File(filePath) ).isFile() ) {
-			setWarningMessage("The ressource Test Offline test "
+			setErrorMessage("The ressource Test Offline test "
 					+ "purpose file \"" + filePath + "\" does not exist.");
 
 			return false;
@@ -382,5 +391,6 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		return true;
 	}
 
+	
 
 }

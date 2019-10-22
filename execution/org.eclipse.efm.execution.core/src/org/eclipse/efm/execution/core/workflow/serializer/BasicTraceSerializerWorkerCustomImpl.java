@@ -68,6 +68,17 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 
 		try {
 			enabled = configuration.getAttribute(
+					ATTR_BASIC_TRACE_ENABLED_NUMERIZATION, false);
+		}
+		catch( final CoreException e2 ) {
+			e2.printStackTrace();
+
+			enabled = false;
+		}
+		serializerWorker.setEnabledNumerization( enabled );
+
+		try {
+			enabled = configuration.getAttribute(
 					ATTR_BASIC_TRACE_INITIAL_VALUES_ENABLED_PRINTING, false);
 		}
 		catch( final CoreException e2 ) {
@@ -299,7 +310,8 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		writer2.appendTab2Eol( "info#selection = 'ALL'" );
 		writer2.appendTab2Eol( "data#selection = 'MODIFIED'" );
 
-		writer2.appendTab2Eol( "numerizer = 'SOLVER'" ); // ~ | NONE | NEWFRESH
+		writer2.appendTab2( "numerizer = " ) // ~ | NONE | NEWFRESH
+			.appendEol( isEnabledNumerization() ? "'SOLVER'" : "'NONE '" );
 
 		writer2.appendTab2( "normalize = " )
 			.appendEol( isEnabledNormalization() );
@@ -308,7 +320,7 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 		.appendEol( isEnabledInitialValuesPrinting() );
 
 		writer2.appendTab2( "print#lifelines = " )
-		.appendEol( isEnabledLifelinesPrinting() );
+			.appendEol( isEnabledLifelinesPrinting() );
 
 		writer2.appendTabEol( "] // end property" );
 

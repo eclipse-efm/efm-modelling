@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.core.util;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -110,6 +112,22 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 		}
 
 		return path.toString();
+	}
+
+	/**
+	 * make relative location
+	 * @param referencePath
+	 * @param location
+	 * @return
+	 */
+	public static String makeRelativeLocation(
+			final IPath referencePath, final String location)
+	{
+		final IPath path = new Path(location);
+
+		final IPath relativePath = path.makeRelativeTo(referencePath);
+
+		return (relativePath.segmentCount() > 0) ? relativePath.toString() : ".";
 	}
 
 	/**
@@ -308,6 +326,24 @@ public class WorkflowFileUtils implements IWorkflowConfigurationConstants {
 
 	public static IResource find(final IPath path) {
 		return WORKSPACE_ROOT.findMember(path);
+	}
+
+	public static IFile findFile(final IPath path) {
+		final IResource resource = WORKSPACE_ROOT.findMember(path);
+
+		return( (resource instanceof IFile) ? (IFile) resource : null );
+	}
+
+
+	public static IProject getProject(final IPath path) {
+		final IResource resource =
+				WORKSPACE_ROOT.findMember(path.makeRelativeTo(WORKSPACE_PATH));
+
+		return (resource != null) ? resource.getProject() : null;
+	}
+
+	public static IProject getProject(final String location) {
+		return getProject( new Path(location) );
 	}
 
 }

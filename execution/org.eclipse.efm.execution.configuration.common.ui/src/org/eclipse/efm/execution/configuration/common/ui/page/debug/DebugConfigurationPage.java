@@ -145,7 +145,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 		}
 	}
 
-	private TabListener fListener= new TabListener();
+	private final TabListener fListener= new TabListener();
 
 	private void handleConsoleLevelSelectionChange() {
 		fConsoleLevel = ConsoleVerbosityKind.get( fConsoleLevelCombo.getText() );
@@ -360,7 +360,7 @@ public class DebugConfigurationPage extends AbstractConfigurationPage {
 
 		fSecondSymbexOutputGraphizEnabledBooleanField = new BooleanFieldEditor(
 				this, ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_GENERATION,
-				"<&Graphviz> Representation", comp, true);
+				"<&Graphviz> Representation", comp, false);
 		fSecondSymbexOutputGraphizEnabledBooleanField.addSelectionListener(
 				new SelectionAdapter() {
 					@Override

@@ -15,10 +15,14 @@ import java.io.File;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.launchconfiguration.job.SymbexJobFactory;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.LivenessCheckerSymbexWorkflow;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -94,6 +98,34 @@ public class RunSewToolsHandler extends AbstractHandler {
 	}
 
 
+	private Object executepolygraphsLivenessChecker(final IContainer container) {
+		if( container != null ) {
+			boolean hasXLIA = false;
+			try {
+				for( final IResource resource : container.members() ) {
+					if( (resource instanceof IFile)
+						&& "xlia".equals(resource.getFileExtension()) )
+					{
+						hasXLIA = true;
+						break;
+					}
+				}
+			}
+			catch (final CoreException e) {
+			}
+
+			if( hasXLIA ) {
+				final LivenessCheckerSymbexWorkflow PLSW =
+						new LivenessCheckerSymbexWorkflow(container, "polygraph");
+
+				PLSW.start();
+			}
+		}
+
+		return null;
+	}
+
+
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
@@ -111,6 +143,9 @@ public class RunSewToolsHandler extends AbstractHandler {
 				else if( Util.isGraphizFile(selectedFile) ) {
 					return( executeGraphiz(event, window, selectedFile) );
 				}
+			}
+			else if( selObj instanceof IContainer ) {
+				return executepolygraphsLivenessChecker((IContainer) selObj);
 			}
 		}
 

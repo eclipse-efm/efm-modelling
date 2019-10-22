@@ -81,10 +81,8 @@ public class RunSelectedSymbexWorkflowAction extends Action
 		}
 
 		if( fSelectedSewFile != null ) {
-			final IWorkbenchWindow window =
-					PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
-			if( ! SymbexJobFactory.run(window, fSelectedSewFile) ) {
+			if( ! SymbexJobFactory.run(fSelectedSewFile) ) {
 				//!!! ERROR
 			}
 		}

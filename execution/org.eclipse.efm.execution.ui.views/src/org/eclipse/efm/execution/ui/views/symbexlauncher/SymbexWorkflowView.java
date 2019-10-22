@@ -46,6 +46,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Combo;
@@ -166,6 +168,15 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 
 			initializeFieldValuesFrom(launchConfigurationManager.getSelection());
 		}
+
+		this.scrollform.getContent().addFocusListener(
+				new FocusAdapter() {
+					@Override
+					public void focusLost(final FocusEvent e) {
+						saveLaunchConfiguration(
+								launchConfigurationManager.getSelection() );
+					}
+				});
 	}
 
 

@@ -119,7 +119,7 @@ public class SymbexGraphicSerializerWorkerCustomImpl
 
 		final SymbexGraphicSerializerWorkerCustomImpl serializerWorker =
 				new SymbexGraphicSerializerWorkerCustomImpl(
-						director, "symbex2graphiz#extension");
+						director, "symbex2graphic#extension");
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
 

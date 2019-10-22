@@ -36,7 +36,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 
 
 	public static void setEnabledFlags(
-			ILaunchConfiguration configuration) {
+			final ILaunchConfiguration configuration) {
 
 		fEnabledDebugOptions = SymbexPreferenceUtil.getBooleanPreference(
 				IWorkflowPreferenceConstants.PREF_DEBUG_OPTIONS);
@@ -53,7 +53,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			try {
 				fEnabledSymbexDeveloperMode = configuration.getAttribute(
 						ATTR_ENABLED_DEVELOPER_TUNING, false);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 //				fEnabledSymbexDeveloperMode = false;
@@ -63,12 +63,12 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 
 
 	public static DeveloperTuningOptionCustomImpl createWorkflow(
-			ILaunchConfiguration configuration) {
+			final ILaunchConfiguration configuration) {
 
 		setEnabledFlags(configuration);
 
 		if( fEnabledSymbexDeveloperMode ) {
-			DeveloperTuningOptionCustomImpl devTuning =
+			final DeveloperTuningOptionCustomImpl devTuning =
 					new DeveloperTuningOptionCustomImpl();
 
 			String str;
@@ -77,7 +77,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 				str = configuration.getAttribute(
 						ATTR_DEVELOPER_TUNING_LOG_FILENAME,
 						DEFAULT_DEVELOPER_TUNING_LOG_FILENAME);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_DEVELOPER_TUNING_LOG_FILENAME;
@@ -88,7 +88,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 				str = configuration.getAttribute(
 						ATTR_DEVELOPER_TUNING_DEBUG_FILENAME,
 						DEFAULT_DEVELOPER_TUNING_DEBUG_FILENAME);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_DEVELOPER_TUNING_DEBUG_FILENAME;
@@ -98,7 +98,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			try {
 				str = configuration.getAttribute(
 						ATTR_DEVELOPER_TUNING_DEBUG_LEVEL, "ZERO");
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = "ZERO";
@@ -118,7 +118,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 	}
 
 
-	public boolean configureTuningOption(ILaunchConfiguration configuration) {
+	public boolean configureTuningOption(final ILaunchConfiguration configuration) {
 		boolean enabled;
 
 		// General Context
@@ -126,7 +126,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_PARSING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledParsing( enabled );
@@ -135,7 +135,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_CONFIGURING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledConfiguring( enabled );
@@ -144,7 +144,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_COMPILING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledCompiling( enabled );
@@ -153,7 +153,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_LOADING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledLoading( enabled );
@@ -162,7 +162,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_COMPUTING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledComputing( enabled );
@@ -171,7 +171,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_REPORTING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledReporting( enabled );
@@ -180,7 +180,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_SOLVING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledSolving( enabled );
@@ -189,7 +189,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_PROFILING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledProfiling( enabled );
@@ -199,7 +199,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_ALL_PROCESS_STAGE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledAllProcessStage( enabled );
@@ -208,7 +208,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_PRE_PROCESSING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledPreProcessing( enabled );
@@ -217,7 +217,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_POST_PROCESSING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledPostProcessing( enabled );
@@ -226,7 +226,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_PROCESSING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledProcessing( enabled );
@@ -235,7 +235,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_PRE_FILTERING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledPreFiltering( enabled );
@@ -244,7 +244,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_POST_FILTERING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledPostFiltering( enabled );
@@ -253,7 +253,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_FILTERING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledFiltering( enabled );
@@ -262,7 +262,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_QUEUE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledQueue( enabled );
@@ -272,7 +272,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_PROGRAM, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledProgram( enabled );
@@ -281,7 +281,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_STATEMENT, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledStatement( enabled );
@@ -290,7 +290,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_STATEMENT_ASSIGNMENT, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledStatementAssignment( enabled );
@@ -299,7 +299,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_STATEMENT_COMMUNICATION, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledStatementCommunication( enabled );
@@ -308,7 +308,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_STATEMENT_TEST_DECISION, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledStatementTestDecision( enabled );
@@ -317,7 +317,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_BYTECODE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledBytecode( enabled );
@@ -326,7 +326,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_DATA, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledData( enabled );
@@ -335,7 +335,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_TRACE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledTrace( enabled );
@@ -344,7 +344,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_VARIABLE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledVariable( enabled );
@@ -353,7 +353,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_BUFFER, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledBuffer( enabled );
@@ -362,7 +362,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_PORT, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledPort( enabled );
@@ -371,7 +371,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_SIGNAL, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledSignal( enabled );
@@ -380,7 +380,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_CONNEXION, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledConnexion( enabled );
@@ -389,7 +389,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_TIME, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledTime( enabled );
@@ -399,7 +399,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_EXECUTABLE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledExecutable( enabled );
@@ -408,7 +408,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_ACTIVITY, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledActivity( enabled );
@@ -417,7 +417,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_ROUTINE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledRoutine( enabled );
@@ -426,7 +426,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_TRANSITION, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledTransition( enabled );
@@ -435,7 +435,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_MACHINE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledMachine( enabled );
@@ -444,7 +444,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_STATEMACHINE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledStatemachine( enabled );
@@ -454,7 +454,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_NAME_ID, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledNameId( enabled );
@@ -463,7 +463,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_QUALIFIED_NAME_ID, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledQualifiedNameId( enabled );
@@ -472,7 +472,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_FULLY_QUALIFIED_NAME_ID, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledFullyQualifiedNameId( enabled );
@@ -482,7 +482,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_REDUNDANCE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledRedundance( enabled );
@@ -491,7 +491,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_REFERENCE_COUNTING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledReferenceCounting( enabled );
@@ -502,7 +502,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_NOTHING, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledNothing( enabled );
@@ -512,7 +512,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			enabled = configuration.getAttribute(
 					ATTR_ENABLED_TRACE_GOD_MODE, false);
 		}
-		catch( CoreException e ) {
+		catch( final CoreException e ) {
 			enabled = false;
 		}
 		setEnabledGodMode( enabled );
@@ -522,26 +522,26 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 
 
 	public static DeveloperTuningOptionCustomImpl createDirector(
-			ILaunchConfiguration configuration) {
+			final ILaunchConfiguration configuration) {
 
 		setEnabledFlags(configuration);
 
 		if( fEnabledDebugOptions || fEnabledSymbexDeveloperMode ) {
 
-			DeveloperTuningOptionCustomImpl devTuning =
+			final DeveloperTuningOptionCustomImpl devTuning =
 					new DeveloperTuningOptionCustomImpl();
 
 			devTuning.setDebugLevel( DebuglevelKind.NONE );
 
 			boolean enabled;
 
-			String modelBasename =
+			final String modelBasename =
 					WorkflowFileUtils.getModelBasename(configuration);
 
 			try {
 				enabled = configuration.getAttribute(
 					ATTR_ENABLED_FIRST_PARSED_MODEL_TEXTUAL_GENERATION, false);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				enabled = false;
@@ -561,7 +561,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			try {
 				enabled = configuration.getAttribute(
 					ATTR_ENABLED_FIRST_COMPILED_MODEL_TEXTUAL_GENERATION, false);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				enabled = false;
@@ -569,7 +569,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			if( enabled ) {
 				devTuning.setExecutableFilename(modelBasename + ".fexe");
 
-				devTuning.setInitializationFilename(modelBasename + ".fet");
+				devTuning.setInitializationFilename(modelBasename + "_init.fet");
 
 				if( fEnabledSymbexDeveloperMode ) {
 					devTuning.setCompiledModelFilename(
@@ -580,7 +580,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			try {
 				enabled = configuration.getAttribute(
 					ATTR_ENABLED_FIRST_SYMBEX_OUTPUT_TEXTUAL_GENERATION, false);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				enabled = false;
@@ -601,26 +601,26 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 
 
 	public static DeveloperTuningOptionCustomImpl createSecondDirector(
-			ILaunchConfiguration configuration) {
+			final ILaunchConfiguration configuration) {
 
 		setEnabledFlags(configuration);
 
 		if( fEnabledDebugOptions || fEnabledSymbexDeveloperMode ) {
 
-			DeveloperTuningOptionCustomImpl devTuning =
+			final DeveloperTuningOptionCustomImpl devTuning =
 					new DeveloperTuningOptionCustomImpl();
 
 			devTuning.setDebugLevel( DebuglevelKind.NONE );
 
 			boolean enabled;
 
-			String modelBasename =
+			final String modelBasename =
 					WorkflowFileUtils.getModelBasename(configuration);
 
 			try {
 				enabled = configuration.getAttribute(
 					ATTR_ENABLED_SECOND_PARSED_MODEL_TEXTUAL_GENERATION, false);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				enabled = false;
@@ -641,7 +641,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			try {
 				enabled = configuration.getAttribute(
 					ATTR_ENABLED_SECOND_COMPILED_MODEL_TEXTUAL_GENERATION, false);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				enabled = false;
@@ -658,7 +658,7 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 			try {
 				enabled = configuration.getAttribute(
 					ATTR_ENABLED_SECOND_SYMBEX_OUTPUT_TEXTUAL_GENERATION, false);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				enabled = false;
@@ -680,13 +680,13 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 	}
 
 
-	public void toWriter(PrettyPrintWriter writer) {
+	public void toWriter(final PrettyPrintWriter writer) {
 		// Output Files
-		String strOutputFilename = getOutputFilename();
-		String strSpecificationFilename = getSpecificationFilename();
-		String strExecutableFilename = getExecutableFilename();
-		String strInitializationFilename = getInitializationFilename();
-		String strScenariiFilename = getSymbexGraphFilename();
+		final String strOutputFilename = getOutputFilename();
+		final String strSpecificationFilename = getSpecificationFilename();
+		final String strExecutableFilename = getExecutableFilename();
+		final String strInitializationFilename = getInitializationFilename();
+		final String strScenariiFilename = getSymbexGraphFilename();
 
 		if( (strOutputFilename != null)
 			|| (strSpecificationFilename != null)
@@ -724,10 +724,10 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 		}
 
 		// Developer Files
-		String strDebugFilename = getDebugFilename();
-		String strParsedFilename = getParsedModelFilename();
-		String strCompiledFilename = getCompiledModelFilename();
-		String strExecutedFilename = getSymbexTraceFilename();
+		final String strDebugFilename = getDebugFilename();
+		final String strParsedFilename = getParsedModelFilename();
+		final String strCompiledFilename = getCompiledModelFilename();
+		final String strExecutedFilename = getSymbexTraceFilename();
 
 		if( (strDebugFilename != null)
 			|| (strParsedFilename != null)
@@ -760,9 +760,9 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 		}
 
 		// Developer Traces
-		String strLogTraceFilename = getLogTraceFilename();
-		String strDebugTraceFilename = getDebugTraceFilename();
-		DebuglevelKind debugLevel = getDebugLevel();
+		final String strLogTraceFilename = getLogTraceFilename();
+		final String strDebugTraceFilename = getDebugTraceFilename();
+		final DebuglevelKind debugLevel = getDebugLevel();
 
 		if( (strLogTraceFilename != null)
 			|| (strDebugTraceFilename != null)
@@ -786,13 +786,13 @@ public class DeveloperTuningOptionCustomImpl extends DeveloperTuningOptionImpl
 					.append( debugLevel.getLiteral() ).appendEol( "'" );
 
 				// God Mode
-				boolean enabledGodMode = isEnabledGodMode();
+				final boolean enabledGodMode = isEnabledGodMode();
 				if( enabledGodMode && (debugLevel != DebuglevelKind.ZERO) ) {
 					writer.appendTab2Eol("// Enable all debug trace flags");
 					writer.appendTab2Eol( "flag = 'GOD_MODE'" );
 				}
 
-				boolean enabledNothing = isEnabledNothing();
+				final boolean enabledNothing = isEnabledNothing();
 				if( enabledNothing && (! enabledGodMode)
 					&& (debugLevel != DebuglevelKind.ZERO) ) {
 

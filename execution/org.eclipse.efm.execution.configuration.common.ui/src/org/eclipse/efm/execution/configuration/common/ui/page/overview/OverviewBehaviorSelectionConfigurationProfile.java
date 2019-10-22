@@ -49,7 +49,7 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 	 * @param parentTab
 	 */
 	public OverviewBehaviorSelectionConfigurationProfile(
-			AbstractConfigurationPage configurationPage)
+			final AbstractConfigurationPage configurationPage)
 	{
 		super(configurationPage, false);
 	}
@@ -67,10 +67,10 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit) {
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit) {
 		parent.setToolTipText(BEHAVIOR_DESCRIPTION);
 
-		Composite container = widgetToolkit.createComposite(
+		final Composite container = widgetToolkit.createComposite(
 				parent, 2, 1, GridData.FILL_HORIZONTAL);
 
 		// Trace Sequence
@@ -86,14 +86,14 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 
 		// Sequence Options
 		groupTraceSequenceOption = widgetToolkit.createGroup(groupOptionSelectionHeuristic,
-				"&Sequence Option ", 1, 1, GridData.FILL_BOTH);
+				"&Coverage Option ", 1, 1, GridData.FILL_BOTH);
 
 		Composite compOptions = widgetToolkit.createComposite(
 				groupTraceSequenceOption, 1, 1, GridData.FILL_HORIZONTAL);
 		BooleanFieldEditor fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_SCHEDULER_ORDERED,
-				"&Ordered", compOptions, true);
-		fieldEditor.setToolTipText("Search ordered traces");
+				"&Sequence", compOptions, true);
+		fieldEditor.setToolTipText("try to cover elements in Sequence");
 		addFieldEditor( fieldEditor );
 
 		compOptions = widgetToolkit.createComposite(
@@ -102,27 +102,27 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_CONSECUTIVE,
 				"&Consecutive", compOptions, false);
 		fieldEditor.setToolTipText(
-				"Search ordered traces with consecutive observables");
+				"try to cover at least one elements at each step");
 		addFieldEditor( fieldEditor );
 
 		fieldEditor = new BooleanFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_FOLDING,
 				"&Folding", compOptions, true);
 		fieldEditor.setToolTipText(
-				"Enabled verification of multiple trace properties per Symbex State");
+				"Try to cover many elements at the same step");
 		addFieldEditor( fieldEditor );
 
 
 		// Exploration Heuristic
 		groupExplorationHeuristic = widgetToolkit.createGroup(groupOptionSelectionHeuristic,
-				"&Local Exploration Limit ", 1, 1, GridData.FILL_BOTH);
+				"&Exploration Limit ", 1, 1, GridData.FILL_BOTH);
 
 		Composite comp = widgetToolkit.createComposite(
 				groupExplorationHeuristic, 1, 1, GridData.FILL_HORIZONTAL);
 
 		// Local exploration height before the next selection by HIT or JUMP
 		fHoJLocalHeight = new IntegerFieldEditor(fConfigurationPage,
-				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT, "&Height : ",
+				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT, "&Local Height : ",
 				comp, DEFAULT_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT);
 		fHoJLocalHeight.setToolTipText(
 				"Local exploration height before the next selection by HIT or JUMP");
@@ -131,9 +131,9 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 		// Local exploration trials number
 		fHoJTrialLimit = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_TRIALS_LIMIT,
-				"&Trials : ", comp, -1);
+				"&Max. Trials : ", comp, -1);
 		fHoJTrialLimit.setToolTipText(
-				"Local exploration trials number for the Trace Sequence Coverage");
+				"Max. HIT or JUMP processes trials for the Trace elements Coverage");
 		addFieldEditor( fHoJTrialLimit );
 
 		// HIT or JUMP Heuristic
@@ -149,7 +149,7 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 				ATTR_BEHAVIOR_SELECTION_HOJ_HIT_COUNT,
 				"&Hit : ", comp, 1);
 		fHoJHitCount.setToolTipText(
-				"Number of paths to choose when HIT (i.e. new properties have been covered)");
+				"Number of paths to choose when HIT (i.e. new elements have been covered)");
 		addFieldEditor( fHoJHitCount );
 
 		// Number of paths to choose from JUMP
@@ -157,13 +157,13 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_COUNT,
 				"&Jump : ", comp, 1);
 		fHoJJumpCount.setToolTipText(
-				"Number of paths to choose when JUMP (i.e. no new property covered)");
+				"Number of paths to choose when JUMP (i.e. no new element covered)");
 		addFieldEditor( fHoJJumpCount );
 	}
 
 
 	@Override
-	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT,
 				DEFAULT_BEHAVIOR_SELECTION_HOJ_JUMP_HEIGHT);
@@ -181,17 +181,17 @@ public class OverviewBehaviorSelectionConfigurationProfile extends AbstractConfi
 	}
 
 	@Override
-	protected void initializeFromImpl(ILaunchConfiguration configuration) {
+	protected void initializeFromImpl(final ILaunchConfiguration configuration) {
 		//!! NOTHING
 	}
 
 	@Override
-	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+	protected void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		//!! NOTHING
 	}
 
 	@Override
-	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(final ILaunchConfiguration launchConfig) {
 		// Exploration Heuristic Validation
 		if( ! fHoJLocalHeight.isValid() ) {
 			setErrorMessage("Jump Height is not a valid integer");

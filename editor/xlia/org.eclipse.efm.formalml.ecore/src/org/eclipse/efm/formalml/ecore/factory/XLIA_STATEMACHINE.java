@@ -57,23 +57,44 @@ public class XLIA_STATEMACHINE {
 		return state;
 	}
 
-	public static Pseudostate createInitialState(final String name) {
-		return createPseudotate(name, PseudostateKind.INITIAL);
+	public static Pseudostate createInitialState(
+			final Region region, final String name) {
+		final Pseudostate init =
+				createPseudotate(name, PseudostateKind.INITIAL);
+
+		region.getVertex().add(init);
+
+		return init;
 	}
 
-	public static Pseudostate createJunctionState(final String name) {
-		return createPseudotate(name, PseudostateKind.JUNCTION);
+	public static Pseudostate createJunctionState(
+			final Region region, final String name) {
+		final Pseudostate junction =
+				createPseudotate(name, PseudostateKind.JUNCTION);
+
+		region.getVertex().add(junction);
+
+		return junction;
 	}
 
-	public static Pseudostate createChoiceState(final String name) {
-		return createPseudotate(name, PseudostateKind.CHOICE);
+	public static Pseudostate createChoiceState(
+			final Region region, final String name) {
+		final Pseudostate choice =
+				createPseudotate(name, PseudostateKind.CHOICE);
+
+		region.getVertex().add(choice);
+
+		return choice;
 	}
 
 
 	// STATE
-	public static State createState(final String name) {
+	public static State createState(final Region region, final String name) {
 		final State state = FACTORY.createState();
+
 		state.setName(name);
+
+		region.getVertex().add(state);
 
 		return state;
 	}

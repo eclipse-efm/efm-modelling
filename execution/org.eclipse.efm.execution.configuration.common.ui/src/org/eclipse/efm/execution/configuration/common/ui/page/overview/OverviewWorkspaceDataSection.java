@@ -13,6 +13,7 @@
 package org.eclipse.efm.execution.configuration.common.ui.page.overview;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -25,6 +26,7 @@ import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurati
 import org.eclipse.efm.execution.configuration.common.ui.api.IWidgetToolkit;
 import org.eclipse.efm.execution.configuration.common.ui.editors.StringFieldEditor;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
 
 public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
@@ -34,7 +36,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 	private StringFieldEditor fWorkspaceOutputLocationStringField;
 
 
-	public OverviewWorkspaceDataSection(AbstractConfigurationPage configurationPage)
+	public OverviewWorkspaceDataSection(final AbstractConfigurationPage configurationPage)
 	{
 		super(configurationPage, false);
 	}
@@ -47,18 +49,18 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 	@Override
 	public String getSectionDescription() {
-		return "Enter forlders name for workspace configuration";
+		return "Enter folders name for workspace configuration";
 	}
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
-		String root =  ResourcesPlugin.getWorkspace().getRoot()
+		final String root =  ResourcesPlugin.getWorkspace().getRoot()
 				.getLocation().append( "<project-folder-name>" ).toString();
 
-		String toolTipText = "Name of the subfolder in the root and output folders";
-		String toolTipText2 = "Name of the subfolder in the root folder";
-		String toolTipText3 = "Name of the subfolder in the output folder";
+		final String toolTipText = "Name of the subfolder in the root and output folders";
+		final String toolTipText2 = "Name of the subfolder in the root folder";
+		final String toolTipText3 = "Name of the subfolder in the output folder";
 		setToolTipText(toolTipText);
 
 		fWorkspaceRootLocationStringField =
@@ -98,7 +100,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 
 	@Override
-	public void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		// WORKSPACE // DEVELOPER MODE
 		WorkflowFileUtils.setRelativeLocation(configuration,
 				ATTR_WORKSPACE_ROOT_LOCATION, DEFAULT_WORKSPACE_ROOT_LOCATION);
@@ -119,23 +121,29 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 	}
 
 
-	public void updateWorkspaceRootPath(IResource resource) {
-		final String projectLocation =
-				resource.getProject().getLocation().toString();
+	public void updateWorkspaceRootPath(final IResource resource) {
+		final IProject project = resource.getProject();
+
+		final String projectLocation = project.getLocation().toString();
 
 		fWorkspaceRootLocationStringField.setStringValue(
 				WorkflowFileUtils.makeRelativeLocation(projectLocation));
 		fWorkspaceRootLocationStringField.setToolTipText(projectLocation);
 
 		updateWorkspaceOutputPath( resource );
+
+		fConfigurationPage.propertyChange( new PropertyChangeEvent(this,
+        		ATTR_SPECIFICATION_PROJECT_LOCATION, project, project) );
 	}
 
-	public void updateWorkspaceRootPath(String projectLocation) {
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+	public void updateWorkspaceRootPath(final String projectLocation) {
+		final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IPath path = new Path(projectLocation);
-		IResource resource = root.findMember(path);
+		final IResource resource = root.findMember(path);
 		if( (resource != null) && resource.exists() ) {
-			path = resource.getProject().getLocation();
+			final IProject project = resource.getProject();
+
+			path = project.getLocation();
 
 			fWorkspaceRootLocationStringField.setStringValue(
 					WorkflowFileUtils.makeRelativeLocation(path));
@@ -146,6 +154,9 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 			{
 				updateWorkspaceOutputPath( resource );
 			}
+
+			fConfigurationPage.propertyChange( new PropertyChangeEvent(this,
+	        		ATTR_SPECIFICATION_PROJECT_LOCATION, project, project) );
 		}
 		else if( root.getLocation().isPrefixOf(path) ) {
 			path = root.getLocation().append( path.segment(
@@ -165,7 +176,7 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 		fWorkspaceRootLocationStringField.updateLaunchConfigurationDialog();
 	}
 
-	public void updateWorkspaceOutputPath(IResource resource) {
+	public void updateWorkspaceOutputPath(final IResource resource) {
 		final IResource parentResource = resource.getParent();
 
 		if( (resource instanceof IFile) && (resource.getProject() != parentResource)
@@ -185,8 +196,8 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 
 	@Override
-	public void initializeFromImpl(ILaunchConfiguration configuration) {
-		String projectLocation =
+	public void initializeFromImpl(final ILaunchConfiguration configuration) {
+		final String projectLocation =
 				WorkflowFileUtils.getAbsoluteLocation(configuration,
 						ATTR_SPECIFICATION_PROJECT_LOCATION,
 						DEFAULT_SPECIFICATION_PROJECT_LOCATION);
@@ -203,13 +214,13 @@ public class OverviewWorkspaceDataSection extends AbstractConfigurationSection {
 
 
 	@Override
-	public void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		//!! NOTHING
 	}
 
 
 	@Override
-	public boolean isValidImpl(ILaunchConfiguration launchConfig) {
+	public boolean isValidImpl(final ILaunchConfiguration launchConfig) {
 		return true;
 	}
 

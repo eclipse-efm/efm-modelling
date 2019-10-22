@@ -64,26 +64,34 @@
                <count
                      value="1">
                </count>
-               <iterate
-                     operator="and">
-                  <instanceof
-                        value="org.eclipse.core.resources.IFile">
-                  </instanceof>
-                  <or>
-                     <test
-                           property="org.eclipse.core.resources.extension"
-                           value="sew">
-                     </test>
-                     <test
-                           property="org.eclipse.core.resources.extension"
-                           value="favm">
-                     </test>
-                     <test
-                           property="org.eclipse.core.resources.extension"
-                           value="gv">
-                     </test>
-                  </or>
-               </iterate>
+				<or>
+	               <iterate
+	                     operator="and">
+	                  <instanceof
+	                        value="org.eclipse.core.resources.IFile">
+	                  </instanceof>
+	                  <or>
+	                     <test
+	                           property="org.eclipse.core.resources.extension"
+	                           value="sew">
+	                     </test>
+	                     <test
+	                           property="org.eclipse.core.resources.extension"
+	                           value="favm">
+	                     </test>
+	                     <test
+	                           property="org.eclipse.core.resources.extension"
+	                           value="gv">
+	                     </test>
+	                  </or>
+	               </iterate>
+	               <iterate
+	                     operator="and">
+	                  <instanceof
+	                        value="org.eclipse.core.resources.IContainer">
+	                  </instanceof>
+	               </iterate>
+	            </or>
             </with>
          </or>
       </definition>
@@ -141,6 +149,23 @@
             </with>
          </or>
       </definition>
+      <definition
+            id="org.eclipse.efm.execution.launchconfiguration.definition.isEnabledCommandCheckingLiveness">
+         <or>
+            <with
+                  variable="selection">
+               <count
+                     value="1">
+               </count>
+               <iterate
+                     operator="and">
+                  <instanceof
+                        value="org.eclipse.core.resources.IContainer">
+                  </instanceof>
+               </iterate>
+            </with>
+         </or>
+      </definition>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
@@ -194,19 +219,19 @@
       </handler>
    </extension>
    
-<!-- AFIN DE TEST RAPIDE - ->
+<!-- AFIN DE TEST RAPIDE -->
    <extension
          point="org.eclipse.ui.commands">
       <category
-            description="Test new Features"
+            description="Checking Liveness of Poligraphs in sectected Folder"
             id="org.eclipse.efm.execution.launchconfiguration.commands.category.runTest"
-            name="Test new Features">
+            name="Checking Liveness ...">
       </category>
       <command
             categoryId="org.eclipse.efm.execution.launchconfiguration.commands.category.runTest"
-            description="Test new Features"
+            description="Checking Liveness of Poligraphs in sectected Folder"
             id="org.eclipse.efm.execution.launchconfiguration.command.runTest"
-            name="Test new Features">
+            name="Checking Liveness ...">
       </command>
    </extension>
    <extension
@@ -214,9 +239,14 @@
       <handler
             class="org.eclipse.efm.execution.launchconfiguration.handlers.RunTestHandler"
             commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest">
+         <enabledWhen>
+            <reference
+                  definitionId="org.eclipse.efm.execution.launchconfiguration.definition.isEnabledCommandCheckingLiveness">
+            </reference>
+         </enabledWhen>
       </handler>
    </extension>
-<!- - AFIN DE TEST RAPIDE -->
+<!-- AFIN DE TEST RAPIDE -->
 
    <extension
          point="org.eclipse.ui.bindings">
@@ -250,14 +280,14 @@
                   mnemonic="V">
             </command>
             
-<!-- AFIN DE TEST RAPIDE - ->
+<!-- AFIN DE TEST RAPIDE -->
             <command
                   commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest"
                   icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/debug_exc.png"
                   id="org.eclipse.efm.execution.launchconfiguration.menu.runTest"
                   mnemonic="T">
             </command>
-<!- - AFIN DE TEST RAPIDE -->
+<!-- AFIN DE TEST RAPIDE -->
          </menu>
       </menuContribution>
       <menuContribution
@@ -286,14 +316,14 @@
                   mnemonic="V">
             </command>
             
-<!-- AFIN DE TEST RAPIDE - ->
+<!-- AFIN DE TEST RAPIDE -->
             <command
                   commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest"
                   icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/debug_exc.png"
                   id="org.eclipse.efm.execution.launchconfiguration.menu.runTest"
                   mnemonic="T">
             </command>
-<!- - AFIN DE TEST RAPIDE -->
+<!-- AFIN DE TEST RAPIDE -->
          </menu>
       </menuContribution>
    </extension>
@@ -360,15 +390,15 @@
                   tooltip="Graph Visualization">
             </command>
             
-<!-- AFIN DE TEST RAPIDE - ->
+<!-- AFIN DE TEST RAPIDE -->
             <command
                   commandId="org.eclipse.efm.execution.launchconfiguration.command.runTest"
                   icon="platform:/plugin/org.eclipse.efm.ui/resources/icons/debug_exc.png"
                   id="org.eclipse.efm.execution.launchconfiguration.menu.runTest"
                   mnemonic="T"
-                  tooltip="Test New Features">
+                  tooltip="Checking Liveness of Poligraphs in sectected Folder">
             </command>
-<!- - AFIN DE TEST RAPIDE -->
+<!-- AFIN DE TEST RAPIDE -->
       </menuContribution>
    </extension>
    <extension

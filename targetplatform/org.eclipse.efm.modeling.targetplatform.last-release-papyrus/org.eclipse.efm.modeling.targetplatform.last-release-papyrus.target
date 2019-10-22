@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde?><!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform --><target name="Eclipse Formal Modeling Papyrus last-release" sequenceNumber="1555078636">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde?>
+<!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
+<target name="Eclipse Formal Modeling Papyrus last-release" sequenceNumber="1570521255">
   <locations>
-    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.cdt.core" version="0.0.0"/>
+      <unit id="org.eclipse.ecf.filetransfer.httpclient45.feature.feature.group" version="1.0.0.v20190530-1947"/>
       <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.source.feature.group" version="0.0.0"/>
@@ -64,41 +68,43 @@
       <unit id="org.eclipse.wst.common.core" version="0.0.0"/>
       <unit id="org.eclipse.wst.sse.core" version="0.0.0"/>
       <unit id="org.eclipse.wst.xml.core" version="0.0.0"/>
-      <repository id="eclipse-2019-03" location="http://download.eclipse.org/releases/2019-03"/>
+      <repository id="eclipse-2019-09" location="http://download.eclipse.org/releases/2019-09"/>
     </location>
-    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.papyrus.marte.core.feature.feature.group" version="0.0.0"/>
       <repository id="Papyrus-Marte" location="http://download.eclipse.org/modeling/mdt/papyrus/components/marte"/>
     </location>
-    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.papyrus.moka.feature.feature.group" version="0.0.0"/>
       <repository id="Papyrus-Moka-Master" location="https://hudson.eclipse.org/papyrus/view/Moka/job/papyrus-moka-master/lastSuccessfulBuild/artifact/releng/org.eclipse.papyrus.moka.p2/target/repository"/>
     </location>
-    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.papyrus.designer.languages.common.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.papyrus.designer.deployment.tools" version="0.0.0"/>
       <unit id="org.eclipse.papyrus.designer.transformation.base" version="0.0.0"/>
       <repository id="Papyrus-Designer" location="http://download.eclipse.org/modeling/mdt/papyrus/components/designer"/>
     </location>
-    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="net.sourceforge.plantuml.feature.feature.group" version="0.0.0"/>
       <unit id="net.sourceforge.plantuml.lib.feature.feature.group" version="0.0.0"/>
       <repository id="PlantUML" location="http://hallvard.github.io/plantuml"/>
     </location>
-    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.nebula.widgets.cdatetime.feature.feature.group" version="0.0.0"/>
       <repository id="Eclipse-Nebula" location="http://download.eclipse.org/nebula/releases/latest"/>
     </location>
-    <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-      <unit id="com.google.guava" version="21.0.0.v20170206-1425"/>
-      <unit id="com.google.guava.source" version="21.0.0.v20170206-1425"/>
-      <unit id="com.google.gson" version="2.7.0.v20170129-0911"/>
-      <unit id="com.google.gson.source" version="2.7.0.v20170129-0911"/>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="com.google.guava" version="27.1.0.v20190517-1946"/>
+      <unit id="com.google.guava.source" version="27.1.0.v20190517-1946"/>
+      <unit id="com.google.gson" version="2.8.2.v20180104-1110"/>
+      <unit id="com.google.gson.source" version="2.8.2.v20180104-1110"/>
+      <unit id="com.google.inject.multibindings" version="3.0.0.v201605172100"/>
+      <unit id="com.google.inject.multibindings.source" version="3.0.0.v201605172100"/>
       <unit id="org.apache.commons.lang3" version="3.1.0.v201403281430"/>
       <unit id="org.apache.commons.lang3.source" version="3.1.0.v201403281430"/>
-      <unit id="org.objectweb.asm" version="5.0.1.v201404251740"/>
-      <unit id="org.objectweb.asm.source" version="5.0.1.v201404251740"/>
-      <repository id="orbit" location="https://download.eclipse.org/tools/orbit/downloads/drops/S20190129210011/repository"/>
+      <unit id="org.objectweb.asm" version="7.1.0.v20190412-2143"/>
+      <unit id="org.objectweb.asm.source" version="7.1.0.v20190412-2143"/>
+      <repository id="orbit" location="https://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository"/>
     </location>
   </locations>
 </target>

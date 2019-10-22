@@ -796,7 +796,7 @@ Procedure returns fmlInfra::Procedure
 ProcedureExecution returns fmlInfra::ModelOfExecution
 	: { fmlInfra::ModelOfExecution }
 		( '@moe:' )?
-		( ( '@schedule'  scheduleRoutine=moeRoutine )?
+		( ( ( '@schedule' | '@xschedule' )  scheduleRoutine=moeRoutine )?
 		& ( '@run'  runRoutine=moeRoutine )?
 		)
 	;
@@ -1037,7 +1037,7 @@ moeCompositeStateRoutines returns fmlInfra::ModelOfExecution
 	& ( '@disable' disableRoutine=moeRoutine )?
 
 	& ( '@concurrency' concurrencyRoutine=moeRoutine )?
-	& ( '@schedule'    scheduleRoutine=moeRoutine    )?
+	& ( ( '@schedule' | '@xschedule' ) scheduleRoutine=moeRoutine )?
 
 	& ( '@irun' irunRoutine=moeRoutine )?
 	& ( '@run'  runRoutine=moeRoutine  )?
@@ -1273,7 +1273,7 @@ ModelOfExecution returns fmlInfra::ModelOfExecution
 	& ( '@disable' disableRoutine=moeRoutine )?
 
 	& ( '@concurrency' concurrencyRoutine=moeRoutine )?
-	& ( '@schedule'    scheduleRoutine=moeRoutine    )?
+	& ( ( '@schedule' | '@xschedule' )    scheduleRoutine=moeRoutine )?
 
 	& ( '@irun' irunRoutine=moeRoutine )?
 	& ( '@run'  runRoutine=moeRoutine  )?
@@ -1852,7 +1852,8 @@ enum CollectionKind returns fmlType::CollectionKind
 
 EnumerationType returns fmlType::EnumerationType
 	: {fmlType::EnumerationType}
-		'enum'  '{'
+		'enum'  ( '<' ( 'super:' )? superType=[fmlType::EnumerationType|ESUfid] '>') ?
+		'{'
 			literal+= EnumerationLiteral  ( ',' literal+= EnumerationLiteral )*
 		'}'
 	;
@@ -1861,7 +1862,7 @@ EnumerationTypeDefinition returns fmlType::EnumerationType
 	: {fmlType::EnumerationType}
 		( visibility=VisibilityKind )? typedef?='type'
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		'enum'
+		'enum'  ( '<' ( 'super:' )? superType=[fmlType::EnumerationType|ESUfid] '>') ?
 		'{'
 			literal+= EnumerationLiteral  ( ',' literal+= EnumerationLiteral )*
 		'}'
@@ -1870,7 +1871,8 @@ EnumerationTypeDefinition returns fmlType::EnumerationType
 EnumerationTypeDefinitionImpl returns fmlType::EnumerationType
 	: {fmlType::EnumerationType}
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
-		typedef?='enum'
+		typedef?='enum'  
+		( '<' ( 'super:' )? superType=[fmlType::EnumerationType|ESUfid] '>') ?
 		'{'
 			literal+= EnumerationLiteral  ( ',' literal+= EnumerationLiteral )*
 		'}'

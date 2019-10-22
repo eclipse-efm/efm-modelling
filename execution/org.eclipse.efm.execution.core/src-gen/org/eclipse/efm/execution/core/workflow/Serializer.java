@@ -29,6 +29,7 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecification;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getFolderName <em>Folder Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getFileName <em>File Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNormalization <em>Enabled Normalization</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNumerization <em>Enabled Numerization</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledLifelinesPrinting <em>Enabled Lifelines Printing</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledModifiedDataSelection <em>Enabled Modified Data Selection</em>}</li>
@@ -194,6 +195,28 @@ public interface Serializer extends Worker {
 	 * @generated
 	 */
 	void setEnabledNormalization(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Enabled Numerization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Enabled Numerization</em>' attribute.
+	 * @see #setEnabledNumerization(boolean)
+	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_EnabledNumerization()
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean isEnabledNumerization();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNumerization <em>Enabled Numerization</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Enabled Numerization</em>' attribute.
+	 * @see #isEnabledNumerization()
+	 * @generated
+	 */
+	void setEnabledNumerization(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Enabled Initial Values Printing</b></em>' attribute.

@@ -37,14 +37,14 @@ public class TraceElementNatureEditingSupport
 
 	private final ComboBoxCellEditor fCellEditor;
 
-	private ArrayList<TraceElementKind> fUsedTraceNatures;
-	private ArrayList<TraceElementKind> fUnusedTraceNatures;
+	private final ArrayList<TraceElementKind> fUsedTraceNatures;
+	private final ArrayList<TraceElementKind> fUnusedTraceNatures;
 
 	private TraceElementKind[] fValidTraceNatures;
 	private String[] fValidNatures;
 
 
-	public TraceElementNatureEditingSupport(TraceElementTableViewer traceElementTableViewer) {
+	public TraceElementNatureEditingSupport(final TraceElementTableViewer traceElementTableViewer) {
 		super(traceElementTableViewer.getTableViewer());
 
 		this.fTraceElementTableViewer = traceElementTableViewer;
@@ -68,14 +68,14 @@ public class TraceElementNatureEditingSupport
 	}
 
 	@Override
-	public void focusGained(FocusEvent e) {
+	public void focusGained(final FocusEvent e) {
 		System.out.println("focusGained with FocusEvent " + e);
 	}
 
 	@Override
-	public void focusLost(FocusEvent e) {
+	public void focusLost(final FocusEvent e) {
 		System.out.println("focusLost with FocusEvent " + e);
-		Object value = fCellEditor.getValue();
+		final Object value = fCellEditor.getValue();
 		if( value instanceof Integer ) {
 			final int offset = (Integer) value;
 			final TraceElementKind newNature = fValidTraceNatures[offset];
@@ -85,9 +85,11 @@ public class TraceElementNatureEditingSupport
 			if( newNature != TraceElementKind.UNDEFINED) {
 //				saveCellEditorValue(fCellEditor, cell);
 
-		        ViewerCell cell = fTableViewer.getColumnViewerEditor().getFocusCell();
+		        final ViewerCell cell = fTableViewer.getColumnViewerEditor().getFocusCell();
 
-		        saveCellEditorValue(fCellEditor, cell);
+		        if( cell != null ) {
+		        	saveCellEditorValue(fCellEditor, cell);
+		        }
 
 //				final int index = fTableViewer.getTable().getSelectionIndex();
 //				final TableItem item = fTableViewer.getTable().getItem(index);
@@ -106,8 +108,8 @@ public class TraceElementNatureEditingSupport
 
 
 	@Override
-	protected CellEditor getCellEditor(Object element) {
-		TraceElement traceElement = (TraceElement) element;
+	protected CellEditor getCellEditor(final Object element) {
+		final TraceElement traceElement = (TraceElement) element;
 		switch( traceElement.getNature() ) {
 		case TIPS:
 			return null;
@@ -124,7 +126,7 @@ public class TraceElementNatureEditingSupport
 
 	private void updateValidNatures() {
 		fUsedTraceNatures.clear();
-		for( TableItem tableItem : fTableViewer.getTable().getItems() ) {
+		for( final TableItem tableItem : fTableViewer.getTable().getItems() ) {
 			final Object data = tableItem.getData();
 			if( data instanceof TraceElement ) {
 				fUsedTraceNatures.add(((TraceElement) data).getNature());
@@ -150,13 +152,13 @@ public class TraceElementNatureEditingSupport
 
 
 	@Override
-	protected boolean canEdit(Object element) {
+	protected boolean canEdit(final Object element) {
 		return true;
 	}
 
 	@Override
-	protected Object getValue(Object element) {
-		TraceElementKind nature = ((TraceElement) element).getNature();
+	protected Object getValue(final Object element) {
+		final TraceElementKind nature = ((TraceElement) element).getNature();
 
 		for (int offset = 0; offset < fValidTraceNatures.length; offset++) {
 			if( fValidTraceNatures[offset] == nature ) {
@@ -168,13 +170,13 @@ public class TraceElementNatureEditingSupport
 	}
 
 	@Override
-	protected void setValue(Object element, Object userInputValue) {
+	protected void setValue(final Object element, final Object userInputValue) {
 		int offset = (Integer) userInputValue;
 		if( (offset < 0) || (offset >= fValidTraceNatures.length) ) {
 			offset = 0;
 		}
 
-		TraceElement traceElement = (TraceElement) element;
+		final TraceElement traceElement = (TraceElement) element;
 
 		switch( traceElement.getNature() ) {
 		case TIPS:

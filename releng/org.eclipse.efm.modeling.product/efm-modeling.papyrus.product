@@ -42,9 +42,8 @@ Apache Software Foundation http://www.apache.org/
       </win>
    </launcher>
 
-
    <vm>
-      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7</windows>
+      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</windows>
    </vm>
 
    <license>
@@ -183,135 +182,137 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <feature id="org.eclipse.efm.modeling.dependencies.feature" version="0.0.1.qualifier"/>
       <feature id="org.eclipse.efm.modeling.feature" version="0.0.1.qualifier"/>
       <feature id="org.eclipse.efm.modeling.rcp.feature" version="0.0.1.qualifier"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.feature"/>
-      <feature id="org.eclipse.papyrus.infra.internationalization.feature"/>
-      <feature id="org.eclipse.help"/>
-      <feature id="org.eclipse.papyrus.infra.emf.expressions.feature"/>
-      <feature id="org.eclipse.gef.zest.fx"/>
-      <feature id="org.eclipse.papyrus.uml.ui.feature"/>
-      <feature id="org.eclipse.papyrus.infra.gmfdiag.css.feature"/>
-      <feature id="org.eclipse.papyrus.uml.tools.feature"/>
-      <feature id="org.eclipse.xtext.xbase.lib"/>
-      <feature id="org.eclipse.gmf"/>
-      <feature id="org.eclipse.uml2.codegen.ecore.ui"/>
-      <feature id="org.eclipse.ecf.core.ssl.feature"/>
-      <feature id="org.eclipse.gef"/>
-      <feature id="org.eclipse.xpand"/>
-      <feature id="org.eclipse.emf.transaction"/>
-      <feature id="org.eclipse.xtext.xbase"/>
-      <feature id="org.eclipse.emf.codegen.ui"/>
-      <feature id="org.eclipse.papyrus.uml.modelexplorer.feature"/>
-      <feature id="org.eclipse.uml2.uml.edit"/>
-      <feature id="org.eclipse.papyrus.uml.feature"/>
-      <feature id="org.eclipse.emf.converter"/>
-      <feature id="org.eclipse.emf.edit.ui"/>
-      <feature id="org.eclipse.xtend.typesystem.emf"/>
-      <feature id="org.eclipse.rcp"/>
-      <feature id="org.eclipse.papyrus.infra.emf.feature"/>
-      <feature id="org.eclipse.gef.common"/>
-      <feature id="org.eclipse.ecf.filetransfer.feature"/>
-      <feature id="org.eclipse.papyrus.uml.m2m.qvto.feature"/>
-      <feature id="org.eclipse.emf.workspace"/>
-      <feature id="org.eclipse.xtend.dependencies"/>
-      <feature id="org.eclipse.efm.modeling.textual.dependencies.feature"/>
-      <feature id="org.eclipse.gef.fx.swt"/>
-      <feature id="org.eclipse.xtend.ui"/>
-      <feature id="org.eclipse.papyrus.views.modelexplorer.feature"/>
-      <feature id="org.eclipse.jdt"/>
-      <feature id="org.eclipse.emf.common"/>
-      <feature id="org.eclipse.emf.validation.ocl"/>
-      <feature id="org.eclipse.papyrus.infra.nattable.feature"/>
-      <feature id="org.eclipse.papyrus.uml.diagram.css.feature"/>
-      <feature id="org.eclipse.papyrus.uml.diagram.feature"/>
-      <feature id="net.sourceforge.plantuml.lib.feature"/>
-      <feature id="org.eclipse.papyrus.uml.alf.feature"/>
-      <feature id="org.eclipse.gef.dot.ui"/>
-      <feature id="org.eclipse.papyrus.uml.nattable.feature"/>
-      <feature id="org.eclipse.papyrus.editor.feature"/>
-      <feature id="org.eclipse.papyrus.views.validation.feature"/>
-      <feature id="org.eclipse.emf.mapping"/>
-      <feature id="org.eclipse.uml2.common.edit"/>
-      <feature id="org.eclipse.emf.ecore"/>
-      <feature id="org.eclipse.equinox.p2.user.ui"/>
-      <feature id="org.eclipse.papyrus.designer.languages.common.feature"/>
-      <feature id="org.eclipse.gef.geometry.convert.fx"/>
-      <feature id="org.eclipse.papyrus.sdk.feature"/>
-      <feature id="org.eclipse.papyrus.uml.xtext.integration.feature"/>
-      <feature id="org.eclipse.fx.runtime.min.feature"/>
-      <feature id="org.eclipse.gef.dot.user"/>
-      <feature id="org.eclipse.papyrus.infra.widget.feature"/>
-      <feature id="org.eclipse.emf.mapping.ecore.editor"/>
-      <feature id="org.eclipse.platform"/>
-      <feature id="org.eclipse.gef.fx.jface"/>
-      <feature id="org.eclipse.papyrus.infra.gmfdiag.feature"/>
-      <feature id="org.eclipse.emf.ecore.edit"/>
-      <feature id="org.eclipse.emf.validation"/>
-      <feature id="org.eclipse.e4.rcp"/>
-      <feature id="org.eclipse.gmf.runtime.thirdparty"/>
-      <feature id="org.eclipse.papyrus.infra.architecture.feature"/>
-      <feature id="org.eclipse.emf.mapping.ecore"/>
-      <feature id="org.eclipse.uml2.common"/>
-      <feature id="org.eclipse.papyrus.uml.internationalization.feature"/>
-      <feature id="org.eclipse.m2m.qvt.oml"/>
-      <feature id="org.eclipse.emf.codegen"/>
-      <feature id="org.eclipse.papyrus.uml.search.feature"/>
-      <feature id="org.eclipse.equinox.p2.core.feature"/>
-      <feature id="org.eclipse.emf.mwe2.runtime.sdk"/>
-      <feature id="org.eclipse.gef.fx"/>
-      <feature id="org.eclipse.emf"/>
-      <feature id="org.eclipse.gef.graph"/>
-      <feature id="org.eclipse.uml2.uml"/>
-      <feature id="org.eclipse.ecf.filetransfer.ssl.feature"/>
-      <feature id="org.eclipse.xtend"/>
-      <feature id="org.eclipse.draw2d"/>
-      <feature id="org.eclipse.emf.edit"/>
-      <feature id="org.eclipse.xtext.runtime"/>
-      <feature id="org.eclipse.papyrus.views.references.feature"/>
-      <feature id="org.eclipse.papyrus.infra.services.feature"/>
-      <feature id="org.eclipse.emf.databinding.edit"/>
-      <feature id="org.eclipse.emf.codegen.ecore"/>
-      <feature id="org.eclipse.papyrus.emf.facet.feature"/>
-      <feature id="org.eclipse.papyrus.infra.viewpoints.feature"/>
-      <feature id="org.eclipse.papyrus.emf.feature"/>
-      <feature id="org.eclipse.equinox.p2.rcp.feature"/>
-      <feature id="org.eclipse.m2m.qvt.oml.runtime"/>
-      <feature id="org.eclipse.xtext.ui"/>
-      <feature id="org.eclipse.uml2"/>
-      <feature id="org.eclipse.papyrus.infra.feature"/>
-      <feature id="org.eclipse.papyrus.uml.properties.feature"/>
-      <feature id="net.sourceforge.plantuml.feature"/>
-      <feature id="org.eclipse.gef.dot.doc.user"/>
-      <feature id="org.eclipse.pde"/>
-      <feature id="org.eclipse.ecf.filetransfer.httpclient4.ssl.feature"/>
-      <feature id="org.eclipse.papyrus.doc.feature"/>
-      <feature id="org.eclipse.emf.common.ui"/>
-      <feature id="org.eclipse.papyrus.infra.ui.feature"/>
-      <feature id="org.eclipse.gef.layout"/>
-      <feature id="org.eclipse.gef.zest.fx.ui"/>
-      <feature id="org.eclipse.emf.mapping.ui"/>
-      <feature id="org.eclipse.papyrus.views.search.feature"/>
-      <feature id="org.eclipse.gef.geometry"/>
-      <feature id="org.eclipse.papyrus.uml.textedit.feature"/>
-      <feature id="org.eclipse.gef.mvc.fx"/>
-      <feature id="org.eclipse.papyrus.uml.architecture.feature"/>
-      <feature id="org.eclipse.ocl"/>
-      <feature id="org.eclipse.equinox.p2.extras.feature"/>
-      <feature id="org.eclipse.papyrus.views.documentation.feature"/>
-      <feature id="org.eclipse.papyrus.uml.decoratormodel.feature"/>
-      <feature id="org.eclipse.papyrus.views.properties.feature"/>
-      <feature id="org.eclipse.emf.codegen.ecore.ui"/>
-      <feature id="org.eclipse.gmf.runtime.notation"/>
-      <feature id="org.eclipse.ecf.core.feature"/>
-      <feature id="org.eclipse.emf.ecore.editor"/>
-      <feature id="org.eclipse.papyrus.views.feature"/>
-      <feature id="org.eclipse.papyrus.infra.core.feature"/>
-      <feature id="org.eclipse.papyrus.uml.expressions.feature"/>
-      <feature id="org.eclipse.gef.mvc.fx.ui"/>
-      <feature id="org.eclipse.emf.databinding"/>
-      <feature id="org.eclipse.gef.dot"/>
-      <feature id="org.eclipse.efm.modeling.textual.feature"/>
-      <feature id="org.eclipse.nebula.cwt.feature"/>
-      <feature id="org.eclipse.nebula.widgets.cdatetime.feature"/>
+      <feature id="org.eclipse.papyrus.infra.internationalization.feature" installMode="root"/>
+      <feature id="org.eclipse.help" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.emf.expressions.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.zest.fx" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.ui.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.gmfdiag.css.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.tools.feature" installMode="root"/>
+      <feature id="org.eclipse.xtext.xbase.lib" installMode="root"/>
+      <feature id="org.eclipse.gmf" installMode="root"/>
+      <feature id="org.eclipse.egit" installMode="root"/>
+      <feature id="org.eclipse.uml2.codegen.ecore.ui" installMode="root"/>
+      <feature id="org.eclipse.ecf.core.ssl.feature" installMode="root"/>
+      <feature id="org.eclipse.gef" installMode="root"/>
+      <feature id="org.eclipse.xpand" installMode="root"/>
+      <feature id="org.eclipse.emf.transaction" installMode="root"/>
+      <feature id="org.eclipse.xtext.xbase" installMode="root"/>
+      <feature id="org.eclipse.emf.codegen.ui" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.modelexplorer.feature" installMode="root"/>
+      <feature id="org.eclipse.uml2.uml.edit" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.converter" installMode="root"/>
+      <feature id="org.eclipse.emf.edit.ui" installMode="root"/>
+      <feature id="org.eclipse.xtend.typesystem.emf" installMode="root"/>
+      <feature id="org.eclipse.rcp" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.emf.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.common" installMode="root"/>
+      <feature id="org.eclipse.ecf.filetransfer.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.m2m.qvto.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.workspace" installMode="root"/>
+      <feature id="org.eclipse.xtend.dependencies" installMode="root"/>
+      <feature id="org.eclipse.efm.modeling.textual.dependencies.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.fx.swt" installMode="root"/>
+      <feature id="org.eclipse.xtend.ui" installMode="root"/>
+      <feature id="org.eclipse.papyrus.views.modelexplorer.feature" installMode="root"/>
+      <feature id="org.eclipse.jdt" installMode="root"/>
+      <feature id="org.eclipse.emf.common" installMode="root"/>
+      <feature id="org.eclipse.emf.validation.ocl" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.nattable.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.diagram.css.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.diagram.feature" installMode="root"/>
+      <feature id="net.sourceforge.plantuml.lib.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.alf.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.dot.ui" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.nattable.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.editor.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.views.validation.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.mapping" installMode="root"/>
+      <feature id="org.eclipse.uml2.common.edit" installMode="root"/>
+      <feature id="org.eclipse.emf.ecore" installMode="root"/>
+      <feature id="org.eclipse.equinox.p2.user.ui" installMode="root"/>
+      <feature id="org.eclipse.papyrus.designer.languages.common.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.geometry.convert.fx" installMode="root"/>
+      <feature id="org.eclipse.papyrus.sdk.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.xtext.integration.feature" installMode="root"/>
+      <feature id="org.eclipse.fx.runtime.min.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.dot.user" installMode="root"/>
+      <feature id="org.eclipse.jgit" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.widget.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.mapping.ecore.editor" installMode="root"/>
+      <feature id="org.eclipse.nebula.cwt.feature" installMode="root"/>
+      <feature id="org.eclipse.platform" installMode="root"/>
+      <feature id="org.eclipse.gef.fx.jface" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.gmfdiag.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecore.edit" installMode="root"/>
+      <feature id="org.eclipse.emf.validation" installMode="root"/>
+      <feature id="org.eclipse.e4.rcp" installMode="root"/>
+      <feature id="org.eclipse.gmf.runtime.thirdparty" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.architecture.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.mapping.ecore" installMode="root"/>
+      <feature id="org.eclipse.uml2.common" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.internationalization.feature" installMode="root"/>
+      <feature id="org.eclipse.m2m.qvt.oml" installMode="root"/>
+      <feature id="org.eclipse.emf.codegen" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.search.feature" installMode="root"/>
+      <feature id="org.eclipse.equinox.p2.core.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.mwe2.runtime.sdk" installMode="root"/>
+      <feature id="org.eclipse.gef.fx" installMode="root"/>
+      <feature id="org.eclipse.emf" installMode="root"/>
+      <feature id="org.eclipse.gef.graph" installMode="root"/>
+      <feature id="org.eclipse.uml2.uml" installMode="root"/>
+      <feature id="org.eclipse.ecf.filetransfer.ssl.feature" installMode="root"/>
+      <feature id="org.eclipse.xtend" installMode="root"/>
+      <feature id="org.eclipse.draw2d" installMode="root"/>
+      <feature id="org.eclipse.emf.edit" installMode="root"/>
+      <feature id="org.eclipse.xtext.runtime" installMode="root"/>
+      <feature id="org.eclipse.papyrus.views.references.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.services.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.databinding.edit" installMode="root"/>
+      <feature id="org.eclipse.emf.codegen.ecore" installMode="root"/>
+      <feature id="org.eclipse.papyrus.emf.facet.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.viewpoints.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.emf.feature" installMode="root"/>
+      <feature id="org.eclipse.equinox.p2.rcp.feature" installMode="root"/>
+      <feature id="org.eclipse.m2m.qvt.oml.runtime" installMode="root"/>
+      <feature id="org.eclipse.xtext.ui" installMode="root"/>
+      <feature id="org.eclipse.uml2" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.properties.feature" installMode="root"/>
+      <feature id="net.sourceforge.plantuml.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.dot.doc.user" installMode="root"/>
+      <feature id="org.eclipse.pde" installMode="root"/>
+      <feature id="org.eclipse.papyrus.doc.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.common.ui" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.ui.feature" installMode="root"/>
+      <feature id="org.eclipse.jgit.ssh.apache" installMode="root"/>
+      <feature id="org.eclipse.gef.layout" installMode="root"/>
+      <feature id="org.eclipse.gef.zest.fx.ui" installMode="root"/>
+      <feature id="org.eclipse.emf.mapping.ui" installMode="root"/>
+      <feature id="org.eclipse.papyrus.views.search.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.geometry" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.textedit.feature" installMode="root"/>
+      <feature id="org.eclipse.nebula.widgets.cdatetime.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.mvc.fx" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.architecture.feature" installMode="root"/>
+      <feature id="org.eclipse.ocl" installMode="root"/>
+      <feature id="org.eclipse.equinox.p2.extras.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.views.documentation.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.decoratormodel.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.views.properties.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.codegen.ecore.ui" installMode="root"/>
+      <feature id="org.eclipse.gmf.runtime.notation" installMode="root"/>
+      <feature id="org.eclipse.ecf.core.feature" installMode="root"/>
+      <feature id="org.eclipse.ecf.filetransfer.httpclient45.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecore.editor" installMode="root"/>
+      <feature id="org.eclipse.papyrus.views.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.infra.core.feature" installMode="root"/>
+      <feature id="org.eclipse.papyrus.uml.expressions.feature" installMode="root"/>
+      <feature id="org.eclipse.gef.mvc.fx.ui" installMode="root"/>
+      <feature id="org.eclipse.emf.databinding" installMode="root"/>
+      <feature id="org.eclipse.gef.dot" installMode="root"/>
+      <feature id="org.eclipse.efm.modeling.textual.feature" installMode="root"/>
    </features>
 
    <configurations>
@@ -330,8 +331,8 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
 
    <repositories>
       <repository location="http://download.eclipse.org/modeling/mdt/papyrus/components/designer" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2019-03/" enabled="true" />
-      <repository location="http://https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2019-03/" enabled="true" />
+      <repository location="http://https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2019-06/" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2019-06/" enabled="true" />
    </repositories>
 
    <preferencesInfo>

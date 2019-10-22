@@ -13,10 +13,12 @@
 package org.eclipse.efm.execution.core.workflow.test;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
+import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
@@ -44,8 +46,8 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 	}
 
 
-	public static OfflineTestWorkerCustomImpl create(
-			final Director director, final ILaunchConfiguration configuration) {
+	public static OfflineTestWorkerCustomImpl create(final Director director,
+			final ILaunchConfiguration configuration, final IPath projectRootPath) {
 
 		final OfflineTestWorkerCustomImpl testWorker =
 				new OfflineTestWorkerCustomImpl(
@@ -53,37 +55,25 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 
 //		testWorker.setManifest( ManifestCustomImpl.create(true) );
 
-
-		String path;
-		try {
-			path = configuration.getAttribute(
-					ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
-					DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
-		}
-		catch( final CoreException e ) {
-			e.printStackTrace();
-
-			path = DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION;
-		}
+		String path = WorkflowFileUtils.getAbsoluteLocation(configuration,
+				ATTR_TEST_OFFLINE_TRACE_FILE_LOCATION,
+				DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION);
 		if( (path != null) && (! path.isEmpty())
-			&& (! DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION.equals(path)) ) {
-			testWorker.setMergedTraceFile(path);
+			&& (! DEFAULT_TEST_OFFLINE_TRACE_FILE_LOCATION.equals(path)) )
+		{
+			testWorker.setMergedTraceFile(
+			WorkflowFileUtils.makeRelativeLocation(projectRootPath, path) );
 		}
 
-		try {
-			path = configuration.getAttribute(
-					ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
-					DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
-		}
-		catch( final CoreException e ) {
-			e.printStackTrace();
-
-			path = DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION;
-		}
+		path = WorkflowFileUtils.getAbsoluteLocation(configuration,
+				ATTR_TEST_OFFLINE_PURPOSE_FILE_LOCATION,
+				DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
 
 		if( (path != null) && (! path.isEmpty())
-			&& (! DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION.equals(path)) ) {
-			testWorker.setTestPurposeFile(path);
+			&& (! path.endsWith(DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION)) )
+		{
+			testWorker.setTestPurposeFile(
+					WorkflowFileUtils.makeRelativeLocation(projectRootPath, path) );
 		}
 
 

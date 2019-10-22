@@ -87,6 +87,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledNormalization" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledNumerization" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabledInitialValuesPrinting"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
@@ -227,47 +229,48 @@
       <eLiterals name="INSTANCE_MACHINE" value="41" literal="instance"/>
       <eLiterals name="MACHINE" value="42" literal="machine"/>
       <eLiterals name="SYSTEM" value="43" literal="system"/>
-      <eLiterals name="FILE_HEADER" value="44" literal="file#header"/>
-      <eLiterals name="FILE_BEGIN" value="45" literal="file#begin"/>
-      <eLiterals name="FILE_END" value="46" literal="file#end"/>
-      <eLiterals name="TESTCASE_HEADER" value="47" literal="testcase#header"/>
-      <eLiterals name="TESTCASE_BEGIN" value="48" literal="testcase#begin"/>
-      <eLiterals name="TESTCASE_END" value="49" literal="testcase#end"/>
-      <eLiterals name="INIT_HEADER" value="50" literal="init#header"/>
-      <eLiterals name="INIT_BEGIN" value="51" literal="init#begin"/>
-      <eLiterals name="INIT_END" value="52" literal="init#end"/>
-      <eLiterals name="STEP_HEADER" value="53" literal="step#header"/>
-      <eLiterals name="STEP_BEGIN" value="54" literal="step#begin"/>
-      <eLiterals name="STEP_END" value="55" literal="step#end"/>
-      <eLiterals name="COMMENT" value="56" literal="comment"/>
-      <eLiterals name="SEPARATOR" value="57" literal="separator"/>
-      <eLiterals name="NEWLINE" value="58" literal="newline"/>
-      <eLiterals name="NEXT" value="59" literal="next"/>
-      <eLiterals name="LIFELINE" value="60" literal="lifeline"/>
-      <eLiterals name="LIFELINE_HEADER" value="61" literal="lifeline#header"/>
-      <eLiterals name="LIFELINE_BEGIN" value="62" literal="lifeline#begin"/>
-      <eLiterals name="LIFELINE_END" value="63" literal="lifeline#end"/>
-      <eLiterals name="LIFELINE_ID" value="64" literal="lifeline#id"/>
-      <eLiterals name="LIFELINE_STATE" value="65" literal="lifeline#state"/>
-      <eLiterals name="RAW_ATTRIBUTE" value="66" literal="__raw__"/>
-      <eLiterals name="NODE" value="70" literal="node"/>
-      <eLiterals name="NODE_LABEL" value="71" literal="node#label"/>
-      <eLiterals name="NODE_HEADER" value="72" literal="node#header"/>
-      <eLiterals name="NODE_DATA" value="73" literal="node#data"/>
-      <eLiterals name="NODE_INFO" value="74" literal="node#info"/>
-      <eLiterals name="NODE_TRACE_RUN" value="75" literal="node#trace#run"/>
-      <eLiterals name="NODE_TRACE_IO" value="76" literal="node#trace#io"/>
-      <eLiterals name="VALUE_PARAMETER_BEGIN" value="80" literal="value#parameter#begin"/>
-      <eLiterals name="VALUE_PARAMETER_SEPARATOR" value="81" literal="value#parameter#separator"/>
-      <eLiterals name="VALUE_PARAMETER_END" value="82" literal="value#parameter#end"/>
-      <eLiterals name="VALUE_ARRAY_BEGIN" value="83" literal="value#array#begin"/>
-      <eLiterals name="VALUE_ARRAY_SEPARATOR" value="84" literal="value#array#separator"/>
-      <eLiterals name="VALUE_ARRAY_END" value="85" literal="value#array#end"/>
-      <eLiterals name="VALUE_STRUCT_BEGIN" value="86" literal="value#struct#begin"/>
-      <eLiterals name="VALUE_STRUCT_SEPARATOR" value="87" literal="value#struct#separator"/>
-      <eLiterals name="VALUE_STRUCT_END" value="88" literal="value#struct#end"/>
-      <eLiterals name="META_TRACE" value="90" literal="trace"/>
-      <eLiterals name="META_DEBUG" value="91" literal="debug"/>
+      <eLiterals name="FILE_HEADER" value="50" literal="file#header"/>
+      <eLiterals name="FILE_BEGIN" value="51" literal="file#begin"/>
+      <eLiterals name="FILE_END" value="52" literal="file#end"/>
+      <eLiterals name="TESTCASE_HEADER" value="53" literal="testcase#header"/>
+      <eLiterals name="TESTCASE_BEGIN" value="54" literal="testcase#begin"/>
+      <eLiterals name="TESTCASE_END" value="55" literal="testcase#end"/>
+      <eLiterals name="INIT_HEADER" value="56" literal="init#header"/>
+      <eLiterals name="INIT_BEGIN" value="57" literal="init#begin"/>
+      <eLiterals name="INIT_END" value="58" literal="init#end"/>
+      <eLiterals name="STEP_HEADER" value="59" literal="step#header"/>
+      <eLiterals name="STEP_BEGIN" value="60" literal="step#begin"/>
+      <eLiterals name="STEP_END" value="61" literal="step#end"/>
+      <eLiterals name="COMMENT" value="62" literal="comment"/>
+      <eLiterals name="SEPARATOR" value="63" literal="separator"/>
+      <eLiterals name="NEWLINE" value="64" literal="newline"/>
+      <eLiterals name="NEXT" value="65" literal="next"/>
+      <eLiterals name="LIFELINE" value="66" literal="lifeline"/>
+      <eLiterals name="LIFELINE_HEADER" value="67" literal="lifeline#header"/>
+      <eLiterals name="LIFELINE_BEGIN" value="68" literal="lifeline#begin"/>
+      <eLiterals name="LIFELINE_END" value="69" literal="lifeline#end"/>
+      <eLiterals name="LIFELINE_ID" value="70" literal="lifeline#id"/>
+      <eLiterals name="LIFELINE_STATE" value="71" literal="lifeline#state"/>
+      <eLiterals name="RAW_ATTRIBUTE" value="72" literal="__raw__"/>
+      <eLiterals name="EXECUTION_CONTEXT_ID" value="80" literal="execution#context#id"/>
+      <eLiterals name="NODE" value="81" literal="node"/>
+      <eLiterals name="NODE_LABEL" value="82" literal="node#label"/>
+      <eLiterals name="NODE_HEADER" value="83" literal="node#header"/>
+      <eLiterals name="NODE_DATA" value="84" literal="node#data"/>
+      <eLiterals name="NODE_INFO" value="85" literal="node#info"/>
+      <eLiterals name="NODE_TRACE_RUN" value="86" literal="node#trace#run"/>
+      <eLiterals name="NODE_TRACE_IO" value="87" literal="node#trace#io"/>
+      <eLiterals name="VALUE_PARAMETER_BEGIN" value="88" literal="value#parameter#begin"/>
+      <eLiterals name="VALUE_PARAMETER_SEPARATOR" value="89" literal="value#parameter#separator"/>
+      <eLiterals name="VALUE_PARAMETER_END" value="90" literal="value#parameter#end"/>
+      <eLiterals name="VALUE_ARRAY_BEGIN" value="91" literal="value#array#begin"/>
+      <eLiterals name="VALUE_ARRAY_SEPARATOR" value="92" literal="value#array#separator"/>
+      <eLiterals name="VALUE_ARRAY_END" value="93" literal="value#array#end"/>
+      <eLiterals name="VALUE_STRUCT_BEGIN" value="94" literal="value#struct#begin"/>
+      <eLiterals name="VALUE_STRUCT_SEPARATOR" value="95" literal="value#struct#separator"/>
+      <eLiterals name="VALUE_STRUCT_END" value="96" literal="value#struct#end"/>
+      <eLiterals name="META_TRACE" value="97" literal="trace"/>
+      <eLiterals name="META_DEBUG" value="98" literal="debug"/>
       <eLiterals name="TIPS" value="99" literal="tips"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TraceElement">

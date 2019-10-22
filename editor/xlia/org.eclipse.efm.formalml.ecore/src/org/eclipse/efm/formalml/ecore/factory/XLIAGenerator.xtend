@@ -171,7 +171,7 @@ class XLIAGenerator {
 	// Machine / Behavior Body
 	///////////////////////////////////////////////////////////////////////////
 	
-	def static CharSequence generateBody(Machine machine)
+	def static CharSequence generateBodyContent(Machine machine)
 	'''
 	@property:
 		«FOR it : machine.typedef»
@@ -219,8 +219,12 @@ class XLIAGenerator {
 		«FOR it : machine.instance»
 			«generateInstance(it)»
 		«ENDFOR»
-	
 	«ENDIF»
+
+	'''
+	
+	def static CharSequence generateBodyBehavior(Machine machine)
+	'''
 	«IF ! machine.behavior.empty»
 	@behavior:
 		«FOR it : machine.behavior»
@@ -228,9 +232,17 @@ class XLIAGenerator {
 		«ENDFOR»
 	«ENDIF»
 	«IF machine.main !== null»
+	
 		«generateMainBehavior(machine.main)»
 	«ENDIF»
 	'''
+	
+	def static CharSequence generateBody(Machine machine)
+	'''
+	«generateBodyContent(machine)»
+	«generateBodyBehavior(machine)»
+	'''
+	
 	
 	def static generateBody(Behavior behavior)
 	'''
@@ -322,7 +334,7 @@ class XLIAGenerator {
 	// DataType EnumerationType	
 	def static dispatch generateProperty(EnumerationType enumerationType)
 	'''
-		type «namesOf(enumerationType)» enum {
+		type «namesOf(enumerationType)» enum«IF enumerationType.superType !== null»< «namesOf(enumerationType.superType)» >«ENDIF» {
 			«FOR it : enumerationType.literal SEPARATOR ","»
 				«generateLiteral(it)»
 			«ENDFOR»
@@ -509,10 +521,12 @@ class XLIAGenerator {
 	def static dispatch generate(Statemachine statemachine)
 	'''
 		«generateVisibility(statemachine)»«generateSpecifier(statemachine)»statemachine «namesOf(statemachine)» {
-			«generateBody(statemachine)»
+			«generateBodyContent(statemachine)»
 			«FOR it : statemachine.region»
 				«generateRegion(it)»
 			«ENDFOR»
+			«generateBodyBehavior(statemachine)»
+			
 		}
 	'''
 	
@@ -586,9 +600,12 @@ class XLIAGenerator {
 	
 	def static generateTransition(Transition transition)
 	'''
-		transition«generateTransitionMoe(transition.moe)» «namesOf(transition)»«IF transition.target !== null» --> «transition.target.name»«ELSEIF transition.targetExpression !== null» --> «generateExpression(transition.targetExpression)»«ENDIF» «generateBlockStatement(transition.behavior)»
+		«generateTransitionModifier(transition)»transition«generateTransitionMoe(transition.moe)» «namesOf(transition)»«IF transition.target !== null» --> «transition.target.name»«ELSEIF transition.targetExpression !== null» --> «generateExpression(transition.targetExpression)»«ENDIF» «generateBlockStatement(transition.behavior)»
 		}
 	'''
+	
+	def static generateTransitionModifier(Transition transition)
+	'''«IF transition.isTransient»transient «ENDIF»'''
 	
 	def static generateTransitionMoe(TransitionMoe moe)
 	'''«IF moe !== null»<«IF moe.moc !== TransitionMoc.SIMPLE» «moe.moc.literal»«ENDIF»«IF moe.isIsElse» else«ENDIF»«IF moe.priority > 0» prior: «moe.priority»«ENDIF» >«ENDIF»'''
@@ -820,7 +837,7 @@ class XLIAGenerator {
 	'''
 		«IF statement.expression !== null»«generateExpression(statement.expression)»;
 		«ELSE»
-			«IF statement.callProcedure»call «ENDIF»«statement.invokable.name»(«IF statement.args !== null»«generateExpression(statement.args)»«ENDIF»)«IF ! statement.rets.empty» --> «FOR it : statement.rets SEPARATOR ", "»«it.name»«ENDFOR»)«ENDIF»;
+			«IF statement.callProcedure»call «ENDIF»«IF statement.invokable !== null»«statement.invokable.name»«ELSE»null<invokable>«ENDIF»(«IF statement.args !== null»«generateExpression(statement.args)»«ENDIF»)«IF ! statement.rets.empty» --> «FOR it : statement.rets SEPARATOR ", "»«it.name»«ENDFOR»)«ENDIF»;
 		«ENDIF»
 	'''
 	
@@ -860,7 +877,7 @@ class XLIAGenerator {
 
 
 	def static dispatch generateExpression(Expression expression)
-	'''Expression< «expression» >'''
+	'''Expression< «IF expression === null»null«ELSE»«expression»«ENDIF»» >'''
 	
 	def static dispatch generateExpression(LiteralBooleanExpression expression)
 	'''«expression.value»'''
@@ -945,7 +962,7 @@ class XLIAGenerator {
 	'''(«generateExpression(expression.leftHandSide)» «expression.operator» «generateExpression(expression.rightHandSide)»)'''
 	
 	def static dispatch generateExpression(NewfreshExpression expression)
-	'''newfresh «generateExpression(expression.leftHandSide)»'''
+	'''newfresh( «generateExpression(expression.leftHandSide)» )'''
 	
 	
 	def static dispatch generateExpression(UnaryExpression expression)

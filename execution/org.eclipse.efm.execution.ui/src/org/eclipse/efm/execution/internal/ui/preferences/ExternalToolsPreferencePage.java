@@ -27,21 +27,21 @@ public class ExternalToolsPreferencePage extends FieldEditorPreferencePage
 	public ExternalToolsPreferencePage() {
 		super(GRID);
 
-		setDescription( "External tool for Dot Format (from GraphViz.org) Graph Viewer" );
+		setDescription( "External tool for Dot Format (from graphviz.org) Graph Viewer" );
 	}
 
 	@Override
-	public void init(IWorkbench workbench) {
+	public void init(final IWorkbench workbench) {
 		setPreferenceStore( SymbexPreferenceUtil.getDefaultPreferenceStore() );
 	}
 
 	@Override
 	protected void createFieldEditors() {
-		FileFieldEditor fileField = new FileFieldEditor(
+		final FileFieldEditor fileField = new FileFieldEditor(
 				PREF_DIVERSITY_GRAPH_VIEWER_LOCATION,
 				//		"The Diversity AVM executable location:",
 				"Graph Viewer:",
-				true, FileFieldEditor.VALIDATE_ON_FOCUS_LOST,
+				false, FileFieldEditor.VALIDATE_ON_FOCUS_LOST,
 				getFieldEditorParent());
 
 	    String[] filterExtensions = new String[] {"*.bat", "*.sh", "*.exe", "*.*"};

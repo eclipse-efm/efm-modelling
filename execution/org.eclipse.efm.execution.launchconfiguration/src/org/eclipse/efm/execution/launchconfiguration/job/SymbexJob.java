@@ -13,7 +13,6 @@ package org.eclipse.efm.execution.launchconfiguration.job;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -21,15 +20,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.debug.core.ILaunch;
-import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
-import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsole;
 import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsolePage;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.ISymbexWorkflowProvider;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -49,142 +44,42 @@ public class SymbexJob extends Job {
 
 
 	///////////////////////////////////////////////////////////////////////////
-	// SYMBEX LAUNCH OPTION
-	///////////////////////////////////////////////////////////////////////////
-	public static final String SYMBEX_LAUNCH_OPTION_ENABLE_SERVER_MODE =
-			"--enable-server-mode";
 
-	public static final String SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS =
-			"--enable-print-spider-positions";
+	private final ISymbexWorkflowProvider fSymbexWorkflowProvider;
 
-	///////////////////////////////////////////////////////////////////////////
-
-	private IWorkbenchWindow fWindow;
-
-	private String[] fCommandLine;
-
-	private IResource fSymbexWorkflowFile;
-	private IPath fSymbexWorkflowPath;
-
-	private IConsoleView fConsoleView;
-
+	protected SymbexSpiderConsole fSymbexSpiderConsole;
 
 	public static Map<IPath, SymbexSpiderConsole> fTableOfConsole =
 			new HashMap<IPath, SymbexSpiderConsole>();
 
-	protected SymbexSpiderConsole fSymbexSpiderConsole;
 
-	protected MessageConsoleStream mcs;
-
-	/**
-	 * Some useful colors.
-	 */
-//	private static final Color RED =
-//			Display.getCurrent().getSystemColor(SWT.COLOR_RED);
-
-	public SymbexJob(final IWorkbenchWindow window,
-			final String name, final IFile symbexWorkflowFile)
+	public SymbexJob(final ISymbexWorkflowProvider sewProvider)
 	{
-		super(name);
+		super(sewProvider.getJobName());
 
-		this.fWindow = window;
+		fSymbexWorkflowProvider = sewProvider;
 
-		this.fSymbexWorkflowFile = symbexWorkflowFile;
-		this.fSymbexWorkflowPath = symbexWorkflowFile.getLocation();
-
-		this.fCommandLine = new String[] {
-				SymbexPreferenceUtil.strDiversityAvmExecLocation(), //SYMBEX_EXE
-				symbexWorkflowFile.getLocation().toOSString(),      //SEW
-				SYMBEX_LAUNCH_OPTION_ENABLE_SERVER_MODE,
-				SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS
-		};
-
-//		showConsoleView(symbexWorkflowFile.getFullPath());
-		loadConsoleViewer(symbexWorkflowFile.getFullPath());
-
-	}
-
-	public SymbexJob(final String jobName,
-			final String mode, final String[] commandLine,
-			final IPath workingDirectory, final String[] envp)
-	{
-		super(jobName);
-
-		this.fWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if( fWindow == null ) {
-			final IWorkbench workbench = PlatformUI.getWorkbench();
-			final IWorkbenchWindow[] wbWindow = workbench.getWorkbenchWindows();
-			if( wbWindow.length > 0 ) {
-				fWindow = wbWindow[0];
-			}
-		}
-
-		this.fSymbexWorkflowFile = null;
-		this.fSymbexWorkflowPath = null;
-
-		this.fCommandLine = commandLine;
-
-		if( (commandLine != null) && (commandLine.length > 1) )
-		{
-			this.fSymbexWorkflowPath = new Path(commandLine[1]);
-
-			this.fSymbexWorkflowFile =
-					WorkflowFileUtils.find(this.fSymbexWorkflowPath);
-
-//			showConsoleView(this.fSymbexWorkflowPath);
-
-			loadConsoleViewer(this.fSymbexWorkflowPath);
-}
-	}
-
-
-	public SymbexJob(final ILaunchConfiguration configuration, final String mode,
-			final ILaunch launch, final String[] commandLine,
-			final IPath workingDirectory, final String[] envp)
-	{
-		super(configuration.getName());
-
-		this.fWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if( fWindow == null ) {
-			final IWorkbench workbench = PlatformUI.getWorkbench();
-			final IWorkbenchWindow[] wbWindow = workbench.getWorkbenchWindows();
-			if( wbWindow.length > 0 ) {
-				fWindow = wbWindow[0];
-			}
-		}
-
-		this.fSymbexWorkflowFile = null;
-		this.fSymbexWorkflowPath = null;
-
-		this.fCommandLine = commandLine;
-
-		if( (commandLine != null) && (commandLine.length > 1) )
-		{
-			this.fSymbexWorkflowPath = new Path(commandLine[1]);
-
-			this.fSymbexWorkflowFile =
-					WorkflowFileUtils.find(this.fSymbexWorkflowPath);
-
-//			showConsoleView(this.fSymbexWorkflowPath);
-
-			loadConsoleViewer(this.fSymbexWorkflowPath);
-}
+		this.fSymbexSpiderConsole = null;
 	}
 
 
 	@Override
 	public IStatus run(final IProgressMonitor monitor) {
-		if( fSymbexSpiderConsole != null ) {
-			final IStatus status = fSymbexSpiderConsole.startSymbex(
-					fCommandLine, fSymbexWorkflowPath, monitor);
+		if( this.fSymbexWorkflowProvider != null ) {
+			loadConsoleViewer(this.fSymbexWorkflowProvider.getSymbexWorkflowPath());
 
-			if( monitor != null ) {
-				monitor.done();
+			if( fSymbexSpiderConsole != null ) {
+				final IStatus status = fSymbexSpiderConsole.startSymbex(
+						fSymbexWorkflowProvider, monitor);
+
+				doRefresh();
+
+				if( monitor != null ) {
+					monitor.done();
+				}
+
+				return status;
 			}
-
-			doRefresh();
-
-			return status;
 		}
 
 		return Status.CANCEL_STATUS;
@@ -195,78 +90,50 @@ public class SymbexJob extends Job {
 	/*
 	 * Refresh the Resource Navigator view
 	 */
-	private void doRefresh() {
+	protected void doRefresh() {
 		try {
-			if( fSymbexWorkflowFile != null ) {
+			final IResource refreshResource =
+					fSymbexWorkflowProvider.getRefreshResource();
+			if( refreshResource != null ) {
 //    			if(fResource.getProject().getFolder("output") == null)
 //    			{
 //    				fResource.getProject().getFolder(
 //							"output").create(true,true,null);
 //    			}
 
-				fSymbexWorkflowFile.getProject().refreshLocal(
+				refreshResource.getProject().refreshLocal(
     					IResource.DEPTH_INFINITE, new NullProgressMonitor());
 			}
 			else {
 				ResourcesPlugin.getWorkspace().getRoot().refreshLocal(
 						IResource.DEPTH_INFINITE, new NullProgressMonitor());
 			}
-
-			//TODO : placer les fichiers de sortie fraichement
-			// generes dans le folder "Outfiles"
 		}
 		catch(final CoreException e) {
 			e.printStackTrace();
 		}
 	}
 
-
-//	private void showConsoleView(final IPath symbexResourcePath) {
-//		createConsole(symbexResourcePath, SYMBEX_PROMPT);
-//
-//		try {
-//			final IConsoleView consoleView =
-//					(IConsoleView) fWindow.getActivePage().showView(
-////							SymbolicExecutionView.SYMBEX_CONSOLE_VIEW_ID);
-//							IConsoleConstants.ID_CONSOLE_VIEW);
-//
-//			if( fConsoleView != null ) {
-//				consoleView.display(fSymbexSpiderConsole);
-//			}
-//		}
-//		catch (final PartInitException e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
-
 	private void loadConsoleViewer(final IPath symbexResourcePath) {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		final IWorkbenchWindow[] wbWindow = workbench.getWorkbenchWindows();
 		if( wbWindow.length > 0 ) {
-			fWindow = wbWindow[0];
+			final IWorkbenchWindow window = wbWindow[0];
 
 			workbench.getDisplay().syncExec(new Runnable() {
 				@Override
 				public void run() {
 					try {
-						final IViewPart viewPart = fWindow.getActivePage().
+						final IViewPart viewPart = window.getActivePage().
 //								showView(SymbolicExecutionView.SYMBEX_CONSOLE_VIEW_ID);
 								showView(IConsoleConstants.ID_CONSOLE_VIEW);
 
 						if( viewPart instanceof IConsoleView ) {
-							fConsoleView = (IConsoleView) viewPart;
+							createConsole((IConsoleView) viewPart,
+									symbexResourcePath, SYMBEX_PROMPT);
 						}
-//						else if( viewPart instanceof SymbexConsoleView ) {
-//							fConsoleView = (SymbexConsoleView) viewPart;
-//						}
 					} catch (final PartInitException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-
-					if( fConsoleView != null ) {
-						createConsole(symbexResourcePath, SYMBEX_PROMPT);
 					}
 				}
 			});
@@ -277,7 +144,8 @@ public class SymbexJob extends Job {
 	/*
 	 * Create a console for this execution...
 	 */
-	private void createConsole(final IPath symbexResourcePath, final String prompt) {
+	private void createConsole(final IConsoleView consoleView,
+			final IPath symbexResourcePath, final String prompt) {
 		fSymbexSpiderConsole = fTableOfConsole.get(symbexResourcePath);
 		if( fSymbexSpiderConsole == null ) {
 			//no console found, so create a new one
@@ -290,15 +158,11 @@ public class SymbexJob extends Job {
 					ConsolePlugin.getDefault().getConsoleManager();
 
 			consoleManager.addConsoles(new IConsole[]{ fSymbexSpiderConsole });
-
-			mcs = fSymbexSpiderConsole.newMessageStream();
 		}
 		else {
-			if( fConsoleView != null ) {
-				fConsoleView.display(fSymbexSpiderConsole);
-			}
+			consoleView.display(fSymbexSpiderConsole);
 
-			mcs = fSymbexSpiderConsole.newMessageStream();
+			final MessageConsoleStream mcs = fSymbexSpiderConsole.newMessageStream();
 			mcs.println("=================================================================================");
 			mcs.println("=================================================================================");
 			mcs.println("=================================================================================");
@@ -405,7 +269,7 @@ public class SymbexJob extends Job {
 						((SymbexSpiderConsole) console).getDefaultPage();
 
 				if( (spiderConsolePage != null)
-					&& (! spiderConsolePage.isProcessRunning()) )
+					&& spiderConsolePage.isProcessRunning() )
 				{
 					spiderConsolePage.terminateProcess();
 				}

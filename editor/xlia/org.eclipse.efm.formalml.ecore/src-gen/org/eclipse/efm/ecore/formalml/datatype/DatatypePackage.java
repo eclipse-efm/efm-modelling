@@ -479,13 +479,22 @@ public interface DatatypePackage extends EPackage {
 	int ENUMERATION_TYPE__LITERAL = DATA_TYPE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Super Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUMERATION_TYPE__SUPER_TYPE = DATA_TYPE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Enumeration Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENUMERATION_TYPE_FEATURE_COUNT = DATA_TYPE_FEATURE_COUNT + 1;
+	int ENUMERATION_TYPE_FEATURE_COUNT = DATA_TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Enumeration Type</em>' class.
@@ -2918,6 +2927,17 @@ public interface DatatypePackage extends EPackage {
 	EReference getEnumerationType_Literal();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.efm.ecore.formalml.datatype.EnumerationType#getSuperType <em>Super Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Super Type</em>'.
+	 * @see org.eclipse.efm.ecore.formalml.datatype.EnumerationType#getSuperType()
+	 * @see #getEnumerationType()
+	 * @generated
+	 */
+	EReference getEnumerationType_SuperType();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.ecore.formalml.datatype.DataStructuredType <em>Data Structured Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3447,6 +3467,14 @@ public interface DatatypePackage extends EPackage {
 		 * @generated
 		 */
 		EReference ENUMERATION_TYPE__LITERAL = eINSTANCE.getEnumerationType_Literal();
+
+		/**
+		 * The meta object literal for the '<em><b>Super Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENUMERATION_TYPE__SUPER_TYPE = eINSTANCE.getEnumerationType_SuperType();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.ecore.formalml.datatype.impl.DataStructuredTypeImpl <em>Data Structured Type</em>}' class.

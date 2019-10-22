@@ -151,7 +151,10 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 	public void resetSpider(final String title, final SPIDER_GEOMETRY geometry) {
 		fResetFlag = true;
 
-		spiderTitle = title;
+		if( title != null ) {
+			spiderTitle = title;
+		}
+
 		fSpidertype = geometry;
 
 		enabledVerdictPrinting = false;

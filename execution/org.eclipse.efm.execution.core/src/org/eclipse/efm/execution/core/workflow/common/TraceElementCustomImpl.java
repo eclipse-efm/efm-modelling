@@ -27,7 +27,7 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 	public static final String ELEMENT_SEPARATOR = "\\R|;";
 
 
-	public TraceElementCustomImpl(boolean selected, TraceElementKind nature, Object value) {
+	public TraceElementCustomImpl(final boolean selected, final TraceElementKind nature, final Object value) {
 		super();
 
 		this.selected = selected;
@@ -35,17 +35,17 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 		super.value   = value;
 	}
 
-	public TraceElementCustomImpl(TraceElementKind nature, Object value) {
+	public TraceElementCustomImpl(final TraceElementKind nature, final Object value) {
 		this(true, nature, value);
 	}
 
-	public TraceElementCustomImpl(TraceElement model) {
+	public TraceElementCustomImpl(final TraceElement model) {
 		this(model.isSelected(), model.getNature(), model.getValue());
 	}
 
 
 	public static TraceElementCustomImpl create(
-			String element, TraceElementKind defaultNature) {
+			String element, final TraceElementKind defaultNature) {
 		boolean selected = true;
 		TraceElementKind nature = TraceElementKind.UNDEFINED;
 
@@ -62,8 +62,8 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 			value = value.substring(2).trim();
 		}
 		else {
-			Pattern pattern = Pattern.compile(ATTRIBUTE_VALUE_GRAMMAR);
-			Matcher matcher = pattern.matcher(element);
+			final Pattern pattern = Pattern.compile(ATTRIBUTE_VALUE_GRAMMAR);
+			final Matcher matcher = pattern.matcher(element);
 
 			if( matcher.find() ) {
 				String kind = matcher.group(1).trim();
@@ -94,7 +94,7 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 
 	public String toSEW() {
 //		return( (selected ? "+ " : "- " ) + nature + " = " + value );
-		StringBuffer strBuffer = new StringBuffer();
+		final StringBuffer strBuffer = new StringBuffer();
 
 		final Object value = getValue();
 
@@ -104,7 +104,7 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 
 		switch( getNature() ) {
 			case UNDEFINED: {
-				for( String line : value.toString().split(" *\\R") ) {
+				for( final String line : value.toString().split(" *\\R") ) {
 					strBuffer.append( "// " ).append( line ).append('\n');
 				}
 				break;
@@ -174,7 +174,7 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 	}
 
 
-	public void toWriter(PrettyPrintWriter writer) {
+	public void toWriter(final PrettyPrintWriter writer) {
 		final Object value = getValue();
 
 		writer.appendTab( isSelected() ? "" : UNSELECTION_MARKER );

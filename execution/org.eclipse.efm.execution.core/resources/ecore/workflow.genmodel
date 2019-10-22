@@ -63,6 +63,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/folderName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/fileName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledNormalization"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledNumerization"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledInitialValuesPrinting"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledLifelinesPrinting"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledModifiedDataSelection"/>
@@ -164,6 +165,7 @@
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_ID"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/LIFELINE_STATE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/RAW_ATTRIBUTE"/>
+        <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/EXECUTION_CONTEXT_ID"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_LABEL"/>
         <genEnumLiterals ecoreEnumLiteral="workflow.ecore#//common/TraceElementKind/NODE_HEADER"/>

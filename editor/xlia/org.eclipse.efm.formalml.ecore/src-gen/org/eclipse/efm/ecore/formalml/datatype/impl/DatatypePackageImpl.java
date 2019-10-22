@@ -485,6 +485,16 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 	 * @generated
 	 */
 	@Override
+	public EReference getEnumerationType_SuperType() {
+		return (EReference)enumerationTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getDataStructuredType() {
 		return dataStructuredTypeEClass;
 	}
@@ -904,6 +914,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 
 		enumerationTypeEClass = createEClass(ENUMERATION_TYPE);
 		createEReference(enumerationTypeEClass, ENUMERATION_TYPE__LITERAL);
+		createEReference(enumerationTypeEClass, ENUMERATION_TYPE__SUPER_TYPE);
 
 		dataStructuredTypeEClass = createEClass(DATA_STRUCTURED_TYPE);
 		createEReference(dataStructuredTypeEClass, DATA_STRUCTURED_TYPE__PROPERTY);
@@ -1037,6 +1048,7 @@ public class DatatypePackageImpl extends EPackageImpl implements DatatypePackage
 
 		initEClass(enumerationTypeEClass, EnumerationType.class, "EnumerationType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEnumerationType_Literal(), this.getEnumerationLiteral(), null, "literal", null, 0, -1, EnumerationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEnumerationType_SuperType(), this.getEnumerationType(), null, "superType", null, 0, 1, EnumerationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataStructuredTypeEClass, DataStructuredType.class, "DataStructuredType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataStructuredType_Property(), theInfrastructurePackage.getPropertyDefinition(), null, "property", null, 0, -1, DataStructuredType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

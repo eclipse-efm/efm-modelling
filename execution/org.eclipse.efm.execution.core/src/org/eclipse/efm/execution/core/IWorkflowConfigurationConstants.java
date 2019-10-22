@@ -429,6 +429,12 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	boolean DEFAULT_BASIC_TRACE_ENABLED_GENERATION = false;
 
 
+	String ATTR_BASIC_TRACE_ENABLED_NUMERIZATION =
+			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_TRACE_ENABLED_NUMERIZATION"; //$NON-NLS-1$
+
+	boolean DEFAULT_BASIC_TRACE_ENABLED_NUMERIZATION = true;
+
+
 	String ATTR_BASIC_TRACE_LIFELINES_ENABLED_PRINTING =
 			PLUGIN_LAUNCH_ID + ".ATTR_BASIC_LIFELINES_TRACE_ENABLED_PRINTING"; //$NON-NLS-1$
 
@@ -504,8 +510,11 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 
 	List<String> DEFAULT_BASIC_TRACE_FORMAT_ELEMENT_LIST
 			= Arrays.asList(
+//					%1% --> execution context ID
+					"execution#context#id = ec_%1%",
 //					%1% --> string message
 //					%2% --> execution context identifier
+					"testcase#header = TRACE PATH %1% %2%\\n",
 					"step#header = step %1% --> %2%\\n",
 					"comment = \\t// %1%\\n",
 //					%1% --> condition,
@@ -519,8 +528,8 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 //					%4% --> value
 //					%5% --> machine target identifier name
 					"time       = \\tdelta = %4%\\n",
-//					"assign     = \\t2%:%3%=%4%\\n",
-					"assign     = \\t%3%=%4%\\n",
+//					"assign     = \\t2%:%3% = %4%\\n",
+					"assign     = \\t%3% = %4%\\n",
 					"newfresh   = \\tnewfresh(%2%:%3%) <- %4%\\n",
 
 					"input#env  = \\tINPUT  %2%:%3%%4%\\n",
@@ -549,9 +558,11 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 	= Arrays.asList(
 			"line#wrap#width = 80",
 			"line#wrap#separator = \"\\n\"",
+//			%1% --> execution context ID
+			"execution#context#id = ec_%1%",
 //			%1% --> trace number
 //			%2% --> execution context identifier
-			"testcase#header = \"== PATH %1% %2% ==\\n\"",
+			"testcase#header = \"== TRACE PATH %1% %2% ==\\n\"",
 			"comment = \"== %1% ==\\n\"",
 
 			"participant = \"participant %1%\\n\"",
@@ -564,7 +575,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			"assign = \"hnote over of %2% #yellow : %2%.%3% = %4%\\n\"",
 			"newfresh   = \\\"hnote over of %2% newfresh(%3%) <- %4%\\n",
 
-			"input#env = \"-[#black]> %6% : %3% ? %4%\\n\"",
+			"input#env = \"-[#black]> %6% : %3%%4%\\n\"",
 			"input#rdv = \"\"",
 			"input = \"%6% -[%8%]> %6% : <font color = %8%> %3% ? %4%\\n\"",
 
@@ -797,7 +808,9 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 					SYNTAX_TRACE_SPECIFICATION_LINK,
 					"transition = [*]\n",
 					"com = [*]\n",
-					"variable = [*]\n"
+					"variable = [*]\n",
+					"path#condition = [*]\n",
+					"path#timed#condition = [*]\n"
 			);
 
 
@@ -829,7 +842,8 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 					// %4% --> ec#width
 					// %5% --> ec#weight
 					// %6% --> statemachine configuration i.e. lifelines state identifier
-					"node#header = EC#%1%<Ev:%2% , H:%3%>\\n%6%",
+//					"node#header = EC#%1%< Ev:%2% , H:%3% >\\n%6%",
+					"node#header = ec_%1%< ev:%2% , h:%3% , w:%4% >\\n%6%",
 					 // %1% --> ec#id
 					 // %2% --> ec#assign
 					 // %3% --> ec#path#condition
@@ -854,8 +868,8 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 					// %2% --> machine identifier name
 					// %3% --> port | signal | variable | machine | transition | routine
 					// %4% --> value
-//					 "assign     = %2%:%3%=%4%",
-					"assign     = %3%=%4%",
+//					 "assign     = %2%:%3% = %4%",
+					"assign     = %3% = %4%",
 					"newfresh   = newfresh(%2%:%3%) <- %4%",
 
 					"input#env  = INPUT %2%:%3%%4%",

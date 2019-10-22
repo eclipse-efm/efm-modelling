@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.EnumerationType#getLiteral <em>Literal</em>}</li>
+ *   <li>{@link org.eclipse.efm.ecore.formalml.datatype.EnumerationType#getSuperType <em>Super Type</em>}</li>
  * </ul>
  *
  * @see org.eclipse.efm.ecore.formalml.datatype.DatatypePackage#getEnumerationType()
@@ -46,5 +47,27 @@ public interface EnumerationType extends DataType {
 	 * @generated
 	 */
 	EList<EnumerationLiteral> getLiteral();
+
+	/**
+	 * Returns the value of the '<em><b>Super Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Super Type</em>' reference.
+	 * @see #setSuperType(EnumerationType)
+	 * @see org.eclipse.efm.ecore.formalml.datatype.DatatypePackage#getEnumerationType_SuperType()
+	 * @model
+	 * @generated
+	 */
+	EnumerationType getSuperType();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.ecore.formalml.datatype.EnumerationType#getSuperType <em>Super Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Super Type</em>' reference.
+	 * @see #getSuperType()
+	 * @generated
+	 */
+	void setSuperType(EnumerationType value);
 
 } // EnumerationType

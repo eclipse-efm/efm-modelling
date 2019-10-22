@@ -86,7 +86,7 @@ public class SEWSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected String getPrologToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "@sew<workflow>:";
+		return "@sew < workflow >:";
 	}
 	
 	/**

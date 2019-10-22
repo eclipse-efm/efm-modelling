@@ -22,11 +22,15 @@ public class Util {
 	 * @return
 	 */
 	public static boolean isWorkflowFile(final IFile aFile) {
-		if( aFile == null ) {
-			return false;
+		if( aFile != null ) {
+			final String extension = aFile.getFileExtension();
+			if( extension != null ) {
+				return( extension.endsWith("sew")
+					|| extension.endsWith("favm") );
+			}
 		}
-		return( aFile.getFileExtension().endsWith("sew")
-			|| aFile.getFileExtension().endsWith("favm") );
+
+		return false;
 	}
 
 
@@ -36,7 +40,14 @@ public class Util {
 	 * @return
 	 */
 	public static boolean isGraphizFile(final IFile aFile) {
-		return( (aFile != null) && aFile.getFileExtension().endsWith("gv") );
+		if( aFile != null ) {
+			final String extension = aFile.getFileExtension();
+			if( extension != null ) {
+				return( extension.endsWith("gv") );
+			}
+		}
+
+		return false;
 	}
 
 }

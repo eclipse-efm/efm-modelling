@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getFolderName <em>Folder Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getFileName <em>File Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledNormalization <em>Enabled Normalization</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledNumerization <em>Enabled Numerization</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledLifelinesPrinting <em>Enabled Lifelines Printing</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledModifiedDataSelection <em>Enabled Modified Data Selection</em>}</li>
@@ -136,6 +137,26 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * @ordered
 	 */
 	protected boolean enabledNormalization = ENABLED_NORMALIZATION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isEnabledNumerization() <em>Enabled Numerization</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabledNumerization()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLED_NUMERIZATION_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnabledNumerization() <em>Enabled Numerization</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabledNumerization()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enabledNumerization = ENABLED_NUMERIZATION_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isEnabledInitialValuesPrinting() <em>Enabled Initial Values Printing</em>}' attribute.
@@ -426,6 +447,29 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * @generated
 	 */
 	@Override
+	public boolean isEnabledNumerization() {
+		return enabledNumerization;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setEnabledNumerization(boolean newEnabledNumerization) {
+		boolean oldEnabledNumerization = enabledNumerization;
+		enabledNumerization = newEnabledNumerization;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION, oldEnabledNumerization, enabledNumerization));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public boolean isEnabledInitialValuesPrinting() {
 		return enabledInitialValuesPrinting;
 	}
@@ -527,6 +571,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return getFileName();
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				return isEnabledNormalization();
+			case WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION:
+				return isEnabledNumerization();
 			case WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING:
 				return isEnabledInitialValuesPrinting();
 			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
@@ -562,6 +608,9 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return;
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				setEnabledNormalization((Boolean)newValue);
+				return;
+			case WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION:
+				setEnabledNumerization((Boolean)newValue);
 				return;
 			case WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING:
 				setEnabledInitialValuesPrinting((Boolean)newValue);
@@ -602,6 +651,9 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				setEnabledNormalization(ENABLED_NORMALIZATION_EDEFAULT);
 				return;
+			case WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION:
+				setEnabledNumerization(ENABLED_NUMERIZATION_EDEFAULT);
+				return;
 			case WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING:
 				setEnabledInitialValuesPrinting(ENABLED_INITIAL_VALUES_PRINTING_EDEFAULT);
 				return;
@@ -635,6 +687,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return FILE_NAME_EDEFAULT == null ? fileName != null : !FILE_NAME_EDEFAULT.equals(fileName);
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				return enabledNormalization != ENABLED_NORMALIZATION_EDEFAULT;
+			case WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION:
+				return enabledNumerization != ENABLED_NUMERIZATION_EDEFAULT;
 			case WorkflowPackage.SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING:
 				return enabledInitialValuesPrinting != ENABLED_INITIAL_VALUES_PRINTING_EDEFAULT;
 			case WorkflowPackage.SERIALIZER__ENABLED_LIFELINES_PRINTING:
@@ -661,6 +715,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 		result.append(fileName);
 		result.append(", enabledNormalization: ");
 		result.append(enabledNormalization);
+		result.append(", enabledNumerization: ");
+		result.append(enabledNumerization);
 		result.append(", enabledInitialValuesPrinting: ");
 		result.append(enabledInitialValuesPrinting);
 		result.append(", enabledLifelinesPrinting: ");

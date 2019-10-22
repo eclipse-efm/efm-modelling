@@ -215,7 +215,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def generateMoeGraphic(NamedElement container, ModelOfExecution moe)
 	'''	
 		«IF moe.hasPrimitive»
-			note as primitives_«container.nameIdOf»
+			note top of «container.nameIdOf»
 				«generateActivityRoutine(moe.createRoutine, "create")»
 				«generateActivityRoutine(moe.initRoutine, "init")»
 				«generateActivityRoutine(moe.finalRoutine, "final")»
@@ -421,7 +421,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	'''	
 		 «(transition.eContainer as Vertex).nameIdOf» --> «transition.targetVertex.nameIdOf»
 		 note on link #white
-		 	**«transition.name»:«generateTransitionMoe(transition.moe)»** «IF (transition.behavior !== null) && (! transition.behavior.statement.empty)»«IF transition.behavior.op !== null»«transition.behavior.op»«ENDIF»
+		 	**«generateTransitionModifier(transition)»«transition.name»«generateTransitionMoe(transition.moe)»** «IF (transition.behavior !== null) && (! transition.behavior.statement.empty)»«IF transition.behavior.op !== null»«transition.behavior.op»«ENDIF»
 	«FOR it : transition.behavior.statement»
 	«XLIAGenerator.generateStatement(it)»
 	«ENDFOR»
@@ -430,6 +430,9 @@ class FormalMLGenerator extends AbstractGenerator {
 	«ENDIF»
 		 end note
 	'''
+	
+	def generateTransitionModifier(Transition transition)
+	'''«IF transition.isTransient»transient «ENDIF»'''
 	
 	def generateTransitionMoe(TransitionMoe moe)
 	'''«IF moe !== null»< «IF moe.moc !== TransitionMoc.SIMPLE»«moe.moc.literal» «ENDIF»«IF moe.isIsElse»else «ELSEIF moe.priority > 0»prior:«moe.priority» «ENDIF»«IF moe.probability < 1»proba:«moe.probability» «ENDIF»>«ENDIF»'''

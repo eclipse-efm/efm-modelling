@@ -87,9 +87,9 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//Prolog?
 		public RuleCall getPrologParserRuleCall_1() { return cPrologParserRuleCall_1; }
 		
-		//type=('workflow' | 'symbex-workflow') name=UFI? description=EString? '{' element+=(Object | Property)* '}' // for Xtext Embeded Editor
+		//(type=('workflow' | 'symbex-workflow') name=UFI? description=EString? '{' element+=(Object | Property)* '}' // for Xtext Embeded Editor
 		//| element+=(Object | Property)* // Deprecated Object as FAVM Workflow
-		//| element+=DeprecatedObject
+		//| element+=DeprecatedObject)
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 		
 		//type=('workflow' | 'symbex-workflow') name=UFI? description=EString? '{' element+=(Object | Property)* '}'
@@ -181,7 +181,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//('@sew' | '@favm') '<' ('workflow' | 'sew') (',' 'version:'? EDouble | UFI | EString)? '>:'
 		public Group getGroup() { return cGroup; }
 		
-		//'@sew' | '@favm'
+		//('@sew' | '@favm')
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 		
 		//'@sew'
@@ -193,7 +193,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//'<'
 		public Keyword getLessThanSignKeyword_1() { return cLessThanSignKeyword_1; }
 		
-		//'workflow' | 'sew'
+		//('workflow' | 'sew')
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 		
 		//'workflow'
@@ -297,7 +297,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//(('::' | '.') XID)*
 		public Group getGroup_1() { return cGroup_1; }
 		
-		//'::' | '.'
+		//('::' | '.')
 		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
 		
 		//'::'
@@ -417,7 +417,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//UFI
 		public RuleCall getNameUFIParserRuleCall_1_1_0() { return cNameUFIParserRuleCall_1_1_0; }
 		
-		//':=' | '+:='
+		//(':=' | '+:=')
 		public Alternatives getAlternatives_1_2() { return cAlternatives_1_2; }
 		
 		//':='
@@ -524,7 +524,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//EString
 		public RuleCall getDescriptionEStringParserRuleCall_1_0() { return cDescriptionEStringParserRuleCall_1_0; }
 		
-		//'[' element+=(Object | Attribute)* ']' | ':' element+=(Object | Attribute)*
+		//('[' element+=(Object | Attribute)* ']' | ':' element+=(Object | Attribute)*)
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 		
 		//'[' element+=(Object | Attribute)* ']'
@@ -756,7 +756,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//(('||' | 'or') operand+=conditionalAndExpression)*
 		public Group getGroup_1_3() { return cGroup_1_3; }
 		
-		//'||' | 'or'
+		//('||' | 'or')
 		public Alternatives getAlternatives_1_3_0() { return cAlternatives_1_3_0; }
 		
 		//'||'
@@ -830,7 +830,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//(('&&' | 'and') operand+=equalityExpression)*
 		public Group getGroup_1_3() { return cGroup_1_3; }
 		
-		//'&&' | 'and'
+		//('&&' | 'and')
 		public Alternatives getAlternatives_1_3_0() { return cAlternatives_1_3_0; }
 		
 		//'&&'
@@ -1267,7 +1267,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//{expression::Expression}
 		public Action getExpressionAction_1_0() { return cExpressionAction_1_0; }
 		
-		//operator='-' operand+=primaryExpression
+		//(operator='-' operand+=primaryExpression)
 		public Group getGroup_1_1() { return cGroup_1_1; }
 		
 		//operator='-'
@@ -1288,7 +1288,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//{expression::Expression}
 		public Action getExpressionAction_2_0() { return cExpressionAction_2_0; }
 		
-		//operator=('!' | 'not') operand+=primaryExpression
+		//(operator=('!' | 'not') operand+=primaryExpression)
 		public Group getGroup_2_1() { return cGroup_2_1; }
 		
 		//operator=('!' | 'not')
@@ -1472,7 +1472,7 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//'&'?
 		public Keyword getAmpersandKeyword_0() { return cAmpersandKeyword_0; }
 		
-		//object=[sew::WObject|UFI] | symbol=UFI
+		//(object=[sew::WObject|UFI] | symbol=UFI)
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 		
 		//object=[sew::WObject|UFI]
@@ -2332,8 +2332,8 @@ public class SEWGrammarAccess extends AbstractGrammarElementFinder {
 		//EString
 		public RuleCall getDescriptionEStringParserRuleCall_1_1_0() { return cDescriptionEStringParserRuleCall_1_1_0; }
 		
-		//'[' element+=(DeprecatedAttribute | DeprecatedObject | Object)* ']' | ':' element+=(DeprecatedAttribute |
-		//DeprecatedObject | Object)*
+		//('[' element+=(DeprecatedAttribute | DeprecatedObject | Object)* ']' | ':' element+=(DeprecatedAttribute |
+		//DeprecatedObject | Object)*)
 		public Alternatives getAlternatives_1_2() { return cAlternatives_1_2; }
 		
 		//'[' element+=(DeprecatedAttribute | DeprecatedObject | Object)* ']'

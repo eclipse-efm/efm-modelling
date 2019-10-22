@@ -27,10 +27,11 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.RefreshUtil;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
 import org.eclipse.efm.execution.launchconfiguration.Activator;
 import org.eclipse.efm.execution.launchconfiguration.LaunchDelegate;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.ISymbexWorkflowProvider;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.SymbexWorkflowProvider;
 import org.eclipse.efm.execution.launchconfiguration.util.BackgroundResourceRefresher;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -40,15 +41,52 @@ public class SymbexJobFactory {
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 
-	public static boolean run(final IWorkbenchWindow window,
-			final String jobName, final IFile sewFile)
+	public static boolean run(final ISymbexWorkflowProvider sewProvider)
+	{
+		if( sewProvider != null ) {
+			try {
+				LaunchDelegate.fModelAnalysisProfile =
+						AnalysisProfileKind.ANALYSIS_USER_SEW_PROFILE;
+
+				final SymbexJob job = new SymbexJob(sewProvider);
+
+				job.setUser(true);
+				job.schedule();
+
+				return( true );
+			}
+			catch(final Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return( false );
+	}
+
+
+	public static boolean run(final IWorkbenchWindow window, final IFile sewFile) {
+		return run("Symbolic Execution Workflow job", sewFile);
+	}
+
+	public static boolean run(final IFile sewFile) {
+//		final IWorkbenchWindow window =
+//				PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		return run("Symbolic Execution Workflow job", sewFile);
+	}
+
+	public static boolean run(final String jobName, final IFile sewFile)
 	{
 		if( sewFile != null ) {
 			try {
 				LaunchDelegate.fModelAnalysisProfile =
 						AnalysisProfileKind.ANALYSIS_USER_SEW_PROFILE;
 
-				final SymbexJob job = new SymbexJob(window, jobName, sewFile);
+				final ISymbexWorkflowProvider sewProvider =
+						new SymbexWorkflowProvider(jobName,
+								AnalysisProfileKind.ANALYSIS_USER_SEW_PROFILE.getLiteral(),
+								sewFile);
+
+				final SymbexJob job = new SymbexJob(sewProvider);
 
 				job.setUser(true);
 				job.schedule();
@@ -65,21 +103,24 @@ public class SymbexJobFactory {
 
 
 	public static boolean run(final ILaunchConfiguration configuration,
-			final String mode, final ILaunch launch, //final IProgressMonitor monitor,
-			final String[] commandLine, final IPath workingDirecory, final String[] envp)
+			final ILaunch launch, final String runDebugLaunchMode,
+			final String analysisProfileName, //final IProgressMonitor monitor,
+			final String[] commandLine, final IPath workingDirectoryPath)
 	{
-//		Launch externLaunch = new Launch(configuration, ILaunchManager.RUN_MODE, null);
+//		Launch externLaunch =
+//				new Launch(configuration, ILaunchManager.RUN_MODE, null);
 
 		if( commandLine != null ) {
 //			launch(configuration, mode, commandLine,
 //					workingDirecory, envp, launch, monitor);
 
 			try {
-				final IPath workingDirecoryPath = (workingDirecory != null) ?
-						workingDirecory : WorkflowFileUtils.WORKSPACE_PATH;
+				final ISymbexWorkflowProvider sewProvider =
+						new SymbexWorkflowProvider(configuration,
+								runDebugLaunchMode, analysisProfileName,
+								commandLine, workingDirectoryPath);
 
-				final SymbexJob job = new SymbexJob(configuration,
-						mode, launch, commandLine, workingDirecoryPath, envp);
+				final SymbexJob job = new SymbexJob(sewProvider);
 
 				job.setUser(true);
 				job.schedule();
@@ -94,8 +135,10 @@ public class SymbexJobFactory {
 		return( false );
 	}
 
-	public static boolean run(final String mode, //final IProgressMonitor monitor,
-			final String[] commandLine, final IPath workingDirecory, final String[] envp)
+	public static boolean run(final String runDebuglaunchMode,
+			//final IProgressMonitor monitor,
+			final String[] commandLine, final IPath workingDirecoryPath,
+			final String[] envp)
 	{
 //		Launch externLaunch = new Launch(configuration, ILaunchManager.RUN_MODE, null);
 
@@ -104,11 +147,12 @@ public class SymbexJobFactory {
 //					workingDirecory, envp, launch, monitor);
 
 			try {
-				final IPath workingDirecoryPath = (workingDirecory != null) ?
-						workingDirecory : WorkflowFileUtils.WORKSPACE_PATH;
+				final ISymbexWorkflowProvider sewProvider =
+						new SymbexWorkflowProvider(
+								"SymbEx Workflow job", runDebuglaunchMode,
+								commandLine, workingDirecoryPath, envp);
 
-				final SymbexJob job = new SymbexJob("Symbolic Execution Workflow job",
-						mode, commandLine, workingDirecoryPath, envp);
+				final SymbexJob job = new SymbexJob(sewProvider);
 
 				job.setUser(true);
 				job.schedule();
@@ -124,9 +168,12 @@ public class SymbexJobFactory {
 	}
 
 
-
-	public static IStatus launch(final ILaunchConfiguration configuration, final String mode,
-			final String[] commandLine, final IPath workingDirectory, final String[] envp,
+	/*
+	 * LAUNCH
+	 */
+	public static IStatus launch(final ILaunchConfiguration configuration,
+			final String mode, final String[] commandLine,
+			final IPath workingDirectory, final String[] envp,
 			final ILaunch launch, final IProgressMonitor monitor) {
 
 		if (monitor.isCanceled()) {
@@ -251,9 +298,4 @@ public class SymbexJobFactory {
 		return buf.toString();
 	}
 
-
-
-	public static boolean run(final IWorkbenchWindow window, final IFile sewFile) {
-		return run(window, "Symbolic Execution Workflow job", sewFile);
-	}
 }

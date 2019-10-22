@@ -3,8 +3,10 @@ target "Eclipse Formal Modeling Papyrus last-release"
 with source requirements
 
 //location "http://download.eclipse.org/releases/latest/" eclipse-latest {
-location "http://download.eclipse.org/releases/2019-03" eclipse-2019-03 {
+location "http://download.eclipse.org/releases/2019-09" eclipse-2019-09 {
  org.eclipse.cdt.core lazy
+ 
+ org.eclipse.ecf.filetransfer.httpclient45.feature.feature.group
  
  org.eclipse.egit.feature.group lazy
  
@@ -21,6 +23,7 @@ location "http://download.eclipse.org/releases/2019-03" eclipse-2019-03 {
  org.eclipse.emf.workspace.feature.group lazy
  
  org.eclipse.equinox.p2.discovery.feature.feature.group lazy
+// org.eclipse.equinox.p2 // DOESNT EXIST
  org.eclipse.equinox.p2.ui lazy
  org.eclipse.equinox.executable.feature.group lazy
  
@@ -112,12 +115,6 @@ location "http://download.eclipse.org/modeling/mdt/papyrus/components/designer" 
  org.eclipse.papyrus.designer.transformation.base lazy
 }
 
-////location "http://download.eclipse.org/tools/ajdt/43/update" AspectJ-AJDT {
-//location "http://download.eclipse.org/tools/ajdt/42/update" AspectJ-AJDT {
-// org.eclipse.ajdt.feature.group lazy
-//// org.eclipse.ajdt.sdk.feature.group lazy
-//}
-
 location "http://hallvard.github.io/plantuml" PlantUML {
  net.sourceforge.plantuml.feature.feature.group  lazy
  net.sourceforge.plantuml.lib.feature.feature.group lazy
@@ -152,15 +149,28 @@ location "http://download.eclipse.org/nebula/releases/latest" Eclipse-Nebula {
 // org.objectweb.asm lazy
 //}
 
-location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/S20190129210011/repository" {
-	com.google.guava 21.0.0
-	com.google.guava.source 21.0.0
- 	com.google.gson [2.7.0,2.8.0)
-	com.google.gson.source [2.7.0,2.8.0)
- 	org.apache.commons.lang3 3.1.0
-	org.apache.commons.lang3.source 3.1.0
- 	org.objectweb.asm [5.0.1, 6.0.0)
-	org.objectweb.asm.source [5.0.1, 6.0.0)
+//location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/S20190129210011/repository" {
+//location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/R20190602212107/repository" {
+location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository" {
+	com.google.guava //[21.0.0,22.0.0)
+	com.google.guava.source
+ 	com.google.gson
+	com.google.gson.source
+	com.google.inject.multibindings
+	com.google.inject.multibindings.source
+ 	org.apache.commons.lang3
+	org.apache.commons.lang3.source
+ 	org.objectweb.asm
+	org.objectweb.asm.source
+	
+//	com.google.guava 21.0.0
+//	com.google.guava.source 21.0.0
+// 	com.google.gson [2.7.0,2.8.0)
+//	com.google.gson.source [2.7.0,2.8.0)
+// 	org.apache.commons.lang3 3.1.0
+//	org.apache.commons.lang3.source 3.1.0
+// 	org.objectweb.asm [5.0.1, 6.0.0)
+//	org.objectweb.asm.source [5.0.1, 6.0.0)
 	// The batik plugins are transitively fetched through GMF_Runtime sdk's org.eclipse.gmf.runtime.thirdparty
 	// see the pom.xml under main/site
 }

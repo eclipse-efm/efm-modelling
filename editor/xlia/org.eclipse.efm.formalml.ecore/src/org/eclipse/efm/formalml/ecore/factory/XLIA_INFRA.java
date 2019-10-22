@@ -68,7 +68,7 @@ public class XLIA_INFRA {
 	}
 
 	public static Parameter createParameterInteger(final String name) {
-		return createParameter(XLIA_DATATYPE.createInterger(), name);
+		return createParameter(XLIA_DATATYPE.createInteger(), name);
 	}
 
 	public static Parameter createParameterRational(final String name) {
@@ -90,6 +90,15 @@ public class XLIA_INFRA {
 		final Variable variable = createVariable(type, name);
 
 		variable.setDefaultValue(value);
+
+		return variable;
+	}
+
+	public static Variable createPublicVariable(
+			final DataType type, final String name, final Expression value) {
+		final Variable variable = createVariable(type, name, value);
+
+		variable.setVisibility(VisibilityKind.PUBLIC);
 
 		return variable;
 	}

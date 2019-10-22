@@ -34,7 +34,7 @@ import org.eclipse.efm.execution.core.IWorkflowSpiderConfigurationUtils;
 import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 import org.eclipse.efm.execution.launchconfiguration.HelpContextIdConstants;
 import org.eclipse.efm.execution.launchconfiguration.LaunchDelegate;
-import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.ISymbexWorkflowProvider;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider.SPIDER_GEOMETRY;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -317,8 +317,8 @@ public class SEWConsoleSpiderPage extends Page
 							// Unknown AVM launch option:
 							// << --enable-print-spider-positions >> !!!
 
-							if( traceLine.lastIndexOf(
-									SymbexJob.SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS) > 0 ) {
+							if( traceLine.lastIndexOf(ISymbexWorkflowProvider.
+									SYMBEX_LAUNCH_OPTION_ENABLE_PRINT_SPIDER_POSITIONS) > 0 ) {
 
 								enableLegacyDiversity = true;
 

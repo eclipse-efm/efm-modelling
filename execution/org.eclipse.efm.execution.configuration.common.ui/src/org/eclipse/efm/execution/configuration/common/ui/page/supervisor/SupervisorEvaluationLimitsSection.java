@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSection {
 
 
-	public SupervisorEvaluationLimitsSection(AbstractConfigurationPage configurationPage) {
+	public SupervisorEvaluationLimitsSection(final AbstractConfigurationPage configurationPage) {
 		super(configurationPage, true);
 	}
 
@@ -48,7 +48,7 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 	// ======================================================================================
 
 	@Override
-	protected void createContent(Composite parent, IWidgetToolkit widgetToolkit)
+	protected void createContent(final Composite parent, final IWidgetToolkit widgetToolkit)
 	{
 		IntegerFieldEditor integerField = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_SPECIFICATION_STOP_CRITERIA_STEPS,
@@ -59,7 +59,7 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 
 		integerField = new IntegerFieldEditor(fConfigurationPage,
 				ATTR_SPECIFICATION_STOP_CRITERIA_EVALS,
-				"&Symbex Eval Count : ", parent, 1000);
+				"&Symbex Eval Count : ", parent, -1);
 		integerField.setToolTipText("Maximal symbex evaluation count"
 				+ " (-1 <=> no-limit) during the dynamic process");
 		addFieldEditor( integerField );
@@ -80,7 +80,7 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 	// ======================================================================================
 
 	@Override
-	protected void setDefaultsImpl(ILaunchConfigurationWorkingCopy configuration) {
+	protected void setDefaultsImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				ATTR_SPECIFICATION_STOP_CRITERIA_NODE, -1);
 
@@ -99,7 +99,7 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 
 	        modelAnalysisProfile = AnalysisProfileKind.get(strModelAnalysisProfile);
 		}
-		catch (CoreException e) {
+		catch (final CoreException e) {
 			e.printStackTrace();
 			modelAnalysisProfile = AnalysisProfileKind.ANALYSIS_EXPLORATION_PROFILE;
 		}
@@ -116,7 +116,7 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 			configuration.setAttribute(
 					ATTR_SPECIFICATION_STOP_CRITERIA_STEPS, 1000);
 			configuration.setAttribute(
-					ATTR_SPECIFICATION_STOP_CRITERIA_EVALS, 1000);
+					ATTR_SPECIFICATION_STOP_CRITERIA_EVALS, -1);
 		}
 
 		configuration.setAttribute(
@@ -125,19 +125,19 @@ public class SupervisorEvaluationLimitsSection extends AbstractConfigurationSect
 
 
 	@Override
-	protected void initializeFromImpl(ILaunchConfiguration configuration) {
+	protected void initializeFromImpl(final ILaunchConfiguration configuration) {
 		//!! NOTHING
 	}
 
 
 	@Override
-	protected void performApplyImpl(ILaunchConfigurationWorkingCopy configuration) {
+	protected void performApplyImpl(final ILaunchConfigurationWorkingCopy configuration) {
 		//!! NOTHING
 	}
 
 
 	@Override
-	protected boolean isValidImpl(ILaunchConfiguration launchConfig) {
+	protected boolean isValidImpl(final ILaunchConfiguration launchConfig) {
 		return( true );
 	}
 

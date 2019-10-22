@@ -47,11 +47,11 @@ public class XLIA_DATATYPE {
 		return booleanArray;
 	}
 
-	public static PrimitiveIntegerType createInterger() {
+	public static PrimitiveIntegerType createInteger() {
 		return FACTORY.createPrimitiveIntegerType();
 	}
 
-	public static PrimitiveIntegerType createInterger(final int size) {
+	public static PrimitiveIntegerType createInteger(final int size) {
 		final PrimitiveIntegerType intArray = FACTORY.createPrimitiveIntegerType();
 
 		intArray.setMultiplicity(XLIA_EXPRESSION.createInteger(size));
@@ -68,7 +68,7 @@ public class XLIA_DATATYPE {
 	}
 
 	public static PrimitiveType createRationalOrInteger(final boolean isRational) {
-		return( isRational ? createRational() : createInterger() );
+		return( isRational ? createRational() : createInteger() );
 	}
 
 
@@ -179,6 +179,7 @@ public class XLIA_DATATYPE {
 		return enumType;
 	}
 
+
 	public static void addEnumLiterals(
 			final EnumerationType enumType, final String[] enumLiterals) {
 		boolean isNotExist;
@@ -195,6 +196,33 @@ public class XLIA_DATATYPE {
 				enumType.getLiteral().add( createEnumLiteral(literal) );
 			}
 		}
+	}
+
+
+	// SUB-ENUMERATION
+	public static EnumerationType createEnum(
+			final String name, final EnumerationLiteral[] enumLiterals) {
+		final EnumerationType enumType = FACTORY.createEnumerationType();
+
+		enumType.setName(name);
+
+		for (final EnumerationLiteral literal : enumLiterals) {
+			enumType.getLiteral().add( createEnumLiteral(literal.getName()) );
+		}
+
+		return enumType;
+	}
+
+	public static EnumerationType addSubEnum(
+			final Machine container, final EnumerationType superEnumType,
+			final String name, final EnumerationLiteral[] enumLiterals) {
+		final EnumerationType enumType = createEnum(name, enumLiterals);
+
+		enumType.setSuperType(superEnumType);
+
+		container.getTypedef().add(enumType);
+
+		return enumType;
 	}
 
 

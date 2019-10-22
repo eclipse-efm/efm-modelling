@@ -42,7 +42,7 @@ public abstract class AbstractSewLaunchConfigurationTab
 	 * Constructor
 	 * @param groupTab
 	 */
-	public AbstractSewLaunchConfigurationTab(LaunchConfigurationTabGroup groupTab) {
+	public AbstractSewLaunchConfigurationTab(final LaunchConfigurationTabGroup groupTab) {
 		super();
 		Display display = Display.getCurrent();
 		if (display == null) {
@@ -78,7 +78,7 @@ public abstract class AbstractSewLaunchConfigurationTab
 
 
 	@Override
-	public void createControl(Composite parent) {
+	public void createControl(final Composite parent) {
 		fContentCompositeManager.createControl(parent, fWidgetToolkit);
 
 		setControl( fContentCompositeManager.getControl() );
@@ -89,17 +89,17 @@ public abstract class AbstractSewLaunchConfigurationTab
 
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
 		fContentCompositeManager.setDefaults(configuration);
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFrom(final ILaunchConfiguration configuration) {
 		fContentCompositeManager.initializeFrom(configuration);
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
 		fContentCompositeManager.performApply(configuration);
 	}
 
@@ -107,14 +107,21 @@ public abstract class AbstractSewLaunchConfigurationTab
 	 * @see org.eclipse.debug.ui.ILaunchConfigurationTab#isValid(ILaunchConfiguration)
 	 */
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
-		FieldValidationReturn fieldValidation =
+	public boolean isValid(final ILaunchConfiguration launchConfig) {
+		setMessage(null);
+		setWarningMessage(null);
+		setErrorMessage(null);
+
+		final FieldValidationReturn fieldValidation =
 				fContentCompositeManager.areFieldsValid(launchConfig);
+
 		if (fieldValidation.areFieldsValid()) {
 			setMessage(fieldValidation.getReason());
-		} else {
+		}
+		else if( fieldValidation.getReason() != null ) {
 			setErrorMessage(fieldValidation.getReason());
 		}
+
 		return fieldValidation.areFieldsValid();
 	}
 
@@ -126,8 +133,8 @@ public abstract class AbstractSewLaunchConfigurationTab
 	 * @return the {@link IDialogSettings} to pass into the {@link ContainerSelectionDialog}
 	 * @since 3.6
 	 */
-	public final IDialogSettings getDialogBoundsSettings(String id) {
-		IDialogSettings settings = Activator.getDefault().getDialogSettings();
+	public final IDialogSettings getDialogBoundsSettings(final String id) {
+		final IDialogSettings settings = Activator.getDefault().getDialogSettings();
 		IDialogSettings section = settings.getSection(id);
 		if(section == null) {
 			section = settings.addNewSection(id);
@@ -159,17 +166,17 @@ public abstract class AbstractSewLaunchConfigurationTab
 	}
 
 	@Override // to change visibility to public
-	public void setMessage(String message){
+	public void setMessage(final String message){
 		super.setMessage(message);
 	}
 
 	@Override // to change visibility to public
-	public void setWarningMessage(String warningmessage){
+	public void setWarningMessage(final String warningmessage){
 		super.setWarningMessage(warningmessage);
 	}
 
 	@Override // to change visibility to public
-	public void setErrorMessage(String errormessage){
+	public void setErrorMessage(final String errormessage){
 		super.setErrorMessage(errormessage);
 	}
 
@@ -190,7 +197,7 @@ public abstract class AbstractSewLaunchConfigurationTab
 	// Property Change
 	//
 	@Override
-	public void handleConfigurationPropertyChange(PropertyChangeEvent event) {
+	public void handleConfigurationPropertyChange(final PropertyChangeEvent event) {
 		//!! NOTHING as DEFAULT BEHAVIOR
 	}
 

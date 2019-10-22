@@ -5940,16 +5940,23 @@ ruleProcedureExecution returns [EObject current=null]
 					{
 						getUnorderedGroupHelper().select(grammarAccess.getProcedureExecutionAccess().getUnorderedGroup_2(), 0);
 					}
-								({true}?=>(otherlv_3='@schedule'
-								{
-									newLeafNode(otherlv_3, grammarAccess.getProcedureExecutionAccess().getScheduleKeyword_2_0_0());
-								}
+								({true}?=>((
+									otherlv_3='@schedule'
+									{
+										newLeafNode(otherlv_3, grammarAccess.getProcedureExecutionAccess().getScheduleKeyword_2_0_0_0());
+									}
+									    |
+									otherlv_4='@xschedule'
+									{
+										newLeafNode(otherlv_4, grammarAccess.getProcedureExecutionAccess().getXscheduleKeyword_2_0_0_1());
+									}
+								)
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getProcedureExecutionAccess().getScheduleRoutineMoeRoutineParserRuleCall_2_0_1_0());
 										}
-										lv_scheduleRoutine_4_0=rulemoeRoutine
+										lv_scheduleRoutine_5_0=rulemoeRoutine
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getProcedureExecutionRule());
@@ -5957,7 +5964,7 @@ ruleProcedureExecution returns [EObject current=null]
 											set(
 												$current,
 												"scheduleRoutine",
-												lv_scheduleRoutine_4_0,
+												lv_scheduleRoutine_5_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.moeRoutine");
 											afterParserOrEnumRuleCall();
 										}
@@ -5974,16 +5981,16 @@ ruleProcedureExecution returns [EObject current=null]
 					{
 						getUnorderedGroupHelper().select(grammarAccess.getProcedureExecutionAccess().getUnorderedGroup_2(), 1);
 					}
-								({true}?=>(otherlv_5='@run'
+								({true}?=>(otherlv_6='@run'
 								{
-									newLeafNode(otherlv_5, grammarAccess.getProcedureExecutionAccess().getRunKeyword_2_1_0());
+									newLeafNode(otherlv_6, grammarAccess.getProcedureExecutionAccess().getRunKeyword_2_1_0());
 								}
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getProcedureExecutionAccess().getRunRoutineMoeRoutineParserRuleCall_2_1_1_0());
 										}
-										lv_runRoutine_6_0=rulemoeRoutine
+										lv_runRoutine_7_0=rulemoeRoutine
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getProcedureExecutionRule());
@@ -5991,7 +5998,7 @@ ruleProcedureExecution returns [EObject current=null]
 											set(
 												$current,
 												"runRoutine",
-												lv_runRoutine_6_0,
+												lv_runRoutine_7_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.moeRoutine");
 											afterParserOrEnumRuleCall();
 										}
@@ -9022,16 +9029,23 @@ rulemoeCompositeStateRoutines returns [EObject current=null]
 					{
 						getUnorderedGroupHelper().select(grammarAccess.getMoeCompositeStateRoutinesAccess().getUnorderedGroup_1(), 6);
 					}
-								({true}?=>(otherlv_14='@schedule'
-								{
-									newLeafNode(otherlv_14, grammarAccess.getMoeCompositeStateRoutinesAccess().getScheduleKeyword_1_6_0());
-								}
+								({true}?=>((
+									otherlv_14='@schedule'
+									{
+										newLeafNode(otherlv_14, grammarAccess.getMoeCompositeStateRoutinesAccess().getScheduleKeyword_1_6_0_0());
+									}
+									    |
+									otherlv_15='@xschedule'
+									{
+										newLeafNode(otherlv_15, grammarAccess.getMoeCompositeStateRoutinesAccess().getXscheduleKeyword_1_6_0_1());
+									}
+								)
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getMoeCompositeStateRoutinesAccess().getScheduleRoutineMoeRoutineParserRuleCall_1_6_1_0());
 										}
-										lv_scheduleRoutine_15_0=rulemoeRoutine
+										lv_scheduleRoutine_16_0=rulemoeRoutine
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getMoeCompositeStateRoutinesRule());
@@ -9039,7 +9053,7 @@ rulemoeCompositeStateRoutines returns [EObject current=null]
 											set(
 												$current,
 												"scheduleRoutine",
-												lv_scheduleRoutine_15_0,
+												lv_scheduleRoutine_16_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.moeRoutine");
 											afterParserOrEnumRuleCall();
 										}
@@ -9056,16 +9070,16 @@ rulemoeCompositeStateRoutines returns [EObject current=null]
 					{
 						getUnorderedGroupHelper().select(grammarAccess.getMoeCompositeStateRoutinesAccess().getUnorderedGroup_1(), 7);
 					}
-								({true}?=>(otherlv_16='@irun'
+								({true}?=>(otherlv_17='@irun'
 								{
-									newLeafNode(otherlv_16, grammarAccess.getMoeCompositeStateRoutinesAccess().getIrunKeyword_1_7_0());
+									newLeafNode(otherlv_17, grammarAccess.getMoeCompositeStateRoutinesAccess().getIrunKeyword_1_7_0());
 								}
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getMoeCompositeStateRoutinesAccess().getIrunRoutineMoeRoutineParserRuleCall_1_7_1_0());
 										}
-										lv_irunRoutine_17_0=rulemoeRoutine
+										lv_irunRoutine_18_0=rulemoeRoutine
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getMoeCompositeStateRoutinesRule());
@@ -9073,7 +9087,7 @@ rulemoeCompositeStateRoutines returns [EObject current=null]
 											set(
 												$current,
 												"irunRoutine",
-												lv_irunRoutine_17_0,
+												lv_irunRoutine_18_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.moeRoutine");
 											afterParserOrEnumRuleCall();
 										}
@@ -9090,16 +9104,16 @@ rulemoeCompositeStateRoutines returns [EObject current=null]
 					{
 						getUnorderedGroupHelper().select(grammarAccess.getMoeCompositeStateRoutinesAccess().getUnorderedGroup_1(), 8);
 					}
-								({true}?=>(otherlv_18='@run'
+								({true}?=>(otherlv_19='@run'
 								{
-									newLeafNode(otherlv_18, grammarAccess.getMoeCompositeStateRoutinesAccess().getRunKeyword_1_8_0());
+									newLeafNode(otherlv_19, grammarAccess.getMoeCompositeStateRoutinesAccess().getRunKeyword_1_8_0());
 								}
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getMoeCompositeStateRoutinesAccess().getRunRoutineMoeRoutineParserRuleCall_1_8_1_0());
 										}
-										lv_runRoutine_19_0=rulemoeRoutine
+										lv_runRoutine_20_0=rulemoeRoutine
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getMoeCompositeStateRoutinesRule());
@@ -9107,7 +9121,7 @@ rulemoeCompositeStateRoutines returns [EObject current=null]
 											set(
 												$current,
 												"runRoutine",
-												lv_runRoutine_19_0,
+												lv_runRoutine_20_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.moeRoutine");
 											afterParserOrEnumRuleCall();
 										}
@@ -11285,16 +11299,23 @@ ruleModelOfExecution returns [EObject current=null]
 					{
 						getUnorderedGroupHelper().select(grammarAccess.getModelOfExecutionAccess().getUnorderedGroup_3(), 6);
 					}
-								({true}?=>(otherlv_16='@schedule'
-								{
-									newLeafNode(otherlv_16, grammarAccess.getModelOfExecutionAccess().getScheduleKeyword_3_6_0());
-								}
+								({true}?=>((
+									otherlv_16='@schedule'
+									{
+										newLeafNode(otherlv_16, grammarAccess.getModelOfExecutionAccess().getScheduleKeyword_3_6_0_0());
+									}
+									    |
+									otherlv_17='@xschedule'
+									{
+										newLeafNode(otherlv_17, grammarAccess.getModelOfExecutionAccess().getXscheduleKeyword_3_6_0_1());
+									}
+								)
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getModelOfExecutionAccess().getScheduleRoutineMoeRoutineParserRuleCall_3_6_1_0());
 										}
-										lv_scheduleRoutine_17_0=rulemoeRoutine
+										lv_scheduleRoutine_18_0=rulemoeRoutine
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getModelOfExecutionRule());
@@ -11302,7 +11323,7 @@ ruleModelOfExecution returns [EObject current=null]
 											set(
 												$current,
 												"scheduleRoutine",
-												lv_scheduleRoutine_17_0,
+												lv_scheduleRoutine_18_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.moeRoutine");
 											afterParserOrEnumRuleCall();
 										}
@@ -11319,16 +11340,16 @@ ruleModelOfExecution returns [EObject current=null]
 					{
 						getUnorderedGroupHelper().select(grammarAccess.getModelOfExecutionAccess().getUnorderedGroup_3(), 7);
 					}
-								({true}?=>(otherlv_18='@irun'
+								({true}?=>(otherlv_19='@irun'
 								{
-									newLeafNode(otherlv_18, grammarAccess.getModelOfExecutionAccess().getIrunKeyword_3_7_0());
+									newLeafNode(otherlv_19, grammarAccess.getModelOfExecutionAccess().getIrunKeyword_3_7_0());
 								}
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getModelOfExecutionAccess().getIrunRoutineMoeRoutineParserRuleCall_3_7_1_0());
 										}
-										lv_irunRoutine_19_0=rulemoeRoutine
+										lv_irunRoutine_20_0=rulemoeRoutine
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getModelOfExecutionRule());
@@ -11336,7 +11357,7 @@ ruleModelOfExecution returns [EObject current=null]
 											set(
 												$current,
 												"irunRoutine",
-												lv_irunRoutine_19_0,
+												lv_irunRoutine_20_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.moeRoutine");
 											afterParserOrEnumRuleCall();
 										}
@@ -11353,16 +11374,16 @@ ruleModelOfExecution returns [EObject current=null]
 					{
 						getUnorderedGroupHelper().select(grammarAccess.getModelOfExecutionAccess().getUnorderedGroup_3(), 8);
 					}
-								({true}?=>(otherlv_20='@run'
+								({true}?=>(otherlv_21='@run'
 								{
-									newLeafNode(otherlv_20, grammarAccess.getModelOfExecutionAccess().getRunKeyword_3_8_0());
+									newLeafNode(otherlv_21, grammarAccess.getModelOfExecutionAccess().getRunKeyword_3_8_0());
 								}
 								(
 									(
 										{
 											newCompositeNode(grammarAccess.getModelOfExecutionAccess().getRunRoutineMoeRoutineParserRuleCall_3_8_1_0());
 										}
-										lv_runRoutine_21_0=rulemoeRoutine
+										lv_runRoutine_22_0=rulemoeRoutine
 										{
 											if ($current==null) {
 												$current = createModelElementForParent(grammarAccess.getModelOfExecutionRule());
@@ -11370,7 +11391,7 @@ ruleModelOfExecution returns [EObject current=null]
 											set(
 												$current,
 												"runRoutine",
-												lv_runRoutine_21_0,
+												lv_runRoutine_22_0,
 												"org.eclipse.efm.formalml.xtext.FormalML.moeRoutine");
 											afterParserOrEnumRuleCall();
 										}
@@ -11394,7 +11415,7 @@ ruleModelOfExecution returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getModelOfExecutionAccess().getRoutineRoutineParserRuleCall_4_0());
 				}
-				lv_routine_22_0=ruleRoutine
+				lv_routine_23_0=ruleRoutine
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getModelOfExecutionRule());
@@ -11402,7 +11423,7 @@ ruleModelOfExecution returns [EObject current=null]
 					add(
 						$current,
 						"routine",
-						lv_routine_22_0,
+						lv_routine_23_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.Routine");
 					afterParserOrEnumRuleCall();
 				}
@@ -16257,16 +16278,51 @@ ruleEnumerationType returns [EObject current=null]
 		{
 			newLeafNode(otherlv_1, grammarAccess.getEnumerationTypeAccess().getEnumKeyword_1());
 		}
-		otherlv_2='{'
+		(
+			otherlv_2='<'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getEnumerationTypeAccess().getLessThanSignKeyword_2_0());
+			}
+			(
+				otherlv_3='super:'
+				{
+					newLeafNode(otherlv_3, grammarAccess.getEnumerationTypeAccess().getSuperKeyword_2_1());
+				}
+			)?
+			(
+				(
+					{
+						/* */
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getEnumerationTypeRule());
+						}
+					}
+					{
+						newCompositeNode(grammarAccess.getEnumerationTypeAccess().getSuperTypeEnumerationTypeCrossReference_2_2_0());
+					}
+					ruleESUfid
+					{
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_5='>'
+			{
+				newLeafNode(otherlv_5, grammarAccess.getEnumerationTypeAccess().getGreaterThanSignKeyword_2_3());
+			}
+		)?
+		otherlv_6='{'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getEnumerationTypeAccess().getLeftCurlyBracketKeyword_2());
+			newLeafNode(otherlv_6, grammarAccess.getEnumerationTypeAccess().getLeftCurlyBracketKeyword_3());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getEnumerationTypeAccess().getLiteralEnumerationLiteralParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getEnumerationTypeAccess().getLiteralEnumerationLiteralParserRuleCall_4_0());
 				}
-				lv_literal_3_0=ruleEnumerationLiteral
+				lv_literal_7_0=ruleEnumerationLiteral
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getEnumerationTypeRule());
@@ -16274,23 +16330,23 @@ ruleEnumerationType returns [EObject current=null]
 					add(
 						$current,
 						"literal",
-						lv_literal_3_0,
+						lv_literal_7_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.EnumerationLiteral");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
 		(
-			otherlv_4=','
+			otherlv_8=','
 			{
-				newLeafNode(otherlv_4, grammarAccess.getEnumerationTypeAccess().getCommaKeyword_4_0());
+				newLeafNode(otherlv_8, grammarAccess.getEnumerationTypeAccess().getCommaKeyword_5_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getEnumerationTypeAccess().getLiteralEnumerationLiteralParserRuleCall_4_1_0());
+						newCompositeNode(grammarAccess.getEnumerationTypeAccess().getLiteralEnumerationLiteralParserRuleCall_5_1_0());
 					}
-					lv_literal_5_0=ruleEnumerationLiteral
+					lv_literal_9_0=ruleEnumerationLiteral
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getEnumerationTypeRule());
@@ -16298,16 +16354,16 @@ ruleEnumerationType returns [EObject current=null]
 						add(
 							$current,
 							"literal",
-							lv_literal_5_0,
+							lv_literal_9_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.EnumerationLiteral");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
-		otherlv_6='}'
+		otherlv_10='}'
 		{
-			newLeafNode(otherlv_6, grammarAccess.getEnumerationTypeAccess().getRightCurlyBracketKeyword_5());
+			newLeafNode(otherlv_10, grammarAccess.getEnumerationTypeAccess().getRightCurlyBracketKeyword_6());
 		}
 	)
 ;
@@ -16413,16 +16469,51 @@ ruleEnumerationTypeDefinition returns [EObject current=null]
 		{
 			newLeafNode(otherlv_5, grammarAccess.getEnumerationTypeDefinitionAccess().getEnumKeyword_5());
 		}
-		otherlv_6='{'
+		(
+			otherlv_6='<'
+			{
+				newLeafNode(otherlv_6, grammarAccess.getEnumerationTypeDefinitionAccess().getLessThanSignKeyword_6_0());
+			}
+			(
+				otherlv_7='super:'
+				{
+					newLeafNode(otherlv_7, grammarAccess.getEnumerationTypeDefinitionAccess().getSuperKeyword_6_1());
+				}
+			)?
+			(
+				(
+					{
+						/* */
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getEnumerationTypeDefinitionRule());
+						}
+					}
+					{
+						newCompositeNode(grammarAccess.getEnumerationTypeDefinitionAccess().getSuperTypeEnumerationTypeCrossReference_6_2_0());
+					}
+					ruleESUfid
+					{
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_9='>'
+			{
+				newLeafNode(otherlv_9, grammarAccess.getEnumerationTypeDefinitionAccess().getGreaterThanSignKeyword_6_3());
+			}
+		)?
+		otherlv_10='{'
 		{
-			newLeafNode(otherlv_6, grammarAccess.getEnumerationTypeDefinitionAccess().getLeftCurlyBracketKeyword_6());
+			newLeafNode(otherlv_10, grammarAccess.getEnumerationTypeDefinitionAccess().getLeftCurlyBracketKeyword_7());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getEnumerationTypeDefinitionAccess().getLiteralEnumerationLiteralParserRuleCall_7_0());
+					newCompositeNode(grammarAccess.getEnumerationTypeDefinitionAccess().getLiteralEnumerationLiteralParserRuleCall_8_0());
 				}
-				lv_literal_7_0=ruleEnumerationLiteral
+				lv_literal_11_0=ruleEnumerationLiteral
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getEnumerationTypeDefinitionRule());
@@ -16430,23 +16521,23 @@ ruleEnumerationTypeDefinition returns [EObject current=null]
 					add(
 						$current,
 						"literal",
-						lv_literal_7_0,
+						lv_literal_11_0,
 						"org.eclipse.efm.formalml.xtext.FormalML.EnumerationLiteral");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
 		(
-			otherlv_8=','
+			otherlv_12=','
 			{
-				newLeafNode(otherlv_8, grammarAccess.getEnumerationTypeDefinitionAccess().getCommaKeyword_8_0());
+				newLeafNode(otherlv_12, grammarAccess.getEnumerationTypeDefinitionAccess().getCommaKeyword_9_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getEnumerationTypeDefinitionAccess().getLiteralEnumerationLiteralParserRuleCall_8_1_0());
+						newCompositeNode(grammarAccess.getEnumerationTypeDefinitionAccess().getLiteralEnumerationLiteralParserRuleCall_9_1_0());
 					}
-					lv_literal_9_0=ruleEnumerationLiteral
+					lv_literal_13_0=ruleEnumerationLiteral
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getEnumerationTypeDefinitionRule());
@@ -16454,16 +16545,16 @@ ruleEnumerationTypeDefinition returns [EObject current=null]
 						add(
 							$current,
 							"literal",
-							lv_literal_9_0,
+							lv_literal_13_0,
 							"org.eclipse.efm.formalml.xtext.FormalML.EnumerationLiteral");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
-		otherlv_10='}'
+		otherlv_14='}'
 		{
-			newLeafNode(otherlv_10, grammarAccess.getEnumerationTypeDefinitionAccess().getRightCurlyBracketKeyword_9());
+			newLeafNode(otherlv_14, grammarAccess.getEnumerationTypeDefinitionAccess().getRightCurlyBracketKeyword_10());
 		}
 	)
 ;
