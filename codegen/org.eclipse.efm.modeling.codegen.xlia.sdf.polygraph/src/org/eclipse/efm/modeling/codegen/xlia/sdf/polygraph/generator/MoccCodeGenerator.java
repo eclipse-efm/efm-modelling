@@ -166,24 +166,24 @@ public class MoccCodeGenerator {
 
 		// TIME CONFIGURATION
 		this.varTickInterval = XLIA_INFRA.createConstant(
-				XLIA_DATATYPE.createInterger(), "TICK_INTERVAL",
+				XLIA_DATATYPE.createInteger(), "TICK_INTERVAL",
 				XLIA_EXPRESSION.createInteger(
 						moccSystemFeature.tick_interval));
 		this.xliaSystem.getVariable().add(this.varTickInterval);
 
 		this.varTickPeriod = XLIA_INFRA.createConstant(
-				XLIA_DATATYPE.createInterger(), "TICK_PERIOD",
+				XLIA_DATATYPE.createInteger(), "TICK_PERIOD",
 				XLIA_EXPRESSION.createInteger(
 						moccSystemFeature.tick_period));
 		this.xliaSystem.getVariable().add(this.varTickPeriod);
 
 		this.varTick = XLIA_INFRA.createVariable(
-				XLIA_DATATYPE.createInterger(),
+				XLIA_DATATYPE.createInteger(),
 				"tick", XLIA_EXPRESSION.zero());
 		this.xliaSystem.getVariable().add(this.varTick);
 
 		this.varTimestamp = XLIA_INFRA.createVariable(
-				XLIA_DATATYPE.createInterger(),
+				XLIA_DATATYPE.createInteger(),
 				"timestamp", XLIA_EXPRESSION.zero());
 		this.xliaSystem.getVariable().add(this.varTimestamp);
 
@@ -630,20 +630,20 @@ public class MoccCodeGenerator {
 		// CONSTANT: FREQUENCY
 		if( actor.FEATURE.isTimed ) {
 			actor.HELPER.constFREQUENCY = XLIA_INFRA.createConstant(
-					XLIA_DATATYPE.createInterger(), "FREQUENCY",
+					XLIA_DATATYPE.createInteger(), "FREQUENCY",
 					XLIA_EXPRESSION.createInteger(actor.getFrequency()));
 			xliaActor.getVariable().add(actor.HELPER.constFREQUENCY);
 		}
 		else {
 			actor.HELPER.constREPETITION = XLIA_INFRA.createPublicConstant(
-					XLIA_DATATYPE.createInterger(), "REPETITION",
+					XLIA_DATATYPE.createInteger(), "REPETITION",
 					XLIA_EXPRESSION.createInteger(actor.FEATURE.repetition));
 			xliaActor.getVariable().add(actor.HELPER.constREPETITION);
 
 			// For scheduler
 			actor.HELPER.varActivationCount =
 					XLIA_INFRA.createPublicLocaleVariable(
-							XLIA_DATATYPE.createInterger(),
+							XLIA_DATATYPE.createInteger(),
 							"activationCount", XLIA_EXPRESSION.zero());
 			xliaActor.getVariable().add(actor.HELPER.varActivationCount);
 		}
@@ -651,7 +651,7 @@ public class MoccCodeGenerator {
 		// VARIABLE: INTEGER TOKEN
 		if( actor.FEATURE.hasIntegerRate ) {
 			actor.HELPER.varIntToken = XLIA_INFRA.createLocaleVariable(
-					XLIA_DATATYPE.createInterger(),
+					XLIA_DATATYPE.createInteger(),
 					"intToken", XLIA_EXPRESSION.zero());
 			xliaActor.getVariable().add(actor.HELPER.varIntToken);
 		}
@@ -1287,15 +1287,13 @@ public class MoccCodeGenerator {
 
 		final Region region = XLIA_STATEMACHINE.createRegion(xliaActor);
 
-		final Pseudostate s_init = XLIA_STATEMACHINE.createInitialState("s_init");
-		region.getVertex().add(s_init);
+		final Pseudostate s_init =
+				XLIA_STATEMACHINE.createInitialState(region, "s_init");
 
-		final State s_idle = XLIA_STATEMACHINE.createState("idle");
-		region.getVertex().add(s_idle);
+		final State s_idle = XLIA_STATEMACHINE.createState(region, "idle");
 
 		final Pseudostate s_activation =
-				XLIA_STATEMACHINE.createJunctionState("activation");
-		region.getVertex().add(s_activation);
+				XLIA_STATEMACHINE.createJunctionState(region, "activation");
 
 		final BlockStatement blockEnable =
 				XLIA_STATEMENT.createBlockStatement();
@@ -1324,15 +1322,12 @@ public class MoccCodeGenerator {
 		final Region region = XLIA_STATEMACHINE.createRegion(xliaActor);
 
 		final Pseudostate s_init =
-				XLIA_STATEMACHINE.createInitialState("s_init");
-		region.getVertex().add(s_init);
+				XLIA_STATEMACHINE.createInitialState(region, "s_init");
 
-		final State s_idle = XLIA_STATEMACHINE.createState("idle");
-		region.getVertex().add(s_idle);
+		final State s_idle = XLIA_STATEMACHINE.createState(region, "idle");
 
 		final Pseudostate s_activation =
-				XLIA_STATEMACHINE.createJunctionState("activation");
-		region.getVertex().add(s_activation);
+				XLIA_STATEMACHINE.createJunctionState(region, "activation");
 
 		// Initialisation
 		computeInitialisationBehavior(actor, s_init, s_idle);
@@ -1352,15 +1347,12 @@ public class MoccCodeGenerator {
 		final Region region = XLIA_STATEMACHINE.createRegion(xliaActor);
 
 		final Pseudostate s_init =
-				XLIA_STATEMACHINE.createInitialState("s_init");
-		region.getVertex().add(s_init);
+				XLIA_STATEMACHINE.createInitialState(region, "s_init");
 
-		final State s_idle = XLIA_STATEMACHINE.createState("idle");
-		region.getVertex().add(s_idle);
+		final State s_idle = XLIA_STATEMACHINE.createState(region, "idle");
 
 		final Pseudostate s_activation =
-				XLIA_STATEMACHINE.createJunctionState("activation");
-		region.getVertex().add(s_activation);
+				XLIA_STATEMACHINE.createJunctionState(region, "activation");
 
 		// Initialisation
 		computeInitialisationBehavior(actor, s_init, s_idle);
@@ -1377,15 +1369,13 @@ public class MoccCodeGenerator {
 	{
 		final Region region = XLIA_STATEMACHINE.createRegion(xliaActor);
 
-		final Pseudostate s_init = XLIA_STATEMACHINE.createInitialState("s_init");
-		region.getVertex().add(s_init);
+		final Pseudostate s_init =
+				XLIA_STATEMACHINE.createInitialState(region, "s_init");
 
-		final State s_idle = XLIA_STATEMACHINE.createState("idle");
-		region.getVertex().add(s_idle);
+		final State s_idle = XLIA_STATEMACHINE.createState(region, "idle");
 
 		final Pseudostate s_activation =
-				XLIA_STATEMACHINE.createJunctionState("activation");
-		region.getVertex().add(s_activation);
+				XLIA_STATEMACHINE.createJunctionState(region, "activation");
 
 		if( moccSystem.FEATURE.hasModeSelector && actor.FEATURE.hasInput ) {
 			final BlockStatement blockEnable =
@@ -1442,8 +1432,7 @@ public class MoccCodeGenerator {
 	{
 		// receiving Pseudostate
 		final Pseudostate s_receiving =
-				XLIA_STATEMACHINE.createJunctionState("receiving");
-		region.getVertex().add(s_receiving);
+				XLIA_STATEMACHINE.createJunctionState(region, "receiving");
 
 		// Activation
 		computeActivationBehavior(actor, s_idle, s_activation);
@@ -1521,8 +1510,7 @@ public class MoccCodeGenerator {
 	{
 		// Processing --> Activation
 		final Pseudostate s_processing =
-				XLIA_STATEMACHINE.createJunctionState("processing");
-		region.getVertex().add(s_processing);
+				XLIA_STATEMACHINE.createJunctionState(region, "processing");
 
 		final Transition t_activate = XLIA_STATEMACHINE.createTransition(
 				"t_process", s_activation, s_processing);
@@ -1536,8 +1524,7 @@ public class MoccCodeGenerator {
 
 		// Processing --> Passing
 		final Pseudostate s_passing =
-				XLIA_STATEMACHINE.createJunctionState("passing");
-		region.getVertex().add(s_passing);
+				XLIA_STATEMACHINE.createJunctionState(region, "passing");
 
 		final Transition t_pass = XLIA_STATEMACHINE.createTransitionElse(
 				"t_pass", s_activation, s_passing);

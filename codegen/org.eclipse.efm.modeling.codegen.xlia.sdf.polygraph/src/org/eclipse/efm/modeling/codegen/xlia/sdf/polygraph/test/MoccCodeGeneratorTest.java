@@ -12,17 +12,12 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.test;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
-
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.efm.ecore.formalml.XliaModel;
-import org.eclipse.efm.formalml.ecore.factory.XLIAGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccActor;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccMode;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccSystem;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.xlia.Generator;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.xlia.MoCC2XLIA;
 
 public class MoccCodeGeneratorTest {
@@ -53,14 +48,14 @@ public class MoccCodeGeneratorTest {
 		final MoccActor lidar = new MoccActor(moccSystem, "Lidar", 10);
 
 		// Channels
-		moccSystem.addChannel(camera, 1, fusion, 1);
+		moccSystem.addChannel(false, camera, 1, fusion, 1);
 
-		moccSystem.addChannel(radar, 1, 4, fusion, 1);
-//		moccSystem.addChannel(3, 4,/*initial token*/ radar, 1, 4, fusion, 1);
+		moccSystem.addChannel(false, radar, 1, 4, fusion, 1);
+//		moccSystem.addChannel(false, 3, 4,/*initial token*/ radar, 1, 4, fusion, 1);
 
-		moccSystem.addChannel(lidar, 1, fusion, 1, 3);
+		moccSystem.addChannel(false, lidar, 1, fusion, 1, 3);
 
-		moccSystem.addChannel(fusion, 4, 3, display, 1);
+		moccSystem.addChannel(false, fusion, 4, 3, display, 1);
 
 		return moccSystem;
 	}
@@ -81,13 +76,13 @@ public class MoccCodeGeneratorTest {
 		final MoccActor lidar = new MoccActor(moccSystem, "Lidar", 10);
 
 		// Channels
-		moccSystem.addChannel(camera, 1, fusion, 1);
+		moccSystem.addChannel(false, camera, 1, fusion, 1);
 
-		moccSystem.addChannel(3, 4,/*initial token*/ radar, 1, 4, fusion, 1);
+		moccSystem.addChannel(false, 3, 4,/*initial token*/ radar, 1, 4, fusion, 1);
 
-		moccSystem.addChannel(lidar, 1, fusion, 1, 3);
+		moccSystem.addChannel(false, lidar, 1, fusion, 1, 3);
 
-		moccSystem.addChannel(fusion, 4, 3, display, 1);
+		moccSystem.addChannel(false, fusion, 4, 3, display, 1);
 
 		return moccSystem;
 	}
@@ -102,7 +97,7 @@ public class MoccCodeGeneratorTest {
 		final MoccActor A = new MoccActor(moccSystem, "A");
 
 		// Channels
-		moccSystem.addChannel(A, 2, B, 3);
+		moccSystem.addChannel(false, A, 2, B, 3);
 
 		return moccSystem;
 	}
@@ -117,9 +112,9 @@ public class MoccCodeGeneratorTest {
 		final MoccActor A = new MoccActor(moccSystem, "A");
 
 		// Channels
-		moccSystem.addChannel(A, 3, B, 2);
+		moccSystem.addChannel(false, A, 3, B, 2);
 
-		moccSystem.addChannel(4,/*initial token*/ B, 2, A, 3);
+		moccSystem.addChannel(false, 4,/*initial token*/ B, 2, A, 3);
 
 		return moccSystem;
 	}
@@ -136,575 +131,11 @@ public class MoccCodeGeneratorTest {
 		final MoccActor C = new MoccActor(moccSystem, "C");
 
 		// Channels
-		moccSystem.addChannel(A, 1, B, 1);
+		moccSystem.addChannel(false, A, 1, B, 1);
 
-		moccSystem.addChannel(A, 2, C, 1);
+		moccSystem.addChannel(false, A, 2, C, 1);
 
-		moccSystem.addChannel(B, 2, C, 1);
-
-		return moccSystem;
-	}
-
-
-	protected static MoccSystem mocc_model_adas_noninit() {
-		final MoccSystem moccSystem = new MoccSystem("ADAS");
-
-		// Actors
-		final MoccActor Odometer =
-				new MoccActor(moccSystem, "Odometer", 10);
-		final MoccActor OdometerDuplicate =
-				new MoccActor(moccSystem, "OdometerDuplicate");
-
-		final MoccActor LeftCamera =
-				new MoccActor(moccSystem, "LeftCamera", 10);
-		final MoccActor LeftCameraDuplicate =
-				new MoccActor(moccSystem, "LeftCameraDuplicate");
-
-		final MoccActor RightCamera =
-				new MoccActor(moccSystem, "RightCamera", 10);
-
-		final MoccActor Lidar =
-				new MoccActor(moccSystem, "Lidar", 30);
-
-		final MoccActor Speed =
-				new MoccActor(moccSystem, "Speed");
-
-		final MoccActor SpeedDuplicate =
-				new MoccActor(moccSystem, "SpeedDuplicate");
-
-		final MoccActor LaneDetection =
-				new MoccActor(moccSystem, "LaneDetection");
-		final MoccActor PedestrianDetection =
-				new MoccActor(moccSystem, "PedestrianDetection");
-		final MoccActor RoadDetection =
-				new MoccActor(moccSystem, "RoadDetection", 5);
-		final MoccActor TrafficSignDetection =
-				new MoccActor(moccSystem, "TrafficSignDetection");
-		final MoccActor TrafficSignDetectionDuplicate =
-				new MoccActor(moccSystem, "TrafficSignDetectionDuplicate");
-		final MoccActor DepthMap =
-				new MoccActor(moccSystem, "DepthMap", 2);
-
-		final MoccActor ObstacleDetection =
-				new MoccActor(moccSystem, "ObstacleDetection");
-
-		final MoccActor SpeedControl =
-				new MoccActor(moccSystem, "SpeedControl");
-
-		final MoccActor Fusion =
-				new MoccActor(moccSystem, "Fusion");
-
-		final MoccActor InformationDisplay =
-				new MoccActor(moccSystem, "InformationDisplay", 10);
-
-		// Channels
-		moccSystem.addChannel(LeftCamera, 1, LeftCameraDuplicate, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, LaneDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, PedestrianDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, 2, RoadDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, TrafficSignDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, 5, DepthMap, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(Odometer, 1, OdometerDuplicate, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, InformationDisplay, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, Speed, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, SpeedControl, 1);
-
-
-		moccSystem.addChannel(RightCamera, 1, 5, DepthMap, 1);
-
-
-		moccSystem.addChannel(Lidar, 1, ObstacleDetection, 1);
-
-
-		moccSystem.addChannel(ObstacleDetection, 1, 3, SpeedControl, 1);
-
-
-		moccSystem.addChannel(SpeedControl, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(Speed, 1, SpeedDuplicate, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, RightCamera, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, Lidar, 1, 3);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, LaneDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, PedestrianDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, 2, RoadDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, TrafficSignDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, 5, DepthMap, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(LaneDetection, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(
-				TrafficSignDetection, 1, TrafficSignDetectionDuplicate, 1);
-
-		moccSystem.addChannel(
-				TrafficSignDetectionDuplicate, 1, SpeedControl, 1);
-
-		moccSystem.addChannel(
-				TrafficSignDetectionDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(PedestrianDetection, 1, Fusion, 1);
-
-		moccSystem.addChannel(RoadDetection, 1, Fusion, 1, 2);
-
-		moccSystem.addChannel(DepthMap, 1, Fusion, 1, 5);
-
-
-		moccSystem.addChannel(Fusion, 1, InformationDisplay, 1);
-
-		return moccSystem;
-	}
-
-	protected static MoccSystem mocc_model_adas_init() {
-		final MoccSystem moccSystem = new MoccSystem("ADAS");
-
-		// Actors
-		final MoccActor Odometer =
-				new MoccActor(moccSystem, "Odometer", 10);
-		final MoccActor OdometerDuplicate =
-				new MoccActor(moccSystem, "OdometerDuplicate");
-
-		final MoccActor LeftCamera =
-				new MoccActor(moccSystem, "LeftCamera", 10);
-		final MoccActor LeftCameraDuplicate =
-				new MoccActor(moccSystem, "LeftCameraDuplicate");
-
-		final MoccActor RightCamera =
-				new MoccActor(moccSystem, "RightCamera", 10);
-
-		final MoccActor Lidar =
-				new MoccActor(moccSystem, "Lidar", 30);
-
-		final MoccActor Speed =
-				new MoccActor(moccSystem, "Speed");
-
-		final MoccActor SpeedDuplicate =
-				new MoccActor(moccSystem, "SpeedDuplicate");
-
-		final MoccActor LaneDetection =
-				new MoccActor(moccSystem, "LaneDetection");
-		final MoccActor PedestrianDetection =
-				new MoccActor(moccSystem, "PedestrianDetection");
-		final MoccActor RoadDetection =
-				new MoccActor(moccSystem, "RoadDetection", 5);
-		final MoccActor TrafficSignDetection =
-				new MoccActor(moccSystem, "TrafficSignDetection");
-		final MoccActor TrafficSignDetectionDuplicate =
-				new MoccActor(moccSystem, "TrafficSignDetectionDuplicate");
-		final MoccActor DepthMap =
-				new MoccActor(moccSystem, "DepthMap", 2);
-
-		final MoccActor ObstacleDetection =
-				new MoccActor(moccSystem, "ObstacleDetection");
-
-		final MoccActor SpeedControl =
-				new MoccActor(moccSystem, "SpeedControl");
-
-		final MoccActor Fusion =
-				new MoccActor(moccSystem, "Fusion");
-
-		final MoccActor InformationDisplay =
-				new MoccActor(moccSystem, "InformationDisplay", 10);
-
-		// Channels
-		moccSystem.addChannel(LeftCamera, 1, LeftCameraDuplicate, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, LaneDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, PedestrianDetection, 1);
-
-		moccSystem.addChannel(1, 2, LeftCameraDuplicate, 1, 2, RoadDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, TrafficSignDetection, 1);
-
-		moccSystem.addChannel(4, 5, LeftCameraDuplicate, 1, 5, DepthMap, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(Odometer, 1, OdometerDuplicate, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, InformationDisplay, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, Speed, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, SpeedControl, 1);
-
-
-		moccSystem.addChannel(4, 5, RightCamera, 1, 5, DepthMap, 1);
-
-
-		moccSystem.addChannel(Lidar, 1, ObstacleDetection, 1);
-
-
-		moccSystem.addChannel(2, 3, ObstacleDetection, 1, 3, SpeedControl, 1);
-
-
-		moccSystem.addChannel(SpeedControl, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(Speed, 1, SpeedDuplicate, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, RightCamera, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, Lidar, 1, 3);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, LaneDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, PedestrianDetection, 1);
-
-		moccSystem.addChannel(1, 2, SpeedDuplicate, 1, 2, RoadDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, TrafficSignDetection, 1);
-
-		moccSystem.addChannel(4, 5, SpeedDuplicate, 1, 5, DepthMap, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(LaneDetection, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(
-				TrafficSignDetection, 1, TrafficSignDetectionDuplicate, 1);
-
-		moccSystem.addChannel(
-				TrafficSignDetectionDuplicate, 1, SpeedControl, 1);
-
-		moccSystem.addChannel(
-				TrafficSignDetectionDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(PedestrianDetection, 1, Fusion, 1);
-
-		moccSystem.addChannel(RoadDetection, 1, Fusion, 1, 2);
-
-		moccSystem.addChannel(DepthMap, 1, Fusion, 1, 5);
-
-
-		moccSystem.addChannel(Fusion, 1, InformationDisplay, 1);
-
-		return moccSystem;
-	}
-
-	protected static MoccSystem mocc_model_adas() {
-		final MoccSystem moccSystem = new MoccSystem("ADAS");
-
-		// Actors
-		final MoccActor Odometer =
-				new MoccActor(moccSystem, "Odometer", 10);
-		final MoccActor OdometerDuplicate =
-				new MoccActor(moccSystem, "OdometerDuplicate");
-
-		final MoccActor LeftCamera =
-				new MoccActor(moccSystem, "LeftCamera", 10);
-		final MoccActor LeftCameraDuplicate =
-				new MoccActor(moccSystem, "LeftCameraDuplicate");
-
-		final MoccActor RightCamera =
-				new MoccActor(moccSystem, "RightCamera", 10);
-
-		final MoccActor Lidar =
-				new MoccActor(moccSystem, "Lidar", 30);
-
-		final MoccActor Speed =
-				new MoccActor(moccSystem, "Speed");
-
-		final MoccActor SpeedDuplicate =
-				new MoccActor(moccSystem, "SpeedDuplicate");
-
-		final MoccActor LaneDetection =
-				new MoccActor(moccSystem, "LaneDetection");
-		final MoccActor PedestrianDetection =
-				new MoccActor(moccSystem, "PedestrianDetection");
-		final MoccActor RoadDetection =
-				new MoccActor(moccSystem, "RoadDetection", 5);
-		final MoccActor TrafficSignDetection =
-				new MoccActor(moccSystem, "TrafficSignDetection");
-		final MoccActor TrafficSignDetectionDuplicate =
-				new MoccActor(moccSystem, "TrafficSignDetectionDuplicate");
-		final MoccActor DepthMap =
-				new MoccActor(moccSystem, "DepthMap", 2);
-
-		final MoccActor ObstacleDetection =
-				new MoccActor(moccSystem, "ObstacleDetection");
-
-		final MoccActor SpeedControl =
-				new MoccActor(moccSystem, "SpeedControl");
-
-		final MoccActor Fusion =
-				new MoccActor(moccSystem, "Fusion");
-
-		final MoccActor InformationDisplay =
-				new MoccActor(moccSystem, "InformationDisplay", 10);
-
-		// Channels
-		moccSystem.addChannel(LeftCamera, 1, LeftCameraDuplicate, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, LaneDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, PedestrianDetection, 1);
-
-		moccSystem.addChannel(1, 2, LeftCameraDuplicate, 1, 2, RoadDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, TrafficSignDetection, 1);
-
-		moccSystem.addChannel(4, 5, LeftCameraDuplicate, 1, 5, DepthMap, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(Odometer, 1, OdometerDuplicate, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, InformationDisplay, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, Speed, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, SpeedControl, 1);
-
-
-		moccSystem.addChannel(4, 5, RightCamera, 1, 5, DepthMap, 1);
-
-
-		moccSystem.addChannel(Lidar, 1, ObstacleDetection, 1);
-
-
-		moccSystem.addChannel(2, 3, ObstacleDetection, 1, 3, SpeedControl, 1);
-
-
-		moccSystem.addChannel(SpeedControl, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(Speed, 1, SpeedDuplicate, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, RightCamera, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, Lidar, 1, 3);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, LaneDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, PedestrianDetection, 1);
-
-		moccSystem.addChannel(1, 2, SpeedDuplicate, 1, 2, RoadDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, TrafficSignDetection, 1);
-
-		moccSystem.addChannel(4, 5, SpeedDuplicate, 1, 5, DepthMap, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(LaneDetection, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(
-				TrafficSignDetection, 1, TrafficSignDetectionDuplicate, 1);
-
-		moccSystem.addChannel(
-				TrafficSignDetectionDuplicate, 1, SpeedControl, 1);
-
-		moccSystem.addChannel(
-				TrafficSignDetectionDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(PedestrianDetection, 1, Fusion, 1);
-
-		moccSystem.addChannel(RoadDetection, 1, Fusion, 1, 2);
-
-		moccSystem.addChannel(DepthMap, 1, Fusion, 1, 5);
-
-
-		moccSystem.addChannel(Fusion, 1, InformationDisplay, 1);
-
-		return moccSystem;
-	}
-
-	protected static MoccSystem mocc_model_adas_mode() {
-		final MoccSystem moccSystem = new MoccSystem("ADAS_FULL",
-				"UndefinedMode", "UndefinedMode", "NominalMode", "NominalMode");
-
-		// Actors
-		final MoccActor Odometer =
-				new MoccActor(moccSystem, "Odometer", 10);
-		final MoccActor OdometerDuplicate =
-				new MoccActor(moccSystem, "OdometerDuplicate");
-
-		final MoccActor LeftCamera =
-				new MoccActor(moccSystem, "LeftCamera", 10);
-		final MoccActor LeftCameraDuplicate =
-				new MoccActor(moccSystem, "LeftCameraDuplicate");
-
-		final MoccMode mode_low_speed =
-				moccSystem.newMode("s <= 30 km/h", "Low_Speed");//"LOW_SPEED");
-		final MoccMode mode_medium_speed =
-				moccSystem.newMode("30 < s <= 50 km/h", "Medium_Speed");//"MEDIUM_SPEED");
-		final MoccMode mode_high_speed =
-				moccSystem.newMode("s > 50 km/h", "High_Speed");//"HIGH_SPEED");
-
-		final MoccMode[] selectionSet = new MoccMode[] {
-//				MoccMode.UNDEFINED , MoccMode.NOMINAL,
-				mode_low_speed , mode_medium_speed , mode_high_speed };
-
-		final MoccMode[] processingSet_0_1_2 = new MoccMode[] {
-				mode_low_speed , mode_medium_speed , mode_high_speed };
-
-		final MoccMode[] processingSet_0_1 =
-				new MoccMode[] { mode_low_speed , mode_medium_speed };
-
-		final MoccMode[] processingSet_1_2 =
-				new MoccMode[] { mode_medium_speed , mode_high_speed };
-
-		final MoccMode[] processingSet_2 = new MoccMode[] { mode_high_speed };
-
-		final MoccActor Speed = new MoccActor(moccSystem, "Speed", selectionSet);
-
-
-		final MoccActor RightCamera =
-				new MoccActor(moccSystem, "RightCamera", 10,
-						Speed, processingSet_0_1);
-
-		final MoccActor Lidar =
-				new MoccActor(moccSystem, "Lidar", 30,
-						Speed, processingSet_0_1);
-
-
-		final MoccActor SpeedDuplicate =
-				new MoccActor(moccSystem, "SpeedDuplicate",
-						Speed, processingSet_0_1_2);
-
-		final MoccActor LaneDetection =
-				new MoccActor(moccSystem, "LaneDetection",
-						Speed, processingSet_2);
-		final MoccActor PedestrianDetection =
-				new MoccActor(moccSystem, "PedestrianDetection",
-						Speed, processingSet_0_1);
-		final MoccActor RoadDetection =
-				new MoccActor(moccSystem, "RoadDetection", 5,
-						Speed, processingSet_0_1);
-		final MoccActor TrafficSignDetection =
-				new MoccActor(moccSystem, "TrafficSignDetection",
-						Speed, processingSet_1_2);
-		final MoccActor TrafficSignDetectionDuplicate =
-				new MoccActor(moccSystem, "TrafficSignDetectionDuplicate",
-						Speed, processingSet_1_2);
-		final MoccActor DepthMap =
-				new MoccActor(moccSystem, "DepthMap", 2,
-						Speed, processingSet_0_1);
-
-		final MoccActor ObstacleDetection =
-				new MoccActor(moccSystem, "ObstacleDetection",
-						Speed, processingSet_0_1);
-
-		final MoccActor SpeedControl =
-				new MoccActor(moccSystem, "SpeedControl");
-
-		final MoccActor Fusion =
-				new MoccActor(moccSystem, "Fusion",
-						Speed, processingSet_0_1);
-
-		final MoccActor InformationDisplay =
-				new MoccActor(moccSystem, "InformationDisplay", 10);
-
-		// Channels
-		moccSystem.addChannel(LeftCamera, 1, LeftCameraDuplicate, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, LaneDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, PedestrianDetection, 1);
-
-		moccSystem.addChannel(1, 2, LeftCameraDuplicate, 1, 2, RoadDetection, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, TrafficSignDetection, 1);
-
-		moccSystem.addChannel(4, 5, LeftCameraDuplicate, 1, 5, DepthMap, 1);
-
-		moccSystem.addChannel(LeftCameraDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(Odometer, 1, OdometerDuplicate, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, InformationDisplay, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, Speed, 1);
-
-		moccSystem.addChannel(OdometerDuplicate, 1, SpeedControl, 1);
-
-
-		moccSystem.addChannel(4, 5, RightCamera, 1, 5, DepthMap, 1);
-
-
-		moccSystem.addChannel(Lidar, 1, ObstacleDetection, 1);
-
-
-		moccSystem.addChannel(2, 3, ObstacleDetection, 1, 3, SpeedControl, 1);
-
-
-		moccSystem.addChannel(SpeedControl, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(Speed, 1, SpeedDuplicate, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, RightCamera, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, Lidar, 1, 3);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, LaneDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, PedestrianDetection, 1);
-
-		moccSystem.addChannel(1, 2, SpeedDuplicate, 1, 2, RoadDetection, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, TrafficSignDetection, 1);
-
-		moccSystem.addChannel(4, 5, SpeedDuplicate, 1, 5, DepthMap, 1);
-
-		moccSystem.addChannel(SpeedDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(LaneDetection, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(
-				TrafficSignDetection, 1, TrafficSignDetectionDuplicate, 1);
-
-		moccSystem.addChannel(
-				TrafficSignDetectionDuplicate, 1, SpeedControl, 1);
-
-		moccSystem.addChannel(
-				TrafficSignDetectionDuplicate, 1, InformationDisplay, 1);
-
-
-		moccSystem.addChannel(PedestrianDetection, 1, Fusion, 1);
-
-		moccSystem.addChannel(RoadDetection, 1, Fusion, 1, 2);
-
-		moccSystem.addChannel(DepthMap, 1, Fusion, 1, 5);
-
-
-		moccSystem.addChannel(Fusion, 1, InformationDisplay, 1);
+		moccSystem.addChannel(false, B, 2, C, 1);
 
 		return moccSystem;
 	}
@@ -746,17 +177,17 @@ public class MoccCodeGeneratorTest {
 		final MoccActor Command = new MoccActor(moccSystem, "Command", 25, 1);
 
 		// Channels
-		moccSystem.addChannel(Acquisition, 1, AcquisitionDuplicate, 1);
+		moccSystem.addChannel(true, Acquisition, 1, AcquisitionDuplicate, 1);
 
-		moccSystem.addChannel(AcquisitionDuplicate, 1, FastProcess, 2);
-		moccSystem.addChannel(AcquisitionDuplicate, 1, HighQualitityProcess, 2);
+		moccSystem.addChannel(true, AcquisitionDuplicate, 1, FastProcess, 2);
+		moccSystem.addChannel(true, AcquisitionDuplicate, 1, HighQualitityProcess, 2);
 
-		moccSystem.addChannel(QualityMode, 1, FastProcess, 2);
-		moccSystem.addChannel(QualityMode, 1, HighQualitityProcess, 2);
+		moccSystem.addChannel(true, QualityMode, 1, FastProcess, 2);
+		moccSystem.addChannel(true, QualityMode, 1, HighQualitityProcess, 2);
 
-		moccSystem.addChannel(FastProcess, 1, Command, 1);
-		moccSystem.addChannel(HighQualitityProcess, 1, Command, 1);
-		moccSystem.addChannel(2, Command, 2, Acquisition, 1);
+		moccSystem.addChannel(false, FastProcess, 1, Command, 1);
+		moccSystem.addChannel(false, HighQualitityProcess, 1, Command, 1);
+		moccSystem.addChannel(false, 2, Command, 2, Acquisition, 1);
 
 		return moccSystem;
 	}
@@ -809,15 +240,15 @@ public class MoccCodeGeneratorTest {
 		final MoccActor Display = new MoccActor(moccSystem, "Display", 3, 1);
 
 		// Channels
-		moccSystem.addChannel(Monitor, 1, Sensor_1, 1, 2);
-		moccSystem.addChannel(Monitor, 1, Sensor_2, 1);
-		moccSystem.addChannel(Monitor, 1, 3, Sensor_3, 1);
+		moccSystem.addChannel(true, Monitor, 1, Sensor_1, 1, 2);
+		moccSystem.addChannel(true, Monitor, 1, Sensor_2, 1);
+		moccSystem.addChannel(true, Monitor, 1, 3, Sensor_3, 1);
 
-		moccSystem.addChannel(Sensor_1, 1, 2, Fusion, 1);
-		moccSystem.addChannel(Sensor_2, 1, Fusion, 1);
-		moccSystem.addChannel(2, 3, Sensor_3, 1, Fusion, 1, 3);
+		moccSystem.addChannel(true, Sensor_1, 1, 2, Fusion, 1);
+		moccSystem.addChannel(true, Sensor_2, 1, Fusion, 1);
+		moccSystem.addChannel(true, 2, 3, Sensor_3, 1, Fusion, 1, 3);
 
-		moccSystem.addChannel(Fusion, 1, Display, 1);
+		moccSystem.addChannel(false, Fusion, 1, Display, 1);
 
 		return moccSystem;
 	}
@@ -833,13 +264,13 @@ public class MoccCodeGeneratorTest {
 		final MoccActor D = new MoccActor(moccSystem, "D");
 
 		// Channels
-		moccSystem.addChannel(A, 1, B, 1);
-		moccSystem.addChannel(B, 3, C, 2);
-		moccSystem.addChannel(C, 1, D, 1);
+		moccSystem.addChannel(false, A, 1, B, 1);
+		moccSystem.addChannel(false, B, 3, C, 2);
+		moccSystem.addChannel(false, C, 1, D, 1);
 
-		moccSystem.addChannel(1, D, 1, C, 1);
-		moccSystem.addChannel(5, C, 2, B, 3);
-		moccSystem.addChannel(1, B, 1, A, 1);
+		moccSystem.addChannel(false, 1, D, 1, C, 1);
+		moccSystem.addChannel(false, 5, C, 2, B, 3);
+		moccSystem.addChannel(false, 1, B, 1, A, 1);
 
 		return moccSystem;
 	}
@@ -852,7 +283,7 @@ public class MoccCodeGeneratorTest {
 		final String message = "MoCC --> xLIA : " + moccSystem.getName();
 		System.out.println(message + "...");
 
-		final MoCC2XLIA moccGenerator = new MoCC2XLIA(moccSystem, true);
+		final MoCC2XLIA moccGenerator = new MoCC2XLIA(moccSystem, false, false);
 
 		moccGenerator.transform();
 
@@ -860,105 +291,49 @@ public class MoccCodeGeneratorTest {
 
 		System.out.println(message + " OK transformation");
 
-		path = path.append("gen_mocc-" + moccSystem.getName())
+		path = path.append("polygraph_NOT_LIVE_" + moccSystem.getName())
 					.addFileExtension("xlia");
 
 		if( xliaModel != null ) {
-			generation(path, moccSystem, xliaModel);
+			Generator.write(path, moccSystem, xliaModel);
 		}
 		else {
-			generation(path, moccSystem);
+			Generator.write(path, moccSystem);
 		}
 
 		System.out.println(message + " OK generation");
 	}
 
-
-	public static void generation(final IPath path,
-			final MoccSystem moccSystem, final XliaModel xliaModel)
-	{
-		try {
-			final FileWriter buffer = new FileWriter( path.toOSString() );
-			final PrintWriter writer = new PrintWriter(buffer);
-
-			final CharSequence strXLIA =
-					XLIAGenerator.generateModel(xliaModel);
-
-			writer.write(strXLIA.toString());
-
-			writer.write("\n/*\n");
-
-			writer.write(moccSystem.toString());
-			writer.write("\n*/\n");
-
-			writer.close();
-
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void generation(final IPath path, final MoccSystem moccSystem)
-	{
-		try {
-			final FileWriter buffer = new FileWriter( path.toOSString() );
-			final PrintWriter writer = new PrintWriter(buffer);
-
-			final StringBuilder sout = new StringBuilder();
-			sout.append("\n/*\n")
-				.append("==> INCONSISTENT MoccSystem <==\n");
-
-			sout.append("system ").append(moccSystem.getName())
-				.append(" {").append('\n')
-				.append('\t').append("frequencies = " )
-				.append(Arrays.toString(
-						moccSystem.FEATURE.frequencies)).append('\n')
-				.append('\t').append("time = +")
-					.append(moccSystem.FEATURE.time_interval)
-					.append('\n')
-				.append('\t').append("period = ")
-					.append(moccSystem.FEATURE.time_period)
-					.append('\n')
-				.append('\t').append("repetition = ")
-					.append(Arrays.toString(moccSystem.FEATURE.repetitions))
-					.append('\n')
-				.append('}').append('\n');
-
-			for( final MoccActor actor : moccSystem.getActor() ) {
-				if( ! actor.FEATURE.consistency ) {
-					sout.append("Inconsistent actor ")
-						.append(actor.getName()).append(" {").append('\n')
-						.append('\t').append("frequency = ")
-							.append(actor.getFrequency()).append('\n')
-						.append('\t').append("phase = ")
-							.append(actor.getPhase()).append('\n')
-						.append('\t').append("repetition = ")
-							.append(actor.FEATURE.repetition).append('\n')
-						.append('}').append('\n');
-				}
-			}
-			sout.append('\n');
-
-			writer.write(sout.toString());
-
-			writer.write(moccSystem.toString());
-			writer.write("\n*/\n");
-
-			writer.close();
-
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	public static void testTransformations(final IPath path)
 	{
-		testTransformations(path, mocc_model_basic_mode());
-		testTransformations(path, mocc_model_automotive());
 
-		testTransformations(path, mocc_model_adas());
-		testTransformations(path, mocc_model_adas_mode());
+		testTransformations(path,
+				MoccCodeGeneratorTestPubliExtended.mocc_model_nouveau_mode_publi());
+
+//		testTransformations(path,
+//				MoccCodeGeneratorTestPubliExtended.mocc_model_nouveau_mode_basic());
+
+//		testTransformations(path,
+//				MoccCodeGeneratorTestPubli.mocc_model_nouveau_mode());
+
+		testTransformations(path, MoccCodeGeneratorTestPubliExtended.mocc_model_mp3());
+
+		testTransformations(path, MoccCodeGeneratorTestPubliExtended.mocc_model_mp4_sp());
+
+		testTransformations(path, MoccCodeGeneratorTestPubliExtended.mocc_model_adas());
+
+//		testTransformations(path, MoccCodeGeneratorTestPubliExtended.mocc_model_generated());
+
+//		testTransformations(path, mocc_model_nouveau_mode_mutant1());
+//		testTransformations(path, mocc_model_nouveau_mode_mutant2());
+//		testTransformations(path, mocc_model_nouveau_mode_mutant3());
+
+
+//		testTransformations(path, mocc_model_basic_mode());
+//		testTransformations(path, mocc_model_automotive());
+//
+//		testTransformations(path, mocc_model_adas());
+//		testTransformations(path, mocc_model_adas_mode());
 
 //		testTransformations(path, mocc_model_fusion_1());
 //		testTransformations(path, mocc_model_fusion_2());

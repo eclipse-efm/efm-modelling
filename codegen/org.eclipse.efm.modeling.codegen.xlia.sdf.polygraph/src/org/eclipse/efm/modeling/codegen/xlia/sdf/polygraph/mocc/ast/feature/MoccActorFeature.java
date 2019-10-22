@@ -34,6 +34,10 @@ public class MoccActorFeature {
 
 	public final boolean hasInput;
 	public final boolean hasInputMode;
+	public final boolean hasInputDecidingMode;
+	
+	public final boolean requiresModeProcessor;
+	
 	public final boolean hasIntegerInput;
 	public final boolean hasRationalInput;
 
@@ -42,12 +46,18 @@ public class MoccActorFeature {
 
 
 	public final boolean hasOutput;
+	public final boolean hasOutputMode;
+	public final boolean hasOutputDecidingMode;
+	
 	public final boolean hasRationalOutput;
 
 	public final boolean isPureInteger;
 
 	public final int inputModeCount;
+	public final int inputDecidingModeCount;
+
 	public final int outputModeCount;
+	public final int outputDecidingModeCount;
 
 
 	public boolean consistency;
@@ -82,6 +92,8 @@ public class MoccActorFeature {
 		boolean hasIntegerRate = false;
 		boolean hasRationalRate = false;
 		int inputModeCount = 0;
+		int inputDecidingModeCount = 0;
+
 		for( final MoccPort moccPort : actor.getInputPort() ) {
 			if( moccPort.isRational() ) {
 				hasRationalInput = true;
@@ -109,19 +121,30 @@ public class MoccActorFeature {
 
 			if( moccPort.isInputMode() ) {
 				++inputModeCount;
+
+				if( moccPort.isDeciding() ) {
+					++inputDecidingModeCount;
+				}
 			}
 		}
-		this.hasInputMode   = (inputModeCount > 0);
-
 		this.hasIntegerInput  = hasIntegerInput;
 		this.hasRationalInput = hasRationalInput;
 		this.hasIntegerRate   = hasIntegerRate;
 		this.hasRationalRate  = hasRationalRate;
-		this.inputModeCount   = inputModeCount;
+
+		this.inputModeCount        = inputModeCount;
+		this.inputDecidingModeCount= inputDecidingModeCount;
+
+		this.hasInputMode           = (inputModeCount > 0);
+		this.hasInputDecidingMode   = (inputDecidingModeCount > 0);
+
+		this.requiresModeProcessor  = isModeProcessor && hasInputDecidingMode;
 
 		this.hasOutput = ( ! actor.getOutputPort().isEmpty() );
 		boolean hasRationalOutput = false;
 		int outputModeCount = 0;
+		int outputDecidingModeCount = 0;
+
 		for( final MoccPort moccPort : actor.getOutputPort() ) {
 			if( moccPort.isRational() ) {
 				hasRationalOutput = true;
@@ -136,10 +159,19 @@ public class MoccActorFeature {
 
 			if( moccPort.isOutputMode() ) {
 				++outputModeCount;
+
+				if( moccPort.isDeciding() ) {
+					++outputDecidingModeCount;
+				}
 			}
 		}
 		this.hasRationalOutput = hasRationalOutput;
 		this.outputModeCount   = outputModeCount;
+		this.outputDecidingModeCount   = outputDecidingModeCount;
+
+		this.hasOutputMode           = (outputModeCount > 0);
+		this.hasOutputDecidingMode   = (outputDecidingModeCount > 0);
+
 
 		this.isPureInteger = ! (this.hasRationalInput || this.hasRationalOutput);
 

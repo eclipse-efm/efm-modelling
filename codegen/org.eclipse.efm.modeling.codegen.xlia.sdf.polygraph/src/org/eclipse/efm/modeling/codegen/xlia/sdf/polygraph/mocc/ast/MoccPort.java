@@ -24,6 +24,8 @@ public class MoccPort {
 
 	protected final String name;
 
+	protected boolean isDeciding;
+
 	public int rate;
 
 	protected final int rateDenominator;
@@ -33,7 +35,9 @@ public class MoccPort {
 	protected MoccChannel channel;
 
 	public MoccPort(final MoccActor actor, final Direction direction,
-			final String name, final int rate, final int rateDenominator) {
+			final String name, final boolean isDeciding,
+			final int rate, final int rateDenominator)
+	{
 		super();
 
 		assert (actor != null) : "Unexpected a null MoccActor";
@@ -41,6 +45,8 @@ public class MoccPort {
 
 		this.direction = direction;
 		this.name = name;
+
+		this.isDeciding  = isDeciding;
 
 		this.rate = rate;
 		this.rateDenominator = rateDenominator;
@@ -51,9 +57,10 @@ public class MoccPort {
 		actor.addPort( this );
 	}
 
-	public MoccPort(final MoccActor actor,
-			final Direction direction, final String name, final int rate) {
-		this(actor, direction, name, rate, 1);
+	public MoccPort(final MoccActor actor, final Direction direction,
+			final String name, final boolean isDeciding, final int rate)
+	{
+		this(actor, direction, name, isDeciding, rate, 1);
 	}
 
 
@@ -67,8 +74,9 @@ public class MoccPort {
 	}
 
 	public boolean isInputMode() {
-		return( (direction == Direction.INPUT)
-				&& (channel.getOutputActor().isModeProducer()) );
+		return( isDeciding
+				&& (direction == Direction.INPUT)
+				&& channel.getOutputActor().isModeProducer() );
 	}
 
 	public MoccActor getModeSelector() {
@@ -89,12 +97,25 @@ public class MoccPort {
 	}
 
 	public boolean isOutputMode() {
-		return( (direction == Direction.OUTPUT) && (actor.isModeProducer()) );
+		return( isDeciding
+				&& (direction == Direction.OUTPUT)
+				&& actor.isModeProducer() );
 	}
 
 	public String getName() {
 		return name;
 	}
+
+	public boolean isDeciding() {
+		return isDeciding;
+	}
+
+	public boolean isDecidingInputMode() {
+		return( isDeciding 
+				&& (direction == Direction.INPUT)
+				&& (channel.getOutputActor().isModeProducer()) );
+	}
+
 
 	public int getRate() {
 		return rate;
@@ -114,6 +135,10 @@ public class MoccPort {
 
 	public boolean hasCycloStaticRate() {
 		return( cycloStaticRate != null );
+	}
+
+	public boolean hasCycloStaticChannel() {
+		return( channel.hasCycloStaticPort() );
 	}
 
 
@@ -256,10 +281,8 @@ public class MoccPort {
 	public void computeCycloStaticOutputRate() {
 		cycloStaticRate = computeRateCSDF(
 				new Rational(rate, rateDenominator),
-				new Rational(0, 1));
-//				new Rational(channel.initialRate, channel.initialRateDenominator));
-
-
+//				new Rational(0, 1));
+				new Rational(channel.initialRate, channel.initialRateDenominator));
 
 //		cycloStaticRate = new int[rateDenominator];
 //		int intTokenCount = 0;
@@ -270,7 +293,6 @@ public class MoccPort {
 //			intTokenCount += cycloStaticRate[i];
 //		}
 	}
-
 
 
 	public MoccChannel getChannel() {
@@ -297,10 +319,10 @@ public class MoccPort {
 
 	public String strRate() {
 		if( isRational() ) {
-			return( "" + rate + "/" + rateDenominator );
+			return( rate + "/" + rateDenominator );
 		}
 		else {
-			return( "" + rate );
+			return( Integer.toString(rate) );
 		}
 	}
 
@@ -313,12 +335,12 @@ public class MoccPort {
 	}
 
 
-
 	@Override
 	public String toString() {
 		final StringBuilder sout = new StringBuilder();
 
 		sout.append(direction.toString().toLowerCase())
+			.append(isDeciding ? " deciding" : "")
 			.append(" port< rate = ").append(strRate());
 
 		if( cycloStaticRate != null ) {

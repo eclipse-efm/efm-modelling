@@ -234,6 +234,17 @@ public class MoccActor {
 		return inputPort;
 	}
 
+	public int decidingPortCount() {
+		int count = 0;
+
+		for (final MoccPort inPort : inputPort) {
+			if( inPort.isDeciding() ) {
+				count += 1;
+			}
+		}
+		return count;
+	}
+
 	public boolean hasInputPort() {
 		return( ! inputPort.isEmpty() );
 	}
@@ -327,25 +338,33 @@ public class MoccActor {
 
 
 	// INPUT PORT
-	public MoccPort addInputPort(final String name, final int rate) {
-		return( new MoccPort(this, Direction.INPUT, name, rate) );
+	public MoccPort addInputPort(final String name,
+			final boolean isDeciding, final int rate)
+	{
+		return( new MoccPort(this, Direction.INPUT, name, isDeciding, rate) );
 	}
 
 	public MoccPort addInputPort(
-			final String name, final int rate, final int rateDenominator) {
+			final String name, final boolean isDeciding,
+			final int rate, final int rateDenominator)
+	{
 		return( new MoccPort(this,
-				Direction.INPUT, name, rate, rateDenominator) );
+				Direction.INPUT, name, isDeciding, rate, rateDenominator) );
 	}
 
 	// OUTPUT PORT
-	public MoccPort addOutputPort(final String name, final int rate) {
-		return( new MoccPort(this, Direction.OUTPUT, name, rate) );
+	public MoccPort addOutputPort(final String name,
+			final boolean isDeciding, final int rate)
+	{
+		return( new MoccPort(this, Direction.OUTPUT, name, isDeciding, rate) );
 	}
 
 	public MoccPort addOutputPort(
-			final String name, final int rate, final int rateDenominator) {
-		return( new MoccPort(this,
-				Direction.OUTPUT, name, rate, rateDenominator) );
+			final String name, final boolean isDeciding,
+			final int rate, final int rateDenominator)
+	{
+		return( new MoccPort(this, Direction.OUTPUT,
+				name, isDeciding, rate, rateDenominator) );
 	}
 
 	// PREDECESSOR /SUCCESSOR

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import java.util.stream.IntStream;
 
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccActor;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccChannel;
@@ -46,16 +47,24 @@ public class MoccSystemFeature {
 
 	public final boolean isPureInteger;
 
+	public final int timedActorCount;
+	public final int phaseActorCount;
+
 	public final boolean hasTimed;
 	public final boolean hasUntimed;
 
 	public int[] repetitions;
+
+	public int firings;
 
 	public final int[] frequencies;
 
 	public final int time_interval;
 	public final int time_period;
 	public final int tick_period;
+
+	private int scheduledStageCount;
+
 
 	public final boolean consistency;
 
@@ -80,8 +89,12 @@ public class MoccSystemFeature {
 		boolean hasRationalOutput = false;
 
 		int timedActorCount = 0;
+		int phaseActorCount = 0;
 
 		final Set< Integer > frequencies = new HashSet<Integer>();
+
+		assert (! system.getActor().isEmpty()) :
+			"Unexpected a MoccSystem without actor";
 
 		// Basic static analysis feature
 		for( final MoccActor actor : system.getActor() ) {
@@ -89,6 +102,10 @@ public class MoccSystemFeature {
 				if( actor.phase < 0 ) {
 					actor.phase = 0;
 				}
+			}
+
+			if( actor.phase > 0 ) {
+				phaseActorCount = phaseActorCount + 1;
 			}
 
 			actor.computeFeature();
@@ -143,6 +160,8 @@ public class MoccSystemFeature {
 
 		this.isPureInteger = ! (this.hasRationalInput || this.hasRationalOutput);
 
+		this.timedActorCount = timedActorCount;
+		this.phaseActorCount = phaseActorCount;
 
 		this.hasTimed = (timedActorCount > 0);
 
@@ -150,6 +169,7 @@ public class MoccSystemFeature {
 
 
 		// Order Actor by causality
+		this.scheduledStageCount = 0;
 		computeScheduleOrder();
 
 		Collections.sort(this.system.getActor(), new Comparator<MoccActor>() {
@@ -173,6 +193,8 @@ public class MoccSystemFeature {
 
 		this.repetitions = computeReptetition();
 
+		this.firings = IntStream.of( this.repetitions ).sum();
+
 		this.frequencies = new int[frequencies.size()];
 		int offset = 0;
 		for( final Integer frequency : frequencies ) {
@@ -192,7 +214,7 @@ public class MoccSystemFeature {
 		else {
 			this.time_interval = 1;
 			this.time_period   = 1;
-			this.tick_period   = 1;
+			this.tick_period   = this.scheduledStageCount + 1;
 //		IntStream.of( this.repetitions ).sum() + 1 - system.getActor().size();
 		}
 
@@ -245,7 +267,7 @@ public class MoccSystemFeature {
 			schedule = Math.max(schedule, sourceActor.schedule);
 		}
 
-		actor.schedule = schedule + 1;
+		this.scheduledStageCount = actor.schedule = schedule + 1;
 	}
 
 	private void propagateScheduleOrder(final MoccActor actor) {

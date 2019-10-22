@@ -14,4 +14,6 @@ Automatic-Module-Name: org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
 Export-Package: org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.generator,
- org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.test
+ org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.xlia,
+ org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.test,
+ org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.test.publi

@@ -17,7 +17,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.efm.ecore.formalml.XliaModel;
 import org.eclipse.efm.formalml.ecore.factory.XLIAGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccActor;
@@ -29,13 +33,14 @@ public class Generator {
 
 	public static final String XLIA_EXTENSION = "xlia";
 
-	
-	public static XliaModel moccAst2xlia(
-			final MoccSystem moccSystem, final boolean conformance)
+
+	public static XliaModel moccAst2xlia(final MoccSystem moccSystem,
+			final boolean conformance, final boolean traceGeneration)
 	{
 		if ( moccSystem != null ) {
 			// Transform MoCC AST to xLIA Model
-			final MoCC2XLIA mocc2xlia = new MoCC2XLIA(moccSystem, conformance);
+			final MoCC2XLIA mocc2xlia =
+					new MoCC2XLIA(moccSystem, conformance, traceGeneration);
 			mocc2xlia.transform();
 
 			return mocc2xlia.xliaModel;
@@ -45,7 +50,27 @@ public class Generator {
 	}
 
 
-	public static void execute(final IPath path,
+	public static void transformModel(
+			final IPath path, final MoccSystem moccSystem)
+	{
+		final MoCC2XLIA moccGenerator = new MoCC2XLIA(moccSystem, false, false);
+
+		moccGenerator.transform();
+
+		final XliaModel xliaModel = moccGenerator.xliaModel;
+
+		final IPath filePath =
+				path.append(moccSystem.getName()).addFileExtension("xlia");
+
+		if( xliaModel != null ) {
+			write(filePath, moccSystem, xliaModel);
+		}
+		else {
+			write(filePath, moccSystem);
+		}
+	}
+
+	public static void write(final IPath path,
 			final MoccSystem moccSystem, final XliaModel xliaModel)
 	{
 		try {
@@ -54,6 +79,12 @@ public class Generator {
 
 			final CharSequence strXLIA =
 					XLIAGenerator.generateModel(xliaModel);
+
+			writer.write("\n/*\n");
+
+			writer.write(moccSystem.toAbstract());
+
+			writer.write("\n*/\n\n");
 
 			writer.write(strXLIA.toString());
 
@@ -69,7 +100,7 @@ public class Generator {
 		}
 	}
 
-	public static void execute(final IPath path, final MoccSystem moccSystem)
+	public static void write(final IPath path, final MoccSystem moccSystem)
 	{
 		try {
 			final FileWriter buffer = new FileWriter( path.toOSString() );
@@ -122,5 +153,23 @@ public class Generator {
 		}
 	}
 
+	/*
+	 * Refresh the Resource Navigator view
+	 */
+	public static void doRefreshWorkspace(final IResource resource, final boolean forced) {
+		try {
+			if( resource != null ) {
+				resource.getProject().refreshLocal(
+    					IResource.DEPTH_INFINITE, new NullProgressMonitor());
+			}
+			else if( forced ) {
+				ResourcesPlugin.getWorkspace().getRoot().refreshLocal(
+						IResource.DEPTH_INFINITE, new NullProgressMonitor());
+			}
+		}
+		catch(final CoreException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

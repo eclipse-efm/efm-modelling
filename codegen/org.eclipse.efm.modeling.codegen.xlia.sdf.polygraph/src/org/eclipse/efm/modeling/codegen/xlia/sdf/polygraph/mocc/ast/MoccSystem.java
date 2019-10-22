@@ -110,29 +110,32 @@ public class MoccSystem {
 		channels.add(channel);
 	}
 
-	public MoccChannel addChannel(final String name, final MoccPort outputPort,
+	public MoccChannel addChannel(final boolean isDeciding,
+			final String name, final MoccPort outputPort,
 			final int initialRate, final int initialRateDenominator,
 			final MoccMode initialMode, final MoccPort inputPort)
 	{
-		return new MoccChannel(this, name, outputPort, initialMode,
-				initialRate, initialRateDenominator, inputPort);
+		return new MoccChannel(this, name, isDeciding, outputPort,
+				initialMode, initialRate, initialRateDenominator, inputPort);
 	}
 
-	public MoccChannel addChannel(final String name,
+	public MoccChannel addChannel(final boolean isDeciding, final String name,
 			final MoccPort outputPort, final int initialRate,
 			final int initialRateDenominator, final MoccPort inputPort)
 	{
-		return new MoccChannel(this, name, outputPort,
+		return new MoccChannel(this, name, isDeciding, outputPort,
 				initialRate, initialRateDenominator, inputPort);
 	}
 
-	public MoccChannel addChannel(final String name, final MoccPort outputPort,
+	public MoccChannel addChannel(final boolean isDeciding,
+			final String name, final MoccPort outputPort,
 			final int initialRate, final MoccPort inputPort)
 	{
-		return new MoccChannel(this, name, outputPort, initialRate, inputPort);
+		return new MoccChannel(this, name,
+				isDeciding, outputPort, initialRate, inputPort);
 	}
 
-//	public MoccChannel addChannel(
+//	public MoccChannel addChannel(final boolean isDeciding,
 //			final MoccActor outputActor, final String outPortName, final int outRate,
 //			final MoccActor inputActor, final String inPortName, final int inRate)
 //	{
@@ -144,7 +147,7 @@ public class MoccSystem {
 //				outPort, 0, inPort);
 //	}
 //
-//	public MoccChannel addChannel(final MoccActor outputActor,
+//	public MoccChannel addChannel(final boolean isDeciding, final MoccActor outputActor,
 //			final String outPortName, final int outRate, final int outRateDenom,
 //			final MoccActor inputActor, final String inPortName, final int inRate)
 //	{
@@ -157,7 +160,7 @@ public class MoccSystem {
 //				outPort, 0, inPort);
 //	}
 //
-//	public MoccChannel addChannel(
+//	public MoccChannel addChannel(final boolean isDeciding,
 //			final MoccActor outputActor, final String outPortName,
 //			final int outRate, final MoccActor inputActor,
 //			final String inPortName, final int inRate, final int inRateDenom)
@@ -172,7 +175,7 @@ public class MoccSystem {
 //	}
 //
 //
-//	public MoccChannel addChannel(
+//	public MoccChannel addChannel(final boolean isDeciding,
 //			final int initialRate, final int initialRateDenominator,
 //			final MoccActor outputActor, final String outPortName,
 //			final int outRate, final int outRateDenominator,
@@ -187,7 +190,7 @@ public class MoccSystem {
 //				outPort, initialRate, initialRateDenominator, inPort);
 //	}
 //
-//	public MoccChannel addChannel(final int initialRate,
+//	public MoccChannel addChannel(final boolean isDeciding, final int initialRate,
 //			final MoccActor outputActor, final String outPortName,
 //			final int outRate, final MoccActor inputActor,
 //			final String inPortName, final int inRate)
@@ -196,141 +199,163 @@ public class MoccSystem {
 //				outRate, 1, inputActor, inPortName, inRate);
 //	}
 
-	public MoccChannel addChannel(
+	public MoccChannel addChannel(final boolean isDeciding,
 			final MoccActor outputActor, final int outRate,
 			final MoccActor inputActor, final int inRate)
 	{
 		final MoccPort outPort = outputActor.addOutputPort(
-				"to" + inputActor.getName(), outRate);
+				"to" + inputActor.getName(), isDeciding, outRate);
 
 		final MoccPort inPort  = inputActor.addInputPort(
-				"from" + outputActor.getName(), inRate);
+				"from" + outputActor.getName(), isDeciding, inRate);
 
-		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+		return addChannel(isDeciding,
+				outputActor.getName() + "_" + inputActor.getName(),
 				outPort, 0, inPort);
 	}
 
-	public MoccChannel addChannel(final MoccActor outputActor,
+	public MoccChannel addChannel(final boolean isDeciding,
+			final MoccActor outputActor,
 			final int outRate, final int outRateDenom,
 			final MoccActor inputActor, final int inRate)
 	{
 		final MoccPort outPort = outputActor.addOutputPort(
-				"to" + inputActor.getName(), outRate, outRateDenom);
+				"to" + inputActor.getName(), isDeciding, outRate, outRateDenom);
 
 		final MoccPort inPort  = inputActor.addInputPort(
-				"from" + outputActor.getName(), inRate);
+				"from" + outputActor.getName(), isDeciding, inRate);
 
-		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+		return addChannel(isDeciding,
+				outputActor.getName() + "_" + inputActor.getName(),
 				outPort, 0, inPort);
 	}
 
-	public MoccChannel addChannel(
+	public MoccChannel addChannel(final boolean isDeciding,
 			final MoccActor outputActor, final String outPortName,
 			final int outRate, final MoccActor inputActor,
 			final String inPortName, final int inRate, final int inRateDenom)
 	{
-		final MoccPort outPort = outputActor.addOutputPort(outPortName, outRate);
+		final MoccPort outPort = outputActor.addOutputPort(
+				outPortName, isDeciding, outRate);
 
-		final MoccPort inPort =
-				inputActor.addInputPort(inPortName, inRate, inRateDenom);
+		final MoccPort inPort = inputActor.addInputPort(
+				inPortName, isDeciding, inRate, inRateDenom);
 
-		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+		return addChannel(isDeciding,
+				outputActor.getName() + "_" + inputActor.getName(),
 				outPort, 0, inPort);
 	}
 
 
-	public MoccChannel addChannel(
+	public MoccChannel addChannel(final boolean isDeciding,
 			final MoccActor outputActor, final int outRate,
 			final MoccActor inputActor, final int inRate, final int inRateDenom)
 	{
 		final MoccPort outPort = outputActor.addOutputPort(
-				"to" + inputActor.getName(), outRate);
+				"to" + inputActor.getName(), isDeciding, outRate);
 
 		final MoccPort inPort = inputActor.addInputPort(
-				"from" + outputActor.getName(), inRate, inRateDenom);
+				"from" + outputActor.getName(), isDeciding, inRate, inRateDenom);
 
-		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+		return addChannel(isDeciding,
+				outputActor.getName() + "_" + inputActor.getName(),
 				outPort, 0, inPort);
 	}
 
 
-	public MoccChannel addChannel(
+	public MoccChannel addChannel(final boolean isDeciding,
 			final int initialRate, final int initialRateDenominator,
 			final MoccMode initialMode,
 			final MoccActor outputActor, final int outRate,
 			final MoccActor inputActor, final int inRate, final int inRateDenom)
 	{
 		final MoccPort outPort = outputActor.addOutputPort(
-				"to" + inputActor.getName(), outRate);
+				"to" + inputActor.getName(), isDeciding, outRate);
 
 		final MoccPort inPort = inputActor.addInputPort(
-				"from" + outputActor.getName(), inRate, inRateDenom);
+				"from" + outputActor.getName(), isDeciding, inRate, inRateDenom);
 
-		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+		return addChannel(isDeciding,
+				outputActor.getName() + "_" + inputActor.getName(),
 				outPort, initialRate, initialRateDenominator, initialMode, inPort);
 	}
 
-	public MoccChannel addChannel(
+	public MoccChannel addChannel(final boolean isDeciding,
 			final int initialRate, final int initialRateDenominator,
 			final MoccActor outputActor, final int outRate,
 			final MoccActor inputActor, final int inRate, final int inRateDenom)
 	{
 		final MoccPort outPort = outputActor.addOutputPort(
-				"to" + inputActor.getName(), outRate);
+				"to" + inputActor.getName(), isDeciding, outRate);
 
 		final MoccPort inPort = inputActor.addInputPort(
-				"from" + outputActor.getName(), inRate, inRateDenom);
+				"from" + outputActor.getName(), isDeciding, inRate, inRateDenom);
 
-		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+		return addChannel(isDeciding,
+				outputActor.getName() + "_" + inputActor.getName(),
 				outPort, initialRate, initialRateDenominator, inPort);
 	}
 
 
-	public MoccChannel addChannel(
+	public MoccChannel addChannel(final boolean isDeciding,
 			final int initialRate, final int initialRateDenominator,
 			final MoccMode initialMode, final MoccActor outputActor,
 			final int outRate, final int outRateDenominator,
 			final MoccActor inputActor, final int inRate)
 	{
 		final MoccPort outPort = outputActor.addOutputPort(
-				"to" + inputActor.getName(), outRate, outRateDenominator);
+				"to" + inputActor.getName(),
+				isDeciding, outRate, outRateDenominator);
 
 		final MoccPort inPort  = inputActor.addInputPort(
-				"from" + outputActor.getName(), inRate);
+				"from" + outputActor.getName(), isDeciding, inRate);
 
-		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+		return addChannel(isDeciding,
+				outputActor.getName() + "_" + inputActor.getName(),
 				outPort, initialRate, initialRateDenominator, initialMode, inPort);
 	}
 
-	public MoccChannel addChannel(final int initialRate,
-			final int initialRateDenominator, final MoccActor outputActor,
+	public MoccChannel addChannel(final boolean isDeciding,
+			final int initialRate, final int initialRateDenominator,
+			final MoccActor outputActor,
 			final int outRate, final int outRateDenominator,
 			final MoccActor inputActor, final int inRate)
 	{
 		final MoccPort outPort = outputActor.addOutputPort(
-				"to" + inputActor.getName(), outRate, outRateDenominator);
+				"to" + inputActor.getName(),
+				isDeciding, outRate, outRateDenominator);
 
 		final MoccPort inPort  = inputActor.addInputPort(
-				"from" + outputActor.getName(), inRate);
+				"from" + outputActor.getName(), isDeciding, inRate);
 
-		return addChannel(outputActor.getName() + "_" + inputActor.getName(),
+		return addChannel(isDeciding,
+				outputActor.getName() + "_" + inputActor.getName(),
 				outPort, initialRate, initialRateDenominator, inPort);
 	}
 
-	public MoccChannel addChannel(
+	public MoccChannel addChannel(final boolean isDeciding,
 			final int initialRate, final MoccActor outputActor,
 			final int outRate, final MoccActor inputActor, final int inRate)
 	{
-		return addChannel(initialRate, 1,
+		return addChannel(isDeciding, initialRate, 1,
 				outputActor, outRate, 1, inputActor, inRate);
 	}
 
-	public MoccChannel addChannel(
+	public MoccChannel addChannel(final boolean isDeciding,
+			final int initialRate, final MoccActor outputActor,
+			final int outRate, final int outRateDenominator,
+			final MoccActor inputActor, final int inRate)
+	{
+		return addChannel(isDeciding, initialRate, 1,
+				outputActor, outRate, outRateDenominator, inputActor, inRate);
+	}
+
+	public MoccChannel addChannel(final boolean isDeciding,
 			final int initialRate, final MoccMode initialMode,
 			final MoccActor outputActor, final int outRate,
 			final MoccActor inputActor, final int inRate)
 	{
-		return addChannel(initialRate, 1, initialMode,
+		return addChannel(isDeciding, initialRate, 1, initialMode,
 				outputActor, outRate, 1, inputActor, inRate);
 	}
 
@@ -353,6 +378,58 @@ public class MoccSystem {
 //
 //		return FEATURE;
 //	}
+
+
+	public String toAbstract() {
+		final StringBuilder sout = new StringBuilder();
+
+		sout.append("// The Polygraph System Graph Abstract\n")
+			.append("system ").append(name).append(" {")
+			.append("\n")
+			.append('\t').append("actor       = ").append(getActor().size())
+			.append('\n')
+			.append('\t').append("channel     = ").append(getChannel().size())
+			.append('\n');
+
+
+		if( FEATURE != null ) {
+			sout.append('\t').append("timed       = ")
+					.append(FEATURE.timedActorCount).append('\n')
+				.append('\t').append("phase       = ")
+					.append(FEATURE.phaseActorCount).append('\n')
+				.append('\t').append("consistency = ")
+					.append(FEATURE.consistency).append('\n');
+
+			if( FEATURE.consistency ) {
+				sout.append('\t')
+					.append("frequencies = " )
+						.append(Arrays.toString(FEATURE.frequencies)).append('\n')
+					.append('\t').append("time        = +" )
+						.append(FEATURE.time_interval).append('\n')
+					.append('\t').append("time_period = " )
+						.append(FEATURE.time_period).append('\n')
+					.append('\t').append("tick_period = " )
+						.append(FEATURE.tick_period).append('\n')
+					.append('\t').append("repetition  = " )
+						.append(Arrays.toString(FEATURE.repetitions))
+						.append('\n')
+					.append('\t').append("firings     = " )
+						.append(FEATURE.firings).append('\n')
+					.append('\n');
+
+				for( final MoccActor actor : getActor() ) {
+					sout.append('\t').append(actor.FEATURE.strActivation())
+						.append(' ').append(actor.getName())
+						.append( actor.isTimed() ? "*" : "" )
+						.append('\n');
+				}
+			}
+		}
+
+		sout.append('}');
+
+		return sout.toString();
+	}
 
 
 	@Override
@@ -416,15 +493,27 @@ public class MoccSystem {
 			sout.append(']').append('\n');
 
 			sout.append('\n')
+				.append('\t').append("timed_actor = " )
+					.append(FEATURE.timedActorCount).append(" / ")
+					.append(actors.size()).append('\n')
 				.append('\t').append("frequencies = " )
 					.append(Arrays.toString(FEATURE.frequencies)).append('\n')
+
+				.append('\t').append("phase       = ")
+					.append(FEATURE.phaseActorCount).append(" / ")
+					.append(actors.size()).append('\n')
+
 				.append('\t').append("time        = +" )
 					.append(FEATURE.time_interval).append('\n')
-				.append('\t').append("period      = " )
+				.append('\t').append("time_period = " )
 					.append(FEATURE.time_period).append('\n')
+				.append('\t').append("tick_period = " )
+					.append(FEATURE.tick_period).append('\n')
 				.append('\t').append("repetition  = " )
 					.append(Arrays.toString(FEATURE.repetitions))
 					.append('\n')
+				.append('\t').append("firings     = " )
+					.append(FEATURE.firings).append('\n')
 				.append('\n');
 
 			for( final MoccActor actor : getActor() ) {
@@ -436,11 +525,11 @@ public class MoccSystem {
 			sout.append('\n');
 		}
 
-		sout.append('\t').append("schedule {").append('\n');
-
-		sout.append('\t').append('}').append('\n');
-
-		sout.append('}').append('\n');
+//		sout.append('\t').append("schedule {").append('\n');
+//
+//		sout.append('\t').append('}').append('\n');
+//
+//		sout.append('}').append('\n');
 
 		sout.append('\n').append('}');
 

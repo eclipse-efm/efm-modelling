@@ -18,6 +18,8 @@ public class MoccChannel {
 
 	protected String name;
 
+	protected boolean isDeciding;
+
 	protected final MoccPort outputPort;
 
 	protected final MoccMode initialMode;
@@ -30,7 +32,8 @@ public class MoccChannel {
 	protected final MoccPort inputPort;
 
 
-	public MoccChannel(final MoccSystem system, final String name,
+	public MoccChannel(final MoccSystem system,
+			final String name, final boolean isDeciding,
 			final MoccPort outputPort, final MoccMode initialMode,
 			final int initialRate, final int initialRateDenominator,
 			final MoccPort inputPort)
@@ -41,6 +44,8 @@ public class MoccChannel {
 		this.system = system;
 
 		this.name = name;
+
+		this.isDeciding = isDeciding;
 
 		this.outputPort = outputPort;
 
@@ -56,32 +61,38 @@ public class MoccChannel {
 		system.addChannel( this );
 	}
 
-	public MoccChannel(final MoccSystem system, final String name,
+	public MoccChannel(final MoccSystem system,
+			final String name, final boolean isDeciding,
 			final MoccPort outputPort, final MoccMode initialMode,
 			final int initialRate, final MoccPort inputPort)
 	{
-		this(system, name, outputPort, initialMode, initialRate, 1, inputPort);
+		this(system, name, isDeciding,
+				outputPort, initialMode, initialRate, 1, inputPort);
 	}
 
 	public MoccChannel(final MoccSystem system, final String name,
+			final boolean isDeciding,
 			final MoccPort outputPort, final int initialRate,
 			final int initialRateDenominator, final MoccPort inputPort)
 	{
-		this(system, name, outputPort, system.NOMINAL,
+		this(system, name, isDeciding, outputPort, system.NOMINAL,
 				initialRate, initialRateDenominator, inputPort);
 	}
 
 	public MoccChannel(final MoccSystem system, final String name,
-			final MoccPort outputPort, final int initialRate, final MoccPort inputPort)
+			final boolean isDeciding, final MoccPort outputPort,
+			final int initialRate, final MoccPort inputPort)
 	{
-		this(system, name, outputPort,
+		this(system, name, isDeciding, outputPort,
 				system.NOMINAL, initialRate, 1, inputPort);
 	}
 
 	public MoccChannel(final MoccSystem system, final String name,
-			final MoccPort outputPort, final MoccPort inputPort)
+			final boolean isDeciding, final MoccPort outputPort,
+			final MoccPort inputPort)
 	{
-		this(system, name, outputPort, system.NOMINAL, 0, 1, inputPort);
+		this(system, name, isDeciding,
+				outputPort, system.NOMINAL, 0, 1, inputPort);
 	}
 
 
@@ -116,7 +127,7 @@ public class MoccChannel {
 		return inputPort.getActor();
 	}
 
-	// Initial mode
+	// Initial rate & mode
 	public MoccMode getInitialMode() {
 		return initialMode;
 	}
@@ -149,12 +160,18 @@ public class MoccChannel {
 	}
 
 
+	public boolean hasCycloStaticPort() {
+		return( inputPort.hasCycloStaticRate()
+			|| outputPort.hasCycloStaticRate() );
+	}
+
+
 	public String strInitialRate() {
 		if( hasRationalRate() ) {
-			return( "" + initialRate + "/" + initialRateDenominator );
+			return( initialRate + "/" + initialRateDenominator );
 		}
 		else {
-			return( "" + initialRate );
+			return( Integer.toString(initialRate) );
 		}
 	}
 
@@ -167,6 +184,8 @@ public class MoccChannel {
 
 		sout.append(' ').append(name).append(" {")
 			.append('\n')
+			.append('\t').append("deciding = ").append(isDeciding).append('\n')
+
 			.append('\t').append("output<").append(outputPort.strRate());
 		if( outputPort.cycloStaticRate != null ) {
 			sout.append(" , ");
