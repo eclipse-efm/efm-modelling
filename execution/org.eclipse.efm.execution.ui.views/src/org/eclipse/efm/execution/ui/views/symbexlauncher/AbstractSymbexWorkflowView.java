@@ -148,7 +148,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart
 		}
 		message_image_display.setImage(
 				ImageResources.getImage(
-						ImageResources.IMAGE__QUICKASSIST_ELCL16_ICON));
+						ImageResources.IMG_ELCL16_QUICKASSIST));
 
 		message_display_parentcomposite.layout();
 	}
@@ -160,7 +160,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart
 
 			message_image_display.setImage(
 					ImageResources.getImage(
-							ImageResources.IMAGE__WARNING_ICON));
+							ImageResources.IMG_ELCL16_WARNING));
 		} else {
 			message_text_display.setText("");
 			message_image_display.setImage(null);
@@ -176,7 +176,7 @@ public abstract class AbstractSymbexWorkflowView extends ViewPart
 
 			message_image_display.setImage(
 					ImageResources.getImage(
-							ImageResources.IMAGE__ERROR_ICON));
+							ImageResources.IMG_ELCL16_ERROR));
 		} else {
 			message_text_display.setText("");
 			message_image_display.setImage(null);

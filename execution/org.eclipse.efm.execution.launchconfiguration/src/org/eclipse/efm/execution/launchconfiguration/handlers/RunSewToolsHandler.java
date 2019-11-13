@@ -17,6 +17,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -98,16 +99,22 @@ public class RunSewToolsHandler extends AbstractHandler {
 	}
 
 
-	private Object executepolygraphsLivenessChecker(final IContainer container) {
+	private Object executePolygraphsLivenessChecker(final IContainer container) {
 		if( container != null ) {
 			boolean hasXLIA = false;
 			try {
 				for( final IResource resource : container.members() ) {
-					if( (resource instanceof IFile)
-						&& "xlia".equals(resource.getFileExtension()) )
+					if( resource instanceof IFile )
 					{
-						hasXLIA = true;
-						break;
+						if( "xlia".equals(resource.getFileExtension()) )
+						{
+							hasXLIA = true;
+							break;
+						}
+					}
+					else if( resource instanceof IFolder )
+					{
+						executePolygraphsLivenessChecker((IFolder) resource);
 					}
 				}
 			}
@@ -145,7 +152,7 @@ public class RunSewToolsHandler extends AbstractHandler {
 				}
 			}
 			else if( selObj instanceof IContainer ) {
-				return executepolygraphsLivenessChecker((IContainer) selObj);
+				return executePolygraphsLivenessChecker((IContainer) selObj);
 			}
 		}
 

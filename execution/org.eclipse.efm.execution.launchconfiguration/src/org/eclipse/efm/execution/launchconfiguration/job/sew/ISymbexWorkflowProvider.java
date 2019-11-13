@@ -53,8 +53,10 @@ public interface ISymbexWorkflowProvider {
 	}
 
 	default String getTaskName() {
-		return index() + " / " + count() + " : " +
-				WorkflowFileUtils.makeRootRelativeToWorkspacePath(getXliaModelPath());
+		final IPath path = getXliaModelPath();
+		return index() + " / " + count() + " : " + ( (path != null)?
+				WorkflowFileUtils.makeRootRelativeToWorkspacePath(path)
+				: getJobName() );
 	}
 
 	default String getProcessName() {
@@ -134,6 +136,8 @@ public interface ISymbexWorkflowProvider {
 	void analyzeReport(String line);
 
 	void reportCoverage(String coverage);
+
+	void setError();
 
 	/*
 	 * SYMBEX VERDICT

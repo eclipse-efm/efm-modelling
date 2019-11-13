@@ -35,9 +35,9 @@ public class MoccActorFeature {
 	public final boolean hasInput;
 	public final boolean hasInputMode;
 	public final boolean hasInputDecidingMode;
-	
+
 	public final boolean requiresModeProcessor;
-	
+
 	public final boolean hasIntegerInput;
 	public final boolean hasRationalInput;
 
@@ -48,7 +48,9 @@ public class MoccActorFeature {
 	public final boolean hasOutput;
 	public final boolean hasOutputMode;
 	public final boolean hasOutputDecidingMode;
-	
+
+	public final boolean hasInteraction;
+
 	public final boolean hasRationalOutput;
 
 	public final boolean isPureInteger;
@@ -63,6 +65,8 @@ public class MoccActorFeature {
 	public boolean consistency;
 
 	public int repetition;
+
+	public boolean isExecutable;
 
 	public boolean activation[];
 
@@ -172,6 +176,7 @@ public class MoccActorFeature {
 		this.hasOutputMode           = (outputModeCount > 0);
 		this.hasOutputDecidingMode   = (outputDecidingModeCount > 0);
 
+		this.hasInteraction = this.hasInput || this.hasOutput;
 
 		this.isPureInteger = ! (this.hasRationalInput || this.hasRationalOutput);
 
@@ -179,21 +184,24 @@ public class MoccActorFeature {
 
 		this.repetition = -1;
 
-		this.activation = null;
+		this.isExecutable = true;
+		this.activation   = null;
 	}
 
 
 	public void computeActivation(final MoccSystemFeature moccSystemFeature) {
+		this.isExecutable = (this.repetition > 0) && hasInteraction;
+
 		this.activation = new boolean[ moccSystemFeature.tick_period ];
 
 		if( isTimed && consistency ) {
-			final int period = this.activation.length / this.repetition;
+			final int period = this.activation.length / Math.abs(this.repetition);
 
 			final int phase = this.actor.getPhase();
 
 			for( int tick = 0 ; tick < this.activation.length ; tick++ ) {
 				if( phase == (tick % period ) ) {
-					this.activation[tick] = true;
+					this.activation[tick] = this.isExecutable;
 				}
 				else {
 					this.activation[tick] = false;
@@ -202,7 +210,7 @@ public class MoccActorFeature {
 		}
 		else {
 			for( int tick = 0 ; tick < this.activation.length ; tick++ ) {
-				this.activation[tick] = true;
+				this.activation[tick] = this.isExecutable;
 			}
 		}
 	}
@@ -211,8 +219,15 @@ public class MoccActorFeature {
 	public String strActivation() {
 		if( activation != null ) {
 			final StringBuilder sout = new StringBuilder("[");
-			for( int tick = 0 ; tick < activation.length ; tick++ ) {
-				sout.append(" ").append( this.activation[tick] ? 1 : 0 );
+			if( isExecutable ) {
+				for( int tick = 0 ; tick < activation.length ; tick++ ) {
+					sout.append(" ").append( this.activation[tick] ? 1 : 0 );
+				}
+			}
+			else {
+				for( int tick = 0 ; tick < activation.length ; tick++ ) {
+					sout.append(" _");
+				}
 			}
 			sout.append(" ]");
 

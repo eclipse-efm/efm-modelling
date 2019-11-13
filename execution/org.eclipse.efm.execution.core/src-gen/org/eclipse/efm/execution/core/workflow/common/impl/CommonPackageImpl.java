@@ -779,6 +779,26 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getSymbexOption_ConstraintSolver() {
+		return (EAttribute)symbexOptionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getSymbexOption_RawOptions() {
+		return (EAttribute)symbexOptionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getShellMode() {
 		return shellModeEClass;
 	}
@@ -1775,6 +1795,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		createEAttribute(manifestEClass, MANIFEST__AUTOSTART);
 
 		symbexOptionEClass = createEClass(SYMBEX_OPTION);
+		createEAttribute(symbexOptionEClass, SYMBEX_OPTION__CONSTRAINT_SOLVER);
+		createEAttribute(symbexOptionEClass, SYMBEX_OPTION__RAW_OPTIONS);
 
 		shellModeEClass = createEClass(SHELL_MODE);
 		createEAttribute(shellModeEClass, SHELL_MODE__STOP);
@@ -1962,6 +1984,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		initEAttribute(getManifest_Autostart(), ecorePackage.getEBoolean(), "autostart", null, 1, 1, Manifest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(symbexOptionEClass, SymbexOption.class, "SymbexOption", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSymbexOption_ConstraintSolver(), this.getSolverKind(), "constraintSolver", "CVC4", 0, 1, SymbexOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSymbexOption_RawOptions(), ecorePackage.getEString(), "rawOptions", null, 0, 1, SymbexOption.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(shellModeEClass, ShellMode.class, "ShellMode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getShellMode_Stop(), ecorePackage.getEString(), "stop", "\"stop.symbex\"", 0, 1, ShellMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

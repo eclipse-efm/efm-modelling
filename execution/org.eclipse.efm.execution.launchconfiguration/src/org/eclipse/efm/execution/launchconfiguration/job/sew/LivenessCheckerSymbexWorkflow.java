@@ -53,6 +53,7 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 
 	protected boolean fLivenessFlag;
 
+	protected long fWellFormedCount;
 	protected long fConsistentCount;
 	protected long fLivenessCount;
 
@@ -98,6 +99,7 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 
 		this.fLivenessFlag = false;
 
+		this.fWellFormedCount = 0;
 		this.fConsistentCount = 0;
 		this.fLivenessCount = 0;
 
@@ -245,6 +247,11 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 		return true;
 	}
 
+	@Override
+	public boolean isConsistent() {
+		return this.fWellFormednessFlag && super.isConsistent();
+	}
+
 	/*
 	 * SYMBEX WORKFLOW
 	 */
@@ -310,6 +317,8 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 
     final static Pattern PATTERN_PHASE   = Pattern.compile("phase\\s*=\\s*(\\d+)");
 
+    final static Pattern PATTERN_WELL_FORMED = Pattern.compile("well-formed\\s*=\\s*(\\w+)");
+
     final static Pattern PATTERN_CONSISTENCY = Pattern.compile("consistency\\s*=\\s*(\\w+)");
 
     final static Pattern PATTERN_TICKS   = Pattern.compile("tick_period\\s*=\\s*(\\d+)");
@@ -348,6 +357,9 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 	    			this.fPhaseActorCount = Integer.parseUnsignedInt( matcher.group(1) );
 	    		}
 
+	    		else if( (matcher = PATTERN_WELL_FORMED.matcher(line)).find() ) {
+	    			super.fWellFormednessFlag = Boolean.parseBoolean( matcher.group(1) );
+	    		}
 	    		else if( (matcher = PATTERN_CONSISTENCY.matcher(line)).find() ) {
 	    			super.fConsistencyFlag = Boolean.parseBoolean( matcher.group(1) );
 	    			if( ! super.fConsistencyFlag ) {
@@ -446,15 +458,15 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 		logger.print( "Phase" );
 		logger.print( CSV_SEPARATOR );
 
-		logger.print( "Time" );
+		logger.print( "Execution Time" );
 		logger.print( CSV_SEPARATOR );
 		logger.print( "Liveness" );
 		logger.print( CSV_SEPARATOR );
 		logger.print( "Firings" );
 		logger.print( CSV_SEPARATOR );
-		logger.print( "Tick" );
+		logger.print( "Ticks" );
 		logger.print( CSV_SEPARATOR );
-		logger.print( "MCE" );
+		logger.print( "Min-CE" );
 
 		logger.print( CSV_SEPARATOR );
 		logger.print( "Filename" );
@@ -469,6 +481,10 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 		fLoggerWriter_LIVE.println();
 		fLoggerWriter_NOT.println();
 
+		fLoggerWriter_ALL.print( "Total : " );
+		fLoggerWriter_ALL.println( super.fXliaModelsPath.length );
+		fLoggerWriter_ALL.print( "Well-Formed : " );
+		fLoggerWriter_ALL.println( this.fWellFormedCount );
 		fLoggerWriter_ALL.print( "Consistent : " );
 		fLoggerWriter_ALL.println( this.fConsistentCount );
 		fLoggerWriter_ALL.print( "Live : " );
@@ -515,6 +531,10 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 		super.fXliaModelPath = getXliaModelPath();
 
 		resetExecutionStats();
+
+		super.fConsistencyFlag    = false;
+		super.fWellFormednessFlag = false;
+
 		this.fLivenessFlag = false;
 
 		loadPolygraphInfo(super.fXliaModelPath);
@@ -536,6 +556,13 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 	@Override
 	public void endLoggingSymbex() {
 		System.out.println();
+
+		if( super.fWellFormednessFlag ) {
+			++this.fWellFormedCount;
+		}
+		else {
+			System.out.println( " >> MAL-FORMED << " );
+		}
 
 		if( super.fConsistencyFlag ) {
 
@@ -564,7 +591,7 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 			}
 		}
 		else {
-			fLoggerWriter_ALL.print( " >> INCONSISTENT << " );
+			System.out.println( " >> INCONSISTENT << " );
 		}
 
 		logSymbex( fLoggerWriter_ALL );
@@ -574,35 +601,37 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 	public void logSymbex(final PrintWriter logger) {
 		logger.format( "%5d" , this.fActorCount );
 		logger.print( CSV_SEPARATOR );
-		logger.format( "%5d" , this.fChannelCount );
+		logger.format( "%6d" , this.fChannelCount );
 		logger.print( CSV_SEPARATOR );
-		logger.format( "%5d" , this.fTimedActorCount );
+		logger.format( "%10d" , this.fTimedActorCount );
 		logger.print( CSV_SEPARATOR );
 		logger.format( "%5d" , this.fPhaseActorCount );
 		logger.print( CSV_SEPARATOR );
 
-		logger.format( "%5d" , super.fExecutionTime );
+		logger.format( "%11d" , super.fExecutionTime );
 		logger.print( " ms" );
 		logger.print( CSV_SEPARATOR );
 
 
+
 		if( this.fLivenessFlag ) {
-			logger.format( "%5s" ,"YES" );
+			logger.format( "%8s" ,"YES" );
 			logger.print( CSV_SEPARATOR );
-			logger.format( "%5d" , this.fFiringCount );
+			logger.format( "%7d" , this.fFiringCount );
 			logger.print( CSV_SEPARATOR );
 			logger.format( "%5d" , this.fTickCount );
 			logger.print( CSV_SEPARATOR );
-			logger.format( "%5d" , this.fFiringCount + this.fTickCount );
+			logger.format( "%6d" , this.fFiringCount + this.fTickCount );
 		}
 		else {
-			logger.format( "%5s" , "NO" );
+			logger.format( "%8s" , super.fWellFormednessFlag ?
+					(super.fConsistencyFlag ? "NO" : "INCONS") : "MALFORMED" );
 			logger.print( CSV_SEPARATOR );
-			logger.format( "%5s" , "_" );
+			logger.format( "%7s" , "_" );
 			logger.print( CSV_SEPARATOR );
 			logger.format( "%5d" , super.fExecutionStepCount - 1);
 			logger.print( CSV_SEPARATOR );
-			logger.format( "%5s" , "_" );
+			logger.format( "%6s" , "_" );
 		}
 
 		logger.print( CSV_SEPARATOR );

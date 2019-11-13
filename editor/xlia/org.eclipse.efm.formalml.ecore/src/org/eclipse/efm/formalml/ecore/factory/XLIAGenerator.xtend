@@ -317,7 +317,7 @@ class XLIAGenerator {
 	'''«IF type.typeref !== null»«typeID(type.typeref)»«ELSEIF type.support !== null»«typeID(type.support)»«ENDIF»«multiplicityOf(type)»'''
 	
 	def static dispatch strOfAnonym(CollectionType type)
-	'''«type.container»<«IF type.support !== null»«typeID(type.support)»«IF type.size >= 0», «ENDIF»«ENDIF»«IF type.size >= 0»size: «type.size»«ENDIF»>'''
+	'''«type.container»<«IF type.support !== null»«typeID(type.support)» , «ENDIF»«IF type.size >= 0»size: «type.size»«ELSE»*«ENDIF»>'''
 	
 	
 	def static dispatch strOfAnonym(PrimitiveInstanceType type)

@@ -62,6 +62,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference workflow.ecore#//Serializer/trace"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/folderName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/fileName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/solver"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledNormalization"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledNumerization"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//Serializer/enabledInitialValuesPrinting"/>
@@ -282,7 +283,10 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Manifest/autoconf"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/Manifest/autostart"/>
       </genClasses>
-      <genClasses ecoreClass="workflow.ecore#//common/SymbexOption"/>
+      <genClasses ecoreClass="workflow.ecore#//common/SymbexOption">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/SymbexOption/constraintSolver"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/SymbexOption/rawOptions"/>
+      </genClasses>
       <genClasses image="false" ecoreClass="workflow.ecore#//common/ShellMode">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute workflow.ecore#//common/ShellMode/stop"/>
       </genClasses>

@@ -16,6 +16,7 @@ import org.eclipse.efm.execution.launchconfiguration.job.SymbexJob;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.texteditor.IUpdate;
 
@@ -26,16 +27,15 @@ public class TerminateAllAction extends Action implements IUpdate  {
 
 		setToolTipText("TerminateAll Processes");
 
-		setHoverImageDescriptor(
+		final ImageDescriptor imageDescriptor =
 				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__TERMINATE_ALL_ELCL16_ICON));
+						ImageResources.IMG_ELCL16_TERMINATE_ALL);
 
+		setImageDescriptor(imageDescriptor);
+		setHoverImageDescriptor(imageDescriptor);
 		setDisabledImageDescriptor(
 				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__TERMINATE_ALL_DLCL16_ICON));
-		setImageDescriptor(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__TERMINATE_ALL_ELCL16_ICON));
+						ImageResources.IMG_DLCL16_TERMINATE_ALL));
 
 //		PlatformUI.getWorkbench().getHelpSystem().setHelp(
 //				this, IConsoleHelpContextIds.CONSOLE_WORD_WRAP_ACTION);

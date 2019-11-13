@@ -16,6 +16,7 @@ import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderCon
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.texteditor.IUpdate;
 
@@ -32,16 +33,15 @@ public class TerminateRestartAction extends Action implements IUpdate  {
 		setToolTipText("Terminate and Restart "
 				+ symbexSpiderConsolePage.getProcessName());
 
-		setHoverImageDescriptor(
+		final ImageDescriptor imageDescriptor =
 				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__TERMINATE_RESTART_ELCL16_ICON));
+						ImageResources.IMG_ELCL16_TERMINATE_RESTART);
 
+		setImageDescriptor(imageDescriptor);
+		setHoverImageDescriptor(imageDescriptor);
 		setDisabledImageDescriptor(
 				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__TERMINATE_RESTART_DLCL16_ICON));
-		setImageDescriptor(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__TERMINATE_RESTART_ELCL16_ICON));
+						ImageResources.IMG_DLCL16_TERMINATE_RESTART));
 
 //		PlatformUI.getWorkbench().getHelpSystem().setHelp(
 //				this, IConsoleHelpContextIds.CONSOLE_WORD_WRAP_ACTION);

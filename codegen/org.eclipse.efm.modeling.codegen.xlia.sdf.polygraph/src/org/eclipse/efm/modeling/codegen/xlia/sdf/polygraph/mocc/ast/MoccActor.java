@@ -234,16 +234,16 @@ public class MoccActor {
 		return inputPort;
 	}
 
-	public int decidingPortCount() {
-		int count = 0;
-
-		for (final MoccPort inPort : inputPort) {
-			if( inPort.isDeciding() ) {
-				count += 1;
-			}
-		}
-		return count;
-	}
+//	public int decidingPortCount() {
+//		int count = 0;
+//
+//		for (final MoccPort inPort : inputPort) {
+//			if( inPort.isDeciding() ) {
+//				count += 1;
+//			}
+//		}
+//		return count;
+//	}
 
 	public boolean hasInputPort() {
 		return( ! inputPort.isEmpty() );
@@ -413,7 +413,9 @@ public class MoccActor {
 			.append(schedule).append('\n');
 
 		if( FEATURE != null ) {
-			sout.append("\t\t").append("repetition = ")
+			sout.append("\t\t").append("executable = ")
+					.append(FEATURE.isExecutable).append('\n')
+				.append("\t\t").append("repetition = ")
 					.append(FEATURE.repetition).append('\n')
 				.append("\t\t").append("activation = ")
 					.append(FEATURE.strActivation()).append('\n');

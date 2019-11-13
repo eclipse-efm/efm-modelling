@@ -15,6 +15,7 @@ package org.eclipse.efm.execution.core.workflow.impl;
 import org.eclipse.efm.execution.core.workflow.Serializer;
 import org.eclipse.efm.execution.core.workflow.WorkflowPackage;
 
+import org.eclipse.efm.execution.core.workflow.common.SolverKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecification;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getTrace <em>Trace</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getFolderName <em>Folder Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getFileName <em>File Name</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#getSolver <em>Solver</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledNormalization <em>Enabled Normalization</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledNumerization <em>Enabled Numerization</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.impl.SerializerImpl#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}</li>
@@ -117,6 +119,26 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * @ordered
 	 */
 	protected String fileName = FILE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSolver() <em>Solver</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSolver()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final SolverKind SOLVER_EDEFAULT = SolverKind.CVC4;
+
+	/**
+	 * The cached value of the '{@link #getSolver() <em>Solver</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSolver()
+	 * @generated
+	 * @ordered
+	 */
+	protected SolverKind solver = SOLVER_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isEnabledNormalization() <em>Enabled Normalization</em>}' attribute.
@@ -424,6 +446,29 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 	 * @generated
 	 */
 	@Override
+	public SolverKind getSolver() {
+		return solver;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSolver(SolverKind newSolver) {
+		SolverKind oldSolver = solver;
+		solver = newSolver == null ? SOLVER_EDEFAULT : newSolver;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WorkflowPackage.SERIALIZER__SOLVER, oldSolver, solver));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public boolean isEnabledNormalization() {
 		return enabledNormalization;
 	}
@@ -569,6 +614,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return getFolderName();
 			case WorkflowPackage.SERIALIZER__FILE_NAME:
 				return getFileName();
+			case WorkflowPackage.SERIALIZER__SOLVER:
+				return getSolver();
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				return isEnabledNormalization();
 			case WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION:
@@ -605,6 +652,9 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return;
 			case WorkflowPackage.SERIALIZER__FILE_NAME:
 				setFileName((String)newValue);
+				return;
+			case WorkflowPackage.SERIALIZER__SOLVER:
+				setSolver((SolverKind)newValue);
 				return;
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				setEnabledNormalization((Boolean)newValue);
@@ -648,6 +698,9 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 			case WorkflowPackage.SERIALIZER__FILE_NAME:
 				setFileName(FILE_NAME_EDEFAULT);
 				return;
+			case WorkflowPackage.SERIALIZER__SOLVER:
+				setSolver(SOLVER_EDEFAULT);
+				return;
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				setEnabledNormalization(ENABLED_NORMALIZATION_EDEFAULT);
 				return;
@@ -685,6 +738,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 				return FOLDER_NAME_EDEFAULT == null ? folderName != null : !FOLDER_NAME_EDEFAULT.equals(folderName);
 			case WorkflowPackage.SERIALIZER__FILE_NAME:
 				return FILE_NAME_EDEFAULT == null ? fileName != null : !FILE_NAME_EDEFAULT.equals(fileName);
+			case WorkflowPackage.SERIALIZER__SOLVER:
+				return solver != SOLVER_EDEFAULT;
 			case WorkflowPackage.SERIALIZER__ENABLED_NORMALIZATION:
 				return enabledNormalization != ENABLED_NORMALIZATION_EDEFAULT;
 			case WorkflowPackage.SERIALIZER__ENABLED_NUMERIZATION:
@@ -713,6 +768,8 @@ public abstract class SerializerImpl extends WorkerImpl implements Serializer {
 		result.append(folderName);
 		result.append(", fileName: ");
 		result.append(fileName);
+		result.append(", solver: ");
+		result.append(solver);
 		result.append(", enabledNormalization: ");
 		result.append(enabledNormalization);
 		result.append(", enabledNumerization: ");

@@ -19,9 +19,9 @@ import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate;
 import org.eclipse.efm.ecore.formalml.statemachine.Region;
-import org.eclipse.efm.ecore.formalml.statemachine.State;
 import org.eclipse.efm.ecore.formalml.statemachine.Statemachine;
 import org.eclipse.efm.ecore.formalml.statemachine.Transition;
+import org.eclipse.efm.ecore.formalml.statemachine.Vertex;
 import org.eclipse.efm.ecore.formalml.statement.BlockStatement;
 import org.eclipse.efm.ecore.formalml.statement.ConditionalBlockStatement;
 import org.eclipse.efm.ecore.formalml.statement.IfStatement;
@@ -215,7 +215,7 @@ public class MoCC2XLIASchedule {
 			final BlockStatement thenBlock, final int stageIndex) {
 //		int statementCount = 0;
 		for( final MoccActor actor : mainGenerator.moccSystem.getActor() ) {
-			if( actor.schedule == stageIndex ) {
+			if( (actor.schedule == stageIndex) && actor.FEATURE.isExecutable ) {
 				final MoccActorHelper actorHELPER = mainGenerator.helper(actor);
 
 				XLIA_STATEMENT.addActivityRtc(thenBlock, actorHELPER.statemachine);
@@ -253,7 +253,7 @@ public class MoCC2XLIASchedule {
 		for( final MoccActor actor : mainGenerator.moccSystem.getActor() ) {
 			final MoccActorHelper actorHELPER = mainGenerator.helper(actor);
 
-//			if( ! actor.FEATURE.isTimed )
+			if( actor.FEATURE.isExecutable ) // && (! actor.FEATURE.isTimed) )
 			{
 				final RelationalBinaryExpression actorRepetitionCond =
 						XLIA_EXPRESSION.createRelational(
@@ -274,13 +274,13 @@ public class MoCC2XLIASchedule {
 									untimedConditionalReinitialisation,
 									actorRepetitionCond);
 				}
-			}
 
 //!@! CSDF
-			XLIA_STATEMENT.addAssignment(blockReinit,
-					actorHELPER.statemachine,
-					actorHELPER.varActivationCount,
-					XLIA_EXPRESSION.zero());
+				XLIA_STATEMENT.addAssignment(blockReinit,
+						actorHELPER.statemachine,
+						actorHELPER.varActivationCount,
+						XLIA_EXPRESSION.zero());
+			}
 		}
 
 		// UNTIMED SYSTEM RE-INITIALISATION
@@ -298,7 +298,7 @@ public class MoCC2XLIASchedule {
 				XLIA_EXPRESSION.falseValue());
 
 		for( final MoccActor actor : mainGenerator.moccSystem.getActor() ) {
-			if( actor.FEATURE.hasInput ) {
+			if( actor.FEATURE.hasInput &&  actor.FEATURE.isExecutable ) {
 				XLIA_STATEMENT.addActivityRun(blockReception,
 						mainGenerator.helper(actor).statemachine);
 			}
@@ -329,7 +329,7 @@ public class MoCC2XLIASchedule {
 		final Pseudostate s_tick_period =
 				XLIA_STATEMACHINE.createJunctionState(region, "tick_period");
 
-		State s_tick = XLIA_STATEMACHINE.createState(region, "tick_0");
+		Vertex s_tick = XLIA_STATEMACHINE.createState(region, "tick_0");
 
 		final Transition t_init = XLIA_STATEMACHINE.createTransition(
 				"t_init", s_init, s_tick);
@@ -337,7 +337,8 @@ public class MoCC2XLIASchedule {
 		final Transition t_period = XLIA_STATEMACHINE.createTransition(
 				"t_period", s_tick_period, s_tick);
 
-		State next_tick = XLIA_STATEMACHINE.createState(region, "tick_1");
+		Vertex next_tick = (moccSystemFeature.tick_period > 1) ?
+				XLIA_STATEMACHINE.createState(region, "tick_1") : s_tick_period;
 
 		Transition t_tick = XLIA_STATEMACHINE.createTransition(
 				"t_tick_0", s_tick, next_tick);
@@ -347,21 +348,26 @@ public class MoCC2XLIASchedule {
 		if( moccSystemFeature.hasTimed ) {
 			computeRunninActorTickAcivity(moccSystemFeature, t_tick, 0);
 
-			for( int index = 1 ; index < activationCount; index++) {
-				s_tick = next_tick;
+			if( activationCount > 0 ) {
+				for( int index = 1 ; index < activationCount; index++) {
+					s_tick = next_tick;
 
-				next_tick = XLIA_STATEMACHINE.createState(region, "tick_" + (index + 1));
+					next_tick = XLIA_STATEMACHINE.createState(
+							region, "tick_" + (index + 1));
+
+					t_tick = XLIA_STATEMACHINE.createTransition(
+							"t_tick_" + index, s_tick, next_tick);
+
+					computeRunninActorTickAcivity(
+							moccSystemFeature, t_tick, index);
+				}
 
 				t_tick = XLIA_STATEMACHINE.createTransition(
-						"t_tick_" + index, s_tick, next_tick);
+						"t_tick_" + activationCount, next_tick, s_tick_period);
 
-				computeRunninActorTickAcivity(moccSystemFeature, t_tick, index);
+				computeRunninActorTickAcivity(
+						moccSystemFeature, t_tick, activationCount);
 			}
-
-			t_tick = XLIA_STATEMACHINE.createTransition(
-					"t_tick_" + activationCount, next_tick, s_tick_period);
-
-			computeRunninActorTickAcivity(moccSystemFeature, t_tick, activationCount);
 		}
 		else if( moccSystemFeature.tick_period > 1 ) {
 			computeStaginActorTickAcivity(moccSystemFeature, t_tick, 0);
@@ -369,7 +375,8 @@ public class MoCC2XLIASchedule {
 			for( int index = 1 ; index < activationCount; index++) {
 				s_tick = next_tick;
 
-				next_tick = XLIA_STATEMACHINE.createState(region, "tick_" + (index + 1));
+				next_tick = XLIA_STATEMACHINE.createState(
+						region, "tick_" + (index + 1));
 
 				t_tick = XLIA_STATEMACHINE.createTransition(
 						"t_tick_" + index, s_tick, next_tick);
@@ -380,10 +387,15 @@ public class MoCC2XLIASchedule {
 			t_tick = XLIA_STATEMACHINE.createTransition(
 					"t_tick_" + activationCount, next_tick, s_tick_period);
 
-			computeStaginActorTickAcivity(moccSystemFeature, t_tick, activationCount);
+			computeStaginActorTickAcivity(
+					moccSystemFeature, t_tick, activationCount);
+		}
+		else if( moccSystemFeature.tick_period == 0 ) {
+
 		}
 
-		computeReinitialisationAcivity(moccSystemFeature, t_period, activationCount);
+		computeReinitialisationAcivity(
+				moccSystemFeature, t_period, activationCount);
 
 		computeBehaviorMoe(moccSystemFeature, xliaScheduler);
 	}

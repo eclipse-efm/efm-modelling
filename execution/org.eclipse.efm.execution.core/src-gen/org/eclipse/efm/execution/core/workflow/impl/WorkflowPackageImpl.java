@@ -662,7 +662,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getSerializer_EnabledNormalization() {
+	public EAttribute getSerializer_Solver() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -672,7 +672,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getSerializer_EnabledNumerization() {
+	public EAttribute getSerializer_EnabledNormalization() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -682,7 +682,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getSerializer_EnabledInitialValuesPrinting() {
+	public EAttribute getSerializer_EnabledNumerization() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -692,7 +692,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getSerializer_EnabledLifelinesPrinting() {
+	public EAttribute getSerializer_EnabledInitialValuesPrinting() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -702,8 +702,18 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getSerializer_EnabledModifiedDataSelection() {
+	public EAttribute getSerializer_EnabledLifelinesPrinting() {
 		return (EAttribute)serializerEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getSerializer_EnabledModifiedDataSelection() {
+		return (EAttribute)serializerEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -788,6 +798,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		createEReference(serializerEClass, SERIALIZER__TRACE);
 		createEAttribute(serializerEClass, SERIALIZER__FOLDER_NAME);
 		createEAttribute(serializerEClass, SERIALIZER__FILE_NAME);
+		createEAttribute(serializerEClass, SERIALIZER__SOLVER);
 		createEAttribute(serializerEClass, SERIALIZER__ENABLED_NORMALIZATION);
 		createEAttribute(serializerEClass, SERIALIZER__ENABLED_NUMERIZATION);
 		createEAttribute(serializerEClass, SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING);
@@ -899,6 +910,7 @@ public class WorkflowPackageImpl extends EPackageImpl implements WorkflowPackage
 		initEReference(getSerializer_Trace(), theCommonPackage.getTraceSpecification(), null, "trace", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_FolderName(), ecorePackage.getEString(), "folderName", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_FileName(), ecorePackage.getEString(), "fileName", null, 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSerializer_Solver(), theCommonPackage.getSolverKind(), "solver", "CVC4", 0, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_EnabledNormalization(), ecorePackage.getEBoolean(), "enabledNormalization", null, 1, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_EnabledNumerization(), ecorePackage.getEBoolean(), "enabledNumerization", null, 1, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSerializer_EnabledInitialValuesPrinting(), ecorePackage.getEBoolean(), "enabledInitialValuesPrinting", "false", 1, 1, Serializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

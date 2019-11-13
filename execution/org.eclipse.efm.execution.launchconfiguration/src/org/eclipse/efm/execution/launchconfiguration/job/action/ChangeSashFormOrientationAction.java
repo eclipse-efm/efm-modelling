@@ -22,6 +22,37 @@ public class ChangeSashFormOrientationAction extends Action implements IUpdate  
 
 	private SymbexSpiderConsolePage fSymbexSpiderConsolePage;
 
+	final ImageDescriptor enablePaneRightImage =
+			ImageResources.getImageDescriptor(
+					ImageResources.IMG_ELCL16_PANE_RIGHT);
+
+	final ImageDescriptor disablePaneRightImage =
+			ImageResources.getImageDescriptor(
+					ImageResources.IMG_DLCL16_PANE_RIGHT);
+
+	final ImageDescriptor EnablePaneUnderImage =
+			ImageResources.getImageDescriptor(
+					ImageResources.IMG_ELCL16_PANE_UNDER);
+
+	final ImageDescriptor disablePaneUnderImage =
+			ImageResources.getImageDescriptor(
+					ImageResources.IMG_DLCL16_PANE_UNDER);
+
+
+	protected void setImageDescriptor() {
+		if( fSymbexSpiderConsolePage.isSashFormOrientationHorizontal() ) {
+			setImageDescriptor(EnablePaneUnderImage);
+			setHoverImageDescriptor(EnablePaneUnderImage);
+			setDisabledImageDescriptor(disablePaneUnderImage);
+		}
+		else {
+			setImageDescriptor(enablePaneRightImage);
+			setHoverImageDescriptor(enablePaneRightImage);
+			setDisabledImageDescriptor(disablePaneRightImage);
+		}
+	}
+
+
 	public ChangeSashFormOrientationAction(
 			final SymbexSpiderConsolePage symbexSpiderConsolePage) {
 		super("Change Sash Orientation");
@@ -30,13 +61,7 @@ public class ChangeSashFormOrientationAction extends Action implements IUpdate  
 
 		setToolTipText("Change Sash Orientation");
 
-		final ImageDescriptor refreshImage =
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__REFRESH_ICON);
-
-		setHoverImageDescriptor(refreshImage);
-		setDisabledImageDescriptor(refreshImage);
-		setImageDescriptor(refreshImage);
+		setImageDescriptor();
 
 //		PlatformUI.getWorkbench().getHelpSystem().setHelp(
 //				this, IConsoleHelpContextIds.CONSOLE_WORD_WRAP_ACTION);
@@ -47,6 +72,8 @@ public class ChangeSashFormOrientationAction extends Action implements IUpdate  
 	@Override
 	public void run() {
 		fSymbexSpiderConsolePage.changeSashFormOrientation();
+
+		setImageDescriptor();
 	}
 
 	@Override

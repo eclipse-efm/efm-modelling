@@ -177,6 +177,15 @@ public interface SerializerPackage extends EPackage {
 	int MODEL_GRAPHIC_SERIALIZER_WORKER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHIC_SERIALIZER_WORKER__SOLVER = WorkflowPackage.SERIALIZER__SOLVER;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -347,6 +356,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int MODEL_GRAPHVIZ_SERIALIZER_WORKER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_GRAPHVIZ_SERIALIZER_WORKER__SOLVER = WorkflowPackage.SERIALIZER__SOLVER;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
@@ -521,6 +539,15 @@ public interface SerializerPackage extends EPackage {
 	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPHIC_SERIALIZER_WORKER__SOLVER = WorkflowPackage.SERIALIZER__SOLVER;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -691,6 +718,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_GRAPH_VIZ_SERIALIZER_WORKER__SOLVER = WorkflowPackage.SERIALIZER__SOLVER;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
@@ -865,6 +901,15 @@ public interface SerializerPackage extends EPackage {
 	int BASIC_TRACE_SERIALIZER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_TRACE_SERIALIZER__SOLVER = WorkflowPackage.SERIALIZER__SOLVER;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1035,6 +1080,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int TTCN_TRACE_SERIALIZER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TTCN_TRACE_SERIALIZER__SOLVER = WorkflowPackage.SERIALIZER__SOLVER;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
@@ -1345,6 +1399,15 @@ public interface SerializerPackage extends EPackage {
 	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_SEQUENCE_DIAGRAM_SERIALIZER_WORKER__SOLVER = WorkflowPackage.SERIALIZER__SOLVER;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1516,6 +1579,15 @@ public interface SerializerPackage extends EPackage {
 	 * @ordered
 	 */
 	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__FILE_NAME = WorkflowPackage.SERIALIZER__FILE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_DIAGRAM_TRACE_SERIALIZER__SOLVER = WorkflowPackage.SERIALIZER__SOLVER;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.

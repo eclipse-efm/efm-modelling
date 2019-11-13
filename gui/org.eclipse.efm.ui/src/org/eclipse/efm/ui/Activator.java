@@ -12,6 +12,9 @@
  *******************************************************************************/
 package org.eclipse.efm.ui;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -25,7 +28,7 @@ public class Activator extends AbstractUIPlugin {
 
 	// The shared instance
 	private static Activator plugin;
-	
+
 	/**
 	 * The constructor
 	 */
@@ -36,7 +39,8 @@ public class Activator extends AbstractUIPlugin {
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
-	public void start(BundleContext context) throws Exception {
+	@Override
+	public void start(final BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
 	}
@@ -45,7 +49,8 @@ public class Activator extends AbstractUIPlugin {
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
-	public void stop(BundleContext context) throws Exception {
+	@Override
+	public void stop(final BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
 	}
@@ -58,5 +63,43 @@ public class Activator extends AbstractUIPlugin {
 	public static Activator getDefault() {
 		return plugin;
 	}
+
+
+	/**
+	 * Logs the specified status with this plug-in's log.
+	 *
+	 * @param status status to log
+	 */
+	public static void log(final IStatus status) {
+		getDefault().getLog().log(status);
+	}
+
+	/**
+	 * Logs the specified throwable with this plug-in's log.
+	 *
+	 * @param t throwable to log
+	 */
+	public static void log(final Throwable t) {
+		if (t instanceof CoreException) {
+			log(((CoreException)t).getStatus());
+		} else {
+			log(newErrorStatus("Error logged from Console plug-in: ", t)); //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * Returns a new error status for this plug-in with the given message
+	 * @param message the message to be included in the status
+	 * @param exception the exception to be included in the status or <code>null</code> if none
+	 * @return a new error status
+	 */
+	public static IStatus newErrorStatus(final String message, final Throwable exception) {
+		return new Status(IStatus.ERROR, PLUGIN_ID, INTERNAL_ERROR, message, exception);
+	}
+
+	/**
+	 * Status code indicating an unexpected internal error.
+	 */
+	static int INTERNAL_ERROR = 120;
 
 }

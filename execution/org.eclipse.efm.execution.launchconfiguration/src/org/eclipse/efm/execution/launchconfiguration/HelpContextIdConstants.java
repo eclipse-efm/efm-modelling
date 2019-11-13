@@ -28,6 +28,8 @@ public class HelpContextIdConstants {
 
 	public static final String sew_launch_Debug_tab = CONTEXT_ID + ".sew_launch_Debug_tab";
 
+	public static final String sew_launch_SymbexTuning_tab = CONTEXT_ID + ".sew_launch_SymbexTuning_tab";
+
 	public static final String sew_launch_Expert_tab = CONTEXT_ID + ".sew_launch_Expert_tab";
 
 	public static final String sew_launch_Refresh_tab = CONTEXT_ID + ".sew_launch_Refresh_tab";

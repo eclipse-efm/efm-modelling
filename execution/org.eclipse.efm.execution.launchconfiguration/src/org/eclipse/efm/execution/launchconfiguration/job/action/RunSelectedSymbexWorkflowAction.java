@@ -19,6 +19,7 @@ import org.eclipse.efm.execution.launchconfiguration.job.SymbexJobFactory;
 import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsolePage;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IPageLayout;
@@ -53,17 +54,13 @@ public class RunSelectedSymbexWorkflowAction extends Action
 			setToolTipText("Run selected Symbex Workflow");
 		}
 
+		final ImageDescriptor imageDescriptor =
+				ImageResources.getImageDescriptor(
+						ImageResources.IMG_ELCL16_RUN_EXEC);
 
-		setHoverImageDescriptor(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__RUN_EXEC_ICON));
-
-		setDisabledImageDescriptor(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__RUN_EXEC_ICON));
-		setImageDescriptor(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__RUN_EXEC_ICON));
+		setImageDescriptor(imageDescriptor);
+		setHoverImageDescriptor(imageDescriptor);
+		setDisabledImageDescriptor(imageDescriptor);
 
 //		PlatformUI.getWorkbench().getHelpSystem().setHelp(
 //				this, IConsoleHelpContextIds.CONSOLE_WORD_WRAP_ACTION);

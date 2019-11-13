@@ -12,6 +12,7 @@
  */
 package org.eclipse.efm.execution.core.workflow;
 
+import org.eclipse.efm.execution.core.workflow.common.SolverKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecification;
 
 /**
@@ -28,6 +29,7 @@ import org.eclipse.efm.execution.core.workflow.common.TraceSpecification;
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getTrace <em>Trace</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getFolderName <em>Folder Name</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getFileName <em>File Name</em>}</li>
+ *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#getSolver <em>Solver</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNormalization <em>Enabled Normalization</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNumerization <em>Enabled Numerization</em>}</li>
  *   <li>{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledInitialValuesPrinting <em>Enabled Initial Values Printing</em>}</li>
@@ -169,6 +171,32 @@ public interface Serializer extends Worker {
 	 * @generated
 	 */
 	void setFileName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Solver</b></em>' attribute.
+	 * The default value is <code>"CVC4"</code>.
+	 * The literals are from the enumeration {@link org.eclipse.efm.execution.core.workflow.common.SolverKind}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Solver</em>' attribute.
+	 * @see org.eclipse.efm.execution.core.workflow.common.SolverKind
+	 * @see #setSolver(SolverKind)
+	 * @see org.eclipse.efm.execution.core.workflow.WorkflowPackage#getSerializer_Solver()
+	 * @model default="CVC4"
+	 * @generated
+	 */
+	SolverKind getSolver();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.efm.execution.core.workflow.Serializer#getSolver <em>Solver</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Solver</em>' attribute.
+	 * @see org.eclipse.efm.execution.core.workflow.common.SolverKind
+	 * @see #getSolver()
+	 * @generated
+	 */
+	void setSolver(SolverKind value);
 
 	/**
 	 * Returns the value of the '<em><b>Enabled Normalization</b></em>' attribute.

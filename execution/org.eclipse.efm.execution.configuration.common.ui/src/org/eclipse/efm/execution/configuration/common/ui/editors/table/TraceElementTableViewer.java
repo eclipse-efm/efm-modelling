@@ -47,20 +47,20 @@ import org.eclipse.swt.widgets.ToolBar;
 
 public class TraceElementTableViewer {
 
-	final private Image IMG_CHECKED =
-			ImageResources.getImage(ImageResources.IMAGE__CHECKED_ICON);
+	final private Image IMG_ELCL16_CHECKED =
+			ImageResources.getImage(ImageResources.IMG_ELCL16_CHECKED);
 
-	final private Image IMG_UNCHECKED =
-			ImageResources.getImage(ImageResources.IMAGE__UNCHECKED_ICON);
+	final private Image IMG_ELCL16_UNCHECKED =
+			ImageResources.getImage(ImageResources.IMG_ELCL16_UNCHECKED);
 
-	final private Image IMG_ADD =
-			ImageResources.getImage(ImageResources.IMAGE__ADD_ELCL16_ICON);
+	final private Image IMG_ELCL16_ADD =
+			ImageResources.getImage(ImageResources.IMG_ELCL16_ADD);
 
-//	final private Image IMG_INFO =
-//			ImageResources.getImage(ImageResources.IMAGE__INFO_ELCL16_ICON);
+//	final private Image IMG_ELCL16_INFO =
+//			ImageResources.getImage(ImageResources.IMG_ELCL16_INFO);
 
-	final private Image IMG_QUICKASSIST =
-			ImageResources.getImage(ImageResources.IMAGE__QUICKASSIST_ELCL16_ICON);
+	final private Image IMG_ELCL16_QUICKASSIST =
+			ImageResources.getImage(ImageResources.IMG_ELCL16_QUICKASSIST);
 
 	private Composite fTableComposite;
 
@@ -91,8 +91,8 @@ public class TraceElementTableViewer {
 	protected final AbstractConfigurationProfile fConfigurationProfile;
 
 
-	public TraceElementTableViewer(AbstractConfigurationProfile configurationProfile,
-			Composite parent, int hspan, IWidgetToolkit widgetToolkit,
+	public TraceElementTableViewer(final AbstractConfigurationProfile configurationProfile,
+			final Composite parent, final int hspan, final IWidgetToolkit widgetToolkit,
 			final TraceElementTableConfigProvider tableConfig) {
 
 		this.fConfigurationProfile = configurationProfile;
@@ -114,7 +114,7 @@ public class TraceElementTableViewer {
 		return fTableConfig;
 	}
 
-	public void setInput(TraceElement[] traceElements)
+	public void setInput(final TraceElement[] traceElements)
 	{
 		fTableViewer.setInput(traceElements);
 
@@ -127,9 +127,9 @@ public class TraceElementTableViewer {
 
 
 	public List<TraceElement> getTraceElements() {
-		ArrayList<TraceElement> traceElements = new ArrayList<TraceElement>();
+		final ArrayList<TraceElement> traceElements = new ArrayList<TraceElement>();
 
-		for( TableItem tableItem : fTableViewer.getTable().getItems() ) {
+		for( final TableItem tableItem : fTableViewer.getTable().getItems() ) {
 			if( tableItem.getData() instanceof TraceElement ) {
 				final TraceElement traceElement = (TraceElement) tableItem.getData();
 				if( traceElement.getNature() != TraceElementKind.UNDEFINED ) {
@@ -147,31 +147,31 @@ public class TraceElementTableViewer {
 	 * @param widgetToolkit
 	 */
 	protected void createControl(
-			Composite parent, int hspan, IWidgetToolkit widgetToolkit) {
-		Font font = parent.getFont();
+			final Composite parent, final int hspan, final IWidgetToolkit widgetToolkit) {
+		final Font font = parent.getFont();
 
 		// Create table composite
 		fTableComposite = widgetToolkit.createComposite(
 				parent, font, 1, hspan, GridData.FILL_BOTH, 0, 0);
 
-        ViewForm viewForm = widgetToolkit.createViewForm(
+        final ViewForm viewForm = widgetToolkit.createViewForm(
         		fTableComposite, SWT.FLAT | SWT.BORDER);
 
         viewForm.setToolTipText( fTableConfig.TOOLTIP_TEXT );
 
-		Composite labelContainer = widgetToolkit.createComposite(
+		final Composite labelContainer = widgetToolkit.createComposite(
 				viewForm, font, 1, 1, GridData.FILL_BOTH, 5, 5);
         widgetToolkit.createLabel(labelContainer, fTableConfig.TITLE, 1);
         viewForm.setTopLeft(labelContainer);
 
-        ToolBarManager toolBarManager= new ToolBarManager(SWT.FLAT);
-        ToolBar toolBar = toolBarManager.createControl(viewForm);
+        final ToolBarManager toolBarManager= new ToolBarManager(SWT.FLAT);
+        final ToolBar toolBar = toolBarManager.createControl(viewForm);
         toolBar.setBackground(parent.getBackground());
         viewForm.setTopRight(toolBar);
 
 		createToolbarActions(toolBarManager);
 
-		Composite viewFormContents = widgetToolkit.createComposite(
+		final Composite viewFormContents = widgetToolkit.createComposite(
 				viewForm, SWT.FLAT, font, 1, 1, GridData.FILL_BOTH, 5, 5);
 
 		createTableViewer(viewFormContents, widgetToolkit);
@@ -183,7 +183,7 @@ public class TraceElementTableViewer {
 	/**
 	 * Creates all of the actions for the toolbar
 	 */
-	protected void createToolbarActions(ToolBarManager tmanager) {
+	protected void createToolbarActions(final ToolBarManager tmanager) {
 		tmanager.add(getAddingAction());
 
 		tmanager.add(new Separator());
@@ -209,7 +209,7 @@ public class TraceElementTableViewer {
 
 
 	protected void createTableViewer(
-			Composite tableContainer, IWidgetToolkit widgetToolkit) {
+			final Composite tableContainer, final IWidgetToolkit widgetToolkit) {
 
 //		fTableColumnLayout = new TableColumnLayout(true);
 //		tableComposite.setLayout(fTableColumnLayout);
@@ -233,7 +233,7 @@ public class TraceElementTableViewer {
 		// set the sorter for the table
 
 		// define layout for the TableViewer
-		GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1);
+		final GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1);
 		gridData.heightHint = fTableConfig.MAX_HEIGHT_HINT;
 
 		fTableViewer.getControl().setLayoutData(gridData);
@@ -243,7 +243,7 @@ public class TraceElementTableViewer {
 //		// Set providers
 		fTableViewer.setContentProvider(new ArrayContentProvider() {
 			@Override
-			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+			public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
 				super.inputChanged(viewer, oldInput, newInput);
 			}
 		} );
@@ -314,7 +314,7 @@ public class TraceElementTableViewer {
 
 
 	// create the columns for the table
-	private void createColumns(final Composite tableComposite, Font font) {
+	private void createColumns(final Composite tableComposite, final Font font) {
 		SELECTION_COLUMN_INDEX = -1;
 		NATURE_COLUMN_INDEX = 0;
 		VALUE_COLUMN_INDEX = 1;
@@ -325,7 +325,7 @@ public class TraceElementTableViewer {
 			VALUE_COLUMN_INDEX = 2;
 
 			// column for the TraceElement Selection
-			TableViewerColumn viewerColumn = createTableViewerColumn(
+			final TableViewerColumn viewerColumn = createTableViewerColumn(
 					fTableConfig.SELECTION_TITLE, fTableConfig.SELECTION_WIDTH,
 					false, SELECTION_COLUMN_INDEX);
 
@@ -334,25 +334,25 @@ public class TraceElementTableViewer {
 
 			viewerColumn.setLabelProvider( new ColumnLabelProvider() {
 				@Override
-				public String getText(Object element) {
+				public String getText(final Object element) {
 					return null;
 				}
 
 				@Override
-				public Image getImage(Object element) {
-					TraceElement traceElement = (TraceElement) element;
+				public Image getImage(final Object element) {
+					final TraceElement traceElement = (TraceElement) element;
 					switch( traceElement.getNature() ) {
 					case TIPS:
-						return IMG_QUICKASSIST;
+						return IMG_ELCL16_QUICKASSIST;
 					case UNDEFINED:
-						return IMG_ADD;
+						return IMG_ELCL16_ADD;
 
 					default:
 						if( traceElement.isSelected() ) {
-							return IMG_CHECKED;
+							return IMG_ELCL16_CHECKED;
 						}
 						else {
-							return IMG_UNCHECKED;
+							return IMG_ELCL16_UNCHECKED;
 						}
 					}
 				}
@@ -370,8 +370,8 @@ public class TraceElementTableViewer {
 
 		viewerColumn.setLabelProvider( new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
-				TraceElement traceElement = (TraceElement) element;
+			public String getText(final Object element) {
+				final TraceElement traceElement = (TraceElement) element;
 				switch( traceElement.getNature() ) {
 				case UNDEFINED:
 					return "Set nature to";
@@ -391,8 +391,8 @@ public class TraceElementTableViewer {
 
 		viewerColumn.setLabelProvider(new StyledCellLabelProvider() {
 			@Override
-			public void update(ViewerCell cell) {
-				TraceElement traceElement = (TraceElement) (cell.getElement());
+			public void update(final ViewerCell cell) {
+				final TraceElement traceElement = (TraceElement) (cell.getElement());
 				cell.setText(traceElement.getValue().toString());
 //				StyleRange myStyledRange =
 //						new StyleRange(16, 2, null,
@@ -425,7 +425,7 @@ public class TraceElementTableViewer {
 
 
 	private TableViewerColumn createTableViewerColumn(
-			String title, int bound, boolean resizable, final int colNumber) {
+			final String title, final int bound, final boolean resizable, final int colNumber) {
 		final TableViewerColumn viewerColumn =
 				new TableViewerColumn(fTableViewer, SWT.NONE);
 
@@ -454,7 +454,7 @@ public class TraceElementTableViewer {
 		int itemCount = table.getItemCount();
 		if( itemCount > 0 ) {
 			itemCount = itemCount - 1;
-			TraceElement lastTraceElement =
+			final TraceElement lastTraceElement =
 					(TraceElement) table.getItem(itemCount).getData();
 			if( lastTraceElement.getNature() == TraceElementKind.UNDEFINED ) {
 				itemCount = itemCount - 1;
@@ -469,10 +469,10 @@ public class TraceElementTableViewer {
 				TraceElementKind.UNDEFINED, ADD_NEW_ELEMENT));
 	}
 
-	private void addNewfreshElementItem(TraceElement newTraceElement) {
+	private void addNewfreshElementItem(final TraceElement newTraceElement) {
 		TraceElementKind nature = fTableConfig.DEFAULT_TRACE_NATURE;
 
-		TableItem[] tableItems = fTableViewer.getTable().getItems();
+		final TableItem[] tableItems = fTableViewer.getTable().getItems();
 		for( int index = tableItems.length - 1 ; index >= 0 ; --index ) {
 			final TraceElement traceElement =
 					(TraceElement) tableItems[index].getData();
@@ -604,17 +604,17 @@ public class TraceElementTableViewer {
 			fAddingAction.setToolTipText("Adding many elements");
 			fAddingAction.setImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__ADD_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_ADD));
 			fAddingAction.setDisabledImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__ADD_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_ADD));
 		}
 
 		return fAddingAction;
 	}
 
 	protected void handleAddingAction() {
-		TraceElementAddingDialog addingDialog =
+		final TraceElementAddingDialog addingDialog =
 				new TraceElementAddingDialog(this, null, null);
 
 		if( addingDialog.open() == Window.OK ) {
@@ -636,10 +636,10 @@ public class TraceElementTableViewer {
 			fAddAction.setToolTipText("Add new element");
 			fAddAction.setImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_ADD_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_LIST_ADD));
 			fAddAction.setDisabledImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_ADD_DLCL16_ICON));
+							ImageResources.IMG_DLCL16_LIST_ADD));
 		}
 
 		return fAddAction;
@@ -648,7 +648,7 @@ public class TraceElementTableViewer {
 	protected void handleAddAction() {
 		final Table table = fTableViewer.getTable();
 
-		int selectionIndex = table.getSelectionIndex();
+		final int selectionIndex = table.getSelectionIndex();
 
 		if( selectionIndex >= 0 ) {
 			TraceElement selTraceElement =
@@ -656,7 +656,7 @@ public class TraceElementTableViewer {
 
 			if( selTraceElement.getNature() != TraceElementKind.UNDEFINED ) {
 				selTraceElement = null;
-				for( TableItem item : table.getItems() ) {
+				for( final TableItem item : table.getItems() ) {
 					if( ((TraceElement) item.getData()).getNature() == TraceElementKind.UNDEFINED ) {
 						selTraceElement = (TraceElement) item.getData();
 					}
@@ -688,10 +688,10 @@ public class TraceElementTableViewer {
 			fCopyAction.setToolTipText("Copy selected elements");
 			fCopyAction.setImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__COPY_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_COPY));
 			fCopyAction.setDisabledImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__COPY_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_COPY));
 		}
 
 		return fCopyAction;
@@ -701,7 +701,7 @@ public class TraceElementTableViewer {
 	protected void handleCopyAction() {
 		final Table table = fTableViewer.getTable();
 
-		int selectionIndex = table.getSelectionIndex();
+		final int selectionIndex = table.getSelectionIndex();
 //		System.out.println( "Add:>selectionIndex: " + selectionIndex );
 
 		if( selectionIndex >= 0 ) {
@@ -712,7 +712,7 @@ public class TraceElementTableViewer {
 				addNewfreshElementItem(selTraceElement);
 			}
 			else {
-				for( TableItem selection : table.getSelection() ) {
+				for( final TableItem selection : table.getSelection() ) {
 					selTraceElement = (TraceElement) selection.getData();
 
 					fTableViewer.insert(
@@ -739,10 +739,10 @@ public class TraceElementTableViewer {
 			fEditAction.setToolTipText("Edit new element");
 			fEditAction.setImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_EDIT_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_LIST_EDIT));
 			fEditAction.setDisabledImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_EDIT_DLCL16_ICON));
+							ImageResources.IMG_DLCL16_LIST_EDIT));
 
 			fEditAction.setEnabled(true);
 		}
@@ -753,10 +753,10 @@ public class TraceElementTableViewer {
 	protected void handleEditAction() {
 		final Table table = fTableViewer.getTable();
 
-		int selectionIndex = table.getSelectionIndex();
+		final int selectionIndex = table.getSelectionIndex();
 
 		if( selectionIndex >= 0 ) {
-			TraceElement selTraceElement =
+			final TraceElement selTraceElement =
 				(TraceElement) table.getItem(selectionIndex).getData();
 
 			if( selTraceElement.getNature() != TraceElementKind.UNDEFINED ) {
@@ -781,10 +781,10 @@ public class TraceElementTableViewer {
 			fRemoveAction.setToolTipText("Remove selected elements");
 			fRemoveAction.setImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_DELETE_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_LIST_DELETE));
 			fRemoveAction.setDisabledImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_DELETE_DLCL16_ICON));
+							ImageResources.IMG_DLCL16_LIST_DELETE));
 		}
 
 		return fRemoveAction;
@@ -793,10 +793,10 @@ public class TraceElementTableViewer {
 	protected void handleRemoveAction() {
 		final Table table = fTableViewer.getTable();
 
-		int selectionIndex = table.getSelectionIndex();
+		final int selectionIndex = table.getSelectionIndex();
 
 		if( selectionIndex >= 0 ) {
-			for( TableItem selection : table.getSelection() ) {
+			for( final TableItem selection : table.getSelection() ) {
 				fTableViewer.remove( selection.getData() );
 			}
 
@@ -817,10 +817,10 @@ public class TraceElementTableViewer {
 			fClearAction.setToolTipText("Remove all elements");
 			fClearAction.setImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__DELETE_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_DELETE));
 			fClearAction.setDisabledImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__DELETE_DLCL16_ICON));
+							ImageResources.IMG_DLCL16_DELETE));
 		}
 
 		return fClearAction;
@@ -850,10 +850,10 @@ public class TraceElementTableViewer {
 			fMovedUpAction.setToolTipText("MovedUp selected element");
 			fMovedUpAction.setImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_MOVE_UP_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_LIST_MOVE_UP));
 			fMovedUpAction.setDisabledImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_MOVE_UP_DLCL16_ICON));
+							ImageResources.IMG_DLCL16_LIST_MOVE_UP));
 		}
 
 		return fMovedUpAction;
@@ -862,11 +862,11 @@ public class TraceElementTableViewer {
 	protected void handleMovedUpAction() {
 		final Table table = fTableViewer.getTable();
 
-		int selectionIndex = table.getSelectionIndex();
+		final int selectionIndex = table.getSelectionIndex();
 //		System.out.println( "MovedUp:>selectionIndex: " + selectionIndex );
 
 		if( selectionIndex > 0 ) {
-			TraceElement selTraceElement =
+			final TraceElement selTraceElement =
 				(TraceElement) table.getItem(selectionIndex).getData();
 
 			fTableViewer.remove(selTraceElement);
@@ -892,10 +892,10 @@ public class TraceElementTableViewer {
 			fMovedDownAction.setToolTipText("MovedDown selected element");
 			fMovedDownAction.setImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_MOVE_DOWN_ELCL16_ICON));
+							ImageResources.IMG_ELCL16_LIST_MOVE_DOWN));
 			fMovedDownAction.setDisabledImageDescriptor(
 					ImageResources.getImageDescriptor(
-							ImageResources.IMAGE__LIST_MOVE_DOWN_DLCL16_ICON));
+							ImageResources.IMG_DLCL16_LIST_MOVE_DOWN));
 		}
 
 		return fMovedDownAction;
@@ -904,10 +904,10 @@ public class TraceElementTableViewer {
 	protected void handleMovedDownAction() {
 		final Table table = fTableViewer.getTable();
 
-		int selectionIndex = table.getSelectionIndex();
+		final int selectionIndex = table.getSelectionIndex();
 
 		if( selectionIndex >= 0 ) {
-			TraceElement selTraceElement =
+			final TraceElement selTraceElement =
 				(TraceElement) table.getItem(selectionIndex).getData();
 
 			if( (selTraceElement.getNature() != TraceElementKind.UNDEFINED)
@@ -928,19 +928,19 @@ public class TraceElementTableViewer {
 	 * Diversity Field Editor Configuration API
 	 * @param configuration
 	 */
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
 				fTableConfig.STORE_KEY, fTableConfig.DEFAULT_ATTRIBUTE_VALUE);
 	}
 
-	public void initializeFrom(ILaunchConfiguration configuration) {
-		TraceSpecificationCustomImpl traceSpecification =
+	public void initializeFrom(final ILaunchConfiguration configuration) {
+		final TraceSpecificationCustomImpl traceSpecification =
 				TraceSpecificationCustomImpl.create("trace",
 						configuration, fTableConfig.STORE_KEY,
 						fTableConfig.DEFAULT_ATTRIBUTE_VALUE,
 						TraceElementKind.UNDEFINED);
 
-		Predicate<TraceElement> tracePredicate =
+		final Predicate<TraceElement> tracePredicate =
 				te -> (te.getNature() == TraceElementKind.UNDEFINED);
 
 		traceSpecification.getElement().removeIf(tracePredicate);
@@ -954,7 +954,7 @@ public class TraceElementTableViewer {
 		setInput(traceElements);
 	}
 
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
 		final TraceSpecificationCustomImpl traceSpecification =
 				new TraceSpecificationCustomImpl( getTraceElements() );
 
@@ -967,7 +967,7 @@ public class TraceElementTableViewer {
 				fTableConfig.STORE_KEY, traceSpecification.toSEW());
 	}
 
-	public boolean isValid(ILaunchConfiguration configuration) {
+	public boolean isValid(final ILaunchConfiguration configuration) {
 		// Trace Sequence Validation
 //		String[] tabString = new String[0];
 ////				fBehaviorSpecificationStringField.getStringValue().split(";\n");

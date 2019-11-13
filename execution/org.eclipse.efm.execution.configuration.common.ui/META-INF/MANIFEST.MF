@@ -21,6 +21,7 @@ Export-Package: org.eclipse.efm.execution.configuration.common.ui.api,
  org.eclipse.efm.execution.configuration.common.ui.page.expert,
  org.eclipse.efm.execution.configuration.common.ui.page.overview,
  org.eclipse.efm.execution.configuration.common.ui.page.supervisor,
+ org.eclipse.efm.execution.configuration.common.ui.page.symbex,
  org.eclipse.efm.execution.configuration.common.ui.page.testgen,
  org.eclipse.efm.execution.configuration.common.ui.util
 Import-Package: com.google.inject;version="1.3.0",

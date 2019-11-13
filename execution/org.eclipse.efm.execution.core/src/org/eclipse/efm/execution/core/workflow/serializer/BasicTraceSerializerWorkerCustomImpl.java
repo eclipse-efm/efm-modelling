@@ -18,6 +18,7 @@ import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.Director;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
+import org.eclipse.efm.execution.core.workflow.common.SolverKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.TraceElementKind;
 import org.eclipse.efm.execution.core.workflow.common.TraceSpecificationCustomImpl;
@@ -52,6 +53,24 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 						director, "basic_trace_generator");
 
 //		serializerWorker.setManifest( ManifestCustomImpl.create(true) );
+
+		// Global Constraint Solver
+		SolverKind constraintSolver = SolverKind.CVC4;
+		try {
+			constraintSolver = SolverKind.get(
+					configuration.getAttribute(
+							ATTR_SYMBEX_OPTION_CONSTRAINT_SOLVER,
+							SolverKind.CVC4.getLiteral()) );
+		}
+		catch (final CoreException e) {
+			e.printStackTrace();
+		}
+
+		if( constraintSolver == null ) {
+			constraintSolver = SolverKind.CVC4;
+		}
+		serializerWorker.setSolver(constraintSolver);
+
 
 		boolean enabled;
 
@@ -305,7 +324,8 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 
 		writer2.appendTabEol( "property [" );
 
-		writer2.appendTab2Eol( "solver = 'CVC4'" );
+		writer2.appendTab2( "solver = '" )
+			.append(getSolver().getLiteral()).appendEol( "'" );
 		writer2.appendTab2Eol( "format = 'BASIC'" );
 		writer2.appendTab2Eol( "info#selection = 'ALL'" );
 		writer2.appendTab2Eol( "data#selection = 'MODIFIED'" );

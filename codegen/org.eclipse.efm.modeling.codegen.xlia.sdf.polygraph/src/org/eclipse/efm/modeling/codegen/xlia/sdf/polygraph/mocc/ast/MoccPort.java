@@ -111,7 +111,7 @@ public class MoccPort {
 	}
 
 	public boolean isDecidingInputMode() {
-		return( isDeciding 
+		return( isDeciding
 				&& (direction == Direction.INPUT)
 				&& (channel.getOutputActor().isModeProducer()) );
 	}

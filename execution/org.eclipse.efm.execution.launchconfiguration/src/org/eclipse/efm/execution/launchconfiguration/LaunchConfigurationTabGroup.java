@@ -24,23 +24,24 @@ import org.eclipse.debug.ui.RefreshTab;
 import org.eclipse.efm.execution.configuration.common.ui.api.AbstractConfigurationPage;
 import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
-import org.eclipse.efm.execution.launchconfiguration.ui.tabs.SupervisorTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.DebugTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.DeveloperTuningTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.ExpertTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.OverviewTab;
+import org.eclipse.efm.execution.launchconfiguration.ui.tabs.SupervisorTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.SymbexRuntimeTab;
+import org.eclipse.efm.execution.launchconfiguration.ui.tabs.SymbexOptionTab;
 import org.eclipse.efm.execution.launchconfiguration.ui.tabs.TestGenerationTab;
 
 public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {
 
 	private AbstractConfigurationPage[] fConfigurationPages;
-	
+
 	protected OverviewTab fOverviewTab;
 
 	protected ExpertTab fExpertTab;
 
-	
+
 	public AbstractConfigurationPage[] getConfigurationPages() {
 		return fConfigurationPages;
 	}
@@ -55,11 +56,11 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 
 
 	@Override
-	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-		ArrayList<ILaunchConfigurationTab> tabList =
+	public void createTabs(final ILaunchConfigurationDialog dialog, final String mode) {
+		final ArrayList<ILaunchConfigurationTab> tabList =
 				new ArrayList<ILaunchConfigurationTab>();
 
-		ArrayList<AbstractConfigurationPage> confPageList =
+		final ArrayList<AbstractConfigurationPage> confPageList =
 				new ArrayList<AbstractConfigurationPage>();
 
 		// OverviewTab
@@ -68,12 +69,12 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 		confPageList.add( fOverviewTab.getConfigurationPage() );
 
 		// SupervisorTab
-		SupervisorTab supervisorTab = new SupervisorTab(this);
+		final SupervisorTab supervisorTab = new SupervisorTab(this);
 		tabList.add( supervisorTab );
 		confPageList.add( supervisorTab.getConfigurationPage() );
-		
+
 		// TestGenerationTab
-		TestGenerationTab testGenerationTab = new TestGenerationTab(this);
+		final TestGenerationTab testGenerationTab = new TestGenerationTab(this);
 		tabList.add( testGenerationTab );
 		confPageList.add( testGenerationTab.getConfigurationPage() );
 
@@ -88,7 +89,7 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 					IWorkflowPreferenceConstants.PREF_EXPERT_MODE) )
 			{
 				fExpertTab = new ExpertTab(this);
-				
+
 				tabList.add( fExpertTab );
 				confPageList.add( fExpertTab.getConfigurationPage() );
 			}
@@ -98,6 +99,8 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 				if ( SymbexPreferenceUtil.getBooleanPreference(
 						IWorkflowPreferenceConstants.PREF_SYMBEX_DEVELOPER_MODE) )
 				{
+					tabList.add( new SymbexOptionTab(this) );
+
 					tabList.add( new DeveloperTuningTab(this) );
 				}
 			}
@@ -114,36 +117,36 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
 
 		setTabs( tabList.toArray(
 				new ILaunchConfigurationTab[tabList.size()] ) );
-		
+
 		fConfigurationPages = confPageList.toArray(
 				new AbstractConfigurationPage[confPageList.size()]);
-		
+
 
 	}
 
 
-	public void setDefaultAttributes(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaultAttributes(final ILaunchConfigurationWorkingCopy configuration) {
 		// Enabling REFRESH
 		try {
-			String refreshScope = configuration.getAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, "");
+			final String refreshScope = configuration.getAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, "");
 			if( (refreshScope == null) || refreshScope.isEmpty() )
 			{
 				configuration.setAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, "${project}");
 			}
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			configuration.setAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, "${project}");
 		}
 	}
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
 		super.setDefaults(configuration);
 
 		setDefaultAttributes(configuration);
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
 		super.performApply(configuration);
 
 		setDefaultAttributes(configuration);

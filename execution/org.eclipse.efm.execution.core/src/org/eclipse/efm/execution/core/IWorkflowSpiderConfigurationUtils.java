@@ -42,6 +42,7 @@ public interface IWorkflowSpiderConfigurationUtils {
 	String SYMBEX_COVERAGE_TAG  = "coverage:";
 	String SYMBEX_GOAL_ACHIEVED = "GOAL ACHIEVED";
 
+	String SYMBEX_ERROR_TAG     = "error";
 
 	/**
 	 *  Assumes for SUPERVISOR

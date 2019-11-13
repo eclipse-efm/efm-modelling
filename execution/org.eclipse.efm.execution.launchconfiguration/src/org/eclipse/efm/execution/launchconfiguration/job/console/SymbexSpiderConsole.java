@@ -41,7 +41,7 @@ public class SymbexSpiderConsole extends MessageConsole { // ProcessConsole
 	private IProcess fProcess = null;
 
 	private final static ImageDescriptor IDESC_CONSOLE =
-			ImageResources.getImageDescriptor(ImageResources.IMAGE__DIVERSITY_ICON);
+			ImageResources.getImageDescriptor(ImageResources.IMG_DIVERSITY);
 
 
 	private SymbexSpiderConsolePage fSymbexSpiderConsolePage;

@@ -46,6 +46,9 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 
 
 	protected boolean fConsistencyFlag;
+	protected boolean fWellFormednessFlag;
+
+	protected boolean fErrorFlag;
 
 	protected long fExecutionStepCount;
 	protected long fExecutionContextCount;
@@ -63,6 +66,8 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 
 	protected long fRedundancyCount;
 	protected long fRedundancyTest;
+
+	protected String fExecutionVerdict;
 
 
 	public SymbexWorkflowProvider() {
@@ -83,6 +88,31 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 		this.fAnalysisProfileName = DEFAULT_SYMBEX_ANALYSIS_PROFILE;
 
 		resetExecutionStats();
+	}
+
+	public SymbexWorkflowProvider(final SymbexWorkflowProvider symbexWorkflow) {
+		assert (symbexWorkflow != null) : "Unexpected a null Symbex Workflow Provider";
+
+		this.fIndex = 0;
+		this.fXliaModelsPath = symbexWorkflow.fXliaModelsPath;
+		this.fXliaModelPath  = symbexWorkflow.fXliaModelPath;
+
+		this.fWorkflowFile = symbexWorkflow.fWorkflowFile;
+		this.fWorkflowPath = symbexWorkflow.fWorkflowPath;
+
+		this.fWorkingDirectoryPath = symbexWorkflow.fWorkingDirectoryPath;
+		this.fEnvironment = symbexWorkflow.fEnvironment;
+
+		this.fCommandLine = symbexWorkflow.fCommandLine;
+
+		this.fJobName = "Profile " + symbexWorkflow.fJobName;
+		this.fRunDebugLaunchMode  = ILaunchManager.RUN_MODE;
+		this.fAnalysisProfileName = symbexWorkflow.fAnalysisProfileName;
+
+		this.fConsistencyFlag    = symbexWorkflow.fConsistencyFlag;
+		this.fWellFormednessFlag = symbexWorkflow.fWellFormednessFlag;
+
+		this.fErrorFlag = symbexWorkflow.fErrorFlag;
 	}
 
 	public SymbexWorkflowProvider(final String jobName,
@@ -111,7 +141,10 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 		this.fRunDebugLaunchMode  = ILaunchManager.RUN_MODE;
 		this.fAnalysisProfileName = analysisProfileName;
 
-		this.fConsistencyFlag = true;
+		this.fConsistencyFlag    = true;
+		this.fWellFormednessFlag = true;
+
+		this.fErrorFlag = false;
 	}
 
 	public SymbexWorkflowProvider(final String jobName,
@@ -140,7 +173,10 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 		this.fRunDebugLaunchMode  = ILaunchManager.RUN_MODE;
 		this.fAnalysisProfileName = analysisProfileName;
 
-		this.fConsistencyFlag = true;
+		this.fConsistencyFlag    = true;
+		this.fWellFormednessFlag = true;
+
+		this.fErrorFlag = false;
 	}
 
 	public SymbexWorkflowProvider(final ILaunchConfiguration configuration,
@@ -174,7 +210,10 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 
 		resetExecutionStats();
 
-		this.fConsistencyFlag = true;
+		this.fConsistencyFlag    = true;
+		this.fWellFormednessFlag = true;
+
+		this.fErrorFlag = false;
 	}
 
 
@@ -204,13 +243,19 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 
 		resetExecutionStats();
 
-		this.fConsistencyFlag = true;
+		this.fConsistencyFlag    = true;
+		this.fWellFormednessFlag = true;
+
+		this.fErrorFlag = false;
 	}
 
 
 
 	public void resetExecutionStats() {
-		this.fConsistencyFlag = false;
+//		this.fConsistencyFlag    = false;
+//		this.fWellFormednessFlag = false;
+
+		this.fErrorFlag = false;
 
 		this.fExecutionStepCount    = 0;
 		this.fExecutionContextCount = 0;
@@ -228,6 +273,8 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 
 		this.fRedundancyCount = 0;
 		this.fRedundancyTest  = 0;
+
+		this.fExecutionVerdict = null;
 	}
 
 
@@ -424,6 +471,11 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 	}
 
 
+	@Override
+	public void setError() {
+		this.fErrorFlag = true;
+	}
+
 	/*
 	 * SYMBEX VERDICT
 	 */
@@ -453,6 +505,8 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 
 	@Override
 	public void setVerdict(final String verdict) {
+		this.fExecutionVerdict = verdict;
+
 		System.out.println("VERDICT: " + verdict);
 	}
 
@@ -463,13 +517,9 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 	@Override
 	public
 	boolean initialize() {
-		if( fXliaModelsPath.length > 0 )
-		{
-			fIndex = 0;
+		fIndex = 0;
 
-			return true;
-		}
-		return false;
+		return( this.fCommandLine != null );
 	}
 
 	@Override

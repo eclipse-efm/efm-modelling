@@ -351,7 +351,7 @@ public class OverviewAnalysisProfileSection extends AbstractConfigurationSection
 				fModelAnalysisProfileSelectionTabItem.getText());
 
 		fModelAnalysisProfileSelectionTabItem.setImage(
-				ImageResources.getImage(ImageResources.IMAGE__VALIDATE_ICON));
+				ImageResources.getImage(ImageResources.IMG_ELCL16_VALIDATE));
 	}
 
 

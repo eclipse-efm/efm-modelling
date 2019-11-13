@@ -913,13 +913,22 @@ public interface WorkflowPackage extends EPackage {
 	int SERIALIZER__FILE_NAME = WORKER_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERIALIZER__SOLVER = WORKER_FEATURE_COUNT + 5;
+
+	/**
 	 * The feature id for the '<em><b>Enabled Normalization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_NORMALIZATION = WORKER_FEATURE_COUNT + 5;
+	int SERIALIZER__ENABLED_NORMALIZATION = WORKER_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Numerization</b></em>' attribute.
@@ -928,7 +937,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_NUMERIZATION = WORKER_FEATURE_COUNT + 6;
+	int SERIALIZER__ENABLED_NUMERIZATION = WORKER_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Initial Values Printing</b></em>' attribute.
@@ -937,7 +946,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING = WORKER_FEATURE_COUNT + 7;
+	int SERIALIZER__ENABLED_INITIAL_VALUES_PRINTING = WORKER_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Lifelines Printing</b></em>' attribute.
@@ -946,7 +955,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_LIFELINES_PRINTING = WORKER_FEATURE_COUNT + 8;
+	int SERIALIZER__ENABLED_LIFELINES_PRINTING = WORKER_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Modified Data Selection</b></em>' attribute.
@@ -955,7 +964,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION = WORKER_FEATURE_COUNT + 9;
+	int SERIALIZER__ENABLED_MODIFIED_DATA_SELECTION = WORKER_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of structural features of the '<em>Serializer</em>' class.
@@ -964,7 +973,7 @@ public interface WorkflowPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 10;
+	int SERIALIZER_FEATURE_COUNT = WORKER_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of operations of the '<em>Serializer</em>' class.
@@ -1475,6 +1484,17 @@ public interface WorkflowPackage extends EPackage {
 	EAttribute getSerializer_FileName();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.Serializer#getSolver <em>Solver</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Solver</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.Serializer#getSolver()
+	 * @see #getSerializer()
+	 * @generated
+	 */
+	EAttribute getSerializer_Solver();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.Serializer#isEnabledNormalization <em>Enabled Normalization</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1935,6 +1955,14 @@ public interface WorkflowPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SERIALIZER__FILE_NAME = eINSTANCE.getSerializer_FileName();
+
+		/**
+		 * The meta object literal for the '<em><b>Solver</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERIALIZER__SOLVER = eINSTANCE.getSerializer_Solver();
 
 		/**
 		 * The meta object literal for the '<em><b>Enabled Normalization</b></em>' attribute feature.

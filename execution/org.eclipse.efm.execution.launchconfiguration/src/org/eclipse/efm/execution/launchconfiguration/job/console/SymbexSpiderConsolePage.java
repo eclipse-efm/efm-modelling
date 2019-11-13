@@ -34,12 +34,15 @@ import org.eclipse.efm.execution.launchconfiguration.job.SymbexJobFactory;
 import org.eclipse.efm.execution.launchconfiguration.job.action.ChangeSashFormOrientationAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.CloseAllConsoleAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.CloseConsoleAction;
+import org.eclipse.efm.execution.launchconfiguration.job.action.ProfileExecutionAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.RestartAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.RunSelectedSymbexWorkflowAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateAllAction;
 import org.eclipse.efm.execution.launchconfiguration.job.action.TerminateRestartAction;
 import org.eclipse.efm.execution.launchconfiguration.job.sew.ISymbexWorkflowProvider;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.ProfileSymbexWorkflow;
+import org.eclipse.efm.execution.launchconfiguration.job.sew.SymbexWorkflowProvider;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider;
 import org.eclipse.efm.execution.launchconfiguration.ui.views.page.SWTSpider.SPIDER_GEOMETRY;
 import org.eclipse.jface.action.GroupMarker;
@@ -80,12 +83,16 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 	public final static String RUN_SEW_GROUP = "runSEWGroup"; //$NON-NLS-1$
 
+	public final static String PROFILE_EXEC_GROUP = "profileExecGroup"; //$NON-NLS-1$
+
 	public final static String RESTART_GROUP = "restartGroup"; //$NON-NLS-1$
 
 
 	private ChangeSashFormOrientationAction fChangeSashFormOrientationAction;
 
 	private RunSelectedSymbexWorkflowAction fRunSelectedSymbexWorkflowAction;
+
+	private ProfileExecutionAction fProfileExecutionAction;
 
 	private RestartAction fRestartAction;
 
@@ -122,6 +129,10 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		else {
 			fSashForm.setOrientation(SWT.VERTICAL);
 		}
+	}
+
+	public boolean isSashFormOrientationHorizontal() {
+		return( fSashForm.getOrientation() == SWT.HORIZONTAL );
 	}
 
 
@@ -205,7 +216,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		final GridData dataLeft = new GridData();
 		dataLeft.heightHint = 200;
-//		dataR.horizontalSpan = 1;
+//		dataLeft.horizontalSpan = 1;
 		dataLeft.grabExcessHorizontalSpace = true;
 		dataLeft.grabExcessVerticalSpace = true;
 		dataLeft.horizontalAlignment = SWT.FILL;
@@ -244,6 +255,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		fRunSelectedSymbexWorkflowAction = new RunSelectedSymbexWorkflowAction(this);
 
+		fProfileExecutionAction = new ProfileExecutionAction(this);
+
 		fRestartAction = new RestartAction(this);
 
 		fTerminateRestartAction = new TerminateRestartAction(this);
@@ -265,6 +278,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 		menuManager.add(fChangeSashFormOrientationAction);
 
 		menuManager.add(fRunSelectedSymbexWorkflowAction);
+
+		menuManager.add(fProfileExecutionAction);
 
 		menuManager.add(fRestartAction);
 		menuManager.add(fTerminateRestartAction);
@@ -290,9 +305,14 @@ public class SymbexSpiderConsolePage extends IOConsolePage
         mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new Separator(RESTART_GROUP));
         mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new GroupMarker(RESTART_GROUP));
 
+        mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new Separator(PROFILE_EXEC_GROUP));
+        mgr.insertBefore(IConsoleConstants.LAUNCH_GROUP, new GroupMarker(PROFILE_EXEC_GROUP));
+
         mgr.appendToGroup(LAYOUT_GROUP, fChangeSashFormOrientationAction);
 
         mgr.appendToGroup(RUN_SEW_GROUP, fRunSelectedSymbexWorkflowAction);
+
+        mgr.appendToGroup(PROFILE_EXEC_GROUP, fProfileExecutionAction);
 
         mgr.appendToGroup(RESTART_GROUP, fRestartAction);
         mgr.appendToGroup(RESTART_GROUP, fTerminateRestartAction);
@@ -313,6 +333,11 @@ public class SymbexSpiderConsolePage extends IOConsolePage
         if (fRunSelectedSymbexWorkflowAction != null) {
         	fRunSelectedSymbexWorkflowAction.dispose();
         	fRunSelectedSymbexWorkflowAction = null;
+        }
+
+        if (fProfileExecutionAction != null) {
+        	fProfileExecutionAction.dispose();
+        	fProfileExecutionAction = null;
         }
 
         if (fRestartAction != null) {
@@ -533,6 +558,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	}
 
 	private void updateActionBeginningProcess() {
+		if (fProfileExecutionAction != null) {
+			fProfileExecutionAction.setEnabled(false);
+		}
 		if (fRestartAction != null) {
 			fRestartAction.setEnabled(false);
 		}
@@ -555,6 +583,9 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	}
 
 	private void updateActionEndingProcess() {
+		if (fProfileExecutionAction != null) {
+			fProfileExecutionAction.setEnabled(true);
+		}
 		if (fRestartAction != null) {
 			fRestartAction.setEnabled(true);
 		}
@@ -588,8 +619,34 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 	private ISymbexWorkflowProvider fSymbexWorkflowProvider;
 
 
+	public void profileExecutionProcess() {
+		if( fSymbexWorkflowProvider instanceof ProfileSymbexWorkflow ) {
+			fSymbexWorkflowProvider.start();
+//			SymbexJobFactory.run(fSymbexWorkflowProvider);
+		}
+		else if( fSymbexWorkflowProvider instanceof SymbexWorkflowProvider ) {
+			fSymbexWorkflowProvider = new ProfileSymbexWorkflow(
+					(SymbexWorkflowProvider) fSymbexWorkflowProvider);
+
+			fSymbexWorkflowProvider.start();
+		}
+	}
+
+	public void profileExecutionProcess(final int executionCount) {
+		if( fSymbexWorkflowProvider instanceof SymbexWorkflowProvider ) {
+			fSymbexWorkflowProvider = new ProfileSymbexWorkflow(
+					(SymbexWorkflowProvider) fSymbexWorkflowProvider,
+					executionCount);
+
+			fSymbexWorkflowProvider.start();
+		}
+	}
+
 	public void restartProcess() {
-		if(fSymbexWorkflowProvider != null) {
+		if( fSymbexWorkflowProvider instanceof ProfileSymbexWorkflow ) {
+			fSymbexWorkflowProvider.start();
+		}
+		else if( fSymbexWorkflowProvider instanceof SymbexWorkflowProvider ) {
 			SymbexJobFactory.run(fSymbexWorkflowProvider);
 		}
 	}
@@ -670,7 +727,19 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 							return true;
 						}
 						else {
-							enablePrintEmptyLine = true;
+							int startExit = traceLine.indexOf(SYMBEX_EXIT_TAG);
+							if( startExit > 0 ) {
+								startExit += SYMBEX_EXIT_TAG.length() + 2;
+								if( traceLine.indexOf(SYMBEX_ERROR_TAG, startExit) > 0 ) {
+									fSymbexWorkflowProvider.setError();
+									fSymbexWorkflowProvider.setVerdict(SYMBEX_ERROR_TAG);
+
+									showSymbexVerdict(SYMBEX_ERROR_TAG);
+								}
+							}
+							else {
+								enablePrintEmptyLine = true;
+							}
 						}
 
 						fConsoleBufferedWriter.append(traceLine).append('\n');
@@ -866,6 +935,8 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 										if( strVerdict.contains(SYMBEX_GOAL_ACHIEVED) )
 										{
 											showSymbexVerdict("100%");
+
+											fSymbexWorkflowProvider.setVerdict(SYMBEX_GOAL_ACHIEVED);
 
 											fSymbexWorkflowProvider.reportCoverage("100%");
 

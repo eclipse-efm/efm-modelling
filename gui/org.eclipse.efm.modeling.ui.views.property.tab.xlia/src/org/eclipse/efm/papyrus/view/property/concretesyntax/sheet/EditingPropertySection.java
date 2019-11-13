@@ -291,7 +291,7 @@ public class EditingPropertySection extends
 
 		fRevertAction.setToolTipText("Reset edited element text");
 		
-		fRevertAction.setImageDescriptor(ImageResources.getImageDescriptor(ImageResources.IMAGE__REVERT_ICON));
+		fRevertAction.setImageDescriptor(ImageResources.getImageDescriptor(ImageResources.IMG_ELCL16_REVERT));
 
 
 		ActionContributionItem aci = new ActionContributionItem(fRevertAction);
@@ -319,7 +319,7 @@ public class EditingPropertySection extends
 
 		fCommitAction.setToolTipText(COMMIT_ACTION_DEFAULT_DESCRIPTION);
 
-		fCommitAction.setImageDescriptor(ImageResources.getImageDescriptor(ImageResources.IMAGE__PUSH_ICON));
+		fCommitAction.setImageDescriptor(ImageResources.getImageDescriptor(ImageResources.IMG_ELCL16_PUSH));
 
 
 		ActionContributionItem aci = new ActionContributionItem(fCommitAction);

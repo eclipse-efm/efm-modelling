@@ -31,6 +31,7 @@ public class MoccSystem {
 	protected final Vector< MoccActor > actors;
 
 	protected final Vector< MoccChannel > channels;
+	protected boolean channelWellFormedness;
 
 
 	public MoccSystemFeature FEATURE;
@@ -44,6 +45,7 @@ public class MoccSystem {
 		this.actors = new Vector<MoccActor>();
 
 		this.channels = new Vector<MoccChannel>();
+		this.channelWellFormedness = true;
 
 		MODE_SET = new Vector<MoccMode>();
 
@@ -107,8 +109,39 @@ public class MoccSystem {
 	}
 
 	public void addChannel(final MoccChannel channel) {
+		// Check if there is only one channel between 2 actors
+
+		if( this.channelWellFormedness ) {
+			for( final MoccChannel itChannel : channels ) {
+				if( (itChannel.getInputPort() == channel.getInputPort())
+				&& (itChannel.getOutputPort() == channel.getOutputPort()) )
+				{
+					this.channelWellFormedness = false;
+
+					break;
+				}
+				else if( itChannel.getInputPort().getName().equals(channel.getInputPort().getName())
+						&& itChannel.getOutputPort().getName().equals(channel.getOutputPort().getName()) )
+				{
+					this.channelWellFormedness = false;
+
+					break;
+				}
+			}
+		}
+
 		channels.add(channel);
 	}
+
+	public boolean isChannelConsistent() {
+		return channelWellFormedness;
+	}
+
+	public boolean isWellFormed() {
+		return channelWellFormedness;
+	}
+
+
 
 	public MoccChannel addChannel(final boolean isDeciding,
 			final String name, final MoccPort outputPort,
@@ -386,11 +419,13 @@ public class MoccSystem {
 		sout.append("// The Polygraph System Graph Abstract\n")
 			.append("system ").append(name).append(" {")
 			.append("\n")
+			.append('\t').append("well-formed = ").append(isWellFormed())
+			.append("\n")
 			.append('\t').append("actor       = ").append(getActor().size())
 			.append('\n')
 			.append('\t').append("channel     = ").append(getChannel().size())
+			.append('\t').append("channel OK? = ").append(isChannelConsistent())
 			.append('\n');
-
 
 		if( FEATURE != null ) {
 			sout.append('\t').append("timed       = ")
@@ -403,7 +438,7 @@ public class MoccSystem {
 			if( FEATURE.consistency ) {
 				sout.append('\t')
 					.append("frequencies = " )
-						.append(Arrays.toString(FEATURE.frequencies)).append('\n')
+						.append(Arrays.toString(FEATURE.exeFrequencies)).append('\n')
 					.append('\t').append("time        = +" )
 						.append(FEATURE.time_interval).append('\n')
 					.append('\t').append("time_period = " )
@@ -497,7 +532,7 @@ public class MoccSystem {
 					.append(FEATURE.timedActorCount).append(" / ")
 					.append(actors.size()).append('\n')
 				.append('\t').append("frequencies = " )
-					.append(Arrays.toString(FEATURE.frequencies)).append('\n')
+					.append(FEATURE.strFrequencies()).append('\n')
 
 				.append('\t').append("phase       = ")
 					.append(FEATURE.phaseActorCount).append(" / ")

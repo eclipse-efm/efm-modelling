@@ -111,23 +111,25 @@ public class Generator {
 				.append("==> INCONSISTENT MoccSystem <==\n");
 
 			sout.append("system ").append(moccSystem.getName())
-				.append(" {").append('\n')
-				.append('\t').append("frequencies = " )
-				.append(Arrays.toString(
-						moccSystem.FEATURE.frequencies)).append('\n')
-				.append('\t').append("time = +")
-					.append(moccSystem.FEATURE.time_interval)
-					.append('\n')
-				.append('\t').append("period = ")
-					.append(moccSystem.FEATURE.time_period)
-					.append('\n')
-				.append('\t').append("repetition = ")
-					.append(Arrays.toString(moccSystem.FEATURE.repetitions))
-					.append('\n')
-				.append('}').append('\n');
-
+				.append(" {").append('\n');
+			
+			if( moccSystem.FEATURE != null ) {
+				sout.append('\t').append("frequencies = " )
+					.append(Arrays.toString(
+							moccSystem.FEATURE.exeFrequencies)).append('\n')
+					.append('\t').append("time = +")
+						.append(moccSystem.FEATURE.time_interval)
+						.append('\n')
+					.append('\t').append("period = ")
+						.append(moccSystem.FEATURE.time_period)
+						.append('\n')
+					.append('\t').append("repetition = ")
+						.append(Arrays.toString(moccSystem.FEATURE.repetitions))
+						.append('\n')
+					.append('}').append('\n');
+			}
 			for( final MoccActor actor : moccSystem.getActor() ) {
-				if( ! actor.FEATURE.consistency ) {
+				if( (actor.FEATURE != null) && (! actor.FEATURE.consistency) ) {
 					sout.append("Inconsistent actor ")
 						.append(actor.getName()).append(" {").append('\n')
 						.append('\t').append("frequency = ")

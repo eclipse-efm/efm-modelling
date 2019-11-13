@@ -144,7 +144,7 @@
 		<description>
 			<b>Create and Add a Test Step</b><br/>
 			In the test case form, press the 'Create And Add A Step' button. The new test step is created in the 'Test Steps Folder' and associated to the test case.<br/>
-			Note the slightly different icons when seeing the test step from the test step forlder and from the test case. This express the fact the test step is stored in the test steps folder and is only referenced in the test case.<br/>
+			Note the slightly different icons when seeing the test step from the test step folder and from the test case. This express the fact the test step is stored in the test steps folder and is only referenced in the test case.<br/>
 			In the test step form, set the step name to 'Enter false code PIN', the stimulation to 'input $userPID_ko$' and the expected to 'output message $Enter_another_pin_code_msg$'.<br/>
 			The stimulation and the expected references parameters with the $parameter_name$ convention.
 		</description>

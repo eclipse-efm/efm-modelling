@@ -538,14 +538,18 @@ public class SWTSpider extends Canvas  implements PaintListener ,
 		pe.gc.setFont(VERDICT_FONT);
 
 		pe.gc.setForeground(device.getSystemColor(
-				symbexVerdict.contains(SYMBEX_VERDICT_FAIL) ?
-						SWT.COLOR_RED : SWT.COLOR_BLUE));
+				isRedVerdic() ? SWT.COLOR_RED : SWT.COLOR_BLUE));
 
 		final Point textSize = pe.gc.textExtent(symbexVerdict);
 
 		pe.gc.drawText(symbexVerdict,
 				(this.getSize().x - textSize.x)/2,
 				(this.getSize().y - textSize.y)/2, true);
+	}
+
+	private boolean isRedVerdic() {
+		return( symbexVerdict.contains(SYMBEX_VERDICT_FAIL)
+				|| symbexVerdict.contains(SYMBEX_ERROR_TAG) );
 	}
 
 

@@ -15,6 +15,7 @@ package org.eclipse.efm.execution.launchconfiguration.job.action;
 import org.eclipse.efm.execution.launchconfiguration.job.console.SymbexSpiderConsolePage;
 import org.eclipse.efm.ui.utils.ImageResources;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.texteditor.IUpdate;
 
 public class RestartAction extends Action implements IUpdate  {
@@ -29,16 +30,15 @@ public class RestartAction extends Action implements IUpdate  {
 
 		setToolTipText("Restart " + symbexSpiderConsolePage.getProcessName());
 
-		setHoverImageDescriptor(
+		final ImageDescriptor imageDescriptor =
 				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__RESTART_ELCL16_ICON));
+						ImageResources.IMG_ELCL16_RESTART);
 
+		setImageDescriptor(imageDescriptor);
+		setHoverImageDescriptor(imageDescriptor);
 		setDisabledImageDescriptor(
 				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__RESTART_DLCL16_ICON));
-		setImageDescriptor(
-				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__RESTART_ELCL16_ICON));
+						ImageResources.IMG_DLCL16_RESTART));
 
 //		PlatformUI.getWorkbench().getHelpSystem().setHelp(
 //				this, IConsoleHelpContextIds.CONSOLE_WORD_WRAP_ACTION);

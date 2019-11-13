@@ -32,6 +32,7 @@ import org.eclipse.efm.execution.configuration.common.ui.page.developer.Develope
 import org.eclipse.efm.execution.configuration.common.ui.page.expert.ExpertConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.page.overview.OverviewConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.page.supervisor.SupervisorConfigurationPage;
+import org.eclipse.efm.execution.configuration.common.ui.page.symbex.SymbexOptionConfigurationPage;
 import org.eclipse.efm.execution.configuration.common.ui.page.testgen.TestGenerationConfigurationPage;
 import org.eclipse.efm.execution.core.preferences.IWorkflowPreferenceConstants;
 import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
@@ -260,6 +261,8 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		if ( LaunchDelegate.ENABLED_SYMBEX_DEVELOPER_MODE_OPTION
 			&& SymbexPreferenceUtil.getBooleanPreference(PREF_SYMBEX_DEVELOPER_MODE) )
 		{
+			createSymbexTuningTabItem(widgetToolkit, confPage);
+
 			createDeveloperTuningTabItem(widgetToolkit, confPage);
 		}
 
@@ -453,6 +456,42 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		confPage.add( expertPage );
 	}
 
+	private CTabItem fSymbexTuningTabItem;
+	private Composite fSymbexTuningControl;
+
+	private void createSymbexTuningTabItem(final IWidgetToolkit widgetToolkit,
+			final List<AbstractConfigurationPage> confPage)
+	{
+		fSymbexTuningTabItem = new CTabItem(fTabFolder, SWT.BORDER );
+		fSymbexTuningTabItem.setText("Symbex");
+
+		final ScrolledComposite scrolledComposite =
+				widgetToolkit.createScrolledComposite(fTabFolder);
+
+		final SymbexOptionConfigurationPage symbexPage =
+				new SymbexOptionConfigurationPage(this);
+
+		symbexPage.setDefaultSectionActions(fDefaultSectionActions);
+
+		symbexPage.createControl(scrolledComposite, widgetToolkit);
+
+		fSymbexTuningControl = symbexPage.getControl();
+		if (fSymbexTuningControl != null) {
+			scrolledComposite.setContent(fSymbexTuningControl);
+
+//			System.out.print("fSymbexTuningControl computeSize: ");
+//			System.out.println(
+//					fSymbexTuningControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+//			scrolledComposite.setMinSize(
+//					fSymbexTuningControl.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+
+			fSymbexTuningTabItem.setControl(scrolledComposite);
+		}
+
+		confPage.add( symbexPage );
+	}
+
 	private CTabItem fDeveloperTuningTabItem;
 	private Composite fDeveloperTuningControl;
 
@@ -581,7 +620,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		action_reload_launches.setToolTipText("Relaoad Launch Configuration List");
 		action_reload_launches.setImageDescriptor(
 				ImageResources.getImageDescriptor(
-						ImageResources.IMAGE__REFRESH_ICON));
+						ImageResources.IMG_ELCL16_REFRESH));
 
 		action_reload_launches.setEnabled(true);
 
@@ -598,8 +637,8 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		action_apply_changes.setToolTipText("Save Selected Launch Configuration");
 		action_apply_changes.setImageDescriptor(
 				ImageResources.getImageDescriptor(
-//						ImageResources.IMAGE__PUSH_ICON));
-						ImageResources.IMAGE__SAVE_ICON));
+//						ImageResources.IMG_ELCL16_PUSH));
+						ImageResources.IMG_ELCL16_SAVE));
 
 		action_apply_changes.setEnabled(false);
 
@@ -619,7 +658,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		action_launch_runconf.setText("Run");
 		action_launch_runconf.setToolTipText("Run Selected Launch Configuration");
 		action_launch_runconf.setImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__RUN_EXEC_ICON));
+				ImageResources.getImageDescriptor(ImageResources.IMG_ELCL16_RUN_EXEC));
 
 
 		action_launch_debugconf = new Action() {
@@ -637,7 +676,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		action_launch_debugconf.setText("Debug");
 		action_launch_debugconf.setToolTipText("Debug Selected Launch Configuration");
 		action_launch_debugconf.setImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__DEBUG_EXEC_ICON));
+				ImageResources.getImageDescriptor(ImageResources.IMG_ELCL16_DEBUG_EXEC));
 
 
 		action_opend_runconf = new Action() {
@@ -655,7 +694,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		action_opend_runconf.setText("Open Run...");
 		action_opend_runconf.setToolTipText("Open Run Selected Launch Configuration...");
 		action_opend_runconf.setImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__DIALRUN_ICON));
+				ImageResources.getImageDescriptor(ImageResources.IMG_ELCL16_DIAL_RUN));
 
 
 		action_opend_debugconf = new Action() {
@@ -673,7 +712,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		action_opend_debugconf.setText("Open Debug...");
 		action_opend_debugconf.setToolTipText("Open Debug Selected Launch Configuration...");
 		action_opend_debugconf.setImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__DIALDEBUG_ICON));
+				ImageResources.getImageDescriptor(ImageResources.IMG_ELCL16_DIAL_DEBUG));
 
 		action_opend_help = new Action() {
 			@Override
@@ -684,7 +723,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 		action_opend_help.setText("Open Diversity Help");
 		action_opend_help.setToolTipText("Open the Diversity Help");
 		action_opend_help.setImageDescriptor(
-				ImageResources.getImageDescriptor(ImageResources.IMAGE__HELP_ICON));
+				ImageResources.getImageDescriptor(ImageResources.IMG_ELCL16_HELP));
 
 
 		fRegisteredActions = new HashMap<String, Action>();
@@ -816,7 +855,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 				selectedTabItem.setToolTipText(warningMessage);
 
 				selectedTabItem.setImage(
-						ImageResources.getImage(ImageResources.IMAGE__WARNING_ICON));
+						ImageResources.getImage(ImageResources.IMG_ELCL16_WARNING));
 			} else {
 				selectedTabItem.setToolTipText("");
 				selectedTabItem.setImage(null);
@@ -833,7 +872,7 @@ public class SymbexWorkflowView extends AbstractSymbexWorkflowView
 				selectedTabItem.setToolTipText(errorMessage);
 
 				selectedTabItem.setImage(
-						ImageResources.getImage(ImageResources.IMAGE__ERROR_ICON));
+						ImageResources.getImage(ImageResources.IMG_ELCL16_ERROR));
 			} else {
 				selectedTabItem.setToolTipText("");
 				selectedTabItem.setImage(null);

@@ -665,13 +665,31 @@ public interface CommonPackage extends EPackage {
 	int SYMBEX_OPTION = 9;
 
 	/**
+	 * The feature id for the '<em><b>Constraint Solver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_OPTION__CONSTRAINT_SOLVER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Raw Options</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBEX_OPTION__RAW_OPTIONS = 1;
+
+	/**
 	 * The number of structural features of the '<em>Symbex Option</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYMBEX_OPTION_FEATURE_COUNT = 0;
+	int SYMBEX_OPTION_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Symbex Option</em>' class.
@@ -2073,6 +2091,28 @@ public interface CommonPackage extends EPackage {
 	EClass getSymbexOption();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.SymbexOption#getConstraintSolver <em>Constraint Solver</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Constraint Solver</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.SymbexOption#getConstraintSolver()
+	 * @see #getSymbexOption()
+	 * @generated
+	 */
+	EAttribute getSymbexOption_ConstraintSolver();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.efm.execution.core.workflow.common.SymbexOption#getRawOptions <em>Raw Options</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Raw Options</em>'.
+	 * @see org.eclipse.efm.execution.core.workflow.common.SymbexOption#getRawOptions()
+	 * @see #getSymbexOption()
+	 * @generated
+	 */
+	EAttribute getSymbexOption_RawOptions();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.efm.execution.core.workflow.common.ShellMode <em>Shell Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3463,6 +3503,22 @@ public interface CommonPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SYMBEX_OPTION = eINSTANCE.getSymbexOption();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraint Solver</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SYMBEX_OPTION__CONSTRAINT_SOLVER = eINSTANCE.getSymbexOption_ConstraintSolver();
+
+		/**
+		 * The meta object literal for the '<em><b>Raw Options</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SYMBEX_OPTION__RAW_OPTIONS = eINSTANCE.getSymbexOption_RawOptions();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.efm.execution.core.workflow.common.impl.ShellModeImpl <em>Shell Mode</em>}' class.

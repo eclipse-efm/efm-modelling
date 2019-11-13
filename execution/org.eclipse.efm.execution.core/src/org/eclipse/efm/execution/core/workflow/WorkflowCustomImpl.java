@@ -21,13 +21,13 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.efm.execution.core.IWorkflowConfigurationConstants;
 import org.eclipse.efm.execution.core.util.PrettyPrintWriter;
 import org.eclipse.efm.execution.core.workflow.common.AnalysisProfileKind;
-import org.eclipse.efm.execution.core.workflow.common.CommonFactory;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleLogFormatCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ConsoleVerbosityKind;
 import org.eclipse.efm.execution.core.workflow.common.DeveloperTuningOptionCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ManifestCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.ShellModeCustomImpl;
 import org.eclipse.efm.execution.core.workflow.common.SymbexOption;
+import org.eclipse.efm.execution.core.workflow.common.SymbexOptionCustomImpl;
 import org.eclipse.efm.execution.core.workflow.impl.WorkflowImpl;
 
 public class WorkflowCustomImpl extends WorkflowImpl
@@ -151,7 +151,8 @@ public class WorkflowCustomImpl extends WorkflowImpl
 		}
 
 
-		final SymbexOption symbexOption = CommonFactory.eINSTANCE.createSymbexOption();
+		final SymbexOption symbexOption =
+				SymbexOptionCustomImpl.create(configuration);
 		workflow.setSymbexOption( symbexOption );
 
 
@@ -243,32 +244,10 @@ public class WorkflowCustomImpl extends WorkflowImpl
 //				.appendEol( (str != null) ? str : "'director'" );
 		}
 
-		final SymbexOption symbexMode = getSymbexOption();
-		if( symbexMode != null ) {
-			writer.appendTab2Eol( "symbex 'option' [" );
-
-			writer.appendTab3Eol( "name_id_separator = \"_\"   // default \"#\"");
-
-			writer.appendTab3Eol( "newfresh_param_name_pid = false");
-
-			writer.appendTab3Eol( "pretty_printer_var_name = true   // default false");
-
-			writer.appendTab3Eol( "time_name_id = '$time'" );
-			writer.appendTab3Eol( "time_initial_value = 0" );
-
-			writer.appendTab3Eol( "delta_name_id = '$delay'" );
-			writer.appendTab3Eol( "delta_initial_value = 0" );
-
-
-			writer.appendTab3Eol( "node_condition_enabled = false   // default false");
-
-			writer.appendTab3Eol( "separation_of_pc_disjunction = false" );
-//			writer.appendTab3Eol( "check_pathcondition_satisfiability = true" );
-			writer.appendTab3Eol( "strongly_check_pathcondition_satisfiability = true" );
-
-			writer.appendTab3Eol( "constraint_solver = 'CVC4'  // Z3");
-
-			writer.appendTab2Eol( "] // end symbex" );
+		final SymbexOptionCustomImpl symbexOption =
+				(SymbexOptionCustomImpl) getSymbexOption();
+		if( symbexOption != null ) {
+			symbexOption.toWriter( writer2 );
 		}
 
 		final ConsoleLogFormatCustomImpl console =

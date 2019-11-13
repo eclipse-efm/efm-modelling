@@ -50,6 +50,8 @@ public class MoccSystemFeature {
 	public final int timedActorCount;
 	public final int phaseActorCount;
 
+	public final int executableActorCount;
+
 	public final boolean hasTimed;
 	public final boolean hasUntimed;
 
@@ -57,7 +59,8 @@ public class MoccSystemFeature {
 
 	public int firings;
 
-	public final int[] frequencies;
+	public final int[] allFrequencies;
+	public final int[] exeFrequencies;
 
 	public final int time_interval;
 	public final int time_period;
@@ -90,8 +93,10 @@ public class MoccSystemFeature {
 
 		int timedActorCount = 0;
 		int phaseActorCount = 0;
+		int executableActorCount = 0;
 
-		final Set< Integer > frequencies = new HashSet<Integer>();
+		final Set< Integer > allFrequencies = new HashSet<Integer>();
+		final Set< Integer > exeFrequencies = new HashSet<Integer>();
 
 		assert (! system.getActor().isEmpty()) :
 			"Unexpected a MoccSystem without actor";
@@ -110,6 +115,10 @@ public class MoccSystemFeature {
 
 			actor.computeFeature();
 
+			if( actor.FEATURE.hasInteraction ) {
+				executableActorCount = executableActorCount + 1;
+			}
+
 			// Basic static analysis feature
 			hasModeSelector  = hasModeSelector  || actor.FEATURE.isModeSelector;
 			hasModeProcessor = hasModeProcessor || actor.FEATURE.isModeProcessor;
@@ -119,7 +128,11 @@ public class MoccSystemFeature {
 			}
 
 			if( actor.FEATURE.isTimed ) {
-				frequencies.add(actor.getFrequency());
+				allFrequencies.add(actor.getFrequency());
+
+				if( actor.FEATURE.hasInteraction ) {
+					exeFrequencies.add(actor.getFrequency());
+				}
 			}
 
 			hasRegular = hasRegular || actor.FEATURE.isRegular;
@@ -163,6 +176,8 @@ public class MoccSystemFeature {
 		this.timedActorCount = timedActorCount;
 		this.phaseActorCount = phaseActorCount;
 
+		this.executableActorCount = executableActorCount;
+
 		this.hasTimed = (timedActorCount > 0);
 
 		this.hasUntimed = (timedActorCount < system.getActor().size());
@@ -195,20 +210,31 @@ public class MoccSystemFeature {
 
 		this.firings = IntStream.of( this.repetitions ).sum();
 
-		this.frequencies = new int[frequencies.size()];
+		this.allFrequencies = new int[allFrequencies.size()];
 		int offset = 0;
-		for( final Integer frequency : frequencies ) {
-			this.frequencies[offset++] = frequency;
+		for( final Integer frequency : allFrequencies ) {
+			this.allFrequencies[offset++] = frequency;
 		}
 
-		if( this.frequencies.length > 1 ) {
-			this.time_interval = gcd( this.frequencies );
-			this.time_period   = lcm( this.frequencies );
+		if( (phaseActorCount == 0) && (this.allFrequencies.length > 0) ) {
+			this.exeFrequencies = new int[exeFrequencies.size()];
+			offset = 0;
+			for( final Integer frequency : exeFrequencies ) {
+				this.exeFrequencies[offset++] = frequency;
+			}
+		}
+		else {
+			this.exeFrequencies = this.allFrequencies;
+		}
+
+		if( this.exeFrequencies.length > 1 ) {
+			this.time_interval = gcd( this.exeFrequencies );
+			this.time_period   = lcm( this.exeFrequencies );
 			this.tick_period   = time_period / time_interval;
 		}
-		else if( this.frequencies.length == 1 ) {
-			this.time_interval = this.frequencies[0];
-			this.time_period   = this.frequencies[0];
+		else if( this.exeFrequencies.length == 1 ) {
+			this.time_interval = this.exeFrequencies[0];
+			this.time_period   = this.exeFrequencies[0];
 			this.tick_period   = 1;
 		}
 		else {
@@ -218,12 +244,42 @@ public class MoccSystemFeature {
 //		IntStream.of( this.repetitions ).sum() + 1 - system.getActor().size();
 		}
 
+		// For non-conex graph
+		for( final MoccActor actor : system.getActor() ) {
+			if( this.repetitions[actor.index] == 0 ) {
+				this.repetitions[actor.index] = actor.FEATURE.repetition = -1;
+			}
+		}
+
 		this.consistency = checkConsistency();
 
 		for( final MoccActor actor : system.getActor() ) {
 			actor.FEATURE.computeCycloStaticRate();
 			actor.FEATURE.computeActivation(this);
 		}
+	}
+
+
+	public String strFrequencies() {
+		final StringBuilder sout = new StringBuilder(
+				Arrays.toString(exeFrequencies));
+
+		if( this.exeFrequencies != this.allFrequencies ) {
+			final HashSet<Integer> execFreq = new HashSet<Integer>();
+			for (final Integer freq : this.exeFrequencies) {
+				execFreq.add(freq);
+			}
+
+			sout.append(" -- [");
+			for (final Integer freq : this.allFrequencies) {
+				if( ! execFreq.contains(freq) ) {
+					sout.append(" ").append(freq);
+				}
+			}
+			sout.append(" ]");
+		}
+
+		return sout.toString();
 	}
 
 
@@ -354,7 +410,17 @@ public class MoccSystemFeature {
 	private final Map<MoccActor, Rational> rationals = new HashMap<MoccActor, Rational>();
 
 	private int[] computeReptetition() {
-		calculateRate(system.getActor().get(0), new Rational(1, 1));
+		for( final MoccActor actor : system.getActor() ) {
+			if( actor.FEATURE.hasInteraction )
+			{
+				if( ! rationals.containsKey(actor) ) {
+					calculateRate(actor, new Rational(1, 1));
+				}
+			}
+			else {
+				rationals.put(actor, new Rational(0, 1));
+			}
+		}
 
 		// get least common denominator
 		int lcm = 1;
@@ -403,10 +469,11 @@ public class MoccSystemFeature {
 	private boolean checkConsistency() {
 		boolean consistency = true;
 		for( final MoccActor actor : rationals.keySet() ) {
-			actor.FEATURE.consistency = (! actor.FEATURE.isTimed) ||
-				((actor.FEATURE.repetition ==
+			actor.FEATURE.consistency = (! actor.FEATURE.isTimed) 
+				|| (! actor.FEATURE.hasInteraction)
+				|| ((actor.FEATURE.repetition ==
 						(actor.getFrequency() / this.time_interval))
-				&& (actor.getPhase() < (this.time_period / actor.getFrequency())));
+					&& (actor.getPhase() < (this.time_period / actor.getFrequency())));
 
 			consistency &= actor.FEATURE.consistency;
 		}
