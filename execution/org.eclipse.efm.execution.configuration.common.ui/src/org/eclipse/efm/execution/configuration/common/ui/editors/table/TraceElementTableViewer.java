@@ -11,6 +11,7 @@
 package org.eclipse.efm.execution.configuration.common.ui.editors.table;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -27,6 +28,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -40,6 +42,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -66,8 +69,11 @@ public class TraceElementTableViewer {
 
 	private TableViewer fTableViewer;
 
+	private Label fContentDescriptionLabel;
+
 	private final TraceElementTableConfigProvider fTableConfig;
 
+	private int ROW_LINE_COLUMN_INDEX;
 	private int SELECTION_COLUMN_INDEX;
 	private int NATURE_COLUMN_INDEX;
 	private int VALUE_COLUMN_INDEX;
@@ -119,6 +125,8 @@ public class TraceElementTableViewer {
 		fTableViewer.setInput(traceElements);
 
 		addNewElementItemForDoubleClick();
+
+		updateContentDescriptionLabel();
 	}
 
 	public void removeAll() {
@@ -141,6 +149,19 @@ public class TraceElementTableViewer {
 		return traceElements;
 	}
 
+	public int getElementCount() {
+		return fTableViewer.getTable().getItems().length;
+	}
+
+	protected void updateContentDescriptionLabel() {
+		fContentDescriptionLabel.setText(fTableConfig.TITLE
+				+ " (Total: " + getElementCount() + ")");
+
+		fContentDescriptionLabel.setToolTipText(
+				"(Total: " + getElementCount() + ")");
+	}
+
+
 	/**
 	 * Create the TableViewer Control
 	 * @param parent
@@ -161,7 +182,8 @@ public class TraceElementTableViewer {
 
 		final Composite labelContainer = widgetToolkit.createComposite(
 				viewForm, font, 1, 1, GridData.FILL_BOTH, 5, 5);
-        widgetToolkit.createLabel(labelContainer, fTableConfig.TITLE, 1);
+		fContentDescriptionLabel =
+				widgetToolkit.createLabel(labelContainer, fTableConfig.TITLE, 1);
         viewForm.setTopLeft(labelContainer);
 
         final ToolBarManager toolBarManager= new ToolBarManager(SWT.FLAT);
@@ -245,6 +267,8 @@ public class TraceElementTableViewer {
 			@Override
 			public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
 				super.inputChanged(viewer, oldInput, newInput);
+
+				updateContentDescriptionLabel();
 			}
 		} );
 //		fTableViewer.setLabelProvider(new TraceElementLabelProvider());
@@ -255,7 +279,6 @@ public class TraceElementTableViewer {
 //					handleDoubleClickEvent(event);
 //			}
 //		});
-
 
 //!!		// Double click for edit TraceElement value column
 //		TableViewerFocusCellManager focusCellManager =
@@ -315,19 +338,52 @@ public class TraceElementTableViewer {
 
 	// create the columns for the table
 	private void createColumns(final Composite tableComposite, final Font font) {
+		ROW_LINE_COLUMN_INDEX  = -1;
 		SELECTION_COLUMN_INDEX = -1;
-		NATURE_COLUMN_INDEX = 0;
-		VALUE_COLUMN_INDEX = 1;
+		NATURE_COLUMN_INDEX    = 0;
+		VALUE_COLUMN_INDEX     = 1;
 
-		if( fTableConfig.CHECKED_BOX_FOR_COLUMN_ZERO ) {
-			SELECTION_COLUMN_INDEX = 0;
-			NATURE_COLUMN_INDEX = 1;
-			VALUE_COLUMN_INDEX = 2;
+		if( fTableConfig.SHOW_ROW_NUMBER ) {
+			ROW_LINE_COLUMN_INDEX  = 0;
+			SELECTION_COLUMN_INDEX = -1;
+			NATURE_COLUMN_INDEX    = 1;
+			VALUE_COLUMN_INDEX     = 2;
 
 			// column for the TraceElement Selection
-			final TableViewerColumn viewerColumn = createTableViewerColumn(
-					fTableConfig.SELECTION_TITLE, fTableConfig.SELECTION_WIDTH,
-					false, SELECTION_COLUMN_INDEX);
+			final TableViewerColumn viewerColumn =
+					createTableViewerColumn("",
+							fTableConfig.ROW_NUMBER_WIDTH,
+							true, ROW_LINE_COLUMN_INDEX, SWT.RIGHT);
+
+			viewerColumn.setEditingSupport(
+					new TraceElementSelectionEditingSupport(this));
+
+			viewerColumn.setLabelProvider( new CellLabelProvider() {
+
+				@Override
+				public void update(final ViewerCell cell) {
+					if( fTableViewer != null ) {
+						final int index =
+								Arrays.asList(fTableViewer.getTable().getItems())
+								.indexOf(cell.getItem());
+						cell.setText("" + (index + 1));
+					}
+				}
+			});
+		}
+
+		if( fTableConfig.CHECKED_BOX_FOR_COLUMN_ZERO ) {
+			SELECTION_COLUMN_INDEX = ROW_LINE_COLUMN_INDEX + 1;
+			NATURE_COLUMN_INDEX    = ROW_LINE_COLUMN_INDEX + 2;
+			VALUE_COLUMN_INDEX     = ROW_LINE_COLUMN_INDEX + 3;
+
+
+			// column for the TraceElement Selection
+			final TableViewerColumn viewerColumn =
+					createTableViewerColumn(
+							fTableConfig.SELECTION_TITLE,
+							fTableConfig.SELECTION_WIDTH,
+							false, SELECTION_COLUMN_INDEX, SWT.CENTER);
 
 			viewerColumn.setEditingSupport(
 					new TraceElementSelectionEditingSupport(this));
@@ -360,10 +416,13 @@ public class TraceElementTableViewer {
 		}
 
 
+
 		// first column is for the TraceElement Nature
 		TableViewerColumn viewerColumn =
-				createTableViewerColumn(fTableConfig.NATURE_TITLE,
-						fTableConfig.NATURE_WIDTH, true, NATURE_COLUMN_INDEX);
+				createTableViewerColumn(
+						fTableConfig.NATURE_TITLE,
+						fTableConfig.NATURE_WIDTH,
+						true, NATURE_COLUMN_INDEX, SWT.LEFT);
 
 		viewerColumn.setEditingSupport(
 				new TraceElementNatureEditingSupport(this));
@@ -385,7 +444,7 @@ public class TraceElementTableViewer {
 
 		// second column is for the TraceElement Value
 		viewerColumn = createTableViewerColumn(fTableConfig.VALUE_TITLE,
-				fTableConfig.VALUE_WIDTH, true, VALUE_COLUMN_INDEX);
+				fTableConfig.VALUE_WIDTH, true, VALUE_COLUMN_INDEX, SWT.LEFT);
 
 		viewerColumn.setEditingSupport(new TraceElementValueEditingSupport(this));
 
@@ -425,9 +484,11 @@ public class TraceElementTableViewer {
 
 
 	private TableViewerColumn createTableViewerColumn(
-			final String title, final int bound, final boolean resizable, final int colNumber) {
+			final String title, final int bound,
+			final boolean resizable, final int colNumber,  final int style)
+	{
 		final TableViewerColumn viewerColumn =
-				new TableViewerColumn(fTableViewer, SWT.NONE);
+				new TableViewerColumn(fTableViewer, style);
 
 		final TableColumn column = viewerColumn.getColumn();
 
@@ -618,7 +679,9 @@ public class TraceElementTableViewer {
 				new TraceElementAddingDialog(this, null, null);
 
 		if( addingDialog.open() == Window.OK ) {
-	        updateLaunchConfigurationDialog();
+			updateContentDescriptionLabel();
+
+			updateLaunchConfigurationDialog();
 		}
 	}
 
@@ -670,6 +733,8 @@ public class TraceElementTableViewer {
 						TraceElementKind.UNDEFINED, ADD_NEW_ELEMENT));
 			}
 
+			updateContentDescriptionLabel();
+
 	        updateLaunchConfigurationDialog();
 		}
 	}
@@ -720,6 +785,8 @@ public class TraceElementTableViewer {
 							(selectionIndex + 1));
 				}
 
+				updateContentDescriptionLabel();
+
 		        updateLaunchConfigurationDialog();
 			}
 		}
@@ -762,6 +829,8 @@ public class TraceElementTableViewer {
 			if( selTraceElement.getNature() != TraceElementKind.UNDEFINED ) {
 				fTableViewer.editElement(selTraceElement, VALUE_COLUMN_INDEX);
 
+//				updateContentDescriptionLabel();
+
 		        updateLaunchConfigurationDialog();
 			}
 		}
@@ -800,6 +869,8 @@ public class TraceElementTableViewer {
 				fTableViewer.remove( selection.getData() );
 			}
 
+			updateContentDescriptionLabel();
+
 	        updateLaunchConfigurationDialog();
 		}
 	}
@@ -832,6 +903,8 @@ public class TraceElementTableViewer {
 //		}
 		fTableViewer.getTable().removeAll();
 		addNewElementItemForDoubleClick();
+
+		updateContentDescriptionLabel();
 
         updateLaunchConfigurationDialog();
 	}

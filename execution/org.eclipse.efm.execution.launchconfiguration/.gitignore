@@ -1,2 +1,4 @@
 /bin/
 *.md.html
+/plugin-orig.xml
+/plugin_menu_test.xml

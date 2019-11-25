@@ -12,6 +12,9 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.core;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public interface IWorkflowSpiderConfigurationUtils {
 
 	///////////////////////////////////////////////////////////////////////////
@@ -122,6 +125,100 @@ public interface IWorkflowSpiderConfigurationUtils {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
+    Pattern PATTERN_EXECUTION_SPIDER_INIT_POSITIONS = Pattern.compile(
+    		SPIDER_TRACE_INIT_PREFIX + "[(](\\d+):(\\d+):(\\d+):(\\d+)[)]"
+    		+ "(" + SPIDER_COVERAGE_PREFIX + "[(](\\d+):(\\d+)[)])?");
+
+    Pattern PATTERN_EXECUTION_SPIDER_STEP_POSITIONS = Pattern.compile(
+    		SPIDER_TRACE_STEP_PREFIX + "\\((\\d+):(\\d+):(\\d+):(\\d+)\\)"
+    		+ "(" + SPIDER_COVERAGE_PREFIX + "\\((\\d+):(\\d+)\\))?");
+
+    Pattern PATTERN_EXECUTION_SPIDER_STOP_POSITIONS = Pattern.compile(
+    		SPIDER_TRACE_INIT_PREFIX + "\\((\\d+):(\\d+):(\\d+):(\\d+)\\)"
+    		+ "(" + SPIDER_COVERAGE_PREFIX + "\\((\\d+):(\\d+)\\))?");
+
+
+	default int[] matcherSpiderPositions(final String spiderInformations) {
+		if( spiderInformations.length() < 2 ) {
+			return RESCUE_POSITIONS;
+		}
+		else {
+	        Matcher matcher = null;
+
+			final char firstChar = spiderInformations.charAt(0);
+			if( firstChar == '$' ) {
+				if( (matcher = PATTERN_EXECUTION_SPIDER_STEP_POSITIONS.matcher(
+						spiderInformations)).find() )
+				{
+					final int[] positions = new int[matcher.groupCount() + 1];
+					for (int i = 1; i <= positions.length; i++) {
+						positions[i] = Integer.parseUnsignedInt(matcher.group(i));
+					}
+					return( positions );
+				}
+			}
+			else if( firstChar == '<' ) {
+				if( (matcher = PATTERN_EXECUTION_SPIDER_INIT_POSITIONS.matcher(
+						spiderInformations)).find() )
+				{
+					final int[] positions = new int[matcher.groupCount() + 1];
+					for (int i = 1; i <= positions.length; i++) {
+						positions[i] = Integer.parseUnsignedInt(matcher.group(i));
+					}
+					return( positions );
+				}
+			}
+			else if( firstChar == '>' ) {
+				if( (matcher = PATTERN_EXECUTION_SPIDER_STOP_POSITIONS.matcher(
+						spiderInformations)).find() )
+				{
+					final int[] positions = new int[matcher.groupCount() + 1];
+					for (int i = 1; i <= positions.length; i++) {
+						positions[i] = Integer.parseUnsignedInt(matcher.group(i));
+					}
+					return( positions );
+				}
+			}
+
+//			else
+			{
+				return( splitSpiderPositions(spiderInformations) );
+			}
+		}
+	}
+
+	default int[] splitSpiderPositions(final String spiderInformations) {
+		String[] strPositions;
+
+		final char firstChar = spiderInformations.charAt(0);
+		if( (firstChar == '$') || (firstChar == '<') || (firstChar == '>') ) {
+			strPositions = spiderInformations.split(SPIDER_POSITIONS_SEPARATOR);
+		}
+		else { //if (firstChar == 's')
+			strPositions = spiderInformations.split(OLD_POSITIONS_SEPARATOR);
+		}
+
+		final int[] positions = new int[strPositions.length - 1];
+
+		for (int i = 1; i < strPositions.length; i++) {
+			try {
+				positions[i - 1] = Integer.parseInt(strPositions[i]);
+			} catch(final NumberFormatException e) {
+				//!! NOTHING ELSE !!
+				positions[i - 1] = 0;
+
+				System.out.print( "spiderPosition< unexpected as number > : " );
+				System.out.print( strPositions[i] );
+				System.out.print( " FROM " );
+				System.out.println( spiderInformations );
+			}
+		}
+
+		return( positions );
+	}
+
+
+
 	String SPIDER_POSITIONS_SEPARATOR = "\\D+";
 	String OLD_POSITIONS_SEPARATOR = "[, ]*\\w+[:][ ]*|[,/ ]+";
 
@@ -132,31 +229,11 @@ public interface IWorkflowSpiderConfigurationUtils {
 			return RESCUE_POSITIONS;
 		}
 		else {
-			String[] strPositions;
+//			final int[] positions = matcherSpiderPositions(spiderInformations);
+//			System.out.print( "MATCHER " + spiderInformations + " --> " );
+//			System.out.println( Arrays.toString(positions) );
 
-			final char firstChar = spiderInformations.charAt(0);
-			if( (firstChar == '$') || (firstChar == '<') || (firstChar == '>') ) {
-				strPositions = spiderInformations.split(SPIDER_POSITIONS_SEPARATOR);
-			}
-			else { //if (firstChar == 's')
-				strPositions = spiderInformations.split(OLD_POSITIONS_SEPARATOR);
-			}
-
-			final int[] positions = new int[strPositions.length - 1];
-
-			for (int i = 1; i < strPositions.length; i++) {
-				try {
-					positions[i - 1] = Integer.parseInt(strPositions[i]);
-				} catch(final NumberFormatException e) {
-					//!! NOTHING ELSE !!
-					positions[i - 1] = 0;
-
-					System.out.print( "spiderPosition< unexpected as number > : " );
-					System.out.println( strPositions[i] );
-				}
-			}
-
-			return( positions );
+			return( splitSpiderPositions(spiderInformations) );
 		}
 	}
 

@@ -1021,20 +1021,18 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			PLUGIN_LAUNCH_ID + ".ATTR_SYMBEX_OPTION_TEXTUAL_CONFIGURATION"; //$NON-NLS-1$
 
 	String DEFAULT_SYMBEX_OPTION_TEXTUAL_CONFIGURATION
-			= "symbex 'option' [\n"
-			+ "\tname_id_separator = \"_\"   // default \"#\"\n"
-			+ "\tnewfresh_param_name_pid = false\n"
-			+ "\tpretty_printer_var_name = true   // default false\n"
-			+ "\ttime_name_id = '$time'\n"
-			+ "\ttime_initial_value = 0\n"
-			+ "\tdelta_name_id = '$delay'\n"
-			+ "\tdelta_initial_value = 0\n"
-			+ "\tnode_condition_enabled = false   // default false\n"
-			+ "\tseparation_of_pc_disjunction = false\n"
-			+ "\tcheck_pathcondition_satisfiability = true\n"
-			+ "\t//strongly_check_pathcondition_satisfiability = true\n"
-			+ "\tconstraint_solver = 'CVC4'  // Z3\n"
-			+ "] // end symbex\n";  //$NON-NLS-1$
+			= "name_id_separator = \"_\"   // default \"#\"\n"
+			+ "newfresh_param_name_pid = false\n"
+			+ "pretty_printer_var_name = true   // default false\n"
+			+ "time_name_id = '$time'\n"
+			+ "time_initial_value = 0\n"
+			+ "delta_name_id = '$delay'\n"
+			+ "delta_initial_value = 0\n"
+			+ "node_condition_enabled = false   // default false\n"
+			+ "separation_of_pc_disjunction = false\n"
+			+ "check_pathcondition_satisfiability = true\n"
+			+ "//strongly_check_pathcondition_satisfiability = true\n"
+			+ "constraint_solver = 'CVC4'  // Z3\n"; //$NON-NLS-1$
 
 	////////////////////////////////////////////////////////////////////////////
 	// DEVELOPER:  a.k.a. DEVELOPER DEBUG TUNING OPTION

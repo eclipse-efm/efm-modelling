@@ -1678,7 +1678,8 @@ public class MoCC2XLIA {
 					helperPort.varReceivedTokenCount,
 					helperPort.rateExpression());
 
-			if( ALWAYS_USING_MODE || moccPort.isDeciding() )
+			if( (ALWAYS_USING_MODE || moccPort.isDeciding())
+				&& (helperPort.varReceivedMode != null) )
 			{
 				assert (helperPort.varReceivedMode != null) :
 					"Unexpected a null varReceivedMode for port " +

@@ -698,11 +698,11 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 							fSpider.resetSpider(
 									fSymbexWorkflowProvider
 											.getSymbexlAnalysisProfileName(),
-									(bounds.length == 6)
+									(bounds.length >= 6)
 											? SPIDER_GEOMETRY.PENTAGON
 											: SPIDER_GEOMETRY.TETRAGON );
 
-							initSpider( spiderPositions(traceLine) );
+							initSpider( bounds );
 
 							disabledSpiderTrace = false;
 

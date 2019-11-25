@@ -158,6 +158,10 @@ public class ProfileExecutionAction extends Action implements IUpdate, IMenuCrea
 		addActionToMenu(fMenu, new ProfileExecutionCountAction(
 				"Profile Execution until Terminate Action", Integer.MAX_VALUE),
 				accel++);
+
+		addActionToMenu(fMenu, new ProfileExecutionCountAction(
+				"Profile Execution up to FULL-Coverage", -1),
+				accel++);
 		new Separator("Profile_N_Executions").fill(fMenu, -1); //$NON-NLS-1$
 
 		addActionToMenu(fMenu, new ProfileExecutionCountAction(10), accel++);

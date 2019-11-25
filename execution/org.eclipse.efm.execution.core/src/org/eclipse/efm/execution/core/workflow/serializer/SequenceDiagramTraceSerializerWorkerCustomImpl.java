@@ -124,7 +124,7 @@ public class SequenceDiagramTraceSerializerWorkerCustomImpl
 						"format", configuration,
 						ATTR_SEQUENCE_DIAGRAM_TRACE_FORMAT_ELEMENT_LIST,
 						DEFAULT_SEQUENCE_DIAGRAM_TRACE_FORMAT_ELEMENT_LIST,
-						TraceElementKind.UNDEFINED);
+						TraceElementKind.RAW_ATTRIBUTE);
 
 		serializerWorker.setFormat( format );
 
@@ -173,7 +173,7 @@ public class SequenceDiagramTraceSerializerWorkerCustomImpl
 				TraceSpecificationCustomImpl.create(
 						"trace", configuration,
 						ATTR_BASIC_TRACE_DETAILS_ELEMENT_LIST,
-						TraceElementKind.UNDEFINED);
+						TraceElementKind.RAW_ATTRIBUTE);
 
 		boolean enabled;
 

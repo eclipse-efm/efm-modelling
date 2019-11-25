@@ -28,7 +28,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 		implements IWorkflowConfigurationConstants {
 
 	protected TTCNTraceSerializerWorkerCustomImpl(
-			Director director, String name) {
+			final Director director, final String name) {
 		super();
 
 		setDirector(director);
@@ -36,7 +36,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 	}
 
 	protected TTCNTraceSerializerWorkerCustomImpl(
-			Director director, String name, String description) {
+			final Director director, final String name, final String description) {
 		super();
 
 		setDirector(director);
@@ -46,9 +46,9 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 
 
 	public static TTCNTraceSerializerWorkerCustomImpl create(
-			Director director, ILaunchConfiguration configuration) {
+			final Director director, final ILaunchConfiguration configuration) {
 
-		TTCNTraceSerializerWorkerCustomImpl serializerWorker =
+		final TTCNTraceSerializerWorkerCustomImpl serializerWorker =
 				new TTCNTraceSerializerWorkerCustomImpl(
 						director, "TTCN_trace_generator");
 
@@ -62,17 +62,17 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 //		serializerWorker.setFormat( format );
 //
 //
-		List<String> specification = DEFAULT_TTCN_TRACE_SPECIFICATION;
+		final List<String> specification = DEFAULT_TTCN_TRACE_SPECIFICATION;
 
-		TraceSpecificationCustomImpl trace =
+		final TraceSpecificationCustomImpl trace =
 				TraceSpecificationCustomImpl.create("trace",
-						specification, TraceElementKind.UNDEFINED);
+						specification, TraceElementKind.RAW_ATTRIBUTE);
 //		TraceSpecificationCustomImpl trace =
 //				TraceSpecificationCustomImpl.create(
 //						"trace", configuration,
 //						ATTR_TTCN_TRACE_SPECIFICATION,
 //						DEFAULT_TTCN_TRACE_SPECIFICATION,
-//						TraceElementKind.UNDEFINED);
+//						TraceElementKind.RAW_ATTRIBUTE);
 
 		serializerWorker.setTrace( trace );
 
@@ -81,7 +81,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 		try {
 			str = configuration.getAttribute(
 					ATTR_TTCN_FOLDER_NAME, DEFAULT_TTCN_FOLDER_NAME);
-		} catch( CoreException e ) {
+		} catch( final CoreException e ) {
 			e.printStackTrace();
 
 			str = DEFAULT_TTCN_FOLDER_NAME;
@@ -93,7 +93,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 			enabledCustomization = configuration.getAttribute(
 					ATTR_TTCN_ENABLED_CUSTOMIZATION,
 					DEFAULT_TTCN_ENABLED_CUSTOMIZATION);
-		} catch( CoreException e ) {
+		} catch( final CoreException e ) {
 			e.printStackTrace();
 
 			enabledCustomization = DEFAULT_TTCN_ENABLED_CUSTOMIZATION;
@@ -108,7 +108,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_CONTROL_MODULE_NAME,
 						DEFAULT_TTCN_CONTROL_MODULE_NAME);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_CONTROL_MODULE_NAME;
@@ -120,7 +120,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_DECLARATIONS_MODULE_NAME,
 						DEFAULT_TTCN_DECLARATIONS_MODULE_NAME);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_DECLARATIONS_MODULE_NAME;
@@ -132,7 +132,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_TEMPLATES_MODULE_NAME,
 						DEFAULT_TTCN_TEMPLATE_MODULE_NAME);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_TEMPLATE_MODULE_NAME;
@@ -145,7 +145,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_TESTCASES_MODULE_NAME,
 						DEFAULT_TTCN_TESTCASES_MODULE_NAME);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_TESTCASES_MODULE_NAME;
@@ -156,7 +156,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_TESTCASES_STARTING_WRAPPER,
 						DEFAULT_TTCN_TESTCASES_STARTING_WRAPPER);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_TESTCASES_STARTING_WRAPPER;
@@ -167,7 +167,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_TESTCASES_ENDING_WRAPPER,
 						DEFAULT_TTCN_TESTCASES_ENDING_WRAPPER);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_TESTCASES_ENDING_WRAPPER;
@@ -178,7 +178,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_TESTCASES_SENDING_WRAPPER,
 						DEFAULT_TTCN_TESTCASES_SENDING_WRAPPER);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_TESTCASES_SENDING_WRAPPER;
@@ -189,7 +189,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_TESTCASES_RECEIVING_WRAPPER,
 						DEFAULT_TTCN_TESTCASES_RECEIVING_WRAPPER);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_TESTCASES_RECEIVING_WRAPPER;
@@ -202,7 +202,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_ADAPTATION_MODULE_NAME,
 						DEFAULT_TTCN_ADAPTATION_MODULE_NAME);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_ADAPTATION_MODULE_NAME;
@@ -213,7 +213,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_ADAPTATION_UTILS_IMPL,
 						DEFAULT_TTCN_ADAPTATION_UTILS_IMPL);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_ADAPTATION_UTILS_IMPL;
@@ -224,7 +224,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_TESTCASES_STARTING_ENDING_IMPL,
 						DEFAULT_TTCN_TESTCASES_STARTING_ENDING_IMPL);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_TESTCASES_STARTING_ENDING_IMPL;
@@ -235,7 +235,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_TESTCASES_SENDING_IMPL,
 						DEFAULT_TTCN_TESTCASES_SENDING_IMPL);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_TESTCASES_SENDING_IMPL;
@@ -246,7 +246,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 				str = configuration.getAttribute(
 						ATTR_TTCN_TESTCASES_RECEIVING_IMPL,
 						DEFAULT_TTCN_TESTCASES_RECEIVING_IMPL);
-			} catch( CoreException e ) {
+			} catch( final CoreException e ) {
 				e.printStackTrace();
 
 				str = DEFAULT_TTCN_TESTCASES_RECEIVING_IMPL;
@@ -258,7 +258,7 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 	}
 
 
-	public void toWriter(PrettyPrintWriter writer) {
+	public void toWriter(final PrettyPrintWriter writer) {
 		writer.commentLine( getComment() );
 
 		writer.appendTab( "serializer#symbex#trace#ttcn" );
@@ -274,9 +274,9 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 
 		writer.appendEol( " {" );
 
-		PrettyPrintWriter writer2 = writer.itab2();
+		final PrettyPrintWriter writer2 = writer.itab2();
 
-		ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
+		final ManifestCustomImpl manifest = (ManifestCustomImpl) getManifest();
 		if( manifest != null ) {
 			manifest.toWriter(writer2);
 		}
@@ -379,13 +379,13 @@ public class TTCNTraceSerializerWorkerCustomImpl extends TTCNTraceSerializerImpl
 		writer2.appendTabEol( "] // end implementation" );
 
 
-		TraceSpecificationCustomImpl format =
+		final TraceSpecificationCustomImpl format =
 				(TraceSpecificationCustomImpl) getFormat();
 		if( format != null ) {
 			format.toWriter( writer2 );
 		}
 
-		TraceSpecificationCustomImpl trace =
+		final TraceSpecificationCustomImpl trace =
 				(TraceSpecificationCustomImpl) getTrace();
 		if( trace != null ) {
 			trace.toWriter(writer2);

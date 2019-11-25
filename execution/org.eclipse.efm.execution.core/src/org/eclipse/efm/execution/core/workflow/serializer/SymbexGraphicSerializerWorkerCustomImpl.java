@@ -82,7 +82,7 @@ public class SymbexGraphicSerializerWorkerCustomImpl
 						"format", configuration,
 						ATTR_FIRST_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
 						DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-						TraceElementKind.UNDEFINED);
+						TraceElementKind.RAW_ATTRIBUTE);
 
 		serializerWorker.setFormat( format );
 
@@ -138,7 +138,7 @@ public class SymbexGraphicSerializerWorkerCustomImpl
 						"format", configuration,
 						ATTR_SECOND_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
 						DEFAULT_SYMBEX_OUTPUT_GRAPHVIZ_FORMAT_SPEC,
-						TraceElementKind.UNDEFINED);
+						TraceElementKind.RAW_ATTRIBUTE);
 
 		serializerWorker.setFormat( format );
 

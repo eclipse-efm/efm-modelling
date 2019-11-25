@@ -36,7 +36,8 @@ public class TraceElementTableConfigProvider
 	public final String NATURE_TITLE;
 	public final String VALUE_TITLE;
 
-	public final int SELECTION_WIDTH = 20;
+	public final int ROW_NUMBER_WIDTH = 40;
+	public final int SELECTION_WIDTH  = 20;
 	public final int NATURE_WIDTH;
 	public final int VALUE_WIDTH;
 
@@ -52,12 +53,15 @@ public class TraceElementTableConfigProvider
 
 	public final String[] VALID_NATURES;
 
+	public final boolean SHOW_ROW_NUMBER;
+
 	public TraceElementTableConfigProvider(
 			final String storeKey, final List<String> defaultAttributeValue,
 			final String title, final String toolTipText, final boolean checkedBoxForColumnZero,
 			final boolean isNatureUniqueSet, final String natureTitle, final int natureWidth,
 			final String valueTitle, final int valueWidth, final int heightHint,
-			final TraceElementKind[] validTraces, final TraceElementKind deafaultTrace) {
+			final TraceElementKind[] validTraces, final TraceElementKind defaultTrace,
+			final boolean showRowNumber) {
 
 		STORE_KEY = storeKey;
 		DEFAULT_ATTRIBUTE_VALUE = defaultAttributeValue;
@@ -84,19 +88,22 @@ public class TraceElementTableConfigProvider
 			VALID_NATURES[offset] = validTraces[offset].getLiteral();
 		}
 
-		DEFAULT_TRACE_NATURE = deafaultTrace;
+		DEFAULT_TRACE_NATURE = defaultTrace;
+
+		SHOW_ROW_NUMBER = showRowNumber;
 	}
 
 	public TraceElementTableConfigProvider(final String storeKey,
 			final List<String> defaultAttributeValue, final String title, final String toolTipText,
 			final boolean checkedBoxForColumnZero, final String natureTitle, final int natureWidth,
 			final String valueTitle, final int valueWidth, final int heightHint,
-			final TraceElementKind[] validTraces, final TraceElementKind deafaultTrace)
+			final TraceElementKind[] validTraces, final TraceElementKind defaultTrace,
+			final boolean showRowNumber)
 	{
 		this(storeKey, defaultAttributeValue, title, toolTipText,
 				checkedBoxForColumnZero, false, natureTitle,
 				natureWidth, valueTitle, valueWidth, heightHint,
-				validTraces, TraceElementKind.TRANSITION);
+				validTraces, defaultTrace, showRowNumber);
 	}
 
 
@@ -109,7 +116,7 @@ public class TraceElementTableConfigProvider
 		this(storeKey, defaultAttributeValue, title, toolTipText,
 				checkedBoxForColumnZero, false, natureTitle,
 				natureWidth, valueTitle, valueWidth, heightHint,
-				validTraces, TraceElementKind.TRANSITION);
+				validTraces, TraceElementKind.TRANSITION, false);
 	}
 
 
@@ -362,7 +369,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(7),//HEIGHT_HINT_ROW_7,
-				TRANSITION_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+				TRANSITION_TRACE_ELEMENT, TraceElementKind.TRANSITION, true);
 	}
 
 
@@ -379,7 +386,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(7),//HEIGHT_HINT_ROW_7,
-				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION, true);
 	}
 
 
@@ -397,7 +404,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
-				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.VARIABLE);
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.VARIABLE, false);
 	}
 
 	public static TraceElementTableConfigProvider getControllableTrace(final Font font) {
@@ -410,7 +417,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
-				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.VARIABLE);
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.VARIABLE, false);
 	}
 
 
@@ -427,7 +434,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(7),//HEIGHT_HINT_ROW_7,
-				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION, false);
 	}
 
 
@@ -444,7 +451,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
-				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+				BEHAVIOR_SELECTION_TRACE_ELEMENT, TraceElementKind.TRANSITION, false);
 	}
 
 	public static TraceElementTableConfigProvider getTestGenerationTraceDetail(final Font font) {
@@ -457,7 +464,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
-				SERIALIZER_TRACE_ELEMENT, TraceElementKind.TRANSITION);
+				SERIALIZER_TRACE_ELEMENT, TraceElementKind.TRANSITION, false);
 	}
 
 	public static TraceElementTableConfigProvider getTestGenenrationTraceFormat(final Font font) {
@@ -471,7 +478,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(32),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(10),//HEIGHT_HINT_ROW_10,
-				FORMAT_ELEMENT, TraceElementKind.RAW_ATTRIBUTE);
+				FORMAT_ELEMENT, TraceElementKind.RAW_ATTRIBUTE, false);
 	}
 
 
@@ -489,7 +496,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(7),//HEIGHT_HINT_ROW_7,
-				SERIALIZER_TRACE_ELEMENT, TraceElementKind.VARIABLE);
+				SERIALIZER_TRACE_ELEMENT, TraceElementKind.VARIABLE, false);
 	}
 
 	public static TraceElementTableConfigProvider getFirstSymbexOutputGraphizFormat(final Font font) {
@@ -502,7 +509,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(32),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(10),//HEIGHT_HINT_ROW_10,
-				FORMAT_ELEMENT, TraceElementKind.VARIABLE);
+				FORMAT_ELEMENT, TraceElementKind.VARIABLE, false);
 	}
 
 
@@ -520,7 +527,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(16),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(5),//HEIGHT_HINT_ROW_5,
-				SERIALIZER_TRACE_ELEMENT, TraceElementKind.VARIABLE);
+				SERIALIZER_TRACE_ELEMENT, TraceElementKind.VARIABLE, false);
 	}
 
 
@@ -534,7 +541,7 @@ public class TraceElementTableConfigProvider
 				"Nature" , pixelConverter.convertWidthInCharsToPixels(24),
 				"Element", pixelConverter.convertWidthInCharsToPixels(48),
 				pixelConverter.convertHeightInCharsToPixels(10),//HEIGHT_HINT_ROW_10,
-				FORMAT_ELEMENT, TraceElementKind.VARIABLE);
+				FORMAT_ELEMENT, TraceElementKind.VARIABLE, false);
 	}
 
 

@@ -28,6 +28,6 @@ public class SymbexOptionTab extends AbstractSewLaunchConfigurationTab {
 
 	@Override
 	public String getName() {
-		return "SymbEx << INCUBATION >>";
+		return "SymbEx";
 	}
 }

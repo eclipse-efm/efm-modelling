@@ -66,7 +66,7 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 			final Matcher matcher = pattern.matcher(element);
 
 			if( matcher.find() ) {
-				String kind = matcher.group(1).trim();
+				final String kind = matcher.group(1).trim();
 				nature = TraceElementKind.get(kind);
 
 				if( nature != null ) {
@@ -177,26 +177,33 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 	public void toWriter(final PrettyPrintWriter writer) {
 		final Object value = getValue();
 
-		writer.appendTab( isSelected() ? "" : UNSELECTION_MARKER );
-
 		switch( getNature() ) {
 			case UNDEFINED: {
-				writer.commentLine( value );
+//				if( (value instanceof String)
+//					&& (((String) value).indexOf('=') > 0) )
+//				{
+//					writer.appendTabEol( value.toString() );
+//				}
+//				else {
+					writer.commentLine( value );
+//				}
 				break;
 			}
 			case TIPS: {
-				writer.append("//").appendEol( value.toString() );
+				writer.appendTab("//").appendEol( value.toString() );
 				break;
 			}
 			case RAW_ATTRIBUTE: {
-				writer.appendEol( value.toString() );
+				writer.appendTab( isSelected() ? "" : UNSELECTION_MARKER )
+						.appendEol( value.toString() );
 				break;
 			}
 
 			case CONDITION:
 			case DECISION:
 			case FORMULA: {
-				writer.append( getNature().getLiteral() ).append( " = " );
+				writer.appendTab( isSelected() ? "" : UNSELECTION_MARKER )
+						.append( getNature().getLiteral() ).append( " = " );
 
 				if( value instanceof String ) {
 					final String str = value.toString();
@@ -214,7 +221,8 @@ public class TraceElementCustomImpl extends TraceElementImpl {
 			}
 
 			default: {
-				writer.append( getNature().getLiteral() ).append( " = " );
+				writer.appendTab( isSelected() ? "" : UNSELECTION_MARKER )
+						.append( getNature().getLiteral() ).append( " = " );
 
 				if( value instanceof String ) {
 					final String str = value.toString();

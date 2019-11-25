@@ -55,6 +55,9 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 	protected long fExecutionHeightMax;
 	protected long fExecutionWidthMax;
 
+	protected long fCoverageCount;
+	protected long fCoverageTotal;
+
 	protected long fExecutionTime;
 
 	protected long fDeadlockCount;
@@ -262,6 +265,9 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 		this.fExecutionHeightMax    = 0;
 		this.fExecutionWidthMax     = 0;
 
+		this.fCoverageCount = 0;
+		this.fCoverageTotal = 0;
+
 		this.fExecutionTime = 0;
 
 		this.fDeadlockCount = 0;
@@ -406,7 +412,10 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 	 */
     final static Pattern PATTERN_EXECUTION_STOP_STATS = Pattern.compile(
     		"stop:\\s*(\\d+)\\s*,\\s*context:\\s*(\\d+)\\s*,"
-    		+ "\\s*height:\\s*(\\d+)\\s*,\\s*width:\\s*(\\d+).*");
+    		+ "\\s*height:\\s*(\\d+)\\s*,\\s*width:\\s*(\\d+)(.*)");
+
+    final static Pattern PATTERN_EXECUTION_COVERAGE_STOP_STATS = Pattern.compile(
+    		".+coverage:\\s*(\\d+)\\s*/\\s*(\\d+)\\s*");
 
     final static Pattern PATTERN_EXECUTION_TIME = Pattern.compile(
     		"\\$time<\\s*(\\d+)\\s*ms.+");
@@ -458,6 +467,12 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 			this.fExecutionContextCount = Integer.parseUnsignedInt( matcher.group(2) );
 			this.fExecutionHeightMax = Integer.parseUnsignedInt( matcher.group(3) );
 			this.fExecutionWidthMax = Integer.parseUnsignedInt( matcher.group(4) );
+
+			final String rest = matcher.group(5);
+			if( (matcher = PATTERN_EXECUTION_COVERAGE_STOP_STATS.matcher(rest)).find() ) {
+				this.fCoverageCount = Integer.parseUnsignedInt( matcher.group(1) );
+				this.fCoverageTotal = Integer.parseUnsignedInt( matcher.group(2) );
+			}
 		}
 
 		else if( (matcher = PATTERN_EXECUTION_TIME.matcher(line)).find() ) {

@@ -150,6 +150,7 @@ public class OfflineTestWorkerCustomImpl extends OfflineTestWorkerImpl
 
 		writer.appendTab2Eol( "property [" )
 			.appendTab3Eol( "format = \"BASIC#XLIA\"" )
+			.appendTab3Eol( "slice  = true" )
 			.appendTab3Eol( "trace#folding  = true" )
 			.appendTab3Eol( "step#scheduler = '|i|'" )
 			.appendTab3Eol( "trace#reporting#size = 7" )
