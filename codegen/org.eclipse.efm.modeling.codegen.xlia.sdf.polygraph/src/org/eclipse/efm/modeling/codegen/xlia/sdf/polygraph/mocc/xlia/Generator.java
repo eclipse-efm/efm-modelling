@@ -14,8 +14,6 @@ package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.xlia;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -26,6 +24,7 @@ import org.eclipse.efm.ecore.formalml.XliaModel;
 import org.eclipse.efm.formalml.ecore.factory.XLIAGenerator;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccActor;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccSystem;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.util.PrettyPrintWriter;
 
 public class Generator {
 
@@ -40,10 +39,9 @@ public class Generator {
 		if ( moccSystem != null ) {
 			// Transform MoCC AST to xLIA Model
 			final MoCC2XLIA mocc2xlia =
-					new MoCC2XLIA(moccSystem, conformance, traceGeneration);
-			mocc2xlia.transform();
+					new MoCC2XLIA(conformance, traceGeneration);
 
-			return mocc2xlia.xliaModel;
+			return mocc2xlia.transformSystem(moccSystem);
 		}
 
 		return null;
@@ -53,11 +51,9 @@ public class Generator {
 	public static void transformModel(
 			final IPath path, final MoccSystem moccSystem)
 	{
-		final MoCC2XLIA moccGenerator = new MoCC2XLIA(moccSystem, false, false);
+		final MoCC2XLIA mocc2xlia = new MoCC2XLIA(false, false);
 
-		moccGenerator.transform();
-
-		final XliaModel xliaModel = moccGenerator.xliaModel;
+		final XliaModel xliaModel = mocc2xlia.transformSystem(moccSystem);
 
 		final IPath filePath =
 				path.append(moccSystem.getName()).addFileExtension("xlia");
@@ -74,26 +70,27 @@ public class Generator {
 			final MoccSystem moccSystem, final XliaModel xliaModel)
 	{
 		try {
-			final FileWriter buffer = new FileWriter( path.toOSString() );
-			final PrintWriter writer = new PrintWriter(buffer);
+			final FileWriter fileWriter = new FileWriter( path.toOSString() );
+
+			final PrettyPrintWriter ppwr = new PrettyPrintWriter(fileWriter);
 
 			final CharSequence strXLIA =
 					XLIAGenerator.generateModel(xliaModel);
 
-			writer.write("\n/*\n");
+			// MoCC ABSTRACT
+			ppwr.appendEol_Eol("/*");
+			moccSystem.toAbstract(ppwr);
+			ppwr.appendEol_Eol2("*/");
 
-			writer.write(moccSystem.toAbstract());
+			// XLIA
+			ppwr.append(strXLIA.toString());
 
-			writer.write("\n*/\n\n");
+			// MoCC
+			ppwr.appendEol_Eol("/*");
+			moccSystem.toWriter(ppwr);
+			ppwr.appendEol_Eol("*/");
 
-			writer.write(strXLIA.toString());
-
-			writer.write("\n/*\n");
-
-			writer.write(moccSystem.toString());
-			writer.write("\n*/\n");
-
-			writer.close();
+			ppwr.close();
 
 		} catch (final IOException e) {
 			e.printStackTrace();
@@ -103,52 +100,36 @@ public class Generator {
 	public static void write(final IPath path, final MoccSystem moccSystem)
 	{
 		try {
-			final FileWriter buffer = new FileWriter( path.toOSString() );
-			final PrintWriter writer = new PrintWriter(buffer);
+			final FileWriter fileWriter = new FileWriter( path.toOSString() );
 
-			final StringBuilder sout = new StringBuilder();
-			sout.append("\n/*\n")
-				.append("==> INCONSISTENT MoccSystem <==\n");
+			final PrettyPrintWriter ppwr = new PrettyPrintWriter(fileWriter);
 
-			sout.append("system ").append(moccSystem.getName())
-				.append(" {").append('\n');
-			
+			ppwr.appendEol_Eol("/*")
+				.appendEol("==> INCONSISTENT MoccSystem <==");
+
+			moccSystem.toAbstract(ppwr).appendEol();
+
 			if( moccSystem.FEATURE != null ) {
-				sout.append('\t').append("frequencies = " )
-					.append(Arrays.toString(
-							moccSystem.FEATURE.exeFrequencies)).append('\n')
-					.append('\t').append("time = +")
-						.append(moccSystem.FEATURE.time_interval)
-						.append('\n')
-					.append('\t').append("period = ")
-						.append(moccSystem.FEATURE.time_period)
-						.append('\n')
-					.append('\t').append("repetition = ")
-						.append(Arrays.toString(moccSystem.FEATURE.repetitions))
-						.append('\n')
-					.append('}').append('\n');
-			}
-			for( final MoccActor actor : moccSystem.getActor() ) {
-				if( (actor.FEATURE != null) && (! actor.FEATURE.consistency) ) {
-					sout.append("Inconsistent actor ")
-						.append(actor.getName()).append(" {").append('\n')
-						.append('\t').append("frequency = ")
-							.append(actor.getFrequency()).append('\n')
-						.append('\t').append("phase = ")
-							.append(actor.getPhase()).append('\n')
-						.append('\t').append("repetition = ")
-							.append(actor.FEATURE.repetition).append('\n')
-						.append('}').append('\n');
+				for( final MoccActor actor : moccSystem.getActor() ) {
+					if( (actor.FEATURE != null) && (! actor.FEATURE.consistency) ) {
+						ppwr.append(moccSystem.FEATURE.inconsistencyReason(actor))
+							.appendTab(" actor ")
+							.append(actor.getName()).appendEol(" {")
+							.appendTab2("frequency = ")
+								.appendEol(actor.getFrequency())
+							.appendTab2("phase = ")
+								.appendEol(actor.getPhase())
+							.appendTab2("repetition = ")
+								.appendEol(actor.FEATURE.repetition)
+							.appendEol('}');
+					}
 				}
 			}
-			sout.append('\n');
+			ppwr.appendEol();
 
-			writer.write(sout.toString());
+			moccSystem.toWriter(ppwr).appendEol_Eol("*/");
 
-			writer.write(moccSystem.toString());
-			writer.write("\n*/\n");
-
-			writer.close();
+			ppwr.close();
 
 		} catch (final IOException e) {
 			e.printStackTrace();

@@ -14,9 +14,9 @@ package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.helper;
 
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationLiteral;
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationType;
+import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
-import org.eclipse.efm.ecore.formalml.statemachine.Statemachine;
 import org.eclipse.efm.formalml.ecore.factory.XLIA_DATATYPE;
 import org.eclipse.efm.formalml.ecore.factory.XLIA_EXPRESSION;
 import org.eclipse.efm.formalml.ecore.factory.XLIA_INFRA;
@@ -26,7 +26,7 @@ public class MoccActorHelper {
 
 	public final MoccActor actor;
 
-	public final Statemachine statemachine;
+	public final Machine machine;
 
 	public Variable constFREQUENCY;
 	public Variable constREPETITION;
@@ -69,12 +69,10 @@ public class MoccActorHelper {
 //	public Routine macroActivationPassTest;
 
 
-
-	public MoccActorHelper(
-			final MoccActor actor, final Statemachine statemachine) {
+	public MoccActorHelper(final MoccActor actor, final Machine machine) {
 		super();
 		this.actor = actor;
-		this.statemachine = statemachine;
+		this.machine = machine;
 
 		this.constFREQUENCY  = null;
 		this.constREPETITION = null;
@@ -130,7 +128,7 @@ public class MoccActorHelper {
 
 
 	public void declareConstantsVariables(
-			final Statemachine xliaActor,
+			final Machine xliaActor,
 			final EnumerationType MODE_SET_TYPE,
 			final EnumerationLiteral MODE_NOMINAL,
 			final boolean ALWAYS_USING_MODE)
@@ -213,7 +211,7 @@ public class MoccActorHelper {
 	////////////////////////////////////////////////////////////////////////////
 	// Variable Declaration for Mode Selector / Processor Actor
 	protected void modeActorDeclaration(
-			final Statemachine xliaActor,
+			final Machine xliaActor,
 			final EnumerationType MODE_SET_TYPE,
 			final EnumerationLiteral MODE_NOMINAL,
 			final boolean ALWAYS_USING_MODE)
@@ -266,7 +264,7 @@ public class MoccActorHelper {
 
 
 	protected void selectorActorDeclaration(
-			final Statemachine xliaActor, final EnumerationType MODE_SET_TYPE)
+			final Machine xliaActor, final EnumerationType MODE_SET_TYPE)
 	{
 		// CONSTANT - TYPE : SELECTION SET
 		this.modeSelectionSet = modeLiterals(
@@ -278,7 +276,7 @@ public class MoccActorHelper {
 	}
 
 	protected void processorActorDeclaration(
-			final Statemachine xliaActor, final EnumerationType MODE_SET_TYPE)
+			final Machine xliaActor, final EnumerationType MODE_SET_TYPE)
 	{
 		// CONSTANT - TYPE : PROCESSING SET
 		this.modeProcessingSet = modeLiterals(MODE_SET_TYPE,

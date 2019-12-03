@@ -282,11 +282,9 @@ public class Mocc2XliaTest {
 		final String message = "MoCC --> xLIA : " + moccSystem.getName();
 		System.out.println(message + "...");
 
-		final MoCC2XLIA moccGenerator = new MoCC2XLIA(moccSystem, true, false);
+		final MoCC2XLIA moccGenerator = new MoCC2XLIA(true, false);
 
-		moccGenerator.transform();
-
-		final XliaModel xliaModel = moccGenerator.xliaModel;
+		final XliaModel xliaModel = moccGenerator.transformSystem(moccSystem);
 
 		System.out.println(message + " OK transformation");
 
@@ -362,11 +360,9 @@ public class Mocc2XliaTest {
 				moccSystem = mutationChannel(random);
 			}
 
-			final MoCC2XLIA moccGenerator = new MoCC2XLIA(moccSystem, true, false);
+			final MoCC2XLIA moccGenerator = new MoCC2XLIA(true, false);
 
-			moccGenerator.transform();
-
-			final XliaModel xliaModel = moccGenerator.xliaModel;
+			final XliaModel xliaModel = moccGenerator.transformSystem(moccSystem);
 
 			if( xliaModel != null ) {
 				++mutationConsistentCount;

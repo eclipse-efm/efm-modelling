@@ -12,6 +12,9 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast;
 
+import java.io.StringWriter;
+
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.util.PrettyPrintWriter;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.util.Rational;
 
 public class MoccPort {
@@ -326,39 +329,48 @@ public class MoccPort {
 		}
 	}
 
-	public void strCycloStaticRate(final StringBuilder sout) {
-		sout.append('[');
+	public void strCycloStaticRate(final PrettyPrintWriter writer) {
+		writer.append('[');
 		for (final int rate : cycloStaticRate) {
-			sout.append(' ').append(rate);
+			writer.append(' ').append(rate);
 		}
-		sout.append(" ]");
+		writer.append(" ]");
 	}
 
 
 	@Override
 	public String toString() {
-		final StringBuilder sout = new StringBuilder();
+		final StringWriter buffer = new StringWriter();
+		final PrettyPrintWriter writer = new PrettyPrintWriter(buffer);
 
-		sout.append(direction.toString().toLowerCase())
+		toWriter( writer );
+
+		return buffer.toString();
+	}
+
+	public PrettyPrintWriter toWriter(final PrettyPrintWriter writer) {
+		writer.appendTab(direction.toString().toLowerCase())
 			.append(isDeciding ? " deciding" : "")
 			.append(" port< rate = ").append(strRate());
 
 		if( cycloStaticRate != null ) {
-			sout.append(" , cyclo = ");
-			strCycloStaticRate(sout);
+			writer.append(" , cyclo = ");
+			strCycloStaticRate(writer);
 		}
 
 		if( channel.hasInitialRate() ) {
-			sout.append(" , initial = ").append(channel.strInitialRate());
+			writer.append(" , initial = ").append(channel.strInitialRate());
 		}
 		if( channel.hasInitialMode() ) {
-			sout.append(" , mode = ")
+			writer.append(" , mode = ")
 				.append(channel.getInitialMode().getLiteral());
 		}
 
-		sout.append(" > ").append(name);
+		writer.append(" > ").appendEol(name);
 
-		return sout.toString();
+		writer.flush();
+
+		return writer;
 	}
 
 }

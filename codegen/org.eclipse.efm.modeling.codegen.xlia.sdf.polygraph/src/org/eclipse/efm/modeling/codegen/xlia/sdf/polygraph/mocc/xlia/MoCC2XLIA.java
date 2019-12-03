@@ -19,11 +19,9 @@ import org.eclipse.efm.ecore.formalml.XliaModel;
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationLiteral;
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationType;
 import org.eclipse.efm.ecore.formalml.expression.Expression;
-import org.eclipse.efm.ecore.formalml.expression.RelationalBinaryExpression;
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
 import org.eclipse.efm.ecore.formalml.infrastructure.Connector;
 import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution;
 import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfInteraction;
 import org.eclipse.efm.ecore.formalml.infrastructure.Parameter;
 import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet;
@@ -55,6 +53,8 @@ import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.helper.MoccPortH
 
 public class MoCC2XLIA {
 
+	protected boolean IS_ROOT_SYSTEM;
+
 	protected boolean CONFORMANCE_PURPOSE;
 
 	protected boolean TRACE_GENERATION_PURPOSE;
@@ -68,17 +68,15 @@ public class MoCC2XLIA {
 
 	public Map< MoccPort , MoccPortHelper > portHelper;
 
-	public MoccSystem moccSystem;
+	public Machine xliaMainMachine;
 
-	public XliaModel xliaModel;
+	public Variable constPeriod; // defined if period =/= hyperperiod
+	public Variable constHyperPeriod;
 
-	public XliaSystem xliaSystem;
-	public Behavior mainBehavior;
+	public Variable constTickFrequency;
+	public Variable constTickStep;
 
 	public Variable varTick;
-	public Variable varTickPeriod;
-	public Variable varTimeDelta;
-
 	public Variable varTimestamp;
 
 	public Variable varCanBeActivate;
@@ -92,29 +90,31 @@ public class MoCC2XLIA {
 	public Routine macroReceiveTokenMode;
 	public Routine macroReceiveTokenDecidingMode;
 
-	public Routine macroJsonTraceHeader;
+//	public Routine macroJsonTraceHeader;
 	public Routine macroJsonTraceBegin;
-	
+
 	public Routine macroJsonTraceTokenBodyHead;
 	public Routine macroJsonTraceTokenBodyTail;
-	
+
 	public Routine macroJsonTraceTokenModeBodyHead;
 	public Routine macroJsonTraceTokenModeBodyTail;
-	
+
 	public Routine macroJsonTraceEnd;
-	public Routine macroJsonTraceFooter;
+//	public Routine macroJsonTraceFooter;
 
 
 	protected MoCC2XLIASchedule schedulerGenerator;
 
 
-	public MoCC2XLIA(final MoccSystem moccSystem,
-			final boolean conformance, final boolean traceGeneration) {
+	public MoCC2XLIA(final boolean conformance, final boolean traceGeneration)
+	{
+		this.IS_ROOT_SYSTEM = true;
+
 		this.CONFORMANCE_PURPOSE = conformance;
 
 		this.TRACE_GENERATION_PURPOSE = traceGeneration;
 
-		PRODUCE_SYMBOLIC_MODE = (! this.CONFORMANCE_PURPOSE);
+		MoCC2XLIA.PRODUCE_SYMBOLIC_MODE = (! this.CONFORMANCE_PURPOSE);
 
 		this.ALWAYS_USING_MODE = true;
 
@@ -122,18 +122,15 @@ public class MoCC2XLIA {
 
 		this.portHelper  = new HashMap<MoccPort , MoccPortHelper >();
 
-		this.moccSystem = moccSystem;
+		this.xliaMainMachine = null;
 
-		this.xliaModel = null;
+		this.constPeriod = null;
+		this.constHyperPeriod = null;
 
-		this.xliaSystem = null;
-
-		this.mainBehavior = null;
+		this.constTickFrequency = null;
+		this.constTickStep = null;
 
 		this.varTick         = null;
-		this.varTickPeriod   = null;
-		this.varTimeDelta = null;
-
 		this.varTimestamp    = null;
 
 		this.varCanBeActivate = null;
@@ -146,22 +143,70 @@ public class MoCC2XLIA {
 		this.macroReceiveTokenMode = null;
 		this.macroReceiveTokenDecidingMode = null;
 
-		this.macroJsonTraceHeader  = null;
+//		this.macroJsonTraceHeader  = null;
 		this.macroJsonTraceBegin   = null;
-		
+
 		this.macroJsonTraceTokenBodyHead     = null;
 		this.macroJsonTraceTokenBodyTail     = null;
 		this.macroJsonTraceTokenModeBodyHead = null;
 		this.macroJsonTraceTokenModeBodyTail = null;
-		
-		this.macroJsonTraceEnd     = null;
-		this.macroJsonTraceFooter  = null;
 
-		schedulerGenerator = new MoCC2XLIASchedule(this);
+		this.macroJsonTraceEnd     = null;
+//		this.macroJsonTraceFooter = null;
+
+		schedulerGenerator = null;
 	}
 
-	public MoCC2XLIA(final MoccSystem moccSystem) {
-		this(moccSystem, true, false);
+	public MoCC2XLIA(final MoCC2XLIA mocc2xlia)
+	{
+		this.IS_ROOT_SYSTEM = false;
+
+		this.CONFORMANCE_PURPOSE = mocc2xlia.CONFORMANCE_PURPOSE;
+
+		this.TRACE_GENERATION_PURPOSE = mocc2xlia.TRACE_GENERATION_PURPOSE;
+
+//		PRODUCE_SYMBOLIC_MODE = mocc2xlia.PRODUCE_SYMBOLIC_MODE; // static property
+
+		this.ALWAYS_USING_MODE = true;
+
+		this.actorHelper = new HashMap<MoccActor, MoccActorHelper>();
+
+		this.portHelper  = new HashMap<MoccPort , MoccPortHelper >();
+
+		this.xliaMainMachine = null;
+
+		this.constPeriod = null;
+		this.constHyperPeriod = null;
+
+		this.constTickFrequency = null;
+		this.constTickStep = null;
+
+		this.varTick       = null;
+		this.varTimestamp  = null;
+
+
+		this.varCanBeActivate = null;
+
+		this.MODE_SET_TYPE  = mocc2xlia.MODE_SET_TYPE;
+		this.MODE_NOMINAL   = mocc2xlia.MODE_NOMINAL;
+		this.MODE_UNDEFINED = mocc2xlia.MODE_UNDEFINED;
+
+		this.macroReceiveToken     = mocc2xlia.macroReceiveToken;
+		this.macroReceiveTokenMode = mocc2xlia.macroReceiveTokenMode;
+		this.macroReceiveTokenDecidingMode = mocc2xlia.macroReceiveTokenDecidingMode;
+
+//		this.macroJsonTraceHeader  = mocc2xlia.macroJsonTraceHeader;
+		this.macroJsonTraceBegin   = mocc2xlia.macroJsonTraceBegin;
+
+		this.macroJsonTraceTokenBodyHead     = mocc2xlia.macroJsonTraceTokenBodyHead;
+		this.macroJsonTraceTokenBodyTail     = mocc2xlia.macroJsonTraceTokenBodyTail;
+		this.macroJsonTraceTokenModeBodyHead = mocc2xlia.macroJsonTraceTokenModeBodyHead;
+		this.macroJsonTraceTokenModeBodyTail = mocc2xlia.macroJsonTraceTokenModeBodyTail;
+
+		this.macroJsonTraceEnd    = mocc2xlia.macroJsonTraceEnd;
+//		this.macroJsonTraceFooter = mocc2xlia.macroJsonTraceFooter;
+
+		schedulerGenerator = null;
 	}
 
 
@@ -174,109 +219,167 @@ public class MoCC2XLIA {
 	}
 
 
-	public void transform()
+	public XliaModel transformSystem(final MoccSystem moccSystem)
 	{
 		// Basic static analysis feature
 		final MoccSystemFeature moccSystemFeature =
-				this.moccSystem.computeFeatureStrict();
+				moccSystem.computeFeatureStrict();
 
 		assert (moccSystemFeature.consistency) :
 				"Unexpected a non-consistency MoCC System : " +
-				this.moccSystem.getName();
+				moccSystem.getName();
 
-		if( ! moccSystemFeature.consistency ) {
-			this.xliaModel = null;
-			this.xliaSystem = null;
+		if( moccSystemFeature.consistency ) {
+			// For Moka Trace compatibility
+			ALWAYS_USING_MODE = true;//moccSystem.FEATURE.hasModeSelector;
 
-			return;
+			// Transformation to XLIA
+			final XliaModel xliaModel = XLIA_INFRA.createModel();
+
+			final XliaSystem xliaSystem =
+					XLIA_INFRA.createSystem(moccSystem.getName());
+
+			xliaModel.setSystem( xliaSystem );
+
+			this.xliaMainMachine = xliaSystem;
+
+			transform(moccSystem, moccSystemFeature);
+
+			return xliaModel;
 		}
+		else {
+			return null;
+		}
+	}
 
+	public void transformSubSystem(
+			final MoccActor moccActor, final Machine xliaActor)
+	{
+		final MoccSystem subSystem = moccActor.getSubSystem();
+		if( subSystem != null ) {
+			// Basic static analysis feature
+			final MoccSystemFeature moccSystemFeature =
+					subSystem.computeFeatureStrict();
 
+			assert (moccSystemFeature.consistency) :
+					"Unexpected a non-consistency MoCC System : " +
+					subSystem.getName();
+
+			if( moccSystemFeature.consistency ) {
+				// For Moka Trace compatibility
+				ALWAYS_USING_MODE = true;//moccSystem.FEATURE.hasModeSelector;
+
+				// Transformation to XLIA
+				this.xliaMainMachine = xliaActor;
+
+				transform(subSystem, moccSystemFeature);
+			}
+		}
+	}
+
+	protected void transform(final MoccSystem moccSystem,
+			final MoccSystemFeature moccSystemFeature)
+	{
 		// For Moka Trace compatibility
-		ALWAYS_USING_MODE = false; //moccSystem.FEATURE.hasModeSelector;
+		ALWAYS_USING_MODE = true;//moccSystem.FEATURE.hasModeSelector;
 
-
-		// Transformation to XLIA
-		this.xliaModel = XLIA_INFRA.createModel();
-		this.xliaSystem = XLIA_INFRA.createSystem(this.moccSystem.getName());
-		this.xliaModel.setSystem( this.xliaSystem );
-
-		if( ALWAYS_USING_MODE || moccSystemFeature.hasModeProcessor ) {
+		if( (ALWAYS_USING_MODE || moccSystemFeature.hasModeProcessor)
+			&& (this.MODE_SET_TYPE == null) )
+		{
 			// MODE SET TYPE
-			this.MODE_SET_TYPE = XLIA_DATATYPE.addEnum(xliaSystem,
-					"MODE_SET", this.moccSystem.getModeLiterals());
+			this.MODE_SET_TYPE = XLIA_DATATYPE.addEnum(this.xliaMainMachine,
+					"MODE_SET", moccSystem.getModeLiterals());
 
 			// VALUE: NOMINAL - UNDEFINED - MODE
 			this.MODE_NOMINAL = XLIA_DATATYPE.getEnumLiteral(
-					this.MODE_SET_TYPE, this.moccSystem.NOMINAL.getLiteral());
+					this.MODE_SET_TYPE, moccSystem.NOMINAL.getLiteral());
 
 			this.MODE_UNDEFINED =  XLIA_DATATYPE.getEnumLiteral(
-					this.MODE_SET_TYPE, this.moccSystem.UNDEFINED.getLiteral());
+					this.MODE_SET_TYPE, moccSystem.UNDEFINED.getLiteral());
 
 			// MACRO ROUTINES
 			this.macroReceiveTokenMode =
-					createReceiveTokenModeRoutine(this.xliaSystem);
+					createReceiveTokenModeRoutine(this.xliaMainMachine);
 
 			this.macroReceiveTokenDecidingMode =
-					createReceiveTokenDecidingModeRoutine(this.xliaSystem);
+					createReceiveTokenDecidingModeRoutine(this.xliaMainMachine);
 		}
 
 		// MACRO ROUTINES
-		this.macroReceiveToken = createReceiveTokenRoutine(this.xliaSystem);
+		if( this.IS_ROOT_SYSTEM ) {
+			this.macroReceiveToken = createReceiveTokenRoutine(this.xliaMainMachine);
+		}
 
 
 		// TIME CONFIGURATION
-		this.varTimeDelta = XLIA_INFRA.createConstant(
-				XLIA_DATATYPE.createInteger(), "TIME_DELTA",
+		this.constTickFrequency = XLIA_INFRA.createConstant(
+				XLIA_DATATYPE.createInteger(), "TICK_FREQUENCY",
 				XLIA_EXPRESSION.createInteger(
-						moccSystemFeature.time_interval));
-		this.xliaSystem.getVariable().add(this.varTimeDelta);
+						moccSystemFeature.tick_frequency));
+		this.xliaMainMachine.getVariable().add(this.constTickFrequency);
 
-		this.varTickPeriod = XLIA_INFRA.createConstant(
-				XLIA_DATATYPE.createInteger(), "TICK_PERIOD",
+		this.constTickStep = XLIA_INFRA.createConstant(
+				XLIA_DATATYPE.createInteger(), "TICK_STEP",
 				XLIA_EXPRESSION.createInteger(
-						moccSystemFeature.tick_period));
-		this.xliaSystem.getVariable().add(this.varTickPeriod);
+						moccSystemFeature.tick_step));
+		this.xliaMainMachine.getVariable().add(this.constTickStep);
+
+		if( moccSystemFeature.period != moccSystemFeature.hyperperiod ) {
+			this.constPeriod = XLIA_INFRA.createConstant(
+					XLIA_DATATYPE.createInteger(), "PERIOD",
+					XLIA_EXPRESSION.createInteger(
+							moccSystemFeature.period));
+			this.xliaMainMachine.getVariable().add(this.constPeriod);
+		}
+
+		this.constHyperPeriod = XLIA_INFRA.createConstant(
+				XLIA_DATATYPE.createInteger(), "HYPERPERIOD",
+				XLIA_EXPRESSION.createInteger(
+						moccSystemFeature.hyperperiod));
+		this.xliaMainMachine.getVariable().add(this.constHyperPeriod);
 
 		this.varTick = XLIA_INFRA.createLocaleVariable(
 				XLIA_DATATYPE.createInteger(),
 				"tick", XLIA_EXPRESSION.zero());
-		this.xliaSystem.getVariable().add(this.varTick);
+		this.xliaMainMachine.getVariable().add(this.varTick);
 
 		this.varTimestamp = XLIA_INFRA.createLocaleVariable(
 				XLIA_DATATYPE.createInteger(),
 				"timestamp", XLIA_EXPRESSION.zero());
-		this.xliaSystem.getVariable().add(this.varTimestamp);
+		this.xliaMainMachine.getVariable().add(this.varTimestamp);
 
 
 		// GENERAL ENABLED ACTIVATION
 		this.varCanBeActivate = XLIA_INFRA.createLocaleVariable(
 				XLIA_DATATYPE.createBoolean(),
 				"canBeActivate", XLIA_EXPRESSION.trueValue());
-		this.xliaSystem.getVariable().add(this.varCanBeActivate);
+		this.xliaMainMachine.getVariable().add(this.varCanBeActivate);
 
 		// MACRO TRACE ROUTINES
-		if( this.TRACE_GENERATION_PURPOSE ) {
-			createJsonTraceRoutine(this.xliaSystem, moccSystemFeature);
+		if( this.TRACE_GENERATION_PURPOSE && this.IS_ROOT_SYSTEM) {
+			createJsonTraceRoutine(this.xliaMainMachine, moccSystemFeature);
 		}
 
 		// ACTOR TRANSFORMATIONS
-		for (final MoccActor actor : this.moccSystem.getActor()) {
-			this.xliaSystem.getMachine().add(
+		for (final MoccActor actor : moccSystem.getActor()) {
+			this.xliaMainMachine.getMachine().add(
 					transformActor(actor, moccSystemFeature) );
 		}
 
 
 		// MAIN BEHAVIOR
-		this.mainBehavior = XLIA_INFRA.createBehavior();
-		this.xliaSystem.setMain(this.mainBehavior);
+		final Behavior mainBehavior = XLIA_INFRA.createBehavior();
+		this.xliaMainMachine.setMain(mainBehavior);
 
 		// MODEL OF INTERACTION
-		transformChannel();
+		transformChannel(moccSystem, mainBehavior);
 
 		// MODEL OF EXECUTION
+
+		schedulerGenerator =
+				new MoCC2XLIASchedule(this, moccSystem, this.xliaMainMachine);
+
 		schedulerGenerator.compute(moccSystemFeature);
-//		computeScheduler(moccSystemFeature);
 	}
 
 
@@ -310,7 +413,7 @@ public class MoCC2XLIA {
 				XLIA_EXPRESSION.createExpression("\n\t\t\t\"tick\": "),
 //						XLIA_EXPRESSION.createExpression(
 //								XLIA_EXPRESSION.OP_MULT,
-//								this.varTick, this.varTimeDelta),
+//								this.varTick, this.constTickStep),
 						XLIA_EXPRESSION.createExpression(this.varTick),
 						XLIA_EXPRESSION.createExpression(","),
 				XLIA_EXPRESSION.createExpression("\n\t\t\t\"timestamp\": "),
@@ -332,7 +435,7 @@ public class MoCC2XLIA {
 			this.macroJsonTraceTokenModeBodyHead =
 					createJsonTraceBodyRoutine(
 							machine, "jsonTraceTokenModeBodyHead", "", true);
-	
+
 			this.macroJsonTraceTokenModeBodyTail =
 					createJsonTraceBodyRoutine(
 							machine, "jsonTraceTokenModeBodyTail", ",", true);
@@ -340,7 +443,7 @@ public class MoCC2XLIA {
 		else {
 			this.macroJsonTraceTokenBodyHead = createJsonTraceBodyRoutine(
 					machine, "jsonTraceTokenBodyHead", "", false);
-	
+
 			this.macroJsonTraceTokenBodyTail = createJsonTraceBodyRoutine(
 					machine, "jsonTraceTokenBodyTail", ",", false);
 
@@ -382,9 +485,12 @@ public class MoCC2XLIA {
 		final BlockStatement block =
 				XLIA_STATEMENT.createBlockStatement();
 
-		final BlockStatement thenBlock = XLIA_STATEMENT.addIfThen(block,
+		final IfStatement ifStatement = XLIA_STATEMENT.addIf(block,
 				XLIA_EXPRESSION.createRelational(XLIA_EXPRESSION.OP_GT,
 						tokenCount, XLIA_EXPRESSION.zero()));
+
+		final BlockStatement thenBlock =
+				XLIA_STATEMENT.createBlockStatement(ifStatement);
 
 		final MetaStatement traceStatement = XLIA_STATEMENT.addTrace(thenBlock,
 				XLIA_EXPRESSION.createExpression(traceSeparator + "\n\t\t\t\t{"),
@@ -419,6 +525,13 @@ public class MoCC2XLIA {
 
 		traceStatement.getOperand().add(
 				XLIA_EXPRESSION.createExpression("\n\t\t\t\t}"));
+
+
+		final BlockStatement elseBlock =
+				XLIA_STATEMENT.createElseBlockStatement(ifStatement);
+
+		XLIA_STATEMENT.addTrace(elseBlock,
+				XLIA_EXPRESSION.createExpression(traceSeparator + "\n\t\t\t\t{}") );
 
 		return XLIA_INFRA.createMacroRoutine(
 				machine, routineName, parameterSet, block);
@@ -644,108 +757,137 @@ public class MoCC2XLIA {
 
 
 
-	public Statemachine transformActor(
+	public Machine transformActor(
 			final MoccActor actor, final MoccSystemFeature moccSystemFeature)
 	{
-		// Basic static analysis feature
-		final Statemachine xliaActor =
-				XLIA_STATEMACHINE.createStatemachine(actor.getName());
+		if( actor.isComposite() ) {
+			final Machine xliaActor =
+					XLIA_INFRA.createMachine(actor.getName());
 
-		actorHelper.put(actor, new MoccActorHelper(actor, xliaActor));
+			actorHelper.put(actor, new MoccActorHelper(actor, xliaActor));
 
-		final MoccActorHelper actorHELPER = helper(actor);
+			final MoccActorHelper actorHELPER = helper(actor);
 
-		// CONSTANTS & VARIABLES
-		actorHELPER.declareConstantsVariables(xliaActor,
-				MODE_SET_TYPE, this.MODE_NOMINAL, ALWAYS_USING_MODE);
+			// CONSTANTS & VARIABLES
+			actorHELPER.declareConstantsVariables(xliaActor,
+					MODE_SET_TYPE, this.MODE_NOMINAL, ALWAYS_USING_MODE);
 
-		for( final MoccPort moccPort : actor.getInputPort() ) {
-			transformInputPort(moccPort, xliaActor);
-		}
-
-		for( final MoccPort moccPort : actor.getOutputPort() ) {
-			transformOutputPort(moccPort, xliaActor);
-		}
-
-		// MACRO ROUTINES
-		if( actor.hasInputPort() ) {
-			computeInitializationBehavior(actor);
-
-			computeReceptionBehavior(actor);
-
-			computeActivationTestBehavior(actor, moccSystemFeature);
-
-			computeConsumptionBehavior(actor);
-
-			if( this.CONFORMANCE_PURPOSE || this.TRACE_GENERATION_PURPOSE ) {
-				computeConsumptionTraceBehavior(actor);
+			for( final MoccPort moccPort : actor.getInputPort() ) {
+				transformInputPort(moccPort, xliaActor);
 			}
+
+			for( final MoccPort moccPort : actor.getOutputPort() ) {
+				transformOutputPort(moccPort, xliaActor);
+			}
+
+			// Transform MoCC AST to xLIA Model
+			final MoCC2XLIA mocc2xlia = new MoCC2XLIA(this);
+
+			mocc2xlia.transformSubSystem(actor, xliaActor);
+
+			return xliaActor;
 		}
 		else {
-			computeActivationTestBehavior(actor, moccSystemFeature);
-		}
+			// Basic static analysis feature
+			final Statemachine xliaActor =
+					XLIA_STATEMACHINE.createStatemachine(actor.getName());
 
-		if( actor.hasOutputPort() ) {
-			computeProductionBehavior(actor);
-		}
+			actorHelper.put(actor, new MoccActorHelper(actor, xliaActor));
 
-		if( actor.FEATURE.isModeSelector )
-		{
-			if( actor.FEATURE.isModeProcessor )
-			{
-				// Mode Selector & Processor
-				transformInputOutoutActor(actor, xliaActor);
+			final MoccActorHelper actorHELPER = helper(actor);
+
+			// CONSTANTS & VARIABLES
+			actorHELPER.declareConstantsVariables(xliaActor,
+					MODE_SET_TYPE, this.MODE_NOMINAL, ALWAYS_USING_MODE);
+
+			for( final MoccPort moccPort : actor.getInputPort() ) {
+				transformInputPort(moccPort, xliaActor);
 			}
-			else if( actor.FEATURE.hasInput )
-			{
-				// Mode Selector with Input
-				transformInputOutoutActor(actor, xliaActor);
+
+			for( final MoccPort moccPort : actor.getOutputPort() ) {
+				transformOutputPort(moccPort, xliaActor);
 			}
-			else {
-				// Mode Selector without input
-				transformOutputActor(actor, xliaActor);
-			}
-		}
-		else if( actor.FEATURE.isModeProcessor )
-		{
-			if( actor.FEATURE.hasInput )
-			{
-				if( actor.FEATURE.hasOutput )
-				{
-					// Mode Processor
-					transformProcessorActor(actor, xliaActor);
-				}
-				else {
-					// Mode Processor without output
-					transformInputActor(actor, xliaActor);
+
+			// MACRO ROUTINES
+			if( actor.hasInputPort() ) {
+				computeInitializationBehavior(actor);
+
+				computeReceptionBehavior(actor);
+
+				computeActivationTestBehavior(actor, moccSystemFeature);
+
+				computeConsumptionBehavior(actor);
+
+				if( this.CONFORMANCE_PURPOSE || this.TRACE_GENERATION_PURPOSE ) {
+					computeConsumptionTraceBehavior(actor);
 				}
 			}
 			else {
-				// Mode Processor without input
-				transformOutputActor(actor, xliaActor);
+				computeActivationTestBehavior(actor, moccSystemFeature);
 			}
-		}
-		else
-		{
-			if( actor.FEATURE.hasInput )
+
+			if( actor.hasOutputPort() ) {
+				computeProductionBehavior(actor);
+			}
+
+			if( actor.FEATURE.isModeSelector )
 			{
-				if( actor.FEATURE.hasOutput )
+				if( actor.FEATURE.isModeProcessor )
 				{
-					// Regular i.e. with Input & Ouput
+					// Mode Selector & Processor
+					transformInputOutoutActor(actor, xliaActor);
+				}
+				else if( actor.FEATURE.hasInput )
+				{
+					// Mode Selector with Input
 					transformInputOutoutActor(actor, xliaActor);
 				}
 				else {
-					// Regular without output
-					transformInputActor(actor, xliaActor);
+					// Mode Selector without input
+					transformOutputActor(actor, xliaActor);
 				}
 			}
-			else {
-				// Regular without input
-				transformOutputActor(actor, xliaActor);
+			else if( actor.FEATURE.isModeProcessor )
+			{
+				if( actor.FEATURE.hasInput )
+				{
+					if( actor.FEATURE.hasOutput )
+					{
+						// Mode Processor
+						transformProcessorActor(actor, xliaActor);
+					}
+					else {
+						// Mode Processor without output
+						transformInputActor(actor, xliaActor);
+					}
+				}
+				else {
+					// Mode Processor without input
+					transformOutputActor(actor, xliaActor);
+				}
 			}
-		}
+			else
+			{
+				if( actor.FEATURE.hasInput )
+				{
+					if( actor.FEATURE.hasOutput )
+					{
+						// Regular i.e. with Input & Ouput
+						transformInputOutoutActor(actor, xliaActor);
+					}
+					else {
+						// Regular without output
+						transformInputActor(actor, xliaActor);
+					}
+				}
+				else {
+					// Regular without input
+					transformOutputActor(actor, xliaActor);
+				}
+			}
 
-		return xliaActor;
+			return xliaActor;
+		}
 	}
 
 
@@ -770,7 +912,7 @@ public class MoCC2XLIA {
 	 * @param xliaActor
 	 */
 	public void transformOutputPort(
-			final MoccPort moccPort, final Statemachine xliaActor)
+			final MoccPort moccPort, final Machine xliaActor)
 	{
 		final MoccPortHelper helperPort =
 				new MoccPortHelper(helper(moccPort.actor), moccPort);
@@ -788,7 +930,7 @@ public class MoCC2XLIA {
 	 * @param xliaActor
 	 */
 	public void transformInputPort(
-			final MoccPort moccPort, final Statemachine xliaActor)
+			final MoccPort moccPort, final Machine xliaActor)
 	{
 		final MoccPortHelper helperPort =
 				new MoccPortHelper(helper(moccPort.actor), moccPort);
@@ -805,20 +947,21 @@ public class MoCC2XLIA {
 	/**
 	 * CHANNEL -> XLIA
 	 */
-	public void transformChannel()
+	public void transformChannel(
+			final MoccSystem moccSystem, final Behavior xliaBehavior)
 	{
 		final ModelOfInteraction moInteraction =
-				XLIA_INFRA.createMOI(this.mainBehavior);
+				XLIA_INFRA.createMOI(xliaBehavior);
 
 		if( CONFORMANCE_PURPOSE ) {
 			final Connector connectorEnv =
 					XLIA_INFRA.createConnectorEnv("channel_env");
 
-			for( final MoccActor actor : this.moccSystem.getActor() ) {
+			for( final MoccActor actor : moccSystem.getActor() ) {
 				for( final MoccPort moccPort : actor.getInputPort() ) {
 //					XLIA_INFRA.addConnectorEndInputPoint(connectorEnv,
 					XLIA_INFRA.addConnectorEndOutputPoint(connectorEnv,
-							helper(moccPort.actor).statemachine,
+							helper(moccPort.actor).machine,
 							helper(moccPort).xliaChannelPort );
 				}
 			}
@@ -828,7 +971,7 @@ public class MoCC2XLIA {
 			}
 		}
 
-		for( final MoccChannel channel : this.moccSystem.getChannel() ) {
+		for( final MoccChannel channel : moccSystem.getChannel() ) {
 			final MoccActor outputActor = channel.getOutputActor();
 
 			final Connector connector =
@@ -836,11 +979,11 @@ public class MoCC2XLIA {
 							outputActor.FEATURE.repetition);
 
 			XLIA_INFRA.addConnectorEndOutputPoint(connector,
-					helper(outputActor).statemachine,
+					helper(outputActor).machine,
 					helper(channel.getOutputPort()).xliaPort );
 
 			XLIA_INFRA.addConnectorEndInputPoint(connector,
-					helper(channel.getInputActor()).statemachine,
+					helper(channel.getInputActor()).machine,
 						helper(channel.getInputPort()).xliaPort);
 
 			moInteraction.getConnectors().add( connector );
@@ -848,251 +991,251 @@ public class MoCC2XLIA {
 	}
 
 
-	/**
-	 * XLIA SYSTEM SCHEDULER
-	 * @param moccSystemFeature
-	 */
-	public void computeScheduler(final MoccSystemFeature moccSystemFeature)
-	{
-		final ModelOfExecution moExcecution = XLIA_INFRA.createMOE(this.mainBehavior);
-
-		// MOE: RUN
-		final Routine runRoutine =
-				XLIA_INFRA.createRoutine(XLIA_STATEMENT.OP_RUN);
-		moExcecution.setRunRoutine(runRoutine);
-
-		final BlockStatement blockRun =
-				XLIA_STATEMENT.createBlockStatement(runRoutine);
-
-		// Authorized global activation
-		XLIA_STATEMENT.addAssignment(blockRun,
-				this.varCanBeActivate,
-				XLIA_EXPRESSION.trueValue());
-
-		XLIA_STATEMENT.addActivitySchedule(blockRun);
-
-		// Test if a timed actor disable global activation because of
-		// timed constraint failure
-		if( moccSystemFeature.hasTimed ) {
-			XLIA_STATEMENT.addGuard(blockRun,
-					XLIA_EXPRESSION.createExpression(this.varCanBeActivate));
-		}
-
-		// MOE: SCHEDULE
-		final Routine scheduleRoutine =
-				XLIA_INFRA.createRoutine(XLIA_STATEMENT.OP_SCHEDULE);
-		moExcecution.setScheduleRoutine(scheduleRoutine);
-
-		final BlockStatement blockSchedule =
-				XLIA_STATEMENT.createBlockStatement(scheduleRoutine);
-
-		final int activationCount = moccSystemFeature.tick_period - 1;
-
-		if( moccSystemFeature.hasTimed ) {
-			final IfStatement ifStatement = XLIA_STATEMENT.addIf(blockSchedule);
-
-			computeSchedulingActor(moccSystemFeature, ifStatement, 0);
-
-			for( int index = 1 ; index < activationCount; index++) {
-				computeSchedulingActor(moccSystemFeature,
-						XLIA_STATEMENT.addElseIf(ifStatement), index);
-			}
-
-			final BlockStatement elseBlock =
-					XLIA_STATEMENT.createElseBlockStatement(ifStatement);
-			computeSchedulingActor(moccSystemFeature, elseBlock, activationCount);
-		}
-		else if( moccSystemFeature.tick_period > 1 ) {
-			final IfStatement ifStatement = XLIA_STATEMENT.addIf(blockSchedule);
-
-			computeStagingActor(moccSystemFeature, ifStatement, 0);
-
-			for( int stage = 1 ; stage < activationCount; stage++) {
-				computeStagingActor(moccSystemFeature,
-						XLIA_STATEMENT.addElseIf(ifStatement), stage);
-			}
-
-			final BlockStatement elseBlock =
-					XLIA_STATEMENT.createElseBlockStatement(ifStatement);
-			computeStagingActor(moccSystemFeature, elseBlock, activationCount);
-		}
-		else {
-			computeSchedulingActor(moccSystemFeature, blockSchedule, 0);
-		}
-
-		// MOE: RUN
-		XLIA_STATEMENT.addAssignment(blockRun, this.varTimestamp,
-				XLIA_EXPRESSION.createExpression(
-						XLIA_EXPRESSION.OP_PLUS,
-							this.varTimestamp, this.varTimeDelta));
-
-		XLIA_STATEMENT.addAssignment(blockRun, this.varTick,
-					XLIA_EXPRESSION.createExpression(
-							XLIA_EXPRESSION.OP_PLUS, this.varTick,
-							XLIA_EXPRESSION.createInteger(1)));
-
-
-		// PERIOD & RE-INITIALISATION
-		final IfStatement ifPeriod = XLIA_STATEMENT.addIf(blockRun,
-				XLIA_EXPRESSION.createRelational(
-						XLIA_EXPRESSION.OP_EQ,
-						this.varTick, this.varTickPeriod));
-
-		final BlockStatement blockPeriod =
-				XLIA_STATEMENT.createBlockStatement(ifPeriod);
-
-		// NEW PERIOD: INTIALISATION
-		XLIA_STATEMENT.addAssignment(blockPeriod,
-				this.varTick, XLIA_EXPRESSION.zero());
-
-		BlockStatement blockReinit = blockPeriod;
-
-		IfStatement ifReinit = null;
-		if( ! moccSystemFeature.hasTimed ) {
-			ifReinit = XLIA_STATEMENT.addIf(blockPeriod);
-			blockReinit = XLIA_STATEMENT.createBlockStatement(ifReinit);
-		}
-
-		Expression untimedConditionalReinitialisation = null;
-
-		// NEW PERIOD: CHECKING
-		for( final MoccActor actor : this.moccSystem.getActor() ) {
-			final MoccActorHelper actorHELPER = helper(actor);
-
-//			if( ! actor.FEATURE.isTimed )
-			{
-				final RelationalBinaryExpression actorRepetitionCond =
-						XLIA_EXPRESSION.createRelational(
-								XLIA_EXPRESSION.OP_EQ,
-								actorHELPER.statemachine,
-								actorHELPER.varActivationCount,
-									actorHELPER.constREPETITION);
-
-				if( moccSystemFeature.hasTimed ) {
-					XLIA_STATEMENT.addGuard(blockReinit, actorRepetitionCond);
-				}
-				else if( untimedConditionalReinitialisation == null ) {
-					untimedConditionalReinitialisation = actorRepetitionCond;
-				}
-				else {
-					untimedConditionalReinitialisation =
-							XLIA_EXPRESSION.createFlatAND(
-									untimedConditionalReinitialisation,
-									actorRepetitionCond);
-				}
-			}
-
-//!@! CSDF
-			XLIA_STATEMENT.addAssignment(blockReinit,
-					actorHELPER.statemachine,
-					actorHELPER.varActivationCount,
-					XLIA_EXPRESSION.zero());
-		}
-
-		// UNTIMED SYSTEM RE-INITIALISATION
-		if( untimedConditionalReinitialisation != null ) {
-			ifReinit.setCondition(untimedConditionalReinitialisation);
-		}
-
-		// ENABLED ONLY RECEPTION BEFORE RE-INITIALISATION
-		final BlockStatement blockReception =
-				XLIA_STATEMENT.createBlockStatement(
-						blockReinit, XLIA_STATEMENT.OP_SEQUENCE_WEAK);
-
-		XLIA_STATEMENT.addAssignment(blockReception,
-				this.varCanBeActivate,
-				XLIA_EXPRESSION.falseValue());
-
-
-		for( final MoccActor actor : this.moccSystem.getActor() ) {
-			if( actor.FEATURE.hasInput ) {
-				XLIA_STATEMENT.addActivityRun(blockReception,
-						helper(actor).statemachine);
-			}
-		}
-	}
-
-
-	protected void computeSchedulingActor(
-			final MoccSystemFeature moccSystemFeature,
-			final ConditionalBlockStatement ifBlock, final int activationIndex) {
-		final BlockStatement thenBlock =
-				XLIA_STATEMENT.createBlockStatement(ifBlock);
-
-		ifBlock.setCondition(XLIA_EXPRESSION.createRelational(
-				XLIA_EXPRESSION.OP_EQ, this.varTick,
-				XLIA_EXPRESSION.createInteger(activationIndex)));
-
-		computeSchedulingActor(moccSystemFeature, thenBlock, activationIndex);
-	}
-
-	protected void computeSchedulingActor(
-			final MoccSystemFeature moccSystemFeature,
-			final BlockStatement thenBlock, final int activationIndex) {
-//		int statementCount = 0;
-		for( final MoccActor actor : this.moccSystem.getActor() ) {
-			if( actor.FEATURE.activation[activationIndex] ) {
-				final MoccActorHelper actorHELPER = helper(actor);
-
-				if( actor.FEATURE.isTimed ) {
-					XLIA_STATEMENT.addActivityRun(thenBlock,
-							actorHELPER.statemachine);
-				}
-				else {
-					XLIA_STATEMENT.addActivityRtc(thenBlock,
-							actorHELPER.statemachine);
-				}
-
-				// Increment statementCount
-//				++statementCount;
-			}
-		}
-
-//		if( (statementCount > 1) /*&& (! moccSystemFeature.hasTimed)*/ ) {
-//			thenBlock.setOp( XLIA_STATEMENT.OP_SEQUENCE_WEAK );
+//	/**
+//	 * XLIA SYSTEM SCHEDULER
+//	 * @param moccSystemFeature
+//	 */
+//	public void computeScheduler(final MoccSystemFeature moccSystemFeature)
+//	{
+//		final ModelOfExecution moExcecution = XLIA_INFRA.createMOE(this.mainBehavior);
+//
+//		// MOE: RUN
+//		final Routine runRoutine =
+//				XLIA_INFRA.createRoutine(XLIA_STATEMENT.OP_RUN);
+//		moExcecution.setRunRoutine(runRoutine);
+//
+//		final BlockStatement blockRun =
+//				XLIA_STATEMENT.createBlockStatement(runRoutine);
+//
+//		// Authorized global activation
+//		XLIA_STATEMENT.addAssignment(blockRun,
+//				this.varCanBeActivate,
+//				XLIA_EXPRESSION.trueValue());
+//
+//		XLIA_STATEMENT.addActivitySchedule(blockRun);
+//
+//		// Test if a timed actor disable global activation because of
+//		// timed constraint failure
+//		if( moccSystemFeature.hasTimed ) {
+//			XLIA_STATEMENT.addGuard(blockRun,
+//					XLIA_EXPRESSION.createExpression(this.varCanBeActivate));
 //		}
-	}
-
-
-	protected void computeStagingActor(
-			final MoccSystemFeature moccSystemFeature,
-			final ConditionalBlockStatement ifBlock, final int stageIndex) {
-		final BlockStatement thenBlock =
-				XLIA_STATEMENT.createBlockStatement(ifBlock);
-
-		ifBlock.setCondition(XLIA_EXPRESSION.createRelational(
-				XLIA_EXPRESSION.OP_EQ, this.varTick,
-				XLIA_EXPRESSION.createInteger(stageIndex)));
-
-		computeStagingActor(moccSystemFeature, thenBlock, stageIndex);
-	}
-
-	protected void computeStagingActor(
-			final MoccSystemFeature moccSystemFeature,
-			final BlockStatement thenBlock, final int stageIndex) {
-//		int statementCount = 0;
-		for( final MoccActor actor : this.moccSystem.getActor() ) {
-			if( actor.schedule == stageIndex ) {
-				final MoccActorHelper actorHELPER = helper(actor);
-
-				XLIA_STATEMENT.addActivityRtc(thenBlock, actorHELPER.statemachine);
-
-				// Increment statementCount
-//				++statementCount;
-			}
-		}
-
-//		if( (statementCount > 1) /*&& (! moccSystemFeature.hasTimed)*/ ) {
-//			thenBlock.setOp( XLIA_STATEMENT.OP_SEQUENCE_WEAK );
+//
+//		// MOE: SCHEDULE
+//		final Routine scheduleRoutine =
+//				XLIA_INFRA.createRoutine(XLIA_STATEMENT.OP_SCHEDULE);
+//		moExcecution.setScheduleRoutine(scheduleRoutine);
+//
+//		final BlockStatement blockSchedule =
+//				XLIA_STATEMENT.createBlockStatement(scheduleRoutine);
+//
+//		final int activationCount = moccSystemFeature.tick_period - 1;
+//
+//		if( moccSystemFeature.hasTimed ) {
+//			final IfStatement ifStatement = XLIA_STATEMENT.addIf(blockSchedule);
+//
+//			computeSchedulingActor(moccSystemFeature, ifStatement, 0);
+//
+//			for( int index = 1 ; index < activationCount; index++) {
+//				computeSchedulingActor(moccSystemFeature,
+//						XLIA_STATEMENT.addElseIf(ifStatement), index);
+//			}
+//
+//			final BlockStatement elseBlock =
+//					XLIA_STATEMENT.createElseBlockStatement(ifStatement);
+//			computeSchedulingActor(moccSystemFeature, elseBlock, activationCount);
 //		}
-	}
+//		else if( moccSystemFeature.tick_period > 1 ) {
+//			final IfStatement ifStatement = XLIA_STATEMENT.addIf(blockSchedule);
+//
+//			computeStagingActor(moccSystemFeature, ifStatement, 0);
+//
+//			for( int stage = 1 ; stage < activationCount; stage++) {
+//				computeStagingActor(moccSystemFeature,
+//						XLIA_STATEMENT.addElseIf(ifStatement), stage);
+//			}
+//
+//			final BlockStatement elseBlock =
+//					XLIA_STATEMENT.createElseBlockStatement(ifStatement);
+//			computeStagingActor(moccSystemFeature, elseBlock, activationCount);
+//		}
+//		else {
+//			computeSchedulingActor(moccSystemFeature, blockSchedule, 0);
+//		}
+//
+//		// MOE: RUN
+//		XLIA_STATEMENT.addAssignment(blockRun, this.varTimestamp,
+//				XLIA_EXPRESSION.createExpression(
+//						XLIA_EXPRESSION.OP_PLUS,
+//							this.varTimestamp, this.varTimeDelta));
+//
+//		XLIA_STATEMENT.addAssignment(blockRun, this.varTick,
+//					XLIA_EXPRESSION.createExpression(
+//							XLIA_EXPRESSION.OP_PLUS, this.varTick,
+//							XLIA_EXPRESSION.createInteger(1)));
+//
+//
+//		// PERIOD & RE-INITIALISATION
+//		final IfStatement ifPeriod = XLIA_STATEMENT.addIf(blockRun,
+//				XLIA_EXPRESSION.createRelational(
+//						XLIA_EXPRESSION.OP_EQ,
+//						this.varTick, this.varTickPeriod));
+//
+//		final BlockStatement blockPeriod =
+//				XLIA_STATEMENT.createBlockStatement(ifPeriod);
+//
+//		// NEW PERIOD: INTIALISATION
+//		XLIA_STATEMENT.addAssignment(blockPeriod,
+//				this.varTick, XLIA_EXPRESSION.zero());
+//
+//		BlockStatement blockReinit = blockPeriod;
+//
+//		IfStatement ifReinit = null;
+//		if( ! moccSystemFeature.hasTimed ) {
+//			ifReinit = XLIA_STATEMENT.addIf(blockPeriod);
+//			blockReinit = XLIA_STATEMENT.createBlockStatement(ifReinit);
+//		}
+//
+//		Expression untimedConditionalReinitialisation = null;
+//
+//		// NEW PERIOD: CHECKING
+//		for( final MoccActor actor : this.moccSystem.getActor() ) {
+//			final MoccActorHelper actorHELPER = helper(actor);
+//
+////			if( ! actor.FEATURE.isTimed )
+//			{
+//				final RelationalBinaryExpression actorRepetitionCond =
+//						XLIA_EXPRESSION.createRelational(
+//								XLIA_EXPRESSION.OP_EQ,
+//								actorHELPER.machine,
+//								actorHELPER.varActivationCount,
+//									actorHELPER.constREPETITION);
+//
+//				if( moccSystemFeature.hasTimed ) {
+//					XLIA_STATEMENT.addGuard(blockReinit, actorRepetitionCond);
+//				}
+//				else if( untimedConditionalReinitialisation == null ) {
+//					untimedConditionalReinitialisation = actorRepetitionCond;
+//				}
+//				else {
+//					untimedConditionalReinitialisation =
+//							XLIA_EXPRESSION.createFlatAND(
+//									untimedConditionalReinitialisation,
+//									actorRepetitionCond);
+//				}
+//			}
+//
+////!@! CSDF
+//			XLIA_STATEMENT.addAssignment(blockReinit,
+//					actorHELPER.machine,
+//					actorHELPER.varActivationCount,
+//					XLIA_EXPRESSION.zero());
+//		}
+//
+//		// UNTIMED SYSTEM RE-INITIALISATION
+//		if( untimedConditionalReinitialisation != null ) {
+//			ifReinit.setCondition(untimedConditionalReinitialisation);
+//		}
+//
+//		// ENABLED ONLY RECEPTION BEFORE RE-INITIALISATION
+//		final BlockStatement blockReception =
+//				XLIA_STATEMENT.createBlockStatement(
+//						blockReinit, XLIA_STATEMENT.OP_SEQUENCE_WEAK);
+//
+//		XLIA_STATEMENT.addAssignment(blockReception,
+//				this.varCanBeActivate,
+//				XLIA_EXPRESSION.falseValue());
+//
+//
+//		for( final MoccActor actor : this.moccSystem.getActor() ) {
+//			if( actor.FEATURE.hasInput ) {
+//				XLIA_STATEMENT.addActivityRun(blockReception,
+//						helper(actor).machine);
+//			}
+//		}
+//	}
+//
+//
+//	protected void computeSchedulingActor(
+//			final MoccSystemFeature moccSystemFeature,
+//			final ConditionalBlockStatement ifBlock, final int activationIndex) {
+//		final BlockStatement thenBlock =
+//				XLIA_STATEMENT.createBlockStatement(ifBlock);
+//
+//		ifBlock.setCondition(XLIA_EXPRESSION.createRelational(
+//				XLIA_EXPRESSION.OP_EQ, this.varTick,
+//				XLIA_EXPRESSION.createInteger(activationIndex)));
+//
+//		computeSchedulingActor(moccSystemFeature, thenBlock, activationIndex);
+//	}
+//
+//	protected void computeSchedulingActor(
+//			final MoccSystemFeature moccSystemFeature,
+//			final BlockStatement thenBlock, final int activationIndex) {
+////		int statementCount = 0;
+//		for( final MoccActor actor : this.moccSystem.getActor() ) {
+//			if( actor.FEATURE.activation[activationIndex] ) {
+//				final MoccActorHelper actorHELPER = helper(actor);
+//
+//				if( actor.FEATURE.isTimed ) {
+//					XLIA_STATEMENT.addActivityRun(thenBlock,
+//							actorHELPER.machine);
+//				}
+//				else {
+//					XLIA_STATEMENT.addActivityRtc(thenBlock,
+//							actorHELPER.machine);
+//				}
+//
+//				// Increment statementCount
+////				++statementCount;
+//			}
+//		}
+//
+////		if( (statementCount > 1) /*&& (! moccSystemFeature.hasTimed)*/ ) {
+////			thenBlock.setOp( XLIA_STATEMENT.OP_SEQUENCE_WEAK );
+////		}
+//	}
+//
+//
+//	protected void computeStagingActor(
+//			final MoccSystemFeature moccSystemFeature,
+//			final ConditionalBlockStatement ifBlock, final int stageIndex) {
+//		final BlockStatement thenBlock =
+//				XLIA_STATEMENT.createBlockStatement(ifBlock);
+//
+//		ifBlock.setCondition(XLIA_EXPRESSION.createRelational(
+//				XLIA_EXPRESSION.OP_EQ, this.varTick,
+//				XLIA_EXPRESSION.createInteger(stageIndex)));
+//
+//		computeStagingActor(moccSystemFeature, thenBlock, stageIndex);
+//	}
+//
+//	protected void computeStagingActor(
+//			final MoccSystemFeature moccSystemFeature,
+//			final BlockStatement thenBlock, final int stageIndex) {
+////		int statementCount = 0;
+//		for( final MoccActor actor : this.moccSystem.getActor() ) {
+//			if( actor.schedule == stageIndex ) {
+//				final MoccActorHelper actorHELPER = helper(actor);
+//
+//				XLIA_STATEMENT.addActivityRtc(thenBlock, actorHELPER.machine);
+//
+//				// Increment statementCount
+////				++statementCount;
+//			}
+//		}
+//
+////		if( (statementCount > 1) /*&& (! moccSystemFeature.hasTimed)*/ ) {
+////			thenBlock.setOp( XLIA_STATEMENT.OP_SEQUENCE_WEAK );
+////		}
+//	}
 
 
 
 	////////////////////////////////////////////////////////////////////////////
 	// Variable Declaration for Mode Selector / Processor Actor
 	public void modeActorDeclaration(final MoccActor actor,
-			final Statemachine xliaActor)
+			final Machine xliaActor)
 	{
 		final MoccActorHelper actorHELPER = helper(actor);
 
@@ -1391,7 +1534,7 @@ public class MoCC2XLIA {
 
 		actorHELPER.macroInitialization =
 				XLIA_INFRA.createMacroRoutine(
-						actorHELPER.statemachine, "initialization", block);
+						actorHELPER.machine, "initialization", block);
 	}
 
 	/**
@@ -1455,7 +1598,7 @@ public class MoCC2XLIA {
 
 		actorHELPER.macroReception =
 				XLIA_INFRA.createMacroRoutine(
-						actorHELPER.statemachine, "reception", block);
+						actorHELPER.machine, "reception", block);
 	}
 
 
@@ -1536,7 +1679,7 @@ public class MoCC2XLIA {
 
 		actorHELPER.macroActivationTest =
 				XLIA_INFRA.createMacroRoutine(
-						actorHELPER.statemachine, "activationTest", block);
+						actorHELPER.machine, "activationTest", block);
 
 		// Case where actor has some input port
 		computeActivationMode(actor);
@@ -1584,7 +1727,7 @@ public class MoCC2XLIA {
 
 		actorHELPER.macroComputeProcessingMode =
 				XLIA_INFRA.createMacroRoutine(
-						actorHELPER.statemachine,
+						actorHELPER.machine,
 						"computeProcessingMode", blockEnable);
 	}
 
@@ -1649,7 +1792,7 @@ public class MoCC2XLIA {
 				"Actor< " + actor.getName() + " >::MODE<UNDEFINED>");
 
 		actorHELPER.macroComputeProcessingMode = XLIA_INFRA.createMacroRoutine(
-				actorHELPER.statemachine, "computeProcessingMode", blockEnable);
+				actorHELPER.machine, "computeProcessingMode", blockEnable);
 	}
 
 
@@ -1715,7 +1858,7 @@ public class MoCC2XLIA {
 
 		actorHELPER.macroConsumption =
 				XLIA_INFRA.createMacroRoutine(
-						actorHELPER.statemachine, "consumption", block);
+						actorHELPER.machine, "consumption", block);
 	}
 
 	/**
@@ -1771,7 +1914,7 @@ public class MoCC2XLIA {
 
 		actorHELPER.macroConsumptionTrace =
 				XLIA_INFRA.createMacroRoutine(
-						actorHELPER.statemachine, "consumptionTrace", block);
+						actorHELPER.machine, "consumptionTrace", block);
 	}
 
 	/**
@@ -1873,7 +2016,7 @@ public class MoCC2XLIA {
 //		}
 
 			actorHELPER.macroProduction = XLIA_INFRA.createMacroRoutine(
-				actorHELPER.statemachine, "production", block);
+				actorHELPER.machine, "production", block);
 	}
 
 

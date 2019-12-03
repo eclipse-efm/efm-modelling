@@ -62,9 +62,19 @@ public class MoccSystemFeature {
 	public final int[] allFrequencies;
 	public final int[] exeFrequencies;
 
-	public final int time_interval;
-	public final int time_period;
-	public final int tick_period;
+	// Normalized Frequencies s.t. gcd( all frequencies ) == 1
+	public final int[] exeOmagaFrequencies;
+
+
+	public final int tick_frequency; // gcd( Executable Actor Frequencies )
+
+//	public final int time_period;    // lcm( Executable Actor Frequencies )
+
+	public final int period;         // lcm( Executable Actor Omega_Frequencies )
+	public final int hyperperiod;    // minimal multiple of period for liveness
+
+	public final int tick_step;
+//	public final int tick_period;
 
 	private int scheduledStageCount;
 
@@ -97,6 +107,8 @@ public class MoccSystemFeature {
 
 		final Set< Integer > allFrequencies = new HashSet<Integer>();
 		final Set< Integer > exeFrequencies = new HashSet<Integer>();
+
+		boolean hasIsolatedTimedActor = false;
 
 		assert (! system.getActor().isEmpty()) :
 			"Unexpected a MoccSystem without actor";
@@ -132,6 +144,9 @@ public class MoccSystemFeature {
 
 				if( actor.FEATURE.hasInteraction ) {
 					exeFrequencies.add(actor.getFrequency());
+				}
+				else {
+					hasIsolatedTimedActor = true;
 				}
 			}
 
@@ -216,7 +231,7 @@ public class MoccSystemFeature {
 			this.allFrequencies[offset++] = frequency;
 		}
 
-		if( (phaseActorCount == 0) && (this.allFrequencies.length > 0) ) {
+		if( hasIsolatedTimedActor ) {
 			this.exeFrequencies = new int[exeFrequencies.size()];
 			offset = 0;
 			for( final Integer frequency : exeFrequencies ) {
@@ -227,21 +242,54 @@ public class MoccSystemFeature {
 			this.exeFrequencies = this.allFrequencies;
 		}
 
-		if( this.exeFrequencies.length > 1 ) {
-			this.time_interval = gcd( this.exeFrequencies );
-			this.time_period   = lcm( this.exeFrequencies );
-			this.tick_period   = time_period / time_interval;
-		}
-		else if( this.exeFrequencies.length == 1 ) {
-			this.time_interval = this.exeFrequencies[0];
-			this.time_period   = this.exeFrequencies[0];
-			this.tick_period   = 1;
+		// Minimize ime unit for all executable frequencies
+		final int gcdExecFrequencies = gcd( this.exeFrequencies );
+		if( gcdExecFrequencies > 1 ) {
+			this.exeOmagaFrequencies = new int[ this.exeFrequencies.length ];
+
+			offset = 0;
+			for( final int frequency : this.exeFrequencies ) {
+				this.exeOmagaFrequencies[offset++] =
+						(frequency / gcdExecFrequencies);
+			}
+
+			for( final MoccActor actor : system.getActor() ) {
+				if( actor.FEATURE.isTimed && actor.FEATURE.hasInteraction )
+				{
+					actor.FEATURE.omegaFrequency =
+							actor.frequency / gcdExecFrequencies;
+				}
+				else {
+					actor.FEATURE.omegaFrequency = -1;
+				}
+			}
 		}
 		else {
-			this.time_interval = 1;
-			this.time_period   = 1;
-			this.tick_period   = this.scheduledStageCount + 1;
-//		IntStream.of( this.repetitions ).sum() + 1 - system.getActor().size();
+			this.exeOmagaFrequencies = this.exeFrequencies;
+		}
+
+		this.tick_step   = 1;
+
+		if( this.exeFrequencies.length > 1 ) {
+			this.tick_frequency = gcdExecFrequencies;
+
+			this.period      = lcm( this.exeOmagaFrequencies );
+			this.hyperperiod = computeHyperperiod();  // i.e. ratio * period
+		}
+		else if( this.exeFrequencies.length == 1 ) {
+			this.tick_frequency = this.exeFrequencies[0];
+
+			this.period      = 1;
+			this.hyperperiod = 1;
+		}
+		else {
+			this.tick_frequency = 1;
+
+			this.period = this.scheduledStageCount + 1;
+
+			this.hyperperiod = this.period;
+
+//			IntStream.of( this.repetitions ).sum() + 1 - system.getActor().size();
 		}
 
 		// For non-conex graph
@@ -264,19 +312,24 @@ public class MoccSystemFeature {
 		final StringBuilder sout = new StringBuilder(
 				Arrays.toString(exeFrequencies));
 
+		if( this.exeFrequencies != this.exeOmagaFrequencies ) {
+			sout.append( " - MINIMIZED - " )
+				.append( Arrays.toString(exeOmagaFrequencies) );
+		}
+
 		if( this.exeFrequencies != this.allFrequencies ) {
 			final HashSet<Integer> execFreq = new HashSet<Integer>();
 			for (final Integer freq : this.exeFrequencies) {
 				execFreq.add(freq);
 			}
 
-			sout.append(" -- [");
+			sout.append(" -- OTHER -- {");
 			for (final Integer freq : this.allFrequencies) {
 				if( ! execFreq.contains(freq) ) {
 					sout.append(" ").append(freq);
 				}
 			}
-			sout.append(" ]");
+			sout.append(" }");
 		}
 
 		return sout.toString();
@@ -466,14 +519,69 @@ public class MoccSystemFeature {
 		}
 	}
 
+
+	private int computeHyperperiod() {
+		for( final MoccActor actor : rationals.keySet() ) {
+			if( actor.FEATURE.isTimed && actor.FEATURE.hasInteraction
+				&& (actor.FEATURE.repetition != actor.FEATURE.omegaFrequency) )
+//						(actor.getFrequency() / this.tick_frequency)) )
+			{
+				return( (this.period * actor.FEATURE.repetition)
+						/ actor.FEATURE.omegaFrequency );
+			}
+		}
+
+		return this.period;
+	}
+
+
+//	public boolean checkTimeConsistency(final MoccActor actor) {
+//
+//		return (! actor.FEATURE.isTimed)
+//				|| ((actor.FEATURE.repetition * this.period) !=
+//					(actor.FEATURE.omegaFrequency * this.hyperperiod));
+//	}
+//
+//	public boolean checkPhaseConsistency(final MoccActor actor) {
+//
+//		return (! actor.FEATURE.isTimed)
+//				|| (actor.getPhase() < (this.period / actor.FEATURE.omegaFrequency));
+//	}
+
+	public String inconsistencyReason(final MoccActor actor) {
+		if( actor.FEATURE.isTimed ) {
+			final int ratio = (this.hyperperiod / this.period);
+
+			if( actor.FEATURE.repetition != (actor.FEATURE.omegaFrequency * ratio) )
+			{
+				return "inconsistent< repetition:" + actor.FEATURE.repetition
+						+ " != (frequency:" + actor.getFrequency()
+						+ " / tick_freq:" + this.tick_frequency + "): "
+						+ actor.FEATURE.omegaFrequency + " >";
+			}
+			else if( actor.getPhase() >= (this.hyperperiod / actor.getFrequency()) )
+			{
+				return "inconsistent< phase:" + actor.getPhase()
+						+ " >= (hyperperiod:" + (this.hyperperiod * this.tick_frequency)
+						+ " / frequency:" + actor.getFrequency() + "): "
+						+ this.period / actor.FEATURE.omegaFrequency + " >";
+			}
+		}
+
+		return "inconsistent< ? >";
+	}
+
 	private boolean checkConsistency() {
 		boolean consistency = true;
+
+		final int ratio = (this.hyperperiod / this.period);
 		for( final MoccActor actor : rationals.keySet() ) {
-			actor.FEATURE.consistency = (! actor.FEATURE.isTimed) 
+			actor.FEATURE.consistency = (! actor.FEATURE.isTimed)
 				|| (! actor.FEATURE.hasInteraction)
-				|| ((actor.FEATURE.repetition ==
-						(actor.getFrequency() / this.time_interval))
-					&& (actor.getPhase() < (this.time_period / actor.getFrequency())));
+				|| ( ( actor.FEATURE.repetition ==
+							(actor.FEATURE.omegaFrequency * ratio) )
+					&& (actor.getPhase() <
+						(this.period / actor.FEATURE.omegaFrequency)));
 
 			consistency &= actor.FEATURE.consistency;
 		}

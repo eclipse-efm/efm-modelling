@@ -18,9 +18,9 @@ import org.eclipse.efm.ecore.formalml.datatype.EnumerationLiteral;
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationType;
 import org.eclipse.efm.ecore.formalml.expression.Expression;
 import org.eclipse.efm.ecore.formalml.infrastructure.ChannelDirection;
+import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
-import org.eclipse.efm.ecore.formalml.statemachine.Statemachine;
 import org.eclipse.efm.ecore.formalml.statement.BlockStatement;
 import org.eclipse.efm.ecore.formalml.statement.IfStatement;
 import org.eclipse.efm.formalml.ecore.factory.XLIA_DATATYPE;
@@ -181,7 +181,7 @@ public class MoccPortHelper {
 	 */
 	public Port createPortToken(final String name,
 			final MoccPort moccPort, final ChannelDirection direction,
-			final Statemachine xliaActor, final DataType tokenType)
+			final Machine xliaActor, final DataType tokenType)
 	{
 		final String prefix =
 				(direction == ChannelDirection.INPUT) ? "received": "sent";
@@ -200,7 +200,7 @@ public class MoccPortHelper {
 
 	public Port createPortToken(
 			final MoccPort moccPort, final ChannelDirection direction,
-			final Statemachine xliaActor, final DataType tokenType)
+			final Machine xliaActor, final DataType tokenType)
 	{
 		return createPortToken(moccPort.getName(),
 				moccPort, direction, xliaActor, tokenType);
@@ -216,7 +216,7 @@ public class MoccPortHelper {
 	 * @return
 	 */
 	public Port createPortTokenMode(final String name, final MoccPort moccPort,
-			final ChannelDirection direction, final Statemachine xliaActor,
+			final ChannelDirection direction, final Machine xliaActor,
 			final DataType tokenType, final DataType modeType)
 	{
 		final String prefix =
@@ -235,7 +235,7 @@ public class MoccPortHelper {
 	}
 
 	public Port createPortTokenMode(final MoccPort moccPort,
-			final ChannelDirection direction, final Statemachine xliaActor,
+			final ChannelDirection direction, final Machine xliaActor,
 			final DataType tokenType, final DataType modeType)
 	{
 		return createPortTokenMode(moccPort.getName(),
@@ -251,7 +251,7 @@ public class MoccPortHelper {
 	 * @param xliaActor
 	 * @param aLWAYS_USING_MODE
 	 */
-	public void createOutputPort(final Statemachine xliaActor,
+	public void createOutputPort(final Machine xliaActor,
 			final EnumerationType MODE_SET_TYPE, final boolean ALWAYS_USING_MODE)
 	{
 		// CONSTANT: TOKEN PRODUCTION
@@ -289,12 +289,12 @@ public class MoccPortHelper {
 			final DataType modeType =
 					XLIA_DATATYPE.createReference(MODE_SET_TYPE);
 
-			this.xliaPort = createPortTokenMode("out#" + 
+			this.xliaPort = createPortTokenMode("out#" +
 					moccPort.getChannel().getName(), moccPort,
 					ChannelDirection.OUTPUT, xliaActor, tokenType, modeType);
 		}
 		else {
-			this.xliaPort = createPortToken("out#" + 
+			this.xliaPort = createPortToken("out#" +
 					moccPort.getChannel().getName(),
 					moccPort, ChannelDirection.OUTPUT, xliaActor, tokenType);
 		}
@@ -307,7 +307,7 @@ public class MoccPortHelper {
 	 * @param xliaActor
 	 * @param aLWAYS_USING_MODE
 	 */
-	public void createInputPort(final Statemachine xliaActor,
+	public void createInputPort(final Machine xliaActor,
 			final EnumerationType MODE_SET_TYPE, final boolean ALWAYS_USING_MODE,
 			final boolean generatedChannelPort)
 	{
@@ -410,7 +410,7 @@ public class MoccPortHelper {
 					ChannelDirection.INPUT, xliaActor, portTokenType);
 
 			if( generatedChannelPort ) {
-				this.xliaChannelPort = createPortToken("in#" + 
+				this.xliaChannelPort = createPortToken("in#" +
 						moccPort.getChannel().getName(), moccPort,
 //						ChannelDirection.INPUT, xliaActor, channelTokenType);
 						ChannelDirection.OUTPUT, xliaActor, channelTokenType);

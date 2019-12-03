@@ -12,6 +12,10 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast;
 
+import java.io.StringWriter;
+
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.util.PrettyPrintWriter;
+
 public class MoccChannel {
 
 	protected final MoccSystem system;
@@ -178,48 +182,53 @@ public class MoccChannel {
 
 	@Override
 	public String toString() {
-		final StringBuilder sout = new StringBuilder();
+		final StringWriter buffer = new StringWriter();
+		final PrettyPrintWriter writer = new PrettyPrintWriter(buffer);
 
-		sout.append("channel");
+		toWriter( writer );
 
-		sout.append(' ').append(name).append(" {")
-			.append('\n')
-			.append('\t').append("deciding = ").append(isDeciding).append('\n')
+		return buffer.toString();
+	}
 
-			.append('\t').append("output<").append(outputPort.strRate());
+	public PrettyPrintWriter toWriter(final PrettyPrintWriter writer) {
+		writer.appendTab("channel").append(' ').append(name).appendEol(" {");
+
+		writer.appendTab2("deciding = ").appendEol(isDeciding);
+
+		writer.appendTab2("output<").append(outputPort.strRate());
 		if( outputPort.cycloStaticRate != null ) {
-			sout.append(" , ");
-			outputPort.strCycloStaticRate(sout);
+			writer.append(" , ");
+			outputPort.strCycloStaticRate(writer);
 		}
-		sout.append("> ")
+		writer.append("> ")
 			.append(outputPort.getActor().getName())
-			.append("->").append(outputPort.getName())
-			.append('\n');
+			.append("->").appendEol(outputPort.getName());
 
 		if( hasInitialRate() ) {
-			sout.append('\t').append("initial{ rate = ")
+			writer.appendTab2("initial{ rate = ")
 				.append(strInitialRate());
 
 			if( hasInitialMode() ) {
-				sout.append(" , mode = ").append(initialMode.getLiteral());
+				writer.append(" , mode = ").append(initialMode.getLiteral());
 			}
 
-			sout.append(" }")
-				.append('\n');
+			writer.appendEol(" }");
 		}
 
-		sout.append('\t').append("input<").append(inputPort.strRate());
+		writer.appendTab2("input<").append(inputPort.strRate());
 		if( inputPort.cycloStaticRate != null ) {
-			sout.append(" , ");
-			inputPort.strCycloStaticRate(sout);
+			writer.append(" , ");
+			inputPort.strCycloStaticRate(writer);
 		}
-		sout.append("> ")
+		writer.append("> ")
 			.append(inputPort.getActor().getName())
-			.append("->").append(inputPort.getName())
-			.append('\n')
-			.append('}');
+			.append("->").appendEol(inputPort.getName());
 
-		return sout.toString();
+		writer.appendTabEol('}');
+
+		writer.flush();
+
+		return writer;
 	}
 
 

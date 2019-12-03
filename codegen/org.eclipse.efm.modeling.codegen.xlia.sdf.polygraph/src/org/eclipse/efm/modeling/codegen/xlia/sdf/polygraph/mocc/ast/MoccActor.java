@@ -12,11 +12,16 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccPort.Direction;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.feature.MoccActorFeature;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.util.PrettyPrintWriter;
 
 public class MoccActor {
 
@@ -51,6 +56,16 @@ public class MoccActor {
 	protected final List< MoccActor > predecessorActor;
 	protected final List< MoccActor > successorActor;
 
+
+	// Composite purpose
+	protected MoccSystem subSystem;
+
+	// system.channel  ---> subsystem.actor
+	protected Map<MoccChannel, MoccActor> inputGateway;
+	// subsystem.actor ---> system.channel
+	protected Map<MoccActor, MoccChannel> outputGateway;
+
+	// Analysis Purpose
 	public MoccActorFeature FEATURE;
 
 	// Timed & Phase - Selector & Processor Mode - Actor
@@ -81,6 +96,10 @@ public class MoccActor {
 
 		this.predecessorActor = new ArrayList<MoccActor>();
 		this.successorActor = new ArrayList<MoccActor>();
+
+		this.subSystem = null;
+		this.inputGateway  = null;
+		this.outputGateway = null;
 
 		this.FEATURE = null;
 
@@ -114,6 +133,10 @@ public class MoccActor {
 
 		this.predecessorActor = new ArrayList<MoccActor>();
 		this.successorActor = new ArrayList<MoccActor>();
+
+		this.subSystem     = null;
+		this.inputGateway  = null;
+		this.outputGateway = null;
 
 		this.FEATURE = null;
 
@@ -385,6 +408,74 @@ public class MoccActor {
 		successorActor.add( channel.getInputPort().getActor() );
 	}
 
+
+	// COMPOSITE ACTOR INPUT GATEWAY
+	public Map<MoccChannel, MoccActor> getInputGateway() {
+		return this.inputGateway;
+	}
+
+	public boolean hasInputGateway() {
+		return( this.inputGateway != null );
+	}
+
+	public void addInputGateway(final MoccChannel channel, final MoccActor actor) {
+		if( this.inputGateway == null ) {
+			this.inputGateway = new HashMap<MoccChannel, MoccActor>();
+		}
+		this.inputGateway.put(channel, actor);
+	}
+
+	public void addInputGateway(final MoccChannel channel) {
+		if( this.inputGateway == null ) {
+			this.inputGateway = new HashMap<MoccChannel, MoccActor>();
+		}
+		this.inputGateway.put(channel, this);
+
+//		addProxyPort(channel, Direction.INPUT);
+	}
+
+
+	// COMPOSITE ACTOR OUTPUT GATEWAY
+	public Map<MoccActor, MoccChannel> getOutputGateway() {
+		return this.outputGateway;
+	}
+
+	public boolean hasOutputGateway() {
+		return( this.outputGateway != null );
+	}
+
+	public void addOutputGateway(final MoccActor actor, final MoccChannel channel) {
+		if( this.outputGateway == null ) {
+			this.outputGateway = new HashMap<MoccActor, MoccChannel>();
+		}
+		this.outputGateway.put(actor, channel);
+	}
+
+	public void addOutputGateway(final MoccChannel channel) {
+		if( this.outputGateway == null ) {
+			this.outputGateway = new HashMap<MoccActor, MoccChannel>();
+		}
+		this.outputGateway.put(this, channel);
+
+//		addProxyPort(channel, Direction.OUTPUT);
+	}
+
+
+	// COMPOSITE ACTOR SUB-SYSTEM
+	public MoccSystem getSubSystem() {
+		return this.subSystem;
+	}
+
+	public boolean isComposite() {
+		return( (this.subSystem != null)
+				&& (! this.subSystem.getActor().isEmpty()) );
+	}
+
+	public void setSubSystem(final MoccSystem moccSystem) {
+		this.subSystem = moccSystem;
+	}
+
+
 	// MoccActorFeature
 	public void computeFeature() {
 		FEATURE = new MoccActorFeature(this);
@@ -399,76 +490,140 @@ public class MoccActor {
 
 	@Override
 	public String toString() {
-		final StringBuilder sout = new StringBuilder();
+		final StringWriter buffer = new StringWriter();
+		final PrettyPrintWriter writer = new PrettyPrintWriter(buffer);
 
-		sout.append("actor ").append(name).append(" {").append('\n');
+		toWriter( writer );
 
-		sout.append('\t').append("frequency = " ).append(frequency)
-			.append('\n')
-			.append('\t').append("phase = "     ).append(phase)
-			.append('\n')
-			.append('\t').append("moe {")
-			.append('\n')
-			.append("\t\t").append("schedule = ")
-			.append(schedule).append('\n');
+		return buffer.toString();
+	}
+
+	public PrettyPrintWriter toWriter(final PrettyPrintWriter writer) {
+		writer.appendTab("actor ").append(name).appendEol(" {");
+
+		writer.appendTab2("frequency = ").appendEol(frequency)
+			.appendTab2("phase = "      ).appendEol(phase)
+			.appendTab2Eol("moe {")
+			.appendTab3("schedule = "  ).appendEol(schedule);
 
 		if( FEATURE != null ) {
-			sout.append("\t\t").append("executable = ")
-					.append(FEATURE.isExecutable).append('\n')
-				.append("\t\t").append("repetition = ")
-					.append(FEATURE.repetition).append('\n')
-				.append("\t\t").append("activation = ")
-					.append(FEATURE.strActivation()).append('\n');
+			writer.appendTab3("omega_freq = ")
+					.appendEol(FEATURE.omegaFrequency)
+				.appendTab3("executable = ")
+					.appendEol(FEATURE.isExecutable)
+				.appendTab3("repetition = ")
+					.appendEol(FEATURE.repetition)
+				.appendTab3("activation = ")
+					.appendEol(FEATURE.strActivation());
 		}
-		sout.append('\t').append('}')
-			.append('\n');
+		writer.appendTab2Eol('}');
 
 		if( selector != null ) {
-			sout.append('\t').append("selector = " )
-				.append(selector.getName()).append('\n');
+			writer.appendTab2("selector = ").appendEol(selector.getName());
 		}
 		if( selectionSet.length > 0 ) {
-			sout.append('\t').append("selectionSet = [ " );
+			writer.appendTab2("selectionSet = [");
 			for( final MoccMode mode : selectionSet ) {
-				sout.append(mode.getLiteral()).append(' ');
+				writer.append(mode.getLiteral()).append(' ');
 			}
-			sout.append(']').append('\n');
+			writer.appendEol(']');
 		}
 		if( processingSet.length > 0 ) {
-			sout.append('\t').append("processingSet = [ " );
+			writer.appendTab2("processingSet = [");
 			for( final MoccMode mode : processingSet ) {
-				sout.append(mode.getLiteral()).append(' ');
+				writer.append(mode.getLiteral()).append(' ');
 			}
-			sout.append(']').append('\n');
+			writer.appendEol(']');
 		}
 
 
 		if( ! predecessorActor.isEmpty() ) {
-			sout.append('\t').append("predecessor = [ " );
+			writer.appendTab2("predecessor = [");
 			for( final MoccActor actor : predecessorActor ) {
-				sout.append(actor.getName()).append(' ');
+				writer.append(actor.getName()).append(' ');
 			}
-			sout.append(']').append('\n');
+			writer.appendEol(']');
 		}
 		if( ! successorActor.isEmpty() ) {
-			sout.append('\t').append("successor = [ " );
+			writer.appendTab2("successor = [");
 			for( final MoccActor actor : successorActor ) {
-				sout.append(actor.getName()).append(' ');
+				writer.append(actor.getName()).append(' ');
 			}
-			sout.append(']').append('\n');
+			writer.appendEol(']');
 		}
 
+
+		final PrettyPrintWriter writer2 = writer.itab2();
+
 		for( final MoccPort port : getInputPort() ) {
-			sout.append('\t').append(port.toString()).append('\n');
+			port.toWriter(writer2);
 		}
 
 		for( final MoccPort port : getOutputPort() ) {
-			sout.append('\t').append(port.toString()).append('\n');
+			port.toWriter(writer2);
 		}
 
-		sout.append('}');
 
-		return sout.toString();
+		if( this.inputGateway != null ) {
+			writer.appendEol();
+
+			writer.appendTab2Eol("input gateway {");
+
+			for( final  Entry<MoccChannel, MoccActor> bridge
+					: this.inputGateway.entrySet() )
+			{
+				final MoccChannel channel = bridge.getKey();
+				final MoccActor proxyActor = bridge.getValue();
+
+				writer.appendTab3(channel.getOutputActor().getName())
+					.append("->")
+					.append(channel.getName())
+					.append( " ==> this" );
+				if( this != proxyActor ) {
+					writer.append('.').appendEol(proxyActor.name);
+				}
+				else {
+					writer.appendEol();
+				}
+			}
+
+			writer.appendTab2Eol('}');
+		}
+
+		if( this.outputGateway != null ) {
+			writer.appendEol();
+
+			writer.appendTab2Eol("output gateway {");
+
+			for( final  Entry<MoccActor, MoccChannel> bridge
+					: this.outputGateway.entrySet() )
+			{
+				final MoccChannel channel = bridge.getValue();
+				final MoccActor proxyActor = bridge.getKey();
+
+				writer.appendTab3("this");
+				if( this != proxyActor ) {
+					writer.append('.').append(proxyActor.name);
+				}
+				writer.append( " ==> " )
+					.append(channel.getName())
+					.append("->")
+					.appendEol(channel.getInputActor().getName());
+			}
+
+			writer.appendTab2Eol('}');
+		}
+
+		if( this.subSystem != null ) {
+			writer2.appendEol();
+			this.subSystem.toWriter(writer2);
+		}
+
+		writer.appendTabEol('}');
+
+		writer.flush();
+
+		return writer;
 	}
 
 	public boolean hasEnoughInitialRate(final MoccActor sourceActor) {

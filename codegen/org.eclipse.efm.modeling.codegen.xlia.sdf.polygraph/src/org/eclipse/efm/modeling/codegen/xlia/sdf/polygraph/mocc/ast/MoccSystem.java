@@ -12,10 +12,12 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast;
 
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Vector;
 
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.feature.MoccSystemFeature;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.util.PrettyPrintWriter;
 
 public class MoccSystem {
 
@@ -47,7 +49,7 @@ public class MoccSystem {
 		this.channels = new Vector<MoccChannel>();
 		this.channelWellFormedness = true;
 
-		MODE_SET = new Vector<MoccMode>();
+		this.MODE_SET = new Vector<MoccMode>();
 
 		this.UNDEFINED = newMode(nameModeUndefined, literalModeUndefined);
 		this.NOMINAL   = newMode(nameModeNominal  , literalModeNominal  );
@@ -78,7 +80,7 @@ public class MoccSystem {
 
 		final MoccMode mode = new MoccMode(uniqModeValue++, name, literal);
 
-		MODE_SET.add( mode );
+		this.MODE_SET.add( mode );
 
 		return mode;
 	}
@@ -414,161 +416,174 @@ public class MoccSystem {
 
 
 	public String toAbstract() {
-		final StringBuilder sout = new StringBuilder();
+		final StringWriter buffer = new StringWriter();
+		final PrettyPrintWriter writer = new PrettyPrintWriter(buffer);
 
-		sout.append("// The Polygraph System Graph Abstract\n")
-			.append("system ").append(name).append(" {")
-			.append("\n")
-			.append('\t').append("well-formed = ").append(isWellFormed())
-			.append("\n")
-			.append('\t').append("actor       = ").append(getActor().size())
-			.append('\n')
-			.append('\t').append("channel     = ").append(getChannel().size())
-			.append('\t').append("channel OK? = ").append(isChannelConsistent())
-			.append('\n');
+		toAbstract( writer );
+
+		return buffer.toString();
+	}
+
+	public PrettyPrintWriter toAbstract(final PrettyPrintWriter writer) {
+		writer.appendTabEol("// The Polygraph System Graph Abstract");
+
+		writer.appendTab("system ").append(name).appendEol(" {");
+
+		writer
+			.appendTab2("well-formed = ").appendEol(isWellFormed())
+			.appendTab2("actor       = ").appendEol(getActor().size())
+			.appendTab2("channel     = ").append(getChannel().size())
+			.appendTab2("channel OK? = ").appendEol(isChannelConsistent());
 
 		if( FEATURE != null ) {
-			sout.append('\t').append("timed       = ")
-					.append(FEATURE.timedActorCount).append('\n')
-				.append('\t').append("phase       = ")
-					.append(FEATURE.phaseActorCount).append('\n')
-				.append('\t').append("consistency = ")
-					.append(FEATURE.consistency).append('\n');
+			writer
+				.appendTab2("timed       = ").appendEol(FEATURE.timedActorCount)
+				.appendTab2("phase       = ").appendEol(FEATURE.phaseActorCount)
+				.appendTab2("consistency = ").appendEol(FEATURE.consistency);
 
 			if( FEATURE.consistency ) {
-				sout.append('\t')
-					.append("frequencies = " )
-						.append(Arrays.toString(FEATURE.exeFrequencies)).append('\n')
-					.append('\t').append("time        = +" )
-						.append(FEATURE.time_interval).append('\n')
-					.append('\t').append("time_period = " )
-						.append(FEATURE.time_period).append('\n')
-					.append('\t').append("tick_period = " )
-						.append(FEATURE.tick_period).append('\n')
-					.append('\t').append("repetition  = " )
-						.append(Arrays.toString(FEATURE.repetitions))
-						.append('\n')
-					.append('\t').append("firings     = " )
-						.append(FEATURE.firings).append('\n')
-					.append('\n');
+				writer
+					.appendTab2("repetition  = " )
+						.appendEol(Arrays.toString(FEATURE.repetitions))
+					.appendTab2("firings     = " ).appendEol(FEATURE.firings)
+
+					.appendTab2("frequencies = " ).appendEol(FEATURE.strFrequencies())
+
+					.appendTab2("tick_frequency = ").appendEol(FEATURE.tick_frequency)
+					.appendTab2("tick_step      = +").appendEol(FEATURE.tick_step)
+
+					.appendTab2("period         = " ).appendEol(FEATURE.period)       // time resolution
+					.appendTab2("hyperperiod    = " ).appendEol(FEATURE.hyperperiod); // live resolution
+
+
+				writer.appendEol();
 
 				for( final MoccActor actor : getActor() ) {
-					sout.append('\t').append(actor.FEATURE.strActivation())
+					writer.appendTab2(actor.FEATURE.strActivation())
 						.append(' ').append(actor.getName())
-						.append( actor.isTimed() ? "*" : "" )
-						.append('\n');
+						.appendEol( actor.isTimed() ? "*" : "" );
 				}
 			}
 		}
 
-		sout.append('}');
+		writer.appendTabEol('}');
 
-		return sout.toString();
+		return writer;
 	}
 
 
 	@Override
 	public String toString() {
-		final StringBuilder sout = new StringBuilder();
+		final StringWriter buffer = new StringWriter();
+		final PrettyPrintWriter writer = new PrettyPrintWriter(buffer);
 
-		sout.append("// The MOCC system graph\n\n");
+		toWriter( writer );
 
-		sout.append("system ").append(name).append(" {").append("\n\n");
+		return buffer.toString();
+	}
+
+	public PrettyPrintWriter toWriter(final PrettyPrintWriter writer) {
+		writer.appendTabEol("// The MOCC system graph");
+
+		writer.appendTab("system ").append(name).appendEol2(" {");
+
+		final PrettyPrintWriter writer2 = writer.itab2();
 
 		for( final MoccActor actor : getActor() ) {
-			sout.append(actor.toString()).append('\n');
+			actor.toWriter(writer2);
 		}
 
-		sout.append('\n');
+		writer.appendEol();
 
 		for( final MoccChannel channel : getChannel() ) {
-			sout.append(channel.toString()).append('\n');
+			channel.toWriter(writer2);
 		}
 
-		sout.append('\n').append("moe {").append('\n');
+		writer.appendEol();
+
+		writer.appendTab2Eol("moe {");
 
 		if( FEATURE != null ) {
-			sout.append('\t').append("consistency = ")
-				.append(FEATURE.consistency).append('\n');
+			writer.appendTab3("consistency = ").appendEol(FEATURE.consistency);
 
-			sout.append('\t').append("// Causality partial order").append('\n');
-			sout.append('\t').append("root = [ " );
+			writer.appendTab3Eol("// Causality partial order");
+			writer.appendTab3("root = [ " );
 			for( final MoccActor actor : this.FEATURE.rootActor ) {
-				sout.append(actor.getName()).append(' ');
+				writer.append(actor.getName()).append(' ');
 			}
-			sout.append(']').append('\n');
+			writer.appendEol(']');
 
-			sout.append('\t').append("leaf = [ " );
+			writer.appendTab3("leaf = [ " );
 			for( final MoccActor actor : this.FEATURE.leafActor ) {
-				sout.append(actor.getName()).append(' ');
+				writer.append(actor.getName()).append(' ');
 			}
-			sout.append(']').append('\n');
+			writer.appendEol(']');
 
-			sout.append('\t').append("order = [ " );
+			writer.appendTab3("order = [ " );
 			for( final MoccActor actor : this.actors ) {
-				sout.append(actor.schedule).append(':')
+				writer.append(actor.schedule).append(':')
 					.append(actor.getName()).append(' ');
 			}
-			sout.append(']').append('\n');
+			writer.appendEol(']');
 
 			int schedule = 0;
-			sout.append('\t').append("stage = 0:[ " );
+			writer.appendTab3("stage = 0:[ " );
 			for( final MoccActor actor : this.actors ) {
 				if( actor.schedule == schedule ) {
-					sout.append(actor.getName()).append(' ');
+					writer.append(actor.getName()).append(' ');
 				}
 				else {
 					schedule = actor.schedule;
 
-					sout.append(']').append('\n')
-						.append('\t').append("stage = ").append(schedule)
+					writer.appendEol(']')
+						.appendTab3("stage = ").append(schedule)
 						.append(":[ " ).append(actor.getName()).append(' ');
 				}
 			}
-			sout.append(']').append('\n');
+			writer.appendEol(']');
 
-			sout.append('\n')
-				.append('\t').append("timed_actor = " )
+			writer.appendEol();
+
+			writer.appendTab3("timed_actor = " )
 					.append(FEATURE.timedActorCount).append(" / ")
-					.append(actors.size()).append('\n')
-				.append('\t').append("frequencies = " )
-					.append(FEATURE.strFrequencies()).append('\n')
+					.appendEol(actors.size())
 
-				.append('\t').append("phase       = ")
+				.appendTab3("phase       = ")
 					.append(FEATURE.phaseActorCount).append(" / ")
-					.append(actors.size()).append('\n')
+					.appendEol(actors.size())
 
-				.append('\t').append("time        = +" )
-					.append(FEATURE.time_interval).append('\n')
-				.append('\t').append("time_period = " )
-					.append(FEATURE.time_period).append('\n')
-				.append('\t').append("tick_period = " )
-					.append(FEATURE.tick_period).append('\n')
-				.append('\t').append("repetition  = " )
-					.append(Arrays.toString(FEATURE.repetitions))
-					.append('\n')
-				.append('\t').append("firings     = " )
-					.append(FEATURE.firings).append('\n')
-				.append('\n');
+				.appendTab3("frequencies    = " )
+					.appendEol(FEATURE.strFrequencies())
+
+				.appendTab3("tick_frequency = ").appendEol(FEATURE.tick_frequency)
+				.appendTab3("tick_step      = +").appendEol(FEATURE.tick_step)
+				.appendTab3("period         = " ).appendEol(FEATURE.period)      // time resolution
+				.appendTab3("hyperperiod    = " ).appendEol(FEATURE.hyperperiod) // live resolution
+
+				.appendTab3("repetition     = " )
+					.appendEol(Arrays.toString(FEATURE.repetitions))
+				.appendTab3("firings     = "  ).appendEol(FEATURE.firings);
+
+			writer.appendEol();
 
 			for( final MoccActor actor : getActor() ) {
-				sout.append('\t').append(actor.FEATURE.strActivation())
+				writer.appendTab3(actor.FEATURE.strActivation())
 					.append(' ').append(actor.getName())
-					.append( actor.isTimed() ? "*" : "" )
-					.append('\n');
+					.appendEol( actor.isTimed() ? "*" : "" );
 			}
-			sout.append('\n');
 		}
 
-//		sout.append('\t').append("schedule {").append('\n');
-//
-//		sout.append('\t').append('}').append('\n');
-//
-//		sout.append('}').append('\n');
+		writer.appendTab2Eol('}');
 
-		sout.append('\n').append('}');
+//		sout.appendTab2Eol("schedule {");
+//
+//		sout.appendTab2Eol('}');
 
-		return sout.toString();
+		writer.appendTabEol('}');
+
+		writer.flush();
+
+		return writer;
 	}
 
 }

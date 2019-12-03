@@ -27,6 +27,9 @@ public class MoccActorFeature {
 
 	public final boolean isTimed;
 
+	// Normalized Frequency s.t. gcd( all frequencies ) == 1
+	public int omegaFrequency;
+
 	public final boolean isRegular;
 
 	public double inferredFrequency;
@@ -85,6 +88,9 @@ public class MoccActorFeature {
 		this.isModeProducer = (isModeSelector || isModeProcessor);
 
 		this.isTimed = actor.getFrequency() > 0;
+
+		// Could be minimized by System.FEATURE constructor
+		this.omegaFrequency = actor.getFrequency();
 
 		this.inferredFrequency = actor.getFrequency();
 
@@ -192,7 +198,7 @@ public class MoccActorFeature {
 	public void computeActivation(final MoccSystemFeature moccSystemFeature) {
 		this.isExecutable = (this.repetition > 0) && hasInteraction;
 
-		this.activation = new boolean[ moccSystemFeature.tick_period ];
+		this.activation = new boolean[ moccSystemFeature.hyperperiod ];
 
 		if( isTimed && consistency ) {
 			final int period = this.activation.length / Math.abs(this.repetition);

@@ -15,6 +15,7 @@ package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.xlia;
 import org.eclipse.efm.ecore.formalml.expression.Expression;
 import org.eclipse.efm.ecore.formalml.expression.RelationalBinaryExpression;
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
+import org.eclipse.efm.ecore.formalml.infrastructure.Machine;
 import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate;
@@ -30,16 +31,24 @@ import org.eclipse.efm.formalml.ecore.factory.XLIA_INFRA;
 import org.eclipse.efm.formalml.ecore.factory.XLIA_STATEMACHINE;
 import org.eclipse.efm.formalml.ecore.factory.XLIA_STATEMENT;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccActor;
+import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccSystem;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.feature.MoccSystemFeature;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.helper.MoccActorHelper;
 
 public class MoCC2XLIASchedule {
 
-	protected MoCC2XLIA mainGenerator;
+	protected final MoCC2XLIA mainGenerator;
 
-	public MoCC2XLIASchedule(final MoCC2XLIA mainGenerator) {
+	protected final MoccSystem moccSystem;
+
+	protected final Machine xliaMainMachine;
+
+	public MoCC2XLIASchedule(final MoCC2XLIA mainGenerator,
+			final MoccSystem moccSystem, final Machine xliaMainMachine) {
 		super();
 		this.mainGenerator = mainGenerator;
+		this.moccSystem      = moccSystem;
+		this.xliaMainMachine = xliaMainMachine;
 	}
 
 
@@ -60,7 +69,8 @@ public class MoCC2XLIASchedule {
 	 */
 	public void computeScheduler(final MoccSystemFeature moccSystemFeature)
 	{
-		final ModelOfExecution moExcecution = XLIA_INFRA.createMOE(mainGenerator.mainBehavior);
+		final ModelOfExecution moExcecution =
+				XLIA_INFRA.createMOE(this.xliaMainMachine.getMain());
 
 		// MOE: RUN
 		final Routine runRoutine =
@@ -72,7 +82,7 @@ public class MoCC2XLIASchedule {
 
 		// Authorized global activation
 		XLIA_STATEMENT.addAssignment(blockRun,
-				mainGenerator.varCanBeActivate,
+				this.mainGenerator.varCanBeActivate,
 				XLIA_EXPRESSION.trueValue());
 
 		XLIA_STATEMENT.addActivitySchedule(blockRun);
@@ -81,7 +91,8 @@ public class MoCC2XLIASchedule {
 		// timed constraint failure
 		if( moccSystemFeature.hasTimed ) {
 			XLIA_STATEMENT.addGuard(blockRun,
-					XLIA_EXPRESSION.createExpression(mainGenerator.varCanBeActivate));
+					XLIA_EXPRESSION.createExpression(
+							this.mainGenerator.varCanBeActivate));
 		}
 
 		// MOE: SCHEDULE
@@ -92,7 +103,7 @@ public class MoCC2XLIASchedule {
 		final BlockStatement blockSchedule =
 				XLIA_STATEMENT.createBlockStatement(scheduleRoutine);
 
-		final int activationCount = moccSystemFeature.tick_period - 1;
+		final int activationCount = moccSystemFeature.hyperperiod - 1;
 
 		if( moccSystemFeature.hasTimed ) {
 			final IfStatement ifStatement = XLIA_STATEMENT.addIf(blockSchedule);
@@ -108,7 +119,7 @@ public class MoCC2XLIASchedule {
 					XLIA_STATEMENT.createElseBlockStatement(ifStatement);
 			computeSchedulingActor(moccSystemFeature, elseBlock, activationCount);
 		}
-		else if( moccSystemFeature.tick_period > 1 ) {
+		else if( moccSystemFeature.hyperperiod > 1 ) {
 			final IfStatement ifStatement = XLIA_STATEMENT.addIf(blockSchedule);
 
 			computeStagingActor(moccSystemFeature, ifStatement, 0);
@@ -127,29 +138,33 @@ public class MoCC2XLIASchedule {
 		}
 
 		// MOE: RUN
-		XLIA_STATEMENT.addAssignment(blockRun, mainGenerator.varTimestamp,
+		XLIA_STATEMENT.addAssignment(blockRun, this.mainGenerator.varTimestamp,
 				XLIA_EXPRESSION.createExpression(
 						XLIA_EXPRESSION.OP_PLUS,
-							mainGenerator.varTimestamp, mainGenerator.varTimeDelta));
+							this.mainGenerator.varTimestamp,
+							this.mainGenerator.constTickFrequency));
 
-		XLIA_STATEMENT.addAssignment(blockRun, mainGenerator.varTick,
-					XLIA_EXPRESSION.createExpression(
-							XLIA_EXPRESSION.OP_PLUS, mainGenerator.varTick,
-							XLIA_EXPRESSION.createInteger(1)));
+		XLIA_STATEMENT.addAssignment(blockRun,
+				this.mainGenerator.varTick,
+				XLIA_EXPRESSION.createExpression(
+						XLIA_EXPRESSION.OP_PLUS,
+						this.mainGenerator.varTick,
+						XLIA_EXPRESSION.createInteger(1)));
 
 
 		// PERIOD & RE-INITIALISATION
 		final IfStatement ifPeriod = XLIA_STATEMENT.addIf(blockRun,
 				XLIA_EXPRESSION.createRelational(
 						XLIA_EXPRESSION.OP_EQ,
-						mainGenerator.varTick, mainGenerator.varTickPeriod));
+						this.mainGenerator.varTick,
+						this.mainGenerator.constHyperPeriod));
 
 		final BlockStatement blockPeriod =
 				XLIA_STATEMENT.createBlockStatement(ifPeriod);
 
 		// NEW PERIOD: INTIALISATION
 		XLIA_STATEMENT.addAssignment(blockPeriod,
-				mainGenerator.varTick, XLIA_EXPRESSION.zero());
+				this.mainGenerator.varTick, XLIA_EXPRESSION.zero());
 
 
 		computeScheduleReinitialisation(moccSystemFeature, blockPeriod);
@@ -163,7 +178,7 @@ public class MoCC2XLIASchedule {
 				XLIA_STATEMENT.createBlockStatement(ifBlock);
 
 		ifBlock.setCondition(XLIA_EXPRESSION.createRelational(
-				XLIA_EXPRESSION.OP_EQ, mainGenerator.varTick,
+				XLIA_EXPRESSION.OP_EQ, this.mainGenerator.varTick,
 				XLIA_EXPRESSION.createInteger(activationIndex)));
 
 		computeSchedulingActor(moccSystemFeature, thenBlock, activationIndex);
@@ -173,17 +188,15 @@ public class MoCC2XLIASchedule {
 			final MoccSystemFeature moccSystemFeature,
 			final BlockStatement thenBlock, final int activationIndex) {
 //		int statementCount = 0;
-		for( final MoccActor actor : mainGenerator.moccSystem.getActor() ) {
+		for( final MoccActor actor : this.moccSystem.getActor() ) {
 			if( actor.FEATURE.activation[activationIndex] ) {
-				final MoccActorHelper actorHELPER = mainGenerator.helper(actor);
+				final MoccActorHelper actorHELPER = this.mainGenerator.helper(actor);
 
 				if( actor.FEATURE.isTimed ) {
-					XLIA_STATEMENT.addActivityRun(thenBlock,
-							actorHELPER.statemachine);
+					XLIA_STATEMENT.addActivityRun(thenBlock, actorHELPER.machine);
 				}
 				else {
-					XLIA_STATEMENT.addActivityRtc(thenBlock,
-							actorHELPER.statemachine);
+					XLIA_STATEMENT.addActivityRtc(thenBlock, actorHELPER.machine);
 				}
 
 				// Increment statementCount
@@ -204,7 +217,7 @@ public class MoCC2XLIASchedule {
 				XLIA_STATEMENT.createBlockStatement(ifBlock);
 
 		ifBlock.setCondition(XLIA_EXPRESSION.createRelational(
-				XLIA_EXPRESSION.OP_EQ, mainGenerator.varTick,
+				XLIA_EXPRESSION.OP_EQ, this.mainGenerator.varTick,
 				XLIA_EXPRESSION.createInteger(stageIndex)));
 
 		computeStagingActor(moccSystemFeature, thenBlock, stageIndex);
@@ -214,11 +227,11 @@ public class MoCC2XLIASchedule {
 			final MoccSystemFeature moccSystemFeature,
 			final BlockStatement thenBlock, final int stageIndex) {
 //		int statementCount = 0;
-		for( final MoccActor actor : mainGenerator.moccSystem.getActor() ) {
+		for( final MoccActor actor : this.moccSystem.getActor() ) {
 			if( (actor.schedule == stageIndex) && actor.FEATURE.isExecutable ) {
-				final MoccActorHelper actorHELPER = mainGenerator.helper(actor);
+				final MoccActorHelper actorHELPER = this.mainGenerator.helper(actor);
 
-				XLIA_STATEMENT.addActivityRtc(thenBlock, actorHELPER.statemachine);
+				XLIA_STATEMENT.addActivityRtc(thenBlock, actorHELPER.machine);
 
 				// Increment statementCount
 //				++statementCount;
@@ -239,7 +252,7 @@ public class MoCC2XLIASchedule {
 		BlockStatement blockReinit = blockPeriod;
 
 //		XLIA_STATEMENT.addAssignment(blockReinit,
-//				mainGenerator.varTick, XLIA_EXPRESSION.zero());
+//				this.mainGenerator.varTick, XLIA_EXPRESSION.zero());
 
 		IfStatement ifReinit = null;
 		if( ! moccSystemFeature.hasTimed ) {
@@ -250,15 +263,15 @@ public class MoCC2XLIASchedule {
 		Expression untimedConditionalReinitialisation = null;
 
 		// NEW PERIOD: CHECKING
-		for( final MoccActor actor : mainGenerator.moccSystem.getActor() ) {
-			final MoccActorHelper actorHELPER = mainGenerator.helper(actor);
+		for( final MoccActor actor : this.moccSystem.getActor() ) {
+			final MoccActorHelper actorHELPER = this.mainGenerator.helper(actor);
 
 			if( actor.FEATURE.isExecutable ) // && (! actor.FEATURE.isTimed) )
 			{
 				final RelationalBinaryExpression actorRepetitionCond =
 						XLIA_EXPRESSION.createRelational(
 								XLIA_EXPRESSION.OP_EQ,
-								actorHELPER.statemachine,
+								actorHELPER.machine,
 								actorHELPER.varActivationCount,
 									actorHELPER.constREPETITION);
 
@@ -277,7 +290,7 @@ public class MoCC2XLIASchedule {
 
 //!@! CSDF
 				XLIA_STATEMENT.addAssignment(blockReinit,
-						actorHELPER.statemachine,
+						actorHELPER.machine,
 						actorHELPER.varActivationCount,
 						XLIA_EXPRESSION.zero());
 			}
@@ -294,18 +307,18 @@ public class MoCC2XLIASchedule {
 						blockReinit, XLIA_STATEMENT.OP_SEQUENCE_WEAK);
 
 		XLIA_STATEMENT.addAssignment(blockReception,
-				mainGenerator.varCanBeActivate,
+				this.mainGenerator.varCanBeActivate,
 				XLIA_EXPRESSION.falseValue());
 
-		for( final MoccActor actor : mainGenerator.moccSystem.getActor() ) {
+		for( final MoccActor actor : this.moccSystem.getActor() ) {
 			if( actor.FEATURE.hasInput &&  actor.FEATURE.isExecutable ) {
 				XLIA_STATEMENT.addActivityRun(blockReception,
-						mainGenerator.helper(actor).statemachine);
+						this.mainGenerator.helper(actor).machine);
 			}
 		}
 
 		XLIA_STATEMENT.addAssignment(blockReception,
-				mainGenerator.varCanBeActivate,
+				this.mainGenerator.varCanBeActivate,
 				XLIA_EXPRESSION.trueValue());
 	}
 
@@ -315,11 +328,12 @@ public class MoCC2XLIASchedule {
 	 * XLIA SYSTEM SCHEDULER
 	 * @param moccSystemFeature
 	 */
-	public void computeBehavior(final MoccSystemFeature moccSystemFeature) {
+	public void computeBehavior(final MoccSystemFeature moccSystemFeature)
+	{
 		final Statemachine xliaScheduler =
 				XLIA_STATEMACHINE.createStatemachine("scheduler");
 
-		mainGenerator.xliaSystem.getBehavior().add(xliaScheduler);
+		this.xliaMainMachine.getBehavior().add(xliaScheduler);
 
 		final Region region = XLIA_STATEMACHINE.createRegion(xliaScheduler);
 
@@ -337,13 +351,13 @@ public class MoCC2XLIASchedule {
 		final Transition t_period = XLIA_STATEMACHINE.createTransition(
 				"t_period", s_tick_period, s_tick);
 
-		Vertex next_tick = (moccSystemFeature.tick_period > 1) ?
+		Vertex next_tick = (moccSystemFeature.hyperperiod > 1) ?
 				XLIA_STATEMACHINE.createState(region, "tick_1") : s_tick_period;
 
 		Transition t_tick = XLIA_STATEMACHINE.createTransition(
 				"t_tick_0", s_tick, next_tick);
 
-		final int activationCount = moccSystemFeature.tick_period - 1;
+		final int activationCount = moccSystemFeature.hyperperiod - 1;
 
 		if( moccSystemFeature.hasTimed ) {
 			computeRunninActorTickAcivity(moccSystemFeature, t_tick, 0);
@@ -369,7 +383,7 @@ public class MoCC2XLIASchedule {
 						moccSystemFeature, t_tick, activationCount);
 			}
 		}
-		else if( moccSystemFeature.tick_period > 1 ) {
+		else if( moccSystemFeature.hyperperiod > 1 ) {
 			computeStaginActorTickAcivity(moccSystemFeature, t_tick, 0);
 
 			for( int index = 1 ; index < activationCount; index++) {
@@ -390,7 +404,7 @@ public class MoCC2XLIASchedule {
 			computeStaginActorTickAcivity(
 					moccSystemFeature, t_tick, activationCount);
 		}
-		else if( moccSystemFeature.tick_period == 0 ) {
+		else if( moccSystemFeature.hyperperiod == 0 ) {
 
 		}
 
@@ -409,15 +423,15 @@ public class MoCC2XLIASchedule {
 				XLIA_STATEMENT.createBlockStatement(transition);
 
 //		ifBlock.setCondition(XLIA_EXPRESSION.createRelational(
-//				XLIA_EXPRESSION.OP_EQ, mainGenerator.varTick,
+//				XLIA_EXPRESSION.OP_EQ, this.mainGenerator.varTick,
 //				XLIA_EXPRESSION.createInteger(activationIndex)));
 
-		XLIA_STATEMENT.addAssignment(block, mainGenerator.varTick,
+		XLIA_STATEMENT.addAssignment(block, this.mainGenerator.varTick,
 				XLIA_EXPRESSION.createInteger(activationIndex));
 
 		computeSchedulingActor(moccSystemFeature, block, activationIndex);
 
-//		XLIA_STATEMENT.addAssignment(block, mainGenerator.varTick,
+//		XLIA_STATEMENT.addAssignment(block, this.mainGenerator.varTick,
 //				XLIA_EXPRESSION.createInteger(activationIndex + 1));
 	}
 
@@ -430,12 +444,12 @@ public class MoCC2XLIASchedule {
 				XLIA_STATEMENT.createBlockStatement(transition);
 
 //		ifBlock.setCondition(XLIA_EXPRESSION.createRelational(
-//				XLIA_EXPRESSION.OP_EQ, mainGenerator.varTick,
+//				XLIA_EXPRESSION.OP_EQ, this.mainGenerator.varTick,
 //				XLIA_EXPRESSION.createInteger(activationIndex)));
 
 		computeStagingActor(moccSystemFeature, block, stageIndex);
 
-		XLIA_STATEMENT.addAssignment(block, mainGenerator.varTick,
+		XLIA_STATEMENT.addAssignment(block, this.mainGenerator.varTick,
 				XLIA_EXPRESSION.createInteger(stageIndex + 1));
 	}
 
@@ -448,13 +462,13 @@ public class MoCC2XLIASchedule {
 				XLIA_STATEMENT.createBlockStatement(transition);
 
 //		XLIA_STATEMENT.addAssignment(blockPeriod,
-//				mainGenerator.varTick, XLIA_EXPRESSION.zero());
+//				this.mainGenerator.varTick, XLIA_EXPRESSION.zero());
 
 		// Test if a timed actor disable global activation because of
 		// timed constraint failure
 		if( moccSystemFeature.hasTimed ) {
 			XLIA_STATEMENT.addGuard(blockPeriod,
-					XLIA_EXPRESSION.createExpression(mainGenerator.varCanBeActivate));
+					XLIA_EXPRESSION.createExpression(this.mainGenerator.varCanBeActivate));
 		}
 
 		computeScheduleReinitialisation(moccSystemFeature, blockPeriod);
@@ -462,7 +476,7 @@ public class MoCC2XLIASchedule {
 
 
 	private void computeBehaviorMoe(
-			final MoccSystemFeature moccSystemFeature, final Statemachine xliaScheduler) {
+			final MoccSystemFeature moccSystemFeature, final Machine xliaScheduler) {
 
 		final Behavior moeBehavior = XLIA_INFRA.createBehavior();
 		xliaScheduler.setMain(moeBehavior);
@@ -479,7 +493,7 @@ public class MoCC2XLIASchedule {
 
 		// Authorized global activation
 		XLIA_STATEMENT.addAssignment(blockRun,
-				mainGenerator.varCanBeActivate,
+				this.mainGenerator.varCanBeActivate,
 				XLIA_EXPRESSION.trueValue());
 
 		XLIA_STATEMENT.addActivitySchedule(blockRun);
@@ -488,13 +502,14 @@ public class MoCC2XLIASchedule {
 		// timed constraint failure
 		if( moccSystemFeature.hasTimed ) {
 			XLIA_STATEMENT.addGuard(blockRun,
-					XLIA_EXPRESSION.createExpression(mainGenerator.varCanBeActivate));
+					XLIA_EXPRESSION.createExpression(this.mainGenerator.varCanBeActivate));
 		}
 
-		XLIA_STATEMENT.addAssignment(blockRun, mainGenerator.varTimestamp,
+		XLIA_STATEMENT.addAssignment(blockRun, this.mainGenerator.varTimestamp,
 				XLIA_EXPRESSION.createExpression(
 						XLIA_EXPRESSION.OP_PLUS,
-							mainGenerator.varTimestamp, mainGenerator.varTimeDelta));
+							this.mainGenerator.varTimestamp,
+							this.mainGenerator.constTickFrequency));
 	}
 
 

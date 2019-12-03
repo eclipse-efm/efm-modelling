@@ -283,11 +283,9 @@ public class MoccCodeGeneratorTest {
 		final String message = "MoCC --> xLIA : " + moccSystem.getName();
 		System.out.println(message + "...");
 
-		final MoCC2XLIA moccGenerator = new MoCC2XLIA(moccSystem, false, false);
+		final MoCC2XLIA moccGenerator = new MoCC2XLIA(false, false);
 
-		moccGenerator.transform();
-
-		final XliaModel xliaModel = moccGenerator.xliaModel;
+		final XliaModel xliaModel = moccGenerator.transformSystem(moccSystem);
 
 		System.out.println(message + " OK transformation");
 
