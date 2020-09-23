@@ -76,6 +76,7 @@ public class LiteralArrayValueImpl extends LiteralExpressionValueImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<WValueSpecification> getValues() {
 		if (values == null) {
 			values = new EObjectContainmentEList<WValueSpecification>(WValueSpecification.class, this, ExpressionPackage.LITERAL_ARRAY_VALUE__VALUES);

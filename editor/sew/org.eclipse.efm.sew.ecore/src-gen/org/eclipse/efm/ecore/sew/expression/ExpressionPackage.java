@@ -58,7 +58,7 @@ public interface ExpressionPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "Expression";
+	String eNS_PREFIX = "expression";
 
 	/**
 	 * The singleton instance of the package.

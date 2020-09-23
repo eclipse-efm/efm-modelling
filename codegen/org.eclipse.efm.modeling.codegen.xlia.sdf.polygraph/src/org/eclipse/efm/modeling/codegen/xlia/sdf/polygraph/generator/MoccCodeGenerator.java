@@ -15,7 +15,7 @@ package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.generator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.efm.ecore.formalml.XliaModel;
+import org.eclipse.efm.ecore.formalml.specification.XliaModel;
 import org.eclipse.efm.ecore.formalml.common.VisibilityKind;
 import org.eclipse.efm.ecore.formalml.datatype.CollectionType;
 import org.eclipse.efm.ecore.formalml.datatype.DataType;

@@ -12,11 +12,11 @@
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated sew -->
+      <!-- @generated sew.expression -->
       <package
             uri="http://www.eclipse.org/efm/SEW/Expression"
             class="org.eclipse.efm.ecore.sew.expression.ExpressionPackage"
-            genModel="resources/ecore/sew.genmodel"/>
+            genModel="resources/ecore/sew.expression.genmodel"/>
    </extension>
 
 </plugin>

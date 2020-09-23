@@ -14,21 +14,22 @@
 
 <plugin>
 
-
+<!-- 
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated formalml -->
+      <!- @generated formalml ->
       <package
             uri="http://www.eclipse.org/efm/FormalML"
             class="org.eclipse.efm.ecore.formalml.FormalmlPackage"
             genModel="resources/ecore/formalml.genmodel"/>
    </extension>
+-->
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated formalml -->
       <package
             uri="http://www.eclipse.org/efm/FormalML/Common"
             class="org.eclipse.efm.ecore.formalml.common.CommonPackage"
-            genModel="resources/ecore/formalml.genmodel"/>
+            genModel="resources/ecore/formalml.common.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
@@ -36,7 +37,7 @@
       <package
             uri="http://www.eclipse.org/efm/FormalML/Infrastructure"
             class="org.eclipse.efm.ecore.formalml.infrastructure.InfrastructurePackage"
-            genModel="resources/ecore/formalml.genmodel"/>
+            genModel="resources/ecore/formalml.infrastructure.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
@@ -44,7 +45,7 @@
       <package
             uri="http://www.eclipse.org/efm/FormalML/DataType"
             class="org.eclipse.efm.ecore.formalml.datatype.DatatypePackage"
-            genModel="resources/ecore/formalml.genmodel"/>
+            genModel="resources/ecore/formalml.datatype.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
@@ -52,15 +53,24 @@
       <package
             uri="http://www.eclipse.org/efm/FormalML/Expression"
             class="org.eclipse.efm.ecore.formalml.expression.ExpressionPackage"
-            genModel="resources/ecore/formalml.genmodel"/>
+            genModel="resources/ecore/formalml.expression.genmodel"/>
    </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated formlml.specification -->
+      <package
+            uri="http://www.eclipse.org/efm/FormalML/Specification"
+            class="org.eclipse.efm.ecore.formalml.specification.SpecificationPackage"
+            genModel="resources/ecore/formalml.specification.genmodel"/>
+   </extension>
+
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated formalml -->
       <package
             uri="http://www.eclipse.org/efm/FormalML/Statement"
             class="org.eclipse.efm.ecore.formalml.statement.StatementPackage"
-            genModel="resources/ecore/formalml.genmodel"/>
+            genModel="resources/ecore/formalml.statement.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
@@ -68,7 +78,7 @@
       <package
             uri="http://www.eclipse.org/efm/FormalML/Statemachine"
             class="org.eclipse.efm.ecore.formalml.statemachine.StatemachinePackage"
-            genModel="resources/ecore/formalml.genmodel"/>
+            genModel="resources/ecore/formalml.statemachine.genmodel"/>
    </extension>
 
 </plugin>

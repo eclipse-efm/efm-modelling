@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -66,6 +67,71 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 	protected long fTotalExecutionTime_LIVE;
 	protected long fTotalExecutionTime_NOT;
 
+
+//	private final int PARALLEL_EXECUTION_COUNT_MAX = Runtime.getRuntime().availableProcessors();
+//
+//	private int fExecutionCount = 0;
+
+	public static Object execute(final IContainer container) {
+		final LivenessCheckerSymbexWorkflow PLSW = createWorkflowStream(container);
+
+		if( PLSW != null ) {
+			PLSW.start();
+		}
+
+		return null;
+	}
+
+	public static LivenessCheckerSymbexWorkflow createWorkflowStream(
+			final IContainer container) {
+		if( container != null ) {
+			LivenessCheckerSymbexWorkflow firstPLSW = null;
+			LivenessCheckerSymbexWorkflow nextPLSW = null;
+
+			boolean hasXLIA = false;
+			try {
+				for( final IResource resource : container.members() ) {
+					if( resource instanceof IFile )
+					{
+						if( "xlia".equals(resource.getFileExtension()) )
+						{
+							hasXLIA = true;
+//							break;
+						}
+					}
+					else if( resource instanceof IFolder )
+					{
+						final LivenessCheckerSymbexWorkflow newPLSW =
+								createWorkflowStream((IFolder) resource);
+
+						if( firstPLSW == null ) {
+							firstPLSW = nextPLSW = newPLSW;
+						}
+						else if( newPLSW != null ) {
+							nextPLSW.fNextWorkflow = newPLSW;
+							nextPLSW = newPLSW;
+						}
+					}
+				}
+			}
+			catch (final CoreException e) {
+			}
+
+			if( hasXLIA ) {
+				final LivenessCheckerSymbexWorkflow PLSW =
+						new LivenessCheckerSymbexWorkflow(container, "polygraph");
+
+				PLSW.fNextWorkflow = firstPLSW;
+
+				return PLSW;
+			}
+			else {
+				return firstPLSW;
+			}
+		}
+
+		return null;
+	}
 
 
 	public LivenessCheckerSymbexWorkflow(
@@ -170,7 +236,7 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 				+ "\n				strategy = 'DEPTH_FIRST_SEARCH'"
 				+ "\n			] // end queue"
 				+ "\n			redundancy 'detection strategy' ["
-				+ "\n				comparer = 'EQUALITY'"
+				+ "\n				comparer = 'SYNTAXIC_EQUALITY'"
 				+ "\n				solver = 'OMEGA'"
 				+ "\n				path_scope = 'CURRENT'"
 				+ "\n				data_scope = 'ALL'"
@@ -567,7 +633,7 @@ public class LivenessCheckerSymbexWorkflow extends SymbexWorkflowProvider {
 		if( super.fConsistencyFlag ) {
 
 			this.fLivenessFlag = (super.fRedundancyCount == fExecutionWidthMax) &&
-							(super.fRedundancyTest  == 1) &&
+//							(super.fRedundancyTest  == 1) &&
 							(super.fDeadlockCount   == 0) &&
 							(super.fRunExitCount    == 0);
 

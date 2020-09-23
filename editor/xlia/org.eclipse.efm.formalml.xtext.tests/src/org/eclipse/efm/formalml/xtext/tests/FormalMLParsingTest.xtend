@@ -13,7 +13,7 @@
 package org.eclipse.efm.formalml.xtext.tests
 
 import com.google.inject.Inject
-import org.eclipse.efm.ecore.formalml.XliaModel
+import org.eclipse.efm.ecore.formalml.specification.XliaModel
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.junit.Assert

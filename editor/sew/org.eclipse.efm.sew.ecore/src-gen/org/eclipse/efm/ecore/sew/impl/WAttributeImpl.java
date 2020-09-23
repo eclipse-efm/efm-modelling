@@ -72,6 +72,7 @@ public class WAttributeImpl extends WPropertyImpl implements WAttribute {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WValueSpecification getValue() {
 		return value;
 	}
@@ -96,6 +97,7 @@ public class WAttributeImpl extends WPropertyImpl implements WAttribute {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(WValueSpecification newValue) {
 		if (newValue != value) {
 			NotificationChain msgs = null;

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2020 CEA LIST.&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html\n\nContributors:&#xA; Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr&#xA; - Initial API and Implementation"
+    modelDirectory="/org.eclipse.efm.formalml.ecore/ecore-gen" modelPluginID="org.eclipse.efm.formalml.ecore"
+    modelName="Formalml" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="formalml.common.genmodel#//common formalml.expression.genmodel#//expression formalml.infrastructure.genmodel#//infrastructure formalml.statement.genmodel#//statement"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>formalml.datatype.ecore</foreignModel>
+  <genPackages prefix="Datatype" basePackage="org.eclipse.efm.ecore.formalml" disposableProviderFactory="true"
+      ecorePackage="formalml.datatype.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="formalml.datatype.ecore#//PrimitiveTypeKind">
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/int"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/integer"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/rat"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/rational"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/float"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/double"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/real"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/time"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/uint"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/uinteger"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/urat"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/urational"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/ufloat"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/udouble"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/ureal"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/char"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/string"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/buffer"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/message"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/port"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveTypeKind/machine"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="formalml.datatype.ecore#//CollectionKind">
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//CollectionKind/vector"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//CollectionKind/rvector"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//CollectionKind/list"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//CollectionKind/set"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//CollectionKind/bag"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//CollectionKind/fifo"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//CollectionKind/lifo"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="formalml.datatype.ecore#//PrimitiveNumberSign">
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveNumberSign/any"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveNumberSign/negative"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveNumberSign/negative_strict"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveNumberSign/positive"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveNumberSign/positive_strict"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="formalml.datatype.ecore#//PrimitiveInstanceKind">
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/any"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/buffer"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/message"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/port"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/signal"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/function"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/com_point"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/channel"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/vertex"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/composite"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.datatype.ecore#//PrimitiveInstanceKind/machine"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="formalml.datatype.ecore#//DataType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//DataType/kind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//DataType/typedef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//DataType/multiplicity"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//DataType/defaultValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//DataType/constraint"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.datatype.ecore#//DataTypeReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//DataTypeReference/typeref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//DataTypeReference/support"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.datatype.ecore#//EnumerationLiteral">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//EnumerationLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.datatype.ecore#//EnumerationType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//EnumerationType/literal"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//EnumerationType/superType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="formalml.datatype.ecore#//DataStructuredType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//DataStructuredType/property"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.datatype.ecore#//StructureType"/>
+    <genClasses ecoreClass="formalml.datatype.ecore#//UnionType"/>
+    <genClasses ecoreClass="formalml.datatype.ecore#//ChoiceType"/>
+    <genClasses image="false" ecoreClass="formalml.datatype.ecore#//DataSupportedType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//DataSupportedType/support"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.datatype.ecore#//IntervalType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//IntervalType/lopen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//IntervalType/ropen"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//IntervalType/infimum"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//IntervalType/supremum"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.datatype.ecore#//CollectionType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//CollectionType/container"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//CollectionType/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//CollectionType/unbounded"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="formalml.datatype.ecore#//PrimitiveType"/>
+    <genClasses ecoreClass="formalml.datatype.ecore#//PrimitiveBooleanType"/>
+    <genClasses image="false" ecoreClass="formalml.datatype.ecore#//PrimitiveNumberType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//PrimitiveNumberType/sign"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//PrimitiveNumberType/size"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.datatype.ecore#//PrimitiveIntegerType"/>
+    <genClasses ecoreClass="formalml.datatype.ecore#//PrimitiveRationalType"/>
+    <genClasses ecoreClass="formalml.datatype.ecore#//PrimitiveFloatType"/>
+    <genClasses ecoreClass="formalml.datatype.ecore#//PrimitiveRealType"/>
+    <genClasses ecoreClass="formalml.datatype.ecore#//PrimitiveTimeType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//PrimitiveTimeType/clock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//PrimitiveTimeType/support"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.datatype.ecore#//PrimitiveCharacterType"/>
+    <genClasses ecoreClass="formalml.datatype.ecore#//PrimitiveStringType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//PrimitiveStringType/size"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.datatype.ecore#//PrimitiveInstanceType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.datatype.ecore#//PrimitiveInstanceType/expected"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference formalml.datatype.ecore#//PrimitiveInstanceType/model"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

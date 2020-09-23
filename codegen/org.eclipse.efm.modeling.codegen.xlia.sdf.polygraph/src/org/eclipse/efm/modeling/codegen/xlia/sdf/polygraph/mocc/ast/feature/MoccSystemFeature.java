@@ -566,6 +566,12 @@ public class MoccSystemFeature {
 						+ " / frequency:" + actor.getFrequency() + "): "
 						+ this.period / actor.FEATURE.omegaFrequency + " >";
 			}
+			else if( actor.getPhase() < (this.hyperperiod / actor.FEATURE.omegaFrequency) )
+			{
+				return "inconsistent< phase:" + actor.getPhase()
+						+ " >= (hyperperiod / omegaFrequency:" + (this.hyperperiod / actor.FEATURE.omegaFrequency) + "): "
+						+ this.period / actor.FEATURE.omegaFrequency + " >";
+			}
 		}
 
 		return "inconsistent< ? >";
@@ -581,7 +587,7 @@ public class MoccSystemFeature {
 				|| ( ( actor.FEATURE.repetition ==
 							(actor.FEATURE.omegaFrequency * ratio) )
 					&& (actor.getPhase() <
-						(this.period / actor.FEATURE.omegaFrequency)));
+						(this.hyperperiod / actor.FEATURE.omegaFrequency)));
 
 			consistency &= actor.FEATURE.consistency;
 		}

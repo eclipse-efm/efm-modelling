@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="statemachine" nsURI="http://www.eclipse.org/efm/FormalML/Statemachine"
+    nsPrefix="statemachine">
+  <eClassifiers xsi:type="ecore:EClass" name="Statemachine" eSuperTypes="formalml.infrastructure.ecore#//Behavior">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="region" upperBound="-1"
+        eType="#//Region" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Region" eSuperTypes="formalml.common.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="vertex" upperBound="-1"
+        eType="#//Vertex" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Vertex" eSuperTypes="formalml.common.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" upperBound="-1"
+        eType="#//Transition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="moe" eType="ecore:EClass formalml.infrastructure.ecore#//ModelOfExecution"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Pseudostate" eSuperTypes="#//Vertex">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//PseudostateKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PseudostateKind">
+    <eLiterals name="Initial" literal="initial"/>
+    <eLiterals name="DeepHistory" value="1" literal="dhistory"/>
+    <eLiterals name="ShallowHistory" value="2" literal="shistory"/>
+    <eLiterals name="Join" value="3" literal="join"/>
+    <eLiterals name="Fork" value="4" literal="fork"/>
+    <eLiterals name="Junction" value="5" literal="junction"/>
+    <eLiterals name="Choice" value="6" literal="choice"/>
+    <eLiterals name="EntryPoint" value="7" literal="entryPoint"/>
+    <eLiterals name="ExitPoint" value="8" literal="exitPoint"/>
+    <eLiterals name="Terminal" value="9" literal="terminal"/>
+    <eLiterals name="Return" value="10" literal="return"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="State" eSuperTypes="#//Vertex">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="simple" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="composite" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="orthogonal" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="region" upperBound="-1"
+        eType="#//Region" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FinalState" eSuperTypes="#//State"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StartState" eSuperTypes="#//State"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="formalml.common.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transient" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="moe" eType="#//TransitionMoe"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Vertex"
+        resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" eType="ecore:EClass formalml.statement.ecore#//BlockStatement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trigger" upperBound="-1"
+        eType="ecore:EClass formalml.statement.ecore#//InputComStatement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guard" eType="ecore:EClass formalml.statement.ecore#//AbstractGuardStatement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tguard" eType="ecore:EClass formalml.statement.ecore#//TimedGuardStatement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="effect" eType="ecore:EClass formalml.statement.ecore#//Statement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetExpression" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true" resolveProxies="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionMoe">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="moc" eType="#//TransitionMoc"
+        defaultValueLiteral="simple"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isElse" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="probability" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="1.0"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TransitionMoc">
+    <eLiterals name="simple"/>
+    <eLiterals name="abort" value="1"/>
+    <eLiterals name="final" value="2"/>
+  </eClassifiers>
+</ecore:EPackage>

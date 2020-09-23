@@ -19,7 +19,6 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.efm.ecore.formalml.XliaModel;
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
 import org.eclipse.efm.ecore.formalml.infrastructure.Buffer;
 import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine;
@@ -29,6 +28,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Signal;
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
 import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem;
+import org.eclipse.efm.ecore.formalml.specification.XliaModel;
 import org.eclipse.efm.ecore.formalml.statemachine.Region;
 import org.eclipse.efm.ecore.formalml.statemachine.State;
 import org.eclipse.efm.ecore.formalml.statemachine.Statemachine;

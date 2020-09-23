@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="datatype" nsURI="http://www.eclipse.org/efm/FormalML/DataType"
+    nsPrefix="dataType">
+  <eClassifiers xsi:type="ecore:EEnum" name="PrimitiveTypeKind">
+    <eLiterals name="boolean"/>
+    <eLiterals name="int" value="1"/>
+    <eLiterals name="integer" value="2"/>
+    <eLiterals name="rat" value="3"/>
+    <eLiterals name="rational" value="4"/>
+    <eLiterals name="float" value="5"/>
+    <eLiterals name="double" value="6"/>
+    <eLiterals name="real" value="7"/>
+    <eLiterals name="time" value="8"/>
+    <eLiterals name="uint" value="9"/>
+    <eLiterals name="uinteger" value="10"/>
+    <eLiterals name="urat" value="11"/>
+    <eLiterals name="urational" value="12"/>
+    <eLiterals name="ufloat" value="13"/>
+    <eLiterals name="udouble" value="14"/>
+    <eLiterals name="ureal" value="15"/>
+    <eLiterals name="char" value="16"/>
+    <eLiterals name="string" value="17"/>
+    <eLiterals name="buffer" value="18"/>
+    <eLiterals name="message" value="19"/>
+    <eLiterals name="port" value="20"/>
+    <eLiterals name="machine" value="21"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataType" abstract="true" eSuperTypes="formalml.common.ecore#//ClassifierDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//PrimitiveTypeKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typedef" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="multiplicity" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="ecore:EClass formalml.infrastructure.ecore#//Routine"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataTypeReference" eSuperTypes="#//DataType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeref" eType="#//DataType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="support" eType="#//DataType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumerationLiteral" eSuperTypes="formalml.common.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass formalml.expression.ecore#//LiteralExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumerationType" eSuperTypes="#//DataType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="literal" upperBound="-1"
+        eType="#//EnumerationLiteral" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superType" eType="#//EnumerationType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataStructuredType" abstract="true"
+      eSuperTypes="#//DataType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" upperBound="-1"
+        eType="ecore:EClass formalml.infrastructure.ecore#//PropertyDefinition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StructureType" eSuperTypes="#//DataStructuredType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UnionType" eSuperTypes="#//DataStructuredType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ChoiceType" eSuperTypes="#//DataStructuredType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataSupportedType" abstract="true" eSuperTypes="#//DataType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="support" eType="#//DataType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntervalType" eSuperTypes="#//DataSupportedType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lopen" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ropen" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="infimum" lowerBound="1"
+        eType="ecore:EClass formalml.expression.ecore#//Expression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supremum" lowerBound="1"
+        eType="ecore:EClass formalml.expression.ecore#//Expression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CollectionKind">
+    <eLiterals name="vector"/>
+    <eLiterals name="rvector" value="1"/>
+    <eLiterals name="list" value="2"/>
+    <eLiterals name="set" value="3"/>
+    <eLiterals name="bag" value="4"/>
+    <eLiterals name="fifo" value="5"/>
+    <eLiterals name="lifo" value="6"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CollectionType" eSuperTypes="#//DataSupportedType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="container" eType="#//CollectionKind"
+        defaultValueLiteral="list"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unbounded" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveType" abstract="true" eSuperTypes="#//DataType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveBooleanType" eSuperTypes="#//PrimitiveType"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="PrimitiveNumberSign">
+    <eLiterals name="any"/>
+    <eLiterals name="negative" value="-1"/>
+    <eLiterals name="negative_strict" value="-2"/>
+    <eLiterals name="positive" value="1"/>
+    <eLiterals name="positive_strict" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveNumberType" abstract="true"
+      eSuperTypes="#//PrimitiveType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sign" eType="#//PrimitiveNumberSign"
+        defaultValueLiteral="any"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveIntegerType" eSuperTypes="#//PrimitiveNumberType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveRationalType" eSuperTypes="#//PrimitiveNumberType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveFloatType" eSuperTypes="#//PrimitiveNumberType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveRealType" eSuperTypes="#//PrimitiveNumberType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveTimeType" eSuperTypes="#//PrimitiveNumberType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clock" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="support" eType="#//PrimitiveNumberType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveCharacterType" eSuperTypes="#//PrimitiveType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveStringType" eSuperTypes="#//PrimitiveType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PrimitiveInstanceKind">
+    <eLiterals name="any"/>
+    <eLiterals name="buffer" value="1"/>
+    <eLiterals name="message" value="2"/>
+    <eLiterals name="port" value="3"/>
+    <eLiterals name="signal" value="4"/>
+    <eLiterals name="function" value="5"/>
+    <eLiterals name="com_point" value="6"/>
+    <eLiterals name="channel" value="7"/>
+    <eLiterals name="vertex" value="8"/>
+    <eLiterals name="composite" value="9"/>
+    <eLiterals name="machine" value="10"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveInstanceType" eSuperTypes="#//PrimitiveType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expected" eType="#//PrimitiveInstanceKind"
+        defaultValueLiteral="machine"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="ecore:EClass formalml.common.ecore#//NamedElement"/>
+  </eClassifiers>
+</ecore:EPackage>

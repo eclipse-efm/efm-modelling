@@ -100,6 +100,7 @@ public class WObjectImpl extends WNamedElementImpl implements WObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getType() {
 		return type;
 	}
@@ -109,6 +110,7 @@ public class WObjectImpl extends WNamedElementImpl implements WObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(String newType) {
 		String oldType = type;
 		type = newType;
@@ -121,6 +123,7 @@ public class WObjectImpl extends WNamedElementImpl implements WObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<WNamedElement> getElement() {
 		if (element == null) {
 			element = new EObjectContainmentEList<WNamedElement>(WNamedElement.class, this, SewPackage.WOBJECT__ELEMENT);
@@ -221,7 +224,7 @@ public class WObjectImpl extends WNamedElementImpl implements WObject {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (type: ");
 		result.append(type);
 		result.append(')');

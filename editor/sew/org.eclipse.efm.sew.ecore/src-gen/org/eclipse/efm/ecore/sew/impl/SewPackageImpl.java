@@ -21,11 +21,6 @@ import org.eclipse.efm.ecore.sew.WObject;
 import org.eclipse.efm.ecore.sew.WProperty;
 import org.eclipse.efm.ecore.sew.WSection;
 import org.eclipse.efm.ecore.sew.WValueSpecification;
-
-import org.eclipse.efm.ecore.sew.expression.ExpressionPackage;
-
-import org.eclipse.efm.ecore.sew.expression.impl.ExpressionPackageImpl;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -117,7 +112,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link SewPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -131,25 +126,20 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 		if (isInited) return (SewPackage)EPackage.Registry.INSTANCE.getEPackage(SewPackage.eNS_URI);
 
 		// Obtain or create and register package
-		SewPackageImpl theSewPackage = (SewPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof SewPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new SewPackageImpl());
+		Object registeredSewPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		SewPackageImpl theSewPackage = registeredSewPackage instanceof SewPackageImpl ? (SewPackageImpl)registeredSewPackage : new SewPackageImpl();
 
 		isInited = true;
 
-		// Obtain or create and register interdependencies
-		ExpressionPackageImpl theExpressionPackage = (ExpressionPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) instanceof ExpressionPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI) : ExpressionPackage.eINSTANCE);
-
 		// Create package meta-data objects
 		theSewPackage.createPackageContents();
-		theExpressionPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theSewPackage.initializePackageContents();
-		theExpressionPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theSewPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(SewPackage.eNS_URI, theSewPackage);
 		return theSewPackage;
@@ -160,6 +150,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWNamedElement() {
 		return wNamedElementEClass;
 	}
@@ -169,6 +160,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWNamedElement_Name() {
 		return (EAttribute)wNamedElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -178,6 +170,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWNamedElement_Description() {
 		return (EAttribute)wNamedElementEClass.getEStructuralFeatures().get(1);
 	}
@@ -187,6 +180,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSEWorkflow() {
 		return seWorkflowEClass;
 	}
@@ -196,6 +190,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWObject() {
 		return wObjectEClass;
 	}
@@ -205,6 +200,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWObject_Type() {
 		return (EAttribute)wObjectEClass.getEStructuralFeatures().get(0);
 	}
@@ -214,6 +210,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWObject_Element() {
 		return (EReference)wObjectEClass.getEStructuralFeatures().get(1);
 	}
@@ -223,6 +220,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWProperty() {
 		return wPropertyEClass;
 	}
@@ -232,6 +230,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWSection() {
 		return wSectionEClass;
 	}
@@ -241,6 +240,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWSection_Element() {
 		return (EReference)wSectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -250,6 +250,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWAttribute() {
 		return wAttributeEClass;
 	}
@@ -259,6 +260,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWAttribute_Value() {
 		return (EReference)wAttributeEClass.getEStructuralFeatures().get(0);
 	}
@@ -268,6 +270,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWValueSpecification() {
 		return wValueSpecificationEClass;
 	}
@@ -277,6 +280,7 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SewFactory getSewFactory() {
 		return (SewFactory)getEFactoryInstance();
 	}
@@ -344,12 +348,6 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
-		// Obtain other dependent packages
-		ExpressionPackage theExpressionPackage = (ExpressionPackage)EPackage.Registry.INSTANCE.getEPackage(ExpressionPackage.eNS_URI);
-
-		// Add subpackages
-		getESubpackages().add(theExpressionPackage);
-
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -397,12 +395,12 @@ public class SewPackageImpl extends EPackageImpl implements SewPackage {
 	 * @generated
 	 */
 	protected void createImportAnnotations() {
-		String source = "http://www.eclipse.org/OCL/Import";	
+		String source = "http://www.eclipse.org/OCL/Import";
 		addAnnotation
-		  (this, 
-		   source, 
+		  (this,
+		   source,
 		   new String[] {
-			 "ecore", "http://www.eclipse.org/emf/2002/Ecore"
+			   "ecore", "http://www.eclipse.org/emf/2002/Ecore"
 		   });
 	}
 

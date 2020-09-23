@@ -391,8 +391,7 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 
 	public void sewLaunchExecProcess(
-			final ISymbexWorkflowProvider sewProvider,
-			final IProgressMonitor monitor)
+			final ISymbexWorkflowProvider sewProvider, final IProgressMonitor monitor)
 	{
 		assert (sewProvider != null) : "Unexpected null ISymbexWorkflowProvider";
 
@@ -400,33 +399,40 @@ public class SymbexSpiderConsolePage extends IOConsolePage
 
 		fTerminateSymbexProcessFlag = false;
 
-		if( fSymbexWorkflowProvider.isIterable() ) {
-			if( monitor != null ) {
-				monitor.beginTask(sewProvider.getSymbexlAnalysisProfileName(),
-						sewProvider.count());
-			}
-
-			for( ; sewProvider.hasNext() && (! fTerminateSymbexProcessFlag) ;
-					sewProvider.next() )
-			{
+		for( ; (fSymbexWorkflowProvider != null) && (! fTerminateSymbexProcessFlag) ;
+				fSymbexWorkflowProvider = fSymbexWorkflowProvider.getNextWorkflow() )
+		{
+			if( fSymbexWorkflowProvider.isIterable() ) {
 				if( monitor != null ) {
-					monitor.worked(sewProvider.index());
-					monitor.setTaskName(sewProvider.getTaskName());
-				}
-				fSymbexWorkflowProvider.beginLoggingSymbex();
-
-				if( fSymbexWorkflowProvider.isConsistent() ) {
-					sewLaunchExecProcess(monitor);
+					monitor.beginTask(
+							fSymbexWorkflowProvider.getSymbexlAnalysisProfileName(),
+							fSymbexWorkflowProvider.count());
 				}
 
-				fSymbexWorkflowProvider.endLoggingSymbex();
+				for( ; fSymbexWorkflowProvider.hasNext() && (! fTerminateSymbexProcessFlag) ;
+						fSymbexWorkflowProvider.next() )
+				{
+					if( monitor != null ) {
+						monitor.worked(fSymbexWorkflowProvider.index());
+						monitor.setTaskName(fSymbexWorkflowProvider.getTaskName());
+					}
+					fSymbexWorkflowProvider.beginLoggingSymbex();
+
+					if( fSymbexWorkflowProvider.isConsistent() ) {
+						sewLaunchExecProcess(monitor);
+					}
+
+					fSymbexWorkflowProvider.endLoggingSymbex();
+				}
 			}
-		}
-		else if( fSymbexWorkflowProvider.isConsistent() ) {
-			sewLaunchExecProcess(monitor);
+			else if( fSymbexWorkflowProvider.isConsistent() ) {
+				sewLaunchExecProcess(monitor);
+			}
+
+			fSymbexWorkflowProvider.finalize();
 		}
 
-		sewProvider.finalize();
+		fSymbexWorkflowProvider = sewProvider;
 
 		updateActionEndingProcess();
 	}

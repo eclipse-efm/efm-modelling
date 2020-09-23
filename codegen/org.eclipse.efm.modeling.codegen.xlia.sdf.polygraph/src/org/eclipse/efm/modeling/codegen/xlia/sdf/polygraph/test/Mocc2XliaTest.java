@@ -15,7 +15,7 @@ package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.test;
 import java.util.Random;
 
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.efm.ecore.formalml.XliaModel;
+import org.eclipse.efm.ecore.formalml.specification.XliaModel;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccActor;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccChannel;
 import org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.ast.MoccSystem;

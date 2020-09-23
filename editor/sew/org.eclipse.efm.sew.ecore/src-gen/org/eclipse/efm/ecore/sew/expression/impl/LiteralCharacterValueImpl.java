@@ -79,6 +79,7 @@ public class LiteralCharacterValueImpl extends LiteralExpressionValueImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public char getValue() {
 		return value;
 	}
@@ -88,6 +89,7 @@ public class LiteralCharacterValueImpl extends LiteralExpressionValueImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(char newValue) {
 		char oldValue = value;
 		value = newValue;
@@ -162,7 +164,7 @@ public class LiteralCharacterValueImpl extends LiteralExpressionValueImpl implem
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (value: ");
 		result.append(value);
 		result.append(')');

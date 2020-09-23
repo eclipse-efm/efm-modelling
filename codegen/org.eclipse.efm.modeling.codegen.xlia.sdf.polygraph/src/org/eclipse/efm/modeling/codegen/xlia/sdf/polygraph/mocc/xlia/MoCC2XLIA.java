@@ -15,7 +15,7 @@ package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.xlia;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.efm.ecore.formalml.XliaModel;
+import org.eclipse.efm.ecore.formalml.specification.XliaModel;
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationLiteral;
 import org.eclipse.efm.ecore.formalml.datatype.EnumerationType;
 import org.eclipse.efm.ecore.formalml.expression.Expression;

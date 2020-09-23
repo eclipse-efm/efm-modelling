@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="sew" nsURI="http://www.eclipse.org/efm/SEW" nsPrefix="SEW">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="sew" nsURI="http://www.eclipse.org/efm/SEW" nsPrefix="sew">
   <eAnnotations source="http://www.eclipse.org/OCL/Import">
     <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
   </eAnnotations>
@@ -24,65 +24,4 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WValueSpecification" abstract="true"/>
-  <eSubpackages name="expression" nsURI="http://www.eclipse.org/efm/SEW/Expression"
-      nsPrefix="Expression">
-    <eClassifiers xsi:type="ecore:EClass" name="Expression" eSuperTypes="#//WValueSpecification">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="operand" upperBound="-1"
-          eType="#//WValueSpecification" containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralExpressionValue" eSuperTypes="#//WValueSpecification"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralArrayValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
-          eType="#//WValueSpecification" containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralIntegerValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="0"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralBooleanValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-          defaultValueLiteral="false"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralCharacterValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EChar" defaultValueLiteral="0"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralRationalValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="numerator" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="0"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="denominator" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong" defaultValueLiteral="1"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralStringValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralNullValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralFloatValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralRealValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigDecimal"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralReferenceValue" eSuperTypes="#//expression/LiteralExpressionValue">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="symbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralObjectReference" eSuperTypes="#//expression/LiteralReferenceValue">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//WObject"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralThisInstance" eSuperTypes="#//expression/LiteralReferenceValue"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralSelfInstance" eSuperTypes="#//expression/LiteralReferenceValue"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralParentInstance" eSuperTypes="#//expression/LiteralReferenceValue"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralSuperInstance" eSuperTypes="#//expression/LiteralReferenceValue"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralSystemInstance" eSuperTypes="#//expression/LiteralReferenceValue"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralEnvInstance" eSuperTypes="#//expression/LiteralReferenceValue"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralTimeVariable" eSuperTypes="#//expression/LiteralReferenceValue"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LiteralTimeDeltaVariable" eSuperTypes="#//expression/LiteralReferenceValue"/>
-  </eSubpackages>
 </ecore:EPackage>

@@ -94,6 +94,8 @@ public interface ISymbexWorkflowProvider {
 
 	boolean hasNext();
 
+	ISymbexWorkflowProvider getNextWorkflow();
+
 	/*
 	 * WORKFLOW
 	 */

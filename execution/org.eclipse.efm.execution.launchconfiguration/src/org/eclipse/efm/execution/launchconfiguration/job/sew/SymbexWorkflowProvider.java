@@ -27,6 +27,8 @@ import org.eclipse.efm.execution.core.util.WorkflowFileUtils;
 
 public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 
+	protected ISymbexWorkflowProvider fNextWorkflow;
+
 	protected int fIndex;
 	protected IPath[] fXliaModelsPath;
 
@@ -74,6 +76,8 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 
 
 	public SymbexWorkflowProvider() {
+		this.fNextWorkflow = null;
+
 		this.fIndex = 0;
 		this.fXliaModelsPath = DEFAULT_XLIA_MODELS;
 		this.fXliaModelPath = null;
@@ -95,6 +99,8 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 
 	public SymbexWorkflowProvider(final SymbexWorkflowProvider symbexWorkflow) {
 		assert (symbexWorkflow != null) : "Unexpected a null Symbex Workflow Provider";
+
+		this.fNextWorkflow = null;
 
 		this.fIndex = 0;
 		this.fXliaModelsPath = symbexWorkflow.fXliaModelsPath;
@@ -122,6 +128,8 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 			final String analysisProfileName, final IFile symbexWorkflowFile)
 	{
 		assert (symbexWorkflowFile != null) : "Unexpected a null Workflow File";
+
+		this.fNextWorkflow = null;
 
 		this.fIndex = 0;
 		this.fXliaModelsPath = DEFAULT_XLIA_MODELS;
@@ -155,6 +163,8 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 	{
 		assert (symbexWorkflowPath != null) : "Unexpected a null Workflow Path";
 
+		this.fNextWorkflow = null;
+
 		this.fIndex = 0;
 		this.fXliaModelsPath = DEFAULT_XLIA_MODELS;
 		this.fXliaModelPath = null;
@@ -187,6 +197,8 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 			final String[] commandLine, final IPath workingDirectoryPath) {
 		assert (commandLine != null) : "Unexpected a null Command Line";
 		assert (commandLine.length > 1) : "No enough  a null Command Line Args";
+
+		this.fNextWorkflow = null;
 
 		this.fIndex = 0;
 		this.fXliaModelsPath = DEFAULT_XLIA_MODELS;
@@ -225,6 +237,8 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 			final IPath workingDirectoryPath, final String[] environment) {
 		assert (commandLine != null) : "Unexpected a null Command Line";
 		assert (commandLine.length > 1) : "No enough  a null Command Line Args";
+
+		this.fNextWorkflow = null;
 
 		this.fIndex = 0;
 		this.fXliaModelsPath = DEFAULT_XLIA_MODELS;
@@ -347,6 +361,10 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 		return (this.fIndex < this.fXliaModelsPath.length) ;
 	}
 
+	@Override
+	public ISymbexWorkflowProvider getNextWorkflow() {
+		return this.fNextWorkflow;
+	}
 
 	/*
 	 * WORKFLOW
@@ -534,7 +552,13 @@ public class SymbexWorkflowProvider implements ISymbexWorkflowProvider {
 	boolean initialize() {
 		fIndex = 0;
 
-		return( this.fCommandLine != null );
+		if( fNextWorkflow != null ) {
+			if( ! fNextWorkflow.initialize() ) {
+				return false;
+			}
+		}
+
+		return( (this.count() > 1) || (this.fCommandLine != null) );
 	}
 
 	@Override

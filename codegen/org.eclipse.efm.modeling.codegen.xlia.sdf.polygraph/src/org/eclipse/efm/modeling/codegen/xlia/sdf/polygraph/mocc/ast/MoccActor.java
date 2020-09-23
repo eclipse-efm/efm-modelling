@@ -61,9 +61,9 @@ public class MoccActor {
 	protected MoccSystem subSystem;
 
 	// system.channel  ---> subsystem.actor
-	protected Map<MoccChannel, MoccActor> inputGateway;
+	protected Map<MoccPort, MoccActor> inputGateway;
 	// subsystem.actor ---> system.channel
-	protected Map<MoccActor, MoccChannel> outputGateway;
+	protected Map<MoccActor, MoccPort> outputGateway;
 
 	// Analysis Purpose
 	public MoccActorFeature FEATURE;
@@ -237,13 +237,19 @@ public class MoccActor {
 		if(  isTimed() ) {
 			if(  hasSelectionSet() ) {
 				return( "[ \"TIME\" , \"MODE\" ]" );
-	}
+			}
+			else if( isProxy() ) {
+				return( "[ \"TIME\" , \"PROXY\" ]" );
+			}
 			else {
 				return( "[ \"TIME\" ]" );
 			}
 		}
 		else if(  hasSelectionSet() ) {
 			return( "[ \"MODE\" ]" );
+		}
+		else if( isProxy() ) {
+			return( "[ \"PROXY\" ]" );
 		}
 		else {
 			return( "[ \"REGULAR\" ]" );
@@ -294,7 +300,7 @@ public class MoccActor {
 	}
 
 	public void setSelectionSet(final MoccMode[] selectionSet) {
-		this.selectionSet = selectionSet;
+		this.selectionSet = (selectionSet  != null) ? selectionSet  : NO_MODE;
 	}
 
 	public String[] getSelectionSetLiterals() {
@@ -317,7 +323,7 @@ public class MoccActor {
 	}
 
 	public void setProcessingSet(final MoccMode[] processingSet) {
-		this.processingSet = processingSet;
+		this.processingSet = (processingSet != null) ? processingSet : NO_MODE;
 	}
 
 	public String[] getProcessingSetLiterals() {
@@ -336,7 +342,7 @@ public class MoccActor {
 	}
 
 	public boolean isModeProcessor() {
-		return( /*(selector != null) &&*/ (processingSet.length > 0) );
+		return( (selector != null) || (processingSet.length > 0) );
 	}
 
 	public boolean isModeSelector() {
@@ -390,6 +396,14 @@ public class MoccActor {
 				name, isDeciding, rate, rateDenominator) );
 	}
 
+//	// PROXY PORT
+//	public MoccPort addProxyPort(
+//			final MoccPort port, final Direction direction)
+//	{
+//		return( new MoccPort(this, port.getChannel(), direction, port.getName(),
+//				port.isDeciding(), port.getRate(), port.getRateDenominator()) );
+//	}
+
 	// PREDECESSOR /SUCCESSOR
 	public List< MoccActor > getPredecessor() {
 		return predecessorActor;
@@ -410,7 +424,7 @@ public class MoccActor {
 
 
 	// COMPOSITE ACTOR INPUT GATEWAY
-	public Map<MoccChannel, MoccActor> getInputGateway() {
+	public Map<MoccPort, MoccActor> getInputGateway() {
 		return this.inputGateway;
 	}
 
@@ -418,25 +432,25 @@ public class MoccActor {
 		return( this.inputGateway != null );
 	}
 
-	public void addInputGateway(final MoccChannel channel, final MoccActor actor) {
+	public void addInputGateway(final MoccPort channel, final MoccActor actor) {
 		if( this.inputGateway == null ) {
-			this.inputGateway = new HashMap<MoccChannel, MoccActor>();
+			this.inputGateway = new HashMap<MoccPort, MoccActor>();
 		}
 		this.inputGateway.put(channel, actor);
 	}
 
-	public void addInputGateway(final MoccChannel channel) {
+	public void addInputGateway(final MoccPort inputPort) {
 		if( this.inputGateway == null ) {
-			this.inputGateway = new HashMap<MoccChannel, MoccActor>();
+			this.inputGateway = new HashMap<MoccPort, MoccActor>();
 		}
-		this.inputGateway.put(channel, this);
+		this.inputGateway.put(inputPort, this);
 
-//		addProxyPort(channel, Direction.INPUT);
+//		addProxyPort(inputPort, Direction.INPUT);
 	}
 
 
 	// COMPOSITE ACTOR OUTPUT GATEWAY
-	public Map<MoccActor, MoccChannel> getOutputGateway() {
+	public Map<MoccActor, MoccPort> getOutputGateway() {
 		return this.outputGateway;
 	}
 
@@ -444,20 +458,20 @@ public class MoccActor {
 		return( this.outputGateway != null );
 	}
 
-	public void addOutputGateway(final MoccActor actor, final MoccChannel channel) {
+	public void addOutputGateway(final MoccActor actor, final MoccPort channel) {
 		if( this.outputGateway == null ) {
-			this.outputGateway = new HashMap<MoccActor, MoccChannel>();
+			this.outputGateway = new HashMap<MoccActor, MoccPort>();
 		}
 		this.outputGateway.put(actor, channel);
 	}
 
-	public void addOutputGateway(final MoccChannel channel) {
+	public void addOutputGateway(final MoccPort outputPort) {
 		if( this.outputGateway == null ) {
-			this.outputGateway = new HashMap<MoccActor, MoccChannel>();
+			this.outputGateway = new HashMap<MoccActor, MoccPort>();
 		}
-		this.outputGateway.put(this, channel);
+		this.outputGateway.put(this, outputPort);
 
-//		addProxyPort(channel, Direction.OUTPUT);
+//		addProxyPort(outputPort, Direction.OUTPUT);
 	}
 
 
@@ -469,12 +483,20 @@ public class MoccActor {
 	public boolean isComposite() {
 		return( (this.subSystem != null)
 				&& (! this.subSystem.getActor().isEmpty()) );
+//				&& ( (this.inputGateway != null)
+//						|| (this.outputGateway != null) ) );
 	}
 
 	public void setSubSystem(final MoccSystem moccSystem) {
 		this.subSystem = moccSystem;
 	}
 
+	// PROXY ACTOR
+	public boolean isProxy() {
+		return( (this.subSystem == null)
+				&& ( (this.inputGateway != null)
+					|| (this.outputGateway != null) ) );
+	}
 
 	// MoccActorFeature
 	public void computeFeature() {
@@ -569,15 +591,19 @@ public class MoccActor {
 
 			writer.appendTab2Eol("input gateway {");
 
-			for( final  Entry<MoccChannel, MoccActor> bridge
+			for( final  Entry<MoccPort, MoccActor> bridge
 					: this.inputGateway.entrySet() )
 			{
-				final MoccChannel channel = bridge.getKey();
+				final MoccPort port = bridge.getKey();
+				final MoccChannel channel = port.getChannel();
 				final MoccActor proxyActor = bridge.getValue();
 
-				writer.appendTab3(channel.getOutputActor().getName())
-					.append("->")
+				writer.appendTab3("(output actor)")
+					.append(channel.getOutputActor().getName())
+					.append("=>(channel)")
 					.append(channel.getName())
+					.append("->(input port)")
+					.append(port.getName())
 					.append( " ==> this" );
 				if( this != proxyActor ) {
 					writer.append('.').appendEol(proxyActor.name);
@@ -595,19 +621,22 @@ public class MoccActor {
 
 			writer.appendTab2Eol("output gateway {");
 
-			for( final  Entry<MoccActor, MoccChannel> bridge
+			for( final  Entry<MoccActor, MoccPort> bridge
 					: this.outputGateway.entrySet() )
 			{
-				final MoccChannel channel = bridge.getValue();
+				final MoccPort port = bridge.getValue();
+				final MoccChannel channel = port.getChannel();
 				final MoccActor proxyActor = bridge.getKey();
 
 				writer.appendTab3("this");
 				if( this != proxyActor ) {
 					writer.append('.').append(proxyActor.name);
 				}
-				writer.append( " ==> " )
+				writer.append( " ==> (output port)" )
+					.append(port.getName())
+					.append("->(channel)")
 					.append(channel.getName())
-					.append("->")
+					.append("=>(input actor)")
 					.appendEol(channel.getInputActor().getName());
 			}
 

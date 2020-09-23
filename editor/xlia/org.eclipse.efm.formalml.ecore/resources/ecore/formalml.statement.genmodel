@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2020 CEA LIST.&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html\n\nContributors:&#xA; Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr&#xA; - Initial API and Implementation"
+    modelDirectory="/org.eclipse.efm.formalml.ecore/ecore-gen" modelPluginID="org.eclipse.efm.formalml.ecore"
+    modelName="Formalml" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="formalml.common.genmodel#//common formalml.datatype.genmodel#//datatype formalml.expression.genmodel#//expression formalml.infrastructure.genmodel#//infrastructure"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>formalml.statement.ecore</foreignModel>
+  <genPackages prefix="Statement" basePackage="org.eclipse.efm.ecore.formalml" disposableProviderFactory="true"
+      ecorePackage="formalml.statement.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="formalml.statement.ecore#//InterruptStatementKind">
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//InterruptStatementKind/break"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//InterruptStatementKind/continue"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//InterruptStatementKind/return"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//InterruptStatementKind/exit"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="formalml.statement.ecore#//ActivityStatementKind">
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/init"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/final"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/new"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/destroy"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/start"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/stop"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/restart"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/suspend"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/resume"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/wait"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/abort"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/disable"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/enable"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/goto"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/schedule"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/irun"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/run"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//ActivityStatementKind/rtc"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="formalml.statement.ecore#//AssignmentStatementkind">
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/assign_ref"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/assign_macro"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/plus_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/plus_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/minus_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/minus_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/star_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/star_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/div_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/div_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/mod_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/mod_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/land_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/land_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/lor_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/lor_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/band_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/band_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/bor_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/bor_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/bxor_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/bxor_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/lshift_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/lshift_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/rshift_assign_after"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/rshift_assign"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/op_push"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/op_assign_top"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/op_pop"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/incr"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//AssignmentStatementkind/decr"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="formalml.statement.ecore#//MetaStatementKind">
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//MetaStatementKind/informal"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//MetaStatementKind/trace"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//MetaStatementKind/debug"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//MetaStatementKind/comment"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//MetaStatementKind/quote"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//MetaStatementKind/eval"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.statement.ecore#//MetaStatementKind/run"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="formalml.statement.ecore#//Statement"/>
+    <genClasses ecoreClass="formalml.statement.ecore#//BlockStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.statement.ecore#//BlockStatement/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//BlockStatement/statement"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//ExpressionStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ExpressionStatement/expression"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="formalml.statement.ecore#//AbstractGuardStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//AbstractGuardStatement/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//GuardStatement"/>
+    <genClasses ecoreClass="formalml.statement.ecore#//TimedGuardStatement"/>
+    <genClasses ecoreClass="formalml.statement.ecore#//EventGuardStatement"/>
+    <genClasses ecoreClass="formalml.statement.ecore#//CheckSatGuardStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.statement.ecore#//CheckSatGuardStatement/solver"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="formalml.statement.ecore#//AbstractComStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//AbstractComStatement/port"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//AbstractComStatement/route"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//AbstractComStatement/target"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//InputComStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//InputComStatement/leftValue"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//OutputComStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//OutputComStatement/rightValue"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//ConditionalBlockStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ConditionalBlockStatement/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ConditionalBlockStatement/bodyBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//IfStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//IfStatement/elseifStatement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//IfStatement/elseBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//WhileDoStatement"/>
+    <genClasses ecoreClass="formalml.statement.ecore#//DoWhileStatement"/>
+    <genClasses ecoreClass="formalml.statement.ecore#//ForStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ForStatement/init"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ForStatement/iterate"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//ForEachStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ForEachStatement/iterator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ForEachStatement/enumeration"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//InterruptStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.statement.ecore#//InterruptStatement/kind"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//InterruptStatement/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//ActivityStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.statement.ecore#//ActivityStatement/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ActivityStatement/machine"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ActivityStatement/tuple"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ActivityStatement/slot"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//InvokeStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.statement.ecore#//InvokeStatement/callProcedure"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.statement.ecore#//InvokeStatement/execRoutine"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//InvokeStatement/invokable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//InvokeStatement/args"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//InvokeStatement/rets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//InvokeStatement/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//ObserverStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ObserverStatement/context"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ObserverStatement/statement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//ObserverStatement/postCondition"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.statement.ecore#//MetaStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.statement.ecore#//MetaStatement/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.statement.ecore#//MetaStatement/operand"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

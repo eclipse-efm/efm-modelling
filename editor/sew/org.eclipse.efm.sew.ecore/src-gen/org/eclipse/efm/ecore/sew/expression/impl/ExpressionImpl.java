@@ -103,6 +103,7 @@ public class ExpressionImpl extends WValueSpecificationImpl implements Expressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getOperator() {
 		return operator;
 	}
@@ -112,6 +113,7 @@ public class ExpressionImpl extends WValueSpecificationImpl implements Expressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperator(String newOperator) {
 		String oldOperator = operator;
 		operator = newOperator;
@@ -124,6 +126,7 @@ public class ExpressionImpl extends WValueSpecificationImpl implements Expressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<WValueSpecification> getOperand() {
 		if (operand == null) {
 			operand = new EObjectContainmentEList<WValueSpecification>(WValueSpecification.class, this, ExpressionPackage.EXPRESSION__OPERAND);
@@ -224,7 +227,7 @@ public class ExpressionImpl extends WValueSpecificationImpl implements Expressio
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (operator: ");
 		result.append(operator);
 		result.append(')');

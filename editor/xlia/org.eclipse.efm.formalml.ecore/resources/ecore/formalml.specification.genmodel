@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2020 CEA LIST.&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html\n\nContributors:&#xA; Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr&#xA; - Initial API and Implementation"
+    modelDirectory="/org.eclipse.efm.formalml.ecore/ecore-gen" modelPluginID="org.eclipse.efm.formalml.ecore"
+    modelName="Formalml" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="formalml.common.genmodel#//common formalml.datatype.genmodel#//datatype formalml.expression.genmodel#//expression formalml.infrastructure.genmodel#//infrastructure formalml.statement.genmodel#//statement"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>formalml.specification.ecore</foreignModel>
+  <genPackages prefix="Specification" basePackage="org.eclipse.efm.ecore.formalml"
+      disposableProviderFactory="true" ecorePackage="formalml.specification.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="formalml.specification.ecore#//XliaModelKind">
+      <genEnumLiterals ecoreEnumLiteral="formalml.specification.ecore#//XliaModelKind/system"/>
+      <genEnumLiterals ecoreEnumLiteral="formalml.specification.ecore#//XliaModelKind/package"/>
+    </genEnums>
+    <genClasses ecoreClass="formalml.specification.ecore#//XliaModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.specification.ecore#//XliaModel/prolog"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.specification.ecore#//XliaModel/system"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.specification.ecore#//XliaNamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute formalml.specification.ecore#//XliaNamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.specification.ecore#//XliaObject">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.specification.ecore#//XliaObject/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.specification.ecore#//XliaSection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.specification.ecore#//XliaSection/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="formalml.specification.ecore#//XliaAttribute">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference formalml.specification.ecore#//XliaAttribute/value"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

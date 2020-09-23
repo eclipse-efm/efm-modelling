@@ -97,6 +97,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression createExpression() {
 		ExpressionImpl expression = new ExpressionImpl();
 		return expression;
@@ -107,6 +108,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralExpressionValue createLiteralExpressionValue() {
 		LiteralExpressionValueImpl literalExpressionValue = new LiteralExpressionValueImpl();
 		return literalExpressionValue;
@@ -117,6 +119,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralArrayValue createLiteralArrayValue() {
 		LiteralArrayValueImpl literalArrayValue = new LiteralArrayValueImpl();
 		return literalArrayValue;
@@ -127,6 +130,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralIntegerValue createLiteralIntegerValue() {
 		LiteralIntegerValueImpl literalIntegerValue = new LiteralIntegerValueImpl();
 		return literalIntegerValue;
@@ -137,6 +141,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralBooleanValue createLiteralBooleanValue() {
 		LiteralBooleanValueImpl literalBooleanValue = new LiteralBooleanValueImpl();
 		return literalBooleanValue;
@@ -147,6 +152,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralCharacterValue createLiteralCharacterValue() {
 		LiteralCharacterValueImpl literalCharacterValue = new LiteralCharacterValueImpl();
 		return literalCharacterValue;
@@ -157,6 +163,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralRationalValue createLiteralRationalValue() {
 		LiteralRationalValueImpl literalRationalValue = new LiteralRationalValueImpl();
 		return literalRationalValue;
@@ -167,6 +174,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralStringValue createLiteralStringValue() {
 		LiteralStringValueImpl literalStringValue = new LiteralStringValueImpl();
 		return literalStringValue;
@@ -177,6 +185,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralNullValue createLiteralNullValue() {
 		LiteralNullValueImpl literalNullValue = new LiteralNullValueImpl();
 		return literalNullValue;
@@ -187,6 +196,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralFloatValue createLiteralFloatValue() {
 		LiteralFloatValueImpl literalFloatValue = new LiteralFloatValueImpl();
 		return literalFloatValue;
@@ -197,6 +207,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralRealValue createLiteralRealValue() {
 		LiteralRealValueImpl literalRealValue = new LiteralRealValueImpl();
 		return literalRealValue;
@@ -207,6 +218,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralReferenceValue createLiteralReferenceValue() {
 		LiteralReferenceValueImpl literalReferenceValue = new LiteralReferenceValueImpl();
 		return literalReferenceValue;
@@ -217,6 +229,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralObjectReference createLiteralObjectReference() {
 		LiteralObjectReferenceImpl literalObjectReference = new LiteralObjectReferenceImpl();
 		return literalObjectReference;
@@ -227,6 +240,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralThisInstance createLiteralThisInstance() {
 		LiteralThisInstanceImpl literalThisInstance = new LiteralThisInstanceImpl();
 		return literalThisInstance;
@@ -237,6 +251,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralSelfInstance createLiteralSelfInstance() {
 		LiteralSelfInstanceImpl literalSelfInstance = new LiteralSelfInstanceImpl();
 		return literalSelfInstance;
@@ -247,6 +262,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralParentInstance createLiteralParentInstance() {
 		LiteralParentInstanceImpl literalParentInstance = new LiteralParentInstanceImpl();
 		return literalParentInstance;
@@ -257,6 +273,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralSuperInstance createLiteralSuperInstance() {
 		LiteralSuperInstanceImpl literalSuperInstance = new LiteralSuperInstanceImpl();
 		return literalSuperInstance;
@@ -267,6 +284,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralSystemInstance createLiteralSystemInstance() {
 		LiteralSystemInstanceImpl literalSystemInstance = new LiteralSystemInstanceImpl();
 		return literalSystemInstance;
@@ -277,6 +295,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralEnvInstance createLiteralEnvInstance() {
 		LiteralEnvInstanceImpl literalEnvInstance = new LiteralEnvInstanceImpl();
 		return literalEnvInstance;
@@ -287,6 +306,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralTimeVariable createLiteralTimeVariable() {
 		LiteralTimeVariableImpl literalTimeVariable = new LiteralTimeVariableImpl();
 		return literalTimeVariable;
@@ -297,6 +317,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LiteralTimeDeltaVariable createLiteralTimeDeltaVariable() {
 		LiteralTimeDeltaVariableImpl literalTimeDeltaVariable = new LiteralTimeDeltaVariableImpl();
 		return literalTimeDeltaVariable;
@@ -307,6 +328,7 @@ public class ExpressionFactoryImpl extends EFactoryImpl implements ExpressionFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExpressionPackage getExpressionPackage() {
 		return (ExpressionPackage)getEPackage();
 	}

@@ -139,21 +139,31 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 
 	public void declareSignalMessageType(final Signal signal, final PrettyPrintWriter writer) {
-	    writer.appendTab2("type ")
-	        .append(signal.getName())
-	        .appendEol(" struct {");
-	        writer.appendTab3("var ")
-            .appendEol( "string signature;" );
-
-	    for (final Property property : signal.getAllAttributes()) {
-	        writer.appendTab3("var ")
-	            .append( fSupervisor.fDataTypeFactory.typeName(property) )
-	            .append(" ")
-	            .append(property.getName())
-	            .appendEol(";");
+	    if( signal.getAllAttributes().isEmpty() ) {
+	    	writer.appendTab2("type ")
+		    	.append(signal.getName())
+		    	.append(" ")
+		    	.append( messagesSignatureEnumTypeName() )
+		    	.appendEol( ";" );
 	    }
+	    else {
+	    	writer.appendTab2("type ")
+		    	.append(signal.getName())
+		    	.appendEol(" struct {")
+		    	.appendTab3("var ")
+		    	.append( messagesSignatureEnumTypeName() )
+		    	.appendEol( " signature;" );
 
-		writer.appendTab2Eol("}");
+	    	for (final Property property : signal.getAllAttributes()) {
+	    		writer.appendTab3("var ")
+		    		.append( fSupervisor.fDataTypeFactory.typeName(property) )
+		    		.append(" ")
+		    		.append(property.getName())
+		    		.appendEol(";");
+	    	}
+
+	    	writer.appendTab2Eol("}");
+	    }
 	}
 
 
@@ -296,6 +306,23 @@ public class InteractionCodeGenerator extends AbstractCodeGenerator
 
 
 		writer.appendTab2Eol("// Interaction messages declaration");
+
+		writer.appendTab2("type ")
+			.append( messagesSignatureEnumTypeName() )
+			.appendEol(" enum {");
+		boolean isnotFirst = false;
+		for(  final Message message : element.getMessages() ) {
+			if( isnotFirst ) {
+				writer.appendEol( ", " );
+			}
+			else {
+				isnotFirst = true;
+			}
+			writer.appendTab3( nameOfMessageSignature(message) );
+		}
+		writer.appendEol()
+			.appendTab2Eol("}");
+
 		for( final Message message : element.getMessages() ) {
 			//declare signal structure
 			final NamedElement signature = message.getSignature();
@@ -1716,14 +1743,17 @@ public void transformCombinedFragmentOpt(final CombinedFragment element,
 			final StringBuilder MsgReceiveAction = new StringBuilder("output ");
 			lfContext.outputMessage.add(message);
 
-			MsgReceiveAction.append( message.getName() )
-			.append("( { ")
-			.append("\"")
-			.append(message.getSignature().getName())
-			.append("\"");
-
-			if (! (message.getArguments().isEmpty()) ){
-				MsgReceiveAction.append(", ");
+			if( message.getArguments().isEmpty() ) {
+				MsgReceiveAction.append( message.getName() )
+					.append("( ")
+					.append( nameOfMessageSignature(message) )
+					.append(" )");
+			}
+			else {
+				MsgReceiveAction.append( message.getName() )
+					.append("( { ")
+					.append( nameOfMessageSignature(message) )
+					.append(", ");
 
 				boolean isnotFirst = false;
 
@@ -1737,8 +1767,8 @@ public void transformCombinedFragmentOpt(final CombinedFragment element,
 					MsgReceiveAction.append(itArg.stringValue());
 				}
 				//MsgReceiveAction.append(" } )");
+				MsgReceiveAction.append(" } )");
 			}
-			MsgReceiveAction.append(" } )");
 			MsgReceiveAction.append(" --> ");
 
 

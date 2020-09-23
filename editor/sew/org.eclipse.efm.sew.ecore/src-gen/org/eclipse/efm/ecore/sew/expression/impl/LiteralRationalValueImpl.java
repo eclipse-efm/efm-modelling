@@ -100,6 +100,7 @@ public class LiteralRationalValueImpl extends LiteralExpressionValueImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getNumerator() {
 		return numerator;
 	}
@@ -109,6 +110,7 @@ public class LiteralRationalValueImpl extends LiteralExpressionValueImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNumerator(long newNumerator) {
 		long oldNumerator = numerator;
 		numerator = newNumerator;
@@ -121,6 +123,7 @@ public class LiteralRationalValueImpl extends LiteralExpressionValueImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getDenominator() {
 		return denominator;
 	}
@@ -130,6 +133,7 @@ public class LiteralRationalValueImpl extends LiteralExpressionValueImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDenominator(long newDenominator) {
 		long oldDenominator = denominator;
 		denominator = newDenominator;
@@ -214,7 +218,7 @@ public class LiteralRationalValueImpl extends LiteralExpressionValueImpl impleme
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (numerator: ");
 		result.append(numerator);
 		result.append(", denominator: ");

@@ -22,6 +22,7 @@ Export-Package: org.eclipse.efm.formalml.xtext,
  org.eclipse.efm.formalml.xtext.services,
  org.eclipse.efm.formalml.xtext.serializer,
  org.eclipse.efm.formalml.xtext.parser.antlr.internal,
- org.eclipse.efm.formalml.xtext.validation
+ org.eclipse.efm.formalml.xtext.validation,
+ org.eclipse.efm.formalml.xtext.formatting2
 Import-Package: org.apache.log4j
 Automatic-Module-Name: org.eclipse.efm.formalml.xtext

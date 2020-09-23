@@ -12,42 +12,33 @@
 *****************************************************************************/
 package org.eclipse.efm.formalml.xtext.generator
 
+import org.eclipse.efm.ecore.formalml.common.NamedElement
+import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement
+import org.eclipse.efm.ecore.formalml.infrastructure.Behavior
+import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine
+import org.eclipse.efm.ecore.formalml.infrastructure.Machine
+import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution
+import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet
+import org.eclipse.efm.ecore.formalml.infrastructure.Routine
+import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
+import org.eclipse.efm.ecore.formalml.specification.XliaModel
+import org.eclipse.efm.ecore.formalml.statemachine.FinalState
+import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate
+import org.eclipse.efm.ecore.formalml.statemachine.Region
+import org.eclipse.efm.ecore.formalml.statemachine.StartState
+import org.eclipse.efm.ecore.formalml.statemachine.State
+import org.eclipse.efm.ecore.formalml.statemachine.Statemachine
+import org.eclipse.efm.ecore.formalml.statemachine.StatemachineFactory
+import org.eclipse.efm.ecore.formalml.statemachine.Transition
+import org.eclipse.efm.ecore.formalml.statemachine.TransitionMoc
+import org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe
+import org.eclipse.efm.ecore.formalml.statemachine.Vertex
+import org.eclipse.efm.ecore.formalml.statement.BlockStatement
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import org.eclipse.efm.ecore.formalml.XliaModel
-import org.eclipse.efm.ecore.formalml.infrastructure.Machine
-import org.eclipse.efm.ecore.formalml.infrastructure.Behavior
-import org.eclipse.efm.ecore.formalml.statemachine.Statemachine
-import org.eclipse.efm.ecore.formalml.statemachine.Region
-import org.eclipse.efm.ecore.formalml.statemachine.State
-import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate
-import org.eclipse.efm.ecore.formalml.statemachine.Vertex
-import org.eclipse.efm.ecore.formalml.statemachine.StartState
-import org.eclipse.efm.ecore.formalml.statemachine.FinalState
-import org.eclipse.efm.ecore.formalml.statemachine.Transition
-import org.eclipse.emf.common.util.EList
-import org.eclipse.efm.ecore.formalml.expression.LiteralReferenceElement
-import org.eclipse.efm.ecore.formalml.common.NamedElement
-import org.eclipse.efm.ecore.formalml.statemachine.StatemachineFactory
-import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
-import org.eclipse.efm.ecore.formalml.statement.BlockStatement
-import org.eclipse.efm.ecore.formalml.infrastructure.Routine
-import org.eclipse.efm.ecore.formalml.infrastructure.ParameterSet
-import org.eclipse.efm.ecore.formalml.infrastructure.ModelOfExecution
-import org.eclipse.efm.ecore.formalml.infrastructure.InstanceMachine
-import org.eclipse.efm.ecore.formalml.statemachine.TransitionMoe
-import org.eclipse.efm.ecore.formalml.statemachine.TransitionMoc
-import org.eclipse.efm.ecore.formalml.statement.InvokeStatement
-import org.eclipse.efm.ecore.formalml.statement.ExpressionStatement
-import org.eclipse.efm.ecore.formalml.statement.AbstractGuardStatement
-import org.eclipse.efm.ecore.formalml.statement.AbstractComStatement
-import org.eclipse.efm.ecore.formalml.statement.ActivityStatement
-import org.eclipse.efm.ecore.formalml.statement.InterruptStatement
-import org.eclipse.efm.ecore.formalml.statement.Statement
-import org.eclipse.efm.ecore.formalml.expression.LogicalAssociativeExpression
-import org.eclipse.core.runtime.IPath
 
 /**
  * Generates code from your model files on save.
@@ -77,7 +68,7 @@ class FormalMLGenerator extends AbstractGenerator {
 //					'/' + resource.URI.segments.last + '.xlia'
 //				else '/statemachine_' + resource.hashCode + '.xlia'
 //
-//			fsa.generateFile(xliaFilename, XLIAGenerator.generateModel(model))
+//			fsa.generateFile(xliaFilename, GraphicXLIAGenerator.generateModel(model))
 			
 //			fsa.generateFile('/hidden.txt', '''This is an additional generator artifact.''')
 		}
@@ -164,7 +155,7 @@ class FormalMLGenerator extends AbstractGenerator {
 			«generateInstanceGraphic(itInstance)»
 			--
 		«ENDFOR»
-		«IF machine.main !== null»«generateBehaviorGraphic(machine.main)»«ENDIF»
+		«IF machine.main !== null»«generateMainBehaviorGraphic(machine, machine.main)»«ENDIF»
 	'''
 	
 	def generateMachineRoutineGraphic(Machine machine)
@@ -183,7 +174,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	'''	
 		**«routine.name»«generateRoutineParameterSet(routine.parameterSet)»:** «IF (routine.bodyBlock !== null) && (! routine.bodyBlock.statement.empty)»«IF routine.bodyBlock.op !== null»«routine.bodyBlock.op»«ENDIF»
 		«FOR it : routine.bodyBlock.statement»
-			«XLIAGenerator.generateStatement(it)»
+			«GraphicXLIAGenerator.generateStatement(it)»
 		«ENDFOR»
 		«ENDIF»
 	'''
@@ -191,13 +182,15 @@ class FormalMLGenerator extends AbstractGenerator {
 	def static generateRoutineParameterSet(ParameterSet parameterSet)
 	'''«IF (parameterSet !== null) && (! parameterSet.parameter.empty)»(«FOR it : parameterSet.parameter SEPARATOR ", "»«it.name»«ENDFOR»)«ENDIF»'''
 
-	def generateBehaviorGraphic(Behavior behavior)
+	def generateMainBehaviorGraphic(Machine machine, Behavior behavior)
 	'''	
+		«IF behavior.hasCompositeBehavior || machine.hasCompositeBehavior» 
 		«generateMoeGraphic(behavior, behavior.execution)»
-		«IF behavior.hasCompositeBehavior»
 		state "main behavior" as «behavior.nameIdOf» {
 			«generateMachineContentGraphic(behavior)»
 		}
+		«ELSE»
+		«generateMoeGraphic(machine, behavior.execution)»
 		«ENDIF»
 		
 «««		«IF behavior instanceof Statemachine»«generateGraphic(behavior as Statemachine)»
@@ -207,15 +200,15 @@ class FormalMLGenerator extends AbstractGenerator {
 «««		«ENDIF»
 	'''
 	
-	def hasCompositeBehavior(Behavior behavior) {
-		return( (! behavior.machine.empty ) || (! behavior.behavior.empty)
-			 || (! behavior.instance.empty) || (behavior.main !== null) )
+	def hasCompositeBehavior(Machine machine) {
+		return( (! machine.machine.empty ) || (! machine.behavior.empty)
+			 || (! machine.instance.empty) )// || (machine.main !== null) )
 	}
 	
 	def generateMoeGraphic(NamedElement container, ModelOfExecution moe)
 	'''	
 		«IF moe.hasPrimitive»
-			note top of «container.nameIdOf»
+			note bottom of «container.nameIdOf» #white
 				«generateActivityRoutine(moe.createRoutine, "create")»
 				«generateActivityRoutine(moe.initRoutine, "init")»
 				«generateActivityRoutine(moe.finalRoutine, "final")»
@@ -231,15 +224,16 @@ class FormalMLGenerator extends AbstractGenerator {
 
 	def hasPrimitive(ModelOfExecution moe) {
 		return( (moe !== null)
-			 && (  (moe.runRoutine !== null)
-				|| (moe.irunRoutine !== null)
-				|| (moe.scheduleRoutine !== null)
-				|| (moe.enableRoutine !== null)
-				|| (moe.disableRoutine !== null)
-				|| (moe.initRoutine !== null)
-				|| (moe.finalRoutine !== null)
-				|| (moe.createRoutine !== null)
-				|| (moe.concurrencyRoutine !== null)) )
+			 && (  ((moe.runRoutine      !== null) && moe.runRoutine.hasStatement)
+				|| ((moe.irunRoutine     !== null) && moe.irunRoutine.hasStatement)
+				|| ((moe.scheduleRoutine !== null) && moe.scheduleRoutine.hasStatement)
+				|| ((moe.enableRoutine   !== null) && moe.enableRoutine.hasStatement)
+				|| ((moe.disableRoutine  !== null) && moe.disableRoutine.hasStatement)
+				|| ((moe.initRoutine     !== null) && moe.initRoutine.hasStatement)
+				|| ((moe.finalRoutine    !== null) && moe.finalRoutine.hasStatement)
+				|| ((moe.createRoutine   !== null) && moe.createRoutine.hasStatement)
+				|| ((moe.concurrencyRoutine !== null) && moe.concurrencyRoutine.hasStatement)
+				) )
 	}
 
 
@@ -252,9 +246,9 @@ class FormalMLGenerator extends AbstractGenerator {
 	def generateActivityRoutine(Routine routine, String name)
 	'''
 		«IF routine.hasStatement»
-		**«name»:**
+		**«name»( ):**
 		«FOR it : routine.bodyBlock.statement»
-			«XLIAGenerator.generateStatement(it)»
+			«GraphicXLIAGenerator.generateStatement(it)»
 		«ENDFOR»
 		«ENDIF»
 	'''
@@ -285,7 +279,7 @@ class FormalMLGenerator extends AbstractGenerator {
 //		NamedElement container, Routine routine, String name)
 //	'''
 //		«nameIdOf(container)»: **@«name»:**
-//		«nameIdOf(container)»: «XLIAGenerator.generateStatement(routine.bodyBlock.statement.get(0))»
+//		«nameIdOf(container)»: «GraphicXLIAGenerator.generateStatement(routine.bodyBlock.statement.get(0))»
 //		
 //	'''
 //
@@ -293,7 +287,7 @@ class FormalMLGenerator extends AbstractGenerator {
 //	'''
 //		**«name»:** «IF (routine.bodyBlock !== null) && (! routine.bodyBlock.statement.empty)»«IF routine.bodyBlock.op !== null»«routine.bodyBlock.op»«ENDIF»
 //		«FOR it : routine.bodyBlock.statement»
-//			«XLIAGenerator.generateStatement(it)»
+//			«GraphicXLIAGenerator.generateStatement(it)»
 //		«ENDFOR»
 //		«ENDIF»
 //	'''
@@ -303,7 +297,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	'''
 		state "**«modifier(instance.model)»instance< «instance.model.name» >** «instance.nameOf»" as «instance.nameIdOf» << Instance >> {
 		«FOR it : instance.slot»
-			«instance.nameIdOf»: «it.xliaProperty.name» = «XLIAGenerator.generateExpression(it.value)»
+			«instance.nameIdOf»: «it.xliaProperty.name» = «GraphicXLIAGenerator.generateExpression(it.value)»
 		«ENDFOR»
 		}
 	'''	
@@ -423,7 +417,7 @@ class FormalMLGenerator extends AbstractGenerator {
 		 note on link #white
 		 	**«generateTransitionModifier(transition)»«transition.name»«generateTransitionMoe(transition.moe)»** «IF (transition.behavior !== null) && (! transition.behavior.statement.empty)»«IF transition.behavior.op !== null»«transition.behavior.op»«ENDIF»
 	«FOR it : transition.behavior.statement»
-	«XLIAGenerator.generateStatement(it)»
+	«GraphicXLIAGenerator.generateStatement(it)»
 	«ENDFOR»
 	«ELSE»
 
@@ -440,7 +434,7 @@ class FormalMLGenerator extends AbstractGenerator {
 	def static generateBlockStatement(BlockStatement block)
 	'''«IF (block !== null) && (! block.statement.empty)»«IF block.op !== null»«block.op»«ELSE»|;|«ENDIF»
 	«FOR it : block.statement»
-	«XLIAGenerator.generateStatement(it)»
+	«GraphicXLIAGenerator.generateStatement(it)»
 	«ENDFOR»
 	«ENDIF»
 	'''

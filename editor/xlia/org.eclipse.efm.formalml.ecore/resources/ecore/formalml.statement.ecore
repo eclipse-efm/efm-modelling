@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="statement" nsURI="http://www.eclipse.org/efm/FormalML/Statement"
+    nsPrefix="statement">
+  <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true" eSuperTypes="formalml.common.ecore#//AbstractElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BlockStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" upperBound="-1"
+        eType="#//Statement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpressionStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractGuardStatement" abstract="true"
+      eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+        eType="ecore:EClass formalml.expression.ecore#//Expression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GuardStatement" eSuperTypes="#//AbstractGuardStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TimedGuardStatement" eSuperTypes="#//AbstractGuardStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EventGuardStatement" eSuperTypes="#//AbstractGuardStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CheckSatGuardStatement" eSuperTypes="#//AbstractGuardStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="solver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractComStatement" abstract="true"
+      eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="route" eType="ecore:EClass formalml.infrastructure.ecore#//Channel"
+        resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true" resolveProxies="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InputComStatement" eSuperTypes="#//AbstractComStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="leftValue" upperBound="-1"
+        eType="ecore:EClass formalml.expression.ecore#//Expression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OutputComStatement" eSuperTypes="#//AbstractComStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rightValue" upperBound="-1"
+        eType="ecore:EClass formalml.expression.ecore#//Expression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConditionalBlockStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+        eType="ecore:EClass formalml.expression.ecore#//Expression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bodyBlock" lowerBound="1"
+        eType="#//BlockStatement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//ConditionalBlockStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elseifStatement" upperBound="-1"
+        eType="#//ConditionalBlockStatement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elseBlock" eType="#//BlockStatement"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WhileDoStatement" eSuperTypes="#//ConditionalBlockStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DoWhileStatement" eSuperTypes="#//ConditionalBlockStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ForStatement" eSuperTypes="#//ConditionalBlockStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="init" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="iterate" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ForEachStatement" eSuperTypes="#//ConditionalBlockStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="iterator" lowerBound="1"
+        eType="ecore:EClass formalml.expression.ecore#//LeftHandSideExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enumeration" lowerBound="1"
+        eType="ecore:EClass formalml.expression.ecore#//Expression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="InterruptStatementKind">
+    <eLiterals name="break"/>
+    <eLiterals name="continue" value="1"/>
+    <eLiterals name="return" value="2"/>
+    <eLiterals name="exit" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InterruptStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//InterruptStatementKind"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expr" upperBound="-1" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ActivityStatementKind">
+    <eLiterals name="init"/>
+    <eLiterals name="final" value="1"/>
+    <eLiterals name="new" value="2"/>
+    <eLiterals name="destroy" value="3"/>
+    <eLiterals name="start" value="4"/>
+    <eLiterals name="stop" value="5"/>
+    <eLiterals name="restart" value="6"/>
+    <eLiterals name="suspend" value="7"/>
+    <eLiterals name="resume" value="8"/>
+    <eLiterals name="wait" value="9"/>
+    <eLiterals name="abort" value="10"/>
+    <eLiterals name="disable" value="10"/>
+    <eLiterals name="enable" value="12"/>
+    <eLiterals name="goto" value="13"/>
+    <eLiterals name="schedule" value="14"/>
+    <eLiterals name="irun" value="15"/>
+    <eLiterals name="run" value="16"/>
+    <eLiterals name="rtc" value="17"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActivityStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" lowerBound="1" eType="#//ActivityStatementKind"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="machine" lowerBound="1"
+        eType="ecore:EClass formalml.expression.ecore#//Expression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tuple" eType="ecore:EClass formalml.expression.ecore#//TupleExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="slot" upperBound="-1" eType="ecore:EClass formalml.infrastructure.ecore#//SlotProperty"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InvokeStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="callProcedure" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="execRoutine" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="invokable" eType="ecore:EClass formalml.common.ecore#//NamedElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="args" eType="ecore:EClass formalml.expression.ecore#//TupleExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rets" upperBound="-1" eType="ecore:EClass formalml.infrastructure.ecore#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ObserverStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statement" lowerBound="1"
+        eType="#//Statement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="postCondition" lowerBound="1"
+        eType="ecore:EClass formalml.expression.ecore#//Expression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AssignmentStatementkind">
+    <eLiterals name="assign"/>
+    <eLiterals name="assign_after" value="1"/>
+    <eLiterals name="assign_ref" value="2"/>
+    <eLiterals name="assign_macro" value="3"/>
+    <eLiterals name="plus_assign" value="4"/>
+    <eLiterals name="plus_assign_after" value="5"/>
+    <eLiterals name="minus_assign" value="6"/>
+    <eLiterals name="minus_assign_after" value="7"/>
+    <eLiterals name="star_assign" value="8"/>
+    <eLiterals name="star_assign_after" value="9"/>
+    <eLiterals name="div_assign_after" value="10"/>
+    <eLiterals name="div_assign" value="11"/>
+    <eLiterals name="mod_assign_after" value="12"/>
+    <eLiterals name="mod_assign" value="13"/>
+    <eLiterals name="land_assign_after" value="14"/>
+    <eLiterals name="land_assign" value="15"/>
+    <eLiterals name="lor_assign_after" value="16"/>
+    <eLiterals name="lor_assign" value="17"/>
+    <eLiterals name="band_assign_after" value="18"/>
+    <eLiterals name="band_assign" value="19"/>
+    <eLiterals name="bor_assign_after" value="20"/>
+    <eLiterals name="bor_assign" value="21"/>
+    <eLiterals name="bxor_assign_after" value="22"/>
+    <eLiterals name="bxor_assign" value="23"/>
+    <eLiterals name="lshift_assign_after" value="24"/>
+    <eLiterals name="lshift_assign" value="25"/>
+    <eLiterals name="rshift_assign_after" value="26"/>
+    <eLiterals name="rshift_assign" value="27"/>
+    <eLiterals name="op_push" value="28"/>
+    <eLiterals name="op_assign_top" value="29"/>
+    <eLiterals name="op_pop" value="30"/>
+    <eLiterals name="incr" value="31"/>
+    <eLiterals name="decr" value="32"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MetaStatementKind">
+    <eLiterals name="informal"/>
+    <eLiterals name="trace" value="1"/>
+    <eLiterals name="debug" value="2"/>
+    <eLiterals name="comment" value="3"/>
+    <eLiterals name="quote" value="4"/>
+    <eLiterals name="eval" value="5"/>
+    <eLiterals name="run" value="6"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaStatement" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" lowerBound="1" eType="#//MetaStatementKind"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operand" upperBound="-1"
+        eType="ecore:EClass formalml.common.ecore#//AbstractElement" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

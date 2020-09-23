@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2018 CEA LIST.&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA; Arnault Lapitre (CEA LIST) arnault.lapitre@cea.fr&#xA;  - Initial API and Implementation"
+    modelDirectory="/org.eclipse.efm.sew.ecore/src-gen" modelPluginID="org.eclipse.efm.sew.ecore"
+    modelName="Sew" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="sew.genmodel#//sew" operationReflection="true" importOrganizing="true">
+  <foreignModel>sew.expression.ecore</foreignModel>
+  <genPackages prefix="Expression" basePackage="org.eclipse.efm.ecore.sew" disposableProviderFactory="true"
+      ecorePackage="sew.expression.ecore#/">
+    <genClasses ecoreClass="sew.expression.ecore#//Expression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//Expression/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sew.expression.ecore#//Expression/operand"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralExpressionValue"/>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralArrayValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sew.expression.ecore#//LiteralArrayValue/values"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralIntegerValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralIntegerValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralBooleanValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralBooleanValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralCharacterValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralCharacterValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralRationalValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralRationalValue/numerator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralRationalValue/denominator"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralStringValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralStringValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralNullValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralNullValue/type"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralFloatValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralFloatValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralRealValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralRealValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralReferenceValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sew.expression.ecore#//LiteralReferenceValue/symbol"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralObjectReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference sew.expression.ecore#//LiteralObjectReference/object"/>
+    </genClasses>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralThisInstance"/>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralSelfInstance"/>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralParentInstance"/>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralSuperInstance"/>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralSystemInstance"/>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralEnvInstance"/>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralTimeVariable"/>
+    <genClasses ecoreClass="sew.expression.ecore#//LiteralTimeDeltaVariable"/>
+  </genPackages>
+</genmodel:GenModel>

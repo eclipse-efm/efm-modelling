@@ -19,8 +19,8 @@ import org.eclipse.uml2.uml.TimeObservation;
 
 public interface NameHelper {
 
-	default String qualifiedNameOf(Lifeline lifeline) {
-		StringBuilder buffer = new StringBuilder();
+	default String qualifiedNameOf(final Lifeline lifeline) {
+		final StringBuilder buffer = new StringBuilder();
 
 		buffer.append( lifeline.getRepresents().getType().getName() )
 			.append( "#" )
@@ -31,15 +31,24 @@ public interface NameHelper {
 		return buffer.toString();
 	}
 
-	default String nameOfMessageParamsVariable(Message message) {
+
+	default String messagesSignatureEnumTypeName() {
+		return "SIGNATURE_ID";
+	}
+
+	default String nameOfMessageSignature(final Message message) {
+		return "SIG_" + message.getSignature().getName();
+	}
+
+	default String nameOfMessageParamsVariable(final Message message) {
 		return message.getName() + "#params";
 	}
 
 
 	default String nameOfSchedulingVariable(
-			CombinedFragment combinedFragment)
+			final CombinedFragment combinedFragment)
 	{
-		StringBuilder buffer = new StringBuilder();
+		final StringBuilder buffer = new StringBuilder();
 
 		buffer.append( combinedFragment.getName() )
 		.append( "#Schedule" );
@@ -49,9 +58,9 @@ public interface NameHelper {
 	}
 
 	default String nameOfScheduledRegionVariable(
-			CombinedFragment combinedFragment)
+			final CombinedFragment combinedFragment)
 	{
-		StringBuilder buffer = new StringBuilder();
+		final StringBuilder buffer = new StringBuilder();
 
 		buffer.append( combinedFragment.getName() )
 			.append( "#current#schedule#region" );
@@ -59,8 +68,8 @@ public interface NameHelper {
 		return buffer.toString();
 	}
 
-	default String nameOfEnumRegionsType(CombinedFragment combinedFragment) {
-		StringBuilder buffer = new StringBuilder();
+	default String nameOfEnumRegionsType(final CombinedFragment combinedFragment) {
+		final StringBuilder buffer = new StringBuilder();
 
 		buffer.append( "Enum#")
 			.append( combinedFragment.getName() );
@@ -69,8 +78,8 @@ public interface NameHelper {
 	}
 
 
-	default String nameOfEnumLiteralRegionOUT(CombinedFragment combinedFragment) {
-		StringBuilder buffer = new StringBuilder();
+	default String nameOfEnumLiteralRegionOUT(final CombinedFragment combinedFragment) {
+		final StringBuilder buffer = new StringBuilder();
 		buffer.append( "Region#")
 			.append( combinedFragment.getName() )
 			.append("#OUT");
@@ -79,9 +88,9 @@ public interface NameHelper {
 	}
 
 	default String qualifiedNameOfEnumLiteralRegionOUT(
-			CombinedFragment combinedFragment)
+			final CombinedFragment combinedFragment)
 	{
-		StringBuilder buffer = new StringBuilder();
+		final StringBuilder buffer = new StringBuilder();
 		buffer.append(nameOfEnumRegionsType(combinedFragment))
 			.append( ".Region#")
 			.append( combinedFragment.getName() )
@@ -91,8 +100,8 @@ public interface NameHelper {
 	}
 
 
-	default String nameOfEnumLiteralRegion(InteractionOperand interactionOperand) {
-		StringBuilder buffer = new StringBuilder();
+	default String nameOfEnumLiteralRegion(final InteractionOperand interactionOperand) {
+		final StringBuilder buffer = new StringBuilder();
 		buffer.append( "Region#")
 			.append( interactionOperand.getName() );
 
@@ -100,12 +109,12 @@ public interface NameHelper {
 	}
 
 	default String qualifiedNameOfEnumLiteralRegion(
-			InteractionOperand interactionOperand)
+			final InteractionOperand interactionOperand)
 	{
-		CombinedFragment combinedFragment =
+		final CombinedFragment combinedFragment =
 				(CombinedFragment)(interactionOperand.eContainer());
 
-		StringBuilder buffer = new StringBuilder();
+		final StringBuilder buffer = new StringBuilder();
 		buffer.append(nameOfEnumRegionsType(combinedFragment))
 			.append( ".Region#")
 			.append( interactionOperand.getName() );
@@ -115,10 +124,10 @@ public interface NameHelper {
 
 
 	default String nameOfEntryTransitionFragment(
-			InteractionFragment interactionFragment,
-			String interactionOperator, boolean isFirst)
+			final InteractionFragment interactionFragment,
+			final String interactionOperator, final boolean isFirst)
 	{
-		StringBuilder buffer = new StringBuilder();
+		final StringBuilder buffer = new StringBuilder();
 
 		buffer.append("tr_").append(interactionOperator)
 			.append(isFirst ?  "first#" : "entry#" )
@@ -128,7 +137,7 @@ public interface NameHelper {
 	}
 
 
-	default String nameOfTimeObservationIndex(TimeObservation timeObs) {
+	default String nameOfTimeObservationIndex(final TimeObservation timeObs) {
 		return "i_" + timeObs.getName();
 	}
 

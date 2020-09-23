@@ -57,7 +57,7 @@ public interface SewPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "SEW";
+	String eNS_PREFIX = "sew";
 
 	/**
 	 * The singleton instance of the package.

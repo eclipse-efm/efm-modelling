@@ -300,6 +300,22 @@ public class MoccSystem {
 
 	public MoccChannel addChannel(final boolean isDeciding,
 			final int initialRate, final int initialRateDenominator,
+			final MoccActor outputActor, final int outRate, final int outRateDenom,
+			final MoccActor inputActor, final int inRate, final int inRateDenom)
+	{
+		final MoccPort outPort = outputActor.addOutputPort(
+				"to" + inputActor.getName(), isDeciding, outRate, outRateDenom);
+
+		final MoccPort inPort = inputActor.addInputPort(
+				"from" + outputActor.getName(), isDeciding, inRate, inRateDenom);
+
+		return addChannel(isDeciding,
+				outputActor.getName() + "_" + inputActor.getName(),
+				outPort, initialRate, initialRateDenominator, inPort);
+	}
+
+	public MoccChannel addChannel(final boolean isDeciding,
+			final int initialRate, final int initialRateDenominator,
 			final MoccMode initialMode,
 			final MoccActor outputActor, final int outRate,
 			final MoccActor inputActor, final int inRate, final int inRateDenom)

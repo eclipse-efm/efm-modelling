@@ -87,7 +87,8 @@ public class BasicTraceSerializerWorkerCustomImpl extends BasicTraceSerializerIm
 
 		try {
 			enabled = configuration.getAttribute(
-					ATTR_BASIC_TRACE_ENABLED_NUMERIZATION, false);
+					ATTR_BASIC_TRACE_ENABLED_NUMERIZATION,
+					DEFAULT_BASIC_TRACE_ENABLED_NUMERIZATION);
 		}
 		catch( final CoreException e2 ) {
 			e2.printStackTrace();

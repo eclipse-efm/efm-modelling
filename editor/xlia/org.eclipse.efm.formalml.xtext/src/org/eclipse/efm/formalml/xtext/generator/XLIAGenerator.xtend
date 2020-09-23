@@ -12,7 +12,6 @@
 *****************************************************************************/
 package org.eclipse.efm.formalml.xtext.generator
 
-import org.eclipse.efm.ecore.formalml.XliaModel
 import org.eclipse.efm.ecore.formalml.common.NamedElement
 import org.eclipse.efm.ecore.formalml.common.Type
 import org.eclipse.efm.ecore.formalml.common.VisibilityKind
@@ -106,6 +105,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Signal
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable
 import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
+import org.eclipse.efm.ecore.formalml.specification.XliaModel
 import org.eclipse.efm.ecore.formalml.statemachine.FinalState
 import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate
 import org.eclipse.efm.ecore.formalml.statemachine.Region

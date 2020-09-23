@@ -76,6 +76,7 @@ public class LiteralReferenceValueImpl extends LiteralExpressionValueImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSymbol() {
 		return symbol;
 	}
@@ -85,6 +86,7 @@ public class LiteralReferenceValueImpl extends LiteralExpressionValueImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSymbol(String newSymbol) {
 		String oldSymbol = symbol;
 		symbol = newSymbol;
@@ -159,7 +161,7 @@ public class LiteralReferenceValueImpl extends LiteralExpressionValueImpl implem
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (symbol: ");
 		result.append(symbol);
 		result.append(')');

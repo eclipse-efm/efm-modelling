@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="specification" nsURI="http://www.eclipse.org/efm/FormalML/Specification"
+    nsPrefix="specification">
+  <eClassifiers xsi:type="ecore:EEnum" name="XliaModelKind">
+    <eLiterals name="system"/>
+    <eLiterals name="package" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XliaModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prolog" lowerBound="1"
+        eType="#//XliaObject" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="system" lowerBound="1"
+        eType="ecore:EClass formalml.infrastructure.ecore#//XliaSystem" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XliaNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="1.0"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XliaObject" eSuperTypes="#//XliaNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//XliaNamedElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XliaSection" eSuperTypes="#//XliaNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//XliaAttribute" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XliaAttribute" eSuperTypes="#//XliaNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

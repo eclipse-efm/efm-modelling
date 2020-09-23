@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.ast.helper;
 
-import org.eclipse.efm.ecore.formalml.XliaModel;
+import org.eclipse.efm.ecore.formalml.specification.XliaModel;
 import org.eclipse.efm.ecore.formalml.infrastructure.Behavior;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable;

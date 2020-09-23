@@ -28,6 +28,7 @@ import org.eclipse.efm.ecore.formalml.datatype.PrimitiveCharacterType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveFloatType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveInstanceType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveIntegerType
+import org.eclipse.efm.ecore.formalml.datatype.PrimitiveNumberType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveRationalType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveRealType
 import org.eclipse.efm.ecore.formalml.datatype.PrimitiveStringType
@@ -67,6 +68,7 @@ import org.eclipse.efm.ecore.formalml.expression.LiteralSystemExpression
 import org.eclipse.efm.ecore.formalml.expression.LiteralThisExpression
 import org.eclipse.efm.ecore.formalml.expression.LiteralTimeDeltaExpression
 import org.eclipse.efm.ecore.formalml.expression.LiteralTimeExpression
+import org.eclipse.efm.ecore.formalml.expression.LogicalAssociativeExpression
 import org.eclipse.efm.ecore.formalml.expression.MixTupleExpression
 import org.eclipse.efm.ecore.formalml.expression.NamedExpression
 import org.eclipse.efm.ecore.formalml.expression.NamedTupleExpression
@@ -105,6 +107,7 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Signal
 import org.eclipse.efm.ecore.formalml.infrastructure.SlotProperty
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable
 import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem
+import org.eclipse.efm.ecore.formalml.specification.XliaModel
 import org.eclipse.efm.ecore.formalml.statemachine.FinalState
 import org.eclipse.efm.ecore.formalml.statemachine.Pseudostate
 import org.eclipse.efm.ecore.formalml.statemachine.Region
@@ -128,14 +131,11 @@ import org.eclipse.efm.ecore.formalml.statement.InputComStatement
 import org.eclipse.efm.ecore.formalml.statement.InterruptStatement
 import org.eclipse.efm.ecore.formalml.statement.InvokeStatement
 import org.eclipse.efm.ecore.formalml.statement.MetaStatement
+import org.eclipse.efm.ecore.formalml.statement.ObserverStatement
 import org.eclipse.efm.ecore.formalml.statement.OutputComStatement
 import org.eclipse.efm.ecore.formalml.statement.Statement
 import org.eclipse.efm.ecore.formalml.statement.TimedGuardStatement
 import org.eclipse.efm.ecore.formalml.statement.WhileDoStatement
-import org.eclipse.efm.ecore.formalml.expression.LogicalAssociativeExpression
-import org.eclipse.efm.ecore.formalml.datatype.PrimitiveNumberType
-import org.eclipse.efm.ecore.formalml.XliaModel
-import org.eclipse.efm.ecore.formalml.statement.ObserverStatement
 
 class XLIAGenerator {
 	

@@ -2,6 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.efm.sew.ecore;singleton:=true
+Automatic-Module-Name: org.eclipse.efm.sew.ecore
 Bundle-Version: 0.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.efm.sew.ecore.Activator
@@ -9,7 +10,8 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.efm.sew.ecore;visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.efm.ecore.sew,
  org.eclipse.efm.ecore.sew.expression,

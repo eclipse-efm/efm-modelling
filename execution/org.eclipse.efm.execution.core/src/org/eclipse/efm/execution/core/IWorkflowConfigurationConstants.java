@@ -541,7 +541,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 					"output     = \\toutput %2%:%3%%4%\\n",
 
 					"routine    = \\tinvoke %2%:%3%\\n",
-					"transition = \\tfired %1%:%3%\\n",
+					"transition = \\tfired %2%.%4%\\n",
 
 					"machine    = \\trun %2%:%3%\\n",
 
@@ -571,9 +571,9 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 //			%3% --> port | signal | variable | machine | transition | routine
 //			%4% --> value
 //			%5% --> machine target identifier name
-//			"time       = \\tdelta = %4%\\n",
+			"time       = \"'hnote right of timestamp : delta %5%\\n\\n\"",
 			"assign = \"hnote over of %2% #yellow : %2%.%3% = %4%\\n\"",
-			"newfresh   = \\\"hnote over of %2% newfresh(%3%) <- %4%\\n",
+			"newfresh   = \"hnote over of %2% newfresh(%3%) <- %4%\\n\"",
 
 			"input#env = \"-[#black]> %6% : %3%%4%\\n\"",
 			"input#rdv = \"\"",
@@ -584,7 +584,7 @@ public interface IWorkflowConfigurationConstants extends IWorkflowConfigurationS
 			"output = \"%5% -[%8%]> %6% : <font color = %8%> %3%%4%\\n\"",
 
 			"routine    = \"hnote over of %2% #yellow : invoke %2%:%3%\\n\"",
-			"transition = \"hnote over of %2% #yellow : fired %1%:%3%\\n\"",
+			"transition = \"hnote over of %2% #yellow : fired %2%.%4%\\n\"",
 
 //			%1% --> condition,
 			"node#condition = \"\\nnote over of %2% #pink : NC : %1%\\n\"",

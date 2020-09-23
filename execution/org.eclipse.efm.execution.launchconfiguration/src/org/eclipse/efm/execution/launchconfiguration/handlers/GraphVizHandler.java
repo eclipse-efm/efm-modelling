@@ -10,13 +10,10 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.handlers;
 
-import java.io.File;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -29,20 +26,20 @@ import org.eclipse.ui.handlers.HandlerUtil;
 public class GraphVizHandler extends AbstractHandler {
 
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		ISelection selection = window.getSelectionService().getSelection();
+	public Object execute(final ExecutionEvent event) throws ExecutionException {
+		final IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		final ISelection selection = window.getSelectionService().getSelection();
 
 		IFile gvFile = null;
 
 		if( selection instanceof IStructuredSelection ) {
-			Object selObj =((IStructuredSelection) selection).getFirstElement();
+			final Object selObj =((IStructuredSelection) selection).getFirstElement();
 			if( selObj instanceof IFile ) {
 				gvFile = (IFile) selObj;
 			}
 		}
 		else {
-			IEditorInput editorInput = HandlerUtil.getActiveEditorInput(event);
+			final IEditorInput editorInput = HandlerUtil.getActiveEditorInput(event);
 			if( editorInput instanceof IFileEditorInput ) {
 				gvFile = ((IFileEditorInput) editorInput).getFile();
 
@@ -56,22 +53,31 @@ public class GraphVizHandler extends AbstractHandler {
 		if( gvFile != null ) {
 			if( SymbexPreferenceUtil.hasExternalDotGraphViewerPath() ) {
 				try {
-					String[] commandLine = {
+					final String[] commandLine = {
 							SymbexPreferenceUtil.strExternalDotGraphViewerPath(),
-							gvFile.getLocation().toOSString()
+							gvFile.getLocation().toPortableString()
 						};
 
-					File workingDir = ResourcesPlugin.getWorkspace().
-							getRoot().getLocation().toFile();
+//					File workingDir = ResourcesPlugin.getWorkspace().
+//							getRoot().getLocation().toFile();
 
-					Process viewerProcess = Runtime.getRuntime().
-							exec(commandLine, null, workingDir);
+for( final String cmd : commandLine ) {
+	System.out.println("ZGRV: " + cmd);
+}
+
+					final Process viewerProcess = Runtime.getRuntime().
+							exec(commandLine);
 
 					if( viewerProcess == null ) {
+						for( final String cmd : commandLine ) {
+							System.out.println("CMD: " + cmd);
+						}
+						System.out.println("viewerProcess == null");
+
 						System.out.println(event.toString());
 					}
 				}
-				catch(Exception e)
+				catch(final Exception e)
 				{
 					e.printStackTrace();
 				}

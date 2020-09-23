@@ -101,6 +101,7 @@ public class WNamedElementImpl extends MinimalEObjectImpl.Container implements W
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -110,6 +111,7 @@ public class WNamedElementImpl extends MinimalEObjectImpl.Container implements W
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -122,6 +124,7 @@ public class WNamedElementImpl extends MinimalEObjectImpl.Container implements W
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -131,6 +134,7 @@ public class WNamedElementImpl extends MinimalEObjectImpl.Container implements W
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -215,7 +219,7 @@ public class WNamedElementImpl extends MinimalEObjectImpl.Container implements W
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", description: ");

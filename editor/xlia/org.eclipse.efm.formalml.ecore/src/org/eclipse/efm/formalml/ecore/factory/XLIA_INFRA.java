@@ -12,8 +12,6 @@
  *******************************************************************************/
 package org.eclipse.efm.formalml.ecore.factory;
 
-import org.eclipse.efm.ecore.formalml.FormalmlFactory;
-import org.eclipse.efm.ecore.formalml.XliaModel;
 import org.eclipse.efm.ecore.formalml.common.VisibilityKind;
 import org.eclipse.efm.ecore.formalml.datatype.DataType;
 import org.eclipse.efm.ecore.formalml.expression.Expression;
@@ -36,6 +34,8 @@ import org.eclipse.efm.ecore.formalml.infrastructure.Port;
 import org.eclipse.efm.ecore.formalml.infrastructure.Routine;
 import org.eclipse.efm.ecore.formalml.infrastructure.Variable;
 import org.eclipse.efm.ecore.formalml.infrastructure.XliaSystem;
+import org.eclipse.efm.ecore.formalml.specification.SpecificationFactory;
+import org.eclipse.efm.ecore.formalml.specification.XliaModel;
 import org.eclipse.efm.ecore.formalml.statement.BlockStatement;
 
 public class XLIA_INFRA {
@@ -45,7 +45,7 @@ public class XLIA_INFRA {
 
 	// MODEL
 	public static XliaModel createModel() {
-		return FormalmlFactory.eINSTANCE.createXliaModel();
+		return SpecificationFactory.eINSTANCE.createXliaModel();
 	}
 
 	// SYSTEM
@@ -54,6 +54,14 @@ public class XLIA_INFRA {
 		system.setName(name);
 
 		return system;
+	}
+
+	// MACHINE
+	public static Machine createMachine(final String name) {
+		final Machine machine = FACTORY.createMachine();
+		machine.setName(name);
+
+		return machine;
 	}
 
 	// PARAMETER

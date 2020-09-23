@@ -72,6 +72,7 @@ public class LiteralObjectReferenceImpl extends LiteralReferenceValueImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WObject getObject() {
 		if (object != null && object.eIsProxy()) {
 			InternalEObject oldObject = (InternalEObject)object;
@@ -98,6 +99,7 @@ public class LiteralObjectReferenceImpl extends LiteralReferenceValueImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setObject(WObject newObject) {
 		WObject oldObject = object;
 		object = newObject;

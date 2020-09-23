@@ -81,6 +81,7 @@ public class SewFactoryImpl extends EFactoryImpl implements SewFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WNamedElement createWNamedElement() {
 		WNamedElementImpl wNamedElement = new WNamedElementImpl();
 		return wNamedElement;
@@ -91,6 +92,7 @@ public class SewFactoryImpl extends EFactoryImpl implements SewFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SEWorkflow createSEWorkflow() {
 		SEWorkflowImpl seWorkflow = new SEWorkflowImpl();
 		return seWorkflow;
@@ -101,6 +103,7 @@ public class SewFactoryImpl extends EFactoryImpl implements SewFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WObject createWObject() {
 		WObjectImpl wObject = new WObjectImpl();
 		return wObject;
@@ -111,6 +114,7 @@ public class SewFactoryImpl extends EFactoryImpl implements SewFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WSection createWSection() {
 		WSectionImpl wSection = new WSectionImpl();
 		return wSection;
@@ -121,6 +125,7 @@ public class SewFactoryImpl extends EFactoryImpl implements SewFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WAttribute createWAttribute() {
 		WAttributeImpl wAttribute = new WAttributeImpl();
 		return wAttribute;
@@ -131,6 +136,7 @@ public class SewFactoryImpl extends EFactoryImpl implements SewFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SewPackage getSewPackage() {
 		return (SewPackage)getEPackage();
 	}

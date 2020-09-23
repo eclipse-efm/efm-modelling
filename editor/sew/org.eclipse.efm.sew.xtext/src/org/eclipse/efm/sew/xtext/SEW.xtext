@@ -17,11 +17,12 @@ grammar org.eclipse.efm.sew.xtext.SEW with org.eclipse.xtext.common.Terminals
 // Nested packages is not supported well unless you use 
 // import platform:/resource/xxxxx/yyy.ecore#//pack 
 // instead of namespace imports (there is somewhere a bug around this)
-import "platform:/resource/org.eclipse.efm.sew.ecore/resources/ecore/sew.ecore#//expression"  as expression
+//import "platform:/resource/org.eclipse.efm.sew.ecore/resources/ecore/sew.ecore#//expression"  as expression
 //import "http://www.eclipse.org/efm/SEW/Expression" as expression
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 import "http://www.eclipse.org/efm/SEW" as sew
+import "http://www.eclipse.org/efm/SEW/Expression" as expression
 
 
 ////////////////////////////////////////////////////////////////////////////////

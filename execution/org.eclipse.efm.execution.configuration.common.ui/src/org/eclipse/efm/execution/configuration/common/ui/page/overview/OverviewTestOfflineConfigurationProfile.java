@@ -241,7 +241,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 				new BooleanFieldEditor(fConfigurationPage,
 						ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION,
 						"&Enable Observable / Controllable Configuration",
-						fObservableControllableComposite, false);
+						fObservableControllableComposite, true);
         addFieldEditor(fEnabledObservableControllableBooleanField);
 
 		fEnabledObservableControllableBooleanField.addSelectionListener(
@@ -299,7 +299,7 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 				DEFAULT_TEST_OFFLINE_PURPOSE_FILE_LOCATION);
 
 		configuration.setAttribute(
-				ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION, false);
+				ATTR_TEST_OFFLINE_ENABLED_TRACE_CONFIGURATION, true);
 
 		configuration.setAttribute(
 				ATTR_TEST_OFFLINE_OBSERVABLE_SPECIFICATION,
@@ -391,6 +391,6 @@ public class OverviewTestOfflineConfigurationProfile extends AbstractConfigurati
 		return true;
 	}
 
-	
+
 
 }

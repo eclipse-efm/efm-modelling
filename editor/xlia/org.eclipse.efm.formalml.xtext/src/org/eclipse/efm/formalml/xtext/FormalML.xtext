@@ -12,26 +12,27 @@
 *****************************************************************************/
 grammar org.eclipse.efm.formalml.xtext.FormalML with org.eclipse.xtext.common.Terminals
 
-import "http://www.eclipse.org/efm/FormalML" as fml
+//import "http://www.eclipse.org/efm/FormalML" as fml
 
-//import "http://www.eclipse.org/efm/FormalML/Common" as fmlCommon
-//import "http://www.eclipse.org/efm/FormalML/DataType" as fmlType
-//import "http://www.eclipse.org/efm/FormalML/Infrastructure" as fmlInfra
-//import "http://www.eclipse.org/efm/FormalML/Expression" as fmlExpr
-//import "http://www.eclipse.org/efm/FormalML/Statemachine" as fmlStmchn
-//import "http://www.eclipse.org/efm/FormalML/Statement" as fmlStmnt
+import "http://www.eclipse.org/efm/FormalML/Common" as fmlCommon
+import "http://www.eclipse.org/efm/FormalML/DataType" as fmlType
+import "http://www.eclipse.org/efm/FormalML/Infrastructure" as fmlInfra
+import "http://www.eclipse.org/efm/FormalML/Expression" as fmlExpr
+import "http://www.eclipse.org/efm/FormalML/Statemachine" as fmlStmchn
+import "http://www.eclipse.org/efm/FormalML/Statement" as fmlStmnt
+import "http://www.eclipse.org/efm/FormalML/Specification" as fmlSpec
 
 // [XTEXT-BUG] https://www.eclipse.org/forums/index.php/t/1081040/
 // Nested packages is not supported well unless you use 
 // import platform:/resource/xxxxx/yyy.ecore#//pack 
 // instead of namespace imports (there is somewhere a bug around this)
 
-import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//common" as fmlCommon
-import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//datatype" as fmlType
-import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//expression" as fmlExpr
-import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//infrastructure" as fmlInfra
-import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//statement" as fmlStmnt
-import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//statemachine" as fmlStmchn
+//import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//common" as fmlCommon
+//import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//datatype" as fmlType
+//import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//expression" as fmlExpr
+//import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//infrastructure" as fmlInfra
+//import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//statement" as fmlStmnt
+//import "platform:/resource/org.eclipse.efm.formalml.ecore/resources/ecore/formalml.ecore#//statemachine" as fmlStmchn
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
@@ -40,12 +41,12 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 // Main Rules
 ////////////////////////////////////////////////////////////////////////////////
 
-Xlia returns fml::XliaModel
+Xlia returns fmlSpec::XliaModel
 	: prolog = XliaPrologObject
 	  	system = XliaSystem
 	;
 
-XliaPrologObject returns fml::XliaObject
+XliaPrologObject returns fmlSpec::XliaObject
 	: name=( '@FormalML' | '@xfml' | '@fml' | '@xlia' | '@xfsp' | '@diversity' )
 		'<'
 		( elements+=XliaPrologAttribute )
@@ -54,7 +55,7 @@ XliaPrologObject returns fml::XliaObject
 		( elements += XliaOptionObject )?
 	;
 
-XliaPrologAttribute returns fml::XliaAttribute
+XliaPrologAttribute returns fmlSpec::XliaAttribute
 	: name=( 'system' | 'package' )
 		( ',' ( 'version:' )?
 			value=( LiteralFloatExpression | LiteralStringExpression )
@@ -73,31 +74,31 @@ XliaPrologAttribute returns fml::XliaAttribute
 //	;
 
 
-XliaOptionObject returns fml::XliaObject
+XliaOptionObject returns fmlSpec::XliaObject
 	: name='@option'  '{'
 		( elements+=XliaNamedElement )*
 	  '}'
 	;
 
-XliaNamedElement returns fml::XliaNamedElement
+XliaNamedElement returns fmlSpec::XliaNamedElement
 	: XliaObject
 	| XliaSection
 	| XliaAttribute
 	;
 
-XliaObject returns fml::XliaObject
+XliaObject returns fmlSpec::XliaObject
 	: name=XLIA_ID '{'
 		( elements+=XliaNamedElement )*
 	  '}'
 	;
 
-XliaSection returns fml::XliaSection
+XliaSection returns fmlSpec::XliaSection
 	: name=XLIA_ID '['
 		( elements+=XliaAttribute )*
 	  ']'
 	;
 
-XliaAttribute returns fml::XliaAttribute
+XliaAttribute returns fmlSpec::XliaAttribute
 	: name=XLIA_ID '=' value=Expression ';'
 	;
 
@@ -270,6 +271,7 @@ enum VisibilityKind returns fmlCommon::VisibilityKind
 ModelOfComputationKing
 	: 'and'
 	| 'or'
+	| 'start'
 	| '#STF'
 	| '#STS'
 	| '#DF'
@@ -780,10 +782,10 @@ Procedure returns fmlInfra::Procedure
 //
 //		compositePart=CompositePart
 
-		( region+=StatemachineRegion
-		| ( region+=StatemachineNamedRegion )+
-		| region+=StatemachineRegionLite
-		)?
+//		( region+=StatemachineRegion
+//		| ( region+=StatemachineNamedRegion )+
+//		| region+=StatemachineRegionLite
+//		)?
 
 		( ( execution=ProcedureExecution )?
 //		& ( computation=ModelOfComputation )?
@@ -848,7 +850,7 @@ Statemachine returns fmlStmchn::Statemachine
 		'statemachine' ( '<' ( 'moc:' )? ModelOfComputationKing '>' )?
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
 		'{'
-		( '@parameter:'
+		( '@parameter:'  //( parameter+=Parameter )+
 			( 'input'
 				( parameter+=ParameterInput
 				| '{' ( parameter+=ParameterInput )+ '}'
@@ -2235,6 +2237,7 @@ BlockParameterSet returns fmlInfra::ParameterSet
 
 Parameter returns fmlInfra::Parameter
 	: {fmlInfra::Parameter}
+		( visibility=VisibilityKind )?
 		direction=ParameterDirectionKind
 		'var'  type=DataType
 		name=ESIdentifier ( unrestrictedName=UnrestrictedName )?
@@ -2653,6 +2656,8 @@ ExpressionStatement returns fmlStmnt::ExpressionStatement
 	| expression=IncrementOrDecrementPrefixExpression  ';'
 	| expression=IncrementOrDecrementPostfixExpression ';'
 	
+//	| expression=DynamicInstantiationExpression ';'
+	
 //	| expression=InvokeExpression ';'
 	;
 
@@ -2793,19 +2798,27 @@ ActivityStatement returns fmlStmnt::ActivityStatement
 	: {fmlStmnt::ActivityStatement}
 		op=OPERATOR_ACTIVITY
 		( machine=ValuePureNamedMachineExpression
-			( tuple=TupleParameterExpression )?
+			( ( tuple=TupleParameterExpression )? ';'
+
+//			| '(' ( slot+=SlotParameter ( ',' slot+=SlotParameter )* )? ')'  ';'
+			
+			| '{' ( slot+=SlotProperty ';' )*  '}'
+			)
+		| ';'
 		)?
-	';'
 	;
 
 enum OPERATOR_ACTIVITY returns fmlStmnt::ActivityStatementKind
 	: init     = 'init'
 	| final    = 'final'
+	
+	| new      = 'new'
 	| destroy  = 'destroy'
 
 	| start    = 'start'
 	| stop     = 'stop'
 	| restart  = 'restart'
+	
 	| suspend  = 'suspend'
 	| resume   = 'resume'
 	| wait     = 'wait'
@@ -2814,6 +2827,7 @@ enum OPERATOR_ACTIVITY returns fmlStmnt::ActivityStatementKind
 	| enable   = 'enable'
 	| abort    = 'abort'
 
+	| goto     = 'goto'
 	| schedule = 'schedule'
 
 	| irun = 'irun'
@@ -3138,10 +3152,11 @@ UnaryExpression returns fmlExpr::Expression
 // Postfix Increment or Decrement Expression
 PostfixUnaryExpression returns fmlExpr::Expression
 	: IncrementOrDecrementPostfixExpression
+	
 	;
 
 IncrementOrDecrementPostfixExpression returns fmlExpr::IncrementOrDecrementPostfixExpression
-	: leftHandSide=LeftHandSideExpression operator=AffixOperator
+	: leftHandSide=LeftHandSideExpression operator=(AffixOperator  | '>=>')
 	;
 
 
@@ -3267,7 +3282,7 @@ BaseExpression returns fmlExpr::Expression
 	: LiteralReferenceableExpression
 	| '(' Expression ')'
 	| InvokeExpressionDeprecated
-	| InstantiationExpression
+	| DynamicInstantiationExpression
 //	| NamedExpression
 	;
 
@@ -3284,14 +3299,14 @@ InvokeExpressionDeprecated returns fmlExpr::InvokeExpression
 	;
 
 
-InstantiationExpression returns fmlExpr::InstantiationExpression
+DynamicInstantiationExpression returns fmlExpr::InstantiationExpression
 	: {fmlExpr::InstantiationExpression}
-		instance=DynamicInstanceSpecification  ';'
+		'new' instance=InstanceSpecification
 	;
 
-DynamicInstanceSpecification returns fmlInfra::InstanceMachine
+InstanceSpecification returns fmlInfra::InstanceMachine
 	: {fmlInfra::InstanceMachine}
-		'new' model=[fmlInfra::Machine|ESIdentifier]
+		model=[fmlInfra::Machine|ESIdentifier]
 //		( '(' arg=MixTupleExpressionList ')'
 
 		( '(' ( slot+=SlotParameter ( ',' slot+=SlotParameter )* )? ')' )?

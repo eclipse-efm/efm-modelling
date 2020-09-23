@@ -10,17 +10,11 @@
  *******************************************************************************/
 package org.eclipse.efm.execution.launchconfiguration.handlers;
 
-import java.io.File;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.efm.execution.core.preferences.SymbexPreferenceUtil;
 import org.eclipse.efm.execution.launchconfiguration.job.SymbexJobFactory;
 import org.eclipse.efm.execution.launchconfiguration.job.sew.LivenessCheckerSymbexWorkflow;
@@ -71,16 +65,25 @@ public class RunSewToolsHandler extends AbstractHandler {
 			try {
 				final String[] commandLine = {
 						SymbexPreferenceUtil.strExternalDotGraphViewerPath(),
-						gvFile.getLocation().toOSString()
+						gvFile.getLocation().toPortableString()
 					};
 
-				final File workingDir = ResourcesPlugin.getWorkspace().
-						getRoot().getLocation().toFile();
+//				final File workingDir = ResourcesPlugin.getWorkspace().
+//						getRoot().getLocation().toFile();
+
+for( final String cmd : commandLine ) {
+	System.out.println("ZGRV: " + cmd);
+}
 
 				final Process viewerProcess = Runtime.getRuntime().
-						exec(commandLine, null, workingDir);
+						exec(commandLine);
 
 				if( viewerProcess == null ) {
+					for( final String cmd : commandLine ) {
+						System.out.println("CMD: " + cmd);
+					}
+					System.out.println("viewerProcess == null");
+
 					System.out.println(event.toString());
 				}
 			}
@@ -99,38 +102,6 @@ public class RunSewToolsHandler extends AbstractHandler {
 	}
 
 
-	private Object executePolygraphsLivenessChecker(final IContainer container) {
-		if( container != null ) {
-			boolean hasXLIA = false;
-			try {
-				for( final IResource resource : container.members() ) {
-					if( resource instanceof IFile )
-					{
-						if( "xlia".equals(resource.getFileExtension()) )
-						{
-							hasXLIA = true;
-							break;
-						}
-					}
-					else if( resource instanceof IFolder )
-					{
-						executePolygraphsLivenessChecker((IFolder) resource);
-					}
-				}
-			}
-			catch (final CoreException e) {
-			}
-
-			if( hasXLIA ) {
-				final LivenessCheckerSymbexWorkflow PLSW =
-						new LivenessCheckerSymbexWorkflow(container, "polygraph");
-
-				PLSW.start();
-			}
-		}
-
-		return null;
-	}
 
 
 	@Override
@@ -152,7 +123,7 @@ public class RunSewToolsHandler extends AbstractHandler {
 				}
 			}
 			else if( selObj instanceof IContainer ) {
-				return executePolygraphsLivenessChecker((IContainer) selObj);
+				return LivenessCheckerSymbexWorkflow.execute((IContainer) selObj);
 			}
 		}
 

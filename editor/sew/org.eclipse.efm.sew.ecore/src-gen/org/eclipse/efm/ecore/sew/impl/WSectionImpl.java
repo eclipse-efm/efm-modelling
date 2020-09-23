@@ -75,6 +75,7 @@ public class WSectionImpl extends WPropertyImpl implements WSection {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<WNamedElement> getElement() {
 		if (element == null) {
 			element = new EObjectContainmentEList<WNamedElement>(WNamedElement.class, this, SewPackage.WSECTION__ELEMENT);

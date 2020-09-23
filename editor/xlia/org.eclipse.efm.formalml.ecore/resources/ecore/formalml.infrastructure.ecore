@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="infrastructure" nsURI="http://www.eclipse.org/efm/FormalML/Infrastructure"
+    nsPrefix="infrastructure">
+  <eClassifiers xsi:type="ecore:EEnum" name="DesignKind">
+    <eLiterals name="model"/>
+    <eLiterals name="instance" value="1"/>
+    <eLiterals name="prototype" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Machine" eSuperTypes="formalml.common.ecore#//ClassifierDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="input_enabled" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timed" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dense_timed" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="discrete_timed" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unsafe" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="design" lowerBound="1"
+        eType="#//DesignKind" defaultValueLiteral="prototype"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lifeline" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedef" upperBound="-1"
+        eType="ecore:EClass formalml.datatype.ecore#//DataType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" upperBound="-1"
+        eType="#//Variable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="channel" upperBound="-1"
+        eType="#//Channel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" upperBound="-1" eType="#//Port"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signal" upperBound="-1"
+        eType="#//Signal" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="buffer" upperBound="-1"
+        eType="#//Buffer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="function" upperBound="-1"
+        eType="#//Function" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="routine" upperBound="-1"
+        eType="#//Routine" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="procedure" upperBound="-1"
+        eType="#//Procedure" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="machine" upperBound="-1"
+        eType="#//Machine" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instance" upperBound="-1"
+        eType="#//InstanceMachine" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" upperBound="-1"
+        eType="#//Behavior" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="main" eType="#//Behavior"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyPart">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typedef" upperBound="-1"
+        eType="ecore:EClass formalml.datatype.ecore#//DataType" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" upperBound="-1"
+        eType="#//Variable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="channel" upperBound="-1"
+        eType="#//Channel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" upperBound="-1" eType="#//Port"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signal" upperBound="-1"
+        eType="#//Signal" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="buffer" upperBound="-1"
+        eType="#//Buffer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="function" upperBound="-1"
+        eType="#//Function" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositePart">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="routine" upperBound="-1"
+        eType="#//Routine" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="procedure" upperBound="-1"
+        eType="#//Procedure" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="machine" upperBound="-1"
+        eType="#//Machine" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instance" upperBound="-1"
+        eType="#//InstanceMachine" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" upperBound="-1"
+        eType="#//Behavior" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorPart">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" upperBound="-1"
+        eType="#//Behavior" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="main" eType="#//Behavior"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XliaSystem" eSuperTypes="#//Machine"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Modifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="static" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="final" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reference" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="volatile" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="transient" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="optional" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyDefinition" eSuperTypes="formalml.common.ecore#//TypedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="#//Modifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultValue" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//PropertyDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="const" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reference" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="macro" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="onWriteAction" eType="#//Routine"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Buffer" eSuperTypes="#//PropertyDefinition #//ComProtocol"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="ChannelDirection">
+    <eLiterals name="input"/>
+    <eLiterals name="inout" value="1"/>
+    <eLiterals name="output" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Port" eSuperTypes="#//PropertyDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//ChannelDirection"
+        defaultValueLiteral="inout"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signal" upperBound="-1"
+        eType="#//Signal" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterSet" eType="#//ParameterSet"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Channel" eSuperTypes="#//PropertyDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//ChannelDirection"
+        defaultValueLiteral="inout"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="machine" eType="#//Machine"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" upperBound="-1" eType="#//Port"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signal" upperBound="-1"
+        eType="#//Signal" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Signal" eSuperTypes="formalml.common.ecore#//ClassifierDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//ChannelDirection"
+        defaultValueLiteral="inout"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterSet" eType="#//ParameterSet"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Function" eSuperTypes="#//PropertyDefinition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterSet" eType="#//ParameterSet"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resultSet" eType="#//ParameterSet"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Procedure" eSuperTypes="#//Behavior"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Routine" eSuperTypes="formalml.common.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="macro" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterSet" eType="#//ParameterSet"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resultSet" eType="#//ParameterSet"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bodyBlock" lowerBound="1"
+        eType="ecore:EClass formalml.statement.ecore#//BlockStatement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstanceMachine" eSuperTypes="formalml.common.ecore#//TypedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modifier" eType="#//Modifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//Machine"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="slot" upperBound="-1" eType="#//SlotProperty"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SlotProperty">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="xliaProperty" eType="#//PropertyDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass formalml.expression.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ParameterDirectionKind">
+    <eLiterals name="in"/>
+    <eLiterals name="inout" value="1"/>
+    <eLiterals name="out" value="2"/>
+    <eLiterals name="return" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//PropertyDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" lowerBound="1"
+        eType="#//ParameterDirectionKind" defaultValueLiteral="in"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterSet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Behavior" eSuperTypes="#//Machine">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="computation" eType="#//ModelOfComputation"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="execution" eType="#//ModelOfExecution"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interaction" eType="#//ModelOfInteraction"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelOfComputation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelOfExecution">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="createRoutine" eType="#//Routine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initRoutine" eType="#//Routine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="finalRoutine" eType="#//Routine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enableRoutine" eType="#//Routine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="disableRoutine" eType="#//Routine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="concurrencyRoutine" eType="#//Routine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="scheduleRoutine" eType="#//Routine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="irunRoutine" eType="#//Routine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="runRoutine" eType="#//Routine"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="routine" upperBound="-1"
+        eType="#//Routine" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelOfInteraction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="routes" upperBound="-1"
+        eType="#//Route" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connectors" upperBound="-1"
+        eType="#//Connector" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComProtocol" eSuperTypes="formalml.common.ecore#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="protocol" eType="#//ComProtocolKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cast" eType="#//ComCastKind"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inner_buffer" eType="ecore:EClass formalml.datatype.ecore#//CollectionType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="buffer" eType="ecore:EClass formalml.expression.ecore#//ValueElementSpecification"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bufferRef" eType="ecore:EClass formalml.expression.ecore#//LiteralReferenceSpecification"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Route" eSuperTypes="formalml.common.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signals" upperBound="-1"
+        eType="#//Signal"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" eType="#//ComProtocol"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Connector" eSuperTypes="formalml.common.ecore#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" eType="#//ComProtocol"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connectorEnd" lowerBound="1"
+        upperBound="-1" eType="#//ConnectorEnd" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConnectorEnd" eSuperTypes="formalml.common.ecore#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//ChannelDirection"
+        defaultValueLiteral="inout"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" eType="#//ComProtocol"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="points" lowerBound="1"
+        upperBound="-1" eType="#//ComPoint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ComProtocolKind">
+    <eLiterals name="none"/>
+    <eLiterals name="env" value="1"/>
+    <eLiterals name="buffer" value="2"/>
+    <eLiterals name="rdv" value="3"/>
+    <eLiterals name="multi_rdv" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ComCastKind">
+    <eLiterals name="none"/>
+    <eLiterals name="unicast" value="1"/>
+    <eLiterals name="anycast" value="2"/>
+    <eLiterals name="multicast" value="3"/>
+    <eLiterals name="broadcast" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComPoint" eSuperTypes="formalml.common.ecore#//AbstractElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="machine" eType="ecore:EClass formalml.common.ecore#//NamedElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="port" eType="#//Port"/>
+  </eClassifiers>
+</ecore:EPackage>
