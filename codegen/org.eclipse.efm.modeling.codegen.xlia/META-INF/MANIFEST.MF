@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.uml2.uml,
  org.eclipse.efm.formalml,
  org.eclipse.efm.formalml.ecore
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.efm.modeling.codegen.scxml,
  org.eclipse.efm.modeling.codegen.xlia.core,

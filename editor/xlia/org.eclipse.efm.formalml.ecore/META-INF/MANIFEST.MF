@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
  org.eclipse.efm.formalml.ecore;visibility:=reexport
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.efm.ecore.formalml.common,
  org.eclipse.efm.ecore.formalml.common.impl,
  org.eclipse.efm.ecore.formalml.common.util,
@@ -42,4 +42,3 @@ Export-Package: org.eclipse.efm.ecore.formalml.common,
  org.eclipse.efm.formalml.ecore.factory
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.efm.formalml.ecore
-Import-Package: org.eclipse.jdt.internal.compiler.ast

@@ -11,7 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.efm.execution.ui.views,
  org.eclipse.efm.execution.launchconfiguration,
  org.eclipse.ui.console
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.efm.execution.ui
 Automatic-Module-Name: org.eclipse.efm.execution.ui

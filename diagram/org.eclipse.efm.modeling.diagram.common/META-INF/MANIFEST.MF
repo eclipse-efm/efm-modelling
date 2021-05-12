@@ -4,7 +4,7 @@ Bundle-Name: Common
 Bundle-SymbolicName: org.eclipse.efm.modeling.diagram.common
 Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: CEA - LIST
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Import-Package: org.eclipse.core.runtime,
  org.eclipse.emf.common.util,
  org.eclipse.emf.ecore,

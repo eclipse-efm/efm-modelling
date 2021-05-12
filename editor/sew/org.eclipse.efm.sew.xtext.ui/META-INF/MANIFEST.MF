@@ -19,7 +19,7 @@ Require-Bundle: org.eclipse.efm.sew.xtext,
  org.eclipse.xtend.lib;bundle-version="2.14.0";resolution:=optional,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.efm.sew.xtext.ui.internal,
  org.eclipse.efm.sew.xtext.ui.quickfix,
  org.eclipse.efm.sew.xtext.ui.contentassist

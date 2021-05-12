@@ -43,7 +43,7 @@ Apache Software Foundation http://www.apache.org/
    </launcher>
 
    <vm>
-      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</windows>
+      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11</windows>
    </vm>
 
    <license>
@@ -313,6 +313,7 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <feature id="org.eclipse.emf.databinding" installMode="root"/>
       <feature id="org.eclipse.gef.dot" installMode="root"/>
       <feature id="org.eclipse.efm.modeling.textual.feature" installMode="root"/>
+      <feature id="org.eclipse.jgit.http.apache" installMode="root"/>
    </features>
 
    <configurations>
@@ -323,9 +324,9 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.update.configurator" autoStart="false" startLevel="3" />
       <property name="file.encoding" value="UTF-8" />
-      <property name="org.eclipse.update.reconcile" value="false" />
-      <property name="osgi.bundles.defaultStartLevel" value="4" />
       <property name="osgi.instance.area.default" value="../workspace-efm" />
+      <property name="osgi.bundles.defaultStartLevel" value="4" />
+      <property name="org.eclipse.update.reconcile" value="false" />
       <property name="osgi.requiredJavaVersion" value="1.8" />
    </configurations>
 

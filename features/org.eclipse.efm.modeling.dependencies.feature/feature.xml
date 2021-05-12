@@ -94,86 +94,86 @@ http://www.eclipse.org/legal/epl-v10.html
          version="0.0.0"/>
 
    <requires>
-      <import plugin="org.eclipse.emf.codegen.ecore" version="2.7.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.7.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.edit" version="2.7.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.common" version="1.4.0" match="compatible"/>
-      <import plugin="org.eclipse.jface.databinding" version="1.2.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.databinding.beans" version="1.1.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.swt" version="3.4.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.databinding" version="1.1.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jface" version="3.4.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.databinding.property" version="1.1.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.equinox.common" version="3.4.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui" version="3.5.0" match="compatible"/>
-      <import plugin="org.eclipse.uml2.codegen.ecore" version="1.8.0"/>
-      <import plugin="org.eclipse.uml2.uml.resources" version="4.0.0"/>
-      <import plugin="org.eclipse.ocl.pivot" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.essentialocl" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.pivot.uml" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.completeocl.ui" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.oclstdlib.ui" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.core.filesystem" version="1.2.0" match="compatible"/>
-      <import plugin="org.eclipse.debug.core" version="3.5.0" match="compatible"/>
-      <import plugin="org.eclipse.ui.console" version="3.4.0" match="compatible"/>
-      <import plugin="org.eclipse.ui.navigator" version="3.4.0" match="compatible"/>
-      <import plugin="org.eclipse.ui.forms" version="3.4.0" match="compatible"/>
-      <import plugin="org.eclipse.uml2.uml" version="4.0.0"/>
-      <import plugin="org.eclipse.ocl.examples.debug" version="2.1.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.examples.debug.vm.ui" version="2.1.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.examples.debug.vm" version="2.1.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.base" version="1.2.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.completeocl" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.oclinecore.ui" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ui.ide" version="3.5.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.common.ui" version="1.2.200" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.markup.ui" version="1.3.0" match="compatible"/>
-      <import plugin="org.apache.xerces" version="2.9.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.codegen" version="2.6.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.base" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.markup" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.base.ui" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.jdt.core" version="3.5.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore.editor" version="2.7.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.essentialocl.ui" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.oclinecore" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.examples.ui" version="1.4.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.oclstdlib" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.debug.ui" version="3.5.0" match="compatible"/>
-      <import plugin="org.eclipse.equinox.frameworkadmin.equinox" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.pde.core" version="3.5.0" match="compatible"/>
-      <import plugin="org.eclipse.core.expressions" version="3.6.0" match="compatible"/>
-      <import plugin="org.eclipse.core.runtime" version="3.5.0" match="compatible"/>
-      <import plugin="org.eclipse.core.resources" version="3.5.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.common" version="1.0.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext.ui" version="2.9.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext.ui.shared" version="2.9.0" match="compatible"/>
-      <import plugin="org.eclipse.core.expressions" version="3.4.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.essentialocl.ui" version="1.2.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.completeocl" version="1.2.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.oclinecore" version="1.2.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.xtext.oclstdlib" version="1.2.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext.builder" version="2.9.0" match="compatible"/>
-      <import plugin="org.eclipse.ocl.examples.emf.validation.validity.ui" version="2.4.0" match="compatible"/>
-      <import plugin="org.eclipse.core.runtime" version="3.14.0" match="compatible"/>
-      <import plugin="org.eclipse.core.resources" version="3.13.0" match="compatible"/>
-      <import plugin="org.eclipse.wst.common.uriresolver" version="1.2.300" match="compatible"/>
-      <import plugin="org.eclipse.wst.sse.core" version="1.2.0" match="equivalent"/>
-      <import plugin="org.eclipse.wst.common.core" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.osgi.services" version="3.7.0" match="compatible"/>
-      <import plugin="org.eclipse.core.runtime" version="3.4.0" match="compatible"/>
-      <import plugin="org.eclipse.core.resources" version="3.4.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext" version="2.9.0" match="compatible"/>
-      <import plugin="org.eclipse.jdt.core" version="3.7.0" match="compatible"/>
-      <import plugin="org.eclipse.text" version="3.6.0" match="compatible"/>
-      <import plugin="org.eclipse.core.jobs" version="3.10.0" match="compatible"/>
-      <import plugin="org.eclipse.core.filebuffers" version="3.6.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.common" version="2.14.0" match="compatible"/>
-      <import plugin="org.eclipse.core.filesystem" version="1.7.0" match="compatible"/>
-      <import plugin="org.eclipse.core.expressions" version="3.6.100" match="compatible"/>
-      <import plugin="org.eclipse.core.runtime" version="3.15.0" match="compatible"/>
-      <import plugin="org.eclipse.core.resources" version="3.12.0" match="compatible"/>
-      <import feature="org.eclipse.nebula.widgets.cdatetime.feature" version="1.3.0.201812241324"/>
+      <import plugin="org.eclipse.emf.codegen.ecore"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.eclipse.ocl.common"/>
+      <import plugin="org.eclipse.jface.databinding"/>
+      <import plugin="org.eclipse.core.databinding.beans"/>
+      <import plugin="org.eclipse.swt"/>
+      <import plugin="org.eclipse.core.databinding"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.core.databinding.property"/>
+      <import plugin="org.eclipse.equinox.common"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.uml2.codegen.ecore"/>
+      <import plugin="org.eclipse.uml2.uml.resources"/>
+      <import plugin="org.eclipse.ocl.pivot"/>
+      <import plugin="org.eclipse.ocl.xtext.essentialocl"/>
+      <import plugin="org.eclipse.ocl.pivot.uml"/>
+      <import plugin="org.eclipse.ocl.xtext.completeocl.ui"/>
+      <import plugin="org.eclipse.ocl.xtext.oclstdlib.ui"/>
+      <import plugin="org.eclipse.core.filesystem"/>
+      <import plugin="org.eclipse.debug.core"/>
+      <import plugin="org.eclipse.ui.console"/>
+      <import plugin="org.eclipse.ui.navigator"/>
+      <import plugin="org.eclipse.ui.forms"/>
+      <import plugin="org.eclipse.uml2.uml"/>
+      <import plugin="org.eclipse.ocl.examples.debug"/>
+      <import plugin="org.eclipse.ocl.examples.debug.vm.ui"/>
+      <import plugin="org.eclipse.ocl.examples.debug.vm"/>
+      <import plugin="org.eclipse.ocl.xtext.base"/>
+      <import plugin="org.eclipse.ocl.xtext.completeocl"/>
+      <import plugin="org.eclipse.ocl.xtext.oclinecore.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ocl.common.ui"/>
+      <import plugin="org.eclipse.ocl.xtext.markup.ui"/>
+      <import plugin="org.apache.xerces"/>
+      <import plugin="org.eclipse.emf.codegen"/>
+      <import plugin="org.eclipse.ocl.xtext.base"/>
+      <import plugin="org.eclipse.ocl.xtext.markup"/>
+      <import plugin="org.eclipse.ocl.xtext.base.ui"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.emf.ecore.editor"/>
+      <import plugin="org.eclipse.ocl.xtext.essentialocl.ui"/>
+      <import plugin="org.eclipse.ocl.xtext.oclinecore"/>
+      <import plugin="org.eclipse.ocl.examples.ui"/>
+      <import plugin="org.eclipse.ocl.xtext.oclstdlib"/>
+      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="org.eclipse.equinox.frameworkadmin.equinox"/>
+      <import plugin="org.eclipse.pde.core"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ocl.common"/>
+      <import plugin="org.eclipse.xtext.ui"/>
+      <import plugin="org.eclipse.xtext.ui.shared"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="org.eclipse.ocl.xtext.essentialocl.ui"/>
+      <import plugin="org.eclipse.ocl.xtext.completeocl"/>
+      <import plugin="org.eclipse.ocl.xtext.oclinecore"/>
+      <import plugin="org.eclipse.ocl.xtext.oclstdlib"/>
+      <import plugin="org.eclipse.xtext.builder"/>
+      <import plugin="org.eclipse.ocl.examples.emf.validation.validity.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.wst.common.uriresolver"/>
+      <import plugin="org.eclipse.wst.sse.core"/>
+      <import plugin="org.eclipse.wst.common.core"/>
+      <import plugin="org.eclipse.osgi.services"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.xtext"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.text"/>
+      <import plugin="org.eclipse.core.jobs"/>
+      <import plugin="org.eclipse.core.filebuffers"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.core.filesystem"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import feature="org.eclipse.nebula.widgets.cdatetime.feature"/>
    </requires>
 
    <plugin

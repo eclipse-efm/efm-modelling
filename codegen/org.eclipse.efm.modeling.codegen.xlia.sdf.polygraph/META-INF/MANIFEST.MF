@@ -9,11 +9,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.efm.formalml.ecore,
  org.eclipse.ui.workbench
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
-Export-Package: org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.generator,
- org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.mocc.xlia,
- org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.test,
- org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph.test.publi

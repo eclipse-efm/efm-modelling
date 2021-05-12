@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.mwe.utils,
  com.google.guava,
  org.eclipse.xtext
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.efm.execution.core,
  org.eclipse.efm.execution.core.preferences,
  org.eclipse.efm.execution.core.util,

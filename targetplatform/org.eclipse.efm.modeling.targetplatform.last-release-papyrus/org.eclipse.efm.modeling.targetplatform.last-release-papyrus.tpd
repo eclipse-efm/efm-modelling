@@ -3,7 +3,7 @@ target "Eclipse Formal Modeling Papyrus last-release"
 with source requirements
 
 //location "http://download.eclipse.org/releases/latest/" eclipse-latest {
-location "http://download.eclipse.org/releases/2019-09" eclipse-2019-09 {
+location "http://download.eclipse.org/releases/2021-03" eclipse-2021-03 {
  org.eclipse.cdt.core lazy
  
  org.eclipse.ecf.filetransfer.httpclient45.feature.feature.group
@@ -38,6 +38,8 @@ location "http://download.eclipse.org/releases/2019-09" eclipse-2019-09 {
  org.eclipse.jdt.feature.group lazy
  org.eclipse.jdt.source.feature.group lazy
  
+ org.eclipse.jgit.ssh.jsch.feature.group lazy
+ 
  org.eclipse.json lazy
  
  org.eclipse.m2m.qvt.oml.sdk.feature.group lazy
@@ -54,7 +56,7 @@ location "http://download.eclipse.org/releases/2019-09" eclipse-2019-09 {
  org.eclipse.papyrus.infra.viewpoints.policy lazy
  org.eclipse.papyrus.sdk.feature.feature.group lazy
 // org.eclipse.papyrus.views.properties.model.xwt lazy
- 
+
  org.eclipse.platform.feature.group lazy
  org.eclipse.rcp.feature.group lazy
 // org.eclipse.uml2.codegen.ecore lazy
@@ -103,11 +105,11 @@ location "http://download.eclipse.org/modeling/mdt/papyrus/components/marte" Pap
 // org.eclipse.papyrus.marte.static.profile lazy
 }
 
-//location "http://download.eclipse.org/modeling/mdt/papyrus/components/moka" Papyrus-Moka {
-location "https://hudson.eclipse.org/papyrus/view/Moka/job/papyrus-moka-master/lastSuccessfulBuild/artifact/releng/org.eclipse.papyrus.moka.p2/target/repository" Papyrus-Moka-Master {
- org.eclipse.papyrus.moka.feature.feature.group lazy
-// org.eclipse.papyrus.moka.simex lazy
-}
+////location "http://download.eclipse.org/modeling/mdt/papyrus/components/moka" Papyrus-Moka {
+//location "https://hudson.eclipse.org/papyrus/view/Moka/job/papyrus-moka-master/lastSuccessfulBuild/artifact/releng/org.eclipse.papyrus.moka.p2/target/repository" Papyrus-Moka-Master {
+// org.eclipse.papyrus.moka.feature.feature.group lazy
+//// org.eclipse.papyrus.moka.simex lazy
+//}
 
 location "http://download.eclipse.org/modeling/mdt/papyrus/components/designer" Papyrus-Designer {
  org.eclipse.papyrus.designer.languages.common.feature.feature.group lazy
@@ -117,6 +119,9 @@ location "http://download.eclipse.org/modeling/mdt/papyrus/components/designer" 
 
 location "http://hallvard.github.io/plantuml" PlantUML {
  net.sourceforge.plantuml.feature.feature.group  lazy
+ net.sourceforge.plantuml.feature.source.feature.group lazy
+ net.sourceforge.plantuml.ecore.feature.feature.group  lazy
+ net.sourceforge.plantuml.ecore.feature.source.feature.group lazy
  net.sourceforge.plantuml.lib.feature.feature.group lazy
 }
 
@@ -151,17 +156,20 @@ location "http://download.eclipse.org/nebula/releases/latest" Eclipse-Nebula {
 
 //location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/S20190129210011/repository" {
 //location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/R20190602212107/repository" {
-location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository" {
-	com.google.guava //[21.0.0,22.0.0)
-	com.google.guava.source
- 	com.google.gson
-	com.google.gson.source
-	com.google.inject.multibindings
-	com.google.inject.multibindings.source
- 	org.apache.commons.lang3
-	org.apache.commons.lang3.source
- 	org.objectweb.asm
-	org.objectweb.asm.source
+//location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository" {
+//location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/R20191126223242/repository" {
+//location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/R20200224183213/repository" {
+location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/R20210223232630/repository" {
+	com.google.guava lazy //[21.0.0,22.0.0)
+	com.google.guava.source lazy
+ 	com.google.gson lazy
+	com.google.gson.source lazy
+	com.google.inject.multibindings lazy
+	com.google.inject.multibindings.source lazy
+ 	org.apache.commons.lang3 lazy
+	org.apache.commons.lang3.source lazy
+ 	org.objectweb.asm lazy
+	org.objectweb.asm.source lazy
 	
 //	com.google.guava 21.0.0
 //	com.google.guava.source 21.0.0
@@ -174,10 +182,3 @@ location orbit "https://download.eclipse.org/tools/orbit/downloads/drops/R201908
 	// The batik plugins are transitively fetched through GMF_Runtime sdk's org.eclipse.gmf.runtime.thirdparty
 	// see the pom.xml under main/site
 }
-
-
-
-//location "http://download.eclipse.org/tools/orbit/downloads/drops/R20181128170323/repository/" orbit-last {
-// com.google.guava lazy
-//}
-

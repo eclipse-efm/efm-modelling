@@ -27,7 +27,7 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-p2-director-plugin</artifactId>
 				<configuration>
-					<profile>org.eclipse.efm.modeling</profile>
+					<profile>org.eclipse.efm.tooling</profile>
 					<formats>
 						<linux>zip</linux>
 						<macosx>tar.gz</macosx>

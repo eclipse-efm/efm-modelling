@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Common
 Bundle-SymbolicName: org.eclipse.efm.modeling.ui.views.common;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.papyrus.infra.newchild,
  org.eclipse.papyrus.infra.properties,
  org.eclipse.efm.formalml;bundle-version="[0.0.1,1.0.0)",

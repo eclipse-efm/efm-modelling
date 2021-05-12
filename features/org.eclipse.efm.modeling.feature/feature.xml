@@ -30,15 +30,15 @@ http://www.eclipse.org/legal/epl-v10.html
          version="0.0.0"/>
 
    <requires>
-      <import plugin="org.eclipse.core.runtime" version="3.11.1" match="compatible"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.11.2" match="compatible"/>
-      <import plugin="org.eclipse.uml2.uml.profile.standard" version="1.0.100" match="compatible"/>
-      <import plugin="org.eclipse.uml2.types" version="2.0.0" match="compatible"/>
-      <import plugin="org.eclipse.uml2.uml" version="5.1.0" match="compatible"/>
-      <import plugin="org.eclipse.uml2.uml.resources" version="5.1.0" match="compatible"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.uml2.uml.profile.standard"/>
+      <import plugin="org.eclipse.uml2.types"/>
+      <import plugin="org.eclipse.uml2.uml"/>
+      <import plugin="org.eclipse.uml2.uml.resources"/>
       <import plugin="org.eclipse.xtext"/>
       <import plugin="org.eclipse.xtext.xbase"/>
-      <import plugin="org.eclipse.equinox.common" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.common"/>
       <import plugin="org.eclipse.uml2.codegen.ecore"/>
       <import plugin="org.eclipse.xtext.xbase.lib"/>
       <import plugin="org.antlr.runtime"/>
@@ -51,16 +51,16 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.xtext.ui"/>
       <import plugin="org.eclipse.xtext.ui.shared"/>
       <import plugin="org.eclipse.xtext.ui.codetemplates.ui"/>
-      <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.compare"/>
       <import plugin="org.eclipse.xtext.builder"/>
-      <import plugin="org.eclipse.papyrus.infra.core.log" version="1.1.3" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.papyrus.infra.core.log"/>
       <import plugin="org.eclipse.papyrus.uml.xtext.integration.ui"/>
       <import plugin="org.eclipse.papyrus.infra.emf"/>
-      <import plugin="org.eclipse.papyrus.infra.core" version="1.1.3" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.efm.formalml" version="0.0.1" match="compatible"/>
+      <import plugin="org.eclipse.papyrus.infra.core"/>
+      <import plugin="org.eclipse.efm.formalml"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="com.google.guava"/>
       <import plugin="org.eclipse.xtend.lib.macro"/>
@@ -74,36 +74,36 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.papyrus.infra.types.core"/>
       <import plugin="org.eclipse.papyrus.views.properties"/>
       <import plugin="org.eclipse.papyrus.infra.newchild"/>
-      <import plugin="org.eclipse.uml2.uml" version="5.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.uml2.uml"/>
       <import plugin="org.eclipse.papyrus.infra.viewpoints.policy"/>
-      <import plugin="org.eclipse.efm.formalml.service.types" version="0.0.1" match="compatible"/>
-      <import plugin="org.eclipse.papyrus.uml.service.types" version="2.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.papyrus.uml.diagram.composite" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.efm.formalml.service.types"/>
+      <import plugin="org.eclipse.papyrus.uml.service.types"/>
+      <import plugin="org.eclipse.papyrus.uml.diagram.composite"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.core"/>
       <import plugin="org.eclipse.gmf.runtime.notation"/>
       <import plugin="org.eclipse.papyrus.uml.diagram.clazz"/>
-      <import plugin="org.eclipse.papyrus.uml.diagram.statemachine" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.papyrus.uml.diagram.statemachine"/>
       <import plugin="org.eclipse.papyrus.uml.tools"/>
       <import plugin="org.eclipse.uml2.common"/>
-      <import plugin="org.eclipse.papyrus.uml.diagram.common" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.papyrus.uml.diagram.common"/>
       <import plugin="org.eclipse.papyrus.infra.properties"/>
-      <import plugin="org.eclipse.papyrus.uml.xtext.integration.ui" version="1.1.3" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.papyrus.uml.xtext.integration.ui"/>
       <import plugin="org.eclipse.papyrus.uml.tools.utils"/>
-      <import plugin="org.eclipse.xtext.ui" version="2.9.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties" version="1.7.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.papyrus.infra.emf" version="1.1.3" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.efm.formalml.xtext.ui" version="0.0.1" match="compatible"/>
-      <import plugin="org.eclipse.efm.modeling.codegen.xlia" version="0.0.1" match="compatible"/>
-      <import plugin="org.eclipse.efm.ui" version="0.0.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.common.ui" version="2.10.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.edit" version="2.12.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.ui"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties"/>
+      <import plugin="org.eclipse.papyrus.infra.emf"/>
+      <import plugin="org.eclipse.efm.formalml.xtext.ui"/>
+      <import plugin="org.eclipse.efm.modeling.codegen.xlia"/>
+      <import plugin="org.eclipse.efm.ui"/>
+      <import plugin="org.eclipse.emf.common.ui"/>
+      <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.emf.transaction"/>
       <import plugin="org.eclipse.papyrus.infra.ui"/>
       <import plugin="org.eclipse.papyrus.uml.extensionpoints"/>
-      <import feature="org.eclipse.papyrus.designer.languages.common.feature" version="1.0.4"/>
-      <import feature="org.eclipse.papyrus.sdk.feature" version="3.1.0.201709130748"/>
-      <import feature="org.eclipse.efm.modeling.textual.feature" version="0.0.1.qualifier"/>
-      <import feature="org.eclipse.efm.modeling.dependencies.feature" version="0.0.1.qualifier"/>
+      <import feature="org.eclipse.papyrus.designer.languages.common.feature"/>
+      <import feature="org.eclipse.papyrus.sdk.feature"/>
+      <import feature="org.eclipse.efm.modeling.textual.feature"/>
+      <import feature="org.eclipse.efm.modeling.dependencies.feature"/>
    </requires>
 
    <plugin

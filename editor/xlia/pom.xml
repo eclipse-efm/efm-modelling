@@ -27,6 +27,7 @@
 
 	<modules>
 		<module>org.eclipse.efm.formalml.ecore</module>
+		<module>org.eclipse.efm.formalml.plantuml</module>
 		<module>org.eclipse.efm.formalml.xtext</module>
 		<module>org.eclipse.efm.formalml.xtext.ide</module>
 		<module>org.eclipse.efm.formalml.xtext.tests</module>

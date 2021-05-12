@@ -31,7 +31,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.efm.modeling.doc.helpcontents,
  org.eclipse.efm.execution.configuration.common.ui,
  org.eclipse.efm.modeling.codegen.xlia.sdf.polygraph
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.efm.execution.launchconfiguration,
  org.eclipse.efm.execution.launchconfiguration.job
 Bundle-ActivationPolicy: lazy

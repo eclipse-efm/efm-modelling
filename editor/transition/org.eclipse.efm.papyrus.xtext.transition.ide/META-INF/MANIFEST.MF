@@ -8,7 +8,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.efm.papyrus.xtext.transition,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.efm.papyrus.xtext.ide.contentassist.antlr,
  org.eclipse.efm.papyrus.xtext.ide.contentassist.antlr.internal
 

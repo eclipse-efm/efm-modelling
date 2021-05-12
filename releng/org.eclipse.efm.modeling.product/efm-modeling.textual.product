@@ -41,9 +41,8 @@ Apache Software Foundation http://www.apache.org/
       </win>
    </launcher>
 
-
    <vm>
-      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8</windows>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11</windows>
    </vm>
 
    <license>
@@ -272,6 +271,7 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <feature id="org.eclipse.xtext.runtime" installMode="root"/>
       <feature id="org.eclipse.emf.edit" installMode="root"/>
       <feature id="org.eclipse.xtext.xbase" installMode="root"/>
+      <feature id="org.eclipse.jgit.http.apache" installMode="root"/>
       <feature id="org.eclipse.emf.codegen.ecore" installMode="root"/>
       <feature id="org.eclipse.emf.converter" installMode="root"/>
       <feature id="org.eclipse.xtend.typesystem.emf" installMode="root"/>
@@ -282,6 +282,7 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <feature id="org.eclipse.ecf.filetransfer.feature" installMode="root"/>
       <feature id="org.eclipse.xtext.ui" installMode="root"/>
       <feature id="org.eclipse.xtend.dependencies" installMode="root"/>
+      <feature id="org.eclipse.jgit.gpg.bc" installMode="root"/>
       <feature id="net.sourceforge.plantuml.feature" installMode="root"/>
       <feature id="org.eclipse.gef.fx.swt" installMode="root"/>
       <feature id="org.eclipse.xtend.ui" installMode="root"/>
@@ -322,20 +323,20 @@ Java and all Java-based trademarks are trademarks of Oracle Corporation in the U
       <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="4" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
-      <property name="file.encoding" value="UTF-8" />
-      <property name="org.eclipse.efm.executable.diversity.default" value="../bin/diversity.exe" />
-      <property name="org.eclipse.efm.executable.graphviz.default" value="../bin/zgrviewer-0.10.0/run.bat" />
-      <property name="org.eclipse.update.reconcile" value="false" />
       <property name="osgi.bundles.defaultStartLevel" value="4" />
-      <property name="osgi.framework.extension" value="org.eclipse.fx.osgi" />
-      <property name="osgi.instance.area.default" value="../workspace" />
+      <property name="org.eclipse.update.reconcile" value="false" />
+      <property name="org.eclipse.efm.executable.diversity.default" value="../bin/diversity.exe" />
       <property name="osgi.requiredJavaVersion" value="1.8" />
+      <property name="osgi.instance.area.default" value="../workspace" />
+      <property name="osgi.framework.extension" value="org.eclipse.fx.osgi" />
+      <property name="org.eclipse.efm.executable.graphviz.default" value="../bin/zgrviewer-0.10.0/run.bat" />
+      <property name="file.encoding" value="UTF-8" />
    </configurations>
 
    <repositories>
       <repository location="http://download.eclipse.org/modeling/mdt/papyrus/components/designer" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2019-06/" enabled="true" />
-      <repository location="http://https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2019-06/" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2020-03/" enabled="true" />
+      <repository location="http://https://download.eclipse.org/modeling/mdt/papyrus/updates/releases/2020-03/" enabled="true" />
    </repositories>
 
    <preferencesInfo>

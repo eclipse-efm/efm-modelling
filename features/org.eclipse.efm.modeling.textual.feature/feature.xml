@@ -26,16 +26,16 @@ http://www.eclipse.org/legal/epl-v10.html
          version="0.0.0"/>
 
    <requires>
-      <import feature="org.eclipse.xtext.xbase.lib" version="2.12.0.v20170518-0758"/>
-      <import feature="org.eclipse.xtext.ui" version="2.10.0.v201605250459"/>
-      <import feature="org.eclipse.xtext.ui" version="2.10.0.v201605250459"/>
-      <import feature="org.eclipse.platform" version="4.6.2.v20161124-1529"/>
-      <import feature="org.eclipse.xtext.runtime" version="2.12.0.v20170519-1412"/>
-      <import feature="org.eclipse.xtend" version="2.2.0.v201605260315"/>
-      <import feature="org.eclipse.xtext.xbase.lib" version="2.12.0.v20170518-0758"/>
-      <import feature="org.eclipse.xtend.ui" version="2.2.0.v201605260315"/>
-      <import feature="org.eclipse.emf.mwe2.runtime.sdk" version="2.9.1.201705291011"/>
-      <import feature="org.eclipse.efm.modeling.textual.dependencies.feature" version="0.0.1.qualifier"/>
+      <import feature="org.eclipse.xtext.xbase.lib"/>
+      <import feature="org.eclipse.xtext.ui"/>
+      <import feature="org.eclipse.xtext.ui"/>
+      <import feature="org.eclipse.platform"/>
+      <import feature="org.eclipse.xtext.runtime"/>
+      <import feature="org.eclipse.xtend"/>
+      <import feature="org.eclipse.xtext.xbase.lib"/>
+      <import feature="org.eclipse.xtend.ui"/>
+      <import feature="org.eclipse.emf.mwe2.runtime.sdk"/>
+      <import feature="org.eclipse.efm.modeling.textual.dependencies.feature"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.emf.ecore"/>
@@ -51,11 +51,11 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.xtext.xbase.ide"/>
       <import plugin="org.eclipse.xtext.ui.shared"/>
       <import plugin="org.eclipse.xtext.ui.codetemplates.ui"/>
-      <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.compare"/>
       <import plugin="org.eclipse.xtext.builder"/>
-      <import plugin="org.eclipse.equinox.common" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.common"/>
       <import plugin="org.eclipse.ui.console"/>
       <import plugin="org.eclipse.debug.core"/>
       <import plugin="org.eclipse.emf.mwe.utils"/>
@@ -74,11 +74,11 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.views"/>
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.ui.views.properties.tabbed"/>
-      <import plugin="org.eclipse.core.runtime" version="3.12.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.emf.common.ui"/>
       <import plugin="org.eclipse.ui.intro"/>
       <import plugin="org.eclipse.ui.intro.quicklinks"/>
-      <import plugin="org.eclipse.ui.cheatsheets" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.cheatsheets"/>
    </requires>
 
    <plugin
@@ -230,6 +230,13 @@ http://www.eclipse.org/legal/epl-v10.html
 
    <plugin
          id="org.eclipse.efm.tutorial.thermostat"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.efm.formalml.plantuml"
          download-size="0"
          install-size="0"
          version="0.0.0"

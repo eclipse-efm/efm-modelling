@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="net.sourceforge.plantuml.eclipse.diagramTextProvider">
+      <diagramTextProvider
+            id="org.eclipse.efm.formalml.plantuml.FormalMLDiagramTextProvider"
+            label="Diagrams generated from FormalML models"
+            priority="100"
+            providerClass="org.eclipse.efm.formalml.plantuml.FormalMLDiagramTextProvider">
+      </diagramTextProvider>
+   </extension>
+   <extension
+         point="net.sourceforge.plantuml.eclipse.linkOpener">
+      <linkOpener
+            linkOpenerClass="org.eclipse.efm.formalml.plantuml.FormalMLDiagramLinkOpener">
+      </linkOpener>
+   </extension>
+
+</plugin>

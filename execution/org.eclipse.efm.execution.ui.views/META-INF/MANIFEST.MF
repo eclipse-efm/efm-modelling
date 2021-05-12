@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Views
 Bundle-SymbolicName: org.eclipse.efm.execution.ui.views;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.jface,
@@ -17,8 +17,6 @@ Import-Package: org.eclipse.core.resources,
  org.eclipse.efm.execution.core,
  org.eclipse.efm.execution.launchconfiguration,
  org.eclipse.ui.dialogs,
- org.eclipse.ui.forms.events,
- org.eclipse.ui.forms.widgets,
  org.eclipse.ui.model,
  org.eclipse.ui.views.navigator
 Bundle-Activator: org.eclipse.efm.execution.ui.views.Activator

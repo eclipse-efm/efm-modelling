@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
-<!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="Eclipse Formal Modeling Papyrus last-release" sequenceNumber="1570521255">
+<!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
+<target name="Eclipse Formal Modeling Papyrus last-release" sequenceNumber="1620776854">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.cdt.core" version="0.0.0"/>
-      <unit id="org.eclipse.ecf.filetransfer.httpclient45.feature.feature.group" version="1.0.0.v20190530-1947"/>
+      <unit id="org.eclipse.ecf.filetransfer.httpclient45.feature.feature.group" version="1.0.702.v20201025-2303"/>
       <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.source.feature.group" version="0.0.0"/>
@@ -30,6 +30,7 @@
       <unit id="org.eclipse.gmf.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.jdt.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.jdt.source.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.jgit.ssh.jsch.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.json" version="0.0.0"/>
       <unit id="org.eclipse.m2m.qvt.oml.sdk.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.m2m.qvt.oml.emf.util" version="0.0.0"/>
@@ -68,15 +69,11 @@
       <unit id="org.eclipse.wst.common.core" version="0.0.0"/>
       <unit id="org.eclipse.wst.sse.core" version="0.0.0"/>
       <unit id="org.eclipse.wst.xml.core" version="0.0.0"/>
-      <repository id="eclipse-2019-09" location="http://download.eclipse.org/releases/2019-09"/>
+      <repository id="eclipse-2021-03" location="http://download.eclipse.org/releases/2021-03"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.papyrus.marte.core.feature.feature.group" version="0.0.0"/>
       <repository id="Papyrus-Marte" location="http://download.eclipse.org/modeling/mdt/papyrus/components/marte"/>
-    </location>
-    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.papyrus.moka.feature.feature.group" version="0.0.0"/>
-      <repository id="Papyrus-Moka-Master" location="https://hudson.eclipse.org/papyrus/view/Moka/job/papyrus-moka-master/lastSuccessfulBuild/artifact/releng/org.eclipse.papyrus.moka.p2/target/repository"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.papyrus.designer.languages.common.feature.feature.group" version="0.0.0"/>
@@ -86,6 +83,9 @@
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="net.sourceforge.plantuml.feature.feature.group" version="0.0.0"/>
+      <unit id="net.sourceforge.plantuml.feature.source.feature.group" version="0.0.0"/>
+      <unit id="net.sourceforge.plantuml.ecore.feature.feature.group" version="0.0.0"/>
+      <unit id="net.sourceforge.plantuml.ecore.feature.source.feature.group" version="0.0.0"/>
       <unit id="net.sourceforge.plantuml.lib.feature.feature.group" version="0.0.0"/>
       <repository id="PlantUML" location="http://hallvard.github.io/plantuml"/>
     </location>
@@ -94,17 +94,17 @@
       <repository id="Eclipse-Nebula" location="http://download.eclipse.org/nebula/releases/latest"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="com.google.guava" version="27.1.0.v20190517-1946"/>
-      <unit id="com.google.guava.source" version="27.1.0.v20190517-1946"/>
-      <unit id="com.google.gson" version="2.8.2.v20180104-1110"/>
-      <unit id="com.google.gson.source" version="2.8.2.v20180104-1110"/>
-      <unit id="com.google.inject.multibindings" version="3.0.0.v201605172100"/>
-      <unit id="com.google.inject.multibindings.source" version="3.0.0.v201605172100"/>
-      <unit id="org.apache.commons.lang3" version="3.1.0.v201403281430"/>
-      <unit id="org.apache.commons.lang3.source" version="3.1.0.v201403281430"/>
-      <unit id="org.objectweb.asm" version="7.1.0.v20190412-2143"/>
-      <unit id="org.objectweb.asm.source" version="7.1.0.v20190412-2143"/>
-      <repository id="orbit" location="https://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository"/>
+      <unit id="com.google.guava" version="0.0.0"/>
+      <unit id="com.google.guava.source" version="0.0.0"/>
+      <unit id="com.google.gson" version="0.0.0"/>
+      <unit id="com.google.gson.source" version="0.0.0"/>
+      <unit id="com.google.inject.multibindings" version="0.0.0"/>
+      <unit id="com.google.inject.multibindings.source" version="0.0.0"/>
+      <unit id="org.apache.commons.lang3" version="0.0.0"/>
+      <unit id="org.apache.commons.lang3.source" version="0.0.0"/>
+      <unit id="org.objectweb.asm" version="0.0.0"/>
+      <unit id="org.objectweb.asm.source" version="0.0.0"/>
+      <repository id="orbit" location="https://download.eclipse.org/tools/orbit/downloads/drops/R20210223232630/repository"/>
     </location>
   </locations>
 </target>

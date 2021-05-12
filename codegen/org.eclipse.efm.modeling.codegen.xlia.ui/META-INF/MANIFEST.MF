@@ -21,6 +21,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.papyrus.designer.languages.common.base,
  org.eclipse.papyrus.designer.languages.common.extensionpoints,
  org.eclipse.efm.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.efm.formalml.xtext.generator
